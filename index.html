@@ -21,6 +21,10 @@
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     }
                 }
             }
@@ -28,23 +32,23 @@
     </script>
     <style>
         body { background-color: #000000; color: #E5E5E5; -webkit-tap-highlight-color: transparent; }
-        /* Custom Scrollbar for WebKit */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #121212; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
         .safe-pb { padding-bottom: env(safe-area-inset-bottom, 20px); }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useMemo } = React;
+        const { useState, useEffect, useRef } = React;
 
-        // --- DATA ENGINE (Based on your 20-Week Program File) ---
+        // --- DATA ENGINE ---
         
         const PROGRAM_DATA = {
             title: "20-Week Integrated Strength (V26.10)",
@@ -55,9 +59,7 @@
                 { id: 4, name: "Accumulation", weeks: [13, 14, 15, 16] },
                 { id: 5, name: "Peak & Taper", weeks: [17, 18, 19, 20] }
             ],
-            // Map specific logic for critical days based on the PDF
             getWorkout: (week, day) => {
-                // DEFAULT TEMPLATE (Fallback)
                 let workout = {
                     title: `Week ${week} Day ${day}`,
                     focus: "General Strength",
@@ -65,19 +67,24 @@
                     sections: []
                 };
 
-                // LOGIC FOR BLOCK 1 (WEEKS 1-4)
                 if (week <= 4) {
                     if (day === 1) {
-                        // Calculate Ladder Sets based on Week
                         const ladderSets = week === 1 ? 4 : week === 4 ? 3 : 5;
-                        
                         workout.title = "Pull Volume (Workout A)";
                         workout.focus = "Accumulation";
                         workout.sections = [
                             {
                                 type: "skill",
                                 name: "Skill Practice",
-                                exercises: [{ name: "Crow Stand", prescription: "3 x 10-20s" }]
+                                exercises: [
+                                    { 
+                                        name: "Crow Stand", 
+                                        prescription: "3 x 10-20s", 
+                                        sets: 3, 
+                                        rest: 60, 
+                                        isBodyweight: true 
+                                    }
+                                ]
                             },
                             {
                                 type: "main",
@@ -86,114 +93,87 @@
                                     { 
                                         id: "w1d1_a1",
                                         name: "A1. Pull-Up Ladders", 
-                                        prescription: week === 1 ? "4 x (1-2-3) (24 reps)" : 
-                                                      week === 2 ? "5 x (1-2-3) (30 reps)" : 
-                                                      week === 3 ? "5 x (1-2-3) (30 reps)" : "3 x (1-2-3) (Deload)",
-                                        inputs: ["ladders"], // Changed to ladders
-                                        setCount: ladderSets // Dynamic set count
+                                        prescription: week === 1 ? "4 x (1-2-3) (24 reps)" : "5 x (1-2-3) (30 reps)",
+                                        inputs: ["ladders"], 
+                                        sets: ladderSets,
+                                        rest: 120,
+                                        isBodyweight: true // Usually bodyweight for ladders in this block
                                     },
-                                    { id: "w1d1_b1", name: "B1. Ring Rows", prescription: "3 x 15", inputs: ["weight", "reps", "rpe"] },
-                                    { id: "w1d1_b2", name: "B2. Incline Push-Ups", prescription: "3 x 10", inputs: ["weight", "reps", "rpe"] },
-                                    { id: "w1d1_c1", name: "C1. Hollow Rocks", prescription: "3 x 25s", inputs: ["time"] }
+                                    { 
+                                        id: "w1d1_b1", 
+                                        name: "B1. Ring Rows", 
+                                        prescription: "3 x 15", 
+                                        inputs: ["reps", "rpe"], 
+                                        sets: 3, 
+                                        rest: 90, 
+                                        isBodyweight: true 
+                                    },
+                                    { 
+                                        id: "w1d1_b2", 
+                                        name: "B2. Incline Push-Ups", 
+                                        prescription: "3 x 10", 
+                                        inputs: ["reps", "rpe"], 
+                                        sets: 3, 
+                                        rest: 90, 
+                                        isBodyweight: true 
+                                    },
+                                    { 
+                                        id: "w1d1_c1", 
+                                        name: "C1. Hollow Rocks", 
+                                        prescription: "3 x 25s", 
+                                        inputs: ["time"], 
+                                        sets: 3, 
+                                        rest: 60, 
+                                        isBodyweight: true 
+                                    }
                                 ]
                             },
                             {
                                 type: "cooldown",
                                 name: "Cool Down",
                                 exercises: [
-                                    { name: "Passive Dead Hang", prescription: "30-60s (Decompress)" },
-                                    { name: "Butcher's Block", prescription: "60s (Lats/Triceps)" },
-                                    { name: "Cobra Stretch", prescription: "60s (Abs)" }
-                                ]
-                            }
-                        ];
-                    } else if (day === 2) {
-                        workout.title = "Recovery & Mobility";
-                        workout.focus = "Joint Health";
-                        workout.sections = [
-                            {
-                                type: "main",
-                                name: "Ankle & Shoulder",
-                                exercises: [
-                                    { name: "Knee-to-Wall Mob", prescription: "2 mins/side" },
-                                    { name: "Tibialis Wall Raises", prescription: "3 x 15-20" },
-                                    { name: "Deep Squat Iso-Hold", prescription: "2 x 30s" },
-                                    { name: "Band Internal Rotations", prescription: "2 x 20/side" }
+                                    { name: "Passive Dead Hang", prescription: "30-60s", sets: 1, isBodyweight: true, rest: 0 },
+                                    { name: "Butcher's Block", prescription: "60s", sets: 1, isBodyweight: true, rest: 0 },
+                                    { name: "Cobra Stretch", prescription: "60s", sets: 1, isBodyweight: true, rest: 0 }
                                 ]
                             }
                         ];
                     } else if (day === 3) {
-                        workout.title = "Posterior Chain + Legs";
-                        workout.focus = "Hinge Pattern";
-                        workout.sections = [
+                         workout.title = "Posterior Chain + Legs";
+                         workout.sections = [
                             {
                                 type: "main",
                                 name: "Strength",
                                 exercises: [
-                                    { id: "w1d3_a1", name: "A1. RDL", prescription: "4 x 8 @ ~85kg", inputs: ["weight", "reps", "rpe"] },
-                                    { id: "w1d3_b1", name: "B1. Weighted Glute Bridge", prescription: "3 x 10-12", inputs: ["weight", "reps"] },
-                                    { id: "w1d3_b2", name: "B2. Goblet Squats", prescription: week === 3 ? "3 x 10 (Heavier)" : "3 x 10 (Tech Focus)", inputs: ["weight", "reps"] },
-                                    { id: "w1d3_c1", name: "C1. Face Pulls", prescription: "3 x 15-20", inputs: ["weight", "reps"] }
+                                    { id: "w1d3_a1", name: "A1. RDL", prescription: "4 x 8 @ ~85kg", inputs: ["weight", "reps", "rpe"], sets: 4, rest: 120, isBodyweight: false },
+                                    { id: "w1d3_b1", name: "B1. Weighted Glute Bridge", prescription: "3 x 10-12", inputs: ["weight", "reps"], sets: 3, rest: 90, isBodyweight: false },
+                                    { id: "w1d3_b2", name: "B2. Goblet Squats", prescription: "3 x 10", inputs: ["weight", "reps"], sets: 3, rest: 90, isBodyweight: false },
+                                    { id: "w1d3_c1", name: "C1. Face Pulls", prescription: "3 x 15-20", inputs: ["weight", "reps"], sets: 3, rest: 60, isBodyweight: false }
                                 ]
                             }
-                        ];
+                         ];
                     } else if (day === 5) {
-                        workout.title = "Pull Intensity (Workout B)";
-                        workout.focus = "Heavy Loading";
+                        workout.title = "Pull Intensity";
                         workout.sections = [
-                            {
-                                type: "skill",
-                                name: "Skill Practice",
-                                exercises: [{ name: "HSPU Volume", prescription: "3 x 3" }]
-                            },
                             {
                                 type: "main",
                                 name: "Primary Lifts",
-                                warning: "Double Progression Rule: Only add weight if all reps are perfect.",
                                 exercises: [
-                                    { 
-                                        id: "w1d5_a1",
-                                        name: "A1. Weighted Pull-Ups", 
-                                        prescription: week === 4 ? "2 x 3 (50% Load)" : "3 x 5 (Double Prog)", 
-                                        inputs: ["weight", "reps", "rpe"] 
-                                    },
-                                    { id: "w1d5_b1", name: "B1. Dips", prescription: "3 x 10 (BW)", inputs: ["weight", "reps"] }
-                                ]
-                            },
-                            {
-                                type: "main",
-                                name: "Accessory Circuit (10m Cap)",
-                                exercises: [
-                                    { name: "Min 1: Split Squat (L)", prescription: "8 reps" },
-                                    { name: "Min 2: Split Squat (R)", prescription: "8 reps" },
-                                    { name: "Min 3: Wtd Hollow/V-Ups", prescription: "12-15 reps" }
+                                    { id: "w1d5_a1", name: "A1. Weighted Pull-Ups", prescription: "3 x 5", inputs: ["weight", "reps", "rpe"], sets: 3, rest: 180, isBodyweight: false },
+                                    { id: "w1d5_b1", name: "B1. Dips", prescription: "3 x 10", inputs: ["weight", "reps"], sets: 3, rest: 120, isBodyweight: true }
                                 ]
                             }
                         ];
+                    } else {
+                         // Fallback for other days
+                         workout.sections = [{type: "main", name: "Recovery", exercises: []}];
                     }
-                } 
-                // LOGIC FOR BLOCK 2 (WEEKS 5-8) - Example Skeleton
-                else if (week <= 8) {
-                     if (day === 1) {
-                        workout.title = "EMOM Volume";
-                        workout.focus = "Density";
-                        workout.sections = [
-                             {
-                                type: "main",
-                                name: "EMOM Work",
-                                exercises: [
-                                    { name: "Pull-Up EMOM", prescription: week === 6 ? "9 x 4" : "8 x 4", inputs: ["completed"] }
-                                ]
-                             }
-                        ]
-                     }
                 }
-
                 return workout;
             }
         };
 
-        // --- ICONS ---
+        // --- ICONS & HELPERS ---
         const Icon = ({ name, size = 24, className }) => {
             useEffect(() => {
                 lucide.createIcons();
@@ -201,18 +181,41 @@
             return <i data-lucide={name} className={className} width={size} height={size}></i>;
         };
 
+        const formatTime = (seconds) => {
+            const m = Math.floor(seconds / 60);
+            const s = seconds % 60;
+            return `${m}:${s < 10 ? '0' : ''}${s}`;
+        };
+
         // --- COMPONENTS ---
 
-        // 1. APP LAYOUT
-        const Layout = ({ children }) => (
-            <div className="min-h-screen bg-opBlack text-opText font-sans flex flex-col max-w-md mx-auto border-x border-opGray shadow-2xl">
-                {children}
-            </div>
-        );
+        // 1. TIMER COMPONENT
+        const GlobalTimer = ({ initialTime, isRunning, onStop, onReset, onAdd }) => {
+            if (!isRunning && initialTime === 0) return null;
+
+            return (
+                <div className="fixed bottom-0 left-0 right-0 bg-opGray border-t border-gray-800 p-4 z-50 shadow-[0_-5px_20px_rgba(0,0,0,0.8)] animate-in slide-in-from-bottom duration-300 safe-pb">
+                    <div className="max-w-md mx-auto flex items-center justify-between">
+                        <div className="flex flex-col">
+                            <span className="text-xs text-gray-500 uppercase font-bold tracking-widest">Rest Timer</span>
+                            <span className={`text-3xl font-mono font-bold ${initialTime < 10 ? 'text-opRed animate-pulse' : 'text-white'}`}>
+                                {formatTime(initialTime)}
+                            </span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <button onClick={() => onAdd(30)} className="p-3 rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700 font-bold text-xs">+30s</button>
+                            <button onClick={onStop} className="p-3 rounded-full bg-opRed/20 text-opRed hover:bg-opRed/30">
+                                <Icon name="x" size={24} />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
 
         // 2. HEADER
         const Header = ({ title, subtitle, onBack }) => (
-            <div className="bg-opBlack border-b border-opGray p-4 sticky top-0 z-50 bg-opacity-95 backdrop-blur-md">
+            <div className="bg-opBlack border-b border-opGray p-4 sticky top-0 z-40 bg-opacity-95 backdrop-blur-md">
                 <div className="flex items-center gap-4">
                     {onBack && (
                         <button onClick={onBack} className="p-2 bg-opGray rounded-full hover:bg-opRed transition-colors">
@@ -233,12 +236,33 @@
             const [logs, setLogs] = useState({});
             const [prepDone, setPrepDone] = useState({ rower: false, tendon: false });
             
-            // Local Persistence for current session
+            // Timer State
+            const [timerSeconds, setTimerSeconds] = useState(0);
+            const [timerActive, setTimerActive] = useState(false);
+
             useEffect(() => {
                 const savedkey = `session_w${week}d${day}`;
                 const saved = localStorage.getItem(savedkey);
                 if (saved) setLogs(JSON.parse(saved));
             }, [week, day]);
+
+            // Timer Tick
+            useEffect(() => {
+                let interval = null;
+                if (timerActive && timerSeconds > 0) {
+                    interval = setInterval(() => {
+                        setTimerSeconds(s => s - 1);
+                    }, 1000);
+                } else if (timerSeconds === 0) {
+                    setTimerActive(false);
+                }
+                return () => clearInterval(interval);
+            }, [timerActive, timerSeconds]);
+
+            const startTimer = (duration) => {
+                setTimerSeconds(duration);
+                setTimerActive(true);
+            };
 
             const saveLog = (id, field, value) => {
                 const newLogs = { ...logs, [id]: { ...logs[id], [field]: value } };
@@ -246,11 +270,19 @@
                 localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(newLogs));
             };
 
+            // Helper to toggle set completion
+            const toggleSet = (exId, setIndex, totalSets) => {
+                const currentSets = logs[exId]?.sets || new Array(totalSets).fill(false);
+                const newSets = [...currentSets];
+                newSets[setIndex] = !newSets[setIndex];
+                saveLog(exId, 'sets', newSets);
+            };
+
             return (
-                <div className="flex-1 overflow-y-auto pb-20 safe-pb animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="flex-1 overflow-y-auto pb-32 safe-pb">
                     <div className="p-4 space-y-6">
                         
-                        {/* Safety / Prep Section */}
+                        {/* Prep Section */}
                         <div className="bg-opGray rounded-xl p-4 border border-gray-800">
                             <h3 className="text-sm font-bold text-opSub mb-3 uppercase">Pre-Flight Checks</h3>
                             <label className="flex items-center gap-3 mb-2 p-2 hover:bg-gray-900 rounded cursor-pointer">
@@ -261,7 +293,6 @@
                                 <input type="checkbox" checked={prepDone.tendon} onChange={() => setPrepDone(p => ({...p, tendon: !p.tendon}))} className="accent-opRed w-5 h-5" />
                                 <span className={prepDone.tendon ? "text-opRed line-through" : "text-white"}>Global Tendon Prep</span>
                             </label>
-                            {!prepDone.tendon && <p className="text-xs text-yellow-500 mt-2 ml-2">⚠ Required before touching a bar.</p>}
                         </div>
 
                         {/* Workout Sections */}
@@ -271,148 +302,129 @@
                                     <h2 className="text-xl font-bold text-white">{section.name}</h2>
                                     <span className="text-xs px-2 py-1 bg-gray-800 rounded text-gray-400 uppercase">{section.type}</span>
                                 </div>
-                                {section.warning && (
-                                    <div className="bg-red-900/20 border border-red-900/50 p-3 rounded text-xs text-red-200 flex gap-2">
-                                        <Icon name="alert-triangle" size={16} />
-                                        {section.warning}
-                                    </div>
-                                )}
 
-                                {section.exercises?.map((ex, eIdx) => (
-                                    <div key={eIdx} className="bg-opGray rounded-xl p-4 border border-gray-800 shadow-lg">
-                                        <div className="flex justify-between items-start mb-2">
-                                            <h3 className="font-bold text-lg text-white">{ex.name}</h3>
-                                        </div>
-                                        <div className="bg-black/50 p-2 rounded mb-4 border border-gray-800">
-                                            <p className="text-sm text-opRed font-mono">{ex.prescription}</p>
-                                        </div>
+                                {section.exercises?.map((ex, eIdx) => {
+                                    const totalSets = ex.sets || 3;
+                                    const completedSets = logs[ex.id || ex.name]?.sets || [];
+                                    
+                                    return (
+                                        <div key={eIdx} className="bg-opGray rounded-xl p-4 border border-gray-800 shadow-lg relative overflow-hidden">
+                                            {/* Exercise Header */}
+                                            <div className="flex justify-between items-start mb-3">
+                                                <div>
+                                                    <h3 className="font-bold text-lg text-white">{ex.name}</h3>
+                                                    <p className="text-sm text-opRed font-mono mt-1">{ex.prescription}</p>
+                                                </div>
+                                                {ex.rest > 0 && (
+                                                    <button 
+                                                        onClick={() => startTimer(ex.rest)}
+                                                        className="flex items-center gap-1 px-2 py-1 bg-gray-800 hover:bg-gray-700 rounded text-xs text-gray-300 border border-gray-700"
+                                                    >
+                                                        <Icon name="timer" size={12} />
+                                                        Rest {ex.rest}s
+                                                    </button>
+                                                )}
+                                            </div>
 
-                                        {/* Input Fields */}
-                                        {ex.inputs && (
-                                            <div className="space-y-2">
-                                                {/* Metric Inputs (Weight, Reps, RPE) */}
-                                                {(ex.inputs.includes("weight") || ex.inputs.includes("reps") || ex.inputs.includes("rpe")) && (
-                                                    <div className="grid grid-cols-3 gap-2">
-                                                        {ex.inputs.includes("weight") && (
-                                                            <div className="bg-black rounded p-2 border border-gray-800">
-                                                                <label className="text-[10px] text-gray-500 uppercase block">Kg</label>
+                                            <div className="space-y-4">
+                                                {/* SET BUTTONS GRID */}
+                                                <div className="grid grid-cols-4 gap-2">
+                                                    {Array.from({ length: totalSets }).map((_, i) => {
+                                                        const isDone = completedSets[i];
+                                                        return (
+                                                            <button
+                                                                key={i}
+                                                                onClick={() => toggleSet(ex.id || ex.name, i, totalSets)}
+                                                                className={`
+                                                                    h-10 rounded-lg font-bold text-sm border transition-all duration-200 flex items-center justify-center gap-1
+                                                                    ${isDone 
+                                                                        ? 'bg-opRed border-opRed text-white shadow-[0_0_15px_rgba(235,0,41,0.3)]' 
+                                                                        : 'bg-gray-900/50 border-gray-700 text-gray-500 hover:border-gray-500'}
+                                                                `}
+                                                            >
+                                                                {isDone ? <Icon name="check" size={14} /> : (i + 1)}
+                                                            </button>
+                                                        );
+                                                    })}
+                                                </div>
+
+                                                {/* INPUT FIELDS (Conditional) */}
+                                                {ex.inputs && (
+                                                    <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-800/50">
+                                                        {/* WEIGHT INPUT - HIDDEN IF BODYWEIGHT */}
+                                                        {!ex.isBodyweight && ex.inputs.includes("weight") && (
+                                                            <div className="bg-black rounded px-3 py-2 border border-gray-800">
+                                                                <label className="text-[10px] text-gray-500 uppercase font-bold block mb-1">Load (Kg)</label>
                                                                 <input 
                                                                     type="number" 
                                                                     placeholder="0"
                                                                     value={logs[ex.id]?.weight || ''}
                                                                     onChange={(e) => saveLog(ex.id, 'weight', e.target.value)}
-                                                                    className="bg-transparent text-white text-lg w-full focus:outline-none font-mono"
+                                                                    className="bg-transparent text-white text-lg w-full focus:outline-none font-mono placeholder-gray-700"
                                                                 />
                                                             </div>
                                                         )}
-                                                        {ex.inputs.includes("reps") && (
-                                                            <div className="bg-black rounded p-2 border border-gray-800">
-                                                                <label className="text-[10px] text-gray-500 uppercase block">Reps</label>
-                                                                <input 
-                                                                    type="number" 
-                                                                    placeholder="0"
-                                                                    value={logs[ex.id]?.reps || ''}
-                                                                    onChange={(e) => saveLog(ex.id, 'reps', e.target.value)}
-                                                                    className="bg-transparent text-white text-lg w-full focus:outline-none font-mono"
-                                                                />
-                                                            </div>
-                                                        )}
+
+                                                        {/* RPE INPUT */}
                                                         {ex.inputs.includes("rpe") && (
-                                                            <div className="bg-black rounded p-2 border border-gray-800">
-                                                                <label className="text-[10px] text-gray-500 uppercase block">RPE</label>
+                                                            <div className="bg-black rounded px-3 py-2 border border-gray-800">
+                                                                <label className="text-[10px] text-gray-500 uppercase font-bold block mb-1">RPE (1-10)</label>
                                                                 <input 
                                                                     type="number" 
                                                                     placeholder="-"
                                                                     value={logs[ex.id]?.rpe || ''}
                                                                     onChange={(e) => saveLog(ex.id, 'rpe', e.target.value)}
-                                                                    className="bg-transparent text-white text-lg w-full focus:outline-none font-mono"
+                                                                    className="bg-transparent text-white text-lg w-full focus:outline-none font-mono placeholder-gray-700"
                                                                 />
                                                             </div>
                                                         )}
                                                     </div>
                                                 )}
-
-                                                {/* NEW: Ladder Inputs */}
-                                                {ex.inputs.includes("ladders") && (
-                                                    <div className="grid grid-cols-5 gap-2">
-                                                        {Array.from({ length: ex.setCount || 4 }).map((_, i) => {
-                                                            const isDone = (logs[ex.id]?.ladders || [])[i];
-                                                            return (
-                                                                <button
-                                                                    key={i}
-                                                                    onClick={() => {
-                                                                        const currentLadders = logs[ex.id]?.ladders || [];
-                                                                        const newLadders = [...currentLadders];
-                                                                        newLadders[i] = !isDone;
-                                                                        saveLog(ex.id, 'ladders', newLadders);
-                                                                    }}
-                                                                    className={`p-2 rounded text-xs font-bold border transition-all ${
-                                                                        isDone
-                                                                            ? 'bg-opRed border-opRed text-white shadow-[0_0_10px_rgba(235,0,41,0.4)]'
-                                                                            : 'bg-transparent border-gray-700 text-gray-500 hover:border-gray-500'
-                                                                    }`}
-                                                                >
-                                                                    Set {i + 1}
-                                                                </button>
-                                                            );
-                                                        })}
-                                                    </div>
-                                                )}
                                             </div>
-                                        )}
-                                        
-                                        {/* Generic Completion Checkbox if no inputs */}
-                                        {!ex.inputs && (
-                                            <button 
-                                                className={`w-full py-3 rounded font-bold text-sm transition-all ${logs[ex.name]?.done ? 'bg-green-900 text-green-100' : 'bg-gray-800 text-gray-400'}`}
-                                                onClick={() => saveLog(ex.name, 'done', !logs[ex.name]?.done)}
-                                            >
-                                                {logs[ex.name]?.done ? "COMPLETED" : "MARK COMPLETE"}
-                                            </button>
-                                        )}
-                                    </div>
-                                ))}
+                                        </div>
+                                    );
+                                })}
                             </div>
                         ))}
                     </div>
+
                     <div className="p-4">
                         <button onClick={onComplete} className="w-full bg-opRed text-white font-bold py-4 rounded-xl shadow-lg hover:bg-red-700 active:scale-95 transition-all flex items-center justify-center gap-2">
                             <Icon name="check-circle" /> FINISH WORKOUT
                         </button>
                     </div>
+
+                    {/* GLOBAL TIMER OVERLAY */}
+                    <GlobalTimer 
+                        initialTime={timerSeconds} 
+                        isRunning={timerActive} 
+                        onStop={() => { setTimerActive(false); setTimerSeconds(0); }}
+                        onAdd={(amt) => setTimerSeconds(s => s + amt)}
+                    />
                 </div>
             );
         };
 
-        // 4. DASHBOARD (HOME)
+        // 4. DASHBOARD COMPONENT
         const Dashboard = ({ currentWeek, setCurrentWeek, onStartWorkout }) => {
             const [progress, setProgress] = useState(0);
-
-            useEffect(() => {
-                // Mock calculation of progress
-                setProgress((currentWeek / 20) * 100);
-            }, [currentWeek]);
+            useEffect(() => setProgress((currentWeek / 20) * 100), [currentWeek]);
 
             return (
                 <div className="flex-1 overflow-y-auto p-4 safe-pb">
-                    {/* Status Card */}
                     <div className="bg-gradient-to-br from-opGray to-black border border-gray-800 rounded-2xl p-6 mb-6 shadow-xl relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-opRed opacity-5 blur-3xl rounded-full -mr-10 -mt-10"></div>
                         <h2 className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">Current Phase</h2>
                         <h1 className="text-3xl font-bold text-white mb-4">{PROGRAM_DATA.blocks.find(b => b.weeks.includes(currentWeek))?.name || "Unknown"}</h1>
-                        
                         <div className="flex items-end gap-2 mb-2">
                             <span className="text-5xl font-bold text-opRed">W{currentWeek}</span>
                             <span className="text-gray-500 text-lg mb-1">/ 20</span>
                         </div>
-                        
-                        {/* Week Progress Bar */}
                         <div className="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
                             <div className="bg-opRed h-full transition-all duration-1000" style={{ width: `${progress}%` }}></div>
                         </div>
                     </div>
 
-                    {/* Weekly Schedule */}
                     <h3 className="text-white font-bold mb-4 flex items-center gap-2"><Icon name="calendar" size={18} /> This Week's Plan</h3>
                     <div className="grid grid-cols-2 gap-3 mb-8">
                         {[1, 2, 3, 5].map((day) => (
@@ -425,30 +437,23 @@
                                     <Icon name="play-circle" size={20} />
                                 </div>
                                 <span className="text-xs text-gray-500 font-bold uppercase block mb-1">Day {day}</span>
-                                <span className="text-sm font-semibold text-white leading-tight block">
+                                <span className="text-sm font-semibold text-white leading-tight block truncate">
                                     {PROGRAM_DATA.getWorkout(currentWeek, day).title.split('(')[0]}
                                 </span>
                             </button>
                         ))}
                     </div>
 
-                    {/* Settings / Controls */}
                     <div className="border-t border-gray-900 pt-6">
                         <div className="flex justify-between items-center">
-                            <button 
-                                onClick={() => setCurrentWeek(Math.max(1, currentWeek - 1))}
-                                className="p-3 bg-gray-900 rounded-lg hover:bg-gray-800"
-                            >
+                            <button onClick={() => setCurrentWeek(Math.max(1, currentWeek - 1))} className="p-3 bg-gray-900 rounded-lg hover:bg-gray-800">
                                 <Icon name="chevron-left" />
                             </button>
                             <div className="text-center">
                                 <span className="text-xs text-gray-500 uppercase block">Adjust Week</span>
                                 <span className="text-white font-bold">Week {currentWeek}</span>
                             </div>
-                            <button 
-                                onClick={() => setCurrentWeek(Math.min(20, currentWeek + 1))}
-                                className="p-3 bg-gray-900 rounded-lg hover:bg-gray-800"
-                            >
+                            <button onClick={() => setCurrentWeek(Math.min(20, currentWeek + 1))} className="p-3 bg-gray-900 rounded-lg hover:bg-gray-800">
                                 <Icon name="chevron-right" />
                             </button>
                         </div>
@@ -457,13 +462,12 @@
             );
         };
 
-        // 5. MAIN APP CONTAINER
+        // 5. APP ROOT
         const App = () => {
-            const [view, setView] = useState("dashboard"); // dashboard | workout
+            const [view, setView] = useState("dashboard");
             const [currentWeek, setCurrentWeek] = useState(1);
             const [activeDay, setActiveDay] = useState(1);
 
-            // Load persistence
             useEffect(() => {
                 const savedWeek = localStorage.getItem('tracker_week');
                 if (savedWeek) setCurrentWeek(parseInt(savedWeek));
@@ -474,13 +478,8 @@
                 localStorage.setItem('tracker_week', currentWeek);
             }, [currentWeek]);
 
-            const startWorkout = (day) => {
-                setActiveDay(day);
-                setView("workout");
-            };
-
             return (
-                <Layout>
+                <div className="min-h-screen bg-opBlack text-opText font-sans flex flex-col max-w-md mx-auto border-x border-opGray shadow-2xl">
                     <Header 
                         title={view === "dashboard" ? "OnePlus 12 Tracker" : `Week ${currentWeek} Day ${activeDay}`} 
                         subtitle={view === "dashboard" ? "V26.10" : PROGRAM_DATA.getWorkout(currentWeek, activeDay).focus}
@@ -491,19 +490,16 @@
                         <Dashboard 
                             currentWeek={currentWeek} 
                             setCurrentWeek={setCurrentWeek}
-                            onStartWorkout={startWorkout}
+                            onStartWorkout={(day) => { setActiveDay(day); setView("workout"); }}
                         />
                     ) : (
                         <WorkoutPlayer 
                             week={currentWeek} 
                             day={activeDay} 
-                            onComplete={() => {
-                                alert("Workout Complete! Data saved locally.");
-                                setView("dashboard");
-                            }} 
+                            onComplete={() => { alert("Workout Complete!"); setView("dashboard"); }} 
                         />
                     )}
-                </Layout>
+                </div>
             );
         };
 

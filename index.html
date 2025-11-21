@@ -352,6 +352,7 @@
             const [logs, setLogs] = useState({});
             const [timerSeconds, setTimerSeconds] = useState(0);
             const [timerActive, setTimerActive] = useState(false);
+            const [collapsedExercises, setCollapsedExercises] = useState({});
             const haptic = useHaptic();
 
             useEffect(() => {
@@ -412,6 +413,10 @@
                 haptic.success();
                 const allCompleted = new Array(defaultSets).fill(true);
                 saveLog(exId, 'sets', allCompleted);
+            };
+            
+            const toggleExerciseCollapse = (exId) => {
+                setCollapsedExercises(prev => ({ ...prev, [exId]: !prev[exId] }));
             };
 
             const handleFinish = () => {
@@ -507,19 +512,32 @@
                                                     )}
                                                     
                                                     <div className="flex justify-between items-start mb-6">
-                                                        <div className={`flex-1 pr-4 ${ex.supersetLabel ? 'pl-8' : ''}`}>
+                                                        <div className={`flex-1 pr-2 ${ex.supersetLabel ? 'pl-8' : ''}`}>
                                                             <div className="flex items-center gap-2 mb-1">
                                                                 <h3 className="text-lg font-semibold text-white leading-snug">{ex.name}</h3>
                                                                 {completedSets > 0 && (
-                                                                    <span className="text-xs font-bold text-sys-accent bg-sys-accent/10 px-2 py-0.5 rounded-full">
+                                                                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${completedSets === totalSets ? 'bg-sys-success/20 text-sys-success' : 'bg-sys-accent/10 text-sys-accent'}`}>
                                                                         {completedSets}/{totalSets}
                                                                     </span>
                                                                 )}
                                                             </div>
-                                                            <p className="text-base text-sys-onSurfaceVar font-medium">{ex.prescription}</p>
-                                                            {ex.notes && <p className="text-sm text-sys-accent mt-2 leading-relaxed">{ex.notes}</p>}
+                                                            {!collapsedExercises[exId] && (
+                                                                <>
+                                                                    <p className="text-base text-sys-onSurfaceVar font-medium">{ex.prescription}</p>
+                                                                    {ex.notes && <p className="text-sm text-sys-accent mt-2 leading-relaxed">{ex.notes}</p>}
+                                                                </>
+                                                            )}
                                                         </div>
-                                                        {ex.rest > 0 && (
+                                                        {completedSets === totalSets && (
+                                                            <button 
+                                                                onClick={() => toggleExerciseCollapse(exId)}
+                                                                className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
+                                                                aria-label={collapsedExercises[exId] ? "Expand exercise" : "Collapse exercise"}
+                                                            >
+                                                                <i data-lucide={collapsedExercises[exId] ? "chevron-down" : "chevron-up"} width="20"></i>
+                                                            </button>
+                                                        )}
+                                                        {ex.rest > 0 && !collapsedExercises[exId] && (
                                                             <button 
                                                                 onClick={() => { haptic.bump(); setTimerSeconds(ex.rest); setTimerActive(true); }} 
                                                                 className="h-12 min-h-[48px] px-4 rounded-xl bg-sys-surfaceHigh text-white text-sm font-bold flex items-center gap-2 active:bg-sys-onSurfaceVar transition-colors flex-shrink-0"
@@ -530,6 +548,8 @@
                                                         )}
                                                     </div>
                                                     
+                                                    {!collapsedExercises[exId] && (
+                                                    <>
                                                     <div className="flex flex-wrap gap-4 mb-5">
                                                         {currentSetArray.map((isDone, i) => (
                                                             <button 
@@ -568,16 +588,40 @@
                                                         <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
                                                             <div>
                                                                 <label htmlFor={`${exId}-weight`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Load (kg)</label>
-                                                                <input 
-                                                                    id={`${exId}-weight`}
-                                                                    type="number" 
-                                                                    inputMode="decimal"
-                                                                    className="bg-sys-surfaceHigh rounded-xl w-full h-14 px-4 text-white font-mono text-lg outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
-                                                                    value={logs[exId]?.weight || ''} 
-                                                                    onChange={(e) => saveLog(exId, 'weight', e.target.value)} 
-                                                                    placeholder="0"
-                                                                    aria-label="Weight in kilograms"
-                                                                />
+                                                                <div className="relative flex items-center gap-2">
+                                                                    <button 
+                                                                        onClick={() => {
+                                                                            haptic.tick();
+                                                                            const current = parseFloat(logs[exId]?.weight || '0');
+                                                                            saveLog(exId, 'weight', Math.max(0, current - 2.5).toString());
+                                                                        }}
+                                                                        className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
+                                                                        aria-label="Decrease weight by 2.5kg"
+                                                                    >
+                                                                        <i data-lucide="minus" width="18"></i>
+                                                                    </button>
+                                                                    <input 
+                                                                        id={`${exId}-weight`}
+                                                                        type="number" 
+                                                                        inputMode="decimal"
+                                                                        className="bg-sys-surfaceHigh rounded-xl flex-1 h-14 px-4 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
+                                                                        value={logs[exId]?.weight || ''} 
+                                                                        onChange={(e) => saveLog(exId, 'weight', e.target.value)} 
+                                                                        placeholder="0"
+                                                                        aria-label="Weight in kilograms"
+                                                                    />
+                                                                    <button 
+                                                                        onClick={() => {
+                                                                            haptic.tick();
+                                                                            const current = parseFloat(logs[exId]?.weight || '0');
+                                                                            saveLog(exId, 'weight', (current + 2.5).toString());
+                                                                        }}
+                                                                        className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
+                                                                        aria-label="Increase weight by 2.5kg"
+                                                                    >
+                                                                        <i data-lucide="plus" width="18"></i>
+                                                                    </button>
+                                                                </div>
                                                             </div>
                                                             <div>
                                                                 <label htmlFor={`${exId}-rpe`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">RPE (1-10)</label>
@@ -604,6 +648,8 @@
                                                                 />
                                                             </div>
                                                         </div>
+                                                    )}
+                                                    </>
                                                     )}
                                                 </div>
                                             </div>

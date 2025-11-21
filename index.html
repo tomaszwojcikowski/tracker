@@ -489,9 +489,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     if (exLog.weight) {
                         summary += `Weight: ${exLog.weight} kg\n`;
                     }
-                    if (exLog.rpe) {
-                        summary += `RPE: ${exLog.rpe}/10\n`;
-                    }
                 });
             });
             
@@ -809,67 +806,41 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                     )}
 
                                                     {!ex.isBodyweight && (
-                                                        <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
-                                                            <div>
-                                                                <label htmlFor={`${exId}-weight`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Load (kg)</label>
-                                                                <div className="relative flex items-center gap-2">
-                                                                    <button 
-                                                                        onClick={() => {
-                                                                            haptic.tick();
-                                                                            const current = parseFloat(logs[exId]?.weight || '0');
-                                                                            saveLog(exId, 'weight', Math.max(0, current - 2.5).toString());
-                                                                        }}
-                                                                        className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
-                                                                        aria-label="Decrease weight by 2.5kg"
-                                                                    >
-                                                                        <i data-lucide="minus" width="18"></i>
-                                                                    </button>
-                                                                    <input 
-                                                                        id={`${exId}-weight`}
-                                                                        type="number" 
-                                                                        inputMode="decimal"
-                                                                        className="bg-sys-surfaceHigh rounded-xl flex-1 h-14 px-4 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
-                                                                        value={logs[exId]?.weight || ''} 
-                                                                        onChange={(e) => saveLog(exId, 'weight', e.target.value)} 
-                                                                        placeholder="0"
-                                                                        aria-label="Weight in kilograms"
-                                                                    />
-                                                                    <button 
-                                                                        onClick={() => {
-                                                                            haptic.tick();
-                                                                            const current = parseFloat(logs[exId]?.weight || '0');
-                                                                            saveLog(exId, 'weight', (current + 2.5).toString());
-                                                                        }}
-                                                                        className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
-                                                                        aria-label="Increase weight by 2.5kg"
-                                                                    >
-                                                                        <i data-lucide="plus" width="18"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div>
-                                                                <label htmlFor={`${exId}-rpe`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">RPE (1-10)</label>
+                                                        <div className="pt-4 border-t border-white/5">
+                                                            <label htmlFor={`${exId}-weight`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Load (kg)</label>
+                                                            <div className="relative flex items-center gap-2">
+                                                                <button 
+                                                                    onClick={() => {
+                                                                        haptic.tick();
+                                                                        const current = parseFloat(logs[exId]?.weight || '0');
+                                                                        saveLog(exId, 'weight', Math.max(0, current - 2.5).toString());
+                                                                    }}
+                                                                    className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
+                                                                    aria-label="Decrease weight by 2.5kg"
+                                                                >
+                                                                    <i data-lucide="minus" width="18"></i>
+                                                                </button>
                                                                 <input 
-                                                                    id={`${exId}-rpe`}
+                                                                    id={`${exId}-weight`}
                                                                     type="number" 
-                                                                    inputMode="numeric"
-                                                                    min="1"
-                                                                    max="10"
-                                                                    className={`bg-sys-surfaceHigh rounded-xl w-full h-14 px-4 text-white font-mono text-lg outline-none transition-all ${
-                                                                        logs[exId]?.rpe && (logs[exId].rpe < 1 || logs[exId].rpe > 10) 
-                                                                        ? 'ring-2 ring-red-500' 
-                                                                        : 'focus:ring-2 focus:ring-sys-accent'
-                                                                    }`}
-                                                                    value={logs[exId]?.rpe || ''} 
-                                                                    onChange={(e) => {
-                                                                        const val = e.target.value;
-                                                                        if (val === '' || (Number(val) >= 1 && Number(val) <= 10)) {
-                                                                            saveLog(exId, 'rpe', val);
-                                                                        }
-                                                                    }} 
-                                                                    placeholder="-"
-                                                                    aria-label="Rate of perceived exertion, scale 1 to 10"
+                                                                    inputMode="decimal"
+                                                                    className="bg-sys-surfaceHigh rounded-xl flex-1 h-14 px-4 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
+                                                                    value={logs[exId]?.weight || ''} 
+                                                                    onChange={(e) => saveLog(exId, 'weight', e.target.value)} 
+                                                                    placeholder="0"
+                                                                    aria-label="Weight in kilograms"
                                                                 />
+                                                                <button 
+                                                                    onClick={() => {
+                                                                        haptic.tick();
+                                                                        const current = parseFloat(logs[exId]?.weight || '0');
+                                                                        saveLog(exId, 'weight', (current + 2.5).toString());
+                                                                    }}
+                                                                    className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
+                                                                    aria-label="Increase weight by 2.5kg"
+                                                                >
+                                                                    <i data-lucide="plus" width="18"></i>
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     )}
@@ -883,7 +854,11 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </div>
                         );
                     })}
-                    <ActionBar onFinish={handleFinish} timerState={{time: timerSeconds}} setTimerActive={setTimerActive} setTimerSeconds={setTimerSeconds} />
+                    
+                    {/* Only show ActionBar if workout is not completed */}
+                    {!logs.completed && (
+                        <ActionBar onFinish={handleFinish} timerState={{time: timerSeconds}} setTimerActive={setTimerActive} setTimerSeconds={setTimerSeconds} />
+                    )}
                     
                     {/* Timer Completion Toast */}
                     {showTimerToast && (
@@ -897,8 +872,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     
                     {/* Gemini Sync Status Toast */}
                     {geminiSyncStatus && (
-                        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 animate-slide-up max-w-[90%]">
-                            <div className={`px-6 py-4 rounded-2xl shadow-lg ${
+                        <div className="fixed top-20 left-0 right-0 z-50 flex justify-center px-4 animate-slide-up">
+                            <div className={`px-6 py-4 rounded-2xl shadow-lg max-w-md w-full ${
                                 geminiSyncStatus === 'syncing' ? 'bg-sys-accent' :
                                 geminiSyncStatus === 'success' ? 'bg-sys-success' :
                                 'bg-red-500'
@@ -1104,6 +1079,85 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             );
         };
 
+        // Simple markdown to HTML converter with sanitization
+        const markdownToHtml = (text) => {
+            if (!text) return '';
+            
+            // Sanitize input - escape HTML entities
+            const escapeHtml = (unsafe) => {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            };
+            
+            let html = escapeHtml(text);
+            
+            // Code blocks first (to protect them from other processing)
+            html = html.replace(/```([\s\S]*?)```/g, '<pre class="bg-sys-surfaceHigh rounded-lg p-3 my-3 overflow-x-auto"><code class="text-sm font-mono text-sys-accent">$1</code></pre>');
+            
+            // Inline code (protect from other processing)
+            html = html.replace(/`([^`]+)`/g, '<code class="bg-sys-surfaceHigh px-1.5 py-0.5 rounded text-sm font-mono text-sys-accent">$1</code>');
+            
+            // Headers (# ## ###)
+            html = html.replace(/^### (.*$)/gim, '<h3 class="text-base font-bold text-white mt-4 mb-2">$1</h3>');
+            html = html.replace(/^## (.*$)/gim, '<h2 class="text-lg font-bold text-white mt-5 mb-3">$1</h2>');
+            html = html.replace(/^# (.*$)/gim, '<h1 class="text-xl font-bold text-white mt-6 mb-4">$1</h1>');
+            
+            // Bold text first (**text** or __text__) - process before italic
+            html = html.replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-white">$1</strong>');
+            html = html.replace(/__(.+?)__/g, '<strong class="font-bold text-white">$1</strong>');
+            
+            // Italic text (*text* or _text_) - matches single * or _ that aren't part of bold
+            // This works because bold is already replaced, so remaining single * are italic
+            html = html.replace(/\*([^*]+?)\*/g, '<em class="italic">$1</em>');
+            html = html.replace(/_([^_]+?)_/g, '<em class="italic">$1</em>');
+            
+            // Process lists - find consecutive list items and wrap in ul
+            const lines = html.split('\n');
+            const processed = [];
+            let inList = false;
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const isListItem = /^\s*[-*]\s+(.+)$/.test(line);
+                
+                if (isListItem) {
+                    if (!inList) {
+                        processed.push('<ul class="my-3 space-y-1">');
+                        inList = true;
+                    }
+                    processed.push(line.replace(/^\s*[-*]\s+(.+)$/, '<li class="ml-4 mb-1">• $1</li>'));
+                } else {
+                    if (inList) {
+                        processed.push('</ul>');
+                        inList = false;
+                    }
+                    processed.push(line);
+                }
+            }
+            if (inList) processed.push('</ul>');
+            html = processed.join('\n');
+            
+            // Convert double newlines to paragraph breaks (but not for existing HTML tags)
+            const paragraphs = html.split('\n\n');
+            html = paragraphs.map(para => {
+                const trimmed = para.trim();
+                // Only wrap in <p> if it's not already an HTML block element
+                if (trimmed && !/^<(h[123]|ul|pre|div)/.test(trimmed)) {
+                    return `<p class="mb-3">${trimmed}</p>`;
+                }
+                return trimmed;
+            }).join('\n');
+            
+            // Single line breaks become <br /> (but not within block elements)
+            html = html.replace(/\n/g, '<br />');
+            
+            return html;
+        };
+
         const CoachView = () => {
             const [chatHistory, setChatHistory] = useState([]);
             const [isLoading, setIsLoading] = useState(true);
@@ -1240,7 +1294,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                         <i data-lucide="brain" width="16" className="text-sys-success"></i>
                                                         <span className="text-xs font-bold text-sys-success uppercase tracking-wide">AI Coach</span>
                                                     </div>
-                                                    <div className="text-sm text-white leading-relaxed whitespace-pre-wrap">{displayText}</div>
+                                                    <div className="text-sm text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: markdownToHtml(displayText) }}></div>
                                                 </>
                                             )}
                                         </div>
@@ -1381,10 +1435,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             <li className="flex items-start gap-2">
                                 <span className="text-sys-accent">•</span>
                                 <span>Completed exercises with sets, reps, and weights</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-sys-accent">•</span>
-                                <span>RPE (Rate of Perceived Exertion) data</span>
                             </li>
                             <li className="flex items-start gap-2">
                                 <span className="text-sys-accent">•</span>

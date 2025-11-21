@@ -1079,11 +1079,21 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             );
         };
 
-        // Simple markdown to HTML converter
+        // Simple markdown to HTML converter with sanitization
         const markdownToHtml = (text) => {
             if (!text) return '';
             
-            let html = text;
+            // Sanitize input - escape HTML entities
+            const escapeHtml = (unsafe) => {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            };
+            
+            let html = escapeHtml(text);
             
             // Code blocks first (to protect them from other processing)
             html = html.replace(/```([\s\S]*?)```/g, '<pre class="bg-sys-surfaceHigh rounded-lg p-3 my-3 overflow-x-auto"><code class="text-sm font-mono text-sys-accent">$1</code></pre>');
@@ -1100,9 +1110,10 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             html = html.replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-white">$1</strong>');
             html = html.replace(/__(.+?)__/g, '<strong class="font-bold text-white">$1</strong>');
             
-            // Italic text (*text* or _text_) - use word boundary to avoid matching bold
-            html = html.replace(/(?<!\*)\*(?!\*)(.+?)\*(?!\*)/g, '<em class="italic">$1</em>');
-            html = html.replace(/(?<!_)_(?!_)(.+?)_(?!_)/g, '<em class="italic">$1</em>');
+            // Italic text (*text* or _text_) - matches single * or _ that aren't part of bold
+            // This works because bold is already replaced, so remaining single * are italic
+            html = html.replace(/\*([^*]+?)\*/g, '<em class="italic">$1</em>');
+            html = html.replace(/_([^_]+?)_/g, '<em class="italic">$1</em>');
             
             // Process lists - find consecutive list items and wrap in ul
             const lines = html.split('\n');

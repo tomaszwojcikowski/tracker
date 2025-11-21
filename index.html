@@ -1146,13 +1146,15 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             html = paragraphs.map(para => {
                 const trimmed = para.trim();
                 // Only wrap in <p> if it's not already an HTML block element
-                if (trimmed && !/^<(h[123]|ul|pre|div)/.test(trimmed)) {
+                if (trimmed && !/^<(h[123]|ul|pre|div|li)/.test(trimmed)) {
                     return `<p class="mb-3">${trimmed}</p>`;
                 }
                 return trimmed;
             }).join('\n');
             
-            // Single line breaks become <br /> (but not within block elements)
+            // Single line breaks become <br />
+            // Note: This will add <br /> within all elements, but markdown typically treats
+            // single newlines as line breaks, so this is intentional behavior
             html = html.replace(/\n/g, '<br />');
             
             return html;

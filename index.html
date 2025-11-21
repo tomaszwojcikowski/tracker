@@ -415,10 +415,10 @@
 
             useEffect(() => setProgress((currentWeek / 21) * 100), [currentWeek]);
 
-            // Initialize Lucide icons when dashboard updates
+            // Initialize Lucide icons when week changes (day completion status may update icons)
             useEffect(() => {
                 lucide.createIcons();
-            });
+            }, [currentWeek]);
 
             const isCompleted = (day) => {
                 try { return JSON.parse(localStorage.getItem(`session_w${currentWeek}d${day}`)).completed; } catch(e) { return false; }
@@ -527,10 +527,10 @@
                 localStorage.setItem('tracker_week', currentWeek);
             }, [currentWeek]);
 
-            // Initialize Lucide icons after every render to ensure consistent icon loading
+            // Initialize Lucide icons when view or tab changes
             useEffect(() => {
                 lucide.createIcons();
-            });
+            }, [viewMode, activeTab]);
 
             const startWorkout = (day) => {
                 setActiveDay(day);

@@ -75,6 +75,32 @@
 
         // --- RAW SCHEDULE (loaded from JSON) ---
         let RAW_SCHEDULE = [];
+        let COMPLETE_SCHEDULE = [];
+
+        // Function to build complete schedule with standard warmups/cooldowns
+        const buildCompleteSchedule = () => {
+            // Start with all items from RAW_SCHEDULE
+            COMPLETE_SCHEDULE = [...RAW_SCHEDULE];
+            const add = (w, d, ex, s, r, n) => COMPLETE_SCHEDULE.push({w, d, ex, s, r, n});
+            
+            // Populate standard Warmups/Cooldowns for Weeks 2-21 that aren't explicitly in RAW
+            for (let w = 2; w <= 21; w++) {
+                // Warmups for D1/D5 if not present
+                [1, 5].forEach(d => {
+                    if (!RAW_SCHEDULE.some(i => i.w === w && i.d === d && i.ex.includes("Rower"))) {
+                        add(w, d, "Rower (Zone 1)", 1, "2 min", "Warm-up");
+                        add(w, d, "Band Pull-Aparts", 1, "20 reps", "Warm-up");
+                        add(w, d, "Scapular Pull-Ups", 3, "5 reps", "Warm-up");
+                    }
+                });
+                // Cooldowns if not present
+                [1, 2, 3, 5].forEach(d => {
+                    if (!RAW_SCHEDULE.some(i => i.w === w && i.d === d && i.n.includes("Cool-down"))) {
+                        add(w, d, "Cool-down Protocol", 1, "5 min", "Cool-down");
+                    }
+                });
+            }
+        };
 
         // --- HAPTIC ENGINE ---
         const useHaptic = () => {
@@ -117,29 +143,6 @@
         };
 
 
-
-        // Build complete schedule by adding standard warmups/cooldowns where not explicitly defined
-        // This ensures all weeks have consistent structure even when JSON omits generic items
-        const COMPLETE_SCHEDULE = [...RAW_SCHEDULE];
-        const add = (w, d, ex, s, r, n) => COMPLETE_SCHEDULE.push({w, d, ex, s, r, n});
-        
-        // Populate standard Warmups/Cooldowns for Weeks 2-21 that aren't explicitly in RAW
-        for (let w = 2; w <= 21; w++) {
-            // Warmups for D1/D5 if not present
-            [1, 5].forEach(d => {
-                if (!RAW_SCHEDULE.some(i => i.w === w && i.d === d && i.ex.includes("Rower"))) {
-                    add(w, d, "Rower (Zone 1)", 1, "2 min", "Warm-up");
-                    add(w, d, "Band Pull-Aparts", 1, "20 reps", "Warm-up");
-                    add(w, d, "Scapular Pull-Ups", 3, "5 reps", "Warm-up");
-                }
-            });
-            // Cooldowns if not present
-            [1, 2, 3, 5].forEach(d => {
-                if (!RAW_SCHEDULE.some(i => i.w === w && i.d === d && i.n.includes("Cool-down"))) {
-                    add(w, d, "Cool-down Protocol", 1, "5 min", "Cool-down");
-                }
-            });
-        }
 
         const PROGRAM_DATA = {
             blocks: [
@@ -592,6 +595,10 @@
                 
                 // Assign the loaded data to RAW_SCHEDULE
                 RAW_SCHEDULE = data;
+                
+                // Build the complete schedule with standard warmups/cooldowns
+                buildCompleteSchedule();
+                
                 // Re-render with the actual app now that data is loaded
                 root.render(<App />);
             })

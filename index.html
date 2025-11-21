@@ -75,7 +75,6 @@
 
         // --- RAW SCHEDULE (loaded from JSON) ---
         let RAW_SCHEDULE = [];
-        let scheduleLoaded = false;
 
         // --- HAPTIC ENGINE ---
         const useHaptic = () => {
@@ -544,20 +543,41 @@
             );
         };
 
+        // Loading component to show while fetching data
+        const LoadingScreen = () => (
+            <div className="min-h-screen bg-sys-black text-white flex items-center justify-center">
+                <div className="text-center">
+                    <div className="text-2xl font-bold mb-2">Loading...</div>
+                    <div className="text-sys-onSurfaceVar">Loading workout schedule</div>
+                </div>
+            </div>
+        );
+
+        // Error component for loading failures
+        const ErrorScreen = ({ message }) => (
+            <div className="min-h-screen bg-sys-black text-white flex items-center justify-center p-5">
+                <div className="text-center">
+                    <div className="text-2xl font-bold mb-2 text-red-500">Error</div>
+                    <div className="text-sys-onSurfaceVar">{message}</div>
+                </div>
+            </div>
+        );
+
+        // Initialize the app with loading state
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<LoadingScreen />);
+
         // Load schedule data from JSON file
         fetch('full-schedule.json')
             .then(response => response.json())
             .then(data => {
                 RAW_SCHEDULE.push(...data);
-                scheduleLoaded = true;
-                
-                // Now render the app
-                const root = ReactDOM.createRoot(document.getElementById('root'));
+                // Re-render with the actual app now that data is loaded
                 root.render(<App />);
             })
             .catch(error => {
                 console.error('Error loading schedule:', error);
-                document.getElementById('root').innerHTML = '<div style="color: white; padding: 20px;">Error loading schedule data</div>';
+                root.render(<ErrorScreen message="Failed to load workout schedule data" />);
             });
     </script>
 </body>

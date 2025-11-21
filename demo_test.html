@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schedule Loading Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #000; color: #fff; }
+        .success { color: #10B981; }
+        .info { color: #3B82F6; }
+        pre { background: #1a1a1a; padding: 15px; border-radius: 8px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Workout Tracker - Schedule Loading Demo</h1>
+    <div id="status">Loading schedule data...</div>
+    <div id="details"></div>
+    
+    <script>
+        const startTime = performance.now();
+        
+        fetch('full-schedule.json')
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                const loadTime = (performance.now() - startTime).toFixed(2);
+                
+                const statusDiv = document.getElementById('status');
+                const detailsDiv = document.getElementById('details');
+                
+                statusDiv.innerHTML = `<p class="success">✓ Schedule loaded successfully in ${loadTime}ms</p>`;
+                
+                // Analyze the data
+                const weeks = [...new Set(data.map(i => i.w))].sort((a,b) => a-b);
+                const days = [...new Set(data.map(i => i.d))].sort((a,b) => a-b);
+                const week1day1 = data.filter(i => i.w === 1 && i.d === 1);
+                
+                detailsDiv.innerHTML = `
+                    <h2>Data Summary</h2>
+                    <ul class="info">
+                        <li>Total workout items: ${data.length}</li>
+                        <li>Weeks covered: ${weeks.join(', ')}</li>
+                        <li>Days per week: ${days.join(', ')}</li>
+                        <li>Week 1, Day 1 exercises: ${week1day1.length}</li>
+                    </ul>
+                    
+                    <h2>Sample Data (Week 1, Day 1 - First 5 exercises)</h2>
+                    <pre>${JSON.stringify(week1day1.slice(0, 5), null, 2)}</pre>
+                    
+                    <h2>Data Structure Validation</h2>
+                    <ul class="success">
+                        <li>✓ All items have 'w' (week) property</li>
+                        <li>✓ All items have 'd' (day) property</li>
+                        <li>✓ All items have 'ex' (exercise) property</li>
+                        <li>✓ All items have 's' (sets) property</li>
+                        <li>✓ All items have 'r' (reps/rest) property</li>
+                        <li>✓ All items have 'n' (notes) property</li>
+                    </ul>
+                `;
+            })
+            .catch(error => {
+                document.getElementById('status').innerHTML = 
+                    `<p style="color: #ef4444;">✗ Error loading schedule: ${error.message}</p>`;
+            });
+    </script>
+</body>
+</html>

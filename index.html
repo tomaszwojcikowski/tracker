@@ -333,41 +333,44 @@
             return (
                 <div className="px-4 pb-40 pt-4">
                     {workout.sections.map((section, sIdx) => {
-                        // Detect superset groups (consecutive EMOM exercises)
-                        const exercisesWithSuperset = section.exercises.map((ex, idx) => {
-                            const isEMOM = ex.notes && ex.notes.toLowerCase().includes('emom');
-                            const prevEx = idx > 0 ? section.exercises[idx - 1] : null;
-                            const nextEx = idx < section.exercises.length - 1 ? section.exercises[idx + 1] : null;
-                            const prevIsEMOM = prevEx && prevEx.notes && prevEx.notes.toLowerCase().includes('emom');
-                            const nextIsEMOM = nextEx && nextEx.notes && nextEx.notes.toLowerCase().includes('emom');
+                        // Helper function to check if exercise is EMOM
+                        const isEMOM = (ex) => ex && ex.notes && ex.notes.toLowerCase().includes('emom');
+                        
+                        // Pre-process exercises to identify superset groups - O(n) complexity
+                        const exercisesWithSuperset = [];
+                        let currentSupersetStart = -1;
+                        
+                        section.exercises.forEach((ex, idx) => {
+                            const exIsEMOM = isEMOM(ex);
+                            const prevIsEMOM = idx > 0 && isEMOM(section.exercises[idx - 1]);
+                            const nextIsEMOM = idx < section.exercises.length - 1 && isEMOM(section.exercises[idx + 1]);
                             
                             let supersetLabel = null;
                             let supersetPosition = null;
                             
-                            if (isEMOM) {
-                                // Find the start of this superset group
-                                let startIdx = idx;
-                                while (startIdx > 0 && section.exercises[startIdx - 1].notes && section.exercises[startIdx - 1].notes.toLowerCase().includes('emom')) {
-                                    startIdx--;
+                            if (exIsEMOM) {
+                                // Track start of superset group
+                                if (!prevIsEMOM) {
+                                    currentSupersetStart = idx;
                                 }
                                 
-                                // Calculate position in superset
-                                const positionInSuperset = idx - startIdx;
-                                supersetLabel = `B${positionInSuperset + 1}`;
-                                
-                                // Determine position (first, middle, last, or single)
-                                if (!prevIsEMOM && !nextIsEMOM) {
-                                    supersetPosition = 'single';
-                                } else if (!prevIsEMOM && nextIsEMOM) {
-                                    supersetPosition = 'first';
-                                } else if (prevIsEMOM && nextIsEMOM) {
-                                    supersetPosition = 'middle';
-                                } else if (prevIsEMOM && !nextIsEMOM) {
-                                    supersetPosition = 'last';
+                                // Only add labels if part of a group (has prev or next EMOM)
+                                if (prevIsEMOM || nextIsEMOM) {
+                                    const positionInSuperset = idx - currentSupersetStart;
+                                    supersetLabel = `B${positionInSuperset + 1}`;
+                                    
+                                    // Determine position for visual rendering
+                                    if (!prevIsEMOM && nextIsEMOM) {
+                                        supersetPosition = 'first';
+                                    } else if (prevIsEMOM && nextIsEMOM) {
+                                        supersetPosition = 'middle';
+                                    } else if (prevIsEMOM && !nextIsEMOM) {
+                                        supersetPosition = 'last';
+                                    }
                                 }
                             }
                             
-                            return { ...ex, supersetLabel, supersetPosition };
+                            exercisesWithSuperset.push({ ...ex, supersetLabel, supersetPosition });
                         });
                         
                         return (

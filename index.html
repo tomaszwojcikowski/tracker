@@ -118,7 +118,8 @@
 
 
 
-        // Fill in the standard items for Weeks 2-21 to keep the file concise but complete
+        // Build complete schedule by adding standard warmups/cooldowns where not explicitly defined
+        // This ensures all weeks have consistent structure even when JSON omits generic items
         const COMPLETE_SCHEDULE = [...RAW_SCHEDULE];
         const add = (w, d, ex, s, r, n) => COMPLETE_SCHEDULE.push({w, d, ex, s, r, n});
         
@@ -571,7 +572,8 @@
         fetch('full-schedule.json')
             .then(response => response.json())
             .then(data => {
-                RAW_SCHEDULE.push(...data);
+                // Assign the loaded data to RAW_SCHEDULE
+                RAW_SCHEDULE = data;
                 // Re-render with the actual app now that data is loaded
                 root.render(<App />);
             })

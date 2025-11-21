@@ -1085,38 +1085,63 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             
             let html = text;
             
+            // Code blocks first (to protect them from other processing)
+            html = html.replace(/```([\s\S]*?)```/g, '<pre class="bg-sys-surfaceHigh rounded-lg p-3 my-3 overflow-x-auto"><code class="text-sm font-mono text-sys-accent">$1</code></pre>');
+            
+            // Inline code (protect from other processing)
+            html = html.replace(/`([^`]+)`/g, '<code class="bg-sys-surfaceHigh px-1.5 py-0.5 rounded text-sm font-mono text-sys-accent">$1</code>');
+            
             // Headers (# ## ###)
             html = html.replace(/^### (.*$)/gim, '<h3 class="text-base font-bold text-white mt-4 mb-2">$1</h3>');
             html = html.replace(/^## (.*$)/gim, '<h2 class="text-lg font-bold text-white mt-5 mb-3">$1</h2>');
             html = html.replace(/^# (.*$)/gim, '<h1 class="text-xl font-bold text-white mt-6 mb-4">$1</h1>');
             
-            // Bold text (**text** or __text__)
+            // Bold text first (**text** or __text__) - process before italic
             html = html.replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-white">$1</strong>');
             html = html.replace(/__(.+?)__/g, '<strong class="font-bold text-white">$1</strong>');
             
-            // Italic text (*text* or _text_)
-            html = html.replace(/\*(.+?)\*/g, '<em class="italic">$1</em>');
-            html = html.replace(/_(.+?)_/g, '<em class="italic">$1</em>');
+            // Italic text (*text* or _text_) - use word boundary to avoid matching bold
+            html = html.replace(/(?<!\*)\*(?!\*)(.+?)\*(?!\*)/g, '<em class="italic">$1</em>');
+            html = html.replace(/(?<!_)_(?!_)(.+?)_(?!_)/g, '<em class="italic">$1</em>');
             
-            // Unordered lists (- item or * item)
-            html = html.replace(/^\s*[-*]\s+(.+)$/gim, '<li class="ml-4 mb-1">• $1</li>');
-            html = html.replace(/(<li.*<\/li>\n?)+/g, '<ul class="my-3 space-y-1">$&</ul>');
+            // Process lists - find consecutive list items and wrap in ul
+            const lines = html.split('\n');
+            const processed = [];
+            let inList = false;
             
-            // Code blocks (```code```)
-            html = html.replace(/```([\s\S]*?)```/g, '<pre class="bg-sys-surfaceHigh rounded-lg p-3 my-3 overflow-x-auto"><code class="text-sm font-mono text-sys-accent">$1</code></pre>');
-            
-            // Inline code (`code`)
-            html = html.replace(/`([^`]+)`/g, '<code class="bg-sys-surfaceHigh px-1.5 py-0.5 rounded text-sm font-mono text-sys-accent">$1</code>');
-            
-            // Line breaks - convert double newlines to paragraphs
-            html = html.split('\n\n').map(para => {
-                if (para.trim() && !para.startsWith('<')) {
-                    return `<p class="mb-3">${para}</p>`;
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const isListItem = /^\s*[-*]\s+(.+)$/.test(line);
+                
+                if (isListItem) {
+                    if (!inList) {
+                        processed.push('<ul class="my-3 space-y-1">');
+                        inList = true;
+                    }
+                    processed.push(line.replace(/^\s*[-*]\s+(.+)$/, '<li class="ml-4 mb-1">• $1</li>'));
+                } else {
+                    if (inList) {
+                        processed.push('</ul>');
+                        inList = false;
+                    }
+                    processed.push(line);
                 }
-                return para;
+            }
+            if (inList) processed.push('</ul>');
+            html = processed.join('\n');
+            
+            // Convert double newlines to paragraph breaks (but not for existing HTML tags)
+            const paragraphs = html.split('\n\n');
+            html = paragraphs.map(para => {
+                const trimmed = para.trim();
+                // Only wrap in <p> if it's not already an HTML block element
+                if (trimmed && !/^<(h[123]|ul|pre|div)/.test(trimmed)) {
+                    return `<p class="mb-3">${trimmed}</p>`;
+                }
+                return trimmed;
             }).join('\n');
             
-            // Single line breaks
+            // Single line breaks become <br /> (but not within block elements)
             html = html.replace(/\n/g, '<br />');
             
             return html;

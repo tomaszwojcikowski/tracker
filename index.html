@@ -38,11 +38,23 @@
                     },
                     animation: {
                         'slide-up': 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                        'bounce-in': 'bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
                     },
                     keyframes: {
                         slideUp: {
                             '0%': { transform: 'translateY(100%)' },
                             '100%': { transform: 'translateY(0)' },
+                        },
+                        bounceIn: {
+                            '0%': { transform: 'scale(0.3)', opacity: 0 },
+                            '50%': { transform: 'scale(1.05)' },
+                            '70%': { transform: 'scale(0.9)' },
+                            '100%': { transform: 'scale(1)', opacity: 1 },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(59,130,246,0.6)' },
+                            '50%': { boxShadow: '0 0 30px rgba(59,130,246,0.8)' },
                         }
                     }
                 }
@@ -191,17 +203,21 @@
 
         // 1. OLED TOP BAR
         const TopAppBar = ({ title, subtitle, onBack, showBack }) => (
-            <div className="bg-sys-black sticky top-0 z-40 safe-pt border-b border-white/5">
+            <div className="bg-sys-black sticky top-0 z-40 safe-pt border-b border-white/10">
                 <div className="h-16 flex items-center px-5 gap-4">
                     {showBack ? (
-                        <button onClick={onBack} className="p-2 -ml-2 text-sys-onSurface rounded-full hover:bg-sys-surfaceHigh transition-colors">
+                        <button 
+                            onClick={onBack} 
+                            className="h-10 w-10 -ml-1 text-sys-onSurface rounded-xl hover:bg-sys-surfaceHigh transition-colors flex items-center justify-center active:scale-90"
+                            aria-label="Go back"
+                        >
                             <i data-lucide="arrow-left" width="24"></i>
                         </button>
                     ) : null}
                     
-                    <div className="flex-1">
-                        <h1 className="text-xl font-semibold text-sys-onSurface tracking-tight">{title}</h1>
-                        {subtitle && <p className="text-xs text-sys-onSurfaceVar font-medium">{subtitle}</p>}
+                    <div className="flex-1 min-w-0">
+                        <h1 className="text-xl font-bold text-sys-onSurface tracking-tight truncate">{title}</h1>
+                        {subtitle && <p className="text-xs text-sys-onSurfaceVar font-semibold mt-0.5">{subtitle}</p>}
                     </div>
                 </div>
             </div>
@@ -210,36 +226,66 @@
         // 2. ACTION BAR (Reachability Optimized)
         const ActionBar = ({ onFinish, timerState, setTimerActive, setTimerSeconds }) => {
             const haptic = useHaptic();
+            const [showConfirm, setShowConfirm] = useState(false);
             
             return (
-                <div className="fixed bottom-[80px] left-0 right-0 p-4 z-40 pointer-events-none flex justify-end items-end gap-3 safe-pb">
-                    {timerState.time > 0 && (
-                        <div className="pointer-events-auto glass-panel px-4 py-3 rounded-full flex items-center gap-3 shadow-lg animate-slide-up mr-auto">
-                            <span className="text-xl font-mono font-bold text-white">
-                                {Math.floor(timerState.time/60)}:{timerState.time%60 < 10 ? '0' : ''}{timerState.time%60}
-                            </span>
-                            <div className="h-4 w-[1px] bg-white/20"></div>
-                            <button 
-                                onClick={() => { haptic.bump(); setTimerActive(false); setTimerSeconds(0); }} 
-                                className="h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
-                                aria-label="Cancel timer"
-                            >
-                                <i data-lucide="x" width="18"></i>
-                            </button>
-                            <button onClick={() => { haptic.bump(); setTimerSeconds(s => s + 30); }} className="text-sys-accent font-bold text-sm">
-                                +30s
-                            </button>
+                <>
+                    <div className="fixed bottom-[88px] left-0 right-0 px-4 z-40 pointer-events-none flex justify-end items-end gap-3 safe-pb">
+                        {timerState.time > 0 && (
+                            <div className="pointer-events-auto glass-panel px-5 py-4 rounded-2xl flex items-center gap-4 shadow-lg animate-slide-up mr-auto">
+                                <span className="text-2xl font-mono font-bold text-white min-w-[80px]">
+                                    {Math.floor(timerState.time/60)}:{timerState.time%60 < 10 ? '0' : ''}{timerState.time%60}
+                                </span>
+                                <div className="h-6 w-[1px] bg-white/20"></div>
+                                <button 
+                                    onClick={() => { haptic.bump(); setTimerActive(false); setTimerSeconds(0); }} 
+                                    className="h-10 w-10 min-w-[40px] rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
+                                    aria-label="Cancel timer"
+                                >
+                                    <i data-lucide="x" width="20"></i>
+                                </button>
+                                <button 
+                                    onClick={() => { haptic.bump(); setTimerSeconds(s => s + 30); }} 
+                                    className="text-sys-accent font-bold text-base px-3 py-2 min-h-[44px]"
+                                >
+                                    +30s
+                                </button>
+                            </div>
+                        )}
+
+                        <button 
+                            onClick={() => { haptic.bump(); setShowConfirm(true); }} 
+                            className="pointer-events-auto h-16 min-h-[56px] px-8 rounded-2xl bg-sys-onSurface text-sys-black font-bold shadow-lg flex items-center gap-3 active:scale-95 transition-transform"
+                        >
+                            <i data-lucide="check-circle-2" width="22"></i>
+                            <span className="text-base">FINISH</span>
+                        </button>
+                    </div>
+                    
+                    {/* Confirmation Dialog */}
+                    {showConfirm && (
+                        <div className="fixed inset-0 z-50 flex items-end justify-center p-4 bg-black/60 backdrop-blur-sm animate-slide-up safe-pb">
+                            <div className="bg-sys-surface rounded-3xl p-6 w-full max-w-md border border-white/10">
+                                <h3 className="text-xl font-bold text-white mb-2">Finish Workout?</h3>
+                                <p className="text-sys-onSurfaceVar mb-6">Your progress will be saved and logged to history.</p>
+                                <div className="flex gap-3">
+                                    <button 
+                                        onClick={() => { haptic.tick(); setShowConfirm(false); }}
+                                        className="flex-1 h-14 rounded-xl bg-sys-surfaceHigh text-white font-semibold active:scale-95 transition-transform"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button 
+                                        onClick={() => { haptic.success(); setShowConfirm(false); onFinish(); }}
+                                        className="flex-1 h-14 rounded-xl bg-sys-success text-white font-semibold active:scale-95 transition-transform"
+                                    >
+                                        Finish
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     )}
-
-                    <button 
-                        onClick={() => { haptic.success(); onFinish(); }} 
-                        className="pointer-events-auto h-14 px-6 rounded-full bg-sys-onSurface text-sys-black font-bold shadow-lg flex items-center gap-2 active:scale-95 transition-transform"
-                    >
-                        <i data-lucide="check-circle-2" width="20"></i>
-                        <span>FINISH</span>
-                    </button>
-                </div>
+                </>
             );
         };
 
@@ -253,19 +299,21 @@
             ];
 
             return (
-                <div className="fixed bottom-0 left-0 right-0 bg-sys-black border-t border-white/10 z-50 safe-pb h-[80px] flex items-center justify-around">
+                <div className="fixed bottom-0 left-0 right-0 bg-sys-black border-t border-white/10 z-50 safe-pb min-h-[88px] flex items-center justify-around px-2">
                     {navItems.map((item) => {
                         const isActive = activeTab === item.id;
                         return (
                             <button 
                                 key={item.id} 
                                 onClick={() => { haptic.tick(); onTabChange(item.id); }} 
-                                className="flex flex-col items-center gap-1 w-full py-2 active:opacity-70"
+                                className="flex flex-col items-center gap-1 w-full py-3 min-h-[56px] active:opacity-70 transition-opacity"
+                                aria-label={item.label}
+                                aria-current={isActive ? 'page' : undefined}
                             >
-                                <div className={`w-16 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${isActive ? 'bg-sys-surfaceHigh' : 'transparent'}`}>
-                                    <i data-lucide={item.icon} width="22" className={isActive ? 'text-white' : 'text-sys-onSurfaceVar'}></i>
+                                <div className={`w-16 h-10 rounded-2xl flex items-center justify-center transition-all duration-200 ${isActive ? 'bg-sys-surfaceHigh' : 'transparent'}`}>
+                                    <i data-lucide={item.icon} width="24" className={isActive ? 'text-white' : 'text-sys-onSurfaceVar'}></i>
                                 </div>
-                                <span className={`text-[11px] font-medium ${isActive ? 'text-white' : 'text-sys-onSurfaceVar'}`}>
+                                <span className={`text-xs font-semibold ${isActive ? 'text-white' : 'text-sys-onSurfaceVar'}`}>
                                     {item.label}
                                 </span>
                             </button>
@@ -331,7 +379,7 @@
             };
 
             return (
-                <div className="px-4 pb-40 pt-4">
+                <div className="px-5 pb-48 pt-6">
                     {workout.sections.map((section, sIdx) => {
                         // Helper function to check if exercise is EMOM
                         const isEMOM = (ex) => ex && ex.notes && ex.notes.toLowerCase().includes('emom');
@@ -374,13 +422,13 @@
                         });
                         
                         return (
-                            <div key={sIdx} className="mb-8">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <span className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider">{section.name}</span>
-                                    <div className="h-[1px] flex-1 bg-white/10"></div>
+                            <div key={sIdx} className="mb-10">
+                                <div className="flex items-center gap-3 mb-5 px-1">
+                                    <span className="text-sm font-bold text-white uppercase tracking-wider bg-sys-surfaceHigh px-4 py-2 rounded-xl">{section.name}</span>
+                                    <div className="h-[2px] flex-1 bg-gradient-to-r from-white/20 to-transparent rounded-full"></div>
                                 </div>
                                 
-                                <div className="space-y-4">
+                                <div className="space-y-5">
                                     {exercisesWithSuperset.map((ex, eIdx) => {
                                         const defaultSets = ex.sets || 3;
                                         const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
@@ -390,65 +438,89 @@
                                             <div key={eIdx} className="relative">
                                                 {/* Superset connecting line */}
                                                 {ex.supersetPosition && ex.supersetPosition !== 'single' && (
-                                                    <div className="absolute left-3 top-0 w-[2px] bg-sys-accent/30 z-0"
+                                                    <div className="absolute left-4 top-0 w-[3px] bg-gradient-to-b from-sys-accent/40 to-sys-accent/20 rounded-full z-0"
                                                         style={{
-                                                            height: ex.supersetPosition === 'first' ? 'calc(50% + 1rem)' :
-                                                                   ex.supersetPosition === 'last' ? 'calc(50% + 1rem)' : 'calc(100% + 1rem)',
-                                                            top: ex.supersetPosition === 'first' ? '50%' : '-1rem',
+                                                            height: ex.supersetPosition === 'first' ? 'calc(50% + 1.25rem)' :
+                                                                   ex.supersetPosition === 'last' ? 'calc(50% + 1.25rem)' : 'calc(100% + 1.25rem)',
+                                                            top: ex.supersetPosition === 'first' ? '50%' : '-1.25rem',
                                                         }}
                                                     ></div>
                                                 )}
                                                 
-                                                <div className={`bg-sys-surface rounded-2xl p-5 border relative z-10 ${ex.supersetLabel ? 'border-sys-accent/20' : 'border-white/5'}`}>
+                                                <div className={`bg-sys-surface rounded-3xl p-6 border relative z-10 ${ex.supersetLabel ? 'border-sys-accent/20' : 'border-white/5'}`}>
                                                     {/* Superset label badge */}
                                                     {ex.supersetLabel && (
-                                                        <div className="absolute -left-2 top-5 h-8 w-8 rounded-full bg-sys-accent flex items-center justify-center text-xs font-bold text-white shadow-lg z-20">
+                                                        <div className="absolute -left-2 top-6 h-10 w-10 rounded-full bg-sys-accent flex items-center justify-center text-sm font-bold text-white shadow-lg z-20">
                                                             {ex.supersetLabel}
                                                         </div>
                                                     )}
                                                     
-                                                    <div className="flex justify-between items-start mb-5">
-                                                        <div className={`flex-1 pr-4 ${ex.supersetLabel ? 'pl-6' : ''}`}>
-                                                            <h3 className="text-base font-semibold text-white leading-tight">{ex.name}</h3>
-                                                            <p className="text-sm text-sys-onSurfaceVar mt-1 font-medium">{ex.prescription}</p>
-                                                            {ex.notes && <p className="text-xs text-sys-accent mt-1">{ex.notes}</p>}
+                                                    <div className="flex justify-between items-start mb-6">
+                                                        <div className={`flex-1 pr-4 ${ex.supersetLabel ? 'pl-8' : ''}`}>
+                                                            <h3 className="text-lg font-semibold text-white leading-snug mb-1">{ex.name}</h3>
+                                                            <p className="text-base text-sys-onSurfaceVar font-medium">{ex.prescription}</p>
+                                                            {ex.notes && <p className="text-sm text-sys-accent mt-2 leading-relaxed">{ex.notes}</p>}
                                                         </div>
                                                         {ex.rest > 0 && (
                                                             <button 
                                                                 onClick={() => { haptic.bump(); setTimerSeconds(ex.rest); setTimerActive(true); }} 
-                                                                className="h-9 px-3 rounded-full bg-sys-surfaceHigh text-white text-xs font-bold flex items-center gap-1 active:bg-sys-onSurfaceVar transition-colors"
+                                                                className="h-12 min-h-[48px] px-4 rounded-xl bg-sys-surfaceHigh text-white text-sm font-bold flex items-center gap-2 active:bg-sys-onSurfaceVar transition-colors flex-shrink-0"
+                                                                aria-label={`Start ${ex.rest} second timer`}
                                                             >
-                                                                <i data-lucide="timer" width="14"></i> {ex.rest}s
+                                                                <i data-lucide="timer" width="16"></i> {ex.rest}s
                                                             </button>
                                                         )}
                                                     </div>
                                                     
-                                                    <div className="flex flex-wrap gap-3 mb-4">
+                                                    <div className="flex flex-wrap gap-4 mb-5">
                                                         {currentSetArray.map((isDone, i) => (
                                                             <button 
                                                                 key={i} 
                                                                 onClick={() => toggleSet(exId, i, defaultSets)} 
-                                                                className={`h-12 w-12 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 ${isDone ? 'bg-sys-accent text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
+                                                                className={`h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold transition-all duration-200 active:scale-90 ${isDone ? 'bg-sys-accent text-white animate-pulse-glow' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
+                                                                aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                             >
-                                                                {isDone ? <i data-lucide="check" width="20" /> : i + 1}
+                                                                {isDone ? <i data-lucide="check" width="24" /> : i + 1}
                                                             </button>
                                                         ))}
-                                                        <button onClick={() => addSet(exId, defaultSets)} className="h-12 w-12 rounded-full border border-dashed border-white/20 text-white/20 flex items-center justify-center active:bg-white/5">
-                                                            <i data-lucide="plus" width="20"></i>
+                                                        <button 
+                                                            onClick={() => addSet(exId, defaultSets)} 
+                                                            className="h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl border-2 border-dashed border-white/20 text-white/30 flex items-center justify-center active:bg-white/5 transition-colors"
+                                                            aria-label="Add set"
+                                                        >
+                                                            <i data-lucide="plus" width="22"></i>
                                                         </button>
                                                     </div>
 
                                                     {!ex.isBodyweight && (
-                                                        <div className="grid grid-cols-2 gap-4 pt-2 border-t border-white/5">
+                                                        <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
                                                             <div>
-                                                                <label className="text-[10px] text-sys-onSurfaceVar uppercase font-bold mb-1 block">Load (kg)</label>
-                                                                <input type="number" className="bg-sys-surfaceHigh rounded-lg w-full h-10 px-3 text-white font-mono text-sm outline-none focus:ring-1 focus:ring-sys-accent" 
-                                                                    value={logs[exId]?.weight || ''} onChange={(e) => saveLog(exId, 'weight', e.target.value)} placeholder="0" />
+                                                                <label htmlFor={`${exId}-weight`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Load (kg)</label>
+                                                                <input 
+                                                                    id={`${exId}-weight`}
+                                                                    type="number" 
+                                                                    inputMode="decimal"
+                                                                    className="bg-sys-surfaceHigh rounded-xl w-full h-14 px-4 text-white font-mono text-lg outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
+                                                                    value={logs[exId]?.weight || ''} 
+                                                                    onChange={(e) => saveLog(exId, 'weight', e.target.value)} 
+                                                                    placeholder="0"
+                                                                    aria-label="Weight in kilograms"
+                                                                />
                                                             </div>
                                                             <div>
-                                                                <label className="text-[10px] text-sys-onSurfaceVar uppercase font-bold mb-1 block">RPE</label>
-                                                                <input type="number" className="bg-sys-surfaceHigh rounded-lg w-full h-10 px-3 text-white font-mono text-sm outline-none focus:ring-1 focus:ring-sys-accent" 
-                                                                    value={logs[exId]?.rpe || ''} onChange={(e) => saveLog(exId, 'rpe', e.target.value)} placeholder="-" />
+                                                                <label htmlFor={`${exId}-rpe`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">RPE</label>
+                                                                <input 
+                                                                    id={`${exId}-rpe`}
+                                                                    type="number" 
+                                                                    inputMode="numeric"
+                                                                    min="1"
+                                                                    max="10"
+                                                                    className="bg-sys-surfaceHigh rounded-xl w-full h-14 px-4 text-white font-mono text-lg outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
+                                                                    value={logs[exId]?.rpe || ''} 
+                                                                    onChange={(e) => saveLog(exId, 'rpe', e.target.value)} 
+                                                                    placeholder="-"
+                                                                    aria-label="Rate of perceived exertion"
+                                                                />
                                                             </div>
                                                         </div>
                                                     )}
@@ -490,50 +562,81 @@
 
             return (
                 <div {...swipeHandlers} className="flex-1 overflow-y-auto px-5 pb-32 pt-6">
-                    <div className="bg-sys-surfaceHigh rounded-3xl p-6 mb-8 relative overflow-hidden border border-white/5">
+                    <div className="bg-sys-surfaceHigh rounded-3xl p-7 mb-8 relative overflow-hidden border border-white/5">
                         <div className="relative z-10">
-                            <h2 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-1">Current Phase</h2>
-                            <h1 className="text-3xl font-bold text-white mb-4">{currentBlock.name}</h1>
-                            <div className="flex items-baseline gap-2 mb-6">
+                            <h2 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-2">Current Phase</h2>
+                            <h1 className="text-3xl font-bold text-white mb-5 leading-tight">{currentBlock.name}</h1>
+                            <div className="flex items-baseline gap-3 mb-6">
                                 <span className="text-5xl font-bold text-sys-accent tracking-tighter">W{currentWeek}</span>
-                                <span className="text-sys-onSurfaceVar font-mono text-lg">/ 21</span>
+                                <span className="text-sys-onSurfaceVar font-mono text-xl">/ 21</span>
                             </div>
-                            <div className="w-full bg-black/30 h-1.5 rounded-full overflow-hidden">
-                                <div className="bg-sys-accent h-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
+                            <div className="w-full bg-black/30 h-2 rounded-full overflow-hidden">
+                                <div className="bg-sys-accent h-full transition-all duration-500 rounded-full" style={{ width: `${progress}%` }}></div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="flex justify-between items-end mb-5 px-1">
-                        <h3 className="text-xl font-semibold text-white">Weekly Plan</h3>
-                        <span className="text-xs text-sys-onSurfaceVar">Week {currentWeek}</span>
+                    <div className="flex justify-between items-end mb-6 px-1">
+                        <h3 className="text-2xl font-bold text-white">Weekly Plan</h3>
+                        <span className="text-sm text-sys-onSurfaceVar font-medium">Week {currentWeek}</span>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-3">
+                    <div className="grid grid-cols-1 gap-4">
                         {[1, 2, 3, 5].map((day) => {
                             const done = isCompleted(day);
                             return (
-                                <button key={day} onClick={() => { haptic.tick(); onStartWorkout(day); }} 
-                                    className={`relative h-20 rounded-2xl px-5 flex items-center justify-between transition-all active:scale-[0.98] ${done ? 'bg-sys-success/10 border border-sys-success/20' : 'bg-sys-surface border border-white/5'}`}>
-                                    
+                                <button 
+                                    key={day} 
+                                    onClick={() => { haptic.tick(); onStartWorkout(day); }} 
+                                    className={`relative min-h-[72px] rounded-3xl px-6 py-5 flex items-center justify-between transition-all active:scale-[0.97] ${done ? 'bg-sys-success/10 border-2 border-sys-success/30' : 'bg-sys-surface border-2 border-white/5'}`}
+                                    aria-label={`${done ? 'Completed' : 'Start'} Day ${day} workout`}
+                                >
                                     <div className="flex flex-col items-start">
-                                        <span className={`text-xs font-bold uppercase tracking-wider ${done ? 'text-sys-success' : 'text-sys-onSurfaceVar'}`}>Day {day}</span>
+                                        <span className={`text-sm font-bold uppercase tracking-wider mb-1 ${done ? 'text-sys-success' : 'text-sys-onSurfaceVar'}`}>Day {day}</span>
+                                        <span className={`text-xs ${done ? 'text-sys-success/70' : 'text-sys-onSurfaceVar/70'}`}>
+                                            {done ? 'Completed' : 'Tap to start'}
+                                        </span>
                                     </div>
 
-                                    <div className={`h-10 w-10 rounded-full flex items-center justify-center ${done ? 'bg-sys-success text-sys-black' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}>
-                                        {done ? <i data-lucide="check" width="20"></i> : <i data-lucide="chevron-right" width="20"></i>}
+                                    <div className={`h-12 w-12 min-w-[48px] rounded-2xl flex items-center justify-center ${done ? 'bg-sys-success text-sys-black' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}>
+                                        {done ? <i data-lucide="check" width="24"></i> : <i data-lucide="chevron-right" width="24"></i>}
                                     </div>
                                 </button>
                             );
                         })}
                     </div>
                     
-                    <div className="mt-10 flex justify-center gap-3">
-                        {[...Array(5)].map((_, i) => {
-                            const dotWeek = currentWeek - 2 + i;
-                            if (dotWeek < 1 || dotWeek > 21) return <div key={i} className="w-1.5 h-1.5" />;
-                            return <div key={i} className={`w-1.5 h-1.5 rounded-full transition-colors ${dotWeek === currentWeek ? 'bg-white scale-125' : 'bg-white/20'}`}></div>
-                        })}
+                    <div className="mt-10 flex justify-center items-center gap-2">
+                        <button 
+                            onClick={() => setCurrentWeek(Math.max(1, currentWeek - 1))}
+                            className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
+                            disabled={currentWeek === 1}
+                            aria-label="Previous week"
+                        >
+                            <i data-lucide="chevron-left" width="18"></i>
+                        </button>
+                        <div className="flex gap-2 px-4">
+                            {[...Array(5)].map((_, i) => {
+                                const dotWeek = currentWeek - 2 + i;
+                                if (dotWeek < 1 || dotWeek > 21) return <div key={i} className="w-2 h-2" />;
+                                return (
+                                    <button
+                                        key={i}
+                                        onClick={() => setCurrentWeek(dotWeek)}
+                                        className={`rounded-full transition-all ${dotWeek === currentWeek ? 'w-8 h-2 bg-white' : 'w-2 h-2 bg-white/30 hover:bg-white/50'}`}
+                                        aria-label={`Week ${dotWeek}`}
+                                    />
+                                );
+                            })}
+                        </div>
+                        <button 
+                            onClick={() => setCurrentWeek(Math.min(21, currentWeek + 1))}
+                            className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
+                            disabled={currentWeek === 21}
+                            aria-label="Next week"
+                        >
+                            <i data-lucide="chevron-right" width="18"></i>
+                        </button>
                     </div>
                 </div>
             );
@@ -541,30 +644,59 @@
 
         const HistoryView = () => {
             const [history, setHistory] = useState([]);
-            useEffect(() => {
+            const [isRefreshing, setIsRefreshing] = useState(false);
+            
+            const loadHistory = () => {
                 const h = JSON.parse(localStorage.getItem('global_history') || '[]');
                 setHistory(h.sort((a, b) => new Date(b.date) - new Date(a.date)));
-                lucide.createIcons();
+                setTimeout(() => lucide.createIcons(), 100);
+            };
+            
+            useEffect(() => {
+                loadHistory();
             }, []);
+            
+            const handleRefresh = () => {
+                setIsRefreshing(true);
+                setTimeout(() => {
+                    loadHistory();
+                    setIsRefreshing(false);
+                }, 500);
+            };
 
             return (
                 <div className="px-5 pb-32 pt-6">
-                    <h2 className="text-xl font-semibold text-white mb-6">History</h2>
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold text-white">History</h2>
+                        <button 
+                            onClick={handleRefresh}
+                            className={`h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all ${isRefreshing ? 'animate-spin' : ''}`}
+                            aria-label="Refresh history"
+                        >
+                            <i data-lucide="refresh-cw" width="18"></i>
+                        </button>
+                    </div>
                     {history.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center py-20 text-sys-onSurfaceVar opacity-50">
-                            <i data-lucide="history" width="40" className="mb-4"></i>
-                            <p className="text-sm">No workouts yet</p>
+                        <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
+                            <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
+                                <i data-lucide="history" width="40" className="text-sys-onSurfaceVar"></i>
+                            </div>
+                            <h3 className="text-lg font-semibold text-white mb-2">No Workouts Yet</h3>
+                            <p className="text-sm text-sys-onSurfaceVar text-center max-w-[250px]">Complete your first workout to see it here</p>
                         </div>
                     ) : (
-                        <div className="space-y-3">
+                        <div className="space-y-4">
                             {history.map((entry, idx) => (
-                                <div key={idx} className="bg-sys-surface border border-white/5 rounded-2xl p-4 flex items-center gap-4">
-                                    <div className="h-12 w-12 rounded-full bg-sys-surfaceHigh flex items-center justify-center text-xs font-bold text-white">
-                                        W{entry.week}
+                                <div key={idx} className="bg-sys-surface border border-white/5 rounded-3xl p-5 flex items-center gap-5">
+                                    <div className="h-14 w-14 min-w-[56px] rounded-2xl bg-sys-accent/10 border border-sys-accent/20 flex items-center justify-center">
+                                        <span className="text-sm font-bold text-sys-accent">W{entry.week}</span>
                                     </div>
-                                    <div className="flex-1">
-                                        <h3 className="text-sm font-semibold text-white">Day {entry.day} Complete</h3>
-                                        <p className="text-xs text-sys-onSurfaceVar mt-0.5">{new Date(entry.date).toLocaleDateString()}</p>
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="text-base font-bold text-white mb-1 truncate">Day {entry.day} Complete</h3>
+                                        <p className="text-sm text-sys-onSurfaceVar">{new Date(entry.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</p>
+                                    </div>
+                                    <div className="h-10 w-10 rounded-full bg-sys-success/20 flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="check" width="20" className="text-sys-success"></i>
                                     </div>
                                 </div>
                             ))}
@@ -654,7 +786,18 @@
                         <>
                             {activeTab === 'train' && <Dashboard currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} onStartWorkout={startWorkout} />}
                             {activeTab === 'history' && <HistoryView />}
-                            {activeTab === 'profile' && <div className="p-10 text-center text-sys-onSurfaceVar">Settings coming soon.</div>}
+                            {activeTab === 'profile' && (
+                                <div className="px-5 pb-32 pt-6">
+                                    <h2 className="text-2xl font-bold text-white mb-6">Profile</h2>
+                                    <div className="bg-sys-surface rounded-3xl border border-white/5 p-8 flex flex-col items-center justify-center py-20">
+                                        <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
+                                            <i data-lucide="user" width="40" className="text-sys-onSurfaceVar"></i>
+                                        </div>
+                                        <h3 className="text-lg font-semibold text-white mb-2">Coming Soon</h3>
+                                        <p className="text-sm text-sys-onSurfaceVar text-center max-w-[250px]">Profile settings and stats will be available in a future update</p>
+                                    </div>
+                                </div>
+                            )}
                             <NavigationBar activeTab={activeTab} onTabChange={setActiveTab} />
                         </>
                     )}

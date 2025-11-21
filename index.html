@@ -125,7 +125,7 @@
                 tick: () => trigger([10]), // Light tap for checks
                 bump: () => trigger([30]), // Medium bump for buttons
                 success: () => trigger([50, 50, 50]), // Double pulse for completion
-                timer: () => trigger([200]) // Long buzz for timer
+                timer: () => trigger([200, 100, 200]) // Triple buzz for timer completion
             };
         };
 
@@ -227,6 +227,25 @@
         const ActionBar = ({ onFinish, timerState, setTimerActive, setTimerSeconds }) => {
             const haptic = useHaptic();
             const [showConfirm, setShowConfirm] = useState(false);
+            
+            // Keyboard shortcuts for dialog
+            useEffect(() => {
+                if (!showConfirm) return;
+                
+                const handleKeyDown = (e) => {
+                    if (e.key === 'Escape') {
+                        haptic.tick();
+                        setShowConfirm(false);
+                    } else if (e.key === 'Enter') {
+                        haptic.success();
+                        setShowConfirm(false);
+                        onFinish();
+                    }
+                };
+                
+                window.addEventListener('keydown', handleKeyDown);
+                return () => window.removeEventListener('keydown', handleKeyDown);
+            }, [showConfirm, onFinish, haptic]);
             
             return (
                 <>
@@ -354,19 +373,45 @@
                 localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
             };
 
-            const toggleSet = (exId, setIndex, defaultSets) => {
+            const toggleSet = (exId, setIndex, defaultSets, restTime) => {
                 haptic.tick();
                 const currentSets = logs[exId]?.sets || new Array(defaultSets).fill(false);
                 const newSets = [...currentSets];
                 while(newSets.length <= setIndex) newSets.push(false);
+                const wasCompleted = newSets[setIndex];
                 newSets[setIndex] = !newSets[setIndex];
                 saveLog(exId, 'sets', newSets);
+                
+                // Auto-start timer when completing a set (not when uncompleting)
+                if (!wasCompleted && newSets[setIndex] && restTime > 0) {
+                    setTimerSeconds(restTime);
+                    setTimerActive(true);
+                }
             };
 
             const addSet = (exId, defaultSets) => {
                 haptic.bump();
                 const currentSets = logs[exId]?.sets || new Array(defaultSets).fill(false);
                 saveLog(exId, 'sets', [...currentSets, false]);
+            };
+            
+            const copyFromPreviousSet = (exId) => {
+                haptic.bump();
+                // Look for previous workout session
+                const prevSession = localStorage.getItem(`session_w${week}d${day}_prev`);
+                if (prevSession) {
+                    const prevLogs = JSON.parse(prevSession);
+                    if (prevLogs[exId]) {
+                        if (prevLogs[exId].weight) saveLog(exId, 'weight', prevLogs[exId].weight);
+                        if (prevLogs[exId].rpe) saveLog(exId, 'rpe', prevLogs[exId].rpe);
+                    }
+                }
+            };
+            
+            const completeAllSets = (exId, defaultSets) => {
+                haptic.success();
+                const allCompleted = new Array(defaultSets).fill(true);
+                saveLog(exId, 'sets', allCompleted);
             };
 
             const handleFinish = () => {
@@ -437,6 +482,8 @@
                                         const defaultSets = ex.sets || 3;
                                         const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
                                         const currentSetArray = logs[exId]?.sets || new Array(defaultSets).fill(false);
+                                        const completedSets = currentSetArray.filter(s => s).length;
+                                        const totalSets = currentSetArray.length;
 
                                         return (
                                             <div key={eIdx} className="relative">
@@ -461,7 +508,14 @@
                                                     
                                                     <div className="flex justify-between items-start mb-6">
                                                         <div className={`flex-1 pr-4 ${ex.supersetLabel ? 'pl-8' : ''}`}>
-                                                            <h3 className="text-lg font-semibold text-white leading-snug mb-1">{ex.name}</h3>
+                                                            <div className="flex items-center gap-2 mb-1">
+                                                                <h3 className="text-lg font-semibold text-white leading-snug">{ex.name}</h3>
+                                                                {completedSets > 0 && (
+                                                                    <span className="text-xs font-bold text-sys-accent bg-sys-accent/10 px-2 py-0.5 rounded-full">
+                                                                        {completedSets}/{totalSets}
+                                                                    </span>
+                                                                )}
+                                                            </div>
                                                             <p className="text-base text-sys-onSurfaceVar font-medium">{ex.prescription}</p>
                                                             {ex.notes && <p className="text-sm text-sys-accent mt-2 leading-relaxed">{ex.notes}</p>}
                                                         </div>
@@ -480,7 +534,7 @@
                                                         {currentSetArray.map((isDone, i) => (
                                                             <button 
                                                                 key={i} 
-                                                                onClick={() => toggleSet(exId, i, defaultSets)} 
+                                                                onClick={() => toggleSet(exId, i, defaultSets, ex.rest)} 
                                                                 className={`h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold transition-all duration-200 active:scale-90 ${isDone ? 'bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
                                                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                             >
@@ -495,6 +549,20 @@
                                                             <i data-lucide="plus" width="22"></i>
                                                         </button>
                                                     </div>
+                                                    
+                                                    {/* Quick Actions Row */}
+                                                    {currentSetArray.some(s => !s) && (
+                                                        <div className="flex gap-3 mb-5">
+                                                            <button 
+                                                                onClick={() => completeAllSets(exId, defaultSets)} 
+                                                                className="flex-1 h-10 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar text-sm font-semibold flex items-center justify-center gap-2 active:bg-sys-accent/20 transition-colors"
+                                                                aria-label="Complete all sets"
+                                                            >
+                                                                <i data-lucide="check-check" width="16"></i>
+                                                                <span>Complete All</span>
+                                                            </button>
+                                                        </div>
+                                                    )}
 
                                                     {!ex.isBodyweight && (
                                                         <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">

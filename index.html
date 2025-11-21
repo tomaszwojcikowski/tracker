@@ -17,7 +17,8 @@
                         opGray: '#121212',
                         opRed: '#EB0029',
                         opText: '#E5E5E5',
-                        opSub: '#9CA3AF'
+                        opSub: '#9CA3AF',
+                        opGreen: '#10B981'
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -73,10 +74,9 @@
                 if (day === 1) {
                     workout.title = "Day 1: Pull Volume";
                     
-                    // A1. Pulling Variations (Block Dependent)
+                    // A1 Logic
                     let pullExercise = {};
                     if (week <= 4) {
-                        // Block 1: Ladders
                         const sets = week === 1 ? 4 : (week === 4 ? 3 : 5);
                         pullExercise = {
                             name: "A1. Pull-Up Ladders",
@@ -87,29 +87,26 @@
                             rest: 120
                         };
                     } else if (week <= 8) {
-                        // Block 2: EMOMs
                         const emomScheme = week === 5 ? "8 x 4" : week === 6 ? "9 x 4" : week === 7 ? "10 x 3" : "6 x 3";
                         pullExercise = {
                             name: "A1. Pull-Up EMOM",
                             prescription: `EMOM: ${emomScheme} reps`,
-                            inputs: ["sets"], // Using sets to track rounds
+                            inputs: ["sets"], 
                             sets: week === 5 ? 8 : week === 6 ? 9 : week === 7 ? 10 : 6,
                             isBodyweight: true,
-                            rest: 60 // EMOM interval
+                            rest: 60
                         };
                     } else if (week <= 12) {
-                        // Block 3: Clusters (Neutral Grip)
                         const clusterScheme = week === 9 ? "4 x (3-3-3)" : week === 10 ? "4 x (4-3-3)" : week === 11 ? "5 x (3-3-3)" : "3 x (3-3-3)";
                         pullExercise = {
                             name: "A1. Neutral Grip Clusters",
-                            prescription: `${clusterScheme} (Rest 15s between mini-sets)`,
+                            prescription: `${clusterScheme}`,
                             inputs: ["sets"],
                             sets: week === 11 ? 5 : (week === 12 ? 3 : 4),
                             isBodyweight: true,
                             rest: 180
                         };
                     } else if (week <= 16) {
-                         // Block 4: AMRAPs
                          const scheme = week === 16 ? "2 x AMRAP-4" : "3 x AMRAP-2";
                          pullExercise = {
                             name: "A1. Pull-Up AMRAPs",
@@ -120,7 +117,6 @@
                             rest: 180
                          };
                     } else {
-                        // Block 5: Taper
                         pullExercise = {
                             name: "A1. Taper Pull-Ups",
                             prescription: "3 x (AMRAP-1)",
@@ -131,7 +127,6 @@
                         };
                     }
 
-                    // Skill Work
                     const skillExercise = week <= 4 ? { name: "Crow Stand", prescription: "3 x 10-20s" } : 
                                           week <= 8 ? { name: "Tuck Planche Hold", prescription: "3 x 6-8s" } :
                                           { name: "Handstand Hold", prescription: "3 x 20s" };
@@ -181,7 +176,7 @@
                     ];
                 } 
                 
-                // --- DAY 2: RECOVERY ---
+                // --- DAY 2 ---
                 else if (day === 2) {
                     workout.title = "Day 2: Active Recovery";
                     workout.sections = [
@@ -198,17 +193,14 @@
                     ];
                 }
 
-                // --- DAY 3: LEGS & POSTERIOR ---
+                // --- DAY 3 ---
                 else if (day === 3) {
                     workout.title = "Day 3: Posterior Chain";
-                    
-                    // Goblet Squat Progression
                     let gobletPrescription = "3 x 10";
                     if (week % 4 === 2) gobletPrescription = "3 x 12 (Moderate)";
                     if (week % 4 === 3) gobletPrescription = "3 x 10 (Heavier)";
                     if (week % 4 === 0) gobletPrescription = "2 x 10 (Deload)";
 
-                    // Hamstring Accessory
                     const hamstringEx = week <= 4 ? "Weighted Glute Bridge" : "Rower Leg Curls";
 
                     workout.sections = [
@@ -217,7 +209,7 @@
                             name: "Strength",
                             exercises: [
                                 { name: "A1. RDL", prescription: "4 x 8-10", inputs: ["weight", "reps"], sets: 4, rest: 120, isBodyweight: false },
-                                { name: `B1. ${hamstringEx}`, prescription: "3 x 10-12", inputs: ["weight", "reps"], sets: 3, rest: 90, isBodyweight: week > 4 }, // Rower curls are BW
+                                { name: `B1. ${hamstringEx}`, prescription: "3 x 10-12", inputs: ["weight", "reps"], sets: 3, rest: 90, isBodyweight: week > 4 }, 
                                 { name: "B2. Goblet Squats", prescription: gobletPrescription, inputs: ["weight", "reps"], sets: isDeload ? 2 : 3, rest: 90, isBodyweight: false },
                                 { name: "C1. Face Pulls", prescription: "3 x 15-20", inputs: ["weight", "reps"], sets: 3, rest: 60, isBodyweight: false }
                             ]
@@ -225,33 +217,25 @@
                     ];
                 } 
                 
-                // --- DAY 5: INTENSITY ---
+                // --- DAY 5 ---
                 else if (day === 5) {
                     workout.title = "Day 5: Intensity";
-                    
-                    // Pull Up Progression
-                    let pullSets = 3;
-                    let pullReps = 5;
-                    let pullName = "Weighted Pull-Ups";
+                    let pullSets = 3, pullReps = 5, pullName = "Weighted Pull-Ups";
 
                     if (week <= 4) {
-                        // Block 1
                         pullSets = week === 4 ? 2 : 3;
                         pullReps = week === 4 ? 3 : 5;
                     } else if (week <= 8) {
-                        // Block 2 (Heavier)
                         if (week === 5) { pullSets = 2; pullReps = 4; }
-                        if (week === 6) { pullSets = 1; pullReps = 4; } // Heavy single set
+                        if (week === 6) { pullSets = 1; pullReps = 4; } 
                         if (week === 7) { pullSets = 3; pullReps = 3; }
                         if (week === 8) { pullSets = 2; pullReps = 3; }
                     } else if (week <= 12) {
-                        // Block 3 (Neutral)
                         pullName = "Neutral Grip Weighted Pull-Ups";
                         pullSets = week === 12 ? 2 : 2;
                         pullReps = week === 12 ? 3 : 4;
                     }
 
-                    // Core Accessory (Auto-regulated)
                     const coreEx = isDeload || week === 2 ? "Dead Bugs" : "Weighted V-Ups";
 
                     workout.sections = [
@@ -273,7 +257,6 @@
                         }
                     ];
                 } else {
-                     // Fallback
                      workout.sections = [{type: "main", name: "Recovery", exercises: []}];
                 }
                 
@@ -297,8 +280,8 @@
 
         // --- COMPONENTS ---
 
-        // 1. TIMER COMPONENT
-        const GlobalTimer = ({ initialTime, isRunning, onStop, onReset, onAdd }) => {
+        // 1. GLOBAL TIMER
+        const GlobalTimer = ({ initialTime, isRunning, onStop, onAdd }) => {
             if (!isRunning && initialTime === 0) return null;
 
             return (
@@ -342,7 +325,6 @@
         const WorkoutPlayer = ({ week, day, onComplete }) => {
             const workout = PROGRAM_DATA.getWorkout(week, day);
             const [logs, setLogs] = useState({});
-            const [prepDone, setPrepDone] = useState({ rower: false, tendon: false });
             
             // Timer State
             const [timerSeconds, setTimerSeconds] = useState(0);
@@ -352,20 +334,15 @@
                 const savedkey = `session_w${week}d${day}`;
                 const saved = localStorage.getItem(savedkey);
                 if (saved) setLogs(JSON.parse(saved));
-                // Reset logs if none exist for this specific week/day combo
-                if (!saved) setLogs({});
+                else setLogs({});
             }, [week, day]);
 
-            // Timer Tick
+            // Timer Logic
             useEffect(() => {
                 let interval = null;
                 if (timerActive && timerSeconds > 0) {
-                    interval = setInterval(() => {
-                        setTimerSeconds(s => s - 1);
-                    }, 1000);
-                } else if (timerSeconds === 0) {
-                    setTimerActive(false);
-                }
+                    interval = setInterval(() => setTimerSeconds(s => s - 1), 1000);
+                } else if (timerSeconds === 0) setTimerActive(false);
                 return () => clearInterval(interval);
             }, [timerActive, timerSeconds]);
 
@@ -374,34 +351,68 @@
                 setTimerActive(true);
             };
 
+            // Core Save Function
             const saveLog = (id, field, value) => {
-                const newLogs = { ...logs, [id]: { ...logs[id], [field]: value } };
-                setLogs(newLogs);
-                localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(newLogs));
+                const updatedLogs = { 
+                    ...logs, 
+                    [id]: { ...logs[id], [field]: value } 
+                };
+                setLogs(updatedLogs);
+                localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
             };
 
-            // Helper to toggle set completion
-            const toggleSet = (exId, setIndex, totalSets) => {
-                const currentSets = logs[exId]?.sets || new Array(totalSets).fill(false);
+            // Helper: Toggle Set
+            const toggleSet = (exId, setIndex, defaultSetCount) => {
+                // If sets exist in logs, use them. If not, create array based on current visual count.
+                const currentSets = logs[exId]?.sets || new Array(defaultSetCount).fill(false);
                 const newSets = [...currentSets];
+                // If the set index is out of bounds (e.g. newly added set), ensure we fill up to it
+                while (newSets.length <= setIndex) newSets.push(false);
+                
                 newSets[setIndex] = !newSets[setIndex];
                 saveLog(exId, 'sets', newSets);
+            };
+
+            // Helper: Add New Set
+            const addSet = (exId, defaultSetCount) => {
+                const currentSets = logs[exId]?.sets || new Array(defaultSetCount).fill(false);
+                const newSets = [...currentSets, false]; // Add new incomplete set
+                saveLog(exId, 'sets', newSets);
+            };
+
+            // Finish Workout Handler
+            const handleFinish = () => {
+                // Save completion status
+                const updatedLogs = { ...logs, completed: true, completedAt: new Date().toISOString() };
+                setLogs(updatedLogs);
+                localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
+                onComplete();
             };
 
             return (
                 <div className="flex-1 overflow-y-auto pb-32 safe-pb">
                     <div className="p-4 space-y-6">
                         
-                        {/* Prep Section */}
+                        {/* Persisted Prep Section */}
                         <div className="bg-opGray rounded-xl p-4 border border-gray-800">
                             <h3 className="text-sm font-bold text-opSub mb-3 uppercase">Pre-Flight Checks</h3>
                             <label className="flex items-center gap-3 mb-2 p-2 hover:bg-gray-900 rounded cursor-pointer">
-                                <input type="checkbox" checked={prepDone.rower} onChange={() => setPrepDone(p => ({...p, rower: !p.rower}))} className="accent-opRed w-5 h-5" />
-                                <span className={prepDone.rower ? "text-opRed line-through" : "text-white"}>Rower Protocol (5 min)</span>
+                                <input 
+                                    type="checkbox" 
+                                    checked={logs['prep_rower']?.done || false} 
+                                    onChange={(e) => saveLog('prep_rower', 'done', e.target.checked)} 
+                                    className="accent-opRed w-5 h-5" 
+                                />
+                                <span className={logs['prep_rower']?.done ? "text-opRed line-through" : "text-white"}>Rower Protocol (5 min)</span>
                             </label>
                             <label className="flex items-center gap-3 p-2 hover:bg-gray-900 rounded cursor-pointer">
-                                <input type="checkbox" checked={prepDone.tendon} onChange={() => setPrepDone(p => ({...p, tendon: !p.tendon}))} className="accent-opRed w-5 h-5" />
-                                <span className={prepDone.tendon ? "text-opRed line-through" : "text-white"}>Global Tendon Prep</span>
+                                <input 
+                                    type="checkbox" 
+                                    checked={logs['prep_tendon']?.done || false} 
+                                    onChange={(e) => saveLog('prep_tendon', 'done', e.target.checked)} 
+                                    className="accent-opRed w-5 h-5" 
+                                />
+                                <span className={logs['prep_tendon']?.done ? "text-opRed line-through" : "text-white"}>Global Tendon Prep</span>
                             </label>
                         </div>
 
@@ -414,11 +425,12 @@
                                 </div>
 
                                 {section.exercises?.map((ex, eIdx) => {
-                                    const totalSets = ex.sets || 3;
-                                    // Generate a unique ID based on name if ID is missing
+                                    const defaultSets = ex.sets || 3;
                                     const exId = ex.id || ex.name.replace(/\s+/g, '_').toLowerCase();
-                                    const completedSets = logs[exId]?.sets || [];
-                                    
+                                    // Use persisted set count if it exists (handles added sets), otherwise default
+                                    const currentSetArray = logs[exId]?.sets || new Array(defaultSets).fill(false);
+                                    const currentSetCount = currentSetArray.length;
+
                                     return (
                                         <div key={eIdx} className="bg-opGray rounded-xl p-4 border border-gray-800 shadow-lg relative overflow-hidden">
                                             {/* Exercise Header */}
@@ -440,30 +452,34 @@
 
                                             <div className="space-y-4">
                                                 {/* SET BUTTONS GRID */}
-                                                <div className={`grid gap-2 ${totalSets > 6 ? 'grid-cols-5' : 'grid-cols-4'}`}>
-                                                    {Array.from({ length: totalSets }).map((_, i) => {
-                                                        const isDone = completedSets[i];
-                                                        return (
-                                                            <button
-                                                                key={i}
-                                                                onClick={() => toggleSet(exId, i, totalSets)}
-                                                                className={`
-                                                                    h-10 rounded-lg font-bold text-sm border transition-all duration-200 flex items-center justify-center gap-1
-                                                                    ${isDone 
-                                                                        ? 'bg-opRed border-opRed text-white shadow-[0_0_15px_rgba(235,0,41,0.3)]' 
-                                                                        : 'bg-gray-900/50 border-gray-700 text-gray-500 hover:border-gray-500'}
-                                                                `}
-                                                            >
-                                                                {isDone ? <Icon name="check" size={14} /> : (i + 1)}
-                                                            </button>
-                                                        );
-                                                    })}
+                                                <div className="flex flex-wrap gap-2">
+                                                    {currentSetArray.map((isDone, i) => (
+                                                        <button
+                                                            key={i}
+                                                            onClick={() => toggleSet(exId, i, defaultSets)}
+                                                            className={`
+                                                                h-10 w-10 rounded-lg font-bold text-sm border transition-all duration-200 flex items-center justify-center
+                                                                ${isDone 
+                                                                    ? 'bg-opRed border-opRed text-white shadow-[0_0_15px_rgba(235,0,41,0.3)]' 
+                                                                    : 'bg-gray-900/50 border-gray-700 text-gray-500 hover:border-gray-500'}
+                                                            `}
+                                                        >
+                                                            {isDone ? <Icon name="check" size={14} /> : (i + 1)}
+                                                        </button>
+                                                    ))}
+                                                    
+                                                    {/* ADD SET BUTTON */}
+                                                    <button 
+                                                        onClick={() => addSet(exId, defaultSets)}
+                                                        className="h-10 w-10 rounded-lg border border-dashed border-gray-700 text-gray-500 hover:text-white hover:border-gray-500 flex items-center justify-center"
+                                                    >
+                                                        <Icon name="plus" size={16} />
+                                                    </button>
                                                 </div>
 
-                                                {/* INPUT FIELDS (Conditional) */}
+                                                {/* INPUT FIELDS (Persisted) */}
                                                 {ex.inputs && (
                                                     <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-800/50">
-                                                        {/* WEIGHT INPUT - HIDDEN IF BODYWEIGHT */}
                                                         {!ex.isBodyweight && ex.inputs.includes("weight") && (
                                                             <div className="bg-black rounded px-3 py-2 border border-gray-800">
                                                                 <label className="text-[10px] text-gray-500 uppercase font-bold block mb-1">Load (Kg)</label>
@@ -476,8 +492,6 @@
                                                                 />
                                                             </div>
                                                         )}
-
-                                                        {/* RPE INPUT */}
                                                         {ex.inputs.includes("rpe") && (
                                                             <div className="bg-black rounded px-3 py-2 border border-gray-800">
                                                                 <label className="text-[10px] text-gray-500 uppercase font-bold block mb-1">RPE (1-10)</label>
@@ -501,12 +515,11 @@
                     </div>
 
                     <div className="p-4">
-                        <button onClick={onComplete} className="w-full bg-opRed text-white font-bold py-4 rounded-xl shadow-lg hover:bg-red-700 active:scale-95 transition-all flex items-center justify-center gap-2">
+                        <button onClick={handleFinish} className="w-full bg-opRed text-white font-bold py-4 rounded-xl shadow-lg hover:bg-red-700 active:scale-95 transition-all flex items-center justify-center gap-2">
                             <Icon name="check-circle" /> FINISH WORKOUT
                         </button>
                     </div>
 
-                    {/* GLOBAL TIMER OVERLAY */}
                     <GlobalTimer 
                         initialTime={timerSeconds} 
                         isRunning={timerActive} 
@@ -520,10 +533,25 @@
         // 4. DASHBOARD COMPONENT
         const Dashboard = ({ currentWeek, setCurrentWeek, onStartWorkout }) => {
             const [progress, setProgress] = useState(0);
-            useEffect(() => setProgress((currentWeek / 20) * 100), [currentWeek]);
+            // State to force re-render when returning to dashboard to update completion statuses
+            const [updateTrigger, setUpdateTrigger] = useState(0);
+
+            useEffect(() => {
+                setProgress((currentWeek / 20) * 100);
+                setUpdateTrigger(prev => prev + 1);
+            }, [currentWeek]);
+
+            const isDayCompleted = (day) => {
+                const log = localStorage.getItem(`session_w${currentWeek}d${day}`);
+                if (!log) return false;
+                try {
+                    return JSON.parse(log).completed === true;
+                } catch (e) { return false; }
+            };
 
             return (
                 <div className="flex-1 overflow-y-auto p-4 safe-pb">
+                    {/* Status Card */}
                     <div className="bg-gradient-to-br from-opGray to-black border border-gray-800 rounded-2xl p-6 mb-6 shadow-xl relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-opRed opacity-5 blur-3xl rounded-full -mr-10 -mt-10"></div>
                         <h2 className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">Current Phase</h2>
@@ -539,21 +567,38 @@
 
                     <h3 className="text-white font-bold mb-4 flex items-center gap-2"><Icon name="calendar" size={18} /> This Week's Plan</h3>
                     <div className="grid grid-cols-2 gap-3 mb-8">
-                        {[1, 2, 3, 5].map((day) => (
-                            <button 
-                                key={day}
-                                onClick={() => onStartWorkout(day)}
-                                className="bg-opGray p-4 rounded-xl border border-gray-800 hover:border-opRed transition-all text-left group relative overflow-hidden"
-                            >
-                                <div className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity text-opRed">
-                                    <Icon name="play-circle" size={20} />
-                                </div>
-                                <span className="text-xs text-gray-500 font-bold uppercase block mb-1">Day {day}</span>
-                                <span className="text-sm font-semibold text-white leading-tight block truncate">
-                                    {PROGRAM_DATA.getWorkout(currentWeek, day).title.split('(')[0]}
-                                </span>
-                            </button>
-                        ))}
+                        {[1, 2, 3, 5].map((day) => {
+                            const completed = isDayCompleted(day);
+                            return (
+                                <button 
+                                    key={day}
+                                    onClick={() => onStartWorkout(day)}
+                                    className={`p-4 rounded-xl border transition-all text-left group relative overflow-hidden ${
+                                        completed 
+                                        ? 'bg-green-900/20 border-green-900' 
+                                        : 'bg-opGray border-gray-800 hover:border-opRed'
+                                    }`}
+                                >
+                                    {completed && (
+                                        <div className="absolute top-2 right-2 text-opGreen">
+                                            <Icon name="check-circle" size={16} />
+                                        </div>
+                                    )}
+                                    {!completed && (
+                                        <div className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity text-opRed">
+                                            <Icon name="play-circle" size={20} />
+                                        </div>
+                                    )}
+                                    
+                                    <span className={`text-xs font-bold uppercase block mb-1 ${completed ? 'text-opGreen' : 'text-gray-500'}`}>
+                                        {completed ? "COMPLETED" : `Day ${day}`}
+                                    </span>
+                                    <span className="text-sm font-semibold text-white leading-tight block truncate">
+                                        {PROGRAM_DATA.getWorkout(currentWeek, day).title.split('(')[0]}
+                                    </span>
+                                </button>
+                            );
+                        })}
                     </div>
 
                     <div className="border-t border-gray-900 pt-6">
@@ -608,7 +653,7 @@
                         <WorkoutPlayer 
                             week={currentWeek} 
                             day={activeDay} 
-                            onComplete={() => { alert("Workout Complete!"); setView("dashboard"); }} 
+                            onComplete={() => { setView("dashboard"); }} 
                         />
                     )}
                 </div>

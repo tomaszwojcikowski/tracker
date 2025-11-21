@@ -367,12 +367,28 @@ Keep responses concise, actionable, and supportive. Focus on the most important 
                     parts: [{ text: GEMINI_SYSTEM_PROMPT }]
                 }, {
                     role: 'model',
-                    parts: [{ text: 'I understand. I\'m ready to track your workouts and provide coaching feedback. Please share your workout data, and I\'ll analyze your performance and provide helpful insights.' }]
+                    parts: [{ text: `I understand. I'm ready to track your workouts and provide coaching feedback. Please share your workout data, and I'll analyze your performance and provide helpful insights.` }]
                 }];
                 localStorage.setItem(GEMINI_CHAT_HISTORY_KEY, JSON.stringify(initialHistory));
                 return initialHistory;
             }
-            return JSON.parse(history);
+            
+            // Parse with error handling for corrupted data
+            try {
+                const parsed = JSON.parse(history);
+                // Validate structure
+                if (Array.isArray(parsed) && parsed.length >= 2) {
+                    return parsed;
+                }
+                // Invalid structure, reset
+                console.warn('Invalid chat history structure, reinitializing');
+                localStorage.removeItem(GEMINI_CHAT_HISTORY_KEY);
+                return initializeGeminiChat();
+            } catch (error) {
+                console.error('Failed to parse chat history, reinitializing:', error);
+                localStorage.removeItem(GEMINI_CHAT_HISTORY_KEY);
+                return initializeGeminiChat();
+            }
         };
 
         const sendWorkoutToGemini = async (week, day, workout, logs) => {
@@ -417,8 +433,14 @@ Keep responses concise, actionable, and supportive. Focus on the most important 
                 const data = await response.json();
                 console.log('Successfully sent workout to Gemini:', data);
                 
-                // Extract model response and add to history
-                if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                // Extract model response and add to history with validation
+                if (data.candidates && 
+                    data.candidates[0] && 
+                    data.candidates[0].content && 
+                    data.candidates[0].content.parts &&
+                    Array.isArray(data.candidates[0].content.parts) &&
+                    data.candidates[0].content.parts.length > 0) {
+                    
                     const modelResponse = {
                         role: 'model',
                         parts: data.candidates[0].content.parts
@@ -427,6 +449,8 @@ Keep responses concise, actionable, and supportive. Focus on the most important 
                     // Update chat history with both user message and model response
                     const updatedHistory = [...chatHistory, newUserMessage, modelResponse];
                     localStorage.setItem(GEMINI_CHAT_HISTORY_KEY, JSON.stringify(updatedHistory));
+                } else {
+                    console.warn('Unexpected API response structure, history not updated:', data);
                 }
                 
                 return { success: true, data };

@@ -570,8 +570,26 @@
 
         // Load schedule data from JSON file
         fetch('full-schedule.json')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
+                // Validate data structure
+                if (!Array.isArray(data) || data.length === 0) {
+                    throw new Error('Invalid schedule data: expected non-empty array');
+                }
+                
+                // Basic validation of first item
+                const firstItem = data[0];
+                const requiredKeys = ['w', 'd', 'ex', 's', 'r', 'n'];
+                const hasRequiredKeys = requiredKeys.every(key => key in firstItem);
+                if (!hasRequiredKeys) {
+                    throw new Error('Invalid schedule data: missing required properties');
+                }
+                
                 // Assign the loaded data to RAW_SCHEDULE
                 RAW_SCHEDULE = data;
                 // Re-render with the actual app now that data is loaded

@@ -416,6 +416,7 @@ Keep responses concise, actionable, and supportive. Focus on the most important 
             
             try {
                 // Note: Using gemini-1.5-flash model (gemini-pro is deprecated)
+                // API key must be in URL - Google Gemini API does not support Authorization headers
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                     method: 'POST',
                     headers: {
@@ -1127,7 +1128,8 @@ Keep responses concise, actionable, and supportive. Focus on the most important 
             const apiKey = localStorage.getItem('gemini_api_key');
             
             // Filter out system prompt messages (first user/model exchange)
-            const displayHistory = chatHistory.slice(2); // Skip system prompt and initial response
+            const SYSTEM_PROMPT_MESSAGES_COUNT = 2; // System prompt + initial AI acknowledgment
+            const displayHistory = chatHistory.slice(SYSTEM_PROMPT_MESSAGES_COUNT);
             
             return (
                 <div className="px-5 pb-32 pt-6">

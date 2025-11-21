@@ -593,9 +593,39 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 setLogs(updatedLogs);
                 localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
                 
+                // Build exercise summary with completed/incomplete sets
+                const exerciseSummary = [];
+                workout.sections.forEach(section => {
+                    section.exercises.forEach(ex => {
+                        const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                        const exLog = updatedLogs[exId] || {};
+                        const sets = exLog.sets || [];
+                        const completedSets = sets.filter(s => s).length;
+                        const totalSets = sets.length || ex.sets || 0;
+                        
+                        exerciseSummary.push({
+                            name: ex.name,
+                            prescription: ex.prescription,
+                            completedSets,
+                            totalSets,
+                            weight: exLog.weight || null
+                        });
+                    });
+                });
+                
+                // Create history entry with exercise summary
+                const historyEntry = { 
+                    week, 
+                    day, 
+                    date: new Date().toISOString(), 
+                    title: workout.title,
+                    exercises: exerciseSummary,
+                    aiFeedback: null // Will be updated if Gemini sync succeeds
+                };
+                
                 const history = JSON.parse(localStorage.getItem('global_history') || '[]');
                 const cleanHistory = history.filter(h => !(h.week === week && h.day === day));
-                cleanHistory.push({ week, day, date: new Date().toISOString(), title: workout.title });
+                cleanHistory.push(historyEntry);
                 localStorage.setItem('global_history', JSON.stringify(cleanHistory));
                 
                 // Send workout to Gemini (only if API key is configured)
@@ -606,6 +636,19 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     sendWorkoutToGemini(week, day, workout, updatedLogs)
                         .then(result => {
                             if (result.success) {
+                                // Extract AI feedback from response
+                                const aiFeedback = result.data?.candidates?.[0]?.content?.parts?.[0]?.text || null;
+                                
+                                // Update the history entry with AI feedback
+                                if (aiFeedback) {
+                                    const updatedHistory = JSON.parse(localStorage.getItem('global_history') || '[]');
+                                    const entryIndex = updatedHistory.findIndex(h => h.week === week && h.day === day && h.date === historyEntry.date);
+                                    if (entryIndex !== -1) {
+                                        updatedHistory[entryIndex].aiFeedback = aiFeedback;
+                                        localStorage.setItem('global_history', JSON.stringify(updatedHistory));
+                                    }
+                                }
+                                
                                 setGeminiSyncStatus('success');
                                 setTimeout(() => setGeminiSyncStatus(null), 3000);
                             } else {
@@ -872,7 +915,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     
                     {/* Gemini Sync Status Toast */}
                     {geminiSyncStatus && (
-                        <div className="fixed top-20 left-0 right-0 z-50 flex justify-center px-4 animate-slide-up">
+                        <div className="fixed top-24 left-0 right-0 z-50 flex justify-center px-4 safe-pt">
                             <div className={`px-6 py-4 rounded-2xl shadow-lg max-w-md w-full ${
                                 geminiSyncStatus === 'syncing' ? 'bg-sys-accent' :
                                 geminiSyncStatus === 'success' ? 'bg-sys-success' :
@@ -1016,6 +1059,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         const HistoryView = () => {
             const [history, setHistory] = useState([]);
             const [isRefreshing, setIsRefreshing] = useState(false);
+            const [expandedEntries, setExpandedEntries] = useState({});
+            const haptic = useHaptic();
             
             const loadHistory = () => {
                 const h = JSON.parse(localStorage.getItem('global_history') || '[]');
@@ -1035,6 +1080,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     loadHistory();
                     setIsRefreshing(false);
                 }, 500);
+            };
+            
+            const toggleExpanded = (idx) => {
+                haptic.tick();
+                setExpandedEntries(prev => ({ ...prev, [idx]: !prev[idx] }));
+                // Re-initialize Lucide icons after state update
+                setTimeout(() => lucide.createIcons(), 100);
             };
 
             return (
@@ -1059,20 +1111,90 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         </div>
                     ) : (
                         <div className="space-y-4">
-                            {history.map((entry, idx) => (
-                                <div key={idx} className="bg-sys-surface border border-white/5 rounded-3xl p-5 flex items-center gap-5">
-                                    <div className="h-14 w-14 min-w-[56px] rounded-2xl bg-sys-accent/10 border border-sys-accent/20 flex items-center justify-center">
-                                        <span className="text-sm font-bold text-sys-accent">W{entry.week}</span>
+                            {history.map((entry, idx) => {
+                                const isExpanded = expandedEntries[idx];
+                                const hasExercises = entry.exercises && entry.exercises.length > 0;
+                                const hasAIFeedback = entry.aiFeedback;
+                                
+                                return (
+                                    <div key={idx} className="bg-sys-surface border border-white/5 rounded-3xl overflow-hidden">
+                                        <button
+                                            onClick={() => toggleExpanded(idx)}
+                                            className="w-full p-5 flex items-center gap-5 active:bg-sys-surfaceHigh transition-colors"
+                                        >
+                                            <div className="h-14 w-14 min-w-[56px] rounded-2xl bg-sys-accent/10 border border-sys-accent/20 flex items-center justify-center">
+                                                <span className="text-sm font-bold text-sys-accent">W{entry.week}</span>
+                                            </div>
+                                            <div className="flex-1 min-w-0 text-left">
+                                                <h3 className="text-base font-bold text-white mb-1 truncate">Day {entry.day} Complete</h3>
+                                                <p className="text-sm text-sys-onSurfaceVar">{new Date(entry.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</p>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                {hasAIFeedback && (
+                                                    <div className="h-8 w-8 rounded-full bg-sys-accent/20 flex items-center justify-center">
+                                                        <i data-lucide="brain" width="16" className="text-sys-accent"></i>
+                                                    </div>
+                                                )}
+                                                <div className="h-10 w-10 rounded-full bg-sys-success/20 flex items-center justify-center flex-shrink-0">
+                                                    <i data-lucide={isExpanded ? "chevron-up" : "chevron-down"} width="20" className="text-sys-success"></i>
+                                                </div>
+                                            </div>
+                                        </button>
+                                        
+                                        {isExpanded && (
+                                            <div className="px-5 pb-5">
+                                                {/* Exercise Details */}
+                                                {hasExercises && (
+                                                    <div className="mb-4">
+                                                        <h4 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-3">Exercises</h4>
+                                                        <div className="space-y-2">
+                                                            {entry.exercises.map((ex, exIdx) => (
+                                                                <div key={exIdx} className="bg-sys-surfaceHigh rounded-xl p-3">
+                                                                    <div className="flex items-start justify-between gap-2 mb-1">
+                                                                        <div className="flex-1 min-w-0">
+                                                                            <h5 className="text-sm font-semibold text-white truncate">{ex.name}</h5>
+                                                                            <p className="text-xs text-sys-onSurfaceVar">{ex.prescription}</p>
+                                                                        </div>
+                                                                        <div className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold ${
+                                                                            ex.completedSets === ex.totalSets 
+                                                                                ? 'bg-sys-success/20 text-sys-success' 
+                                                                                : 'bg-sys-accent/10 text-sys-accent'
+                                                                        }`}>
+                                                                            <span>{ex.completedSets}/{ex.totalSets}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    {ex.weight && (
+                                                                        <p className="text-xs text-sys-onSurfaceVar mt-1">
+                                                                            Weight: {ex.weight} kg
+                                                                        </p>
+                                                                    )}
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                
+                                                {/* AI Feedback */}
+                                                {hasAIFeedback && (
+                                                    <div className="bg-sys-surfaceHigh rounded-xl p-4 border border-sys-accent/20">
+                                                        <div className="flex items-center gap-2 mb-3">
+                                                            <i data-lucide="brain" width="16" className="text-sys-accent"></i>
+                                                            <h4 className="text-xs font-bold text-sys-accent uppercase tracking-wider">AI Coach Feedback</h4>
+                                                        </div>
+                                                        <div className="text-sm text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: markdownToHtml(entry.aiFeedback) }}></div>
+                                                    </div>
+                                                )}
+                                                
+                                                {!hasExercises && !hasAIFeedback && (
+                                                    <p className="text-sm text-sys-onSurfaceVar text-center py-4">
+                                                        No detailed information available
+                                                    </p>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
-                                    <div className="flex-1 min-w-0">
-                                        <h3 className="text-base font-bold text-white mb-1 truncate">Day {entry.day} Complete</h3>
-                                        <p className="text-sm text-sys-onSurfaceVar">{new Date(entry.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</p>
-                                    </div>
-                                    <div className="h-10 w-10 rounded-full bg-sys-success/20 flex items-center justify-center flex-shrink-0">
-                                        <i data-lucide="check" width="20" className="text-sys-success"></i>
-                                    </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     )}
                 </div>
@@ -1159,14 +1281,15 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         };
 
         const CoachView = () => {
-            const [chatHistory, setChatHistory] = useState([]);
+            const [workoutHistory, setWorkoutHistory] = useState([]);
             const [isLoading, setIsLoading] = useState(true);
-            const [expandedMessages, setExpandedMessages] = useState({});
             const haptic = useHaptic();
             
-            const loadChatHistory = () => {
-                const history = initializeGeminiChat();
-                setChatHistory(history);
+            const loadWorkoutHistory = () => {
+                const history = JSON.parse(localStorage.getItem('global_history') || '[]');
+                // Filter only entries with AI feedback and sort by date
+                const withFeedback = history.filter(h => h.aiFeedback).sort((a, b) => new Date(b.date) - new Date(a.date));
+                setWorkoutHistory(withFeedback);
                 setIsLoading(false);
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => lucide.createIcons());
@@ -1174,35 +1297,25 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             };
             
             useEffect(() => {
-                loadChatHistory();
+                loadWorkoutHistory();
             }, []);
             
-            const handleClearHistory = () => {
-                haptic.bump();
-                localStorage.removeItem(GEMINI_CHAT_HISTORY_KEY);
-                loadChatHistory();
-            };
-            
             const apiKey = localStorage.getItem('gemini_api_key');
-            
-            // Filter out system prompt messages (first user/model exchange)
-            const SYSTEM_PROMPT_MESSAGES_COUNT = 2; // System prompt + initial AI acknowledgment
-            const displayHistory = chatHistory.slice(SYSTEM_PROMPT_MESSAGES_COUNT);
             
             return (
                 <div className="px-5 pb-32 pt-6">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-2xl font-bold text-white">AI Coach</h2>
-                        {displayHistory.length > 0 && (
-                            <button 
-                                onClick={handleClearHistory}
-                                className="h-10 px-4 rounded-xl bg-sys-surfaceHigh text-white text-sm font-medium flex items-center gap-2 active:scale-95 transition-all"
-                                aria-label="Clear conversation"
-                            >
-                                <i data-lucide="trash-2" width="16"></i>
-                                <span>Clear</span>
-                            </button>
-                        )}
+                        <button 
+                            onClick={() => {
+                                haptic.bump();
+                                loadWorkoutHistory();
+                            }}
+                            className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
+                            aria-label="Refresh feedback"
+                        >
+                            <i data-lucide="refresh-cw" width="18"></i>
+                        </button>
                     </div>
                     
                     {!apiKey ? (
@@ -1215,92 +1328,45 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 Configure your Gemini API key in Settings to start receiving AI coaching feedback
                             </p>
                         </div>
-                    ) : displayHistory.length === 0 ? (
+                    ) : workoutHistory.length === 0 ? (
                         <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
                             <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
                                 <i data-lucide="message-circle" width="40" className="text-sys-onSurfaceVar"></i>
                             </div>
-                            <h3 className="text-lg font-semibold text-white mb-2">No Conversations Yet</h3>
+                            <h3 className="text-lg font-semibold text-white mb-2">No AI Feedback Yet</h3>
                             <p className="text-sm text-sys-onSurfaceVar text-center max-w-[280px]">
-                                Complete a workout to receive AI coaching feedback and insights
+                                Complete a workout with AI sync enabled to receive personalized coaching feedback
                             </p>
                         </div>
                     ) : (
-                        <div className="space-y-4">
-                            {displayHistory.map((message, idx) => {
-                                const isUser = message.role === 'user';
-                                const text = message.parts?.[0]?.text || '';
-                                
-                                // For user messages, extract the workout summary title
-                                const isWorkoutSummary = isUser && text.includes('# Workout Completed');
-                                let displayText = text;
-                                let workoutTitle = '';
-                                
-                                if (isWorkoutSummary) {
-                                    const lines = text.split('\n');
-                                    const dateLine = lines.find(l => l.startsWith('Date:') || l.startsWith('**Date:**'));
-                                    const weekLine = lines.find(l => l.startsWith('Week:') || l.startsWith('**Week:**'));
-                                    const titleLine = lines.find(l => l.startsWith('Title:') || l.startsWith('**Title:**'));
-                                    
-                                    if (dateLine && weekLine) {
-                                        const titleText = titleLine?.replace(/^\*\*Title:\*\*|^Title:/, '').trim() || 'Workout';
-                                        const weekText = weekLine.replace(/^\*\*Week:\*\*|^Week:/, '').trim();
-                                        workoutTitle = `${titleText} - ${weekText}`;
-                                        workoutTitle = workoutTitle.replace(/\s+/g, ' ');
-                                    }
-                                }
-                                
-                                return (
-                                    <div key={idx} className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
-                                        <div className={`max-w-[85%] rounded-3xl p-5 ${
-                                            isUser 
-                                                ? 'bg-sys-accent/10 border border-sys-accent/30' 
-                                                : 'bg-sys-surface border border-white/5'
-                                        }`}>
-                                            {isUser ? (
-                                                <>
-                                                    <div className="flex items-center gap-2 mb-2">
-                                                        <i data-lucide="user" width="16" className="text-sys-accent"></i>
-                                                        <span className="text-xs font-bold text-sys-accent uppercase tracking-wide">You</span>
-                                                    </div>
-                                                    <p className="text-sm text-white font-medium">{workoutTitle || 'Workout Summary'}</p>
-                                                    <p className="text-xs text-sys-onSurfaceVar mt-1">Workout data sent to AI</p>
-                                                    {isWorkoutSummary && (
-                                                        <>
-                                                            <button
-                                                                onClick={() => {
-                                                                    haptic.bump();
-                                                                    setExpandedMessages(prev => ({
-                                                                        ...prev,
-                                                                        [idx]: !prev[idx]
-                                                                    }));
-                                                                }}
-                                                                className="mt-2 text-xs text-sys-accent hover:text-sys-accent/80 flex items-center gap-1"
-                                                            >
-                                                                <i data-lucide={expandedMessages[idx] ? "chevron-up" : "chevron-down"} width="14"></i>
-                                                                <span>{expandedMessages[idx] ? 'Hide' : 'Show'} details</span>
-                                                            </button>
-                                                            {expandedMessages[idx] && (
-                                                                <div className="mt-3 pt-3 border-t border-sys-accent/20 text-xs text-sys-onSurfaceVar whitespace-pre-wrap font-mono">
-                                                                    {displayText}
-                                                                </div>
-                                                            )}
-                                                        </>
-                                                    )}
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <div className="flex items-center gap-2 mb-3">
-                                                        <i data-lucide="brain" width="16" className="text-sys-success"></i>
-                                                        <span className="text-xs font-bold text-sys-success uppercase tracking-wide">AI Coach</span>
-                                                    </div>
-                                                    <div className="text-sm text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: markdownToHtml(displayText) }}></div>
-                                                </>
-                                            )}
+                        <div className="space-y-6">
+                            {workoutHistory.map((entry, idx) => (
+                                <div key={idx} className="bg-sys-surface border border-white/5 rounded-3xl overflow-hidden">
+                                    {/* Workout Header */}
+                                    <div className="p-5 border-b border-white/5">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <div className="h-10 w-10 rounded-xl bg-sys-accent/10 border border-sys-accent/20 flex items-center justify-center">
+                                                <span className="text-xs font-bold text-sys-accent">W{entry.week}</span>
+                                            </div>
+                                            <div className="flex-1">
+                                                <h3 className="text-base font-bold text-white">Day {entry.day} - {entry.title}</h3>
+                                                <p className="text-xs text-sys-onSurfaceVar">
+                                                    {new Date(entry.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                );
-                            })}
+                                    
+                                    {/* AI Feedback */}
+                                    <div className="p-5">
+                                        <div className="flex items-center gap-2 mb-3">
+                                            <i data-lucide="brain" width="16" className="text-sys-success"></i>
+                                            <h4 className="text-xs font-bold text-sys-success uppercase tracking-wide">AI Coach Feedback</h4>
+                                        </div>
+                                        <div className="text-sm text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: markdownToHtml(entry.aiFeedback) }}></div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     )}
                     
@@ -1313,7 +1379,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 <h4 className="text-sm font-bold text-white mb-1">How it works</h4>
                                 <p className="text-xs text-sys-onSurfaceVar leading-relaxed">
                                     After each workout, your progress is automatically sent to Gemini AI for analysis. 
-                                    The AI maintains context across all sessions to provide personalized coaching insights.
+                                    The AI feedback is saved with each workout in your history for easy reference.
                                 </p>
                             </div>
                         </div>
@@ -1404,16 +1470,16 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     </div>
                     
                     <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
-                        <h3 className="text-base font-bold text-white mb-3">Chat History</h3>
+                        <h3 className="text-base font-bold text-white mb-3">Gemini Context</h3>
                         <p className="text-sm text-sys-onSurfaceVar leading-relaxed mb-4">
-                            Gemini maintains a continuous conversation about your training progress. Clear the history to start fresh.
+                            Gemini maintains context across all your workouts to provide better feedback. Clear the context to start fresh.
                         </p>
                         <button 
                             onClick={handleClearChatHistory}
                             className="w-full h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform border border-white/5"
                         >
                             <i data-lucide="trash-2" width="18"></i>
-                            <span>Clear Chat History</span>
+                            <span>Clear Gemini Context</span>
                         </button>
                         {chatHistoryMessage && (
                             <div className="mt-4 p-3 rounded-xl bg-sys-accent/10 border border-sys-accent/30 text-sys-accent text-sm text-center">
@@ -1425,7 +1491,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     <div className="bg-sys-surface rounded-3xl border border-white/5 p-6">
                         <h3 className="text-base font-bold text-white mb-3">About Gemini Integration</h3>
                         <p className="text-sm text-sys-onSurfaceVar leading-relaxed mb-3">
-                            When you finish a workout, the app automatically sends a summary to Google's Gemini AI for analysis. Gemini maintains context across all your workouts in a continuous chat conversation. Each submission includes:
+                            When you finish a workout, the app automatically sends a summary to Google's Gemini AI for analysis. The AI feedback is saved with each workout in your history. Each submission includes:
                         </p>
                         <ul className="text-sm text-sys-onSurfaceVar space-y-2 ml-4 mb-3">
                             <li className="flex items-start gap-2">
@@ -1434,7 +1500,11 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </li>
                             <li className="flex items-start gap-2">
                                 <span className="text-sys-accent">•</span>
-                                <span>Completed exercises with sets, reps, and weights</span>
+                                <span>List of completed and incomplete sets per exercise</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <span className="text-sys-accent">•</span>
+                                <span>Weights used for each exercise</span>
                             </li>
                             <li className="flex items-start gap-2">
                                 <span className="text-sys-accent">•</span>
@@ -1442,7 +1512,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </li>
                         </ul>
                         <p className="text-xs text-sys-onSurfaceVar leading-relaxed">
-                            Note: Gemini remembers your previous workouts and provides personalized coaching based on your training history. The API response is logged to the browser console for your review.
+                            Note: Gemini maintains context across workouts to provide personalized coaching. You can view all AI feedback in the History tab or Coach tab.
                         </p>
                     </div>
                 </div>

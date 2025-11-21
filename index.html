@@ -125,7 +125,7 @@
                 tick: () => trigger([10]), // Light tap for checks
                 bump: () => trigger([30]), // Medium bump for buttons
                 success: () => trigger([50, 50, 50]), // Double pulse for completion
-                timer: () => trigger([200]) // Long buzz for timer
+                timer: () => trigger([200, 100, 200]) // Triple buzz for timer completion
             };
         };
 
@@ -227,6 +227,25 @@
         const ActionBar = ({ onFinish, timerState, setTimerActive, setTimerSeconds }) => {
             const haptic = useHaptic();
             const [showConfirm, setShowConfirm] = useState(false);
+            
+            // Keyboard shortcuts for dialog
+            useEffect(() => {
+                if (!showConfirm) return;
+                
+                const handleKeyDown = (e) => {
+                    if (e.key === 'Escape') {
+                        haptic.tick();
+                        setShowConfirm(false);
+                    } else if (e.key === 'Enter') {
+                        haptic.success();
+                        setShowConfirm(false);
+                        onFinish();
+                    }
+                };
+                
+                window.addEventListener('keydown', handleKeyDown);
+                return () => window.removeEventListener('keydown', handleKeyDown);
+            }, [showConfirm, onFinish, haptic]);
             
             return (
                 <>
@@ -333,6 +352,8 @@
             const [logs, setLogs] = useState({});
             const [timerSeconds, setTimerSeconds] = useState(0);
             const [timerActive, setTimerActive] = useState(false);
+            const [collapsedExercises, setCollapsedExercises] = useState({});
+            const [showTimerToast, setShowTimerToast] = useState(false);
             const haptic = useHaptic();
 
             useEffect(() => {
@@ -344,9 +365,14 @@
             useEffect(() => {
                 let interval = null;
                 if (timerActive && timerSeconds > 0) interval = setInterval(() => setTimerSeconds(s => s - 1), 1000);
-                else if (timerSeconds === 0 && timerActive) { setTimerActive(false); haptic.timer(); }
+                else if (timerSeconds === 0 && timerActive) { 
+                    setTimerActive(false); 
+                    haptic.timer();
+                    setShowTimerToast(true);
+                    setTimeout(() => setShowTimerToast(false), 3000);
+                }
                 return () => clearInterval(interval);
-            }, [timerActive, timerSeconds]);
+            }, [timerActive, timerSeconds, haptic]);
 
             const saveLog = (id, field, value) => {
                 const updatedLogs = { ...logs, [id]: { ...logs[id], [field]: value } };
@@ -354,19 +380,60 @@
                 localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
             };
 
-            const toggleSet = (exId, setIndex, defaultSets) => {
+            const toggleSet = (exId, setIndex, defaultSets, restTime) => {
                 haptic.tick();
                 const currentSets = logs[exId]?.sets || new Array(defaultSets).fill(false);
                 const newSets = [...currentSets];
                 while(newSets.length <= setIndex) newSets.push(false);
+                const wasCompleted = newSets[setIndex];
                 newSets[setIndex] = !newSets[setIndex];
                 saveLog(exId, 'sets', newSets);
+                
+                // Auto-start timer when completing a set (not when uncompleting)
+                if (!wasCompleted && newSets[setIndex] && restTime > 0) {
+                    setTimerSeconds(restTime);
+                    setTimerActive(true);
+                }
             };
 
             const addSet = (exId, defaultSets) => {
                 haptic.bump();
                 const currentSets = logs[exId]?.sets || new Array(defaultSets).fill(false);
                 saveLog(exId, 'sets', [...currentSets, false]);
+            };
+            
+            const completeAllSets = (exId, defaultSets) => {
+                haptic.success();
+                const allCompleted = new Array(defaultSets).fill(true);
+                saveLog(exId, 'sets', allCompleted);
+            };
+            
+            const toggleExerciseCollapse = (exId) => {
+                setCollapsedExercises(prev => ({ ...prev, [exId]: !prev[exId] }));
+            };
+            
+            const scrollToNextIncompleteExercise = () => {
+                haptic.bump();
+                // Find first exercise with incomplete sets
+                const allExercises = [];
+                workout.sections.forEach(section => {
+                    section.exercises.forEach(ex => {
+                        const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                        const sets = logs[exId]?.sets || [];
+                        const allComplete = sets.length > 0 && sets.every(s => s);
+                        if (!allComplete) {
+                            allExercises.push(exId);
+                        }
+                    });
+                });
+                
+                if (allExercises.length > 0) {
+                    const nextExId = allExercises[0];
+                    const element = document.getElementById(nextExId);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
             };
 
             const handleFinish = () => {
@@ -382,8 +449,30 @@
                 onComplete();
             };
 
+            // Check if there are any incomplete exercises
+            const hasIncompleteExercises = workout.sections.some(section => 
+                section.exercises.some(ex => {
+                    const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                    const sets = logs[exId]?.sets || [];
+                    return sets.length === 0 || !sets.every(s => s);
+                })
+            );
+
             return (
                 <div className="px-5 pb-32 pt-6">
+                    {/* Quick navigation button */}
+                    {hasIncompleteExercises && (
+                        <div className="mb-6">
+                            <button 
+                                onClick={scrollToNextIncompleteExercise}
+                                className="w-full h-12 px-6 rounded-xl bg-sys-accent/10 border border-sys-accent/30 text-sys-accent font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+                            >
+                                <i data-lucide="arrow-down-circle" width="20"></i>
+                                <span>Jump to Next Exercise</span>
+                            </button>
+                        </div>
+                    )}
+                    
                     {workout.sections.map((section, sIdx) => {
                         // Helper function to check if exercise is EMOM
                         const isEMOM = (ex) => ex && ex.notes && ex.notes.toLowerCase().includes('emom');
@@ -437,9 +526,11 @@
                                         const defaultSets = ex.sets || 3;
                                         const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
                                         const currentSetArray = logs[exId]?.sets || new Array(defaultSets).fill(false);
+                                        const completedSets = currentSetArray.filter(s => s).length;
+                                        const totalSets = currentSetArray.length;
 
                                         return (
-                                            <div key={eIdx} className="relative">
+                                            <div key={eIdx} id={exId} className="relative scroll-mt-20">
                                                 {/* Superset connecting line */}
                                                 {ex.supersetPosition && ex.supersetPosition !== 'single' && (
                                                     <div className="absolute left-4 top-0 w-[3px] bg-gradient-to-b from-sys-accent/40 to-sys-accent/20 rounded-full z-0"
@@ -460,12 +551,32 @@
                                                     )}
                                                     
                                                     <div className="flex justify-between items-start mb-6">
-                                                        <div className={`flex-1 pr-4 ${ex.supersetLabel ? 'pl-8' : ''}`}>
-                                                            <h3 className="text-lg font-semibold text-white leading-snug mb-1">{ex.name}</h3>
-                                                            <p className="text-base text-sys-onSurfaceVar font-medium">{ex.prescription}</p>
-                                                            {ex.notes && <p className="text-sm text-sys-accent mt-2 leading-relaxed">{ex.notes}</p>}
+                                                        <div className={`flex-1 pr-2 ${ex.supersetLabel ? 'pl-8' : ''}`}>
+                                                            <div className="flex items-center gap-2 mb-1">
+                                                                <h3 className="text-lg font-semibold text-white leading-snug">{ex.name}</h3>
+                                                                {completedSets > 0 && (
+                                                                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${completedSets === totalSets ? 'bg-sys-success/20 text-sys-success' : 'bg-sys-accent/10 text-sys-accent'}`}>
+                                                                        {completedSets}/{totalSets}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                            {!collapsedExercises[exId] && (
+                                                                <>
+                                                                    <p className="text-base text-sys-onSurfaceVar font-medium">{ex.prescription}</p>
+                                                                    {ex.notes && <p className="text-sm text-sys-accent mt-2 leading-relaxed">{ex.notes}</p>}
+                                                                </>
+                                                            )}
                                                         </div>
-                                                        {ex.rest > 0 && (
+                                                        {completedSets === totalSets && (
+                                                            <button 
+                                                                onClick={() => toggleExerciseCollapse(exId)}
+                                                                className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
+                                                                aria-label={collapsedExercises[exId] ? "Expand exercise" : "Collapse exercise"}
+                                                            >
+                                                                <i data-lucide={collapsedExercises[exId] ? "chevron-down" : "chevron-up"} width="20"></i>
+                                                            </button>
+                                                        )}
+                                                        {ex.rest > 0 && !collapsedExercises[exId] && (
                                                             <button 
                                                                 onClick={() => { haptic.bump(); setTimerSeconds(ex.rest); setTimerActive(true); }} 
                                                                 className="h-12 min-h-[48px] px-4 rounded-xl bg-sys-surfaceHigh text-white text-sm font-bold flex items-center gap-2 active:bg-sys-onSurfaceVar transition-colors flex-shrink-0"
@@ -476,11 +587,13 @@
                                                         )}
                                                     </div>
                                                     
+                                                    {!collapsedExercises[exId] && (
+                                                    <>
                                                     <div className="flex flex-wrap gap-4 mb-5">
                                                         {currentSetArray.map((isDone, i) => (
                                                             <button 
                                                                 key={i} 
-                                                                onClick={() => toggleSet(exId, i, defaultSets)} 
+                                                                onClick={() => toggleSet(exId, i, defaultSets, ex.rest)} 
                                                                 className={`h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold transition-all duration-200 active:scale-90 ${isDone ? 'bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
                                                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                             >
@@ -495,21 +608,59 @@
                                                             <i data-lucide="plus" width="22"></i>
                                                         </button>
                                                     </div>
+                                                    
+                                                    {/* Quick Actions Row */}
+                                                    {currentSetArray.some(s => !s) && (
+                                                        <div className="flex gap-3 mb-5">
+                                                            <button 
+                                                                onClick={() => completeAllSets(exId, defaultSets)} 
+                                                                className="flex-1 h-10 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar text-sm font-semibold flex items-center justify-center gap-2 active:bg-sys-accent/20 transition-colors"
+                                                                aria-label="Complete all sets"
+                                                            >
+                                                                <i data-lucide="check-check" width="16"></i>
+                                                                <span>Complete All</span>
+                                                            </button>
+                                                        </div>
+                                                    )}
 
                                                     {!ex.isBodyweight && (
                                                         <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
                                                             <div>
                                                                 <label htmlFor={`${exId}-weight`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Load (kg)</label>
-                                                                <input 
-                                                                    id={`${exId}-weight`}
-                                                                    type="number" 
-                                                                    inputMode="decimal"
-                                                                    className="bg-sys-surfaceHigh rounded-xl w-full h-14 px-4 text-white font-mono text-lg outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
-                                                                    value={logs[exId]?.weight || ''} 
-                                                                    onChange={(e) => saveLog(exId, 'weight', e.target.value)} 
-                                                                    placeholder="0"
-                                                                    aria-label="Weight in kilograms"
-                                                                />
+                                                                <div className="relative flex items-center gap-2">
+                                                                    <button 
+                                                                        onClick={() => {
+                                                                            haptic.tick();
+                                                                            const current = parseFloat(logs[exId]?.weight || '0');
+                                                                            saveLog(exId, 'weight', Math.max(0, current - 2.5).toString());
+                                                                        }}
+                                                                        className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
+                                                                        aria-label="Decrease weight by 2.5kg"
+                                                                    >
+                                                                        <i data-lucide="minus" width="18"></i>
+                                                                    </button>
+                                                                    <input 
+                                                                        id={`${exId}-weight`}
+                                                                        type="number" 
+                                                                        inputMode="decimal"
+                                                                        className="bg-sys-surfaceHigh rounded-xl flex-1 h-14 px-4 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
+                                                                        value={logs[exId]?.weight || ''} 
+                                                                        onChange={(e) => saveLog(exId, 'weight', e.target.value)} 
+                                                                        placeholder="0"
+                                                                        aria-label="Weight in kilograms"
+                                                                    />
+                                                                    <button 
+                                                                        onClick={() => {
+                                                                            haptic.tick();
+                                                                            const current = parseFloat(logs[exId]?.weight || '0');
+                                                                            saveLog(exId, 'weight', (current + 2.5).toString());
+                                                                        }}
+                                                                        className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
+                                                                        aria-label="Increase weight by 2.5kg"
+                                                                    >
+                                                                        <i data-lucide="plus" width="18"></i>
+                                                                    </button>
+                                                                </div>
                                                             </div>
                                                             <div>
                                                                 <label htmlFor={`${exId}-rpe`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">RPE (1-10)</label>
@@ -537,6 +688,8 @@
                                                             </div>
                                                         </div>
                                                     )}
+                                                    </>
+                                                    )}
                                                 </div>
                                             </div>
                                         );
@@ -546,6 +699,16 @@
                         );
                     })}
                     <ActionBar onFinish={handleFinish} timerState={{time: timerSeconds}} setTimerActive={setTimerActive} setTimerSeconds={setTimerSeconds} />
+                    
+                    {/* Timer Completion Toast */}
+                    {showTimerToast && (
+                        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 animate-slide-up">
+                            <div className="bg-sys-accent px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3">
+                                <i data-lucide="check-circle-2" width="24" className="text-white"></i>
+                                <span className="text-white font-bold text-base">Rest Complete!</span>
+                            </div>
+                        </div>
+                    )}
                 </div>
             );
         };

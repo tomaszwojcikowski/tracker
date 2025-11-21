@@ -332,72 +332,131 @@
 
             return (
                 <div className="px-4 pb-40 pt-4">
-                    {workout.sections.map((section, sIdx) => (
-                        <div key={sIdx} className="mb-8">
-                            <div className="flex items-center gap-3 mb-3">
-                                <span className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider">{section.name}</span>
-                                <div className="h-[1px] flex-1 bg-white/10"></div>
-                            </div>
+                    {workout.sections.map((section, sIdx) => {
+                        // Detect superset groups (consecutive EMOM exercises)
+                        const exercisesWithSuperset = section.exercises.map((ex, idx) => {
+                            const isEMOM = ex.notes && ex.notes.toLowerCase().includes('emom');
+                            const prevEx = idx > 0 ? section.exercises[idx - 1] : null;
+                            const nextEx = idx < section.exercises.length - 1 ? section.exercises[idx + 1] : null;
+                            const prevIsEMOM = prevEx && prevEx.notes && prevEx.notes.toLowerCase().includes('emom');
+                            const nextIsEMOM = nextEx && nextEx.notes && nextEx.notes.toLowerCase().includes('emom');
                             
-                            <div className="space-y-4">
-                                {section.exercises.map((ex, eIdx) => {
-                                    const defaultSets = ex.sets || 3;
-                                    const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
-                                    const currentSetArray = logs[exId]?.sets || new Array(defaultSets).fill(false);
+                            let supersetLabel = null;
+                            let supersetPosition = null;
+                            
+                            if (isEMOM) {
+                                // Find the start of this superset group
+                                let startIdx = idx;
+                                while (startIdx > 0 && section.exercises[startIdx - 1].notes && section.exercises[startIdx - 1].notes.toLowerCase().includes('emom')) {
+                                    startIdx--;
+                                }
+                                
+                                // Calculate position in superset
+                                const positionInSuperset = idx - startIdx;
+                                supersetLabel = `B${positionInSuperset + 1}`;
+                                
+                                // Determine position (first, middle, last, or single)
+                                if (!prevIsEMOM && !nextIsEMOM) {
+                                    supersetPosition = 'single';
+                                } else if (!prevIsEMOM && nextIsEMOM) {
+                                    supersetPosition = 'first';
+                                } else if (prevIsEMOM && nextIsEMOM) {
+                                    supersetPosition = 'middle';
+                                } else if (prevIsEMOM && !nextIsEMOM) {
+                                    supersetPosition = 'last';
+                                }
+                            }
+                            
+                            return { ...ex, supersetLabel, supersetPosition };
+                        });
+                        
+                        return (
+                            <div key={sIdx} className="mb-8">
+                                <div className="flex items-center gap-3 mb-3">
+                                    <span className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider">{section.name}</span>
+                                    <div className="h-[1px] flex-1 bg-white/10"></div>
+                                </div>
+                                
+                                <div className="space-y-4">
+                                    {exercisesWithSuperset.map((ex, eIdx) => {
+                                        const defaultSets = ex.sets || 3;
+                                        const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                                        const currentSetArray = logs[exId]?.sets || new Array(defaultSets).fill(false);
 
-                                    return (
-                                        <div key={eIdx} className="bg-sys-surface rounded-2xl p-5 border border-white/5">
-                                            <div className="flex justify-between items-start mb-5">
-                                                <div className="flex-1 pr-4">
-                                                    <h3 className="text-base font-semibold text-white leading-tight">{ex.name}</h3>
-                                                    <p className="text-sm text-sys-onSurfaceVar mt-1 font-medium">{ex.prescription}</p>
-                                                    {ex.notes && <p className="text-xs text-sys-accent mt-1">{ex.notes}</p>}
-                                                </div>
-                                                {ex.rest > 0 && (
-                                                    <button 
-                                                        onClick={() => { haptic.bump(); setTimerSeconds(ex.rest); setTimerActive(true); }} 
-                                                        className="h-9 px-3 rounded-full bg-sys-surfaceHigh text-white text-xs font-bold flex items-center gap-1 active:bg-sys-onSurfaceVar transition-colors"
-                                                    >
-                                                        <i data-lucide="timer" width="14"></i> {ex.rest}s
-                                                    </button>
+                                        return (
+                                            <div key={eIdx} className="relative">
+                                                {/* Superset connecting line */}
+                                                {ex.supersetPosition && ex.supersetPosition !== 'single' && (
+                                                    <div className="absolute left-3 top-0 w-[2px] bg-sys-accent/30 z-0"
+                                                        style={{
+                                                            height: ex.supersetPosition === 'first' ? 'calc(50% + 1rem)' :
+                                                                   ex.supersetPosition === 'last' ? 'calc(50% + 1rem)' : 'calc(100% + 1rem)',
+                                                            top: ex.supersetPosition === 'first' ? '50%' : '-1rem',
+                                                        }}
+                                                    ></div>
                                                 )}
-                                            </div>
-                                            
-                                            <div className="flex flex-wrap gap-3 mb-4">
-                                                {currentSetArray.map((isDone, i) => (
-                                                    <button 
-                                                        key={i} 
-                                                        onClick={() => toggleSet(exId, i, defaultSets)} 
-                                                        className={`h-12 w-12 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 ${isDone ? 'bg-sys-accent text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
-                                                    >
-                                                        {isDone ? <i data-lucide="check" width="20" /> : i + 1}
-                                                    </button>
-                                                ))}
-                                                <button onClick={() => addSet(exId, defaultSets)} className="h-12 w-12 rounded-full border border-dashed border-white/20 text-white/20 flex items-center justify-center active:bg-white/5">
-                                                    <i data-lucide="plus" width="20"></i>
-                                                </button>
-                                            </div>
+                                                
+                                                <div className={`bg-sys-surface rounded-2xl p-5 border relative z-10 ${ex.supersetLabel ? 'border-sys-accent/20' : 'border-white/5'}`}>
+                                                    {/* Superset label badge */}
+                                                    {ex.supersetLabel && (
+                                                        <div className="absolute -left-2 top-5 h-8 w-8 rounded-full bg-sys-accent flex items-center justify-center text-xs font-bold text-white shadow-lg z-20">
+                                                            {ex.supersetLabel}
+                                                        </div>
+                                                    )}
+                                                    
+                                                    <div className="flex justify-between items-start mb-5">
+                                                        <div className={`flex-1 pr-4 ${ex.supersetLabel ? 'pl-6' : ''}`}>
+                                                            <h3 className="text-base font-semibold text-white leading-tight">{ex.name}</h3>
+                                                            <p className="text-sm text-sys-onSurfaceVar mt-1 font-medium">{ex.prescription}</p>
+                                                            {ex.notes && <p className="text-xs text-sys-accent mt-1">{ex.notes}</p>}
+                                                        </div>
+                                                        {ex.rest > 0 && (
+                                                            <button 
+                                                                onClick={() => { haptic.bump(); setTimerSeconds(ex.rest); setTimerActive(true); }} 
+                                                                className="h-9 px-3 rounded-full bg-sys-surfaceHigh text-white text-xs font-bold flex items-center gap-1 active:bg-sys-onSurfaceVar transition-colors"
+                                                            >
+                                                                <i data-lucide="timer" width="14"></i> {ex.rest}s
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                    
+                                                    <div className="flex flex-wrap gap-3 mb-4">
+                                                        {currentSetArray.map((isDone, i) => (
+                                                            <button 
+                                                                key={i} 
+                                                                onClick={() => toggleSet(exId, i, defaultSets)} 
+                                                                className={`h-12 w-12 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 ${isDone ? 'bg-sys-accent text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
+                                                            >
+                                                                {isDone ? <i data-lucide="check" width="20" /> : i + 1}
+                                                            </button>
+                                                        ))}
+                                                        <button onClick={() => addSet(exId, defaultSets)} className="h-12 w-12 rounded-full border border-dashed border-white/20 text-white/20 flex items-center justify-center active:bg-white/5">
+                                                            <i data-lucide="plus" width="20"></i>
+                                                        </button>
+                                                    </div>
 
-                                            {!ex.isBodyweight && (
-                                                <div className="grid grid-cols-2 gap-4 pt-2 border-t border-white/5">
-                                                    <div>
-                                                        <label className="text-[10px] text-sys-onSurfaceVar uppercase font-bold mb-1 block">Load (kg)</label>
-                                                        <input type="number" className="bg-sys-surfaceHigh rounded-lg w-full h-10 px-3 text-white font-mono text-sm outline-none focus:ring-1 focus:ring-sys-accent" 
-                                                            value={logs[exId]?.weight || ''} onChange={(e) => saveLog(exId, 'weight', e.target.value)} placeholder="0" />
-                                                    </div>
-                                                    <div>
-                                                        <label className="text-[10px] text-sys-onSurfaceVar uppercase font-bold mb-1 block">RPE</label>
-                                                        <input type="number" className="bg-sys-surfaceHigh rounded-lg w-full h-10 px-3 text-white font-mono text-sm outline-none focus:ring-1 focus:ring-sys-accent" 
-                                                            value={logs[exId]?.rpe || ''} onChange={(e) => saveLog(exId, 'rpe', e.target.value)} placeholder="-" />
-                                                    </div>
+                                                    {!ex.isBodyweight && (
+                                                        <div className="grid grid-cols-2 gap-4 pt-2 border-t border-white/5">
+                                                            <div>
+                                                                <label className="text-[10px] text-sys-onSurfaceVar uppercase font-bold mb-1 block">Load (kg)</label>
+                                                                <input type="number" className="bg-sys-surfaceHigh rounded-lg w-full h-10 px-3 text-white font-mono text-sm outline-none focus:ring-1 focus:ring-sys-accent" 
+                                                                    value={logs[exId]?.weight || ''} onChange={(e) => saveLog(exId, 'weight', e.target.value)} placeholder="0" />
+                                                            </div>
+                                                            <div>
+                                                                <label className="text-[10px] text-sys-onSurfaceVar uppercase font-bold mb-1 block">RPE</label>
+                                                                <input type="number" className="bg-sys-surfaceHigh rounded-lg w-full h-10 px-3 text-white font-mono text-sm outline-none focus:ring-1 focus:ring-sys-accent" 
+                                                                    value={logs[exId]?.rpe || ''} onChange={(e) => saveLog(exId, 'rpe', e.target.value)} placeholder="-" />
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                 </div>
-                                            )}
-                                        </div>
-                                    );
-                                })}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                     <ActionBar onFinish={handleFinish} timerState={{time: timerSeconds}} setTimerActive={setTimerActive} setTimerSeconds={setTimerSeconds} />
                 </div>
             );

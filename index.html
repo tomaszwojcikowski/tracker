@@ -73,6 +73,10 @@
     <script type="text/babel">
         const { useState, useEffect, useMemo, useRef } = React;
 
+        // --- RAW SCHEDULE (loaded from JSON) ---
+        let RAW_SCHEDULE = [];
+        let scheduleLoaded = false;
+
         // --- HAPTIC ENGINE ---
         const useHaptic = () => {
             const trigger = (pattern = [10]) => {
@@ -113,118 +117,7 @@
             return { onTouchStart, onTouchMove, onTouchEnd };
         };
 
-        // --- COMPLETE RAW SCHEDULE ---
-        const RAW_SCHEDULE = [
-            // Foundation Week 1
-            { w: 1, d: 1, ex: "Rower (Zone 1)", s: 1, r: "2 min", n: "Warm-up" },
-            { w: 1, d: 1, ex: "Rower (Zone 2)", s: 1, r: "2 min", n: "Warm-up" },
-            { w: 1, d: 1, ex: "Rower Sprints", s: 3, r: "10s", n: "Warm-up" },
-            { w: 1, d: 1, ex: "Band Pull-Aparts", s: 1, r: "20 reps", n: "Warm-up" },
-            { w: 1, d: 1, ex: "Band External Rotations", s: 1, r: "15/side", n: "Warm-up" },
-            { w: 1, d: 1, ex: "Scapular Pull-Ups (3s ISO-HOLD)", s: 3, r: "5 reps", n: "Warm-up" },
-            { w: 1, d: 1, ex: "Passive Bar Hang", s: 1, r: "30s", n: "Warm-up" },
-            { w: 1, d: 1, ex: "Skill: Crow Stand", s: 3, r: "10-20s", n: "Practice" },
-            { w: 1, d: 1, ex: "Pull-Up Ladders", s: 4, r: "(1-2-3) reps", n: "Volume" },
-            { w: 1, d: 1, ex: "Ring Rows", s: 3, r: "15 reps", n: "Accessory" },
-            { w: 1, d: 1, ex: "Incline Push-Ups", s: 3, r: "10 reps", n: "Accessory" },
-            { w: 1, d: 1, ex: "Hollow Rocks", s: 3, r: "25s", n: "Core" },
-            { w: 1, d: 1, ex: "Passive Dead Hang", s: 1, r: "60s", n: "Cool-down" },
-            { w: 1, d: 1, ex: "Butcher’s Block Stretch", s: 1, r: "60s", n: "Cool-down" },
-            { w: 1, d: 1, ex: "Cobra Stretch", s: 1, r: "60s", n: "Cool-down" },
-            { w: 1, d: 1, ex: "Wrist Extensor Stretch", s: 1, r: "30s/side", n: "Cool-down" },
-            { w: 1, d: 2, ex: "Knee-to-Wall Ankle Mob", s: 1, r: "2 min/side", n: "Mobility" },
-            { w: 1, d: 2, ex: "Tibialis Wall Raises", s: 3, r: "15-20 reps", n: "Mobility" },
-            { w: 1, d: 2, ex: "Deep Squat Iso-Hold", s: 2, r: "30s", n: "Mobility" },
-            { w: 1, d: 2, ex: "Band Internal Rotations", s: 2, r: "20/side", n: "Pre-hab" },
-            { w: 1, d: 2, ex: "Mobility Flow", s: 1, r: "10 min", n: "Recovery" },
-            { w: 1, d: 2, ex: "Pallof Press", s: 3, r: "12 reps", n: "Core" },
-            { w: 1, d: 2, ex: "Child’s Pose", s: 1, r: "2 min", n: "Cool-down" },
-            { w: 1, d: 2, ex: "Box Breathing (4-4-4-4)", s: 1, r: "3 min", n: "Cool-down" },
-            { w: 1, d: 3, ex: "RDL", s: 4, r: "8 reps", n: "Load: ~85kg" },
-            { w: 1, d: 3, ex: "Weighted Glute Bridge", s: 3, r: "10-12 reps", n: "Accessory" },
-            { w: 1, d: 3, ex: "Goblet Squats", s: 3, r: "10 reps", n: "Load: Light/Tech" },
-            { w: 1, d: 3, ex: "Face Pulls", s: 3, r: "15-20 reps", n: "Accessory" },
-            { w: 1, d: 3, ex: "Couch Stretch", s: 1, r: "90s/side", n: "Cool-down" },
-            { w: 1, d: 3, ex: "Light Weighted Jefferson Curl", s: 1, r: "2 min", n: "Cool-down" },
-            { w: 1, d: 3, ex: "90/90 Hip Rotations", s: 1, r: "10/side", n: "Cool-down" },
-            { w: 1, d: 5, ex: "Rower (Zone 1)", s: 1, r: "2 min", n: "Warm-up" },
-            { w: 1, d: 5, ex: "Rower (Zone 2)", s: 1, r: "2 min", n: "Warm-up" },
-            { w: 1, d: 5, ex: "Rower Sprints", s: 3, r: "10s", n: "Warm-up" },
-            { w: 1, d: 5, ex: "Band Pull-Aparts", s: 1, r: "20 reps", n: "Warm-up" },
-            { w: 1, d: 5, ex: "Band External Rotations", s: 1, r: "15/side", n: "Warm-up" },
-            { w: 1, d: 5, ex: "Scapular Pull-Ups (3s ISO-HOLD)", s: 3, r: "5 reps", n: "Warm-up" },
-            { w: 1, d: 5, ex: "Passive Bar Hang", s: 1, r: "30s", n: "Warm-up" },
-            { w: 1, d: 5, ex: "Skill: HSPU Volume", s: 3, r: "3 reps", n: "Practice" },
-            { w: 1, d: 5, ex: "Weighted Pull-Ups", s: 3, r: "5 reps", n: "Load: 8-10kg" },
-            { w: 1, d: 5, ex: "Dips", s: 3, r: "10 reps", n: "Load: BW" },
-            { w: 1, d: 5, ex: "Bulgarian Split Squat (Left)", s: 3, r: "8 reps", n: "EMOM" },
-            { w: 1, d: 5, ex: "Bulgarian Split Squat (Right)", s: 3, r: "8 reps", n: "EMOM" },
-            { w: 1, d: 5, ex: "Weighted Hollow Rocks", s: 3, r: "12-15 reps", n: "EMOM" },
-            { w: 1, d: 5, ex: "Banded Pec Stretch", s: 1, r: "60s/side", n: "Cool-down" },
-            { w: 1, d: 5, ex: "Lat Prayer", s: 1, r: "60s", n: "Cool-down" },
-            { w: 1, d: 5, ex: "Standing Quad Stretch", s: 1, r: "60s/side", n: "Cool-down" },
-            // Week 2
-            { w: 2, d: 1, ex: "Pull-Up Ladders", s: 5, r: "(1-2-3) reps", n: "Volume Increase" },
-            { w: 2, d: 3, ex: "Goblet Squats", s: 3, r: "12 reps", n: "Load: Moderate" },
-            { w: 2, d: 5, ex: "Weighted Pull-Ups", s: 2, r: "5 reps", n: "Load: +1-2kg" },
-            { w: 2, d: 5, ex: "Ground-Based Flutter Kicks", s: 3, r: "30s", n: "Core Recovery" },
-            // Week 3
-            { w: 3, d: 1, ex: "Pull-Up Ladders", s: 5, r: "(1-2-3) reps", n: "Volume Peak" },
-            { w: 3, d: 3, ex: "Goblet Squats", s: 3, r: "10 reps", n: "Load: Heavy" },
-            { w: 3, d: 5, ex: "Weighted Pull-Ups", s: 2, r: "5 reps", n: "Load: +2kg" },
-            { w: 3, d: 5, ex: "Weighted V-Ups", s: 3, r: "10-12 reps", n: "Core Hard" },
-            // Week 4 (Deload)
-            { w: 4, d: 1, ex: "Pull-Up Ladders", s: 3, r: "(1-2-3) reps", n: "Deload Volume" },
-            { w: 4, d: 3, ex: "Goblet Squats", s: 2, r: "10 reps", n: "Load: Light (Deload)" },
-            { w: 4, d: 5, ex: "Weighted Pull-Ups", s: 2, r: "3 reps", n: "Load: 50% (Easy)" },
-            // Intensification (Weeks 5-8)
-            { w: 5, d: 1, ex: "Skill: Tuck Planche Hold", s: 3, r: "6-8s", n: "Practice" },
-            { w: 5, d: 1, ex: "Pull-Up EMOM", s: 8, r: "4 reps", n: "Density" },
-            { w: 5, d: 3, ex: "RDL", s: 4, r: "10 reps", n: "Hamstring Focus" },
-            { w: 5, d: 5, ex: "Weighted Dips", s: 3, r: "5 reps", n: "Double Progression" },
-            { w: 6, d: 1, ex: "Pull-Up EMOM", s: 9, r: "4 reps", n: "Volume Peak" },
-            { w: 6, d: 5, ex: "Weighted Pull-Ups", s: 1, r: "4 reps", n: "Load: Heavy" },
-            { w: 7, d: 1, ex: "Pull-Up EMOM", s: 10, r: "3 reps", n: "Intensity Peak" },
-            { w: 7, d: 5, ex: "Weighted Pull-Ups", s: 3, r: "3 reps", n: "Load: Heavy" },
-            { w: 8, d: 1, ex: "Pull-Up EMOM", s: 6, r: "3 reps", n: "Deload Volume" },
-            { w: 8, d: 5, ex: "Weighted Pull-Ups", s: 2, r: "3 reps", n: "Load: Easy" },
-            // Neutral Grip (Weeks 9-12)
-            { w: 9, d: 1, ex: "Cluster Pull-Ups (Neutral)", s: 4, r: "(3-3-3) reps", n: "Unilateral Prep" },
-            { w: 9, d: 3, ex: "Single Leg RDL", s: 3, r: "8 reps/side", n: "Unilateral" },
-            { w: 9, d: 5, ex: "Neutral Grip Weighted Pull-Ups", s: 2, r: "3 reps", n: "Safe Load" },
-            { w: 10, d: 1, ex: "Cluster Pull-Ups (Neutral)", s: 4, r: "(4-3-3) reps", n: "Volume Increase" },
-            { w: 10, d: 5, ex: "Ring Support Holds", s: 3, r: "30s", n: "Isometric" },
-            { w: 11, d: 1, ex: "Cluster Pull-Ups (Neutral)", s: 5, r: "(3-3-3) reps", n: "Volume Peak" },
-            { w: 11, d: 5, ex: "Neutral Grip Weighted Pull-Ups", s: 2, r: "4 reps", n: "Load: Heavy" },
-            { w: 12, d: 1, ex: "Cluster Pull-Ups (Neutral)", s: 3, r: "(3-3-3) reps", n: "Deload" },
-            { w: 12, d: 5, ex: "Neutral Grip Weighted Pull-Ups", s: 2, r: "3 reps", n: "Load: Unweighted" },
-            // Accumulation (Weeks 13-16)
-            { w: 13, d: 1, ex: "Pull-Ups", s: 3, r: "AMRAP - 2", n: "Accumulation" },
-            { w: 13, d: 3, ex: "RDL", s: 4, r: "10 reps", n: "Accumulation Heavy" },
-            { w: 13, d: 5, ex: "Weighted Pull-Ups", s: 2, r: "4 reps", n: "Load: 14kg" },
-            { w: 14, d: 1, ex: "Pull-Ups", s: 3, r: "AMRAP - 1", n: "Volume Increase" },
-            { w: 14, d: 5, ex: "Weighted Pull-Ups", s: 2, r: "4 reps", n: "Load: 16kg" },
-            { w: 15, d: 1, ex: "Pull-Ups", s: 1, r: "AMRAP Max", n: "All Out" },
-            { w: 15, d: 5, ex: "Weighted Pull-Ups", s: 1, r: "PR Attempt", n: "Load: 17.5kg" },
-            { w: 16, d: 1, ex: "Pull-Ups", s: 2, r: "AMRAP - 4", n: "Deload" },
-            { w: 16, d: 5, ex: "Weighted Pull-Ups", s: 2, r: "3 reps", n: "Load: Easy" },
-            // Peak (Weeks 17-20)
-            { w: 17, d: 1, ex: "Pull-Ups", s: 3, r: "AMRAP - 1", n: "Tapering" },
-            { w: 17, d: 5, ex: "Archer Negatives", s: 4, r: "2 reps/side", n: "5s Descent" },
-            { w: 18, d: 1, ex: "Pull-Ups", s: 3, r: "AMRAP - 20%", n: "Taper" },
-            { w: 18, d: 5, ex: "Archer Negatives", s: 5, r: "3 reps/side", n: "Volume Peak" },
-            { w: 19, d: 1, ex: "Light Mobility", s: 1, r: "20 min", n: "Full Deload" },
-            { w: 19, d: 3, ex: "Light Mobility", s: 1, r: "20 min", n: "Full Deload" },
-            { w: 19, d: 5, ex: "Light Mobility", s: 1, r: "20 min", n: "Full Deload" },
-            { w: 20, d: 1, ex: "Max Reps Pull-Ups (BW)", s: 1, r: "Max", n: "TEST" },
-            { w: 20, d: 1, ex: "Max Reps Dips", s: 1, r: "Max", n: "TEST" },
-            { w: 20, d: 5, ex: "3RM Weighted Pull-Up", s: 1, r: "3RM", n: "TEST" },
-            { w: 20, d: 5, ex: "5RM Weighted Push-Up", s: 1, r: "5RM", n: "TEST" },
-            // Reload
-            { w: 21, d: 1, ex: "Pull-Up Ladders", s: 2, r: "(1-2-3) reps", n: "60% Vol (Reload)" },
-            { w: 21, d: 3, ex: "RDL", s: 3, r: "8 reps", n: "Load: 60% (Reload)" },
-            { w: 21, d: 5, ex: "Weighted Pull-Ups", s: 2, r: "5 reps", n: "Load: 60% (Reload)" }
-        ];
+
 
         // Fill in the standard items for Weeks 2-21 to keep the file concise but complete
         const COMPLETE_SCHEDULE = [...RAW_SCHEDULE];
@@ -651,8 +544,21 @@
             );
         };
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        // Load schedule data from JSON file
+        fetch('full-schedule.json')
+            .then(response => response.json())
+            .then(data => {
+                RAW_SCHEDULE.push(...data);
+                scheduleLoaded = true;
+                
+                // Now render the app
+                const root = ReactDOM.createRoot(document.getElementById('root'));
+                root.render(<App />);
+            })
+            .catch(error => {
+                console.error('Error loading schedule:', error);
+                document.getElementById('root').innerHTML = '<div style="color: white; padding: 20px;">Error loading schedule data</div>';
+            });
     </script>
 </body>
 </html>

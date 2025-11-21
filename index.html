@@ -402,19 +402,6 @@
                 saveLog(exId, 'sets', [...currentSets, false]);
             };
             
-            const copyFromPreviousSet = (exId) => {
-                haptic.bump();
-                // Look for previous workout session
-                const prevSession = localStorage.getItem(`session_w${week}d${day}_prev`);
-                if (prevSession) {
-                    const prevLogs = JSON.parse(prevSession);
-                    if (prevLogs[exId]) {
-                        if (prevLogs[exId].weight) saveLog(exId, 'weight', prevLogs[exId].weight);
-                        if (prevLogs[exId].rpe) saveLog(exId, 'rpe', prevLogs[exId].rpe);
-                    }
-                }
-            };
-            
             const completeAllSets = (exId, defaultSets) => {
                 haptic.success();
                 const allCompleted = new Array(defaultSets).fill(true);

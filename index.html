@@ -347,6 +347,50 @@
         };
 
         // --- GEMINI INTEGRATION ---
+        const GEMINI_CHAT_HISTORY_KEY = 'gemini_chat_history';
+        const GEMINI_SYSTEM_PROMPT = `You are a personal fitness coach and training analyst. Your role is to:
+- Track and analyze workout progress over time
+- Provide constructive feedback on performance
+- Suggest form cues and technique improvements
+- Offer motivation and encouragement
+- Identify patterns in training data
+- Make recommendations for progressive overload
+
+Keep responses concise, actionable, and supportive. Focus on the most important insights.`;
+
+        const initializeGeminiChat = () => {
+            const history = localStorage.getItem(GEMINI_CHAT_HISTORY_KEY);
+            if (!history) {
+                // Initialize with system prompt
+                const initialHistory = [{
+                    role: 'user',
+                    parts: [{ text: GEMINI_SYSTEM_PROMPT }]
+                }, {
+                    role: 'model',
+                    parts: [{ text: `I understand. I'm ready to track your workouts and provide coaching feedback. Please share your workout data, and I'll analyze your performance and provide helpful insights.` }]
+                }];
+                localStorage.setItem(GEMINI_CHAT_HISTORY_KEY, JSON.stringify(initialHistory));
+                return initialHistory;
+            }
+            
+            // Parse with error handling for corrupted data
+            try {
+                const parsed = JSON.parse(history);
+                // Validate structure
+                if (Array.isArray(parsed) && parsed.length >= 2) {
+                    return parsed;
+                }
+                // Invalid structure, reset
+                console.warn('Invalid chat history structure, reinitializing');
+                localStorage.removeItem(GEMINI_CHAT_HISTORY_KEY);
+                return initializeGeminiChat();
+            } catch (error) {
+                console.error('Failed to parse chat history, reinitializing:', error);
+                localStorage.removeItem(GEMINI_CHAT_HISTORY_KEY);
+                return initializeGeminiChat();
+            }
+        };
+
         const sendWorkoutToGemini = async (week, day, workout, logs) => {
             const apiKey = localStorage.getItem('gemini_api_key');
             if (!apiKey) {
@@ -354,8 +398,20 @@
                 return { success: false, error: 'API key not configured' };
             }
             
+            // Get or initialize chat history
+            const chatHistory = initializeGeminiChat();
+            
             // Format workout data for Gemini
             const workoutSummary = formatWorkoutForGemini(week, day, workout, logs);
+            
+            // Add new user message to history
+            const newUserMessage = {
+                role: 'user',
+                parts: [{ text: workoutSummary }]
+            };
+            
+            // Build contents array with full history plus new message
+            const contents = [...chatHistory, newUserMessage];
             
             try {
                 // Note: Gemini API requires key in URL for this endpoint, no header alternative available
@@ -365,11 +421,7 @@
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        contents: [{
-                            parts: [{
-                                text: workoutSummary
-                            }]
-                        }]
+                        contents: contents
                     })
                 });
                 
@@ -380,6 +432,27 @@
                 
                 const data = await response.json();
                 console.log('Successfully sent workout to Gemini:', data);
+                
+                // Extract model response and add to history with validation
+                if (data.candidates && 
+                    data.candidates[0] && 
+                    data.candidates[0].content && 
+                    data.candidates[0].content.parts &&
+                    Array.isArray(data.candidates[0].content.parts) &&
+                    data.candidates[0].content.parts.length > 0) {
+                    
+                    const modelResponse = {
+                        role: 'model',
+                        parts: data.candidates[0].content.parts
+                    };
+                    
+                    // Update chat history with both user message and model response
+                    const updatedHistory = [...chatHistory, newUserMessage, modelResponse];
+                    localStorage.setItem(GEMINI_CHAT_HISTORY_KEY, JSON.stringify(updatedHistory));
+                } else {
+                    console.warn('Unexpected API response structure, history not updated:', data);
+                }
+                
                 return { success: true, data };
             } catch (error) {
                 console.error('Failed to send workout to Gemini:', error);
@@ -1015,6 +1088,7 @@
             const [geminiApiKey, setGeminiApiKey] = useState('');
             const [isSaving, setIsSaving] = useState(false);
             const [saveMessage, setSaveMessage] = useState('');
+            const [chatHistoryMessage, setChatHistoryMessage] = useState('');
             const haptic = useHaptic();
             
             useEffect(() => {
@@ -1032,6 +1106,15 @@
                     setIsSaving(false);
                     setSaveMessage('');
                 }, 2000);
+            };
+            
+            const handleClearChatHistory = () => {
+                haptic.bump();
+                localStorage.removeItem(GEMINI_CHAT_HISTORY_KEY);
+                setChatHistoryMessage('Chat history cleared! Next sync will start a fresh conversation.');
+                setTimeout(() => {
+                    setChatHistoryMessage('');
+                }, 3000);
             };
             
             return (
@@ -1082,10 +1165,29 @@
                         )}
                     </div>
                     
+                    <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
+                        <h3 className="text-base font-bold text-white mb-3">Chat History</h3>
+                        <p className="text-sm text-sys-onSurfaceVar leading-relaxed mb-4">
+                            Gemini maintains a continuous conversation about your training progress. Clear the history to start fresh.
+                        </p>
+                        <button 
+                            onClick={handleClearChatHistory}
+                            className="w-full h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform border border-white/5"
+                        >
+                            <i data-lucide="trash-2" width="18"></i>
+                            <span>Clear Chat History</span>
+                        </button>
+                        {chatHistoryMessage && (
+                            <div className="mt-4 p-3 rounded-xl bg-sys-accent/10 border border-sys-accent/30 text-sys-accent text-sm text-center">
+                                {chatHistoryMessage}
+                            </div>
+                        )}
+                    </div>
+                    
                     <div className="bg-sys-surface rounded-3xl border border-white/5 p-6">
                         <h3 className="text-base font-bold text-white mb-3">About Gemini Integration</h3>
                         <p className="text-sm text-sys-onSurfaceVar leading-relaxed mb-3">
-                            When you finish a workout, the app will automatically send a summary to Google's Gemini AI for analysis. Each submission includes:
+                            When you finish a workout, the app automatically sends a summary to Google's Gemini AI for analysis. Gemini maintains context across all your workouts in a continuous chat conversation. Each submission includes:
                         </p>
                         <ul className="text-sm text-sys-onSurfaceVar space-y-2 ml-4 mb-3">
                             <li className="flex items-start gap-2">
@@ -1106,7 +1208,7 @@
                             </li>
                         </ul>
                         <p className="text-xs text-sys-onSurfaceVar leading-relaxed">
-                            Note: Each workout submission is sent as a new conversation to Gemini. The API response is logged to the browser console for your review.
+                            Note: Gemini remembers your previous workouts and provides personalized coaching based on your training history. The API response is logged to the browser console for your review.
                         </p>
                     </div>
                 </div>

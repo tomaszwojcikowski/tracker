@@ -550,14 +550,16 @@
                 };
 
                 window.addEventListener('popstate', handlePopState);
-                
-                // Set initial state
-                window.history.replaceState({ viewMode: 'tab', activeTab }, '', window.location.href);
 
                 return () => {
                     window.removeEventListener('popstate', handlePopState);
                 };
             }, []);
+
+            // Set initial history state
+            useEffect(() => {
+                window.history.replaceState({ viewMode: 'tab', activeTab }, '', window.location.href);
+            }, [activeTab]);
 
             const startWorkout = (day) => {
                 setActiveDay(day);

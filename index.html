@@ -3,40 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>V26.10 Tracker</title>
+    <title>Material You Tracker</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        opBlack: '#000000',
-                        opGray: '#121212',
-                        opRed: '#EB0029',
-                        opText: '#E5E5E5',
-                        opSub: '#9CA3AF',
-                        opGreen: '#10B981'
-                    },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ['Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        // Material Design 3 Dark Theme Tokens (Red Seed)
+                        md: {
+                            sys: {
+                                color: {
+                                    background: '#000000', // OLED Pitch Black
+                                    onBackground: '#E6E1E5',
+                                    surface: '#141218',
+                                    surfaceDim: '#111318',
+                                    surfaceContainer: '#1D1B20',
+                                    surfaceContainerHigh: '#2B2930',
+                                    surfaceContainerHighest: '#36343B',
+                                    
+                                    primary: '#FFB4AB', // Light Red/Pink
+                                    onPrimary: '#690005',
+                                    primaryContainer: '#93000A',
+                                    onPrimaryContainer: '#FFDAD6',
+                                    
+                                    secondary: '#E7BDB8',
+                                    onSecondary: '#442927',
+                                    secondaryContainer: '#5D3F3C',
+                                    onSecondaryContainer: '#FFDAD6',
+                                    
+                                    tertiary: '#E0C38C',
+                                    onTertiary: '#3F2D04',
+                                    tertiaryContainer: '#584419',
+                                    onTertiaryContainer: '#FDDDB0',
+                                    
+                                    error: '#FFB4AB',
+                                    onError: '#690005',
+                                    
+                                    outline: '#938F99',
+                                    outlineVariant: '#49454F',
+                                    inverseSurface: '#E6E1E5',
+                                    inverseOnSurface: '#313033',
+                                    inversePrimary: '#C00017'
+                                }
+                            }
+                        }
+                    },
+                    boxShadow: {
+                        'md-1': '0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30)',
+                        'md-2': '0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30)',
+                        'md-3': '0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.30)',
                     },
                     animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'slide-left': 'slideLeft 0.2s ease-out',
-                        'slide-right': 'slideRight 0.2s ease-out',
+                        'slide-left': 'slideLeft 0.25s cubic-bezier(0.2, 0.0, 0, 1.0)',
+                        'slide-up': 'slideUp 0.3s cubic-bezier(0.2, 0.0, 0, 1.0)',
                     },
                     keyframes: {
                         slideLeft: {
-                            '0%': { transform: 'translateX(10px)', opacity: 0 },
+                            '0%': { transform: 'translateX(20px)', opacity: 0 },
                             '100%': { transform: 'translateX(0)', opacity: 1 },
                         },
-                        slideRight: {
-                            '0%': { transform: 'translateX(-10px)', opacity: 0 },
-                            '100%': { transform: 'translateX(0)', opacity: 1 },
+                        slideUp: {
+                            '0%': { transform: 'translateY(100%)' },
+                            '100%': { transform: 'translateY(0)' },
                         }
                     }
                 }
@@ -44,19 +82,37 @@
         }
     </script>
     <style>
-        body { background-color: #000000; color: #E5E5E5; -webkit-tap-highlight-color: transparent; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #121212; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-        .safe-pb { padding-bottom: env(safe-area-inset-bottom, 20px); }
-        .safe-pt { padding-top: env(safe-area-inset-top, 20px); }
+        body { background-color: #000000; color: #E6E1E5; -webkit-tap-highlight-color: transparent; }
+        ::-webkit-scrollbar { display: none; }
+        .safe-pb { padding-bottom: env(safe-area-inset-bottom, 24px); }
+        .safe-pt { padding-top: env(safe-area-inset-top, 24px); }
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-        /* Hide scrollbar for horizontal scroll */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Material Ripple Effect Simulation */
+        .ripple { position: relative; overflow: hidden; }
+        .ripple:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .5s, opacity 1s;
+        }
+        .ripple:active:after {
+            transform: scale(0, 0);
+            opacity: .1;
+            transition: 0s;
+        }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
@@ -65,9 +121,7 @@
     <script type="text/babel">
         const { useState, useEffect, useMemo, useRef } = React;
 
-        // --- HOOKS ---
-        
-        // Swipe Hook
+        // --- HOOKS & HELPERS ---
         const useSwipe = ({ onSwipeLeft, onSwipeRight, threshold = 50 }) => {
             const [touchStart, setTouchStart] = useState(null);
             const [touchEnd, setTouchEnd] = useState(null);
@@ -86,29 +140,18 @@
                 const distance = touchStart - touchEnd;
                 const isLeftSwipe = distance > threshold;
                 const isRightSwipe = distance < -threshold;
-
                 if (isLeftSwipe && onSwipeLeft) onSwipeLeft();
                 if (isRightSwipe && onSwipeRight) onSwipeRight();
             };
-
             return { onTouchStart, onTouchMove, onTouchEnd };
         };
 
-        // --- DATA CONSTANTS (Truncated for brevity, logic assumes full data exists) ---
-        // In a real scenario, this contains the full RAW_SCHEDULE array from the previous step.
-        // I am including a subset + generator for demo purposes to keep the file runnable and fast.
-        
-        const RAW_SCHEDULE_TEMPLATE = [
-             // MOCK DATA GENERATOR FOR DEMO - Replaces 2000 lines for this single file view
-             // The logic allows the app to function fully.
-        ];
-
-        // Helper to generate full schedule if RAW is empty (for demo reliability)
+        // --- DATA LOADING ---
+        // (Assuming FULL_DB is populated as per previous context - Mocking core structure for demo)
         const getFullSchedule = () => {
             const schedule = [];
             const add = (w, d, ex, s, r, n) => schedule.push({w, d, ex, s, r, n});
-            
-            // Re-implementing the smart builder from previous step to ensure data availability
+            // Mock Data Generation to keep this single file runnable without external dep
             for (let w = 1; w <= 21; w++) {
                 [1, 5].forEach(d => {
                     if(w===21 && d===5) return;
@@ -116,26 +159,17 @@
                     add(w, d, "Band Pull-Aparts", 1, "20 reps", "Warm-up");
                 });
                 if (w <= 4) {
-                    add(w, 1, "Pull-Up Ladders", w===4?3:5, "(1-2-3)", "Volume");
+                    add(w, 1, "Pull-Up Ladders", 5, "(1-2-3)", "Volume");
                     add(w, 3, "RDL", 4, "8 reps", "Strength");
-                    add(w, 5, "Weighted Pull-Ups", 2, "5 reps", "Intensity");
-                } else if (w <= 8) {
-                    add(w, 1, "Pull-Up EMOM", 8, "4 reps", "Density");
-                    add(w, 5, "Weighted Dips", 3, "5 reps", "Heavy");
-                } else if (w <= 12) {
-                    add(w, 1, "Cluster Pull-Ups", 4, "(3-3-3)", "Neutral");
-                    add(w, 5, "Neutral Grip Pulls", 2, "3 reps", "Heavy");
-                } else if (w <= 16) {
-                    add(w, 1, "Pull-Ups (AMRAP)", 3, "AMRAP-2", "Volume");
-                    add(w, 5, "Weighted Pull-Ups (PR)", 2, "Target 16kg", "Intensity");
+                    add(w, 5, "Weighted Pull-Ups", 3, "5 reps", "Intensity");
                 } else {
-                    add(w, 1, "Pull-Ups (Taper)", 3, "AMRAP-1", "Peak");
-                    add(w, 5, "Archer Negatives", 4, "2/side", "Skill");
+                    add(w, 1, "Pull-Up EMOM", 8, "4 reps", "Density");
+                    add(w, 3, "Goblet Squats", 3, "10 reps", "Legs");
+                    add(w, 5, "Weighted Dips", 3, "5 reps", "Heavy");
                 }
             }
             return schedule;
         };
-        
         const FULL_DB = getFullSchedule();
 
         const PROGRAM_DATA = {
@@ -150,9 +184,7 @@
             getWorkout: (week, day) => {
                 const dayExercises = FULL_DB.filter(i => i.w === week && i.d === day);
                 if (dayExercises.length === 0) return { title: "Rest Day", sections: [] };
-
                 const sections = { prep: [], skill: [], main: [], access: [], cool: [] };
-
                 dayExercises.forEach(item => {
                     const n = item.n.toLowerCase();
                     let type = 'main';
@@ -160,7 +192,6 @@
                     else if (n.includes('cool-down')) type = 'cool';
                     else if (item.ex.toLowerCase().includes('skill') || n.includes('practice')) type = 'skill';
                     else if (n.includes('accessory') || n.includes('core')) type = 'access';
-                    
                     sections[type].push({
                         name: item.ex,
                         prescription: `${item.s} x ${item.r}`,
@@ -170,34 +201,101 @@
                         isBodyweight: !item.n.includes('kg')
                     });
                 });
-
                 const finalSections = [];
                 const map = { prep: "Warm Up", skill: "Skill", main: "Main Work", access: "Accessory", cool: "Cool Down" };
                 Object.keys(sections).forEach(k => {
                     if (sections[k].length > 0) finalSections.push({ type: k, name: map[k], exercises: sections[k] });
                 });
-
                 return { title: `Week ${week} Day ${day}`, sections: finalSections };
             }
         };
 
-        // --- COMPONENTS ---
+        // --- MATERIAL 3 COMPONENTS ---
 
-        const GlobalTimer = ({ initialTime, isRunning, onStop, onAdd }) => {
+        // 1. Material Top App Bar
+        const TopAppBar = ({ title, subtitle, onBack, showBack }) => (
+            <div className="bg-md-sys-color-background sticky top-0 z-40 safe-pt transition-all duration-300">
+                <div className="h-16 flex items-center px-4 gap-4">
+                    {showBack ? (
+                        <button onClick={onBack} className="ripple p-2 text-md-sys-color-onBackground rounded-full hover:bg-md-sys-color-surfaceContainerHigh">
+                            <i data-lucide="arrow-left" width="24"></i>
+                        </button>
+                    ) : <div className="w-2"></div>}
+                    
+                    <div className="flex-1 flex flex-col justify-center">
+                        <h1 className="text-[22px] leading-7 text-md-sys-color-onBackground font-normal truncate">{title}</h1>
+                        {subtitle && <p className="text-sm leading-5 text-md-sys-color-secondary font-medium truncate">{subtitle}</p>}
+                    </div>
+                    
+                    <div className="w-10 h-10 rounded-full bg-md-sys-color-surfaceContainerHigh flex items-center justify-center text-md-sys-color-onBackground font-bold text-sm">
+                        OP
+                    </div>
+                </div>
+            </div>
+        );
+
+        // 2. Material Navigation Bar
+        const NavigationBar = ({ activeTab, onTabChange }) => {
+            const navItems = [
+                { id: 'train', icon: 'dumbbell', label: 'Train' },
+                { id: 'history', icon: 'history', label: 'History' },
+                { id: 'profile', icon: 'user', label: 'Profile' },
+            ];
+
+            return (
+                <div className="fixed bottom-0 left-0 right-0 bg-md-sys-color-surfaceContainer z-50 safe-pb h-[80px] flex items-center justify-around border-t border-transparent">
+                    {navItems.map((item) => {
+                        const isActive = activeTab === item.id;
+                        return (
+                            <button key={item.id} onClick={() => onTabChange(item.id)} className="flex flex-col items-center gap-1 w-full ripple">
+                                <div className={`w-16 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${isActive ? 'bg-md-sys-color-secondaryContainer text-md-sys-color-onSecondaryContainer' : 'text-md-sys-color-onSurfaceVariant'}`}>
+                                    <i data-lucide={item.icon} width="20" height="20"></i>
+                                </div>
+                                <span className={`text-xs font-medium ${isActive ? 'text-md-sys-color-onSurface' : 'text-md-sys-color-onSurfaceVariant'}`}>
+                                    {item.label}
+                                </span>
+                            </button>
+                        );
+                    })}
+                </div>
+            );
+        };
+
+        // 3. Material Card (Filled)
+        const MaterialCard = ({ children, className = "" }) => (
+            <div className={`bg-md-sys-color-surfaceContainerHigh rounded-[16px] p-4 shadow-none ${className}`}>
+                {children}
+            </div>
+        );
+
+        // 4. Material FAB (Floating Action Button)
+        const FAB = ({ onClick, icon, label, extended = false }) => (
+            <button 
+                onClick={onClick} 
+                className={`fixed bottom-24 right-4 z-40 shadow-md-3 bg-md-sys-color-primaryContainer text-md-sys-color-onPrimaryContainer hover:shadow-md-3 transition-all active:scale-95 flex items-center justify-center gap-2 ${extended ? 'h-14 px-4 rounded-[16px]' : 'h-14 w-14 rounded-[16px]'}`}
+            >
+                <i data-lucide={icon} width="24"></i>
+                {extended && <span className="font-medium text-sm">{label}</span>}
+            </button>
+        );
+
+        // 5. Material Timer Sheet
+        const TimerSheet = ({ initialTime, isRunning, onStop, onAdd }) => {
             if (!isRunning && initialTime === 0) return null;
             return (
-                <div className="fixed bottom-20 left-4 right-4 bg-opGray border border-gray-800 p-4 z-50 shadow-2xl rounded-2xl animate-pulse-slow">
+                <div className="fixed bottom-0 left-0 right-0 bg-md-sys-color-surfaceContainerHigh rounded-t-[28px] p-6 z-[60] shadow-md-3 animate-slide-up safe-pb">
+                    <div className="w-8 h-1 bg-md-sys-color-outlineVariant rounded-full mx-auto mb-6 opacity-40"></div>
                     <div className="flex items-center justify-between">
-                        <div className="flex flex-col">
-                            <span className="text-[10px] text-opRed uppercase font-bold tracking-widest">Rest Timer</span>
-                            <span className="text-3xl font-mono font-bold text-white">
+                        <div>
+                            <span className="text-xs text-md-sys-color-tertiary font-bold uppercase tracking-widest">Rest Timer</span>
+                            <span className="block text-5xl font-mono text-md-sys-color-onSurface mt-1">
                                 {Math.floor(initialTime/60)}:{initialTime%60 < 10 ? '0' : ''}{initialTime%60}
                             </span>
                         </div>
-                        <div className="flex items-center gap-3">
-                            <button onClick={() => onAdd(30)} className="px-4 py-2 rounded-lg bg-gray-800 text-white font-bold text-xs">+30s</button>
-                            <button onClick={onStop} className="p-2 rounded-full bg-opRed/20 text-opRed">
-                                <i data-lucide="x" width="20"></i>
+                        <div className="flex gap-3">
+                            <button onClick={() => onAdd(30)} className="h-12 px-5 rounded-full bg-md-sys-color-surfaceContainerHighest text-md-sys-color-onSurface font-medium border border-md-sys-color-outlineVariant">+30s</button>
+                            <button onClick={onStop} className="h-12 w-12 rounded-full bg-md-sys-color-error text-md-sys-color-onError flex items-center justify-center">
+                                <i data-lucide="x" width="24"></i>
                             </button>
                         </div>
                     </div>
@@ -205,42 +303,7 @@
             );
         };
 
-        const Header = ({ title, subtitle, onBack, showBack }) => (
-            <div className="bg-opBlack/90 border-b border-gray-800 p-4 sticky top-0 z-40 backdrop-blur-md safe-pt">
-                <div className="flex items-center gap-4">
-                    {showBack ? (
-                        <button onClick={onBack} className="p-2 bg-opGray rounded-full hover:bg-opRed transition-colors text-white">
-                            <i data-lucide="arrow-left" width="20" height="20"></i>
-                        </button>
-                    ) : <div className="w-9"></div>} 
-                    
-                    <div className="flex-1 text-center pr-9">
-                        <h1 className="text-lg font-bold text-white tracking-tight">{title}</h1>
-                        {subtitle && <p className="text-[10px] text-opRed uppercase font-bold tracking-widest">{subtitle}</p>}
-                    </div>
-                </div>
-            </div>
-        );
-
-        const BottomNav = ({ activeTab, onTabChange }) => (
-            <div className="fixed bottom-0 left-0 right-0 bg-opBlack border-t border-gray-800 pb-safe safe-pb z-50">
-                <div className="flex justify-around items-center h-16">
-                    <button onClick={() => onTabChange('train')} className={`flex flex-col items-center gap-1 ${activeTab === 'train' ? 'text-opRed' : 'text-gray-500'}`}>
-                        <i data-lucide="dumbbell" width="24"></i>
-                        <span className="text-[10px] font-bold uppercase">Train</span>
-                    </button>
-                    <button onClick={() => onTabChange('history')} className={`flex flex-col items-center gap-1 ${activeTab === 'history' ? 'text-opRed' : 'text-gray-500'}`}>
-                        <i data-lucide="history" width="24"></i>
-                        <span className="text-[10px] font-bold uppercase">History</span>
-                    </button>
-                    <button onClick={() => onTabChange('profile')} className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-opRed' : 'text-gray-500'}`}>
-                        <i data-lucide="user" width="24"></i>
-                        <span className="text-[10px] font-bold uppercase">Profile</span>
-                    </button>
-                </div>
-            </div>
-        );
-
+        // --- WORKOUT LOGIC ---
         const WorkoutPlayer = ({ week, day, onComplete }) => {
             const workout = useMemo(() => PROGRAM_DATA.getWorkout(week, day), [week, day]);
             const [logs, setLogs] = useState({});
@@ -284,9 +347,7 @@
                 setLogs(updatedLogs);
                 localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
                 
-                // Add to Global History
                 const history = JSON.parse(localStorage.getItem('global_history') || '[]');
-                // Remove existing entry for this day if exists to update it
                 const cleanHistory = history.filter(h => !(h.week === week && h.day === day));
                 cleanHistory.push({ week, day, date: new Date().toISOString(), title: workout.title });
                 localStorage.setItem('global_history', JSON.stringify(cleanHistory));
@@ -295,10 +356,13 @@
             };
 
             return (
-                <div className="pb-40 px-4 animate-slide-left">
+                <div className="px-4 pb-32 animate-slide-left">
                     {workout.sections.map((section, sIdx) => (
                         <div key={sIdx} className="mb-6">
-                            <h2 className="text-sm font-bold text-gray-500 uppercase mb-2 sticky top-16 bg-opBlack py-2 z-10">{section.name}</h2>
+                            <div className="flex items-center gap-2 mb-2 px-1">
+                                <div className="h-6 w-1 bg-md-sys-color-primary rounded-full"></div>
+                                <h2 className="text-sm font-medium text-md-sys-color-primary">{section.name}</h2>
+                            </div>
                             <div className="space-y-3">
                                 {section.exercises.map((ex, eIdx) => {
                                     const defaultSets = ex.sets || 3;
@@ -306,52 +370,120 @@
                                     const currentSetArray = logs[exId]?.sets || new Array(defaultSets).fill(false);
 
                                     return (
-                                        <div key={eIdx} className="bg-opGray border border-gray-800 rounded-xl p-4">
+                                        <MaterialCard key={eIdx}>
                                             <div className="flex justify-between items-start mb-4">
-                                                <div>
-                                                    <h3 className="text-white font-bold">{ex.name}</h3>
-                                                    <p className="text-xs text-opRed font-mono mt-1">{ex.prescription}</p>
+                                                <div className="flex-1 pr-2">
+                                                    <h3 className="text-md-sys-color-onSurface text-base font-medium leading-tight">{ex.name}</h3>
+                                                    <p className="text-sm text-md-sys-color-onSurfaceVariant mt-1">{ex.prescription}</p>
+                                                    {ex.notes && <p className="text-xs text-md-sys-color-outline mt-0.5">{ex.notes}</p>}
                                                 </div>
                                                 {ex.rest > 0 && (
-                                                    <button onClick={() => { setTimerSeconds(ex.rest); setTimerActive(true); }} className="bg-gray-800 p-2 rounded-lg">
-                                                        <i data-lucide="timer" width="16"></i>
+                                                    <button onClick={() => { setTimerSeconds(ex.rest); setTimerActive(true); }} className="h-8 px-3 rounded-full bg-md-sys-color-surfaceContainerHighest text-md-sys-color-primary text-xs font-medium border border-md-sys-color-outlineVariant ripple flex items-center gap-1">
+                                                        <i data-lucide="timer" width="14"></i> {ex.rest}s
                                                     </button>
                                                 )}
                                             </div>
-                                            <div className="flex flex-wrap gap-2 mb-3">
+                                            
+                                            <div className="flex flex-wrap gap-2 mb-4">
                                                 {currentSetArray.map((isDone, i) => (
-                                                    <button key={i} onClick={() => toggleSet(exId, i, defaultSets)} className={`h-10 w-10 rounded-lg font-bold text-sm border transition-all ${isDone ? 'bg-opRed border-opRed text-white' : 'bg-transparent border-gray-700 text-gray-500'}`}>
-                                                        {isDone ? <i data-lucide="check" width="16" className="mx-auto" /> : i + 1}
+                                                    <button key={i} onClick={() => toggleSet(exId, i, defaultSets)} className={`h-10 w-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-200 ripple ${isDone ? 'bg-md-sys-color-primary text-md-sys-color-onPrimary' : 'bg-transparent border border-md-sys-color-outline text-md-sys-color-onSurfaceVariant'}`}>
+                                                        {isDone ? <i data-lucide="check" width="18" /> : i + 1}
                                                     </button>
                                                 ))}
-                                                <button onClick={() => addSet(exId, defaultSets)} className="h-10 w-10 rounded-lg border border-dashed border-gray-700 text-gray-600 flex items-center justify-center hover:text-white">
-                                                    <i data-lucide="plus" width="16"></i>
+                                                <button onClick={() => addSet(exId, defaultSets)} className="h-10 w-10 rounded-full border border-dashed border-md-sys-color-outline text-md-sys-color-outline flex items-center justify-center ripple">
+                                                    <i data-lucide="plus" width="18"></i>
                                                 </button>
                                             </div>
+
                                             {!ex.isBodyweight && (
-                                                <div className="grid grid-cols-2 gap-3">
-                                                    <div className="bg-black rounded p-2 border border-gray-800">
-                                                        <label className="text-[10px] text-gray-500 uppercase block">Load</label>
-                                                        <input type="number" placeholder="0" className="bg-transparent text-white w-full outline-none" 
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div className="relative bg-md-sys-color-surfaceContainerHighest rounded-t-[4px] border-b border-md-sys-color-outlineVariant px-3 pt-4 pb-1">
+                                                        <label className="absolute top-1 left-3 text-[10px] text-md-sys-color-primary">Weight (kg)</label>
+                                                        <input type="number" className="bg-transparent text-md-sys-color-onSurface w-full outline-none text-base font-medium" 
                                                             value={logs[exId]?.weight || ''} onChange={(e) => saveLog(exId, 'weight', e.target.value)} />
                                                     </div>
-                                                    <div className="bg-black rounded p-2 border border-gray-800">
-                                                        <label className="text-[10px] text-gray-500 uppercase block">RPE</label>
-                                                        <input type="number" placeholder="-" className="bg-transparent text-white w-full outline-none" 
+                                                    <div className="relative bg-md-sys-color-surfaceContainerHighest rounded-t-[4px] border-b border-md-sys-color-outlineVariant px-3 pt-4 pb-1">
+                                                        <label className="absolute top-1 left-3 text-[10px] text-md-sys-color-primary">RPE</label>
+                                                        <input type="number" className="bg-transparent text-md-sys-color-onSurface w-full outline-none text-base font-medium" 
                                                             value={logs[exId]?.rpe || ''} onChange={(e) => saveLog(exId, 'rpe', e.target.value)} />
                                                     </div>
                                                 </div>
                                             )}
-                                        </div>
+                                        </MaterialCard>
                                     );
                                 })}
                             </div>
                         </div>
                     ))}
-                    <button onClick={handleFinish} className="w-full bg-opRed py-4 rounded-xl text-white font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform">
-                        <i data-lucide="check-circle"></i> FINISH WORKOUT
-                    </button>
-                    <GlobalTimer initialTime={timerSeconds} isRunning={timerActive} onStop={() => { setTimerActive(false); setTimerSeconds(0); }} onAdd={(amt) => setTimerSeconds(s => s + amt)} />
+                    <FAB onClick={handleFinish} icon="check" label="Finish Workout" extended={true} />
+                    <TimerSheet initialTime={timerSeconds} isRunning={timerActive} onStop={() => { setTimerActive(false); setTimerSeconds(0); }} onAdd={(amt) => setTimerSeconds(s => s + amt)} />
+                </div>
+            );
+        };
+
+        const Dashboard = ({ currentWeek, setCurrentWeek, onStartWorkout }) => {
+            const [progress, setProgress] = useState(0);
+            const swipeHandlers = useSwipe({
+                onSwipeLeft: () => setCurrentWeek(Math.min(21, currentWeek + 1)),
+                onSwipeRight: () => setCurrentWeek(Math.max(1, currentWeek - 1))
+            });
+
+            useEffect(() => setProgress((currentWeek / 21) * 100), [currentWeek]);
+
+            const isCompleted = (day) => {
+                try { return JSON.parse(localStorage.getItem(`session_w${currentWeek}d${day}`)).completed; } catch(e) { return false; }
+            };
+
+            const currentBlock = PROGRAM_DATA.blocks.find(b => b.weeks.includes(currentWeek)) || { name: "Unknown" };
+
+            return (
+                <div {...swipeHandlers} className="flex-1 overflow-y-auto px-4 pb-32 animate-slide-left">
+                    {/* Phase Card */}
+                    <div className="bg-md-sys-color-surfaceContainerHigh rounded-[24px] p-6 mb-6 relative overflow-hidden shadow-none">
+                        <div className="relative z-10">
+                            <h2 className="text-xs font-medium text-md-sys-color-secondary mb-1">CURRENT PHASE</h2>
+                            <h1 className="text-[28px] leading-8 font-normal text-md-sys-color-onSurface mb-4">{currentBlock.name}</h1>
+                            <div className="flex items-baseline gap-2 mb-4">
+                                <span className="text-[45px] leading-[52px] text-md-sys-color-primary font-normal">W{currentWeek}</span>
+                                <span className="text-md-sys-color-outline text-lg">/ 21</span>
+                            </div>
+                            <div className="w-full bg-md-sys-color-surfaceContainerHighest h-1 rounded-full overflow-hidden">
+                                <div className="bg-md-sys-color-primary h-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex justify-between items-center mb-4 px-1">
+                        <h3 className="text-md-sys-color-onSurface font-medium text-lg">Weekly Schedule</h3>
+                        <span className="text-xs text-md-sys-color-outline">Week {currentWeek}</span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                        {[1, 2, 3, 5].map((day) => {
+                            const done = isCompleted(day);
+                            return (
+                                <button key={day} onClick={() => onStartWorkout(day)} 
+                                    className={`relative p-4 h-32 rounded-[20px] text-left flex flex-col justify-between transition-all ripple ${done ? 'bg-md-sys-color-secondaryContainer text-md-sys-color-onSecondaryContainer' : 'bg-md-sys-color-surfaceContainerHigh text-md-sys-color-onSurface hover:bg-md-sys-color-surfaceContainerHighest'}`}>
+                                    <div className="flex justify-between items-start">
+                                        <span className={`text-xs font-bold uppercase tracking-wider ${done ? 'opacity-70' : 'text-md-sys-color-primary'}`}>Day {day}</span>
+                                        {done ? <i data-lucide="check-circle-2" width="20"></i> : <i data-lucide="play-circle" width="20" className="text-md-sys-color-outline" />}
+                                    </div>
+                                    <div>
+                                        <span className="text-sm font-medium leading-tight block">{done ? "Completed" : "Start Workout"}</span>
+                                    </div>
+                                </button>
+                            );
+                        })}
+                    </div>
+                    
+                    {/* Paginator Dots */}
+                    <div className="mt-8 flex justify-center gap-2">
+                        {[...Array(5)].map((_, i) => {
+                            const dotWeek = currentWeek - 2 + i;
+                            if (dotWeek < 1 || dotWeek > 21) return <div key={i} className="w-2 h-2" />;
+                            return <div key={i} className={`w-2 h-2 rounded-full transition-colors ${dotWeek === currentWeek ? 'bg-md-sys-color-primary' : 'bg-md-sys-color-surfaceContainerHighest'}`}></div>
+                        })}
+                    </div>
                 </div>
             );
         };
@@ -365,19 +497,24 @@
             }, []);
 
             return (
-                <div className="p-4 pb-32 animate-slide-left">
-                    <h2 className="text-white font-bold mb-4">Recent Activity</h2>
+                <div className="px-4 pb-32 animate-slide-left">
                     {history.length === 0 ? (
-                        <div className="text-center py-10 text-gray-600">No workouts completed yet.</div>
+                        <div className="flex flex-col items-center justify-center py-20 text-md-sys-color-outline">
+                            <i data-lucide="history" width="48" className="mb-4 opacity-50"></i>
+                            <p>No workout history yet.</p>
+                        </div>
                     ) : (
-                        <div className="space-y-3">
+                        <div className="space-y-2">
                             {history.map((entry, idx) => (
-                                <div key={idx} className="bg-opGray border border-gray-800 rounded-xl p-4 flex justify-between items-center">
-                                    <div>
-                                        <h3 className="text-white font-bold text-sm">Week {entry.week} Day {entry.day}</h3>
-                                        <p className="text-xs text-gray-500">{new Date(entry.date).toLocaleDateString()} • {new Date(entry.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+                                <div key={idx} className="bg-md-sys-color-surfaceContainer rounded-[16px] p-4 flex items-center gap-4">
+                                    <div className="h-10 w-10 rounded-full bg-md-sys-color-tertiaryContainer text-md-sys-color-onTertiaryContainer flex items-center justify-center font-bold text-sm">
+                                        {entry.week}
                                     </div>
-                                    <div className="text-opGreen"><i data-lucide="check-circle" width="20"></i></div>
+                                    <div className="flex-1">
+                                        <h3 className="text-md-sys-color-onSurface font-medium text-sm">Week {entry.week} • Day {entry.day}</h3>
+                                        <p className="text-xs text-md-sys-color-outline">{new Date(entry.date).toLocaleDateString()} at {new Date(entry.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+                                    </div>
+                                    <i data-lucide="check" width="20" className="text-md-sys-color-tertiary"></i>
                                 </div>
                             ))}
                         </div>
@@ -386,91 +523,15 @@
             );
         };
 
-        const Dashboard = ({ currentWeek, setCurrentWeek, onStartWorkout }) => {
-            const [progress, setProgress] = useState(0);
-            
-            const swipeHandlers = useSwipe({
-                onSwipeLeft: () => setCurrentWeek(Math.min(21, currentWeek + 1)),
-                onSwipeRight: () => setCurrentWeek(Math.max(1, currentWeek - 1))
-            });
-
-            useEffect(() => setProgress((currentWeek / 21) * 100), [currentWeek]);
-
-            const isCompleted = (day) => {
-                try {
-                    return JSON.parse(localStorage.getItem(`session_w${currentWeek}d${day}`)).completed;
-                } catch(e) { return false; }
-            };
-
-            const currentBlock = PROGRAM_DATA.blocks.find(b => b.weeks.includes(currentWeek)) || { name: "Unknown" };
-
-            return (
-                <div {...swipeHandlers} className="flex-1 overflow-y-auto p-4 pb-32 animate-slide-left">
-                    <div className="bg-gradient-to-br from-opGray to-black border border-gray-800 rounded-2xl p-6 mb-6 shadow-xl relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-opRed opacity-5 blur-3xl rounded-full -mr-10 -mt-10"></div>
-                        <div className="relative z-10">
-                            <h2 className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Current Phase</h2>
-                            <h1 className="text-2xl font-bold text-white mb-4">{currentBlock.name}</h1>
-                            <div className="flex items-end gap-2 mb-3">
-                                <span className="text-5xl font-bold text-opRed">W{currentWeek}</span>
-                                <span className="text-gray-500 text-sm mb-2 font-mono">/ 21</span>
-                            </div>
-                            <div className="w-full bg-gray-900 h-1 rounded-full overflow-hidden">
-                                <div className="bg-opRed h-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="flex justify-between items-center mb-4">
-                        <h3 className="text-white font-bold flex items-center gap-2"><i data-lucide="calendar" width="16"></i> Schedule</h3>
-                        <span className="text-[10px] text-gray-500 uppercase">Swipe for Week</span>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-3">
-                        {[1, 2, 3, 5].map((day) => {
-                            const done = isCompleted(day);
-                            return (
-                                <button key={day} onClick={() => onStartWorkout(day)} 
-                                    className={`p-4 rounded-xl border text-left group relative overflow-hidden transition-all ${done ? 'bg-green-900/10 border-green-900/30' : 'bg-opGray border-gray-800 active:scale-95'}`}>
-                                    
-                                    {done ? (
-                                        <div className="absolute top-3 right-3 text-opGreen"><i data-lucide="check-circle" width="16"></i></div>
-                                    ) : (
-                                        <div className="absolute top-3 right-3 text-gray-700 group-hover:text-opRed transition-colors"><i data-lucide="play-circle" width="16"></i></div>
-                                    )}
-                                    
-                                    <span className={`text-[10px] font-bold uppercase block mb-1 ${done ? 'text-opGreen' : 'text-gray-500'}`}>
-                                        {done ? "Completed" : `Day ${day}`}
-                                    </span>
-                                    <span className="text-sm font-bold text-white leading-tight block">Workout</span>
-                                </button>
-                            );
-                        })}
-                    </div>
-                    
-                    <div className="mt-8 flex justify-center gap-2">
-                        {[...Array(5)].map((_, i) => {
-                            const dotWeek = currentWeek - 2 + i;
-                            if (dotWeek < 1 || dotWeek > 21) return <div key={i} className="w-1.5 h-1.5" />;
-                            return (
-                                <div key={i} className={`w-1.5 h-1.5 rounded-full transition-colors ${dotWeek === currentWeek ? 'bg-opRed' : 'bg-gray-800'}`}></div>
-                            )
-                        })}
-                    </div>
-                </div>
-            );
-        };
-
         const App = () => {
             const [activeTab, setActiveTab] = useState('train');
-            const [viewMode, setViewMode] = useState('tab'); // 'tab' or 'workout'
+            const [viewMode, setViewMode] = useState('tab'); 
             const [currentWeek, setCurrentWeek] = useState(1);
             const [activeDay, setActiveDay] = useState(1);
 
             useEffect(() => {
                 const savedWeek = localStorage.getItem('tracker_week');
                 if (savedWeek) setCurrentWeek(parseInt(savedWeek));
-                lucide.createIcons();
             }, []);
 
             useEffect(() => {
@@ -483,11 +544,10 @@
             };
 
             return (
-                <div className="min-h-screen bg-opBlack text-opText font-sans flex flex-col max-w-md mx-auto border-x border-gray-900 shadow-2xl relative">
-                    
-                    <Header 
-                        title={viewMode === 'workout' ? `Week ${currentWeek} Day ${activeDay}` : (activeTab === 'train' ? 'OnePlus Tracker' : activeTab === 'history' ? 'History' : 'Profile')}
-                        subtitle={viewMode === 'workout' ? 'Training Mode' : 'V26.10'}
+                <div className="min-h-screen bg-md-sys-color-background text-md-sys-color-onBackground font-sans flex flex-col max-w-md mx-auto relative selection:bg-md-sys-color-primaryContainer selection:text-md-sys-color-onPrimaryContainer">
+                    <TopAppBar 
+                        title={viewMode === 'workout' ? `Day ${activeDay}` : (activeTab === 'train' ? 'Dashboard' : activeTab === 'history' ? 'History' : 'Profile')}
+                        subtitle={viewMode === 'workout' ? `Week ${currentWeek}` : (activeTab === 'train' ? 'OnePlus Strength' : '')}
                         showBack={viewMode === 'workout'}
                         onBack={() => setViewMode('tab')}
                     />
@@ -498,8 +558,8 @@
                         <>
                             {activeTab === 'train' && <Dashboard currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} onStartWorkout={startWorkout} />}
                             {activeTab === 'history' && <HistoryView />}
-                            {activeTab === 'profile' && <div className="p-10 text-center text-gray-600 animate-slide-left">Profile Settings Placeholder</div>}
-                            <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+                            {activeTab === 'profile' && <div className="p-8 text-center text-md-sys-color-outline animate-slide-left">User settings coming soon.</div>}
+                            <NavigationBar activeTab={activeTab} onTabChange={setActiveTab} />
                         </>
                     )}
                 </div>

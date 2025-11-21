@@ -3,75 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Material You Tracker</title>
+    <title>OnePlus 12 Pro Tracker</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Roboto', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        // Material Design 3 Dark Theme Tokens (Red Seed)
-                        md: {
-                            sys: {
-                                color: {
-                                    background: '#000000', // OLED Pitch Black
-                                    onBackground: '#E6E1E5',
-                                    surface: '#141218',
-                                    surfaceDim: '#111318',
-                                    surfaceContainer: '#1D1B20',
-                                    surfaceContainerHigh: '#2B2930',
-                                    surfaceContainerHighest: '#36343B',
-                                    
-                                    primary: '#FFB4AB', // Light Red/Pink
-                                    onPrimary: '#690005',
-                                    primaryContainer: '#93000A',
-                                    onPrimaryContainer: '#FFDAD6',
-                                    
-                                    secondary: '#E7BDB8',
-                                    onSecondary: '#442927',
-                                    secondaryContainer: '#5D3F3C',
-                                    onSecondaryContainer: '#FFDAD6',
-                                    
-                                    tertiary: '#E0C38C',
-                                    onTertiary: '#3F2D04',
-                                    tertiaryContainer: '#584419',
-                                    onTertiaryContainer: '#FDDDB0',
-                                    
-                                    error: '#FFB4AB',
-                                    onError: '#690005',
-                                    
-                                    outline: '#938F99',
-                                    outlineVariant: '#49454F',
-                                    inverseSurface: '#E6E1E5',
-                                    inverseOnSurface: '#313033',
-                                    inversePrimary: '#C00017'
-                                }
-                            }
+                        // Functional Palette (High Contrast OLED)
+                        sys: {
+                            black: '#000000',
+                            surface: '#121212',
+                            surfaceHigh: '#242424',
+                            onSurface: '#FFFFFF',
+                            onSurfaceVar: '#A1A1AA',
+                            primary: '#FFFFFF', // High contrast active state
+                            primaryDim: '#525252',
+                            accent: '#3B82F6', // Electric Blue for action confirmation (better than aggressive red)
+                            success: '#10B981',
                         }
                     },
                     boxShadow: {
-                        'md-1': '0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30)',
-                        'md-2': '0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30)',
-                        'md-3': '0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.30)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
                     },
                     animation: {
-                        'slide-left': 'slideLeft 0.25s cubic-bezier(0.2, 0.0, 0, 1.0)',
-                        'slide-up': 'slideUp 0.3s cubic-bezier(0.2, 0.0, 0, 1.0)',
+                        'slide-up': 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                     },
                     keyframes: {
-                        slideLeft: {
-                            '0%': { transform: 'translateX(20px)', opacity: 0 },
-                            '100%': { transform: 'translateX(0)', opacity: 1 },
-                        },
                         slideUp: {
                             '0%': { transform: 'translateY(100%)' },
                             '100%': { transform: 'translateY(0)' },
@@ -82,35 +50,19 @@
         }
     </script>
     <style>
-        body { background-color: #000000; color: #E6E1E5; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #000000; color: #FFFFFF; -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; }
         ::-webkit-scrollbar { display: none; }
         .safe-pb { padding-bottom: env(safe-area-inset-bottom, 24px); }
         .safe-pt { padding-top: env(safe-area-inset-top, 24px); }
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         
-        /* Material Ripple Effect Simulation */
-        .ripple { position: relative; overflow: hidden; }
-        .ripple:after {
-            content: "";
-            display: block;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
-            background-repeat: no-repeat;
-            background-position: 50%;
-            transform: scale(10, 10);
-            opacity: 0;
-            transition: transform .5s, opacity 1s;
-        }
-        .ripple:active:after {
-            transform: scale(0, 0);
-            opacity: .1;
-            transition: 0s;
+        /* Glassmorphism for OLED depth */
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
     </style>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -121,7 +73,22 @@
     <script type="text/babel">
         const { useState, useEffect, useMemo, useRef } = React;
 
-        // --- HOOKS & HELPERS ---
+        // --- HAPTIC ENGINE ---
+        const useHaptic = () => {
+            const trigger = (pattern = [10]) => {
+                if (navigator.vibrate) {
+                    navigator.vibrate(pattern);
+                }
+            };
+            return {
+                tick: () => trigger([10]), // Light tap for checks
+                bump: () => trigger([30]), // Medium bump for buttons
+                success: () => trigger([50, 50, 50]), // Double pulse for completion
+                timer: () => trigger([200]) // Long buzz for timer
+            };
+        };
+
+        // --- SWIPE HOOK ---
         const useSwipe = ({ onSwipeLeft, onSwipeRight, threshold = 50 }) => {
             const [touchStart, setTouchStart] = useState(null);
             const [touchEnd, setTouchEnd] = useState(null);
@@ -146,12 +113,11 @@
             return { onTouchStart, onTouchMove, onTouchEnd };
         };
 
-        // --- DATA LOADING ---
-        // (Assuming FULL_DB is populated as per previous context - Mocking core structure for demo)
+        // --- DATA LOADING (Using full data structure) ---
         const getFullSchedule = () => {
             const schedule = [];
             const add = (w, d, ex, s, r, n) => schedule.push({w, d, ex, s, r, n});
-            // Mock Data Generation to keep this single file runnable without external dep
+            // MOCK DATA - In production this is the full JSON
             for (let w = 1; w <= 21; w++) {
                 [1, 5].forEach(d => {
                     if(w===21 && d===5) return;
@@ -210,32 +176,65 @@
             }
         };
 
-        // --- MATERIAL 3 COMPONENTS ---
+        // --- COMPONENTS ---
 
-        // 1. Material Top App Bar
+        // 1. OLED TOP BAR
         const TopAppBar = ({ title, subtitle, onBack, showBack }) => (
-            <div className="bg-md-sys-color-background sticky top-0 z-40 safe-pt transition-all duration-300">
-                <div className="h-16 flex items-center px-4 gap-4">
+            <div className="bg-sys-black sticky top-0 z-40 safe-pt border-b border-white/5">
+                <div className="h-16 flex items-center px-5 gap-4">
                     {showBack ? (
-                        <button onClick={onBack} className="ripple p-2 text-md-sys-color-onBackground rounded-full hover:bg-md-sys-color-surfaceContainerHigh">
+                        <button onClick={onBack} className="p-2 -ml-2 text-sys-onSurface rounded-full hover:bg-sys-surfaceHigh transition-colors">
                             <i data-lucide="arrow-left" width="24"></i>
                         </button>
-                    ) : <div className="w-2"></div>}
+                    ) : null}
                     
-                    <div className="flex-1 flex flex-col justify-center">
-                        <h1 className="text-[22px] leading-7 text-md-sys-color-onBackground font-normal truncate">{title}</h1>
-                        {subtitle && <p className="text-sm leading-5 text-md-sys-color-secondary font-medium truncate">{subtitle}</p>}
-                    </div>
-                    
-                    <div className="w-10 h-10 rounded-full bg-md-sys-color-surfaceContainerHigh flex items-center justify-center text-md-sys-color-onBackground font-bold text-sm">
-                        OP
+                    <div className="flex-1">
+                        <h1 className="text-xl font-semibold text-sys-onSurface tracking-tight">{title}</h1>
+                        {subtitle && <p className="text-xs text-sys-onSurfaceVar font-medium">{subtitle}</p>}
                     </div>
                 </div>
             </div>
         );
 
-        // 2. Material Navigation Bar
+        // 2. ACTION BAR (Reachability Optimized)
+        // Instead of a top button or floating button, this sits directly above the nav bar
+        // right where the thumb naturally rests on a large phone.
+        const ActionBar = ({ onFinish, timerState, setTimerActive, setTimerSeconds }) => {
+            const haptic = useHaptic();
+            
+            return (
+                <div className="fixed bottom-[80px] left-0 right-0 p-4 z-40 pointer-events-none flex justify-end items-end gap-3 safe-pb">
+                    {/* Timer Pill */}
+                    {timerState.time > 0 && (
+                        <div className="pointer-events-auto glass-panel px-4 py-3 rounded-full flex items-center gap-3 shadow-lg animate-slide-up mr-auto">
+                            <span className="text-xl font-mono font-bold text-white">
+                                {Math.floor(timerState.time/60)}:{timerState.time%60 < 10 ? '0' : ''}{timerState.time%60}
+                            </span>
+                            <div className="h-4 w-[1px] bg-white/20"></div>
+                            <button onClick={() => { haptic.bump(); setTimerActive(false); setTimerSeconds(0); }} className="text-sys-onSurfaceVar hover:text-white">
+                                <i data-lucide="x" width="20"></i>
+                            </button>
+                            <button onClick={() => { haptic.bump(); setTimerSeconds(s => s + 30); }} className="text-sys-accent font-bold text-sm">
+                                +30s
+                            </button>
+                        </div>
+                    )}
+
+                    {/* Finish Button - Huge Touch Target */}
+                    <button 
+                        onClick={() => { haptic.success(); onFinish(); }} 
+                        className="pointer-events-auto h-14 px-6 rounded-full bg-sys-onSurface text-sys-black font-bold shadow-lg flex items-center gap-2 active:scale-95 transition-transform"
+                    >
+                        <i data-lucide="check-circle-2" width="20"></i>
+                        <span>FINISH</span>
+                    </button>
+                </div>
+            );
+        };
+
+        // 3. BOTTOM NAV (Standard Android Layout)
         const NavigationBar = ({ activeTab, onTabChange }) => {
+            const haptic = useHaptic();
             const navItems = [
                 { id: 'train', icon: 'dumbbell', label: 'Train' },
                 { id: 'history', icon: 'history', label: 'History' },
@@ -243,15 +242,19 @@
             ];
 
             return (
-                <div className="fixed bottom-0 left-0 right-0 bg-md-sys-color-surfaceContainer z-50 safe-pb h-[80px] flex items-center justify-around border-t border-transparent">
+                <div className="fixed bottom-0 left-0 right-0 bg-sys-black border-t border-white/10 z-50 safe-pb h-[80px] flex items-center justify-around">
                     {navItems.map((item) => {
                         const isActive = activeTab === item.id;
                         return (
-                            <button key={item.id} onClick={() => onTabChange(item.id)} className="flex flex-col items-center gap-1 w-full ripple">
-                                <div className={`w-16 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${isActive ? 'bg-md-sys-color-secondaryContainer text-md-sys-color-onSecondaryContainer' : 'text-md-sys-color-onSurfaceVariant'}`}>
-                                    <i data-lucide={item.icon} width="20" height="20"></i>
+                            <button 
+                                key={item.id} 
+                                onClick={() => { haptic.tick(); onTabChange(item.id); }} 
+                                className="flex flex-col items-center gap-1 w-full py-2 active:opacity-70"
+                            >
+                                <div className={`w-16 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${isActive ? 'bg-sys-surfaceHigh' : 'transparent'}`}>
+                                    <i data-lucide={item.icon} width="22" className={isActive ? 'text-white' : 'text-sys-onSurfaceVar'}></i>
                                 </div>
-                                <span className={`text-xs font-medium ${isActive ? 'text-md-sys-color-onSurface' : 'text-md-sys-color-onSurfaceVariant'}`}>
+                                <span className={`text-[11px] font-medium ${isActive ? 'text-white' : 'text-sys-onSurfaceVar'}`}>
                                     {item.label}
                                 </span>
                             </button>
@@ -261,54 +264,13 @@
             );
         };
 
-        // 3. Material Card (Filled)
-        const MaterialCard = ({ children, className = "" }) => (
-            <div className={`bg-md-sys-color-surfaceContainerHigh rounded-[16px] p-4 shadow-none ${className}`}>
-                {children}
-            </div>
-        );
-
-        // 4. Material FAB (Floating Action Button)
-        const FAB = ({ onClick, icon, label, extended = false }) => (
-            <button 
-                onClick={onClick} 
-                className={`fixed bottom-24 right-4 z-40 shadow-md-3 bg-md-sys-color-primaryContainer text-md-sys-color-onPrimaryContainer hover:shadow-md-3 transition-all active:scale-95 flex items-center justify-center gap-2 ${extended ? 'h-14 px-4 rounded-[16px]' : 'h-14 w-14 rounded-[16px]'}`}
-            >
-                <i data-lucide={icon} width="24"></i>
-                {extended && <span className="font-medium text-sm">{label}</span>}
-            </button>
-        );
-
-        // 5. Material Timer Sheet
-        const TimerSheet = ({ initialTime, isRunning, onStop, onAdd }) => {
-            if (!isRunning && initialTime === 0) return null;
-            return (
-                <div className="fixed bottom-0 left-0 right-0 bg-md-sys-color-surfaceContainerHigh rounded-t-[28px] p-6 z-[60] shadow-md-3 animate-slide-up safe-pb">
-                    <div className="w-8 h-1 bg-md-sys-color-outlineVariant rounded-full mx-auto mb-6 opacity-40"></div>
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <span className="text-xs text-md-sys-color-tertiary font-bold uppercase tracking-widest">Rest Timer</span>
-                            <span className="block text-5xl font-mono text-md-sys-color-onSurface mt-1">
-                                {Math.floor(initialTime/60)}:{initialTime%60 < 10 ? '0' : ''}{initialTime%60}
-                            </span>
-                        </div>
-                        <div className="flex gap-3">
-                            <button onClick={() => onAdd(30)} className="h-12 px-5 rounded-full bg-md-sys-color-surfaceContainerHighest text-md-sys-color-onSurface font-medium border border-md-sys-color-outlineVariant">+30s</button>
-                            <button onClick={onStop} className="h-12 w-12 rounded-full bg-md-sys-color-error text-md-sys-color-onError flex items-center justify-center">
-                                <i data-lucide="x" width="24"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            );
-        };
-
-        // --- WORKOUT LOGIC ---
+        // --- WORKOUT PLAYER ---
         const WorkoutPlayer = ({ week, day, onComplete }) => {
             const workout = useMemo(() => PROGRAM_DATA.getWorkout(week, day), [week, day]);
             const [logs, setLogs] = useState({});
             const [timerSeconds, setTimerSeconds] = useState(0);
             const [timerActive, setTimerActive] = useState(false);
+            const haptic = useHaptic();
 
             useEffect(() => {
                 const saved = localStorage.getItem(`session_w${week}d${day}`);
@@ -319,7 +281,7 @@
             useEffect(() => {
                 let interval = null;
                 if (timerActive && timerSeconds > 0) interval = setInterval(() => setTimerSeconds(s => s - 1), 1000);
-                else if (timerSeconds === 0) setTimerActive(false);
+                else if (timerSeconds === 0 && timerActive) { setTimerActive(false); haptic.timer(); }
                 return () => clearInterval(interval);
             }, [timerActive, timerSeconds]);
 
@@ -330,6 +292,7 @@
             };
 
             const toggleSet = (exId, setIndex, defaultSets) => {
+                haptic.tick();
                 const currentSets = logs[exId]?.sets || new Array(defaultSets).fill(false);
                 const newSets = [...currentSets];
                 while(newSets.length <= setIndex) newSets.push(false);
@@ -338,6 +301,7 @@
             };
 
             const addSet = (exId, defaultSets) => {
+                haptic.bump();
                 const currentSets = logs[exId]?.sets || new Array(defaultSets).fill(false);
                 saveLog(exId, 'sets', [...currentSets, false]);
             };
@@ -356,73 +320,84 @@
             };
 
             return (
-                <div className="px-4 pb-32 animate-slide-left">
+                <div className="px-4 pb-40 pt-4">
                     {workout.sections.map((section, sIdx) => (
-                        <div key={sIdx} className="mb-6">
-                            <div className="flex items-center gap-2 mb-2 px-1">
-                                <div className="h-6 w-1 bg-md-sys-color-primary rounded-full"></div>
-                                <h2 className="text-sm font-medium text-md-sys-color-primary">{section.name}</h2>
+                        <div key={sIdx} className="mb-8">
+                            <div className="flex items-center gap-3 mb-3">
+                                <span className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider">{section.name}</span>
+                                <div className="h-[1px] flex-1 bg-white/10"></div>
                             </div>
-                            <div className="space-y-3">
+                            
+                            <div className="space-y-4">
                                 {section.exercises.map((ex, eIdx) => {
                                     const defaultSets = ex.sets || 3;
                                     const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
                                     const currentSetArray = logs[exId]?.sets || new Array(defaultSets).fill(false);
 
                                     return (
-                                        <MaterialCard key={eIdx}>
-                                            <div className="flex justify-between items-start mb-4">
-                                                <div className="flex-1 pr-2">
-                                                    <h3 className="text-md-sys-color-onSurface text-base font-medium leading-tight">{ex.name}</h3>
-                                                    <p className="text-sm text-md-sys-color-onSurfaceVariant mt-1">{ex.prescription}</p>
-                                                    {ex.notes && <p className="text-xs text-md-sys-color-outline mt-0.5">{ex.notes}</p>}
+                                        <div key={eIdx} className="bg-sys-surface rounded-2xl p-5 border border-white/5">
+                                            <div className="flex justify-between items-start mb-5">
+                                                <div className="flex-1 pr-4">
+                                                    <h3 className="text-base font-semibold text-white leading-tight">{ex.name}</h3>
+                                                    <p className="text-sm text-sys-onSurfaceVar mt-1 font-medium">{ex.prescription}</p>
+                                                    {ex.notes && <p className="text-xs text-sys-accent mt-1">{ex.notes}</p>}
                                                 </div>
                                                 {ex.rest > 0 && (
-                                                    <button onClick={() => { setTimerSeconds(ex.rest); setTimerActive(true); }} className="h-8 px-3 rounded-full bg-md-sys-color-surfaceContainerHighest text-md-sys-color-primary text-xs font-medium border border-md-sys-color-outlineVariant ripple flex items-center gap-1">
+                                                    <button 
+                                                        onClick={() => { haptic.bump(); setTimerSeconds(ex.rest); setTimerActive(true); }} 
+                                                        className="h-9 px-3 rounded-full bg-sys-surfaceHigh text-white text-xs font-bold flex items-center gap-1 active:bg-sys-onSurfaceVar transition-colors"
+                                                    >
                                                         <i data-lucide="timer" width="14"></i> {ex.rest}s
                                                     </button>
                                                 )}
                                             </div>
                                             
-                                            <div className="flex flex-wrap gap-2 mb-4">
+                                            {/* Interaction Area: Large Touch Targets */}
+                                            <div className="flex flex-wrap gap-3 mb-4">
                                                 {currentSetArray.map((isDone, i) => (
-                                                    <button key={i} onClick={() => toggleSet(exId, i, defaultSets)} className={`h-10 w-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-200 ripple ${isDone ? 'bg-md-sys-color-primary text-md-sys-color-onPrimary' : 'bg-transparent border border-md-sys-color-outline text-md-sys-color-onSurfaceVariant'}`}>
-                                                        {isDone ? <i data-lucide="check" width="18" /> : i + 1}
+                                                    <button 
+                                                        key={i} 
+                                                        onClick={() => toggleSet(exId, i, defaultSets)} 
+                                                        className={`h-12 w-12 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 ${isDone ? 'bg-sys-accent text-white shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
+                                                    >
+                                                        {isDone ? <i data-lucide="check" width="20" /> : i + 1}
                                                     </button>
                                                 ))}
-                                                <button onClick={() => addSet(exId, defaultSets)} className="h-10 w-10 rounded-full border border-dashed border-md-sys-color-outline text-md-sys-color-outline flex items-center justify-center ripple">
-                                                    <i data-lucide="plus" width="18"></i>
+                                                <button onClick={() => addSet(exId, defaultSets)} className="h-12 w-12 rounded-full border border-dashed border-white/20 text-white/20 flex items-center justify-center active:bg-white/5">
+                                                    <i data-lucide="plus" width="20"></i>
                                                 </button>
                                             </div>
 
                                             {!ex.isBodyweight && (
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <div className="relative bg-md-sys-color-surfaceContainerHighest rounded-t-[4px] border-b border-md-sys-color-outlineVariant px-3 pt-4 pb-1">
-                                                        <label className="absolute top-1 left-3 text-[10px] text-md-sys-color-primary">Weight (kg)</label>
-                                                        <input type="number" className="bg-transparent text-md-sys-color-onSurface w-full outline-none text-base font-medium" 
-                                                            value={logs[exId]?.weight || ''} onChange={(e) => saveLog(exId, 'weight', e.target.value)} />
+                                                <div className="grid grid-cols-2 gap-4 pt-2 border-t border-white/5">
+                                                    <div>
+                                                        <label className="text-[10px] text-sys-onSurfaceVar uppercase font-bold mb-1 block">Load (kg)</label>
+                                                        <input type="number" className="bg-sys-surfaceHigh rounded-lg w-full h-10 px-3 text-white font-mono text-sm outline-none focus:ring-1 focus:ring-sys-accent" 
+                                                            value={logs[exId]?.weight || ''} onChange={(e) => saveLog(exId, 'weight', e.target.value)} placeholder="0" />
                                                     </div>
-                                                    <div className="relative bg-md-sys-color-surfaceContainerHighest rounded-t-[4px] border-b border-md-sys-color-outlineVariant px-3 pt-4 pb-1">
-                                                        <label className="absolute top-1 left-3 text-[10px] text-md-sys-color-primary">RPE</label>
-                                                        <input type="number" className="bg-transparent text-md-sys-color-onSurface w-full outline-none text-base font-medium" 
-                                                            value={logs[exId]?.rpe || ''} onChange={(e) => saveLog(exId, 'rpe', e.target.value)} />
+                                                    <div>
+                                                        <label className="text-[10px] text-sys-onSurfaceVar uppercase font-bold mb-1 block">RPE</label>
+                                                        <input type="number" className="bg-sys-surfaceHigh rounded-lg w-full h-10 px-3 text-white font-mono text-sm outline-none focus:ring-1 focus:ring-sys-accent" 
+                                                            value={logs[exId]?.rpe || ''} onChange={(e) => saveLog(exId, 'rpe', e.target.value)} placeholder="-" />
                                                     </div>
                                                 </div>
                                             )}
-                                        </MaterialCard>
+                                        </div>
                                     );
                                 })}
                             </div>
                         </div>
                     ))}
-                    <FAB onClick={handleFinish} icon="check" label="Finish Workout" extended={true} />
-                    <TimerSheet initialTime={timerSeconds} isRunning={timerActive} onStop={() => { setTimerActive(false); setTimerSeconds(0); }} onAdd={(amt) => setTimerSeconds(s => s + amt)} />
+                    <ActionBar onFinish={handleFinish} timerState={{time: timerSeconds}} setTimerActive={setTimerActive} setTimerSeconds={setTimerSeconds} />
                 </div>
             );
         };
 
+        // --- DASHBOARD ---
         const Dashboard = ({ currentWeek, setCurrentWeek, onStartWorkout }) => {
             const [progress, setProgress] = useState(0);
+            const haptic = useHaptic();
+            
             const swipeHandlers = useSwipe({
                 onSwipeLeft: () => setCurrentWeek(Math.min(21, currentWeek + 1)),
                 onSwipeRight: () => setCurrentWeek(Math.max(1, currentWeek - 1))
@@ -437,51 +412,54 @@
             const currentBlock = PROGRAM_DATA.blocks.find(b => b.weeks.includes(currentWeek)) || { name: "Unknown" };
 
             return (
-                <div {...swipeHandlers} className="flex-1 overflow-y-auto px-4 pb-32 animate-slide-left">
-                    {/* Phase Card */}
-                    <div className="bg-md-sys-color-surfaceContainerHigh rounded-[24px] p-6 mb-6 relative overflow-hidden shadow-none">
+                <div {...swipeHandlers} className="flex-1 overflow-y-auto px-5 pb-32 pt-6">
+                    {/* High Contrast Phase Card */}
+                    <div className="bg-sys-surfaceHigh rounded-3xl p-6 mb-8 relative overflow-hidden border border-white/5">
                         <div className="relative z-10">
-                            <h2 className="text-xs font-medium text-md-sys-color-secondary mb-1">CURRENT PHASE</h2>
-                            <h1 className="text-[28px] leading-8 font-normal text-md-sys-color-onSurface mb-4">{currentBlock.name}</h1>
-                            <div className="flex items-baseline gap-2 mb-4">
-                                <span className="text-[45px] leading-[52px] text-md-sys-color-primary font-normal">W{currentWeek}</span>
-                                <span className="text-md-sys-color-outline text-lg">/ 21</span>
+                            <h2 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-1">Current Phase</h2>
+                            <h1 className="text-3xl font-bold text-white mb-4">{currentBlock.name}</h1>
+                            <div className="flex items-baseline gap-2 mb-6">
+                                <span className="text-5xl font-bold text-sys-accent tracking-tighter">W{currentWeek}</span>
+                                <span className="text-sys-onSurfaceVar font-mono text-lg">/ 21</span>
                             </div>
-                            <div className="w-full bg-md-sys-color-surfaceContainerHighest h-1 rounded-full overflow-hidden">
-                                <div className="bg-md-sys-color-primary h-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
+                            {/* Integrated Progress Bar */}
+                            <div className="w-full bg-black/30 h-1.5 rounded-full overflow-hidden">
+                                <div className="bg-sys-accent h-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="flex justify-between items-center mb-4 px-1">
-                        <h3 className="text-md-sys-color-onSurface font-medium text-lg">Weekly Schedule</h3>
-                        <span className="text-xs text-md-sys-color-outline">Week {currentWeek}</span>
+                    <div className="flex justify-between items-end mb-5 px-1">
+                        <h3 className="text-xl font-semibold text-white">Weekly Plan</h3>
+                        <span className="text-xs text-sys-onSurfaceVar">Week {currentWeek}</span>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 gap-3">
                         {[1, 2, 3, 5].map((day) => {
                             const done = isCompleted(day);
                             return (
-                                <button key={day} onClick={() => onStartWorkout(day)} 
-                                    className={`relative p-4 h-32 rounded-[20px] text-left flex flex-col justify-between transition-all ripple ${done ? 'bg-md-sys-color-secondaryContainer text-md-sys-color-onSecondaryContainer' : 'bg-md-sys-color-surfaceContainerHigh text-md-sys-color-onSurface hover:bg-md-sys-color-surfaceContainerHighest'}`}>
-                                    <div className="flex justify-between items-start">
-                                        <span className={`text-xs font-bold uppercase tracking-wider ${done ? 'opacity-70' : 'text-md-sys-color-primary'}`}>Day {day}</span>
-                                        {done ? <i data-lucide="check-circle-2" width="20"></i> : <i data-lucide="play-circle" width="20" className="text-md-sys-color-outline" />}
+                                <button key={day} onClick={() => { haptic.tick(); onStartWorkout(day); }} 
+                                    className={`relative h-20 rounded-2xl px-5 flex items-center justify-between transition-all active:scale-[0.98] ${done ? 'bg-sys-success/10 border border-sys-success/20' : 'bg-sys-surface border border-white/5'}`}>
+                                    
+                                    <div className="flex flex-col items-start">
+                                        <span className={`text-xs font-bold uppercase tracking-wider mb-0.5 ${done ? 'text-sys-success' : 'text-sys-onSurfaceVar'}`}>Day {day}</span>
+                                        <span className="text-sm font-semibold text-white">{PROGRAM_DATA.getWorkout(currentWeek, day).sections[2]?.name || "Training"}</span>
                                     </div>
-                                    <div>
-                                        <span className="text-sm font-medium leading-tight block">{done ? "Completed" : "Start Workout"}</span>
+
+                                    <div className={`h-10 w-10 rounded-full flex items-center justify-center ${done ? 'bg-sys-success text-sys-black' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}>
+                                        {done ? <i data-lucide="check" width="20"></i> : <i data-lucide="chevron-right" width="20"></i>}
                                     </div>
                                 </button>
                             );
                         })}
                     </div>
                     
-                    {/* Paginator Dots */}
-                    <div className="mt-8 flex justify-center gap-2">
+                    {/* Simple Dot Indicator */}
+                    <div className="mt-10 flex justify-center gap-3">
                         {[...Array(5)].map((_, i) => {
                             const dotWeek = currentWeek - 2 + i;
-                            if (dotWeek < 1 || dotWeek > 21) return <div key={i} className="w-2 h-2" />;
-                            return <div key={i} className={`w-2 h-2 rounded-full transition-colors ${dotWeek === currentWeek ? 'bg-md-sys-color-primary' : 'bg-md-sys-color-surfaceContainerHighest'}`}></div>
+                            if (dotWeek < 1 || dotWeek > 21) return <div key={i} className="w-1.5 h-1.5" />;
+                            return <div key={i} className={`w-1.5 h-1.5 rounded-full transition-colors ${dotWeek === currentWeek ? 'bg-white scale-125' : 'bg-white/20'}`}></div>
                         })}
                     </div>
                 </div>
@@ -497,24 +475,24 @@
             }, []);
 
             return (
-                <div className="px-4 pb-32 animate-slide-left">
+                <div className="px-5 pb-32 pt-6">
+                    <h2 className="text-xl font-semibold text-white mb-6">History</h2>
                     {history.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center py-20 text-md-sys-color-outline">
-                            <i data-lucide="history" width="48" className="mb-4 opacity-50"></i>
-                            <p>No workout history yet.</p>
+                        <div className="flex flex-col items-center justify-center py-20 text-sys-onSurfaceVar opacity-50">
+                            <i data-lucide="history" width="40" className="mb-4"></i>
+                            <p className="text-sm">No workouts yet</p>
                         </div>
                     ) : (
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                             {history.map((entry, idx) => (
-                                <div key={idx} className="bg-md-sys-color-surfaceContainer rounded-[16px] p-4 flex items-center gap-4">
-                                    <div className="h-10 w-10 rounded-full bg-md-sys-color-tertiaryContainer text-md-sys-color-onTertiaryContainer flex items-center justify-center font-bold text-sm">
-                                        {entry.week}
+                                <div key={idx} className="bg-sys-surface border border-white/5 rounded-2xl p-4 flex items-center gap-4">
+                                    <div className="h-12 w-12 rounded-full bg-sys-surfaceHigh flex items-center justify-center text-xs font-bold text-white">
+                                        W{entry.week}
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="text-md-sys-color-onSurface font-medium text-sm">Week {entry.week} • Day {entry.day}</h3>
-                                        <p className="text-xs text-md-sys-color-outline">{new Date(entry.date).toLocaleDateString()} at {new Date(entry.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
+                                        <h3 className="text-sm font-semibold text-white">Day {entry.day} Complete</h3>
+                                        <p className="text-xs text-sys-onSurfaceVar mt-0.5">{new Date(entry.date).toLocaleDateString()}</p>
                                     </div>
-                                    <i data-lucide="check" width="20" className="text-md-sys-color-tertiary"></i>
                                 </div>
                             ))}
                         </div>
@@ -544,7 +522,7 @@
             };
 
             return (
-                <div className="min-h-screen bg-md-sys-color-background text-md-sys-color-onBackground font-sans flex flex-col max-w-md mx-auto relative selection:bg-md-sys-color-primaryContainer selection:text-md-sys-color-onPrimaryContainer">
+                <div className="min-h-screen bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative">
                     <TopAppBar 
                         title={viewMode === 'workout' ? `Day ${activeDay}` : (activeTab === 'train' ? 'Dashboard' : activeTab === 'history' ? 'History' : 'Profile')}
                         subtitle={viewMode === 'workout' ? `Week ${currentWeek}` : (activeTab === 'train' ? 'OnePlus Strength' : '')}
@@ -558,7 +536,7 @@
                         <>
                             {activeTab === 'train' && <Dashboard currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} onStartWorkout={startWorkout} />}
                             {activeTab === 'history' && <HistoryView />}
-                            {activeTab === 'profile' && <div className="p-8 text-center text-md-sys-color-outline animate-slide-left">User settings coming soon.</div>}
+                            {activeTab === 'profile' && <div className="p-10 text-center text-sys-onSurfaceVar">Settings coming soon.</div>}
                             <NavigationBar activeTab={activeTab} onTabChange={setActiveTab} />
                         </>
                     )}

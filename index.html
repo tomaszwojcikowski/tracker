@@ -53,10 +53,10 @@
         const PROGRAM_DATA = {
             title: "20-Week Integrated Strength (V26.10)",
             blocks: [
-                { id: 1, name: "Foundation", weeks: [1, 2, 3, 4] },
-                { id: 2, name: "Intensification", weeks: [5, 6, 7, 8] },
-                { id: 3, name: "Neutral Grip", weeks: [9, 10, 11, 12] },
-                { id: 4, name: "Accumulation", weeks: [13, 14, 15, 16] },
+                { id: 1, name: "Foundation (Ladders)", weeks: [1, 2, 3, 4] },
+                { id: 2, name: "Intensification (EMOM)", weeks: [5, 6, 7, 8] },
+                { id: 3, name: "Neutral Grip (Clusters)", weeks: [9, 10, 11, 12] },
+                { id: 4, name: "Accumulation (AMRAP)", weeks: [13, 14, 15, 16] },
                 { id: 5, name: "Peak & Taper", weeks: [17, 18, 19, 20] }
             ],
             getWorkout: (week, day) => {
@@ -67,108 +67,216 @@
                     sections: []
                 };
 
-                if (week <= 4) {
-                    if (day === 1) {
-                        const ladderSets = week === 1 ? 4 : week === 4 ? 3 : 5;
-                        workout.title = "Pull Volume (Workout A)";
-                        workout.focus = "Accumulation";
-                        workout.sections = [
-                            {
-                                type: "skill",
-                                name: "Skill Practice",
-                                exercises: [
-                                    { 
-                                        name: "Crow Stand", 
-                                        prescription: "3 x 10-20s", 
-                                        sets: 3, 
-                                        rest: 60, 
-                                        isBodyweight: true 
-                                    }
-                                ]
-                            },
-                            {
-                                type: "main",
-                                name: "Primary Work",
-                                exercises: [
-                                    { 
-                                        id: "w1d1_a1",
-                                        name: "A1. Pull-Up Ladders", 
-                                        prescription: week === 1 ? "4 x (1-2-3) (24 reps)" : "5 x (1-2-3) (30 reps)",
-                                        inputs: ["ladders"], 
-                                        sets: ladderSets,
-                                        rest: 120,
-                                        isBodyweight: true // Usually bodyweight for ladders in this block
-                                    },
-                                    { 
-                                        id: "w1d1_b1", 
-                                        name: "B1. Ring Rows", 
-                                        prescription: "3 x 15", 
-                                        inputs: ["reps", "rpe"], 
-                                        sets: 3, 
-                                        rest: 90, 
-                                        isBodyweight: true 
-                                    },
-                                    { 
-                                        id: "w1d1_b2", 
-                                        name: "B2. Incline Push-Ups", 
-                                        prescription: "3 x 10", 
-                                        inputs: ["reps", "rpe"], 
-                                        sets: 3, 
-                                        rest: 90, 
-                                        isBodyweight: true 
-                                    },
-                                    { 
-                                        id: "w1d1_c1", 
-                                        name: "C1. Hollow Rocks", 
-                                        prescription: "3 x 25s", 
-                                        inputs: ["time"], 
-                                        sets: 3, 
-                                        rest: 60, 
-                                        isBodyweight: true 
-                                    }
-                                ]
-                            },
-                            {
-                                type: "cooldown",
-                                name: "Cool Down",
-                                exercises: [
-                                    { name: "Passive Dead Hang", prescription: "30-60s", sets: 1, isBodyweight: true, rest: 0 },
-                                    { name: "Butcher's Block", prescription: "60s", sets: 1, isBodyweight: true, rest: 0 },
-                                    { name: "Cobra Stretch", prescription: "60s", sets: 1, isBodyweight: true, rest: 0 }
-                                ]
-                            }
-                        ];
-                    } else if (day === 3) {
-                         workout.title = "Posterior Chain + Legs";
-                         workout.sections = [
-                            {
-                                type: "main",
-                                name: "Strength",
-                                exercises: [
-                                    { id: "w1d3_a1", name: "A1. RDL", prescription: "4 x 8 @ ~85kg", inputs: ["weight", "reps", "rpe"], sets: 4, rest: 120, isBodyweight: false },
-                                    { id: "w1d3_b1", name: "B1. Weighted Glute Bridge", prescription: "3 x 10-12", inputs: ["weight", "reps"], sets: 3, rest: 90, isBodyweight: false },
-                                    { id: "w1d3_b2", name: "B2. Goblet Squats", prescription: "3 x 10", inputs: ["weight", "reps"], sets: 3, rest: 90, isBodyweight: false },
-                                    { id: "w1d3_c1", name: "C1. Face Pulls", prescription: "3 x 15-20", inputs: ["weight", "reps"], sets: 3, rest: 60, isBodyweight: false }
-                                ]
-                            }
-                         ];
-                    } else if (day === 5) {
-                        workout.title = "Pull Intensity";
-                        workout.sections = [
-                            {
-                                type: "main",
-                                name: "Primary Lifts",
-                                exercises: [
-                                    { id: "w1d5_a1", name: "A1. Weighted Pull-Ups", prescription: "3 x 5", inputs: ["weight", "reps", "rpe"], sets: 3, rest: 180, isBodyweight: false },
-                                    { id: "w1d5_b1", name: "B1. Dips", prescription: "3 x 10", inputs: ["weight", "reps"], sets: 3, rest: 120, isBodyweight: true }
-                                ]
-                            }
-                        ];
+                const isDeload = [4, 8, 12, 16, 19].includes(week);
+
+                // --- DAY 1: VOLUME ---
+                if (day === 1) {
+                    workout.title = "Day 1: Pull Volume";
+                    
+                    // A1. Pulling Variations (Block Dependent)
+                    let pullExercise = {};
+                    if (week <= 4) {
+                        // Block 1: Ladders
+                        const sets = week === 1 ? 4 : (week === 4 ? 3 : 5);
+                        pullExercise = {
+                            name: "A1. Pull-Up Ladders",
+                            prescription: week === 4 ? "3 x (1-2-3) (Deload)" : `${sets} x (1-2-3) reps`,
+                            inputs: ["ladders"],
+                            sets: sets,
+                            isBodyweight: true,
+                            rest: 120
+                        };
+                    } else if (week <= 8) {
+                        // Block 2: EMOMs
+                        const emomScheme = week === 5 ? "8 x 4" : week === 6 ? "9 x 4" : week === 7 ? "10 x 3" : "6 x 3";
+                        pullExercise = {
+                            name: "A1. Pull-Up EMOM",
+                            prescription: `EMOM: ${emomScheme} reps`,
+                            inputs: ["sets"], // Using sets to track rounds
+                            sets: week === 5 ? 8 : week === 6 ? 9 : week === 7 ? 10 : 6,
+                            isBodyweight: true,
+                            rest: 60 // EMOM interval
+                        };
+                    } else if (week <= 12) {
+                        // Block 3: Clusters (Neutral Grip)
+                        const clusterScheme = week === 9 ? "4 x (3-3-3)" : week === 10 ? "4 x (4-3-3)" : week === 11 ? "5 x (3-3-3)" : "3 x (3-3-3)";
+                        pullExercise = {
+                            name: "A1. Neutral Grip Clusters",
+                            prescription: `${clusterScheme} (Rest 15s between mini-sets)`,
+                            inputs: ["sets"],
+                            sets: week === 11 ? 5 : (week === 12 ? 3 : 4),
+                            isBodyweight: true,
+                            rest: 180
+                        };
+                    } else if (week <= 16) {
+                         // Block 4: AMRAPs
+                         const scheme = week === 16 ? "2 x AMRAP-4" : "3 x AMRAP-2";
+                         pullExercise = {
+                            name: "A1. Pull-Up AMRAPs",
+                            prescription: scheme,
+                            inputs: ["reps"],
+                            sets: week === 16 ? 2 : 3,
+                            isBodyweight: true,
+                            rest: 180
+                         };
                     } else {
-                         // Fallback for other days
-                         workout.sections = [{type: "main", name: "Recovery", exercises: []}];
+                        // Block 5: Taper
+                        pullExercise = {
+                            name: "A1. Taper Pull-Ups",
+                            prescription: "3 x (AMRAP-1)",
+                            inputs: ["reps"],
+                            sets: 3,
+                            isBodyweight: true,
+                            rest: 120
+                        };
                     }
+
+                    // Skill Work
+                    const skillExercise = week <= 4 ? { name: "Crow Stand", prescription: "3 x 10-20s" } : 
+                                          week <= 8 ? { name: "Tuck Planche Hold", prescription: "3 x 6-8s" } :
+                                          { name: "Handstand Hold", prescription: "3 x 20s" };
+
+                    workout.sections = [
+                        { type: "skill", name: "Skill Practice", exercises: [{ ...skillExercise, sets: 3, rest: 60, isBodyweight: true }] },
+                        {
+                            type: "main",
+                            name: "Primary Work",
+                            exercises: [
+                                pullExercise,
+                                { 
+                                    name: week <= 8 ? "B1. Ring Rows" : "B1. Feet-Elevated Rows", 
+                                    prescription: "3 x 10-15 (2-1-1-0 Tempo)", 
+                                    inputs: ["reps", "rpe"], 
+                                    sets: 3, 
+                                    rest: 90, 
+                                    isBodyweight: true 
+                                },
+                                { 
+                                    name: week <= 4 ? "B2. Incline Push-Ups" : "B2. Parallette Push-Ups", 
+                                    prescription: "3 x 10", 
+                                    inputs: ["reps", "rpe"], 
+                                    sets: 3, 
+                                    rest: 90, 
+                                    isBodyweight: true 
+                                },
+                                { 
+                                    name: "C1. Hollow Rocks", 
+                                    prescription: "3 x 25s", 
+                                    inputs: ["time"], 
+                                    sets: 3, 
+                                    rest: 60, 
+                                    isBodyweight: true 
+                                }
+                            ]
+                        },
+                        {
+                            type: "cooldown",
+                            name: "Cool Down",
+                            exercises: [
+                                { name: "Passive Dead Hang", prescription: "30-60s", sets: 1, isBodyweight: true, rest: 0 },
+                                { name: "Butcher's Block", prescription: "60s", sets: 1, isBodyweight: true, rest: 0 },
+                                { name: "Cobra Stretch", prescription: "60s", sets: 1, isBodyweight: true, rest: 0 }
+                            ]
+                        }
+                    ];
+                } 
+                
+                // --- DAY 2: RECOVERY ---
+                else if (day === 2) {
+                    workout.title = "Day 2: Active Recovery";
+                    workout.sections = [
+                         {
+                            type: "main",
+                            name: "Mobility & Prehab",
+                            exercises: [
+                                { name: "Knee-to-Wall Ankle Mob", prescription: "2 mins/side", sets: 1, rest: 0, isBodyweight: true },
+                                { name: "Tibialis Wall Raises", prescription: "3 x 15-20", sets: 3, rest: 30, isBodyweight: true },
+                                { name: "Deep Squat Iso-Hold", prescription: "2 x 30s", sets: 2, rest: 60, isBodyweight: true },
+                                { name: "Band Internal Rotations", prescription: "2 x 20/side", sets: 2, rest: 30, isBodyweight: false }
+                            ]
+                        }
+                    ];
                 }
+
+                // --- DAY 3: LEGS & POSTERIOR ---
+                else if (day === 3) {
+                    workout.title = "Day 3: Posterior Chain";
+                    
+                    // Goblet Squat Progression
+                    let gobletPrescription = "3 x 10";
+                    if (week % 4 === 2) gobletPrescription = "3 x 12 (Moderate)";
+                    if (week % 4 === 3) gobletPrescription = "3 x 10 (Heavier)";
+                    if (week % 4 === 0) gobletPrescription = "2 x 10 (Deload)";
+
+                    // Hamstring Accessory
+                    const hamstringEx = week <= 4 ? "Weighted Glute Bridge" : "Rower Leg Curls";
+
+                    workout.sections = [
+                        {
+                            type: "main",
+                            name: "Strength",
+                            exercises: [
+                                { name: "A1. RDL", prescription: "4 x 8-10", inputs: ["weight", "reps"], sets: 4, rest: 120, isBodyweight: false },
+                                { name: `B1. ${hamstringEx}`, prescription: "3 x 10-12", inputs: ["weight", "reps"], sets: 3, rest: 90, isBodyweight: week > 4 }, // Rower curls are BW
+                                { name: "B2. Goblet Squats", prescription: gobletPrescription, inputs: ["weight", "reps"], sets: isDeload ? 2 : 3, rest: 90, isBodyweight: false },
+                                { name: "C1. Face Pulls", prescription: "3 x 15-20", inputs: ["weight", "reps"], sets: 3, rest: 60, isBodyweight: false }
+                            ]
+                        }
+                    ];
+                } 
+                
+                // --- DAY 5: INTENSITY ---
+                else if (day === 5) {
+                    workout.title = "Day 5: Intensity";
+                    
+                    // Pull Up Progression
+                    let pullSets = 3;
+                    let pullReps = 5;
+                    let pullName = "Weighted Pull-Ups";
+
+                    if (week <= 4) {
+                        // Block 1
+                        pullSets = week === 4 ? 2 : 3;
+                        pullReps = week === 4 ? 3 : 5;
+                    } else if (week <= 8) {
+                        // Block 2 (Heavier)
+                        if (week === 5) { pullSets = 2; pullReps = 4; }
+                        if (week === 6) { pullSets = 1; pullReps = 4; } // Heavy single set
+                        if (week === 7) { pullSets = 3; pullReps = 3; }
+                        if (week === 8) { pullSets = 2; pullReps = 3; }
+                    } else if (week <= 12) {
+                        // Block 3 (Neutral)
+                        pullName = "Neutral Grip Weighted Pull-Ups";
+                        pullSets = week === 12 ? 2 : 2;
+                        pullReps = week === 12 ? 3 : 4;
+                    }
+
+                    // Core Accessory (Auto-regulated)
+                    const coreEx = isDeload || week === 2 ? "Dead Bugs" : "Weighted V-Ups";
+
+                    workout.sections = [
+                        {
+                            type: "main",
+                            name: "Primary Lifts",
+                            exercises: [
+                                { name: `A1. ${pullName}`, prescription: `${pullSets} x ${pullReps}`, inputs: ["weight", "reps", "rpe"], sets: pullSets, rest: 180, isBodyweight: false },
+                                { name: "B1. Dips", prescription: week > 4 ? "Weighted (3 x 5)" : "Bodyweight (3 x 10)", inputs: ["weight", "reps"], sets: 3, rest: 120, isBodyweight: week <= 4 }
+                            ]
+                        },
+                        {
+                            type: "main",
+                            name: "Accessory (10m Cap)",
+                            exercises: [
+                                { name: "Split Squats", prescription: "8 reps/leg", sets: 3, rest: 60, isBodyweight: true },
+                                { name: coreEx, prescription: "12-15 reps", sets: 3, rest: 60, isBodyweight: coreEx === "Dead Bugs" }
+                            ]
+                        }
+                    ];
+                } else {
+                     // Fallback
+                     workout.sections = [{type: "main", name: "Recovery", exercises: []}];
+                }
+                
                 return workout;
             }
         };
@@ -244,6 +352,8 @@
                 const savedkey = `session_w${week}d${day}`;
                 const saved = localStorage.getItem(savedkey);
                 if (saved) setLogs(JSON.parse(saved));
+                // Reset logs if none exist for this specific week/day combo
+                if (!saved) setLogs({});
             }, [week, day]);
 
             // Timer Tick
@@ -305,7 +415,9 @@
 
                                 {section.exercises?.map((ex, eIdx) => {
                                     const totalSets = ex.sets || 3;
-                                    const completedSets = logs[ex.id || ex.name]?.sets || [];
+                                    // Generate a unique ID based on name if ID is missing
+                                    const exId = ex.id || ex.name.replace(/\s+/g, '_').toLowerCase();
+                                    const completedSets = logs[exId]?.sets || [];
                                     
                                     return (
                                         <div key={eIdx} className="bg-opGray rounded-xl p-4 border border-gray-800 shadow-lg relative overflow-hidden">
@@ -328,13 +440,13 @@
 
                                             <div className="space-y-4">
                                                 {/* SET BUTTONS GRID */}
-                                                <div className="grid grid-cols-4 gap-2">
+                                                <div className={`grid gap-2 ${totalSets > 6 ? 'grid-cols-5' : 'grid-cols-4'}`}>
                                                     {Array.from({ length: totalSets }).map((_, i) => {
                                                         const isDone = completedSets[i];
                                                         return (
                                                             <button
                                                                 key={i}
-                                                                onClick={() => toggleSet(ex.id || ex.name, i, totalSets)}
+                                                                onClick={() => toggleSet(exId, i, totalSets)}
                                                                 className={`
                                                                     h-10 rounded-lg font-bold text-sm border transition-all duration-200 flex items-center justify-center gap-1
                                                                     ${isDone 
@@ -358,8 +470,8 @@
                                                                 <input 
                                                                     type="number" 
                                                                     placeholder="0"
-                                                                    value={logs[ex.id]?.weight || ''}
-                                                                    onChange={(e) => saveLog(ex.id, 'weight', e.target.value)}
+                                                                    value={logs[exId]?.weight || ''}
+                                                                    onChange={(e) => saveLog(exId, 'weight', e.target.value)}
                                                                     className="bg-transparent text-white text-lg w-full focus:outline-none font-mono placeholder-gray-700"
                                                                 />
                                                             </div>
@@ -372,8 +484,8 @@
                                                                 <input 
                                                                     type="number" 
                                                                     placeholder="-"
-                                                                    value={logs[ex.id]?.rpe || ''}
-                                                                    onChange={(e) => saveLog(ex.id, 'rpe', e.target.value)}
+                                                                    value={logs[exId]?.rpe || ''}
+                                                                    onChange={(e) => saveLog(exId, 'rpe', e.target.value)}
                                                                     className="bg-transparent text-white text-lg w-full focus:outline-none font-mono placeholder-gray-700"
                                                                 />
                                                             </div>

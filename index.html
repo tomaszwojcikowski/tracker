@@ -642,7 +642,17 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 // Update the history entry with AI feedback
                                 if (aiFeedback) {
                                     const updatedHistory = JSON.parse(localStorage.getItem('global_history') || '[]');
-                                    const entryIndex = updatedHistory.findIndex(h => h.week === week && h.day === day && h.date === historyEntry.date);
+                                    // Find the most recent entry for this week and day by searching in reverse
+                                    // This ensures we update the entry we just created even if there are duplicates
+                                    let entryIndex = -1;
+                                    for (let i = updatedHistory.length - 1; i >= 0; i--) {
+                                        if (updatedHistory[i].week === week && 
+                                            updatedHistory[i].day === day && 
+                                            !updatedHistory[i].aiFeedback) {
+                                            entryIndex = i;
+                                            break;
+                                        }
+                                    }
                                     if (entryIndex !== -1) {
                                         updatedHistory[entryIndex].aiFeedback = aiFeedback;
                                         localStorage.setItem('global_history', JSON.stringify(updatedHistory));

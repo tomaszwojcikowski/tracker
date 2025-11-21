@@ -357,7 +357,7 @@
 - Identify patterns in training data
 - Make recommendations for progressive overload
 
-Keep responses concise, actionable, and supportive. Focus on the most important insights.`;
+Keep responses concise, direct, and actionable. Use bullet points. Avoid unnecessary elaboration or motivational filler. Focus only on the most important insights.`;
 
         const initializeGeminiChat = () => {
             const history = localStorage.getItem(GEMINI_CHAT_HISTORY_KEY);
@@ -465,34 +465,37 @@ Keep responses concise, actionable, and supportive. Focus on the most important 
         const formatWorkoutForGemini = (week, day, workout, logs) => {
             const completedAt = new Date().toLocaleString();
             let summary = `# Workout Completed\n\n`;
-            summary += `**Date:** ${completedAt}\n`;
-            summary += `**Week:** ${week} | **Day:** ${day}\n`;
-            summary += `**Title:** ${workout.title}\n\n`;
+            summary += `Date: ${completedAt}\n`;
+            summary += `Week: ${week} | Day: ${day}\n`;
+            summary += `Title: ${workout.title}\n\n`;
             
             workout.sections.forEach(section => {
-                summary += `## ${section.name}\n\n`;
+                summary += `${section.name}\n`;
                 section.exercises.forEach(ex => {
                     const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
                     const exLog = logs[exId] || {};
                     const sets = exLog.sets || [];
                     const completedSets = sets.filter(s => s).length;
                     
-                    summary += `### ${ex.name}\n`;
-                    summary += `- **Prescription:** ${ex.prescription}\n`;
-                    if (ex.notes) summary += `- **Notes:** ${ex.notes}\n`;
-                    summary += `- **Completed Sets:** ${completedSets}/${sets.length}\n`;
+                    // Extract expected sets from prescription (e.g., "3 x 10 reps" -> 3)
+                    const prescriptionMatch = ex.prescription.match(/^(\d+)\s*x/i);
+                    const expectedSets = prescriptionMatch ? parseInt(prescriptionMatch[1]) : sets.length;
+                    
+                    summary += `${ex.name}\n`;
+                    summary += `Prescription: ${ex.prescription}\n`;
+                    if (ex.notes) summary += `Notes: ${ex.notes}\n`;
+                    summary += `Completed Sets: ${completedSets}/${expectedSets}\n`;
                     
                     if (exLog.weight) {
-                        summary += `- **Weight:** ${exLog.weight} kg\n`;
+                        summary += `Weight: ${exLog.weight} kg\n`;
                     }
                     if (exLog.rpe) {
-                        summary += `- **RPE:** ${exLog.rpe}/10\n`;
+                        summary += `RPE: ${exLog.rpe}/10\n`;
                     }
-                    summary += `\n`;
                 });
             });
             
-            summary += `\n---\n\nPlease analyze this workout and provide feedback on my progress, form cues to remember, and suggestions for the next session.`;
+            summary += `\nPlease analyze this workout and provide feedback on my progress, form cues to remember, and suggestions for the next session.`;
             return summary;
         };
 
@@ -1104,6 +1107,7 @@ Keep responses concise, actionable, and supportive. Focus on the most important 
         const CoachView = () => {
             const [chatHistory, setChatHistory] = useState([]);
             const [isLoading, setIsLoading] = useState(true);
+            const [expandedMessages, setExpandedMessages] = useState({});
             const haptic = useHaptic();
             
             const loadChatHistory = () => {
@@ -1180,12 +1184,14 @@ Keep responses concise, actionable, and supportive. Focus on the most important 
                                 
                                 if (isWorkoutSummary) {
                                     const lines = text.split('\n');
-                                    const dateLine = lines.find(l => l.startsWith('**Date:**'));
-                                    const weekLine = lines.find(l => l.startsWith('**Week:**'));
-                                    const titleLine = lines.find(l => l.startsWith('**Title:**'));
+                                    const dateLine = lines.find(l => l.startsWith('Date:') || l.startsWith('**Date:**'));
+                                    const weekLine = lines.find(l => l.startsWith('Week:') || l.startsWith('**Week:**'));
+                                    const titleLine = lines.find(l => l.startsWith('Title:') || l.startsWith('**Title:**'));
                                     
                                     if (dateLine && weekLine) {
-                                        workoutTitle = `${titleLine?.replace('**Title:**', '').trim() || 'Workout'} - ${weekLine.replace('**Week:**', '').trim()}`;
+                                        const titleText = titleLine?.replace(/^\*\*Title:\*\*|^Title:/, '').trim() || 'Workout';
+                                        const weekText = weekLine.replace(/^\*\*Week:\*\*|^Week:/, '').trim();
+                                        workoutTitle = `${titleText} - ${weekText}`;
                                         workoutTitle = workoutTitle.replace(/\s+/g, ' ');
                                     }
                                 }
@@ -1205,6 +1211,28 @@ Keep responses concise, actionable, and supportive. Focus on the most important 
                                                     </div>
                                                     <p className="text-sm text-white font-medium">{workoutTitle || 'Workout Summary'}</p>
                                                     <p className="text-xs text-sys-onSurfaceVar mt-1">Workout data sent to AI</p>
+                                                    {isWorkoutSummary && (
+                                                        <>
+                                                            <button
+                                                                onClick={() => {
+                                                                    haptic.bump();
+                                                                    setExpandedMessages(prev => ({
+                                                                        ...prev,
+                                                                        [idx]: !prev[idx]
+                                                                    }));
+                                                                }}
+                                                                className="mt-2 text-xs text-sys-accent hover:text-sys-accent/80 flex items-center gap-1"
+                                                            >
+                                                                <i data-lucide={expandedMessages[idx] ? "chevron-up" : "chevron-down"} width="14"></i>
+                                                                <span>{expandedMessages[idx] ? 'Hide' : 'Show'} details</span>
+                                                            </button>
+                                                            {expandedMessages[idx] && (
+                                                                <div className="mt-3 pt-3 border-t border-sys-accent/20 text-xs text-sys-onSurfaceVar whitespace-pre-wrap font-mono">
+                                                                    {displayText}
+                                                                </div>
+                                                            )}
+                                                        </>
+                                                    )}
                                                 </>
                                             ) : (
                                                 <>

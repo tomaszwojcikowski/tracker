@@ -477,7 +477,7 @@
                                                             <button 
                                                                 key={i} 
                                                                 onClick={() => toggleSet(exId, i, defaultSets)} 
-                                                                className={`h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold transition-all duration-200 active:scale-90 ${isDone ? 'bg-sys-accent text-white animate-pulse-glow' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
+                                                                className={`h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold transition-all duration-200 active:scale-90 ${isDone ? 'bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
                                                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                             >
                                                                 {isDone ? <i data-lucide="check" width="24" /> : i + 1}
@@ -486,7 +486,7 @@
                                                         <button 
                                                             onClick={() => addSet(exId, defaultSets)} 
                                                             className="h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl border-2 border-dashed border-white/20 text-white/30 flex items-center justify-center active:bg-white/5 transition-colors"
-                                                            aria-label="Add set"
+                                                            aria-label={`Add additional set to ${ex.name}`}
                                                         >
                                                             <i data-lucide="plus" width="22"></i>
                                                         </button>
@@ -508,18 +508,27 @@
                                                                 />
                                                             </div>
                                                             <div>
-                                                                <label htmlFor={`${exId}-rpe`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">RPE</label>
+                                                                <label htmlFor={`${exId}-rpe`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">RPE (1-10)</label>
                                                                 <input 
                                                                     id={`${exId}-rpe`}
                                                                     type="number" 
                                                                     inputMode="numeric"
                                                                     min="1"
                                                                     max="10"
-                                                                    className="bg-sys-surfaceHigh rounded-xl w-full h-14 px-4 text-white font-mono text-lg outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
+                                                                    className={`bg-sys-surfaceHigh rounded-xl w-full h-14 px-4 text-white font-mono text-lg outline-none transition-all ${
+                                                                        logs[exId]?.rpe && (logs[exId].rpe < 1 || logs[exId].rpe > 10) 
+                                                                        ? 'ring-2 ring-red-500' 
+                                                                        : 'focus:ring-2 focus:ring-sys-accent'
+                                                                    }`}
                                                                     value={logs[exId]?.rpe || ''} 
-                                                                    onChange={(e) => saveLog(exId, 'rpe', e.target.value)} 
+                                                                    onChange={(e) => {
+                                                                        const val = e.target.value;
+                                                                        if (val === '' || (Number(val) >= 1 && Number(val) <= 10)) {
+                                                                            saveLog(exId, 'rpe', val);
+                                                                        }
+                                                                    }} 
                                                                     placeholder="-"
-                                                                    aria-label="Rate of perceived exertion"
+                                                                    aria-label="Rate of perceived exertion, scale 1 to 10"
                                                                 />
                                                             </div>
                                                         </div>
@@ -649,7 +658,9 @@
             const loadHistory = () => {
                 const h = JSON.parse(localStorage.getItem('global_history') || '[]');
                 setHistory(h.sort((a, b) => new Date(b.date) - new Date(a.date)));
-                setTimeout(() => lucide.createIcons(), 100);
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => lucide.createIcons());
+                });
             };
             
             useEffect(() => {

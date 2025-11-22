@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="colors.css">
     <script>
         tailwind.config = {
             theme: {
@@ -20,17 +21,17 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        // Functional Palette (High Contrast OLED) - Enhanced with deeper blacks
+                        // Modern Color Palette using CSS Variables
                         sys: {
-                            black: '#000000',        // Pure OLED black
-                            surface: '#0A0A0A',      // Deeper surface for better separation
-                            surfaceHigh: '#1A1A1A',  // Enhanced surface elevation
-                            onSurface: '#FFFFFF',
-                            onSurfaceVar: '#A1A1AA',
-                            primary: '#FFFFFF',
-                            primaryDim: '#525252',
-                            accent: '#3B82F6',       // Electric Blue
-                            success: '#10B981',
+                            black: 'var(--color-black)',
+                            surface: 'var(--color-surface-dark)',
+                            surfaceHigh: 'var(--color-surface-elevated)',
+                            onSurface: 'var(--color-neutral-50)',
+                            onSurfaceVar: 'var(--color-neutral-400)',
+                            primary: 'var(--color-primary-500)',
+                            primaryDim: 'var(--color-neutral-600)',
+                            accent: 'var(--color-primary-500)',
+                            success: 'var(--color-success-500)',
                         }
                     },
                     boxShadow: {
@@ -68,19 +69,25 @@
         }
     </script>
     <style>
-        body { background-color: #000000; color: #FFFFFF; -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; }
+        body { 
+            background: var(--gradient-dark);
+            color: var(--color-neutral-50); 
+            -webkit-tap-highlight-color: transparent; 
+            overscroll-behavior-y: none; 
+        }
         ::-webkit-scrollbar { display: none; }
         .safe-pb { padding-bottom: env(safe-area-inset-bottom, 24px); }
         .safe-pt { padding-top: env(safe-area-inset-top, 24px); }
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         
-        /* Glassmorphism for OLED depth */
+        /* Modern Glassmorphism with gradient backdrop */
         .glass-panel {
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.8), rgba(26, 26, 26, 0.6));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-glass);
         }
         
         /* Smooth CSS Grid transitions for exercise card collapse/expand */
@@ -99,24 +106,30 @@
             overflow: hidden;
         }
         
-        /* Progress bar for exercise completion */
+        /* Modern progress bar with gradient */
         .progress-bar {
             position: absolute;
             bottom: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(90deg, #10B981 0%, #3B82F6 100%);
+            background: var(--gradient-success);
+            box-shadow: var(--shadow-success);
             transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 0 0 1.5rem 1.5rem;
+            border-radius: 0 0 var(--radius-3xl) var(--radius-3xl);
         }
         
-        /* Enhanced set button with scale animation */
+        /* Enhanced set button with modern effects */
         .set-button {
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-md);
         }
         
         .set-button:active {
             animation: scaleBounce 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .set-button.completed {
+            box-shadow: var(--shadow-primary);
         }
     </style>
     <script src="https://unpkg.com/lucide@latest"></script>

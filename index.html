@@ -2662,11 +2662,14 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         // URL and State Management Utilities
         const getUrlParams = () => {
             const params = new URLSearchParams(window.location.search);
+            const weekParam = params.get('week');
+            const dayParam = params.get('day');
+            
             return {
                 view: params.get('view') || null,
                 tab: params.get('tab') || null,
-                week: params.get('week') ? parseInt(params.get('week')) : null,
-                day: params.get('day') ? parseInt(params.get('day')) : null
+                week: weekParam ? parseInt(weekParam, 10) || null : null,
+                day: dayParam ? parseInt(dayParam, 10) || null : null
             };
         };
 
@@ -2722,7 +2725,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 const savedState = loadAppState();
                 
                 // Priority: URL params > saved state > defaults
-                if (urlParams.view === 'workout' && urlParams.week && urlParams.day) {
+                if (urlParams.view === 'workout' && urlParams.week !== null && urlParams.day !== null) {
                     // Load from URL - workout view
                     setViewMode('workout');
                     setCurrentWeek(urlParams.week);
@@ -2731,7 +2734,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     // Load from URL - tab view
                     setViewMode('tab');
                     setActiveTab(urlParams.tab);
-                    if (urlParams.week) {
+                    if (urlParams.week !== null) {
                         setCurrentWeek(urlParams.week);
                     }
                 } else if (savedState) {
@@ -2776,10 +2779,10 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             useEffect(() => {
                 const handlePopState = (event) => {
                     if (event.state) {
-                        if (event.state.viewMode) setViewMode(event.state.viewMode);
-                        if (event.state.activeTab) setActiveTab(event.state.activeTab);
-                        if (event.state.currentWeek) setCurrentWeek(event.state.currentWeek);
-                        if (event.state.activeDay) setActiveDay(event.state.activeDay);
+                        if (event.state.viewMode !== undefined) setViewMode(event.state.viewMode);
+                        if (event.state.activeTab !== undefined) setActiveTab(event.state.activeTab);
+                        if (event.state.currentWeek !== undefined) setCurrentWeek(event.state.currentWeek);
+                        if (event.state.activeDay !== undefined) setActiveDay(event.state.activeDay);
                     }
                 };
 

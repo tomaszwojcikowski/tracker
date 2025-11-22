@@ -559,6 +559,24 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 return () => clearInterval(interval);
             }, [timerActive, timerSeconds, haptic]);
 
+            // Initialize Lucide icons when timer toast appears
+            useEffect(() => {
+                if (showTimerToast) {
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => lucide.createIcons());
+                    });
+                }
+            }, [showTimerToast]);
+
+            // Initialize Lucide icons when Gemini sync status toast appears
+            useEffect(() => {
+                if (geminiSyncStatus) {
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => lucide.createIcons());
+                    });
+                }
+            }, [geminiSyncStatus]);
+
             const saveLog = (id, field, value) => {
                 const updatedLogs = { ...logs, [id]: { ...logs[id], [field]: value } };
                 setLogs(updatedLogs);
@@ -1128,7 +1146,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     
                     {/* Timer Completion Toast */}
                     {showTimerToast && (
-                        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 animate-slide-up">
+                        <div className="fixed top-20 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
                             <div className="bg-sys-accent px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3">
                                 <i data-lucide="check-circle-2" width="24" className="text-white"></i>
                                 <span className="text-white font-bold text-base">Rest Complete!</span>

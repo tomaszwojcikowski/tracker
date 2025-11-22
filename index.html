@@ -30,7 +30,7 @@
                             onSurfaceVar: 'var(--color-neutral-400)',
                             primary: 'var(--color-primary-500)',
                             primaryDim: 'var(--color-neutral-600)',
-                            accent: 'var(--color-primary-500)',
+                            accent: 'var(--color-primary-600)',
                             success: 'var(--color-success-500)',
                         }
                     },
@@ -168,6 +168,22 @@
         .hover-lift:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-xl);
+        }
+        
+        /* Dimmed opacity for subtle buttons */
+        .btn-dimmed {
+            opacity: var(--opacity-dimmed);
+        }
+        
+        /* Progress bar fill with gradient */
+        .progress-bar-fill {
+            background: var(--gradient-primary);
+            box-shadow: var(--shadow-primary);
+        }
+        
+        /* Vertical gradient for connecting lines */
+        .gradient-vertical-primary {
+            background: var(--gradient-primary-vertical);
         }
     </style>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -1054,8 +1070,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         <div className="mb-6">
                             <button 
                                 onClick={scrollToNextIncompleteExercise}
-                                className="w-full h-12 px-6 rounded-xl border border-sys-accent/30 text-white font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform btn-gradient-primary"
-                                style={{ opacity: 0.9 }}
+                                className="w-full h-12 px-6 rounded-xl border border-sys-accent/30 text-white font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform btn-gradient-primary btn-dimmed"
                             >
                                 <i data-lucide="arrow-down-circle" width="20"></i>
                                 <span>Jump to Next Exercise</span>
@@ -1124,12 +1139,11 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                             <div key={eIdx} id={exId} className="relative scroll-mt-20">
                                                 {/* Superset connecting line */}
                                                 {ex.supersetPosition && ex.supersetPosition !== 'single' && (
-                                                    <div className="absolute left-4 top-0 w-[3px] rounded-full z-0"
+                                                    <div className="absolute left-4 top-0 w-[3px] rounded-full z-0 gradient-vertical-primary"
                                                         style={{
                                                             height: ex.supersetPosition === 'first' ? 'calc(50% + 1.25rem)' :
                                                                    ex.supersetPosition === 'last' ? 'calc(50% + 1.25rem)' : 'calc(100% + 1.25rem)',
                                                             top: ex.supersetPosition === 'first' ? '50%' : '-1.25rem',
-                                                            background: 'linear-gradient(to bottom, var(--color-primary-400), var(--color-primary-600))',
                                                         }}
                                                     ></div>
                                                 )}
@@ -1781,7 +1795,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 <span className="text-sys-onSurfaceVar font-mono text-xl">/ 21</span>
                             </div>
                             <div className="w-full bg-black/30 h-2 rounded-full overflow-hidden">
-                                <div className="h-full transition-all duration-500 rounded-full" style={{ width: `${progress}%`, background: 'var(--gradient-primary)' }}></div>
+                                <div className="progress-bar-fill h-full transition-all duration-500 rounded-full" style={{ width: `${progress}%` }}></div>
                             </div>
                         </div>
                     </div>

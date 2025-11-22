@@ -71,7 +71,7 @@
         body { background-color: #000000; color: #FFFFFF; -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; }
         ::-webkit-scrollbar { display: none; }
         .safe-pb { padding-bottom: env(safe-area-inset-bottom, 24px); }
-        .safe-pt { padding-bottom: env(safe-area-inset-top, 24px); }
+        .safe-pt { padding-top: env(safe-area-inset-top, 24px); }
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         
@@ -116,10 +116,6 @@
         }
         
         .set-button:active {
-            animation: scaleBounce 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        
-        .set-button.completed {
             animation: scaleBounce 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
     </style>
@@ -203,17 +199,24 @@
 
         // --- GENERIC LUCIDE ICON REFRESH HOOK ---
         // Ensures Lucide icons are re-rendered after React updates
-        const useLucideIcons = () => {
+        const useLucideIcons = (deps = []) => {
             useEffect(() => {
                 // Use double RAF to ensure DOM is fully updated
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
+                let rafId1, rafId2;
+                rafId1 = requestAnimationFrame(() => {
+                    rafId2 = requestAnimationFrame(() => {
                         if (window.lucide) {
                             lucide.createIcons();
                         }
                     });
                 });
-            });
+                
+                // Cleanup: cancel pending RAF callbacks
+                return () => {
+                    if (rafId1) cancelAnimationFrame(rafId1);
+                    if (rafId2) cancelAnimationFrame(rafId2);
+                };
+            }, deps);
         };
 
 
@@ -596,7 +599,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const haptic = useHaptic();
             
             // Generic Lucide icon refresh hook - ensures icons render after React updates
-            useLucideIcons();
+            // Runs when UI state changes that affect icon visibility
+            useLucideIcons([collapsedExercises, showTimerToast, geminiSyncStatus, showExerciseSelector]);
 
             useEffect(() => {
                 const saved = localStorage.getItem(`session_w${week}d${day}`);

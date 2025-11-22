@@ -2660,6 +2660,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         };
 
         // URL and State Management Utilities
+        // Constants for validation
+        const DEFAULT_WEEK = 1;
+        const DEFAULT_DAY = 1;
+        const VALID_DAYS = [1, 2, 3, 5]; // Day 4 is rest day
+        const VALID_TABS = ['train', 'library', 'history', 'coach', 'profile'];
+        const VALID_VIEW_MODES = ['tab', 'workout'];
+        
         const getUrlParams = () => {
             const params = new URLSearchParams(window.location.search);
             const weekParam = params.get('week');
@@ -2674,11 +2681,11 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 }
             }
             
-            // Parse and validate day (1, 2, 3, or 5 - valid workout days)
+            // Parse and validate day (valid workout days from VALID_DAYS)
             let day = null;
             if (dayParam) {
                 const parsed = parseInt(dayParam, 10);
-                if (!isNaN(parsed) && [1, 2, 3, 5].includes(parsed)) {
+                if (!isNaN(parsed) && VALID_DAYS.includes(parsed)) {
                     day = parsed;
                 }
             }
@@ -2692,7 +2699,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         };
 
         const updateUrl = (state) => {
-            const DEFAULT_WEEK = 1;
             const params = new URLSearchParams();
             
             if (state.viewMode === 'workout') {
@@ -2721,11 +2727,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         };
 
         const loadAppState = () => {
-            const DEFAULT_WEEK = 1;
-            const DEFAULT_DAY = 1;
-            const VALID_DAYS = [1, 2, 3, 5];
-            const VALID_TABS = ['train', 'library', 'history', 'coach', 'profile'];
-            
             try {
                 const saved = localStorage.getItem('tracker_app_state');
                 if (saved) {
@@ -2736,7 +2737,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     
                     // Create a new validated state object (avoid mutation)
                     const validatedState = {
-                        viewMode: loaded.viewMode && ['tab', 'workout'].includes(loaded.viewMode) 
+                        viewMode: loaded.viewMode && VALID_VIEW_MODES.includes(loaded.viewMode) 
                             ? loaded.viewMode 
                             : 'tab',
                         activeTab: loaded.activeTab && VALID_TABS.includes(loaded.activeTab)
@@ -2769,8 +2770,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             useEffect(() => {
                 const urlParams = getUrlParams();
                 const savedState = loadAppState();
-                
-                const VALID_TABS = ['train', 'library', 'history', 'coach', 'profile'];
                 
                 // Priority: URL params > saved state > defaults
                 if (urlParams.view === 'workout' && urlParams.week !== null && urlParams.day !== null) {

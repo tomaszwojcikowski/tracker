@@ -2659,50 +2659,182 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             );
         };
 
+        // URL and State Management Utilities
+        // Constants for validation
+        const DEFAULT_WEEK = 1;
+        const DEFAULT_DAY = 1;
+        const VALID_DAYS = [1, 2, 3, 5]; // Day 4 is rest day
+        const VALID_TABS = ['train', 'library', 'history', 'coach', 'profile'];
+        const VALID_VIEW_MODES = ['tab', 'workout'];
+        
+        const getUrlParams = () => {
+            const params = new URLSearchParams(window.location.search);
+            const weekParam = params.get('week');
+            const dayParam = params.get('day');
+            
+            // Parse and validate week (1-21)
+            let week = null;
+            if (weekParam) {
+                const parsed = parseInt(weekParam, 10);
+                if (!isNaN(parsed) && parsed >= 1 && parsed <= 21) {
+                    week = parsed;
+                }
+            }
+            
+            // Parse and validate day (valid workout days from VALID_DAYS)
+            let day = null;
+            if (dayParam) {
+                const parsed = parseInt(dayParam, 10);
+                if (!isNaN(parsed) && VALID_DAYS.includes(parsed)) {
+                    day = parsed;
+                }
+            }
+            
+            return {
+                view: params.get('view') || null,
+                tab: params.get('tab') || null,
+                week: week,
+                day: day
+            };
+        };
+
+        const updateUrl = (state) => {
+            const params = new URLSearchParams();
+            
+            if (state.viewMode === 'workout') {
+                params.set('view', 'workout');
+                params.set('week', state.currentWeek);
+                params.set('day', state.activeDay);
+            } else {
+                params.set('tab', state.activeTab);
+                // Only include week in URL if it's not the default
+                if (state.currentWeek !== DEFAULT_WEEK) {
+                    params.set('week', state.currentWeek);
+                }
+            }
+            
+            const newUrl = `${window.location.pathname}?${params.toString()}`;
+            return newUrl;
+        };
+
+        const saveAppState = (state) => {
+            localStorage.setItem('tracker_app_state', JSON.stringify({
+                viewMode: state.viewMode,
+                activeTab: state.activeTab,
+                currentWeek: state.currentWeek,
+                activeDay: state.activeDay
+            }));
+        };
+
+        const loadAppState = () => {
+            try {
+                const saved = localStorage.getItem('tracker_app_state');
+                if (saved) {
+                    const loaded = JSON.parse(saved);
+                    
+                    // Validate loaded state - return null if invalid
+                    if (!loaded || typeof loaded !== 'object') return null;
+                    
+                    // Create a new validated state object (avoid mutation)
+                    const validatedState = {
+                        viewMode: loaded.viewMode && VALID_VIEW_MODES.includes(loaded.viewMode) 
+                            ? loaded.viewMode 
+                            : 'tab',
+                        activeTab: loaded.activeTab && VALID_TABS.includes(loaded.activeTab)
+                            ? loaded.activeTab
+                            : 'train',
+                        currentWeek: loaded.currentWeek >= 1 && loaded.currentWeek <= 21
+                            ? loaded.currentWeek
+                            : DEFAULT_WEEK,
+                        activeDay: loaded.activeDay && VALID_DAYS.includes(loaded.activeDay)
+                            ? loaded.activeDay
+                            : DEFAULT_DAY
+                    };
+                    
+                    return validatedState;
+                }
+            } catch (e) {
+                console.error('Failed to load app state:', e);
+            }
+            return null;
+        };
+
         const App = () => {
             const [activeTab, setActiveTab] = useState('train');
             const [viewMode, setViewMode] = useState('tab'); 
             const [currentWeek, setCurrentWeek] = useState(1);
             const [activeDay, setActiveDay] = useState(1);
+            const [isInitialized, setIsInitialized] = useState(false);
 
+            // Initialize state from URL or localStorage on mount
             useEffect(() => {
-                const savedWeek = localStorage.getItem('tracker_week');
-                if (savedWeek) setCurrentWeek(parseInt(savedWeek));
+                const urlParams = getUrlParams();
+                const savedState = loadAppState();
+                
+                // Priority: URL params > saved state > defaults
+                if (urlParams.view === 'workout' && urlParams.week !== null && urlParams.day !== null) {
+                    // Load from URL - workout view
+                    setViewMode('workout');
+                    setCurrentWeek(urlParams.week);
+                    setActiveDay(urlParams.day);
+                } else if (urlParams.tab && VALID_TABS.includes(urlParams.tab)) {
+                    // Load from URL - tab view (validate tab name)
+                    setViewMode('tab');
+                    setActiveTab(urlParams.tab);
+                    if (urlParams.week !== null) {
+                        setCurrentWeek(urlParams.week);
+                    }
+                } else if (savedState) {
+                    // Load from saved state
+                    setViewMode(savedState.viewMode);
+                    setActiveTab(savedState.activeTab);
+                    setCurrentWeek(savedState.currentWeek);
+                    setActiveDay(savedState.activeDay);
+                } else {
+                    // Use defaults - already set
+                }
+                
+                setIsInitialized(true);
             }, []);
 
+            // Update URL and save state whenever it changes
             useEffect(() => {
+                if (!isInitialized) return;
+                
+                const state = { viewMode, activeTab, currentWeek, activeDay };
+                
+                // Save to localStorage (always sync localStorage)
+                saveAppState(state);
+                
+                // Keep backward compatibility with old tracker_week key
                 localStorage.setItem('tracker_week', currentWeek);
-            }, [currentWeek]);
+                
+                // Update URL only via replaceState to avoid polluting history
+                // pushState is called explicitly in navigation functions
+                const newUrl = updateUrl(state);
+                window.history.replaceState(state, '', newUrl);
+            }, [viewMode, activeTab, currentWeek, activeDay, isInitialized]);
 
             // Initialize Lucide icons when view or tab changes
             useEffect(() => {
-                lucide.createIcons();
-            }, [viewMode, activeTab]);
+                if (isInitialized) {
+                    lucide.createIcons();
+                }
+            }, [viewMode, activeTab, isInitialized]);
 
-            // Handle browser back button
+            // Handle browser back/forward button
             useEffect(() => {
                 const handlePopState = (event) => {
-                    if (event.state && event.state.viewMode) {
-                        setViewMode(event.state.viewMode);
-                        if (event.state.activeTab) {
-                            setActiveTab(event.state.activeTab);
-                        }
-                        if (event.state.activeDay) {
-                            setActiveDay(event.state.activeDay);
-                        }
-                    } else {
-                        // No state, go back to tab view
-                        setViewMode('tab');
+                    if (event.state) {
+                        if (event.state.viewMode !== undefined) setViewMode(event.state.viewMode);
+                        if (event.state.activeTab !== undefined) setActiveTab(event.state.activeTab);
+                        if (event.state.currentWeek !== undefined) setCurrentWeek(event.state.currentWeek);
+                        if (event.state.activeDay !== undefined) setActiveDay(event.state.activeDay);
                     }
                 };
 
                 window.addEventListener('popstate', handlePopState);
                 
-                // Set initial state only if no state exists
-                if (!window.history.state || !window.history.state.viewMode) {
-                    window.history.replaceState({ viewMode: 'tab', activeTab: 'train' }, '', window.location.href);
-                }
-
                 return () => {
                     window.removeEventListener('popstate', handlePopState);
                 };
@@ -2711,17 +2843,26 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const startWorkout = (day) => {
                 setActiveDay(day);
                 setViewMode('workout');
-                // Push new state to history when entering workout mode
-                window.history.pushState(
-                    { viewMode: 'workout', activeDay: day, currentWeek },
-                    '',
-                    window.location.href
-                );
+                
+                // Push new entry to history
+                const state = { viewMode: 'workout', activeTab, currentWeek, activeDay: day };
+                const newUrl = updateUrl(state);
+                window.history.pushState(state, '', newUrl);
             };
 
             const goBack = () => {
                 // Go back in browser history
                 window.history.back();
+            };
+            
+            const handleTabChange = (newTab) => {
+                setActiveTab(newTab);
+                
+                // Push new entry to history for tab changes so users can navigate back
+                // This is intentional - each tab navigation should be a distinct history entry
+                const state = { viewMode: 'tab', activeTab: newTab, currentWeek, activeDay };
+                const newUrl = updateUrl(state);
+                window.history.pushState(state, '', newUrl);
             };
 
             return (
@@ -2733,7 +2874,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         onBack={goBack}
                     />
 
-                    {viewMode === 'workout' ? (
+                    {!isInitialized ? (
+                        <div className="flex items-center justify-center h-screen">
+                            <div className="text-center">
+                                <div className="text-lg text-sys-onSurfaceVar">Loading...</div>
+                            </div>
+                        </div>
+                    ) : viewMode === 'workout' ? (
                         <WorkoutPlayer week={currentWeek} day={activeDay} onComplete={goBack} />
                     ) : (
                         <>
@@ -2742,7 +2889,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             {activeTab === 'history' && <HistoryView />}
                             {activeTab === 'coach' && <CoachView />}
                             {activeTab === 'profile' && <SettingsView />}
-                            <NavigationBar activeTab={activeTab} onTabChange={setActiveTab} />
+                            <NavigationBar activeTab={activeTab} onTabChange={handleTabChange} />
                         </>
                     )}
                 </div>

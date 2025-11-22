@@ -382,6 +382,7 @@
             const haptic = useHaptic();
             const navItems = [
                 { id: 'train', icon: 'dumbbell', label: 'Train' },
+                { id: 'library', icon: 'book-open', label: 'Library' },
                 { id: 'history', icon: 'history', label: 'History' },
                 { id: 'coach', icon: 'brain', label: 'Coach' },
                 { id: 'profile', icon: 'settings', label: 'Settings' },
@@ -582,6 +583,112 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             return summary;
         };
 
+        // --- EXERCISE HISTORY UTILITIES ---
+        const EXERCISE_HISTORY_KEY = 'exercise_history';
+
+        // Update exercise history with a new entry
+        const updateExerciseHistory = (exerciseName, entry) => {
+            const history = JSON.parse(localStorage.getItem(EXERCISE_HISTORY_KEY) || '{}');
+            
+            if (!history[exerciseName]) {
+                history[exerciseName] = [];
+            }
+            
+            history[exerciseName].push(entry);
+            localStorage.setItem(EXERCISE_HISTORY_KEY, JSON.stringify(history));
+        };
+
+        // Get history for a specific exercise
+        const getExerciseHistory = (exerciseName) => {
+            const history = JSON.parse(localStorage.getItem(EXERCISE_HISTORY_KEY) || '{}');
+            return history[exerciseName] || [];
+        };
+
+        // Calculate stats for an exercise
+        const calculateExerciseStats = (exerciseName) => {
+            const history = getExerciseHistory(exerciseName);
+            
+            if (history.length === 0) {
+                return {
+                    totalWorkouts: 0,
+                    maxSets: null,
+                    maxWeight: null,
+                    maxWeightBySets: {},
+                    estimated1RM: null,
+                    recentProgress: []
+                };
+            }
+
+            let maxSets = 0;
+            let maxWeight = 0;
+            const maxWeightBySets = {};
+            let estimated1RM = 0;
+
+            history.forEach(entry => {
+                // Track max sets completed
+                if (entry.sets > maxSets) {
+                    maxSets = entry.sets;
+                }
+
+                // Track max weight
+                if (entry.weight && entry.weight > maxWeight) {
+                    maxWeight = entry.weight;
+                }
+
+                // Track max weight by set count
+                if (entry.weight && entry.sets) {
+                    if (!maxWeightBySets[entry.sets] || entry.weight > maxWeightBySets[entry.sets]) {
+                        maxWeightBySets[entry.sets] = entry.weight;
+                    }
+
+                    // Calculate estimated 1RM using Epley formula: 1RM = weight × (1 + reps/30)
+                    // Extract reps from prescription (e.g., "3 x 10 reps" -> 10)
+                    if (entry.prescription && entry.weight) {
+                        // Match pattern: "X x Y reps" where Y is the rep count we want
+                        const repsMatch = entry.prescription.match(/x\s*(\d+)\s*reps?\b/i);
+                        if (repsMatch) {
+                            const reps = parseInt(repsMatch[1], 10);
+                            const estimated = entry.weight * (1 + reps / 30);
+                            if (estimated > estimated1RM) {
+                                estimated1RM = estimated;
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Get recent progress (last 10 entries)
+            const recentProgress = history
+                .slice(-10)
+                .map(entry => ({
+                    date: entry.date,
+                    sets: entry.sets,
+                    weight: entry.weight,
+                    week: entry.week,
+                    day: entry.day
+                }));
+
+            return {
+                totalWorkouts: history.length,
+                maxSets,
+                maxWeight: maxWeight || null,
+                maxWeightBySets,
+                estimated1RM: estimated1RM > 0 ? Math.round(estimated1RM * 10) / 10 : null,
+                recentProgress
+            };
+        };
+
+        // Get all exercises with history
+        const getAllExercisesWithHistory = () => {
+            const history = JSON.parse(localStorage.getItem(EXERCISE_HISTORY_KEY) || '{}');
+            return Object.keys(history).sort();
+        };
+
+        // Helper function to safely parse weight
+        const parseWeight = (weight) => {
+            return weight ? parseFloat(weight) : null;
+        };
+
         // --- WORKOUT PLAYER ---
         const WorkoutPlayer = ({ week, day, onComplete }) => {
             const workout = useMemo(() => PROGRAM_DATA.getWorkout(week, day), [week, day]);
@@ -596,11 +703,12 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [showExerciseSelector, setShowExerciseSelector] = useState(false);
             const [exerciseSearchTerm, setExerciseSearchTerm] = useState('');
             const [selectedMuscleFilter, setSelectedMuscleFilter] = useState('all');
+            const [showExerciseHistory, setShowExerciseHistory] = useState(null); // null or exercise name
             const haptic = useHaptic();
             
             // Generic Lucide icon refresh hook - ensures icons render after React updates
             // Runs when UI state changes that affect icon visibility
-            useLucideIcons([collapsedExercises, showTimerToast, geminiSyncStatus, showExerciseSelector]);
+            useLucideIcons([collapsedExercises, showTimerToast, geminiSyncStatus, showExerciseSelector, showExerciseHistory]);
 
             useEffect(() => {
                 const saved = localStorage.getItem(`session_w${week}d${day}`);
@@ -746,6 +854,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 setLogs(updatedLogs);
                 localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
                 
+                const completionDate = new Date().toISOString();
+                
                 // Build exercise summary with completed/incomplete sets
                 const exerciseSummary = [];
                 workout.sections.forEach(section => {
@@ -763,6 +873,20 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             totalSets,
                             weight: exLog.weight || null
                         });
+                        
+                        // Update per-exercise history
+                        if (completedSets > 0) {
+                            updateExerciseHistory(ex.name, {
+                                date: completionDate,
+                                week,
+                                day,
+                                sets: completedSets,
+                                totalSets,
+                                weight: parseWeight(exLog.weight),
+                                prescription: ex.prescription,
+                                isBodyweight: ex.isBodyweight
+                            });
+                        }
                     });
                 });
                 
@@ -781,13 +905,27 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         totalSets,
                         weight: ex.weight || exLog.weight || null
                     });
+                    
+                    // Update per-exercise history for added exercises
+                    if (completedSets > 0) {
+                        updateExerciseHistory(ex.name, {
+                            date: completionDate,
+                            week,
+                            day,
+                            sets: completedSets,
+                            totalSets,
+                            weight: parseWeight(ex.weight || exLog.weight),
+                            prescription: `${ex.sets} sets`,
+                            isBodyweight: ex.isBodyweight
+                        });
+                    }
                 });
                 
                 // Create history entry with exercise summary
                 const historyEntry = { 
                     week, 
                     day, 
-                    date: new Date().toISOString(), 
+                    date: completionDate, 
                     title: workout.title,
                     exercises: exerciseSummary,
                     aiFeedback: null // Will be updated if Gemini sync succeeds
@@ -978,24 +1116,35 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                 </>
                                                             )}
                                                         </div>
-                                                        {completedSets === totalSets && (
-                                                            <button 
-                                                                onClick={() => toggleExerciseCollapse(exId)}
-                                                                className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
-                                                                aria-label={collapsedExercises[exId] ? "Expand exercise" : "Collapse exercise"}
-                                                            >
-                                                                <i data-lucide={collapsedExercises[exId] ? "chevron-down" : "chevron-up"} width="20"></i>
-                                                            </button>
-                                                        )}
-                                                        {ex.rest > 0 && !collapsedExercises[exId] && (
-                                                            <button 
-                                                                onClick={() => { haptic.bump(); setTimerSeconds(ex.rest); setTimerActive(true); }} 
-                                                                className="h-12 min-h-[48px] px-4 rounded-xl bg-sys-surfaceHigh text-white text-sm font-bold flex items-center gap-2 active:bg-sys-onSurfaceVar transition-colors flex-shrink-0"
-                                                                aria-label={`Start ${ex.rest} second timer`}
-                                                            >
-                                                                <i data-lucide="timer" width="16"></i> {ex.rest}s
-                                                            </button>
-                                                        )}
+                                                        <div className="flex items-center gap-2">
+                                                            {getExerciseHistory(ex.name).length > 0 && !collapsedExercises[exId] && (
+                                                                <button 
+                                                                    onClick={() => { haptic.tick(); setShowExerciseHistory(ex.name); }}
+                                                                    className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar hover:text-sys-accent flex items-center justify-center active:scale-90 transition-all"
+                                                                    aria-label="View exercise history"
+                                                                >
+                                                                    <i data-lucide="bar-chart-2" width="18"></i>
+                                                                </button>
+                                                            )}
+                                                            {completedSets === totalSets && (
+                                                                <button 
+                                                                    onClick={() => toggleExerciseCollapse(exId)}
+                                                                    className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
+                                                                    aria-label={collapsedExercises[exId] ? "Expand exercise" : "Collapse exercise"}
+                                                                >
+                                                                    <i data-lucide={collapsedExercises[exId] ? "chevron-down" : "chevron-up"} width="20"></i>
+                                                                </button>
+                                                            )}
+                                                            {ex.rest > 0 && !collapsedExercises[exId] && (
+                                                                <button 
+                                                                    onClick={() => { haptic.bump(); setTimerSeconds(ex.rest); setTimerActive(true); }} 
+                                                                    className="h-12 min-h-[48px] px-4 rounded-xl bg-sys-surfaceHigh text-white text-sm font-bold flex items-center gap-2 active:bg-sys-onSurfaceVar transition-colors flex-shrink-0"
+                                                                    aria-label={`Start ${ex.rest} second timer`}
+                                                                >
+                                                                    <i data-lucide="timer" width="16"></i> {ex.rest}s
+                                                                </button>
+                                                            )}
+                                                        </div>
                                                     </div>
                                                     
                                                     <div className={`exercise-content ${collapsedExercises[exId] ? 'collapsed' : ''}`}>
@@ -1340,6 +1489,85 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                             })
                                         }
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    
+                    {/* Exercise History Modal */}
+                    {showExerciseHistory && (
+                        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm animate-slide-up">
+                            <div className="bg-sys-surface rounded-t-3xl w-full max-h-[85vh] border-t border-white/10 flex flex-col">
+                                {/* Header */}
+                                <div className="p-6 border-b border-white/10">
+                                    <div className="flex items-center justify-between mb-2">
+                                        <h3 className="text-xl font-bold text-white">{showExerciseHistory}</h3>
+                                        <button 
+                                            onClick={() => { haptic.tick(); setShowExerciseHistory(null); }} 
+                                            className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
+                                            aria-label="Close"
+                                        >
+                                            <i data-lucide="x" width="20"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                {/* Content */}
+                                <div className="flex-1 overflow-y-auto p-6">
+                                    {(() => {
+                                        const history = getExerciseHistory(showExerciseHistory);
+                                        const stats = calculateExerciseStats(showExerciseHistory);
+                                        
+                                        return (
+                                            <>
+                                                {/* Stats Summary */}
+                                                <div className="grid grid-cols-2 gap-3 mb-6">
+                                                    <div className="bg-sys-surfaceHigh rounded-xl p-4">
+                                                        <div className="text-xs text-sys-onSurfaceVar mb-1">Workouts</div>
+                                                        <div className="text-2xl font-bold text-white">{stats.totalWorkouts}</div>
+                                                    </div>
+                                                    {stats.maxWeight && (
+                                                        <div className="bg-sys-surfaceHigh rounded-xl p-4">
+                                                            <div className="text-xs text-sys-onSurfaceVar mb-1">Max Weight</div>
+                                                            <div className="text-2xl font-bold text-sys-accent">{stats.maxWeight}kg</div>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                
+                                                {/* Recent History */}
+                                                <h4 className="text-sm font-bold text-white mb-3">Recent History</h4>
+                                                <div className="space-y-2">
+                                                    {history.slice(-5).reverse().map((entry, idx) => (
+                                                        <div key={idx} className="bg-sys-surfaceHigh rounded-xl p-3">
+                                                            <div className="flex items-center justify-between">
+                                                                <div className="flex-1">
+                                                                    <div className="text-sm font-semibold text-white">
+                                                                        {new Date(entry.date).toLocaleDateString('en-US', { 
+                                                                            month: 'short', 
+                                                                            day: 'numeric' 
+                                                                        })}
+                                                                    </div>
+                                                                    <div className="text-xs text-sys-onSurfaceVar">
+                                                                        W{entry.week} D{entry.day}
+                                                                    </div>
+                                                                </div>
+                                                                <div className="text-right">
+                                                                    <div className="text-sm font-bold text-white">
+                                                                        {entry.sets} sets
+                                                                    </div>
+                                                                    {entry.weight && (
+                                                                        <div className="text-xs text-sys-accent font-semibold">
+                                                                            {entry.weight}kg
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </>
+                                        );
+                                    })()}
                                 </div>
                             </div>
                         </div>
@@ -2008,6 +2236,336 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             );
         };
 
+        // --- EXERCISE LIBRARY & HISTORY VIEW ---
+        const ExerciseLibraryView = () => {
+            const [selectedExercise, setSelectedExercise] = useState(null);
+            const [searchTerm, setSearchTerm] = useState('');
+            const [categoryFilter, setCategoryFilter] = useState('all');
+            const [showOnlyTracked, setShowOnlyTracked] = useState(false);
+            const haptic = useHaptic();
+
+            const trackedExercises = getAllExercisesWithHistory();
+
+            // Get all exercises to display
+            const exercisesToShow = useMemo(() => {
+                let exercises = [...EXERCISE_LIBRARY];
+                
+                // Filter by search term
+                if (searchTerm) {
+                    exercises = exercises.filter(ex =>
+                        ex.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        ex.primaryMuscles.some(m => m.toLowerCase().includes(searchTerm.toLowerCase()))
+                    );
+                }
+                
+                // Filter by category
+                if (categoryFilter !== 'all') {
+                    exercises = exercises.filter(ex => ex.category === categoryFilter);
+                }
+                
+                // Filter to show only tracked exercises
+                if (showOnlyTracked) {
+                    exercises = exercises.filter(ex => trackedExercises.includes(ex.name));
+                }
+                
+                return exercises;
+            }, [searchTerm, categoryFilter, showOnlyTracked, trackedExercises]);
+
+            useEffect(() => {
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => lucide.createIcons());
+                });
+            }, [selectedExercise, exercisesToShow, searchTerm, categoryFilter, showOnlyTracked]);
+
+            const handleExerciseClick = (exercise) => {
+                haptic.tick();
+                setSelectedExercise(exercise);
+            };
+
+            const handleBack = () => {
+                haptic.tick();
+                setSelectedExercise(null);
+            };
+
+            if (selectedExercise) {
+                return <ExerciseDetailView exercise={selectedExercise} onBack={handleBack} />;
+            }
+
+            return (
+                <div className="px-5 pb-32 pt-6">
+                    <h2 className="text-2xl font-bold text-white mb-6">Exercise Library</h2>
+                    
+                    {/* Search and Filters */}
+                    <div className="mb-6">
+                        <input 
+                            type="text"
+                            placeholder="Search exercises..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="w-full h-12 px-4 bg-sys-surfaceHigh rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all mb-3"
+                        />
+                        
+                        {/* Category Filter */}
+                        <div className="flex gap-2 overflow-x-auto pb-2 mb-3">
+                            {['all', 'pull', 'push', 'legs', 'core', 'cardio', 'skill', 'arms', 'shoulders'].map(filter => (
+                                <button
+                                    key={filter}
+                                    onClick={() => setCategoryFilter(filter)}
+                                    className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
+                                        categoryFilter === filter 
+                                            ? 'bg-sys-accent text-white' 
+                                            : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                    }`}
+                                >
+                                    {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                                </button>
+                            ))}
+                        </div>
+                        
+                        {/* Show tracked only toggle */}
+                        <button
+                            onClick={() => setShowOnlyTracked(!showOnlyTracked)}
+                            className={`w-full h-12 rounded-xl font-medium flex items-center justify-center gap-2 transition-all ${
+                                showOnlyTracked 
+                                    ? 'bg-sys-success/20 text-sys-success border border-sys-success/30' 
+                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar border border-white/5'
+                            }`}
+                        >
+                            <i data-lucide={showOnlyTracked ? "check-square" : "square"} width="18"></i>
+                            <span>Show Only Tracked ({trackedExercises.length})</span>
+                        </button>
+                    </div>
+                    
+                    {/* Exercise List */}
+                    {exercisesToShow.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
+                            <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
+                                <i data-lucide="search" width="40" className="text-sys-onSurfaceVar"></i>
+                            </div>
+                            <h3 className="text-lg font-semibold text-white mb-2">No Exercises Found</h3>
+                            <p className="text-sm text-sys-onSurfaceVar text-center">Try adjusting your filters</p>
+                        </div>
+                    ) : (
+                        <div className="space-y-3">
+                            {exercisesToShow.map(exercise => {
+                                const isTracked = trackedExercises.includes(exercise.name);
+                                const stats = isTracked ? calculateExerciseStats(exercise.name) : null;
+                                
+                                return (
+                                    <button
+                                        key={exercise.id}
+                                        onClick={() => handleExerciseClick(exercise)}
+                                        className="w-full bg-sys-surface rounded-2xl p-4 border border-white/5 hover:border-sys-accent/30 transition-all active:scale-[0.98] text-left"
+                                    >
+                                        <div className="flex items-start justify-between gap-3">
+                                            <div className="flex-1">
+                                                <div className="flex items-center gap-2 mb-1">
+                                                    <h4 className="text-base font-semibold text-white">{exercise.name}</h4>
+                                                    {isTracked && (
+                                                        <span className="text-xs px-2 py-0.5 bg-sys-success/20 rounded-full text-sys-success font-bold">
+                                                            {stats.totalWorkouts}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <p className="text-xs text-sys-onSurfaceVar mb-2">
+                                                    {exercise.primaryMuscles.join(', ')}
+                                                </p>
+                                                {isTracked && stats && (
+                                                    <div className="flex flex-wrap gap-2 mt-2">
+                                                        {stats.maxWeight && (
+                                                            <span className="text-xs px-2 py-1 bg-sys-accent/10 rounded-lg text-sys-accent">
+                                                                Max: {stats.maxWeight}kg
+                                                            </span>
+                                                        )}
+                                                        {stats.estimated1RM && (
+                                                            <span className="text-xs px-2 py-1 bg-sys-accent/10 rounded-lg text-sys-accent">
+                                                                Est 1RM: {stats.estimated1RM}kg
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="flex-shrink-0">
+                                                <i data-lucide="chevron-right" width="20" className="text-sys-onSurfaceVar"></i>
+                                            </div>
+                                        </div>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // --- EXERCISE DETAIL VIEW ---
+        const ExerciseDetailView = ({ exercise, onBack }) => {
+            const [showFullHistory, setShowFullHistory] = useState(false);
+            const haptic = useHaptic();
+            const history = getExerciseHistory(exercise.name);
+            const stats = calculateExerciseStats(exercise.name);
+
+            useEffect(() => {
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => lucide.createIcons());
+                });
+            }, [showFullHistory, history]);
+
+            const displayHistory = showFullHistory ? history : history.slice(-5);
+
+            return (
+                <div className="px-5 pb-32 pt-6">
+                    {/* Header */}
+                    <div className="flex items-center gap-4 mb-6">
+                        <button 
+                            onClick={onBack}
+                            className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
+                            aria-label="Go back"
+                        >
+                            <i data-lucide="arrow-left" width="20"></i>
+                        </button>
+                        <h2 className="text-2xl font-bold text-white flex-1">{exercise.name}</h2>
+                    </div>
+                    
+                    {/* Exercise Info */}
+                    <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-6">
+                        <div className="mb-4">
+                            <h3 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-2">Primary Muscles</h3>
+                            <p className="text-base text-white">{exercise.primaryMuscles.join(', ')}</p>
+                        </div>
+                        {exercise.secondaryMuscles && exercise.secondaryMuscles.length > 0 && (
+                            <div className="mb-4">
+                                <h3 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-2">Secondary Muscles</h3>
+                                <p className="text-base text-white">{exercise.secondaryMuscles.join(', ')}</p>
+                            </div>
+                        )}
+                        <div className="mb-4">
+                            <h3 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-2">Equipment</h3>
+                            <p className="text-base text-white">{exercise.equipment.join(', ')}</p>
+                        </div>
+                        <div>
+                            <h3 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-2">Category</h3>
+                            <p className="text-base text-white capitalize">{exercise.category}</p>
+                        </div>
+                    </div>
+                    
+                    {/* Stats */}
+                    {history.length > 0 ? (
+                        <>
+                            <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-6">
+                                <h3 className="text-lg font-bold text-white mb-4">Statistics</h3>
+                                
+                                <div className="grid grid-cols-2 gap-4 mb-4">
+                                    <div className="bg-sys-surfaceHigh rounded-xl p-4">
+                                        <div className="text-xs text-sys-onSurfaceVar mb-1">Total Workouts</div>
+                                        <div className="text-2xl font-bold text-white">{stats.totalWorkouts}</div>
+                                    </div>
+                                    <div className="bg-sys-surfaceHigh rounded-xl p-4">
+                                        <div className="text-xs text-sys-onSurfaceVar mb-1">Max Sets</div>
+                                        <div className="text-2xl font-bold text-white">{stats.maxSets || 'N/A'}</div>
+                                    </div>
+                                </div>
+                                
+                                {stats.maxWeight && (
+                                    <div className="grid grid-cols-2 gap-4 mb-4">
+                                        <div className="bg-sys-surfaceHigh rounded-xl p-4">
+                                            <div className="text-xs text-sys-onSurfaceVar mb-1">Max Weight</div>
+                                            <div className="text-2xl font-bold text-sys-accent">{stats.maxWeight} kg</div>
+                                        </div>
+                                        {stats.estimated1RM && (
+                                            <div className="bg-sys-surfaceHigh rounded-xl p-4">
+                                                <div className="text-xs text-sys-onSurfaceVar mb-1">Est. 1RM</div>
+                                                <div className="text-2xl font-bold text-sys-success">{stats.estimated1RM} kg</div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                                
+                                {/* Max Weight by Set Count */}
+                                {Object.keys(stats.maxWeightBySets).length > 0 && (
+                                    <div>
+                                        <h4 className="text-sm font-bold text-white mb-3">Max Weight by Sets</h4>
+                                        <div className="grid grid-cols-3 gap-2">
+                                            {Object.entries(stats.maxWeightBySets)
+                                                .sort(([a], [b]) => +a - +b)
+                                                .map(([sets, weight]) => (
+                                                    <div key={sets} className="bg-sys-surfaceHigh rounded-lg p-3 text-center">
+                                                        <div className="text-xs text-sys-onSurfaceVar mb-1">{sets} sets</div>
+                                                        <div className="text-base font-bold text-white">{weight}kg</div>
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                            
+                            {/* History */}
+                            <div className="bg-sys-surface rounded-3xl border border-white/5 p-6">
+                                <div className="flex items-center justify-between mb-4">
+                                    <h3 className="text-lg font-bold text-white">History</h3>
+                                    {history.length > 5 && (
+                                        <button
+                                            onClick={() => { haptic.tick(); setShowFullHistory(!showFullHistory); }}
+                                            className="text-sm text-sys-accent font-semibold"
+                                        >
+                                            {showFullHistory ? 'Show Less' : `Show All (${history.length})`}
+                                        </button>
+                                    )}
+                                </div>
+                                
+                                <div className="space-y-3">
+                                    {displayHistory.slice().reverse().map((entry, idx) => (
+                                        <div key={idx} className="bg-sys-surfaceHigh rounded-xl p-4">
+                                            <div className="flex items-start justify-between gap-2 mb-2">
+                                                <div className="flex-1">
+                                                    <div className="text-sm font-semibold text-white">
+                                                        {new Date(entry.date).toLocaleDateString('en-US', { 
+                                                            month: 'short', 
+                                                            day: 'numeric', 
+                                                            year: 'numeric' 
+                                                        })}
+                                                    </div>
+                                                    <div className="text-xs text-sys-onSurfaceVar">
+                                                        Week {entry.week}, Day {entry.day}
+                                                    </div>
+                                                </div>
+                                                <div className="text-right">
+                                                    <div className="text-sm font-bold text-white">
+                                                        {entry.sets} sets
+                                                    </div>
+                                                    {entry.weight && (
+                                                        <div className="text-xs text-sys-accent font-semibold">
+                                                            {entry.weight} kg
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            {entry.prescription && (
+                                                <div className="text-xs text-sys-onSurfaceVar">
+                                                    {entry.prescription}
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
+                            <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
+                                <i data-lucide="bar-chart-2" width="40" className="text-sys-onSurfaceVar"></i>
+                            </div>
+                            <h3 className="text-lg font-semibold text-white mb-2">No History Yet</h3>
+                            <p className="text-sm text-sys-onSurfaceVar text-center max-w-[250px]">
+                                Complete workouts with this exercise to see your progress
+                            </p>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
         const App = () => {
             const [activeTab, setActiveTab] = useState('train');
             const [viewMode, setViewMode] = useState('tab'); 
@@ -2076,7 +2634,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             return (
                 <div className="min-h-screen bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative">
                     <TopAppBar 
-                        title={viewMode === 'workout' ? `Day ${activeDay}` : (activeTab === 'train' ? 'Dashboard' : activeTab === 'history' ? 'History' : activeTab === 'coach' ? 'AI Coach' : 'Settings')}
+                        title={viewMode === 'workout' ? `Day ${activeDay}` : (activeTab === 'train' ? 'Dashboard' : activeTab === 'library' ? 'Exercise Library' : activeTab === 'history' ? 'History' : activeTab === 'coach' ? 'AI Coach' : 'Settings')}
                         subtitle={viewMode === 'workout' ? `Week ${currentWeek}` : (activeTab === 'train' ? 'OnePlus Strength' : '')}
                         showBack={viewMode === 'workout'}
                         onBack={goBack}
@@ -2087,6 +2645,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     ) : (
                         <>
                             {activeTab === 'train' && <Dashboard currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} onStartWorkout={startWorkout} />}
+                            {activeTab === 'library' && <ExerciseLibraryView />}
                             {activeTab === 'history' && <HistoryView />}
                             {activeTab === 'coach' && <CoachView />}
                             {activeTab === 'profile' && <SettingsView />}

@@ -88,6 +88,7 @@
         // --- RAW SCHEDULE (loaded from JSON) ---
         let RAW_SCHEDULE = [];
         let COMPLETE_SCHEDULE = [];
+        let EXERCISE_LIBRARY = [];
 
         // Function to build complete schedule with standard warmups/cooldowns
         const buildCompleteSchedule = () => {
@@ -392,7 +393,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             }
         };
 
-        const sendWorkoutToGemini = async (week, day, workout, logs) => {
+        const sendWorkoutToGemini = async (week, day, workout, logs, addedExercises = []) => {
             const apiKey = localStorage.getItem('gemini_api_key');
             if (!apiKey) {
                 console.log('Gemini API key not configured, skipping sync');
@@ -403,7 +404,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const chatHistory = initializeGeminiChat();
             
             // Format workout data for Gemini
-            const workoutSummary = formatWorkoutForGemini(week, day, workout, logs);
+            const workoutSummary = formatWorkoutForGemini(week, day, workout, logs, addedExercises);
             
             // Add new user message to history
             const newUserMessage = {
@@ -462,7 +463,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             }
         };
         
-        const formatWorkoutForGemini = (week, day, workout, logs) => {
+        const formatWorkoutForGemini = (week, day, workout, logs, addedExercises = []) => {
             const completedAt = new Date().toLocaleString();
             let summary = `# Workout Completed\n\n`;
             summary += `Date: ${completedAt}\n`;
@@ -492,6 +493,27 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 });
             });
             
+            // Include added exercises
+            if (addedExercises.length > 0) {
+                summary += `\nAdded Exercises\n`;
+                addedExercises.forEach(ex => {
+                    const exId = `added_${ex.id}`;
+                    const exLog = logs[exId] || {};
+                    const sets = exLog.sets || [];
+                    const completedSets = sets.filter(s => s).length;
+                    const expectedSets = sets.length || ex.sets;
+                    
+                    summary += `${ex.name} (Added)\n`;
+                    summary += `Target Muscles: ${ex.primaryMuscles.join(', ')}\n`;
+                    summary += `Equipment: ${ex.equipment.join(', ')}\n`;
+                    summary += `Completed Sets: ${completedSets}/${expectedSets}\n`;
+                    
+                    if (ex.weight || exLog.weight) {
+                        summary += `Weight: ${exLog.weight || ex.weight} kg\n`;
+                    }
+                });
+            }
+            
             summary += `\nPlease analyze this workout and provide feedback on my progress, form cues to remember, and suggestions for the next session.`;
             return summary;
         };
@@ -506,11 +528,22 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [showTimerToast, setShowTimerToast] = useState(false);
             const [geminiSyncStatus, setGeminiSyncStatus] = useState(null); // null, 'syncing', 'success', 'error'
             const [geminiErrorMessage, setGeminiErrorMessage] = useState('');
+            const [addedExercises, setAddedExercises] = useState([]);
+            const [showExerciseSelector, setShowExerciseSelector] = useState(false);
+            const [exerciseSearchTerm, setExerciseSearchTerm] = useState('');
+            const [selectedMuscleFilter, setSelectedMuscleFilter] = useState('all');
             const haptic = useHaptic();
 
             useEffect(() => {
                 const saved = localStorage.getItem(`session_w${week}d${day}`);
-                if (saved) setLogs(JSON.parse(saved));
+                if (saved) {
+                    const parsedLogs = JSON.parse(saved);
+                    setLogs(parsedLogs);
+                    // Load added exercises from storage
+                    if (parsedLogs.addedExercises) {
+                        setAddedExercises(parsedLogs.addedExercises);
+                    }
+                }
                 lucide.createIcons();
             }, [week, day]);
 
@@ -587,6 +620,40 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     }
                 }
             };
+            
+            const addExerciseToWorkout = (exercise, sets = 3, weight = '') => {
+                haptic.success();
+                const newExercise = {
+                    id: exercise.id,
+                    name: exercise.name,
+                    sets: sets,
+                    isBodyweight: exercise.isBodyweight,
+                    equipment: exercise.equipment,
+                    primaryMuscles: exercise.primaryMuscles,
+                    weight: weight
+                };
+                const updatedAddedExercises = [...addedExercises, newExercise];
+                setAddedExercises(updatedAddedExercises);
+                
+                // Save to storage
+                const updatedLogs = { ...logs, addedExercises: updatedAddedExercises };
+                setLogs(updatedLogs);
+                localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
+                
+                setShowExerciseSelector(false);
+                setExerciseSearchTerm('');
+            };
+            
+            const removeAddedExercise = (exerciseId) => {
+                haptic.tick();
+                const updatedAddedExercises = addedExercises.filter(ex => ex.id !== exerciseId);
+                setAddedExercises(updatedAddedExercises);
+                
+                // Save to storage
+                const updatedLogs = { ...logs, addedExercises: updatedAddedExercises };
+                setLogs(updatedLogs);
+                localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
+            };
 
             const handleFinish = async () => {
                 const updatedLogs = { ...logs, completed: true, completedAt: new Date().toISOString(), week, day };
@@ -613,6 +680,23 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     });
                 });
                 
+                // Add added exercises to the summary
+                addedExercises.forEach(ex => {
+                    const exId = `added_${ex.id}`;
+                    const exLog = updatedLogs[exId] || {};
+                    const sets = exLog.sets || [];
+                    const completedSets = sets.filter(s => s).length;
+                    const totalSets = sets.length || ex.sets || 0;
+                    
+                    exerciseSummary.push({
+                        name: `${ex.name} (Added)`,
+                        prescription: `${ex.sets} sets`,
+                        completedSets,
+                        totalSets,
+                        weight: ex.weight || exLog.weight || null
+                    });
+                });
+                
                 // Create history entry with exercise summary
                 const historyEntry = { 
                     week, 
@@ -633,7 +717,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 if (apiKey) {
                     setGeminiSyncStatus('syncing');
                     setGeminiErrorMessage('');
-                    sendWorkoutToGemini(week, day, workout, updatedLogs)
+                    sendWorkoutToGemini(week, day, workout, updatedLogs, addedExercises)
                         .then(result => {
                             if (result.success) {
                                 // Extract AI feedback from response
@@ -903,6 +987,140 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         );
                     })}
                     
+                    {/* Added Exercises Section */}
+                    {addedExercises.length > 0 && (
+                        <div className="mb-10">
+                            <div className="flex items-center gap-3 mb-5 px-1">
+                                <span className="text-sm font-bold text-sys-success uppercase tracking-wider bg-sys-surfaceHigh px-4 py-2 rounded-xl">Added Exercises</span>
+                                <div className="h-[2px] flex-1 bg-gradient-to-r from-sys-success/20 to-transparent rounded-full"></div>
+                            </div>
+                            
+                            <div className="space-y-5">
+                                {addedExercises.map((ex) => {
+                                    const exId = `added_${ex.id}`;
+                                    const currentSetArray = logs[exId]?.sets || new Array(ex.sets).fill(false);
+                                    const completedSets = currentSetArray.filter(s => s).length;
+                                    const totalSets = currentSetArray.length;
+                                    
+                                    return (
+                                        <div key={exId} id={exId} className="relative scroll-mt-20">
+                                            <div className="bg-sys-surface rounded-3xl p-6 border border-sys-success/20">
+                                                <div className="flex justify-between items-start mb-6">
+                                                    <div className="flex-1 pr-2">
+                                                        <div className="flex items-center gap-2 mb-1">
+                                                            <h3 className="text-lg font-semibold text-white leading-snug">{ex.name}</h3>
+                                                            {completedSets > 0 && (
+                                                                <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${completedSets === totalSets ? 'bg-sys-success/20 text-sys-success' : 'bg-sys-accent/10 text-sys-accent'}`}>
+                                                                    {completedSets}/{totalSets}
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                        <p className="text-sm text-sys-onSurfaceVar">
+                                                            {ex.primaryMuscles.join(', ')} • {ex.equipment.join(', ')}
+                                                        </p>
+                                                    </div>
+                                                    <button 
+                                                        onClick={() => removeAddedExercise(ex.id)} 
+                                                        className="h-10 w-10 min-w-[40px] rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center active:scale-90 transition-all"
+                                                        aria-label="Remove exercise"
+                                                    >
+                                                        <i data-lucide="x" width="20"></i>
+                                                    </button>
+                                                </div>
+                                                
+                                                <div className="flex flex-wrap gap-4 mb-5">
+                                                    {currentSetArray.map((isDone, i) => (
+                                                        <button 
+                                                            key={i} 
+                                                            onClick={() => toggleSet(exId, i, ex.sets, 90)} 
+                                                            className={`h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold transition-all duration-200 active:scale-90 ${isDone ? 'bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
+                                                            aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
+                                                        >
+                                                            {isDone ? <i data-lucide="check" width="24" /> : i + 1}
+                                                        </button>
+                                                    ))}
+                                                    <button 
+                                                        onClick={() => addSet(exId, ex.sets)} 
+                                                        className="h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl border-2 border-dashed border-white/20 text-white/30 flex items-center justify-center active:bg-white/5 transition-colors"
+                                                        aria-label="Add additional set"
+                                                    >
+                                                        <i data-lucide="plus" width="22"></i>
+                                                    </button>
+                                                </div>
+                                                
+                                                {currentSetArray.some(s => !s) && (
+                                                    <div className="flex gap-3 mb-5">
+                                                        <button 
+                                                            onClick={() => completeAllSets(exId, ex.sets)} 
+                                                            className="flex-1 h-10 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar text-sm font-semibold flex items-center justify-center gap-2 active:bg-sys-accent/20 transition-colors"
+                                                            aria-label="Complete all sets"
+                                                        >
+                                                            <i data-lucide="check-check" width="16"></i>
+                                                            <span>Complete All</span>
+                                                        </button>
+                                                    </div>
+                                                )}
+                                                
+                                                {!ex.isBodyweight && (
+                                                    <div className="pt-4 border-t border-white/5">
+                                                        <label htmlFor={`${exId}-weight`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Load (kg)</label>
+                                                        <div className="relative flex items-center gap-2">
+                                                            <button 
+                                                                onClick={() => {
+                                                                    haptic.tick();
+                                                                    const current = parseFloat(logs[exId]?.weight || ex.weight || '0');
+                                                                    saveLog(exId, 'weight', Math.max(0, current - 2.5).toString());
+                                                                }}
+                                                                className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
+                                                                aria-label="Decrease weight by 2.5kg"
+                                                            >
+                                                                <i data-lucide="minus" width="18"></i>
+                                                            </button>
+                                                            <input 
+                                                                id={`${exId}-weight`}
+                                                                type="number" 
+                                                                inputMode="decimal"
+                                                                className="bg-sys-surfaceHigh rounded-xl flex-1 h-14 px-4 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
+                                                                value={logs[exId]?.weight || ex.weight || ''} 
+                                                                onChange={(e) => saveLog(exId, 'weight', e.target.value)} 
+                                                                placeholder="0"
+                                                                aria-label="Weight in kilograms"
+                                                            />
+                                                            <button 
+                                                                onClick={() => {
+                                                                    haptic.tick();
+                                                                    const current = parseFloat(logs[exId]?.weight || ex.weight || '0');
+                                                                    saveLog(exId, 'weight', (current + 2.5).toString());
+                                                                }}
+                                                                className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
+                                                                aria-label="Increase weight by 2.5kg"
+                                                            >
+                                                                <i data-lucide="plus" width="18"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+                    
+                    {/* Add Exercise Button */}
+                    {!logs.completed && (
+                        <div className="mb-6">
+                            <button 
+                                onClick={() => { haptic.bump(); setShowExerciseSelector(true); }} 
+                                className="w-full h-12 px-6 rounded-xl bg-sys-success/10 border border-sys-success/30 text-sys-success font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+                            >
+                                <i data-lucide="plus-circle" width="20"></i>
+                                <span>Add Exercise</span>
+                            </button>
+                        </div>
+                    )}
+                    
                     {/* Only show ActionBar if workout is not completed */}
                     {!logs.completed && (
                         <ActionBar onFinish={handleFinish} timerState={{time: timerSeconds}} setTimerActive={setTimerActive} setTimerSeconds={setTimerSeconds} />
@@ -950,6 +1168,165 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     </div>
                                 )}
                             </div>
+                        </div>
+                    )}
+                    
+                    {/* Exercise Selector Modal */}
+                    {showExerciseSelector && EXERCISE_LIBRARY.length > 0 && (
+                        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm animate-slide-up">
+                            <div className="bg-sys-surface rounded-t-3xl w-full max-h-[85vh] border-t border-white/10 flex flex-col">
+                                {/* Header */}
+                                <div className="p-6 border-b border-white/10">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <h3 className="text-xl font-bold text-white">Add Exercise</h3>
+                                        <button 
+                                            onClick={() => { haptic.tick(); setShowExerciseSelector(false); setExerciseSearchTerm(''); }} 
+                                            className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
+                                            aria-label="Close"
+                                        >
+                                            <i data-lucide="x" width="20"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    {/* Search */}
+                                    <input 
+                                        type="text"
+                                        placeholder="Search exercises..."
+                                        value={exerciseSearchTerm}
+                                        onChange={(e) => setExerciseSearchTerm(e.target.value)}
+                                        className="w-full h-12 px-4 bg-sys-surfaceHigh rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all"
+                                    />
+                                    
+                                    {/* Muscle Filter */}
+                                    <div className="flex gap-2 mt-3 overflow-x-auto pb-2">
+                                        {['all', 'pull', 'push', 'legs', 'core', 'cardio', 'skill', 'arms', 'shoulders', 'olympic', 'functional', 'plyometric', 'mobility'].map(filter => (
+                                            <button
+                                                key={filter}
+                                                onClick={() => setSelectedMuscleFilter(filter)}
+                                                className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
+                                                    selectedMuscleFilter === filter 
+                                                        ? 'bg-sys-accent text-white' 
+                                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                                }`}
+                                            >
+                                                {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                                
+                                {/* Exercise List */}
+                                <div className="flex-1 overflow-y-auto p-4">
+                                    <div className="space-y-3">
+                                        {EXERCISE_LIBRARY
+                                            .filter(ex => {
+                                                const searchMatch = !exerciseSearchTerm || 
+                                                    ex.name.toLowerCase().includes(exerciseSearchTerm.toLowerCase()) ||
+                                                    ex.primaryMuscles.some(m => m.toLowerCase().includes(exerciseSearchTerm.toLowerCase()));
+                                                const categoryMatch = selectedMuscleFilter === 'all' || ex.category === selectedMuscleFilter;
+                                                return searchMatch && categoryMatch;
+                                            })
+                                            .map((ex) => {
+                                                return (
+                                                    <ExerciseListItem key={ex.id} exercise={ex} onAdd={addExerciseToWorkout} haptic={haptic} />
+                                                );
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+        
+        // Exercise List Item Component
+        const ExerciseListItem = ({ exercise, onAdd, haptic }) => {
+            const [showAddForm, setShowAddForm] = useState(false);
+            const [sets, setSets] = useState(3);
+            const [weight, setWeight] = useState('');
+            
+            return (
+                <div className="bg-sys-surfaceHigh rounded-2xl p-4">
+                    <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1">
+                            <h4 className="text-base font-semibold text-white mb-1">{exercise.name}</h4>
+                            <p className="text-xs text-sys-onSurfaceVar mb-2">
+                                {exercise.primaryMuscles.join(', ')}
+                            </p>
+                            <div className="flex flex-wrap gap-1">
+                                {exercise.equipment.slice(0, 3).map((eq) => (
+                                    <span key={eq} className="text-xs px-2 py-1 bg-sys-surface rounded-lg text-sys-onSurfaceVar">
+                                        {eq}
+                                    </span>
+                                ))}
+                                {!exercise.isBodyweight && (
+                                    <span className="text-xs px-2 py-1 bg-sys-accent/10 rounded-lg text-sys-accent">
+                                        Weighted
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                        
+                        {!showAddForm ? (
+                            <button 
+                                onClick={() => { haptic.tick(); setShowAddForm(true); }}
+                                className="h-10 px-4 rounded-xl bg-sys-accent text-white font-semibold text-sm active:scale-95 transition-transform flex-shrink-0"
+                            >
+                                Add
+                            </button>
+                        ) : (
+                            <button 
+                                onClick={() => { haptic.tick(); setShowAddForm(false); }}
+                                className="h-10 w-10 rounded-xl bg-sys-surface text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-transform flex-shrink-0"
+                                aria-label="Collapse form"
+                            >
+                                <i data-lucide="chevron-up" width="20"></i>
+                            </button>
+                        )}
+                    </div>
+                    
+                    {showAddForm && (
+                        <div className="mt-4 pt-4 border-t border-white/5">
+                            <div className="grid grid-cols-2 gap-3 mb-3">
+                                <div>
+                                    <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Sets</label>
+                                    <input 
+                                        type="number"
+                                        min="1"
+                                        max="10"
+                                        value={sets}
+                                        onChange={(e) => setSets(parseInt(e.target.value) || 1)}
+                                        className="w-full h-10 px-3 bg-sys-surface rounded-xl text-white text-center font-mono outline-none focus:ring-2 focus:ring-sys-accent"
+                                    />
+                                </div>
+                                {!exercise.isBodyweight && (
+                                    <div>
+                                        <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Weight (kg)</label>
+                                        <input 
+                                            type="number"
+                                            inputMode="decimal"
+                                            value={weight}
+                                            onChange={(e) => setWeight(e.target.value)}
+                                            placeholder="0"
+                                            className="w-full h-10 px-3 bg-sys-surface rounded-xl text-white text-center font-mono outline-none focus:ring-2 focus:ring-sys-accent"
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                            <button 
+                                onClick={() => {
+                                    haptic.success();
+                                    onAdd(exercise, sets, weight);
+                                    setShowAddForm(false);
+                                    setSets(3);
+                                    setWeight('');
+                                }}
+                                className="w-full h-10 rounded-xl bg-sys-success text-white font-semibold active:scale-95 transition-transform"
+                            >
+                                Add to Workout
+                            </button>
                         </div>
                     )}
                 </div>
@@ -1637,40 +2014,63 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<LoadingScreen />);
 
-        // Load schedule data from JSON file
-        fetch('full-schedule.json')
-            .then(response => {
+        // Load both schedule and exercise library data
+        Promise.all([
+            fetch('full-schedule.json').then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    throw new Error(`HTTP error loading schedule! status: ${response.status}`);
+                }
+                return response.json();
+            }),
+            fetch('exercises.json').then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error loading exercises! status: ${response.status}`);
                 }
                 return response.json();
             })
-            .then(data => {
-                // Validate data structure
-                if (!Array.isArray(data) || data.length === 0) {
+        ])
+            .then(([scheduleData, exercisesData]) => {
+                // Validate schedule data structure
+                if (!Array.isArray(scheduleData) || scheduleData.length === 0) {
                     throw new Error('Invalid schedule data: expected non-empty array');
                 }
                 
-                // Basic validation of first item
-                const firstItem = data[0];
+                // Basic validation of first schedule item
+                const firstItem = scheduleData[0];
                 const requiredKeys = ['w', 'd', 'ex', 's', 'r', 'n'];
                 const hasRequiredKeys = requiredKeys.every(key => key in firstItem);
                 if (!hasRequiredKeys) {
                     throw new Error('Invalid schedule data: missing required properties');
                 }
                 
-                // Assign the loaded data to RAW_SCHEDULE
-                RAW_SCHEDULE = data;
+                // Validate exercise library data
+                if (!Array.isArray(exercisesData) || exercisesData.length === 0) {
+                    throw new Error('Invalid exercise library data: expected non-empty array');
+                }
+                
+                // Validate first exercise has required properties
+                const firstExercise = exercisesData[0];
+                const requiredExerciseKeys = ['id', 'name', 'category', 'primaryMuscles', 'equipment', 'isBodyweight'];
+                const hasRequiredExerciseKeys = requiredExerciseKeys.every(key => key in firstExercise);
+                if (!hasRequiredExerciseKeys) {
+                    throw new Error('Invalid exercise library data: missing required properties');
+                }
+                
+                // Assign the loaded data to global variables
+                RAW_SCHEDULE = scheduleData;
+                EXERCISE_LIBRARY = exercisesData;
                 
                 // Build the complete schedule with standard warmups/cooldowns
                 buildCompleteSchedule();
+                
+                console.log(`Loaded ${RAW_SCHEDULE.length} schedule items and ${EXERCISE_LIBRARY.length} exercises`);
                 
                 // Re-render with the actual app now that data is loaded
                 root.render(<App />);
             })
             .catch(error => {
-                console.error('Error loading schedule:', error);
-                root.render(<ErrorScreen message="Failed to load workout schedule data" />);
+                console.error('Error loading data:', error);
+                root.render(<ErrorScreen message={`Failed to load data: ${error.message}`} />);
             });
     </script>
 </body>

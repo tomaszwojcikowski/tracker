@@ -1199,7 +1199,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     
                                     {/* Muscle Filter */}
                                     <div className="flex gap-2 mt-3 overflow-x-auto pb-2">
-                                        {['all', 'pull', 'push', 'legs', 'core', 'cardio', 'skill'].map(filter => (
+                                        {['all', 'pull', 'push', 'legs', 'core', 'cardio', 'skill', 'arms', 'shoulders', 'olympic', 'functional', 'plyometric', 'mobility'].map(filter => (
                                             <button
                                                 key={filter}
                                                 onClick={() => setSelectedMuscleFilter(filter)}
@@ -1226,9 +1226,9 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                 const categoryMatch = selectedMuscleFilter === 'all' || ex.category === selectedMuscleFilter;
                                                 return searchMatch && categoryMatch;
                                             })
-                                            .map((ex, idx) => {
+                                            .map((ex) => {
                                                 return (
-                                                    <ExerciseListItem key={idx} exercise={ex} onAdd={addExerciseToWorkout} haptic={haptic} />
+                                                    <ExerciseListItem key={ex.id} exercise={ex} onAdd={addExerciseToWorkout} haptic={haptic} />
                                                 );
                                             })
                                         }
@@ -2046,6 +2046,14 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 // Validate exercise library data
                 if (!Array.isArray(exercisesData) || exercisesData.length === 0) {
                     throw new Error('Invalid exercise library data: expected non-empty array');
+                }
+                
+                // Validate first exercise has required properties
+                const firstExercise = exercisesData[0];
+                const requiredExerciseKeys = ['id', 'name', 'category', 'primaryMuscles', 'equipment', 'isBodyweight'];
+                const hasRequiredExerciseKeys = requiredExerciseKeys.every(key => key in firstExercise);
+                if (!hasRequiredExerciseKeys) {
+                    throw new Error('Invalid exercise library data: missing required properties');
                 }
                 
                 // Assign the loaded data to global variables

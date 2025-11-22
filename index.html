@@ -1282,7 +1282,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                     id={`${exId}-weight`}
                                                                     type="number" 
                                                                     inputMode="decimal"
-                                                                    className="bg-sys-surfaceHigh rounded-xl flex-1 h-14 px-4 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
+                                                                    className="bg-sys-surfaceHigh rounded-xl flex-1 min-w-0 h-14 px-3 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
                                                                     value={logs[exId]?.weight || ''} 
                                                                     onChange={(e) => saveLog(exId, 'weight', e.target.value)} 
                                                                     placeholder="0"
@@ -1429,7 +1429,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                 id={`${exId}-weight`}
                                                                 type="number" 
                                                                 inputMode="decimal"
-                                                                className="bg-sys-surfaceHigh rounded-xl flex-1 h-14 px-4 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
+                                                                className="bg-sys-surfaceHigh rounded-xl flex-1 min-w-0 h-14 px-3 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
                                                                 value={logs[exId]?.weight || ex.weight || ''} 
                                                                 onChange={(e) => saveLog(exId, 'weight', e.target.value)} 
                                                                 placeholder="0"

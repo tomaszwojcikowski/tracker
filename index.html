@@ -393,7 +393,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             }
         };
 
-        const sendWorkoutToGemini = async (week, day, workout, logs) => {
+        const sendWorkoutToGemini = async (week, day, workout, logs, addedExercises = []) => {
             const apiKey = localStorage.getItem('gemini_api_key');
             if (!apiKey) {
                 console.log('Gemini API key not configured, skipping sync');
@@ -404,7 +404,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const chatHistory = initializeGeminiChat();
             
             // Format workout data for Gemini
-            const workoutSummary = formatWorkoutForGemini(week, day, workout, logs);
+            const workoutSummary = formatWorkoutForGemini(week, day, workout, logs, addedExercises);
             
             // Add new user message to history
             const newUserMessage = {
@@ -463,7 +463,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             }
         };
         
-        const formatWorkoutForGemini = (week, day, workout, logs) => {
+        const formatWorkoutForGemini = (week, day, workout, logs, addedExercises = []) => {
             const completedAt = new Date().toLocaleString();
             let summary = `# Workout Completed\n\n`;
             summary += `Date: ${completedAt}\n`;
@@ -492,6 +492,27 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     }
                 });
             });
+            
+            // Include added exercises
+            if (addedExercises.length > 0) {
+                summary += `\nAdded Exercises\n`;
+                addedExercises.forEach(ex => {
+                    const exId = `added_${ex.id}`;
+                    const exLog = logs[exId] || {};
+                    const sets = exLog.sets || [];
+                    const completedSets = sets.filter(s => s).length;
+                    const expectedSets = sets.length || ex.sets;
+                    
+                    summary += `${ex.name} (Added)\n`;
+                    summary += `Target Muscles: ${ex.primaryMuscles.join(', ')}\n`;
+                    summary += `Equipment: ${ex.equipment.join(', ')}\n`;
+                    summary += `Completed Sets: ${completedSets}/${expectedSets}\n`;
+                    
+                    if (ex.weight || exLog.weight) {
+                        summary += `Weight: ${exLog.weight || ex.weight} kg\n`;
+                    }
+                });
+            }
             
             summary += `\nPlease analyze this workout and provide feedback on my progress, form cues to remember, and suggestions for the next session.`;
             return summary;
@@ -696,7 +717,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 if (apiKey) {
                     setGeminiSyncStatus('syncing');
                     setGeminiErrorMessage('');
-                    sendWorkoutToGemini(week, day, workout, updatedLogs)
+                    sendWorkoutToGemini(week, day, workout, updatedLogs, addedExercises)
                         .then(result => {
                             if (result.success) {
                                 // Extract AI feedback from response

@@ -2692,6 +2692,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         };
 
         const updateUrl = (state) => {
+            const DEFAULT_WEEK = 1;
             const params = new URLSearchParams();
             
             if (state.viewMode === 'workout') {
@@ -2700,7 +2701,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 params.set('day', state.activeDay);
             } else {
                 params.set('tab', state.activeTab);
-                if (state.currentWeek !== 1) {
+                // Only include week in URL if it's not the default
+                if (state.currentWeek !== DEFAULT_WEEK) {
                     params.set('week', state.currentWeek);
                 }
             }
@@ -2719,35 +2721,36 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         };
 
         const loadAppState = () => {
+            const DEFAULT_WEEK = 1;
+            const DEFAULT_DAY = 1;
+            const VALID_DAYS = [1, 2, 3, 5];
+            const VALID_TABS = ['train', 'library', 'history', 'coach', 'profile'];
+            
             try {
                 const saved = localStorage.getItem('tracker_app_state');
                 if (saved) {
-                    const state = JSON.parse(saved);
+                    const loaded = JSON.parse(saved);
                     
-                    // Validate loaded state
-                    if (!state || typeof state !== 'object') return null;
+                    // Validate loaded state - return null if invalid
+                    if (!loaded || typeof loaded !== 'object') return null;
                     
-                    // Validate week (1-21)
-                    if (state.currentWeek && (state.currentWeek < 1 || state.currentWeek > 21)) {
-                        state.currentWeek = 1;
-                    }
+                    // Create a new validated state object (avoid mutation)
+                    const validatedState = {
+                        viewMode: loaded.viewMode && ['tab', 'workout'].includes(loaded.viewMode) 
+                            ? loaded.viewMode 
+                            : 'tab',
+                        activeTab: loaded.activeTab && VALID_TABS.includes(loaded.activeTab)
+                            ? loaded.activeTab
+                            : 'train',
+                        currentWeek: loaded.currentWeek >= 1 && loaded.currentWeek <= 21
+                            ? loaded.currentWeek
+                            : DEFAULT_WEEK,
+                        activeDay: loaded.activeDay && VALID_DAYS.includes(loaded.activeDay)
+                            ? loaded.activeDay
+                            : DEFAULT_DAY
+                    };
                     
-                    // Validate day (1, 2, 3, or 5)
-                    if (state.activeDay && ![1, 2, 3, 5].includes(state.activeDay)) {
-                        state.activeDay = 1;
-                    }
-                    
-                    // Validate viewMode
-                    if (state.viewMode && !['tab', 'workout'].includes(state.viewMode)) {
-                        state.viewMode = 'tab';
-                    }
-                    
-                    // Validate activeTab
-                    if (state.activeTab && !['train', 'library', 'history', 'coach', 'profile'].includes(state.activeTab)) {
-                        state.activeTab = 'train';
-                    }
-                    
-                    return state;
+                    return validatedState;
                 }
             } catch (e) {
                 console.error('Failed to load app state:', e);
@@ -2767,14 +2770,16 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 const urlParams = getUrlParams();
                 const savedState = loadAppState();
                 
+                const VALID_TABS = ['train', 'library', 'history', 'coach', 'profile'];
+                
                 // Priority: URL params > saved state > defaults
                 if (urlParams.view === 'workout' && urlParams.week !== null && urlParams.day !== null) {
                     // Load from URL - workout view
                     setViewMode('workout');
                     setCurrentWeek(urlParams.week);
                     setActiveDay(urlParams.day);
-                } else if (urlParams.tab) {
-                    // Load from URL - tab view
+                } else if (urlParams.tab && VALID_TABS.includes(urlParams.tab)) {
+                    // Load from URL - tab view (validate tab name)
                     setViewMode('tab');
                     setActiveTab(urlParams.tab);
                     if (urlParams.week !== null) {

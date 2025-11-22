@@ -2752,16 +2752,17 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 if (!isInitialized) return;
                 
                 const state = { viewMode, activeTab, currentWeek, activeDay };
-                const newUrl = updateUrl(state);
                 
-                // Update URL without adding to history (replace current entry)
-                window.history.replaceState(state, '', newUrl);
-                
-                // Save to localStorage
+                // Save to localStorage (always sync localStorage)
                 saveAppState(state);
                 
                 // Keep backward compatibility with old tracker_week key
                 localStorage.setItem('tracker_week', currentWeek);
+                
+                // Update URL only via replaceState to avoid polluting history
+                // pushState is called explicitly in navigation functions
+                const newUrl = updateUrl(state);
+                window.history.replaceState(state, '', newUrl);
             }, [viewMode, activeTab, currentWeek, activeDay, isInitialized]);
 
             // Initialize Lucide icons when view or tab changes
@@ -2807,7 +2808,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const handleTabChange = (newTab) => {
                 setActiveTab(newTab);
                 
-                // Push new entry to history for tab changes
+                // Push new entry to history for tab changes so users can navigate back
+                // This is intentional - each tab navigation should be a distinct history entry
                 const state = { viewMode: 'tab', activeTab: newTab, currentWeek, activeDay };
                 const newUrl = updateUrl(state);
                 window.history.pushState(state, '', newUrl);

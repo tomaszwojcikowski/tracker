@@ -2837,11 +2837,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         
                         if (urlParams.view === 'workout' && urlParams.week !== null && urlParams.day !== null) {
                             // Navigating back to a workout view
+                            // Week and day are required for workout view, validated by condition above
                             setViewMode('workout');
                             setCurrentWeek(urlParams.week);
                             setActiveDay(urlParams.day);
                         } else {
                             // Navigating back to tab view (or default)
+                            // Week is optional in tab view, only set if present
                             setViewMode('tab');
                             if (urlParams.tab && VALID_TABS.includes(urlParams.tab)) {
                                 setActiveTab(urlParams.tab);

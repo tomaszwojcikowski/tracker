@@ -611,23 +611,23 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             if (history.length === 0) {
                 return {
                     totalWorkouts: 0,
-                    maxReps: null,
+                    maxSets: null,
                     maxWeight: null,
-                    maxWeightByReps: {},
+                    maxWeightBySets: {},
                     estimated1RM: null,
                     recentProgress: []
                 };
             }
 
-            let maxReps = 0;
+            let maxSets = 0;
             let maxWeight = 0;
-            const maxWeightByReps = {};
+            const maxWeightBySets = {};
             let estimated1RM = 0;
 
             history.forEach(entry => {
-                // Track max reps
-                if (entry.sets > maxReps) {
-                    maxReps = entry.sets;
+                // Track max sets completed
+                if (entry.sets > maxSets) {
+                    maxSets = entry.sets;
                 }
 
                 // Track max weight
@@ -635,16 +635,23 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     maxWeight = entry.weight;
                 }
 
-                // Track max weight by rep count
+                // Track max weight by set count
                 if (entry.weight && entry.sets) {
-                    if (!maxWeightByReps[entry.sets] || entry.weight > maxWeightByReps[entry.sets]) {
-                        maxWeightByReps[entry.sets] = entry.weight;
+                    if (!maxWeightBySets[entry.sets] || entry.weight > maxWeightBySets[entry.sets]) {
+                        maxWeightBySets[entry.sets] = entry.weight;
                     }
 
                     // Calculate estimated 1RM using Epley formula: 1RM = weight × (1 + reps/30)
-                    const estimated = entry.weight * (1 + entry.sets / 30);
-                    if (estimated > estimated1RM) {
-                        estimated1RM = estimated;
+                    // Extract reps from prescription (e.g., "3 x 10 reps" -> 10)
+                    if (entry.prescription) {
+                        const repsMatch = entry.prescription.match(/\b(\d+)\s*reps?\b/i);
+                        if (repsMatch && entry.weight) {
+                            const reps = parseInt(repsMatch[1]);
+                            const estimated = entry.weight * (1 + reps / 30);
+                            if (estimated > estimated1RM) {
+                                estimated1RM = estimated;
+                            }
+                        }
                     }
                 }
             });
@@ -662,9 +669,9 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
 
             return {
                 totalWorkouts: history.length,
-                maxReps,
+                maxSets,
                 maxWeight: maxWeight || null,
-                maxWeightByReps,
+                maxWeightBySets,
                 estimated1RM: estimated1RM > 0 ? Math.round(estimated1RM * 10) / 10 : null,
                 recentProgress
             };
@@ -2449,7 +2456,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     </div>
                                     <div className="bg-sys-surfaceHigh rounded-xl p-4">
                                         <div className="text-xs text-sys-onSurfaceVar mb-1">Max Sets</div>
-                                        <div className="text-2xl font-bold text-white">{stats.maxReps || 'N/A'}</div>
+                                        <div className="text-2xl font-bold text-white">{stats.maxSets || 'N/A'}</div>
                                     </div>
                                 </div>
                                 
@@ -2468,16 +2475,16 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     </div>
                                 )}
                                 
-                                {/* Max Weight by Rep Count */}
-                                {Object.keys(stats.maxWeightByReps).length > 0 && (
+                                {/* Max Weight by Set Count */}
+                                {Object.keys(stats.maxWeightBySets).length > 0 && (
                                     <div>
                                         <h4 className="text-sm font-bold text-white mb-3">Max Weight by Sets</h4>
                                         <div className="grid grid-cols-3 gap-2">
-                                            {Object.entries(stats.maxWeightByReps)
+                                            {Object.entries(stats.maxWeightBySets)
                                                 .sort(([a], [b]) => parseInt(a) - parseInt(b))
-                                                .map(([reps, weight]) => (
-                                                    <div key={reps} className="bg-sys-surfaceHigh rounded-lg p-3 text-center">
-                                                        <div className="text-xs text-sys-onSurfaceVar mb-1">{reps} sets</div>
+                                                .map(([sets, weight]) => (
+                                                    <div key={sets} className="bg-sys-surfaceHigh rounded-lg p-3 text-center">
+                                                        <div className="text-xs text-sys-onSurfaceVar mb-1">{sets} sets</div>
                                                         <div className="text-base font-bold text-white">{weight}kg</div>
                                                     </div>
                                                 ))

@@ -2826,10 +2826,34 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             useEffect(() => {
                 const handlePopState = (event) => {
                     if (event.state) {
+                        // State exists in history, use it
                         if (event.state.viewMode !== undefined) setViewMode(event.state.viewMode);
                         if (event.state.activeTab !== undefined) setActiveTab(event.state.activeTab);
                         if (event.state.currentWeek !== undefined) setCurrentWeek(event.state.currentWeek);
                         if (event.state.activeDay !== undefined) setActiveDay(event.state.activeDay);
+                    } else {
+                        // No state in history (e.g., initial page load), parse from URL
+                        const urlParams = getUrlParams();
+                        
+                        if (urlParams.view === 'workout' && urlParams.week !== null && urlParams.day !== null) {
+                            // Navigating back to a workout view
+                            // Week and day are required for workout view, validated by condition above
+                            setViewMode('workout');
+                            setCurrentWeek(urlParams.week);
+                            setActiveDay(urlParams.day);
+                        } else {
+                            // Navigating back to tab view (or default)
+                            // Week is optional in tab view, only set if present
+                            setViewMode('tab');
+                            if (urlParams.tab && VALID_TABS.includes(urlParams.tab)) {
+                                setActiveTab(urlParams.tab);
+                            } else {
+                                setActiveTab('train'); // Default tab
+                            }
+                            if (urlParams.week !== null) {
+                                setCurrentWeek(urlParams.week);
+                            }
+                        }
                     }
                 };
 

@@ -20,16 +20,16 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        // Functional Palette (High Contrast OLED)
+                        // Functional Palette (High Contrast OLED) - Enhanced with deeper blacks
                         sys: {
-                            black: '#000000',
-                            surface: '#121212',
-                            surfaceHigh: '#242424',
+                            black: '#000000',        // Pure OLED black
+                            surface: '#0A0A0A',      // Deeper surface for better separation
+                            surfaceHigh: '#1A1A1A',  // Enhanced surface elevation
                             onSurface: '#FFFFFF',
                             onSurfaceVar: '#A1A1AA',
-                            primary: '#FFFFFF', // High contrast active state
+                            primary: '#FFFFFF',
                             primaryDim: '#525252',
-                            accent: '#3B82F6', // Electric Blue
+                            accent: '#3B82F6',       // Electric Blue
                             success: '#10B981',
                         }
                     },
@@ -39,6 +39,7 @@
                     animation: {
                         'slide-up': 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                         'bounce-in': 'bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+                        'scale-bounce': 'scaleBounce 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
                         'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
                     },
                     keyframes: {
@@ -51,6 +52,11 @@
                             '50%': { transform: 'scale(1.05)' },
                             '70%': { transform: 'scale(0.9)' },
                             '100%': { transform: 'scale(1)', opacity: 1 },
+                        },
+                        scaleBounce: {
+                            '0%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(0.95)' },
+                            '100%': { transform: 'scale(1)' },
                         },
                         pulseGlow: {
                             '0%, 100%': { boxShadow: '0 0 20px rgba(59,130,246,0.6)' },
@@ -65,16 +71,56 @@
         body { background-color: #000000; color: #FFFFFF; -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; }
         ::-webkit-scrollbar { display: none; }
         .safe-pb { padding-bottom: env(safe-area-inset-bottom, 24px); }
-        .safe-pt { padding-top: env(safe-area-inset-top, 24px); }
+        .safe-pt { padding-bottom: env(safe-area-inset-top, 24px); }
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         
         /* Glassmorphism for OLED depth */
         .glass-panel {
-            background: rgba(18, 18, 18, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Smooth CSS Grid transitions for exercise card collapse/expand */
+        .exercise-content {
+            display: grid;
+            grid-template-rows: 1fr;
+            transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-out;
+        }
+        
+        .exercise-content.collapsed {
+            grid-template-rows: 0fr;
+            opacity: 0;
+        }
+        
+        .exercise-content > div {
+            overflow: hidden;
+        }
+        
+        /* Progress bar for exercise completion */
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #10B981 0%, #3B82F6 100%);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 0 0 1.5rem 1.5rem;
+        }
+        
+        /* Enhanced set button with scale animation */
+        .set-button {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .set-button:active {
+            animation: scaleBounce 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .set-button.completed {
+            animation: scaleBounce 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
     </style>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -153,6 +199,21 @@
                 if (isRightSwipe && onSwipeRight) onSwipeRight();
             };
             return { onTouchStart, onTouchMove, onTouchEnd };
+        };
+
+        // --- GENERIC LUCIDE ICON REFRESH HOOK ---
+        // Ensures Lucide icons are re-rendered after React updates
+        const useLucideIcons = () => {
+            useEffect(() => {
+                // Use double RAF to ensure DOM is fully updated
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        if (window.lucide) {
+                            lucide.createIcons();
+                        }
+                    });
+                });
+            });
         };
 
 
@@ -533,6 +594,9 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [exerciseSearchTerm, setExerciseSearchTerm] = useState('');
             const [selectedMuscleFilter, setSelectedMuscleFilter] = useState('all');
             const haptic = useHaptic();
+            
+            // Generic Lucide icon refresh hook - ensures icons render after React updates
+            useLucideIcons();
 
             useEffect(() => {
                 const saved = localStorage.getItem(`session_w${week}d${day}`);
@@ -874,7 +938,18 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                     ></div>
                                                 )}
                                                 
-                                                <div className={`bg-sys-surface rounded-3xl p-6 border relative z-10 ${ex.supersetLabel ? 'border-sys-accent/20' : 'border-white/5'}`}>
+                                                <div className={`bg-sys-surface rounded-3xl p-6 border relative z-10 overflow-hidden ${
+                                                    completedSets === totalSets ? 'border-sys-success/30 bg-sys-success/5' : 
+                                                    ex.supersetLabel ? 'border-sys-accent/20' : 'border-white/5'
+                                                }`}>
+                                                    {/* Progress bar at bottom */}
+                                                    {completedSets > 0 && (
+                                                        <div 
+                                                            className="progress-bar" 
+                                                            style={{ width: `${(completedSets / totalSets) * 100}%` }}
+                                                        ></div>
+                                                    )}
+                                                    
                                                     {/* Superset label badge */}
                                                     {ex.supersetLabel && (
                                                         <div className="absolute -left-2 top-6 h-10 w-10 rounded-full bg-sys-accent flex items-center justify-center text-sm font-bold text-white shadow-lg z-20">
@@ -919,14 +994,14 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                         )}
                                                     </div>
                                                     
-                                                    {!collapsedExercises[exId] && (
-                                                    <>
+                                                    <div className={`exercise-content ${collapsedExercises[exId] ? 'collapsed' : ''}`}>
+                                                        <div>
                                                     <div className="flex flex-wrap gap-4 mb-5">
                                                         {currentSetArray.map((isDone, i) => (
                                                             <button 
                                                                 key={i} 
                                                                 onClick={() => toggleSet(exId, i, defaultSets, ex.rest)} 
-                                                                className={`h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold transition-all duration-200 active:scale-90 ${isDone ? 'bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
+                                                                className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold ${isDone ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
                                                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                             >
                                                                 {isDone ? <i data-lucide="check" width="24" /> : i + 1}
@@ -994,8 +1069,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                             </div>
                                                         </div>
                                                     )}
-                                                    </>
-                                                    )}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         );
@@ -1022,7 +1097,17 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     
                                     return (
                                         <div key={exId} id={exId} className="relative scroll-mt-20">
-                                            <div className="bg-sys-surface rounded-3xl p-6 border border-sys-success/20">
+                                            <div className={`bg-sys-surface rounded-3xl p-6 border relative overflow-hidden ${
+                                                completedSets === totalSets ? 'border-sys-success/30 bg-sys-success/5' : 'border-sys-success/20'
+                                            }`}>
+                                                {/* Progress bar at bottom */}
+                                                {completedSets > 0 && (
+                                                    <div 
+                                                        className="progress-bar" 
+                                                        style={{ width: `${(completedSets / totalSets) * 100}%` }}
+                                                    ></div>
+                                                )}
+                                                
                                                 <div className="flex justify-between items-start mb-6">
                                                     <div className="flex-1 pr-2">
                                                         <div className="flex items-center gap-2 mb-1">
@@ -1051,7 +1136,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                         <button 
                                                             key={i} 
                                                             onClick={() => toggleSet(exId, i, ex.sets, 90)} 
-                                                            className={`h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold transition-all duration-200 active:scale-90 ${isDone ? 'bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
+                                                            className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold ${isDone ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
                                                             aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                         >
                                                             {isDone ? <i data-lucide="check" width="24" /> : i + 1}

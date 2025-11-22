@@ -996,14 +996,14 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </div>
                             
                             <div className="space-y-5">
-                                {addedExercises.map((ex, idx) => {
+                                {addedExercises.map((ex) => {
                                     const exId = `added_${ex.id}`;
                                     const currentSetArray = logs[exId]?.sets || new Array(ex.sets).fill(false);
                                     const completedSets = currentSetArray.filter(s => s).length;
                                     const totalSets = currentSetArray.length;
                                     
                                     return (
-                                        <div key={idx} id={exId} className="relative scroll-mt-20">
+                                        <div key={exId} id={exId} className="relative scroll-mt-20">
                                             <div className="bg-sys-surface rounded-3xl p-6 border border-sys-success/20">
                                                 <div className="flex justify-between items-start mb-6">
                                                     <div className="flex-1 pr-2">
@@ -1256,8 +1256,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 {exercise.primaryMuscles.join(', ')}
                             </p>
                             <div className="flex flex-wrap gap-1">
-                                {exercise.equipment.slice(0, 3).map((eq, i) => (
-                                    <span key={i} className="text-xs px-2 py-1 bg-sys-surface rounded-lg text-sys-onSurfaceVar">
+                                {exercise.equipment.slice(0, 3).map((eq) => (
+                                    <span key={eq} className="text-xs px-2 py-1 bg-sys-surface rounded-lg text-sys-onSurfaceVar">
                                         {eq}
                                     </span>
                                 ))}

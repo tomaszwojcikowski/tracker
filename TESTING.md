@@ -61,7 +61,7 @@
 - `view`: "workout" for workout player
 - `tab`: Tab name (train, library, history, coach, profile)
 - `week`: Current week (1-21)
-- `day`: Current day (1, 2, 3, 5)
+- `day`: Current day (1, 2, 3, 5) - Note: Day 4 is rest day and not included
 
 ### Priority Order
 1. URL query parameters (highest priority)

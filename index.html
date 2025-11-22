@@ -2665,11 +2665,29 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const weekParam = params.get('week');
             const dayParam = params.get('day');
             
+            // Parse and validate week (1-21)
+            let week = null;
+            if (weekParam) {
+                const parsed = parseInt(weekParam, 10);
+                if (!isNaN(parsed) && parsed >= 1 && parsed <= 21) {
+                    week = parsed;
+                }
+            }
+            
+            // Parse and validate day (1, 2, 3, or 5 - valid workout days)
+            let day = null;
+            if (dayParam) {
+                const parsed = parseInt(dayParam, 10);
+                if (!isNaN(parsed) && [1, 2, 3, 5].includes(parsed)) {
+                    day = parsed;
+                }
+            }
+            
             return {
                 view: params.get('view') || null,
                 tab: params.get('tab') || null,
-                week: weekParam ? parseInt(weekParam, 10) || null : null,
-                day: dayParam ? parseInt(dayParam, 10) || null : null
+                week: week,
+                day: day
             };
         };
 
@@ -2704,7 +2722,32 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             try {
                 const saved = localStorage.getItem('tracker_app_state');
                 if (saved) {
-                    return JSON.parse(saved);
+                    const state = JSON.parse(saved);
+                    
+                    // Validate loaded state
+                    if (!state || typeof state !== 'object') return null;
+                    
+                    // Validate week (1-21)
+                    if (state.currentWeek && (state.currentWeek < 1 || state.currentWeek > 21)) {
+                        state.currentWeek = 1;
+                    }
+                    
+                    // Validate day (1, 2, 3, or 5)
+                    if (state.activeDay && ![1, 2, 3, 5].includes(state.activeDay)) {
+                        state.activeDay = 1;
+                    }
+                    
+                    // Validate viewMode
+                    if (state.viewMode && !['tab', 'workout'].includes(state.viewMode)) {
+                        state.viewMode = 'tab';
+                    }
+                    
+                    // Validate activeTab
+                    if (state.activeTab && !['train', 'library', 'history', 'coach', 'profile'].includes(state.activeTab)) {
+                        state.activeTab = 'train';
+                    }
+                    
+                    return state;
                 }
             } catch (e) {
                 console.error('Failed to load app state:', e);

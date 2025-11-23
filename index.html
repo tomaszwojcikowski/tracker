@@ -1407,11 +1407,60 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             exercisesWithSuperset.push({ ...ex, supersetLabel, supersetPosition });
                         });
                         
+                        // Calculate section progress
+                        const sectionExercises = section.exercises.length;
+                        let sectionCompletedExercises = 0;
+                        section.exercises.forEach(ex => {
+                            const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                            const sets = logs[exId]?.sets || [];
+                            if (sets.length > 0 && sets.every(s => s)) {
+                                sectionCompletedExercises++;
+                            }
+                        });
+                        const sectionProgress = sectionExercises > 0 ? (sectionCompletedExercises / sectionExercises) * 100 : 0;
+                        
                         return (
                             <div key={sIdx} className="mb-10">
-                                <div className="flex items-center gap-3 mb-5 px-1">
-                                    <span className="text-sm font-bold text-white uppercase tracking-wider bg-sys-surfaceHigh px-4 py-2 rounded-xl">{section.name}</span>
-                                    <div className="h-[2px] flex-1 bg-gradient-to-r from-white/20 to-transparent rounded-full"></div>
+                                <div className="mb-5">
+                                    <div className="flex items-center gap-3 mb-2 px-1">
+                                        <div className="flex items-center gap-2">
+                                            {/* Section icon based on type */}
+                                            <div className={`h-8 w-8 rounded-lg flex items-center justify-center ${
+                                                section.type === 'prep' ? 'bg-sys-accent/10' :
+                                                section.type === 'main' ? 'bg-sys-success/10' :
+                                                section.type === 'cool' ? 'bg-sys-accent/10' :
+                                                'bg-sys-surfaceHigh'
+                                            }`}>
+                                                <i data-lucide={
+                                                    section.type === 'prep' ? 'zap' :
+                                                    section.type === 'main' ? 'dumbbell' :
+                                                    section.type === 'cool' ? 'wind' :
+                                                    'activity'
+                                                } width="16" className={
+                                                    section.type === 'prep' ? 'text-sys-accent' :
+                                                    section.type === 'main' ? 'text-sys-success' :
+                                                    section.type === 'cool' ? 'text-sys-accent' :
+                                                    'text-white'
+                                                }></i>
+                                            </div>
+                                            <span className="text-base font-bold text-white uppercase tracking-wide">{section.name}</span>
+                                        </div>
+                                        <div className="h-[2px] flex-1 bg-gradient-to-r from-white/20 to-transparent rounded-full"></div>
+                                        {sectionProgress > 0 && (
+                                            <span className="text-xs font-bold text-sys-onSurfaceVar">
+                                                {sectionCompletedExercises}/{sectionExercises}
+                                            </span>
+                                        )}
+                                    </div>
+                                    {/* Section progress bar */}
+                                    {sectionProgress > 0 && (
+                                        <div className="h-1 bg-sys-surfaceHigh rounded-full overflow-hidden mx-1">
+                                            <div 
+                                                className="h-full bg-gradient-to-r from-sys-accent to-sys-success transition-all duration-500"
+                                                style={{ width: `${sectionProgress}%` }}
+                                            ></div>
+                                        </div>
+                                    )}
                                 </div>
                                 
                                 <div className="space-y-5">
@@ -1477,7 +1526,25 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                     </span>
                                                                 )}
                                                             </div>
-                                                            {!collapsedExercises[exId] && (
+                                                            {collapsedExercises[exId] ? (
+                                                                // Collapsed summary view
+                                                                <div className="flex items-center gap-3 mt-2">
+                                                                    <p className="text-sm text-sys-onSurfaceVar">{ex.prescription}</p>
+                                                                    {logs[exId]?.weight && (
+                                                                        <span className="text-xs font-semibold text-sys-accent">
+                                                                            {logs[exId].weight}kg
+                                                                        </span>
+                                                                    )}
+                                                                    {/* Mini progress bar */}
+                                                                    <div className="flex-1 max-w-[80px] h-1 bg-sys-surfaceHigh rounded-full overflow-hidden">
+                                                                        <div 
+                                                                            className="h-full bg-sys-success transition-all"
+                                                                            style={{ width: `${(completedSets / totalSets) * 100}%` }}
+                                                                        ></div>
+                                                                    </div>
+                                                                </div>
+                                                            ) : (
+                                                                // Expanded view
                                                                 <>
                                                                     <p className="text-base text-sys-onSurfaceVar font-medium">{ex.prescription}</p>
                                                                     {ex.notes && <p className="text-sm text-sys-accent mt-2 leading-relaxed">{ex.notes}</p>}
@@ -1524,10 +1591,20 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                 <div key={i} className="flex flex-col items-center gap-2">
                                                                     <button 
                                                                         onClick={() => toggleSet(exId, i, defaultSets, ex.rest)} 
-                                                                        className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold ${isDone ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
+                                                                        className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex flex-col items-center justify-center text-base font-bold relative overflow-hidden ${isDone ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
                                                                         aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                                     >
-                                                                        {isDone ? <i data-lucide="check" width="24" /> : i + 1}
+                                                                        {isDone ? (
+                                                                            <div className="flex flex-col items-center">
+                                                                                <i data-lucide="check" width="20" />
+                                                                                <span className="text-xs mt-0.5">{i + 1}</span>
+                                                                            </div>
+                                                                        ) : (
+                                                                            <div className="flex flex-col items-center">
+                                                                                <div className="h-3 w-3 rounded-full border-2 border-current mb-1"></div>
+                                                                                <span>{i + 1}</span>
+                                                                            </div>
+                                                                        )}
                                                                     </button>
                                                                     {isDone && (
                                                                         <select

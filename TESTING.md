@@ -155,6 +155,49 @@ These utilities are used throughout the codebase for improved error handling and
 #### Testing
 No new user-facing features to test. The refactor maintains existing functionality with better code organization.
 
+### Scenario 4: UX Polish for Workout Player & Navigation
+#### Enhanced Section Headers
+1. Start any workout
+2. **Expected**:
+   - Each section (Warm Up, Main Work, etc.) has an icon
+   - Section progress shows (e.g., "2/5")
+   - Mini progress bar below section header
+   - Different colors for different section types
+
+#### Set Buttons with Numbered Dots
+1. In workout, view set buttons
+2. **Expected**:
+   - Uncompleted sets show: numbered dot (circle) with number below
+   - Completed sets show: check icon with number below
+   - Clear visual distinction between states
+   - RPE dropdown appears below completed sets
+
+#### Collapsed Exercise Summary
+1. Complete all sets for an exercise
+2. Click the collapse button (chevron)
+3. **Expected**:
+   - Exercise collapses to summary view
+   - Shows: prescription, weight used, mini progress bar
+   - All info visible at a glance
+   - Can expand again by clicking
+
+#### Navigation Accessibility
+1. Use screen reader or inspect elements
+2. Check navigation bar buttons
+3. **Expected**:
+   - Each button has `aria-label` attribute
+   - Active tab has `aria-current="page"`
+   - Icons and labels properly aligned
+   - Touch targets are large enough (56px min-height)
+
+#### Complete All Sets Feature
+1. Start an exercise
+2. Click "Complete All" button
+3. **Expected**:
+   - All sets marked complete at once
+   - Button provides one-tap completion
+   - Sets can still be individually toggled after
+
 ### Scenario 1: State Persistence on Reload
 1. Open the app: `http://localhost:8080/`
 2. Navigate to Week 5, Day 3 workout

@@ -219,7 +219,7 @@
                 if (item === null) return defaultValue;
                 return JSON.parse(item);
             } catch (error) {
-                console.error(`Failed to parse JSON for key "${key}":`, error);
+                console.warn(`Failed to parse JSON for key "${key}":`, error);
                 return defaultValue;
             }
         };
@@ -260,15 +260,20 @@
         // SECTION 3: SCHEDULE UTILITIES
         // ============================================================================
 
-        // Function to build complete schedule with standard warmups/cooldowns
+        /**
+         * Build complete schedule with auto-generated warmups and cooldowns.
+         * Week 1 has explicit warmup/cooldown in the JSON.
+         * For weeks 2-21, this function adds standard warmup/cooldown protocols if not already present.
+         * This avoids repeating boilerplate exercises in the schedule JSON.
+         */
         const buildCompleteSchedule = () => {
-            // Start with all items from RAW_SCHEDULE
+            // Start with all items from RAW_SCHEDULE (loaded from full-schedule.json)
             COMPLETE_SCHEDULE = [...RAW_SCHEDULE];
             const add = (w, d, ex, s, r, n) => COMPLETE_SCHEDULE.push({w, d, ex, s, r, n});
             
-            // Populate standard Warmups/Cooldowns for Weeks 2-21 that aren't explicitly in RAW
+            // Auto-generate standard warmups/cooldowns for weeks 2-21 that aren't explicitly defined
             for (let w = 2; w <= 21; w++) {
-                // Warmups for D1/D5 if not present
+                // Add standard warmups for pull days (D1/D5) if not already present
                 [1, 5].forEach(d => {
                     if (!RAW_SCHEDULE.some(i => i.w === w && i.d === d && i.ex.includes("Rower"))) {
                         add(w, d, "Rower (Zone 1)", 1, "2 min", "Warm-up");
@@ -276,7 +281,7 @@
                         add(w, d, "Scapular Pull-Ups", 3, "5 reps", "Warm-up");
                     }
                 });
-                // Cooldowns if not present
+                // Add standard cooldown for all training days (D1, D2, D3, D5) if not already present
                 [1, 2, 3, 5].forEach(d => {
                     if (!RAW_SCHEDULE.some(i => i.w === w && i.d === d && i.n.includes("Cool-down"))) {
                         add(w, d, "Cool-down Protocol", 1, "5 min", "Cool-down");
@@ -590,10 +595,16 @@
 
 Keep responses concise, direct, and actionable. Use bullet points. Avoid unnecessary elaboration or motivational filler. Focus only on the most important insights.`;
 
+        /**
+         * Initialize Gemini chat history with system prompt.
+         * Creates a new chat session if none exists or if existing data is corrupted.
+         * The system prompt sets the AI's role as a fitness coach and training analyst.
+         */
         const initializeGeminiChat = () => {
-            const history = localStorage.getItem(GEMINI_CHAT_HISTORY_KEY);
+            const history = safeGetJSON(GEMINI_CHAT_HISTORY_KEY, null);
+            
             if (!history) {
-                // Initialize with system prompt
+                // Initialize with system prompt - establishes AI coaching persona
                 const initialHistory = [{
                     role: 'user',
                     parts: [{ text: GEMINI_SYSTEM_PROMPT }]
@@ -601,26 +612,19 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     role: 'model',
                     parts: [{ text: `I understand. I'm ready to track your workouts and provide coaching feedback. Please share your workout data, and I'll analyze your performance and provide helpful insights.` }]
                 }];
-                localStorage.setItem(GEMINI_CHAT_HISTORY_KEY, JSON.stringify(initialHistory));
+                safeSetJSON(GEMINI_CHAT_HISTORY_KEY, initialHistory);
                 return initialHistory;
             }
             
-            // Parse with error handling for corrupted data
-            try {
-                const parsed = JSON.parse(history);
-                // Validate structure
-                if (Array.isArray(parsed) && parsed.length >= 2) {
-                    return parsed;
-                }
-                // Invalid structure, reset
-                console.warn('Invalid chat history structure, reinitializing');
-                localStorage.removeItem(GEMINI_CHAT_HISTORY_KEY);
-                return initializeGeminiChat();
-            } catch (error) {
-                console.error('Failed to parse chat history, reinitializing:', error);
-                localStorage.removeItem(GEMINI_CHAT_HISTORY_KEY);
-                return initializeGeminiChat();
+            // Validate chat history structure (must be array with at least system messages)
+            if (Array.isArray(history) && history.length >= 2) {
+                return history;
             }
+            
+            // Invalid structure, reset and reinitialize
+            console.warn('Invalid chat history structure, reinitializing');
+            safeRemove(GEMINI_CHAT_HISTORY_KEY);
+            return initializeGeminiChat();
         };
 
         const sendWorkoutToGemini = async (week, day, workout, logs, addedExercises = []) => {
@@ -687,7 +691,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     
                     // Update chat history with both user message and model response
                     const updatedHistory = [...chatHistory, newUserMessage, modelResponse];
-                    localStorage.setItem(GEMINI_CHAT_HISTORY_KEY, JSON.stringify(updatedHistory));
+                    safeSetJSON(GEMINI_CHAT_HISTORY_KEY, updatedHistory);
                 } else {
                     console.warn('Unexpected API response structure, history not updated:', data);
                 }
@@ -1165,7 +1169,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 try {
                     const updatedLogs = { ...logs, completed: true, completedAt: new Date().toISOString(), week, day, workoutNotes };
                     setLogs(updatedLogs);
-                    localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
+                    safeSetJSON(`session_w${week}d${day}`, updatedLogs);
                     
                     const completionDate = new Date().toISOString();
                 
@@ -1246,10 +1250,10 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     aiFeedback: null // Will be updated if Gemini sync succeeds
                 };
                 
-                const history = JSON.parse(localStorage.getItem('global_history') || '[]');
+                const history = safeGetJSON('global_history', []);
                 const cleanHistory = history.filter(h => !(h.week === week && h.day === day));
                 cleanHistory.push(historyEntry);
-                localStorage.setItem('global_history', JSON.stringify(cleanHistory));
+                safeSetJSON('global_history', cleanHistory);
                 
                 // Send workout to Gemini (only if API key is configured and auto-sync is enabled)
                 const apiKey = localStorage.getItem('gemini_api_key');
@@ -1265,7 +1269,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 
                                 // Update the history entry with AI feedback
                                 if (aiFeedback) {
-                                    const updatedHistory = JSON.parse(localStorage.getItem('global_history') || '[]');
+                                    const updatedHistory = safeGetJSON('global_history', []);
                                     // Find the most recent entry for this week and day without AI feedback yet
                                     const entryIndex = updatedHistory.findLastIndex(entry => 
                                         entry.week === week && 
@@ -1274,7 +1278,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     );
                                     if (entryIndex !== -1) {
                                         updatedHistory[entryIndex].aiFeedback = aiFeedback;
-                                        localStorage.setItem('global_history', JSON.stringify(updatedHistory));
+                                        safeSetJSON('global_history', updatedHistory);
                                     }
                                 }
                                 
@@ -1339,7 +1343,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     // Auto-save notes to localStorage
                                     const updatedLogs = { ...logs, workoutNotes: e.target.value };
                                     setLogs(updatedLogs);
-                                    localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
+                                    safeSetJSON(`session_w${week}d${day}`, updatedLogs);
                                 }}
                                 placeholder="Add notes about today's workout (e.g., how you felt, form cues, adjustments)..."
                                 className="w-full bg-sys-surfaceHigh rounded-xl px-4 py-3 text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all resize-none"
@@ -2184,15 +2188,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             useLucideIcons([currentWeek]);
 
             const isCompleted = (day) => {
-                try { 
-                    const session = localStorage.getItem(`session_w${currentWeek}d${day}`);
-                    if (!session) return false;
-                    const parsed = JSON.parse(session);
-                    return parsed && typeof parsed === 'object' && parsed.completed === true;
-                } catch(e) { 
-                    console.warn(`Failed to check completion status for week ${currentWeek} day ${day}:`, e);
-                    return false; 
-                }
+                const session = safeGetJSON(`session_w${currentWeek}d${day}`, null);
+                return session?.completed === true;
             };
 
             const currentBlock = PROGRAM_DATA.blocks.find(b => b.weeks.includes(currentWeek)) || { name: "Unknown" };
@@ -2493,29 +2490,25 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const haptic = useHaptic();
             
             const loadHistory = () => {
-                try {
-                    const h = JSON.parse(localStorage.getItem('global_history') || '[]');
-                    
-                    // Validate that history is an array
-                    if (!Array.isArray(h)) {
-                        console.warn('Invalid history format, resetting');
-                        setHistory([]);
-                        return;
-                    }
-                    
-                    // Filter out invalid entries and sort
-                    const validHistory = h.filter(entry => 
-                        entry && 
-                        typeof entry === 'object' && 
-                        entry.week && 
-                        entry.day && 
-                        entry.date
-                    );
-                    
-                    setHistory(validHistory.sort((a, b) => new Date(b.date) - new Date(a.date)));
-                } catch (error) {
-                    console.error('Failed to load history:', error);
+                const h = safeGetJSON('global_history', []);
+                
+                // Validate that history is an array
+                if (!Array.isArray(h)) {
+                    console.warn('Invalid history format, resetting');
                     setHistory([]);
+                    return;
+                }
+                
+                // Filter out invalid entries and sort
+                const validHistory = h.filter(entry => 
+                    entry && 
+                    typeof entry === 'object' && 
+                    entry.week && 
+                    entry.day && 
+                    entry.date
+                );
+                
+                setHistory(validHistory.sort((a, b) => new Date(b.date) - new Date(a.date)));
                 }
                 
             };
@@ -2781,7 +2774,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const haptic = useHaptic();
             
             const loadWorkoutHistory = () => {
-                const history = JSON.parse(localStorage.getItem('global_history') || '[]');
+                const history = safeGetJSON('global_history', []);
                 // Filter only entries with AI feedback and sort by date
                 const withFeedback = history.filter(h => h.aiFeedback).sort((a, b) => new Date(b.date) - new Date(a.date));
                 setWorkoutHistory(withFeedback);
@@ -2840,7 +2833,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         
                         // Update chat history
                         const updatedHistory = [...chatHistory, newUserMessage, modelResponse];
-                        localStorage.setItem(GEMINI_CHAT_HISTORY_KEY, JSON.stringify(updatedHistory));
+                        safeSetJSON(GEMINI_CHAT_HISTORY_KEY, updatedHistory);
                         
                         // Show response
                         setQuestionResponse({ 
@@ -3086,7 +3079,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             
             const handleClearChatHistory = () => {
                 haptic.bump();
-                localStorage.removeItem(GEMINI_CHAT_HISTORY_KEY);
+                safeRemove(GEMINI_CHAT_HISTORY_KEY);
                 setChatHistoryMessage('Chat history cleared! Next sync will start a fresh conversation.');
                 setTimeout(() => {
                     setChatHistoryMessage('');
@@ -3619,45 +3612,35 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         };
 
         const saveAppState = (state) => {
-            localStorage.setItem('tracker_app_state', JSON.stringify({
+            safeSetJSON('tracker_app_state', {
                 viewMode: state.viewMode,
                 activeTab: state.activeTab,
                 currentWeek: state.currentWeek,
                 activeDay: state.activeDay
-            }));
+            });
         };
 
         const loadAppState = () => {
-            try {
-                const saved = localStorage.getItem('tracker_app_state');
-                if (saved) {
-                    const loaded = JSON.parse(saved);
-                    
-                    // Validate loaded state - return null if invalid
-                    if (!loaded || typeof loaded !== 'object') return null;
-                    
-                    // Create a new validated state object (avoid mutation)
-                    const validatedState = {
-                        viewMode: loaded.viewMode && VALID_VIEW_MODES.includes(loaded.viewMode) 
-                            ? loaded.viewMode 
-                            : 'tab',
-                        activeTab: loaded.activeTab && VALID_TABS.includes(loaded.activeTab)
-                            ? loaded.activeTab
-                            : 'train',
-                        currentWeek: loaded.currentWeek >= 1 && loaded.currentWeek <= 21
-                            ? loaded.currentWeek
-                            : DEFAULT_WEEK,
-                        activeDay: loaded.activeDay && VALID_DAYS.includes(loaded.activeDay)
-                            ? loaded.activeDay
-                            : DEFAULT_DAY
-                    };
-                    
-                    return validatedState;
-                }
-            } catch (e) {
-                console.error('Failed to load app state:', e);
-            }
-            return null;
+            const loaded = safeGetJSON('tracker_app_state', null);
+            if (!loaded || typeof loaded !== 'object') return null;
+            
+            // Create a new validated state object (avoid mutation)
+            const validatedState = {
+                viewMode: loaded.viewMode && VALID_VIEW_MODES.includes(loaded.viewMode) 
+                    ? loaded.viewMode 
+                    : 'tab',
+                activeTab: loaded.activeTab && VALID_TABS.includes(loaded.activeTab)
+                    ? loaded.activeTab
+                    : 'train',
+                currentWeek: loaded.currentWeek >= 1 && loaded.currentWeek <= 21
+                    ? loaded.currentWeek
+                    : DEFAULT_WEEK,
+                activeDay: loaded.activeDay && VALID_DAYS.includes(loaded.activeDay)
+                    ? loaded.activeDay
+                    : DEFAULT_DAY
+            };
+            
+            return validatedState;
         };
 
         const App = () => {

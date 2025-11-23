@@ -75,6 +75,7 @@ The production build outputs to the `dist/` directory and includes:
 - **Vitest** - Unit testing framework
 - **Testing Library** - React component testing
 - **Lucide Icons** - Icon library
+- **Firebase** - Cloud sync and Google authentication
 - **Google Gemini AI** - Optional AI coaching integration
 
 ### Testing
@@ -147,6 +148,15 @@ For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 - **Haptic Feedback**: Physical vibration feedback for set completions and timer alerts
 - **Installable**: Can be added to home screen as a standalone app
 
+### ☁️ Cloud Sync & Authentication (Firebase)
+- **Google Sign-In**: Secure authentication with your Google account
+- **Real-time Sync**: Automatically sync workout data across all your devices
+- **Private Data**: Each user's data is securely isolated with Firebase Security Rules
+- **Bidirectional Sync**: Changes on any device instantly appear on all other devices
+- **Automatic & Manual Sync**: Choose between automatic sync or manual control
+- **Offline-First**: Works offline, syncs when connection is restored
+- **Cross-Device Support**: Use the same account on phone, tablet, and desktop
+
 ### 🎯 Program Structure
 - **21-Week Program**: Structured training plan with 4 training days per week (Days 1, 2, 3, 5)
 - **Week-Based Navigation**: Easy navigation through program weeks
@@ -162,6 +172,32 @@ For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 - **Error Handling**: Graceful degradation with helpful error messages
 
 ## Configuration
+
+### Firebase Cloud Sync Setup (Optional but Recommended)
+
+To enable cloud sync and use the app across multiple devices:
+
+1. **Create Firebase Project**:
+   - Visit [Firebase Console](https://console.firebase.google.com)
+   - Create a new project
+   - Enable Google Authentication
+   - Create a Realtime Database
+   - Configure security rules
+
+2. **Configure in App**:
+   - Navigate to Settings tab
+   - Open "Firebase Sync" section
+   - Click "Show Configuration"
+   - Enter your Firebase credentials (API Key, Project ID, etc.)
+   - Click "Save Configuration"
+
+3. **Sign In and Sync**:
+   - Click "Sign In with Google"
+   - Your local data will automatically sync to the cloud
+   - Install the app on other devices and sign in with the same account
+   - All your workout data will be available everywhere
+
+**For detailed setup instructions, see [FIREBASE_SETUP.md](FIREBASE_SETUP.md)**
 
 ### AI Coaching Setup (Optional)
 
@@ -184,4 +220,4 @@ To enable AI-powered coaching feedback:
    - Ask questions to get personalized training advice
    - AI considers your workout notes, RPE values, and exercise history
 
-**Note**: The Gemini API key is stored locally in your browser's localStorage and is never sent to any server other than Google's Gemini API.
+**Note**: Both Firebase configuration and Gemini API key are stored locally in your browser. With Firebase sync enabled, your settings sync across all your devices securely.

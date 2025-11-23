@@ -24,11 +24,14 @@ describe('toggleSet functionality', () => {
     };
     
     // Implement saveLog function (mirrors actual implementation)
+    // Note: In actual implementation, the session key format is `session_w${week}d${day}`
+    // For unit testing purposes, we use a mock key since week/day are not relevant to the logic being tested
+    const mockSessionKey = 'session_test';
     saveLog = (id, field, value) => {
       const updatedLogs = { ...logs, [id]: { ...logs[id], [field]: value } };
       logs = updatedLogs;
       setLogs(updatedLogs);
-      localStorage.setItem(`session_w1d1`, JSON.stringify(updatedLogs));
+      localStorage.setItem(mockSessionKey, JSON.stringify(updatedLogs));
     };
     
     // Implement toggleSet function (mirrors actual implementation with fix)

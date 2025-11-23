@@ -961,7 +961,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             
             // Generic Lucide icon refresh hook - ensures icons render after React updates
             // Runs when UI state changes that affect icon visibility
-            useLucideIcons([collapsedExercises, showTimerToast, geminiSyncStatus, showExerciseSelector, showExerciseHistory]);
+            useLucideIcons([collapsedExercises, showTimerToast, geminiSyncStatus, showExerciseSelector, showExerciseHistory, week, day, addedExercises]);
 
             useEffect(() => {
                 const parsedLogs = safeGetJSON(`session_w${week}d${day}`, {});
@@ -982,8 +982,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     setAddedExercises([]);
                     setWorkoutNotes('');
                 }
-                
-                lucide.createIcons();
             }, [week, day]);
 
             useEffect(() => {
@@ -998,23 +996,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 return () => clearInterval(interval);
             }, [timerActive, timerSeconds, haptic]);
 
-            // Initialize Lucide icons when timer toast appears
-            useEffect(() => {
-                if (showTimerToast) {
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => lucide.createIcons());
-                    });
-                }
-            }, [showTimerToast]);
 
-            // Initialize Lucide icons when Gemini sync status toast appears
-            useEffect(() => {
-                if (geminiSyncStatus) {
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => lucide.createIcons());
-                    });
-                }
-            }, [geminiSyncStatus]);
             
             // Keyboard shortcuts for toasts
             useEffect(() => {
@@ -2199,9 +2181,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             useEffect(() => setProgress((currentWeek / 21) * 100), [currentWeek]);
 
             // Initialize Lucide icons when week changes (day completion status may update icons)
-            useEffect(() => {
-                lucide.createIcons();
-            }, [currentWeek]);
+            useLucideIcons([currentWeek]);
 
             const isCompleted = (day) => {
                 try { 
@@ -2315,11 +2295,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             // Sort by total workouts (most frequent first)
             exerciseStats.sort((a, b) => b.totalWorkouts - a.totalWorkouts);
             
-            useEffect(() => {
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => lucide.createIcons());
-                });
-            }, [selectedExercise]);
+            // Initialize Lucide icons when selected exercise changes
+            useLucideIcons([selectedExercise]);
             
             const handleExerciseClick = (exerciseName) => {
                 haptic.tick();
@@ -2541,14 +2518,14 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     setHistory([]);
                 }
                 
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => lucide.createIcons());
-                });
             };
             
             useEffect(() => {
                 loadHistory();
             }, []);
+            
+            // Initialize Lucide icons when history or UI state changes
+            useLucideIcons([history, expandedEntries, viewMode, selectedExerciseForGraph]);
             
             const handleRefresh = () => {
                 setIsRefreshing(true);
@@ -2561,8 +2538,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const toggleExpanded = (idx) => {
                 haptic.tick();
                 setExpandedEntries(prev => ({ ...prev, [idx]: !prev[idx] }));
-                // Re-initialize Lucide icons after state update
-                setTimeout(() => lucide.createIcons(), 100);
             };
 
             return (
@@ -2811,9 +2786,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 const withFeedback = history.filter(h => h.aiFeedback).sort((a, b) => new Date(b.date) - new Date(a.date));
                 setWorkoutHistory(withFeedback);
                 setIsLoading(false);
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => lucide.createIcons());
-                });
             };
             
             const sendQuestion = async () => {
@@ -2891,6 +2863,9 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             useEffect(() => {
                 loadWorkoutHistory();
             }, []);
+            
+            // Initialize Lucide icons when workout history or question response changes
+            useLucideIcons([workoutHistory, questionResponse, isSendingQuestion]);
             
             const apiKey = localStorage.getItem('gemini_api_key');
             
@@ -3043,8 +3018,10 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 const savedAutoSync = localStorage.getItem('gemini_auto_sync') !== 'false'; // Default true
                 setGeminiApiKey(savedApiKey);
                 setAutoSync(savedAutoSync);
-                lucide.createIcons();
             }, []);
+            
+            // Initialize Lucide icons when settings change
+            useLucideIcons([validationMessage, saveMessage, chatHistoryMessage]);
             
             const validateApiKey = async () => {
                 if (!geminiApiKey || geminiApiKey.trim() === '') {
@@ -3291,11 +3268,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 return exercises;
             }, [debouncedSearchTerm, categoryFilter, showOnlyTracked, trackedExercises]);
 
-            useEffect(() => {
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => lucide.createIcons());
-                });
-            }, [selectedExercise, exercisesToShow, searchTerm, categoryFilter, showOnlyTracked]);
+            // Initialize Lucide icons when library view or filters change
+            useLucideIcons([selectedExercise, exercisesToShow, categoryFilter, showOnlyTracked]);
 
             const handleExerciseClick = (exercise) => {
                 haptic.tick();
@@ -3425,11 +3399,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const history = getExerciseHistory(exercise.name);
             const stats = calculateExerciseStats(exercise.name);
 
-            useEffect(() => {
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => lucide.createIcons());
-                });
-            }, [showFullHistory, history]);
+            // Initialize Lucide icons when exercise detail view changes
+            useLucideIcons([showFullHistory, history]);
 
             const displayHistory = showFullHistory ? history : history.slice(-5);
 
@@ -3746,11 +3717,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             }, [viewMode, activeTab, currentWeek, activeDay, isInitialized]);
 
             // Initialize Lucide icons when view or tab changes
-            useEffect(() => {
-                if (isInitialized) {
-                    lucide.createIcons();
-                }
-            }, [viewMode, activeTab, isInitialized]);
+            useLucideIcons([viewMode, activeTab, isInitialized]);
 
             // Handle browser back/forward button
             useEffect(() => {

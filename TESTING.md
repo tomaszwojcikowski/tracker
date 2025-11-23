@@ -74,6 +74,59 @@
    - Min and max weight labels
    - Data points for each workout
 
+### Scenario 2: Coach (Gemini) Integration UX
+#### Settings - API Key Configuration
+1. Navigate to Settings tab
+2. Enter a Gemini API key
+3. Click "Test" button
+4. **Expected**:
+   - Shows "Testing..." while validating
+   - Shows "✓ API key is valid" if key is valid
+   - Shows "✗ Invalid API key" if key is invalid
+5. Click "Validate & Save"
+6. **Expected**: 
+   - Validates key again
+   - Shows success message if valid
+   - Saves to localStorage
+
+#### Settings - Auto-sync Toggle
+1. In Settings, find "Auto-sync with Coach AI" toggle
+2. Toggle it on/off
+3. **Expected**:
+   - Toggle switches between green (on) and gray (off)
+   - Setting persists after page reload
+4. Complete a workout with auto-sync disabled
+5. **Expected**: 
+   - No Gemini sync toast appears
+   - Workout completes normally
+
+#### Auto-sync During Workout Completion
+1. Enable auto-sync in Settings
+2. Complete a workout
+3. Click "Finish"
+4. **Expected**:
+   - Toast shows "Syncing with AI Coach..."
+   - After sync: shows "✓ Synced successfully" or error message
+   - Toast is non-blocking (can be dismissed with X)
+
+#### Coach Tab - Viewing AI Feedback
+1. Complete workouts with auto-sync enabled
+2. Navigate to Coach tab
+3. **Expected**:
+   - Shows list of workouts with AI feedback
+   - Each entry displays: Week/Day, Date, AI feedback content
+   - Feedback is formatted with markdown (bold, lists, etc.)
+
+#### Coach Tab - Asking Questions
+1. In Coach tab, find "Ask the Coach" section
+2. Type a question (e.g., "How can I improve my pull-ups?")
+3. Click "Ask Question"
+4. **Expected**:
+   - Button shows "Asking..." with spinner
+   - Response appears below in green box
+   - Response is formatted with markdown
+   - Question adds to Gemini chat history (maintains context)
+
 ### Scenario 1: State Persistence on Reload
 1. Open the app: `http://localhost:8080/`
 2. Navigate to Week 5, Day 3 workout

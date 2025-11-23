@@ -127,6 +127,34 @@
    - Response is formatted with markdown
    - Question adds to Gemini chat history (maintains context)
 
+### Scenario 3: Internal Refactors & Storage Utilities
+**Note:** This PR focuses on internal code organization and does not add new user-facing features.
+
+#### Code Organization
+The script section is now organized into 11 logical sections:
+1. Global State & Data Structures
+2. LocalStorage Utilities
+3. Schedule Utilities
+4. Custom Hooks
+5. Application Constants & Program Data
+6. UI Components
+7. Gemini Integration Utilities
+8. Exercise History & Stats Utilities
+9. Main Application Components
+10. URL & State Management Utilities
+11. Application Initialization
+
+#### Storage Utilities
+Three new utility functions for localStorage access:
+- `safeGetJSON(key, defaultValue)` - Get and parse JSON with error handling
+- `safeSetJSON(key, value)` - Stringify and save JSON with error handling
+- `safeRemove(key)` - Remove item with error handling
+
+These utilities are used throughout the codebase for improved error handling and code consistency.
+
+#### Testing
+No new user-facing features to test. The refactor maintains existing functionality with better code organization.
+
 ### Scenario 1: State Persistence on Reload
 1. Open the app: `http://localhost:8080/`
 2. Navigate to Week 5, Day 3 workout

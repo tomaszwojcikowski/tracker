@@ -194,10 +194,71 @@
     <script type="text/babel">
         const { useState, useEffect, useMemo, useRef } = React;
 
+        // ============================================================================
+        // SECTION 1: GLOBAL STATE & DATA STRUCTURES
+        // ============================================================================
+        
         // --- RAW SCHEDULE (loaded from JSON) ---
         let RAW_SCHEDULE = [];
         let COMPLETE_SCHEDULE = [];
         let EXERCISE_LIBRARY = [];
+        
+        // ============================================================================
+        // SECTION 2: LOCALSTORAGE UTILITIES
+        // ============================================================================
+        
+        /**
+         * Safely get and parse JSON from localStorage
+         * @param {string} key - localStorage key
+         * @param {*} defaultValue - value to return if key doesn't exist or parsing fails
+         * @returns {*} parsed value or defaultValue
+         */
+        const safeGetJSON = (key, defaultValue = null) => {
+            try {
+                const item = localStorage.getItem(key);
+                if (item === null) return defaultValue;
+                return JSON.parse(item);
+            } catch (error) {
+                console.error(`Failed to parse JSON for key "${key}":`, error);
+                return defaultValue;
+            }
+        };
+        
+        /**
+         * Safely stringify and save JSON to localStorage
+         * @param {string} key - localStorage key
+         * @param {*} value - value to stringify and save
+         * @returns {boolean} true if successful, false otherwise
+         */
+        const safeSetJSON = (key, value) => {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+                return true;
+            } catch (error) {
+                console.error(`Failed to save JSON for key "${key}":`, error);
+                // Storage might be full
+                return false;
+            }
+        };
+        
+        /**
+         * Safely remove item from localStorage
+         * @param {string} key - localStorage key
+         * @returns {boolean} true if successful, false otherwise
+         */
+        const safeRemove = (key) => {
+            try {
+                localStorage.removeItem(key);
+                return true;
+            } catch (error) {
+                console.error(`Failed to remove key "${key}":`, error);
+                return false;
+            }
+        };
+        
+        // ============================================================================
+        // SECTION 3: SCHEDULE UTILITIES
+        // ============================================================================
 
         // Function to build complete schedule with standard warmups/cooldowns
         const buildCompleteSchedule = () => {
@@ -224,6 +285,10 @@
             }
         };
 
+        // ============================================================================
+        // SECTION 4: CUSTOM HOOKS
+        // ============================================================================
+        
         // --- HAPTIC ENGINE ---
         const useHaptic = () => {
             const trigger = (pattern = [10]) => {
@@ -304,6 +369,10 @@
             }, deps);
         };
 
+        // ============================================================================
+        // SECTION 5: APPLICATION CONSTANTS & PROGRAM DATA
+        // ============================================================================
+        
         // --- APPLICATION CONSTANTS ---
         const MAX_SETS = 20; // Maximum number of sets per exercise
         const MAX_WEIGHT_KG = 999; // Maximum weight in kilograms
@@ -355,7 +424,9 @@
             }
         };
 
-        // --- COMPONENTS ---
+        // ============================================================================
+        // SECTION 6: UI COMPONENTS
+        // ============================================================================
 
         // 1. OLED TOP BAR
         const TopAppBar = ({ title, subtitle, onBack, showBack }) => (
@@ -504,7 +575,10 @@
             );
         };
 
-        // --- GEMINI INTEGRATION ---
+        // ============================================================================
+        // SECTION 7: GEMINI INTEGRATION UTILITIES
+        // ============================================================================
+        
         const GEMINI_CHAT_HISTORY_KEY = 'gemini_chat_history';
         const GEMINI_SYSTEM_PROMPT = `You are a personal fitness coach and training analyst. Your role is to:
 - Track and analyze workout progress over time
@@ -718,67 +792,61 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             return summary;
         };
 
-        // --- EXERCISE HISTORY UTILITIES ---
+        // ============================================================================
+        // SECTION 8: EXERCISE HISTORY & STATS UTILITIES
+        // ============================================================================
+        
         const EXERCISE_HISTORY_KEY = 'exercise_history';
 
         // Update exercise history with a new entry
         const updateExerciseHistory = (exerciseName, entry) => {
-            try {
-                const history = JSON.parse(localStorage.getItem(EXERCISE_HISTORY_KEY) || '{}');
-                
-                // Validate history structure
-                if (typeof history !== 'object' || history === null) {
-                    console.warn('Invalid exercise history, resetting');
-                    localStorage.setItem(EXERCISE_HISTORY_KEY, JSON.stringify({}));
-                    return;
-                }
-                
-                if (!history[exerciseName]) {
-                    history[exerciseName] = [];
-                }
-                
-                // Validate exercise name and entry
-                if (!exerciseName || typeof exerciseName !== 'string') {
-                    console.error('Invalid exercise name:', exerciseName);
-                    return;
-                }
-                
-                if (!entry || typeof entry !== 'object') {
-                    console.error('Invalid history entry:', entry);
-                    return;
-                }
-                
-                history[exerciseName].push(entry);
-                localStorage.setItem(EXERCISE_HISTORY_KEY, JSON.stringify(history));
-            } catch (error) {
-                console.error('Failed to update exercise history:', error);
+            const history = safeGetJSON(EXERCISE_HISTORY_KEY, {});
+            
+            // Validate history structure
+            if (typeof history !== 'object' || history === null) {
+                console.warn('Invalid exercise history, resetting');
+                safeSetJSON(EXERCISE_HISTORY_KEY, {});
+                return;
             }
+            
+            if (!history[exerciseName]) {
+                history[exerciseName] = [];
+            }
+            
+            // Validate exercise name and entry
+            if (!exerciseName || typeof exerciseName !== 'string') {
+                console.error('Invalid exercise name:', exerciseName);
+                return;
+            }
+            
+            if (!entry || typeof entry !== 'object') {
+                console.error('Invalid history entry:', entry);
+                return;
+            }
+            
+            history[exerciseName].push(entry);
+            safeSetJSON(EXERCISE_HISTORY_KEY, history);
         };
 
         // Get history for a specific exercise
         const getExerciseHistory = (exerciseName) => {
-            try {
-                const history = JSON.parse(localStorage.getItem(EXERCISE_HISTORY_KEY) || '{}');
-                
-                // Validate history structure
-                if (typeof history !== 'object' || history === null) {
-                    console.warn('Invalid exercise history structure');
-                    return [];
-                }
-                
-                const exerciseHistory = history[exerciseName] || [];
-                
-                // Validate that it's an array
-                if (!Array.isArray(exerciseHistory)) {
-                    console.warn(`Invalid history for ${exerciseName}, expected array`);
-                    return [];
-                }
-                
-                return exerciseHistory;
-            } catch (error) {
-                console.error('Failed to get exercise history:', error);
+            const history = safeGetJSON(EXERCISE_HISTORY_KEY, {});
+            
+            // Validate history structure
+            if (typeof history !== 'object' || history === null) {
+                console.warn('Invalid exercise history structure');
                 return [];
             }
+            
+            const exerciseHistory = history[exerciseName] || [];
+            
+            // Validate that it's an array
+            if (!Array.isArray(exerciseHistory)) {
+                console.warn(`Invalid history for ${exerciseName}, expected array`);
+                return [];
+            }
+            
+            return exerciseHistory;
         };
 
         // Calculate stats for an exercise
@@ -857,7 +925,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
 
         // Get all exercises with history
         const getAllExercisesWithHistory = () => {
-            const history = JSON.parse(localStorage.getItem(EXERCISE_HISTORY_KEY) || '{}');
+            const history = safeGetJSON(EXERCISE_HISTORY_KEY, {});
             return Object.keys(history).sort();
         };
 
@@ -866,6 +934,10 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             return weight ? parseFloat(weight) : null;
         };
 
+        // ============================================================================
+        // SECTION 9: MAIN APPLICATION COMPONENTS
+        // ============================================================================
+        
         // --- WORKOUT PLAYER ---
         const WorkoutPlayer = ({ week, day, onComplete }) => {
             const workout = useMemo(() => PROGRAM_DATA.getWorkout(week, day), [week, day]);
@@ -892,35 +964,25 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             useLucideIcons([collapsedExercises, showTimerToast, geminiSyncStatus, showExerciseSelector, showExerciseHistory]);
 
             useEffect(() => {
-                try {
-                    const saved = localStorage.getItem(`session_w${week}d${day}`);
-                    if (saved) {
-                        const parsedLogs = JSON.parse(saved);
-                        // Validate parsed data structure
-                        if (parsedLogs && typeof parsedLogs === 'object') {
-                            setLogs(parsedLogs);
-                            // Load added exercises from storage
-                            if (Array.isArray(parsedLogs.addedExercises)) {
-                                setAddedExercises(parsedLogs.addedExercises);
-                            }
-                            // Load workout notes from storage
-                            if (typeof parsedLogs.workoutNotes === 'string') {
-                                setWorkoutNotes(parsedLogs.workoutNotes);
-                            }
-                        } else {
-                            console.warn('Invalid workout session data, resetting');
-                            setLogs({});
-                            setAddedExercises([]);
-                            setWorkoutNotes('');
-                        }
+                const parsedLogs = safeGetJSON(`session_w${week}d${day}`, {});
+                
+                // Validate and set logs
+                if (parsedLogs && typeof parsedLogs === 'object') {
+                    setLogs(parsedLogs);
+                    // Load added exercises from storage
+                    if (Array.isArray(parsedLogs.addedExercises)) {
+                        setAddedExercises(parsedLogs.addedExercises);
                     }
-                } catch (error) {
-                    console.error('Failed to load workout session:', error);
-                    // Reset to empty state on error
+                    // Load workout notes from storage
+                    if (typeof parsedLogs.workoutNotes === 'string') {
+                        setWorkoutNotes(parsedLogs.workoutNotes);
+                    }
+                } else {
                     setLogs({});
                     setAddedExercises([]);
                     setWorkoutNotes('');
                 }
+                
                 lucide.createIcons();
             }, [week, day]);
 
@@ -974,13 +1036,11 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             }, [showTimerToast, geminiSyncStatus]);
 
             const saveLog = (id, field, value) => {
-                try {
-                    const updatedLogs = { ...logs, [id]: { ...logs[id], [field]: value } };
-                    setLogs(updatedLogs);
-                    localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
-                } catch (error) {
-                    console.error('Failed to save workout log:', error);
-                    // Show error toast to user
+                const updatedLogs = { ...logs, [id]: { ...logs[id], [field]: value } };
+                setLogs(updatedLogs);
+                
+                const success = safeSetJSON(`session_w${week}d${day}`, updatedLogs);
+                if (!success) {
                     alert('Failed to save progress. Your storage might be full.');
                 }
             };
@@ -1098,7 +1158,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     // Save to storage
                     const updatedLogs = { ...logs, addedExercises: updatedAddedExercises };
                     setLogs(updatedLogs);
-                    localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
+                    safeSetJSON(`session_w${week}d${day}`, updatedLogs);
                     
                     setShowExerciseSelector(false);
                     setExerciseSearchTerm('');
@@ -1116,7 +1176,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 // Save to storage
                 const updatedLogs = { ...logs, addedExercises: updatedAddedExercises };
                 setLogs(updatedLogs);
-                localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
+                safeSetJSON(`session_w${week}d${day}`, updatedLogs);
             };
 
             const handleFinish = async () => {
@@ -3449,7 +3509,10 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             );
         };
 
-        // URL and State Management Utilities
+        // ============================================================================
+        // SECTION 10: URL & STATE MANAGEMENT UTILITIES
+        // ============================================================================
+        
         // Constants for validation
         const DEFAULT_WEEK = 1;
         const DEFAULT_DAY = 1;
@@ -3757,6 +3820,10 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             );
         };
 
+        // ============================================================================
+        // SECTION 11: APPLICATION INITIALIZATION
+        // ============================================================================
+        
         // Initialize the app with loading state
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<LoadingScreen />);

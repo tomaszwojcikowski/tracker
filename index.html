@@ -566,60 +566,59 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 // Get or initialize chat history
                 const chatHistory = initializeGeminiChat();
             
-            // Format workout data for Gemini
-            const workoutSummary = formatWorkoutForGemini(week, day, workout, logs, addedExercises);
+                // Format workout data for Gemini
+                const workoutSummary = formatWorkoutForGemini(week, day, workout, logs, addedExercises);
             
-            // Add new user message to history
-            const newUserMessage = {
-                role: 'user',
-                parts: [{ text: workoutSummary }]
-            };
-            
-            // Build contents array with full history plus new message
-            const contents = [...chatHistory, newUserMessage];
-            
-            try {
-                // Note: Using gemini-2.5-flash model (latest available model)
-                // API key must be in URL - Google Gemini API does not support Authorization headers
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        contents: contents
-                    })
-                });
+                // Add new user message to history
+                const newUserMessage = {
+                    role: 'user',
+                    parts: [{ text: workoutSummary }]
+                };
                 
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
-                    throw new Error(`Gemini API error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
-                }
+                // Build contents array with full history plus new message
+                const contents = [...chatHistory, newUserMessage];
                 
-                const data = await response.json();
-                console.log('Successfully sent workout to Gemini:', data);
-                
-                // Extract model response and add to history with validation
-                if (data.candidates && 
-                    data.candidates[0] && 
-                    data.candidates[0].content && 
-                    data.candidates[0].content.parts &&
-                    Array.isArray(data.candidates[0].content.parts) &&
-                    data.candidates[0].content.parts.length > 0) {
+                    // Note: Using gemini-2.5-flash model (latest available model)
+                    // API key must be in URL - Google Gemini API does not support Authorization headers
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            contents: contents
+                        })
+                    });
                     
-                    const modelResponse = {
-                        role: 'model',
-                        parts: data.candidates[0].content.parts
-                    };
+                    if (!response.ok) {
+                        const errorData = await response.json().catch(() => ({}));
+                        throw new Error(`Gemini API error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
+                    }
                     
-                    // Update chat history with both user message and model response
-                    const updatedHistory = [...chatHistory, newUserMessage, modelResponse];
-                    localStorage.setItem(GEMINI_CHAT_HISTORY_KEY, JSON.stringify(updatedHistory));
-                } else {
-                    console.warn('Unexpected API response structure, history not updated:', data);
-                }
-                
-                return { success: true, data };
+                    const data = await response.json();
+                    console.log('Successfully sent workout to Gemini:', data);
+                    
+                    // Extract model response and add to history with validation
+                    if (data.candidates && 
+                        data.candidates[0] && 
+                        data.candidates[0].content && 
+                        data.candidates[0].content.parts &&
+                        Array.isArray(data.candidates[0].content.parts) &&
+                        data.candidates[0].content.parts.length > 0) {
+                        
+                        const modelResponse = {
+                            role: 'model',
+                            parts: data.candidates[0].content.parts
+                        };
+                        
+                        // Update chat history with both user message and model response
+                        const updatedHistory = [...chatHistory, newUserMessage, modelResponse];
+                        localStorage.setItem(GEMINI_CHAT_HISTORY_KEY, JSON.stringify(updatedHistory));
+                    } else {
+                        console.warn('Unexpected API response structure, history not updated:', data);
+                    }
+                    
+                    return { success: true, data };
             } catch (error) {
                 console.error('Failed to send workout to Gemini:', error);
                 

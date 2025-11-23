@@ -614,6 +614,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         /**
          * Get all local data that should be synced to Firebase
          * This includes workout sessions, exercise history, and settings
+         * 
+         * Note: This function iterates through all possible workout sessions (84 total).
+         * This is intentional and not a performance issue because:
+         * 1. It's only called on login and manual sync (infrequent operations)
+         * 2. Most sessions are empty and filtered out quickly
+         * 3. localStorage access is fast (synchronous, in-memory)
+         * 4. The actual data transfer to Firebase is the bottleneck, not this collection
          */
         const getAllLocalData = () => {
             const data = {
@@ -628,7 +635,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 sessions: {}
             };
             
-            // Collect all workout session data
+            // Collect all workout session data (21 weeks × 4 days = 84 sessions max)
+            // Only non-empty sessions are included in the sync
             for (let week = 1; week <= 21; week++) {
                 for (let day of [1, 2, 3, 5]) {
                     const key = `session_w${week}d${day}`;

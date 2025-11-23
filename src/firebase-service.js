@@ -22,8 +22,7 @@ import {
     getDatabase, 
     ref, 
     onValue, 
-    set,
-    off 
+    set
 } from "firebase/database";
 
 // Firebase configuration - loaded from environment variables at build time
@@ -127,12 +126,12 @@ export async function handleLogout() {
     }
     
     try {
-        // Clean up sync listener before logout
-        if (syncListener && currentUserRef) {
-            off(currentUserRef);
+        // Clean up sync listener before logout using the unsubscribe function
+        if (syncListener) {
+            syncListener(); // Call the unsubscribe function
             syncListener = null;
-            currentUserRef = null;
         }
+        currentUserRef = null;
         
         await signOut(auth);
         currentUser = null;
@@ -198,13 +197,14 @@ export function initSync(onDataReceived, onAuthChange) {
             // Reference to this user's private data path
             currentUserRef = ref(db, `users/${user.uid}`);
             
-            // Clean up any existing listener
+            // Clean up any existing listener using the unsubscribe function
             if (syncListener) {
-                off(currentUserRef);
+                syncListener(); // Call the unsubscribe function
             }
             
             // Set up realtime listener
             // Fires immediately on login, and again whenever data changes remotely
+            // onValue returns an unsubscribe function
             syncListener = onValue(currentUserRef, (snapshot) => {
                 const data = snapshot.val();
                 console.log('Data received from Firebase:', data ? 'yes' : 'no data');
@@ -219,12 +219,12 @@ export function initSync(onDataReceived, onAuthChange) {
         } else {
             console.log('User logged out');
             
-            // Clean up listener
-            if (syncListener && currentUserRef) {
-                off(currentUserRef);
+            // Clean up listener using the unsubscribe function
+            if (syncListener) {
+                syncListener(); // Call the unsubscribe function
                 syncListener = null;
-                currentUserRef = null;
             }
+            currentUserRef = null;
         }
     });
 }

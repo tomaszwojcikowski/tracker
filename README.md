@@ -75,6 +75,7 @@ The production build outputs to the `dist/` directory and includes:
 - **Vitest** - Unit testing framework
 - **Testing Library** - React component testing
 - **Lucide Icons** - Icon library
+- **Firebase** - Cloud sync and Google authentication
 - **Google Gemini AI** - Optional AI coaching integration
 
 ### Testing
@@ -147,6 +148,15 @@ For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 - **Haptic Feedback**: Physical vibration feedback for set completions and timer alerts
 - **Installable**: Can be added to home screen as a standalone app
 
+### ☁️ Cloud Sync & Authentication (Firebase)
+- **Google Sign-In**: Secure authentication with your Google account
+- **Real-time Sync**: Automatically sync workout data across all your devices
+- **Private Data**: Each user's data is securely isolated with Firebase Security Rules
+- **Bidirectional Sync**: Changes on any device instantly appear on all other devices
+- **Automatic & Manual Sync**: Choose between automatic sync or manual control
+- **Offline-First**: Works offline, syncs when connection is restored
+- **Cross-Device Support**: Use the same account on phone, tablet, and desktop
+
 ### 🎯 Program Structure
 - **21-Week Program**: Structured training plan with 4 training days per week (Days 1, 2, 3, 5)
 - **Week-Based Navigation**: Easy navigation through program weeks
@@ -162,6 +172,36 @@ For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 - **Error Handling**: Graceful degradation with helpful error messages
 
 ## Configuration
+
+### Firebase Cloud Sync Setup
+
+Cloud sync is **optional** and configured at build/deployment time. Once configured, users just need to sign in.
+
+#### For End Users (Simple!)
+
+If the app is deployed with Firebase enabled:
+
+1. Open Settings tab
+2. Click **Sign In with Google** in the Cloud Sync section
+3. That's it! Your data syncs automatically across all devices
+
+#### For Developers/Deployers
+
+To enable Firebase cloud sync in your deployment:
+
+1. Create a Firebase project (see [FIREBASE_SETUP.md](FIREBASE_SETUP.md))
+2. Set environment variables in `.env`:
+   ```env
+   VITE_FIREBASE_API_KEY=your-api-key
+   VITE_FIREBASE_PROJECT_ID=your-project-id
+   VITE_FIREBASE_DATABASE_URL=https://your-project.firebaseio.com
+   VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+   ```
+3. Build and deploy: `npm run build`
+
+**Note**: Without Firebase configuration, the app works fully offline with localStorage. Firebase is purely optional for cross-device sync.
+
+**For detailed setup instructions, see [FIREBASE_SETUP.md](FIREBASE_SETUP.md)**
 
 ### AI Coaching Setup (Optional)
 
@@ -184,4 +224,4 @@ To enable AI-powered coaching feedback:
    - Ask questions to get personalized training advice
    - AI considers your workout notes, RPE values, and exercise history
 
-**Note**: The Gemini API key is stored locally in your browser's localStorage and is never sent to any server other than Google's Gemini API.
+**Note**: Both Firebase configuration and Gemini API key are stored locally in your browser. With Firebase sync enabled, your settings sync across all your devices securely.

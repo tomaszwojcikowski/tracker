@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import './main.css';
+import * as FirebaseService from './firebase-service';
 
         // ============================================================================
         // SECTION 1: GLOBAL STATE & DATA STRUCTURES
@@ -601,6 +602,84 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             
             summary += `\nPlease analyze this workout and provide feedback on my progress, form cues to remember, and suggestions for the next session.`;
             return summary;
+        };
+
+        // ============================================================================
+        // SECTION 7B: FIREBASE SYNC UTILITIES
+        // ============================================================================
+        
+        // Keys for Firebase sync settings
+        const FIREBASE_SYNC_ENABLED_KEY = 'firebase_sync_enabled';
+        
+        /**
+         * Get all local data that should be synced to Firebase
+         * This includes workout sessions, exercise history, and settings
+         * 
+         * Note: This function iterates through all possible workout sessions (84 total).
+         * This is intentional and not a performance issue because:
+         * 1. It's only called on login and manual sync (infrequent operations)
+         * 2. Most sessions are empty and filtered out quickly
+         * 3. localStorage access is fast (synchronous, in-memory)
+         * 4. The actual data transfer to Firebase is the bottleneck, not this collection
+         */
+        const getAllLocalData = () => {
+            const data = {
+                // Settings
+                gemini_api_key: localStorage.getItem('gemini_api_key') || '',
+                gemini_auto_sync: localStorage.getItem('gemini_auto_sync') || 'true',
+                
+                // Exercise history
+                exercise_history: safeGetJSON('exercise_history', []),
+                
+                // Workout sessions - collect all session_w*d* keys
+                sessions: {}
+            };
+            
+            // Collect all workout session data (21 weeks × 4 days = 84 sessions max)
+            // Only non-empty sessions are included in the sync
+            for (let week = 1; week <= 21; week++) {
+                for (let day of [1, 2, 3, 5]) {
+                    const key = `session_w${week}d${day}`;
+                    const sessionData = safeGetJSON(key, null);
+                    if (sessionData && Object.keys(sessionData).length > 0) {
+                        data.sessions[key] = sessionData;
+                    }
+                }
+            }
+            
+            return data;
+        };
+        
+        /**
+         * Merge cloud data with local data (cloud takes precedence)
+         * @param {Object} cloudData - Data from Firebase
+         */
+        const mergeCloudData = (cloudData) => {
+            if (!cloudData) return;
+            
+            console.log('Merging cloud data with local data');
+            
+            // Merge settings
+            if (cloudData.gemini_api_key) {
+                localStorage.setItem('gemini_api_key', cloudData.gemini_api_key);
+            }
+            if (cloudData.gemini_auto_sync) {
+                localStorage.setItem('gemini_auto_sync', cloudData.gemini_auto_sync);
+            }
+            
+            // Merge exercise history
+            if (cloudData.exercise_history) {
+                safeSetJSON('exercise_history', cloudData.exercise_history);
+            }
+            
+            // Merge workout sessions
+            if (cloudData.sessions) {
+                Object.keys(cloudData.sessions).forEach(key => {
+                    safeSetJSON(key, cloudData.sessions[key]);
+                });
+            }
+            
+            console.log('Cloud data merged successfully');
         };
 
         // ============================================================================
@@ -2828,6 +2907,12 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [saveMessage, setSaveMessage] = useState('');
             const [validationMessage, setValidationMessage] = useState('');
             const [chatHistoryMessage, setChatHistoryMessage] = useState('');
+            
+            // Firebase state
+            const [firebaseUser, setFirebaseUser] = useState(null);
+            const [firebaseSyncEnabled, setFirebaseSyncEnabled] = useState(true); // Default enabled
+            const [firebaseMessage, setFirebaseMessage] = useState('');
+            
             const haptic = useHaptic();
             
             useEffect(() => {
@@ -2835,10 +2920,44 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 const savedAutoSync = localStorage.getItem('gemini_auto_sync') !== 'false'; // Default true
                 setGeminiApiKey(savedApiKey);
                 setAutoSync(savedAutoSync);
+                
+                // Load Firebase sync setting
+                const savedSyncEnabled = localStorage.getItem(FIREBASE_SYNC_ENABLED_KEY) !== 'false'; // Default true
+                setFirebaseSyncEnabled(savedSyncEnabled);
+                
+                // Setup Firebase auth state listener (Firebase is auto-initialized from env vars)
+                if (FirebaseService.isFirebaseInitialized()) {
+                    FirebaseService.initSync(
+                        (cloudData) => {
+                            // Data received from cloud
+                            if (cloudData) {
+                                mergeCloudData(cloudData);
+                                setFirebaseMessage('✓ Data synced from cloud');
+                                setTimeout(() => setFirebaseMessage(''), 3000);
+                            }
+                        },
+                        (user) => {
+                            // Auth state changed
+                            setFirebaseUser(user);
+                            if (user && savedSyncEnabled) {
+                                // User logged in - upload local data
+                                const localData = getAllLocalData();
+                                FirebaseService.saveToCloud(localData)
+                                    .then(() => {
+                                        setFirebaseMessage('✓ Local data synced to cloud');
+                                        setTimeout(() => setFirebaseMessage(''), 3000);
+                                    })
+                                    .catch(err => {
+                                        console.error('Failed to sync local data:', err);
+                                    });
+                            }
+                        }
+                    );
+                }
             }, []);
             
             // Initialize Lucide icons when settings change
-            useLucideIcons([validationMessage, saveMessage, chatHistoryMessage]);
+            useLucideIcons([validationMessage, saveMessage, chatHistoryMessage, firebaseMessage, firebaseUser]);
             
             const validateApiKey = async () => {
                 if (!geminiApiKey || geminiApiKey.trim() === '') {
@@ -2910,9 +3029,149 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 }, 3000);
             };
             
+            // Firebase handlers
+            const handleFirebaseLogin = async () => {
+                haptic.bump();
+                try {
+                    await FirebaseService.handleLogin();
+                    setFirebaseMessage('✓ Logged in successfully');
+                    setTimeout(() => setFirebaseMessage(''), 3000);
+                } catch (error) {
+                    setFirebaseMessage('✗ Login failed: ' + error.message);
+                    setTimeout(() => setFirebaseMessage(''), 5000);
+                }
+            };
+            
+            const handleFirebaseLogout = async () => {
+                haptic.bump();
+                try {
+                    await FirebaseService.handleLogout();
+                    setFirebaseMessage('✓ Logged out successfully');
+                    setTimeout(() => setFirebaseMessage(''), 3000);
+                } catch (error) {
+                    setFirebaseMessage('✗ Logout failed: ' + error.message);
+                    setTimeout(() => setFirebaseMessage(''), 5000);
+                }
+            };
+            
+            const handleManualSync = async () => {
+                haptic.bump();
+                try {
+                    const localData = getAllLocalData();
+                    await FirebaseService.saveToCloud(localData);
+                    setFirebaseMessage('✓ Data synced to cloud successfully');
+                    setTimeout(() => setFirebaseMessage(''), 3000);
+                } catch (error) {
+                    setFirebaseMessage('✗ Sync failed: ' + error.message);
+                    setTimeout(() => setFirebaseMessage(''), 5000);
+                }
+            };
+            
+            const handleSyncToggle = () => {
+                haptic.tick();
+                const newValue = !firebaseSyncEnabled;
+                setFirebaseSyncEnabled(newValue);
+                localStorage.setItem(FIREBASE_SYNC_ENABLED_KEY, newValue.toString());
+            };
+            
             return (
                 <div className="px-5 pb-32 pt-6">
                     <h2 className="text-2xl font-bold text-white mb-6">Settings</h2>
+                    
+                    {/* Firebase Sync Section - Only shown if Firebase is configured at build time */}
+                    {FirebaseService.isFirebaseInitialized() && (
+                        <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
+                                    <i data-lucide="cloud" width="24" className="text-sys-accent"></i>
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-bold text-white">Cloud Sync</h3>
+                                    <p className="text-xs text-sys-onSurfaceVar">Sync data across devices with Google Auth</p>
+                                </div>
+                            </div>
+                            
+                            {firebaseUser ? (
+                                <>
+                                    <div className="mb-4 p-4 bg-sys-surfaceHigh rounded-xl">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            {firebaseUser.photoURL && (
+                                                <img src={firebaseUser.photoURL} alt="Profile" className="w-10 h-10 rounded-full" />
+                                            )}
+                                            <div>
+                                                <div className="text-sm font-semibold text-white">{firebaseUser.displayName || 'User'}</div>
+                                                <div className="text-xs text-sys-onSurfaceVar">{firebaseUser.email}</div>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-xs text-sys-success">
+                                            <i data-lucide="check-circle" width="14"></i>
+                                            <span>Signed in with Google</span>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Auto-sync toggle */}
+                                    <div className="mb-4 p-4 bg-sys-surfaceHigh rounded-xl">
+                                        <div className="flex items-start gap-3">
+                                            <button
+                                                onClick={handleSyncToggle}
+                                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${firebaseSyncEnabled ? 'bg-sys-success' : 'bg-sys-onSurfaceVar'}`}
+                                            >
+                                                <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${firebaseSyncEnabled ? 'translate-x-6' : 'translate-x-1'}`}></span>
+                                            </button>
+                                            <div className="flex-1">
+                                                <h4 className="text-sm font-semibold text-white mb-1">Automatic Sync</h4>
+                                                <p className="text-xs text-sys-onSurfaceVar leading-relaxed">
+                                                    Automatically sync data to cloud when changes are made
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex gap-3">
+                                        <button 
+                                            onClick={handleManualSync}
+                                            className="flex-1 h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform border border-white/5"
+                                        >
+                                            <i data-lucide="refresh-cw" width="18"></i>
+                                            <span>Sync Now</span>
+                                        </button>
+                                        
+                                        <button 
+                                            onClick={handleFirebaseLogout}
+                                            className="flex-1 h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform border border-white/5"
+                                        >
+                                            <i data-lucide="log-out" width="18"></i>
+                                            <span>Sign Out</span>
+                                        </button>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <p className="text-sm text-sys-onSurfaceVar mb-4">
+                                        Sign in with your Google account to sync your workout data across all your devices. Your data is stored securely and privately.
+                                    </p>
+                                    
+                                    <button 
+                                        onClick={handleFirebaseLogin}
+                                        className="w-full h-14 rounded-xl text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform btn-gradient-primary"
+                                    >
+                                        <i data-lucide="log-in" width="20"></i>
+                                        <span>Sign In with Google</span>
+                                    </button>
+                                </>
+                            )}
+                            
+                            {firebaseMessage && (
+                                <div className={`mt-4 p-3 rounded-xl text-sm text-center ${
+                                    firebaseMessage.startsWith('✓') 
+                                        ? 'bg-sys-success/10 border border-sys-success/30 text-sys-success' 
+                                        : 'bg-red-500/10 border border-red-500/30 text-red-500'
+                                }`}>
+                                    {firebaseMessage}
+                                </div>
+                            )}
+                        </div>
+                    )}
                     
                     <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
                         <div className="flex items-center gap-3 mb-4">

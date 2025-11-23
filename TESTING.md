@@ -5,8 +5,39 @@
 1. **Remember Last Workout State**: The app saves and restores the last viewed workout/tab
 2. **URL-Based Routing**: URLs reflect current app state and can be shared/bookmarked
 3. **Browser History Support**: Back/forward buttons work correctly
+4. **Workout Notes**: Free-text notes for each workout session
+5. **RPE Tracking**: Rate of Perceived Exertion tracking per set (scale 6-10)
 
 ## Test Scenarios
+
+### Scenario 0: Training & Logging Enhancements
+#### Workout Notes
+1. Open any workout (e.g., Week 1, Day 1)
+2. **Expected**: See "Workout Notes" section at the top with a text area
+3. Type some notes (e.g., "Felt strong today, good form on pull-ups")
+4. Navigate away and come back
+5. **Expected**: Notes should be persisted
+
+#### RPE Tracking
+1. Complete a set by clicking on a set button
+2. **Expected**: An RPE dropdown appears below the completed set
+3. Select an RPE value (6-10)
+4. Complete the workout and check History
+5. **Expected**: RPE values should be displayed for each set (e.g., "S1: 8, S2: 9")
+
+#### History View - Notes & RPE
+1. Complete a workout with notes and RPE data
+2. Navigate to History tab
+3. Expand the completed workout entry
+4. **Expected**: 
+   - Workout notes should be displayed in a separate section
+   - RPE values should be shown for each exercise with format "S1: 8, S2: 9"
+
+#### Coach/AI View - Enhanced Data
+1. Configure Gemini API key in Settings
+2. Complete a workout with notes and RPE
+3. Navigate to Coach tab
+4. **Expected**: AI feedback should reference the workout notes and RPE values you provided
 
 ### Scenario 1: State Persistence on Reload
 1. Open the app: `http://localhost:8080/`

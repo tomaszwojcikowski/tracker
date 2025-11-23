@@ -647,8 +647,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             summary += `Week: ${week} | Day: ${day}\n`;
             summary += `Title: ${workout.title}\n\n`;
             
+            // Add workout notes if present
+            if (logs.workoutNotes) {
+                summary += `## Workout Notes\n${logs.workoutNotes}\n\n`;
+            }
+            
             workout.sections.forEach(section => {
-                summary += `${section.name}\n`;
+                summary += `## ${section.name}\n`;
                 section.exercises.forEach(ex => {
                     const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
                     const exLog = logs[exId] || {};
@@ -659,20 +664,29 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     const prescriptionMatch = ex.prescription.match(/^(\d+)\s*x/i);
                     const expectedSets = prescriptionMatch ? parseInt(prescriptionMatch[1]) : sets.length;
                     
-                    summary += `${ex.name}\n`;
-                    summary += `Prescription: ${ex.prescription}\n`;
-                    if (ex.notes) summary += `Notes: ${ex.notes}\n`;
-                    summary += `Completed Sets: ${completedSets}/${expectedSets}\n`;
+                    summary += `\n**${ex.name}**\n`;
+                    summary += `- Prescription: ${ex.prescription}\n`;
+                    if (ex.notes) summary += `- Notes: ${ex.notes}\n`;
+                    summary += `- Completed Sets: ${completedSets}/${expectedSets}\n`;
                     
                     if (exLog.weight) {
-                        summary += `Weight: ${exLog.weight} kg\n`;
+                        summary += `- Weight: ${exLog.weight} kg\n`;
+                    }
+                    
+                    // Include RPE data if available
+                    if (exLog.rpe && Object.keys(exLog.rpe).length > 0) {
+                        const rpeValues = Object.entries(exLog.rpe)
+                            .sort(([a], [b]) => parseInt(a) - parseInt(b))
+                            .map(([setIdx, rpe]) => `Set ${parseInt(setIdx) + 1}: ${rpe}`)
+                            .join(', ');
+                        summary += `- RPE: ${rpeValues}\n`;
                     }
                 });
             });
             
             // Include added exercises
             if (addedExercises.length > 0) {
-                summary += `\nAdded Exercises\n`;
+                summary += `\n## Added Exercises\n`;
                 addedExercises.forEach(ex => {
                     const exId = `added_${ex.id}`;
                     const exLog = logs[exId] || {};
@@ -680,13 +694,22 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     const completedSets = sets.filter(s => s).length;
                     const expectedSets = sets.length || ex.sets;
                     
-                    summary += `${ex.name} (Added)\n`;
-                    summary += `Target Muscles: ${ex.primaryMuscles.join(', ')}\n`;
-                    summary += `Equipment: ${ex.equipment.join(', ')}\n`;
-                    summary += `Completed Sets: ${completedSets}/${expectedSets}\n`;
+                    summary += `\n**${ex.name}** (Added)\n`;
+                    summary += `- Target Muscles: ${ex.primaryMuscles.join(', ')}\n`;
+                    summary += `- Equipment: ${ex.equipment.join(', ')}\n`;
+                    summary += `- Completed Sets: ${completedSets}/${expectedSets}\n`;
                     
                     if (ex.weight || exLog.weight) {
-                        summary += `Weight: ${exLog.weight || ex.weight} kg\n`;
+                        summary += `- Weight: ${exLog.weight || ex.weight} kg\n`;
+                    }
+                    
+                    // Include RPE for added exercises
+                    if (exLog.rpe && Object.keys(exLog.rpe).length > 0) {
+                        const rpeValues = Object.entries(exLog.rpe)
+                            .sort(([a], [b]) => parseInt(a) - parseInt(b))
+                            .map(([setIdx, rpe]) => `Set ${parseInt(setIdx) + 1}: ${rpe}`)
+                            .join(', ');
+                        summary += `- RPE: ${rpeValues}\n`;
                     }
                 });
             }
@@ -858,6 +881,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [exerciseSearchTerm, setExerciseSearchTerm] = useState('');
             const [selectedMuscleFilter, setSelectedMuscleFilter] = useState('all');
             const [showExerciseHistory, setShowExerciseHistory] = useState(null); // null or exercise name
+            const [workoutNotes, setWorkoutNotes] = useState(''); // Free-text notes for the entire workout
             const haptic = useHaptic();
             
             // Debounce exercise selector search term
@@ -879,10 +903,15 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             if (Array.isArray(parsedLogs.addedExercises)) {
                                 setAddedExercises(parsedLogs.addedExercises);
                             }
+                            // Load workout notes from storage
+                            if (typeof parsedLogs.workoutNotes === 'string') {
+                                setWorkoutNotes(parsedLogs.workoutNotes);
+                            }
                         } else {
                             console.warn('Invalid workout session data, resetting');
                             setLogs({});
                             setAddedExercises([]);
+                            setWorkoutNotes('');
                         }
                     }
                 } catch (error) {
@@ -890,6 +919,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     // Reset to empty state on error
                     setLogs({});
                     setAddedExercises([]);
+                    setWorkoutNotes('');
                 }
                 lucide.createIcons();
             }, [week, day]);
@@ -979,6 +1009,17 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     }
                 } catch (error) {
                     console.error('Failed to toggle set:', error);
+                }
+            };
+            
+            // Save RPE (Rate of Perceived Exertion) for a specific set
+            const saveRPE = (exId, setIndex, rpe) => {
+                try {
+                    const currentRPEs = logs[exId]?.rpe || {};
+                    const updatedRPEs = { ...currentRPEs, [setIndex]: rpe };
+                    saveLog(exId, 'rpe', updatedRPEs);
+                } catch (error) {
+                    console.error('Failed to save RPE:', error);
                 }
             };
 
@@ -1080,7 +1121,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
 
             const handleFinish = async () => {
                 try {
-                    const updatedLogs = { ...logs, completed: true, completedAt: new Date().toISOString(), week, day };
+                    const updatedLogs = { ...logs, completed: true, completedAt: new Date().toISOString(), week, day, workoutNotes };
                     setLogs(updatedLogs);
                     localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
                     
@@ -1101,7 +1142,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             prescription: ex.prescription,
                             completedSets,
                             totalSets,
-                            weight: exLog.weight || null
+                            weight: exLog.weight || null,
+                            rpe: exLog.rpe || null
                         });
                         
                         // Update per-exercise history
@@ -1158,6 +1200,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     date: completionDate, 
                     title: workout.title,
                     exercises: exerciseSummary,
+                    workoutNotes: workoutNotes || null,
                     aiFeedback: null // Will be updated if Gemini sync succeeds
                 };
                 
@@ -1238,6 +1281,29 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </button>
                         </div>
                     )}
+                    
+                    {/* Workout Notes Section */}
+                    <div className="mb-6">
+                        <div className="bg-sys-surface rounded-3xl border border-white/5 p-5">
+                            <div className="flex items-center gap-2 mb-3">
+                                <i data-lucide="file-text" width="18" className="text-sys-accent"></i>
+                                <label className="text-sm font-bold text-white uppercase tracking-wider">Workout Notes</label>
+                            </div>
+                            <textarea 
+                                value={workoutNotes}
+                                onChange={(e) => {
+                                    setWorkoutNotes(e.target.value);
+                                    // Auto-save notes to localStorage
+                                    const updatedLogs = { ...logs, workoutNotes: e.target.value };
+                                    setLogs(updatedLogs);
+                                    localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
+                                }}
+                                placeholder="Add notes about today's workout (e.g., how you felt, form cues, adjustments)..."
+                                className="w-full bg-sys-surfaceHigh rounded-xl px-4 py-3 text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all resize-none"
+                                rows="3"
+                            ></textarea>
+                        </div>
+                    </div>
                     
                     {workout.sections.map((section, sIdx) => {
                         // Helper function to check if exercise is EMOM
@@ -1391,16 +1457,35 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                     <div className={`exercise-content ${collapsedExercises[exId] ? 'collapsed' : ''}`}>
                                                         <div>
                                                     <div className="flex flex-wrap gap-4 mb-5">
-                                                        {currentSetArray.map((isDone, i) => (
-                                                            <button 
-                                                                key={i} 
-                                                                onClick={() => toggleSet(exId, i, defaultSets, ex.rest)} 
-                                                                className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold ${isDone ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
-                                                                aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
-                                                            >
-                                                                {isDone ? <i data-lucide="check" width="24" /> : i + 1}
-                                                            </button>
-                                                        ))}
+                                                        {currentSetArray.map((isDone, i) => {
+                                                            const currentRPE = logs[exId]?.rpe?.[i];
+                                                            return (
+                                                                <div key={i} className="flex flex-col items-center gap-2">
+                                                                    <button 
+                                                                        onClick={() => toggleSet(exId, i, defaultSets, ex.rest)} 
+                                                                        className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold ${isDone ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
+                                                                        aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
+                                                                    >
+                                                                        {isDone ? <i data-lucide="check" width="24" /> : i + 1}
+                                                                    </button>
+                                                                    {isDone && (
+                                                                        <select
+                                                                            value={currentRPE || ''}
+                                                                            onChange={(e) => saveRPE(exId, i, e.target.value)}
+                                                                            className="w-14 h-7 px-1 bg-sys-surfaceHigh rounded-lg text-white text-xs font-semibold text-center outline-none focus:ring-1 focus:ring-sys-accent"
+                                                                            aria-label={`RPE for set ${i + 1}`}
+                                                                        >
+                                                                            <option value="">RPE</option>
+                                                                            <option value="6">6</option>
+                                                                            <option value="7">7</option>
+                                                                            <option value="8">8</option>
+                                                                            <option value="9">9</option>
+                                                                            <option value="10">10</option>
+                                                                        </select>
+                                                                    )}
+                                                                </div>
+                                                            );
+                                                        })}
                                                         <button 
                                                             onClick={() => addSet(exId, defaultSets)} 
                                                             className="h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl border-2 border-dashed border-white/20 text-white/30 flex items-center justify-center active:bg-white/5 transition-colors"
@@ -2186,6 +2271,19 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                         
                                         {isExpanded && (
                                             <div className="px-5 pb-5">
+                                                {/* Workout Notes */}
+                                                {entry.workoutNotes && (
+                                                    <div className="mb-4">
+                                                        <div className="bg-sys-surfaceHigh rounded-xl p-4 border border-white/5">
+                                                            <div className="flex items-center gap-2 mb-2">
+                                                                <i data-lucide="file-text" width="14" className="text-sys-accent"></i>
+                                                                <h4 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider">Workout Notes</h4>
+                                                            </div>
+                                                            <p className="text-sm text-white leading-relaxed whitespace-pre-wrap">{entry.workoutNotes}</p>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                
                                                 {/* Exercise Details */}
                                                 {hasExercises && (
                                                     <div className="mb-4">
@@ -2211,6 +2309,16 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                             Weight: {ex.weight} kg
                                                                         </p>
                                                                     )}
+                                                                    {ex.rpe && Object.keys(ex.rpe).length > 0 && (
+                                                                        <div className="flex items-center gap-2 mt-2 flex-wrap">
+                                                                            <span className="text-xs text-sys-onSurfaceVar">RPE:</span>
+                                                                            {Object.entries(ex.rpe).map(([setIdx, rpe]) => (
+                                                                                <span key={setIdx} className="text-xs px-2 py-0.5 bg-sys-accent/10 rounded-full text-sys-accent font-semibold">
+                                                                                    S{parseInt(setIdx) + 1}: {rpe}
+                                                                                </span>
+                                                                            ))}
+                                                                        </div>
+                                                                    )}
                                                                 </div>
                                                             ))}
                                                         </div>
@@ -2228,7 +2336,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                     </div>
                                                 )}
                                                 
-                                                {!hasExercises && !hasAIFeedback && (
+                                                {!hasExercises && !hasAIFeedback && !entry.workoutNotes && (
                                                     <p className="text-sm text-sys-onSurfaceVar text-center py-4">
                                                         No detailed information available
                                                     </p>

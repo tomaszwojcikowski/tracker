@@ -39,6 +39,41 @@
 3. Navigate to Coach tab
 4. **Expected**: AI feedback should reference the workout notes and RPE values you provided
 
+### Scenario 1: History & Analytics Improvements
+#### Timeline View Enhancements
+1. Complete 2-3 workouts over different days
+2. Navigate to History tab
+3. **Expected**: 
+   - Timeline showing completed workouts by date
+   - Week/day labels clearly visible
+   - Expandable entries showing exercise details
+
+#### Stats View
+1. In History tab, click the "Stats" toggle button
+2. **Expected**:
+   - View switches from timeline to statistics
+   - Shows list of all exercises with history
+   - Each exercise shows: total workouts, max weight, estimated 1RM
+
+#### Per-Exercise Statistics
+1. In Stats view, click on any exercise
+2. **Expected**:
+   - Expands to show detailed stats grid:
+     - Total Workouts
+     - Max Sets
+     - Max Weight
+     - Estimated 1RM
+   - Shows simple weight progress graph (last 10 workouts)
+   - Shows recent history (last 5 sessions)
+
+#### Progress Graphs
+1. Complete same exercise multiple times with different weights
+2. Check Stats view for that exercise
+3. **Expected**: 
+   - Weight progress graph showing trend line
+   - Min and max weight labels
+   - Data points for each workout
+
 ### Scenario 1: State Persistence on Reload
 1. Open the app: `http://localhost:8080/`
 2. Navigate to Week 5, Day 3 workout

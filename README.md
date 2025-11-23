@@ -2,6 +2,10 @@
 
 A progressive web app for tracking workouts with AI-powered coaching feedback.
 
+## Deployment
+
+This repository includes a GitHub Actions workflow that automatically builds and deploys the application to GitHub Pages on every push to the `main` branch. See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions and configuration options.
+
 ## Production Build Setup
 
 This project uses a modern build pipeline to ensure optimal production performance:

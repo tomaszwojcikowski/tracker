@@ -71,7 +71,7 @@ describe('Swipe Navigation Logic', () => {
     expect(isRightSwipe).toBe(false);
   });
 
-  it('should detect right swipe when finger moves right (left to right)', () => {
+  it('should detect right swipe when finger moves from left to right', () => {
     const touchStart = 100; // Finger starts on left side
     const touchEnd = 200;   // Finger ends on right side
     const threshold = 50;
@@ -80,7 +80,7 @@ describe('Swipe Navigation Logic', () => {
     const isRightSwipe = distance < -threshold;
     
     // touchStart (100) - touchEnd (200) = -100
-    // -100 < -50 is true, so this IS a right swipe (finger moved right)
+    // -100 < -50 is true, so this IS a right swipe (finger moved from left to right)
     expect(isRightSwipe).toBe(true);
   });
 

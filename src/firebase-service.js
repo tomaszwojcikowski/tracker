@@ -26,16 +26,16 @@ import {
     off 
 } from "firebase/database";
 
-// Firebase configuration - This should be replaced with actual project config
-// Get these values from Firebase Console > Project Settings
+// Firebase configuration - loaded from environment variables at build time
+// These are set in .env file or during deployment
 const DEFAULT_FIREBASE_CONFIG = {
-    apiKey: "",
-    authDomain: "",
-    databaseURL: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "",
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "",
+    databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL || "",
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "",
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "",
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "",
+    appId: import.meta.env.VITE_FIREBASE_APP_ID || ""
 };
 
 // Firebase instances
@@ -50,18 +50,17 @@ let currentUserRef = null;
 let syncListener = null;
 
 /**
- * Initialize Firebase with custom configuration
- * @param {Object} config - Firebase configuration object
+ * Initialize Firebase with configuration from environment variables
+ * This is called automatically when the module loads
  * @returns {boolean} - True if initialization successful
  */
-export function initializeFirebase(config = null) {
+export function initializeFirebase() {
     try {
-        // Use provided config or default
-        const firebaseConfig = config || DEFAULT_FIREBASE_CONFIG;
+        const firebaseConfig = DEFAULT_FIREBASE_CONFIG;
         
         // Check if config is valid (has required fields)
         if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
-            console.warn('Firebase config incomplete. Sync disabled.');
+            console.warn('Firebase not configured. Cloud sync disabled. Set VITE_FIREBASE_* environment variables to enable.');
             return false;
         }
         
@@ -72,12 +71,16 @@ export function initializeFirebase(config = null) {
         provider = new GoogleAuthProvider();
         
         console.log('Firebase initialized successfully');
+        console.log('Project:', firebaseConfig.projectId);
         return true;
     } catch (error) {
         console.error('Failed to initialize Firebase:', error);
         return false;
     }
 }
+
+// Auto-initialize Firebase when module loads
+initializeFirebase();
 
 /**
  * Check if Firebase is initialized and ready

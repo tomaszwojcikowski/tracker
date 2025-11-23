@@ -173,29 +173,33 @@ For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 
 ## Configuration
 
-### Firebase Cloud Sync Setup (Optional but Recommended)
+### Firebase Cloud Sync Setup
 
-To enable cloud sync and use the app across multiple devices:
+Cloud sync is **optional** and configured at build/deployment time. Once configured, users just need to sign in.
 
-1. **Create Firebase Project**:
-   - Visit [Firebase Console](https://console.firebase.google.com)
-   - Create a new project
-   - Enable Google Authentication
-   - Create a Realtime Database
-   - Configure security rules
+#### For End Users (Simple!)
 
-2. **Configure in App**:
-   - Navigate to Settings tab
-   - Open "Firebase Sync" section
-   - Click "Show Configuration"
-   - Enter your Firebase credentials (API Key, Project ID, etc.)
-   - Click "Save Configuration"
+If the app is deployed with Firebase enabled:
 
-3. **Sign In and Sync**:
-   - Click "Sign In with Google"
-   - Your local data will automatically sync to the cloud
-   - Install the app on other devices and sign in with the same account
-   - All your workout data will be available everywhere
+1. Open Settings tab
+2. Click **Sign In with Google** in the Cloud Sync section
+3. That's it! Your data syncs automatically across all devices
+
+#### For Developers/Deployers
+
+To enable Firebase cloud sync in your deployment:
+
+1. Create a Firebase project (see [FIREBASE_SETUP.md](FIREBASE_SETUP.md))
+2. Set environment variables in `.env`:
+   ```env
+   VITE_FIREBASE_API_KEY=your-api-key
+   VITE_FIREBASE_PROJECT_ID=your-project-id
+   VITE_FIREBASE_DATABASE_URL=https://your-project.firebaseio.com
+   VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+   ```
+3. Build and deploy: `npm run build`
+
+**Note**: Without Firebase configuration, the app works fully offline with localStorage. Firebase is purely optional for cross-device sync.
 
 **For detailed setup instructions, see [FIREBASE_SETUP.md](FIREBASE_SETUP.md)**
 

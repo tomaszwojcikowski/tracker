@@ -112,29 +112,65 @@ const firebaseConfig = {
 
 ## Step 6: Configure App with Firebase Credentials
 
-Now that you have your Firebase project set up, configure the app:
+Firebase credentials are configured at **build time** using environment variables. This means users don't need to configure Firebase - it's already built into the app.
+
+### For App Developers/Deployers
+
+1. Copy `.env.example` to `.env` in the project root:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edit `.env` and fill in your Firebase credentials from Step 5:
+   ```env
+   VITE_FIREBASE_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+   VITE_FIREBASE_PROJECT_ID=your-project-id
+   VITE_FIREBASE_DATABASE_URL=https://your-project-default-rtdb.firebaseio.com
+   VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+   ```
+
+3. Build the app (credentials will be bundled):
+   ```bash
+   npm run build
+   ```
+
+4. Deploy the `dist/` directory to your hosting service
+
+### For GitHub Actions / CI/CD
+
+If deploying via GitHub Actions or other CI/CD:
+
+1. Go to your repository **Settings** → **Secrets and variables** → **Actions**
+2. Add these repository secrets:
+   - `VITE_FIREBASE_API_KEY`
+   - `VITE_FIREBASE_PROJECT_ID`
+   - `VITE_FIREBASE_DATABASE_URL`
+   - `VITE_FIREBASE_AUTH_DOMAIN`
+
+3. Update your workflow to use these secrets during build
+
+### Security Note
+
+Environment variables prefixed with `VITE_` are **public** - they're bundled into the client-side JavaScript. This is safe because:
+- Firebase credentials are designed to be public (they identify your project)
+- Security is enforced by Firebase Security Rules, not by hiding credentials
+- Only authenticated users can access data, as defined by your security rules
+
+## Step 7: Using Cloud Sync (End Users)
+
+Once the app is deployed with Firebase configuration:
 
 1. Open the tracker app
-2. Navigate to the **Settings** tab (profile icon in the bottom navigation)
-3. Scroll to the **Firebase Sync** section
-4. Click **Show Configuration**
-5. Enter the following values from your `firebaseConfig`:
-   - **API Key**: Copy the `apiKey` value
-   - **Project ID**: Copy the `projectId` value
-   - **Auth Domain**: Copy the `authDomain` value (optional but recommended)
-   - **Database URL**: Copy the `databaseURL` value (optional but recommended)
-6. Click **Save Configuration**
+2. Navigate to the **Settings** tab (profile icon in bottom navigation)
+3. Look for the **Cloud Sync** section
+4. Click **Sign In with Google**
+5. A Google Sign-In popup will appear
+6. Select your Google account
+7. Grant the requested permissions
+8. Your profile will be displayed in the Settings page
+9. Your local data will automatically sync to the cloud
 
-You should see a success message: "✓ Firebase configured successfully"
-
-## Step 7: Sign In and Sync
-
-1. In the **Firebase Sync** section, click **Sign In with Google**
-2. A Google Sign-In popup will appear
-3. Select your Google account
-4. Grant the requested permissions
-5. You should see your profile displayed in the Settings page
-6. Your local data will automatically sync to the cloud
+**That's it!** No configuration needed - just sign in and your data syncs automatically.
 
 ### Enable Automatic Sync
 

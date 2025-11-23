@@ -152,8 +152,33 @@ Three new utility functions for localStorage access:
 
 These utilities are used throughout the codebase for improved error handling and code consistency.
 
-#### Testing
-No new user-facing features to test. The refactor maintains existing functionality with better code organization.
+#### Regression Testing After Refactor
+No new user-facing features were added. The refactor maintains existing functionality with better code organization.
+
+**Key areas to smoke-test:**
+1. **Workout Navigation**: Load workouts and navigate between different weeks/days (e.g., Week 1 Day 1, Week 5 Day 3)
+   - Expected: Workouts load correctly, navigation works smoothly
+   
+2. **Workout Logging**: Complete sets in a workout and finish the workout
+   - Expected: Set completion persists, workout logs saved after page refresh
+   
+3. **Exercise History**: Complete multiple workouts with weighted exercises
+   - Navigate to History tab → Stats view
+   - Expected: Exercise statistics (total workouts, max weight, 1RM) display correctly
+   
+4. **State Persistence**: Navigate through app, reload the page
+   - Expected: App returns to the last viewed page/workout
+   
+5. **Gemini Integration** (if API key configured):
+   - Complete a workout with auto-sync enabled
+   - Expected: AI feedback appears in Coach tab, no sync errors
+   - Ask a question in Coach tab
+   - Expected: AI responds correctly, chat history maintains context
+
+**What changed internally:**
+- JSON data (workout logs, history, app state) now uses safe storage utilities
+- Better error handling prevents crashes from corrupted localStorage
+- Added comments explaining non-obvious behavior (warmup/cooldown generation, chat initialization)
 
 ### Scenario 4: UX Polish for Workout Player & Navigation
 #### Enhanced Section Headers

@@ -824,16 +824,28 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             return weight ? parseFloat(weight) : null;
         };
 
+        // Time constants for relative time formatting
+        const MS_PER_MINUTE = 60 * 1000;
+        const MS_PER_HOUR = 60 * 60 * 1000;
+        const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
         // Helper function to format relative time
         const formatRelativeTime = (isoTimestamp) => {
             if (!isoTimestamp) return null;
             
             const syncDate = new Date(isoTimestamp);
+            
+            // Validate date object
+            if (isNaN(syncDate.getTime())) {
+                console.warn('Invalid timestamp provided to formatRelativeTime:', isoTimestamp);
+                return null;
+            }
+            
             const now = new Date();
             const diffMs = now - syncDate;
-            const diffMins = Math.floor(diffMs / 60000);
-            const diffHours = Math.floor(diffMs / 3600000);
-            const diffDays = Math.floor(diffMs / 86400000);
+            const diffMins = Math.floor(diffMs / MS_PER_MINUTE);
+            const diffHours = Math.floor(diffMs / MS_PER_HOUR);
+            const diffDays = Math.floor(diffMs / MS_PER_DAY);
             
             if (diffMins < 1) {
                 return 'just now';
@@ -3253,9 +3265,9 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     <p className="text-xs text-sys-onSurfaceVar">
                                         Get your API key from <a href="https://makersuite.google.com/app/apikey" target="_blank" className="text-sys-accent underline">Google AI Studio</a>
                                     </p>
-                                    {firebaseUser && (
+                                    {firebaseUser && geminiApiKey && (
                                         <p className="text-xs text-sys-success mt-1">
-                                            <i data-lucide="cloud" width="12" className="inline"></i> Synced to Firebase
+                                            <i data-lucide="cloud" width="12" className="inline"></i> Will sync to Firebase when saved
                                         </p>
                                     )}
                                 </div>

@@ -52,6 +52,13 @@ let syncListener = null;
 const LAST_SYNC_KEY = 'firebase_last_sync_time';
 
 /**
+ * Update the last sync timestamp
+ */
+function updateLastSyncTime() {
+    localStorage.setItem(LAST_SYNC_KEY, new Date().toISOString());
+}
+
+/**
  * Initialize Firebase with configuration from environment variables
  * This is called automatically when the module loads
  * @returns {boolean} - True if initialization successful
@@ -168,7 +175,7 @@ export async function saveToCloud(data) {
         console.log('Data saved to cloud successfully');
         
         // Update last sync timestamp
-        localStorage.setItem(LAST_SYNC_KEY, new Date().toISOString());
+        updateLastSyncTime();
     } catch (error) {
         console.error('Failed to save to cloud:', error);
         throw error;
@@ -214,7 +221,7 @@ export function initSync(onDataReceived, onAuthChange) {
                 
                 // Update last sync timestamp when data is received
                 if (data) {
-                    localStorage.setItem(LAST_SYNC_KEY, new Date().toISOString());
+                    updateLastSyncTime();
                 }
                 
                 if (onDataReceived) {

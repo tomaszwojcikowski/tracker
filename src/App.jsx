@@ -824,6 +824,28 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             return weight ? parseFloat(weight) : null;
         };
 
+        // Helper function to format relative time
+        const formatRelativeTime = (isoTimestamp) => {
+            if (!isoTimestamp) return null;
+            
+            const syncDate = new Date(isoTimestamp);
+            const now = new Date();
+            const diffMs = now - syncDate;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+            
+            if (diffMins < 1) {
+                return 'just now';
+            } else if (diffMins < 60) {
+                return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
+            } else if (diffHours < 24) {
+                return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+            } else {
+                return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+            }
+        };
+
         // ============================================================================
         // SECTION 9: MAIN APPLICATION COMPONENTS
         // ============================================================================
@@ -3012,7 +3034,21 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 setIsSaving(true);
                 localStorage.setItem('gemini_api_key', geminiApiKey);
                 localStorage.setItem('gemini_auto_sync', autoSync.toString());
-                setSaveMessage('✓ Settings saved successfully!');
+                
+                // Sync to Firebase if user is logged in and sync is enabled
+                if (firebaseUser && firebaseSyncEnabled && FirebaseService.isFirebaseInitialized()) {
+                    try {
+                        const localData = getAllLocalData();
+                        await FirebaseService.saveToCloud(localData);
+                        setSaveMessage('✓ Settings saved and synced to cloud!');
+                    } catch (error) {
+                        console.error('Failed to sync settings to cloud:', error);
+                        setSaveMessage('✓ Settings saved locally (cloud sync failed)');
+                    }
+                } else {
+                    setSaveMessage('✓ Settings saved successfully!');
+                }
+                
                 setTimeout(() => {
                     setIsSaving(false);
                     setSaveMessage('');
@@ -3109,25 +3145,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                         </div>
                                         {(() => {
                                             const lastSync = FirebaseService.getLastSyncTime();
-                                            if (lastSync) {
-                                                const syncDate = new Date(lastSync);
-                                                const now = new Date();
-                                                const diffMs = now - syncDate;
-                                                const diffMins = Math.floor(diffMs / 60000);
-                                                const diffHours = Math.floor(diffMs / 3600000);
-                                                const diffDays = Math.floor(diffMs / 86400000);
-                                                
-                                                let timeAgo;
-                                                if (diffMins < 1) {
-                                                    timeAgo = 'just now';
-                                                } else if (diffMins < 60) {
-                                                    timeAgo = `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
-                                                } else if (diffHours < 24) {
-                                                    timeAgo = `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-                                                } else {
-                                                    timeAgo = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
-                                                }
-                                                
+                                            const timeAgo = formatRelativeTime(lastSync);
+                                            if (timeAgo) {
                                                 return (
                                                     <div className="flex items-center gap-2 text-xs text-sys-onSurfaceVar">
                                                         <i data-lucide="clock" width="14"></i>
@@ -3230,13 +3249,20 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 placeholder="Enter your Gemini API key"
                             />
                             <div className="flex items-center justify-between mt-2">
-                                <p className="text-xs text-sys-onSurfaceVar">
-                                    Get your API key from <a href="https://makersuite.google.com/app/apikey" target="_blank" className="text-sys-accent underline">Google AI Studio</a>
-                                </p>
+                                <div className="flex-1">
+                                    <p className="text-xs text-sys-onSurfaceVar">
+                                        Get your API key from <a href="https://makersuite.google.com/app/apikey" target="_blank" className="text-sys-accent underline">Google AI Studio</a>
+                                    </p>
+                                    {firebaseUser && (
+                                        <p className="text-xs text-sys-success mt-1">
+                                            <i data-lucide="cloud" width="12" className="inline"></i> Synced to Firebase
+                                        </p>
+                                    )}
+                                </div>
                                 <button
                                     onClick={validateApiKey}
                                     disabled={isValidating || !geminiApiKey}
-                                    className="text-xs text-sys-accent font-semibold underline disabled:opacity-50"
+                                    className="text-xs text-sys-accent font-semibold underline disabled:opacity-50 ml-2"
                                 >
                                     {isValidating ? 'Testing...' : 'Test'}
                                 </button>

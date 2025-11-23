@@ -17,6 +17,9 @@ describe('Exercise History & Stats', () => {
     testStorage = {};
   });
 
+  // Storage to simulate localStorage behavior in tests
+  let testStorage = {};
+
   // Utility functions from App.jsx
   const safeGetJSON = (key, defaultValue = null) => {
     try {
@@ -48,9 +51,6 @@ describe('Exercise History & Stats', () => {
     const match = weight.match(/[\d.]+/);
     return match ? parseFloat(match[0]) : 0;
   };
-
-  // Storage to simulate localStorage behavior in tests
-  let testStorage = {};
   
   const updateExerciseHistory = (exerciseName, entry) => {
     const history = safeGetJSON(EXERCISE_HISTORY_KEY, {});

@@ -961,7 +961,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             
             // Generic Lucide icon refresh hook - ensures icons render after React updates
             // Runs when UI state changes that affect icon visibility
-            useLucideIcons([collapsedExercises, showTimerToast, geminiSyncStatus, showExerciseSelector, showExerciseHistory, week, day, addedExercises]);
+            useLucideIcons([collapsedExercises, showTimerToast, geminiSyncStatus, showExerciseSelector, showExerciseHistory, week, day, addedExercises, logs, timerSeconds, timerActive]);
 
             useEffect(() => {
                 const parsedLogs = safeGetJSON(`session_w${week}d${day}`, {});

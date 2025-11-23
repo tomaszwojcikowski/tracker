@@ -266,7 +266,7 @@
 
         // --- DEBOUNCE HOOK ---
         // Debounces a value to reduce excessive updates
-        const useDebounce = (value, delay = 300) => {
+        const useDebounce = (value, delay = DEBOUNCE_DELAY_MS) => {
             const [debouncedValue, setDebouncedValue] = useState(value);
             
             useEffect(() => {
@@ -304,7 +304,13 @@
             }, deps);
         };
 
-
+        // --- APPLICATION CONSTANTS ---
+        const MAX_SETS = 20; // Maximum number of sets per exercise
+        const MAX_WEIGHT_KG = 999; // Maximum weight in kilograms
+        const WEIGHT_INCREMENT_KG = 2.5; // Standard weight increment/decrement
+        const WEIGHT_STEP = 0.5; // Minimum weight step for input
+        const FETCH_TIMEOUT_MS = 10000; // Fetch timeout in milliseconds (10 seconds)
+        const DEBOUNCE_DELAY_MS = 300; // Debounce delay for search inputs in milliseconds
 
         const PROGRAM_DATA = {
             blocks: [
@@ -856,7 +862,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const haptic = useHaptic();
             
             // Debounce exercise selector search term
-            const debouncedExerciseSearch = useDebounce(exerciseSearchTerm, 300);
+            const debouncedExerciseSearch = useDebounce(exerciseSearchTerm, DEBOUNCE_DELAY_MS);
             
             // Generic Lucide icon refresh hook - ensures icons render after React updates
             // Runs when UI state changes that affect icon visibility
@@ -918,6 +924,25 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     });
                 }
             }, [geminiSyncStatus]);
+            
+            // Keyboard shortcuts for toasts
+            useEffect(() => {
+                const handleKeyDown = (e) => {
+                    // Escape key closes any visible toast
+                    if (e.key === 'Escape') {
+                        if (showTimerToast) {
+                            setShowTimerToast(false);
+                        }
+                        if (geminiSyncStatus) {
+                            setGeminiSyncStatus(null);
+                            setGeminiErrorMessage('');
+                        }
+                    }
+                };
+                
+                window.addEventListener('keydown', handleKeyDown);
+                return () => window.removeEventListener('keydown', handleKeyDown);
+            }, [showTimerToast, geminiSyncStatus]);
 
             const saveLog = (id, field, value) => {
                 try {
@@ -932,18 +957,29 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             };
 
             const toggleSet = (exId, setIndex, defaultSets, restTime) => {
-                haptic.tick();
-                const currentSets = logs[exId]?.sets || new Array(defaultSets).fill(false);
-                const newSets = [...currentSets];
-                while(newSets.length <= setIndex) newSets.push(false);
-                const wasCompleted = newSets[setIndex];
-                newSets[setIndex] = !newSets[setIndex];
-                saveLog(exId, 'sets', newSets);
-                
-                // Auto-start timer when completing a set (not when uncompleting)
-                if (!wasCompleted && newSets[setIndex] && restTime > 0) {
-                    setTimerSeconds(restTime);
-                    setTimerActive(true);
+                try {
+                    haptic.tick();
+                    
+                    // Validate inputs
+                    if (!exId || setIndex < 0 || !Number.isInteger(setIndex)) {
+                        console.error('Invalid set toggle parameters:', { exId, setIndex, defaultSets });
+                        return;
+                    }
+                    
+                    const currentSets = logs[exId]?.sets || new Array(defaultSets).fill(false);
+                    const newSets = [...currentSets];
+                    while(newSets.length <= setIndex) newSets.push(false);
+                    const wasCompleted = newSets[setIndex];
+                    newSets[setIndex] = !newSets[setIndex];
+                    saveLog(exId, 'sets', newSets);
+                    
+                    // Auto-start timer when completing a set (not when uncompleting)
+                    if (!wasCompleted && newSets[setIndex] && typeof restTime === 'number' && !isNaN(restTime) && restTime > 0) {
+                        setTimerSeconds(restTime);
+                        setTimerActive(true);
+                    }
+                } catch (error) {
+                    console.error('Failed to toggle set:', error);
                 }
             };
 
@@ -988,26 +1024,48 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             };
             
             const addExerciseToWorkout = (exercise, sets = 3, weight = '') => {
-                haptic.success();
-                const newExercise = {
-                    id: exercise.id,
-                    name: exercise.name,
-                    sets: sets,
-                    isBodyweight: exercise.isBodyweight,
-                    equipment: exercise.equipment,
-                    primaryMuscles: exercise.primaryMuscles,
-                    weight: weight
-                };
-                const updatedAddedExercises = [...addedExercises, newExercise];
-                setAddedExercises(updatedAddedExercises);
-                
-                // Save to storage
-                const updatedLogs = { ...logs, addedExercises: updatedAddedExercises };
-                setLogs(updatedLogs);
-                localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
-                
-                setShowExerciseSelector(false);
-                setExerciseSearchTerm('');
+                try {
+                    // Validate exercise data
+                    if (!exercise || !exercise.id || !exercise.name) {
+                        console.error('Invalid exercise data:', exercise);
+                        alert('Failed to add exercise: Invalid exercise data');
+                        return;
+                    }
+                    
+                    // Validate sets
+                    const validSets = Number.isInteger(sets) && sets > 0 && sets <= MAX_SETS ? sets : 3;
+                    
+                    // Check for duplicates
+                    const isDuplicate = addedExercises.some(ex => ex.id === exercise.id);
+                    if (isDuplicate) {
+                        alert('This exercise has already been added to the workout');
+                        return;
+                    }
+                    
+                    haptic.success();
+                    const newExercise = {
+                        id: exercise.id,
+                        name: exercise.name,
+                        sets: validSets,
+                        isBodyweight: exercise.isBodyweight || false,
+                        equipment: exercise.equipment || [],
+                        primaryMuscles: exercise.primaryMuscles || [],
+                        weight: weight
+                    };
+                    const updatedAddedExercises = [...addedExercises, newExercise];
+                    setAddedExercises(updatedAddedExercises);
+                    
+                    // Save to storage
+                    const updatedLogs = { ...logs, addedExercises: updatedAddedExercises };
+                    setLogs(updatedLogs);
+                    localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
+                    
+                    setShowExerciseSelector(false);
+                    setExerciseSearchTerm('');
+                } catch (error) {
+                    console.error('Failed to add exercise:', error);
+                    alert('Failed to add exercise. Please try again.');
+                }
             };
             
             const removeAddedExercise = (exerciseId) => {
@@ -1376,11 +1434,11 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                         haptic.tick();
                                                                         const current = parseFloat(logs[exId]?.weight || '0');
                                                                         if (!isNaN(current)) {
-                                                                            saveLog(exId, 'weight', Math.max(0, current - 2.5).toString());
+                                                                            saveLog(exId, 'weight', Math.max(0, current - WEIGHT_INCREMENT_KG).toString());
                                                                         }
                                                                     }}
                                                                     className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
-                                                                    aria-label="Decrease weight by 2.5kg"
+                                                                    aria-label={`Decrease weight by ${WEIGHT_INCREMENT_KG}kg`}
                                                                 >
                                                                     <i data-lucide="minus" width="18"></i>
                                                                 </button>
@@ -1389,14 +1447,14 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                     type="number" 
                                                                     inputMode="decimal"
                                                                     min="0"
-                                                                    max="999"
-                                                                    step="0.5"
+                                                                    max={MAX_WEIGHT_KG}
+                                                                    step={WEIGHT_STEP}
                                                                     className="bg-sys-surfaceHigh rounded-xl flex-1 min-w-0 h-14 px-3 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
                                                                     value={logs[exId]?.weight || ''} 
                                                                     onChange={(e) => {
                                                                         const value = e.target.value;
-                                                                        // Allow empty string or valid positive numbers
-                                                                        if (value === '' || (!isNaN(value) && parseFloat(value) >= 0)) {
+                                                                        // Allow empty string or valid positive numbers within range
+                                                                        if (value === '' || (!isNaN(value) && parseFloat(value) >= 0 && parseFloat(value) <= MAX_WEIGHT_KG)) {
                                                                             saveLog(exId, 'weight', value);
                                                                         }
                                                                     }} 
@@ -1407,12 +1465,12 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                     onClick={() => {
                                                                         haptic.tick();
                                                                         const current = parseFloat(logs[exId]?.weight || '0');
-                                                                        if (!isNaN(current) && current < 999) {
-                                                                            saveLog(exId, 'weight', (current + 2.5).toString());
+                                                                        if (!isNaN(current) && current < MAX_WEIGHT_KG) {
+                                                                            saveLog(exId, 'weight', Math.min(MAX_WEIGHT_KG, current + WEIGHT_INCREMENT_KG).toString());
                                                                         }
                                                                     }}
                                                                     className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
-                                                                    aria-label="Increase weight by 2.5kg"
+                                                                    aria-label={`Increase weight by ${WEIGHT_INCREMENT_KG}kg`}
                                                                 >
                                                                     <i data-lucide="plus" width="18"></i>
                                                                 </button>
@@ -2514,7 +2572,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const haptic = useHaptic();
 
             // Debounce search term to improve performance
-            const debouncedSearchTerm = useDebounce(searchTerm, 300);
+            const debouncedSearchTerm = useDebounce(searchTerm, DEBOUNCE_DELAY_MS);
 
             const trackedExercises = getAllExercisesWithHistory();
 
@@ -3151,7 +3209,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         root.render(<LoadingScreen />);
 
         // Load both schedule and exercise library data with timeout
-        const fetchWithTimeout = (url, timeout = 10000) => {
+        const fetchWithTimeout = (url, timeout = FETCH_TIMEOUT_MS) => {
             return Promise.race([
                 fetch(url),
                 new Promise((_, reject) => 

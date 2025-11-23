@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import './main.css';
+import * as FirebaseService from './firebase-service';
 
         // ============================================================================
         // SECTION 1: GLOBAL STATE & DATA STRUCTURES
@@ -601,6 +602,77 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             
             summary += `\nPlease analyze this workout and provide feedback on my progress, form cues to remember, and suggestions for the next session.`;
             return summary;
+        };
+
+        // ============================================================================
+        // SECTION 7B: FIREBASE SYNC UTILITIES
+        // ============================================================================
+        
+        // Keys for data stored in both localStorage and Firebase
+        const FIREBASE_CONFIG_KEY = 'firebase_config';
+        const FIREBASE_SYNC_ENABLED_KEY = 'firebase_sync_enabled';
+        
+        /**
+         * Get all local data that should be synced to Firebase
+         * This includes workout sessions, exercise history, and settings
+         */
+        const getAllLocalData = () => {
+            const data = {
+                // Settings
+                gemini_api_key: localStorage.getItem('gemini_api_key') || '',
+                gemini_auto_sync: localStorage.getItem('gemini_auto_sync') || 'true',
+                
+                // Exercise history
+                exercise_history: safeGetJSON('exercise_history', []),
+                
+                // Workout sessions - collect all session_w*d* keys
+                sessions: {}
+            };
+            
+            // Collect all workout session data
+            for (let week = 1; week <= 21; week++) {
+                for (let day of [1, 2, 3, 5]) {
+                    const key = `session_w${week}d${day}`;
+                    const sessionData = safeGetJSON(key, null);
+                    if (sessionData && Object.keys(sessionData).length > 0) {
+                        data.sessions[key] = sessionData;
+                    }
+                }
+            }
+            
+            return data;
+        };
+        
+        /**
+         * Merge cloud data with local data (cloud takes precedence)
+         * @param {Object} cloudData - Data from Firebase
+         */
+        const mergeCloudData = (cloudData) => {
+            if (!cloudData) return;
+            
+            console.log('Merging cloud data with local data');
+            
+            // Merge settings
+            if (cloudData.gemini_api_key) {
+                localStorage.setItem('gemini_api_key', cloudData.gemini_api_key);
+            }
+            if (cloudData.gemini_auto_sync) {
+                localStorage.setItem('gemini_auto_sync', cloudData.gemini_auto_sync);
+            }
+            
+            // Merge exercise history
+            if (cloudData.exercise_history) {
+                safeSetJSON('exercise_history', cloudData.exercise_history);
+            }
+            
+            // Merge workout sessions
+            if (cloudData.sessions) {
+                Object.keys(cloudData.sessions).forEach(key => {
+                    safeSetJSON(key, cloudData.sessions[key]);
+                });
+            }
+            
+            console.log('Cloud data merged successfully');
         };
 
         // ============================================================================
@@ -2828,6 +2900,19 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [saveMessage, setSaveMessage] = useState('');
             const [validationMessage, setValidationMessage] = useState('');
             const [chatHistoryMessage, setChatHistoryMessage] = useState('');
+            
+            // Firebase state
+            const [firebaseUser, setFirebaseUser] = useState(null);
+            const [firebaseConfig, setFirebaseConfig] = useState({
+                apiKey: '',
+                authDomain: '',
+                databaseURL: '',
+                projectId: ''
+            });
+            const [firebaseSyncEnabled, setFirebaseSyncEnabled] = useState(false);
+            const [firebaseMessage, setFirebaseMessage] = useState('');
+            const [isFirebaseConfigExpanded, setIsFirebaseConfigExpanded] = useState(false);
+            
             const haptic = useHaptic();
             
             useEffect(() => {
@@ -2835,10 +2920,54 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 const savedAutoSync = localStorage.getItem('gemini_auto_sync') !== 'false'; // Default true
                 setGeminiApiKey(savedApiKey);
                 setAutoSync(savedAutoSync);
+                
+                // Load Firebase config
+                const savedFirebaseConfig = safeGetJSON(FIREBASE_CONFIG_KEY, null);
+                if (savedFirebaseConfig) {
+                    setFirebaseConfig(savedFirebaseConfig);
+                    // Initialize Firebase if config exists
+                    if (savedFirebaseConfig.apiKey && savedFirebaseConfig.projectId) {
+                        FirebaseService.initializeFirebase(savedFirebaseConfig);
+                    }
+                }
+                
+                // Load Firebase sync setting
+                const savedSyncEnabled = localStorage.getItem(FIREBASE_SYNC_ENABLED_KEY) === 'true';
+                setFirebaseSyncEnabled(savedSyncEnabled);
+                
+                // Setup Firebase auth state listener
+                if (FirebaseService.isFirebaseInitialized()) {
+                    FirebaseService.initSync(
+                        (cloudData) => {
+                            // Data received from cloud
+                            if (cloudData) {
+                                mergeCloudData(cloudData);
+                                setFirebaseMessage('✓ Data synced from cloud');
+                                setTimeout(() => setFirebaseMessage(''), 3000);
+                            }
+                        },
+                        (user) => {
+                            // Auth state changed
+                            setFirebaseUser(user);
+                            if (user && savedSyncEnabled) {
+                                // User logged in - upload local data
+                                const localData = getAllLocalData();
+                                FirebaseService.saveToCloud(localData)
+                                    .then(() => {
+                                        setFirebaseMessage('✓ Local data synced to cloud');
+                                        setTimeout(() => setFirebaseMessage(''), 3000);
+                                    })
+                                    .catch(err => {
+                                        console.error('Failed to sync local data:', err);
+                                    });
+                            }
+                        }
+                    );
+                }
             }, []);
             
             // Initialize Lucide icons when settings change
-            useLucideIcons([validationMessage, saveMessage, chatHistoryMessage]);
+            useLucideIcons([validationMessage, saveMessage, chatHistoryMessage, firebaseMessage, firebaseUser, isFirebaseConfigExpanded]);
             
             const validateApiKey = async () => {
                 if (!geminiApiKey || geminiApiKey.trim() === '') {
@@ -2910,9 +3039,270 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 }, 3000);
             };
             
+            // Firebase handlers
+            const handleFirebaseLogin = async () => {
+                haptic.bump();
+                try {
+                    await FirebaseService.handleLogin();
+                    setFirebaseMessage('✓ Logged in successfully');
+                    setTimeout(() => setFirebaseMessage(''), 3000);
+                } catch (error) {
+                    setFirebaseMessage('✗ Login failed: ' + error.message);
+                    setTimeout(() => setFirebaseMessage(''), 5000);
+                }
+            };
+            
+            const handleFirebaseLogout = async () => {
+                haptic.bump();
+                try {
+                    await FirebaseService.handleLogout();
+                    setFirebaseMessage('✓ Logged out successfully');
+                    setTimeout(() => setFirebaseMessage(''), 3000);
+                } catch (error) {
+                    setFirebaseMessage('✗ Logout failed: ' + error.message);
+                    setTimeout(() => setFirebaseMessage(''), 5000);
+                }
+            };
+            
+            const handleFirebaseConfigSave = () => {
+                haptic.bump();
+                
+                // Validate config
+                if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
+                    setFirebaseMessage('✗ Please fill in at least API Key and Project ID');
+                    setTimeout(() => setFirebaseMessage(''), 5000);
+                    return;
+                }
+                
+                // Save config
+                safeSetJSON(FIREBASE_CONFIG_KEY, firebaseConfig);
+                
+                // Initialize Firebase
+                const initialized = FirebaseService.initializeFirebase(firebaseConfig);
+                if (initialized) {
+                    setFirebaseMessage('✓ Firebase configured successfully');
+                    setIsFirebaseConfigExpanded(false);
+                    
+                    // Setup sync listener
+                    FirebaseService.initSync(
+                        (cloudData) => {
+                            if (cloudData) {
+                                mergeCloudData(cloudData);
+                            }
+                        },
+                        (user) => {
+                            setFirebaseUser(user);
+                        }
+                    );
+                } else {
+                    setFirebaseMessage('✗ Failed to initialize Firebase');
+                }
+                
+                setTimeout(() => setFirebaseMessage(''), 5000);
+            };
+            
+            const handleManualSync = async () => {
+                haptic.bump();
+                try {
+                    const localData = getAllLocalData();
+                    await FirebaseService.saveToCloud(localData);
+                    setFirebaseMessage('✓ Data synced to cloud successfully');
+                    setTimeout(() => setFirebaseMessage(''), 3000);
+                } catch (error) {
+                    setFirebaseMessage('✗ Sync failed: ' + error.message);
+                    setTimeout(() => setFirebaseMessage(''), 5000);
+                }
+            };
+            
+            const handleSyncToggle = () => {
+                haptic.tick();
+                const newValue = !firebaseSyncEnabled;
+                setFirebaseSyncEnabled(newValue);
+                localStorage.setItem(FIREBASE_SYNC_ENABLED_KEY, newValue.toString());
+            };
+            
             return (
                 <div className="px-5 pb-32 pt-6">
                     <h2 className="text-2xl font-bold text-white mb-6">Settings</h2>
+                    
+                    {/* Firebase Sync Section */}
+                    <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
+                                <i data-lucide="cloud" width="24" className="text-sys-accent"></i>
+                            </div>
+                            <div>
+                                <h3 className="text-lg font-bold text-white">Firebase Sync</h3>
+                                <p className="text-xs text-sys-onSurfaceVar">Sync data across devices with Google Auth</p>
+                            </div>
+                        </div>
+                        
+                        {!FirebaseService.isFirebaseInitialized() ? (
+                            <>
+                                <p className="text-sm text-sys-onSurfaceVar mb-4">
+                                    Configure Firebase to enable cloud sync and Google authentication.
+                                </p>
+                                
+                                <button
+                                    onClick={() => setIsFirebaseConfigExpanded(!isFirebaseConfigExpanded)}
+                                    className="w-full h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform border border-white/5 mb-4"
+                                >
+                                    <i data-lucide={isFirebaseConfigExpanded ? "chevron-up" : "chevron-down"} width="18"></i>
+                                    <span>{isFirebaseConfigExpanded ? 'Hide' : 'Show'} Configuration</span>
+                                </button>
+                                
+                                {isFirebaseConfigExpanded && (
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">
+                                                API Key
+                                            </label>
+                                            <input 
+                                                type="text"
+                                                className="bg-sys-surfaceHigh rounded-xl w-full h-12 px-4 text-white font-mono text-sm outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
+                                                value={firebaseConfig.apiKey}
+                                                onChange={(e) => setFirebaseConfig({...firebaseConfig, apiKey: e.target.value})}
+                                                placeholder="AIzaSy..."
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">
+                                                Project ID
+                                            </label>
+                                            <input 
+                                                type="text"
+                                                className="bg-sys-surfaceHigh rounded-xl w-full h-12 px-4 text-white text-sm outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
+                                                value={firebaseConfig.projectId}
+                                                onChange={(e) => setFirebaseConfig({...firebaseConfig, projectId: e.target.value})}
+                                                placeholder="my-project-id"
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">
+                                                Auth Domain
+                                            </label>
+                                            <input 
+                                                type="text"
+                                                className="bg-sys-surfaceHigh rounded-xl w-full h-12 px-4 text-white text-sm outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
+                                                value={firebaseConfig.authDomain}
+                                                onChange={(e) => setFirebaseConfig({...firebaseConfig, authDomain: e.target.value})}
+                                                placeholder="my-project.firebaseapp.com"
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">
+                                                Database URL
+                                            </label>
+                                            <input 
+                                                type="text"
+                                                className="bg-sys-surfaceHigh rounded-xl w-full h-12 px-4 text-white text-sm outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
+                                                value={firebaseConfig.databaseURL}
+                                                onChange={(e) => setFirebaseConfig({...firebaseConfig, databaseURL: e.target.value})}
+                                                placeholder="https://my-project.firebaseio.com"
+                                            />
+                                        </div>
+                                        
+                                        <button 
+                                            onClick={handleFirebaseConfigSave}
+                                            className="w-full h-12 rounded-xl text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform btn-gradient-primary"
+                                        >
+                                            <i data-lucide="check" width="20"></i>
+                                            <span>Save Configuration</span>
+                                        </button>
+                                        
+                                        <p className="text-xs text-sys-onSurfaceVar">
+                                            Get these values from <a href="https://console.firebase.google.com" target="_blank" className="text-sys-accent underline">Firebase Console</a> → Project Settings
+                                        </p>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                {firebaseUser ? (
+                                    <>
+                                        <div className="mb-4 p-4 bg-sys-surfaceHigh rounded-xl">
+                                            <div className="flex items-center gap-3 mb-2">
+                                                {firebaseUser.photoURL && (
+                                                    <img src={firebaseUser.photoURL} alt="Profile" className="w-10 h-10 rounded-full" />
+                                                )}
+                                                <div>
+                                                    <div className="text-sm font-semibold text-white">{firebaseUser.displayName || 'User'}</div>
+                                                    <div className="text-xs text-sys-onSurfaceVar">{firebaseUser.email}</div>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-2 text-xs text-sys-success">
+                                                <i data-lucide="check-circle" width="14"></i>
+                                                <span>Signed in with Google</span>
+                                            </div>
+                                        </div>
+                                        
+                                        {/* Auto-sync toggle */}
+                                        <div className="mb-4 p-4 bg-sys-surfaceHigh rounded-xl">
+                                            <div className="flex items-start gap-3">
+                                                <button
+                                                    onClick={handleSyncToggle}
+                                                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${firebaseSyncEnabled ? 'bg-sys-success' : 'bg-sys-onSurfaceVar'}`}
+                                                >
+                                                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${firebaseSyncEnabled ? 'translate-x-6' : 'translate-x-1'}`}></span>
+                                                </button>
+                                                <div className="flex-1">
+                                                    <h4 className="text-sm font-semibold text-white mb-1">Automatic Sync</h4>
+                                                    <p className="text-xs text-sys-onSurfaceVar leading-relaxed">
+                                                        Automatically sync data to cloud when changes are made
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="flex gap-3">
+                                            <button 
+                                                onClick={handleManualSync}
+                                                className="flex-1 h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform border border-white/5"
+                                            >
+                                                <i data-lucide="refresh-cw" width="18"></i>
+                                                <span>Manual Sync</span>
+                                            </button>
+                                            
+                                            <button 
+                                                onClick={handleFirebaseLogout}
+                                                className="flex-1 h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform border border-white/5"
+                                            >
+                                                <i data-lucide="log-out" width="18"></i>
+                                                <span>Sign Out</span>
+                                            </button>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <p className="text-sm text-sys-onSurfaceVar mb-4">
+                                            Sign in with your Google account to sync your workout data across devices.
+                                        </p>
+                                        
+                                        <button 
+                                            onClick={handleFirebaseLogin}
+                                            className="w-full h-14 rounded-xl text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform btn-gradient-primary"
+                                        >
+                                            <i data-lucide="log-in" width="20"></i>
+                                            <span>Sign In with Google</span>
+                                        </button>
+                                    </>
+                                )}
+                            </>
+                        )}
+                        
+                        {firebaseMessage && (
+                            <div className={`mt-4 p-3 rounded-xl text-sm text-center ${
+                                firebaseMessage.startsWith('✓') 
+                                    ? 'bg-sys-success/10 border border-sys-success/30 text-sys-success' 
+                                    : 'bg-red-500/10 border border-red-500/30 text-red-500'
+                            }`}>
+                                {firebaseMessage}
+                            </div>
+                        )}
+                    </div>
                     
                     <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
                         <div className="flex items-center gap-3 mb-4">

@@ -58,55 +58,55 @@ describe('Back Navigation Logic', () => {
 });
 
 describe('Swipe Navigation Logic', () => {
-  it('should calculate right swipe correctly', () => {
-    const touchStart = 200;
-    const touchEnd = 100;
+  it('should NOT detect right swipe when finger moves left', () => {
+    const touchStart = 200; // Finger starts on right side
+    const touchEnd = 100;   // Finger ends on left side
     const threshold = 50;
     
     const distance = touchStart - touchEnd;
     const isRightSwipe = distance < -threshold;
     
     // touchStart (200) - touchEnd (100) = 100
-    // 100 < -50 is false, so this is NOT a right swipe
+    // 100 < -50 is false, so this is NOT a right swipe (finger moved left)
     expect(isRightSwipe).toBe(false);
   });
 
-  it('should detect right swipe when touch moves right', () => {
-    const touchStart = 100;
-    const touchEnd = 200;
+  it('should detect right swipe when finger moves right (left to right)', () => {
+    const touchStart = 100; // Finger starts on left side
+    const touchEnd = 200;   // Finger ends on right side
     const threshold = 50;
     
     const distance = touchStart - touchEnd;
     const isRightSwipe = distance < -threshold;
     
     // touchStart (100) - touchEnd (200) = -100
-    // -100 < -50 is true, so this IS a right swipe
+    // -100 < -50 is true, so this IS a right swipe (finger moved right)
     expect(isRightSwipe).toBe(true);
   });
 
-  it('should not trigger on small movements', () => {
-    const touchStart = 100;
-    const touchEnd = 130;
+  it('should not trigger on small movements below threshold', () => {
+    const touchStart = 100; // Start position
+    const touchEnd = 130;   // End position (30px to the right)
     const threshold = 50;
     
     const distance = touchStart - touchEnd;
     const isRightSwipe = distance < -threshold;
     
     // touchStart (100) - touchEnd (130) = -30
-    // -30 < -50 is false, so this is NOT a right swipe
+    // -30 < -50 is false (movement is only 30px, below 50px threshold)
     expect(isRightSwipe).toBe(false);
   });
 
-  it('should trigger on movements exceeding threshold', () => {
-    const touchStart = 100;
-    const touchEnd = 200;
+  it('should trigger right swipe when movement exceeds threshold', () => {
+    const touchStart = 100; // Start position
+    const touchEnd = 200;   // End position (100px to the right)
     const threshold = 50;
     
     const distance = touchStart - touchEnd;
     const isRightSwipe = distance < -threshold;
     
     // touchStart (100) - touchEnd (200) = -100
-    // -100 < -50 is true (movement exceeds threshold)
+    // -100 < -50 is true (movement is 100px, exceeds 50px threshold)
     expect(isRightSwipe).toBe(true);
   });
 });

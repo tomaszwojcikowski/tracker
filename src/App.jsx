@@ -3103,10 +3103,40 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                 <div className="text-xs text-sys-onSurfaceVar">{firebaseUser.email}</div>
                                             </div>
                                         </div>
-                                        <div className="flex items-center gap-2 text-xs text-sys-success">
+                                        <div className="flex items-center gap-2 text-xs text-sys-success mb-2">
                                             <i data-lucide="check-circle" width="14"></i>
                                             <span>Signed in with Google</span>
                                         </div>
+                                        {(() => {
+                                            const lastSync = FirebaseService.getLastSyncTime();
+                                            if (lastSync) {
+                                                const syncDate = new Date(lastSync);
+                                                const now = new Date();
+                                                const diffMs = now - syncDate;
+                                                const diffMins = Math.floor(diffMs / 60000);
+                                                const diffHours = Math.floor(diffMs / 3600000);
+                                                const diffDays = Math.floor(diffMs / 86400000);
+                                                
+                                                let timeAgo;
+                                                if (diffMins < 1) {
+                                                    timeAgo = 'just now';
+                                                } else if (diffMins < 60) {
+                                                    timeAgo = `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
+                                                } else if (diffHours < 24) {
+                                                    timeAgo = `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+                                                } else {
+                                                    timeAgo = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+                                                }
+                                                
+                                                return (
+                                                    <div className="flex items-center gap-2 text-xs text-sys-onSurfaceVar">
+                                                        <i data-lucide="clock" width="14"></i>
+                                                        <span>Last synced {timeAgo}</span>
+                                                    </div>
+                                                );
+                                            }
+                                            return null;
+                                        })()}
                                     </div>
                                     
                                     {/* Auto-sync toggle */}

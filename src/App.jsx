@@ -651,7 +651,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         };
         
         /**
-         * Merge cloud data with local data (cloud takes precedence)
+         * Merge cloud data with local data based on timestamps
          * @param {Object} cloudData - Data from Firebase
          */
         const mergeCloudData = (cloudData) => {
@@ -659,7 +659,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             
             console.log('Merging cloud data with local data');
             
-            // Merge settings
+            // Merge settings (always use cloud settings)
             if (cloudData.gemini_api_key) {
                 localStorage.setItem('gemini_api_key', cloudData.gemini_api_key);
             }
@@ -667,15 +667,45 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 localStorage.setItem('gemini_auto_sync', cloudData.gemini_auto_sync);
             }
             
-            // Merge exercise history
+            // Merge exercise history (always use cloud history)
             if (cloudData.exercise_history) {
                 safeSetJSON('exercise_history', cloudData.exercise_history);
             }
             
-            // Merge workout sessions
+            // Merge workout sessions based on timestamps
             if (cloudData.sessions) {
                 Object.keys(cloudData.sessions).forEach(key => {
-                    safeSetJSON(key, cloudData.sessions[key]);
+                    const cloudSession = cloudData.sessions[key];
+                    const localSession = safeGetJSON(key, null);
+                    
+                    // If no local session exists, use cloud data
+                    if (!localSession) {
+                        safeSetJSON(key, cloudSession);
+                        return;
+                    }
+                    
+                    // Compare timestamps to determine which version is newer
+                    const cloudTimestamp = cloudSession.lastModified;
+                    const localTimestamp = localSession.lastModified;
+                    
+                    // If either timestamp is missing, use cloud data (backward compatibility)
+                    if (!cloudTimestamp || !localTimestamp) {
+                        safeSetJSON(key, cloudSession);
+                        return;
+                    }
+                    
+                    // Compare timestamps and keep the newer version
+                    const cloudDate = new Date(cloudTimestamp);
+                    const localDate = new Date(localTimestamp);
+                    
+                    if (cloudDate > localDate) {
+                        // Cloud data is newer, use it
+                        console.log(`Using cloud data for ${key} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
+                        safeSetJSON(key, cloudSession);
+                    } else {
+                        // Local data is newer or equal, keep it
+                        console.log(`Keeping local data for ${key} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
+                    }
                 });
             }
             
@@ -950,7 +980,11 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             }, [showTimerToast, geminiSyncStatus]);
 
             const saveLog = (id, field, value) => {
-                const updatedLogs = { ...logs, [id]: { ...logs[id], [field]: value } };
+                const updatedLogs = { 
+                    ...logs, 
+                    [id]: { ...logs[id], [field]: value },
+                    lastModified: new Date().toISOString()
+                };
                 setLogs(updatedLogs);
                 
                 const success = safeSetJSON(`session_w${week}d${day}`, updatedLogs);
@@ -1079,8 +1113,12 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     const updatedAddedExercises = [...addedExercises, newExercise];
                     setAddedExercises(updatedAddedExercises);
                     
-                    // Save to storage
-                    const updatedLogs = { ...logs, addedExercises: updatedAddedExercises };
+                    // Save to storage with timestamp
+                    const updatedLogs = { 
+                        ...logs, 
+                        addedExercises: updatedAddedExercises,
+                        lastModified: new Date().toISOString()
+                    };
                     setLogs(updatedLogs);
                     safeSetJSON(`session_w${week}d${day}`, updatedLogs);
                     
@@ -1097,15 +1135,28 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 const updatedAddedExercises = addedExercises.filter(ex => ex.id !== exerciseId);
                 setAddedExercises(updatedAddedExercises);
                 
-                // Save to storage
-                const updatedLogs = { ...logs, addedExercises: updatedAddedExercises };
+                // Save to storage with timestamp
+                const updatedLogs = { 
+                    ...logs, 
+                    addedExercises: updatedAddedExercises,
+                    lastModified: new Date().toISOString()
+                };
                 setLogs(updatedLogs);
                 safeSetJSON(`session_w${week}d${day}`, updatedLogs);
             };
 
             const handleFinish = async () => {
                 try {
-                    const updatedLogs = { ...logs, completed: true, completedAt: new Date().toISOString(), week, day, workoutNotes };
+                    const timestamp = new Date().toISOString();
+                    const updatedLogs = { 
+                        ...logs, 
+                        completed: true, 
+                        completedAt: timestamp, 
+                        lastModified: timestamp,
+                        week, 
+                        day, 
+                        workoutNotes 
+                    };
                     setLogs(updatedLogs);
                     safeSetJSON(`session_w${week}d${day}`, updatedLogs);
                     
@@ -1278,8 +1329,12 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 value={workoutNotes}
                                 onChange={(e) => {
                                     setWorkoutNotes(e.target.value);
-                                    // Auto-save notes to localStorage
-                                    const updatedLogs = { ...logs, workoutNotes: e.target.value };
+                                    // Auto-save notes to localStorage with timestamp
+                                    const updatedLogs = { 
+                                        ...logs, 
+                                        workoutNotes: e.target.value,
+                                        lastModified: new Date().toISOString()
+                                    };
                                     setLogs(updatedLogs);
                                     safeSetJSON(`session_w${week}d${day}`, updatedLogs);
                                 }}

@@ -68,6 +68,7 @@ const mergeCloudData = (cloudData) => {
             
             // If no local session exists, use cloud data
             if (!localSession) {
+                console.log(`No local session for ${key}, using cloud data`);
                 safeSetJSON(key, cloudSession);
                 return;
             }
@@ -78,6 +79,7 @@ const mergeCloudData = (cloudData) => {
             
             // If either timestamp is missing, use cloud data (backward compatibility)
             if (!cloudTimestamp || !localTimestamp) {
+                console.log(`Missing timestamp for ${key}, using cloud data (cloud: ${cloudTimestamp || 'none'}, local: ${localTimestamp || 'none'})`);
                 safeSetJSON(key, cloudSession);
                 return;
             }

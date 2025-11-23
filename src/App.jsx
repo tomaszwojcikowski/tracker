@@ -652,7 +652,23 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         
         /**
          * Merge cloud data with local data based on timestamps
+         * 
+         * For workout sessions, this function compares the `lastModified` timestamp
+         * of local and cloud versions, keeping the newer version.
+         * 
+         * Fallback behavior (in order of precedence):
+         * 1. If no local session exists: use cloud data
+         * 2. If either timestamp is missing: use cloud data (backward compatibility)
+         * 3. If either timestamp is invalid (NaN): use cloud data
+         * 4. Otherwise: compare timestamps and keep the newer version
+         * 
+         * Note: Settings and exercise history always use cloud data (no timestamp comparison)
+         * 
          * @param {Object} cloudData - Data from Firebase
+         * @param {Object} cloudData.sessions - Workout session data keyed by session_wXdY
+         * @param {string} cloudData.gemini_api_key - Gemini API key
+         * @param {string} cloudData.gemini_auto_sync - Auto-sync setting
+         * @param {Object} cloudData.exercise_history - Exercise history data
          */
         const mergeCloudData = (cloudData) => {
             if (!cloudData) return;
@@ -680,6 +696,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     
                     // If no local session exists, use cloud data
                     if (!localSession) {
+                        console.log(`No local session for ${key}, using cloud data`);
                         safeSetJSON(key, cloudSession);
                         return;
                     }
@@ -690,6 +707,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     
                     // If either timestamp is missing, use cloud data (backward compatibility)
                     if (!cloudTimestamp || !localTimestamp) {
+                        console.log(`Missing timestamp for ${key}, using cloud data (cloud: ${cloudTimestamp || 'none'}, local: ${localTimestamp || 'none'})`);
                         safeSetJSON(key, cloudSession);
                         return;
                     }

@@ -264,6 +264,24 @@
             return { onTouchStart, onTouchMove, onTouchEnd };
         };
 
+        // --- DEBOUNCE HOOK ---
+        // Debounces a value to reduce excessive updates
+        const useDebounce = (value, delay = DEBOUNCE_DELAY_MS) => {
+            const [debouncedValue, setDebouncedValue] = useState(value);
+            
+            useEffect(() => {
+                const handler = setTimeout(() => {
+                    setDebouncedValue(value);
+                }, delay);
+                
+                return () => {
+                    clearTimeout(handler);
+                };
+            }, [value, delay]);
+            
+            return debouncedValue;
+        };
+
         // --- GENERIC LUCIDE ICON REFRESH HOOK ---
         // Ensures Lucide icons are re-rendered after React updates
         const useLucideIcons = (deps = []) => {
@@ -286,7 +304,13 @@
             }, deps);
         };
 
-
+        // --- APPLICATION CONSTANTS ---
+        const MAX_SETS = 20; // Maximum number of sets per exercise
+        const MAX_WEIGHT_KG = 999; // Maximum weight in kilograms
+        const WEIGHT_INCREMENT_KG = 2.5; // Standard weight increment/decrement
+        const WEIGHT_STEP = 0.5; // Minimum weight step for input
+        const FETCH_TIMEOUT_MS = 10000; // Fetch timeout in milliseconds (10 seconds)
+        const DEBOUNCE_DELAY_MS = 300; // Debounce delay for search inputs in milliseconds
 
         const PROGRAM_DATA = {
             blocks: [
@@ -526,14 +550,21 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         };
 
         const sendWorkoutToGemini = async (week, day, workout, logs, addedExercises = []) => {
-            const apiKey = localStorage.getItem('gemini_api_key');
-            if (!apiKey) {
-                console.log('Gemini API key not configured, skipping sync');
-                return { success: false, error: 'API key not configured' };
-            }
-            
-            // Get or initialize chat history
-            const chatHistory = initializeGeminiChat();
+            try {
+                const apiKey = localStorage.getItem('gemini_api_key');
+                if (!apiKey || typeof apiKey !== 'string' || apiKey.trim() === '') {
+                    console.log('Gemini API key not configured, skipping sync');
+                    return { success: false, error: 'API key not configured' };
+                }
+                
+                // Validate input parameters
+                if (!week || !day || !workout || !logs) {
+                    console.error('Invalid parameters for Gemini sync');
+                    return { success: false, error: 'Invalid workout data' };
+                }
+                
+                // Get or initialize chat history
+                const chatHistory = initializeGeminiChat();
             
             // Format workout data for Gemini
             const workoutSummary = formatWorkoutForGemini(week, day, workout, logs, addedExercises);
@@ -591,7 +622,22 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 return { success: true, data };
             } catch (error) {
                 console.error('Failed to send workout to Gemini:', error);
-                return { success: false, error: error.message };
+                
+                // Provide more user-friendly error messages
+                let userMessage = error.message || 'Network error';
+                if (error.message && error.message.includes('API error: 400')) {
+                    userMessage = 'Invalid API key or request';
+                } else if (error.message && error.message.includes('API error: 401')) {
+                    userMessage = 'Invalid API key';
+                } else if (error.message && error.message.includes('API error: 403')) {
+                    userMessage = 'API access denied';
+                } else if (error.message && error.message.includes('API error: 429')) {
+                    userMessage = 'Rate limit exceeded, try again later';
+                } else if (error.message && (error.message.includes('Failed to fetch') || error.message.includes('Network'))) {
+                    userMessage = 'Network error - check your connection';
+                }
+                
+                return { success: false, error: userMessage };
             }
         };
         
@@ -655,20 +701,62 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
 
         // Update exercise history with a new entry
         const updateExerciseHistory = (exerciseName, entry) => {
-            const history = JSON.parse(localStorage.getItem(EXERCISE_HISTORY_KEY) || '{}');
-            
-            if (!history[exerciseName]) {
-                history[exerciseName] = [];
+            try {
+                const history = JSON.parse(localStorage.getItem(EXERCISE_HISTORY_KEY) || '{}');
+                
+                // Validate history structure
+                if (typeof history !== 'object' || history === null) {
+                    console.warn('Invalid exercise history, resetting');
+                    localStorage.setItem(EXERCISE_HISTORY_KEY, JSON.stringify({}));
+                    return;
+                }
+                
+                if (!history[exerciseName]) {
+                    history[exerciseName] = [];
+                }
+                
+                // Validate exercise name and entry
+                if (!exerciseName || typeof exerciseName !== 'string') {
+                    console.error('Invalid exercise name:', exerciseName);
+                    return;
+                }
+                
+                if (!entry || typeof entry !== 'object') {
+                    console.error('Invalid history entry:', entry);
+                    return;
+                }
+                
+                history[exerciseName].push(entry);
+                localStorage.setItem(EXERCISE_HISTORY_KEY, JSON.stringify(history));
+            } catch (error) {
+                console.error('Failed to update exercise history:', error);
             }
-            
-            history[exerciseName].push(entry);
-            localStorage.setItem(EXERCISE_HISTORY_KEY, JSON.stringify(history));
         };
 
         // Get history for a specific exercise
         const getExerciseHistory = (exerciseName) => {
-            const history = JSON.parse(localStorage.getItem(EXERCISE_HISTORY_KEY) || '{}');
-            return history[exerciseName] || [];
+            try {
+                const history = JSON.parse(localStorage.getItem(EXERCISE_HISTORY_KEY) || '{}');
+                
+                // Validate history structure
+                if (typeof history !== 'object' || history === null) {
+                    console.warn('Invalid exercise history structure');
+                    return [];
+                }
+                
+                const exerciseHistory = history[exerciseName] || [];
+                
+                // Validate that it's an array
+                if (!Array.isArray(exerciseHistory)) {
+                    console.warn(`Invalid history for ${exerciseName}, expected array`);
+                    return [];
+                }
+                
+                return exerciseHistory;
+            } catch (error) {
+                console.error('Failed to get exercise history:', error);
+                return [];
+            }
         };
 
         // Calculate stats for an exercise
@@ -773,19 +861,36 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [showExerciseHistory, setShowExerciseHistory] = useState(null); // null or exercise name
             const haptic = useHaptic();
             
+            // Debounce exercise selector search term
+            const debouncedExerciseSearch = useDebounce(exerciseSearchTerm, DEBOUNCE_DELAY_MS);
+            
             // Generic Lucide icon refresh hook - ensures icons render after React updates
             // Runs when UI state changes that affect icon visibility
             useLucideIcons([collapsedExercises, showTimerToast, geminiSyncStatus, showExerciseSelector, showExerciseHistory]);
 
             useEffect(() => {
-                const saved = localStorage.getItem(`session_w${week}d${day}`);
-                if (saved) {
-                    const parsedLogs = JSON.parse(saved);
-                    setLogs(parsedLogs);
-                    // Load added exercises from storage
-                    if (parsedLogs.addedExercises) {
-                        setAddedExercises(parsedLogs.addedExercises);
+                try {
+                    const saved = localStorage.getItem(`session_w${week}d${day}`);
+                    if (saved) {
+                        const parsedLogs = JSON.parse(saved);
+                        // Validate parsed data structure
+                        if (parsedLogs && typeof parsedLogs === 'object') {
+                            setLogs(parsedLogs);
+                            // Load added exercises from storage
+                            if (Array.isArray(parsedLogs.addedExercises)) {
+                                setAddedExercises(parsedLogs.addedExercises);
+                            }
+                        } else {
+                            console.warn('Invalid workout session data, resetting');
+                            setLogs({});
+                            setAddedExercises([]);
+                        }
                     }
+                } catch (error) {
+                    console.error('Failed to load workout session:', error);
+                    // Reset to empty state on error
+                    setLogs({});
+                    setAddedExercises([]);
                 }
                 lucide.createIcons();
             }, [week, day]);
@@ -797,7 +902,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     setTimerActive(false); 
                     haptic.timer();
                     setShowTimerToast(true);
-                    setTimeout(() => setShowTimerToast(false), 3000);
+                    // Toast will remain visible until user closes it
                 }
                 return () => clearInterval(interval);
             }, [timerActive, timerSeconds, haptic]);
@@ -819,26 +924,62 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     });
                 }
             }, [geminiSyncStatus]);
+            
+            // Keyboard shortcuts for toasts
+            useEffect(() => {
+                const handleKeyDown = (e) => {
+                    // Escape key closes any visible toast
+                    if (e.key === 'Escape') {
+                        if (showTimerToast) {
+                            setShowTimerToast(false);
+                        }
+                        if (geminiSyncStatus) {
+                            setGeminiSyncStatus(null);
+                            setGeminiErrorMessage('');
+                        }
+                    }
+                };
+                
+                window.addEventListener('keydown', handleKeyDown);
+                return () => window.removeEventListener('keydown', handleKeyDown);
+            }, [showTimerToast, geminiSyncStatus]);
 
             const saveLog = (id, field, value) => {
-                const updatedLogs = { ...logs, [id]: { ...logs[id], [field]: value } };
-                setLogs(updatedLogs);
-                localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
+                try {
+                    const updatedLogs = { ...logs, [id]: { ...logs[id], [field]: value } };
+                    setLogs(updatedLogs);
+                    localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
+                } catch (error) {
+                    console.error('Failed to save workout log:', error);
+                    // Show error toast to user
+                    alert('Failed to save progress. Your storage might be full.');
+                }
             };
 
             const toggleSet = (exId, setIndex, defaultSets, restTime) => {
-                haptic.tick();
-                const currentSets = logs[exId]?.sets || new Array(defaultSets).fill(false);
-                const newSets = [...currentSets];
-                while(newSets.length <= setIndex) newSets.push(false);
-                const wasCompleted = newSets[setIndex];
-                newSets[setIndex] = !newSets[setIndex];
-                saveLog(exId, 'sets', newSets);
-                
-                // Auto-start timer when completing a set (not when uncompleting)
-                if (!wasCompleted && newSets[setIndex] && restTime > 0) {
-                    setTimerSeconds(restTime);
-                    setTimerActive(true);
+                try {
+                    haptic.tick();
+                    
+                    // Validate inputs
+                    if (!exId || setIndex < 0 || !Number.isInteger(setIndex)) {
+                        console.error('Invalid set toggle parameters:', { exId, setIndex, defaultSets });
+                        return;
+                    }
+                    
+                    const currentSets = logs[exId]?.sets || new Array(defaultSets).fill(false);
+                    const newSets = [...currentSets];
+                    while(newSets.length <= setIndex) newSets.push(false);
+                    const wasCompleted = newSets[setIndex];
+                    newSets[setIndex] = !newSets[setIndex];
+                    saveLog(exId, 'sets', newSets);
+                    
+                    // Auto-start timer when completing a set (not when uncompleting)
+                    if (!wasCompleted && newSets[setIndex] && typeof restTime === 'number' && !isNaN(restTime) && restTime > 0) {
+                        setTimerSeconds(restTime);
+                        setTimerActive(true);
+                    }
+                } catch (error) {
+                    console.error('Failed to toggle set:', error);
                 }
             };
 
@@ -883,26 +1024,48 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             };
             
             const addExerciseToWorkout = (exercise, sets = 3, weight = '') => {
-                haptic.success();
-                const newExercise = {
-                    id: exercise.id,
-                    name: exercise.name,
-                    sets: sets,
-                    isBodyweight: exercise.isBodyweight,
-                    equipment: exercise.equipment,
-                    primaryMuscles: exercise.primaryMuscles,
-                    weight: weight
-                };
-                const updatedAddedExercises = [...addedExercises, newExercise];
-                setAddedExercises(updatedAddedExercises);
-                
-                // Save to storage
-                const updatedLogs = { ...logs, addedExercises: updatedAddedExercises };
-                setLogs(updatedLogs);
-                localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
-                
-                setShowExerciseSelector(false);
-                setExerciseSearchTerm('');
+                try {
+                    // Validate exercise data
+                    if (!exercise || !exercise.id || !exercise.name) {
+                        console.error('Invalid exercise data:', exercise);
+                        alert('Failed to add exercise: Invalid exercise data');
+                        return;
+                    }
+                    
+                    // Validate sets
+                    const validSets = Number.isInteger(sets) && sets > 0 && sets <= MAX_SETS ? sets : 3;
+                    
+                    // Check for duplicates
+                    const isDuplicate = addedExercises.some(ex => ex.id === exercise.id);
+                    if (isDuplicate) {
+                        alert('This exercise has already been added to the workout');
+                        return;
+                    }
+                    
+                    haptic.success();
+                    const newExercise = {
+                        id: exercise.id,
+                        name: exercise.name,
+                        sets: validSets,
+                        isBodyweight: exercise.isBodyweight || false,
+                        equipment: exercise.equipment || [],
+                        primaryMuscles: exercise.primaryMuscles || [],
+                        weight: weight
+                    };
+                    const updatedAddedExercises = [...addedExercises, newExercise];
+                    setAddedExercises(updatedAddedExercises);
+                    
+                    // Save to storage
+                    const updatedLogs = { ...logs, addedExercises: updatedAddedExercises };
+                    setLogs(updatedLogs);
+                    localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
+                    
+                    setShowExerciseSelector(false);
+                    setExerciseSearchTerm('');
+                } catch (error) {
+                    console.error('Failed to add exercise:', error);
+                    alert('Failed to add exercise. Please try again.');
+                }
             };
             
             const removeAddedExercise = (exerciseId) => {
@@ -917,11 +1080,12 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             };
 
             const handleFinish = async () => {
-                const updatedLogs = { ...logs, completed: true, completedAt: new Date().toISOString(), week, day };
-                setLogs(updatedLogs);
-                localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
-                
-                const completionDate = new Date().toISOString();
+                try {
+                    const updatedLogs = { ...logs, completed: true, completedAt: new Date().toISOString(), week, day };
+                    setLogs(updatedLogs);
+                    localStorage.setItem(`session_w${week}d${day}`, JSON.stringify(updatedLogs));
+                    
+                    const completionDate = new Date().toISOString();
                 
                 // Build exercise summary with completed/incomplete sets
                 const exerciseSummary = [];
@@ -1030,28 +1194,26 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 }
                                 
                                 setGeminiSyncStatus('success');
-                                setTimeout(() => setGeminiSyncStatus(null), 3000);
+                                // Toast will remain visible until user closes it
                             } else {
                                 setGeminiSyncStatus('error');
                                 setGeminiErrorMessage(result.error || 'Unknown error');
-                                setTimeout(() => {
-                                    setGeminiSyncStatus(null);
-                                    setGeminiErrorMessage('');
-                                }, 5000);
+                                // Toast will remain visible until user closes it
                             }
                         })
                         .catch(error => {
                             console.error('Unexpected error sending workout to Gemini:', error);
                             setGeminiSyncStatus('error');
                             setGeminiErrorMessage(error.message || 'Network error');
-                            setTimeout(() => {
-                                setGeminiSyncStatus(null);
-                                setGeminiErrorMessage('');
-                            }, 5000);
+                            // Toast will remain visible until user closes it
                         });
                 }
                 
                 onComplete();
+                } catch (error) {
+                    console.error('Failed to complete workout:', error);
+                    alert('Failed to save workout completion. Please try again.');
+                }
             };
 
             // Check if there are any incomplete exercises
@@ -1271,10 +1433,12 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                     onClick={() => {
                                                                         haptic.tick();
                                                                         const current = parseFloat(logs[exId]?.weight || '0');
-                                                                        saveLog(exId, 'weight', Math.max(0, current - 2.5).toString());
+                                                                        if (!isNaN(current)) {
+                                                                            saveLog(exId, 'weight', Math.max(0, current - WEIGHT_INCREMENT_KG).toString());
+                                                                        }
                                                                     }}
                                                                     className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
-                                                                    aria-label="Decrease weight by 2.5kg"
+                                                                    aria-label={`Decrease weight by ${WEIGHT_INCREMENT_KG}kg`}
                                                                 >
                                                                     <i data-lucide="minus" width="18"></i>
                                                                 </button>
@@ -1282,9 +1446,18 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                     id={`${exId}-weight`}
                                                                     type="number" 
                                                                     inputMode="decimal"
+                                                                    min="0"
+                                                                    max={MAX_WEIGHT_KG}
+                                                                    step={WEIGHT_STEP}
                                                                     className="bg-sys-surfaceHigh rounded-xl flex-1 min-w-0 h-14 px-3 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
                                                                     value={logs[exId]?.weight || ''} 
-                                                                    onChange={(e) => saveLog(exId, 'weight', e.target.value)} 
+                                                                    onChange={(e) => {
+                                                                        const value = e.target.value;
+                                                                        // Allow empty string or valid positive numbers within range
+                                                                        if (value === '' || (!isNaN(value) && parseFloat(value) >= 0 && parseFloat(value) <= MAX_WEIGHT_KG)) {
+                                                                            saveLog(exId, 'weight', value);
+                                                                        }
+                                                                    }} 
                                                                     placeholder="0"
                                                                     aria-label="Weight in kilograms"
                                                                 />
@@ -1292,10 +1465,12 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                     onClick={() => {
                                                                         haptic.tick();
                                                                         const current = parseFloat(logs[exId]?.weight || '0');
-                                                                        saveLog(exId, 'weight', (current + 2.5).toString());
+                                                                        if (!isNaN(current) && current < MAX_WEIGHT_KG) {
+                                                                            saveLog(exId, 'weight', Math.min(MAX_WEIGHT_KG, current + WEIGHT_INCREMENT_KG).toString());
+                                                                        }
                                                                     }}
                                                                     className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
-                                                                    aria-label="Increase weight by 2.5kg"
+                                                                    aria-label={`Increase weight by ${WEIGHT_INCREMENT_KG}kg`}
                                                                 >
                                                                     <i data-lucide="plus" width="18"></i>
                                                                 </button>
@@ -1478,41 +1653,69 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     {/* Timer Completion Toast */}
                     {showTimerToast && (
                         <div className="fixed top-20 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
-                            <div className="bg-sys-accent px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3">
-                                <i data-lucide="check-circle-2" width="24" className="text-white"></i>
-                                <span className="text-white font-bold text-base">Rest Complete!</span>
+                            <div className="bg-sys-accent px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-md w-full border border-white/10">
+                                <i data-lucide="check-circle-2" width="24" className="text-white flex-shrink-0"></i>
+                                <span className="text-white font-bold text-base flex-1">Rest Complete!</span>
+                                <button 
+                                    onClick={() => { haptic.tick(); setShowTimerToast(false); }}
+                                    className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
+                                    aria-label="Close notification"
+                                >
+                                    <i data-lucide="x" width="18"></i>
+                                </button>
                             </div>
                         </div>
                     )}
                     
                     {/* Gemini Sync Status Toast */}
                     {geminiSyncStatus && (
-                        <div className="fixed top-24 left-0 right-0 z-50 flex justify-center px-4 safe-pt">
-                            <div className={`px-6 py-4 rounded-2xl shadow-lg max-w-md w-full ${
+                        <div className="fixed top-24 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
+                            <div className={`px-6 py-4 rounded-2xl shadow-lg max-w-md w-full border border-white/10 ${
                                 geminiSyncStatus === 'syncing' ? 'bg-sys-accent' :
                                 geminiSyncStatus === 'success' ? 'bg-sys-success' :
-                                'bg-red-500'
+                                'bg-red-600'
                             }`}>
                                 {geminiSyncStatus === 'syncing' && (
                                     <div className="flex items-center gap-3">
-                                        <i data-lucide="loader" width="24" className="text-white animate-spin"></i>
-                                        <span className="text-white font-bold text-base">Syncing to Gemini...</span>
+                                        <i data-lucide="loader" width="24" className="text-white animate-spin flex-shrink-0"></i>
+                                        <span className="text-white font-bold text-base flex-1">Syncing to Gemini...</span>
+                                        <button 
+                                            onClick={() => { haptic.tick(); setGeminiSyncStatus(null); setGeminiErrorMessage(''); }}
+                                            className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
+                                            aria-label="Close notification"
+                                        >
+                                            <i data-lucide="x" width="18"></i>
+                                        </button>
                                     </div>
                                 )}
                                 {geminiSyncStatus === 'success' && (
                                     <div className="flex items-center gap-3">
-                                        <i data-lucide="check-circle-2" width="24" className="text-white"></i>
-                                        <span className="text-white font-bold text-base">Synced to Gemini!</span>
+                                        <i data-lucide="check-circle-2" width="24" className="text-white flex-shrink-0"></i>
+                                        <span className="text-white font-bold text-base flex-1">Synced to Gemini!</span>
+                                        <button 
+                                            onClick={() => { haptic.tick(); setGeminiSyncStatus(null); setGeminiErrorMessage(''); }}
+                                            className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
+                                            aria-label="Close notification"
+                                        >
+                                            <i data-lucide="x" width="18"></i>
+                                        </button>
                                     </div>
                                 )}
                                 {geminiSyncStatus === 'error' && (
                                     <div>
                                         <div className="flex items-center gap-3 mb-2">
-                                            <i data-lucide="alert-circle" width="24" className="text-white"></i>
-                                            <span className="text-white font-bold text-base">Sync Failed</span>
+                                            <i data-lucide="alert-circle" width="24" className="text-white flex-shrink-0"></i>
+                                            <span className="text-white font-bold text-base flex-1">Sync Failed</span>
+                                            <button 
+                                                onClick={() => { haptic.tick(); setGeminiSyncStatus(null); setGeminiErrorMessage(''); }}
+                                                className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
+                                                aria-label="Close notification"
+                                            >
+                                                <i data-lucide="x" width="18"></i>
+                                            </button>
                                         </div>
                                         {geminiErrorMessage && (
-                                            <p className="text-white/90 text-sm ml-9">{geminiErrorMessage}</p>
+                                            <p className="text-white/90 text-sm ml-9 pr-11">{geminiErrorMessage}</p>
                                         )}
                                     </div>
                                 )}
@@ -1569,9 +1772,9 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     <div className="space-y-3">
                                         {EXERCISE_LIBRARY
                                             .filter(ex => {
-                                                const searchMatch = !exerciseSearchTerm || 
-                                                    ex.name.toLowerCase().includes(exerciseSearchTerm.toLowerCase()) ||
-                                                    ex.primaryMuscles.some(m => m.toLowerCase().includes(exerciseSearchTerm.toLowerCase()));
+                                                const searchMatch = !debouncedExerciseSearch || 
+                                                    ex.name.toLowerCase().includes(debouncedExerciseSearch.toLowerCase()) ||
+                                                    ex.primaryMuscles.some(m => m.toLowerCase().includes(debouncedExerciseSearch.toLowerCase()));
                                                 const categoryMatch = selectedMuscleFilter === 'all' || ex.category === selectedMuscleFilter;
                                                 return searchMatch && categoryMatch;
                                             })
@@ -1779,7 +1982,15 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             }, [currentWeek]);
 
             const isCompleted = (day) => {
-                try { return JSON.parse(localStorage.getItem(`session_w${currentWeek}d${day}`)).completed; } catch(e) { return false; }
+                try { 
+                    const session = localStorage.getItem(`session_w${currentWeek}d${day}`);
+                    if (!session) return false;
+                    const parsed = JSON.parse(session);
+                    return parsed && typeof parsed === 'object' && parsed.completed === true;
+                } catch(e) { 
+                    console.warn(`Failed to check completion status for week ${currentWeek} day ${day}:`, e);
+                    return false; 
+                }
             };
 
             const currentBlock = PROGRAM_DATA.blocks.find(b => b.weeks.includes(currentWeek)) || { name: "Unknown" };
@@ -1873,8 +2084,31 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const haptic = useHaptic();
             
             const loadHistory = () => {
-                const h = JSON.parse(localStorage.getItem('global_history') || '[]');
-                setHistory(h.sort((a, b) => new Date(b.date) - new Date(a.date)));
+                try {
+                    const h = JSON.parse(localStorage.getItem('global_history') || '[]');
+                    
+                    // Validate that history is an array
+                    if (!Array.isArray(h)) {
+                        console.warn('Invalid history format, resetting');
+                        setHistory([]);
+                        return;
+                    }
+                    
+                    // Filter out invalid entries and sort
+                    const validHistory = h.filter(entry => 
+                        entry && 
+                        typeof entry === 'object' && 
+                        entry.week && 
+                        entry.day && 
+                        entry.date
+                    );
+                    
+                    setHistory(validHistory.sort((a, b) => new Date(b.date) - new Date(a.date)));
+                } catch (error) {
+                    console.error('Failed to load history:', error);
+                    setHistory([]);
+                }
+                
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => lucide.createIcons());
                 });
@@ -2337,17 +2571,20 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [showOnlyTracked, setShowOnlyTracked] = useState(false);
             const haptic = useHaptic();
 
+            // Debounce search term to improve performance
+            const debouncedSearchTerm = useDebounce(searchTerm, DEBOUNCE_DELAY_MS);
+
             const trackedExercises = getAllExercisesWithHistory();
 
             // Get all exercises to display
             const exercisesToShow = useMemo(() => {
                 let exercises = [...EXERCISE_LIBRARY];
                 
-                // Filter by search term
-                if (searchTerm) {
+                // Filter by search term (using debounced value)
+                if (debouncedSearchTerm) {
                     exercises = exercises.filter(ex =>
-                        ex.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        ex.primaryMuscles.some(m => m.toLowerCase().includes(searchTerm.toLowerCase()))
+                        ex.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+                        ex.primaryMuscles.some(m => m.toLowerCase().includes(debouncedSearchTerm.toLowerCase()))
                     );
                 }
                 
@@ -2362,7 +2599,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 }
                 
                 return exercises;
-            }, [searchTerm, categoryFilter, showOnlyTracked, trackedExercises]);
+            }, [debouncedSearchTerm, categoryFilter, showOnlyTracked, trackedExercises]);
 
             useEffect(() => {
                 requestAnimationFrame(() => {
@@ -2922,41 +3159,87 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
 
         // Loading component to show while fetching data
         const LoadingScreen = () => (
-            <div className="min-h-screen bg-sys-black text-white flex items-center justify-center">
-                <div className="text-center">
-                    <div className="text-2xl font-bold mb-2">Loading...</div>
-                    <div className="text-sys-onSurfaceVar">Loading workout schedule</div>
+            <div className="min-h-screen bg-sys-black text-white flex items-center justify-center p-5">
+                <div className="text-center max-w-md">
+                    <div className="mb-6">
+                        <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mx-auto mb-4 animate-pulse">
+                            <svg className="w-10 h-10 text-sys-accent animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </div>
+                        <div className="text-2xl font-bold mb-2 text-white">Loading...</div>
+                        <div className="text-sm text-sys-onSurfaceVar">Loading workout schedule and exercises</div>
+                    </div>
                 </div>
             </div>
         );
 
         // Error component for loading failures
-        const ErrorScreen = ({ message }) => (
-            <div className="min-h-screen bg-sys-black text-white flex items-center justify-center p-5">
-                <div className="text-center">
-                    <div className="text-2xl font-bold mb-2 text-red-500">Error</div>
-                    <div className="text-sys-onSurfaceVar">{message}</div>
+        const ErrorScreen = ({ message }) => {
+            const handleRetry = () => {
+                window.location.reload();
+            };
+            
+            return (
+                <div className="min-h-screen bg-sys-black text-white flex items-center justify-center p-5">
+                    <div className="text-center max-w-md">
+                        <div className="mb-6">
+                            <div className="h-20 w-20 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-4">
+                                <svg className="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div className="text-2xl font-bold mb-2 text-red-500">Failed to Load</div>
+                            <div className="text-sm text-sys-onSurfaceVar mb-6">{message}</div>
+                            <button 
+                                onClick={handleRetry}
+                                className="h-12 px-6 rounded-xl bg-sys-accent text-white font-semibold active:scale-95 transition-transform"
+                            >
+                                Try Again
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        };
 
         // Initialize the app with loading state
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<LoadingScreen />);
 
-        // Load both schedule and exercise library data
+        // Load both schedule and exercise library data with timeout
+        const fetchWithTimeout = (url, timeout = FETCH_TIMEOUT_MS) => {
+            return Promise.race([
+                fetch(url),
+                new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Request timeout')), timeout)
+                )
+            ]);
+        };
+        
         Promise.all([
-            fetch('full-schedule.json').then(response => {
+            fetchWithTimeout('full-schedule.json').then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error loading schedule! status: ${response.status}`);
                 }
                 return response.json();
+            }).catch(error => {
+                if (error.message === 'Request timeout') {
+                    throw new Error('Network timeout - check your connection');
+                }
+                throw error;
             }),
-            fetch('exercises.json').then(response => {
+            fetchWithTimeout('exercises.json').then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error loading exercises! status: ${response.status}`);
                 }
                 return response.json();
+            }).catch(error => {
+                if (error.message === 'Request timeout') {
+                    throw new Error('Network timeout - check your connection');
+                }
+                throw error;
             })
         ])
             .then(([scheduleData, exercisesData]) => {

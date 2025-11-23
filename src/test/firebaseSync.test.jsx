@@ -86,6 +86,13 @@ const mergeCloudData = (cloudData) => {
             const cloudDate = new Date(cloudTimestamp);
             const localDate = new Date(localTimestamp);
             
+            // Check for invalid dates (NaN) - if either is invalid, use cloud data
+            if (isNaN(cloudDate.getTime()) || isNaN(localDate.getTime())) {
+                console.log(`Invalid timestamp detected for ${key}, using cloud data (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
+                safeSetJSON(key, cloudSession);
+                return;
+            }
+            
             if (cloudDate > localDate) {
                 // Cloud data is newer, use it
                 console.log(`Using cloud data for ${key} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
@@ -354,13 +361,13 @@ describe('Firebase Sync - Timestamp-based merging', () => {
                 }
             };
 
-            // Should default to using cloud data when timestamp comparison fails
+            // Should default to using cloud data when timestamp is invalid
             mergeCloudData(cloudData);
 
             const mergedSession = safeGetJSON('session_w1d1');
-            // The function creates Date objects from both timestamps
-            // Invalid date results in NaN comparison, which defaults to cloud data
-            expect(mergedSession).toBeDefined();
+            // Invalid timestamp should trigger fallback to cloud data
+            expect(mergedSession).toEqual(cloudData.sessions['session_w1d1']);
+            expect(mergedSession['exercise_1'].weight).toBe(50);
         });
     });
 

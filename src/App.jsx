@@ -698,6 +698,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     const cloudDate = new Date(cloudTimestamp);
                     const localDate = new Date(localTimestamp);
                     
+                    // Check for invalid dates (NaN) - if either is invalid, use cloud data
+                    if (isNaN(cloudDate.getTime()) || isNaN(localDate.getTime())) {
+                        console.log(`Invalid timestamp detected for ${key}, using cloud data (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
+                        safeSetJSON(key, cloudSession);
+                        return;
+                    }
+                    
                     if (cloudDate > localDate) {
                         // Cloud data is newer, use it
                         console.log(`Using cloud data for ${key} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);

@@ -2,6 +2,36 @@
 
 This guide explains how to deploy the tracker application to production.
 
+## Automated Deployment (Recommended)
+
+This repository includes a GitHub Actions workflow that automatically builds and deploys the application to GitHub Pages.
+
+### Setup GitHub Pages Deployment
+
+1. Go to your repository settings on GitHub
+2. Navigate to **Settings** → **Pages**
+3. Under **Source**, select **GitHub Actions**
+4. Push to the `main` branch to trigger automatic deployment
+
+The workflow will:
+- Build the application using `npm ci` and `npm run build`
+- Deploy the `dist/` directory to GitHub Pages
+- Provide the deployment URL in the workflow summary
+
+### Manual Workflow Trigger
+
+You can also manually trigger the deployment:
+1. Go to **Actions** tab in your repository
+2. Select **Build and Deploy** workflow
+3. Click **Run workflow** button
+
+### Workflow Features
+
+- **Automatic deployment**: Triggers on every push to `main` branch
+- **Build validation**: Runs build on pull requests without deploying
+- **Node.js caching**: Faster builds with npm dependency caching
+- **Concurrency control**: Prevents multiple simultaneous deployments
+
 ## Building for Production
 
 ```bash
@@ -14,15 +44,15 @@ npm run build
 
 The build output will be in the `dist/` directory.
 
-## Deployment Options
+## Manual Deployment Options
 
-### Option 1: Static Hosting (Recommended)
+### Option 1: Static Hosting
 
 The `dist/` directory contains a static website that can be deployed to any static hosting service:
 
 - **Vercel**: `vercel --prod`
 - **Netlify**: Drag and drop the `dist/` folder to Netlify
-- **GitHub Pages**: Copy contents of `dist/` to the gh-pages branch
+- **GitHub Pages** (manual): Copy contents of `dist/` to the gh-pages branch
 - **AWS S3**: Upload `dist/` contents to an S3 bucket with static website hosting
 - **Cloudflare Pages**: Connect your repo and set build command to `npm run build`
 

@@ -2189,7 +2189,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
 
             const isCompleted = (day) => {
                 const session = safeGetJSON(`session_w${currentWeek}d${day}`, null);
-                return session && typeof session === 'object' && session.completed === true;
+                return session?.completed === true;
             };
 
             const currentBlock = PROGRAM_DATA.blocks.find(b => b.weeks.includes(currentWeek)) || { name: "Unknown" };
@@ -3847,7 +3847,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             );
         };
 
-        // ============================================================================
         // ============================================================================
         // SECTION 11: APPLICATION INITIALIZATION
         // ============================================================================

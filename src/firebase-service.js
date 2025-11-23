@@ -48,6 +48,16 @@ let currentUser = null;
 let currentUserRef = null;
 let syncListener = null;
 
+// Last sync tracking
+const LAST_SYNC_KEY = 'firebase_last_sync_time';
+
+/**
+ * Update the last sync timestamp
+ */
+function updateLastSyncTime() {
+    localStorage.setItem(LAST_SYNC_KEY, new Date().toISOString());
+}
+
 /**
  * Initialize Firebase with configuration from environment variables
  * This is called automatically when the module loads
@@ -163,6 +173,9 @@ export async function saveToCloud(data) {
     try {
         await set(currentUserRef, data);
         console.log('Data saved to cloud successfully');
+        
+        // Update last sync timestamp
+        updateLastSyncTime();
     } catch (error) {
         console.error('Failed to save to cloud:', error);
         throw error;
@@ -184,17 +197,14 @@ export function initSync(onDataReceived, onAuthChange) {
     onAuthStateChanged(auth, (user) => {
         currentUser = user;
         
-        // Notify about auth state change
-        if (onAuthChange) {
-            onAuthChange(user);
-        }
-        
         if (user) {
             console.log(`User logged in: ${user.uid}`);
             console.log(`Email: ${user.email}`);
             console.log(`Display Name: ${user.displayName}`);
             
             // Reference to this user's private data path
+            // IMPORTANT: Set currentUserRef BEFORE calling onAuthChange callback
+            // to avoid race condition where callback tries to use currentUserRef before it's initialized
             currentUserRef = ref(db, `users/${user.uid}`);
             
             // Clean up any existing listener using the unsubscribe function
@@ -208,6 +218,11 @@ export function initSync(onDataReceived, onAuthChange) {
             syncListener = onValue(currentUserRef, (snapshot) => {
                 const data = snapshot.val();
                 console.log('Data received from Firebase:', data ? 'yes' : 'no data');
+                
+                // Update last sync timestamp when data is received
+                if (data) {
+                    updateLastSyncTime();
+                }
                 
                 if (onDataReceived) {
                     onDataReceived(data);
@@ -226,7 +241,21 @@ export function initSync(onDataReceived, onAuthChange) {
             }
             currentUserRef = null;
         }
+        
+        // Notify about auth state change AFTER setting up user reference
+        // This ensures currentUserRef is initialized before the callback can use it
+        if (onAuthChange) {
+            onAuthChange(user);
+        }
     });
+}
+
+/**
+ * Get last sync timestamp
+ * @returns {string|null} - ISO timestamp of last sync or null if never synced
+ */
+export function getLastSyncTime() {
+    return localStorage.getItem(LAST_SYNC_KEY);
 }
 
 /**
@@ -243,6 +272,7 @@ export function getFirebaseStatus() {
             displayName: currentUser.displayName,
             photoURL: currentUser.photoURL
         } : null,
-        syncActive: syncListener !== null
+        syncActive: syncListener !== null,
+        lastSyncTime: getLastSyncTime()
     };
 }

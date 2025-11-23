@@ -264,6 +264,24 @@
             return { onTouchStart, onTouchMove, onTouchEnd };
         };
 
+        // --- DEBOUNCE HOOK ---
+        // Debounces a value to reduce excessive updates
+        const useDebounce = (value, delay = 300) => {
+            const [debouncedValue, setDebouncedValue] = useState(value);
+            
+            useEffect(() => {
+                const handler = setTimeout(() => {
+                    setDebouncedValue(value);
+                }, delay);
+                
+                return () => {
+                    clearTimeout(handler);
+                };
+            }, [value, delay]);
+            
+            return debouncedValue;
+        };
+
         // --- GENERIC LUCIDE ICON REFRESH HOOK ---
         // Ensures Lucide icons are re-rendered after React updates
         const useLucideIcons = (deps = []) => {
@@ -836,6 +854,9 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [selectedMuscleFilter, setSelectedMuscleFilter] = useState('all');
             const [showExerciseHistory, setShowExerciseHistory] = useState(null); // null or exercise name
             const haptic = useHaptic();
+            
+            // Debounce exercise selector search term
+            const debouncedExerciseSearch = useDebounce(exerciseSearchTerm, 300);
             
             // Generic Lucide icon refresh hook - ensures icons render after React updates
             // Runs when UI state changes that affect icon visibility
@@ -1693,9 +1714,9 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     <div className="space-y-3">
                                         {EXERCISE_LIBRARY
                                             .filter(ex => {
-                                                const searchMatch = !exerciseSearchTerm || 
-                                                    ex.name.toLowerCase().includes(exerciseSearchTerm.toLowerCase()) ||
-                                                    ex.primaryMuscles.some(m => m.toLowerCase().includes(exerciseSearchTerm.toLowerCase()));
+                                                const searchMatch = !debouncedExerciseSearch || 
+                                                    ex.name.toLowerCase().includes(debouncedExerciseSearch.toLowerCase()) ||
+                                                    ex.primaryMuscles.some(m => m.toLowerCase().includes(debouncedExerciseSearch.toLowerCase()));
                                                 const categoryMatch = selectedMuscleFilter === 'all' || ex.category === selectedMuscleFilter;
                                                 return searchMatch && categoryMatch;
                                             })
@@ -2492,17 +2513,20 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [showOnlyTracked, setShowOnlyTracked] = useState(false);
             const haptic = useHaptic();
 
+            // Debounce search term to improve performance
+            const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
             const trackedExercises = getAllExercisesWithHistory();
 
             // Get all exercises to display
             const exercisesToShow = useMemo(() => {
                 let exercises = [...EXERCISE_LIBRARY];
                 
-                // Filter by search term
-                if (searchTerm) {
+                // Filter by search term (using debounced value)
+                if (debouncedSearchTerm) {
                     exercises = exercises.filter(ex =>
-                        ex.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        ex.primaryMuscles.some(m => m.toLowerCase().includes(searchTerm.toLowerCase()))
+                        ex.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+                        ex.primaryMuscles.some(m => m.toLowerCase().includes(debouncedSearchTerm.toLowerCase()))
                     );
                 }
                 
@@ -2517,7 +2541,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 }
                 
                 return exercises;
-            }, [searchTerm, categoryFilter, showOnlyTracked, trackedExercises]);
+            }, [debouncedSearchTerm, categoryFilter, showOnlyTracked, trackedExercises]);
 
             useEffect(() => {
                 requestAnimationFrame(() => {
@@ -3077,41 +3101,87 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
 
         // Loading component to show while fetching data
         const LoadingScreen = () => (
-            <div className="min-h-screen bg-sys-black text-white flex items-center justify-center">
-                <div className="text-center">
-                    <div className="text-2xl font-bold mb-2">Loading...</div>
-                    <div className="text-sys-onSurfaceVar">Loading workout schedule</div>
+            <div className="min-h-screen bg-sys-black text-white flex items-center justify-center p-5">
+                <div className="text-center max-w-md">
+                    <div className="mb-6">
+                        <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mx-auto mb-4 animate-pulse">
+                            <svg className="w-10 h-10 text-sys-accent animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </div>
+                        <div className="text-2xl font-bold mb-2 text-white">Loading...</div>
+                        <div className="text-sm text-sys-onSurfaceVar">Loading workout schedule and exercises</div>
+                    </div>
                 </div>
             </div>
         );
 
         // Error component for loading failures
-        const ErrorScreen = ({ message }) => (
-            <div className="min-h-screen bg-sys-black text-white flex items-center justify-center p-5">
-                <div className="text-center">
-                    <div className="text-2xl font-bold mb-2 text-red-500">Error</div>
-                    <div className="text-sys-onSurfaceVar">{message}</div>
+        const ErrorScreen = ({ message }) => {
+            const handleRetry = () => {
+                window.location.reload();
+            };
+            
+            return (
+                <div className="min-h-screen bg-sys-black text-white flex items-center justify-center p-5">
+                    <div className="text-center max-w-md">
+                        <div className="mb-6">
+                            <div className="h-20 w-20 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-4">
+                                <svg className="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div className="text-2xl font-bold mb-2 text-red-500">Failed to Load</div>
+                            <div className="text-sm text-sys-onSurfaceVar mb-6">{message}</div>
+                            <button 
+                                onClick={handleRetry}
+                                className="h-12 px-6 rounded-xl bg-sys-accent text-white font-semibold active:scale-95 transition-transform"
+                            >
+                                Try Again
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        };
 
         // Initialize the app with loading state
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<LoadingScreen />);
 
-        // Load both schedule and exercise library data
+        // Load both schedule and exercise library data with timeout
+        const fetchWithTimeout = (url, timeout = 10000) => {
+            return Promise.race([
+                fetch(url),
+                new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Request timeout')), timeout)
+                )
+            ]);
+        };
+        
         Promise.all([
-            fetch('full-schedule.json').then(response => {
+            fetchWithTimeout('full-schedule.json').then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error loading schedule! status: ${response.status}`);
                 }
                 return response.json();
+            }).catch(error => {
+                if (error.message === 'Request timeout') {
+                    throw new Error('Network timeout - check your connection');
+                }
+                throw error;
             }),
-            fetch('exercises.json').then(response => {
+            fetchWithTimeout('exercises.json').then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error loading exercises! status: ${response.status}`);
                 }
                 return response.json();
+            }).catch(error => {
+                if (error.message === 'Request timeout') {
+                    throw new Error('Network timeout - check your connection');
+                }
+                throw error;
             })
         ])
             .then(([scheduleData, exercisesData]) => {

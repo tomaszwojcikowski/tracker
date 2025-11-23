@@ -855,6 +855,16 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     newSets[setIndex] = !newSets[setIndex];
                     saveLog(exId, 'sets', newSets);
                     
+                    // Clear RPE data when unmarking a set to prevent stale data
+                    if (wasCompleted && !newSets[setIndex]) {
+                        const currentRPEs = logs[exId]?.rpe || {};
+                        if (currentRPEs[setIndex]) {
+                            const updatedRPEs = { ...currentRPEs };
+                            delete updatedRPEs[setIndex];
+                            saveLog(exId, 'rpe', updatedRPEs);
+                        }
+                    }
+                    
                     // Auto-start timer when completing a set (not when uncompleting)
                     if (!wasCompleted && newSets[setIndex] && typeof restTime === 'number' && !isNaN(restTime) && restTime > 0) {
                         setTimerSeconds(restTime);
@@ -1381,7 +1391,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                         {currentSetArray.map((isDone, i) => {
                                                             const currentRPE = logs[exId]?.rpe?.[i];
                                                             return (
-                                                                <div key={i} className="flex flex-col items-center gap-2">
+                                                                <div key={`${exId}-set-${i}`} className="flex flex-col items-center gap-2">
                                                                     <button 
                                                                         onClick={() => toggleSet(exId, i, defaultSets, ex.rest)} 
                                                                         className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex flex-col items-center justify-center text-base font-bold relative overflow-hidden ${isDone ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
@@ -1401,6 +1411,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                     </button>
                                                                     {isDone && (
                                                                         <select
+                                                                            key={`${exId}-rpe-${i}`}
                                                                             value={currentRPE || ''}
                                                                             onChange={(e) => saveRPE(exId, i, e.target.value)}
                                                                             className="w-14 h-7 px-1 bg-sys-surfaceHigh rounded-lg text-white text-xs font-semibold text-center outline-none focus:ring-1 focus:ring-sys-accent"
@@ -1570,7 +1581,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                 <div className="flex flex-wrap gap-4 mb-5">
                                                     {currentSetArray.map((isDone, i) => (
                                                         <button 
-                                                            key={i} 
+                                                            key={`${exId}-set-${i}`} 
                                                             onClick={() => toggleSet(exId, i, ex.sets, 90)} 
                                                             className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold ${isDone ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
                                                             aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}

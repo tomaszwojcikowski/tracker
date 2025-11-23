@@ -767,6 +767,14 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [workoutNotes, setWorkoutNotes] = useState(''); // Free-text notes for the entire workout
             const haptic = useHaptic();
             
+            // Add swipe support for back navigation
+            const swipeHandlers = useSwipe({
+                onSwipeRight: () => {
+                    haptic.tick();
+                    onComplete();
+                }
+            });
+            
             // Debounce exercise selector search term
             const debouncedExerciseSearch = useDebounce(exerciseSearchTerm, DEBOUNCE_DELAY_MS);
             
@@ -1132,7 +1140,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             );
 
             return (
-                <div className="px-5 pb-32 pt-6">
+                <div {...swipeHandlers} className="px-5 pb-32 pt-6">
                     {/* Quick navigation button */}
                     {hasIncompleteExercises && (
                         <div className="mb-6">
@@ -3465,6 +3473,9 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [currentWeek, setCurrentWeek] = useState(1);
             const [activeDay, setActiveDay] = useState(1);
             const [isInitialized, setIsInitialized] = useState(false);
+            
+            // Track the initial history length to know if we can go back
+            const initialHistoryLength = useRef(window.history.length);
 
             // Initialize state from URL or localStorage on mount
             useEffect(() => {
@@ -3571,8 +3582,23 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             };
 
             const goBack = () => {
-                // Go back in browser history
-                window.history.back();
+                // Check if there's history to go back to
+                // If the current history length is greater than the initial length, we have navigated within the app
+                const hasHistory = window.history.length > initialHistoryLength.current;
+                
+                if (hasHistory) {
+                    // Go back in browser history
+                    window.history.back();
+                } else {
+                    // No history available (e.g., direct URL access), fallback to main view
+                    setViewMode('tab');
+                    setActiveTab('train');
+                    
+                    // Update URL to reflect the main view
+                    const state = { viewMode: 'tab', activeTab: 'train', currentWeek, activeDay };
+                    const newUrl = updateUrl(state);
+                    window.history.replaceState(state, '', newUrl);
+                }
             };
             
             const handleTabChange = (newTab) => {

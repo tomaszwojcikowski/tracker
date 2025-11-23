@@ -21,6 +21,8 @@ npm test
 
 Visit `http://localhost:5173/` to start tracking your workouts!
 
+> **Optional (Firebase Cloud Sync)**: Create a `.env.local` file with your Firebase credentials before running the dev server. See [FIREBASE_SETUP.md](FIREBASE_SETUP.md) for the full variable list and setup flow.
+
 ## Deployment
 
 This repository includes a GitHub Actions workflow that automatically builds and deploys the application to GitHub Pages on every push to the `main` branch. See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions and configuration options.
@@ -91,12 +93,14 @@ npm run test:watch
 npm run test:ui
 ```
 
-The test suite includes 90+ comprehensive tests covering:
-- **Storage Utilities**: LocalStorage operations with error handling
-- **Schedule Building**: Auto-generation of warmup/cooldown protocols
-- **Exercise History**: Workout tracking, statistics, and 1RM calculations
-- **URL Routing**: State management, URL parsing, and navigation
-- **Set Toggle Logic**: Workout progress tracking and RPE data management
+The test suite includes 100+ comprehensive Vitest specs covering:
+- **Storage Utilities** (`storageUtils.test.jsx`): LocalStorage operations with error handling
+- **Schedule Building** (`scheduleUtils.test.jsx`): Auto-generation of warmup/cooldown protocols
+- **Exercise History & Stats** (`exerciseHistory.test.jsx`): Workout timelines, stats, and 1RM calculations
+- **URL Routing & Deep Links** (`urlRouting.test.jsx`): State management, URL parsing, navigation behavior
+- **Set Toggle Logic** (`toggleSet.test.jsx`): Workout progress tracking and RPE data management
+- **Firebase Timestamp Merge** (`firebaseSync.test.jsx`): Cloud/local conflict resolution using `lastModified`
+- **Browser History Regression** (`backNavigation.test.jsx`): Ensures forward/back buttons stay in sync with state
 
 For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 
@@ -193,15 +197,18 @@ To enable Firebase cloud sync in your deployment:
 2. Set environment variables in `.env`:
    ```env
    VITE_FIREBASE_API_KEY=your-api-key
-   VITE_FIREBASE_PROJECT_ID=your-project-id
-   VITE_FIREBASE_DATABASE_URL=https://your-project.firebaseio.com
    VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+   VITE_FIREBASE_DATABASE_URL=https://your-project.firebaseio.com
+   VITE_FIREBASE_PROJECT_ID=your-project-id
+   VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+   VITE_FIREBASE_MESSAGING_SENDER_ID=1234567890
+   VITE_FIREBASE_APP_ID=1:1234567890:web:abc123
    ```
 3. Build and deploy: `npm run build`
 
 **Note**: Without Firebase configuration, the app works fully offline with localStorage. Firebase is purely optional for cross-device sync.
 
-**For detailed setup instructions, see [FIREBASE_SETUP.md](FIREBASE_SETUP.md)**
+**For detailed setup instructions, see [FIREBASE_SETUP.md](FIREBASE_SETUP.md) and [FIREBASE_DEPLOYMENT.md](FIREBASE_DEPLOYMENT.md)**
 
 ### AI Coaching Setup (Optional)
 

@@ -4,26 +4,30 @@ This document describes the capabilities of AI agents that can interact with the
 
 ## Project Overview
 
-**Repository**: tomaszwojcikowski/tracker  
-**Type**: Progressive Web Application (PWA)  
-**Framework**: React 18 + Vite 5  
-**Testing**: Vitest + Testing Library  
-**Styling**: Tailwind CSS 3  
+**Repository**: tomaszwojcikowski/tracker
+**Type**: Progressive Web Application (PWA)
+**Framework**: React 18 + Vite 5
+**Testing**: Vitest + Testing Library
+**Styling**: Tailwind CSS 3
+**Cloud Sync**: Firebase Auth + Realtime Database (optional)
 
 ## Codebase Structure
 
 ```
 tracker/
 ├── src/
-│   ├── App.jsx           # Main application component (3,688 lines)
-│   ├── main.jsx          # Application entry point
-│   ├── main.css          # Global styles
-│   └── test/             # Test suite
-│       ├── setup.js      # Test configuration
-│       ├── toggleSet.test.jsx
-│       ├── storageUtils.test.jsx
-│       ├── scheduleUtils.test.jsx
+│   ├── App.jsx               # Main application component (~4k lines)
+│   ├── main.jsx              # Application entry point
+│   ├── main.css              # Global styles
+│   ├── firebase-service.js   # Firebase auth + realtime sync layer
+│   └── test/                 # Test suite (Vitest + Testing Library)
+│       ├── setup.js
+│       ├── backNavigation.test.jsx
 │       ├── exerciseHistory.test.jsx
+│       ├── firebaseSync.test.jsx
+│       ├── scheduleUtils.test.jsx
+│       ├── storageUtils.test.jsx
+│       ├── toggleSet.test.jsx
 │       └── urlRouting.test.jsx
 ├── public/               # Static assets
 ├── exercises.json        # Exercise library data (50+ exercises)
@@ -60,18 +64,22 @@ tracker/
 - `updateExerciseHistory` - Tracks workout performance
 - `calculateExerciseStats` - Computes statistics and 1RM estimates
 - `getUrlParams`, `updateUrl`, `saveAppState`, `loadAppState` - State management
+- `mergeCloudData` - Timestamp-aware merging of workouts/settings pulled from Firebase
+- `initializeFirebase`, `initSync`, `handleLogin`, `handleLogout`, `saveToCloud` (in `src/firebase-service.js`) - Auth lifecycle + realtime sync harness
 
 ### 2. Testing
 
-**Test Suite**: 91 tests covering core functionality
+**Test Suite**: 100+ Vitest specs covering UI logic, storage, routing, and cloud sync
 
-**Test Categories**:
-- Storage utilities (14 tests)
-- Schedule building (15 tests)
-- Exercise history (23 tests)
-- URL routing (27 tests)
-- Set toggle logic (11 tests)
-- Plus 1 additional test from recent changes
+**Test Categories / Files**:
+- Storage utilities — `storageUtils.test.jsx`
+- Schedule building — `scheduleUtils.test.jsx`
+- Exercise history + stats — `exerciseHistory.test.jsx`
+- URL routing & deep links — `urlRouting.test.jsx`
+- Set toggle logic + RPE — `toggleSet.test.jsx`
+- Firebase timestamp merge + settings sync — `firebaseSync.test.jsx`
+- Browser history regressions — `backNavigation.test.jsx`
+- Shared config/mocks — `src/test/setup.js`
 
 **Running Tests**:
 ```bash
@@ -96,6 +104,17 @@ npm run build        # Production build
 npm run preview      # Preview production build
 ```
 
+**Firebase Environment** (`.env` or `.env.local` - never commit secrets):
+```
+VITE_FIREBASE_API_KEY="..."
+VITE_FIREBASE_AUTH_DOMAIN="..."
+VITE_FIREBASE_DATABASE_URL="..."
+VITE_FIREBASE_PROJECT_ID="..."
+VITE_FIREBASE_STORAGE_BUCKET="..."
+VITE_FIREBASE_MESSAGING_SENDER_ID="..."
+VITE_FIREBASE_APP_ID="..."
+```
+
 **Build Output**:
 - `dist/index.html` - Optimized entry point
 - `dist/assets/` - Bundled JS (231KB) and CSS (25KB)
@@ -117,6 +136,13 @@ npm run preview      # Preview production build
 - 1RM estimation using Brzycki formula
 - Progress graphs with visual weight trends
 - Per-exercise detailed history
+
+#### Cloud Sync & Authentication
+- Optional Google Sign-In via Firebase Auth (popup flow)
+- Per-user data isolation under `users/{uid}` in Firebase Realtime Database
+- `initSync` streams cloud changes into the app and `mergeCloudData` resolves conflicts via `lastModified`
+- `saveToCloud` pushes sessions, settings, and exercise history after workouts
+- Status helpers (`getFirebaseStatus`, `getLastSyncTime`) power UI indicators
 
 #### AI Integration (Optional)
 - Google Gemini API integration
@@ -236,6 +262,15 @@ const removed = safeRemove('key');
 localStorage.getItem('tracker_app_state');
 ```
 
+#### Task: Enable Firebase Sync
+```bash
+# 1. Create .env.local with VITE_FIREBASE_* keys (see FIREBASE_SETUP.md)
+# 2. Verify Firebase initialized in console (App Mount -> "Firebase initialized")
+# 3. Use handleLogin() to start Google popup auth
+# 4. Call saveToCloud(appState) after workout completion
+# 5. Confirm initSync merge logs show timestamp decisions
+```
+
 ### 8. Deployment
 
 **Automatic Deployment**:
@@ -257,6 +292,7 @@ npm run build
 - RPE scale is 6-10 (standard Borg scale)
 - localStorage has ~5-10MB limit (browser-dependent)
 - Gemini API requires user-provided key
+- Firebase sync requires configured VITE_FIREBASE_* env vars; app gracefully degrades to offline mode if missing
 
 **Browser Compatibility**:
 - Modern browsers with ES6+ support
@@ -267,7 +303,9 @@ npm run build
 
 - **README.md** - User-facing features and setup
 - **TESTING.md** - Manual testing scenarios
-- **DEPLOYMENT.md** - Deployment instructions
+- **DEPLOYMENT.md** - GitHub Pages pipeline
+- **FIREBASE_SETUP.md** - Local/project Firebase configuration
+- **FIREBASE_DEPLOYMENT.md** - Firebase secrets + CI guidance
 - **agents.md** (this file) - Agent capabilities and guidelines
 
 ## Best Practices for AI Agents
@@ -282,6 +320,7 @@ npm run build
 8. **Performance**: Consider bundle size and runtime performance
 9. **Security**: Never commit API keys or sensitive data
 10. **Code Style**: Follow existing patterns (2-space indent, JSDoc comments)
+11. **Cloud Sync Guards**: Always check `isFirebaseInitialized()`/user auth before invoking sync helpers
 
 ## Agent Interaction Examples
 

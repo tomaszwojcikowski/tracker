@@ -264,7 +264,7 @@ import * as FirebaseService from './firebase-service';
         );
 
         // 2. ACTION BAR (Reachability Optimized)
-        const ActionBar = ({ onFinish, timerState, setTimerActive, setTimerSeconds }) => {
+        const ActionBar = ({ onFinish, timerState, setTimerActive, setTimerSeconds, emomState, setEmomActive, setEmomSeconds, setEmomInterval }) => {
             const haptic = useHaptic();
             const [showConfirm, setShowConfirm] = useState(false);
             
@@ -290,6 +290,50 @@ import * as FirebaseService from './firebase-service';
             return (
                 <>
                     <div className="fixed bottom-0 left-0 right-0 bg-sys-black border-t border-white/10 z-50 safe-pb">
+                        {/* EMOM Timer Display */}
+                        {emomState?.active && (
+                            <div className="px-4 pt-3 pb-2">
+                                <div className="glass-panel px-5 py-4 rounded-2xl shadow-lg animate-slide-up">
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <span className="text-xs font-semibold text-sys-accent uppercase tracking-wider">EMOM Timer</span>
+                                        <button 
+                                            onClick={() => { haptic.bump(); setEmomActive(false); setEmomSeconds(0); }} 
+                                            className="ml-auto h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
+                                            aria-label="Stop EMOM timer"
+                                        >
+                                            <i data-lucide="x" width="16"></i>
+                                        </button>
+                                    </div>
+                                    <div className="flex items-center gap-4">
+                                        <span className={`text-3xl font-mono font-bold min-w-[90px] transition-colors ${emomState.seconds <= 5 ? 'text-sys-error animate-pulse' : 'text-white'}`}>
+                                            {Math.floor(emomState.seconds/60)}:{emomState.seconds%60 < 10 ? '0' : ''}{emomState.seconds%60}
+                                        </span>
+                                        <div className="h-6 w-[1px] bg-white/20"></div>
+                                        <div className="flex items-center gap-2">
+                                            <button 
+                                                onClick={() => { haptic.bump(); setEmomInterval(i => Math.max(10, i - 5)); }} 
+                                                className="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
+                                                aria-label="Decrease interval by 5 seconds"
+                                            >
+                                                <i data-lucide="minus" width="18"></i>
+                                            </button>
+                                            <span className="text-sm text-sys-onSurfaceVar font-semibold min-w-[40px] text-center">
+                                                {emomState.interval}s
+                                            </span>
+                                            <button 
+                                                onClick={() => { haptic.bump(); setEmomInterval(i => Math.min(180, i + 5)); }} 
+                                                className="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
+                                                aria-label="Increase interval by 5 seconds"
+                                            >
+                                                <i data-lucide="plus" width="18"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Rest Timer Display */}
                         {timerState.time > 0 && (
                             <div className="px-4 pt-3 pb-2">
                                 <div className="glass-panel px-5 py-4 rounded-2xl flex items-center gap-4 shadow-lg animate-slide-up">
@@ -930,12 +974,66 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         // SECTION 9: MAIN APPLICATION COMPONENTS
         // ============================================================================
         
+        // --- AUDIO UTILITIES ---
+        /**
+         * Play a tick sound for countdown
+         */
+        const playTickSound = () => {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 800; // High frequency for tick
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } catch (error) {
+                console.warn('Failed to play tick sound:', error);
+            }
+        };
+
+        /**
+         * Play a beep sound for new interval
+         */
+        const playBeepSound = () => {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 1200; // Higher frequency for beep
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.4, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.2);
+            } catch (error) {
+                console.warn('Failed to play beep sound:', error);
+            }
+        };
+
         // --- WORKOUT PLAYER ---
         const WorkoutPlayer = ({ week, day, onComplete }) => {
             const workout = useMemo(() => PROGRAM_DATA.getWorkout(week, day), [week, day]);
             const [logs, setLogs] = useState({});
             const [timerSeconds, setTimerSeconds] = useState(0);
             const [timerActive, setTimerActive] = useState(false);
+            const [emomSeconds, setEmomSeconds] = useState(0);
+            const [emomActive, setEmomActive] = useState(false);
+            const [emomInterval, setEmomInterval] = useState(() => safeGetJSON('emom_interval', 60));
             const [collapsedExercises, setCollapsedExercises] = useState({});
             const [showTimerToast, setShowTimerToast] = useState(false);
             const [geminiSyncStatus, setGeminiSyncStatus] = useState(null); // null, 'syncing', 'success', 'error'
@@ -961,7 +1059,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             
             // Generic Lucide icon refresh hook - ensures icons render after React updates
             // Runs when UI state changes that affect icon visibility
-            useLucideIcons([collapsedExercises, showTimerToast, geminiSyncStatus, showExerciseSelector, showExerciseHistory, week, day, addedExercises, logs, timerSeconds, timerActive]);
+            useLucideIcons([collapsedExercises, showTimerToast, geminiSyncStatus, showExerciseSelector, showExerciseHistory, week, day, addedExercises, logs, timerSeconds, timerActive, emomSeconds, emomActive, emomInterval]);
 
             useEffect(() => {
                 const parsedLogs = safeGetJSON(`session_w${week}d${day}`, {});
@@ -996,6 +1094,33 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 return () => clearInterval(interval);
             }, [timerActive, timerSeconds, haptic]);
 
+            // EMOM timer effect - counts down and auto-resets
+            useEffect(() => {
+                let interval = null;
+                if (emomActive && emomSeconds > 0) {
+                    interval = setInterval(() => {
+                        setEmomSeconds(s => {
+                            const newValue = s - 1;
+                            // Play tick sound for countdown (5, 4, 3, 2, 1)
+                            if (newValue <= 5 && newValue >= 1) {
+                                playTickSound();
+                            }
+                            return newValue;
+                        });
+                    }, 1000);
+                } else if (emomSeconds === 0 && emomActive) {
+                    // Auto-reset to interval when reaching 0
+                    setEmomSeconds(emomInterval);
+                    haptic.timer();
+                    playBeepSound(); // Play beep for new interval start
+                }
+                return () => clearInterval(interval);
+            }, [emomActive, emomSeconds, emomInterval, haptic]);
+
+            // Save EMOM interval to localStorage when it changes
+            useEffect(() => {
+                safeSetJSON('emom_interval', emomInterval);
+            }, [emomInterval]);
 
             
             // Keyboard shortcuts for toasts
@@ -1596,6 +1721,19 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                     <i data-lucide="timer" width="16"></i> {ex.rest}s
                                                                 </button>
                                                             )}
+                                                            {ex.notes && ex.notes.toUpperCase().includes('EMOM') && !collapsedExercises[exId] && (
+                                                                <button 
+                                                                    onClick={() => { 
+                                                                        haptic.bump(); 
+                                                                        setEmomSeconds(emomInterval); 
+                                                                        setEmomActive(true); 
+                                                                    }} 
+                                                                    className="h-12 min-h-[48px] px-4 rounded-xl bg-sys-accent text-white text-sm font-bold flex items-center gap-2 active:bg-sys-accent/80 transition-colors flex-shrink-0"
+                                                                    aria-label={`Start EMOM timer with ${emomInterval} second interval`}
+                                                                >
+                                                                    <i data-lucide="clock" width="16"></i> EMOM
+                                                                </button>
+                                                            )}
                                                         </div>
                                                     </div>
                                                     
@@ -1887,7 +2025,16 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     
                     {/* Only show ActionBar if workout is not completed */}
                     {!logs.completed && (
-                        <ActionBar onFinish={handleFinish} timerState={{time: timerSeconds}} setTimerActive={setTimerActive} setTimerSeconds={setTimerSeconds} />
+                        <ActionBar 
+                            onFinish={handleFinish} 
+                            timerState={{time: timerSeconds}} 
+                            setTimerActive={setTimerActive} 
+                            setTimerSeconds={setTimerSeconds}
+                            emomState={{active: emomActive, seconds: emomSeconds, interval: emomInterval}}
+                            setEmomActive={setEmomActive}
+                            setEmomSeconds={setEmomSeconds}
+                            setEmomInterval={setEmomInterval}
+                        />
                     )}
                     
                     {/* Timer Completion Toast */}

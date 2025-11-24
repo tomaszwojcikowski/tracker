@@ -311,7 +311,7 @@ import * as FirebaseService from './firebase-service';
                                         <div className="h-6 w-[1px] bg-white/20"></div>
                                         <div className="flex items-center gap-2">
                                             <button 
-                                                onClick={() => { haptic.bump(); setEmomInterval(i => Math.max(10, i - 5)); setEmomSeconds(s => Math.max(10, s - 5)); }} 
+                                                onClick={() => { haptic.bump(); setEmomInterval(i => Math.max(10, i - 5)); }} 
                                                 className="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
                                                 aria-label="Decrease interval by 5 seconds"
                                             >
@@ -321,7 +321,7 @@ import * as FirebaseService from './firebase-service';
                                                 {emomState.interval}s
                                             </span>
                                             <button 
-                                                onClick={() => { haptic.bump(); setEmomInterval(i => Math.min(180, i + 5)); setEmomSeconds(s => Math.min(180, s + 5)); }} 
+                                                onClick={() => { haptic.bump(); setEmomInterval(i => Math.min(180, i + 5)); }} 
                                                 className="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
                                                 aria-label="Increase interval by 5 seconds"
                                             >
@@ -1098,12 +1098,16 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             useEffect(() => {
                 let interval = null;
                 if (emomActive && emomSeconds > 0) {
-                    interval = setInterval(() => setEmomSeconds(s => s - 1), 1000);
-                    
-                    // Play tick sound for countdown (5, 4, 3, 2, 1)
-                    if (emomSeconds <= 5 && emomSeconds >= 1) {
-                        playTickSound();
-                    }
+                    interval = setInterval(() => {
+                        setEmomSeconds(s => {
+                            const newValue = s - 1;
+                            // Play tick sound for countdown (5, 4, 3, 2, 1)
+                            if (newValue <= 5 && newValue >= 1) {
+                                playTickSound();
+                            }
+                            return newValue;
+                        });
+                    }, 1000);
                 } else if (emomSeconds === 0 && emomActive) {
                     // Auto-reset to interval when reaching 0
                     setEmomSeconds(emomInterval);

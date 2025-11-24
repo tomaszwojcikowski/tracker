@@ -111,6 +111,7 @@ For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 - **Weight & RPE Logging**: Track weight lifted and Rate of Perceived Exertion (RPE scale 6-10) for each set
 - **Workout Notes**: Add free-text notes to document your workout sessions, training observations, and form cues
 - **Rest Timer**: Built-in countdown timer with notifications to optimize rest periods between sets
+- **EMOM Timer**: Every Minute On the Minute timer for EMOM exercises with adjustable intervals (10-180s) and audio cues
 - **Dynamic Exercise Addition**: Add custom exercises from the library during your workout
 - **Auto-generated Protocols**: Automatic warmup and cooldown routines for weeks 2-21 based on workout type
 - **Session Persistence**: Your workout progress is automatically saved and survives page reloads

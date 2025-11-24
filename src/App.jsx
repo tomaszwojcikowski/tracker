@@ -371,19 +371,32 @@ import * as FirebaseService from './firebase-service';
                             <button 
                                 key={item.id} 
                                 onClick={() => { haptic.tick(); onTabChange(item.id); }} 
-                                className="flex flex-col items-center gap-1 w-full py-3 min-h-[56px] active:opacity-70 transition-opacity"
+                                className="flex flex-col items-center gap-1 w-full py-3 min-h-[56px] active:opacity-70 transition-all duration-300"
                                 aria-label={item.label}
                                 aria-current={isActive ? 'page' : undefined}
                             >
-                                <div className={`w-16 h-10 rounded-2xl flex items-center justify-center transition-all duration-200 ${isActive ? 'bg-sys-surfaceHigh' : 'transparent'}`}>
-                                    <i data-lucide={item.icon} width="24" className={isActive ? 'text-white' : 'text-sys-onSurfaceVar'}></i>
+                                <div className={`w-16 h-10 rounded-2xl flex items-center justify-center transition-all duration-300 ${isActive ? 'bg-sys-surfaceHigh scale-110 shadow-[0_0_20px_rgba(14,165,233,0.4)]' : 'transparent scale-100'}`}>
+                                    <i data-lucide={item.icon} width={isActive ? "28" : "24"} className={`transition-all duration-300 ${isActive ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]' : 'text-sys-onSurfaceVar'}`}></i>
                                 </div>
-                                <span className={`text-xs font-semibold ${isActive ? 'text-white' : 'text-sys-onSurfaceVar'}`}>
+                                <span className={`text-xs font-semibold transition-all duration-300 ${isActive ? 'text-white' : 'text-sys-onSurfaceVar'}`}>
                                     {item.label}
                                 </span>
                             </button>
                         );
                     })}
+                </div>
+            );
+        };
+
+        // Tab content wrapper with animations
+        // Uses CSS animation to smoothly transition when activeTab changes
+        const TabContent = ({ children, activeTab }) => {
+            return (
+                <div 
+                    key={activeTab}
+                    className="animate-tab-transition"
+                >
+                    {children}
                 </div>
             );
         };
@@ -4034,14 +4047,18 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </div>
                         </div>
                     ) : viewMode === 'workout' ? (
-                        <WorkoutPlayer week={currentWeek} day={activeDay} onComplete={goBack} />
+                        <div className="animate-fade-in">
+                            <WorkoutPlayer week={currentWeek} day={activeDay} onComplete={goBack} />
+                        </div>
                     ) : (
                         <>
-                            {activeTab === 'train' && <Dashboard currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} onStartWorkout={startWorkout} />}
-                            {activeTab === 'library' && <ExerciseLibraryView />}
-                            {activeTab === 'history' && <HistoryView />}
-                            {activeTab === 'coach' && <CoachView />}
-                            {activeTab === 'profile' && <SettingsView />}
+                            <TabContent activeTab={activeTab}>
+                                {activeTab === 'train' && <Dashboard currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} onStartWorkout={startWorkout} />}
+                                {activeTab === 'library' && <ExerciseLibraryView />}
+                                {activeTab === 'history' && <HistoryView />}
+                                {activeTab === 'coach' && <CoachView />}
+                                {activeTab === 'profile' && <SettingsView />}
+                            </TabContent>
                             <NavigationBar activeTab={activeTab} onTabChange={handleTabChange} />
                         </>
                     )}

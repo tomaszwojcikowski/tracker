@@ -389,37 +389,12 @@ import * as FirebaseService from './firebase-service';
         };
 
         // Tab content wrapper with animations
+        // Uses CSS animation to smoothly transition when activeTab changes
         const TabContent = ({ children, activeTab }) => {
-            const [displayedTab, setDisplayedTab] = useState(activeTab);
-            const [isAnimating, setIsAnimating] = useState(false);
-
-            useEffect(() => {
-                if (activeTab !== displayedTab) {
-                    setIsAnimating(true);
-                    // Start fade out
-                    const fadeOutTimer = setTimeout(() => {
-                        setDisplayedTab(activeTab);
-                    }, 150); // Half of the total animation duration
-
-                    // Complete animation
-                    const fadeInTimer = setTimeout(() => {
-                        setIsAnimating(false);
-                    }, 300);
-
-                    return () => {
-                        clearTimeout(fadeOutTimer);
-                        clearTimeout(fadeInTimer);
-                    };
-                }
-            }, [activeTab, displayedTab]);
-
             return (
                 <div 
-                    className={`transition-all duration-300 ${
-                        isAnimating 
-                            ? 'opacity-0 translate-y-2' 
-                            : 'opacity-100 translate-y-0'
-                    }`}
+                    key={activeTab}
+                    className="animate-tab-transition"
                 >
                     {children}
                 </div>

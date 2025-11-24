@@ -361,6 +361,16 @@ function migrateWorkoutPlan(oldFormat) {
       const weekDays = exercisesByWeek[weekNum];
       const dayNumbers = Object.keys(weekDays).map(Number).sort((a, b) => a - b);
       
+      // Session name mapping configuration
+      // This maps day numbers to descriptive session names
+      // Can be customized based on the specific program structure
+      const SESSION_NAME_MAP = {
+        1: 'Pull Day A',
+        2: 'Mobility & Recovery',
+        3: 'Lower Body',
+        5: 'Pull Day B'
+      };
+      
       const days = dayNumbers.map(dayNum => {
         const exercises = weekDays[dayNum];
         const sessionType = inferSessionType(exercises);
@@ -368,12 +378,8 @@ function migrateWorkoutPlan(oldFormat) {
         report.stats.sessionTypeCounts[sessionType] = 
           (report.stats.sessionTypeCounts[sessionType] || 0) + 1;
         
-        let sessionName;
-        if (dayNum === 1) sessionName = 'Pull Day A';
-        else if (dayNum === 2) sessionName = 'Mobility & Recovery';
-        else if (dayNum === 3) sessionName = 'Lower Body';
-        else if (dayNum === 5) sessionName = 'Pull Day B';
-        else sessionName = `Day ${dayNum}`;
+        // Use configured session name or fallback to generic "Day N"
+        const sessionName = SESSION_NAME_MAP[dayNum] || `Day ${dayNum}`;
         
         return {
           dayNumber: dayNum,

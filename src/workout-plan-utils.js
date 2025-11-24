@@ -88,6 +88,8 @@ export function convertV2ToInternal(v2Data) {
   const internalFormat = [];
   
   // Flatten the structured format back to flat array
+  // Note: The 'n' field combines notes and category for v1.0.0 compatibility
+  // Priority: notes (if present) > category (fallback) > empty string
   v2Data.plan.phases.forEach(phase => {
     phase.weeks.forEach(week => {
       week.days.forEach(day => {
@@ -98,6 +100,8 @@ export function convertV2ToInternal(v2Data) {
             ex: exercise.exerciseName,
             s: exercise.sets,
             r: exercise.reps,
+            // For v1.0.0 compatibility, combine notes and category
+            // This preserves the original behavior where 'n' was a multi-purpose field
             n: exercise.notes || exercise.category || ''
           });
         });
@@ -209,7 +213,9 @@ export function getExercisesWithDetails(v2Data, weekNumber, dayNumber) {
 export function isV2Format(data) {
   try {
     return detectFormatVersion(data) === '2.0.0';
-  } catch {
+  } catch (error) {
+    // detectFormatVersion throws if format is unknown
+    // This is expected for invalid data, so we return false
     return false;
   }
 }

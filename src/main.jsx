@@ -76,9 +76,13 @@ Promise.all([
         
         console.log(`Loaded ${schedule.length} schedule items and ${exercisesData.length} exercises`);
         
-        // Store metadata for potential future use
+        // Store metadata in a namespaced global for potential future use
+        // This allows components to access plan metadata without prop drilling
         if (typeof window !== 'undefined') {
-            window.__WORKOUT_PLAN_METADATA__ = metadata;
+            if (!window.TRACKER_APP) {
+                window.TRACKER_APP = {};
+            }
+            window.TRACKER_APP.workoutPlanMetadata = metadata;
         }
         
         // Re-render with the actual app now that data is loaded

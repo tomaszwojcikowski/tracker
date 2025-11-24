@@ -1510,7 +1510,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     
                     {workout.sections.map((section, sIdx) => {
                         // Helper function to check if exercise is EMOM
-                        const isEMOM = (ex) => ex && ex.notes && ex.notes.toLowerCase().includes('emom');
+                        const isEMOM = (ex) => ex && ((ex.notes && ex.notes.toLowerCase().includes('emom')) || (ex.name && ex.name.toLowerCase().includes('emom')));
                         
                         // Pre-process exercises to identify superset groups - O(n) complexity
                         const exercisesWithSuperset = [];
@@ -1721,7 +1721,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                     <i data-lucide="timer" width="16"></i> {ex.rest}s
                                                                 </button>
                                                             )}
-                                                            {ex.notes && ex.notes.toUpperCase().includes('EMOM') && !collapsedExercises[exId] && (
+                                                            {isEMOM(ex) && !collapsedExercises[exId] && (
                                                                 <button 
                                                                     onClick={() => { 
                                                                         haptic.bump(); 

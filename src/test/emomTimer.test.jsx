@@ -252,6 +252,42 @@ describe('EMOM Timer Functionality', () => {
             const hasEmom = notes && notes.toUpperCase().includes('EMOM');
             expect(hasEmom).toBeFalsy();
         });
+
+        it('should detect EMOM in exercise name (uppercase)', () => {
+            const exercise = { name: 'Pull-Up EMOM', notes: 'Density' };
+            const isEMOM = (ex) => ex && ((ex.notes && ex.notes.toLowerCase().includes('emom')) || (ex.name && ex.name.toLowerCase().includes('emom')));
+            expect(isEMOM(exercise)).toBe(true);
+        });
+
+        it('should detect EMOM in exercise name (lowercase)', () => {
+            const exercise = { name: 'pull-up emom', notes: 'Density' };
+            const isEMOM = (ex) => ex && ((ex.notes && ex.notes.toLowerCase().includes('emom')) || (ex.name && ex.name.toLowerCase().includes('emom')));
+            expect(isEMOM(exercise)).toBe(true);
+        });
+
+        it('should detect EMOM in exercise name (mixed case)', () => {
+            const exercise = { name: 'Bulgarian Split Squat EMOM', notes: 'Accessory' };
+            const isEMOM = (ex) => ex && ((ex.notes && ex.notes.toLowerCase().includes('emom')) || (ex.name && ex.name.toLowerCase().includes('emom')));
+            expect(isEMOM(exercise)).toBe(true);
+        });
+
+        it('should prioritize notes over name for EMOM detection', () => {
+            const exercise = { name: 'Regular Exercise', notes: 'EMOM' };
+            const isEMOM = (ex) => ex && ((ex.notes && ex.notes.toLowerCase().includes('emom')) || (ex.name && ex.name.toLowerCase().includes('emom')));
+            expect(isEMOM(exercise)).toBe(true);
+        });
+
+        it('should detect EMOM when both name and notes contain it', () => {
+            const exercise = { name: 'Push-Up EMOM', notes: 'EMOM format' };
+            const isEMOM = (ex) => ex && ((ex.notes && ex.notes.toLowerCase().includes('emom')) || (ex.name && ex.name.toLowerCase().includes('emom')));
+            expect(isEMOM(exercise)).toBe(true);
+        });
+
+        it('should not detect EMOM when neither name nor notes contain it', () => {
+            const exercise = { name: 'Regular Push-Ups', notes: 'Accessory' };
+            const isEMOM = (ex) => ex && ((ex.notes && ex.notes.toLowerCase().includes('emom')) || (ex.name && ex.name.toLowerCase().includes('emom')));
+            expect(isEMOM(exercise)).toBe(false);
+        });
     });
 
     describe('EMOM Timer Integration', () => {

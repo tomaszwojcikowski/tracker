@@ -232,3 +232,36 @@ To enable AI-powered coaching feedback:
    - AI considers your workout notes, RPE values, and exercise history
 
 **Note**: Both Firebase configuration and Gemini API key are stored locally in your browser. With Firebase sync enabled, your settings sync across all your devices securely.
+
+## Workout Plan Format
+
+The tracker supports two workout plan formats:
+
+### Format v1.0.0 (Legacy)
+- Flat array structure with abbreviated field names
+- File: `full-schedule.json`
+- Used for backward compatibility
+
+### Format v2.0.0 (Current)
+- Comprehensive structured format with full metadata
+- File: `workout-plan-v2.json`
+- Features:
+  - Plan metadata (name, description, author, goals)
+  - Phase/mesocycle structure (6 training phases)
+  - Enhanced exercise specifications (tempo, rest, RPE, load)
+  - Full field names (no abbreviations)
+  - Better organization and extensibility
+
+### Migration
+
+The app automatically detects and supports both formats. To migrate an existing v1.0.0 plan to v2.0.0:
+
+```bash
+node migrate-workout-plan.js
+```
+
+This generates:
+- `workout-plan-v2.json` - Converted plan in new format
+- `migration-report.json` - Detailed migration report
+
+For complete format specification, see [WORKOUT_PLAN_FORMAT.md](WORKOUT_PLAN_FORMAT.md)

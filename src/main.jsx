@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App, LoadingScreen, ErrorScreen, buildCompleteSchedule, fetchWithTimeout, FETCH_TIMEOUT_MS, setRAW_SCHEDULE, setEXERCISE_LIBRARY } from './App.jsx';
+import { loadWorkoutPlan } from './workout-plan-utils.js';
 
 // Initialize the app with loading state
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -32,17 +33,25 @@ Promise.all([
     })
 ])
     .then(([scheduleData, exercisesData]) => {
-        // Validate schedule data structure
-        if (!Array.isArray(scheduleData) || scheduleData.length === 0) {
-            throw new Error('Invalid schedule data: expected non-empty array');
+        // Load and convert workout plan (supports both v1.0.0 and v2.0.0 formats)
+        let schedule, metadata;
+        try {
+            const result = loadWorkoutPlan(scheduleData);
+            schedule = result.schedule;
+            metadata = result.metadata;
+            console.log(`Loaded workout plan: "${metadata.name}" (format v${metadata.version})`);
+            console.log(`  Duration: ${metadata.durationWeeks} weeks`);
+            if (metadata.phases && metadata.phases.length > 0) {
+                console.log(`  Phases: ${metadata.phases.length}`);
+                console.log(`  Goals: ${(metadata.goals || []).join(', ')}`);
+            }
+        } catch (error) {
+            throw new Error(`Invalid workout plan format: ${error.message}`);
         }
         
-        // Basic validation of first schedule item
-        const firstItem = scheduleData[0];
-        const requiredKeys = ['w', 'd', 'ex', 's', 'r', 'n'];
-        const hasRequiredKeys = requiredKeys.every(key => key in firstItem);
-        if (!hasRequiredKeys) {
-            throw new Error('Invalid schedule data: missing required properties');
+        // Validate that we have schedule data
+        if (!Array.isArray(schedule) || schedule.length === 0) {
+            throw new Error('Invalid schedule data: expected non-empty array after conversion');
         }
         
         // Validate exercise library data
@@ -59,13 +68,22 @@ Promise.all([
         }
         
         // Assign the loaded data to global variables using setter functions
-        setRAW_SCHEDULE(scheduleData);
+        setRAW_SCHEDULE(schedule);
         setEXERCISE_LIBRARY(exercisesData);
         
         // Build the complete schedule with standard warmups/cooldowns
         buildCompleteSchedule();
         
-        console.log(`Loaded ${scheduleData.length} schedule items and ${exercisesData.length} exercises`);
+        console.log(`Loaded ${schedule.length} schedule items and ${exercisesData.length} exercises`);
+        
+        // Store metadata in a namespaced global for potential future use
+        // This allows components to access plan metadata without prop drilling
+        if (typeof window !== 'undefined') {
+            if (!window.TRACKER_APP) {
+                window.TRACKER_APP = {};
+            }
+            window.TRACKER_APP.workoutPlanMetadata = metadata;
+        }
         
         // Re-render with the actual app now that data is loaded
         root.render(<App />);

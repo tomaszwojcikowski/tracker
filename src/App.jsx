@@ -371,19 +371,57 @@ import * as FirebaseService from './firebase-service';
                             <button 
                                 key={item.id} 
                                 onClick={() => { haptic.tick(); onTabChange(item.id); }} 
-                                className="flex flex-col items-center gap-1 w-full py-3 min-h-[56px] active:opacity-70 transition-opacity"
+                                className="flex flex-col items-center gap-1 w-full py-3 min-h-[56px] active:opacity-70 transition-all duration-300"
                                 aria-label={item.label}
                                 aria-current={isActive ? 'page' : undefined}
                             >
-                                <div className={`w-16 h-10 rounded-2xl flex items-center justify-center transition-all duration-200 ${isActive ? 'bg-sys-surfaceHigh' : 'transparent'}`}>
-                                    <i data-lucide={item.icon} width="24" className={isActive ? 'text-white' : 'text-sys-onSurfaceVar'}></i>
+                                <div className={`w-16 h-10 rounded-2xl flex items-center justify-center transition-all duration-300 ${isActive ? 'bg-sys-surfaceHigh scale-110 shadow-[0_0_20px_rgba(14,165,233,0.4)]' : 'transparent scale-100'}`}>
+                                    <i data-lucide={item.icon} width={isActive ? "28" : "24"} className={`transition-all duration-300 ${isActive ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]' : 'text-sys-onSurfaceVar'}`}></i>
                                 </div>
-                                <span className={`text-xs font-semibold ${isActive ? 'text-white' : 'text-sys-onSurfaceVar'}`}>
+                                <span className={`text-xs font-semibold transition-all duration-300 ${isActive ? 'text-white' : 'text-sys-onSurfaceVar'}`}>
                                     {item.label}
                                 </span>
                             </button>
                         );
                     })}
+                </div>
+            );
+        };
+
+        // Tab content wrapper with animations
+        const TabContent = ({ children, activeTab }) => {
+            const [displayedTab, setDisplayedTab] = useState(activeTab);
+            const [isAnimating, setIsAnimating] = useState(false);
+
+            useEffect(() => {
+                if (activeTab !== displayedTab) {
+                    setIsAnimating(true);
+                    // Start fade out
+                    const fadeOutTimer = setTimeout(() => {
+                        setDisplayedTab(activeTab);
+                    }, 150); // Half of the total animation duration
+
+                    // Complete animation
+                    const fadeInTimer = setTimeout(() => {
+                        setIsAnimating(false);
+                    }, 300);
+
+                    return () => {
+                        clearTimeout(fadeOutTimer);
+                        clearTimeout(fadeInTimer);
+                    };
+                }
+            }, [activeTab, displayedTab]);
+
+            return (
+                <div 
+                    className={`transition-all duration-300 ${
+                        isAnimating 
+                            ? 'opacity-0 translate-y-2' 
+                            : 'opacity-100 translate-y-0'
+                    }`}
+                >
+                    {children}
                 </div>
             );
         };
@@ -4034,14 +4072,18 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </div>
                         </div>
                     ) : viewMode === 'workout' ? (
-                        <WorkoutPlayer week={currentWeek} day={activeDay} onComplete={goBack} />
+                        <div className="animate-fade-in">
+                            <WorkoutPlayer week={currentWeek} day={activeDay} onComplete={goBack} />
+                        </div>
                     ) : (
                         <>
-                            {activeTab === 'train' && <Dashboard currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} onStartWorkout={startWorkout} />}
-                            {activeTab === 'library' && <ExerciseLibraryView />}
-                            {activeTab === 'history' && <HistoryView />}
-                            {activeTab === 'coach' && <CoachView />}
-                            {activeTab === 'profile' && <SettingsView />}
+                            <TabContent activeTab={activeTab}>
+                                {activeTab === 'train' && <Dashboard currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} onStartWorkout={startWorkout} />}
+                                {activeTab === 'library' && <ExerciseLibraryView />}
+                                {activeTab === 'history' && <HistoryView />}
+                                {activeTab === 'coach' && <CoachView />}
+                                {activeTab === 'profile' && <SettingsView />}
+                            </TabContent>
                             <NavigationBar activeTab={activeTab} onTabChange={handleTabChange} />
                         </>
                     )}

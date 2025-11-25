@@ -3,7 +3,7 @@
  * Provides PWA functionality to the app including update prompts and offline indicators
  */
 import React from 'react';
-import { usePWA } from '../hooks/usePWA.js';
+import { usePWA } from '../hooks/usePWA';
 import { UpdatePrompt, OfflineBanner } from './PWAPrompt.jsx';
 
 export function PWAWrapper({ children }) {

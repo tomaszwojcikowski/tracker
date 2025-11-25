@@ -108,3 +108,11 @@ export const useLucideIcons = (deps = []) => {
 
 // Re-export optimistic sync hook
 export { useOptimisticSync, SyncStatus } from './useOptimisticSync';
+
+// Re-export accessibility hooks
+export { 
+    useFocusTrap, 
+    useAriaAnnounce, 
+    useReducedMotion, 
+    useKeyboardShortcut,
+} from './useAccessibility';

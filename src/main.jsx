@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App, LoadingScreen, ErrorScreen, buildCompleteSchedule, fetchWithTimeout, FETCH_TIMEOUT_MS, setRAW_SCHEDULE, setEXERCISE_LIBRARY } from './App.jsx';
 import { loadWorkoutPlan } from './workout-plan-utils.js';
+import { ErrorBoundary } from './components/ErrorBoundary.jsx';
 
 // PWA wrapper component for update prompts
 const PWAApp = React.lazy(() => import('./components/PWAWrapper.jsx'));
@@ -88,12 +89,14 @@ Promise.all([
             window.TRACKER_APP.workoutPlanMetadata = metadata;
         }
         
-        // Re-render with the actual app wrapped in PWA provider
+        // Re-render with the actual app wrapped in PWA provider and ErrorBoundary
         root.render(
             <React.Suspense fallback={<LoadingScreen />}>
-                <PWAApp>
-                    <App />
-                </PWAApp>
+                <ErrorBoundary>
+                    <PWAApp>
+                        <App />
+                    </PWAApp>
+                </ErrorBoundary>
             </React.Suspense>
         );
     })

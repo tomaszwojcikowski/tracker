@@ -1,6 +1,18 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import './main.css';
 import * as FirebaseService from './firebase-service';
+import { NavigationBar, TabContent } from './components/navigation';
+import { ConfirmDialog } from './components/modals';
+import { 
+    ExerciseCardSkeleton, 
+    HistoryEntrySkeleton, 
+    SkeletonList 
+} from './components/skeletons';
+import { 
+    EmptyWorkoutHistory, 
+    EmptyExerciseHistory,
+    EmptySearchResults,
+} from './components/feedback';
 
         // ============================================================================
         // SECTION 1: GLOBAL STATE & DATA STRUCTURES
@@ -396,54 +408,7 @@ import * as FirebaseService from './firebase-service';
             );
         };
 
-        // 3. BOTTOM NAV
-        const NavigationBar = ({ activeTab, onTabChange }) => {
-            const haptic = useHaptic();
-            const navItems = [
-                { id: 'train', icon: 'dumbbell', label: 'Train' },
-                { id: 'library', icon: 'book-open', label: 'Library' },
-                { id: 'history', icon: 'history', label: 'History' },
-                { id: 'coach', icon: 'brain', label: 'Coach' },
-                { id: 'profile', icon: 'settings', label: 'Settings' },
-            ];
-
-            return (
-                <div className="fixed bottom-0 left-0 right-0 bg-sys-black border-t border-white/10 z-50 safe-pb min-h-[88px] flex items-center justify-around px-2">
-                    {navItems.map((item) => {
-                        const isActive = activeTab === item.id;
-                        return (
-                            <button 
-                                key={item.id} 
-                                onClick={() => { haptic.tick(); onTabChange(item.id); }} 
-                                className="flex flex-col items-center gap-1 w-full py-3 min-h-[56px] active:opacity-70 transition-all duration-300"
-                                aria-label={item.label}
-                                aria-current={isActive ? 'page' : undefined}
-                            >
-                                <div className={`w-16 h-10 rounded-2xl flex items-center justify-center transition-all duration-300 ${isActive ? 'bg-sys-surfaceHigh scale-110 shadow-[0_0_20px_rgba(14,165,233,0.4)]' : 'transparent scale-100'}`}>
-                                    <i data-lucide={item.icon} width={isActive ? "28" : "24"} className={`transition-all duration-300 ${isActive ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]' : 'text-sys-onSurfaceVar'}`}></i>
-                                </div>
-                                <span className={`text-xs font-semibold transition-all duration-300 ${isActive ? 'text-white' : 'text-sys-onSurfaceVar'}`}>
-                                    {item.label}
-                                </span>
-                            </button>
-                        );
-                    })}
-                </div>
-            );
-        };
-
-        // Tab content wrapper with animations
-        // Uses CSS animation to smoothly transition when activeTab changes
-        const TabContent = ({ children, activeTab }) => {
-            return (
-                <div 
-                    key={activeTab}
-                    className="animate-tab-transition"
-                >
-                    {children}
-                </div>
-            );
-        };
+        // NavigationBar and TabContent are now imported from ./components/navigation
 
         // ============================================================================
         // SECTION 7: GEMINI INTEGRATION UTILITIES

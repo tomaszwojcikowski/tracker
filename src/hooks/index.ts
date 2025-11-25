@@ -30,6 +30,16 @@ export interface HapticFeedback {
     success: () => void;
     /** Triple buzz for timer completion - [200, 100, 200] */
     timer: () => void;
+    /** Set completion celebration - [10, 30, 10, 30, 50] */
+    complete: () => void;
+    /** PR or workout finish - [50, 100, 50, 100, 150] */
+    milestone: () => void;
+    /** Timer countdown tick - [15] */
+    countdown: () => void;
+    /** Error feedback - [100, 50, 100] */
+    error: () => void;
+    /** Light swipe feedback - [5] */
+    swipe: () => void;
 }
 
 /**
@@ -44,10 +54,18 @@ export const useHaptic = (): HapticFeedback => {
     };
 
     return {
+        // Basic patterns
         tick: () => trigger([10]),
         bump: () => trigger([30]),
         success: () => trigger([50, 50, 50]),
         timer: () => trigger([200, 100, 200]),
+
+        // Enhanced patterns (P2 - Point 11)
+        complete: () => trigger([10, 30, 10, 30, 50]),
+        milestone: () => trigger([50, 100, 50, 100, 150]),
+        countdown: () => trigger([15]),
+        error: () => trigger([100, 50, 100]),
+        swipe: () => trigger([5]),
     };
 };
 
@@ -190,6 +208,9 @@ export {
 
 // Re-export PWA hook
 export { usePWA } from './usePWA';
+
+// Re-export long-press hook
+export { useLongPress } from './useLongPress';
 
 // Type exports - TypeScript will pick these up from .ts files
 export type { OptimisticSyncOptions, OptimisticSyncReturn } from './useOptimisticSync';

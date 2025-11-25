@@ -36,3 +36,15 @@ export { SyncStatusIndicator } from './SyncStatusIndicator';
 
 // Data visualization
 export { VolumeCard, VolumeTrendBadge, VolumeComparisonCard } from './VolumeCard';
+
+// Animation components (P2)
+export { AnimatedNumber, AnimatedCounter } from './animations';
+
+// Progress indicator components (P2)
+export {
+    WorkoutProgress,
+    WeightChangeIndicator,
+    TimerRing,
+    ProgressRing,
+} from './progress';
+

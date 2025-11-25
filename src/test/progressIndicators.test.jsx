@@ -1,0 +1,268 @@
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import {
+    WorkoutProgress,
+    WeightChangeIndicator,
+    TimerRing,
+    ProgressRing,
+} from '../components/progress/ProgressIndicators';
+
+describe('WorkoutProgress', () => {
+    it('should display completed and total sets', () => {
+        render(<WorkoutProgress completedSets={5} totalSets={15} />);
+
+        expect(screen.getByText('5/15 sets')).toBeInTheDocument();
+    });
+
+    it('should calculate correct percentage', () => {
+        render(<WorkoutProgress completedSets={10} totalSets={20} />);
+
+        // 10/20 = 50%
+        expect(screen.getByText('50')).toBeInTheDocument();
+        expect(screen.getByText('%')).toBeInTheDocument();
+    });
+
+    it('should have accessible progress bar', () => {
+        render(<WorkoutProgress completedSets={3} totalSets={10} />);
+
+        const progressBar = screen.getByRole('progressbar');
+        expect(progressBar).toHaveAttribute('aria-valuenow', '30');
+        expect(progressBar).toHaveAttribute('aria-valuemin', '0');
+        expect(progressBar).toHaveAttribute('aria-valuemax', '100');
+    });
+
+    it('should handle zero total sets', () => {
+        render(<WorkoutProgress completedSets={0} totalSets={0} />);
+
+        expect(screen.getByText('0/0 sets')).toBeInTheDocument();
+        expect(screen.getByText('0')).toBeInTheDocument();
+    });
+
+    it('should handle completed workout', () => {
+        render(<WorkoutProgress completedSets={12} totalSets={12} />);
+
+        expect(screen.getByText('12/12 sets')).toBeInTheDocument();
+        expect(screen.getByText('100')).toBeInTheDocument();
+    });
+
+    it('should apply custom className', () => {
+        const { container } = render(
+            <WorkoutProgress completedSets={5} totalSets={10} className="custom-class" />
+        );
+
+        expect(container.firstChild).toHaveClass('custom-class');
+    });
+});
+
+describe('WeightChangeIndicator', () => {
+    it('should show positive weight change', () => {
+        render(<WeightChangeIndicator current={80} previous={75} />);
+
+        expect(screen.getByText('+5kg')).toBeInTheDocument();
+    });
+
+    it('should show negative weight change', () => {
+        render(<WeightChangeIndicator current={70} previous={75} />);
+
+        expect(screen.getByText('-5kg')).toBeInTheDocument();
+    });
+
+    it('should return null for no change', () => {
+        const { container } = render(
+            <WeightChangeIndicator current={75} previous={75} />
+        );
+
+        expect(container).toBeEmptyDOMElement();
+    });
+
+    it('should return null when no previous value', () => {
+        const { container } = render(
+            <WeightChangeIndicator current={75} previous={null} />
+        );
+
+        expect(container).toBeEmptyDOMElement();
+    });
+
+    it('should return null when previous is undefined', () => {
+        const { container } = render(
+            <WeightChangeIndicator current={75} previous={undefined} />
+        );
+
+        expect(container).toBeEmptyDOMElement();
+    });
+
+    it('should handle custom unit', () => {
+        render(<WeightChangeIndicator current={180} previous={175} unit="lb" />);
+
+        expect(screen.getByText('+5lb')).toBeInTheDocument();
+    });
+
+    it('should handle decimal changes', () => {
+        render(<WeightChangeIndicator current={77.5} previous={75} />);
+
+        expect(screen.getByText('+2.5kg')).toBeInTheDocument();
+    });
+
+    it('should have correct color classes', () => {
+        const { rerender } = render(
+            <WeightChangeIndicator current={80} previous={75} />
+        );
+
+        expect(screen.getByText('+5kg')).toHaveClass('text-sys-success');
+
+        rerender(<WeightChangeIndicator current={70} previous={75} />);
+
+        expect(screen.getByText('-5kg')).toHaveClass('text-sys-error');
+    });
+
+    it('should have accessible label', () => {
+        render(<WeightChangeIndicator current={80} previous={75} />);
+
+        expect(screen.getByText('+5kg')).toHaveAttribute(
+            'aria-label',
+            'Weight increased by 5kg'
+        );
+    });
+
+    it('should apply custom className', () => {
+        render(
+            <WeightChangeIndicator
+                current={80}
+                previous={75}
+                className="custom-indicator"
+            />
+        );
+
+        expect(screen.getByText('+5kg')).toHaveClass('custom-indicator');
+    });
+});
+
+describe('TimerRing', () => {
+    it('should render SVG element', () => {
+        render(<TimerRing current={45} total={90} />);
+
+        const progressBar = screen.getByRole('progressbar');
+        expect(progressBar.tagName).toBe('svg');
+    });
+
+    it('should have correct size', () => {
+        render(<TimerRing current={30} total={60} size={200} />);
+
+        const svg = screen.getByRole('progressbar');
+        expect(svg).toHaveAttribute('width', '200');
+        expect(svg).toHaveAttribute('height', '200');
+    });
+
+    it('should render children in center', () => {
+        render(
+            <TimerRing current={45} total={90}>
+                <span>0:45</span>
+            </TimerRing>
+        );
+
+        expect(screen.getByText('0:45')).toBeInTheDocument();
+    });
+
+    it('should have accessible attributes', () => {
+        render(<TimerRing current={30} total={60} />);
+
+        const progressBar = screen.getByRole('progressbar');
+        expect(progressBar).toHaveAttribute('aria-valuenow', '30');
+        expect(progressBar).toHaveAttribute('aria-valuemin', '0');
+        expect(progressBar).toHaveAttribute('aria-valuemax', '60');
+    });
+
+    it('should have accessible label', () => {
+        render(<TimerRing current={45} total={90} />);
+
+        const progressBar = screen.getByRole('progressbar');
+        expect(progressBar).toHaveAttribute(
+            'aria-label',
+            'Timer: 45 seconds remaining'
+        );
+    });
+
+    it('should render two circles (background and progress)', () => {
+        const { container } = render(<TimerRing current={30} total={60} />);
+
+        const circles = container.querySelectorAll('circle');
+        expect(circles).toHaveLength(2);
+    });
+
+    it('should apply custom className', () => {
+        const { container } = render(
+            <TimerRing current={30} total={60} className="custom-timer" />
+        );
+
+        expect(container.firstChild).toHaveClass('custom-timer');
+    });
+
+    it('should handle zero total', () => {
+        render(<TimerRing current={0} total={0} />);
+
+        const progressBar = screen.getByRole('progressbar');
+        expect(progressBar).toBeInTheDocument();
+    });
+});
+
+describe('ProgressRing', () => {
+    it('should render SVG element', () => {
+        render(<ProgressRing percentage={50} />);
+
+        const progressBar = screen.getByRole('progressbar');
+        expect(progressBar.tagName).toBe('svg');
+    });
+
+    it('should have default size of 48', () => {
+        render(<ProgressRing percentage={50} />);
+
+        const svg = screen.getByRole('progressbar');
+        expect(svg).toHaveAttribute('width', '48');
+        expect(svg).toHaveAttribute('height', '48');
+    });
+
+    it('should respect custom size', () => {
+        render(<ProgressRing percentage={50} size={100} />);
+
+        const svg = screen.getByRole('progressbar');
+        expect(svg).toHaveAttribute('width', '100');
+        expect(svg).toHaveAttribute('height', '100');
+    });
+
+    it('should have accessible percentage', () => {
+        render(<ProgressRing percentage={75} />);
+
+        const progressBar = screen.getByRole('progressbar');
+        expect(progressBar).toHaveAttribute('aria-valuenow', '75');
+        expect(progressBar).toHaveAttribute('aria-valuemin', '0');
+        expect(progressBar).toHaveAttribute('aria-valuemax', '100');
+    });
+
+    it('should render two circles', () => {
+        const { container } = render(<ProgressRing percentage={50} />);
+
+        const circles = container.querySelectorAll('circle');
+        expect(circles).toHaveLength(2);
+    });
+
+    it('should handle 0%', () => {
+        render(<ProgressRing percentage={0} />);
+
+        const progressBar = screen.getByRole('progressbar');
+        expect(progressBar).toHaveAttribute('aria-valuenow', '0');
+    });
+
+    it('should handle 100%', () => {
+        render(<ProgressRing percentage={100} />);
+
+        const progressBar = screen.getByRole('progressbar');
+        expect(progressBar).toHaveAttribute('aria-valuenow', '100');
+    });
+
+    it('should apply custom className', () => {
+        render(<ProgressRing percentage={50} className="custom-ring" />);
+
+        const svg = screen.getByRole('progressbar');
+        expect(svg).toHaveClass('custom-ring');
+    });
+});

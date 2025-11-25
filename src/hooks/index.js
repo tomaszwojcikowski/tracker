@@ -20,10 +20,18 @@ export const useHaptic = () => {
         }
     };
     return {
-        tick: () => trigger([10]), // Light tap for checks
-        bump: () => trigger([30]), // Medium bump for buttons
-        success: () => trigger([50, 50, 50]), // Double pulse for completion
-        timer: () => trigger([200, 100, 200]) // Triple buzz for timer completion
+        // Basic patterns
+        tick: () => trigger([10]),                    // Light tap for checks
+        bump: () => trigger([30]),                    // Medium bump for buttons
+        success: () => trigger([50, 50, 50]),         // Double pulse for completion
+        timer: () => trigger([200, 100, 200]),        // Triple buzz for timer completion
+
+        // Enhanced patterns (P2 - Point 11)
+        complete: () => trigger([10, 30, 10, 30, 50]),       // Set completion celebration
+        milestone: () => trigger([50, 100, 50, 100, 150]),   // PR or workout finish
+        countdown: () => trigger([15]),                       // Timer countdown tick
+        error: () => trigger([100, 50, 100]),                 // Error feedback
+        swipe: () => trigger([5]),                            // Light swipe feedback
     };
 };
 
@@ -116,3 +124,6 @@ export {
     useReducedMotion,
     useKeyboardShortcut,
 } from './useAccessibility';
+
+// Re-export long-press hook
+export { useLongPress } from './useLongPress';

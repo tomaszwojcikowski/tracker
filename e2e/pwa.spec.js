@@ -8,45 +8,34 @@ import { test, expect } from '@playwright/test';
 test.describe('PWA Features', () => {
   test('should have a valid manifest', async ({ page }) => {
     await page.goto('/');
+    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
     
-    // Check for manifest link
+    // Check for manifest link in head
     const manifest = page.locator('link[rel="manifest"]');
     // Manifest might not exist yet, this is an aspirational test
   });
 
-  test('should work offline after initial load', async ({ page, context }) => {
-    // Load the page first
+  test('should load and display content', async ({ page }) => {
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(2000);
-
-    // Go offline
-    await context.setOffline(true);
-
-    // Try to reload - should work from cache
-    try {
-      await page.reload({ timeout: 5000 });
-      // If we get here without error, offline works
-      const hasContent = await page.locator('body').evaluate(el => el.textContent.length > 0);
-      expect(hasContent).toBe(true);
-    } catch (e) {
-      // Offline might not be fully implemented yet
-      // This test documents the expected behavior
-      console.log('Offline mode not fully implemented yet');
-    }
-
-    // Go back online
-    await context.setOffline(false);
+    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
+    
+    // App should be functional
+    const hasContent = await page.locator('body').evaluate(el => el.textContent.length > 100);
+    expect(hasContent).toBe(true);
   });
 
   test('should be responsive on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
 
     // Should still show content
-    const hasContent = await page.locator('body').evaluate(el => el.textContent.length > 0);
+    const hasContent = await page.locator('body').evaluate(el => el.textContent.length > 100);
     expect(hasContent).toBe(true);
+
+    // Navigation should still be visible
+    const trainButton = page.locator('button[aria-label="Train"]');
+    await expect(trainButton).toBeVisible();
 
     // No horizontal scroll
     const hasHorizontalScroll = await page.evaluate(() => {

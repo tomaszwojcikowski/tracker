@@ -3,13 +3,13 @@ import './main.css';
 import * as FirebaseService from './firebase-service';
 import { NavigationBar, TabContent } from './components/navigation';
 import { ConfirmDialog } from './components/modals';
-import { 
-    ExerciseCardSkeleton, 
-    HistoryEntrySkeleton, 
-    SkeletonList 
+import {
+    ExerciseCardSkeleton,
+    HistoryEntrySkeleton,
+    SkeletonList
 } from './components/skeletons';
-import { 
-    EmptyWorkoutHistory, 
+import {
+    EmptyWorkoutHistory,
     EmptyExerciseHistory,
     EmptySearchResults,
 } from './components/feedback';
@@ -17,16 +17,16 @@ import {
         // ============================================================================
         // SECTION 1: GLOBAL STATE & DATA STRUCTURES
         // ============================================================================
-        
+
         // --- RAW SCHEDULE (loaded from JSON) ---
         let RAW_SCHEDULE = [];
         let COMPLETE_SCHEDULE = [];
         let EXERCISE_LIBRARY = [];
-        
+
         // ============================================================================
         // SECTION 2: LOCALSTORAGE UTILITIES
         // ============================================================================
-        
+
         /**
          * Safely get and parse JSON from localStorage
          * @param {string} key - localStorage key
@@ -43,7 +43,7 @@ import {
                 return defaultValue;
             }
         };
-        
+
         /**
          * Safely stringify and save JSON to localStorage
          * @param {string} key - localStorage key
@@ -60,7 +60,7 @@ import {
                 return false;
             }
         };
-        
+
         /**
          * Safely remove item from localStorage
          * @param {string} key - localStorage key
@@ -75,7 +75,7 @@ import {
                 return false;
             }
         };
-        
+
         // ============================================================================
         // SECTION 3: SCHEDULE UTILITIES
         // ============================================================================
@@ -90,7 +90,7 @@ import {
             // Start with all items from RAW_SCHEDULE (loaded from full-schedule.json)
             COMPLETE_SCHEDULE = [...RAW_SCHEDULE];
             const add = (w, d, ex, s, r, n) => COMPLETE_SCHEDULE.push({w, d, ex, s, r, n});
-            
+
             // Auto-generate standard warmups/cooldowns for weeks 2-21 that aren't explicitly defined
             for (let w = 2; w <= 21; w++) {
                 // Add standard warmups for pull days (D1/D5) if not already present
@@ -113,7 +113,7 @@ import {
         // ============================================================================
         // SECTION 4: CUSTOM HOOKS
         // ============================================================================
-        
+
         // --- HAPTIC ENGINE ---
         const useHaptic = () => {
             const trigger = (pattern = [10]) => {
@@ -158,17 +158,17 @@ import {
         // Debounces a value to reduce excessive updates
         const useDebounce = (value, delay = DEBOUNCE_DELAY_MS) => {
             const [debouncedValue, setDebouncedValue] = useState(value);
-            
+
             useEffect(() => {
                 const handler = setTimeout(() => {
                     setDebouncedValue(value);
                 }, delay);
-                
+
                 return () => {
                     clearTimeout(handler);
                 };
             }, [value, delay]);
-            
+
             return debouncedValue;
         };
 
@@ -185,7 +185,7 @@ import {
                         }
                     });
                 });
-                
+
                 // Cleanup: cancel pending RAF callbacks
                 return () => {
                     if (rafId1) cancelAnimationFrame(rafId1);
@@ -197,7 +197,7 @@ import {
         // ============================================================================
         // SECTION 5: APPLICATION CONSTANTS & PROGRAM DATA
         // ============================================================================
-        
+
         // --- APPLICATION CONSTANTS ---
         const MAX_SETS = 20; // Maximum number of sets per exercise
         const MAX_WEIGHT_KG = 999; // Maximum weight in kilograms
@@ -228,7 +228,7 @@ import {
                     else if (n.includes('cool-down')) type = 'cool';
                     else if (item.ex.toLowerCase().includes('skill') || n.includes('practice')) type = 'skill';
                     else if (n.includes('accessory') || n.includes('core')) type = 'access';
-                    
+
                     sections[type].push({
                         name: item.ex,
                         prescription: `${item.s} x ${item.r}`,
@@ -258,15 +258,15 @@ import {
             <div className="bg-sys-black sticky top-0 z-40 safe-pt border-b border-white/10">
                 <div className="h-16 flex items-center px-5 gap-4">
                     {showBack ? (
-                        <button 
-                            onClick={onBack} 
+                        <button
+                            onClick={onBack}
                             className="h-10 w-10 -ml-1 text-sys-onSurface rounded-xl hover:bg-sys-surfaceHigh transition-colors flex items-center justify-center active:scale-90"
                             aria-label="Go back"
                         >
                             <i data-lucide="arrow-left" width="24"></i>
                         </button>
                     ) : null}
-                    
+
                     <div className="flex-1 min-w-0">
                         <h1 className="text-xl font-bold text-sys-onSurface tracking-tight truncate">{title}</h1>
                         {subtitle && <p className="text-xs text-sys-onSurfaceVar font-semibold mt-0.5">{subtitle}</p>}
@@ -279,11 +279,11 @@ import {
         const ActionBar = ({ onFinish, timerState, setTimerActive, setTimerSeconds, emomState, setEmomActive, setEmomSeconds, setEmomInterval }) => {
             const haptic = useHaptic();
             const [showConfirm, setShowConfirm] = useState(false);
-            
+
             // Keyboard shortcuts for dialog
             useEffect(() => {
                 if (!showConfirm) return;
-                
+
                 const handleKeyDown = (e) => {
                     if (e.key === 'Escape') {
                         haptic.tick();
@@ -294,11 +294,11 @@ import {
                         onFinish();
                     }
                 };
-                
+
                 window.addEventListener('keydown', handleKeyDown);
                 return () => window.removeEventListener('keydown', handleKeyDown);
             }, [showConfirm, onFinish, haptic]);
-            
+
             return (
                 <>
                     <div className="fixed bottom-0 left-0 right-0 bg-sys-black border-t border-white/10 z-50 safe-pb">
@@ -308,8 +308,8 @@ import {
                                 <div className="glass-panel px-5 py-4 rounded-2xl shadow-lg animate-slide-up">
                                     <div className="flex items-center gap-3 mb-3">
                                         <span className="text-xs font-semibold text-sys-accent uppercase tracking-wider">EMOM Timer</span>
-                                        <button 
-                                            onClick={() => { haptic.bump(); setEmomActive(false); setEmomSeconds(0); }} 
+                                        <button
+                                            onClick={() => { haptic.bump(); setEmomActive(false); setEmomSeconds(0); }}
                                             className="ml-auto h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
                                             aria-label="Stop EMOM timer"
                                         >
@@ -322,8 +322,8 @@ import {
                                         </span>
                                         <div className="h-6 w-[1px] bg-white/20"></div>
                                         <div className="flex items-center gap-2">
-                                            <button 
-                                                onClick={() => { haptic.bump(); setEmomInterval(i => Math.max(10, i - 5)); }} 
+                                            <button
+                                                onClick={() => { haptic.bump(); setEmomInterval(i => Math.max(10, i - 5)); }}
                                                 className="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
                                                 aria-label="Decrease interval by 5 seconds"
                                             >
@@ -332,8 +332,8 @@ import {
                                             <span className="text-sm text-sys-onSurfaceVar font-semibold min-w-[40px] text-center">
                                                 {emomState.interval}s
                                             </span>
-                                            <button 
-                                                onClick={() => { haptic.bump(); setEmomInterval(i => Math.min(180, i + 5)); }} 
+                                            <button
+                                                onClick={() => { haptic.bump(); setEmomInterval(i => Math.min(180, i + 5)); }}
                                                 className="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
                                                 aria-label="Increase interval by 5 seconds"
                                             >
@@ -353,15 +353,15 @@ import {
                                         {Math.floor(timerState.time/60)}:{timerState.time%60 < 10 ? '0' : ''}{timerState.time%60}
                                     </span>
                                     <div className="h-6 w-[1px] bg-white/20"></div>
-                                    <button 
-                                        onClick={() => { haptic.bump(); setTimerActive(false); setTimerSeconds(0); }} 
+                                    <button
+                                        onClick={() => { haptic.bump(); setTimerActive(false); setTimerSeconds(0); }}
                                         className="h-10 w-10 min-w-[40px] rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
                                         aria-label="Cancel timer"
                                     >
                                         <i data-lucide="x" width="20"></i>
                                     </button>
-                                    <button 
-                                        onClick={() => { haptic.bump(); setTimerSeconds(s => s + 30); }} 
+                                    <button
+                                        onClick={() => { haptic.bump(); setTimerSeconds(s => s + 30); }}
                                         className="text-sys-accent font-bold text-base px-3 py-2 min-h-[44px]"
                                     >
                                         +30s
@@ -371,8 +371,8 @@ import {
                         )}
 
                         <div className="px-4 py-3">
-                            <button 
-                                onClick={() => { haptic.bump(); setShowConfirm(true); }} 
+                            <button
+                                onClick={() => { haptic.bump(); setShowConfirm(true); }}
                                 className="w-full h-16 min-h-[56px] px-8 rounded-2xl text-white font-bold flex items-center justify-center gap-3 active:scale-95 transition-transform btn-gradient-success"
                             >
                                 <i data-lucide="check-circle-2" width="22"></i>
@@ -380,7 +380,7 @@ import {
                             </button>
                         </div>
                     </div>
-                    
+
                     {/* Confirmation Dialog */}
                     {showConfirm && (
                         <div className="fixed inset-0 z-50 flex items-end justify-center p-4 bg-black/60 backdrop-blur-sm animate-slide-up safe-pb">
@@ -388,13 +388,13 @@ import {
                                 <h3 className="text-xl font-bold text-white mb-2">Finish Workout?</h3>
                                 <p className="text-sys-onSurfaceVar mb-6">Your progress will be saved and logged to history.</p>
                                 <div className="flex gap-3">
-                                    <button 
+                                    <button
                                         onClick={() => { haptic.tick(); setShowConfirm(false); }}
                                         className="flex-1 h-14 rounded-xl bg-sys-surfaceHigh text-white font-semibold active:scale-95 transition-transform hover-lift"
                                     >
                                         Cancel
                                     </button>
-                                    <button 
+                                    <button
                                         onClick={() => { haptic.success(); setShowConfirm(false); onFinish(); }}
                                         className="flex-1 h-14 rounded-xl text-white font-semibold active:scale-95 transition-transform btn-gradient-success"
                                     >
@@ -413,7 +413,7 @@ import {
         // ============================================================================
         // SECTION 7: GEMINI INTEGRATION UTILITIES
         // ============================================================================
-        
+
         const GEMINI_CHAT_HISTORY_KEY = 'gemini_chat_history';
         const GEMINI_SYSTEM_PROMPT = `You are a personal fitness coach and training analyst. Your role is to:
 - Track and analyze workout progress over time
@@ -432,7 +432,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
          */
         const initializeGeminiChat = () => {
             const history = safeGetJSON(GEMINI_CHAT_HISTORY_KEY, null);
-            
+
             if (!history) {
                 // Initialize with system prompt - establishes AI coaching persona
                 const initialHistory = [{
@@ -445,12 +445,12 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 safeSetJSON(GEMINI_CHAT_HISTORY_KEY, initialHistory);
                 return initialHistory;
             }
-            
+
             // Validate chat history structure (must be array with at least system messages)
             if (Array.isArray(history) && history.length >= 2) {
                 return history;
             }
-            
+
             // Invalid structure, reset and reinitialize
             console.warn('Invalid chat history structure, reinitializing');
             safeRemove(GEMINI_CHAT_HISTORY_KEY);
@@ -464,28 +464,28 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     console.log('Gemini API key not configured, skipping sync');
                     return { success: false, error: 'API key not configured' };
                 }
-                
+
                 // Validate input parameters
                 if (!week || !day || !workout || !logs) {
                     console.error('Invalid parameters for Gemini sync');
                     return { success: false, error: 'Invalid workout data' };
                 }
-                
+
                 // Get or initialize chat history
                 const chatHistory = initializeGeminiChat();
-            
+
                 // Format workout data for Gemini
                 const workoutSummary = formatWorkoutForGemini(week, day, workout, logs, addedExercises);
-            
+
                 // Add new user message to history
                 const newUserMessage = {
                     role: 'user',
                     parts: [{ text: workoutSummary }]
                 };
-                
+
                 // Build contents array with full history plus new message
                 const contents = [...chatHistory, newUserMessage];
-                
+
                 // Note: Using gemini-2.5-flash model (latest available model)
                 // API key must be in URL - Google Gemini API does not support Authorization headers
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
@@ -497,39 +497,39 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         contents: contents
                     })
                 });
-                
+
                 if (!response.ok) {
                     const errorData = await response.json().catch(() => ({}));
                     throw new Error(`Gemini API error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
                 }
-                
+
                 const data = await response.json();
                 console.log('Successfully sent workout to Gemini:', data);
-                
+
                 // Extract model response and add to history with validation
-                if (data.candidates && 
-                    data.candidates[0] && 
-                    data.candidates[0].content && 
+                if (data.candidates &&
+                    data.candidates[0] &&
+                    data.candidates[0].content &&
                     data.candidates[0].content.parts &&
                     Array.isArray(data.candidates[0].content.parts) &&
                     data.candidates[0].content.parts.length > 0) {
-                    
+
                     const modelResponse = {
                         role: 'model',
                         parts: data.candidates[0].content.parts
                     };
-                    
+
                     // Update chat history with both user message and model response
                     const updatedHistory = [...chatHistory, newUserMessage, modelResponse];
                     safeSetJSON(GEMINI_CHAT_HISTORY_KEY, updatedHistory);
                 } else {
                     console.warn('Unexpected API response structure, history not updated:', data);
                 }
-                
+
                 return { success: true, data };
             } catch (error) {
                 console.error('Failed to send workout to Gemini:', error);
-                
+
                 // Provide more user-friendly error messages
                 let userMessage = error.message || 'Network error';
                 if (error.message && error.message.includes('API error: 400')) {
@@ -543,23 +543,23 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 } else if (error.message && (error.message.includes('Failed to fetch') || error.message.includes('Network'))) {
                     userMessage = 'Network error - check your connection';
                 }
-                
+
                 return { success: false, error: userMessage };
             }
         };
-        
+
         const formatWorkoutForGemini = (week, day, workout, logs, addedExercises = []) => {
             const completedAt = new Date().toLocaleString();
             let summary = `# Workout Completed\n\n`;
             summary += `Date: ${completedAt}\n`;
             summary += `Week: ${week} | Day: ${day}\n`;
             summary += `Title: ${workout.title}\n\n`;
-            
+
             // Add workout notes if present
             if (logs.workoutNotes) {
                 summary += `## Workout Notes\n${logs.workoutNotes}\n\n`;
             }
-            
+
             workout.sections.forEach(section => {
                 summary += `## ${section.name}\n`;
                 section.exercises.forEach(ex => {
@@ -567,20 +567,20 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     const exLog = logs[exId] || {};
                     const sets = exLog.sets || [];
                     const completedSets = sets.filter(s => s).length;
-                    
+
                     // Extract expected sets from prescription (e.g., "3 x 10 reps" -> 3)
                     const prescriptionMatch = ex.prescription.match(/^(\d+)\s*x/i);
                     const expectedSets = prescriptionMatch ? parseInt(prescriptionMatch[1]) : sets.length;
-                    
+
                     summary += `\n**${ex.name}**\n`;
                     summary += `- Prescription: ${ex.prescription}\n`;
                     if (ex.notes) summary += `- Notes: ${ex.notes}\n`;
                     summary += `- Completed Sets: ${completedSets}/${expectedSets}\n`;
-                    
+
                     if (exLog.weight) {
                         summary += `- Weight: ${exLog.weight} kg\n`;
                     }
-                    
+
                     // Include RPE data if available
                     if (exLog.rpe && Object.keys(exLog.rpe).length > 0) {
                         const rpeValues = Object.entries(exLog.rpe)
@@ -591,7 +591,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     }
                 });
             });
-            
+
             // Include added exercises
             if (addedExercises.length > 0) {
                 summary += `\n## Added Exercises\n`;
@@ -601,16 +601,16 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     const sets = exLog.sets || [];
                     const completedSets = sets.filter(s => s).length;
                     const expectedSets = sets.length || ex.sets;
-                    
+
                     summary += `\n**${ex.name}** (Added)\n`;
                     summary += `- Target Muscles: ${ex.primaryMuscles.join(', ')}\n`;
                     summary += `- Equipment: ${ex.equipment.join(', ')}\n`;
                     summary += `- Completed Sets: ${completedSets}/${expectedSets}\n`;
-                    
+
                     if (ex.weight || exLog.weight) {
                         summary += `- Weight: ${exLog.weight || ex.weight} kg\n`;
                     }
-                    
+
                     // Include RPE for added exercises
                     if (exLog.rpe && Object.keys(exLog.rpe).length > 0) {
                         const rpeValues = Object.entries(exLog.rpe)
@@ -621,7 +621,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     }
                 });
             }
-            
+
             summary += `\nPlease analyze this workout and provide feedback on my progress, form cues to remember, and suggestions for the next session.`;
             return summary;
         };
@@ -629,14 +629,14 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         // ============================================================================
         // SECTION 7B: FIREBASE SYNC UTILITIES
         // ============================================================================
-        
+
         // Keys for Firebase sync settings
         const FIREBASE_SYNC_ENABLED_KEY = 'firebase_sync_enabled';
-        
+
         /**
          * Get all local data that should be synced to Firebase
          * This includes workout sessions, exercise history, and settings
-         * 
+         *
          * Note: This function iterates through all possible workout sessions (84 total).
          * This is intentional and not a performance issue because:
          * 1. It's only called on login and manual sync (infrequent operations)
@@ -649,14 +649,14 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 // Settings
                 gemini_api_key: localStorage.getItem('gemini_api_key') || '',
                 gemini_auto_sync: localStorage.getItem('gemini_auto_sync') || 'true',
-                
+
                 // Exercise history
                 exercise_history: safeGetJSON('exercise_history', []),
-                
+
                 // Workout sessions - collect all session_w*d* keys
                 sessions: {}
             };
-            
+
             // Collect all workout session data (21 weeks × 4 days = 84 sessions max)
             // Only non-empty sessions are included in the sync
             for (let week = 1; week <= 21; week++) {
@@ -668,24 +668,24 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     }
                 }
             }
-            
+
             return data;
         };
-        
+
         /**
          * Merge cloud data with local data based on timestamps
-         * 
+         *
          * For workout sessions, this function compares the `lastModified` timestamp
          * of local and cloud versions, keeping the newer version.
-         * 
+         *
          * Fallback behavior (in order of precedence):
          * 1. If no local session exists: use cloud data
          * 2. If either timestamp is missing: use cloud data (backward compatibility)
          * 3. If either timestamp is invalid (NaN): use cloud data
          * 4. Otherwise: compare timestamps and keep the newer version
-         * 
+         *
          * Note: Settings and exercise history always use cloud data (no timestamp comparison)
-         * 
+         *
          * @param {Object} cloudData - Data from Firebase
          * @param {Object} cloudData.sessions - Workout session data keyed by session_wXdY
          * @param {string} cloudData.gemini_api_key - Gemini API key
@@ -694,9 +694,9 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
          */
         const mergeCloudData = (cloudData) => {
             if (!cloudData) return;
-            
+
             console.log('Merging cloud data with local data');
-            
+
             // Merge settings (always use cloud settings)
             if (cloudData.gemini_api_key) {
                 localStorage.setItem('gemini_api_key', cloudData.gemini_api_key);
@@ -704,47 +704,47 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             if (cloudData.gemini_auto_sync) {
                 localStorage.setItem('gemini_auto_sync', cloudData.gemini_auto_sync);
             }
-            
+
             // Merge exercise history (always use cloud history)
             if (cloudData.exercise_history) {
                 safeSetJSON('exercise_history', cloudData.exercise_history);
             }
-            
+
             // Merge workout sessions based on timestamps
             if (cloudData.sessions) {
                 Object.keys(cloudData.sessions).forEach(key => {
                     const cloudSession = cloudData.sessions[key];
                     const localSession = safeGetJSON(key, null);
-                    
+
                     // If no local session exists, use cloud data
                     if (!localSession) {
                         console.log(`No local session for ${key}, using cloud data`);
                         safeSetJSON(key, cloudSession);
                         return;
                     }
-                    
+
                     // Compare timestamps to determine which version is newer
                     const cloudTimestamp = cloudSession.lastModified;
                     const localTimestamp = localSession.lastModified;
-                    
+
                     // If either timestamp is missing, use cloud data (backward compatibility)
                     if (!cloudTimestamp || !localTimestamp) {
                         console.log(`Missing timestamp for ${key}, using cloud data (cloud: ${cloudTimestamp || 'none'}, local: ${localTimestamp || 'none'})`);
                         safeSetJSON(key, cloudSession);
                         return;
                     }
-                    
+
                     // Compare timestamps and keep the newer version
                     const cloudDate = new Date(cloudTimestamp);
                     const localDate = new Date(localTimestamp);
-                    
+
                     // Check for invalid dates (NaN) - if either is invalid, use cloud data
                     if (isNaN(cloudDate.getTime()) || isNaN(localDate.getTime())) {
                         console.log(`Invalid timestamp detected for ${key}, using cloud data (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
                         safeSetJSON(key, cloudSession);
                         return;
                     }
-                    
+
                     if (cloudDate > localDate) {
                         // Cloud data is newer, use it
                         console.log(`Using cloud data for ${key} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
@@ -755,42 +755,42 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     }
                 });
             }
-            
+
             console.log('Cloud data merged successfully');
         };
 
         // ============================================================================
         // SECTION 8: EXERCISE HISTORY & STATS UTILITIES
         // ============================================================================
-        
+
         const EXERCISE_HISTORY_KEY = 'exercise_history';
 
         // Update exercise history with a new entry
         const updateExerciseHistory = (exerciseName, entry) => {
             const history = safeGetJSON(EXERCISE_HISTORY_KEY, {});
-            
+
             // Validate history structure
             if (typeof history !== 'object' || history === null) {
                 console.warn('Invalid exercise history, resetting');
                 safeSetJSON(EXERCISE_HISTORY_KEY, {});
                 return;
             }
-            
+
             if (!history[exerciseName]) {
                 history[exerciseName] = [];
             }
-            
+
             // Validate exercise name and entry
             if (!exerciseName || typeof exerciseName !== 'string') {
                 console.error('Invalid exercise name:', exerciseName);
                 return;
             }
-            
+
             if (!entry || typeof entry !== 'object') {
                 console.error('Invalid history entry:', entry);
                 return;
             }
-            
+
             history[exerciseName].push(entry);
             safeSetJSON(EXERCISE_HISTORY_KEY, history);
         };
@@ -798,28 +798,28 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         // Get history for a specific exercise
         const getExerciseHistory = (exerciseName) => {
             const history = safeGetJSON(EXERCISE_HISTORY_KEY, {});
-            
+
             // Validate history structure
             if (typeof history !== 'object' || history === null) {
                 console.warn('Invalid exercise history structure');
                 return [];
             }
-            
+
             const exerciseHistory = history[exerciseName] || [];
-            
+
             // Validate that it's an array
             if (!Array.isArray(exerciseHistory)) {
                 console.warn(`Invalid history for ${exerciseName}, expected array`);
                 return [];
             }
-            
+
             return exerciseHistory;
         };
 
         // Calculate stats for an exercise
         const calculateExerciseStats = (exerciseName) => {
             const history = getExerciseHistory(exerciseName);
-            
+
             if (history.length === 0) {
                 return {
                     totalWorkouts: 0,
@@ -909,21 +909,21 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         // Helper function to format relative time
         const formatRelativeTime = (isoTimestamp) => {
             if (!isoTimestamp) return null;
-            
+
             const syncDate = new Date(isoTimestamp);
-            
+
             // Validate date object
             if (isNaN(syncDate.getTime())) {
                 console.warn('Invalid timestamp provided to formatRelativeTime:', isoTimestamp);
                 return null;
             }
-            
+
             const now = new Date();
             const diffMs = now - syncDate;
             const diffMins = Math.floor(diffMs / MS_PER_MINUTE);
             const diffHours = Math.floor(diffMs / MS_PER_HOUR);
             const diffDays = Math.floor(diffMs / MS_PER_DAY);
-            
+
             if (diffMins < 1) {
                 return 'just now';
             } else if (diffMins < 60) {
@@ -938,7 +938,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         // ============================================================================
         // SECTION 9: MAIN APPLICATION COMPONENTS
         // ============================================================================
-        
+
         // --- AUDIO UTILITIES ---
         /**
          * Play a tick sound for countdown
@@ -948,16 +948,16 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 const oscillator = audioContext.createOscillator();
                 const gainNode = audioContext.createGain();
-                
+
                 oscillator.connect(gainNode);
                 gainNode.connect(audioContext.destination);
-                
+
                 oscillator.frequency.value = 800; // High frequency for tick
                 oscillator.type = 'sine';
-                
+
                 gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
                 gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-                
+
                 oscillator.start(audioContext.currentTime);
                 oscillator.stop(audioContext.currentTime + 0.1);
             } catch (error) {
@@ -973,16 +973,16 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 const oscillator = audioContext.createOscillator();
                 const gainNode = audioContext.createGain();
-                
+
                 oscillator.connect(gainNode);
                 gainNode.connect(audioContext.destination);
-                
+
                 oscillator.frequency.value = 1200; // Higher frequency for beep
                 oscillator.type = 'sine';
-                
+
                 gainNode.gain.setValueAtTime(0.4, audioContext.currentTime);
                 gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-                
+
                 oscillator.start(audioContext.currentTime);
                 oscillator.stop(audioContext.currentTime + 0.2);
             } catch (error) {
@@ -1010,7 +1010,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [showExerciseHistory, setShowExerciseHistory] = useState(null); // null or exercise name
             const [workoutNotes, setWorkoutNotes] = useState(''); // Free-text notes for the entire workout
             const haptic = useHaptic();
-            
+
             // Add swipe support for back navigation
             const swipeHandlers = useSwipe({
                 onSwipeRight: () => {
@@ -1018,17 +1018,17 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     onComplete();
                 }
             });
-            
+
             // Debounce exercise selector search term
             const debouncedExerciseSearch = useDebounce(exerciseSearchTerm, DEBOUNCE_DELAY_MS);
-            
+
             // Generic Lucide icon refresh hook - ensures icons render after React updates
             // Runs when UI state changes that affect icon visibility
             useLucideIcons([collapsedExercises, showTimerToast, geminiSyncStatus, showExerciseSelector, showExerciseHistory, week, day, addedExercises, logs, timerSeconds, timerActive, emomSeconds, emomActive, emomInterval]);
 
             useEffect(() => {
                 const parsedLogs = safeGetJSON(`session_w${week}d${day}`, {});
-                
+
                 // Validate and set logs
                 if (parsedLogs && typeof parsedLogs === 'object') {
                     setLogs(parsedLogs);
@@ -1050,8 +1050,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             useEffect(() => {
                 let interval = null;
                 if (timerActive && timerSeconds > 0) interval = setInterval(() => setTimerSeconds(s => s - 1), 1000);
-                else if (timerSeconds === 0 && timerActive) { 
-                    setTimerActive(false); 
+                else if (timerSeconds === 0 && timerActive) {
+                    setTimerActive(false);
                     haptic.timer();
                     setShowTimerToast(true);
                     // Toast will remain visible until user closes it
@@ -1087,7 +1087,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 safeSetJSON('emom_interval', emomInterval);
             }, [emomInterval]);
 
-            
+
             // Keyboard shortcuts for toasts
             useEffect(() => {
                 const handleKeyDown = (e) => {
@@ -1102,19 +1102,19 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         }
                     }
                 };
-                
+
                 window.addEventListener('keydown', handleKeyDown);
                 return () => window.removeEventListener('keydown', handleKeyDown);
             }, [showTimerToast, geminiSyncStatus]);
 
             const saveLog = (id, field, value) => {
-                const updatedLogs = { 
-                    ...logs, 
+                const updatedLogs = {
+                    ...logs,
                     [id]: { ...logs[id], [field]: value },
                     lastModified: new Date().toISOString()
                 };
                 setLogs(updatedLogs);
-                
+
                 const success = safeSetJSON(`session_w${week}d${day}`, updatedLogs);
                 if (!success) {
                     alert('Failed to save progress. Your storage might be full.');
@@ -1124,20 +1124,20 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const toggleSet = (exId, setIndex, defaultSets, restTime) => {
                 try {
                     haptic.tick();
-                    
+
                     // Validate inputs
                     if (!exId || setIndex < 0 || !Number.isInteger(setIndex)) {
                         console.error('Invalid set toggle parameters:', { exId, setIndex, defaultSets });
                         return;
                     }
-                    
+
                     const currentSets = logs[exId]?.sets || new Array(defaultSets).fill(false);
                     const newSets = [...currentSets];
                     while(newSets.length <= setIndex) newSets.push(false);
                     const wasCompleted = newSets[setIndex];
                     newSets[setIndex] = !newSets[setIndex];
                     saveLog(exId, 'sets', newSets);
-                    
+
                     // Clear RPE data when unmarking a set to prevent stale data
                     if (wasCompleted && !newSets[setIndex]) {
                         const currentRPEs = logs[exId]?.rpe || {};
@@ -1147,7 +1147,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             saveLog(exId, 'rpe', updatedRPEs);
                         }
                     }
-                    
+
                     // Auto-start timer when completing a set (not when uncompleting)
                     if (!wasCompleted && newSets[setIndex] && typeof restTime === 'number' && !isNaN(restTime) && restTime > 0) {
                         setTimerSeconds(restTime);
@@ -1157,7 +1157,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     console.error('Failed to toggle set:', error);
                 }
             };
-            
+
             // Save RPE (Rate of Perceived Exertion) for a specific set
             const saveRPE = (exId, setIndex, rpe) => {
                 try {
@@ -1174,17 +1174,17 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 const currentSets = logs[exId]?.sets || new Array(defaultSets).fill(false);
                 saveLog(exId, 'sets', [...currentSets, false]);
             };
-            
+
             const completeAllSets = (exId, defaultSets) => {
                 haptic.success();
                 const allCompleted = new Array(defaultSets).fill(true);
                 saveLog(exId, 'sets', allCompleted);
             };
-            
+
             const toggleExerciseCollapse = (exId) => {
                 setCollapsedExercises(prev => ({ ...prev, [exId]: !prev[exId] }));
             };
-            
+
             const scrollToNextIncompleteExercise = () => {
                 haptic.bump();
                 // Find first exercise with incomplete sets
@@ -1199,7 +1199,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         }
                     });
                 });
-                
+
                 if (allExercises.length > 0) {
                     const nextExId = allExercises[0];
                     const element = document.getElementById(nextExId);
@@ -1208,7 +1208,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     }
                 }
             };
-            
+
             const addExerciseToWorkout = (exercise, sets = 3, weight = '') => {
                 try {
                     // Validate exercise data
@@ -1217,17 +1217,17 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         alert('Failed to add exercise: Invalid exercise data');
                         return;
                     }
-                    
+
                     // Validate sets
                     const validSets = Number.isInteger(sets) && sets > 0 && sets <= MAX_SETS ? sets : 3;
-                    
+
                     // Check for duplicates
                     const isDuplicate = addedExercises.some(ex => ex.id === exercise.id);
                     if (isDuplicate) {
                         alert('This exercise has already been added to the workout');
                         return;
                     }
-                    
+
                     haptic.success();
                     const newExercise = {
                         id: exercise.id,
@@ -1240,16 +1240,16 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     };
                     const updatedAddedExercises = [...addedExercises, newExercise];
                     setAddedExercises(updatedAddedExercises);
-                    
+
                     // Save to storage with timestamp
-                    const updatedLogs = { 
-                        ...logs, 
+                    const updatedLogs = {
+                        ...logs,
                         addedExercises: updatedAddedExercises,
                         lastModified: new Date().toISOString()
                     };
                     setLogs(updatedLogs);
                     safeSetJSON(`session_w${week}d${day}`, updatedLogs);
-                    
+
                     setShowExerciseSelector(false);
                     setExerciseSearchTerm('');
                 } catch (error) {
@@ -1257,15 +1257,15 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     alert('Failed to add exercise. Please try again.');
                 }
             };
-            
+
             const removeAddedExercise = (exerciseId) => {
                 haptic.tick();
                 const updatedAddedExercises = addedExercises.filter(ex => ex.id !== exerciseId);
                 setAddedExercises(updatedAddedExercises);
-                
+
                 // Save to storage with timestamp
-                const updatedLogs = { 
-                    ...logs, 
+                const updatedLogs = {
+                    ...logs,
                     addedExercises: updatedAddedExercises,
                     lastModified: new Date().toISOString()
                 };
@@ -1276,20 +1276,20 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const handleFinish = async () => {
                 try {
                     const timestamp = new Date().toISOString();
-                    const updatedLogs = { 
-                        ...logs, 
-                        completed: true, 
-                        completedAt: timestamp, 
+                    const updatedLogs = {
+                        ...logs,
+                        completed: true,
+                        completedAt: timestamp,
                         lastModified: timestamp,
-                        week, 
-                        day, 
-                        workoutNotes 
+                        week,
+                        day,
+                        workoutNotes
                     };
                     setLogs(updatedLogs);
                     safeSetJSON(`session_w${week}d${day}`, updatedLogs);
-                    
+
                     const completionDate = new Date().toISOString();
-                
+
                 // Build exercise summary with completed/incomplete sets
                 const exerciseSummary = [];
                 workout.sections.forEach(section => {
@@ -1299,7 +1299,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         const sets = exLog.sets || [];
                         const completedSets = sets.filter(s => s).length;
                         const totalSets = sets.length || ex.sets || 0;
-                        
+
                         exerciseSummary.push({
                             name: ex.name,
                             prescription: ex.prescription,
@@ -1308,7 +1308,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             weight: exLog.weight || null,
                             rpe: exLog.rpe || null
                         });
-                        
+
                         // Update per-exercise history
                         if (completedSets > 0) {
                             updateExerciseHistory(ex.name, {
@@ -1324,7 +1324,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         }
                     });
                 });
-                
+
                 // Add added exercises to the summary
                 addedExercises.forEach(ex => {
                     const exId = `added_${ex.id}`;
@@ -1332,7 +1332,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     const sets = exLog.sets || [];
                     const completedSets = sets.filter(s => s).length;
                     const totalSets = sets.length || ex.sets || 0;
-                    
+
                     exerciseSummary.push({
                         name: `${ex.name} (Added)`,
                         prescription: `${ex.sets} sets`,
@@ -1340,7 +1340,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         totalSets,
                         weight: ex.weight || exLog.weight || null
                     });
-                    
+
                     // Update per-exercise history for added exercises
                     if (completedSets > 0) {
                         updateExerciseHistory(ex.name, {
@@ -1355,23 +1355,23 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         });
                     }
                 });
-                
+
                 // Create history entry with exercise summary
-                const historyEntry = { 
-                    week, 
-                    day, 
-                    date: completionDate, 
+                const historyEntry = {
+                    week,
+                    day,
+                    date: completionDate,
                     title: workout.title,
                     exercises: exerciseSummary,
                     workoutNotes: workoutNotes || null,
                     aiFeedback: null // Will be updated if Gemini sync succeeds
                 };
-                
+
                 const history = safeGetJSON('global_history', []);
                 const cleanHistory = history.filter(h => !(h.week === week && h.day === day));
                 cleanHistory.push(historyEntry);
                 safeSetJSON('global_history', cleanHistory);
-                
+
                 // Send workout to Gemini (only if API key is configured and auto-sync is enabled)
                 const apiKey = localStorage.getItem('gemini_api_key');
                 const autoSync = localStorage.getItem('gemini_auto_sync') !== 'false'; // Default true
@@ -1383,14 +1383,14 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             if (result.success) {
                                 // Extract AI feedback from response
                                 const aiFeedback = result.data?.candidates?.[0]?.content?.parts?.[0]?.text || null;
-                                
+
                                 // Update the history entry with AI feedback
                                 if (aiFeedback) {
                                     const updatedHistory = safeGetJSON('global_history', []);
                                     // Find the most recent entry for this week and day without AI feedback yet
-                                    const entryIndex = updatedHistory.findLastIndex(entry => 
-                                        entry.week === week && 
-                                        entry.day === day && 
+                                    const entryIndex = updatedHistory.findLastIndex(entry =>
+                                        entry.week === week &&
+                                        entry.day === day &&
                                         !entry.aiFeedback
                                     );
                                     if (entryIndex !== -1) {
@@ -1398,7 +1398,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                         safeSetJSON('global_history', updatedHistory);
                                     }
                                 }
-                                
+
                                 setGeminiSyncStatus('success');
                                 // Toast will remain visible until user closes it
                             } else {
@@ -1414,7 +1414,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             // Toast will remain visible until user closes it
                         });
                 }
-                
+
                 onComplete();
                 } catch (error) {
                     console.error('Failed to complete workout:', error);
@@ -1423,7 +1423,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             };
 
             // Check if there are any incomplete exercises
-            const hasIncompleteExercises = workout.sections.some(section => 
+            const hasIncompleteExercises = workout.sections.some(section =>
                 section.exercises.some(ex => {
                     const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
                     const sets = logs[exId]?.sets || [];
@@ -1436,7 +1436,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     {/* Quick navigation button */}
                     {hasIncompleteExercises && (
                         <div className="mb-6">
-                            <button 
+                            <button
                                 onClick={scrollToNextIncompleteExercise}
                                 className="w-full h-12 px-6 rounded-xl border border-sys-accent/30 text-white font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform btn-gradient-primary btn-dimmed"
                             >
@@ -1445,7 +1445,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </button>
                         </div>
                     )}
-                    
+
                     {/* Workout Notes Section */}
                     <div className="mb-6">
                         <div className="bg-sys-surface rounded-3xl border border-white/5 p-5">
@@ -1453,13 +1453,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 <i data-lucide="file-text" width="18" className="text-sys-accent"></i>
                                 <label className="text-sm font-bold text-white uppercase tracking-wider">Workout Notes</label>
                             </div>
-                            <textarea 
+                            <textarea
                                 value={workoutNotes}
                                 onChange={(e) => {
                                     setWorkoutNotes(e.target.value);
                                     // Auto-save notes to localStorage with timestamp
-                                    const updatedLogs = { 
-                                        ...logs, 
+                                    const updatedLogs = {
+                                        ...logs,
                                         workoutNotes: e.target.value,
                                         lastModified: new Date().toISOString()
                                     };
@@ -1472,34 +1472,34 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             ></textarea>
                         </div>
                     </div>
-                    
+
                     {workout.sections.map((section, sIdx) => {
                         // Helper function to check if exercise is EMOM
                         const isEMOM = (ex) => ex && ((ex.notes && ex.notes.toLowerCase().includes('emom')) || (ex.name && ex.name.toLowerCase().includes('emom')));
-                        
+
                         // Pre-process exercises to identify superset groups - O(n) complexity
                         const exercisesWithSuperset = [];
                         let currentSupersetStart = -1;
-                        
+
                         section.exercises.forEach((ex, idx) => {
                             const exIsEMOM = isEMOM(ex);
                             const prevIsEMOM = idx > 0 && isEMOM(section.exercises[idx - 1]);
                             const nextIsEMOM = idx < section.exercises.length - 1 && isEMOM(section.exercises[idx + 1]);
-                            
+
                             let supersetLabel = null;
                             let supersetPosition = null;
-                            
+
                             if (exIsEMOM) {
                                 // Track start of superset group
                                 if (!prevIsEMOM) {
                                     currentSupersetStart = idx;
                                 }
-                                
+
                                 // Only add labels if part of a group (has prev or next EMOM)
                                 if (prevIsEMOM || nextIsEMOM) {
                                     const positionInSuperset = idx - currentSupersetStart;
                                     supersetLabel = `B${positionInSuperset + 1}`;
-                                    
+
                                     // Determine position for visual rendering
                                     if (!prevIsEMOM && nextIsEMOM) {
                                         supersetPosition = 'first';
@@ -1510,10 +1510,10 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     }
                                 }
                             }
-                            
+
                             exercisesWithSuperset.push({ ...ex, supersetLabel, supersetPosition });
                         });
-                        
+
                         // Calculate section progress
                         const sectionExercises = section.exercises.length;
                         let sectionCompletedExercises = 0;
@@ -1525,7 +1525,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             }
                         });
                         const sectionProgress = sectionExercises > 0 ? (sectionCompletedExercises / sectionExercises) * 100 : 0;
-                        
+
                         return (
                             <div key={sIdx} className="mb-10">
                                 <div className="mb-5">
@@ -1562,14 +1562,14 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     {/* Section progress bar */}
                                     {sectionProgress > 0 && (
                                         <div className="h-1 bg-sys-surfaceHigh rounded-full overflow-hidden mx-1">
-                                            <div 
+                                            <div
                                                 className="h-full bg-gradient-to-r from-sys-accent to-sys-success transition-all duration-500"
                                                 style={{ width: `${sectionProgress}%` }}
                                             ></div>
                                         </div>
                                     )}
                                 </div>
-                                
+
                                 <div className="space-y-5">
                                     {exercisesWithSuperset.map((ex, eIdx) => {
                                         const defaultSets = ex.sets || 3;
@@ -1591,26 +1591,26 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                         }}
                                                     ></div>
                                                 )}
-                                                
+
                                                 <div className={`bg-sys-surface rounded-3xl p-6 border relative z-10 overflow-hidden ${
-                                                    completedSets === totalSets ? 'border-sys-success/30 bg-sys-success/5' : 
+                                                    completedSets === totalSets ? 'border-sys-success/30 bg-sys-success/5' :
                                                     ex.supersetLabel ? 'border-sys-accent/20' : 'border-white/5'
                                                 }`}>
                                                     {/* Progress bar at bottom */}
                                                     {completedSets > 0 && (
-                                                        <div 
-                                                            className="progress-bar" 
+                                                        <div
+                                                            className="progress-bar"
                                                             style={{ width: `${(completedSets / totalSets) * 100}%` }}
                                                         ></div>
                                                     )}
-                                                    
+
                                                     {/* Superset label badge */}
                                                     {ex.supersetLabel && (
                                                         <div className="absolute -left-2 top-6 h-10 w-10 rounded-full flex items-center justify-center text-sm font-bold text-white z-20 btn-gradient-primary">
                                                             {ex.supersetLabel}
                                                         </div>
                                                     )}
-                                                    
+
                                                     <div className="flex justify-between items-start mb-6">
                                                         <div className={`flex-1 pr-2 ${ex.supersetLabel ? 'pl-8' : ''}`}>
                                                             <div className="flex items-center gap-2 mb-1">
@@ -1644,7 +1644,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                     )}
                                                                     {/* Mini progress bar */}
                                                                     <div className="flex-1 max-w-[80px] h-1 bg-sys-surfaceHigh rounded-full overflow-hidden">
-                                                                        <div 
+                                                                        <div
                                                                             className="h-full bg-sys-success transition-all"
                                                                             style={{ width: `${(completedSets / totalSets) * 100}%` }}
                                                                         ></div>
@@ -1660,7 +1660,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                         </div>
                                                         <div className="flex items-center gap-2">
                                                             {hasHistory && !collapsedExercises[exId] && (
-                                                                <button 
+                                                                <button
                                                                     onClick={() => { haptic.tick(); setShowExerciseHistory(ex.name); }}
                                                                     className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar hover:text-sys-accent flex items-center justify-center active:scale-90 transition-all"
                                                                     aria-label="View exercise history"
@@ -1669,7 +1669,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                 </button>
                                                             )}
                                                             {completedSets === totalSets && (
-                                                                <button 
+                                                                <button
                                                                     onClick={() => toggleExerciseCollapse(exId)}
                                                                     className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
                                                                     aria-label={collapsedExercises[exId] ? "Expand exercise" : "Collapse exercise"}
@@ -1678,8 +1678,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                 </button>
                                                             )}
                                                             {ex.rest > 0 && !collapsedExercises[exId] && (
-                                                                <button 
-                                                                    onClick={() => { haptic.bump(); setTimerSeconds(ex.rest); setTimerActive(true); }} 
+                                                                <button
+                                                                    onClick={() => { haptic.bump(); setTimerSeconds(ex.rest); setTimerActive(true); }}
                                                                     className="h-12 min-h-[48px] px-4 rounded-xl bg-sys-surfaceHigh text-white text-sm font-bold flex items-center gap-2 active:bg-sys-onSurfaceVar transition-colors flex-shrink-0"
                                                                     aria-label={`Start ${ex.rest} second timer`}
                                                                 >
@@ -1687,12 +1687,12 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                 </button>
                                                             )}
                                                             {isEMOM(ex) && !collapsedExercises[exId] && (
-                                                                <button 
-                                                                    onClick={() => { 
-                                                                        haptic.bump(); 
-                                                                        setEmomSeconds(emomInterval); 
-                                                                        setEmomActive(true); 
-                                                                    }} 
+                                                                <button
+                                                                    onClick={() => {
+                                                                        haptic.bump();
+                                                                        setEmomSeconds(emomInterval);
+                                                                        setEmomActive(true);
+                                                                    }}
                                                                     className="h-12 min-h-[48px] px-4 rounded-xl bg-sys-accent text-white text-sm font-bold flex items-center gap-2 active:bg-sys-accent/80 transition-colors flex-shrink-0"
                                                                     aria-label={`Start EMOM timer with ${emomInterval} second interval`}
                                                                 >
@@ -1701,7 +1701,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                             )}
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div className={`exercise-content ${collapsedExercises[exId] ? 'collapsed' : ''}`}>
                                                         <div>
                                                     <div className="flex flex-wrap gap-4 mb-5">
@@ -1709,8 +1709,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                             const currentRPE = logs[exId]?.rpe?.[i];
                                                             return (
                                                                 <div key={`${exId}-set-${i}`} className="flex flex-col items-center gap-2">
-                                                                    <button 
-                                                                        onClick={() => toggleSet(exId, i, defaultSets, ex.rest)} 
+                                                                    <button
+                                                                        onClick={() => toggleSet(exId, i, defaultSets, ex.rest)}
                                                                         className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex flex-col items-center justify-center text-base font-bold relative overflow-hidden ${isDone ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
                                                                         aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                                     >
@@ -1745,20 +1745,20 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                 </div>
                                                             );
                                                         })}
-                                                        <button 
-                                                            onClick={() => addSet(exId, defaultSets)} 
+                                                        <button
+                                                            onClick={() => addSet(exId, defaultSets)}
                                                             className="h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl border-2 border-dashed border-white/20 text-white/30 flex items-center justify-center active:bg-white/5 transition-colors"
                                                             aria-label={`Add additional set to ${ex.name}`}
                                                         >
                                                             <i data-lucide="plus" width="22"></i>
                                                         </button>
                                                     </div>
-                                                    
+
                                                     {/* Quick Actions Row */}
                                                     {currentSetArray.some(s => !s) && (
                                                         <div className="flex gap-3 mb-5">
-                                                            <button 
-                                                                onClick={() => completeAllSets(exId, defaultSets)} 
+                                                            <button
+                                                                onClick={() => completeAllSets(exId, defaultSets)}
                                                                 className="flex-1 h-10 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar text-sm font-semibold flex items-center justify-center gap-2 active:bg-sys-accent/20 transition-colors"
                                                                 aria-label="Complete all sets"
                                                             >
@@ -1772,7 +1772,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                         <div className="pt-4 border-t border-white/5">
                                                             <label htmlFor={`${exId}-weight`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Load (kg)</label>
                                                             <div className="relative flex items-center gap-2">
-                                                                <button 
+                                                                <button
                                                                     onClick={() => {
                                                                         haptic.tick();
                                                                         const current = parseFloat(logs[exId]?.weight || '0');
@@ -1785,26 +1785,26 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                 >
                                                                     <i data-lucide="minus" width="18"></i>
                                                                 </button>
-                                                                <input 
+                                                                <input
                                                                     id={`${exId}-weight`}
-                                                                    type="number" 
+                                                                    type="number"
                                                                     inputMode="decimal"
                                                                     min="0"
                                                                     max={MAX_WEIGHT_KG}
                                                                     step={WEIGHT_STEP}
-                                                                    className="bg-sys-surfaceHigh rounded-xl flex-1 min-w-0 h-14 px-3 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
-                                                                    value={logs[exId]?.weight || ''} 
+                                                                    className="bg-sys-surfaceHigh rounded-xl flex-1 min-w-0 h-14 px-3 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all"
+                                                                    value={logs[exId]?.weight || ''}
                                                                     onChange={(e) => {
                                                                         const value = e.target.value;
                                                                         // Allow empty string or valid positive numbers within range
                                                                         if (value === '' || (!isNaN(value) && parseFloat(value) >= 0 && parseFloat(value) <= MAX_WEIGHT_KG)) {
                                                                             saveLog(exId, 'weight', value);
                                                                         }
-                                                                    }} 
+                                                                    }}
                                                                     placeholder="0"
                                                                     aria-label="Weight in kilograms"
                                                                 />
-                                                                <button 
+                                                                <button
                                                                     onClick={() => {
                                                                         haptic.tick();
                                                                         const current = parseFloat(logs[exId]?.weight || '0');
@@ -1830,7 +1830,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </div>
                         );
                     })}
-                    
+
                     {/* Added Exercises Section */}
                     {addedExercises.length > 0 && (
                         <div className="mb-10">
@@ -1838,7 +1838,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 <span className="text-sm font-bold text-sys-success uppercase tracking-wider bg-sys-surfaceHigh px-4 py-2 rounded-xl">Added Exercises</span>
                                 <div className="h-[2px] flex-1 bg-gradient-to-r from-sys-success/20 to-transparent rounded-full"></div>
                             </div>
-                            
+
                             <div className="space-y-5">
                                 {addedExercises.map((ex) => {
                                     const exId = `added_${ex.id}`;
@@ -1846,7 +1846,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     const completedSets = currentSetArray.filter(s => s).length;
                                     const totalSets = currentSetArray.length;
                                     const hasHistory = getExerciseHistory(ex.name).length > 0;
-                                    
+
                                     return (
                                         <div key={exId} id={exId} className="relative scroll-mt-20">
                                             <div className={`bg-sys-surface rounded-3xl p-6 border relative overflow-hidden ${
@@ -1854,12 +1854,12 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                             }`}>
                                                 {/* Progress bar at bottom */}
                                                 {completedSets > 0 && (
-                                                    <div 
-                                                        className="progress-bar" 
+                                                    <div
+                                                        className="progress-bar"
                                                         style={{ width: `${(completedSets / totalSets) * 100}%` }}
                                                     ></div>
                                                 )}
-                                                
+
                                                 <div className="flex justify-between items-start mb-6">
                                                     <div className="flex-1 pr-2">
                                                         <div className="flex items-center gap-2 mb-1">
@@ -1886,39 +1886,39 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                             {ex.primaryMuscles.join(', ')} • {ex.equipment.join(', ')}
                                                         </p>
                                                     </div>
-                                                    <button 
-                                                        onClick={() => removeAddedExercise(ex.id)} 
+                                                    <button
+                                                        onClick={() => removeAddedExercise(ex.id)}
                                                         className="h-10 w-10 min-w-[40px] rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center active:scale-90 transition-all"
                                                         aria-label="Remove exercise"
                                                     >
                                                         <i data-lucide="x" width="20"></i>
                                                     </button>
                                                 </div>
-                                                
+
                                                 <div className="flex flex-wrap gap-4 mb-5">
                                                     {currentSetArray.map((isDone, i) => (
-                                                        <button 
-                                                            key={`${exId}-set-${i}`} 
-                                                            onClick={() => toggleSet(exId, i, ex.sets, 90)} 
+                                                        <button
+                                                            key={`${exId}-set-${i}`}
+                                                            onClick={() => toggleSet(exId, i, ex.sets, 90)}
                                                             className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold ${isDone ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}
                                                             aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                         >
                                                             {isDone ? <i data-lucide="check" width="24" /> : i + 1}
                                                         </button>
                                                     ))}
-                                                    <button 
-                                                        onClick={() => addSet(exId, ex.sets)} 
+                                                    <button
+                                                        onClick={() => addSet(exId, ex.sets)}
                                                         className="h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl border-2 border-dashed border-white/20 text-white/30 flex items-center justify-center active:bg-white/5 transition-colors"
                                                         aria-label="Add additional set"
                                                     >
                                                         <i data-lucide="plus" width="22"></i>
                                                     </button>
                                                 </div>
-                                                
+
                                                 {currentSetArray.some(s => !s) && (
                                                     <div className="flex gap-3 mb-5">
-                                                        <button 
-                                                            onClick={() => completeAllSets(exId, ex.sets)} 
+                                                        <button
+                                                            onClick={() => completeAllSets(exId, ex.sets)}
                                                             className="flex-1 h-10 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar text-sm font-semibold flex items-center justify-center gap-2 active:bg-sys-accent/20 transition-colors"
                                                             aria-label="Complete all sets"
                                                         >
@@ -1927,12 +1927,12 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                         </button>
                                                     </div>
                                                 )}
-                                                
+
                                                 {!ex.isBodyweight && (
                                                     <div className="pt-4 border-t border-white/5">
                                                         <label htmlFor={`${exId}-weight`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Load (kg)</label>
                                                         <div className="relative flex items-center gap-2">
-                                                            <button 
+                                                            <button
                                                                 onClick={() => {
                                                                     haptic.tick();
                                                                     const current = parseFloat(logs[exId]?.weight || ex.weight || '0');
@@ -1943,17 +1943,17 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                             >
                                                                 <i data-lucide="minus" width="18"></i>
                                                             </button>
-                                                            <input 
+                                                            <input
                                                                 id={`${exId}-weight`}
-                                                                type="number" 
+                                                                type="number"
                                                                 inputMode="decimal"
-                                                                className="bg-sys-surfaceHigh rounded-xl flex-1 min-w-0 h-14 px-3 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
-                                                                value={logs[exId]?.weight || ex.weight || ''} 
-                                                                onChange={(e) => saveLog(exId, 'weight', e.target.value)} 
+                                                                className="bg-sys-surfaceHigh rounded-xl flex-1 min-w-0 h-14 px-3 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all"
+                                                                value={logs[exId]?.weight || ex.weight || ''}
+                                                                onChange={(e) => saveLog(exId, 'weight', e.target.value)}
                                                                 placeholder="0"
                                                                 aria-label="Weight in kilograms"
                                                             />
-                                                            <button 
+                                                            <button
                                                                 onClick={() => {
                                                                     haptic.tick();
                                                                     const current = parseFloat(logs[exId]?.weight || ex.weight || '0');
@@ -1974,12 +1974,12 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </div>
                         </div>
                     )}
-                    
+
                     {/* Add Exercise Button */}
                     {!logs.completed && (
                         <div className="mb-6">
-                            <button 
-                                onClick={() => { haptic.bump(); setShowExerciseSelector(true); }} 
+                            <button
+                                onClick={() => { haptic.bump(); setShowExerciseSelector(true); }}
                                 className="w-full h-12 px-6 rounded-xl bg-sys-success/10 border border-sys-success/30 text-sys-success font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform"
                             >
                                 <i data-lucide="plus-circle" width="20"></i>
@@ -1987,13 +1987,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </button>
                         </div>
                     )}
-                    
+
                     {/* Only show ActionBar if workout is not completed */}
                     {!logs.completed && (
-                        <ActionBar 
-                            onFinish={handleFinish} 
-                            timerState={{time: timerSeconds}} 
-                            setTimerActive={setTimerActive} 
+                        <ActionBar
+                            onFinish={handleFinish}
+                            timerState={{time: timerSeconds}}
+                            setTimerActive={setTimerActive}
                             setTimerSeconds={setTimerSeconds}
                             emomState={{active: emomActive, seconds: emomSeconds, interval: emomInterval}}
                             setEmomActive={setEmomActive}
@@ -2001,14 +2001,14 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             setEmomInterval={setEmomInterval}
                         />
                     )}
-                    
+
                     {/* Timer Completion Toast */}
                     {showTimerToast && (
                         <div className="fixed top-20 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
                             <div className="bg-sys-accent px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-md w-full border border-white/10">
                                 <i data-lucide="check-circle-2" width="24" className="text-white flex-shrink-0"></i>
                                 <span className="text-white font-bold text-base flex-1">Rest Complete!</span>
-                                <button 
+                                <button
                                     onClick={() => { haptic.tick(); setShowTimerToast(false); }}
                                     className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
                                     aria-label="Close notification"
@@ -2018,7 +2018,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </div>
                         </div>
                     )}
-                    
+
                     {/* Gemini Sync Status Toast */}
                     {geminiSyncStatus && (
                         <div className="fixed top-24 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
@@ -2031,7 +2031,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     <div className="flex items-center gap-3">
                                         <i data-lucide="loader" width="24" className="text-white animate-spin flex-shrink-0"></i>
                                         <span className="text-white font-bold text-base flex-1">Syncing to Gemini...</span>
-                                        <button 
+                                        <button
                                             onClick={() => { haptic.tick(); setGeminiSyncStatus(null); setGeminiErrorMessage(''); }}
                                             className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
                                             aria-label="Close notification"
@@ -2044,7 +2044,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     <div className="flex items-center gap-3">
                                         <i data-lucide="check-circle-2" width="24" className="text-white flex-shrink-0"></i>
                                         <span className="text-white font-bold text-base flex-1">Synced to Gemini!</span>
-                                        <button 
+                                        <button
                                             onClick={() => { haptic.tick(); setGeminiSyncStatus(null); setGeminiErrorMessage(''); }}
                                             className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
                                             aria-label="Close notification"
@@ -2058,7 +2058,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                         <div className="flex items-center gap-3 mb-2">
                                             <i data-lucide="alert-circle" width="24" className="text-white flex-shrink-0"></i>
                                             <span className="text-white font-bold text-base flex-1">Sync Failed</span>
-                                            <button 
+                                            <button
                                                 onClick={() => { haptic.tick(); setGeminiSyncStatus(null); setGeminiErrorMessage(''); }}
                                                 className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
                                                 aria-label="Close notification"
@@ -2074,7 +2074,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </div>
                         </div>
                     )}
-                    
+
                     {/* Exercise Selector Modal */}
                     {showExerciseSelector && EXERCISE_LIBRARY.length > 0 && (
                         <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm animate-slide-up">
@@ -2083,24 +2083,24 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 <div className="p-6 border-b border-white/10">
                                     <div className="flex items-center justify-between mb-4">
                                         <h3 className="text-xl font-bold text-white">Add Exercise</h3>
-                                        <button 
-                                            onClick={() => { haptic.tick(); setShowExerciseSelector(false); setExerciseSearchTerm(''); }} 
+                                        <button
+                                            onClick={() => { haptic.tick(); setShowExerciseSelector(false); setExerciseSearchTerm(''); }}
                                             className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
                                             aria-label="Close"
                                         >
                                             <i data-lucide="x" width="20"></i>
                                         </button>
                                     </div>
-                                    
+
                                     {/* Search */}
-                                    <input 
+                                    <input
                                         type="text"
                                         placeholder="Search exercises..."
                                         value={exerciseSearchTerm}
                                         onChange={(e) => setExerciseSearchTerm(e.target.value)}
                                         className="w-full h-12 px-4 bg-sys-surfaceHigh rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all"
                                     />
-                                    
+
                                     {/* Muscle Filter */}
                                     <div className="flex gap-2 mt-3 overflow-x-auto pb-2">
                                         {['all', 'pull', 'push', 'legs', 'core', 'cardio', 'skill', 'arms', 'shoulders', 'olympic', 'functional', 'plyometric', 'mobility'].map(filter => (
@@ -2108,8 +2108,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                 key={filter}
                                                 onClick={() => setSelectedMuscleFilter(filter)}
                                                 className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
-                                                    selectedMuscleFilter === filter 
-                                                        ? 'bg-sys-accent text-white' 
+                                                    selectedMuscleFilter === filter
+                                                        ? 'bg-sys-accent text-white'
                                                         : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                                 }`}
                                             >
@@ -2118,13 +2118,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                         ))}
                                     </div>
                                 </div>
-                                
+
                                 {/* Exercise List */}
                                 <div className="flex-1 overflow-y-auto p-4">
                                     <div className="space-y-3">
                                         {EXERCISE_LIBRARY
                                             .filter(ex => {
-                                                const searchMatch = !debouncedExerciseSearch || 
+                                                const searchMatch = !debouncedExerciseSearch ||
                                                     ex.name.toLowerCase().includes(debouncedExerciseSearch.toLowerCase()) ||
                                                     ex.primaryMuscles.some(m => m.toLowerCase().includes(debouncedExerciseSearch.toLowerCase()));
                                                 const categoryMatch = selectedMuscleFilter === 'all' || ex.category === selectedMuscleFilter;
@@ -2141,7 +2141,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </div>
                         </div>
                     )}
-                    
+
                     {/* Exercise History Modal */}
                     {showExerciseHistory && (
                         <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm animate-slide-up">
@@ -2150,8 +2150,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 <div className="p-6 border-b border-white/10">
                                     <div className="flex items-center justify-between mb-2">
                                         <h3 className="text-xl font-bold text-white">{showExerciseHistory}</h3>
-                                        <button 
-                                            onClick={() => { haptic.tick(); setShowExerciseHistory(null); }} 
+                                        <button
+                                            onClick={() => { haptic.tick(); setShowExerciseHistory(null); }}
                                             className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
                                             aria-label="Close"
                                         >
@@ -2159,13 +2159,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                         </button>
                                     </div>
                                 </div>
-                                
+
                                 {/* Content */}
                                 <div className="flex-1 overflow-y-auto p-6">
                                     {(() => {
                                         const history = getExerciseHistory(showExerciseHistory);
                                         const stats = calculateExerciseStats(showExerciseHistory);
-                                        
+
                                         return (
                                             <>
                                                 {/* Stats Summary */}
@@ -2181,7 +2181,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                         </div>
                                                     )}
                                                 </div>
-                                                
+
                                                 {/* Recent History */}
                                                 <h4 className="text-sm font-bold text-white mb-3">Recent History</h4>
                                                 <div className="space-y-2">
@@ -2190,9 +2190,9 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                             <div className="flex items-center justify-between">
                                                                 <div className="flex-1">
                                                                     <div className="text-sm font-semibold text-white">
-                                                                        {new Date(entry.date).toLocaleDateString('en-US', { 
-                                                                            month: 'short', 
-                                                                            day: 'numeric' 
+                                                                        {new Date(entry.date).toLocaleDateString('en-US', {
+                                                                            month: 'short',
+                                                                            day: 'numeric'
                                                                         })}
                                                                     </div>
                                                                     <div className="text-xs text-sys-onSurfaceVar">
@@ -2223,13 +2223,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 </div>
             );
         };
-        
+
         // Exercise List Item Component
         const ExerciseListItem = ({ exercise, onAdd, haptic }) => {
             const [showAddForm, setShowAddForm] = useState(false);
             const [sets, setSets] = useState(3);
             const [weight, setWeight] = useState('');
-            
+
             return (
                 <div className="bg-sys-surfaceHigh rounded-2xl p-4">
                     <div className="flex items-start justify-between gap-3">
@@ -2251,16 +2251,16 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 )}
                             </div>
                         </div>
-                        
+
                         {!showAddForm ? (
-                            <button 
+                            <button
                                 onClick={() => { haptic.tick(); setShowAddForm(true); }}
                                 className="h-10 px-4 rounded-xl text-white font-semibold text-sm active:scale-95 transition-transform flex-shrink-0 btn-gradient-primary"
                             >
                                 Add
                             </button>
                         ) : (
-                            <button 
+                            <button
                                 onClick={() => { haptic.tick(); setShowAddForm(false); }}
                                 className="h-10 w-10 rounded-xl bg-sys-surface text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-transform flex-shrink-0"
                                 aria-label="Collapse form"
@@ -2269,13 +2269,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </button>
                         )}
                     </div>
-                    
+
                     {showAddForm && (
                         <div className="mt-4 pt-4 border-t border-white/5">
                             <div className="grid grid-cols-2 gap-3 mb-3">
                                 <div>
                                     <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Sets</label>
-                                    <input 
+                                    <input
                                         type="number"
                                         min="1"
                                         max="10"
@@ -2287,7 +2287,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 {!exercise.isBodyweight && (
                                     <div>
                                         <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Weight (kg)</label>
-                                        <input 
+                                        <input
                                             type="number"
                                             inputMode="decimal"
                                             value={weight}
@@ -2298,7 +2298,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     </div>
                                 )}
                             </div>
-                            <button 
+                            <button
                                 onClick={() => {
                                     haptic.success();
                                     onAdd(exercise, sets, weight);
@@ -2320,7 +2320,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         const Dashboard = ({ currentWeek, setCurrentWeek, onStartWorkout }) => {
             const [progress, setProgress] = useState(0);
             const haptic = useHaptic();
-            
+
             const swipeHandlers = useSwipe({
                 onSwipeLeft: () => setCurrentWeek(Math.min(21, currentWeek + 1)),
                 onSwipeRight: () => setCurrentWeek(Math.max(1, currentWeek - 1))
@@ -2363,9 +2363,9 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         {[1, 2, 3, 5].map((day) => {
                             const done = isCompleted(day);
                             return (
-                                <button 
-                                    key={day} 
-                                    onClick={() => { haptic.tick(); onStartWorkout(day); }} 
+                                <button
+                                    key={day}
+                                    onClick={() => { haptic.tick(); onStartWorkout(day); }}
                                     className={`relative min-h-[72px] rounded-3xl px-6 py-5 flex items-center justify-between transition-all active:scale-[0.97] ${done ? 'bg-sys-success/10 border-2 border-sys-success/30' : 'bg-sys-surface border-2 border-white/5'}`}
                                     aria-label={`${done ? 'Completed' : 'Start'} Day ${day} workout`}
                                 >
@@ -2383,9 +2383,9 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             );
                         })}
                     </div>
-                    
+
                     <div className="mt-10 flex justify-center items-center gap-2">
-                        <button 
+                        <button
                             onClick={() => setCurrentWeek(Math.max(1, currentWeek - 1))}
                             className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
                             disabled={currentWeek === 1}
@@ -2407,7 +2407,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 );
                             })}
                         </div>
-                        <button 
+                        <button
                             onClick={() => setCurrentWeek(Math.min(21, currentWeek + 1))}
                             className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
                             disabled={currentWeek === 21}
@@ -2424,26 +2424,26 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         const ExerciseStatsView = ({ onSelectExercise }) => {
             const [selectedExercise, setSelectedExercise] = useState(null);
             const haptic = useHaptic();
-            
+
             const exercisesWithHistory = getAllExercisesWithHistory();
-            
+
             // Calculate stats for all exercises
             const exerciseStats = exercisesWithHistory.map(exerciseName => ({
                 name: exerciseName,
                 ...calculateExerciseStats(exerciseName)
             }));
-            
+
             // Sort by total workouts (most frequent first)
             exerciseStats.sort((a, b) => b.totalWorkouts - a.totalWorkouts);
-            
+
             // Initialize Lucide icons when selected exercise changes
             useLucideIcons([selectedExercise]);
-            
+
             const handleExerciseClick = (exerciseName) => {
                 haptic.tick();
                 setSelectedExercise(selectedExercise === exerciseName ? null : exerciseName);
             };
-            
+
             if (exerciseStats.length === 0) {
                 return (
                     <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
@@ -2455,13 +2455,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     </div>
                 );
             }
-            
+
             return (
                 <div className="space-y-4">
                     {exerciseStats.map((stat, idx) => {
                         const isExpanded = selectedExercise === stat.name;
                         const history = getExerciseHistory(stat.name);
-                        
+
                         return (
                             <div key={idx} className="bg-sys-surface border border-white/5 rounded-3xl overflow-hidden">
                                 <button
@@ -2480,7 +2480,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                         <i data-lucide={isExpanded ? "chevron-up" : "chevron-down"} width="20" className="text-sys-accent"></i>
                                     </div>
                                 </button>
-                                
+
                                 {isExpanded && (
                                     <div className="px-5 pb-5">
                                         {/* Stats Summary */}
@@ -2508,7 +2508,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                 </>
                                             )}
                                         </div>
-                                        
+
                                         {/* Simple Progress Graph */}
                                         {stat.recentProgress && stat.recentProgress.length > 1 && (
                                             <div className="mb-4">
@@ -2516,7 +2516,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                 <SimpleWeightGraph data={stat.recentProgress} />
                                             </div>
                                         )}
-                                        
+
                                         {/* Recent History */}
                                         <div>
                                             <h4 className="text-sm font-bold text-white mb-3">Recent History</h4>
@@ -2526,8 +2526,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                         <div className="flex items-start justify-between gap-2 mb-1">
                                                             <div className="flex-1">
                                                                 <div className="text-sm font-semibold text-white">
-                                                                    {new Date(entry.date).toLocaleDateString('en-US', { 
-                                                                        month: 'short', 
+                                                                    {new Date(entry.date).toLocaleDateString('en-US', {
+                                                                        month: 'short',
                                                                         day: 'numeric'
                                                                     })}
                                                                 </div>
@@ -2558,38 +2558,38 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 </div>
             );
         };
-        
+
         // Simple Weight Progress Graph Component (SVG-based)
         const SimpleWeightGraph = ({ data }) => {
             if (!data || data.length < 2) return null;
-            
+
             // Filter out entries with no weight
             const weightData = data.filter(d => d.weight && d.weight > 0);
             if (weightData.length < 2) return null;
-            
+
             const weights = weightData.map(d => d.weight);
             const maxWeight = Math.max(...weights);
             const minWeight = Math.min(...weights);
             const range = maxWeight - minWeight || 1; // Avoid division by zero
-            
+
             const width = 100; // Use percentage-based width
             const height = 60;
             const padding = 5;
-            
+
             // Calculate points for the line
             const points = weightData.map((d, i) => {
                 const x = (i / (weightData.length - 1)) * (width - 2 * padding) + padding;
                 const y = height - padding - ((d.weight - minWeight) / range) * (height - 2 * padding);
                 return `${x},${y}`;
             }).join(' ');
-            
+
             return (
                 <div className="bg-sys-surfaceHigh rounded-xl p-4">
                     <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-20" preserveAspectRatio="none">
                         {/* Grid lines */}
                         <line x1={padding} y1={padding} x2={padding} y2={height - padding} stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
                         <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
-                        
+
                         {/* Weight line */}
                         <polyline
                             points={points}
@@ -2599,7 +2599,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             strokeLinecap="round"
                             strokeLinejoin="round"
                         />
-                        
+
                         {/* Data points */}
                         {weightData.map((d, i) => {
                             const x = (i / (weightData.length - 1)) * (width - 2 * padding) + padding;
@@ -2632,36 +2632,36 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [viewMode, setViewMode] = useState('timeline'); // 'timeline' or 'stats'
             const [selectedExerciseForGraph, setSelectedExerciseForGraph] = useState(null);
             const haptic = useHaptic();
-            
+
             const loadHistory = () => {
                 const h = safeGetJSON('global_history', []);
-                
+
                 // Validate that history is an array
                 if (!Array.isArray(h)) {
                     console.warn('Invalid history format, resetting');
                     setHistory([]);
                     return;
                 }
-                
+
                 // Filter out invalid entries and sort
-                const validHistory = h.filter(entry => 
-                    entry && 
-                    typeof entry === 'object' && 
-                    entry.week && 
-                    entry.day && 
+                const validHistory = h.filter(entry =>
+                    entry &&
+                    typeof entry === 'object' &&
+                    entry.week &&
+                    entry.day &&
                     entry.date
                 );
-                
+
                 setHistory(validHistory.sort((a, b) => new Date(b.date) - new Date(a.date)));
             };
-            
+
             useEffect(() => {
                 loadHistory();
             }, []);
-            
+
             // Initialize Lucide icons when history or UI state changes
             useLucideIcons([history, expandedEntries, viewMode, selectedExerciseForGraph]);
-            
+
             const handleRefresh = () => {
                 setIsRefreshing(true);
                 setTimeout(() => {
@@ -2669,7 +2669,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     setIsRefreshing(false);
                 }, 500);
             };
-            
+
             const toggleExpanded = (idx) => {
                 haptic.tick();
                 setExpandedEntries(prev => ({ ...prev, [idx]: !prev[idx] }));
@@ -2694,7 +2694,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     Stats
                                 </button>
                             </div>
-                            <button 
+                            <button
                                 onClick={handleRefresh}
                                 className={`h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all ${isRefreshing ? 'animate-spin' : ''}`}
                                 aria-label="Refresh history"
@@ -2719,7 +2719,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 const isExpanded = expandedEntries[idx];
                                 const hasExercises = entry.exercises && entry.exercises.length > 0;
                                 const hasAIFeedback = entry.aiFeedback;
-                                
+
                                 return (
                                     <div key={idx} className="bg-sys-surface border border-white/5 rounded-3xl overflow-hidden">
                                         <button
@@ -2744,7 +2744,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                 </div>
                                             </div>
                                         </button>
-                                        
+
                                         {isExpanded && (
                                             <div className="px-5 pb-5">
                                                 {/* Workout Notes */}
@@ -2759,7 +2759,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                         </div>
                                                     </div>
                                                 )}
-                                                
+
                                                 {/* Exercise Details */}
                                                 {hasExercises && (
                                                     <div className="mb-4">
@@ -2773,8 +2773,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                                             <p className="text-xs text-sys-onSurfaceVar">{ex.prescription}</p>
                                                                         </div>
                                                                         <div className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold ${
-                                                                            ex.completedSets === ex.totalSets 
-                                                                                ? 'bg-sys-success/20 text-sys-success' 
+                                                                            ex.completedSets === ex.totalSets
+                                                                                ? 'bg-sys-success/20 text-sys-success'
                                                                                 : 'bg-sys-accent/10 text-sys-accent'
                                                                         }`}>
                                                                             <span>{ex.completedSets}/{ex.totalSets}</span>
@@ -2800,7 +2800,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                         </div>
                                                     </div>
                                                 )}
-                                                
+
                                                 {/* AI Feedback */}
                                                 {hasAIFeedback && (
                                                     <div className="bg-sys-surfaceHigh rounded-xl p-4 border border-sys-accent/20">
@@ -2811,7 +2811,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                         <div className="text-sm text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: markdownToHtml(entry.aiFeedback) }}></div>
                                                     </div>
                                                 )}
-                                                
+
                                                 {!hasExercises && !hasAIFeedback && !entry.workoutNotes && (
                                                     <p className="text-sm text-sys-onSurfaceVar text-center py-4">
                                                         No detailed information available
@@ -2831,7 +2831,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         // Simple markdown to HTML converter with sanitization
         const markdownToHtml = (text) => {
             if (!text) return '';
-            
+
             // Sanitize input - escape HTML entities
             const escapeHtml = (unsafe) => {
                 return unsafe
@@ -2841,38 +2841,38 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     .replace(/"/g, "&quot;")
                     .replace(/'/g, "&#039;");
             };
-            
+
             let html = escapeHtml(text);
-            
+
             // Code blocks first (to protect them from other processing)
             html = html.replace(/```([\s\S]*?)```/g, '<pre class="bg-sys-surfaceHigh rounded-lg p-3 my-3 overflow-x-auto"><code class="text-sm font-mono text-sys-accent">$1</code></pre>');
-            
+
             // Inline code (protect from other processing)
             html = html.replace(/`([^`]+)`/g, '<code class="bg-sys-surfaceHigh px-1.5 py-0.5 rounded text-sm font-mono text-sys-accent">$1</code>');
-            
+
             // Headers (# ## ###)
             html = html.replace(/^### (.*$)/gim, '<h3 class="text-base font-bold text-white mt-4 mb-2">$1</h3>');
             html = html.replace(/^## (.*$)/gim, '<h2 class="text-lg font-bold text-white mt-5 mb-3">$1</h2>');
             html = html.replace(/^# (.*$)/gim, '<h1 class="text-xl font-bold text-white mt-6 mb-4">$1</h1>');
-            
+
             // Bold text first (**text** or __text__) - process before italic
             html = html.replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-white">$1</strong>');
             html = html.replace(/__(.+?)__/g, '<strong class="font-bold text-white">$1</strong>');
-            
+
             // Italic text (*text* or _text_) - matches single * or _ that aren't part of bold
             // This works because bold is already replaced, so remaining single * are italic
             html = html.replace(/\*([^*]+?)\*/g, '<em class="italic">$1</em>');
             html = html.replace(/_([^_]+?)_/g, '<em class="italic">$1</em>');
-            
+
             // Process lists - find consecutive list items and wrap in ul
             const lines = html.split('\n');
             const processed = [];
             let inList = false;
-            
+
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i];
                 const isListItem = /^\s*[-*]\s+(.+)$/.test(line);
-                
+
                 if (isListItem) {
                     if (!inList) {
                         processed.push('<ul class="my-3 space-y-1">');
@@ -2889,7 +2889,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             }
             if (inList) processed.push('</ul>');
             html = processed.join('\n');
-            
+
             // Convert double newlines to paragraph breaks (but not for existing HTML tags)
             const paragraphs = html.split('\n\n');
             html = paragraphs.map(para => {
@@ -2900,10 +2900,10 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 }
                 return trimmed;
             }).join('\n');
-            
+
             // Single line breaks become <br /> (but not within block elements)
             html = html.replace(/\n/g, '<br />');
-            
+
             return html;
         };
 
@@ -2914,7 +2914,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [isSendingQuestion, setIsSendingQuestion] = useState(false);
             const [questionResponse, setQuestionResponse] = useState(null);
             const haptic = useHaptic();
-            
+
             const loadWorkoutHistory = () => {
                 const history = safeGetJSON('global_history', []);
                 // Filter only entries with AI feedback and sort by date
@@ -2922,13 +2922,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 setWorkoutHistory(withFeedback);
                 setIsLoading(false);
             };
-            
+
             const sendQuestion = async () => {
                 if (!questionText.trim()) return;
-                
+
                 setIsSendingQuestion(true);
                 setQuestionResponse(null);
-                
+
                 try {
                     const apiKey = localStorage.getItem('gemini_api_key');
                     if (!apiKey) {
@@ -2936,18 +2936,18 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         setIsSendingQuestion(false);
                         return;
                     }
-                    
+
                     // Get or initialize chat history
                     const chatHistory = initializeGeminiChat();
-                    
+
                     // Add new user message
                     const newUserMessage = {
                         role: 'user',
                         parts: [{ text: questionText }]
                     };
-                    
+
                     const contents = [...chatHistory, newUserMessage];
-                    
+
                     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
                         method: 'POST',
                         headers: {
@@ -2955,37 +2955,37 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         },
                         body: JSON.stringify({ contents })
                     });
-                    
+
                     if (!response.ok) {
                         const errorData = await response.json().catch(() => ({}));
                         throw new Error(`API error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
                     }
-                    
+
                     const data = await response.json();
-                    
-                    if (data.candidates && 
-                        data.candidates[0] && 
-                        data.candidates[0].content && 
+
+                    if (data.candidates &&
+                        data.candidates[0] &&
+                        data.candidates[0].content &&
                         data.candidates[0].content.parts) {
-                        
+
                         const modelResponse = {
                             role: 'model',
                             parts: data.candidates[0].content.parts
                         };
-                        
+
                         // Update chat history
                         const updatedHistory = [...chatHistory, newUserMessage, modelResponse];
                         safeSetJSON(GEMINI_CHAT_HISTORY_KEY, updatedHistory);
-                        
+
                         // Show response
-                        setQuestionResponse({ 
-                            success: true, 
-                            answer: data.candidates[0].content.parts[0].text 
+                        setQuestionResponse({
+                            success: true,
+                            answer: data.candidates[0].content.parts[0].text
                         });
                     } else {
                         setQuestionResponse({ error: 'Unexpected response format' });
                     }
-                    
+
                     setQuestionText('');
                     setIsSendingQuestion(false);
                 } catch (error) {
@@ -2994,21 +2994,21 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     setIsSendingQuestion(false);
                 }
             };
-            
+
             useEffect(() => {
                 loadWorkoutHistory();
             }, []);
-            
+
             // Initialize Lucide icons when workout history or question response changes
             useLucideIcons([workoutHistory, questionResponse, isSendingQuestion]);
-            
+
             const apiKey = localStorage.getItem('gemini_api_key');
-            
+
             return (
                 <div className="px-5 pb-32 pt-6">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-2xl font-bold text-white">AI Coach</h2>
-                        <button 
+                        <button
                             onClick={() => {
                                 haptic.bump();
                                 loadWorkoutHistory();
@@ -3019,7 +3019,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             <i data-lucide="refresh-cw" width="18"></i>
                         </button>
                     </div>
-                    
+
                     {!apiKey ? (
                         <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
                             <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
@@ -3058,7 +3058,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     {/* AI Feedback */}
                                     <div className="p-5">
                                         <div className="flex items-center gap-2 mb-3">
@@ -3071,7 +3071,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             ))}
                         </div>
                     )}
-                    
+
                     {/* Ask a Question Section */}
                     {apiKey && (
                         <div className="mt-8 bg-sys-surface rounded-3xl border border-white/5 p-5">
@@ -3104,7 +3104,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     </>
                                 )}
                             </button>
-                            
+
                             {questionResponse && (
                                 <div className={`mt-4 p-4 rounded-xl ${questionResponse.error ? 'bg-red-500/10 border border-red-500/30' : 'bg-sys-success/10 border border-sys-success/30'}`}>
                                     {questionResponse.error ? (
@@ -3118,7 +3118,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             )}
                         </div>
                     )}
-                    
+
                     <div className="mt-8 bg-sys-surface rounded-3xl border border-white/5 p-5">
                         <div className="flex items-start gap-3">
                             <div className="h-10 w-10 rounded-xl bg-sys-accent/10 flex items-center justify-center flex-shrink-0">
@@ -3127,7 +3127,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             <div className="flex-1">
                                 <h4 className="text-sm font-bold text-white mb-1">How it works</h4>
                                 <p className="text-xs text-sys-onSurfaceVar leading-relaxed">
-                                    After each workout, your progress is automatically sent to Gemini AI for analysis. 
+                                    After each workout, your progress is automatically sent to Gemini AI for analysis.
                                     The AI feedback is saved with each workout in your history for easy reference.
                                     You can also ask specific questions and get personalized advice based on your training data.
                                 </p>
@@ -3146,24 +3146,24 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [saveMessage, setSaveMessage] = useState('');
             const [validationMessage, setValidationMessage] = useState('');
             const [chatHistoryMessage, setChatHistoryMessage] = useState('');
-            
+
             // Firebase state
             const [firebaseUser, setFirebaseUser] = useState(null);
             const [firebaseSyncEnabled, setFirebaseSyncEnabled] = useState(true); // Default enabled
             const [firebaseMessage, setFirebaseMessage] = useState('');
-            
+
             const haptic = useHaptic();
-            
+
             useEffect(() => {
                 const savedApiKey = localStorage.getItem('gemini_api_key') || '';
                 const savedAutoSync = localStorage.getItem('gemini_auto_sync') !== 'false'; // Default true
                 setGeminiApiKey(savedApiKey);
                 setAutoSync(savedAutoSync);
-                
+
                 // Load Firebase sync setting
                 const savedSyncEnabled = localStorage.getItem(FIREBASE_SYNC_ENABLED_KEY) !== 'false'; // Default true
                 setFirebaseSyncEnabled(savedSyncEnabled);
-                
+
                 // Setup Firebase auth state listener (Firebase is auto-initialized from env vars)
                 if (FirebaseService.isFirebaseInitialized()) {
                     FirebaseService.initSync(
@@ -3194,19 +3194,19 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     );
                 }
             }, []);
-            
+
             // Initialize Lucide icons when settings change
             useLucideIcons([validationMessage, saveMessage, chatHistoryMessage, firebaseMessage, firebaseUser]);
-            
+
             const validateApiKey = async () => {
                 if (!geminiApiKey || geminiApiKey.trim() === '') {
                     setValidationMessage('Please enter an API key');
                     return false;
                 }
-                
+
                 setIsValidating(true);
                 setValidationMessage('');
-                
+
                 try {
                     // Test the API key with a simple request
                     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiApiKey}`, {
@@ -3221,9 +3221,9 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             }]
                         })
                     });
-                    
+
                     setIsValidating(false);
-                    
+
                     if (response.ok) {
                         setValidationMessage('✓ API key is valid');
                         return true;
@@ -3240,18 +3240,18 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     return false;
                 }
             };
-            
+
             const handleSave = async () => {
                 haptic.bump();
-                
+
                 // Validate before saving
                 const isValid = await validateApiKey();
                 if (!isValid) return;
-                
+
                 setIsSaving(true);
                 localStorage.setItem('gemini_api_key', geminiApiKey);
                 localStorage.setItem('gemini_auto_sync', autoSync.toString());
-                
+
                 // Sync to Firebase if user is logged in and sync is enabled
                 if (firebaseUser && firebaseSyncEnabled && FirebaseService.isFirebaseInitialized()) {
                     try {
@@ -3265,14 +3265,14 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 } else {
                     setSaveMessage('✓ Settings saved successfully!');
                 }
-                
+
                 setTimeout(() => {
                     setIsSaving(false);
                     setSaveMessage('');
                     setValidationMessage('');
                 }, 3000);
             };
-            
+
             const handleClearChatHistory = () => {
                 haptic.bump();
                 safeRemove(GEMINI_CHAT_HISTORY_KEY);
@@ -3281,7 +3281,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     setChatHistoryMessage('');
                 }, 3000);
             };
-            
+
             // Firebase handlers
             const handleFirebaseLogin = async () => {
                 haptic.bump();
@@ -3294,7 +3294,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     setTimeout(() => setFirebaseMessage(''), 5000);
                 }
             };
-            
+
             const handleFirebaseLogout = async () => {
                 haptic.bump();
                 try {
@@ -3306,7 +3306,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     setTimeout(() => setFirebaseMessage(''), 5000);
                 }
             };
-            
+
             const handleManualSync = async () => {
                 haptic.bump();
                 try {
@@ -3319,18 +3319,18 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     setTimeout(() => setFirebaseMessage(''), 5000);
                 }
             };
-            
+
             const handleSyncToggle = () => {
                 haptic.tick();
                 const newValue = !firebaseSyncEnabled;
                 setFirebaseSyncEnabled(newValue);
                 localStorage.setItem(FIREBASE_SYNC_ENABLED_KEY, newValue.toString());
             };
-            
+
             return (
                 <div className="px-5 pb-32 pt-6">
                     <h2 className="text-2xl font-bold text-white mb-6">Settings</h2>
-                    
+
                     {/* Firebase Sync Section - Only shown if Firebase is configured at build time */}
                     {FirebaseService.isFirebaseInitialized() && (
                         <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
@@ -3343,7 +3343,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     <p className="text-xs text-sys-onSurfaceVar">Sync data across devices with Google Auth</p>
                                 </div>
                             </div>
-                            
+
                             {firebaseUser ? (
                                 <>
                                     <div className="mb-4 p-4 bg-sys-surfaceHigh rounded-xl">
@@ -3374,7 +3374,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                             return null;
                                         })()}
                                     </div>
-                                    
+
                                     {/* Auto-sync toggle */}
                                     <div className="mb-4 p-4 bg-sys-surfaceHigh rounded-xl">
                                         <div className="flex items-start gap-3">
@@ -3392,17 +3392,17 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="flex gap-3">
-                                        <button 
+                                        <button
                                             onClick={handleManualSync}
                                             className="flex-1 h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform border border-white/5"
                                         >
                                             <i data-lucide="refresh-cw" width="18"></i>
                                             <span>Sync Now</span>
                                         </button>
-                                        
-                                        <button 
+
+                                        <button
                                             onClick={handleFirebaseLogout}
                                             className="flex-1 h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform border border-white/5"
                                         >
@@ -3416,8 +3416,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     <p className="text-sm text-sys-onSurfaceVar mb-4">
                                         Sign in with your Google account to sync your workout data across all your devices. Your data is stored securely and privately.
                                     </p>
-                                    
-                                    <button 
+
+                                    <button
                                         onClick={handleFirebaseLogin}
                                         className="w-full h-14 rounded-xl text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform btn-gradient-primary"
                                     >
@@ -3426,11 +3426,11 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     </button>
                                 </>
                             )}
-                            
+
                             {firebaseMessage && (
                                 <div className={`mt-4 p-3 rounded-xl text-sm text-center ${
-                                    firebaseMessage.startsWith('✓') 
-                                        ? 'bg-sys-success/10 border border-sys-success/30 text-sys-success' 
+                                    firebaseMessage.startsWith('✓')
+                                        ? 'bg-sys-success/10 border border-sys-success/30 text-sys-success'
                                         : 'bg-red-500/10 border border-red-500/30 text-red-500'
                                 }`}>
                                     {firebaseMessage}
@@ -3438,7 +3438,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             )}
                         </div>
                     )}
-                    
+
                     <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
@@ -3449,15 +3449,15 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 <p className="text-xs text-sys-onSurfaceVar">Share workout progress with AI</p>
                             </div>
                         </div>
-                        
+
                         <div>
                             <label htmlFor="gemini-api-key" className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">
                                 Gemini API Key
                             </label>
-                            <input 
+                            <input
                                 id="gemini-api-key"
                                 type="password"
-                                className="bg-sys-surfaceHigh rounded-xl w-full h-14 px-4 text-white font-mono text-sm outline-none focus:ring-2 focus:ring-sys-accent transition-all" 
+                                className="bg-sys-surfaceHigh rounded-xl w-full h-14 px-4 text-white font-mono text-sm outline-none focus:ring-2 focus:ring-sys-accent transition-all"
                                 value={geminiApiKey}
                                 onChange={(e) => {
                                     setGeminiApiKey(e.target.value);
@@ -3486,15 +3486,15 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </div>
                             {validationMessage && (
                                 <div className={`mt-2 p-2 rounded-lg text-xs ${
-                                    validationMessage.startsWith('✓') 
-                                        ? 'bg-sys-success/10 text-sys-success' 
+                                    validationMessage.startsWith('✓')
+                                        ? 'bg-sys-success/10 text-sys-success'
                                         : 'bg-red-500/10 text-red-500'
                                 }`}>
                                     {validationMessage}
                                 </div>
                             )}
                         </div>
-                        
+
                         {/* Auto-sync toggle */}
                         <div className="mt-6 p-4 bg-sys-surfaceHigh rounded-xl">
                             <div className="flex items-start gap-3">
@@ -3512,8 +3512,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 </div>
                             </div>
                         </div>
-                        
-                        <button 
+
+                        <button
                             onClick={handleSave}
                             disabled={isSaving || isValidating}
                             className="w-full h-14 mt-6 rounded-xl text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 btn-gradient-primary"
@@ -3521,20 +3521,20 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             <i data-lucide="save" width="20"></i>
                             <span>{isSaving ? 'Validating & Saving...' : 'Validate & Save'}</span>
                         </button>
-                        
+
                         {saveMessage && (
                             <div className="mt-4 p-3 rounded-xl bg-sys-success/10 border border-sys-success/30 text-sys-success text-sm text-center">
                                 {saveMessage}
                             </div>
                         )}
                     </div>
-                    
+
                     <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
                         <h3 className="text-base font-bold text-white mb-3">Gemini Context</h3>
                         <p className="text-sm text-sys-onSurfaceVar leading-relaxed mb-4">
                             Gemini maintains context across all your workouts to provide better feedback. Clear the context to start fresh.
                         </p>
-                        <button 
+                        <button
                             onClick={handleClearChatHistory}
                             className="w-full h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform border border-white/5"
                         >
@@ -3547,7 +3547,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </div>
                         )}
                     </div>
-                    
+
                     <div className="bg-sys-surface rounded-3xl border border-white/5 p-6">
                         <h3 className="text-base font-bold text-white mb-3">About Gemini Integration</h3>
                         <p className="text-sm text-sys-onSurfaceVar leading-relaxed mb-3">
@@ -3595,7 +3595,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             // Get all exercises to display
             const exercisesToShow = useMemo(() => {
                 let exercises = [...EXERCISE_LIBRARY];
-                
+
                 // Filter by search term (using debounced value)
                 if (debouncedSearchTerm) {
                     exercises = exercises.filter(ex =>
@@ -3603,17 +3603,17 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         ex.primaryMuscles.some(m => m.toLowerCase().includes(debouncedSearchTerm.toLowerCase()))
                     );
                 }
-                
+
                 // Filter by category
                 if (categoryFilter !== 'all') {
                     exercises = exercises.filter(ex => ex.category === categoryFilter);
                 }
-                
+
                 // Filter to show only tracked exercises
                 if (showOnlyTracked) {
                     exercises = exercises.filter(ex => trackedExercises.includes(ex.name));
                 }
-                
+
                 return exercises;
             }, [debouncedSearchTerm, categoryFilter, showOnlyTracked, trackedExercises]);
 
@@ -3637,17 +3637,17 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             return (
                 <div className="px-5 pb-32 pt-6">
                     <h2 className="text-2xl font-bold text-white mb-6">Exercise Library</h2>
-                    
+
                     {/* Search and Filters */}
                     <div className="mb-6">
-                        <input 
+                        <input
                             type="text"
                             placeholder="Search exercises..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="w-full h-12 px-4 bg-sys-surfaceHigh rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all mb-3"
                         />
-                        
+
                         {/* Category Filter */}
                         <div className="flex gap-2 overflow-x-auto pb-2 mb-3">
                             {['all', 'pull', 'push', 'legs', 'core', 'cardio', 'skill', 'arms', 'shoulders'].map(filter => (
@@ -3655,8 +3655,8 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     key={filter}
                                     onClick={() => setCategoryFilter(filter)}
                                     className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
-                                        categoryFilter === filter 
-                                            ? 'bg-sys-accent text-white' 
+                                        categoryFilter === filter
+                                            ? 'bg-sys-accent text-white'
                                             : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                     }`}
                                 >
@@ -3664,13 +3664,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 </button>
                             ))}
                         </div>
-                        
+
                         {/* Show tracked only toggle */}
                         <button
                             onClick={() => setShowOnlyTracked(!showOnlyTracked)}
                             className={`w-full h-12 rounded-xl font-medium flex items-center justify-center gap-2 transition-all ${
-                                showOnlyTracked 
-                                    ? 'bg-sys-success/20 text-sys-success border border-sys-success/30' 
+                                showOnlyTracked
+                                    ? 'bg-sys-success/20 text-sys-success border border-sys-success/30'
                                     : 'bg-sys-surfaceHigh text-sys-onSurfaceVar border border-white/5'
                             }`}
                         >
@@ -3678,7 +3678,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             <span>Show Only Tracked ({trackedExercises.length})</span>
                         </button>
                     </div>
-                    
+
                     {/* Exercise List */}
                     {exercisesToShow.length === 0 ? (
                         <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
@@ -3693,7 +3693,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             {exercisesToShow.map(exercise => {
                                 const isTracked = trackedExercises.includes(exercise.name);
                                 const stats = isTracked ? calculateExerciseStats(exercise.name) : null;
-                                
+
                                 return (
                                     <button
                                         key={exercise.id}
@@ -3757,7 +3757,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 <div className="px-5 pb-32 pt-6">
                     {/* Header */}
                     <div className="flex items-center gap-4 mb-6">
-                        <button 
+                        <button
                             onClick={onBack}
                             className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
                             aria-label="Go back"
@@ -3766,7 +3766,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         </button>
                         <h2 className="text-2xl font-bold text-white flex-1">{exercise.name}</h2>
                     </div>
-                    
+
                     {/* Exercise Info */}
                     <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-6">
                         <div className="mb-4">
@@ -3788,13 +3788,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             <p className="text-base text-white capitalize">{exercise.category}</p>
                         </div>
                     </div>
-                    
+
                     {/* Stats */}
                     {history.length > 0 ? (
                         <>
                             <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-6">
                                 <h3 className="text-lg font-bold text-white mb-4">Statistics</h3>
-                                
+
                                 <div className="grid grid-cols-2 gap-4 mb-4">
                                     <div className="bg-sys-surfaceHigh rounded-xl p-4">
                                         <div className="text-xs text-sys-onSurfaceVar mb-1">Total Workouts</div>
@@ -3805,7 +3805,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                         <div className="text-2xl font-bold text-white">{stats.maxSets || 'N/A'}</div>
                                     </div>
                                 </div>
-                                
+
                                 {stats.maxWeight && (
                                     <div className="grid grid-cols-2 gap-4 mb-4">
                                         <div className="bg-sys-surfaceHigh rounded-xl p-4">
@@ -3820,7 +3820,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                         )}
                                     </div>
                                 )}
-                                
+
                                 {/* Max Weight by Set Count */}
                                 {Object.keys(stats.maxWeightBySets).length > 0 && (
                                     <div>
@@ -3839,7 +3839,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                     </div>
                                 )}
                             </div>
-                            
+
                             {/* History */}
                             <div className="bg-sys-surface rounded-3xl border border-white/5 p-6">
                                 <div className="flex items-center justify-between mb-4">
@@ -3853,17 +3853,17 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                         </button>
                                     )}
                                 </div>
-                                
+
                                 <div className="space-y-3">
                                     {displayHistory.slice().reverse().map((entry, idx) => (
                                         <div key={idx} className="bg-sys-surfaceHigh rounded-xl p-4">
                                             <div className="flex items-start justify-between gap-2 mb-2">
                                                 <div className="flex-1">
                                                     <div className="text-sm font-semibold text-white">
-                                                        {new Date(entry.date).toLocaleDateString('en-US', { 
-                                                            month: 'short', 
-                                                            day: 'numeric', 
-                                                            year: 'numeric' 
+                                                        {new Date(entry.date).toLocaleDateString('en-US', {
+                                                            month: 'short',
+                                                            day: 'numeric',
+                                                            year: 'numeric'
                                                         })}
                                                     </div>
                                                     <div className="text-xs text-sys-onSurfaceVar">
@@ -3909,19 +3909,19 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         // ============================================================================
         // SECTION 10: URL & STATE MANAGEMENT UTILITIES
         // ============================================================================
-        
+
         // Constants for validation
         const DEFAULT_WEEK = 1;
         const DEFAULT_DAY = 1;
         const VALID_DAYS = [1, 2, 3, 5]; // Day 4 is rest day
         const VALID_TABS = ['train', 'library', 'history', 'coach', 'profile'];
         const VALID_VIEW_MODES = ['tab', 'workout'];
-        
+
         const getUrlParams = () => {
             const params = new URLSearchParams(window.location.search);
             const weekParam = params.get('week');
             const dayParam = params.get('day');
-            
+
             // Parse and validate week (1-21)
             let week = null;
             if (weekParam) {
@@ -3930,7 +3930,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     week = parsed;
                 }
             }
-            
+
             // Parse and validate day (valid workout days from VALID_DAYS)
             let day = null;
             if (dayParam) {
@@ -3939,7 +3939,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     day = parsed;
                 }
             }
-            
+
             return {
                 view: params.get('view') || null,
                 tab: params.get('tab') || null,
@@ -3950,7 +3950,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
 
         const updateUrl = (state) => {
             const params = new URLSearchParams();
-            
+
             if (state.viewMode === 'workout') {
                 params.set('view', 'workout');
                 params.set('week', state.currentWeek);
@@ -3962,7 +3962,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     params.set('week', state.currentWeek);
                 }
             }
-            
+
             const newUrl = `${window.location.pathname}?${params.toString()}`;
             return newUrl;
         };
@@ -3979,11 +3979,11 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
         const loadAppState = () => {
             const loaded = safeGetJSON('tracker_app_state', null);
             if (!loaded || typeof loaded !== 'object') return null;
-            
+
             // Create a new validated state object (avoid mutation)
             const validatedState = {
-                viewMode: loaded.viewMode && VALID_VIEW_MODES.includes(loaded.viewMode) 
-                    ? loaded.viewMode 
+                viewMode: loaded.viewMode && VALID_VIEW_MODES.includes(loaded.viewMode)
+                    ? loaded.viewMode
                     : 'tab',
                 activeTab: loaded.activeTab && VALID_TABS.includes(loaded.activeTab)
                     ? loaded.activeTab
@@ -3995,17 +3995,17 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     ? loaded.activeDay
                     : DEFAULT_DAY
             };
-            
+
             return validatedState;
         };
 
         const App = () => {
             const [activeTab, setActiveTab] = useState('train');
-            const [viewMode, setViewMode] = useState('tab'); 
+            const [viewMode, setViewMode] = useState('tab');
             const [currentWeek, setCurrentWeek] = useState(1);
             const [activeDay, setActiveDay] = useState(1);
             const [isInitialized, setIsInitialized] = useState(false);
-            
+
             // Track the initial history length to know if we can go back
             const initialHistoryLength = useRef(window.history.length);
 
@@ -4013,7 +4013,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             useEffect(() => {
                 const urlParams = getUrlParams();
                 const savedState = loadAppState();
-                
+
                 // Priority: URL params > saved state > defaults
                 if (urlParams.view === 'workout' && urlParams.week !== null && urlParams.day !== null) {
                     // Load from URL - workout view
@@ -4036,22 +4036,22 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 } else {
                     // Use defaults - already set
                 }
-                
+
                 setIsInitialized(true);
             }, []);
 
             // Update URL and save state whenever it changes
             useEffect(() => {
                 if (!isInitialized) return;
-                
+
                 const state = { viewMode, activeTab, currentWeek, activeDay };
-                
+
                 // Save to localStorage (always sync localStorage)
                 saveAppState(state);
-                
+
                 // Keep backward compatibility with old tracker_week key
                 localStorage.setItem('tracker_week', currentWeek);
-                
+
                 // Update URL only via replaceState to avoid polluting history
                 // pushState is called explicitly in navigation functions
                 const newUrl = updateUrl(state);
@@ -4073,7 +4073,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     } else {
                         // No state in history (e.g., initial page load), parse from URL
                         const urlParams = getUrlParams();
-                        
+
                         if (urlParams.view === 'workout' && urlParams.week !== null && urlParams.day !== null) {
                             // Navigating back to a workout view
                             // Week and day are required for workout view, validated by condition above
@@ -4097,7 +4097,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 };
 
                 window.addEventListener('popstate', handlePopState);
-                
+
                 return () => {
                     window.removeEventListener('popstate', handlePopState);
                 };
@@ -4106,7 +4106,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const startWorkout = (day) => {
                 setActiveDay(day);
                 setViewMode('workout');
-                
+
                 // Push new entry to history
                 const state = { viewMode: 'workout', activeTab, currentWeek, activeDay: day };
                 const newUrl = updateUrl(state);
@@ -4117,7 +4117,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                 // Check if there's history to go back to
                 // If the current history length is greater than the initial length, we have navigated within the app
                 const hasHistory = window.history.length > initialHistoryLength.current;
-                
+
                 if (hasHistory) {
                     // Go back in browser history
                     window.history.back();
@@ -4125,17 +4125,17 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     // No history available (e.g., direct URL access), fallback to main view
                     setViewMode('tab');
                     setActiveTab('train');
-                    
+
                     // Update URL to reflect the main view
                     const state = { viewMode: 'tab', activeTab: 'train', currentWeek, activeDay };
                     const newUrl = updateUrl(state);
                     window.history.replaceState(state, '', newUrl);
                 }
             };
-            
+
             const handleTabChange = (newTab) => {
                 setActiveTab(newTab);
-                
+
                 // Push new entry to history for tab changes so users can navigate back
                 // This is intentional - each tab navigation should be a distinct history entry
                 const state = { viewMode: 'tab', activeTab: newTab, currentWeek, activeDay };
@@ -4145,7 +4145,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
 
             return (
                 <div className="min-h-screen bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative">
-                    <TopAppBar 
+                    <TopAppBar
                         title={viewMode === 'workout' ? `Day ${activeDay}` : (activeTab === 'train' ? 'Dashboard' : activeTab === 'library' ? 'Exercise Library' : activeTab === 'history' ? 'History' : activeTab === 'coach' ? 'AI Coach' : 'Settings')}
                         subtitle={viewMode === 'workout' ? `Week ${currentWeek}` : (activeTab === 'train' ? 'OnePlus Strength' : '')}
                         showBack={viewMode === 'workout'}
@@ -4201,7 +4201,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const handleRetry = () => {
                 window.location.reload();
             };
-            
+
             return (
                 <div className="min-h-screen bg-sys-black text-white flex items-center justify-center p-5">
                     <div className="text-center max-w-md">
@@ -4213,7 +4213,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             </div>
                             <div className="text-2xl font-bold mb-2 text-red-500">Failed to Load</div>
                             <div className="text-sm text-sys-onSurfaceVar mb-6">{message}</div>
-                            <button 
+                            <button
                                 onClick={handleRetry}
                                 className="h-12 px-6 rounded-xl bg-sys-accent text-white font-semibold active:scale-95 transition-transform"
                             >
@@ -4240,7 +4240,7 @@ export function setEXERCISE_LIBRARY(data) {
 export function fetchWithTimeout(url, timeout = FETCH_TIMEOUT_MS) {
     return Promise.race([
         fetch(url),
-        new Promise((_, reject) => 
+        new Promise((_, reject) =>
             setTimeout(() => reject(new Error('Request timeout')), timeout)
         )
     ]);

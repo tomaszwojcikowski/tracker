@@ -27,7 +27,7 @@ describe('ErrorBoundary', () => {
                 <div data-testid="child">Child content</div>
             </ErrorBoundary>
         );
-        
+
         expect(screen.getByTestId('child')).toBeInTheDocument();
         expect(screen.getByText('Child content')).toBeInTheDocument();
     });
@@ -38,7 +38,7 @@ describe('ErrorBoundary', () => {
                 <ThrowError shouldThrow={true} />
             </ErrorBoundary>
         );
-        
+
         expect(screen.getByText('Something went wrong')).toBeInTheDocument();
         expect(screen.getByText(/Don't worry, your workout data is saved locally/)).toBeInTheDocument();
     });
@@ -49,11 +49,11 @@ describe('ErrorBoundary', () => {
                 <ThrowError shouldThrow={true} />
             </ErrorBoundary>
         );
-        
+
         // Find and click the details element
         const details = screen.getByText('Show error details');
         fireEvent.click(details);
-        
+
         expect(screen.getByText('Test error message')).toBeInTheDocument();
     });
 
@@ -70,10 +70,10 @@ describe('ErrorBoundary', () => {
                 <ThrowError shouldThrow={true} />
             </ErrorBoundary>
         );
-        
+
         const refreshButton = screen.getByText('Refresh Page');
         expect(refreshButton).toBeInTheDocument();
-        
+
         fireEvent.click(refreshButton);
         expect(reloadMock).toHaveBeenCalled();
     });
@@ -102,10 +102,10 @@ describe('ErrorBoundary', () => {
                 <ThrowError shouldThrow={true} />
             </ErrorBoundary>
         );
-        
+
         const resetButton = screen.getByText('Reset App State');
         fireEvent.click(resetButton);
-        
+
         // Wait for async recovery
         await waitFor(() => {
             expect(removeItemMock).toHaveBeenCalledWith('tracker_app_state');
@@ -122,10 +122,10 @@ describe('ErrorBoundary', () => {
                 <ThrowError shouldThrow={true} />
             </ErrorBoundary>
         );
-        
+
         const clearButton = screen.getByText('Clear All Data');
         fireEvent.click(clearButton);
-        
+
         expect(confirmMock).toHaveBeenCalledWith(
             'This will delete ALL workout data. Are you sure?'
         );
@@ -143,7 +143,7 @@ describe('ErrorBoundary', () => {
                 <ThrowError shouldThrow={true} />
             </ErrorBoundary>
         );
-        
+
         expect(screen.getByTestId('custom-fallback')).toBeInTheDocument();
         expect(screen.getByText('Custom error: Test error message')).toBeInTheDocument();
     });
@@ -154,7 +154,7 @@ describe('ErrorBoundary', () => {
                 <ThrowError shouldThrow={true} />
             </ErrorBoundary>
         );
-        
+
         expect(console.error).toHaveBeenCalled();
     });
 });

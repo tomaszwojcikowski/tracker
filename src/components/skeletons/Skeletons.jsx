@@ -2,7 +2,7 @@ import React from 'react';
 
 /**
  * ExerciseCardSkeleton - Loading placeholder for exercise cards
- * 
+ *
  * Displays an animated skeleton while exercise data is loading.
  * Matches the visual structure of the actual ExerciseCard component.
  */
@@ -105,7 +105,7 @@ export const WorkoutDaySkeleton = () => (
             <div className="h-8 bg-sys-surfaceHigh rounded w-1/2 mb-2" />
             <div className="h-4 bg-sys-surfaceHigh rounded w-1/3" />
         </div>
-        
+
         {/* Exercise cards */}
         <div className="space-y-4">
             {[1, 2, 3].map(i => (
@@ -117,7 +117,7 @@ export const WorkoutDaySkeleton = () => (
 
 /**
  * SkeletonList - Renders multiple skeletons for loading lists
- * 
+ *
  * @param {Object} props
  * @param {React.ComponentType} props.skeleton - Skeleton component to render
  * @param {number} [props.count=3] - Number of skeletons to render

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { 
+import {
     ExerciseCardSkeleton,
     HistoryEntrySkeleton,
     StatsCardSkeleton,
@@ -127,9 +127,9 @@ describe('Skeleton Components', () => {
 
         it('applies custom className', () => {
             const { container } = render(
-                <SkeletonList 
-                    skeleton={ExerciseCardSkeleton} 
-                    className="custom-class" 
+                <SkeletonList
+                    skeleton={ExerciseCardSkeleton}
+                    className="custom-class"
                 />
             );
             expect(container.firstChild).toHaveClass('custom-class');

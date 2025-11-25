@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 /**
  * ErrorBoundary - React error boundary with recovery UI
- * 
+ *
  * Catches JavaScript errors in child components and displays a fallback UI
  * with options to recover. Prevents the entire app from crashing.
- * 
+ *
  * @example
  * <ErrorBoundary>
  *   <App />
@@ -14,8 +14,8 @@ import React, { Component } from 'react';
 export class ErrorBoundary extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
-            hasError: false, 
+        this.state = {
+            hasError: false,
             error: null,
             errorInfo: null,
             isRecovering: false,
@@ -31,7 +31,7 @@ export class ErrorBoundary extends Component {
         // Log error details
         console.error('ErrorBoundary caught an error:', error, errorInfo);
         this.setState({ errorInfo });
-        
+
         // Optional: Send to error tracking service
         // logErrorToService(error, errorInfo);
     }
@@ -42,12 +42,12 @@ export class ErrorBoundary extends Component {
 
     handleRecover = async () => {
         this.setState({ isRecovering: true });
-        
+
         try {
             // Clear potentially corrupted app state while preserving workout data
             const keysToPreserve = ['global_history', 'workoutLogs', 'exercise_history'];
             const preservedData = {};
-            
+
             // Backup important data
             keysToPreserve.forEach(key => {
                 try {
@@ -59,13 +59,13 @@ export class ErrorBoundary extends Component {
                     console.warn(`Could not backup ${key}:`, e);
                 }
             });
-            
+
             // Clear app state
             localStorage.removeItem('tracker_app_state');
-            
+
             // Small delay to show recovery in progress
             await new Promise(resolve => setTimeout(resolve, 500));
-            
+
             // Reload the page
             window.location.reload();
         } catch (e) {
@@ -99,23 +99,23 @@ export class ErrorBoundary extends Component {
             return (
                 <div className="min-h-screen bg-sys-black flex flex-col items-center justify-center p-6">
                     {/* Error icon */}
-                    <div 
+                    <div
                         className="h-20 w-20 rounded-full bg-sys-error/10 flex items-center justify-center mb-6"
                         role="img"
                         aria-label="Error"
                     >
-                        <svg 
-                            className="w-10 h-10 text-sys-error" 
-                            fill="none" 
-                            viewBox="0 0 24 24" 
+                        <svg
+                            className="w-10 h-10 text-sys-error"
+                            fill="none"
+                            viewBox="0 0 24 24"
                             stroke="currentColor"
                             aria-hidden="true"
                         >
-                            <path 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round" 
-                                strokeWidth={2} 
-                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" 
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                             />
                         </svg>
                     </div>
@@ -125,7 +125,7 @@ export class ErrorBoundary extends Component {
                         Something went wrong
                     </h1>
                     <p className="text-sys-onSurfaceVar text-center mb-6 max-w-sm">
-                        Don't worry, your workout data is saved locally. 
+                        Don't worry, your workout data is saved locally.
                         Try refreshing or recovering the app.
                     </p>
 
@@ -143,7 +143,7 @@ export class ErrorBoundary extends Component {
 
                     {/* Action buttons */}
                     <div className="flex flex-col gap-3 w-full max-w-sm">
-                        <button 
+                        <button
                             onClick={this.handleRefresh}
                             className="w-full h-14 rounded-xl bg-sys-accent text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                             disabled={isRecovering}
@@ -154,7 +154,7 @@ export class ErrorBoundary extends Component {
                             Refresh Page
                         </button>
 
-                        <button 
+                        <button
                             onClick={this.handleRecover}
                             className="w-full h-14 rounded-xl bg-sys-surfaceHigh text-white font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform border border-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-sys-accent disabled:opacity-50"
                             disabled={isRecovering}
@@ -177,7 +177,7 @@ export class ErrorBoundary extends Component {
                             )}
                         </button>
 
-                        <button 
+                        <button
                             onClick={this.handleClearAll}
                             className="w-full h-12 rounded-xl text-sys-error text-sm font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-sys-error"
                             disabled={isRecovering}

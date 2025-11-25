@@ -2,16 +2,16 @@ import { useEffect, useRef, useCallback } from 'react';
 
 /**
  * useFocusTrap - Traps focus within a container element
- * 
+ *
  * Essential for modal dialogs to ensure keyboard navigation stays within the modal.
  * Automatically focuses the first focusable element and returns focus when unmounted.
- * 
+ *
  * @param {boolean} isActive - Whether the focus trap is active
  * @param {Object} options - Configuration options
  * @param {boolean} options.autoFocus - Whether to auto-focus first element (default: true)
  * @param {boolean} options.returnFocus - Whether to return focus on deactivate (default: true)
  * @returns {React.RefObject} Ref to attach to the container element
- * 
+ *
  * @example
  * const MyModal = ({ isOpen }) => {
  *   const containerRef = useFocusTrap(isOpen);
@@ -32,7 +32,7 @@ export const useFocusTrap = (isActive, options = {}) => {
         }
 
         const container = containerRef.current;
-        
+
         // Get all focusable elements
         const getFocusableElements = () => {
             return container.querySelectorAll(
@@ -90,7 +90,7 @@ export const useFocusTrap = (isActive, options = {}) => {
 
         return () => {
             container.removeEventListener('keydown', handleKeyDown);
-            
+
             // Return focus to previously focused element
             if (returnFocus && previouslyFocusedRef.current) {
                 previouslyFocusedRef.current.focus();
@@ -103,12 +103,12 @@ export const useFocusTrap = (isActive, options = {}) => {
 
 /**
  * useAriaAnnounce - Announces messages to screen readers
- * 
+ *
  * Creates a live region for accessibility announcements.
- * 
+ *
  * @param {string} politeness - 'polite' or 'assertive' (default: 'polite')
  * @returns {Function} announce function to trigger announcements
- * 
+ *
  * @example
  * const announce = useAriaAnnounce();
  * announce('Workout saved successfully');
@@ -119,7 +119,7 @@ export const useAriaAnnounce = (politeness = 'polite') => {
     useEffect(() => {
         // Create announcer element if it doesn't exist
         let announcer = document.getElementById(`aria-announcer-${politeness}`);
-        
+
         if (!announcer) {
             announcer = document.createElement('div');
             announcer.id = `aria-announcer-${politeness}`;
@@ -139,7 +139,7 @@ export const useAriaAnnounce = (politeness = 'polite') => {
             `;
             document.body.appendChild(announcer);
         }
-        
+
         announcerRef.current = announcer;
 
         return () => {
@@ -162,20 +162,20 @@ export const useAriaAnnounce = (politeness = 'polite') => {
 
 /**
  * useReducedMotion - Detects user's reduced motion preference
- * 
+ *
  * @returns {boolean} Whether reduced motion is preferred
- * 
+ *
  * @example
  * const prefersReducedMotion = useReducedMotion();
  * const animationDuration = prefersReducedMotion ? 0 : 300;
  */
 export const useReducedMotion = () => {
-    const mediaQuery = typeof window !== 'undefined' 
+    const mediaQuery = typeof window !== 'undefined'
         ? window.matchMedia('(prefers-reduced-motion: reduce)')
         : null;
 
     const getInitialValue = () => mediaQuery?.matches ?? false;
-    
+
     const prefersReducedMotionRef = useRef(getInitialValue());
 
     useEffect(() => {
@@ -194,7 +194,7 @@ export const useReducedMotion = () => {
 
 /**
  * useKeyboardShortcut - Registers keyboard shortcuts
- * 
+ *
  * @param {string} key - Key to listen for (e.g., 'Escape', 'Enter')
  * @param {Function} callback - Callback to execute
  * @param {Object} options - Options
@@ -202,7 +202,7 @@ export const useReducedMotion = () => {
  * @param {boolean} options.shift - Require Shift key
  * @param {boolean} options.alt - Require Alt key
  * @param {boolean} options.enabled - Whether shortcut is enabled (default: true)
- * 
+ *
  * @example
  * useKeyboardShortcut('Escape', () => closeModal());
  * useKeyboardShortcut('s', () => save(), { ctrl: true });

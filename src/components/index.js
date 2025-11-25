@@ -5,7 +5,7 @@ export { NavigationBar, TabContent } from './navigation';
 export { ConfirmDialog } from './modals';
 
 // Skeleton components
-export { 
+export {
     ExerciseCardSkeleton,
     HistoryEntrySkeleton,
     StatsCardSkeleton,
@@ -16,10 +16,10 @@ export {
 } from './skeletons';
 
 // Feedback components
-export { 
-    EmptyState, 
-    EmptyWorkoutHistory, 
-    EmptyExerciseHistory, 
+export {
+    EmptyState,
+    EmptyWorkoutHistory,
+    EmptyExerciseHistory,
     EmptySearchResults,
     EmptyChatHistory,
 } from './feedback';

@@ -2,9 +2,9 @@ import React from 'react';
 
 /**
  * EmptyState - Placeholder UI for empty content areas
- * 
+ *
  * Displays a friendly message with optional action when there's no content to show.
- * 
+ *
  * @param {Object} props
  * @param {React.ReactNode} props.icon - Icon element to display
  * @param {string} props.title - Main heading text
@@ -13,40 +13,40 @@ import React from 'react';
  * @param {string} [props.actionLabel] - Label for action button
  * @param {string} [props.className] - Additional CSS classes
  */
-export const EmptyState = ({ 
-    icon, 
-    title, 
-    description, 
+export const EmptyState = ({
+    icon,
+    title,
+    description,
     action,
     actionLabel,
     className = '',
 }) => (
-    <div 
+    <div
         className={`flex flex-col items-center justify-center p-8 text-center ${className}`}
         role="status"
         aria-label={title}
     >
         {/* Icon container */}
-        <div 
+        <div
             className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-4"
             aria-hidden="true"
         >
             {icon}
         </div>
-        
+
         {/* Title */}
         <h3 className="text-lg font-bold text-white mb-2">
             {title}
         </h3>
-        
+
         {/* Description */}
         <p className="text-sm text-sys-onSurfaceVar mb-6 max-w-xs leading-relaxed">
             {description}
         </p>
-        
+
         {/* Optional action button */}
         {action && actionLabel && (
-            <button 
+            <button
                 onClick={action}
                 className="h-12 px-6 rounded-xl bg-sys-accent text-white font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sys-black"
             >

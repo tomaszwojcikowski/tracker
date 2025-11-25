@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 /**
  * Custom React Hooks
- * 
+ *
  * Reusable hooks for haptic feedback, swipe gestures, debouncing, and icon management.
  */
 
@@ -66,17 +66,17 @@ export const useSwipe = ({ onSwipeLeft, onSwipeRight, threshold = 50 }) => {
  */
 export const useDebounce = (value, delay = DEBOUNCE_DELAY_MS) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
-    
+
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebouncedValue(value);
         }, delay);
-        
+
         return () => {
             clearTimeout(handler);
         };
     }, [value, delay]);
-    
+
     return debouncedValue;
 };
 
@@ -97,7 +97,7 @@ export const useLucideIcons = (deps = []) => {
                 }
             });
         });
-        
+
         // Cleanup: cancel pending RAF callbacks
         return () => {
             if (rafId1) cancelAnimationFrame(rafId1);
@@ -110,9 +110,9 @@ export const useLucideIcons = (deps = []) => {
 export { useOptimisticSync, SyncStatus } from './useOptimisticSync';
 
 // Re-export accessibility hooks
-export { 
-    useFocusTrap, 
-    useAriaAnnounce, 
-    useReducedMotion, 
+export {
+    useFocusTrap,
+    useAriaAnnounce,
+    useReducedMotion,
     useKeyboardShortcut,
 } from './useAccessibility';

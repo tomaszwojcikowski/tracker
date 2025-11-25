@@ -20,7 +20,7 @@ export const MS_PER_HOUR = 60 * 60 * 1000;
 export const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
 // Validation
-export const VALID_TABS = ['train', 'library', 'history', 'coach', 'profile'];
+export const VALID_TABS = ['train', 'library', 'history', 'profile'];
 export const VALID_DAYS = [1, 2, 3, 5]; // Day 4 is rest
 export const VALID_VIEW_MODES = ['tab', 'workout'];
 
@@ -34,9 +34,6 @@ export const STORAGE_KEYS = {
     APP_STATE: 'tracker_app_state',
     EXERCISE_HISTORY: 'exercise_history',
     GLOBAL_HISTORY: 'global_history',
-    GEMINI_API_KEY: 'gemini_api_key',
-    GEMINI_AUTO_SYNC: 'gemini_auto_sync',
-    GEMINI_CHAT_HISTORY: 'gemini_chat_history',
     FIREBASE_SYNC_ENABLED: 'firebase_sync_enabled',
     FIREBASE_LAST_SYNC: 'firebase_last_sync_time',
     EMOM_INTERVAL: 'emom_interval',

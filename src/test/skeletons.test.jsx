@@ -6,7 +6,6 @@ import {
     HistoryEntrySkeleton,
     StatsCardSkeleton,
     ExerciseLibraryItemSkeleton,
-    ChatMessageSkeleton,
     WorkoutDaySkeleton,
     SkeletonList,
 } from '../components/skeletons';
@@ -64,19 +63,6 @@ describe('Skeleton Components', () => {
         it('has proper layout structure', () => {
             const { container } = render(<ExerciseLibraryItemSkeleton />);
             expect(container.querySelector('.flex-shrink-0')).toBeInTheDocument();
-        });
-    });
-
-    describe('ChatMessageSkeleton', () => {
-        it('renders AI message skeleton by default', () => {
-            const { container } = render(<ChatMessageSkeleton />);
-            expect(container.firstChild).toBeInTheDocument();
-            expect(container.firstChild).toHaveClass('animate-pulse');
-        });
-
-        it('renders user message skeleton when isAi is false', () => {
-            const { container } = render(<ChatMessageSkeleton isAi={false} />);
-            expect(container.firstChild).toHaveClass('flex-row-reverse');
         });
     });
 

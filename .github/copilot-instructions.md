@@ -4,14 +4,14 @@ This document describes the capabilities of AI agents that can interact with the
 
 ## Project Overview
 
-**Repository**: tomaszwojcikowski/tracker  
-**Type**: Progressive Web Application (PWA) with offline support  
-**Framework**: React 18 + Vite 5  
-**Language**: JavaScript + TypeScript (gradual migration)  
-**Testing**: Vitest + Testing Library + Playwright (E2E)  
-**Styling**: Tailwind CSS 3  
-**Cloud Sync**: Firebase Auth + Realtime Database (optional)  
-**PWA**: Workbox service worker with offline caching  
+**Repository**: tomaszwojcikowski/tracker
+**Type**: Progressive Web Application (PWA) with offline support
+**Framework**: React 18 + Vite 5
+**Language**: JavaScript + TypeScript (gradual migration)
+**Testing**: Vitest + Testing Library + Playwright (E2E)
+**Styling**: Tailwind CSS 3
+**Cloud Sync**: Firebase Auth + Realtime Database (optional)
+**PWA**: Workbox service worker with offline caching
 
 ## Codebase Structure
 

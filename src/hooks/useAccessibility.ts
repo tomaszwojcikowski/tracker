@@ -1,16 +1,55 @@
 import { useEffect, useRef, useCallback } from 'react';
 
+// ============================================================================
+// TYPES
+// ============================================================================
+
+/**
+ * Options for the focus trap hook
+ */
+export interface FocusTrapOptions {
+    /** Whether to auto-focus first element (default: true) */
+    autoFocus?: boolean;
+    /** Whether to return focus on deactivate (default: true) */
+    returnFocus?: boolean;
+}
+
+/**
+ * ARIA live region politeness setting
+ */
+export type AriaPoliteness = 'polite' | 'assertive';
+
+/**
+ * Modifier keys for keyboard shortcuts
+ */
+export interface KeyboardModifiers {
+    ctrl?: boolean;
+    alt?: boolean;
+    shift?: boolean;
+    meta?: boolean;
+}
+
+/**
+ * Options for keyboard shortcut hook
+ */
+export interface KeyboardShortcutOptions extends KeyboardModifiers {
+    /** Whether the shortcut is active (default: true) */
+    enabled?: boolean;
+}
+
+// ============================================================================
+// FOCUS TRAP HOOK
+// ============================================================================
+
 /**
  * useFocusTrap - Traps focus within a container element
  *
  * Essential for modal dialogs to ensure keyboard navigation stays within the modal.
  * Automatically focuses the first focusable element and returns focus when unmounted.
  *
- * @param {boolean} isActive - Whether the focus trap is active
- * @param {Object} options - Configuration options
- * @param {boolean} options.autoFocus - Whether to auto-focus first element (default: true)
- * @param {boolean} options.returnFocus - Whether to return focus on deactivate (default: true)
- * @returns {React.RefObject} Ref to attach to the container element
+ * @param isActive - Whether the focus trap is active
+ * @param options - Configuration options
+ * @returns Ref to attach to the container element
  *
  * @example
  * const MyModal = ({ isOpen }) => {
@@ -18,10 +57,13 @@ import { useEffect, useRef, useCallback } from 'react';
  *   return isOpen ? <div ref={containerRef}>...</div> : null;
  * };
  */
-export const useFocusTrap = (isActive, options = {}) => {
+export const useFocusTrap = <T extends HTMLElement = HTMLDivElement>(
+    isActive: boolean,
+    options: FocusTrapOptions = {}
+): React.RefObject<T | null> => {
     const { autoFocus = true, returnFocus = true } = options;
-    const containerRef = useRef(null);
-    const previouslyFocusedRef = useRef(null);
+    const containerRef = useRef<T>(null);
+    const previouslyFocusedRef = useRef<Element | null>(null);
 
     useEffect(() => {
         if (!isActive || !containerRef.current) return;
@@ -34,8 +76,8 @@ export const useFocusTrap = (isActive, options = {}) => {
         const container = containerRef.current;
 
         // Get all focusable elements
-        const getFocusableElements = () => {
-            return container.querySelectorAll(
+        const getFocusableElements = (): NodeListOf<HTMLElement> => {
+            return container.querySelectorAll<HTMLElement>(
                 'button:not([disabled]), ' +
                 '[href], ' +
                 'input:not([disabled]), ' +
@@ -47,7 +89,6 @@ export const useFocusTrap = (isActive, options = {}) => {
 
         const focusableElements = getFocusableElements();
         const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
 
         // Auto-focus first element
         if (autoFocus && firstElement) {
@@ -58,7 +99,7 @@ export const useFocusTrap = (isActive, options = {}) => {
         }
 
         // Handle tab key to trap focus
-        const handleKeyDown = (e) => {
+        const handleKeyDown = (e: KeyboardEvent): void => {
             if (e.key !== 'Tab') return;
 
             const currentFocusableElements = getFocusableElements();
@@ -93,7 +134,7 @@ export const useFocusTrap = (isActive, options = {}) => {
 
             // Return focus to previously focused element
             if (returnFocus && previouslyFocusedRef.current) {
-                previouslyFocusedRef.current.focus();
+                (previouslyFocusedRef.current as HTMLElement).focus?.();
             }
         };
     }, [isActive, autoFocus, returnFocus]);
@@ -101,24 +142,30 @@ export const useFocusTrap = (isActive, options = {}) => {
     return containerRef;
 };
 
+// ============================================================================
+// ARIA ANNOUNCE HOOK
+// ============================================================================
+
 /**
  * useAriaAnnounce - Announces messages to screen readers
  *
  * Creates a live region for accessibility announcements.
  *
- * @param {string} politeness - 'polite' or 'assertive' (default: 'polite')
- * @returns {Function} announce function to trigger announcements
+ * @param politeness - 'polite' or 'assertive' (default: 'polite')
+ * @returns announce function to trigger announcements
  *
  * @example
  * const announce = useAriaAnnounce();
  * announce('Workout saved successfully');
  */
-export const useAriaAnnounce = (politeness = 'polite') => {
-    const announcerRef = useRef(null);
+export const useAriaAnnounce = (
+    politeness: AriaPoliteness = 'polite'
+): ((message: string) => void) => {
+    const announcerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         // Create announcer element if it doesn't exist
-        let announcer = document.getElementById(`aria-announcer-${politeness}`);
+        let announcer = document.getElementById(`aria-announcer-${politeness}`) as HTMLDivElement | null;
 
         if (!announcer) {
             announcer = document.createElement('div');
@@ -147,12 +194,14 @@ export const useAriaAnnounce = (politeness = 'polite') => {
         };
     }, [politeness]);
 
-    const announce = useCallback((message) => {
+    const announce = useCallback((message: string): void => {
         if (announcerRef.current) {
             // Clear and set message (needed for repeated announcements)
             announcerRef.current.textContent = '';
             requestAnimationFrame(() => {
-                announcerRef.current.textContent = message;
+                if (announcerRef.current) {
+                    announcerRef.current.textContent = message;
+                }
             });
         }
     }, []);
@@ -160,28 +209,32 @@ export const useAriaAnnounce = (politeness = 'polite') => {
     return announce;
 };
 
+// ============================================================================
+// REDUCED MOTION HOOK
+// ============================================================================
+
 /**
  * useReducedMotion - Detects user's reduced motion preference
  *
- * @returns {boolean} Whether reduced motion is preferred
+ * @returns Whether reduced motion is preferred
  *
  * @example
  * const prefersReducedMotion = useReducedMotion();
  * const animationDuration = prefersReducedMotion ? 0 : 300;
  */
-export const useReducedMotion = () => {
+export const useReducedMotion = (): boolean => {
     const mediaQuery = typeof window !== 'undefined'
         ? window.matchMedia('(prefers-reduced-motion: reduce)')
         : null;
 
-    const getInitialValue = () => mediaQuery?.matches ?? false;
+    const getInitialValue = (): boolean => mediaQuery?.matches ?? false;
 
-    const prefersReducedMotionRef = useRef(getInitialValue());
+    const prefersReducedMotionRef = useRef<boolean>(getInitialValue());
 
     useEffect(() => {
         if (!mediaQuery) return;
 
-        const handler = (e) => {
+        const handler = (e: MediaQueryListEvent): void => {
             prefersReducedMotionRef.current = e.matches;
         };
 
@@ -192,42 +245,70 @@ export const useReducedMotion = () => {
     return prefersReducedMotionRef.current;
 };
 
+// ============================================================================
+// KEYBOARD SHORTCUT HOOK
+// ============================================================================
+
 /**
  * useKeyboardShortcut - Registers keyboard shortcuts
  *
- * @param {string} key - Key to listen for (e.g., 'Escape', 'Enter')
- * @param {Function} callback - Callback to execute
- * @param {Object} options - Options
- * @param {boolean} options.ctrl - Require Ctrl key
- * @param {boolean} options.shift - Require Shift key
- * @param {boolean} options.alt - Require Alt key
- * @param {boolean} options.enabled - Whether shortcut is enabled (default: true)
+ * @param key - Key to listen for (e.g., 'Escape', 'Enter')
+ * @param callback - Callback to execute
+ * @param options - Options including modifier keys
  *
  * @example
  * useKeyboardShortcut('Escape', () => closeModal());
  * useKeyboardShortcut('s', () => save(), { ctrl: true });
  */
-export const useKeyboardShortcut = (key, callback, options = {}) => {
-    const { ctrl = false, shift = false, alt = false, enabled = true } = options;
+export const useKeyboardShortcut = (
+    key: string,
+    callback: () => void,
+    options: KeyboardShortcutOptions = {}
+): void => {
+    const {
+        ctrl = false,
+        alt = false,
+        shift = false,
+        meta = false,
+        enabled = true,
+    } = options;
+
+    const callbackRef = useRef(callback);
+
+    // Keep callback ref updated
+    useEffect(() => {
+        callbackRef.current = callback;
+    }, [callback]);
 
     useEffect(() => {
         if (!enabled) return;
 
-        const handleKeyDown = (e) => {
-            const keyMatches = e.key.toLowerCase() === key.toLowerCase();
-            const ctrlMatches = ctrl ? (e.ctrlKey || e.metaKey) : !e.ctrlKey && !e.metaKey;
-            const shiftMatches = shift ? e.shiftKey : !e.shiftKey;
-            const altMatches = alt ? e.altKey : !e.altKey;
+        const handleKeyDown = (e: KeyboardEvent): void => {
+            // Check if the key matches
+            if (e.key.toLowerCase() !== key.toLowerCase()) return;
 
-            if (keyMatches && ctrlMatches && shiftMatches && altMatches) {
-                e.preventDefault();
-                callback(e);
+            // Check modifier keys
+            if (ctrl !== e.ctrlKey) return;
+            if (alt !== e.altKey) return;
+            if (shift !== e.shiftKey) return;
+            if (meta !== e.metaKey) return;
+
+            // Don't trigger if in an input field (unless Escape)
+            const target = e.target as HTMLElement;
+            const isInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName);
+            const isContentEditable = target.isContentEditable;
+
+            if ((isInput || isContentEditable) && key.toLowerCase() !== 'escape') {
+                return;
             }
+
+            e.preventDefault();
+            callbackRef.current();
         };
 
         document.addEventListener('keydown', handleKeyDown);
         return () => document.removeEventListener('keydown', handleKeyDown);
-    }, [key, callback, ctrl, shift, alt, enabled]);
+    }, [key, ctrl, alt, shift, meta, enabled]);
 };
 
 export default {

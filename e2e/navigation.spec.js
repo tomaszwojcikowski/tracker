@@ -8,43 +8,53 @@ import { test, expect } from '@playwright/test';
 test.describe('Navigation', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
-    // Wait for app to load
-    await page.waitForSelector('[data-testid="app-loaded"], .tab-bar, nav', { timeout: 10000 });
+    // Wait for app to load - look for the navigation bar with tab buttons
+    // The app has a fixed bottom navigation with buttons for Train, Library, History, Coach, Settings
+    await page.waitForSelector('button[aria-label="Train"], button[aria-label="Library"]', { timeout: 15000 });
   });
 
   test('should load the app successfully', async ({ page }) => {
-    // App should show either the workout view or the main navigation
+    // App should show the navigation bar with tab buttons
+    const trainButton = page.locator('button[aria-label="Train"]');
+    await expect(trainButton).toBeVisible();
+    
+    // Should have content in body
     const hasContent = await page.locator('body').evaluate(el => el.textContent.length > 0);
     expect(hasContent).toBe(true);
   });
 
   test('should switch between tabs', async ({ page }) => {
-    // Look for tab buttons or navigation elements
-    const tabs = page.locator('button, [role="tab"], nav a').filter({ hasText: /train|library|history|coach|profile/i });
+    // Click on Library tab
+    const libraryTab = page.locator('button[aria-label="Library"]');
+    await libraryTab.click();
+    await page.waitForTimeout(500);
     
-    if (await tabs.count() > 0) {
-      // Click each tab and verify navigation
-      const tabCount = await tabs.count();
-      for (let i = 0; i < Math.min(tabCount, 3); i++) {
-        await tabs.nth(i).click();
-        await page.waitForTimeout(300); // Wait for animation
-      }
-    }
+    // The Library tab should now be active (has aria-current="page")
+    await expect(libraryTab).toHaveAttribute('aria-current', 'page');
+    
+    // Click on History tab
+    const historyTab = page.locator('button[aria-label="History"]');
+    await historyTab.click();
+    await page.waitForTimeout(500);
+    
+    await expect(historyTab).toHaveAttribute('aria-current', 'page');
   });
 
   test('should handle browser back navigation', async ({ page }) => {
-    // Navigate to different views
-    const initialUrl = page.url();
+    // Start on Train tab
+    const trainTab = page.locator('button[aria-label="Train"]');
+    await expect(trainTab).toHaveAttribute('aria-current', 'page');
     
-    // Try to navigate somewhere
-    const navigableElements = page.locator('button, a').first();
-    if (await navigableElements.count() > 0) {
-      await navigableElements.click();
-      await page.waitForTimeout(500);
-      
-      // Go back
-      await page.goBack();
-      await page.waitForTimeout(300);
-    }
+    // Navigate to Library
+    const libraryTab = page.locator('button[aria-label="Library"]');
+    await libraryTab.click();
+    await page.waitForTimeout(500);
+    
+    // Go back
+    await page.goBack();
+    await page.waitForTimeout(500);
+    
+    // Should be back on Train (or URL should change)
+    // Note: depends on how the app handles URL state
   });
 });

@@ -9,7 +9,7 @@ test.describe('Navigation', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
     // Wait for app to load - look for the navigation bar with tab buttons
-    // The app has a fixed bottom navigation with buttons for Train, Library, History, Coach, Settings
+    // The app has a fixed bottom navigation with buttons for Train, Library, History, Settings
     await page.waitForSelector('button[aria-label="Train"], button[aria-label="Library"]', { timeout: 15000 });
   });
 

@@ -411,222 +411,6 @@ import {
         // NavigationBar and TabContent are now imported from ./components/navigation
 
         // ============================================================================
-        // SECTION 7: GEMINI INTEGRATION UTILITIES
-        // ============================================================================
-
-        const GEMINI_CHAT_HISTORY_KEY = 'gemini_chat_history';
-        const GEMINI_SYSTEM_PROMPT = `You are a personal fitness coach and training analyst. Your role is to:
-- Track and analyze workout progress over time
-- Provide constructive feedback on performance
-- Suggest form cues and technique improvements
-- Offer motivation and encouragement
-- Identify patterns in training data
-- Make recommendations for progressive overload
-
-Keep responses concise, direct, and actionable. Use bullet points. Avoid unnecessary elaboration or motivational filler. Focus only on the most important insights.`;
-
-        /**
-         * Initialize Gemini chat history with system prompt.
-         * Creates a new chat session if none exists or if existing data is corrupted.
-         * The system prompt sets the AI's role as a fitness coach and training analyst.
-         */
-        const initializeGeminiChat = () => {
-            const history = safeGetJSON(GEMINI_CHAT_HISTORY_KEY, null);
-
-            if (!history) {
-                // Initialize with system prompt - establishes AI coaching persona
-                const initialHistory = [{
-                    role: 'user',
-                    parts: [{ text: GEMINI_SYSTEM_PROMPT }]
-                }, {
-                    role: 'model',
-                    parts: [{ text: `I understand. I'm ready to track your workouts and provide coaching feedback. Please share your workout data, and I'll analyze your performance and provide helpful insights.` }]
-                }];
-                safeSetJSON(GEMINI_CHAT_HISTORY_KEY, initialHistory);
-                return initialHistory;
-            }
-
-            // Validate chat history structure (must be array with at least system messages)
-            if (Array.isArray(history) && history.length >= 2) {
-                return history;
-            }
-
-            // Invalid structure, reset and reinitialize
-            console.warn('Invalid chat history structure, reinitializing');
-            safeRemove(GEMINI_CHAT_HISTORY_KEY);
-            return initializeGeminiChat();
-        };
-
-        const sendWorkoutToGemini = async (week, day, workout, logs, addedExercises = []) => {
-            try {
-                const apiKey = localStorage.getItem('gemini_api_key');
-                if (!apiKey || typeof apiKey !== 'string' || apiKey.trim() === '') {
-                    console.log('Gemini API key not configured, skipping sync');
-                    return { success: false, error: 'API key not configured' };
-                }
-
-                // Validate input parameters
-                if (!week || !day || !workout || !logs) {
-                    console.error('Invalid parameters for Gemini sync');
-                    return { success: false, error: 'Invalid workout data' };
-                }
-
-                // Get or initialize chat history
-                const chatHistory = initializeGeminiChat();
-
-                // Format workout data for Gemini
-                const workoutSummary = formatWorkoutForGemini(week, day, workout, logs, addedExercises);
-
-                // Add new user message to history
-                const newUserMessage = {
-                    role: 'user',
-                    parts: [{ text: workoutSummary }]
-                };
-
-                // Build contents array with full history plus new message
-                const contents = [...chatHistory, newUserMessage];
-
-                // Note: Using gemini-2.5-flash model (latest available model)
-                // API key must be in URL - Google Gemini API does not support Authorization headers
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        contents: contents
-                    })
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
-                    throw new Error(`Gemini API error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
-                }
-
-                const data = await response.json();
-                console.log('Successfully sent workout to Gemini:', data);
-
-                // Extract model response and add to history with validation
-                if (data.candidates &&
-                    data.candidates[0] &&
-                    data.candidates[0].content &&
-                    data.candidates[0].content.parts &&
-                    Array.isArray(data.candidates[0].content.parts) &&
-                    data.candidates[0].content.parts.length > 0) {
-
-                    const modelResponse = {
-                        role: 'model',
-                        parts: data.candidates[0].content.parts
-                    };
-
-                    // Update chat history with both user message and model response
-                    const updatedHistory = [...chatHistory, newUserMessage, modelResponse];
-                    safeSetJSON(GEMINI_CHAT_HISTORY_KEY, updatedHistory);
-                } else {
-                    console.warn('Unexpected API response structure, history not updated:', data);
-                }
-
-                return { success: true, data };
-            } catch (error) {
-                console.error('Failed to send workout to Gemini:', error);
-
-                // Provide more user-friendly error messages
-                let userMessage = error.message || 'Network error';
-                if (error.message && error.message.includes('API error: 400')) {
-                    userMessage = 'Invalid API key or request';
-                } else if (error.message && error.message.includes('API error: 401')) {
-                    userMessage = 'Invalid API key';
-                } else if (error.message && error.message.includes('API error: 403')) {
-                    userMessage = 'API access denied';
-                } else if (error.message && error.message.includes('API error: 429')) {
-                    userMessage = 'Rate limit exceeded, try again later';
-                } else if (error.message && (error.message.includes('Failed to fetch') || error.message.includes('Network'))) {
-                    userMessage = 'Network error - check your connection';
-                }
-
-                return { success: false, error: userMessage };
-            }
-        };
-
-        const formatWorkoutForGemini = (week, day, workout, logs, addedExercises = []) => {
-            const completedAt = new Date().toLocaleString();
-            let summary = `# Workout Completed\n\n`;
-            summary += `Date: ${completedAt}\n`;
-            summary += `Week: ${week} | Day: ${day}\n`;
-            summary += `Title: ${workout.title}\n\n`;
-
-            // Add workout notes if present
-            if (logs.workoutNotes) {
-                summary += `## Workout Notes\n${logs.workoutNotes}\n\n`;
-            }
-
-            workout.sections.forEach(section => {
-                summary += `## ${section.name}\n`;
-                section.exercises.forEach(ex => {
-                    const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
-                    const exLog = logs[exId] || {};
-                    const sets = exLog.sets || [];
-                    const completedSets = sets.filter(s => s).length;
-
-                    // Extract expected sets from prescription (e.g., "3 x 10 reps" -> 3)
-                    const prescriptionMatch = ex.prescription.match(/^(\d+)\s*x/i);
-                    const expectedSets = prescriptionMatch ? parseInt(prescriptionMatch[1]) : sets.length;
-
-                    summary += `\n**${ex.name}**\n`;
-                    summary += `- Prescription: ${ex.prescription}\n`;
-                    if (ex.notes) summary += `- Notes: ${ex.notes}\n`;
-                    summary += `- Completed Sets: ${completedSets}/${expectedSets}\n`;
-
-                    if (exLog.weight) {
-                        summary += `- Weight: ${exLog.weight} kg\n`;
-                    }
-
-                    // Include RPE data if available
-                    if (exLog.rpe && Object.keys(exLog.rpe).length > 0) {
-                        const rpeValues = Object.entries(exLog.rpe)
-                            .sort(([a], [b]) => parseInt(a) - parseInt(b))
-                            .map(([setIdx, rpe]) => `Set ${parseInt(setIdx) + 1}: ${rpe}`)
-                            .join(', ');
-                        summary += `- RPE: ${rpeValues}\n`;
-                    }
-                });
-            });
-
-            // Include added exercises
-            if (addedExercises.length > 0) {
-                summary += `\n## Added Exercises\n`;
-                addedExercises.forEach(ex => {
-                    const exId = `added_${ex.id}`;
-                    const exLog = logs[exId] || {};
-                    const sets = exLog.sets || [];
-                    const completedSets = sets.filter(s => s).length;
-                    const expectedSets = sets.length || ex.sets;
-
-                    summary += `\n**${ex.name}** (Added)\n`;
-                    summary += `- Target Muscles: ${ex.primaryMuscles.join(', ')}\n`;
-                    summary += `- Equipment: ${ex.equipment.join(', ')}\n`;
-                    summary += `- Completed Sets: ${completedSets}/${expectedSets}\n`;
-
-                    if (ex.weight || exLog.weight) {
-                        summary += `- Weight: ${exLog.weight || ex.weight} kg\n`;
-                    }
-
-                    // Include RPE for added exercises
-                    if (exLog.rpe && Object.keys(exLog.rpe).length > 0) {
-                        const rpeValues = Object.entries(exLog.rpe)
-                            .sort(([a], [b]) => parseInt(a) - parseInt(b))
-                            .map(([setIdx, rpe]) => `Set ${parseInt(setIdx) + 1}: ${rpe}`)
-                            .join(', ');
-                        summary += `- RPE: ${rpeValues}\n`;
-                    }
-                });
-            }
-
-            summary += `\nPlease analyze this workout and provide feedback on my progress, form cues to remember, and suggestions for the next session.`;
-            return summary;
-        };
-
-        // ============================================================================
         // SECTION 7B: FIREBASE SYNC UTILITIES
         // ============================================================================
 
@@ -635,7 +419,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
 
         /**
          * Get all local data that should be synced to Firebase
-         * This includes workout sessions, exercise history, and settings
+         * This includes workout sessions and exercise history
          *
          * Note: This function iterates through all possible workout sessions (84 total).
          * This is intentional and not a performance issue because:
@@ -646,10 +430,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
          */
         const getAllLocalData = () => {
             const data = {
-                // Settings
-                gemini_api_key: localStorage.getItem('gemini_api_key') || '',
-                gemini_auto_sync: localStorage.getItem('gemini_auto_sync') || 'true',
-
                 // Exercise history
                 exercise_history: safeGetJSON('exercise_history', []),
 
@@ -684,26 +464,16 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
          * 3. If either timestamp is invalid (NaN): use cloud data
          * 4. Otherwise: compare timestamps and keep the newer version
          *
-         * Note: Settings and exercise history always use cloud data (no timestamp comparison)
+         * Note: Exercise history always uses cloud data (no timestamp comparison)
          *
          * @param {Object} cloudData - Data from Firebase
          * @param {Object} cloudData.sessions - Workout session data keyed by session_wXdY
-         * @param {string} cloudData.gemini_api_key - Gemini API key
-         * @param {string} cloudData.gemini_auto_sync - Auto-sync setting
          * @param {Object} cloudData.exercise_history - Exercise history data
          */
         const mergeCloudData = (cloudData) => {
             if (!cloudData) return;
 
             console.log('Merging cloud data with local data');
-
-            // Merge settings (always use cloud settings)
-            if (cloudData.gemini_api_key) {
-                localStorage.setItem('gemini_api_key', cloudData.gemini_api_key);
-            }
-            if (cloudData.gemini_auto_sync) {
-                localStorage.setItem('gemini_auto_sync', cloudData.gemini_auto_sync);
-            }
 
             // Merge exercise history (always use cloud history)
             if (cloudData.exercise_history) {
@@ -1001,8 +771,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const [emomInterval, setEmomInterval] = useState(() => safeGetJSON('emom_interval', 60));
             const [collapsedExercises, setCollapsedExercises] = useState({});
             const [showTimerToast, setShowTimerToast] = useState(false);
-            const [geminiSyncStatus, setGeminiSyncStatus] = useState(null); // null, 'syncing', 'success', 'error'
-            const [geminiErrorMessage, setGeminiErrorMessage] = useState('');
             const [addedExercises, setAddedExercises] = useState([]);
             const [showExerciseSelector, setShowExerciseSelector] = useState(false);
             const [exerciseSearchTerm, setExerciseSearchTerm] = useState('');
@@ -1024,7 +792,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
 
             // Generic Lucide icon refresh hook - ensures icons render after React updates
             // Runs when UI state changes that affect icon visibility
-            useLucideIcons([collapsedExercises, showTimerToast, geminiSyncStatus, showExerciseSelector, showExerciseHistory, week, day, addedExercises, logs, timerSeconds, timerActive, emomSeconds, emomActive, emomInterval]);
+            useLucideIcons([collapsedExercises, showTimerToast, showExerciseSelector, showExerciseHistory, week, day, addedExercises, logs, timerSeconds, timerActive, emomSeconds, emomActive, emomInterval]);
 
             useEffect(() => {
                 const parsedLogs = safeGetJSON(`session_w${week}d${day}`, {});
@@ -1096,16 +864,12 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                         if (showTimerToast) {
                             setShowTimerToast(false);
                         }
-                        if (geminiSyncStatus) {
-                            setGeminiSyncStatus(null);
-                            setGeminiErrorMessage('');
-                        }
                     }
                 };
 
                 window.addEventListener('keydown', handleKeyDown);
                 return () => window.removeEventListener('keydown', handleKeyDown);
-            }, [showTimerToast, geminiSyncStatus]);
+            }, [showTimerToast]);
 
             const saveLog = (id, field, value) => {
                 const updatedLogs = {
@@ -1363,57 +1127,13 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                     date: completionDate,
                     title: workout.title,
                     exercises: exerciseSummary,
-                    workoutNotes: workoutNotes || null,
-                    aiFeedback: null // Will be updated if Gemini sync succeeds
+                    workoutNotes: workoutNotes || null
                 };
 
                 const history = safeGetJSON('global_history', []);
                 const cleanHistory = history.filter(h => !(h.week === week && h.day === day));
                 cleanHistory.push(historyEntry);
                 safeSetJSON('global_history', cleanHistory);
-
-                // Send workout to Gemini (only if API key is configured and auto-sync is enabled)
-                const apiKey = localStorage.getItem('gemini_api_key');
-                const autoSync = localStorage.getItem('gemini_auto_sync') !== 'false'; // Default true
-                if (apiKey && autoSync) {
-                    setGeminiSyncStatus('syncing');
-                    setGeminiErrorMessage('');
-                    sendWorkoutToGemini(week, day, workout, updatedLogs, addedExercises)
-                        .then(result => {
-                            if (result.success) {
-                                // Extract AI feedback from response
-                                const aiFeedback = result.data?.candidates?.[0]?.content?.parts?.[0]?.text || null;
-
-                                // Update the history entry with AI feedback
-                                if (aiFeedback) {
-                                    const updatedHistory = safeGetJSON('global_history', []);
-                                    // Find the most recent entry for this week and day without AI feedback yet
-                                    const entryIndex = updatedHistory.findLastIndex(entry =>
-                                        entry.week === week &&
-                                        entry.day === day &&
-                                        !entry.aiFeedback
-                                    );
-                                    if (entryIndex !== -1) {
-                                        updatedHistory[entryIndex].aiFeedback = aiFeedback;
-                                        safeSetJSON('global_history', updatedHistory);
-                                    }
-                                }
-
-                                setGeminiSyncStatus('success');
-                                // Toast will remain visible until user closes it
-                            } else {
-                                setGeminiSyncStatus('error');
-                                setGeminiErrorMessage(result.error || 'Unknown error');
-                                // Toast will remain visible until user closes it
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Unexpected error sending workout to Gemini:', error);
-                            setGeminiSyncStatus('error');
-                            setGeminiErrorMessage(error.message || 'Network error');
-                            // Toast will remain visible until user closes it
-                        });
-                }
 
                 onComplete();
                 } catch (error) {
@@ -2015,62 +1735,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 >
                                     <i data-lucide="x" width="18"></i>
                                 </button>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Gemini Sync Status Toast */}
-                    {geminiSyncStatus && (
-                        <div className="fixed top-24 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
-                            <div className={`px-6 py-4 rounded-2xl shadow-lg max-w-md w-full border border-white/10 ${
-                                geminiSyncStatus === 'syncing' ? 'bg-sys-accent' :
-                                geminiSyncStatus === 'success' ? 'bg-sys-success' :
-                                'bg-red-600'
-                            }`}>
-                                {geminiSyncStatus === 'syncing' && (
-                                    <div className="flex items-center gap-3">
-                                        <i data-lucide="loader" width="24" className="text-white animate-spin flex-shrink-0"></i>
-                                        <span className="text-white font-bold text-base flex-1">Syncing to Gemini...</span>
-                                        <button
-                                            onClick={() => { haptic.tick(); setGeminiSyncStatus(null); setGeminiErrorMessage(''); }}
-                                            className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
-                                            aria-label="Close notification"
-                                        >
-                                            <i data-lucide="x" width="18"></i>
-                                        </button>
-                                    </div>
-                                )}
-                                {geminiSyncStatus === 'success' && (
-                                    <div className="flex items-center gap-3">
-                                        <i data-lucide="check-circle-2" width="24" className="text-white flex-shrink-0"></i>
-                                        <span className="text-white font-bold text-base flex-1">Synced to Gemini!</span>
-                                        <button
-                                            onClick={() => { haptic.tick(); setGeminiSyncStatus(null); setGeminiErrorMessage(''); }}
-                                            className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
-                                            aria-label="Close notification"
-                                        >
-                                            <i data-lucide="x" width="18"></i>
-                                        </button>
-                                    </div>
-                                )}
-                                {geminiSyncStatus === 'error' && (
-                                    <div>
-                                        <div className="flex items-center gap-3 mb-2">
-                                            <i data-lucide="alert-circle" width="24" className="text-white flex-shrink-0"></i>
-                                            <span className="text-white font-bold text-base flex-1">Sync Failed</span>
-                                            <button
-                                                onClick={() => { haptic.tick(); setGeminiSyncStatus(null); setGeminiErrorMessage(''); }}
-                                                className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
-                                                aria-label="Close notification"
-                                            >
-                                                <i data-lucide="x" width="18"></i>
-                                            </button>
-                                        </div>
-                                        {geminiErrorMessage && (
-                                            <p className="text-white/90 text-sm ml-9 pr-11">{geminiErrorMessage}</p>
-                                        )}
-                                    </div>
-                                )}
                             </div>
                         </div>
                     )}
@@ -2718,7 +2382,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             {history.map((entry, idx) => {
                                 const isExpanded = expandedEntries[idx];
                                 const hasExercises = entry.exercises && entry.exercises.length > 0;
-                                const hasAIFeedback = entry.aiFeedback;
 
                                 return (
                                     <div key={idx} className="bg-sys-surface border border-white/5 rounded-3xl overflow-hidden">
@@ -2734,11 +2397,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                 <p className="text-sm text-sys-onSurfaceVar">{new Date(entry.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</p>
                                             </div>
                                             <div className="flex items-center gap-2">
-                                                {hasAIFeedback && (
-                                                    <div className="h-8 w-8 rounded-full bg-sys-accent/20 flex items-center justify-center">
-                                                        <i data-lucide="brain" width="16" className="text-sys-accent"></i>
-                                                    </div>
-                                                )}
                                                 <div className="h-10 w-10 rounded-full bg-sys-success/20 flex items-center justify-center flex-shrink-0">
                                                     <i data-lucide={isExpanded ? "chevron-up" : "chevron-down"} width="20" className="text-sys-success"></i>
                                                 </div>
@@ -2801,18 +2459,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                                     </div>
                                                 )}
 
-                                                {/* AI Feedback */}
-                                                {hasAIFeedback && (
-                                                    <div className="bg-sys-surfaceHigh rounded-xl p-4 border border-sys-accent/20">
-                                                        <div className="flex items-center gap-2 mb-3">
-                                                            <i data-lucide="brain" width="16" className="text-sys-accent"></i>
-                                                            <h4 className="text-xs font-bold text-sys-accent uppercase tracking-wider">AI Coach Feedback</h4>
-                                                        </div>
-                                                        <div className="text-sm text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: markdownToHtml(entry.aiFeedback) }}></div>
-                                                    </div>
-                                                )}
-
-                                                {!hasExercises && !hasAIFeedback && !entry.workoutNotes && (
+                                                {!hasExercises && !entry.workoutNotes && (
                                                     <p className="text-sm text-sys-onSurfaceVar text-center py-4">
                                                         No detailed information available
                                                     </p>
@@ -2907,246 +2554,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             return html;
         };
 
-        const CoachView = () => {
-            const [workoutHistory, setWorkoutHistory] = useState([]);
-            const [isLoading, setIsLoading] = useState(true);
-            const [questionText, setQuestionText] = useState('');
-            const [isSendingQuestion, setIsSendingQuestion] = useState(false);
-            const [questionResponse, setQuestionResponse] = useState(null);
-            const haptic = useHaptic();
-
-            const loadWorkoutHistory = () => {
-                const history = safeGetJSON('global_history', []);
-                // Filter only entries with AI feedback and sort by date
-                const withFeedback = history.filter(h => h.aiFeedback).sort((a, b) => new Date(b.date) - new Date(a.date));
-                setWorkoutHistory(withFeedback);
-                setIsLoading(false);
-            };
-
-            const sendQuestion = async () => {
-                if (!questionText.trim()) return;
-
-                setIsSendingQuestion(true);
-                setQuestionResponse(null);
-
-                try {
-                    const apiKey = localStorage.getItem('gemini_api_key');
-                    if (!apiKey) {
-                        setQuestionResponse({ error: 'API key not configured. Go to Settings to add your key.' });
-                        setIsSendingQuestion(false);
-                        return;
-                    }
-
-                    // Get or initialize chat history
-                    const chatHistory = initializeGeminiChat();
-
-                    // Add new user message
-                    const newUserMessage = {
-                        role: 'user',
-                        parts: [{ text: questionText }]
-                    };
-
-                    const contents = [...chatHistory, newUserMessage];
-
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ contents })
-                    });
-
-                    if (!response.ok) {
-                        const errorData = await response.json().catch(() => ({}));
-                        throw new Error(`API error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
-                    }
-
-                    const data = await response.json();
-
-                    if (data.candidates &&
-                        data.candidates[0] &&
-                        data.candidates[0].content &&
-                        data.candidates[0].content.parts) {
-
-                        const modelResponse = {
-                            role: 'model',
-                            parts: data.candidates[0].content.parts
-                        };
-
-                        // Update chat history
-                        const updatedHistory = [...chatHistory, newUserMessage, modelResponse];
-                        safeSetJSON(GEMINI_CHAT_HISTORY_KEY, updatedHistory);
-
-                        // Show response
-                        setQuestionResponse({
-                            success: true,
-                            answer: data.candidates[0].content.parts[0].text
-                        });
-                    } else {
-                        setQuestionResponse({ error: 'Unexpected response format' });
-                    }
-
-                    setQuestionText('');
-                    setIsSendingQuestion(false);
-                } catch (error) {
-                    console.error('Failed to send question:', error);
-                    setQuestionResponse({ error: error.message || 'Network error' });
-                    setIsSendingQuestion(false);
-                }
-            };
-
-            useEffect(() => {
-                loadWorkoutHistory();
-            }, []);
-
-            // Initialize Lucide icons when workout history or question response changes
-            useLucideIcons([workoutHistory, questionResponse, isSendingQuestion]);
-
-            const apiKey = localStorage.getItem('gemini_api_key');
-
-            return (
-                <div className="px-5 pb-32 pt-6">
-                    <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-2xl font-bold text-white">AI Coach</h2>
-                        <button
-                            onClick={() => {
-                                haptic.bump();
-                                loadWorkoutHistory();
-                            }}
-                            className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
-                            aria-label="Refresh feedback"
-                        >
-                            <i data-lucide="refresh-cw" width="18"></i>
-                        </button>
-                    </div>
-
-                    {!apiKey ? (
-                        <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
-                            <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
-                                <i data-lucide="lock" width="40" className="text-sys-onSurfaceVar"></i>
-                            </div>
-                            <h3 className="text-lg font-semibold text-white mb-2">API Key Required</h3>
-                            <p className="text-sm text-sys-onSurfaceVar text-center max-w-[280px] mb-4">
-                                Configure your Gemini API key in Settings to start receiving AI coaching feedback
-                            </p>
-                        </div>
-                    ) : workoutHistory.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
-                            <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
-                                <i data-lucide="message-circle" width="40" className="text-sys-onSurfaceVar"></i>
-                            </div>
-                            <h3 className="text-lg font-semibold text-white mb-2">No AI Feedback Yet</h3>
-                            <p className="text-sm text-sys-onSurfaceVar text-center max-w-[280px]">
-                                Complete a workout with AI sync enabled to receive personalized coaching feedback
-                            </p>
-                        </div>
-                    ) : (
-                        <div className="space-y-6">
-                            {workoutHistory.map((entry, idx) => (
-                                <div key={idx} className="bg-sys-surface border border-white/5 rounded-3xl overflow-hidden">
-                                    {/* Workout Header */}
-                                    <div className="p-5 border-b border-white/5">
-                                        <div className="flex items-center gap-3 mb-2">
-                                            <div className="h-10 w-10 rounded-xl bg-sys-accent/10 border border-sys-accent/20 flex items-center justify-center">
-                                                <span className="text-xs font-bold text-sys-accent">W{entry.week}</span>
-                                            </div>
-                                            <div className="flex-1">
-                                                <h3 className="text-base font-bold text-white">Day {entry.day} - {entry.title}</h3>
-                                                <p className="text-xs text-sys-onSurfaceVar">
-                                                    {new Date(entry.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* AI Feedback */}
-                                    <div className="p-5">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <i data-lucide="brain" width="16" className="text-sys-success"></i>
-                                            <h4 className="text-xs font-bold text-sys-success uppercase tracking-wide">AI Coach Feedback</h4>
-                                        </div>
-                                        <div className="text-sm text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: markdownToHtml(entry.aiFeedback) }}></div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-
-                    {/* Ask a Question Section */}
-                    {apiKey && (
-                        <div className="mt-8 bg-sys-surface rounded-3xl border border-white/5 p-5">
-                            <h3 className="text-base font-bold text-white mb-3">Ask the Coach</h3>
-                            <p className="text-sm text-sys-onSurfaceVar mb-4">
-                                Ask questions about your training, technique, or get personalized advice based on your workout history.
-                            </p>
-                            <textarea
-                                value={questionText}
-                                onChange={(e) => setQuestionText(e.target.value)}
-                                placeholder="E.g., How can I improve my pull-up numbers? What should I focus on next week?"
-                                className="w-full bg-sys-surfaceHigh rounded-xl px-4 py-3 text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all resize-none"
-                                rows="3"
-                                disabled={isSendingQuestion}
-                            ></textarea>
-                            <button
-                                onClick={() => { haptic.bump(); sendQuestion(); }}
-                                disabled={isSendingQuestion || !questionText.trim()}
-                                className="w-full h-12 mt-3 rounded-xl text-white font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 btn-gradient-primary"
-                            >
-                                {isSendingQuestion ? (
-                                    <>
-                                        <i data-lucide="loader" width="18" className="animate-spin"></i>
-                                        <span>Asking...</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <i data-lucide="send" width="18"></i>
-                                        <span>Ask Question</span>
-                                    </>
-                                )}
-                            </button>
-
-                            {questionResponse && (
-                                <div className={`mt-4 p-4 rounded-xl ${questionResponse.error ? 'bg-red-500/10 border border-red-500/30' : 'bg-sys-success/10 border border-sys-success/30'}`}>
-                                    {questionResponse.error ? (
-                                        <div className="text-sm text-red-500">
-                                            <strong>Error:</strong> {questionResponse.error}
-                                        </div>
-                                    ) : (
-                                        <div className="text-sm text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: markdownToHtml(questionResponse.answer) }}></div>
-                                    )}
-                                </div>
-                            )}
-                        </div>
-                    )}
-
-                    <div className="mt-8 bg-sys-surface rounded-3xl border border-white/5 p-5">
-                        <div className="flex items-start gap-3">
-                            <div className="h-10 w-10 rounded-xl bg-sys-accent/10 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="info" width="20" className="text-sys-accent"></i>
-                            </div>
-                            <div className="flex-1">
-                                <h4 className="text-sm font-bold text-white mb-1">How it works</h4>
-                                <p className="text-xs text-sys-onSurfaceVar leading-relaxed">
-                                    After each workout, your progress is automatically sent to Gemini AI for analysis.
-                                    The AI feedback is saved with each workout in your history for easy reference.
-                                    You can also ask specific questions and get personalized advice based on your training data.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        };
-
         const SettingsView = () => {
-            const [geminiApiKey, setGeminiApiKey] = useState('');
-            const [autoSync, setAutoSync] = useState(true);
-            const [isSaving, setIsSaving] = useState(false);
-            const [isValidating, setIsValidating] = useState(false);
-            const [saveMessage, setSaveMessage] = useState('');
-            const [validationMessage, setValidationMessage] = useState('');
-            const [chatHistoryMessage, setChatHistoryMessage] = useState('');
-
             // Firebase state
             const [firebaseUser, setFirebaseUser] = useState(null);
             const [firebaseSyncEnabled, setFirebaseSyncEnabled] = useState(true); // Default enabled
@@ -3155,11 +2563,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             const haptic = useHaptic();
 
             useEffect(() => {
-                const savedApiKey = localStorage.getItem('gemini_api_key') || '';
-                const savedAutoSync = localStorage.getItem('gemini_auto_sync') !== 'false'; // Default true
-                setGeminiApiKey(savedApiKey);
-                setAutoSync(savedAutoSync);
-
                 // Load Firebase sync setting
                 const savedSyncEnabled = localStorage.getItem(FIREBASE_SYNC_ENABLED_KEY) !== 'false'; // Default true
                 setFirebaseSyncEnabled(savedSyncEnabled);
@@ -3196,91 +2599,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             }, []);
 
             // Initialize Lucide icons when settings change
-            useLucideIcons([validationMessage, saveMessage, chatHistoryMessage, firebaseMessage, firebaseUser]);
-
-            const validateApiKey = async () => {
-                if (!geminiApiKey || geminiApiKey.trim() === '') {
-                    setValidationMessage('Please enter an API key');
-                    return false;
-                }
-
-                setIsValidating(true);
-                setValidationMessage('');
-
-                try {
-                    // Test the API key with a simple request
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiApiKey}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            contents: [{
-                                role: 'user',
-                                parts: [{ text: 'Test' }]
-                            }]
-                        })
-                    });
-
-                    setIsValidating(false);
-
-                    if (response.ok) {
-                        setValidationMessage('✓ API key is valid');
-                        return true;
-                    } else if (response.status === 400 || response.status === 401 || response.status === 403) {
-                        setValidationMessage('✗ Invalid API key');
-                        return false;
-                    } else {
-                        setValidationMessage('✗ Unable to validate (check connection)');
-                        return false;
-                    }
-                } catch (error) {
-                    setIsValidating(false);
-                    setValidationMessage('✗ Unable to validate (network error)');
-                    return false;
-                }
-            };
-
-            const handleSave = async () => {
-                haptic.bump();
-
-                // Validate before saving
-                const isValid = await validateApiKey();
-                if (!isValid) return;
-
-                setIsSaving(true);
-                localStorage.setItem('gemini_api_key', geminiApiKey);
-                localStorage.setItem('gemini_auto_sync', autoSync.toString());
-
-                // Sync to Firebase if user is logged in and sync is enabled
-                if (firebaseUser && firebaseSyncEnabled && FirebaseService.isFirebaseInitialized()) {
-                    try {
-                        const localData = getAllLocalData();
-                        await FirebaseService.saveToCloud(localData);
-                        setSaveMessage('✓ Settings saved and synced to cloud!');
-                    } catch (error) {
-                        console.error('Failed to sync settings to cloud:', error);
-                        setSaveMessage('✓ Settings saved locally (cloud sync failed)');
-                    }
-                } else {
-                    setSaveMessage('✓ Settings saved successfully!');
-                }
-
-                setTimeout(() => {
-                    setIsSaving(false);
-                    setSaveMessage('');
-                    setValidationMessage('');
-                }, 3000);
-            };
-
-            const handleClearChatHistory = () => {
-                haptic.bump();
-                safeRemove(GEMINI_CHAT_HISTORY_KEY);
-                setChatHistoryMessage('Chat history cleared! Next sync will start a fresh conversation.');
-                setTimeout(() => {
-                    setChatHistoryMessage('');
-                }, 3000);
-            };
+            useLucideIcons([firebaseMessage, firebaseUser]);
 
             // Firebase handlers
             const handleFirebaseLogin = async () => {
@@ -3438,143 +2757,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                             )}
                         </div>
                     )}
-
-                    <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
-                                <i data-lucide="brain" width="24" className="text-sys-accent"></i>
-                            </div>
-                            <div>
-                                <h3 className="text-lg font-bold text-white">Gemini Integration</h3>
-                                <p className="text-xs text-sys-onSurfaceVar">Share workout progress with AI</p>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label htmlFor="gemini-api-key" className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">
-                                Gemini API Key
-                            </label>
-                            <input
-                                id="gemini-api-key"
-                                type="password"
-                                className="bg-sys-surfaceHigh rounded-xl w-full h-14 px-4 text-white font-mono text-sm outline-none focus:ring-2 focus:ring-sys-accent transition-all"
-                                value={geminiApiKey}
-                                onChange={(e) => {
-                                    setGeminiApiKey(e.target.value);
-                                    setValidationMessage('');
-                                }}
-                                placeholder="Enter your Gemini API key"
-                            />
-                            <div className="flex items-center justify-between mt-2">
-                                <div className="flex-1">
-                                    <p className="text-xs text-sys-onSurfaceVar">
-                                        Get your API key from <a href="https://makersuite.google.com/app/apikey" target="_blank" className="text-sys-accent underline">Google AI Studio</a>
-                                    </p>
-                                    {firebaseUser && geminiApiKey && (
-                                        <p className="text-xs text-sys-success mt-1">
-                                            <i data-lucide="cloud" width="12" className="inline"></i> Will sync to Firebase when saved
-                                        </p>
-                                    )}
-                                </div>
-                                <button
-                                    onClick={validateApiKey}
-                                    disabled={isValidating || !geminiApiKey}
-                                    className="text-xs text-sys-accent font-semibold underline disabled:opacity-50 ml-2"
-                                >
-                                    {isValidating ? 'Testing...' : 'Test'}
-                                </button>
-                            </div>
-                            {validationMessage && (
-                                <div className={`mt-2 p-2 rounded-lg text-xs ${
-                                    validationMessage.startsWith('✓')
-                                        ? 'bg-sys-success/10 text-sys-success'
-                                        : 'bg-red-500/10 text-red-500'
-                                }`}>
-                                    {validationMessage}
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Auto-sync toggle */}
-                        <div className="mt-6 p-4 bg-sys-surfaceHigh rounded-xl">
-                            <div className="flex items-start gap-3">
-                                <button
-                                    onClick={() => { haptic.tick(); setAutoSync(!autoSync); }}
-                                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${autoSync ? 'bg-sys-success' : 'bg-sys-onSurfaceVar'}`}
-                                >
-                                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${autoSync ? 'translate-x-6' : 'translate-x-1'}`}></span>
-                                </button>
-                                <div className="flex-1">
-                                    <h4 className="text-sm font-semibold text-white mb-1">Auto-sync with Coach AI</h4>
-                                    <p className="text-xs text-sys-onSurfaceVar leading-relaxed">
-                                        Automatically send workout data to Gemini after completing each session. Disable to manually control when data is shared.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button
-                            onClick={handleSave}
-                            disabled={isSaving || isValidating}
-                            className="w-full h-14 mt-6 rounded-xl text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform disabled:opacity-50 btn-gradient-primary"
-                        >
-                            <i data-lucide="save" width="20"></i>
-                            <span>{isSaving ? 'Validating & Saving...' : 'Validate & Save'}</span>
-                        </button>
-
-                        {saveMessage && (
-                            <div className="mt-4 p-3 rounded-xl bg-sys-success/10 border border-sys-success/30 text-sys-success text-sm text-center">
-                                {saveMessage}
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
-                        <h3 className="text-base font-bold text-white mb-3">Gemini Context</h3>
-                        <p className="text-sm text-sys-onSurfaceVar leading-relaxed mb-4">
-                            Gemini maintains context across all your workouts to provide better feedback. Clear the context to start fresh.
-                        </p>
-                        <button
-                            onClick={handleClearChatHistory}
-                            className="w-full h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform border border-white/5"
-                        >
-                            <i data-lucide="trash-2" width="18"></i>
-                            <span>Clear Gemini Context</span>
-                        </button>
-                        {chatHistoryMessage && (
-                            <div className="mt-4 p-3 rounded-xl bg-sys-accent/10 border border-sys-accent/30 text-sys-accent text-sm text-center">
-                                {chatHistoryMessage}
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="bg-sys-surface rounded-3xl border border-white/5 p-6">
-                        <h3 className="text-base font-bold text-white mb-3">About Gemini Integration</h3>
-                        <p className="text-sm text-sys-onSurfaceVar leading-relaxed mb-3">
-                            When you finish a workout, the app automatically sends a summary to Google's Gemini AI for analysis. The AI feedback is saved with each workout in your history. Each submission includes:
-                        </p>
-                        <ul className="text-sm text-sys-onSurfaceVar space-y-2 ml-4 mb-3">
-                            <li className="flex items-start gap-2">
-                                <span className="text-sys-accent">•</span>
-                                <span>Week and day information</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-sys-accent">•</span>
-                                <span>List of completed and incomplete sets per exercise</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-sys-accent">•</span>
-                                <span>Weights used for each exercise</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-sys-accent">•</span>
-                                <span>Workout completion timestamp</span>
-                            </li>
-                        </ul>
-                        <p className="text-xs text-sys-onSurfaceVar leading-relaxed">
-                            Note: Gemini maintains context across workouts to provide personalized coaching. You can view all AI feedback in the History tab or Coach tab.
-                        </p>
-                    </div>
                 </div>
             );
         };
@@ -4146,7 +3328,7 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
             return (
                 <div className="min-h-screen bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative">
                     <TopAppBar
-                        title={viewMode === 'workout' ? `Day ${activeDay}` : (activeTab === 'train' ? 'Dashboard' : activeTab === 'library' ? 'Exercise Library' : activeTab === 'history' ? 'History' : activeTab === 'coach' ? 'AI Coach' : 'Settings')}
+                        title={viewMode === 'workout' ? `Day ${activeDay}` : (activeTab === 'train' ? 'Dashboard' : activeTab === 'library' ? 'Exercise Library' : activeTab === 'history' ? 'History' : 'Settings')}
                         subtitle={viewMode === 'workout' ? `Week ${currentWeek}` : (activeTab === 'train' ? 'OnePlus Strength' : '')}
                         showBack={viewMode === 'workout'}
                         onBack={goBack}
@@ -4168,7 +3350,6 @@ Keep responses concise, direct, and actionable. Use bullet points. Avoid unneces
                                 {activeTab === 'train' && <Dashboard currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} onStartWorkout={startWorkout} />}
                                 {activeTab === 'library' && <ExerciseLibraryView />}
                                 {activeTab === 'history' && <HistoryView />}
-                                {activeTab === 'coach' && <CoachView />}
                                 {activeTab === 'profile' && <SettingsView />}
                             </TabContent>
                             <NavigationBar activeTab={activeTab} onTabChange={handleTabChange} />

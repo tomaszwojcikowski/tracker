@@ -22,7 +22,7 @@ export const MS_PER_DAY = 24 * 60 * 60 * 1000;
 /**
  * Valid tab names in the application
  */
-export type TabName = 'train' | 'library' | 'history' | 'coach' | 'profile';
+export type TabName = 'train' | 'library' | 'history' | 'profile';
 
 /**
  * Valid view modes
@@ -39,7 +39,6 @@ export const VALID_TABS: TabName[] = [
   'train',
   'library',
   'history',
-  'coach',
   'profile',
 ];
 export const VALID_DAYS: WorkoutDay[] = [1, 2, 3, 5]; // Day 4 is rest
@@ -57,9 +56,6 @@ export interface StorageKeysMap {
   APP_STATE: string;
   EXERCISE_HISTORY: string;
   GLOBAL_HISTORY: string;
-  GEMINI_API_KEY: string;
-  GEMINI_AUTO_SYNC: string;
-  GEMINI_CHAT_HISTORY: string;
   FIREBASE_SYNC_ENABLED: string;
   FIREBASE_LAST_SYNC: string;
   EMOM_INTERVAL: string;
@@ -71,9 +67,6 @@ export const STORAGE_KEYS: StorageKeysMap = {
   APP_STATE: 'tracker_app_state',
   EXERCISE_HISTORY: 'exercise_history',
   GLOBAL_HISTORY: 'global_history',
-  GEMINI_API_KEY: 'gemini_api_key',
-  GEMINI_AUTO_SYNC: 'gemini_auto_sync',
-  GEMINI_CHAT_HISTORY: 'gemini_chat_history',
   FIREBASE_SYNC_ENABLED: 'firebase_sync_enabled',
   FIREBASE_LAST_SYNC: 'firebase_last_sync_time',
   EMOM_INTERVAL: 'emom_interval',

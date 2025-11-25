@@ -17,7 +17,6 @@ export const NavigationBar = ({ activeTab, onTabChange }) => {
         { id: 'train', icon: 'dumbbell', label: 'Train' },
         { id: 'library', icon: 'book-open', label: 'Library' },
         { id: 'history', icon: 'history', label: 'History' },
-        { id: 'coach', icon: 'brain', label: 'Coach' },
         { id: 'profile', icon: 'settings', label: 'Settings' },
     ];
 

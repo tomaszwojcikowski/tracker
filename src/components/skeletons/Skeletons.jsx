@@ -78,24 +78,6 @@ export const ExerciseLibraryItemSkeleton = () => (
 );
 
 /**
- * ChatMessageSkeleton - Loading placeholder for coach chat messages
- */
-export const ChatMessageSkeleton = ({ isAi = true }) => (
-    <div className={`flex gap-3 ${isAi ? '' : 'flex-row-reverse'} animate-pulse`}>
-        <div className="h-8 w-8 rounded-full bg-sys-surfaceHigh flex-shrink-0" />
-        <div className={`flex-1 max-w-[80%] ${isAi ? '' : 'flex justify-end'}`}>
-            <div className={`rounded-2xl p-4 ${isAi ? 'bg-sys-surface' : 'bg-sys-accent/20'}`}>
-                <div className="space-y-2">
-                    <div className="h-4 bg-sys-surfaceHigh rounded w-full" />
-                    <div className="h-4 bg-sys-surfaceHigh rounded w-3/4" />
-                    <div className="h-4 bg-sys-surfaceHigh rounded w-1/2" />
-                </div>
-            </div>
-        </div>
-    </div>
-);
-
-/**
  * WorkoutDaySkeleton - Loading placeholder for the entire workout day view
  */
 export const WorkoutDaySkeleton = () => (
@@ -136,7 +118,6 @@ export default {
     HistoryEntrySkeleton,
     StatsCardSkeleton,
     ExerciseLibraryItemSkeleton,
-    ChatMessageSkeleton,
     WorkoutDaySkeleton,
     SkeletonList,
 };

@@ -199,7 +199,7 @@ export interface SessionData {
 /**
  * Navigation tabs
  */
-export type TabId = 'train' | 'library' | 'history' | 'coach' | 'profile';
+export type TabId = 'train' | 'library' | 'history' | 'profile';
 
 /**
  * View modes
@@ -308,28 +308,6 @@ export interface Toast {
   message: string;
   duration?: number;
 }
-
-// ============================================================================
-// GEMINI / AI TYPES
-// ============================================================================
-
-/**
- * Chat message role
- */
-export type ChatRole = 'user' | 'model' | 'system';
-
-/**
- * Chat message structure
- */
-export interface ChatMessage {
-  role: ChatRole;
-  parts: Array<{ text: string }>;
-}
-
-/**
- * Gemini chat history
- */
-export type ChatHistory = ChatMessage[];
 
 // ============================================================================
 // UTILITY TYPES

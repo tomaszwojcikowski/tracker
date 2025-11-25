@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom/client';
 import { App, LoadingScreen, ErrorScreen, buildCompleteSchedule, fetchWithTimeout, FETCH_TIMEOUT_MS, setRAW_SCHEDULE, setEXERCISE_LIBRARY } from './App.jsx';
 import { loadWorkoutPlan } from './workout-plan-utils.js';
 
+// PWA wrapper component for update prompts
+const PWAApp = React.lazy(() => import('./components/PWAWrapper.jsx'));
+
 // Initialize the app with loading state
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<LoadingScreen />);
@@ -85,8 +88,14 @@ Promise.all([
             window.TRACKER_APP.workoutPlanMetadata = metadata;
         }
         
-        // Re-render with the actual app now that data is loaded
-        root.render(<App />);
+        // Re-render with the actual app wrapped in PWA provider
+        root.render(
+            <React.Suspense fallback={<LoadingScreen />}>
+                <PWAApp>
+                    <App />
+                </PWAApp>
+            </React.Suspense>
+        );
     })
     .catch(error => {
         console.error('Error loading data:', error);

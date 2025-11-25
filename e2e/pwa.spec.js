@@ -9,7 +9,7 @@ test.describe('PWA Features', () => {
   test('should have a valid manifest', async ({ page }) => {
     await page.goto('/');
     await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
-    
+
     // Check for manifest link in head
     const manifest = page.locator('link[rel="manifest"]');
     // Manifest might not exist yet, this is an aspirational test
@@ -18,7 +18,7 @@ test.describe('PWA Features', () => {
   test('should load and display content', async ({ page }) => {
     await page.goto('/');
     await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
-    
+
     // App should be functional
     const hasContent = await page.locator('body').evaluate(el => el.textContent.length > 100);
     expect(hasContent).toBe(true);

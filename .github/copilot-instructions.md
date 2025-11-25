@@ -5,11 +5,13 @@ This document describes the capabilities of AI agents that can interact with the
 ## Project Overview
 
 **Repository**: tomaszwojcikowski/tracker  
-**Type**: Progressive Web Application (PWA)  
+**Type**: Progressive Web Application (PWA) with offline support  
 **Framework**: React 18 + Vite 5  
-**Testing**: Vitest + Testing Library  
+**Language**: JavaScript + TypeScript (gradual migration)  
+**Testing**: Vitest + Testing Library + Playwright (E2E)  
 **Styling**: Tailwind CSS 3  
 **Cloud Sync**: Firebase Auth + Realtime Database (optional)  
+**PWA**: Workbox service worker with offline caching  
 
 ## Codebase Structure
 
@@ -19,23 +21,44 @@ tracker/
 │   ├── App.jsx               # Main application component (~4k lines)
 │   ├── main.jsx              # Application entry point
 │   ├── main.css              # Global styles
+│   ├── constants.js/.ts      # App constants and configuration
 │   ├── firebase-service.js   # Firebase auth + realtime sync layer
-│   └── test/                 # Test suite (Vitest + Testing Library)
+│   ├── icons.js              # Tree-shaken Lucide icon imports
+│   ├── workout-plan-utils.js # Workout plan parsing utilities
+│   ├── types/                # TypeScript type definitions
+│   │   └── index.ts          # Core types (Exercise, WorkoutSet, AppState, etc.)
+│   ├── components/           # Reusable UI components
+│   │   ├── PWAPrompt.jsx     # PWA install prompt
+│   │   ├── PWAWrapper.jsx    # PWA lifecycle wrapper
+│   │   ├── SyncStatusIndicator.jsx  # Cloud sync status display
+│   │   └── VolumeCard.jsx    # Volume tracking display
+│   ├── hooks/                # Custom React hooks
+│   │   ├── index.js          # Hook exports (useHaptic, useSwipe, etc.)
+│   │   ├── useOptimisticSync.js  # Background cloud sync with debouncing
+│   │   └── usePWA.js         # PWA install/update hooks
+│   ├── utils/                # Utility functions (JS + TS)
+│   │   ├── index.js/.ts      # Centralized exports
+│   │   ├── storage.js/.ts    # localStorage utilities
+│   │   ├── time.js/.ts       # Time formatting
+│   │   ├── audio.js/.ts      # Web Audio API sounds
+│   │   ├── volume.js/.ts     # Volume tracking calculations
+│   │   ├── exerciseHistory.js/.ts  # Exercise history management
+│   │   └── sanitize.js/.ts   # DOMPurify HTML sanitization
+│   └── test/                 # Unit tests (Vitest + Testing Library)
 │       ├── setup.js
-│       ├── backNavigation.test.jsx
-│       ├── exerciseHistory.test.jsx
-│       ├── firebaseSync.test.jsx
-│       ├── scheduleUtils.test.jsx
-│       ├── storageUtils.test.jsx
-│       ├── toggleSet.test.jsx
-│       └── urlRouting.test.jsx
+│       ├── *.test.jsx        # 12+ test files, 210+ specs
+├── e2e/                  # End-to-end tests (Playwright)
+│   ├── navigation.spec.js
+│   ├── workout.spec.js
+│   └── pwa.spec.js
 ├── public/               # Static assets
+├── workout-plan-v2.json  # Current workout program (v2 format)
 ├── exercises.json        # Exercise library data (50+ exercises)
-├── full-schedule.json    # 21-week training program
-├── colors.css            # CSS custom properties
-├── index.html            # HTML entry point
+├── tsconfig.json         # TypeScript configuration
+├── playwright.config.js  # E2E test configuration
+├── eslint.config.js      # ESLint flat config
 ├── package.json          # Dependencies and scripts
-├── vite.config.js        # Build configuration
+├── vite.config.js        # Build + PWA configuration
 ├── vitest.config.js      # Test configuration
 └── tailwind.config.js    # Tailwind CSS configuration
 ```
@@ -69,9 +92,9 @@ tracker/
 
 ### 2. Testing
 
-**Test Suite**: 100+ Vitest specs covering UI logic, storage, routing, and cloud sync
+**Test Suite**: 210+ Vitest specs + Playwright E2E tests covering UI logic, storage, routing, cloud sync, and user flows
 
-**Test Categories / Files**:
+**Unit Test Categories / Files**:
 - Storage utilities — `storageUtils.test.jsx`
 - Schedule building — `scheduleUtils.test.jsx`
 - Exercise history + stats — `exerciseHistory.test.jsx`
@@ -79,13 +102,26 @@ tracker/
 - Set toggle logic + RPE — `toggleSet.test.jsx`
 - Firebase timestamp merge + settings sync — `firebaseSync.test.jsx`
 - Browser history regressions — `backNavigation.test.jsx`
+- Optimistic sync hook — `optimisticSync.test.jsx`
+- EMOM timer logic — `emomTimer.test.jsx`
+- Volume calculations — `volume.test.jsx`
+- PWA hooks — `pwa.test.jsx`
+- Workout plan utilities — `workoutPlanUtils.test.jsx`
 - Shared config/mocks — `src/test/setup.js`
+
+**E2E Test Categories** (Playwright):
+- Navigation flows — `e2e/navigation.spec.js`
+- Workout tracking — `e2e/workout.spec.js`
+- PWA functionality — `e2e/pwa.spec.js`
 
 **Running Tests**:
 ```bash
-npm test              # Run all tests
+npm test              # Run all unit tests
 npm run test:watch    # Watch mode
 npm run test:ui       # UI mode
+npm run test:e2e      # Run Playwright E2E tests
+npm run test:e2e:ui   # E2E tests with UI
+npm run typecheck     # TypeScript type checking
 ```
 
 **Test Philosophy**:
@@ -100,8 +136,12 @@ npm run test:ui       # UI mode
 ```bash
 npm install           # Install dependencies
 npm run dev          # Start dev server (localhost:5173)
-npm run build        # Production build
+npm run build        # Production build (includes PWA service worker)
 npm run preview      # Preview production build
+npm run typecheck    # Run TypeScript type checking
+npm run lint         # Run ESLint
+npm run lint:fix     # Fix ESLint issues
+npm run format       # Format with Prettier
 ```
 
 **Firebase Environment** (`.env` or `.env.local` - never commit secrets):
@@ -143,6 +183,18 @@ VITE_FIREBASE_APP_ID="..."
 - `initSync` streams cloud changes into the app and `mergeCloudData` resolves conflicts via `lastModified`
 - `saveToCloud` pushes sessions, settings, and exercise history after workouts
 - Status helpers (`getFirebaseStatus`, `getLastSyncTime`) power UI indicators
+- **Optimistic Updates**: `useOptimisticSync` hook provides background sync with debouncing
+  - Debounced sync (2s) to batch rapid changes
+  - Immediate sync option for critical updates
+  - Auto-retry with configurable attempts
+  - Offline detection with pending change tracking
+
+#### Progressive Web App (PWA)
+- **Offline Support**: Workbox service worker caches app shell and API responses
+- **Install Prompt**: Native install experience on supported platforms
+- **Update Detection**: Automatic update prompts when new version available
+- **Background Sync**: Queued changes sync when connection restored
+- **usePWA Hook**: `canInstall`, `isInstalled`, `needsUpdate`, `updateAvailable` states
 
 #### AI Integration (Optional)
 - Google Gemini API integration
@@ -160,11 +212,13 @@ VITE_FIREBASE_APP_ID="..."
 ### 5. Code Modification Guidelines
 
 **When Adding Features**:
-1. Follow the 11-section structure in App.jsx
-2. Add corresponding tests in `src/test/`
-3. Use existing utilities (safeGetJSON, etc.)
-4. Maintain error handling patterns
-5. Update README.md if user-facing
+1. Follow the modular architecture (components/, hooks/, utils/)
+2. Prefer TypeScript for new utility files (`.ts` extension)
+3. Add corresponding tests in `src/test/`
+4. Use existing utilities from `src/utils/` (type-safe versions available)
+5. Maintain error handling patterns
+6. Update README.md if user-facing
+7. For complex flows, add E2E tests in `e2e/`
 
 **When Fixing Bugs**:
 1. Write a failing test first
@@ -306,7 +360,42 @@ npm run build
 - **DEPLOYMENT.md** - GitHub Pages pipeline
 - **FIREBASE_SETUP.md** - Local/project Firebase configuration
 - **FIREBASE_DEPLOYMENT.md** - Firebase secrets + CI guidance
-- **agents.md** (this file) - Agent capabilities and guidelines
+- **WORKOUT_PLAN_FORMAT.md** - Workout plan JSON schema
+- **WORKOUT_PLAN_USAGE.md** - How to use workout plans
+- **copilot-instructions.md** (this file) - Agent capabilities and guidelines
+
+### 11. TypeScript Migration
+
+The codebase is undergoing gradual TypeScript migration:
+
+**Configuration** (`tsconfig.json`):
+- Strict mode enabled for new code
+- `allowJs: true` for gradual migration
+- Path aliases: `@/*` → `src/*`
+
+**Converted Modules** (in `src/utils/`):
+- `storage.ts` - Generic typed localStorage wrappers
+- `time.ts` - Time formatting utilities
+- `audio.ts` - Web Audio API utilities
+- `sanitize.ts` - DOMPurify HTML sanitization
+- `volume.ts` - Volume tracking calculations
+- `exerciseHistory.ts` - Exercise history management
+
+**Core Types** (`src/types/index.ts`):
+```typescript
+// Key interfaces available:
+Exercise, WorkoutSet, ExerciseSession, DaySession,
+WorkoutProgress, ExerciseHistoryEntry, AppState, UserProfile
+```
+
+**Using TypeScript**:
+```typescript
+// Import from utils with type safety
+import { safeGetJSON, safeSetJSON } from '@/utils/storage';
+
+// Generic typed localStorage
+const data = safeGetJSON<MyType>('key', defaultValue);
+```
 
 ## Best Practices for AI Agents
 
@@ -318,9 +407,12 @@ npm run build
 6. **Validation**: Validate inputs (week ranges, day values, tab names, etc.)
 7. **Backward Compatibility**: Don't break existing functionality
 8. **Performance**: Consider bundle size and runtime performance
-9. **Security**: Never commit API keys or sensitive data
-10. **Code Style**: Follow existing patterns (2-space indent, JSDoc comments)
+9. **Security**: Never commit API keys or sensitive data; use DOMPurify for user content
+10. **Code Style**: Follow existing patterns (2-space indent, JSDoc/TSDoc comments)
 11. **Cloud Sync Guards**: Always check `isFirebaseInitialized()`/user auth before invoking sync helpers
+12. **TypeScript First**: Prefer TypeScript for new utility files
+13. **PWA Awareness**: Test offline scenarios; use `useOptimisticSync` for cloud operations
+14. **Modular Architecture**: Place new code in appropriate directories (components/, hooks/, utils/)
 
 ## Agent Interaction Examples
 

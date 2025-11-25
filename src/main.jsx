@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App, LoadingScreen, ErrorScreen, buildCompleteSchedule, fetchWithTimeout, FETCH_TIMEOUT_MS, setRAW_SCHEDULE, setEXERCISE_LIBRARY } from './App.jsx';
 import { loadWorkoutPlan } from './workout-plan-utils.js';
+import { ErrorBoundary } from './components/ErrorBoundary.jsx';
 
 // PWA wrapper component for update prompts
 const PWAApp = React.lazy(() => import('./components/PWAWrapper.jsx'));
@@ -51,17 +52,17 @@ Promise.all([
         } catch (error) {
             throw new Error(`Invalid workout plan format: ${error.message}`);
         }
-        
+
         // Validate that we have schedule data
         if (!Array.isArray(schedule) || schedule.length === 0) {
             throw new Error('Invalid schedule data: expected non-empty array after conversion');
         }
-        
+
         // Validate exercise library data
         if (!Array.isArray(exercisesData) || exercisesData.length === 0) {
             throw new Error('Invalid exercise library data: expected non-empty array');
         }
-        
+
         // Validate first exercise has required properties
         const firstExercise = exercisesData[0];
         const requiredExerciseKeys = ['id', 'name', 'category', 'primaryMuscles', 'equipment', 'isBodyweight'];
@@ -69,16 +70,16 @@ Promise.all([
         if (!hasRequiredExerciseKeys) {
             throw new Error('Invalid exercise library data: missing required properties');
         }
-        
+
         // Assign the loaded data to global variables using setter functions
         setRAW_SCHEDULE(schedule);
         setEXERCISE_LIBRARY(exercisesData);
-        
+
         // Build the complete schedule with standard warmups/cooldowns
         buildCompleteSchedule();
-        
+
         console.log(`Loaded ${schedule.length} schedule items and ${exercisesData.length} exercises`);
-        
+
         // Store metadata in a namespaced global for potential future use
         // This allows components to access plan metadata without prop drilling
         if (typeof window !== 'undefined') {
@@ -87,13 +88,15 @@ Promise.all([
             }
             window.TRACKER_APP.workoutPlanMetadata = metadata;
         }
-        
-        // Re-render with the actual app wrapped in PWA provider
+
+        // Re-render with the actual app wrapped in PWA provider and ErrorBoundary
         root.render(
             <React.Suspense fallback={<LoadingScreen />}>
-                <PWAApp>
-                    <App />
-                </PWAApp>
+                <ErrorBoundary>
+                    <PWAApp>
+                        <App />
+                    </PWAApp>
+                </ErrorBoundary>
             </React.Suspense>
         );
     })

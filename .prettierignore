@@ -1,0 +1,23 @@
+# Prettier ignore patterns
+
+# Build output
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# Generated files
+*.min.js
+*.min.css
+package-lock.json
+
+# Data files (preserve formatting)
+*.json
+!.prettierrc
+!package.json
+!tsconfig.json
+
+# Other
+.git/
+coverage/

@@ -105,3 +105,6 @@ export const useLucideIcons = (deps = []) => {
         };
     }, deps);
 };
+
+// Re-export optimistic sync hook
+export { useOptimisticSync, SyncStatus } from './useOptimisticSync';

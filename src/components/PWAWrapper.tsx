@@ -24,10 +24,10 @@ export function PWAWrapper({ children }: PWAWrapperProps): React.ReactElement {
     <>
       {/* Offline banner at top of screen */}
       <OfflineBanner isOnline={isOnline} />
-      
+
       {/* Main app content */}
       {children}
-      
+
       {/* Update/offline ready prompts */}
       <UpdatePrompt
         needRefresh={needRefresh}

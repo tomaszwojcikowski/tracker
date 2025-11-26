@@ -68,3 +68,9 @@ export type { SwipeIndicatorProps } from './SwipeIndicator';
 // Settings components
 export { ThemeSelector } from './ThemeSelector';
 export type { ThemeSelectorProps } from './ThemeSelector';
+
+// App bar components
+export { TopAppBar } from './TopAppBar';
+export { ActionBar } from './ActionBar';
+export type { TopAppBarProps } from './TopAppBar';
+export type { ActionBarProps, TimerState, EmomState } from './ActionBar';

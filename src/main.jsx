@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App, LoadingScreen, ErrorScreen, buildCompleteSchedule, fetchWithTimeout, FETCH_TIMEOUT_MS, setRAW_SCHEDULE, setEXERCISE_LIBRARY } from './App.jsx';
-import { loadWorkoutPlan } from './workout-plan-utils.js';
-import { ErrorBoundary } from './components/ErrorBoundary.jsx';
+import { loadWorkoutPlan } from './workout-plan-utils';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 // PWA wrapper component for update prompts
-const PWAApp = React.lazy(() => import('./components/PWAWrapper.jsx'));
+const PWAApp = React.lazy(() => import('./components/PWAWrapper'));
 
 // Initialize the app with loading state
 const root = ReactDOM.createRoot(document.getElementById('root'));

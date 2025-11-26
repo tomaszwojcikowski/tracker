@@ -1,6 +1,6 @@
 /**
  * Core Type Definitions for OnePlus 12 Pro Tracker
- * 
+ *
  * This file contains TypeScript interfaces and types for the main data structures
  * used throughout the application.
  */
@@ -12,7 +12,7 @@
 /**
  * Muscle groups that can be targeted by exercises
  */
-export type MuscleGroup = 
+export type MuscleGroup =
   | 'chest'
   | 'back'
   | 'shoulders'
@@ -39,7 +39,7 @@ export type MuscleGroup =
 /**
  * Equipment types used in exercises
  */
-export type Equipment = 
+export type Equipment =
   | 'barbell'
   | 'dumbbell'
   | 'kettlebell'
@@ -58,7 +58,7 @@ export type Equipment =
 /**
  * Exercise categories for filtering
  */
-export type ExerciseCategory = 
+export type ExerciseCategory =
   | 'push'
   | 'pull'
   | 'legs'
@@ -528,7 +528,7 @@ export interface AddedExercise {
 /**
  * Generic result type for operations that can fail
  */
-export type Result<T, E = Error> = 
+export type Result<T, E = Error> =
   | { success: true; data: T }
   | { success: false; error: E };
 

@@ -48,7 +48,7 @@ export const VolumeCard: React.FC<VolumeCardProps> = ({ totalVolume, breakdown =
                     {formatVolume(totalVolume)} <span className="text-xs text-sys-onSurfaceVar">kg</span>
                 </span>
             </div>
-            
+
             {breakdown.length > 0 && (
                 <div className="space-y-2">
                     {breakdown.slice(0, 3).map((ex, idx) => (
@@ -95,9 +95,9 @@ export const VolumeTrendBadge: React.FC<VolumeTrendBadgeProps> = ({ trend }) => 
             className: 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
         }
     };
-    
+
     const { icon, text, className } = config[trend] || config.neutral;
-    
+
     return (
         <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold ${className}`}>
             <span>{icon}</span>
@@ -118,24 +118,24 @@ export interface VolumeStatsCardProps {
 /**
  * VolumeStatsCard - Displays aggregate volume statistics
  */
-export const VolumeStatsCard: React.FC<VolumeStatsCardProps> = ({ 
-    totalVolume, 
-    averagePerWorkout, 
-    workoutCount, 
+export const VolumeStatsCard: React.FC<VolumeStatsCardProps> = ({
+    totalVolume,
+    averagePerWorkout,
+    workoutCount,
     trend,
     weeklyBreakdown = [],
-    className = '' 
+    className = ''
 }) => {
     // Find max for chart scaling
     const maxWeekly = Math.max(...weeklyBreakdown.map(w => w.volume), 1);
-    
+
     return (
         <div className={`bg-sys-surface rounded-3xl border border-white/5 p-5 ${className}`}>
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-base font-bold text-white">Volume Stats</h3>
                 <VolumeTrendBadge trend={trend} />
             </div>
-            
+
             <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="bg-sys-surfaceHigh rounded-xl p-3">
                     <div className="text-xs text-sys-onSurfaceVar mb-1">Total Volume</div>
@@ -146,16 +146,16 @@ export const VolumeStatsCard: React.FC<VolumeStatsCardProps> = ({
                     <div className="text-lg font-bold text-white">{formatVolume(averagePerWorkout)} kg</div>
                 </div>
             </div>
-            
+
             {weeklyBreakdown.length > 0 && (
                 <div>
                     <div className="text-xs text-sys-onSurfaceVar mb-2">Weekly Volume</div>
                     <div className="flex items-end justify-between h-20 gap-1">
                         {weeklyBreakdown.map((week, idx) => (
                             <div key={idx} className="flex-1 flex flex-col items-center gap-1">
-                                <div 
+                                <div
                                     className="w-full bg-sys-accent/30 rounded-t transition-all"
-                                    style={{ 
+                                    style={{
                                         height: `${(week.volume / maxWeekly) * 100}%`,
                                         minHeight: '4px'
                                     }}
@@ -166,7 +166,7 @@ export const VolumeStatsCard: React.FC<VolumeStatsCardProps> = ({
                     </div>
                 </div>
             )}
-            
+
             <div className="mt-3 pt-3 border-t border-white/5 text-center">
                 <span className="text-xs text-sys-onSurfaceVar">
                     Based on {workoutCount} workout{workoutCount !== 1 ? 's' : ''}

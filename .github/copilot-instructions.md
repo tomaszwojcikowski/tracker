@@ -7,7 +7,7 @@ This document describes the capabilities of AI agents that can interact with the
 **Repository**: tomaszwojcikowski/tracker
 **Type**: Progressive Web Application (PWA) with offline support
 **Framework**: React 18 + Vite 5
-**Language**: JavaScript + TypeScript (gradual migration)
+**Language**: TypeScript (all new code) + JavaScript (legacy, being migrated)
 **Testing**: Vitest + Testing Library + Playwright (E2E)
 **Styling**: Tailwind CSS 3
 **Cloud Sync**: Firebase Auth + Realtime Database (optional)
@@ -32,10 +32,12 @@ tracker/
 │   │   ├── PWAWrapper.jsx    # PWA lifecycle wrapper
 │   │   ├── SyncStatusIndicator.jsx  # Cloud sync status display
 │   │   └── VolumeCard.jsx    # Volume tracking display
-│   ├── hooks/                # Custom React hooks
-│   │   ├── index.js          # Hook exports (useHaptic, useSwipe, etc.)
-│   │   ├── useOptimisticSync.js  # Background cloud sync with debouncing
-│   │   └── usePWA.js         # PWA install/update hooks
+│   ├── hooks/                # Custom React hooks (TypeScript)
+│   │   ├── index.ts          # Hook exports with full type definitions
+│   │   ├── useOptimisticSync.ts  # Background cloud sync with debouncing
+│   │   ├── usePWA.ts         # PWA install/update hooks
+│   │   ├── useAccessibility.ts   # Focus trap, keyboard shortcuts
+│   │   └── useTheme.ts       # Theme management hook
 │   ├── utils/                # Utility functions (JS + TS)
 │   │   ├── index.js/.ts      # Centralized exports
 │   │   ├── storage.js/.ts    # localStorage utilities
@@ -213,12 +215,13 @@ VITE_FIREBASE_APP_ID="..."
 
 **When Adding Features**:
 1. Follow the modular architecture (components/, hooks/, utils/)
-2. Prefer TypeScript for new utility files (`.ts` extension)
-3. Add corresponding tests in `src/test/`
-4. Use existing utilities from `src/utils/` (type-safe versions available)
-5. Maintain error handling patterns
-6. Update README.md if user-facing
-7. For complex flows, add E2E tests in `e2e/`
+2. **MANDATORY**: Write all new code in TypeScript (`.ts`/`.tsx` extension)
+3. Add corresponding tests in `src/test/` (tests can remain `.jsx` for now)
+4. Use existing utilities from `src/utils/` (import from `.ts` versions)
+5. Define proper types in `src/types/index.ts` for new data structures
+6. Maintain error handling patterns with typed error handling
+7. Update README.md if user-facing
+8. For complex flows, add E2E tests in `e2e/`
 
 **When Fixing Bugs**:
 1. Write a failing test first
@@ -286,11 +289,13 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 ```
 
 #### Task: Add a new utility function
-```javascript
-// Add to appropriate section in App.jsx
-// Add corresponding tests
-// Document with JSDoc comments
-// Test error cases
+```typescript
+// 1. Create new file in src/utils/ with .ts extension
+// 2. Define types in src/types/index.ts if needed
+// 3. Add corresponding tests in src/test/
+// 4. Document with TSDoc comments
+// 5. Export from src/utils/index.ts
+// 6. Run npm run typecheck && npm test
 ```
 
 #### Task: Update dependencies
@@ -305,10 +310,29 @@ npm update
 npm test && npm run build
 ```
 
+#### Task: Convert a JavaScript file to TypeScript
+```bash
+# 1. Create TypeScript version
+cp src/utils/myFile.js src/utils/myFile.ts
+
+# 2. Add type annotations, fix any type errors
+# 3. Update imports in consuming files
+# 4. Run typecheck
+npm run typecheck
+
+# 5. Run tests to ensure behavior is unchanged
+npm test
+
+# 6. Delete old .js file once migration complete
+rm src/utils/myFile.js
+```
+
 #### Task: Debug localStorage issues
-```javascript
-// Use safe utilities for all localStorage access
-const data = safeGetJSON('key', defaultValue);
+```typescript
+// Use safe utilities for all localStorage access (from .ts version)
+import { safeGetJSON, safeSetJSON, safeRemove } from '@/utils/storage';
+
+const data = safeGetJSON<MyType>('key', defaultValue);
 const success = safeSetJSON('key', value);
 const removed = safeRemove('key');
 
@@ -364,22 +388,42 @@ npm run build
 - **WORKOUT_PLAN_USAGE.md** - How to use workout plans
 - **copilot-instructions.md** (this file) - Agent capabilities and guidelines
 
-### 11. TypeScript Migration
+### 11. TypeScript Migration Policy
 
-The codebase is undergoing gradual TypeScript migration:
+> **⚠️ MANDATORY: All new code MUST be written in TypeScript.**
+
+The codebase is actively migrating to TypeScript. Legacy JavaScript files are being converted incrementally.
 
 **Configuration** (`tsconfig.json`):
-- Strict mode enabled for new code
-- `allowJs: true` for gradual migration
+- Strict mode enabled for all new code
+- `allowJs: true` for backward compatibility during migration
 - Path aliases: `@/*` → `src/*`
 
-**Converted Modules** (in `src/utils/`):
+**Migration Status**:
+
+| Directory | Status | Notes |
+|-----------|--------|-------|
+| `src/utils/` | ✅ Complete | All utilities have `.ts` versions |
+| `src/hooks/` | ✅ Complete | All hooks migrated to TypeScript |
+| `src/types/` | ✅ Complete | Core type definitions |
+| `src/components/` | 🔄 In Progress | Migrate to `.tsx` as touched |
+| `src/App.jsx` | 📋 Planned | Large file, incremental extraction |
+| `src/test/` | ⏳ Optional | Tests can remain `.jsx` |
+
+**Fully Typed Modules** (in `src/utils/`):
 - `storage.ts` - Generic typed localStorage wrappers
 - `time.ts` - Time formatting utilities
 - `audio.ts` - Web Audio API utilities
 - `sanitize.ts` - DOMPurify HTML sanitization
 - `volume.ts` - Volume tracking calculations
 - `exerciseHistory.ts` - Exercise history management
+
+**Fully Typed Hooks** (in `src/hooks/`):
+- `index.ts` - Hook exports with full type definitions
+- `useOptimisticSync.ts` - Cloud sync with typed status
+- `usePWA.ts` - PWA lifecycle with typed state
+- `useAccessibility.ts` - Focus trap, keyboard shortcuts
+- `useTheme.ts` - Theme management with typed themes
 
 **Core Types** (`src/types/index.ts`):
 ```typescript
@@ -388,31 +432,50 @@ Exercise, WorkoutSet, ExerciseSession, DaySession,
 WorkoutProgress, ExerciseHistoryEntry, AppState, UserProfile
 ```
 
-**Using TypeScript**:
+**Writing New TypeScript Code**:
 ```typescript
-// Import from utils with type safety
+// 1. Import from utils with type safety
 import { safeGetJSON, safeSetJSON } from '@/utils/storage';
 
-// Generic typed localStorage
+// 2. Use generic typed localStorage
 const data = safeGetJSON<MyType>('key', defaultValue);
+
+// 3. Define new types in src/types/index.ts
+export interface MyNewFeature {
+  id: string;
+  data: Record<string, unknown>;
+}
+
+// 4. Export typed hooks
+export function useMyHook(): MyHookReturn {
+  // Implementation
+}
 ```
+
+**Converting Existing Files**:
+1. Create `.ts`/`.tsx` version alongside `.js`/`.jsx`
+2. Add proper type annotations
+3. Update imports to use new typed version
+4. Delete old `.js`/`.jsx` file once all consumers migrated
+5. Run `npm run typecheck` to verify
 
 ## Best Practices for AI Agents
 
 1. **Read First**: Always examine existing code patterns before implementing changes
 2. **Test Everything**: Write tests for new functionality, run all tests before completing
-3. **Minimal Changes**: Make the smallest possible changes to achieve goals
-4. **Error Handling**: Use try-catch blocks and provide meaningful error messages
-5. **Documentation**: Update README.md for user-facing changes
-6. **Validation**: Validate inputs (week ranges, day values, tab names, etc.)
-7. **Backward Compatibility**: Don't break existing functionality
-8. **Performance**: Consider bundle size and runtime performance
-9. **Security**: Never commit API keys or sensitive data; use DOMPurify for user content
-10. **Code Style**: Follow existing patterns (2-space indent, JSDoc/TSDoc comments)
-11. **Cloud Sync Guards**: Always check `isFirebaseInitialized()`/user auth before invoking sync helpers
-12. **TypeScript First**: Prefer TypeScript for new utility files
+3. **TypeScript Mandatory**: All new code MUST be TypeScript (`.ts`/`.tsx`). No exceptions.
+4. **Type Definitions**: Add new interfaces/types to `src/types/index.ts`
+5. **Error Handling**: Use typed error handling with proper error types
+6. **Documentation**: Update README.md for user-facing changes, use TSDoc for code
+7. **Validation**: Validate inputs with TypeScript type guards when needed
+8. **Backward Compatibility**: Don't break existing functionality
+9. **Performance**: Consider bundle size and runtime performance
+10. **Security**: Never commit API keys or sensitive data; use DOMPurify for user content
+11. **Code Style**: Follow existing patterns (2-space indent, TSDoc comments)
+12. **Cloud Sync Guards**: Always check `isFirebaseInitialized()`/user auth before invoking sync helpers
 13. **PWA Awareness**: Test offline scenarios; use `useOptimisticSync` for cloud operations
 14. **Modular Architecture**: Place new code in appropriate directories (components/, hooks/, utils/)
+15. **Run Typecheck**: Always run `npm run typecheck` before committing TypeScript changes
 
 ## Agent Interaction Examples
 

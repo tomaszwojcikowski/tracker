@@ -6,25 +6,33 @@
 
 import { safeGetJSON, safeSetJSON } from './storage';
 import type { WeekNumber, TrainingDay, TabId, ViewMode, AppState } from '../types';
+import {
+  DEFAULT_WEEK as CONST_DEFAULT_WEEK,
+  DEFAULT_DAY as CONST_DEFAULT_DAY,
+  DEFAULT_TAB as CONST_DEFAULT_TAB,
+  VALID_DAYS as CONST_VALID_DAYS,
+  VALID_TABS as CONST_VALID_TABS,
+  VALID_VIEW_MODES as CONST_VALID_VIEW_MODES,
+} from '../constants';
 
 // ============================================================================
-// CONSTANTS
+// CONSTANTS (re-exported from constants.ts for backward compatibility)
 // ============================================================================
 
 /**
  * Default week number
  */
-export const DEFAULT_WEEK: WeekNumber = 1;
+export const DEFAULT_WEEK: WeekNumber = CONST_DEFAULT_WEEK as WeekNumber;
 
 /**
  * Default training day
  */
-export const DEFAULT_DAY: TrainingDay = 1;
+export const DEFAULT_DAY: TrainingDay = CONST_DEFAULT_DAY;
 
 /**
  * Default tab
  */
-export const DEFAULT_TAB: TabId = 'train';
+export const DEFAULT_TAB: TabId = CONST_DEFAULT_TAB;
 
 /**
  * Default view mode
@@ -34,17 +42,17 @@ export const DEFAULT_VIEW_MODE: ViewMode = 'tab';
 /**
  * Valid training days (Day 4 is rest)
  */
-export const VALID_DAYS: readonly TrainingDay[] = [1, 2, 3, 5];
+export const VALID_DAYS: readonly TrainingDay[] = CONST_VALID_DAYS;
 
 /**
  * Valid tab names
  */
-export const VALID_TABS: readonly TabId[] = ['train', 'library', 'history', 'profile'];
+export const VALID_TABS: readonly TabId[] = CONST_VALID_TABS as readonly TabId[];
 
 /**
  * Valid view modes
  */
-export const VALID_VIEW_MODES: readonly ViewMode[] = ['tab', 'workout'];
+export const VALID_VIEW_MODES: readonly ViewMode[] = CONST_VALID_VIEW_MODES;
 
 /**
  * Storage key for app state

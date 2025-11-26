@@ -99,10 +99,10 @@ export function getCompleteSchedule(): RawScheduleItem[] {
 
 /**
  * Build complete schedule with auto-generated warmups and cooldowns.
- * 
+ *
  * Week 1 has explicit warmup/cooldown in the JSON.
- * For weeks 2-21, this function adds standard warmup/cooldown protocols 
- * if not already present. This avoids repeating boilerplate exercises 
+ * For weeks 2-21, this function adds standard warmup/cooldown protocols
+ * if not already present. This avoids repeating boilerplate exercises
  * in the schedule JSON.
  */
 export function buildCompleteSchedule(): void {

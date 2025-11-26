@@ -933,8 +933,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                     </label>
                                                                     {ex.loadRange && (
                                                                         <span className="text-xs text-sys-accent font-medium">
-                                                                            Suggested: {ex.loadRange.min === ex.loadRange.max 
-                                                                                ? `${ex.loadRange.min}kg` 
+                                                                            Suggested: {ex.loadRange.min === ex.loadRange.max
+                                                                                ? `${ex.loadRange.min}kg`
                                                                                 : `${ex.loadRange.min}-${ex.loadRange.max}kg`}
                                                                             {ex.loadRange.perHand ? ' per hand' : ''}
                                                                         </span>

@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'prompt',
+      registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
         name: 'OnePlus 12 Pro Tracker',
@@ -96,8 +96,11 @@ export default defineConfig({
         // Clean up outdated caches
         cleanupOutdatedCaches: true,
         // Skip waiting to activate new service worker immediately
-        skipWaiting: false,
-        clientsClaim: true
+        skipWaiting: true,
+        clientsClaim: true,
+        // Navigations should be handled by the app shell
+        navigateFallback: 'index.html',
+        navigateFallbackDenylist: [/^\/api\//]
       },
       devOptions: {
         enabled: false // Disable in dev to avoid caching issues

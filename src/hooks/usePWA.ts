@@ -54,22 +54,31 @@ export function usePWA(): PWAState {
         typeof navigator !== 'undefined' ? navigator.onLine : true
     );
     const [updateSW, setUpdateSW] = useState<UpdateSWFunction>(() => async () => {});
+    const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null);
 
     useEffect(() => {
         // Register service worker with update callbacks
         const sw = registerSW({
+            immediate: true, // Register immediately
             onNeedRefresh(): void {
                 setNeedRefresh(true);
             },
             onOfflineReady(): void {
                 setOfflineReady(true);
             },
-            onRegisteredSW(_swUrl: string, registration: ServiceWorkerRegistration | undefined): void {
-                // Check for updates periodically (every hour)
-                if (registration) {
+            onRegisteredSW(_swUrl: string, reg: ServiceWorkerRegistration | undefined): void {
+                if (reg) {
+                    setRegistration(reg);
+                    
+                    // Initial check after 10 seconds
+                    setTimeout(() => {
+                        reg.update().catch(console.error);
+                    }, 10 * 1000);
+                    
+                    // Then check every 5 minutes
                     setInterval(() => {
-                        registration.update();
-                    }, 60 * 60 * 1000);
+                        reg.update().catch(console.error);
+                    }, 5 * 60 * 1000);
                 }
             },
             onRegisterError(error: Error): void {
@@ -91,6 +100,21 @@ export function usePWA(): PWAState {
             window.removeEventListener('offline', handleOffline);
         };
     }, []);
+    
+    // Check for updates when app becomes visible (user returns to app on mobile)
+    useEffect(() => {
+        const handleVisibilityChange = (): void => {
+            if (document.visibilityState === 'visible' && registration) {
+                registration.update().catch(console.error);
+            }
+        };
+        
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        
+        return () => {
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, [registration]);
 
     // Accept update and reload
     const acceptUpdate = useCallback((): void => {

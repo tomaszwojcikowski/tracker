@@ -20,6 +20,7 @@ export interface RawScheduleItem {
     s: number;          // Sets
     r: string;          // Reps
     n?: string;         // Notes/Section (optional)
+    load?: string;      // Load/weight for weighted exercises (optional)
 }
 
 /**

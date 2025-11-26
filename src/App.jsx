@@ -1,48 +1,25 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './main.css';
-import * as FirebaseService from './firebase-service';
 import { NavigationBar, TabContent } from './components/navigation';
-import { ConfirmDialog } from './components/modals';
-import {
-    ExerciseCardSkeleton,
-    HistoryEntrySkeleton,
-    SkeletonList
-} from './components/skeletons';
-import {
-    EmptyWorkoutHistory,
-    EmptyExerciseHistory,
-    EmptySearchResults,
-} from './components/feedback';
 import { TopAppBar } from './components/TopAppBar';
 import { LoadingScreen, ErrorScreen } from './components/screens';
 import { Dashboard, HistoryView, SettingsView, ExerciseLibraryView, WorkoutPlayer } from './components/views';
-import { useTheme } from './hooks/useTheme';
-import { PROGRAM_DATA } from './data/programData';
+import { useLucideIcons } from './hooks';
 
 // Import from TypeScript utilities
-import { safeGetJSON, safeSetJSON, safeRemove } from './utils/storage';
 import {
     buildCompleteSchedule as buildSchedule,
     getCompleteSchedule,
     setRawSchedule,
-    getWorkout,
-    getBlockForWeek,
 } from './utils/schedule';
-import { getAllLocalData, mergeCloudData } from './utils/firebaseSync';
 import {
     getUrlParams,
     saveAppState,
     loadAppState,
     buildUrl,
-    DEFAULT_WEEK,
-    DEFAULT_DAY,
-    VALID_DAYS,
     VALID_TABS,
-    VALID_VIEW_MODES,
 } from './utils/urlState';
 import { FETCH_TIMEOUT_MS } from './constants';
-
-// Import hooks from TypeScript module
 
 // Import exercise history utilities from TypeScript module
 import {
@@ -50,226 +27,34 @@ import {
     calculateExerciseStats,
     getAllExercisesWithHistory,
 } from './utils/exerciseHistory';
-import { formatRelativeTime } from './utils/time';
 
-        // ============================================================================
-        // SECTION 1: GLOBAL STATE & DATA STRUCTURES
-        // ============================================================================
+// ============================================================================
+// GLOBAL STATE & DATA STRUCTURES
+// ============================================================================
 
-        // --- RAW SCHEDULE (loaded from JSON) ---
-        let RAW_SCHEDULE = [];
-        let COMPLETE_SCHEDULE = [];
-        let EXERCISE_LIBRARY = [];
+// Global data arrays loaded from JSON files in main.jsx
+let RAW_SCHEDULE = [];
+let COMPLETE_SCHEDULE = [];
+let EXERCISE_LIBRARY = [];
 
-        // Note: localStorage utilities (safeGetJSON, safeSetJSON, safeRemove) are imported from ./utils/storage
-        // Note: Schedule utilities (buildCompleteSchedule, getWorkout, etc.) are imported from ./utils/schedule
-        // Note: Firebase sync utilities (getAllLocalData, mergeCloudData) are imported from ./utils/firebaseSync
-        // Note: URL/state utilities (getUrlParams, saveAppState, loadAppState, etc.) are imported from ./utils/urlState
+// Wrapper function for buildCompleteSchedule that also updates local COMPLETE_SCHEDULE
+const buildCompleteSchedule = () => {
+    buildSchedule();
+    COMPLETE_SCHEDULE = getCompleteSchedule();
+};
 
-        // Wrapper function for buildCompleteSchedule that also updates local COMPLETE_SCHEDULE
-        const buildCompleteSchedule = () => {
-            buildSchedule();
-            COMPLETE_SCHEDULE = getCompleteSchedule();
-        };
+// ============================================================================
+// URL & STATE MANAGEMENT UTILITIES
+// ============================================================================
 
-        // Note: Custom hooks (useHaptic, useSwipe, useSwipeNavigation, useDebounce, useLucideIcons)
-        // are now imported from ./hooks
+// Local updateUrl wrapper that returns the URL string
+const updateUrl = (state) => {
+    return buildUrl(state);
+};
 
-        // ============================================================================
-        // SECTION 5: APPLICATION CONSTANTS & PROGRAM DATA
-        // ============================================================================
-
-        // --- APPLICATION CONSTANTS ---
-        // Note: Many constants are now imported from ./constants.ts
-        // (FETCH_TIMEOUT_MS, DEBOUNCE_DELAY_MS, MS_PER_MINUTE, MS_PER_HOUR, MS_PER_DAY)
-        const MAX_SETS = 20; // Maximum number of sets per exercise
-        const MAX_WEIGHT_KG = 999; // Maximum weight in kilograms
-        const WEIGHT_INCREMENT_KG = 2.5; // Standard weight increment/decrement
-        const WEIGHT_STEP = 0.5; // Minimum weight step for input
-
-        // PROGRAM_DATA is now imported from ./data/programData
-
-        // ============================================================================
-        // SECTION 6: UI COMPONENTS
-        // ============================================================================
-
-        // TopAppBar and ActionBar are now imported from ./components
-
-        // NavigationBar and TabContent are now imported from ./components/navigation
-
-        // Note: Firebase sync utilities (getAllLocalData, mergeCloudData) are imported from ./utils/firebaseSync
-
-        // Keys for Firebase sync settings (re-exported for backward compatibility)
-        const FIREBASE_SYNC_ENABLED_KEY = 'firebase_sync_enabled';
-
-        // Note: Exercise history utilities (updateExerciseHistory, getExerciseHistory, calculateExerciseStats, getAllExercisesWithHistory)
-        // are now imported from ./utils/exerciseHistory
-        // Note: formatRelativeTime is now imported from ./utils/time
-        // Note: Time constants (MS_PER_MINUTE, MS_PER_HOUR, MS_PER_DAY) are now imported from ./constants
-
-        // Storage key constant (for backward compatibility)
-        const EXERCISE_HISTORY_KEY = 'exercise_history';
-
-        // Helper function to safely parse weight
-        const parseWeight = (weight) => {
-            return weight ? parseFloat(weight) : null;
-        };
-
-        // ============================================================================
-        // SECTION 9: MAIN APPLICATION COMPONENTS
-        // ============================================================================
-
-        // --- AUDIO UTILITIES ---
-        /**
-         * Play a tick sound for countdown
-         */
-        const playTickSound = () => {
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-
-                oscillator.frequency.value = 800; // High frequency for tick
-                oscillator.type = 'sine';
-
-                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.1);
-            } catch (error) {
-                console.warn('Failed to play tick sound:', error);
-            }
-        };
-
-        /**
-         * Play a beep sound for new interval
-         */
-        const playBeepSound = () => {
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-
-                oscillator.frequency.value = 1200; // Higher frequency for beep
-                oscillator.type = 'sine';
-
-                gainNode.gain.setValueAtTime(0.4, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.2);
-            } catch (error) {
-                console.warn('Failed to play beep sound:', error);
-            }
-        };
-
-        // --- WORKOUT PLAYER ---
-        // Extracted to src/components/views/WorkoutPlayer.tsx
-
-        // Dashboard is now imported from ./components/views
-        // HistoryView, ExerciseStatsView, and SimpleWeightGraph are now imported from ./components/views/HistoryView
-
-        // Simple markdown to HTML converter with sanitization
-        const markdownToHtml = (text) => {
-            if (!text) return '';
-
-            // Sanitize input - escape HTML entities
-            const escapeHtml = (unsafe) => {
-                return unsafe
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;");
-            };
-
-            let html = escapeHtml(text);
-
-            // Code blocks first (to protect them from other processing)
-            html = html.replace(/```([\s\S]*?)```/g, '<pre class="bg-sys-surfaceHigh rounded-lg p-3 my-3 overflow-x-auto"><code class="text-sm font-mono text-sys-accent">$1</code></pre>');
-
-            // Inline code (protect from other processing)
-            html = html.replace(/`([^`]+)`/g, '<code class="bg-sys-surfaceHigh px-1.5 py-0.5 rounded text-sm font-mono text-sys-accent">$1</code>');
-
-            // Headers (# ## ###)
-            html = html.replace(/^### (.*$)/gim, '<h3 class="text-base font-bold text-white mt-4 mb-2">$1</h3>');
-            html = html.replace(/^## (.*$)/gim, '<h2 class="text-lg font-bold text-white mt-5 mb-3">$1</h2>');
-            html = html.replace(/^# (.*$)/gim, '<h1 class="text-xl font-bold text-white mt-6 mb-4">$1</h1>');
-
-            // Bold text first (**text** or __text__) - process before italic
-            html = html.replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-white">$1</strong>');
-            html = html.replace(/__(.+?)__/g, '<strong class="font-bold text-white">$1</strong>');
-
-            // Italic text (*text* or _text_) - matches single * or _ that aren't part of bold
-            // This works because bold is already replaced, so remaining single * are italic
-            html = html.replace(/\*([^*]+?)\*/g, '<em class="italic">$1</em>');
-            html = html.replace(/_([^_]+?)_/g, '<em class="italic">$1</em>');
-
-            // Process lists - find consecutive list items and wrap in ul
-            const lines = html.split('\n');
-            const processed = [];
-            let inList = false;
-
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i];
-                const isListItem = /^\s*[-*]\s+(.+)$/.test(line);
-
-                if (isListItem) {
-                    if (!inList) {
-                        processed.push('<ul class="my-3 space-y-1">');
-                        inList = true;
-                    }
-                    processed.push(line.replace(/^\s*[-*]\s+(.+)$/, '<li class="ml-4 mb-1">• $1</li>'));
-                } else {
-                    if (inList) {
-                        processed.push('</ul>');
-                        inList = false;
-                    }
-                    processed.push(line);
-                }
-            }
-            if (inList) processed.push('</ul>');
-            html = processed.join('\n');
-
-            // Convert double newlines to paragraph breaks (but not for existing HTML tags)
-            const paragraphs = html.split('\n\n');
-            html = paragraphs.map(para => {
-                const trimmed = para.trim();
-                // Only wrap in <p> if it's not already an HTML block element
-                if (trimmed && !/^<(h[123]|ul|pre|div)/.test(trimmed)) {
-                    return `<p class="mb-3">${trimmed}</p>`;
-                }
-                return trimmed;
-            }).join('\n');
-
-            // Single line breaks become <br /> (but not within block elements)
-            html = html.replace(/\n/g, '<br />');
-
-            return html;
-        };
-
-        // SettingsView is now imported from ./components/views
-
-        // ExerciseLibraryView and ExerciseDetailView are now imported from ./components/views
-
-        // ============================================================================
-        // SECTION 10: URL & STATE MANAGEMENT UTILITIES
-        // ============================================================================
-
-        // Note: URL/state utilities (getUrlParams, saveAppState, loadAppState, buildUrl) are imported from ./utils/urlState
-        // Note: Constants (DEFAULT_WEEK, DEFAULT_DAY, VALID_DAYS, VALID_TABS, VALID_VIEW_MODES) are imported from ./utils/urlState
-
-        // Local updateUrl wrapper that returns the URL string (for backward compatibility)
-        const updateUrl = (state) => {
-            return buildUrl(state);
-        };
+// ============================================================================
+// MAIN APP COMPONENT
+// ============================================================================
 
         const App = () => {
             const [activeTab, setActiveTab] = useState('train');

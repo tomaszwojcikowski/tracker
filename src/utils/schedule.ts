@@ -19,7 +19,7 @@ export interface RawScheduleItem {
     ex: string;         // Exercise name
     s: number;          // Sets
     r: string;          // Reps
-    n: string;          // Notes/Section
+    n?: string;         // Notes/Section (optional)
 }
 
 /**
@@ -179,13 +179,13 @@ export function getWorkout(week: WeekNumber, day: TrainingDay): Workout | null {
     };
 
     dayExercises.forEach(item => {
-        const sectionType = getSectionType(item.n);
+        const sectionType = getSectionType(item.n ?? '');
         const exercise: WorkoutExercise = {
             id: `${item.ex.toLowerCase().replace(/[^a-z0-9]+/g, '_')}_${week}_${day}`,
             name: item.ex,
             sets: item.s,
             reps: item.r,
-            notes: item.n,
+            notes: item.n ?? '',
         };
         sections[sectionType].push(exercise);
     });

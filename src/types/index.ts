@@ -319,6 +319,11 @@ export interface Toast {
 export type ValidDay = 1 | 2 | 3 | 5;
 
 /**
+ * Valid tab type alias for TabId
+ */
+export type ValidTab = TabId;
+
+/**
  * WorkoutPlayer component props
  */
 export interface WorkoutPlayerProps {

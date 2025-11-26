@@ -1,15 +1,240 @@
+/**
+ * WorkoutPlayer Component
+ *
+ * Main workout execution view with exercise tracking, timers, and set logging.
+ */
+
 import React, { useEffect, useMemo, useState } from 'react';
 import { FloatingTimer } from '../FloatingTimer';
 import { ActionBar } from '../ActionBar';
-import { ExerciseListItem } from './ExerciseListItem';
 import { safeGetJSON, safeSetJSON } from '../../utils/storage';
-import { useHaptic, useSwipe, useDebounce, useLucideIcons } from '../../hooks';
+import { useHaptic, useSwipe, useDebounce, useLucideIcons, type HapticFeedback } from '../../hooks';
 import {
     DEBOUNCE_DELAY_MS,
     MAX_SETS,
-    };
+} from '../../constants';
+import { PROGRAM_DATA, type WorkoutExercise, type WorkoutSection } from '../../data/programData';
+import {
+    updateExerciseHistory,
+    getExerciseHistory,
+    calculateExerciseStats,
+} from '../../utils/exerciseHistory';
+import { playTickSound, playBeepSound } from '../../utils/audio';
+import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../../types';
 
-    ```
+// ============================================================================
+// TYPES
+// ============================================================================
+
+type RPEData = Record<number, RPEValue>;
+
+interface ExerciseLogEntry {
+    sets?: boolean[];
+    weight?: string;
+    rpe?: RPEData;
+}
+
+interface WorkoutSessionData {
+    completed?: boolean;
+    completedAt?: string;
+    lastModified?: string;
+    week?: number;
+    day?: number;
+    workoutNotes?: string;
+    addedExercises?: AddedExercise[];
+    [exerciseId: string]: ExerciseLogEntry | AddedExercise[] | string | number | boolean | undefined;
+}
+
+const MUSCLE_FILTERS = [
+    'all',
+    'pull',
+    'push',
+    'legs',
+    'core',
+    'cardio',
+    'skill',
+    'arms',
+    'shoulders',
+    'olympic',
+    'functional',
+    'plyometric',
+    'mobility',
+] as const;
+
+type MuscleFilter = (typeof MUSCLE_FILTERS)[number];
+
+// ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
+
+const parseWeight = (weight: unknown): number | null => {
+    if (weight === null || weight === undefined) return null;
+    if (typeof weight === 'number') return weight;
+    if (typeof weight !== 'string') return null;
+
+    const cleaned = weight.replace(/[^0-9.\-]/g, '').trim();
+    if (!cleaned) return null;
+
+    const parsed = parseFloat(cleaned);
+    return Number.isFinite(parsed) ? parsed : null;
+};
+
+const isExerciseLogEntry = (value: unknown): value is ExerciseLogEntry => {
+    return (
+        typeof value === 'object' &&
+        value !== null &&
+        !Array.isArray(value) &&
+        !('id' in value && 'name' in value && 'sets' in value)
+    );
+};
+
+const getExerciseLogEntry = (
+    logs: WorkoutSessionData,
+    exerciseId: string
+): ExerciseLogEntry => {
+    const entry = logs[exerciseId];
+    if (isExerciseLogEntry(entry)) {
+        return entry;
+    }
+    return {};
+};
+
+const normalizeAddedExercises = (value: unknown): AddedExercise[] => {
+    if (!Array.isArray(value)) return [];
+    return value.filter((item): item is AddedExercise => {
+        return (
+            !!item &&
+            typeof item === 'object' &&
+            'id' in item &&
+            'name' in item &&
+            'sets' in item
+        );
+    });
+};
+
+// ============================================================================
+// EXERCISE LIST ITEM COMPONENT
+// ============================================================================
+
+interface ExerciseListItemProps {
+    exercise: Exercise;
+    onAdd: (exercise: Exercise, sets?: number, weight?: string) => void;
+    haptic: HapticFeedback;
+}
+
+const ExerciseListItem: React.FC<ExerciseListItemProps> = ({ exercise, onAdd, haptic }) => {
+    const [showAddForm, setShowAddForm] = useState(false);
+    const [sets, setSets] = useState(3);
+    const [weight, setWeight] = useState('');
+
+    return (
+        <div className="bg-sys-surfaceHigh rounded-2xl p-4">
+            <div className="flex items-start justify-between gap-3">
+                <div className="flex-1">
+                    <h4 className="text-base font-semibold text-white mb-1">{exercise.name}</h4>
+                    <p className="text-xs text-sys-onSurfaceVar mb-2">
+                        {exercise.primaryMuscles.join(', ')}
+                    </p>
+                    <div className="flex flex-wrap gap-1">
+                        {exercise.equipment.slice(0, 3).map((eq) => (
+                            <span key={eq} className="text-xs px-2 py-1 bg-sys-surface rounded-lg text-sys-onSurfaceVar">
+                                {eq}
+                            </span>
+                        ))}
+                        {!exercise.isBodyweight && (
+                            <span className="text-xs px-2 py-1 bg-sys-accent/10 rounded-lg text-sys-accent">
+                                Weighted
+                            </span>
+                        )}
+                    </div>
+                </div>
+
+                {!showAddForm ? (
+                    <button
+                        onClick={() => { haptic.tick(); setShowAddForm(true); }}
+                        className="h-10 px-4 rounded-xl text-white font-semibold text-sm active:scale-95 transition-transform flex-shrink-0 btn-gradient-primary"
+                    >
+                        Add
+                    </button>
+                ) : (
+                    <button
+                        onClick={() => { haptic.tick(); setShowAddForm(false); }}
+                        className="h-10 w-10 rounded-xl bg-sys-surface text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-transform flex-shrink-0"
+                        aria-label="Collapse form"
+                    >
+                        <i data-lucide="chevron-up" width="20"></i>
+                    </button>
+                )}
+            </div>
+
+            {showAddForm && (
+                <div className="mt-4 pt-4 border-t border-white/5">
+                    <div className="grid grid-cols-2 gap-3 mb-3">
+                        <div>
+                            <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Sets</label>
+                            <input
+                                type="number"
+                                min="1"
+                                max="10"
+                                value={sets}
+                                onChange={(e) => setSets(parseInt(e.target.value) || 1)}
+                                className="w-full h-10 px-3 bg-sys-surface rounded-xl text-white text-center font-mono outline-none focus:ring-2 focus:ring-sys-accent"
+                            />
+                        </div>
+                        {!exercise.isBodyweight && (
+                            <div>
+                                <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Weight (kg)</label>
+                                <input
+                                    type="number"
+                                    inputMode="decimal"
+                                    value={weight}
+                                    onChange={(e) => setWeight(e.target.value)}
+                                    placeholder="0"
+                                    className="w-full h-10 px-3 bg-sys-surface rounded-xl text-white text-center font-mono outline-none focus:ring-2 focus:ring-sys-accent"
+                                />
+                            </div>
+                        )}
+                    </div>
+                    <button
+                        onClick={() => {
+                            haptic.success();
+                            onAdd(exercise, sets, weight);
+                            setShowAddForm(false);
+                            setSets(3);
+                            setWeight('');
+                        }}
+                        className="w-full h-10 rounded-xl text-white font-semibold active:scale-95 transition-transform btn-gradient-success"
+                    >
+                        Add to Workout
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+};
+
+// ============================================================================
+// MAIN WORKOUT PLAYER COMPONENT
+// ============================================================================
+
+export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
+    week,
+    day,
+    onComplete,
+    exerciseLibrary,
+}) => {
+    const sessionKey = useMemo(() => `session_w${week}d${day}`, [week, day]);
+    const workout = useMemo(() => PROGRAM_DATA.getWorkout(week, day), [week, day]);
+
+    // State
+    const [logs, setLogs] = useState<WorkoutSessionData>({});
+    const [timerSeconds, setTimerSeconds] = useState(0);
+    const [timerActive, setTimerActive] = useState(false);
+    const [emomSeconds, setEmomSeconds] = useState(0);
+    const [emomActive, setEmomActive] = useState(false);
+    const [emomInterval, setEmomInterval] = useState(() => safeGetJSON<number>('emom_interval', 60) ?? 60);
+    const [collapsedExercises, setCollapsedExercises] = useState<Record<string, boolean>>({});
+    const [showTimerToast, setShowTimerToast] = useState(false);
     const [addedExercises, setAddedExercises] = useState<AddedExercise[]>([]);
     const [showExerciseSelector, setShowExerciseSelector] = useState(false);
     const [exerciseSearchTerm, setExerciseSearchTerm] = useState('');
@@ -19,6 +244,7 @@ import {
 
     const haptic = useHaptic();
 
+    // Swipe handlers for back navigation
     const swipeHandlers = useSwipe({
         onSwipeRight: () => {
             haptic.tick();
@@ -26,11 +252,10 @@ import {
         },
     });
 
-    const debouncedExerciseSearch = useDebounce(
-        exerciseSearchTerm,
-        DEBOUNCE_DELAY_MS
-    );
+    // Debounce exercise search
+    const debouncedExerciseSearch = useDebounce(exerciseSearchTerm, DEBOUNCE_DELAY_MS);
 
+    // Refresh Lucide icons
     useLucideIcons([
         collapsedExercises,
         showTimerToast,
@@ -47,6 +272,7 @@ import {
         emomInterval,
     ]);
 
+    // Load session data on mount
     useEffect(() => {
         const parsedLogs = safeGetJSON<WorkoutSessionData>(sessionKey, {} as WorkoutSessionData);
         if (parsedLogs && typeof parsedLogs === 'object') {
@@ -60,6 +286,7 @@ import {
         }
     }, [sessionKey]);
 
+    // Rest timer effect
     useEffect(() => {
         if (timerActive && timerSeconds > 0) {
             const interval = setInterval(() => setTimerSeconds((s) => s - 1), 1000);
@@ -72,6 +299,7 @@ import {
         }
     }, [timerActive, timerSeconds, haptic]);
 
+    // EMOM timer effect
     useEffect(() => {
         if (emomActive && emomSeconds > 0) {
             const interval = setInterval(() => {
@@ -92,39 +320,244 @@ import {
         }
     }, [emomActive, emomSeconds, emomInterval, haptic]);
 
+    // Save EMOM interval preference
     useEffect(() => {
         safeSetJSON('emom_interval', emomInterval);
     }, [emomInterval]);
 
+    // Escape key to dismiss toast
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-        haptic.bump();
-        const allExercises: string[] = [];
-        workout.sections.forEach((section) => {
-            section.exercises.forEach((ex) => {
-                const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
-                const sets = getExerciseLogEntry(logs, exId).sets || [];
-                const allComplete = sets.length > 0 && sets.every((s) => s);
-                if (!allComplete) {
-                    allExercises.push(exId);
-                }
-            });
-        });
+            if (event.key === 'Escape' && showTimerToast) {
+                setShowTimerToast(false);
+            }
+        };
 
-        if (allExercises.length > 0 && typeof document !== 'undefined') {
-            const nextExId = allExercises[0];
-            const element = document.getElementById(nextExId);
-            element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [showTimerToast]);
+
+    // ============================================================================
+    // PERSISTENCE FUNCTIONS
+    // ============================================================================
+
+    const persistLogs = (updatedLogs: WorkoutSessionData): void => {
+        setLogs(updatedLogs);
+        const success = safeSetJSON(sessionKey, updatedLogs);
+        if (!success) {
+            alert('Failed to save progress. Your storage might be full.');
         }
     };
+
+    const saveLog = (
+        id: string,
+        field: keyof ExerciseLogEntry,
+        value: ExerciseLogEntry[keyof ExerciseLogEntry]
+    ): void => {
+        const currentEntry = getExerciseLogEntry(logs, id);
+        const updatedLogs: WorkoutSessionData = {
+            ...logs,
+            [id]: {
+                ...currentEntry,
+                [field]: value,
+            },
+            lastModified: new Date().toISOString(),
+        };
+        persistLogs(updatedLogs);
+    };
+
+    // ============================================================================
+    // SET TOGGLE & RPE
+    // ============================================================================
+
+    const toggleSet = (
+        exId: string,
+        setIndex: number,
+        defaultSets: number,
+        restTime?: number
+    ): void => {
+        try {
+            haptic.tick();
+
+            if (!exId || setIndex < 0 || !Number.isInteger(setIndex)) {
+                console.error('Invalid set toggle parameters:', { exId, setIndex, defaultSets });
+                return;
+            }
+
+            const currentSets = getExerciseLogEntry(logs, exId).sets || new Array(defaultSets).fill(false);
+            const newSets = [...currentSets];
+            while (newSets.length <= setIndex) newSets.push(false);
+            const wasCompleted = newSets[setIndex];
+            newSets[setIndex] = !newSets[setIndex];
+            saveLog(exId, 'sets', newSets);
+
+            // Clear RPE if uncompleting a set
+            if (wasCompleted && !newSets[setIndex]) {
+                const currentRPEs: RPEData = { ...(getExerciseLogEntry(logs, exId).rpe ?? {}) };
+                if (currentRPEs[setIndex]) {
+                    const updatedRPEs: RPEData = { ...currentRPEs };
+                    delete updatedRPEs[setIndex];
+                    saveLog(exId, 'rpe', updatedRPEs);
+                }
+            }
+
+            // Start rest timer if completing a set
+            if (!wasCompleted && newSets[setIndex] && typeof restTime === 'number' && restTime > 0) {
+                setTimerSeconds(restTime);
+                setTimerActive(true);
+            }
+        } catch (error) {
+            console.error('Failed to toggle set:', error);
+        }
+    };
+
+    // @ts-expect-error - Reserved for future RPE UI feature
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const _saveRPE = (exId: string, setIndex: number, rpe: RPEValue): void => {
+        try {
+            const currentRPEs: RPEData = { ...(getExerciseLogEntry(logs, exId).rpe ?? {}) };
+            const updatedRPEs: RPEData = { ...currentRPEs, [setIndex]: rpe };
+            saveLog(exId, 'rpe', updatedRPEs);
+        } catch (error) {
+            console.error('Failed to save RPE:', error);
+        }
+    };
+
+    const addSet = (exId: string, defaultSets: number): void => {
+        haptic.bump();
+        const currentSets = getExerciseLogEntry(logs, exId).sets || new Array(defaultSets).fill(false);
+        saveLog(exId, 'sets', [...currentSets, false]);
+    };
+
+    const completeAllSets = (exId: string, defaultSets: number): void => {
+        haptic.success();
+        const allCompleted = new Array(defaultSets).fill(true);
+        saveLog(exId, 'sets', allCompleted);
+    };
+
+    const toggleExerciseCollapse = (exId: string): void => {
+        setCollapsedExercises((prev) => ({ ...prev, [exId]: !prev[exId] }));
+    };
+
+    // ============================================================================
+    // ADD EXERCISE FUNCTIONS
+    // ============================================================================
 
     const addExerciseToWorkout = (
         exercise: Exercise,
         sets = 3,
         weight = ''
-    ) => {
+    ): void => {
         try {
             if (!exercise || !exercise.id || !exercise.name) {
+                console.error('Invalid exercise data:', exercise);
+                alert('Failed to add exercise: Invalid exercise data');
+                return;
+            }
+
+            const validSets = Number.isInteger(sets) && sets > 0 && sets <= MAX_SETS ? sets : 3;
+
+            const isDuplicate = addedExercises.some((ex) => ex.id === exercise.id);
+            if (isDuplicate) {
+                alert('This exercise has already been added to the workout');
+                return;
+            }
+
+            haptic.success();
+            const newExercise: AddedExercise = {
+                id: exercise.id,
+                name: exercise.name,
+                sets: validSets,
+                isBodyweight: exercise.isBodyweight || false,
+                equipment: exercise.equipment || [],
+                primaryMuscles: exercise.primaryMuscles || [],
+                weight,
+            };
+            const updatedAddedExercises = [...addedExercises, newExercise];
+            setAddedExercises(updatedAddedExercises);
+
+            const updatedLogs: WorkoutSessionData = {
+                ...logs,
+                addedExercises: updatedAddedExercises,
+                lastModified: new Date().toISOString(),
+            };
+            persistLogs(updatedLogs);
+
+            setShowExerciseSelector(false);
+            setExerciseSearchTerm('');
+        } catch (error) {
+            console.error('Failed to add exercise:', error);
+            alert('Failed to add exercise. Please try again.');
+        }
+    };
+
+    const removeAddedExercise = (exerciseId: string): void => {
+        haptic.tick();
+        const updatedAddedExercises = addedExercises.filter((ex) => ex.id !== exerciseId);
+        setAddedExercises(updatedAddedExercises);
+
+        const updatedLogs: WorkoutSessionData = {
+            ...logs,
+            addedExercises: updatedAddedExercises,
+            lastModified: new Date().toISOString(),
+        };
+        persistLogs(updatedLogs);
+    };
+
+    // ============================================================================
+    // FINISH WORKOUT
+    // ============================================================================
+
+    const handleFinish = async (): Promise<void> => {
+        try {
+            const timestamp = new Date().toISOString();
+            const updatedLogs: WorkoutSessionData = {
+                ...logs,
+                completed: true,
+                completedAt: timestamp,
+                lastModified: timestamp,
+                week,
+                day,
+                workoutNotes,
+            };
+            persistLogs(updatedLogs);
+
+            const completionDate = new Date().toISOString();
+
+            interface ExerciseSummaryItem {
+                name: string;
+                prescription: string;
+                completedSets: number;
+                totalSets: number;
+                weight: number | string | null;
+                isBodyweight?: boolean;
+            }
+
+            const exerciseSummary: ExerciseSummaryItem[] = [];
+
+            // Process scheduled exercises
+            workout.sections.forEach((section: WorkoutSection) => {
+                section.exercises.forEach((ex: WorkoutExercise) => {
+                    const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                    const exLog = getExerciseLogEntry(updatedLogs, exId);
+                    const sets = exLog.sets || [];
+                    const completedSets = sets.filter((s) => s).length;
+                    const totalSets = sets.length || ex.sets || 0;
+                    const parsedWeight = parseWeight(exLog.weight || '');
+
+                    exerciseSummary.push({
+                        name: ex.name,
+                        prescription: ex.prescription,
+                        completedSets,
+                        totalSets,
+                        weight: parsedWeight ?? null,
+                        isBodyweight: ex.isBodyweight,
+                    });
+
+                    if (completedSets > 0) {
+                        updateExerciseHistory(ex.name, {
+                            date: completionDate,
+                            week,
                             day,
                             sets: completedSets,
                             totalSets,
@@ -136,6 +569,7 @@ import {
                 });
             });
 
+            // Process added exercises
             addedExercises.forEach((ex) => {
                 const exId = `added_${ex.id}`;
                 const exLog = getExerciseLogEntry(updatedLogs, exId);
@@ -149,6 +583,7 @@ import {
                     completedSets,
                     totalSets,
                     weight: ex.weight || exLog.weight || null,
+                    isBodyweight: ex.isBodyweight,
                 });
 
                 if (completedSets > 0) {
@@ -165,6 +600,7 @@ import {
                 }
             });
 
+            // Save to global history
             const historyEntry = {
                 week,
                 day,
@@ -188,8 +624,14 @@ import {
         }
     };
 
-    const hasIncompleteExercises = workout.sections.some((section) =>
-        section.exercises.some((ex) => {
+    // ============================================================================
+    // COMPUTED VALUES
+    // ============================================================================
+
+    // @ts-expect-error - Reserved for future use
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const _hasIncompleteExercises = workout.sections.some((section: WorkoutSection) =>
+        section.exercises.some((ex: WorkoutExercise) => {
             const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
             const sets = getExerciseLogEntry(logs, exId).sets || [];
             return sets.length === 0 || !sets.every((s) => s);
@@ -212,6 +654,10 @@ import {
         });
     }, [exerciseLibrary, debouncedExerciseSearch, selectedMuscleFilter]);
 
+    // ============================================================================
+    // RENDER
+    // ============================================================================
+
     return (
         <>
             <FloatingTimer
@@ -229,136 +675,70 @@ import {
             />
 
             <div {...swipeHandlers} className="px-5 pb-32 pt-6">
-                {hasIncompleteExercises && (
-                    <div className="mb-6">
-                        <button
-                            onClick={scrollToNextIncompleteExercise}
-                            className="w-full h-12 px-6 rounded-xl border border-sys-accent/30 text-white font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform btn-gradient-primary btn-dimmed"
-                        >
-                            <i data-lucide="arrow-down-circle" width="20"></i>
-                            <span>Jump to Next Exercise</span>
-                        </button>
-                    </div>
-                )}
-
+                {/* Workout Notes */}
                 <div className="mb-6">
-                    <div className="bg-sys-surface rounded-3xl border border-white/5 p-5">
-                        <div className="flex items-center gap-2 mb-3">
-                            <i data-lucide="file-text" width="18" className="text-sys-accent"></i>
-                            <label className="text-sm font-bold text-white uppercase tracking-wider">Workout Notes</label>
-                        </div>
-                        <textarea
-                            value={workoutNotes}
-                            onChange={(event) => {
-                                const value = event.target.value;
-                                setWorkoutNotes(value);
-                                const updatedLogs: WorkoutSessionData = {
-                                    ...logs,
-                                    workoutNotes: value,
-                                    lastModified: new Date().toISOString(),
-                                };
-                                persistLogs(updatedLogs);
-                            }}
-                            placeholder="Add notes about today's workout (e.g., how you felt, form cues, adjustments)..."
-                            className="w-full bg-sys-surfaceHigh rounded-xl px-4 py-3 text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all resize-none"
-                            rows={3}
-                        ></textarea>
-                    </div>
+                    <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">
+                        Workout Notes
+                    </label>
+                    <textarea
+                        value={workoutNotes}
+                        onChange={(e) => {
+                            setWorkoutNotes(e.target.value);
+                            const updatedLogs: WorkoutSessionData = {
+                                ...logs,
+                                workoutNotes: e.target.value,
+                                lastModified: new Date().toISOString(),
+                            };
+                            persistLogs(updatedLogs);
+                        }}
+                        placeholder="How are you feeling? Any notes for this workout..."
+                        className="w-full h-20 px-4 py-3 bg-sys-surface rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent resize-none border border-white/5"
+                    />
                 </div>
 
-                {workout.sections.map((section, sIdx) => {
-                    const isEMOM = (ex: typeof section.exercises[number]) =>
-                        ex && ((ex.notes && ex.notes.toLowerCase().includes('emom')) || (ex.name && ex.name.toLowerCase().includes('emom')));
-
-                    const exercisesWithSuperset = [] as Array<
-                        typeof section.exercises[number] & {
-                            supersetLabel: string | null;
-                            supersetPosition: 'first' | 'middle' | 'last' | null;
-                        }
-                    >;
-                    let currentSupersetStart = -1;
-
-                    section.exercises.forEach((ex, idx) => {
-                        const exIsEMOM = isEMOM(ex);
-                        const prevIsEMOM = idx > 0 && isEMOM(section.exercises[idx - 1]);
-                        const nextIsEMOM = idx < section.exercises.length - 1 && isEMOM(section.exercises[idx + 1]);
-
-                        let supersetLabel: string | null = null;
-                        let supersetPosition: 'first' | 'middle' | 'last' | null = null;
-
-                        if (exIsEMOM) {
-                            if (!prevIsEMOM) {
-                                currentSupersetStart = idx;
-                            }
-
-                            if (prevIsEMOM || nextIsEMOM) {
-                                const positionInSuperset = idx - currentSupersetStart;
-                                supersetLabel = `B${positionInSuperset + 1}`;
-
-                                if (!prevIsEMOM && nextIsEMOM) {
-                                    supersetPosition = 'first';
-                                } else if (prevIsEMOM && nextIsEMOM) {
-                                    supersetPosition = 'middle';
-                                } else if (prevIsEMOM && !nextIsEMOM) {
-                                    supersetPosition = 'last';
-                                }
-                            }
-                        }
-
-                        exercisesWithSuperset.push({ ...ex, supersetLabel, supersetPosition });
-                    });
-
+                {/* Workout Sections */}
+                {workout.sections.map((section: WorkoutSection, sIdx: number) => {
                     const sectionExercises = section.exercises.length;
-                    let sectionCompletedExercises = 0;
-                    section.exercises.forEach((ex) => {
+                    const sectionCompletedExercises = section.exercises.filter((ex: WorkoutExercise) => {
                         const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
                         const sets = getExerciseLogEntry(logs, exId).sets || [];
-                        if (sets.length > 0 && sets.every((s) => s)) {
-                            sectionCompletedExercises++;
-                        }
-                    });
-                    const sectionProgress = sectionExercises > 0 ? (sectionCompletedExercises / sectionExercises) * 100 : 0;
+                        return sets.length > 0 && sets.every((s) => s);
+                    }).length;
+                    const sectionProgress = sectionExercises > 0
+                        ? (sectionCompletedExercises / sectionExercises) * 100
+                        : 0;
 
                     return (
-                        <div key={sIdx} className="mb-10">
-                            <div className="mb-5">
-                                <div className="flex items-center gap-3 mb-2 px-1">
-                                    <div className="flex items-center gap-2">
-                                        <div
-                                            className={`h-8 w-8 rounded-lg flex items-center justify-center ${
+                        <div key={sIdx} className="mb-8">
+                            {/* Section Header */}
+                            <div className="mb-4">
+                                <div className="flex items-center gap-3 mb-2">
+                                    <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-sys-surfaceHigh">
+                                        <i
+                                            data-lucide={
                                                 section.type === 'prep'
-                                                    ? 'bg-sys-accent/10'
+                                                    ? 'flame'
                                                     : section.type === 'main'
-                                                    ? 'bg-sys-success/10'
+                                                    ? 'dumbbell'
                                                     : section.type === 'cool'
-                                                    ? 'bg-sys-accent/10'
-                                                    : 'bg-sys-surfaceHigh'
-                                            }`}
-                                        >
-                                            <i
-                                                data-lucide={
-                                                    section.type === 'prep'
-                                                        ? 'zap'
-                                                        : section.type === 'main'
-                                                        ? 'dumbbell'
-                                                        : section.type === 'cool'
-                                                        ? 'wind'
-                                                        : 'activity'
-                                                }
-                                                width="16"
-                                                className={
-                                                    section.type === 'prep'
-                                                        ? 'text-sys-accent'
-                                                        : section.type === 'main'
-                                                        ? 'text-sys-success'
-                                                        : section.type === 'cool'
-                                                        ? 'text-sys-accent'
-                                                        : 'text-white'
-                                                }
-                                            ></i>
-                                        </div>
-                                        <span className="text-base font-bold text-white uppercase tracking-wide">{section.name}</span>
+                                                    ? 'snowflake'
+                                                    : 'activity'
+                                            }
+                                            width="16"
+                                            className={
+                                                section.type === 'prep'
+                                                    ? 'text-sys-accent'
+                                                    : section.type === 'main'
+                                                    ? 'text-sys-success'
+                                                    : section.type === 'cool'
+                                                    ? 'text-sys-accent'
+                                                    : 'text-white'
+                                            }
+                                        ></i>
                                     </div>
+                                    <span className="text-base font-bold text-white uppercase tracking-wide">
+                                        {section.name}
+                                    </span>
                                     <div className="h-[2px] flex-1 bg-gradient-to-r from-white/20 to-transparent rounded-full"></div>
                                     {sectionProgress > 0 && (
                                         <span className="text-xs font-bold text-sys-onSurfaceVar">
@@ -376,8 +756,9 @@ import {
                                 )}
                             </div>
 
+                            {/* Exercises */}
                             <div className="space-y-5">
-                                {exercisesWithSuperset.map((ex, eIdx) => {
+                                {section.exercises.map((ex: WorkoutExercise, eIdx: number) => {
                                     const defaultSets = ex.sets || 3;
                                     const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
                                     const exerciseLog = getExerciseLogEntry(logs, exId);
@@ -385,33 +766,18 @@ import {
                                     const completedSets = currentSetArray.filter((s) => s).length;
                                     const totalSets = currentSetArray.length;
                                     const hasHistory = getExerciseHistory(ex.name).length > 0;
+                                    const isCollapsed = collapsedExercises[exId];
 
                                     return (
                                         <div key={eIdx} id={exId} className="relative scroll-mt-20">
-                                            {ex.supersetPosition && (
-                                                <div
-                                                    className="absolute left-4 top-0 w-[3px] rounded-full z-0 gradient-vertical-primary"
-                                                    style={{
-                                                        height:
-                                                            ex.supersetPosition === 'first'
-                                                                ? 'calc(50% + 1.25rem)'
-                                                                : ex.supersetPosition === 'last'
-                                                                ? 'calc(50% + 1.25rem)'
-                                                                : 'calc(100% + 1.25rem)',
-                                                        top: ex.supersetPosition === 'first' ? '50%' : '-1.25rem',
-                                                    }}
-                                                ></div>
-                                            )}
-
                                             <div
                                                 className={`bg-sys-surface rounded-3xl p-6 border relative z-10 overflow-hidden ${
                                                     completedSets === totalSets
                                                         ? 'border-sys-success/30 bg-sys-success/5'
-                                                        : ex.supersetLabel
-                                                        ? 'border-sys-accent/20'
                                                         : 'border-white/5'
                                                 }`}
                                             >
+                                                {/* Progress bar */}
                                                 {completedSets > 0 && (
                                                     <div
                                                         className="progress-bar"
@@ -419,14 +785,9 @@ import {
                                                     ></div>
                                                 )}
 
-                                                {ex.supersetLabel && (
-                                                    <div className="absolute -left-2 top-6 h-10 w-10 rounded-full flex items-center justify-center text-sm font-bold text-white z-20 btn-gradient-primary">
-                                                        {ex.supersetLabel}
-                                                    </div>
-                                                )}
-
+                                                {/* Exercise Header */}
                                                 <div className="flex justify-between items-start mb-6">
-                                                    <div className={`flex-1 pr-2 ${ex.supersetLabel ? 'pl-8' : ''}`}>
+                                                    <div className="flex-1 pr-2">
                                                         <div className="flex items-center gap-2 mb-1">
                                                             <button
                                                                 type="button"
@@ -439,149 +800,114 @@ import {
                                                                 className={`text-left ${hasHistory ? 'cursor-pointer active:opacity-70 transition-opacity' : 'cursor-default'}`}
                                                                 aria-label={hasHistory ? `${ex.name} - tap to view history` : ex.name}
                                                             >
-                                                                <h3 className="text-lg font-semibold text-white leading-snug">{ex.name}</h3>
+                                                                <h3 className="text-lg font-semibold text-white leading-snug">
+                                                                    {ex.name}
+                                                                </h3>
                                                             </button>
                                                             {completedSets > 0 && (
-                                                                <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                                                                    completedSets === totalSets
-                                                                        ? 'bg-sys-success/20 text-sys-success'
-                                                                        : 'bg-sys-accent/10 text-sys-accent'
-                                                                }`}>
+                                                                <span
+                                                                    className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                                                                        completedSets === totalSets
+                                                                            ? 'bg-sys-success/20 text-sys-success'
+                                                                            : 'bg-sys-accent/10 text-sys-accent'
+                                                                    }`}
+                                                                >
                                                                     {completedSets}/{totalSets}
                                                                 </span>
                                                             )}
                                                         </div>
-                                                        {collapsedExercises[exId] ? (
-                                                            <div className="flex items-center gap-3 mt-2">
-                                                                <p className="text-sm text-sys-onSurfaceVar">{ex.prescription}</p>
-                                                                {exerciseLog.weight && (
-                                                                    <span className="text-xs font-semibold text-sys-accent">
-                                                                        {exerciseLog.weight}kg
-                                                                    </span>
-                                                                )}
-                                                                <div className="flex-1 max-w-[80px] h-1 bg-sys-surfaceHigh rounded-full overflow-hidden">
-                                                                    <div
-                                                                        className="h-full bg-sys-success transition-all"
-                                                                        style={{ width: `${(completedSets / totalSets) * 100}%` }}
-                                                                    ></div>
-                                                                </div>
-                                                            </div>
-                                                        ) : (
-                                                            <>
-                                                                <p className="text-base text-sys-onSurfaceVar font-medium">{ex.prescription}</p>
-                                                                {ex.notes && <p className="text-sm text-sys-accent mt-2 leading-relaxed">{ex.notes}</p>}
-                                                            </>
+                                                        <p className="text-sm text-sys-onSurfaceVar">
+                                                            {ex.prescription}
+                                                        </p>
+                                                        {ex.notes && (
+                                                            <p className="text-xs text-sys-onSurfaceVar/70 mt-1">
+                                                                {ex.notes}
+                                                            </p>
                                                         )}
                                                     </div>
-                                                    <div className="flex items-center gap-2">
-                                                        {hasHistory && !collapsedExercises[exId] && (
-                                                            <button
-                                                                onClick={() => {
-                                                                    haptic.tick();
-                                                                    setShowExerciseHistory(ex.name);
-                                                                }}
-                                                                className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar hover:text-sys-accent flex items-center justify-center active:scale-90 transition-all"
-                                                                aria-label="View exercise history"
-                                                            >
-                                                                <i data-lucide="bar-chart-2" width="18"></i>
-                                                            </button>
-                                                        )}
-                                                        {completedSets === totalSets && (
-                                                            <button
-                                                                onClick={() => toggleExerciseCollapse(exId)}
-                                                                className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
-                                                                aria-label={collapsedExercises[exId] ? 'Expand exercise' : 'Collapse exercise'}
-                                                            >
-                                                                <i data-lucide={collapsedExercises[exId] ? 'chevron-down' : 'chevron-up'} width="20"></i>
-                                                            </button>
-                                                        )}
-                                                        {ex.rest > 0 && !collapsedExercises[exId] && (
-                                                            <button
-                                                                onClick={() => {
-                                                                    haptic.bump();
-                                                                    setTimerSeconds(ex.rest);
-                                                                    setTimerActive(true);
-                                                                }}
-                                                                className="h-12 min-h-[48px] px-4 rounded-xl bg-sys-surfaceHigh text-white text-sm font-bold flex items-center gap-2 active:bg-sys-onSurfaceVar transition-colors flex-shrink-0"
-                                                                aria-label={`Start ${ex.rest} second timer`}
-                                                            >
-                                                                <i data-lucide="timer" width="16"></i> {ex.rest}s
-                                                            </button>
-                                                        )}
-                                                        {isEMOM(ex) && !collapsedExercises[exId] && (
-                                                            <button
-                                                                onClick={() => {
-                                                                    haptic.bump();
-                                                                    setEmomSeconds(emomInterval);
-                                                                    setEmomActive(true);
-                                                                }}
-                                                                className="h-12 min-h-[48px] px-4 rounded-xl bg-sys-accent text-white text-sm font-bold flex items-center gap-2 active:bg-sys-accent/80 transition-colors flex-shrink-0"
-                                                                aria-label={`Start EMOM timer with ${emomInterval} second interval`}
-                                                            >
-                                                                <i data-lucide="clock" width="16"></i> EMOM
-                                                            </button>
-                                                        )}
-                                                    </div>
+
+                                                    {/* Collapse button */}
+                                                    <button
+                                                        onClick={() => {
+                                                            haptic.tick();
+                                                            toggleExerciseCollapse(exId);
+                                                        }}
+                                                        className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
+                                                        aria-label={isCollapsed ? 'Expand exercise' : 'Collapse exercise'}
+                                                    >
+                                                        <i data-lucide={isCollapsed ? 'chevron-down' : 'chevron-up'} width="20"></i>
+                                                    </button>
                                                 </div>
 
-                                                <div className={`exercise-content ${collapsedExercises[exId] ? 'collapsed' : ''}`}>
-                                                    <div>
-                                                        <div className="flex flex-wrap gap-4 mb-5">
-                                                            {currentSetArray.map((isDone, i) => {
-                                                                const currentRPE = exerciseLog.rpe?.[i];
-                                                                return (
-                                                                    <div key={`${exId}-set-${i}`} className="flex flex-col items-center gap-2">
-                                                                        <button
-                                                                            onClick={() => toggleSet(exId, i, defaultSets, ex.rest)}
-                                                                            className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex flex-col items-center justify-center text-base font-bold relative overflow-hidden ${
-                                                                                isDone
-                                                                                    ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]'
-                                                                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                                                                            }`}
-                                                                            aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
-                                                                        >
-                                                                            {isDone ? (
-                                                                                <div className="flex flex-col items-center">
-                                                                                    <i data-lucide="check" width="20" />
-                                                                                    <span className="text-xs mt-0.5">{i + 1}</span>
-                                                                                </div>
-                                                                            ) : (
-                                                                                <div className="flex flex-col items-center">
-                                                                                    <div className="h-3 w-3 rounded-full border-2 border-current mb-1"></div>
-                                                                                    <span>{i + 1}</span>
-                                                                                </div>
-                                                                            )}
-                                                                        </button>
-                                                                        {isDone && (
-                                                                            <select
-                                                                                key={`${exId}-rpe-${i}`}
-                                                                                value={currentRPE || ''}
-                                                                                onChange={(event) =>
-                                                                                    saveRPE(exId, i, event.target.value as RPEValue)
-                                                                                }
-                                                                                className="w-14 h-7 px-1 bg-sys-surfaceHigh rounded-lg text-white text-xs font-semibold text-center outline-none focus:ring-1 focus:ring-sys-accent"
-                                                                                aria-label={`RPE for set ${i + 1}`}
-                                                                            >
-                                                                                <option value="">RPE</option>
-                                                                                <option value="6">6</option>
-                                                                                <option value="7">7</option>
-                                                                                <option value="8">8</option>
-                                                                                <option value="9">9</option>
-                                                                                <option value="10">10</option>
-                                                                            </select>
-                                                                        )}
-                                                                    </div>
-                                                                );
-                                                            })}
+                                                {/* Collapsed content */}
+                                                {!isCollapsed && (
+                                                    <>
+                                                        {/* Timer buttons */}
+                                                        <div className="flex gap-2 mb-5">
+                                                            {ex.rest && ex.rest > 0 && (
+                                                                <button
+                                                                    onClick={() => {
+                                                                        haptic.bump();
+                                                                        setTimerSeconds(ex.rest);
+                                                                        setTimerActive(true);
+                                                                    }}
+                                                                    className="h-10 px-4 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar text-sm font-semibold flex items-center justify-center gap-2 active:bg-sys-accent/20 transition-colors"
+                                                                    aria-label={`Start ${ex.rest} second timer`}
+                                                                >
+                                                                    <i data-lucide="timer" width="16"></i>
+                                                                    <span>{ex.rest}s</span>
+                                                                </button>
+                                                            )}
                                                             <button
-                                                                onClick={() => addSet(exId, defaultSets)}
-                                                                className="h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl border-2 border-dashed border-white/20 text-white/30 flex items-center justify-center active:bg-white/5 transition-colors"
-                                                                aria-label={`Add additional set to ${ex.name}`}
+                                                                onClick={() => {
+                                                                    haptic.bump();
+                                                                    if (!emomActive) {
+                                                                        setEmomSeconds(emomInterval);
+                                                                        setEmomActive(true);
+                                                                    } else {
+                                                                        setEmomActive(false);
+                                                                    }
+                                                                }}
+                                                                className={`h-10 px-4 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-colors ${
+                                                                    emomActive
+                                                                        ? 'bg-sys-accent text-white'
+                                                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar active:bg-sys-accent/20'
+                                                                }`}
+                                                                aria-label={`Start EMOM timer with ${emomInterval} second interval`}
                                                             >
-                                                                <i data-lucide="plus" width="22"></i>
+                                                                <i data-lucide="repeat" width="16"></i>
+                                                                <span>EMOM {emomInterval}s</span>
                                                             </button>
                                                         </div>
 
+                                                        {/* Set buttons */}
+                                                        <div className="flex flex-wrap gap-4 mb-5">
+                                                            {currentSetArray.map((isDone, i) => (
+                                                                <button
+                                                                    key={`${exId}-set-${i}`}
+                                                                    onClick={() => toggleSet(exId, i, defaultSets, ex.rest)}
+                                                                    className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold ${
+                                                                        isDone
+                                                                            ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]'
+                                                                            : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                                                    }`}
+                                                                    aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
+                                                                >
+                                                                    {isDone ? <i data-lucide="check" width="24" /> : i + 1}
+                                                                </button>
+                                                            ))}
+
+                                                            {/* Add set button */}
+                                                            <button
+                                                                onClick={() => addSet(exId, defaultSets)}
+                                                                className="h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center text-base font-bold border-2 border-dashed border-white/20 active:scale-95 transition-all"
+                                                                aria-label="Add set"
+                                                            >
+                                                                <i data-lucide="plus" width="20"></i>
+                                                            </button>
+                                                        </div>
+
+                                                        {/* Complete all button */}
                                                         {currentSetArray.some((s) => !s) && (
                                                             <div className="flex gap-3 mb-5">
                                                                 <button
@@ -595,9 +921,13 @@ import {
                                                             </div>
                                                         )}
 
+                                                        {/* Weight input for weighted exercises */}
                                                         {!ex.isBodyweight && (
                                                             <div className="pt-4 border-t border-white/5">
-                                                                <label htmlFor={`${exId}-weight`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">
+                                                                <label
+                                                                    htmlFor={`${exId}-weight`}
+                                                                    className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block"
+                                                                >
                                                                     Load (kg)
                                                                 </label>
                                                                 <div className="relative flex items-center gap-2">
@@ -605,12 +935,10 @@ import {
                                                                         onClick={() => {
                                                                             haptic.tick();
                                                                             const current = parseFloat(exerciseLog.weight || '0');
-                                                                            if (!Number.isNaN(current)) {
-                                                                                saveLog(exId, 'weight', Math.max(0, current - WEIGHT_INCREMENT_KG).toString());
-                                                                            }
+                                                                            saveLog(exId, 'weight', Math.max(0, current - 2.5).toString());
                                                                         }}
                                                                         className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
-                                                                        aria-label={`Decrease weight by ${WEIGHT_INCREMENT_KG}kg`}
+                                                                        aria-label="Decrease weight by 2.5kg"
                                                                     >
                                                                         <i data-lucide="minus" width="18"></i>
                                                                     </button>
@@ -618,46 +946,27 @@ import {
                                                                         id={`${exId}-weight`}
                                                                         type="number"
                                                                         inputMode="decimal"
-                                                                        min={0}
-                                                                        max={MAX_WEIGHT_KG}
-                                                                        step={WEIGHT_STEP}
-                                                                        className="bg-sys-surfaceHigh rounded-xl flex-1 min-w-0 h-14 px-3 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all"
                                                                         value={exerciseLog.weight || ''}
-                                                                        onChange={(event) => {
-                                                                            const value = event.target.value;
-                                                                            const numericValue = parseFloat(value);
-                                                                            if (
-                                                                                value === '' ||
-                                                                                (!Number.isNaN(numericValue) && numericValue >= 0 && numericValue <= MAX_WEIGHT_KG)
-                                                                            ) {
-                                                                                saveLog(exId, 'weight', value);
-                                                                            }
-                                                                        }}
+                                                                        onChange={(e) => saveLog(exId, 'weight', e.target.value)}
                                                                         placeholder="0"
-                                                                        aria-label="Weight in kilograms"
+                                                                        className="flex-1 h-14 px-4 bg-sys-surfaceHigh rounded-xl text-white text-center text-2xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                                     />
                                                                     <button
                                                                         onClick={() => {
                                                                             haptic.tick();
                                                                             const current = parseFloat(exerciseLog.weight || '0');
-                                                                            if (!Number.isNaN(current) && current < MAX_WEIGHT_KG) {
-                                                                                saveLog(
-                                                                                    exId,
-                                                                                    'weight',
-                                                                                    Math.min(MAX_WEIGHT_KG, current + WEIGHT_INCREMENT_KG).toString()
-                                                                                );
-                                                                            }
+                                                                            saveLog(exId, 'weight', (current + 2.5).toString());
                                                                         }}
                                                                         className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
-                                                                        aria-label={`Increase weight by ${WEIGHT_INCREMENT_KG}kg`}
+                                                                        aria-label="Increase weight by 2.5kg"
                                                                     >
                                                                         <i data-lucide="plus" width="18"></i>
                                                                     </button>
                                                                 </div>
                                                             </div>
                                                         )}
-                                                    </div>
-                                                </div>
+                                                    </>
+                                                )}
                                             </div>
                                         </div>
                                     );
@@ -667,11 +976,17 @@ import {
                     );
                 })}
 
+                {/* Added Exercises Section */}
                 {addedExercises.length > 0 && (
-                    <div className="mb-10">
-                        <div className="flex items-center gap-3 mb-5 px-1">
-                            <span className="text-sm font-bold text-sys-success uppercase tracking-wider bg-sys-surfaceHigh px-4 py-2 rounded-xl">Added Exercises</span>
-                            <div className="h-[2px] flex-1 bg-gradient-to-r from-sys-success/20 to-transparent rounded-full"></div>
+                    <div className="mb-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-sys-surfaceHigh">
+                                <i data-lucide="plus-circle" width="16" className="text-sys-success"></i>
+                            </div>
+                            <span className="text-base font-bold text-white uppercase tracking-wide">
+                                Added Exercises
+                            </span>
+                            <div className="h-[2px] flex-1 bg-gradient-to-r from-white/20 to-transparent rounded-full"></div>
                         </div>
 
                         <div className="space-y-5">
@@ -681,48 +996,36 @@ import {
                                 const currentSetArray = exerciseLog.sets || new Array(ex.sets).fill(false);
                                 const completedSets = currentSetArray.filter((s) => s).length;
                                 const totalSets = currentSetArray.length;
-                                const hasHistory = getExerciseHistory(ex.name).length > 0;
 
                                 return (
-                                    <div key={exId} id={exId} className="relative scroll-mt-20">
-                                        <div className={`bg-sys-surface rounded-3xl p-6 border relative overflow-hidden ${
-                                            completedSets === totalSets ? 'border-sys-success/30 bg-sys-success/5' : 'border-sys-success/20'
-                                        }`}>
-                                            {completedSets > 0 && (
-                                                <div
-                                                    className="progress-bar"
-                                                    style={{ width: `${(completedSets / totalSets) * 100}%` }}
-                                                ></div>
-                                            )}
-
+                                    <div key={ex.id} id={exId} className="relative scroll-mt-20">
+                                        <div
+                                            className={`bg-sys-surface rounded-3xl p-6 border relative z-10 overflow-hidden ${
+                                                completedSets === totalSets
+                                                    ? 'border-sys-success/30 bg-sys-success/5'
+                                                    : 'border-white/5'
+                                            }`}
+                                        >
                                             <div className="flex justify-between items-start mb-6">
                                                 <div className="flex-1 pr-2">
                                                     <div className="flex items-center gap-2 mb-1">
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => {
-                                                                if (hasHistory) {
-                                                                    haptic.tick();
-                                                                    setShowExerciseHistory(ex.name);
-                                                                }
-                                                            }}
-                                                            className={`text-left ${hasHistory ? 'cursor-pointer active:opacity-70 transition-opacity' : 'cursor-default'}`}
-                                                            aria-label={hasHistory ? `${ex.name} - tap to view history` : ex.name}
-                                                        >
-                                                            <h3 className="text-lg font-semibold text-white leading-snug">{ex.name}</h3>
-                                                        </button>
+                                                        <h3 className="text-lg font-semibold text-white leading-snug">
+                                                            {ex.name}
+                                                        </h3>
                                                         {completedSets > 0 && (
-                                                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                                                                completedSets === totalSets
-                                                                    ? 'bg-sys-success/20 text-sys-success'
-                                                                    : 'bg-sys-accent/10 text-sys-accent'
-                                                            }`}>
+                                                            <span
+                                                                className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                                                                    completedSets === totalSets
+                                                                        ? 'bg-sys-success/20 text-sys-success'
+                                                                        : 'bg-sys-accent/10 text-sys-accent'
+                                                                }`}
+                                                            >
                                                                 {completedSets}/{totalSets}
                                                             </span>
                                                         )}
                                                     </div>
                                                     <p className="text-sm text-sys-onSurfaceVar">
-                                                        {ex.primaryMuscles.join(', ')} • {ex.equipment.join(', ')}
+                                                        {ex.sets} sets {ex.weight ? `@ ${ex.weight}kg` : ''}
                                                     </p>
                                                 </div>
                                                 <button
@@ -734,6 +1037,7 @@ import {
                                                 </button>
                                             </div>
 
+                                            {/* Set buttons for added exercises */}
                                             <div className="flex flex-wrap gap-4 mb-5">
                                                 {currentSetArray.map((isDone, i) => (
                                                     <button
@@ -749,69 +1053,7 @@ import {
                                                         {isDone ? <i data-lucide="check" width="24" /> : i + 1}
                                                     </button>
                                                 ))}
-                                                <button
-                                                    onClick={() => addSet(exId, ex.sets)}
-                                                    className="h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl border-2 border-dashed border-white/20 text-white/30 flex items-center justify-center active:bg-white/5 transition-colors"
-                                                    aria-label="Add additional set"
-                                                >
-                                                    <i data-lucide="plus" width="22"></i>
-                                                </button>
                                             </div>
-
-                                            {currentSetArray.some((s) => !s) && (
-                                                <div className="flex gap-3 mb-5">
-                                                    <button
-                                                        onClick={() => completeAllSets(exId, ex.sets)}
-                                                        className="flex-1 h-10 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar text-sm font-semibold flex items-center justify-center gap-2 active:bg-sys-accent/20 transition-colors"
-                                                        aria-label="Complete all sets"
-                                                    >
-                                                        <i data-lucide="check-check" width="16"></i>
-                                                        <span>Complete All</span>
-                                                    </button>
-                                                </div>
-                                            )}
-
-                                            {!ex.isBodyweight && (
-                                                <div className="pt-4 border-t border-white/5">
-                                                    <label htmlFor={`${exId}-weight`} className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">
-                                                        Load (kg)
-                                                    </label>
-                                                    <div className="relative flex items-center gap-2">
-                                                        <button
-                                                            onClick={() => {
-                                                                haptic.tick();
-                                                                const current = parseFloat(exerciseLog.weight || ex.weight || '0');
-                                                                saveLog(exId, 'weight', Math.max(0, current - 2.5).toString());
-                                                            }}
-                                                            className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
-                                                            aria-label="Decrease weight by 2.5kg"
-                                                        >
-                                                            <i data-lucide="minus" width="18"></i>
-                                                        </button>
-                                                        <input
-                                                            id={`${exId}-weight`}
-                                                            type="number"
-                                                            inputMode="decimal"
-                                                            className="bg-sys-surfaceHigh rounded-xl flex-1 min-w-0 h-14 px-3 text-white font-mono text-lg text-center outline-none focus:ring-2 focus:ring-sys-accent transition-all"
-                                                            value={exerciseLog.weight || ex.weight || ''}
-                                                            onChange={(event) => saveLog(exId, 'weight', event.target.value)}
-                                                            placeholder="0"
-                                                            aria-label="Weight in kilograms"
-                                                        />
-                                                        <button
-                                                            onClick={() => {
-                                                                haptic.tick();
-                                                                const current = parseFloat(exerciseLog.weight || ex.weight || '0');
-                                                                saveLog(exId, 'weight', (current + 2.5).toString());
-                                                            }}
-                                                            className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
-                                                            aria-label="Increase weight by 2.5kg"
-                                                        >
-                                                            <i data-lucide="plus" width="18"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            )}
                                         </div>
                                     </div>
                                 );
@@ -820,6 +1062,7 @@ import {
                     </div>
                 )}
 
+                {/* Add Exercise Button */}
                 {!logs.completed && (
                     <div className="mb-6">
                         <button
@@ -835,6 +1078,7 @@ import {
                     </div>
                 )}
 
+                {/* Action Bar */}
                 {!logs.completed && (
                     <ActionBar
                         onFinish={handleFinish}
@@ -848,6 +1092,7 @@ import {
                     />
                 )}
 
+                {/* Timer Toast */}
                 {showTimerToast && (
                     <div className="fixed top-20 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
                         <div className="bg-sys-accent px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-md w-full border border-white/10">
@@ -867,6 +1112,7 @@ import {
                     </div>
                 )}
 
+                {/* Exercise Selector Modal */}
                 {showExerciseSelector && exerciseLibrary.length > 0 && (
                     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm animate-slide-up">
                         <div className="bg-sys-surface rounded-t-3xl w-full max-h-[85vh] border-t border-white/10 flex flex-col">
@@ -890,7 +1136,7 @@ import {
                                     type="text"
                                     placeholder="Search exercises..."
                                     value={exerciseSearchTerm}
-                                    onChange={(event) => setExerciseSearchTerm(event.target.value)}
+                                    onChange={(e) => setExerciseSearchTerm(e.target.value)}
                                     className="w-full h-12 px-4 bg-sys-surfaceHigh rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all"
                                 />
 
@@ -927,6 +1173,7 @@ import {
                     </div>
                 )}
 
+                {/* Exercise History Modal */}
                 {showExerciseHistory && (
                     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm animate-slide-up">
                         <div className="bg-sys-surface rounded-t-3xl w-full max-h-[85vh] border-t border-white/10 flex flex-col">
@@ -1001,104 +1248,5 @@ import {
                 )}
             </div>
         </>
-    );
-};
-
-interface ExerciseListItemProps {
-    exercise: Exercise;
-    onAdd: (exercise: Exercise, sets?: number, weight?: string) => void;
-    haptic: HapticFeedback;
-}
-
-const ExerciseListItem: React.FC<ExerciseListItemProps> = ({ exercise, onAdd, haptic }) => {
-    const [showAddForm, setShowAddForm] = useState(false);
-    const [sets, setSets] = useState(3);
-    const [weight, setWeight] = useState('');
-
-    return (
-        <div className="bg-sys-surfaceHigh rounded-2xl p-4">
-            <div className="flex items-start justify-between gap-3">
-                <div className="flex-1">
-                    <h4 className="text-base font-semibold text-white mb-1">{exercise.name}</h4>
-                    <p className="text-xs text-sys-onSurfaceVar mb-2">{exercise.primaryMuscles.join(', ')}</p>
-                    <div className="flex flex-wrap gap-1">
-                        {exercise.equipment.slice(0, 3).map((equipment) => (
-                            <span key={equipment} className="text-xs px-2 py-1 bg-sys-surface rounded-lg text-sys-onSurfaceVar">
-                                {equipment}
-                            </span>
-                        ))}
-                        {!exercise.isBodyweight && (
-                            <span className="text-xs px-2 py-1 bg-sys-accent/10 rounded-lg text-sys-accent">Weighted</span>
-                        )}
-                    </div>
-                </div>
-
-                {!showAddForm ? (
-                    <button
-                        onClick={() => {
-                            haptic.tick();
-                            setShowAddForm(true);
-                        }}
-                        className="h-10 px-4 rounded-xl text-white font-semibold text-sm active:scale-95 transition-transform flex-shrink-0 btn-gradient-primary"
-                    >
-                        Add
-                    </button>
-                ) : (
-                    <button
-                        onClick={() => {
-                            haptic.tick();
-                            setShowAddForm(false);
-                        }}
-                        className="h-10 w-10 rounded-xl bg-sys-surface text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-transform flex-shrink-0"
-                        aria-label="Collapse form"
-                    >
-                        <i data-lucide="chevron-up" width="20"></i>
-                    </button>
-                )}
-            </div>
-
-            {showAddForm && (
-                <div className="mt-4 pt-4 border-t border-white/5">
-                    <div className="grid grid-cols-2 gap-3 mb-3">
-                        <div>
-                            <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Sets</label>
-                            <input
-                                type="number"
-                                min={1}
-                                max={10}
-                                value={sets}
-                                onChange={(event) => setSets(parseInt(event.target.value, 10) || 1)}
-                                className="w-full h-10 px-3 bg-sys-surface rounded-xl text-white text-center font-mono outline-none focus:ring-2 focus:ring-sys-accent"
-                            />
-                        </div>
-                        {!exercise.isBodyweight && (
-                            <div>
-                                <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Weight (kg)</label>
-                                <input
-                                    type="number"
-                                    inputMode="decimal"
-                                    value={weight}
-                                    onChange={(event) => setWeight(event.target.value)}
-                                    placeholder="0"
-                                    className="w-full h-10 px-3 bg-sys-surface rounded-xl text-white text-center font-mono outline-none focus:ring-2 focus:ring-sys-accent"
-                                />
-                            </div>
-                        )}
-                    </div>
-                    <button
-                        onClick={() => {
-                            haptic.success();
-                            onAdd(exercise, sets, weight);
-                            setShowAddForm(false);
-                            setSets(3);
-                            setWeight('');
-                        }}
-                        className="w-full h-10 rounded-xl text-white font-semibold active:scale-95 transition-transform btn-gradient-success"
-                    >
-                        Add to Workout
-                    </button>
-                </div>
-            )}
-        </div>
     );
 };

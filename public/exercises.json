@@ -2,29 +2,66 @@
   {
     "id": "pull_ups",
     "name": "Pull-Ups",
-    "primaryMuscles": ["lats", "upper_back"],
-    "secondaryMuscles": ["biceps", "forearms"],
-    "equipment": ["bar", "rings"],
+    "primaryMuscles": [
+      "lats",
+      "upper_back"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "forearms"
+    ],
+    "equipment": [
+      "bar",
+      "rings"
+    ],
     "category": "pull",
     "isBodyweight": true,
-    "variations": ["Weighted Pull-Ups", "Neutral Grip Weighted Pull-Ups", "Pull-Up EMOM", "Pull-Up Ladders", "Max Reps Pull-Ups (BW)", "3RM Weighted Pull-Up"]
+    "variations": [
+      "Weighted Pull-Ups",
+      "Neutral Grip Weighted Pull-Ups",
+      "Pull-Up EMOM",
+      "Pull-Up Ladders",
+      "Max Reps Pull-Ups (BW)",
+      "3RM Weighted Pull-Up"
+    ]
   },
   {
     "id": "weighted_pull_ups",
     "name": "Weighted Pull-Ups",
-    "primaryMuscles": ["lats", "upper_back"],
-    "secondaryMuscles": ["biceps", "forearms"],
-    "equipment": ["bar", "weight_belt"],
+    "primaryMuscles": [
+      "lats",
+      "upper_back"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "forearms"
+    ],
+    "equipment": [
+      "bar",
+      "weight_belt"
+    ],
     "category": "pull",
     "isBodyweight": false,
-    "variations": ["Neutral Grip Weighted Pull-Ups", "3RM Weighted Pull-Up"]
+    "variations": [
+      "Neutral Grip Weighted Pull-Ups",
+      "3RM Weighted Pull-Up"
+    ],
+    "suggestedLoad": "5-10kg"
   },
   {
     "id": "cluster_pull_ups_neutral",
     "name": "Cluster Pull-Ups (Neutral)",
-    "primaryMuscles": ["lats", "upper_back"],
-    "secondaryMuscles": ["biceps", "forearms"],
-    "equipment": ["bar"],
+    "primaryMuscles": [
+      "lats",
+      "upper_back"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "forearms"
+    ],
+    "equipment": [
+      "bar"
+    ],
     "category": "pull",
     "isBodyweight": true,
     "variations": []
@@ -32,79 +69,159 @@
   {
     "id": "archer_negatives",
     "name": "Archer Negatives",
-    "primaryMuscles": ["lats", "upper_back"],
-    "secondaryMuscles": ["biceps", "core"],
-    "equipment": ["bar"],
+    "primaryMuscles": [
+      "lats",
+      "upper_back"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "core"
+    ],
+    "equipment": [
+      "bar"
+    ],
     "category": "pull",
     "isBodyweight": true,
-    "variations": ["Max Quality Archer Negatives"]
+    "variations": [
+      "Max Quality Archer Negatives"
+    ]
   },
   {
     "id": "scapular_pull_ups",
     "name": "Scapular Pull-Ups",
-    "primaryMuscles": ["upper_back", "traps"],
-    "secondaryMuscles": ["shoulders"],
-    "equipment": ["bar"],
+    "primaryMuscles": [
+      "upper_back",
+      "traps"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "bar"
+    ],
     "category": "pull",
     "isBodyweight": true,
-    "variations": ["Scapular Pull-Ups (3s ISO-HOLD)"]
+    "variations": [
+      "Scapular Pull-Ups (3s ISO-HOLD)"
+    ]
   },
   {
     "id": "ring_rows",
     "name": "Ring Rows",
-    "primaryMuscles": ["upper_back", "lats"],
-    "secondaryMuscles": ["biceps", "core"],
-    "equipment": ["rings"],
+    "primaryMuscles": [
+      "upper_back",
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "core"
+    ],
+    "equipment": [
+      "rings"
+    ],
     "category": "pull",
     "isBodyweight": true,
-    "variations": ["Feet-Elevated Ring Rows", "Feet-on-Floor Rows"]
+    "variations": [
+      "Feet-Elevated Ring Rows",
+      "Feet-on-Floor Rows"
+    ]
   },
   {
     "id": "chest_supported_row",
     "name": "Chest Supported Row",
-    "primaryMuscles": ["upper_back", "lats"],
-    "secondaryMuscles": ["biceps", "rear_delts"],
-    "equipment": ["bench", "dumbbells"],
+    "primaryMuscles": [
+      "upper_back",
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "rear_delts"
+    ],
+    "equipment": [
+      "bench",
+      "dumbbells"
+    ],
     "category": "pull",
     "isBodyweight": false,
-    "variations": []
+    "variations": [],
+    "suggestedLoad": "10-15kg per dumbbell"
   },
   {
     "id": "dips",
     "name": "Dips",
-    "primaryMuscles": ["chest", "triceps"],
-    "secondaryMuscles": ["shoulders"],
-    "equipment": ["parallel_bars", "rings"],
+    "primaryMuscles": [
+      "chest",
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "parallel_bars",
+      "rings"
+    ],
     "category": "push",
     "isBodyweight": true,
-    "variations": ["Weighted Dips", "Max Reps Dips"]
+    "variations": [
+      "Weighted Dips",
+      "Max Reps Dips"
+    ]
   },
   {
     "id": "weighted_dips",
     "name": "Weighted Dips",
-    "primaryMuscles": ["chest", "triceps"],
-    "secondaryMuscles": ["shoulders"],
-    "equipment": ["parallel_bars", "weight_belt"],
+    "primaryMuscles": [
+      "chest",
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "parallel_bars",
+      "weight_belt"
+    ],
     "category": "push",
     "isBodyweight": false,
-    "variations": []
+    "variations": [],
+    "suggestedLoad": "5-10kg"
   },
   {
     "id": "push_ups",
     "name": "Push-Ups",
-    "primaryMuscles": ["chest", "triceps"],
-    "secondaryMuscles": ["shoulders", "core"],
-    "equipment": ["bodyweight"],
+    "primaryMuscles": [
+      "chest",
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "core"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
     "category": "push",
     "isBodyweight": true,
-    "variations": ["Incline Push-Ups", "Parallette Push-Ups", "Weighted Push-Up", "5RM Weighted Push-Up"]
+    "variations": [
+      "Incline Push-Ups",
+      "Parallette Push-Ups",
+      "Weighted Push-Up",
+      "5RM Weighted Push-Up"
+    ]
   },
   {
     "id": "incline_push_ups",
     "name": "Incline Push-Ups",
-    "primaryMuscles": ["chest", "triceps"],
-    "secondaryMuscles": ["shoulders"],
-    "equipment": ["bench"],
+    "primaryMuscles": [
+      "chest",
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "bench"
+    ],
     "category": "push",
     "isBodyweight": true,
     "variations": []
@@ -112,69 +229,136 @@
   {
     "id": "pppu",
     "name": "PPPU",
-    "primaryMuscles": ["chest", "shoulders"],
-    "secondaryMuscles": ["triceps", "core"],
-    "equipment": ["bodyweight"],
+    "primaryMuscles": [
+      "chest",
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "core"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
     "category": "push",
     "isBodyweight": true,
-    "variations": ["Skill: PPPU Lean"]
+    "variations": [
+      "Skill: PPPU Lean"
+    ]
   },
   {
     "id": "rdl",
     "name": "RDL",
-    "primaryMuscles": ["hamstrings", "glutes"],
-    "secondaryMuscles": ["lower_back", "core"],
-    "equipment": ["barbell"],
+    "primaryMuscles": [
+      "hamstrings",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "lower_back",
+      "core"
+    ],
+    "equipment": [
+      "barbell"
+    ],
     "category": "legs",
     "isBodyweight": false,
-    "variations": ["Single Leg RDL"]
+    "variations": [
+      "Single Leg RDL"
+    ],
+    "suggestedLoad": "60-80kg"
   },
   {
     "id": "single_leg_rdl",
     "name": "Single Leg RDL",
-    "primaryMuscles": ["hamstrings", "glutes"],
-    "secondaryMuscles": ["lower_back", "core"],
-    "equipment": ["dumbbells"],
+    "primaryMuscles": [
+      "hamstrings",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "lower_back",
+      "core"
+    ],
+    "equipment": [
+      "dumbbells"
+    ],
     "category": "legs",
     "isBodyweight": false,
-    "variations": []
+    "variations": [],
+    "suggestedLoad": "8-12kg per hand"
   },
   {
     "id": "goblet_squats",
     "name": "Goblet Squats",
-    "primaryMuscles": ["quads", "glutes"],
-    "secondaryMuscles": ["core"],
-    "equipment": ["dumbbell", "kettlebell"],
+    "primaryMuscles": [
+      "quads",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "core"
+    ],
+    "equipment": [
+      "dumbbell",
+      "kettlebell"
+    ],
     "category": "legs",
     "isBodyweight": false,
-    "variations": []
+    "variations": [],
+    "suggestedLoad": "16-24kg"
   },
   {
     "id": "bulgarian_split_squat",
     "name": "Bulgarian Split Squat",
-    "primaryMuscles": ["quads", "glutes"],
-    "secondaryMuscles": ["hamstrings"],
-    "equipment": ["bench", "dumbbells"],
+    "primaryMuscles": [
+      "quads",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings"
+    ],
+    "equipment": [
+      "bench",
+      "dumbbells"
+    ],
     "category": "legs",
     "isBodyweight": false,
-    "variations": ["Bulgarian Split Squat (Left)", "Bulgarian Split Squat (Right)"]
+    "variations": [
+      "Bulgarian Split Squat (Left)",
+      "Bulgarian Split Squat (Right)"
+    ],
+    "suggestedLoad": "8-16kg per hand"
   },
   {
     "id": "weighted_glute_bridge",
     "name": "Weighted Glute Bridge",
-    "primaryMuscles": ["glutes", "hamstrings"],
-    "secondaryMuscles": ["lower_back"],
-    "equipment": ["barbell", "dumbbells"],
+    "primaryMuscles": [
+      "glutes",
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "lower_back"
+    ],
+    "equipment": [
+      "barbell",
+      "dumbbells"
+    ],
     "category": "legs",
     "isBodyweight": false,
-    "variations": []
+    "variations": [],
+    "suggestedLoad": "40-60kg"
   },
   {
     "id": "back_extensions",
     "name": "Back Extensions",
-    "primaryMuscles": ["lower_back", "glutes"],
-    "secondaryMuscles": ["hamstrings"],
-    "equipment": ["bench"],
+    "primaryMuscles": [
+      "lower_back",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings"
+    ],
+    "equipment": [
+      "bench"
+    ],
     "category": "legs",
     "isBodyweight": true,
     "variations": []
@@ -182,9 +366,15 @@
   {
     "id": "rower_leg_curls",
     "name": "Rower Leg Curls (2-Leg)",
-    "primaryMuscles": ["hamstrings"],
-    "secondaryMuscles": ["glutes"],
-    "equipment": ["rower"],
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "glutes"
+    ],
+    "equipment": [
+      "rower"
+    ],
     "category": "legs",
     "isBodyweight": true,
     "variations": []
@@ -192,39 +382,76 @@
   {
     "id": "hollow_rocks",
     "name": "Hollow Rocks",
-    "primaryMuscles": ["abs", "core"],
-    "secondaryMuscles": ["hip_flexors"],
-    "equipment": ["bodyweight"],
+    "primaryMuscles": [
+      "abs",
+      "core"
+    ],
+    "secondaryMuscles": [
+      "hip_flexors"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
     "category": "core",
     "isBodyweight": true,
-    "variations": ["Weighted Hollow Rocks", "Weighted Hollow Hold"]
+    "variations": [
+      "Weighted Hollow Rocks",
+      "Weighted Hollow Hold"
+    ]
   },
   {
     "id": "weighted_v_ups",
     "name": "Weighted V-Ups",
-    "primaryMuscles": ["abs", "core"],
-    "secondaryMuscles": ["hip_flexors"],
-    "equipment": ["medicine_ball", "dumbbell"],
+    "primaryMuscles": [
+      "abs",
+      "core"
+    ],
+    "secondaryMuscles": [
+      "hip_flexors"
+    ],
+    "equipment": [
+      "medicine_ball",
+      "dumbbell"
+    ],
     "category": "core",
     "isBodyweight": false,
-    "variations": ["Dragon Flags OR Weighted V-Ups"]
+    "variations": [
+      "Dragon Flags OR Weighted V-Ups"
+    ],
+    "suggestedLoad": "3-5kg"
   },
   {
     "id": "pallof_press",
     "name": "Pallof Press",
-    "primaryMuscles": ["core", "obliques"],
-    "secondaryMuscles": ["shoulders"],
-    "equipment": ["band", "cable"],
+    "primaryMuscles": [
+      "core",
+      "obliques"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "band",
+      "cable"
+    ],
     "category": "core",
     "isBodyweight": false,
-    "variations": []
+    "variations": [],
+    "suggestedLoad": "light band"
   },
   {
     "id": "side_planks",
     "name": "Side Planks",
-    "primaryMuscles": ["obliques", "core"],
-    "secondaryMuscles": ["shoulders"],
-    "equipment": ["bodyweight"],
+    "primaryMuscles": [
+      "obliques",
+      "core"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
     "category": "core",
     "isBodyweight": true,
     "variations": []
@@ -232,9 +459,16 @@
   {
     "id": "dead_bugs",
     "name": "Dead Bugs",
-    "primaryMuscles": ["abs", "core"],
-    "secondaryMuscles": ["hip_flexors"],
-    "equipment": ["bodyweight"],
+    "primaryMuscles": [
+      "abs",
+      "core"
+    ],
+    "secondaryMuscles": [
+      "hip_flexors"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
     "category": "core",
     "isBodyweight": true,
     "variations": []
@@ -242,9 +476,16 @@
   {
     "id": "flutter_kicks",
     "name": "Ground-Based Flutter Kicks",
-    "primaryMuscles": ["abs", "hip_flexors"],
-    "secondaryMuscles": ["core"],
-    "equipment": ["bodyweight"],
+    "primaryMuscles": [
+      "abs",
+      "hip_flexors"
+    ],
+    "secondaryMuscles": [
+      "core"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
     "category": "core",
     "isBodyweight": true,
     "variations": []
@@ -252,89 +493,166 @@
   {
     "id": "face_pulls",
     "name": "Face Pulls",
-    "primaryMuscles": ["rear_delts", "upper_back"],
-    "secondaryMuscles": ["traps"],
-    "equipment": ["band", "cable"],
+    "primaryMuscles": [
+      "rear_delts",
+      "upper_back"
+    ],
+    "secondaryMuscles": [
+      "traps"
+    ],
+    "equipment": [
+      "band",
+      "cable"
+    ],
     "category": "pull",
     "isBodyweight": false,
-    "variations": []
+    "variations": [],
+    "suggestedLoad": "light-medium band"
   },
   {
     "id": "band_pull_aparts",
     "name": "Band Pull-Aparts",
-    "primaryMuscles": ["upper_back", "rear_delts"],
-    "secondaryMuscles": ["traps"],
-    "equipment": ["band"],
+    "primaryMuscles": [
+      "upper_back",
+      "rear_delts"
+    ],
+    "secondaryMuscles": [
+      "traps"
+    ],
+    "equipment": [
+      "band"
+    ],
     "category": "pull",
     "isBodyweight": false,
-    "variations": []
+    "variations": [],
+    "suggestedLoad": "light band"
   },
   {
     "id": "band_external_rotations",
     "name": "Band External Rotations",
-    "primaryMuscles": ["rotator_cuff", "shoulders"],
+    "primaryMuscles": [
+      "rotator_cuff",
+      "shoulders"
+    ],
     "secondaryMuscles": [],
-    "equipment": ["band"],
+    "equipment": [
+      "band"
+    ],
     "category": "shoulders",
     "isBodyweight": false,
-    "variations": []
+    "variations": [],
+    "suggestedLoad": "light band"
   },
   {
     "id": "band_internal_rotations",
     "name": "Band Internal Rotations",
-    "primaryMuscles": ["rotator_cuff", "shoulders"],
+    "primaryMuscles": [
+      "rotator_cuff",
+      "shoulders"
+    ],
     "secondaryMuscles": [],
-    "equipment": ["band"],
+    "equipment": [
+      "band"
+    ],
     "category": "shoulders",
     "isBodyweight": false,
-    "variations": []
+    "variations": [],
+    "suggestedLoad": "light band"
   },
   {
     "id": "rower_zone_1",
     "name": "Rower (Zone 1)",
-    "primaryMuscles": ["cardio"],
-    "secondaryMuscles": ["legs", "back"],
-    "equipment": ["rower"],
+    "primaryMuscles": [
+      "cardio"
+    ],
+    "secondaryMuscles": [
+      "legs",
+      "back"
+    ],
+    "equipment": [
+      "rower"
+    ],
     "category": "cardio",
     "isBodyweight": true,
-    "variations": ["Rower (Zone 2)", "Rower Sprints"]
+    "variations": [
+      "Rower (Zone 2)",
+      "Rower Sprints"
+    ]
   },
   {
     "id": "hspu",
     "name": "Handstand Push-Up",
-    "primaryMuscles": ["shoulders", "triceps"],
-    "secondaryMuscles": ["upper_back", "core"],
-    "equipment": ["wall"],
+    "primaryMuscles": [
+      "shoulders",
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "upper_back",
+      "core"
+    ],
+    "equipment": [
+      "wall"
+    ],
     "category": "push",
     "isBodyweight": true,
-    "variations": ["Skill: HSPU Volume"]
+    "variations": [
+      "Skill: HSPU Volume"
+    ]
   },
   {
     "id": "crow_stand",
     "name": "Crow Stand",
-    "primaryMuscles": ["core", "shoulders"],
-    "secondaryMuscles": ["triceps", "wrists"],
-    "equipment": ["bodyweight"],
+    "primaryMuscles": [
+      "core",
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "wrists"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
     "category": "skill",
     "isBodyweight": true,
-    "variations": ["Skill: Crow Stand"]
+    "variations": [
+      "Skill: Crow Stand"
+    ]
   },
   {
     "id": "tuck_planche_hold",
     "name": "Tuck Planche Hold",
-    "primaryMuscles": ["shoulders", "core"],
-    "secondaryMuscles": ["chest", "triceps"],
-    "equipment": ["bodyweight", "parallettes"],
+    "primaryMuscles": [
+      "shoulders",
+      "core"
+    ],
+    "secondaryMuscles": [
+      "chest",
+      "triceps"
+    ],
+    "equipment": [
+      "bodyweight",
+      "parallettes"
+    ],
     "category": "skill",
     "isBodyweight": true,
-    "variations": ["Skill: Tuck Planche Hold"]
+    "variations": [
+      "Skill: Tuck Planche Hold"
+    ]
   },
   {
     "id": "ring_support_holds",
     "name": "Ring Support Holds",
-    "primaryMuscles": ["shoulders", "core"],
-    "secondaryMuscles": ["triceps"],
-    "equipment": ["rings"],
+    "primaryMuscles": [
+      "shoulders",
+      "core"
+    ],
+    "secondaryMuscles": [
+      "triceps"
+    ],
+    "equipment": [
+      "rings"
+    ],
     "category": "skill",
     "isBodyweight": true,
     "variations": []
@@ -342,159 +660,330 @@
   {
     "id": "passive_bar_hang",
     "name": "Passive Bar Hang",
-    "primaryMuscles": ["forearms", "shoulders"],
-    "secondaryMuscles": ["lats"],
-    "equipment": ["bar"],
+    "primaryMuscles": [
+      "forearms",
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "lats"
+    ],
+    "equipment": [
+      "bar"
+    ],
     "category": "mobility",
     "isBodyweight": true,
-    "variations": ["Passive Dead Hang"]
+    "variations": [
+      "Passive Dead Hang"
+    ]
   },
   {
     "id": "barbell_squat",
     "name": "Barbell Squat",
-    "primaryMuscles": ["quads", "glutes"],
-    "secondaryMuscles": ["hamstrings", "core"],
-    "equipment": ["barbell"],
+    "primaryMuscles": [
+      "quads",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings",
+      "core"
+    ],
+    "equipment": [
+      "barbell"
+    ],
     "category": "legs",
     "isBodyweight": false,
-    "variations": ["Front Squat", "Back Squat"]
+    "variations": [
+      "Front Squat",
+      "Back Squat"
+    ],
+    "suggestedLoad": "40-60kg"
   },
   {
     "id": "barbell_deadlift",
     "name": "Barbell Deadlift",
-    "primaryMuscles": ["lower_back", "glutes"],
-    "secondaryMuscles": ["hamstrings", "traps"],
-    "equipment": ["barbell"],
+    "primaryMuscles": [
+      "lower_back",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings",
+      "traps"
+    ],
+    "equipment": [
+      "barbell"
+    ],
     "category": "legs",
     "isBodyweight": false,
-    "variations": ["Sumo Deadlift", "Trap Bar Deadlift"]
+    "variations": [
+      "Sumo Deadlift",
+      "Trap Bar Deadlift"
+    ],
+    "suggestedLoad": "60-80kg"
   },
   {
     "id": "barbell_bench_press",
     "name": "Barbell Bench Press",
-    "primaryMuscles": ["chest", "triceps"],
-    "secondaryMuscles": ["shoulders"],
-    "equipment": ["barbell", "bench"],
+    "primaryMuscles": [
+      "chest",
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "barbell",
+      "bench"
+    ],
     "category": "push",
     "isBodyweight": false,
-    "variations": ["Incline Bench Press", "Close Grip Bench Press"]
+    "variations": [
+      "Incline Bench Press",
+      "Close Grip Bench Press"
+    ],
+    "suggestedLoad": "40-60kg"
   },
   {
     "id": "barbell_overhead_press",
     "name": "Barbell Overhead Press",
-    "primaryMuscles": ["shoulders", "triceps"],
-    "secondaryMuscles": ["upper_back", "core"],
-    "equipment": ["barbell"],
+    "primaryMuscles": [
+      "shoulders",
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "upper_back",
+      "core"
+    ],
+    "equipment": [
+      "barbell"
+    ],
     "category": "push",
     "isBodyweight": false,
-    "variations": ["Push Press", "Standing Press"]
+    "variations": [
+      "Push Press",
+      "Standing Press"
+    ],
+    "suggestedLoad": "20-30kg"
   },
   {
     "id": "barbell_row",
     "name": "Barbell Row",
-    "primaryMuscles": ["upper_back", "lats"],
-    "secondaryMuscles": ["biceps", "lower_back"],
-    "equipment": ["barbell"],
+    "primaryMuscles": [
+      "upper_back",
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "lower_back"
+    ],
+    "equipment": [
+      "barbell"
+    ],
     "category": "pull",
     "isBodyweight": false,
-    "variations": ["Pendlay Row", "Yates Row"]
+    "variations": [
+      "Pendlay Row",
+      "Yates Row"
+    ],
+    "suggestedLoad": "40-50kg"
   },
   {
     "id": "dumbbell_bench_press",
     "name": "Dumbbell Bench Press",
-    "primaryMuscles": ["chest", "triceps"],
-    "secondaryMuscles": ["shoulders"],
-    "equipment": ["dumbbells", "bench"],
+    "primaryMuscles": [
+      "chest",
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "dumbbells",
+      "bench"
+    ],
     "category": "push",
     "isBodyweight": false,
-    "variations": ["Incline Dumbbell Press", "Decline Dumbbell Press"]
+    "variations": [
+      "Incline Dumbbell Press",
+      "Decline Dumbbell Press"
+    ],
+    "suggestedLoad": "12-18kg per hand"
   },
   {
     "id": "dumbbell_row",
     "name": "Dumbbell Row",
-    "primaryMuscles": ["upper_back", "lats"],
-    "secondaryMuscles": ["biceps"],
-    "equipment": ["dumbbells", "bench"],
+    "primaryMuscles": [
+      "upper_back",
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "biceps"
+    ],
+    "equipment": [
+      "dumbbells",
+      "bench"
+    ],
     "category": "pull",
     "isBodyweight": false,
-    "variations": ["One Arm Row", "Bent Over Row"]
+    "variations": [
+      "One Arm Row",
+      "Bent Over Row"
+    ],
+    "suggestedLoad": "15-20kg per hand"
   },
   {
     "id": "dumbbell_overhead_press",
     "name": "Dumbbell Overhead Press",
-    "primaryMuscles": ["shoulders", "triceps"],
-    "secondaryMuscles": ["core"],
-    "equipment": ["dumbbells"],
+    "primaryMuscles": [
+      "shoulders",
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "core"
+    ],
+    "equipment": [
+      "dumbbells"
+    ],
     "category": "push",
     "isBodyweight": false,
-    "variations": ["Arnold Press", "Seated Press"]
+    "variations": [
+      "Arnold Press",
+      "Seated Press"
+    ],
+    "suggestedLoad": "10-15kg per hand"
   },
   {
     "id": "dumbbell_lunges",
     "name": "Dumbbell Lunges",
-    "primaryMuscles": ["quads", "glutes"],
-    "secondaryMuscles": ["hamstrings"],
-    "equipment": ["dumbbells"],
+    "primaryMuscles": [
+      "quads",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings"
+    ],
+    "equipment": [
+      "dumbbells"
+    ],
     "category": "legs",
     "isBodyweight": false,
-    "variations": ["Walking Lunges", "Reverse Lunges"]
+    "variations": [
+      "Walking Lunges",
+      "Reverse Lunges"
+    ],
+    "suggestedLoad": "8-12kg per hand"
   },
   {
     "id": "dumbbell_bicep_curl",
     "name": "Dumbbell Bicep Curl",
-    "primaryMuscles": ["biceps"],
-    "secondaryMuscles": ["forearms"],
-    "equipment": ["dumbbells"],
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "equipment": [
+      "dumbbells"
+    ],
     "category": "arms",
     "isBodyweight": false,
-    "variations": ["Hammer Curl", "Concentration Curl"]
+    "variations": [
+      "Hammer Curl",
+      "Concentration Curl"
+    ],
+    "suggestedLoad": "8-12kg per hand"
   },
   {
     "id": "dumbbell_tricep_extension",
     "name": "Dumbbell Tricep Extension",
-    "primaryMuscles": ["triceps"],
+    "primaryMuscles": [
+      "triceps"
+    ],
     "secondaryMuscles": [],
-    "equipment": ["dumbbells"],
+    "equipment": [
+      "dumbbells"
+    ],
     "category": "arms",
     "isBodyweight": false,
-    "variations": ["Overhead Extension", "Kickback"]
+    "variations": [
+      "Overhead Extension",
+      "Kickback"
+    ],
+    "suggestedLoad": "6-10kg"
   },
   {
     "id": "kettlebell_swing",
     "name": "Kettlebell Swing",
-    "primaryMuscles": ["glutes", "hamstrings"],
-    "secondaryMuscles": ["core", "shoulders"],
-    "equipment": ["kettlebell"],
+    "primaryMuscles": [
+      "glutes",
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "core",
+      "shoulders"
+    ],
+    "equipment": [
+      "kettlebell"
+    ],
     "category": "legs",
     "isBodyweight": false,
-    "variations": ["American Swing", "Russian Swing"]
+    "variations": [
+      "American Swing",
+      "Russian Swing"
+    ],
+    "suggestedLoad": "16-24kg"
   },
   {
     "id": "kettlebell_snatch",
     "name": "Kettlebell Snatch",
-    "primaryMuscles": ["shoulders", "glutes"],
-    "secondaryMuscles": ["core", "forearms"],
-    "equipment": ["kettlebell"],
+    "primaryMuscles": [
+      "shoulders",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "core",
+      "forearms"
+    ],
+    "equipment": [
+      "kettlebell"
+    ],
     "category": "olympic",
     "isBodyweight": false,
-    "variations": []
+    "variations": [],
+    "suggestedLoad": "12-16kg"
   },
   {
     "id": "kettlebell_clean",
     "name": "Kettlebell Clean",
-    "primaryMuscles": ["shoulders", "glutes"],
-    "secondaryMuscles": ["core", "forearms"],
-    "equipment": ["kettlebell"],
+    "primaryMuscles": [
+      "shoulders",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "core",
+      "forearms"
+    ],
+    "equipment": [
+      "kettlebell"
+    ],
     "category": "olympic",
     "isBodyweight": false,
-    "variations": []
+    "variations": [],
+    "suggestedLoad": "12-16kg"
   },
   {
     "id": "kettlebell_turkish_getup",
     "name": "Turkish Get-Up",
-    "primaryMuscles": ["core", "shoulders"],
-    "secondaryMuscles": ["glutes", "legs"],
-    "equipment": ["kettlebell"],
+    "primaryMuscles": [
+      "core",
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "legs"
+    ],
+    "equipment": [
+      "kettlebell"
+    ],
     "category": "functional",
     "isBodyweight": false,
     "variations": []
@@ -502,109 +991,219 @@
   {
     "id": "muscle_up",
     "name": "Muscle-Up",
-    "primaryMuscles": ["lats", "chest"],
-    "secondaryMuscles": ["triceps", "core"],
-    "equipment": ["bar", "rings"],
+    "primaryMuscles": [
+      "lats",
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "core"
+    ],
+    "equipment": [
+      "bar",
+      "rings"
+    ],
     "category": "skill",
     "isBodyweight": true,
-    "variations": ["Bar Muscle-Up", "Ring Muscle-Up"]
+    "variations": [
+      "Bar Muscle-Up",
+      "Ring Muscle-Up"
+    ]
   },
   {
     "id": "l_sit",
     "name": "L-Sit",
-    "primaryMuscles": ["core", "hip_flexors"],
-    "secondaryMuscles": ["shoulders", "triceps"],
-    "equipment": ["parallettes", "floor"],
+    "primaryMuscles": [
+      "core",
+      "hip_flexors"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "triceps"
+    ],
+    "equipment": [
+      "parallettes",
+      "floor"
+    ],
     "category": "skill",
     "isBodyweight": true,
-    "variations": ["Tuck L-Sit", "V-Sit"]
+    "variations": [
+      "Tuck L-Sit",
+      "V-Sit"
+    ]
   },
   {
     "id": "burpees",
     "name": "Burpees",
-    "primaryMuscles": ["cardio", "full_body"],
-    "secondaryMuscles": ["chest", "legs"],
-    "equipment": ["bodyweight"],
+    "primaryMuscles": [
+      "cardio",
+      "full_body"
+    ],
+    "secondaryMuscles": [
+      "chest",
+      "legs"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
     "category": "cardio",
     "isBodyweight": true,
-    "variations": ["Box Burpees", "Pull-Up Burpees"]
+    "variations": [
+      "Box Burpees",
+      "Pull-Up Burpees"
+    ]
   },
   {
     "id": "running",
     "name": "Running",
-    "primaryMuscles": ["cardio", "legs"],
+    "primaryMuscles": [
+      "cardio",
+      "legs"
+    ],
     "secondaryMuscles": [],
-    "equipment": ["none"],
+    "equipment": [
+      "none"
+    ],
     "category": "cardio",
     "isBodyweight": true,
-    "variations": ["Sprints", "Jog", "Distance Run"]
+    "variations": [
+      "Sprints",
+      "Jog",
+      "Distance Run"
+    ]
   },
   {
     "id": "jump_rope",
     "name": "Jump Rope",
-    "primaryMuscles": ["cardio", "calves"],
-    "secondaryMuscles": ["shoulders"],
-    "equipment": ["jump_rope"],
+    "primaryMuscles": [
+      "cardio",
+      "calves"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "jump_rope"
+    ],
     "category": "cardio",
     "isBodyweight": true,
-    "variations": ["Double Unders", "Single Unders"]
+    "variations": [
+      "Double Unders",
+      "Single Unders"
+    ]
   },
   {
     "id": "box_jumps",
     "name": "Box Jumps",
-    "primaryMuscles": ["quads", "glutes"],
-    "secondaryMuscles": ["calves", "cardio"],
-    "equipment": ["box"],
+    "primaryMuscles": [
+      "quads",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "cardio"
+    ],
+    "equipment": [
+      "box"
+    ],
     "category": "plyometric",
     "isBodyweight": true,
-    "variations": ["Step-Down", "Jump-Down"]
+    "variations": [
+      "Step-Down",
+      "Jump-Down"
+    ]
   },
   {
     "id": "air_squats",
     "name": "Air Squats",
-    "primaryMuscles": ["quads", "glutes"],
-    "secondaryMuscles": ["hamstrings"],
-    "equipment": ["bodyweight"],
+    "primaryMuscles": [
+      "quads",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
     "category": "legs",
     "isBodyweight": true,
-    "variations": ["Jump Squats", "Pistol Squats"]
+    "variations": [
+      "Jump Squats",
+      "Pistol Squats"
+    ]
   },
   {
     "id": "chin_ups",
     "name": "Chin-Ups",
-    "primaryMuscles": ["lats", "biceps"],
-    "secondaryMuscles": ["upper_back"],
-    "equipment": ["bar"],
+    "primaryMuscles": [
+      "lats",
+      "biceps"
+    ],
+    "secondaryMuscles": [
+      "upper_back"
+    ],
+    "equipment": [
+      "bar"
+    ],
     "category": "pull",
     "isBodyweight": true,
-    "variations": ["Weighted Chin-Ups"]
+    "variations": [
+      "Weighted Chin-Ups"
+    ]
   },
   {
     "id": "pike_push_ups",
     "name": "Pike Push-Ups",
-    "primaryMuscles": ["shoulders", "triceps"],
-    "secondaryMuscles": ["upper_chest"],
-    "equipment": ["bodyweight"],
+    "primaryMuscles": [
+      "shoulders",
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "upper_chest"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
     "category": "push",
     "isBodyweight": true,
-    "variations": ["Deficit Pike Push-Ups"]
+    "variations": [
+      "Deficit Pike Push-Ups"
+    ]
   },
   {
     "id": "plank",
     "name": "Plank",
-    "primaryMuscles": ["core", "abs"],
-    "secondaryMuscles": ["shoulders"],
-    "equipment": ["bodyweight"],
+    "primaryMuscles": [
+      "core",
+      "abs"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
     "category": "core",
     "isBodyweight": true,
-    "variations": ["Weighted Plank", "Side Plank"]
+    "variations": [
+      "Weighted Plank",
+      "Side Plank"
+    ]
   },
   {
     "id": "mountain_climbers",
     "name": "Mountain Climbers",
-    "primaryMuscles": ["cardio", "core"],
-    "secondaryMuscles": ["hip_flexors"],
-    "equipment": ["bodyweight"],
+    "primaryMuscles": [
+      "cardio",
+      "core"
+    ],
+    "secondaryMuscles": [
+      "hip_flexors"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
     "category": "cardio",
     "isBodyweight": true,
     "variations": []
@@ -612,21 +1211,38 @@
   {
     "id": "bicep_curl_barbell",
     "name": "Barbell Bicep Curl",
-    "primaryMuscles": ["biceps"],
-    "secondaryMuscles": ["forearms"],
-    "equipment": ["barbell"],
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "equipment": [
+      "barbell"
+    ],
     "category": "arms",
     "isBodyweight": false,
-    "variations": ["EZ-Bar Curl", "Preacher Curl"]
+    "variations": [
+      "EZ-Bar Curl",
+      "Preacher Curl"
+    ]
   },
   {
     "id": "tricep_dips_bench",
     "name": "Bench Dips",
-    "primaryMuscles": ["triceps"],
-    "secondaryMuscles": ["shoulders"],
-    "equipment": ["bench"],
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "bench"
+    ],
     "category": "arms",
     "isBodyweight": true,
-    "variations": ["Weighted Bench Dips"]
+    "variations": [
+      "Weighted Bench Dips"
+    ]
   }
 ]

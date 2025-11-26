@@ -256,9 +256,21 @@ Add exercises to `exercises.json`:
   "equipment": ["dumbbells"],
   "category": "push",
   "isBodyweight": false,
+  "suggestedLoad": "10-15kg per hand",
   "variations": []
 }
 ```
+
+**Fields:**
+- `id`: Unique identifier for the exercise
+- `name`: Display name
+- `primaryMuscles`: Main muscles targeted
+- `secondaryMuscles`: Supporting muscles
+- `equipment`: Required equipment
+- `category`: Exercise type (push, pull, legs, core, etc.)
+- `isBodyweight`: true for bodyweight exercises, false for weighted
+- `suggestedLoad`: (Optional) Suggested starting load for weighted exercises
+- `variations`: Alternative exercise names
 
 ### Modifying Plan Structure
 

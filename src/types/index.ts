@@ -81,6 +81,8 @@ export interface Exercise {
   equipment: Equipment[];
   category: ExerciseCategory;
   isBodyweight: boolean;
+  /** Suggested load for weighted exercises (e.g., "5-10kg", "light band") */
+  suggestedLoad?: string;
   variations?: string[];
   instructions?: string[];
   tips?: string[];

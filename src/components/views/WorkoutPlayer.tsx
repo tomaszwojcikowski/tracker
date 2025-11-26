@@ -940,14 +940,14 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                         </span>
                                                                     )}
                                                                 </div>
-                                                                <div className="relative flex items-center gap-2">
+                                                                <div className="relative flex items-center justify-center gap-2">
                                                                     <button
                                                                         onClick={() => {
                                                                             haptic.tick();
                                                                             const current = parseFloat(exerciseLog.weight || '0');
                                                                             saveLog(exId, 'weight', Math.max(0, current - 2.5).toString());
                                                                         }}
-                                                                        className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
+                                                                        className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
                                                                         aria-label="Decrease weight by 2.5kg"
                                                                     >
                                                                         <i data-lucide="minus" width="18"></i>
@@ -959,7 +959,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                         value={exerciseLog.weight || ''}
                                                                         onChange={(e) => saveLog(exId, 'weight', e.target.value)}
                                                                         placeholder={ex.loadRange?.min?.toString() || '0'}
-                                                                        className="flex-1 h-14 px-4 bg-sys-surfaceHigh rounded-xl text-white text-center text-2xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                                                        className="w-24 h-14 px-2 bg-sys-surfaceHigh rounded-xl text-white text-center text-2xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                                     />
                                                                     <button
                                                                         onClick={() => {
@@ -967,7 +967,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                             const current = parseFloat(exerciseLog.weight || '0');
                                                                             saveLog(exId, 'weight', (current + 2.5).toString());
                                                                         }}
-                                                                        className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors"
+                                                                        className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
                                                                         aria-label="Increase weight by 2.5kg"
                                                                     >
                                                                         <i data-lucide="plus" width="18"></i>

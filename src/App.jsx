@@ -19,6 +19,29 @@ import { SwipeIndicator } from './components/SwipeIndicator';
 import { ThemeSelector } from './components/ThemeSelector';
 import { useTheme } from './hooks/useTheme';
 
+// Import from TypeScript utilities
+import { safeGetJSON, safeSetJSON, safeRemove } from './utils/storage';
+import {
+    buildCompleteSchedule as buildSchedule,
+    getCompleteSchedule,
+    setRawSchedule,
+    getWorkout,
+    getBlockForWeek,
+} from './utils/schedule';
+import { getAllLocalData, mergeCloudData } from './utils/firebaseSync';
+import {
+    getUrlParams,
+    saveAppState,
+    loadAppState,
+    buildUrl,
+    DEFAULT_WEEK,
+    DEFAULT_DAY,
+    VALID_DAYS,
+    VALID_TABS,
+    VALID_VIEW_MODES,
+} from './utils/urlState';
+import { FETCH_TIMEOUT_MS } from './constants';
+
         // ============================================================================
         // SECTION 1: GLOBAL STATE & DATA STRUCTURES
         // ============================================================================
@@ -28,91 +51,15 @@ import { useTheme } from './hooks/useTheme';
         let COMPLETE_SCHEDULE = [];
         let EXERCISE_LIBRARY = [];
 
-        // ============================================================================
-        // SECTION 2: LOCALSTORAGE UTILITIES
-        // ============================================================================
+        // Note: localStorage utilities (safeGetJSON, safeSetJSON, safeRemove) are imported from ./utils/storage
+        // Note: Schedule utilities (buildCompleteSchedule, getWorkout, etc.) are imported from ./utils/schedule
+        // Note: Firebase sync utilities (getAllLocalData, mergeCloudData) are imported from ./utils/firebaseSync
+        // Note: URL/state utilities (getUrlParams, saveAppState, loadAppState, etc.) are imported from ./utils/urlState
 
-        /**
-         * Safely get and parse JSON from localStorage
-         * @param {string} key - localStorage key
-         * @param {*} defaultValue - value to return if key doesn't exist or parsing fails
-         * @returns {*} parsed value or defaultValue
-         */
-        const safeGetJSON = (key, defaultValue = null) => {
-            try {
-                const item = localStorage.getItem(key);
-                if (item === null) return defaultValue;
-                return JSON.parse(item);
-            } catch (error) {
-                console.warn(`Failed to parse JSON for key "${key}":`, error);
-                return defaultValue;
-            }
-        };
-
-        /**
-         * Safely stringify and save JSON to localStorage
-         * @param {string} key - localStorage key
-         * @param {*} value - value to stringify and save
-         * @returns {boolean} true if successful, false otherwise
-         */
-        const safeSetJSON = (key, value) => {
-            try {
-                localStorage.setItem(key, JSON.stringify(value));
-                return true;
-            } catch (error) {
-                console.error(`Failed to save JSON for key "${key}":`, error);
-                // Storage might be full
-                return false;
-            }
-        };
-
-        /**
-         * Safely remove item from localStorage
-         * @param {string} key - localStorage key
-         * @returns {boolean} true if successful, false otherwise
-         */
-        const safeRemove = (key) => {
-            try {
-                localStorage.removeItem(key);
-                return true;
-            } catch (error) {
-                console.error(`Failed to remove key "${key}":`, error);
-                return false;
-            }
-        };
-
-        // ============================================================================
-        // SECTION 3: SCHEDULE UTILITIES
-        // ============================================================================
-
-        /**
-         * Build complete schedule with auto-generated warmups and cooldowns.
-         * Week 1 has explicit warmup/cooldown in the JSON.
-         * For weeks 2-21, this function adds standard warmup/cooldown protocols if not already present.
-         * This avoids repeating boilerplate exercises in the schedule JSON.
-         */
+        // Wrapper function for buildCompleteSchedule that also updates local COMPLETE_SCHEDULE
         const buildCompleteSchedule = () => {
-            // Start with all items from RAW_SCHEDULE (loaded from full-schedule.json)
-            COMPLETE_SCHEDULE = [...RAW_SCHEDULE];
-            const add = (w, d, ex, s, r, n) => COMPLETE_SCHEDULE.push({w, d, ex, s, r, n});
-
-            // Auto-generate standard warmups/cooldowns for weeks 2-21 that aren't explicitly defined
-            for (let w = 2; w <= 21; w++) {
-                // Add standard warmups for pull days (D1/D5) if not already present
-                [1, 5].forEach(d => {
-                    if (!RAW_SCHEDULE.some(i => i.w === w && i.d === d && i.ex.includes("Rower"))) {
-                        add(w, d, "Rower (Zone 1)", 1, "2 min", "Warm-up");
-                        add(w, d, "Band Pull-Aparts", 1, "20 reps", "Warm-up");
-                        add(w, d, "Scapular Pull-Ups", 3, "5 reps", "Warm-up");
-                    }
-                });
-                // Add standard cooldown for all training days (D1, D2, D3, D5) if not already present
-                [1, 2, 3, 5].forEach(d => {
-                    if (!RAW_SCHEDULE.some(i => i.w === w && i.d === d && i.n.includes("Cool-down"))) {
-                        add(w, d, "Cool-down Protocol", 1, "5 min", "Cool-down");
-                    }
-                });
-            }
+            buildSchedule();
+            COMPLETE_SCHEDULE = getCompleteSchedule();
         };
 
         // ============================================================================
@@ -284,11 +231,13 @@ import { useTheme } from './hooks/useTheme';
         // ============================================================================
 
         // --- APPLICATION CONSTANTS ---
+        // Note: Constants like MAX_SETS, FETCH_TIMEOUT_MS, etc. are also available in ./constants.ts
+        // Using local copies here for now; can be migrated to imports later
         const MAX_SETS = 20; // Maximum number of sets per exercise
         const MAX_WEIGHT_KG = 999; // Maximum weight in kilograms
         const WEIGHT_INCREMENT_KG = 2.5; // Standard weight increment/decrement
         const WEIGHT_STEP = 0.5; // Minimum weight step for input
-        const FETCH_TIMEOUT_MS = 10000; // Fetch timeout in milliseconds (10 seconds)
+        // FETCH_TIMEOUT_MS is imported from ./constants.ts
         const DEBOUNCE_DELAY_MS = 300; // Debounce delay for search inputs in milliseconds
 
         const PROGRAM_DATA = {
@@ -495,124 +444,10 @@ import { useTheme } from './hooks/useTheme';
 
         // NavigationBar and TabContent are now imported from ./components/navigation
 
-        // ============================================================================
-        // SECTION 7B: FIREBASE SYNC UTILITIES
-        // ============================================================================
+        // Note: Firebase sync utilities (getAllLocalData, mergeCloudData) are imported from ./utils/firebaseSync
 
-        // Keys for Firebase sync settings
+        // Keys for Firebase sync settings (re-exported for backward compatibility)
         const FIREBASE_SYNC_ENABLED_KEY = 'firebase_sync_enabled';
-
-        /**
-         * Get all local data that should be synced to Firebase
-         * This includes workout sessions and exercise history
-         *
-         * Note: This function iterates through all possible workout sessions (84 total).
-         * This is intentional and not a performance issue because:
-         * 1. It's only called on login and manual sync (infrequent operations)
-         * 2. Most sessions are empty and filtered out quickly
-         * 3. localStorage access is fast (synchronous, in-memory)
-         * 4. The actual data transfer to Firebase is the bottleneck, not this collection
-         */
-        const getAllLocalData = () => {
-            const data = {
-                // Exercise history
-                exercise_history: safeGetJSON('exercise_history', []),
-
-                // Workout sessions - collect all session_w*d* keys
-                sessions: {}
-            };
-
-            // Collect all workout session data (21 weeks × 4 days = 84 sessions max)
-            // Only non-empty sessions are included in the sync
-            for (let week = 1; week <= 21; week++) {
-                for (let day of [1, 2, 3, 5]) {
-                    const key = `session_w${week}d${day}`;
-                    const sessionData = safeGetJSON(key, null);
-                    if (sessionData && Object.keys(sessionData).length > 0) {
-                        data.sessions[key] = sessionData;
-                    }
-                }
-            }
-
-            return data;
-        };
-
-        /**
-         * Merge cloud data with local data based on timestamps
-         *
-         * For workout sessions, this function compares the `lastModified` timestamp
-         * of local and cloud versions, keeping the newer version.
-         *
-         * Fallback behavior (in order of precedence):
-         * 1. If no local session exists: use cloud data
-         * 2. If either timestamp is missing: use cloud data (backward compatibility)
-         * 3. If either timestamp is invalid (NaN): use cloud data
-         * 4. Otherwise: compare timestamps and keep the newer version
-         *
-         * Note: Exercise history always uses cloud data (no timestamp comparison)
-         *
-         * @param {Object} cloudData - Data from Firebase
-         * @param {Object} cloudData.sessions - Workout session data keyed by session_wXdY
-         * @param {Object} cloudData.exercise_history - Exercise history data
-         */
-        const mergeCloudData = (cloudData) => {
-            if (!cloudData) return;
-
-            console.log('Merging cloud data with local data');
-
-            // Merge exercise history (always use cloud history)
-            if (cloudData.exercise_history) {
-                safeSetJSON('exercise_history', cloudData.exercise_history);
-            }
-
-            // Merge workout sessions based on timestamps
-            if (cloudData.sessions) {
-                Object.keys(cloudData.sessions).forEach(key => {
-                    const cloudSession = cloudData.sessions[key];
-                    const localSession = safeGetJSON(key, null);
-
-                    // If no local session exists, use cloud data
-                    if (!localSession) {
-                        console.log(`No local session for ${key}, using cloud data`);
-                        safeSetJSON(key, cloudSession);
-                        return;
-                    }
-
-                    // Compare timestamps to determine which version is newer
-                    const cloudTimestamp = cloudSession.lastModified;
-                    const localTimestamp = localSession.lastModified;
-
-                    // If either timestamp is missing, use cloud data (backward compatibility)
-                    if (!cloudTimestamp || !localTimestamp) {
-                        console.log(`Missing timestamp for ${key}, using cloud data (cloud: ${cloudTimestamp || 'none'}, local: ${localTimestamp || 'none'})`);
-                        safeSetJSON(key, cloudSession);
-                        return;
-                    }
-
-                    // Compare timestamps and keep the newer version
-                    const cloudDate = new Date(cloudTimestamp);
-                    const localDate = new Date(localTimestamp);
-
-                    // Check for invalid dates (NaN) - if either is invalid, use cloud data
-                    if (isNaN(cloudDate.getTime()) || isNaN(localDate.getTime())) {
-                        console.log(`Invalid timestamp detected for ${key}, using cloud data (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
-                        safeSetJSON(key, cloudSession);
-                        return;
-                    }
-
-                    if (cloudDate > localDate) {
-                        // Cloud data is newer, use it
-                        console.log(`Using cloud data for ${key} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
-                        safeSetJSON(key, cloudSession);
-                    } else {
-                        // Local data is newer or equal, keep it
-                        console.log(`Keeping local data for ${key} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
-                    }
-                });
-            }
-
-            console.log('Cloud data merged successfully');
-        };
 
         // ============================================================================
         // SECTION 8: EXERCISE HISTORY & STATS UTILITIES
@@ -3243,93 +3078,12 @@ import { useTheme } from './hooks/useTheme';
         // SECTION 10: URL & STATE MANAGEMENT UTILITIES
         // ============================================================================
 
-        // Constants for validation
-        const DEFAULT_WEEK = 1;
-        const DEFAULT_DAY = 1;
-        const VALID_DAYS = [1, 2, 3, 5]; // Day 4 is rest day
-        const VALID_TABS = ['train', 'library', 'history', 'coach', 'profile'];
-        const VALID_VIEW_MODES = ['tab', 'workout'];
+        // Note: URL/state utilities (getUrlParams, saveAppState, loadAppState, buildUrl) are imported from ./utils/urlState
+        // Note: Constants (DEFAULT_WEEK, DEFAULT_DAY, VALID_DAYS, VALID_TABS, VALID_VIEW_MODES) are imported from ./utils/urlState
 
-        const getUrlParams = () => {
-            const params = new URLSearchParams(window.location.search);
-            const weekParam = params.get('week');
-            const dayParam = params.get('day');
-
-            // Parse and validate week (1-21)
-            let week = null;
-            if (weekParam) {
-                const parsed = parseInt(weekParam, 10);
-                if (!isNaN(parsed) && parsed >= 1 && parsed <= 21) {
-                    week = parsed;
-                }
-            }
-
-            // Parse and validate day (valid workout days from VALID_DAYS)
-            let day = null;
-            if (dayParam) {
-                const parsed = parseInt(dayParam, 10);
-                if (!isNaN(parsed) && VALID_DAYS.includes(parsed)) {
-                    day = parsed;
-                }
-            }
-
-            return {
-                view: params.get('view') || null,
-                tab: params.get('tab') || null,
-                week: week,
-                day: day
-            };
-        };
-
+        // Local updateUrl wrapper that returns the URL string (for backward compatibility)
         const updateUrl = (state) => {
-            const params = new URLSearchParams();
-
-            if (state.viewMode === 'workout') {
-                params.set('view', 'workout');
-                params.set('week', state.currentWeek);
-                params.set('day', state.activeDay);
-            } else {
-                params.set('tab', state.activeTab);
-                // Only include week in URL if it's not the default
-                if (state.currentWeek !== DEFAULT_WEEK) {
-                    params.set('week', state.currentWeek);
-                }
-            }
-
-            const newUrl = `${window.location.pathname}?${params.toString()}`;
-            return newUrl;
-        };
-
-        const saveAppState = (state) => {
-            safeSetJSON('tracker_app_state', {
-                viewMode: state.viewMode,
-                activeTab: state.activeTab,
-                currentWeek: state.currentWeek,
-                activeDay: state.activeDay
-            });
-        };
-
-        const loadAppState = () => {
-            const loaded = safeGetJSON('tracker_app_state', null);
-            if (!loaded || typeof loaded !== 'object') return null;
-
-            // Create a new validated state object (avoid mutation)
-            const validatedState = {
-                viewMode: loaded.viewMode && VALID_VIEW_MODES.includes(loaded.viewMode)
-                    ? loaded.viewMode
-                    : 'tab',
-                activeTab: loaded.activeTab && VALID_TABS.includes(loaded.activeTab)
-                    ? loaded.activeTab
-                    : 'train',
-                currentWeek: loaded.currentWeek >= 1 && loaded.currentWeek <= 21
-                    ? loaded.currentWeek
-                    : DEFAULT_WEEK,
-                activeDay: loaded.activeDay && VALID_DAYS.includes(loaded.activeDay)
-                    ? loaded.activeDay
-                    : DEFAULT_DAY
-            };
-
-            return validatedState;
+            return buildUrl(state);
         };
 
         const App = () => {
@@ -3561,6 +3315,8 @@ import { useTheme } from './hooks/useTheme';
 export function setRAW_SCHEDULE(data) {
     RAW_SCHEDULE.length = 0;
     RAW_SCHEDULE.push(...data);
+    // Also update the schedule module
+    setRawSchedule(data);
 }
 
 export function setEXERCISE_LIBRARY(data) {

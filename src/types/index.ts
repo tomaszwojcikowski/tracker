@@ -199,7 +199,7 @@ export interface SessionData {
 /**
  * Navigation tabs
  */
-export type TabId = 'train' | 'library' | 'history' | 'profile';
+export type TabId = 'train' | 'library' | 'history' | 'coach' | 'profile';
 
 /**
  * View modes

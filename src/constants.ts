@@ -22,7 +22,7 @@ export const MS_PER_DAY = 24 * 60 * 60 * 1000;
 /**
  * Valid tab names in the application
  */
-export type TabName = 'train' | 'library' | 'history' | 'profile';
+export type TabName = 'train' | 'library' | 'history' | 'coach' | 'profile';
 
 /**
  * Valid view modes
@@ -39,6 +39,7 @@ export const VALID_TABS: TabName[] = [
   'train',
   'library',
   'history',
+  'coach',
   'profile',
 ];
 export const VALID_DAYS: WorkoutDay[] = [1, 2, 3, 5]; // Day 4 is rest

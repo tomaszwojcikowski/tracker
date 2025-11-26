@@ -67,6 +67,3 @@ export {
   Search,
   Filter,
 } from 'lucide-react';
-
-// Re-export types for TypeScript users
-export type { LucideIcon } from 'lucide-react';

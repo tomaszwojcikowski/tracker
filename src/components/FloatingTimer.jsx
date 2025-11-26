@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Plus, Clock } from '../icons';
+import { X, Clock } from '../icons';
 
 /**
  * Floating timer component that stays visible during workout

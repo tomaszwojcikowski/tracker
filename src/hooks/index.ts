@@ -212,6 +212,12 @@ export { usePWA } from './usePWA';
 // Re-export long-press hook
 export { useLongPress } from './useLongPress';
 
+// Re-export pull-to-refresh hook
+export { usePullToRefresh } from './usePullToRefresh';
+
+// Re-export swipe navigation hook
+export { useSwipeNavigation } from './useSwipeNavigation';
+
 // Type exports - TypeScript will pick these up from .ts files
 export type { OptimisticSyncOptions, OptimisticSyncReturn } from './useOptimisticSync';
 export type { FocusTrapOptions, KeyboardShortcutOptions, AriaPoliteness, KeyboardModifiers } from './useAccessibility';

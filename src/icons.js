@@ -66,4 +66,12 @@ export {
   // Search
   Search,
   Filter,
+  
+  // Theme
+  Palette,
 } from 'lucide-react';
+
+/**
+ * Type exports for TypeScript users
+ * @typedef {import('lucide-react').LucideIcon} LucideIcon
+ */

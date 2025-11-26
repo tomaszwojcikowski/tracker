@@ -16,6 +16,8 @@ import {
 import { PullToRefresh } from './components/PullToRefresh';
 import { FloatingTimer } from './components/FloatingTimer';
 import { SwipeIndicator } from './components/SwipeIndicator';
+import { ThemeSelector } from './components/ThemeSelector';
+import { useTheme } from './hooks/useTheme';
 
         // ============================================================================
         // SECTION 1: GLOBAL STATE & DATA STRUCTURES
@@ -2696,6 +2698,9 @@ import { SwipeIndicator } from './components/SwipeIndicator';
             const [firebaseSyncEnabled, setFirebaseSyncEnabled] = useState(true); // Default enabled
             const [firebaseMessage, setFirebaseMessage] = useState('');
 
+            // Theme state
+            const { theme, setTheme, themes } = useTheme();
+
             const haptic = useHaptic();
 
             useEffect(() => {
@@ -2785,6 +2790,16 @@ import { SwipeIndicator } from './components/SwipeIndicator';
             return (
                 <div className="px-5 pb-32 pt-6">
                     <h2 className="text-2xl font-bold text-white mb-6">Settings</h2>
+
+                    {/* Theme Selection */}
+                    <ThemeSelector
+                        theme={theme}
+                        setTheme={(newTheme) => {
+                            haptic.bump();
+                            setTheme(newTheme);
+                        }}
+                        themes={themes}
+                    />
 
                     {/* Firebase Sync Section - Only shown if Firebase is configured at build time */}
                     {FirebaseService.isFirebaseInitialized() && (

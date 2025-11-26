@@ -25,6 +25,36 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     box-shadow: var(--shadow-glass);
 }
 
+/* Light theme overrides */
+:root.theme-light .glass-panel {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.9));
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+:root.theme-light .card-modern {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+:root.theme-light .bg-sys-surface {
+    border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+:root.theme-light .border-white\/5,
+:root.theme-light .border-white\/10 {
+    border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+:root.theme-light .bg-white\/10,
+:root.theme-light .bg-white\/20 {
+    background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+:root.theme-light .hover\:bg-white\/20:hover {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
 /* Smooth CSS Grid transitions for exercise card collapse/expand */
 .exercise-content {
     display: grid;

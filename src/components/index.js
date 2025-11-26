@@ -52,3 +52,6 @@ export {
 export { PullToRefresh } from './PullToRefresh';
 export { FloatingTimer } from './FloatingTimer';
 export { SwipeIndicator } from './SwipeIndicator';
+
+// Settings components
+export { ThemeSelector } from './ThemeSelector';

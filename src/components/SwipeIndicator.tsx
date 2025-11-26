@@ -1,17 +1,18 @@
 import React from 'react';
 import { ChevronLeft, ChevronRight } from '../icons';
 
+export interface SwipeIndicatorProps {
+    direction: 'left' | 'right' | null;
+    progress: number;
+    leftLabel?: string | null;
+    rightLabel?: string | null;
+}
+
 /**
  * Swipe navigation indicator component
  * Shows visual feedback during swipe gestures
- *
- * @param {Object} props
- * @param {string} props.direction - Current swipe direction ('left', 'right', or null)
- * @param {number} props.progress - Swipe progress (0 to 1)
- * @param {string} props.leftLabel - Label for left swipe action
- * @param {string} props.rightLabel - Label for right swipe action
  */
-export const SwipeIndicator = ({ direction, progress, leftLabel, rightLabel }) => {
+export const SwipeIndicator: React.FC<SwipeIndicatorProps> = ({ direction, progress, leftLabel, rightLabel }) => {
     if (!direction || progress < 0.1) return null;
 
     const opacity = Math.min(progress * 2, 1);

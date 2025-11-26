@@ -1,17 +1,18 @@
 import React from 'react';
-import { usePullToRefresh } from '../hooks';
+import { usePullToRefresh, PullToRefreshReturn } from '../hooks/usePullToRefresh';
 import { RefreshCw } from '../icons';
+
+export interface PullToRefreshProps {
+    onRefresh: () => Promise<void>;
+    children: React.ReactNode;
+    className?: string;
+}
 
 /**
  * Pull-to-refresh wrapper component
  * Wraps content with pull-to-refresh functionality for touch devices
- *
- * @param {Object} props
- * @param {Function} props.onRefresh - Async function to call on refresh
- * @param {React.ReactNode} props.children - Content to wrap
- * @param {string} props.className - Additional CSS classes
  */
-export const PullToRefresh = ({ onRefresh, children, className = '' }) => {
+export const PullToRefresh: React.FC<PullToRefreshProps> = ({ onRefresh, children, className = '' }) => {
     const {
         containerRef,
         isRefreshing,
@@ -19,11 +20,11 @@ export const PullToRefresh = ({ onRefresh, children, className = '' }) => {
         progress,
         canRefresh,
         handlers,
-    } = usePullToRefresh({ onRefresh });
+    }: PullToRefreshReturn = usePullToRefresh({ onRefresh });
 
     return (
         <div
-            ref={containerRef}
+            ref={containerRef as React.RefObject<HTMLDivElement>}
             className={`relative overflow-auto ${className}`}
             {...handlers}
         >

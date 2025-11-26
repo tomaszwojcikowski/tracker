@@ -1,6 +1,6 @@
 /**
  * Core Type Definitions for OnePlus 12 Pro Tracker
- * 
+ *
  * This file contains TypeScript interfaces and types for the main data structures
  * used throughout the application.
  */
@@ -12,7 +12,7 @@
 /**
  * Muscle groups that can be targeted by exercises
  */
-export type MuscleGroup = 
+export type MuscleGroup =
   | 'chest'
   | 'back'
   | 'shoulders'
@@ -39,7 +39,7 @@ export type MuscleGroup =
 /**
  * Equipment types used in exercises
  */
-export type Equipment = 
+export type Equipment =
   | 'barbell'
   | 'dumbbell'
   | 'kettlebell'
@@ -58,7 +58,7 @@ export type Equipment =
 /**
  * Exercise categories for filtering
  */
-export type ExerciseCategory = 
+export type ExerciseCategory =
   | 'push'
   | 'pull'
   | 'legs'
@@ -310,13 +310,225 @@ export interface Toast {
 }
 
 // ============================================================================
+// COMPONENT PROPS TYPES
+// ============================================================================
+
+/**
+ * Valid day type for component props (includes day 4 for completeness)
+ */
+export type ValidDay = 1 | 2 | 3 | 5;
+
+/**
+ * WorkoutPlayer component props
+ */
+export interface WorkoutPlayerProps {
+  week: number;
+  day: ValidDay;
+  onComplete: () => void;
+}
+
+/**
+ * Dashboard component props
+ */
+export interface DashboardProps {
+  currentWeek: number;
+  setCurrentWeek: (week: number) => void;
+  onStartWorkout: (day: ValidDay) => void;
+}
+
+/**
+ * TopAppBar component props
+ */
+export interface TopAppBarProps {
+  title: string;
+  subtitle?: string;
+  onBack?: () => void;
+  showBack?: boolean;
+}
+
+/**
+ * Timer state for ActionBar
+ */
+export interface TimerState {
+  time: number;
+}
+
+/**
+ * EMOM timer state
+ */
+export interface EmomState {
+  active: boolean;
+  seconds: number;
+  interval: number;
+}
+
+/**
+ * ActionBar component props
+ */
+export interface ActionBarProps {
+  onFinish: () => void;
+  timerState: TimerState;
+  setTimerActive: (active: boolean) => void;
+  setTimerSeconds: (seconds: number | ((prev: number) => number)) => void;
+  emomState: EmomState;
+  setEmomActive: (active: boolean) => void;
+  setEmomSeconds: (seconds: number) => void;
+  setEmomInterval: (interval: number | ((prev: number) => number)) => void;
+}
+
+/**
+ * FloatingTimer component props
+ */
+export interface FloatingTimerProps {
+  seconds: number;
+  active: boolean;
+  onStop: () => void;
+  onAddTime: () => void;
+}
+
+/**
+ * SwipeIndicator component props
+ */
+export interface SwipeIndicatorProps {
+  direction: 'left' | 'right' | null;
+  progress: number;
+  leftLabel?: string | null;
+  rightLabel?: string | null;
+}
+
+/**
+ * ThemeSelector component props
+ */
+export interface ThemeSelectorProps {
+  theme: string;
+  setTheme: (theme: string) => void;
+  themes: Array<{ id: string; name: string; colors: Record<string, string> }>;
+}
+
+/**
+ * PullToRefresh component props
+ */
+export interface PullToRefreshProps {
+  onRefresh: () => Promise<void>;
+  children: React.ReactNode;
+  className?: string;
+}
+
+/**
+ * ConfirmDialog component props
+ */
+export interface ConfirmDialogProps {
+  isOpen: boolean;
+  title: string;
+  message: string;
+  confirmLabel?: string;
+  cancelLabel?: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+  variant?: 'default' | 'danger';
+}
+
+/**
+ * EmptyState component props
+ */
+export interface EmptyStateProps {
+  icon?: string;
+  title: string;
+  description?: string;
+  action?: {
+    label: string;
+    onClick: () => void;
+  };
+}
+
+/**
+ * NavigationBar component props
+ */
+export interface NavigationBarProps {
+  activeTab: TabId;
+  onTabChange: (tab: TabId) => void;
+}
+
+/**
+ * TabContent component props
+ */
+export interface TabContentProps {
+  activeTab: TabId;
+  children: React.ReactNode;
+}
+
+/**
+ * VolumeCard component props
+ */
+export interface VolumeCardProps {
+  current: number;
+  previous?: number;
+  label: string;
+  unit?: string;
+}
+
+/**
+ * AnimatedNumber component props
+ */
+export interface AnimatedNumberProps {
+  value: number;
+  duration?: number;
+  formatFn?: (value: number) => string;
+}
+
+/**
+ * ErrorBoundary component props
+ */
+export interface ErrorBoundaryProps {
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
+}
+
+/**
+ * PWAPrompt component props
+ */
+export interface PWAPromptProps {
+  onInstall?: () => void;
+  onDismiss?: () => void;
+}
+
+/**
+ * SyncStatusIndicator component props
+ */
+export interface SyncStatusIndicatorProps {
+  status: 'synced' | 'syncing' | 'error' | 'offline';
+  lastSync?: Date | null;
+}
+
+/**
+ * Exercise logs state in WorkoutPlayer
+ */
+export interface ExerciseLogs {
+  completed?: boolean;
+  [exerciseId: string]: boolean[] | string | number | boolean | RPEData | undefined;
+}
+
+/**
+ * Added exercise in WorkoutPlayer
+ */
+export interface AddedExercise {
+  id: string;
+  name: string;
+  sets: number;
+  weight: string;
+  isBodyweight: boolean;
+  category?: string;
+  equipment?: string[];
+}
+
+// ============================================================================
 // UTILITY TYPES
 // ============================================================================
 
 /**
  * Generic result type for operations that can fail
  */
-export type Result<T, E = Error> = 
+export type Result<T, E = Error> =
   | { success: true; data: T }
   | { success: false; error: E };
 

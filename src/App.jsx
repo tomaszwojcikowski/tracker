@@ -17,6 +17,9 @@ import { PullToRefresh } from './components/PullToRefresh';
 import { FloatingTimer } from './components/FloatingTimer';
 import { SwipeIndicator } from './components/SwipeIndicator';
 import { ThemeSelector } from './components/ThemeSelector';
+import { TopAppBar } from './components/TopAppBar';
+import { ActionBar } from './components/ActionBar';
+import { LoadingScreen, ErrorScreen } from './components/screens';
 import { useTheme } from './hooks/useTheme';
 
 // Import from TypeScript utilities
@@ -148,160 +151,7 @@ import { formatRelativeTime } from './utils/time';
         // SECTION 6: UI COMPONENTS
         // ============================================================================
 
-        // 1. OLED TOP BAR
-        const TopAppBar = ({ title, subtitle, onBack, showBack }) => (
-            <div className="bg-sys-black sticky top-0 z-40 safe-pt border-b border-white/10">
-                <div className="h-16 flex items-center px-5 gap-4">
-                    {showBack ? (
-                        <button
-                            onClick={onBack}
-                            className="h-10 w-10 -ml-1 text-sys-onSurface rounded-xl hover:bg-sys-surfaceHigh transition-colors flex items-center justify-center active:scale-90"
-                            aria-label="Go back"
-                        >
-                            <i data-lucide="arrow-left" width="24"></i>
-                        </button>
-                    ) : null}
-
-                    <div className="flex-1 min-w-0">
-                        <h1 className="text-xl font-bold text-sys-onSurface tracking-tight truncate">{title}</h1>
-                        {subtitle && <p className="text-xs text-sys-onSurfaceVar font-semibold mt-0.5">{subtitle}</p>}
-                    </div>
-                </div>
-            </div>
-        );
-
-        // 2. ACTION BAR (Reachability Optimized)
-        const ActionBar = ({ onFinish, timerState, setTimerActive, setTimerSeconds, emomState, setEmomActive, setEmomSeconds, setEmomInterval }) => {
-            const haptic = useHaptic();
-            const [showConfirm, setShowConfirm] = useState(false);
-
-            // Keyboard shortcuts for dialog
-            useEffect(() => {
-                if (!showConfirm) return;
-
-                const handleKeyDown = (e) => {
-                    if (e.key === 'Escape') {
-                        haptic.tick();
-                        setShowConfirm(false);
-                    } else if (e.key === 'Enter') {
-                        haptic.success();
-                        setShowConfirm(false);
-                        onFinish();
-                    }
-                };
-
-                window.addEventListener('keydown', handleKeyDown);
-                return () => window.removeEventListener('keydown', handleKeyDown);
-            }, [showConfirm, onFinish, haptic]);
-
-            return (
-                <>
-                    <div className="fixed bottom-0 left-0 right-0 bg-sys-black border-t border-white/10 z-50 safe-pb">
-                        {/* EMOM Timer Display */}
-                        {emomState?.active && (
-                            <div className="px-4 pt-3 pb-2">
-                                <div className="glass-panel px-5 py-4 rounded-2xl shadow-lg animate-slide-up">
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <span className="text-xs font-semibold text-sys-accent uppercase tracking-wider">EMOM Timer</span>
-                                        <button
-                                            onClick={() => { haptic.bump(); setEmomActive(false); setEmomSeconds(0); }}
-                                            className="ml-auto h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
-                                            aria-label="Stop EMOM timer"
-                                        >
-                                            <i data-lucide="x" width="16"></i>
-                                        </button>
-                                    </div>
-                                    <div className="flex items-center gap-4">
-                                        <span className={`text-3xl font-mono font-bold min-w-[90px] transition-colors ${emomState.seconds <= 5 ? 'text-sys-error animate-pulse' : 'text-white'}`}>
-                                            {Math.floor(emomState.seconds/60)}:{emomState.seconds%60 < 10 ? '0' : ''}{emomState.seconds%60}
-                                        </span>
-                                        <div className="h-6 w-[1px] bg-white/20"></div>
-                                        <div className="flex items-center gap-2">
-                                            <button
-                                                onClick={() => { haptic.bump(); setEmomInterval(i => Math.max(10, i - 5)); }}
-                                                className="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
-                                                aria-label="Decrease interval by 5 seconds"
-                                            >
-                                                <i data-lucide="minus" width="18"></i>
-                                            </button>
-                                            <span className="text-sm text-sys-onSurfaceVar font-semibold min-w-[40px] text-center">
-                                                {emomState.interval}s
-                                            </span>
-                                            <button
-                                                onClick={() => { haptic.bump(); setEmomInterval(i => Math.min(180, i + 5)); }}
-                                                className="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
-                                                aria-label="Increase interval by 5 seconds"
-                                            >
-                                                <i data-lucide="plus" width="18"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Rest Timer Display */}
-                        {timerState.time > 0 && (
-                            <div className="px-4 pt-3 pb-2">
-                                <div className="glass-panel px-5 py-4 rounded-2xl flex items-center gap-4 shadow-lg animate-slide-up">
-                                    <span className="text-2xl font-mono font-bold text-white min-w-[80px]">
-                                        {Math.floor(timerState.time/60)}:{timerState.time%60 < 10 ? '0' : ''}{timerState.time%60}
-                                    </span>
-                                    <div className="h-6 w-[1px] bg-white/20"></div>
-                                    <button
-                                        onClick={() => { haptic.bump(); setTimerActive(false); setTimerSeconds(0); }}
-                                        className="h-10 w-10 min-w-[40px] rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
-                                        aria-label="Cancel timer"
-                                    >
-                                        <i data-lucide="x" width="20"></i>
-                                    </button>
-                                    <button
-                                        onClick={() => { haptic.bump(); setTimerSeconds(s => s + 30); }}
-                                        className="text-sys-accent font-bold text-base px-3 py-2 min-h-[44px]"
-                                    >
-                                        +30s
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
-                        <div className="px-4 py-3">
-                            <button
-                                onClick={() => { haptic.bump(); setShowConfirm(true); }}
-                                className="w-full h-16 min-h-[56px] px-8 rounded-2xl text-white font-bold flex items-center justify-center gap-3 active:scale-95 transition-transform btn-gradient-success"
-                            >
-                                <i data-lucide="check-circle-2" width="22"></i>
-                                <span className="text-base">FINISH</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Confirmation Dialog */}
-                    {showConfirm && (
-                        <div className="fixed inset-0 z-50 flex items-end justify-center p-4 bg-black/60 backdrop-blur-sm animate-slide-up safe-pb">
-                            <div className="bg-sys-surface rounded-3xl p-6 w-full max-w-md border border-white/10">
-                                <h3 className="text-xl font-bold text-white mb-2">Finish Workout?</h3>
-                                <p className="text-sys-onSurfaceVar mb-6">Your progress will be saved and logged to history.</p>
-                                <div className="flex gap-3">
-                                    <button
-                                        onClick={() => { haptic.tick(); setShowConfirm(false); }}
-                                        className="flex-1 h-14 rounded-xl bg-sys-surfaceHigh text-white font-semibold active:scale-95 transition-transform hover-lift"
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button
-                                        onClick={() => { haptic.success(); setShowConfirm(false); onFinish(); }}
-                                        className="flex-1 h-14 rounded-xl text-white font-semibold active:scale-95 transition-transform btn-gradient-success"
-                                    >
-                                        Finish
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </>
-            );
-        };
+        // TopAppBar and ActionBar are now imported from ./components
 
         // NavigationBar and TabContent are now imported from ./components/navigation
 
@@ -2962,52 +2812,7 @@ import { formatRelativeTime } from './utils/time';
             );
         };
 
-        // Loading component to show while fetching data
-        const LoadingScreen = () => (
-            <div className="min-h-screen bg-sys-black text-white flex items-center justify-center p-5">
-                <div className="text-center max-w-md">
-                    <div className="mb-6">
-                        <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mx-auto mb-4 animate-pulse">
-                            <svg className="w-10 h-10 text-sys-accent animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                        </div>
-                        <div className="text-2xl font-bold mb-2 text-white">Loading...</div>
-                        <div className="text-sm text-sys-onSurfaceVar">Loading workout schedule and exercises</div>
-                    </div>
-                </div>
-            </div>
-        );
-
-        // Error component for loading failures
-        const ErrorScreen = ({ message }) => {
-            const handleRetry = () => {
-                window.location.reload();
-            };
-
-            return (
-                <div className="min-h-screen bg-sys-black text-white flex items-center justify-center p-5">
-                    <div className="text-center max-w-md">
-                        <div className="mb-6">
-                            <div className="h-20 w-20 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-4">
-                                <svg className="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <div className="text-2xl font-bold mb-2 text-red-500">Failed to Load</div>
-                            <div className="text-sm text-sys-onSurfaceVar mb-6">{message}</div>
-                            <button
-                                onClick={handleRetry}
-                                className="h-12 px-6 rounded-xl bg-sys-accent text-white font-semibold active:scale-95 transition-transform"
-                            >
-                                Try Again
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            );
-        };
+        // LoadingScreen and ErrorScreen are now imported from ./components/screens
 
 // Setter functions to update the global data
 export function setRAW_SCHEDULE(data) {

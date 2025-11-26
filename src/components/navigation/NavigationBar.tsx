@@ -1,19 +1,27 @@
 import React from 'react';
 import { useHaptic } from '../../hooks';
+import type { TabId } from '../../types';
+
+interface NavItem {
+    id: TabId;
+    icon: string;
+    label: string;
+}
+
+export interface NavigationBarProps {
+    activeTab: TabId;
+    onTabChange: (tab: TabId) => void;
+}
 
 /**
  * NavigationBar - Bottom navigation component
  *
  * Provides tab-based navigation with haptic feedback and accessibility support.
- *
- * @param {Object} props
- * @param {string} props.activeTab - Currently active tab ID
- * @param {Function} props.onTabChange - Callback when tab changes
  */
-export const NavigationBar = ({ activeTab, onTabChange }) => {
+export const NavigationBar: React.FC<NavigationBarProps> = ({ activeTab, onTabChange }) => {
     const haptic = useHaptic();
 
-    const navItems = [
+    const navItems: NavItem[] = [
         { id: 'train', icon: 'dumbbell', label: 'Train' },
         { id: 'library', icon: 'book-open', label: 'Library' },
         { id: 'history', icon: 'history', label: 'History' },
@@ -47,7 +55,7 @@ export const NavigationBar = ({ activeTab, onTabChange }) => {
                         >
                             <i
                                 data-lucide={item.icon}
-                                width={isActive ? "28" : "24"}
+                                style={{ width: isActive ? 28 : 24, height: isActive ? 28 : 24 }}
                                 className={`transition-all duration-300 ${
                                     isActive
                                         ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]'

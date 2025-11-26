@@ -1,23 +1,35 @@
 import React from 'react';
 
+interface VolumeBreakdownItem {
+    name: string;
+    volume: number;
+}
+
+interface WeeklyVolumeItem {
+    week: string | number;
+    volume: number;
+}
+
+export interface VolumeCardProps {
+    totalVolume: number;
+    breakdown?: VolumeBreakdownItem[];
+    className?: string;
+}
+
 /**
- * Volume Summary Card Component
- * 
- * Displays workout volume statistics in a card format.
- * Shows total volume, trend indicator, and breakdown by exercise.
+ * Format volume with K suffix for large numbers
  */
+const formatVolume = (vol: number): string => {
+    if (vol >= 10000) {
+        return `${(vol / 1000).toFixed(1)}k`;
+    }
+    return vol.toLocaleString();
+};
 
 /**
  * VolumeCard - Displays volume for a single workout
  */
-export const VolumeCard = ({ totalVolume, breakdown = [], className = '' }) => {
-    const formatVolume = (vol) => {
-        if (vol >= 10000) {
-            return `${(vol / 1000).toFixed(1)}k`;
-        }
-        return vol.toLocaleString();
-    };
-    
+export const VolumeCard: React.FC<VolumeCardProps> = ({ totalVolume, breakdown = [], className = '' }) => {
     return (
         <div className={`bg-sys-surface rounded-2xl border border-white/5 p-4 ${className}`}>
             <div className="flex items-center justify-between mb-3">
@@ -36,7 +48,7 @@ export const VolumeCard = ({ totalVolume, breakdown = [], className = '' }) => {
                     {formatVolume(totalVolume)} <span className="text-xs text-sys-onSurfaceVar">kg</span>
                 </span>
             </div>
-            
+
             {breakdown.length > 0 && (
                 <div className="space-y-2">
                     {breakdown.slice(0, 3).map((ex, idx) => (
@@ -56,11 +68,17 @@ export const VolumeCard = ({ totalVolume, breakdown = [], className = '' }) => {
     );
 };
 
+export type VolumeTrend = 'increasing' | 'decreasing' | 'neutral';
+
+export interface VolumeTrendBadgeProps {
+    trend: VolumeTrend;
+}
+
 /**
  * VolumeTrendBadge - Shows volume trend indicator
  */
-export const VolumeTrendBadge = ({ trend }) => {
-    const config = {
+export const VolumeTrendBadge: React.FC<VolumeTrendBadgeProps> = ({ trend }) => {
+    const config: Record<VolumeTrend, { icon: string; text: string; className: string }> = {
         increasing: {
             icon: '↑',
             text: 'Volume Up',
@@ -77,9 +95,9 @@ export const VolumeTrendBadge = ({ trend }) => {
             className: 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
         }
     };
-    
+
     const { icon, text, className } = config[trend] || config.neutral;
-    
+
     return (
         <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold ${className}`}>
             <span>{icon}</span>
@@ -88,34 +106,36 @@ export const VolumeTrendBadge = ({ trend }) => {
     );
 };
 
+export interface VolumeStatsCardProps {
+    totalVolume: number;
+    averagePerWorkout: number;
+    workoutCount: number;
+    trend: VolumeTrend;
+    weeklyBreakdown?: WeeklyVolumeItem[];
+    className?: string;
+}
+
 /**
  * VolumeStatsCard - Displays aggregate volume statistics
  */
-export const VolumeStatsCard = ({ 
-    totalVolume, 
-    averagePerWorkout, 
-    workoutCount, 
+export const VolumeStatsCard: React.FC<VolumeStatsCardProps> = ({
+    totalVolume,
+    averagePerWorkout,
+    workoutCount,
     trend,
     weeklyBreakdown = [],
-    className = '' 
+    className = ''
 }) => {
-    const formatVolume = (vol) => {
-        if (vol >= 10000) {
-            return `${(vol / 1000).toFixed(1)}k`;
-        }
-        return vol.toLocaleString();
-    };
-    
     // Find max for chart scaling
     const maxWeekly = Math.max(...weeklyBreakdown.map(w => w.volume), 1);
-    
+
     return (
         <div className={`bg-sys-surface rounded-3xl border border-white/5 p-5 ${className}`}>
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-base font-bold text-white">Volume Stats</h3>
                 <VolumeTrendBadge trend={trend} />
             </div>
-            
+
             <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="bg-sys-surfaceHigh rounded-xl p-3">
                     <div className="text-xs text-sys-onSurfaceVar mb-1">Total Volume</div>
@@ -126,16 +146,16 @@ export const VolumeStatsCard = ({
                     <div className="text-lg font-bold text-white">{formatVolume(averagePerWorkout)} kg</div>
                 </div>
             </div>
-            
+
             {weeklyBreakdown.length > 0 && (
                 <div>
                     <div className="text-xs text-sys-onSurfaceVar mb-2">Weekly Volume</div>
                     <div className="flex items-end justify-between h-20 gap-1">
                         {weeklyBreakdown.map((week, idx) => (
                             <div key={idx} className="flex-1 flex flex-col items-center gap-1">
-                                <div 
+                                <div
                                     className="w-full bg-sys-accent/30 rounded-t transition-all"
-                                    style={{ 
+                                    style={{
                                         height: `${(week.volume / maxWeekly) * 100}%`,
                                         minHeight: '4px'
                                     }}
@@ -146,7 +166,7 @@ export const VolumeStatsCard = ({
                     </div>
                 </div>
             )}
-            
+
             <div className="mt-3 pt-3 border-t border-white/5 text-center">
                 <span className="text-xs text-sys-onSurfaceVar">
                     Based on {workoutCount} workout{workoutCount !== 1 ? 's' : ''}

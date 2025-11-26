@@ -1,19 +1,20 @@
 import React from 'react';
 
+export interface EmptyStateProps {
+    icon?: React.ReactNode;
+    title: string;
+    description?: string;
+    action?: () => void;
+    actionLabel?: string;
+    className?: string;
+}
+
 /**
  * EmptyState - Placeholder UI for empty content areas
  *
  * Displays a friendly message with optional action when there's no content to show.
- *
- * @param {Object} props
- * @param {React.ReactNode} props.icon - Icon element to display
- * @param {string} props.title - Main heading text
- * @param {string} props.description - Descriptive text
- * @param {Function} [props.action] - Optional action callback
- * @param {string} [props.actionLabel] - Label for action button
- * @param {string} [props.className] - Additional CSS classes
  */
-export const EmptyState = ({
+export const EmptyState: React.FC<EmptyStateProps> = ({
     icon,
     title,
     description,
@@ -27,12 +28,14 @@ export const EmptyState = ({
         aria-label={title}
     >
         {/* Icon container */}
-        <div
-            className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-4"
-            aria-hidden="true"
-        >
-            {icon}
-        </div>
+        {icon && (
+            <div
+                className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-4"
+                aria-hidden="true"
+            >
+                {icon}
+            </div>
+        )}
 
         {/* Title */}
         <h3 className="text-lg font-bold text-white mb-2">
@@ -40,9 +43,11 @@ export const EmptyState = ({
         </h3>
 
         {/* Description */}
-        <p className="text-sm text-sys-onSurfaceVar mb-6 max-w-xs leading-relaxed">
-            {description}
-        </p>
+        {description && (
+            <p className="text-sm text-sys-onSurfaceVar mb-6 max-w-xs leading-relaxed">
+                {description}
+            </p>
+        )}
 
         {/* Optional action button */}
         {action && actionLabel && (
@@ -56,10 +61,14 @@ export const EmptyState = ({
     </div>
 );
 
+export interface EmptyWorkoutHistoryProps {
+    onStartWorkout?: () => void;
+}
+
 /**
- * Pre-configured empty states for common use cases
+ * Pre-configured empty state for workout history
  */
-export const EmptyWorkoutHistory = ({ onStartWorkout }) => (
+export const EmptyWorkoutHistory: React.FC<EmptyWorkoutHistoryProps> = ({ onStartWorkout }) => (
     <EmptyState
         icon={
             <svg className="w-8 h-8 text-sys-onSurfaceVar" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -73,7 +82,14 @@ export const EmptyWorkoutHistory = ({ onStartWorkout }) => (
     />
 );
 
-export const EmptyExerciseHistory = ({ exerciseName }) => (
+export interface EmptyExerciseHistoryProps {
+    exerciseName?: string;
+}
+
+/**
+ * Pre-configured empty state for exercise history
+ */
+export const EmptyExerciseHistory: React.FC<EmptyExerciseHistoryProps> = ({ exerciseName }) => (
     <EmptyState
         icon={
             <svg className="w-8 h-8 text-sys-onSurfaceVar" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,7 +101,15 @@ export const EmptyExerciseHistory = ({ exerciseName }) => (
     />
 );
 
-export const EmptySearchResults = ({ query, onClear }) => (
+export interface EmptySearchResultsProps {
+    query?: string;
+    onClear?: () => void;
+}
+
+/**
+ * Pre-configured empty state for search results
+ */
+export const EmptySearchResults: React.FC<EmptySearchResultsProps> = ({ query, onClear }) => (
     <EmptyState
         icon={
             <svg className="w-8 h-8 text-sys-onSurfaceVar" fill="none" viewBox="0 0 24 24" stroke="currentColor">

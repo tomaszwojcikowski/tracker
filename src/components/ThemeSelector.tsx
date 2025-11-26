@@ -1,16 +1,35 @@
 import React from 'react';
 import { Check, Palette } from '../icons';
 
+interface ThemePreview {
+    surface: string;
+    primary: string;
+    accent: string;
+}
+
+interface Theme {
+    id: string;
+    name: string;
+    description?: string;
+    preview: ThemePreview;
+}
+
+interface ThemePreviewButtonProps {
+    theme: Theme;
+    isSelected: boolean;
+    onClick: () => void;
+}
+
 /**
  * Theme preview button component
  * Shows a visual preview of the theme colors
  */
-const ThemePreviewButton = ({
+const ThemePreviewButton: React.FC<ThemePreviewButtonProps> = ({
     theme,
     isSelected,
     onClick,
 }) => {
-    const { id, name, description, preview } = theme;
+    const { name, description, preview } = theme;
 
     return (
         <button
@@ -49,17 +68,23 @@ const ThemePreviewButton = ({
             {/* Theme info */}
             <div className="text-left">
                 <h4 className="text-sm font-semibold text-white mb-0.5">{name}</h4>
-                <p className="text-xs text-sys-onSurfaceVar">{description}</p>
+                {description && <p className="text-xs text-sys-onSurfaceVar">{description}</p>}
             </div>
         </button>
     );
 };
 
+export interface ThemeSelectorProps {
+    theme: string;
+    setTheme: (theme: string) => void;
+    themes: Theme[];
+}
+
 /**
  * Theme selector component for Settings view
  * Displays all available themes with visual previews
  */
-export const ThemeSelector = ({ theme, setTheme, themes }) => {
+export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ theme, setTheme, themes }) => {
     return (
         <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
             <div className="flex items-center gap-3 mb-4">

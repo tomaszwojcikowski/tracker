@@ -1,19 +1,17 @@
-import { memo } from 'react';
+import { memo, ReactNode } from 'react';
 import { AnimatedNumber } from '../animations/AnimatedNumber';
+
+export interface WorkoutProgressProps {
+    completedSets: number;
+    totalSets: number;
+    className?: string;
+}
 
 /**
  * WorkoutProgress Component
  * Shows overall workout completion percentage with animated progress bar
- *
- * @param {Object} props
- * @param {number} props.completedSets - Number of completed sets
- * @param {number} props.totalSets - Total number of sets in workout
- * @param {string} props.className - Additional CSS classes
- *
- * @example
- * <WorkoutProgress completedSets={8} totalSets={15} />
  */
-export const WorkoutProgress = memo(({
+export const WorkoutProgress = memo<WorkoutProgressProps>(({
     completedSets,
     totalSets,
     className = '',
@@ -47,21 +45,18 @@ export const WorkoutProgress = memo(({
 
 WorkoutProgress.displayName = 'WorkoutProgress';
 
+export interface WeightChangeIndicatorProps {
+    current: number;
+    previous: number | null | undefined;
+    unit?: string;
+    className?: string;
+}
+
 /**
  * WeightChangeIndicator Component
  * Shows weight change (+/-) compared to previous workout
- *
- * @param {Object} props
- * @param {number} props.current - Current weight value
- * @param {number} props.previous - Previous weight value
- * @param {string} props.unit - Weight unit (default: 'kg')
- * @param {string} props.className - Additional CSS classes
- *
- * @example
- * <WeightChangeIndicator current={80} previous={75} />
- * <WeightChangeIndicator current={80} previous={85} unit="lb" />
  */
-export const WeightChangeIndicator = memo(({
+export const WeightChangeIndicator = memo<WeightChangeIndicatorProps>(({
     current,
     previous,
     unit = 'kg',
@@ -88,24 +83,20 @@ export const WeightChangeIndicator = memo(({
 
 WeightChangeIndicator.displayName = 'WeightChangeIndicator';
 
+export interface TimerRingProps {
+    current: number;
+    total: number;
+    size?: number;
+    strokeWidth?: number;
+    className?: string;
+    children?: ReactNode;
+}
+
 /**
  * TimerRing Component
  * Circular SVG progress ring for rest timer visual
- *
- * @param {Object} props
- * @param {number} props.current - Current time remaining in seconds
- * @param {number} props.total - Total time in seconds
- * @param {number} props.size - Ring size in pixels (default: 120)
- * @param {number} props.strokeWidth - Ring stroke width (default: 8)
- * @param {string} props.className - Additional CSS classes
- * @param {React.ReactNode} props.children - Content to display in center
- *
- * @example
- * <TimerRing current={45} total={90}>
- *   <span className="text-2xl font-bold">0:45</span>
- * </TimerRing>
  */
-export const TimerRing = memo(({
+export const TimerRing = memo<TimerRingProps>(({
     current,
     total,
     size = 120,
@@ -165,21 +156,19 @@ export const TimerRing = memo(({
 
 TimerRing.displayName = 'TimerRing';
 
+export interface ProgressRingProps {
+    percentage: number;
+    size?: number;
+    strokeWidth?: number;
+    color?: string;
+    className?: string;
+}
+
 /**
  * ProgressRing Component
  * Generic circular progress indicator
- *
- * @param {Object} props
- * @param {number} props.percentage - Progress percentage (0-100)
- * @param {number} props.size - Ring size in pixels (default: 48)
- * @param {number} props.strokeWidth - Ring stroke width (default: 4)
- * @param {string} props.color - Progress color (CSS variable or color value)
- * @param {string} props.className - Additional CSS classes
- *
- * @example
- * <ProgressRing percentage={75} size={40} />
  */
-export const ProgressRing = memo(({
+export const ProgressRing = memo<ProgressRingProps>(({
     percentage,
     size = 48,
     strokeWidth = 4,

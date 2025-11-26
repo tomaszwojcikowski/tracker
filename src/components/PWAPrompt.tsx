@@ -4,10 +4,19 @@
  */
 import React from 'react';
 
+export interface UpdatePromptProps {
+  needRefresh: boolean;
+  offlineReady: boolean;
+  isOnline: boolean;
+  onAccept: () => void;
+  onDismiss: () => void;
+  onDismissOffline: () => void;
+}
+
 /**
  * Update notification toast
  */
-export function UpdatePrompt({ needRefresh, offlineReady, isOnline, onAccept, onDismiss, onDismissOffline }) {
+export function UpdatePrompt({ needRefresh, offlineReady, isOnline, onAccept, onDismiss, onDismissOffline }: UpdatePromptProps): React.ReactElement | null {
   // Prioritize update available notification over offline ready
   if (needRefresh) {
     return (
@@ -80,10 +89,14 @@ export function UpdatePrompt({ needRefresh, offlineReady, isOnline, onAccept, on
   return null;
 }
 
+export interface OfflineBannerProps {
+  isOnline: boolean;
+}
+
 /**
  * Offline indicator banner
  */
-export function OfflineBanner({ isOnline }) {
+export function OfflineBanner({ isOnline }: OfflineBannerProps): React.ReactElement | null {
   if (isOnline) return null;
 
   return (

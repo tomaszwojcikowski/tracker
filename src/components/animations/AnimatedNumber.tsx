@@ -1,21 +1,22 @@
 /* global performance, requestAnimationFrame, cancelAnimationFrame */
 import { useState, useEffect, useRef } from 'react';
 
+export interface AnimatedNumberProps {
+    /** The target value to animate to */
+    value: number;
+    /** Animation duration in ms (default: 500) */
+    duration?: number;
+    /** Additional CSS classes */
+    className?: string;
+    /** Optional function to format the displayed value */
+    formatter?: (value: number) => string | number;
+}
+
 /**
  * AnimatedNumber Component
  * Animates a number from its previous value to the current value with easing
- *
- * @param {Object} props
- * @param {number} props.value - The target value to animate to
- * @param {number} props.duration - Animation duration in ms (default: 500)
- * @param {string} props.className - Additional CSS classes
- * @param {function} props.formatter - Optional function to format the displayed value
- *
- * @example
- * <AnimatedNumber value={100} duration={800} />
- * <AnimatedNumber value={75.5} formatter={(v) => `${v}%`} />
  */
-export const AnimatedNumber = ({
+export const AnimatedNumber: React.FC<AnimatedNumberProps> = ({
     value,
     duration = 500,
     className = '',
@@ -23,7 +24,7 @@ export const AnimatedNumber = ({
 }) => {
     const [displayValue, setDisplayValue] = useState(value);
     const previousValueRef = useRef(value);
-    const animationRef = useRef(null);
+    const animationRef = useRef<number | null>(null);
 
     useEffect(() => {
         const start = previousValueRef.current;
@@ -34,7 +35,7 @@ export const AnimatedNumber = ({
 
         const startTime = performance.now();
 
-        const animate = (currentTime) => {
+        const animate = (currentTime: number) => {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
 
@@ -66,29 +67,34 @@ export const AnimatedNumber = ({
     return <span className={className}>{formatter(displayValue)}</span>;
 };
 
+export interface AnimatedCounterProps {
+    /** The target value to count to */
+    value: number;
+    /** Animation duration in ms (default: 1000) */
+    duration?: number;
+    /** Additional CSS classes */
+    className?: string;
+    /** Optional function to format the displayed value */
+    formatter?: (value: number) => string | number;
+}
+
 /**
  * AnimatedCounter Component
  * Counts up from 0 to the target value on mount
- *
- * @param {Object} props
- * @param {number} props.value - The target value to count to
- * @param {number} props.duration - Animation duration in ms (default: 1000)
- * @param {string} props.className - Additional CSS classes
- * @param {function} props.formatter - Optional function to format the displayed value
  */
-export const AnimatedCounter = ({
+export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
     value,
     duration = 1000,
     className = '',
     formatter = (v) => v,
 }) => {
     const [displayValue, setDisplayValue] = useState(0);
-    const animationRef = useRef(null);
+    const animationRef = useRef<number | null>(null);
 
     useEffect(() => {
         const startTime = performance.now();
 
-        const animate = (currentTime) => {
+        const animate = (currentTime: number) => {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
 

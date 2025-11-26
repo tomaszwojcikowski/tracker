@@ -154,10 +154,10 @@ describe('Workout Plan Utilities', () => {
   describe('convertV2ToInternal', () => {
     it('should convert v2 to flat internal format', () => {
       const result = convertV2ToInternal(v2Data);
-      
+
       expect(Array.isArray(result)).toBe(true);
       expect(result.length).toBe(3);
-      
+
       // Check first exercise (has load: 'bodyweight')
       expect(result[0]).toEqual({
         w: 1,
@@ -168,7 +168,7 @@ describe('Workout Plan Utilities', () => {
         n: 'Focus on form',
         load: 'bodyweight'
       });
-      
+
       // Check second exercise (has bodyweight load)
       expect(result[1]).toEqual({
         w: 1,
@@ -179,7 +179,7 @@ describe('Workout Plan Utilities', () => {
         n: 'accessory',
         load: 'bodyweight'
       });
-      
+
       // Check third exercise (load: null becomes undefined)
       expect(result[2]).toEqual({
         w: 1,
@@ -207,7 +207,7 @@ describe('Workout Plan Utilities', () => {
   describe('loadWorkoutPlan', () => {
     it('should load v1.0.0 plan with metadata', () => {
       const result = loadWorkoutPlan(v1Data);
-      
+
       expect(result.schedule).toEqual(v1Data);
       expect(result.metadata.version).toBe('1.0.0');
       expect(result.metadata.name).toBe('Workout Plan');
@@ -216,10 +216,10 @@ describe('Workout Plan Utilities', () => {
 
     it('should load v2.0.0 plan with full metadata', () => {
       const result = loadWorkoutPlan(v2Data);
-      
+
       expect(Array.isArray(result.schedule)).toBe(true);
       expect(result.schedule.length).toBe(3);
-      
+
       expect(result.metadata.version).toBe('2.0.0');
       expect(result.metadata.id).toBe('test-plan');
       expect(result.metadata.name).toBe('Test Workout Plan');
@@ -229,7 +229,7 @@ describe('Workout Plan Utilities', () => {
       expect(result.metadata.goals).toEqual(['strength']);
       expect(result.metadata.targetLevel).toBe('beginner');
       expect(result.metadata.equipment).toEqual(['bar']);
-      
+
       expect(Array.isArray(result.metadata.phases)).toBe(true);
       expect(result.metadata.phases.length).toBe(1);
       expect(result.metadata.phases[0].name).toBe('Test Phase');
@@ -249,7 +249,7 @@ describe('Workout Plan Utilities', () => {
           { number: 2, startWeek: 5, endWeek: 8, name: 'Phase 2' }
         ]
       };
-      
+
       expect(getPhaseForWeek(metadata, 1)).toEqual(metadata.phases[0]);
       expect(getPhaseForWeek(metadata, 4)).toEqual(metadata.phases[0]);
       expect(getPhaseForWeek(metadata, 5)).toEqual(metadata.phases[1]);
@@ -262,7 +262,7 @@ describe('Workout Plan Utilities', () => {
           { number: 1, startWeek: 1, endWeek: 4, name: 'Phase 1' }
         ]
       };
-      
+
       expect(getPhaseForWeek(metadata, 5)).toBeNull();
       expect(getPhaseForWeek(metadata, 0)).toBeNull();
     });
@@ -296,7 +296,7 @@ describe('Workout Plan Utilities', () => {
         name: 'Test Plan',
         durationWeeks: 4
       };
-      
+
       const summary = getPlanSummary(metadata);
       expect(summary.name).toBe('Test Plan');
       expect(summary.version).toBe('1.0.0');
@@ -316,7 +316,7 @@ describe('Workout Plan Utilities', () => {
         targetLevel: 'advanced',
         equipment: ['bar', 'rings']
       };
-      
+
       const summary = getPlanSummary(metadata);
       expect(summary.name).toBe('Advanced Plan');
       expect(summary.version).toBe('2.0.0');
@@ -339,7 +339,7 @@ describe('Workout Plan Utilities', () => {
   describe('Integration - Round-trip conversion', () => {
     it('should preserve exercise data through v2 → internal → v1 conversion', () => {
       const { schedule } = loadWorkoutPlan(v2Data);
-      
+
       // Check that essential data is preserved
       expect(schedule[0].w).toBe(1);
       expect(schedule[0].d).toBe(1);
@@ -351,11 +351,11 @@ describe('Workout Plan Utilities', () => {
     it('should handle both formats in the same way after loading', () => {
       const v1Result = loadWorkoutPlan(v1Data);
       const v2Result = loadWorkoutPlan(v2Data);
-      
+
       // Both should have schedule arrays
       expect(Array.isArray(v1Result.schedule)).toBe(true);
       expect(Array.isArray(v2Result.schedule)).toBe(true);
-      
+
       // Both should have metadata objects
       expect(typeof v1Result.metadata).toBe('object');
       expect(typeof v2Result.metadata).toBe('object');

@@ -6,7 +6,7 @@ This document defines the robust and complete workout plan format used by the Tr
 
 ## Version
 
-**Current Version:** 2.0.0  
+**Current Version:** 2.0.0
 **Previous Version:** 1.0.0 (flat array format)
 
 ## Design Principles

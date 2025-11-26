@@ -99,7 +99,7 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
     // Determine if exercise is weighted based on load field
     // If load is set (and not "bodyweight"), it's a weighted exercise
     const hasLoad = item.load && item.load.toLowerCase() !== 'bodyweight';
-    
+
     sections[type].push({
       name: item.ex,
       prescription: `${item.s} x ${item.r}`,

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Normalize workout-plan-v2.json to properly separate load (kg values) from notes (prescriptions).
- * 
+ *
  * Rules:
  * - load: Contains actual weight in kg (e.g., "5-10kg", "60-80kg", "bodyweight", "light band")
  * - notes: Contains training prescription (e.g., "Heavy", "Light", "Accumulation", "Deload")
@@ -32,11 +32,11 @@ const EXERCISE_LOADS = {
   'Neutral Grip Weighted Pull-Ups': '5-10kg',
   '3RM Weighted Pull-Up': '15-20kg',
   'Chest Supported Row': '10-15kg per dumbbell',
-  
+
   // Push exercises
   'Weighted Dips': '5-10kg',
   '5RM Weighted Push-Up': '10-15kg',
-  
+
   // Lower body
   'RDL': '60-80kg',
   'Single Leg RDL': '8-12kg per hand',
@@ -45,12 +45,12 @@ const EXERCISE_LOADS = {
   'Bulgarian Split Squat (Left)': '8-16kg per hand',
   'Bulgarian Split Squat (Right)': '8-16kg per hand',
   'Weighted Glute Bridge': '40-60kg',
-  
+
   // Core
   'Weighted V-Ups': '3-5kg',
   'Dragon Flags OR Weighted V-Ups': '3-5kg',
   'Light Weighted Jefferson Curl': '5-10kg',
-  
+
   // Bands/accessories
   'Pallof Press': 'light band',
   'Face Pulls': 'light-medium band',
@@ -84,15 +84,15 @@ const BODYWEIGHT_EXERCISES = [
 
 function normalizeExercise(exercise) {
   const { exerciseName, load, notes, ...rest } = exercise;
-  
+
   let newLoad = null;
   let newNotes = notes;
-  
+
   // Check if current load is a prescription term
-  const isPrescription = PRESCRIPTION_TERMS.some(term => 
+  const isPrescription = PRESCRIPTION_TERMS.some(term =>
     load && load.toLowerCase() === term.toLowerCase()
   );
-  
+
   if (isPrescription) {
     // Move prescription to notes
     if (newNotes) {
@@ -127,20 +127,20 @@ function normalizeExercise(exercise) {
     // Pure bodyweight exercise
     newLoad = null;
   }
-  
+
   // Normalize bodyweight exercises
   if (newLoad === 'bodyweight') {
     // For exercises that are normally weighted but being done at bodyweight
     // Check if there's a weighted version in our library
-    const isNormallyWeighted = EXERCISE_LOADS[exerciseName] || 
+    const isNormallyWeighted = EXERCISE_LOADS[exerciseName] ||
       exerciseName.toLowerCase().includes('weighted');
-    
+
     if (!isNormallyWeighted) {
       // Pure bodyweight exercise, no load needed
       newLoad = null;
     }
   }
-  
+
   return {
     ...rest,
     exerciseName,
@@ -152,7 +152,7 @@ function normalizeExercise(exercise) {
 function normalizeWorkoutPlan(plan) {
   let exerciseCount = 0;
   let modifiedCount = 0;
-  
+
   const normalizedPlan = {
     ...plan,
     plan: {
@@ -166,7 +166,7 @@ function normalizeWorkoutPlan(plan) {
             exercises: day.exercises.map(exercise => {
               exerciseCount++;
               const normalized = normalizeExercise(exercise);
-              
+
               // Track if we modified the exercise
               if (normalized.load !== exercise.load || normalized.notes !== exercise.notes) {
                 modifiedCount++;
@@ -174,7 +174,7 @@ function normalizeWorkoutPlan(plan) {
                 console.log(`  load: "${exercise.load}" -> "${normalized.load}"`);
                 console.log(`  notes: "${exercise.notes}" -> "${normalized.notes}"`);
               }
-              
+
               return normalized;
             }),
           })),
@@ -182,10 +182,10 @@ function normalizeWorkoutPlan(plan) {
       })),
     },
   };
-  
+
   console.log(`\nTotal exercises: ${exerciseCount}`);
   console.log(`Modified: ${modifiedCount}`);
-  
+
   return normalizedPlan;
 }
 

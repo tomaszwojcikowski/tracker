@@ -221,8 +221,11 @@ export { useSwipeNavigation } from './useSwipeNavigation';
 // Re-export theme hook
 export { useTheme, THEMES } from './useTheme';
 
-// Type exports - TypeScript will pick these up from .ts files
+// Type exports
 export type { OptimisticSyncOptions, OptimisticSyncReturn } from './useOptimisticSync';
 export type { FocusTrapOptions, KeyboardShortcutOptions, AriaPoliteness, KeyboardModifiers } from './useAccessibility';
 export type { PWAState } from './usePWA';
 export type { ThemeId, ThemeInfo } from './useTheme';
+export type { LongPressOptions, LongPressHandlers } from './useLongPress';
+export type { PullToRefreshOptions, PullToRefreshHandlers, PullToRefreshReturn } from './usePullToRefresh';
+export type { SwipeNavigationOptions, SwipeNavigationHandlers, SwipeNavigationReturn, SwipeDirection } from './useSwipeNavigation';

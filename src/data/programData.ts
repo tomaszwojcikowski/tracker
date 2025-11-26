@@ -25,6 +25,8 @@ export interface WorkoutExercise {
   sets: number;
   rest: number;
   isBodyweight: boolean;
+  /** Load/weight for weighted exercises (e.g., "10kg", "5-10kg", "light band") */
+  load?: string;
 }
 
 /**
@@ -94,13 +96,18 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
       type = 'skill';
     else if (n.includes('accessory') || n.includes('core')) type = 'access';
 
+    // Determine if exercise is weighted based on load field
+    // If load is set (and not "bodyweight"), it's a weighted exercise
+    const hasLoad = item.load && item.load.toLowerCase() !== 'bodyweight';
+    
     sections[type].push({
       name: item.ex,
       prescription: `${item.s} x ${item.r}`,
       notes: item.n || '',
       sets: item.s,
       rest: 90,
-      isBodyweight: !n.includes('kg'),
+      isBodyweight: !hasLoad,
+      load: item.load || undefined,
     });
   });
 

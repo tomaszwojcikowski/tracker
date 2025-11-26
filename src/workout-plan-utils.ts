@@ -30,6 +30,8 @@ export interface V1Entry {
   r: string;
   /** Notes/category (multi-purpose field) */
   n?: string;
+  /** Load/weight for weighted exercises (e.g., "10kg", "5-10kg", "light band") */
+  load?: string;
 }
 
 /**
@@ -44,6 +46,8 @@ export interface V2Exercise {
   rest?: number;
   tempo?: string;
   rpe?: number;
+  /** Load/weight for weighted exercises */
+  load?: string | null;
 }
 
 /**
@@ -275,6 +279,8 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             // For v1.0.0 compatibility, combine notes and category
             // This preserves the original behavior where 'n' was a multi-purpose field
             n: exercise.notes || exercise.category || '',
+            // Pass through load for weighted exercises
+            load: exercise.load || undefined,
           });
         });
       });

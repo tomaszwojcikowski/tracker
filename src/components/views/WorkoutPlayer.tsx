@@ -924,12 +924,19 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         {/* Weight input for weighted exercises */}
                                                         {!ex.isBodyweight && (
                                                             <div className="pt-4 border-t border-white/5">
-                                                                <label
-                                                                    htmlFor={`${exId}-weight`}
-                                                                    className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block"
-                                                                >
-                                                                    Load (kg)
-                                                                </label>
+                                                                <div className="flex items-center justify-between mb-2">
+                                                                    <label
+                                                                        htmlFor={`${exId}-weight`}
+                                                                        className="text-xs text-sys-onSurfaceVar uppercase font-bold"
+                                                                    >
+                                                                        Load (kg)
+                                                                    </label>
+                                                                    {ex.load && (
+                                                                        <span className="text-xs text-sys-accent font-medium">
+                                                                            Suggested: {ex.load}
+                                                                        </span>
+                                                                    )}
+                                                                </div>
                                                                 <div className="relative flex items-center gap-2">
                                                                     <button
                                                                         onClick={() => {
@@ -948,7 +955,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                         inputMode="decimal"
                                                                         value={exerciseLog.weight || ''}
                                                                         onChange={(e) => saveLog(exId, 'weight', e.target.value)}
-                                                                        placeholder="0"
+                                                                        placeholder={ex.load ? ex.load.replace(/[^0-9.]/g, '').split('-')[0] || '0' : '0'}
                                                                         className="flex-1 h-14 px-4 bg-sys-surfaceHigh rounded-xl text-white text-center text-2xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                                     />
                                                                     <button

@@ -69,12 +69,12 @@ export function usePWA(): PWAState {
             onRegisteredSW(_swUrl: string, reg: ServiceWorkerRegistration | undefined): void {
                 if (reg) {
                     setRegistration(reg);
-                    
+
                     // Initial check after 10 seconds
                     setTimeout(() => {
                         reg.update().catch(console.error);
                     }, 10 * 1000);
-                    
+
                     // Then check every 5 minutes
                     setInterval(() => {
                         reg.update().catch(console.error);
@@ -100,7 +100,7 @@ export function usePWA(): PWAState {
             window.removeEventListener('offline', handleOffline);
         };
     }, []);
-    
+
     // Check for updates when app becomes visible (user returns to app on mobile)
     useEffect(() => {
         const handleVisibilityChange = (): void => {
@@ -108,9 +108,9 @@ export function usePWA(): PWAState {
                 registration.update().catch(console.error);
             }
         };
-        
+
         document.addEventListener('visibilitychange', handleVisibilityChange);
-        
+
         return () => {
             document.removeEventListener('visibilitychange', handleVisibilityChange);
         };

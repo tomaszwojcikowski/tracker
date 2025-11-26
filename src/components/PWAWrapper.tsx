@@ -4,9 +4,13 @@
  */
 import React from 'react';
 import { usePWA } from '../hooks/usePWA';
-import { UpdatePrompt, OfflineBanner } from './PWAPrompt.jsx';
+import { UpdatePrompt, OfflineBanner } from './PWAPrompt';
 
-export function PWAWrapper({ children }) {
+export interface PWAWrapperProps {
+  children: React.ReactNode;
+}
+
+export function PWAWrapper({ children }: PWAWrapperProps): React.ReactElement {
   const {
     needRefresh,
     offlineReady,

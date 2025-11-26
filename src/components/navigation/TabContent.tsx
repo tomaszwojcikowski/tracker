@@ -1,16 +1,17 @@
 import React from 'react';
 
+export interface TabContentProps {
+    children: React.ReactNode;
+    activeTab: string;
+}
+
 /**
  * TabContent - Animated wrapper for tab content transitions
  *
  * Uses CSS animation to smoothly transition content when activeTab changes.
  * The key prop triggers re-mount and animation on tab change.
- *
- * @param {Object} props
- * @param {React.ReactNode} props.children - Tab content to display
- * @param {string} props.activeTab - Current active tab for animation key
  */
-export const TabContent = ({ children, activeTab }) => {
+export const TabContent: React.FC<TabContentProps> = ({ children, activeTab }) => {
     return (
         <div
             key={activeTab}

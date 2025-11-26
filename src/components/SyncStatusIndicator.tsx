@@ -8,10 +8,20 @@
 import React from 'react';
 import { SyncStatus } from '../hooks/useOptimisticSync';
 
+type SyncStatusType = typeof SyncStatus[keyof typeof SyncStatus];
+
+interface StatusDisplay {
+  icon: string;
+  color: string;
+  bgColor: string;
+  label: string;
+  animate: boolean;
+}
+
 /**
  * Get icon and color based on sync status
  */
-function getStatusDisplay(status, pendingChanges) {
+function getStatusDisplay(status: SyncStatusType, pendingChanges: boolean): StatusDisplay {
   switch (status) {
     case SyncStatus.SYNCING:
       return {
@@ -66,14 +76,16 @@ function getStatusDisplay(status, pendingChanges) {
   }
 }
 
+export interface SyncStatusIndicatorProps {
+  status?: SyncStatusType;
+  pendingChanges?: boolean;
+  lastError?: string | null;
+  onRetry?: (() => void) | null;
+  compact?: boolean;
+}
+
 /**
  * Sync Status Indicator
- * @param {Object} props
- * @param {string} props.status - Current sync status
- * @param {boolean} props.pendingChanges - Whether there are unsaved changes
- * @param {string} props.lastError - Last error message if any
- * @param {Function} props.onRetry - Callback to retry sync
- * @param {boolean} props.compact - Show compact version
  */
 export function SyncStatusIndicator({
   status = SyncStatus.IDLE,
@@ -81,7 +93,7 @@ export function SyncStatusIndicator({
   lastError = null,
   onRetry = null,
   compact = false,
-}) {
+}: SyncStatusIndicatorProps): React.ReactElement | null {
   const display = getStatusDisplay(status, pendingChanges);
 
   if (compact) {
@@ -116,7 +128,7 @@ export function SyncStatusIndicator({
         <button
           onClick={onRetry}
           className="text-xs text-red-400 hover:text-red-300 underline"
-          title={lastError}
+          title={lastError || undefined}
         >
           Retry
         </button>
@@ -125,10 +137,15 @@ export function SyncStatusIndicator({
   );
 }
 
+export interface InlineSyncStatusProps {
+  status: SyncStatusType;
+  pendingChanges: boolean;
+}
+
 /**
  * Inline sync status for headers
  */
-export function InlineSyncStatus({ status, pendingChanges }) {
+export function InlineSyncStatus({ status, pendingChanges }: InlineSyncStatusProps): React.ReactElement | null {
   if (status === SyncStatus.IDLE && !pendingChanges) {
     return null;
   }

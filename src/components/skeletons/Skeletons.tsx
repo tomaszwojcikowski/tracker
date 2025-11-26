@@ -2,11 +2,8 @@ import React from 'react';
 
 /**
  * ExerciseCardSkeleton - Loading placeholder for exercise cards
- *
- * Displays an animated skeleton while exercise data is loading.
- * Matches the visual structure of the actual ExerciseCard component.
  */
-export const ExerciseCardSkeleton = () => (
+export const ExerciseCardSkeleton: React.FC = () => (
     <div className="bg-sys-surface rounded-3xl p-5 border border-white/5 animate-pulse">
         <div className="flex items-center gap-4 mb-4">
             <div className="h-12 w-12 rounded-xl bg-sys-surfaceHigh" />
@@ -26,7 +23,7 @@ export const ExerciseCardSkeleton = () => (
 /**
  * HistoryEntrySkeleton - Loading placeholder for history timeline entries
  */
-export const HistoryEntrySkeleton = () => (
+export const HistoryEntrySkeleton: React.FC = () => (
     <div className="bg-sys-surface rounded-3xl p-5 border border-white/5 animate-pulse">
         <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
@@ -45,7 +42,7 @@ export const HistoryEntrySkeleton = () => (
 /**
  * StatsCardSkeleton - Loading placeholder for stats cards
  */
-export const StatsCardSkeleton = () => (
+export const StatsCardSkeleton: React.FC = () => (
     <div className="bg-sys-surface rounded-2xl p-4 border border-white/5 animate-pulse">
         <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
@@ -64,7 +61,7 @@ export const StatsCardSkeleton = () => (
 /**
  * ExerciseLibraryItemSkeleton - Loading placeholder for exercise library items
  */
-export const ExerciseLibraryItemSkeleton = () => (
+export const ExerciseLibraryItemSkeleton: React.FC = () => (
     <div className="bg-sys-surface rounded-2xl p-4 border border-white/5 animate-pulse">
         <div className="flex items-center gap-3">
             <div className="h-12 w-12 rounded-xl bg-sys-surfaceHigh flex-shrink-0" />
@@ -80,7 +77,7 @@ export const ExerciseLibraryItemSkeleton = () => (
 /**
  * WorkoutDaySkeleton - Loading placeholder for the entire workout day view
  */
-export const WorkoutDaySkeleton = () => (
+export const WorkoutDaySkeleton: React.FC = () => (
     <div className="px-5 pb-32 pt-6 animate-pulse">
         {/* Header */}
         <div className="mb-6">
@@ -97,15 +94,16 @@ export const WorkoutDaySkeleton = () => (
     </div>
 );
 
+export interface SkeletonListProps {
+    skeleton: React.ComponentType;
+    count?: number;
+    className?: string;
+}
+
 /**
  * SkeletonList - Renders multiple skeletons for loading lists
- *
- * @param {Object} props
- * @param {React.ComponentType} props.skeleton - Skeleton component to render
- * @param {number} [props.count=3] - Number of skeletons to render
- * @param {string} [props.className] - Additional CSS classes for wrapper
  */
-export const SkeletonList = ({ skeleton: Skeleton, count = 3, className = '' }) => (
+export const SkeletonList: React.FC<SkeletonListProps> = ({ skeleton: Skeleton, count = 3, className = '' }) => (
     <div className={`space-y-3 ${className}`} aria-busy="true" aria-label="Loading content">
         {Array.from({ length: count }).map((_, i) => (
             <Skeleton key={i} />

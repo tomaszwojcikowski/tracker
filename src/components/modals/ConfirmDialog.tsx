@@ -1,23 +1,26 @@
 import React from 'react';
 import { useHaptic } from '../../hooks';
 
+export type ConfirmDialogVariant = 'success' | 'danger' | 'warning';
+
+export interface ConfirmDialogProps {
+    isOpen: boolean;
+    onClose: () => void;
+    onConfirm: () => void;
+    title: string;
+    message: string;
+    confirmLabel?: string;
+    cancelLabel?: string;
+    variant?: ConfirmDialogVariant;
+}
+
 /**
  * ConfirmDialog - Modal confirmation dialog component
  *
  * A reusable confirmation dialog with customizable title, message, and actions.
  * Includes haptic feedback and accessibility support.
- *
- * @param {Object} props
- * @param {boolean} props.isOpen - Whether the dialog is visible
- * @param {Function} props.onClose - Callback when dialog is closed/cancelled
- * @param {Function} props.onConfirm - Callback when action is confirmed
- * @param {string} props.title - Dialog title
- * @param {string} props.message - Dialog message/description
- * @param {string} [props.confirmLabel='Confirm'] - Label for confirm button
- * @param {string} [props.cancelLabel='Cancel'] - Label for cancel button
- * @param {string} [props.variant='success'] - Visual variant: 'success', 'danger', 'warning'
  */
-export const ConfirmDialog = ({
+export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     isOpen,
     onClose,
     onConfirm,
@@ -31,7 +34,7 @@ export const ConfirmDialog = ({
 
     if (!isOpen) return null;
 
-    const variantClasses = {
+    const variantClasses: Record<ConfirmDialogVariant, string> = {
         success: 'btn-gradient-success',
         danger: 'bg-sys-error hover:bg-sys-error/90',
         warning: 'bg-sys-warning hover:bg-sys-warning/90 text-black',
@@ -49,7 +52,7 @@ export const ConfirmDialog = ({
     };
 
     // Handle escape key
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Escape') {
             handleClose();
         }

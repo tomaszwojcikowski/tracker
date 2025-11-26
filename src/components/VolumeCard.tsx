@@ -1,23 +1,35 @@
 import React from 'react';
 
+interface VolumeBreakdownItem {
+    name: string;
+    volume: number;
+}
+
+interface WeeklyVolumeItem {
+    week: string | number;
+    volume: number;
+}
+
+export interface VolumeCardProps {
+    totalVolume: number;
+    breakdown?: VolumeBreakdownItem[];
+    className?: string;
+}
+
 /**
- * Volume Summary Card Component
- * 
- * Displays workout volume statistics in a card format.
- * Shows total volume, trend indicator, and breakdown by exercise.
+ * Format volume with K suffix for large numbers
  */
+const formatVolume = (vol: number): string => {
+    if (vol >= 10000) {
+        return `${(vol / 1000).toFixed(1)}k`;
+    }
+    return vol.toLocaleString();
+};
 
 /**
  * VolumeCard - Displays volume for a single workout
  */
-export const VolumeCard = ({ totalVolume, breakdown = [], className = '' }) => {
-    const formatVolume = (vol) => {
-        if (vol >= 10000) {
-            return `${(vol / 1000).toFixed(1)}k`;
-        }
-        return vol.toLocaleString();
-    };
-    
+export const VolumeCard: React.FC<VolumeCardProps> = ({ totalVolume, breakdown = [], className = '' }) => {
     return (
         <div className={`bg-sys-surface rounded-2xl border border-white/5 p-4 ${className}`}>
             <div className="flex items-center justify-between mb-3">
@@ -56,11 +68,17 @@ export const VolumeCard = ({ totalVolume, breakdown = [], className = '' }) => {
     );
 };
 
+export type VolumeTrend = 'increasing' | 'decreasing' | 'neutral';
+
+export interface VolumeTrendBadgeProps {
+    trend: VolumeTrend;
+}
+
 /**
  * VolumeTrendBadge - Shows volume trend indicator
  */
-export const VolumeTrendBadge = ({ trend }) => {
-    const config = {
+export const VolumeTrendBadge: React.FC<VolumeTrendBadgeProps> = ({ trend }) => {
+    const config: Record<VolumeTrend, { icon: string; text: string; className: string }> = {
         increasing: {
             icon: '↑',
             text: 'Volume Up',
@@ -88,10 +106,19 @@ export const VolumeTrendBadge = ({ trend }) => {
     );
 };
 
+export interface VolumeStatsCardProps {
+    totalVolume: number;
+    averagePerWorkout: number;
+    workoutCount: number;
+    trend: VolumeTrend;
+    weeklyBreakdown?: WeeklyVolumeItem[];
+    className?: string;
+}
+
 /**
  * VolumeStatsCard - Displays aggregate volume statistics
  */
-export const VolumeStatsCard = ({ 
+export const VolumeStatsCard: React.FC<VolumeStatsCardProps> = ({ 
     totalVolume, 
     averagePerWorkout, 
     workoutCount, 
@@ -99,13 +126,6 @@ export const VolumeStatsCard = ({
     weeklyBreakdown = [],
     className = '' 
 }) => {
-    const formatVolume = (vol) => {
-        if (vol >= 10000) {
-            return `${(vol / 1000).toFixed(1)}k`;
-        }
-        return vol.toLocaleString();
-    };
-    
     // Find max for chart scaling
     const maxWeekly = Math.max(...weeklyBreakdown.map(w => w.volume), 1);
     

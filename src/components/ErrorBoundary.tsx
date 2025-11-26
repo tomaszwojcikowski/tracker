@@ -1,4 +1,16 @@
-import React, { Component } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
+
+interface ErrorBoundaryProps {
+    children: ReactNode;
+    fallback?: (props: { error: Error | null; reset: () => void }) => ReactNode;
+}
+
+interface ErrorBoundaryState {
+    hasError: boolean;
+    error: Error | null;
+    errorInfo: ErrorInfo | null;
+    isRecovering: boolean;
+}
 
 /**
  * ErrorBoundary - React error boundary with recovery UI
@@ -11,8 +23,8 @@ import React, { Component } from 'react';
  *   <App />
  * </ErrorBoundary>
  */
-export class ErrorBoundary extends Component {
-    constructor(props) {
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+    constructor(props: ErrorBoundaryProps) {
         super(props);
         this.state = {
             hasError: false,
@@ -22,12 +34,12 @@ export class ErrorBoundary extends Component {
         };
     }
 
-    static getDerivedStateFromError(error) {
+    static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
         // Update state so the next render will show the fallback UI
         return { hasError: true, error };
     }
 
-    componentDidCatch(error, errorInfo) {
+    componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
         // Log error details
         console.error('ErrorBoundary caught an error:', error, errorInfo);
         this.setState({ errorInfo });
@@ -36,17 +48,17 @@ export class ErrorBoundary extends Component {
         // logErrorToService(error, errorInfo);
     }
 
-    handleRefresh = () => {
+    handleRefresh = (): void => {
         window.location.reload();
     };
 
-    handleRecover = async () => {
+    handleRecover = async (): Promise<void> => {
         this.setState({ isRecovering: true });
 
         try {
             // Clear potentially corrupted app state while preserving workout data
             const keysToPreserve = ['global_history', 'workoutLogs', 'exercise_history'];
-            const preservedData = {};
+            const preservedData: Record<string, string> = {};
 
             // Backup important data
             keysToPreserve.forEach(key => {
@@ -74,7 +86,7 @@ export class ErrorBoundary extends Component {
         }
     };
 
-    handleClearAll = () => {
+    handleClearAll = (): void => {
         if (window.confirm('This will delete ALL workout data. Are you sure?')) {
             try {
                 localStorage.clear();
@@ -85,7 +97,7 @@ export class ErrorBoundary extends Component {
         }
     };
 
-    render() {
+    render(): ReactNode {
         const { hasError, error, isRecovering } = this.state;
         const { children, fallback } = this.props;
 

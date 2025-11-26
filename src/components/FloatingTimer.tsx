@@ -1,17 +1,18 @@
 import React from 'react';
 import { X, Clock } from '../icons';
 
+export interface FloatingTimerProps {
+    seconds: number;
+    active: boolean;
+    onStop: () => void;
+    onAddTime: () => void;
+}
+
 /**
  * Floating timer component that stays visible during workout
  * Displays rest timer in a compact, always-visible format
- *
- * @param {Object} props
- * @param {number} props.seconds - Timer seconds remaining
- * @param {boolean} props.active - Whether timer is active
- * @param {Function} props.onStop - Callback to stop timer
- * @param {Function} props.onAddTime - Callback to add 30 seconds
  */
-export const FloatingTimer = ({ seconds, active, onStop, onAddTime }) => {
+export const FloatingTimer: React.FC<FloatingTimerProps> = ({ seconds, active, onStop, onAddTime }) => {
     if (!active || seconds <= 0) return null;
 
     const minutes = Math.floor(seconds / 60);

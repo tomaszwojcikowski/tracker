@@ -86,7 +86,7 @@ import { formatRelativeTime } from './utils/time';
             COMPLETE_SCHEDULE = getCompleteSchedule();
         };
 
-        // Note: Custom hooks (useHaptic, useSwipe, useSwipeNavigation, useDebounce, useLucideIcons) 
+        // Note: Custom hooks (useHaptic, useSwipe, useSwipeNavigation, useDebounce, useLucideIcons)
         // are now imported from ./hooks
 
         // ============================================================================

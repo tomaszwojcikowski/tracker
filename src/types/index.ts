@@ -325,6 +325,7 @@ export interface WorkoutPlayerProps {
   week: number;
   day: ValidDay;
   onComplete: () => void;
+  exerciseLibrary: Exercise[];
 }
 
 /**
@@ -505,7 +506,13 @@ export interface SyncStatusIndicatorProps {
  */
 export interface ExerciseLogs {
   completed?: boolean;
-  [exerciseId: string]: boolean[] | string | number | boolean | RPEData | undefined;
+  workoutNotes?: string;
+  addedExercises?: AddedExercise[];
+  completedAt?: string;
+  lastModified?: string;
+  week?: number;
+  day?: number;
+  [exerciseId: string]: boolean[] | string | number | boolean | RPEData | AddedExercise[] | undefined;
 }
 
 /**
@@ -515,10 +522,10 @@ export interface AddedExercise {
   id: string;
   name: string;
   sets: number;
-  weight: string;
+  weight?: string;
   isBodyweight: boolean;
-  category?: string;
-  equipment?: string[];
+  equipment: string[];
+  primaryMuscles: string[];
 }
 
 // ============================================================================

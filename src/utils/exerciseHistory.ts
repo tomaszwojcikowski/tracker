@@ -18,6 +18,8 @@ export interface ExerciseHistoryEntry {
   sets: number;
   weight?: number;
   rpe?: Record<number, string>;
+  totalSets?: number;
+  isBodyweight?: boolean;
 }
 
 /**

@@ -48,3 +48,7 @@ export {
     ProgressRing,
 } from './progress';
 
+// UX enhancement components (P3)
+export { PullToRefresh } from './PullToRefresh';
+export { FloatingTimer } from './FloatingTimer';
+export { SwipeIndicator } from './SwipeIndicator';

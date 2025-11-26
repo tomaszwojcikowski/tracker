@@ -6,7 +6,8 @@ import {
   loadWorkoutPlan,
   getPhaseForWeek,
   isV2Format,
-  getPlanSummary
+  getPlanSummary,
+  parseLoadRange
 } from '../workout-plan-utils';
 
 describe('Workout Plan Utilities', () => {
@@ -166,7 +167,8 @@ describe('Workout Plan Utilities', () => {
         s: 3,
         r: '8',
         n: 'Focus on form',
-        load: 'bodyweight'
+        load: 'bodyweight',
+        loadRange: { min: 0, max: 0, unit: 'bodyweight', raw: 'bodyweight' }
       });
 
       // Check second exercise (has bodyweight load)
@@ -177,7 +179,8 @@ describe('Workout Plan Utilities', () => {
         s: 3,
         r: '10',
         n: 'accessory',
-        load: 'bodyweight'
+        load: 'bodyweight',
+        loadRange: { min: 0, max: 0, unit: 'bodyweight', raw: 'bodyweight' }
       });
 
       // Check third exercise (load: null becomes undefined)
@@ -188,7 +191,8 @@ describe('Workout Plan Utilities', () => {
         s: 1,
         r: '10 min',
         n: 'mobility',
-        load: undefined
+        load: undefined,
+        loadRange: undefined
       });
     });
 
@@ -359,6 +363,103 @@ describe('Workout Plan Utilities', () => {
       // Both should have metadata objects
       expect(typeof v1Result.metadata).toBe('object');
       expect(typeof v2Result.metadata).toBe('object');
+    });
+  });
+
+  describe('parseLoadRange', () => {
+    it('should return null for null/undefined input', () => {
+      expect(parseLoadRange(null)).toBeNull();
+      expect(parseLoadRange(undefined)).toBeNull();
+      expect(parseLoadRange('')).toBeNull();
+    });
+
+    it('should parse bodyweight', () => {
+      const result = parseLoadRange('bodyweight');
+      expect(result).toEqual({
+        min: 0,
+        max: 0,
+        unit: 'bodyweight',
+        raw: 'bodyweight'
+      });
+    });
+
+    it('should parse single kg values', () => {
+      expect(parseLoadRange('10kg')).toEqual({
+        min: 10,
+        max: 10,
+        unit: 'kg',
+        raw: '10kg',
+        perHand: false
+      });
+
+      expect(parseLoadRange('17.5kg')).toEqual({
+        min: 17.5,
+        max: 17.5,
+        unit: 'kg',
+        raw: '17.5kg',
+        perHand: false
+      });
+    });
+
+    it('should parse kg ranges', () => {
+      expect(parseLoadRange('5-10kg')).toEqual({
+        min: 5,
+        max: 10,
+        unit: 'kg',
+        raw: '5-10kg',
+        perHand: false
+      });
+
+      expect(parseLoadRange('8-12kg per hand')).toEqual({
+        min: 8,
+        max: 12,
+        unit: 'kg',
+        raw: '8-12kg per hand',
+        perHand: true
+      });
+    });
+
+    it('should parse additional weight markers', () => {
+      expect(parseLoadRange('+2kg')).toEqual({
+        min: 2,
+        max: 2,
+        unit: 'kg',
+        raw: '+2kg',
+        perHand: false
+      });
+
+      expect(parseLoadRange('~85kg')).toEqual({
+        min: 85,
+        max: 85,
+        unit: 'kg',
+        raw: '~85kg',
+        perHand: false
+      });
+    });
+
+    it('should parse band resistance', () => {
+      expect(parseLoadRange('light band')).toEqual({
+        min: 1,
+        max: 1,
+        unit: 'band',
+        raw: 'light band'
+      });
+
+      expect(parseLoadRange('light-medium band')).toEqual({
+        min: 2,
+        max: 2,
+        unit: 'band',
+        raw: 'light-medium band'
+      });
+    });
+
+    it('should parse percentage loads', () => {
+      expect(parseLoadRange('60%')).toEqual({
+        min: 60,
+        max: 60,
+        unit: 'percent',
+        raw: '60%'
+      });
     });
   });
 });

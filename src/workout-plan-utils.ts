@@ -10,6 +10,92 @@
 // ============================================================================
 
 /**
+ * Structured load range for weighted exercises
+ */
+export interface LoadRange {
+  /** Minimum weight value */
+  min: number;
+  /** Maximum weight value (same as min for fixed loads) */
+  max: number;
+  /** Unit of measurement */
+  unit: 'kg' | 'band' | 'bodyweight' | 'percent';
+  /** Original string representation */
+  raw: string;
+  /** Per-hand indicator for dumbbell exercises */
+  perHand?: boolean;
+}
+
+/**
+ * Parse a load string into a structured LoadRange
+ * @param load - Load string (e.g., "5-10kg", "light band", "bodyweight", "8kg per hand")
+ * @returns LoadRange object or null if not parseable
+ */
+export function parseLoadRange(load: string | null | undefined): LoadRange | null {
+  if (!load) return null;
+  
+  const raw = load.trim();
+  const lower = raw.toLowerCase();
+  
+  // Handle bodyweight
+  if (lower === 'bodyweight') {
+    return { min: 0, max: 0, unit: 'bodyweight', raw };
+  }
+  
+  // Handle bands
+  if (lower.includes('band')) {
+    // Map band resistance to approximate values
+    let resistance = 1;
+    if (lower.includes('light')) resistance = 1;
+    if (lower.includes('medium')) resistance = 2;
+    if (lower.includes('heavy')) resistance = 3;
+    return { min: resistance, max: resistance, unit: 'band', raw };
+  }
+  
+  // Handle percentage
+  if (lower.includes('%')) {
+    const match = raw.match(/(\d+)/);
+    if (match) {
+      const value = parseInt(match[1], 10);
+      return { min: value, max: value, unit: 'percent', raw };
+    }
+  }
+  
+  // Handle per-hand notation
+  const perHand = lower.includes('per hand');
+  
+  // Handle kg ranges: "5-10kg", "10kg", "+2kg", "~85kg"
+  // Remove non-numeric prefix characters like + or ~
+  const cleaned = raw.replace(/per hand/gi, '').replace(/kg/gi, '').trim();
+  
+  // Check for range (contains hyphen between numbers)
+  const rangeMatch = cleaned.match(/^[+~]?(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)$/);
+  if (rangeMatch) {
+    return {
+      min: parseFloat(rangeMatch[1]),
+      max: parseFloat(rangeMatch[2]),
+      unit: 'kg',
+      raw,
+      perHand,
+    };
+  }
+  
+  // Check for single value
+  const singleMatch = cleaned.match(/^[+~]?(\d+(?:\.\d+)?)$/);
+  if (singleMatch) {
+    const value = parseFloat(singleMatch[1]);
+    return {
+      min: value,
+      max: value,
+      unit: 'kg',
+      raw,
+      perHand,
+    };
+  }
+  
+  return null;
+}
+
+/**
  * Format version string
  */
 export type FormatVersion = '1.0.0' | '2.0.0';
@@ -32,6 +118,8 @@ export interface V1Entry {
   n?: string;
   /** Load/weight for weighted exercises (e.g., "10kg", "5-10kg", "light band") */
   load?: string;
+  /** Parsed load range for weighted exercises */
+  loadRange?: LoadRange;
 }
 
 /**
@@ -270,6 +358,9 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
     phase.weeks.forEach((week) => {
       week.days.forEach((day) => {
         day.exercises.forEach((exercise) => {
+          const loadStr = exercise.load || undefined;
+          const loadRange = parseLoadRange(loadStr);
+          
           internalFormat.push({
             w: week.weekNumber,
             d: day.dayNumber,
@@ -280,7 +371,9 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             // This preserves the original behavior where 'n' was a multi-purpose field
             n: exercise.notes || exercise.category || '',
             // Pass through load for weighted exercises
-            load: exercise.load || undefined,
+            load: loadStr,
+            // Include parsed load range
+            loadRange: loadRange || undefined,
           });
         });
       });

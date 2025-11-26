@@ -931,9 +931,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                     >
                                                                         Load (kg)
                                                                     </label>
-                                                                    {ex.load && (
+                                                                    {ex.loadRange && (
                                                                         <span className="text-xs text-sys-accent font-medium">
-                                                                            Suggested: {ex.load}
+                                                                            Suggested: {ex.loadRange.min === ex.loadRange.max 
+                                                                                ? `${ex.loadRange.min}kg` 
+                                                                                : `${ex.loadRange.min}-${ex.loadRange.max}kg`}
+                                                                            {ex.loadRange.perHand ? ' per hand' : ''}
                                                                         </span>
                                                                     )}
                                                                 </div>
@@ -955,7 +958,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                         inputMode="decimal"
                                                                         value={exerciseLog.weight || ''}
                                                                         onChange={(e) => saveLog(exId, 'weight', e.target.value)}
-                                                                        placeholder={ex.load ? ex.load.replace(/[^0-9.]/g, '').split('-')[0] || '0' : '0'}
+                                                                        placeholder={ex.loadRange?.min?.toString() || '0'}
                                                                         className="flex-1 h-14 px-4 bg-sys-surfaceHigh rounded-xl text-white text-center text-2xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                                     />
                                                                     <button

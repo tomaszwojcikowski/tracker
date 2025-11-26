@@ -158,34 +158,37 @@ describe('Workout Plan Utilities', () => {
       expect(Array.isArray(result)).toBe(true);
       expect(result.length).toBe(3);
       
-      // Check first exercise
+      // Check first exercise (has load: 'bodyweight')
       expect(result[0]).toEqual({
         w: 1,
         d: 1,
         ex: 'Pull-Ups',
         s: 3,
         r: '8',
-        n: 'Focus on form'
+        n: 'Focus on form',
+        load: 'bodyweight'
       });
       
-      // Check second exercise
+      // Check second exercise (has bodyweight load)
       expect(result[1]).toEqual({
         w: 1,
         d: 1,
         ex: 'Dips',
         s: 3,
         r: '10',
-        n: 'accessory'
+        n: 'accessory',
+        load: 'bodyweight'
       });
       
-      // Check third exercise
+      // Check third exercise (load: null becomes undefined)
       expect(result[2]).toEqual({
         w: 1,
         d: 2,
         ex: 'Mobility Flow',
         s: 1,
         r: '10 min',
-        n: 'mobility'
+        n: 'mobility',
+        load: undefined
       });
     });
 

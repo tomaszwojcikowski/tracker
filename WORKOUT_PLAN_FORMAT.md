@@ -161,12 +161,51 @@ This document defines the robust and complete workout plan format used by the Tr
 | `tempo` | string | No | Tempo prescription (eccentric-pause-concentric-pause) |
 | `restSeconds` | number | No | Rest between sets in seconds |
 | `rpe` | number | No | Target RPE (Rate of Perceived Exertion, 1-10) |
-| `load` | string | No | Load specification (weight, percentage, bodyweight, etc.) |
-| `notes` | string | No | Exercise-specific notes or coaching cues |
+| `load` | string | No | Preferred weight/load in kg (see Load Values below) |
+| `notes` | string | No | Training prescription and coaching cues |
 | `alternatives` | array | No | Array of alternative exercise IDs |
 | `progressionNotes` | string | No | How to progress this exercise |
 | `videoUrl` | string | No | Link to demonstration video |
 | `cues` | array | No | Array of coaching cue strings |
+
+### Load Values
+
+The `load` field specifies the preferred/suggested weight for weighted exercises. Use concrete weight values rather than descriptive terms.
+
+**Valid Load Formats:**
+- `null` - Pure bodyweight exercise (e.g., Pull-Ups, Dips, Plank)
+- `"bodyweight"` - Weighted exercise variant done without extra weight
+- `"5-10kg"` - Weight range in kg (most common)
+- `"10kg"` - Specific weight in kg
+- `"+2kg"` - Additional weight for bodyweight exercises
+- `"8-12kg per hand"` - Per-hand weight for dumbbell exercises
+- `"light band"` - Resistance band specification
+- `"~85kg"` - Approximate weight
+
+**Training Prescriptions (use `notes` field):**
+- `"Heavy"` - High intensity work
+- `"Light"` - Low intensity / technique focus
+- `"Moderate"` - Medium intensity
+- `"Deload"` - Recovery week
+- `"Accumulation"` - Volume building phase
+- `"Test"` - Max effort testing
+
+**Example:**
+```json
+{
+  "exerciseName": "Goblet Squats",
+  "load": "16-24kg",
+  "notes": "Heavy"
+}
+```
+Not:
+```json
+{
+  "exerciseName": "Goblet Squats",
+  "load": "Heavy",
+  "notes": null
+}
+```
 
 ### Valid Values
 

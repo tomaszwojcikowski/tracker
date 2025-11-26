@@ -23,11 +23,13 @@ export interface LoadRange {
   raw: string;
   /** Per-hand indicator for dumbbell exercises */
   perHand?: boolean;
+  /** Progressive load - add to previous weight (e.g., "+1-2kg") */
+  isProgressive?: boolean;
 }
 
 /**
  * Parse a load string into a structured LoadRange
- * @param load - Load string (e.g., "5-10kg", "light band", "bodyweight", "8kg per hand")
+ * @param load - Load string (e.g., "5-10kg", "light band", "bodyweight", "8kg per hand", "+1-2kg")
  * @returns LoadRange object or null if not parseable
  */
 export function parseLoadRange(load: string | null | undefined): LoadRange | null {
@@ -63,12 +65,15 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
   // Handle per-hand notation
   const perHand = lower.includes('per hand');
   
-  // Handle kg ranges: "5-10kg", "10kg", "+2kg", "~85kg"
+  // Check if this is a progressive load (starts with +)
+  const isProgressive = raw.startsWith('+');
+  
+  // Handle kg ranges: "5-10kg", "10kg", "+2kg", "~85kg", "+1-2kg"
   // Remove non-numeric prefix characters like + or ~
-  const cleaned = raw.replace(/per hand/gi, '').replace(/kg/gi, '').trim();
+  const cleaned = raw.replace(/per hand/gi, '').replace(/kg/gi, '').replace(/^[+~]/, '').trim();
   
   // Check for range (contains hyphen between numbers)
-  const rangeMatch = cleaned.match(/^[+~]?(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)$/);
+  const rangeMatch = cleaned.match(/^(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)$/);
   if (rangeMatch) {
     return {
       min: parseFloat(rangeMatch[1]),
@@ -76,11 +81,12 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
       unit: 'kg',
       raw,
       perHand,
+      isProgressive,
     };
   }
   
   // Check for single value
-  const singleMatch = cleaned.match(/^[+~]?(\d+(?:\.\d+)?)$/);
+  const singleMatch = cleaned.match(/^(\d+(?:\.\d+)?)$/);
   if (singleMatch) {
     const value = parseFloat(singleMatch[1]);
     return {
@@ -89,6 +95,7 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
       unit: 'kg',
       raw,
       perHand,
+      isProgressive,
     };
   }
   

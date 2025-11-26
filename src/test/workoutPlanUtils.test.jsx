@@ -389,7 +389,8 @@ describe('Workout Plan Utilities', () => {
         max: 10,
         unit: 'kg',
         raw: '10kg',
-        perHand: false
+        perHand: false,
+        isProgressive: false
       });
 
       expect(parseLoadRange('17.5kg')).toEqual({
@@ -397,7 +398,8 @@ describe('Workout Plan Utilities', () => {
         max: 17.5,
         unit: 'kg',
         raw: '17.5kg',
-        perHand: false
+        perHand: false,
+        isProgressive: false
       });
     });
 
@@ -407,7 +409,8 @@ describe('Workout Plan Utilities', () => {
         max: 10,
         unit: 'kg',
         raw: '5-10kg',
-        perHand: false
+        perHand: false,
+        isProgressive: false
       });
 
       expect(parseLoadRange('8-12kg per hand')).toEqual({
@@ -415,25 +418,39 @@ describe('Workout Plan Utilities', () => {
         max: 12,
         unit: 'kg',
         raw: '8-12kg per hand',
-        perHand: true
+        perHand: true,
+        isProgressive: false
       });
     });
 
-    it('should parse additional weight markers', () => {
+    it('should parse progressive weight markers', () => {
       expect(parseLoadRange('+2kg')).toEqual({
         min: 2,
         max: 2,
         unit: 'kg',
         raw: '+2kg',
-        perHand: false
+        perHand: false,
+        isProgressive: true
       });
 
+      expect(parseLoadRange('+1-2kg')).toEqual({
+        min: 1,
+        max: 2,
+        unit: 'kg',
+        raw: '+1-2kg',
+        perHand: false,
+        isProgressive: true
+      });
+    });
+
+    it('should parse approximate weight markers', () => {
       expect(parseLoadRange('~85kg')).toEqual({
         min: 85,
         max: 85,
         unit: 'kg',
         raw: '~85kg',
-        perHand: false
+        perHand: false,
+        isProgressive: false
       });
     });
 

@@ -217,6 +217,49 @@ const ExerciseListItem: React.FC<ExerciseListItemProps> = ({ exercise, onAdd, ha
 // MAIN WORKOUT PLAYER COMPONENT
 // ============================================================================
 
+/**
+ * Get the previous week's logged weight for an exercise
+ * @param exerciseName - Name of the exercise
+ * @param currentWeek - Current week number
+ * @param currentDay - Current day number
+ * @returns Previous weight in kg or null if not found
+ */
+function getPreviousWeekWeight(exerciseName: string, currentWeek: number, currentDay: number): number | null {
+    if (currentWeek <= 1) return null;
+    
+    // Look back through previous weeks to find the last logged weight for this exercise
+    for (let prevWeek = currentWeek - 1; prevWeek >= 1; prevWeek--) {
+        const prevSessionKey = `session_w${prevWeek}d${currentDay}`;
+        const prevSessionStr = localStorage.getItem(prevSessionKey);
+        if (!prevSessionStr) continue;
+        
+        try {
+            const prevSession = JSON.parse(prevSessionStr) as WorkoutSessionData;
+            
+            // Check each key in the session for the exercise
+            for (const key of Object.keys(prevSession)) {
+                // Exercise IDs are formatted as "exercisename" (lowercase, no spaces)
+                const normalizedExName = exerciseName.toLowerCase().replace(/[^a-z0-9]/g, '');
+                const normalizedKey = key.toLowerCase().replace(/[^a-z0-9]/g, '');
+                
+                if (normalizedKey.includes(normalizedExName) || normalizedExName.includes(normalizedKey)) {
+                    const entry = prevSession[key];
+                    if (entry && typeof entry === 'object' && 'weight' in entry && entry.weight) {
+                        const weight = parseFloat(String(entry.weight));
+                        if (!isNaN(weight) && weight > 0) {
+                            return weight;
+                        }
+                    }
+                }
+            }
+        } catch {
+            continue;
+        }
+    }
+    
+    return null;
+}
+
 export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     week,
     day,
@@ -931,14 +974,40 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                     >
                                                                         Load (kg)
                                                                     </label>
-                                                                    {ex.loadRange && (
-                                                                        <span className="text-xs text-sys-accent font-medium">
-                                                                            Suggested: {ex.loadRange.min === ex.loadRange.max
-                                                                                ? `${ex.loadRange.min}kg`
-                                                                                : `${ex.loadRange.min}-${ex.loadRange.max}kg`}
-                                                                            {ex.loadRange.perHand ? ' per hand' : ''}
-                                                                        </span>
-                                                                    )}
+                                                                    {ex.loadRange && (() => {
+                                                                        const lr = ex.loadRange;
+                                                                        // For progressive loads (+Xkg), calculate from previous week
+                                                                        if (lr.isProgressive) {
+                                                                            const prevWeight = getPreviousWeekWeight(ex.name, week, day);
+                                                                            if (prevWeight !== null) {
+                                                                                const suggestedMin = prevWeight + lr.min;
+                                                                                const suggestedMax = prevWeight + lr.max;
+                                                                                return (
+                                                                                    <span className="text-xs text-sys-accent font-medium">
+                                                                                        Suggested: {suggestedMin === suggestedMax
+                                                                                            ? `${suggestedMin}kg`
+                                                                                            : `${suggestedMin}-${suggestedMax}kg`}
+                                                                                        <span className="text-sys-onSurfaceVar ml-1">(+{lr.min === lr.max ? lr.min : `${lr.min}-${lr.max}`})</span>
+                                                                                    </span>
+                                                                                );
+                                                                            }
+                                                                            // No previous data, show just the increment
+                                                                            return (
+                                                                                <span className="text-xs text-sys-accent font-medium">
+                                                                                    +{lr.min === lr.max ? `${lr.min}kg` : `${lr.min}-${lr.max}kg`} from last week
+                                                                                </span>
+                                                                            );
+                                                                        }
+                                                                        // Regular absolute load
+                                                                        return (
+                                                                            <span className="text-xs text-sys-accent font-medium">
+                                                                                Suggested: {lr.min === lr.max
+                                                                                    ? `${lr.min}kg`
+                                                                                    : `${lr.min}-${lr.max}kg`}
+                                                                                {lr.perHand ? ' per hand' : ''}
+                                                                            </span>
+                                                                        );
+                                                                    })()}
                                                                 </div>
                                                                 <div className="relative flex items-center justify-center gap-2">
                                                                     <button
@@ -958,7 +1027,17 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                         inputMode="decimal"
                                                                         value={exerciseLog.weight || ''}
                                                                         onChange={(e) => saveLog(exId, 'weight', e.target.value)}
-                                                                        placeholder={ex.loadRange?.min?.toString() || '0'}
+                                                                        placeholder={(() => {
+                                                                            if (!ex.loadRange) return '0';
+                                                                            const lr = ex.loadRange;
+                                                                            if (lr.isProgressive) {
+                                                                                const prevWeight = getPreviousWeekWeight(ex.name, week, day);
+                                                                                if (prevWeight !== null) {
+                                                                                    return (prevWeight + lr.min).toString();
+                                                                                }
+                                                                            }
+                                                                            return lr.min?.toString() || '0';
+                                                                        })()}
                                                                         className="w-24 h-14 px-2 bg-sys-surfaceHigh rounded-xl text-white text-center text-2xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                                     />
                                                                     <button

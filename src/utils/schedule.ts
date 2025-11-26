@@ -5,6 +5,7 @@
  */
 
 import type { WeekNumber, TrainingDay } from '../types';
+import type { LoadRange } from '../workout-plan-utils';
 
 // ============================================================================
 // TYPES
@@ -21,6 +22,7 @@ export interface RawScheduleItem {
     r: string;          // Reps
     n?: string;         // Notes/Section (optional)
     load?: string;      // Load/weight for weighted exercises (optional)
+    loadRange?: LoadRange; // Parsed load range (optional)
 }
 
 /**

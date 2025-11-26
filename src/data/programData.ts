@@ -5,6 +5,7 @@
  */
 
 import { getCompleteSchedule } from '../utils/schedule';
+import type { LoadRange } from '../workout-plan-utils';
 
 /**
  * Program block definition
@@ -25,8 +26,10 @@ export interface WorkoutExercise {
   sets: number;
   rest: number;
   isBodyweight: boolean;
-  /** Load/weight for weighted exercises (e.g., "10kg", "5-10kg", "light band") */
+  /** Load/weight string for weighted exercises (e.g., "10kg", "5-10kg", "light band") */
   load?: string;
+  /** Parsed load range for weighted exercises */
+  loadRange?: LoadRange;
 }
 
 /**
@@ -96,9 +99,10 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
       type = 'skill';
     else if (n.includes('accessory') || n.includes('core')) type = 'access';
 
-    // Determine if exercise is weighted based on load field
-    // If load is set (and not "bodyweight"), it's a weighted exercise
-    const hasLoad = item.load && item.load.toLowerCase() !== 'bodyweight';
+    // Determine if exercise is weighted based on loadRange
+    // If loadRange exists with kg unit and min > 0, it's a weighted exercise
+    const loadRange = item.loadRange;
+    const isWeighted = loadRange && loadRange.unit === 'kg' && loadRange.min > 0;
 
     sections[type].push({
       name: item.ex,
@@ -106,8 +110,9 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
       notes: item.n || '',
       sets: item.s,
       rest: 90,
-      isBodyweight: !hasLoad,
+      isBodyweight: !isWeighted,
       load: item.load || undefined,
+      loadRange: loadRange || undefined,
     });
   });
 

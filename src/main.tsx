@@ -1,14 +1,29 @@
+/// <reference types="vite/client" />
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { App, LoadingScreen, ErrorScreen, buildCompleteSchedule, fetchWithTimeout, FETCH_TIMEOUT_MS, setRAW_SCHEDULE, setEXERCISE_LIBRARY } from './App.jsx';
-import { loadWorkoutPlan } from './workout-plan-utils';
+import { App, buildCompleteSchedule, fetchWithTimeout, FETCH_TIMEOUT_MS, setRAW_SCHEDULE, setEXERCISE_LIBRARY } from './App';
+import { loadWorkoutPlan, WorkoutPlanMetadata } from './workout-plan-utils';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { LoadingScreen, ErrorScreen } from './components/screens';
+
+// Extend Window interface for tracker app metadata
+declare global {
+    interface Window {
+        TRACKER_APP?: {
+            workoutPlanMetadata?: WorkoutPlanMetadata;
+        };
+    }
+}
 
 // PWA wrapper component for update prompts
 const PWAApp = React.lazy(() => import('./components/PWAWrapper'));
 
 // Initialize the app with loading state
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const rootElement = document.getElementById('root');
+if (!rootElement) {
+    throw new Error('Root element not found');
+}
+const root = ReactDOM.createRoot(rootElement);
 root.render(<LoadingScreen />);
 
 // Load both schedule and exercise library data with timeout
@@ -18,7 +33,7 @@ Promise.all([
             throw new Error(`HTTP error loading schedule! status: ${response.status}`);
         }
         return response.json();
-    }).catch(error => {
+    }).catch((error: Error) => {
         if (error.message === 'Request timeout') {
             throw new Error('Network timeout - check your connection');
         }
@@ -29,7 +44,7 @@ Promise.all([
             throw new Error(`HTTP error loading exercises! status: ${response.status}`);
         }
         return response.json();
-    }).catch(error => {
+    }).catch((error: Error) => {
         if (error.message === 'Request timeout') {
             throw new Error('Network timeout - check your connection');
         }
@@ -38,7 +53,8 @@ Promise.all([
 ])
     .then(([scheduleData, exercisesData]) => {
         // Load and convert workout plan (supports both v1.0.0 and v2.0.0 formats)
-        let schedule, metadata;
+        let schedule;
+        let metadata: WorkoutPlanMetadata;
         try {
             const result = loadWorkoutPlan(scheduleData);
             schedule = result.schedule;
@@ -50,7 +66,8 @@ Promise.all([
                 console.log(`  Goals: ${(metadata.goals || []).join(', ')}`);
             }
         } catch (error) {
-            throw new Error(`Invalid workout plan format: ${error.message}`);
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            throw new Error(`Invalid workout plan format: ${errorMessage}`);
         }
 
         // Validate that we have schedule data
@@ -100,7 +117,7 @@ Promise.all([
             </React.Suspense>
         );
     })
-    .catch(error => {
+    .catch((error: Error) => {
         console.error('Error loading data:', error);
         root.render(<ErrorScreen message={`Failed to load data: ${error.message}`} />);
     });

@@ -40,7 +40,31 @@ import {
     VALID_TABS,
     VALID_VIEW_MODES,
 } from './utils/urlState';
-import { FETCH_TIMEOUT_MS } from './constants';
+import {
+    FETCH_TIMEOUT_MS,
+    DEBOUNCE_DELAY_MS,
+    MS_PER_MINUTE,
+    MS_PER_HOUR,
+    MS_PER_DAY,
+} from './constants';
+
+// Import hooks from TypeScript module
+import {
+    useHaptic,
+    useSwipe,
+    useSwipeNavigation,
+    useDebounce,
+    useLucideIcons,
+} from './hooks';
+
+// Import exercise history utilities from TypeScript module
+import {
+    updateExerciseHistory,
+    getExerciseHistory,
+    calculateExerciseStats,
+    getAllExercisesWithHistory,
+} from './utils/exerciseHistory';
+import { formatRelativeTime } from './utils/time';
 
         // ============================================================================
         // SECTION 1: GLOBAL STATE & DATA STRUCTURES
@@ -62,183 +86,20 @@ import { FETCH_TIMEOUT_MS } from './constants';
             COMPLETE_SCHEDULE = getCompleteSchedule();
         };
 
-        // ============================================================================
-        // SECTION 4: CUSTOM HOOKS
-        // ============================================================================
-
-        // --- HAPTIC ENGINE ---
-        const useHaptic = () => {
-            const trigger = (pattern = [10]) => {
-                if (navigator.vibrate) {
-                    navigator.vibrate(pattern);
-                }
-            };
-            return {
-                tick: () => trigger([10]), // Light tap for checks
-                bump: () => trigger([30]), // Medium bump for buttons
-                success: () => trigger([50, 50, 50]), // Double pulse for completion
-                timer: () => trigger([200, 100, 200]), // Triple buzz for timer completion
-                swipe: () => trigger([5]) // Light swipe feedback
-            };
-        };
-
-        // --- SWIPE HOOK ---
-        const useSwipe = ({ onSwipeLeft, onSwipeRight, threshold = 50 }) => {
-            const [touchStart, setTouchStart] = useState(null);
-            const [touchEnd, setTouchEnd] = useState(null);
-
-            const onTouchStart = (e) => {
-                setTouchEnd(null);
-                setTouchStart(e.targetTouches[0].clientX);
-            };
-
-            const onTouchMove = (e) => {
-                setTouchEnd(e.targetTouches[0].clientX);
-            };
-
-            const onTouchEnd = () => {
-                if (!touchStart || !touchEnd) return;
-                const distance = touchStart - touchEnd;
-                const isLeftSwipe = distance > threshold;
-                const isRightSwipe = distance < -threshold;
-                if (isLeftSwipe && onSwipeLeft) onSwipeLeft();
-                if (isRightSwipe && onSwipeRight) onSwipeRight();
-            };
-            return { onTouchStart, onTouchMove, onTouchEnd };
-        };
-
-        // --- SWIPE NAVIGATION HOOK (for day navigation with visual feedback) ---
-        const useSwipeNavigation = ({
-            onSwipeLeft,
-            onSwipeRight,
-            threshold = 50,
-            velocityThreshold = 0.3,
-        }) => {
-            const [swipeOffset, setSwipeOffset] = useState(0);
-            const [isSwiping, setIsSwiping] = useState(false);
-
-            const startX = useRef(0);
-            const startY = useRef(0);
-            const startTime = useRef(0);
-            const isHorizontalSwipe = useRef(null);
-
-            const onTouchStart = (e) => {
-                startX.current = e.touches[0].clientX;
-                startY.current = e.touches[0].clientY;
-                startTime.current = Date.now();
-                isHorizontalSwipe.current = null;
-                setIsSwiping(true);
-            };
-
-            const onTouchMove = (e) => {
-                if (!isSwiping) return;
-
-                const currentX = e.touches[0].clientX;
-                const currentY = e.touches[0].clientY;
-                const diffX = currentX - startX.current;
-                const diffY = currentY - startY.current;
-
-                // Determine swipe direction on first significant movement
-                if (isHorizontalSwipe.current === null && (Math.abs(diffX) > 10 || Math.abs(diffY) > 10)) {
-                    isHorizontalSwipe.current = Math.abs(diffX) > Math.abs(diffY);
-                }
-
-                // Only track horizontal swipes
-                if (isHorizontalSwipe.current) {
-                    const maxOffset = 100;
-                    const resistance = 0.5;
-                    const offset = Math.max(-maxOffset, Math.min(maxOffset, diffX * resistance));
-                    setSwipeOffset(offset);
-                }
-            };
-
-            const onTouchEnd = () => {
-                if (!isSwiping) return;
-
-                const endTime = Date.now();
-                const duration = endTime - startTime.current;
-                const velocity = Math.abs(swipeOffset) / duration;
-
-                const shouldTrigger = Math.abs(swipeOffset) > threshold || velocity > velocityThreshold;
-
-                if (shouldTrigger) {
-                    if (swipeOffset < 0 && onSwipeLeft) {
-                        onSwipeLeft();
-                    } else if (swipeOffset > 0 && onSwipeRight) {
-                        onSwipeRight();
-                    }
-                }
-
-                setSwipeOffset(0);
-                setIsSwiping(false);
-                isHorizontalSwipe.current = null;
-            };
-
-            const swipeDirection = swipeOffset > 0 ? 'right' : swipeOffset < 0 ? 'left' : null;
-            const swipeProgress = Math.min(Math.abs(swipeOffset) / threshold, 1);
-
-            return {
-                swipeOffset,
-                isSwiping,
-                swipeDirection,
-                swipeProgress,
-                handlers: { onTouchStart, onTouchMove, onTouchEnd },
-            };
-        };
-
-        // --- DEBOUNCE HOOK ---
-        // Debounces a value to reduce excessive updates
-        const useDebounce = (value, delay = DEBOUNCE_DELAY_MS) => {
-            const [debouncedValue, setDebouncedValue] = useState(value);
-
-            useEffect(() => {
-                const handler = setTimeout(() => {
-                    setDebouncedValue(value);
-                }, delay);
-
-                return () => {
-                    clearTimeout(handler);
-                };
-            }, [value, delay]);
-
-            return debouncedValue;
-        };
-
-        // --- GENERIC LUCIDE ICON REFRESH HOOK ---
-        // Ensures Lucide icons are re-rendered after React updates
-        const useLucideIcons = (deps = []) => {
-            useEffect(() => {
-                // Use double RAF to ensure DOM is fully updated
-                let rafId1, rafId2;
-                rafId1 = requestAnimationFrame(() => {
-                    rafId2 = requestAnimationFrame(() => {
-                        if (window.lucide) {
-                            lucide.createIcons();
-                        }
-                    });
-                });
-
-                // Cleanup: cancel pending RAF callbacks
-                return () => {
-                    if (rafId1) cancelAnimationFrame(rafId1);
-                    if (rafId2) cancelAnimationFrame(rafId2);
-                };
-            }, deps);
-        };
+        // Note: Custom hooks (useHaptic, useSwipe, useSwipeNavigation, useDebounce, useLucideIcons) 
+        // are now imported from ./hooks
 
         // ============================================================================
         // SECTION 5: APPLICATION CONSTANTS & PROGRAM DATA
         // ============================================================================
 
         // --- APPLICATION CONSTANTS ---
-        // Note: Constants like MAX_SETS, FETCH_TIMEOUT_MS, etc. are also available in ./constants.ts
-        // Using local copies here for now; can be migrated to imports later
+        // Note: Many constants are now imported from ./constants.ts
+        // (FETCH_TIMEOUT_MS, DEBOUNCE_DELAY_MS, MS_PER_MINUTE, MS_PER_HOUR, MS_PER_DAY)
         const MAX_SETS = 20; // Maximum number of sets per exercise
         const MAX_WEIGHT_KG = 999; // Maximum weight in kilograms
         const WEIGHT_INCREMENT_KG = 2.5; // Standard weight increment/decrement
         const WEIGHT_STEP = 0.5; // Minimum weight step for input
-        // FETCH_TIMEOUT_MS is imported from ./constants.ts
-        const DEBOUNCE_DELAY_MS = 300; // Debounce delay for search inputs in milliseconds
 
         const PROGRAM_DATA = {
             blocks: [
@@ -449,180 +310,17 @@ import { FETCH_TIMEOUT_MS } from './constants';
         // Keys for Firebase sync settings (re-exported for backward compatibility)
         const FIREBASE_SYNC_ENABLED_KEY = 'firebase_sync_enabled';
 
-        // ============================================================================
-        // SECTION 8: EXERCISE HISTORY & STATS UTILITIES
-        // ============================================================================
+        // Note: Exercise history utilities (updateExerciseHistory, getExerciseHistory, calculateExerciseStats, getAllExercisesWithHistory)
+        // are now imported from ./utils/exerciseHistory
+        // Note: formatRelativeTime is now imported from ./utils/time
+        // Note: Time constants (MS_PER_MINUTE, MS_PER_HOUR, MS_PER_DAY) are now imported from ./constants
 
+        // Storage key constant (for backward compatibility)
         const EXERCISE_HISTORY_KEY = 'exercise_history';
-
-        // Update exercise history with a new entry
-        const updateExerciseHistory = (exerciseName, entry) => {
-            const history = safeGetJSON(EXERCISE_HISTORY_KEY, {});
-
-            // Validate history structure
-            if (typeof history !== 'object' || history === null) {
-                console.warn('Invalid exercise history, resetting');
-                safeSetJSON(EXERCISE_HISTORY_KEY, {});
-                return;
-            }
-
-            if (!history[exerciseName]) {
-                history[exerciseName] = [];
-            }
-
-            // Validate exercise name and entry
-            if (!exerciseName || typeof exerciseName !== 'string') {
-                console.error('Invalid exercise name:', exerciseName);
-                return;
-            }
-
-            if (!entry || typeof entry !== 'object') {
-                console.error('Invalid history entry:', entry);
-                return;
-            }
-
-            history[exerciseName].push(entry);
-            safeSetJSON(EXERCISE_HISTORY_KEY, history);
-        };
-
-        // Get history for a specific exercise
-        const getExerciseHistory = (exerciseName) => {
-            const history = safeGetJSON(EXERCISE_HISTORY_KEY, {});
-
-            // Validate history structure
-            if (typeof history !== 'object' || history === null) {
-                console.warn('Invalid exercise history structure');
-                return [];
-            }
-
-            const exerciseHistory = history[exerciseName] || [];
-
-            // Validate that it's an array
-            if (!Array.isArray(exerciseHistory)) {
-                console.warn(`Invalid history for ${exerciseName}, expected array`);
-                return [];
-            }
-
-            return exerciseHistory;
-        };
-
-        // Calculate stats for an exercise
-        const calculateExerciseStats = (exerciseName) => {
-            const history = getExerciseHistory(exerciseName);
-
-            if (history.length === 0) {
-                return {
-                    totalWorkouts: 0,
-                    maxSets: null,
-                    maxWeight: null,
-                    maxWeightBySets: {},
-                    estimated1RM: null,
-                    recentProgress: []
-                };
-            }
-
-            let maxSets = 0;
-            let maxWeight = 0;
-            const maxWeightBySets = {};
-            let estimated1RM = 0;
-
-            history.forEach(entry => {
-                // Track max sets completed
-                if (entry.sets > maxSets) {
-                    maxSets = entry.sets;
-                }
-
-                // Track max weight
-                if (entry.weight && entry.weight > maxWeight) {
-                    maxWeight = entry.weight;
-                }
-
-                // Track max weight by set count
-                if (entry.weight && entry.sets) {
-                    if (!maxWeightBySets[entry.sets] || entry.weight > maxWeightBySets[entry.sets]) {
-                        maxWeightBySets[entry.sets] = entry.weight;
-                    }
-
-                    // Calculate estimated 1RM using Epley formula: 1RM = weight × (1 + reps/30)
-                    // Extract reps from prescription (e.g., "3 x 10 reps" -> 10)
-                    if (entry.prescription && entry.weight) {
-                        // Match pattern: "X x Y reps" where Y is the rep count we want
-                        const repsMatch = entry.prescription.match(/x\s*(\d+)\s*reps?\b/i);
-                        if (repsMatch) {
-                            const reps = parseInt(repsMatch[1], 10);
-                            const estimated = entry.weight * (1 + reps / 30);
-                            if (estimated > estimated1RM) {
-                                estimated1RM = estimated;
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Get recent progress (last 10 entries)
-            const recentProgress = history
-                .slice(-10)
-                .map(entry => ({
-                    date: entry.date,
-                    sets: entry.sets,
-                    weight: entry.weight,
-                    week: entry.week,
-                    day: entry.day
-                }));
-
-            return {
-                totalWorkouts: history.length,
-                maxSets,
-                maxWeight: maxWeight || null,
-                maxWeightBySets,
-                estimated1RM: estimated1RM > 0 ? Math.round(estimated1RM * 10) / 10 : null,
-                recentProgress
-            };
-        };
-
-        // Get all exercises with history
-        const getAllExercisesWithHistory = () => {
-            const history = safeGetJSON(EXERCISE_HISTORY_KEY, {});
-            return Object.keys(history).sort();
-        };
 
         // Helper function to safely parse weight
         const parseWeight = (weight) => {
             return weight ? parseFloat(weight) : null;
-        };
-
-        // Time constants for relative time formatting
-        const MS_PER_MINUTE = 60 * 1000;
-        const MS_PER_HOUR = 60 * 60 * 1000;
-        const MS_PER_DAY = 24 * 60 * 60 * 1000;
-
-        // Helper function to format relative time
-        const formatRelativeTime = (isoTimestamp) => {
-            if (!isoTimestamp) return null;
-
-            const syncDate = new Date(isoTimestamp);
-
-            // Validate date object
-            if (isNaN(syncDate.getTime())) {
-                console.warn('Invalid timestamp provided to formatRelativeTime:', isoTimestamp);
-                return null;
-            }
-
-            const now = new Date();
-            const diffMs = now - syncDate;
-            const diffMins = Math.floor(diffMs / MS_PER_MINUTE);
-            const diffHours = Math.floor(diffMs / MS_PER_HOUR);
-            const diffDays = Math.floor(diffMs / MS_PER_DAY);
-
-            if (diffMins < 1) {
-                return 'just now';
-            } else if (diffMins < 60) {
-                return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
-            } else if (diffHours < 24) {
-                return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-            } else {
-                return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
-            }
         };
 
         // ============================================================================

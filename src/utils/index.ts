@@ -3,6 +3,8 @@ export * from './storage';
 export * from './exerciseHistory';
 export * from './time';
 export * from './audio';
+export * from './schedule';
+export * from './firebaseSync';
 // Volume utilities - note: calculateWorkoutVolume also exists in exerciseHistory
 // Import from ./volume directly if you need the volume-specific version
 export {

@@ -6,7 +6,8 @@
 
 import { useState, useEffect } from 'react';
 import { useHaptic, useSwipeNavigation, useLucideIcons } from '../../hooks';
-import { safeGetJSON } from '../../utils/storage';
+import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, type InProgressWorkout } from '../../utils/storage';
+import { formatRelativeTime } from '../../utils/time';
 import { SwipeIndicator } from '../SwipeIndicator';
 import { getBlockForWeek } from '../../data/programData';
 
@@ -22,6 +23,7 @@ export function Dashboard({
   onStartWorkout,
 }: DashboardProps) {
   const [progress, setProgress] = useState(0);
+  const [inProgressWorkout, setInProgressWorkout] = useState<InProgressWorkout | null>(null);
   const haptic = useHaptic();
 
   // Enhanced swipe navigation with visual feedback
@@ -46,8 +48,14 @@ export function Dashboard({
 
   useEffect(() => setProgress((currentWeek / 21) * 100), [currentWeek]);
 
+  // Check for in-progress workouts on mount and when week changes
+  useEffect(() => {
+    const inProgress = getInProgressWorkout();
+    setInProgressWorkout(inProgress);
+  }, [currentWeek]);
+
   // Initialize Lucide icons when week changes (day completion status may update icons)
-  useLucideIcons([currentWeek]);
+  useLucideIcons([currentWeek, inProgressWorkout]);
 
   const isCompleted = (day: number): boolean => {
     const session = safeGetJSON<{ completed?: boolean } | null>(
@@ -55,6 +63,21 @@ export function Dashboard({
       null
     );
     return session?.completed === true;
+  };
+
+  const getDayProgress = (day: number): { completedSets: number; totalSets: number; progress: number } | null => {
+    return getWorkoutProgress(currentWeek, day);
+  };
+
+  const handleResumeWorkout = () => {
+    if (inProgressWorkout) {
+      haptic.bump();
+      // Navigate to the in-progress workout week first, then start it
+      if (inProgressWorkout.week !== currentWeek) {
+        setCurrentWeek(inProgressWorkout.week);
+      }
+      onStartWorkout(inProgressWorkout.day);
+    }
   };
 
   const currentBlock = getBlockForWeek(currentWeek) || { name: 'Unknown' };
@@ -71,6 +94,45 @@ export function Dashboard({
         {...swipeHandlers}
         className="flex-1 overflow-y-auto px-5 pb-32 pt-6"
       >
+        {/* Resume Workout Banner */}
+        {inProgressWorkout && (
+          <button
+            onClick={handleResumeWorkout}
+            className="w-full mb-6 p-5 rounded-3xl bg-gradient-to-r from-sys-accent/20 to-sys-accent/10 border-2 border-sys-accent/30 active:scale-[0.98] transition-all"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="h-12 w-12 rounded-2xl bg-sys-accent/20 flex items-center justify-center">
+                  <i data-lucide="play-circle" className="text-sys-accent" width="24"></i>
+                </div>
+                <div className="text-left">
+                  <h3 className="text-base font-bold text-white mb-1">
+                    Resume Workout
+                  </h3>
+                  <p className="text-xs text-sys-onSurfaceVar">
+                    Week {inProgressWorkout.week}, Day {inProgressWorkout.day} • {formatRelativeTime(inProgressWorkout.lastModified.toISOString()) ?? 'recently'}
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col items-end gap-1">
+                <span className="text-lg font-bold text-sys-accent">
+                  {inProgressWorkout.progress}%
+                </span>
+                <span className="text-xs text-sys-onSurfaceVar">
+                  {inProgressWorkout.completedSets}/{inProgressWorkout.totalSets} sets
+                </span>
+              </div>
+            </div>
+            {/* Progress bar */}
+            <div className="mt-4 w-full bg-black/30 h-2 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-sys-accent transition-all duration-300 rounded-full"
+                style={{ width: `${inProgressWorkout.progress}%` }}
+              ></div>
+            </div>
+          </button>
+        )}
+
         <div className="card-modern p-7 mb-8 relative overflow-hidden border border-white/5">
           <div className="relative z-10">
             <h2 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-2">
@@ -106,6 +168,8 @@ export function Dashboard({
         <div className="grid grid-cols-1 gap-4">
           {[1, 2, 3, 5].map((day) => {
             const done = isCompleted(day);
+            const dayProgress = getDayProgress(day);
+            const isInProgress = !done && dayProgress !== null;
             return (
               <button
                 key={day}
@@ -116,14 +180,16 @@ export function Dashboard({
                 className={`relative min-h-[72px] rounded-3xl px-6 py-5 flex items-center justify-between transition-all active:scale-[0.97] ${
                   done
                     ? 'bg-sys-success/10 border-2 border-sys-success/30'
+                    : isInProgress
+                    ? 'bg-sys-accent/10 border-2 border-sys-accent/30'
                     : 'bg-sys-surface border-2 border-white/5'
                 }`}
-                aria-label={`${done ? 'Completed' : 'Start'} Day ${day} workout`}
+                aria-label={`${done ? 'Completed' : isInProgress ? 'Resume' : 'Start'} Day ${day} workout`}
               >
                 <div className="flex flex-col items-start">
                   <span
                     className={`text-sm font-bold uppercase tracking-wider mb-1 ${
-                      done ? 'text-sys-success' : 'text-sys-onSurfaceVar'
+                      done ? 'text-sys-success' : isInProgress ? 'text-sys-accent' : 'text-sys-onSurfaceVar'
                     }`}
                   >
                     Day {day}
@@ -132,10 +198,12 @@ export function Dashboard({
                     className={`text-xs ${
                       done
                         ? 'text-sys-success/70'
+                        : isInProgress
+                        ? 'text-sys-accent/70'
                         : 'text-sys-onSurfaceVar/70'
                     }`}
                   >
-                    {done ? 'Completed' : 'Tap to start'}
+                    {done ? 'Completed' : isInProgress ? `In progress • ${dayProgress.progress}%` : 'Tap to start'}
                   </span>
                 </div>
 
@@ -143,11 +211,15 @@ export function Dashboard({
                   className={`h-12 w-12 min-w-[48px] rounded-2xl flex items-center justify-center ${
                     done
                       ? 'bg-sys-success text-sys-black'
+                      : isInProgress
+                      ? 'bg-sys-accent text-sys-black'
                       : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                   }`}
                 >
                   {done ? (
                     <i data-lucide="check"></i>
+                  ) : isInProgress ? (
+                    <i data-lucide="play"></i>
                   ) : (
                     <i data-lucide="chevron-right"></i>
                   )}

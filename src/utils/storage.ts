@@ -1,6 +1,6 @@
 /**
  * LocalStorage Utilities
- * 
+ *
  * Safe wrappers for localStorage operations with error handling.
  * These functions prevent crashes from quota exceeded, JSON parse errors,
  * or localStorage being unavailable.
@@ -111,7 +111,7 @@ export function clearByPrefix(prefix: string): number {
 export function getStorageInfo(): { used: number; available: boolean } {
   let used = 0;
   let available = true;
-  
+
   try {
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
@@ -125,7 +125,7 @@ export function getStorageInfo(): { used: number; available: boolean } {
   } catch (error) {
     available = false;
   }
-  
+
   return { used, available };
 }
 
@@ -148,4 +148,146 @@ export function withStorageResult<T>(
     const message = error instanceof Error ? error.message : String(error);
     return { success: false, error: `${operation} for "${key}" failed: ${message}` };
   }
+}
+
+// ============================================================================
+// IN-PROGRESS WORKOUT DETECTION
+// ============================================================================
+
+/**
+ * Workout session data stored in localStorage
+ */
+interface WorkoutSessionData {
+  completed?: boolean;
+  completedAt?: string;
+  lastModified?: string;
+  week?: number;
+  day?: number;
+  workoutNotes?: string;
+  [exerciseId: string]: unknown;
+}
+
+/**
+ * Information about an in-progress workout
+ */
+export interface InProgressWorkout {
+  week: number;
+  day: number;
+  completedSets: number;
+  totalSets: number;
+  lastModified: Date;
+  progress: number; // 0-100 percentage
+}
+
+/**
+ * Count completed sets from session data
+ */
+function countSetsFromSession(session: WorkoutSessionData): { completed: number; total: number } {
+  let completedSets = 0;
+  let totalSets = 0;
+
+  for (const [key, value] of Object.entries(session)) {
+    // Skip metadata fields
+    if (['completed', 'completedAt', 'lastModified', 'week', 'day', 'workoutNotes', 'addedExercises'].includes(key)) {
+      continue;
+    }
+
+    // Check if it's an exercise log entry with sets
+    if (value && typeof value === 'object' && !Array.isArray(value) && 'sets' in value) {
+      const sets = (value as { sets?: boolean[] }).sets;
+      if (Array.isArray(sets)) {
+        totalSets += sets.length;
+        completedSets += sets.filter(Boolean).length;
+      }
+    }
+  }
+
+  return { completed: completedSets, total: totalSets };
+}
+
+/**
+ * Get information about the most recent in-progress workout
+ * @returns InProgressWorkout if one exists, null otherwise
+ */
+export function getInProgressWorkout(): InProgressWorkout | null {
+  try {
+    const sessionPattern = /^session_w(\d+)d(\d+)$/;
+    let mostRecent: InProgressWorkout | null = null;
+    let mostRecentTime = 0;
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key) continue;
+
+      const match = key.match(sessionPattern);
+      if (!match) continue;
+
+      const session = safeGetJSON<WorkoutSessionData>(key);
+      if (!session || session.completed) continue;
+
+      // Check if session has any workout data (not just empty)
+      const { completed: completedSets, total: totalSets } = countSetsFromSession(session);
+
+      // Only consider if there's actual progress (at least one set logged)
+      if (completedSets === 0) continue;
+
+      const lastModified = session.lastModified ? new Date(session.lastModified).getTime() : 0;
+
+      if (lastModified > mostRecentTime) {
+        mostRecentTime = lastModified;
+        mostRecent = {
+          week: parseInt(match[1], 10),
+          day: parseInt(match[2], 10),
+          completedSets,
+          totalSets,
+          lastModified: new Date(lastModified),
+          progress: totalSets > 0 ? Math.round((completedSets / totalSets) * 100) : 0,
+        };
+      }
+    }
+
+    return mostRecent;
+  } catch (error) {
+    console.error('Failed to get in-progress workout:', error);
+    return null;
+  }
+}
+
+/**
+ * Check if a specific workout session is in progress
+ * @param week - week number
+ * @param day - day number
+ * @returns true if the workout has started but not completed
+ */
+export function isWorkoutInProgress(week: number, day: number): boolean {
+  const key = `session_w${week}d${day}`;
+  const session = safeGetJSON<WorkoutSessionData>(key);
+
+  if (!session || session.completed) return false;
+
+  const { completed: completedSets } = countSetsFromSession(session);
+  return completedSets > 0;
+}
+
+/**
+ * Get progress information for a specific workout
+ * @param week - week number
+ * @param day - day number
+ * @returns progress info or null if workout hasn't started
+ */
+export function getWorkoutProgress(week: number, day: number): { completedSets: number; totalSets: number; progress: number } | null {
+  const key = `session_w${week}d${day}`;
+  const session = safeGetJSON<WorkoutSessionData>(key);
+
+  if (!session) return null;
+
+  const { completed: completedSets, total: totalSets } = countSetsFromSession(session);
+
+  if (completedSets === 0) return null;
+
+  return {
+    completedSets,
+    totalSets,
+    progress: totalSets > 0 ? Math.round((completedSets / totalSets) * 100) : 0,
+  };
 }

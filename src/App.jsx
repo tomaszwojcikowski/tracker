@@ -13,6 +13,9 @@ import {
     EmptyExerciseHistory,
     EmptySearchResults,
 } from './components/feedback';
+import { PullToRefresh } from './components/PullToRefresh';
+import { FloatingTimer } from './components/FloatingTimer';
+import { SwipeIndicator } from './components/SwipeIndicator';
 
         // ============================================================================
         // SECTION 1: GLOBAL STATE & DATA STRUCTURES
@@ -125,7 +128,8 @@ import {
                 tick: () => trigger([10]), // Light tap for checks
                 bump: () => trigger([30]), // Medium bump for buttons
                 success: () => trigger([50, 50, 50]), // Double pulse for completion
-                timer: () => trigger([200, 100, 200]) // Triple buzz for timer completion
+                timer: () => trigger([200, 100, 200]), // Triple buzz for timer completion
+                swipe: () => trigger([5]) // Light swipe feedback
             };
         };
 
@@ -152,6 +156,85 @@ import {
                 if (isRightSwipe && onSwipeRight) onSwipeRight();
             };
             return { onTouchStart, onTouchMove, onTouchEnd };
+        };
+
+        // --- SWIPE NAVIGATION HOOK (for day navigation with visual feedback) ---
+        const useSwipeNavigation = ({
+            onSwipeLeft,
+            onSwipeRight,
+            threshold = 50,
+            velocityThreshold = 0.3,
+        }) => {
+            const [swipeOffset, setSwipeOffset] = useState(0);
+            const [isSwiping, setIsSwiping] = useState(false);
+
+            const startX = useRef(0);
+            const startY = useRef(0);
+            const startTime = useRef(0);
+            const isHorizontalSwipe = useRef(null);
+
+            const onTouchStart = (e) => {
+                startX.current = e.touches[0].clientX;
+                startY.current = e.touches[0].clientY;
+                startTime.current = Date.now();
+                isHorizontalSwipe.current = null;
+                setIsSwiping(true);
+            };
+
+            const onTouchMove = (e) => {
+                if (!isSwiping) return;
+
+                const currentX = e.touches[0].clientX;
+                const currentY = e.touches[0].clientY;
+                const diffX = currentX - startX.current;
+                const diffY = currentY - startY.current;
+
+                // Determine swipe direction on first significant movement
+                if (isHorizontalSwipe.current === null && (Math.abs(diffX) > 10 || Math.abs(diffY) > 10)) {
+                    isHorizontalSwipe.current = Math.abs(diffX) > Math.abs(diffY);
+                }
+
+                // Only track horizontal swipes
+                if (isHorizontalSwipe.current) {
+                    const maxOffset = 100;
+                    const resistance = 0.5;
+                    const offset = Math.max(-maxOffset, Math.min(maxOffset, diffX * resistance));
+                    setSwipeOffset(offset);
+                }
+            };
+
+            const onTouchEnd = () => {
+                if (!isSwiping) return;
+
+                const endTime = Date.now();
+                const duration = endTime - startTime.current;
+                const velocity = Math.abs(swipeOffset) / duration;
+
+                const shouldTrigger = Math.abs(swipeOffset) > threshold || velocity > velocityThreshold;
+
+                if (shouldTrigger) {
+                    if (swipeOffset < 0 && onSwipeLeft) {
+                        onSwipeLeft();
+                    } else if (swipeOffset > 0 && onSwipeRight) {
+                        onSwipeRight();
+                    }
+                }
+
+                setSwipeOffset(0);
+                setIsSwiping(false);
+                isHorizontalSwipe.current = null;
+            };
+
+            const swipeDirection = swipeOffset > 0 ? 'right' : swipeOffset < 0 ? 'left' : null;
+            const swipeProgress = Math.min(Math.abs(swipeOffset) / threshold, 1);
+
+            return {
+                swipeOffset,
+                isSwiping,
+                swipeDirection,
+                swipeProgress,
+                handlers: { onTouchStart, onTouchMove, onTouchEnd },
+            };
         };
 
         // --- DEBOUNCE HOOK ---
@@ -1152,8 +1235,24 @@ import {
             );
 
             return (
-                <div {...swipeHandlers} className="px-5 pb-32 pt-6">
-                    {/* Quick navigation button */}
+                <>
+                    {/* Floating Rest Timer - visible while scrolling */}
+                    <FloatingTimer
+                        seconds={timerSeconds}
+                        active={timerActive}
+                        onStop={() => {
+                            haptic.bump();
+                            setTimerActive(false);
+                            setTimerSeconds(0);
+                        }}
+                        onAddTime={() => {
+                            haptic.bump();
+                            setTimerSeconds(s => s + 30);
+                        }}
+                    />
+
+                    <div {...swipeHandlers} className="px-5 pb-32 pt-6">
+                        {/* Quick navigation button */}
                     {hasIncompleteExercises && (
                         <div className="mb-6">
                             <button
@@ -1884,7 +1983,8 @@ import {
                             </div>
                         </div>
                     )}
-                </div>
+                    </div>
+                </>
             );
         };
 
@@ -1985,9 +2085,24 @@ import {
             const [progress, setProgress] = useState(0);
             const haptic = useHaptic();
 
-            const swipeHandlers = useSwipe({
-                onSwipeLeft: () => setCurrentWeek(Math.min(21, currentWeek + 1)),
-                onSwipeRight: () => setCurrentWeek(Math.max(1, currentWeek - 1))
+            // Enhanced swipe navigation with visual feedback
+            const {
+                swipeDirection,
+                swipeProgress,
+                handlers: swipeHandlers
+            } = useSwipeNavigation({
+                onSwipeLeft: () => {
+                    if (currentWeek < 21) {
+                        haptic.swipe();
+                        setCurrentWeek(currentWeek + 1);
+                    }
+                },
+                onSwipeRight: () => {
+                    if (currentWeek > 1) {
+                        haptic.swipe();
+                        setCurrentWeek(currentWeek - 1);
+                    }
+                }
             });
 
             useEffect(() => setProgress((currentWeek / 21) * 100), [currentWeek]);
@@ -2003,59 +2118,66 @@ import {
             const currentBlock = PROGRAM_DATA.blocks.find(b => b.weeks.includes(currentWeek)) || { name: "Unknown" };
 
             return (
-                <div {...swipeHandlers} className="flex-1 overflow-y-auto px-5 pb-32 pt-6">
-                    <div className="card-modern p-7 mb-8 relative overflow-hidden border border-white/5">
-                        <div className="relative z-10">
-                            <h2 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-2">Current Phase</h2>
-                            <h1 className="text-3xl font-bold text-white mb-5 leading-tight">{currentBlock.name}</h1>
-                            <div className="flex items-baseline gap-3 mb-6">
-                                <span className="text-5xl font-bold text-sys-accent tracking-tighter">W{currentWeek}</span>
-                                <span className="text-sys-onSurfaceVar font-mono text-xl">/ 21</span>
-                            </div>
-                            <div className="w-full bg-black/30 h-2 rounded-full overflow-hidden">
-                                <div className="progress-bar-fill h-full transition-all duration-500 rounded-full" style={{ width: `${progress}%` }}></div>
+                <>
+                    <SwipeIndicator
+                        direction={swipeDirection}
+                        progress={swipeProgress}
+                        leftLabel={currentWeek < 21 ? `Week ${currentWeek + 1}` : null}
+                        rightLabel={currentWeek > 1 ? `Week ${currentWeek - 1}` : null}
+                    />
+                    <div {...swipeHandlers} className="flex-1 overflow-y-auto px-5 pb-32 pt-6">
+                        <div className="card-modern p-7 mb-8 relative overflow-hidden border border-white/5">
+                            <div className="relative z-10">
+                                <h2 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-2">Current Phase</h2>
+                                <h1 className="text-3xl font-bold text-white mb-5 leading-tight">{currentBlock.name}</h1>
+                                <div className="flex items-baseline gap-3 mb-6">
+                                    <span className="text-5xl font-bold text-sys-accent tracking-tighter">W{currentWeek}</span>
+                                    <span className="text-sys-onSurfaceVar font-mono text-xl">/ 21</span>
+                                </div>
+                                <div className="w-full bg-black/30 h-2 rounded-full overflow-hidden">
+                                    <div className="progress-bar-fill h-full transition-all duration-500 rounded-full" style={{ width: `${progress}%` }}></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="flex justify-between items-end mb-6 px-1">
-                        <h3 className="text-2xl font-bold text-white">Weekly Plan</h3>
-                        <span className="text-sm text-sys-onSurfaceVar font-medium">Week {currentWeek}</span>
-                    </div>
+                        <div className="flex justify-between items-end mb-6 px-1">
+                            <h3 className="text-2xl font-bold text-white">Weekly Plan</h3>
+                            <span className="text-sm text-sys-onSurfaceVar font-medium">Week {currentWeek}</span>
+                        </div>
 
-                    <div className="grid grid-cols-1 gap-4">
-                        {[1, 2, 3, 5].map((day) => {
-                            const done = isCompleted(day);
-                            return (
-                                <button
-                                    key={day}
-                                    onClick={() => { haptic.tick(); onStartWorkout(day); }}
-                                    className={`relative min-h-[72px] rounded-3xl px-6 py-5 flex items-center justify-between transition-all active:scale-[0.97] ${done ? 'bg-sys-success/10 border-2 border-sys-success/30' : 'bg-sys-surface border-2 border-white/5'}`}
-                                    aria-label={`${done ? 'Completed' : 'Start'} Day ${day} workout`}
-                                >
-                                    <div className="flex flex-col items-start">
-                                        <span className={`text-sm font-bold uppercase tracking-wider mb-1 ${done ? 'text-sys-success' : 'text-sys-onSurfaceVar'}`}>Day {day}</span>
-                                        <span className={`text-xs ${done ? 'text-sys-success/70' : 'text-sys-onSurfaceVar/70'}`}>
-                                            {done ? 'Completed' : 'Tap to start'}
-                                        </span>
-                                    </div>
+                        <div className="grid grid-cols-1 gap-4">
+                            {[1, 2, 3, 5].map((day) => {
+                                const done = isCompleted(day);
+                                return (
+                                    <button
+                                        key={day}
+                                        onClick={() => { haptic.tick(); onStartWorkout(day); }}
+                                        className={`relative min-h-[72px] rounded-3xl px-6 py-5 flex items-center justify-between transition-all active:scale-[0.97] ${done ? 'bg-sys-success/10 border-2 border-sys-success/30' : 'bg-sys-surface border-2 border-white/5'}`}
+                                        aria-label={`${done ? 'Completed' : 'Start'} Day ${day} workout`}
+                                    >
+                                        <div className="flex flex-col items-start">
+                                            <span className={`text-sm font-bold uppercase tracking-wider mb-1 ${done ? 'text-sys-success' : 'text-sys-onSurfaceVar'}`}>Day {day}</span>
+                                            <span className={`text-xs ${done ? 'text-sys-success/70' : 'text-sys-onSurfaceVar/70'}`}>
+                                                {done ? 'Completed' : 'Tap to start'}
+                                            </span>
+                                        </div>
 
-                                    <div className={`h-12 w-12 min-w-[48px] rounded-2xl flex items-center justify-center ${done ? 'bg-sys-success text-sys-black' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}>
-                                        {done ? <i data-lucide="check" width="24"></i> : <i data-lucide="chevron-right" width="24"></i>}
-                                    </div>
-                                </button>
-                            );
-                        })}
-                    </div>
+                                        <div className={`h-12 w-12 min-w-[48px] rounded-2xl flex items-center justify-center ${done ? 'bg-sys-success text-sys-black' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'}`}>
+                                            {done ? <i data-lucide="check" width="24"></i> : <i data-lucide="chevron-right" width="24"></i>}
+                                        </div>
+                                    </button>
+                                );
+                            })}
+                        </div>
 
-                    <div className="mt-10 flex justify-center items-center gap-2">
-                        <button
-                            onClick={() => setCurrentWeek(Math.max(1, currentWeek - 1))}
-                            className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
-                            disabled={currentWeek === 1}
-                            aria-label="Previous week"
-                        >
-                            <i data-lucide="chevron-left" width="18"></i>
+                        <div className="mt-10 flex justify-center items-center gap-2">
+                            <button
+                                onClick={() => setCurrentWeek(Math.max(1, currentWeek - 1))}
+                                className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
+                                disabled={currentWeek === 1}
+                                aria-label="Previous week"
+                            >
+                                <i data-lucide="chevron-left" width="18"></i>
                         </button>
                         <div className="flex gap-2 px-4">
                             {[...Array(5)].map((_, i) => {
@@ -2080,7 +2202,8 @@ import {
                             <i data-lucide="chevron-right" width="18"></i>
                         </button>
                     </div>
-                </div>
+                    </div>
+                </>
             );
         };
 
@@ -2297,7 +2420,7 @@ import {
             const [selectedExerciseForGraph, setSelectedExerciseForGraph] = useState(null);
             const haptic = useHaptic();
 
-            const loadHistory = () => {
+            const loadHistory = async () => {
                 const h = safeGetJSON('global_history', []);
 
                 // Validate that history is an array
@@ -2326,6 +2449,17 @@ import {
             // Initialize Lucide icons when history or UI state changes
             useLucideIcons([history, expandedEntries, viewMode, selectedExerciseForGraph]);
 
+            // Pull-to-refresh handler
+            const handlePullRefresh = async () => {
+                haptic.bump();
+                setIsRefreshing(true);
+                // Small delay for visual feedback
+                await new Promise(resolve => setTimeout(resolve, 500));
+                await loadHistory();
+                setIsRefreshing(false);
+                haptic.success();
+            };
+
             const handleRefresh = () => {
                 setIsRefreshing(true);
                 setTimeout(() => {
@@ -2340,46 +2474,47 @@ import {
             };
 
             return (
-                <div className="px-5 pb-32 pt-6">
-                    <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-2xl font-bold text-white">History</h2>
-                        <div className="flex items-center gap-2">
-                            <div className="flex bg-sys-surfaceHigh rounded-xl p-1">
+                <PullToRefresh onRefresh={handlePullRefresh} className="h-full">
+                    <div className="px-5 pb-32 pt-6">
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-2xl font-bold text-white">History</h2>
+                            <div className="flex items-center gap-2">
+                                <div className="flex bg-sys-surfaceHigh rounded-xl p-1">
+                                    <button
+                                        onClick={() => { haptic.tick(); setViewMode('timeline'); }}
+                                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${viewMode === 'timeline' ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'}`}
+                                    >
+                                        Timeline
+                                    </button>
+                                    <button
+                                        onClick={() => { haptic.tick(); setViewMode('stats'); }}
+                                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${viewMode === 'stats' ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'}`}
+                                    >
+                                        Stats
+                                    </button>
+                                </div>
                                 <button
-                                    onClick={() => { haptic.tick(); setViewMode('timeline'); }}
-                                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${viewMode === 'timeline' ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'}`}
+                                    onClick={handleRefresh}
+                                    className={`h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all ${isRefreshing ? 'animate-spin' : ''}`}
+                                    aria-label="Refresh history"
                                 >
-                                    Timeline
-                                </button>
-                                <button
-                                    onClick={() => { haptic.tick(); setViewMode('stats'); }}
-                                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${viewMode === 'stats' ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'}`}
-                                >
-                                    Stats
+                                    <i data-lucide="refresh-cw" width="18"></i>
                                 </button>
                             </div>
-                            <button
-                                onClick={handleRefresh}
-                                className={`h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all ${isRefreshing ? 'animate-spin' : ''}`}
-                                aria-label="Refresh history"
-                            >
-                                <i data-lucide="refresh-cw" width="18"></i>
-                            </button>
                         </div>
-                    </div>
-                    {history.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
-                            <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
-                                <i data-lucide="history" width="40" className="text-sys-onSurfaceVar"></i>
+                        {history.length === 0 ? (
+                            <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
+                                <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
+                                    <i data-lucide="history" width="40" className="text-sys-onSurfaceVar"></i>
+                                </div>
+                                <h3 className="text-lg font-semibold text-white mb-2">No Workouts Yet</h3>
+                                <p className="text-sm text-sys-onSurfaceVar text-center max-w-[250px]">Complete your first workout to see it here. Pull down to refresh.</p>
                             </div>
-                            <h3 className="text-lg font-semibold text-white mb-2">No Workouts Yet</h3>
-                            <p className="text-sm text-sys-onSurfaceVar text-center max-w-[250px]">Complete your first workout to see it here</p>
-                        </div>
-                    ) : viewMode === 'stats' ? (
-                        <ExerciseStatsView onSelectExercise={setSelectedExerciseForGraph} />
-                    ) : (
-                        <div className="space-y-4">
-                            {history.map((entry, idx) => {
+                        ) : viewMode === 'stats' ? (
+                            <ExerciseStatsView onSelectExercise={setSelectedExerciseForGraph} />
+                        ) : (
+                            <div className="space-y-4">
+                                {history.map((entry, idx) => {
                                 const isExpanded = expandedEntries[idx];
                                 const hasExercises = entry.exercises && entry.exercises.length > 0;
 
@@ -2471,7 +2606,8 @@ import {
                             })}
                         </div>
                     )}
-                </div>
+                    </div>
+                </PullToRefresh>
             );
         };
 

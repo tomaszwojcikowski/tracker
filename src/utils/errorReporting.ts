@@ -120,13 +120,13 @@ export function initErrorReporting(): void {
     console.error = (...args: unknown[]) => {
         // Call original console.error first
         originalConsoleError.apply(console, args);
-        
+
         // Send to Sentry if initialized
         if (isErrorReportingEnabled()) {
-            const message = args.map(arg => 
+            const message = args.map(arg =>
                 typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
             ).join(' ');
-            
+
             // Check if first arg is an Error object
             const firstArg = args[0];
             if (firstArg instanceof Error) {

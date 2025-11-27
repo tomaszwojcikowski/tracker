@@ -16,6 +16,7 @@ vi.mock('@sentry/react', () => ({
     }),
     browserTracingIntegration: vi.fn(() => ({})),
     replayIntegration: vi.fn(() => ({})),
+    captureConsoleIntegration: vi.fn(() => ({})),
     ErrorBoundary: vi.fn(),
     withProfiler: vi.fn(),
 }));

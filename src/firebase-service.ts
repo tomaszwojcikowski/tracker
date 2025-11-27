@@ -163,6 +163,7 @@ function isMobileDevice(): boolean {
  * Check for redirect result on page load
  * Should be called early in app initialization
  * @returns User credential if redirected back from auth, null otherwise
+ * @throws Error if redirect authentication failed
  */
 export async function checkRedirectResult(): Promise<UserCredential | null> {
     if (!isFirebaseInitialized() || !auth) {
@@ -177,7 +178,8 @@ export async function checkRedirectResult(): Promise<UserCredential | null> {
         return result;
     } catch (error) {
         console.error('Redirect result check failed:', error);
-        return null;
+        // Re-throw so the UI can display the error
+        throw error;
     }
 }
 

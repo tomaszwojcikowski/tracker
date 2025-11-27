@@ -156,10 +156,25 @@ export const SettingsView: React.FC = () => {
             }).catch((err) => {
                 setIsCheckingRedirect(false);
                 console.error('Redirect result error:', err);
-                const message = err instanceof Error ? err.message : 'Unknown error';
-                setFirebaseMessage('✗ Login failed: ' + message);
-                // Keep error visible longer
-                setTimeout(() => setFirebaseMessage(''), 10000);
+                
+                // Extract error details
+                const errorCode = err?.code || '';
+                const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+                
+                // Handle specific error cases
+                if (errorCode === 'auth/popup-closed-by-user' || errorCode === 'auth/cancelled-popup-request') {
+                    setFirebaseMessage('↩ Login cancelled');
+                    setTimeout(() => setFirebaseMessage(''), 5000);
+                } else if (errorCode === 'auth/network-request-failed') {
+                    setFirebaseMessage('✗ Network error - check your connection');
+                    setTimeout(() => setFirebaseMessage(''), 10000);
+                } else {
+                    // Show full error for debugging
+                    const displayMessage = errorCode ? `${errorCode}: ${errorMessage}` : errorMessage;
+                    setFirebaseMessage('✗ Login failed: ' + displayMessage);
+                    // Keep error visible longer
+                    setTimeout(() => setFirebaseMessage(''), 15000);
+                }
             });
 
             FirebaseService.initSync(
@@ -230,10 +245,23 @@ export const SettingsView: React.FC = () => {
                 // Mobile redirect - show redirecting message
                 setFirebaseMessage('↻ Redirecting to Google...');
             }
-        } catch (error) {
-            const message = error instanceof Error ? error.message : 'Unknown error';
-            setFirebaseMessage('✗ Login failed: ' + message);
-            setTimeout(() => setFirebaseMessage(''), 5000);
+        } catch (error: unknown) {
+            const err = error as { code?: string; message?: string };
+            const errorCode = err?.code || '';
+            const errorMessage = err?.message || 'Unknown error';
+            
+            // Handle specific error cases
+            if (errorCode === 'auth/popup-closed-by-user' || errorCode === 'auth/cancelled-popup-request') {
+                setFirebaseMessage('↩ Login cancelled');
+                setTimeout(() => setFirebaseMessage(''), 5000);
+            } else if (errorCode === 'auth/network-request-failed') {
+                setFirebaseMessage('✗ Network error - check your connection');
+                setTimeout(() => setFirebaseMessage(''), 10000);
+            } else {
+                const displayMessage = errorCode ? `${errorCode}: ${errorMessage}` : errorMessage;
+                setFirebaseMessage('✗ Login failed: ' + displayMessage);
+                setTimeout(() => setFirebaseMessage(''), 15000);
+            }
         } finally {
             setIsLoggingIn(false);
         }

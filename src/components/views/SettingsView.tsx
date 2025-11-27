@@ -3,10 +3,97 @@ import * as FirebaseService from '../../firebase-service';
 import { ThemeSelector } from '../ThemeSelector';
 import { useTheme } from '../../hooks/useTheme';
 import { useHaptic, useLucideIcons } from '../../hooks';
-import { getAllLocalData, mergeCloudData, FIREBASE_SYNC_ENABLED_KEY } from '../../utils/firebaseSync';
+import { getAllLocalData, mergeCloudData, FIREBASE_SYNC_ENABLED_KEY, type SessionData } from '../../utils/firebaseSync';
 import { formatRelativeTime } from '../../utils/time';
 import type { CloudData } from '../../firebase-service';
 import type { User } from 'firebase/auth';
+import type { ExerciseHistory } from '../../types';
+
+/**
+ * Merge local data with cloud data using smart merge strategy
+ * 
+ * This function ensures that:
+ * 1. Cloud data is preserved and not overwritten by empty local data
+ * 2. Local sessions with newer timestamps take precedence
+ * 3. Both local and cloud sessions are included in the result
+ */
+function mergeLocalAndCloudData(
+    localData: ReturnType<typeof getAllLocalData>,
+    cloudData: CloudData | null
+): CloudData {
+    // If no cloud data, just return local data
+    if (!cloudData) {
+        return {
+            sessions: localData.sessions as CloudData['sessions'],
+            exerciseHistory: localData.exercise_history,
+            lastSyncTime: new Date().toISOString(),
+        };
+    }
+
+    // Use a mutable object for merging, with proper typing
+    const mergedSessions: Record<string, SessionData> = {};
+    
+    // First, copy all cloud sessions
+    if (cloudData.sessions) {
+        Object.entries(cloudData.sessions).forEach(([key, session]) => {
+            mergedSessions[key] = session;
+        });
+    }
+
+    // Merge local sessions, keeping newer versions
+    if (localData.sessions) {
+        Object.entries(localData.sessions).forEach(([key, localSession]) => {
+            const cloudSession = mergedSessions[key];
+            
+            if (!cloudSession) {
+                // No cloud version, use local
+                mergedSessions[key] = localSession;
+            } else if (localSession.lastModified && cloudSession.lastModified) {
+                // Both have timestamps, compare
+                const localTime = new Date(localSession.lastModified).getTime();
+                const cloudTime = new Date(cloudSession.lastModified).getTime();
+                
+                if (localTime > cloudTime) {
+                    // Local is newer
+                    mergedSessions[key] = localSession;
+                }
+                // else keep cloud version (already in merged)
+            } else if (localSession.lastModified) {
+                // Only local has timestamp, use local
+                mergedSessions[key] = localSession;
+            }
+            // else keep cloud version (already in merged)
+        });
+    }
+
+    // Merge exercise history - combine entries
+    const mergedHistory: ExerciseHistory = { ...(cloudData.exerciseHistory || {}) };
+    
+    if (localData.exercise_history && Object.keys(localData.exercise_history).length > 0) {
+        Object.entries(localData.exercise_history).forEach(([exerciseId, entries]) => {
+            if (!mergedHistory[exerciseId]) {
+                mergedHistory[exerciseId] = entries;
+            } else {
+                // Merge entries, avoiding duplicates by date
+                const existingDates = new Set(
+                    mergedHistory[exerciseId].map(e => e.date)
+                );
+                entries.forEach(entry => {
+                    if (!existingDates.has(entry.date)) {
+                        mergedHistory[exerciseId].push(entry);
+                    }
+                });
+            }
+        });
+    }
+
+    return {
+        sessions: mergedSessions as CloudData['sessions'],
+        exerciseHistory: mergedHistory,
+        settings: cloudData.settings,
+        lastSyncTime: new Date().toISOString(),
+    };
+}
 
 /**
  * SettingsView component - displays app settings including theme selection and cloud sync
@@ -16,6 +103,7 @@ export const SettingsView: React.FC = () => {
     const [firebaseUser, setFirebaseUser] = useState<User | null>(null);
     const [firebaseSyncEnabled, setFirebaseSyncEnabled] = useState(true); // Default enabled
     const [firebaseMessage, setFirebaseMessage] = useState('');
+    const [isSyncing, setIsSyncing] = useState(false);
 
     // Theme state
     const { theme, setTheme, themes } = useTheme();
@@ -29,29 +117,59 @@ export const SettingsView: React.FC = () => {
 
         // Setup Firebase auth state listener (Firebase is auto-initialized from env vars)
         if (FirebaseService.isFirebaseInitialized()) {
+            // Check for redirect result first (for mobile login flow)
+            FirebaseService.checkRedirectResult().then((result) => {
+                if (result) {
+                    console.log('Redirect login successful');
+                    setFirebaseMessage('✓ Logged in successfully');
+                    setTimeout(() => setFirebaseMessage(''), 3000);
+                }
+            }).catch((err) => {
+                console.error('Redirect result error:', err);
+            });
+
             FirebaseService.initSync(
+                // onDataReceived - called for subsequent cloud updates after initial sync
                 (cloudData: CloudData | null) => {
-                    // Data received from cloud
                     if (cloudData) {
                         mergeCloudData(cloudData as Parameters<typeof mergeCloudData>[0]);
                         setFirebaseMessage('✓ Data synced from cloud');
                         setTimeout(() => setFirebaseMessage(''), 3000);
                     }
                 },
-                (user: User | null) => {
-                    // Auth state changed
+                // onAuthChange - called with user AND initial cloud data
+                // This ensures we merge cloud data BEFORE pushing local data
+                (user: User | null, initialCloudData: CloudData | null) => {
                     setFirebaseUser(user);
+                    
                     if (user && savedSyncEnabled) {
-                        // User logged in - upload local data
+                        setIsSyncing(true);
+                        
+                        // STEP 1: Merge initial cloud data into local storage first
+                        if (initialCloudData) {
+                            console.log('Merging initial cloud data before pushing local changes');
+                            mergeCloudData(initialCloudData as Parameters<typeof mergeCloudData>[0]);
+                        }
+                        
+                        // STEP 2: Get local data (now includes merged cloud data)
                         const localData = getAllLocalData();
-                        // Cast to CloudData - the runtime structure is compatible
-                        FirebaseService.saveToCloud(localData as unknown as CloudData)
+                        
+                        // STEP 3: Smart merge - combine local and cloud data
+                        const mergedData = mergeLocalAndCloudData(localData, initialCloudData);
+                        
+                        // STEP 4: Push merged data to cloud
+                        FirebaseService.saveToCloud(mergedData)
                             .then(() => {
-                                setFirebaseMessage('✓ Local data synced to cloud');
+                                setFirebaseMessage('✓ Data synced successfully');
                                 setTimeout(() => setFirebaseMessage(''), 3000);
                             })
                             .catch((err: Error) => {
-                                console.error('Failed to sync local data:', err);
+                                console.error('Failed to sync data:', err);
+                                setFirebaseMessage('✗ Sync failed: ' + err.message);
+                                setTimeout(() => setFirebaseMessage(''), 5000);
+                            })
+                            .finally(() => {
+                                setIsSyncing(false);
                             });
                     }
                 }
@@ -60,15 +178,22 @@ export const SettingsView: React.FC = () => {
     }, []);
 
     // Initialize Lucide icons when settings change
-    useLucideIcons([firebaseMessage, firebaseUser]);
+    useLucideIcons([firebaseMessage, firebaseUser, isSyncing]);
 
     // Firebase handlers
     const handleFirebaseLogin = async () => {
         haptic.bump();
         try {
-            await FirebaseService.handleLogin();
-            setFirebaseMessage('✓ Logged in successfully');
-            setTimeout(() => setFirebaseMessage(''), 3000);
+            const result = await FirebaseService.handleLogin();
+            // On desktop, we get a result. On mobile with redirect, we get void
+            // and the success message will be shown after redirect via checkRedirectResult
+            if (result) {
+                setFirebaseMessage('✓ Logged in successfully');
+                setTimeout(() => setFirebaseMessage(''), 3000);
+            } else {
+                // Mobile redirect - show redirecting message
+                setFirebaseMessage('↻ Redirecting to Google...');
+            }
         } catch (error) {
             const message = error instanceof Error ? error.message : 'Unknown error';
             setFirebaseMessage('✗ Login failed: ' + message);
@@ -91,9 +216,11 @@ export const SettingsView: React.FC = () => {
 
     const handleManualSync = async () => {
         haptic.bump();
+        setIsSyncing(true);
         try {
+            // Get local data including current workout
             const localData = getAllLocalData();
-            // Cast to CloudData - the runtime structure is compatible
+            // Push to cloud - we trust the merge will happen correctly on next pull
             await FirebaseService.saveToCloud(localData as unknown as CloudData);
             setFirebaseMessage('✓ Data synced to cloud successfully');
             setTimeout(() => setFirebaseMessage(''), 3000);
@@ -101,6 +228,8 @@ export const SettingsView: React.FC = () => {
             const message = error instanceof Error ? error.message : 'Unknown error';
             setFirebaseMessage('✗ Sync failed: ' + message);
             setTimeout(() => setFirebaseMessage(''), 5000);
+        } finally {
+            setIsSyncing(false);
         }
     };
 
@@ -190,10 +319,11 @@ export const SettingsView: React.FC = () => {
                             <div className="flex gap-3">
                                 <button
                                     onClick={handleManualSync}
-                                    className="flex-1 h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform border border-white/5"
+                                    disabled={isSyncing}
+                                    className={`flex-1 h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 transition-transform border border-white/5 ${isSyncing ? 'opacity-50' : 'active:scale-95'}`}
                                 >
-                                    <i data-lucide="refresh-cw" width="18"></i>
-                                    <span>Sync Now</span>
+                                    <i data-lucide="refresh-cw" width="18" className={isSyncing ? 'animate-spin' : ''}></i>
+                                    <span>{isSyncing ? 'Syncing...' : 'Sync Now'}</span>
                                 </button>
 
                                 <button

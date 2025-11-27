@@ -34,6 +34,7 @@ tracker/
 │   │   └── VolumeCard.jsx    # Volume tracking display
 │   ├── hooks/                # Custom React hooks (TypeScript)
 │   │   ├── index.ts          # Hook exports with full type definitions
+│   │   ├── useAutomergeSync.ts   # CRDT-based sync with Automerge
 │   │   ├── useOptimisticSync.ts  # Background cloud sync with debouncing
 │   │   ├── usePWA.ts         # PWA install/update hooks
 │   │   ├── useAccessibility.ts   # Focus trap, keyboard shortcuts
@@ -45,6 +46,7 @@ tracker/
 │   │   ├── audio.js/.ts      # Web Audio API sounds
 │   │   ├── volume.js/.ts     # Volume tracking calculations
 │   │   ├── exerciseHistory.js/.ts  # Exercise history management
+│   │   ├── automergeSync.ts  # CRDT-based conflict-free merging
 │   │   └── sanitize.js/.ts   # DOMPurify HTML sanitization
 │   └── test/                 # Unit tests (Vitest + Testing Library)
 │       ├── setup.js
@@ -103,6 +105,7 @@ tracker/
 - URL routing & deep links — `urlRouting.test.jsx`
 - Set toggle logic + RPE — `toggleSet.test.jsx`
 - Firebase timestamp merge + settings sync — `firebaseSync.test.jsx`
+- Automerge CRDT sync — `automergeSync.test.jsx`
 - Browser history regressions — `backNavigation.test.jsx`
 - Optimistic sync hook — `optimisticSync.test.jsx`
 - EMOM timer logic — `emomTimer.test.jsx`
@@ -190,6 +193,12 @@ VITE_FIREBASE_APP_ID="..."
   - Immediate sync option for critical updates
   - Auto-retry with configurable attempts
   - Offline detection with pending change tracking
+- **CRDT-Based Sync**: `useAutomergeSync` hook provides conflict-free merging
+  - Uses Automerge CRDTs for automatic conflict resolution
+  - No data loss from concurrent edits on multiple devices
+  - Deterministic merging - same inputs always produce same output
+  - Automatic migration from timestamp-based sync
+  - Binary document serialization for efficient storage
 
 #### Progressive Web App (PWA)
 - **Offline Support**: Workbox service worker caches app shell and API responses
@@ -417,9 +426,11 @@ The codebase is actively migrating to TypeScript. Legacy JavaScript files are be
 - `sanitize.ts` - DOMPurify HTML sanitization
 - `volume.ts` - Volume tracking calculations
 - `exerciseHistory.ts` - Exercise history management
+- `automergeSync.ts` - CRDT-based conflict-free data merging
 
 **Fully Typed Hooks** (in `src/hooks/`):
 - `index.ts` - Hook exports with full type definitions
+- `useAutomergeSync.ts` - CRDT-based sync with Automerge
 - `useOptimisticSync.ts` - Cloud sync with typed status
 - `usePWA.ts` - PWA lifecycle with typed state
 - `useAccessibility.ts` - Focus trap, keyboard shortcuts
@@ -429,7 +440,14 @@ The codebase is actively migrating to TypeScript. Legacy JavaScript files are be
 ```typescript
 // Key interfaces available:
 Exercise, WorkoutSet, ExerciseSession, DaySession,
-WorkoutProgress, ExerciseHistoryEntry, AppState, UserProfile
+WorkoutProgress, ExerciseHistoryEntry, AppState, UserProfile,
+SessionKey, CloudData
+```
+
+**Automerge Types** (`src/utils/automergeSync.ts`):
+```typescript
+// CRDT document types:
+AutomergeDoc, AutomergeSessionData, AutomergeBinary
 ```
 
 **Writing New TypeScript Code**:
@@ -474,8 +492,9 @@ export function useMyHook(): MyHookReturn {
 11. **Code Style**: Follow existing patterns (2-space indent, TSDoc comments)
 12. **Cloud Sync Guards**: Always check `isFirebaseInitialized()`/user auth before invoking sync helpers
 13. **PWA Awareness**: Test offline scenarios; use `useOptimisticSync` for cloud operations
-14. **Modular Architecture**: Place new code in appropriate directories (components/, hooks/, utils/)
-15. **Run Typecheck**: Always run `npm run typecheck` before committing TypeScript changes
+14. **CRDT Sync**: Prefer `useAutomergeSync` for new sync features; it provides conflict-free merging
+15. **Modular Architecture**: Place new code in appropriate directories (components/, hooks/, utils/)
+16. **Run Typecheck**: Always run `npm run typecheck` before committing TypeScript changes
 
 ## Agent Interaction Examples
 

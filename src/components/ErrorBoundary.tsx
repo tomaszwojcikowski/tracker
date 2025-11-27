@@ -1,4 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
+import { captureError } from '../utils/errorReporting';
 
 interface ErrorBoundaryProps {
     children: ReactNode;
@@ -44,8 +45,14 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         console.error('ErrorBoundary caught an error:', error, errorInfo);
         this.setState({ errorInfo });
 
-        // Optional: Send to error tracking service
-        // logErrorToService(error, errorInfo);
+        // Send to error tracking service if configured
+        captureError(error, 'error', {
+            component: 'ErrorBoundary',
+            action: 'componentDidCatch',
+            extra: {
+                componentStack: errorInfo.componentStack,
+            },
+        });
     }
 
     handleRefresh = (): void => {

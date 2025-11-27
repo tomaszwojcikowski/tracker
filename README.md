@@ -237,6 +237,21 @@ To enable AI-powered coaching feedback:
 
 **Note**: Both Firebase configuration and Gemini API key are stored locally in your browser. With Firebase sync enabled, your settings sync across all your devices securely.
 
+### Error Reporting Setup (Optional)
+
+To enable automatic error tracking and monitoring with Sentry:
+
+1. Create a free account at [Sentry.io](https://sentry.io)
+2. Create a new React project
+3. Copy your DSN and set the environment variable:
+   ```env
+   VITE_SENTRY_DSN=https://your-dsn@sentry.io/your-project-id
+   ```
+
+The app will automatically capture and report errors, helping you identify and fix issues quickly.
+
+**For detailed setup instructions, see [ERROR_REPORTING_SETUP.md](ERROR_REPORTING_SETUP.md)**
+
 ## Workout Plan Format
 
 The tracker supports two workout plan formats:

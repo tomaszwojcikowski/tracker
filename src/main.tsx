@@ -5,6 +5,32 @@ import { App, buildCompleteSchedule, fetchWithTimeout, FETCH_TIMEOUT_MS, setRAW_
 import { loadWorkoutPlan, WorkoutPlanMetadata } from './workout-plan-utils';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { LoadingScreen, ErrorScreen } from './components/screens';
+import { initErrorReporting, captureError } from './utils/errorReporting';
+
+// Initialize error reporting as early as possible
+initErrorReporting();
+
+// Set up global error handlers for uncaught errors
+window.addEventListener('error', (event: ErrorEvent) => {
+    captureError(event.error || new Error(event.message), 'fatal', {
+        component: 'global',
+        action: 'unhandledError',
+        extra: {
+            filename: event.filename,
+            lineno: event.lineno,
+            colno: event.colno,
+        },
+    });
+});
+
+// Set up handler for unhandled promise rejections
+window.addEventListener('unhandledrejection', (event: PromiseRejectionEvent) => {
+    const error = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
+    captureError(error, 'error', {
+        component: 'global',
+        action: 'unhandledRejection',
+    });
+});
 
 // Extend Window interface for tracker app metadata
 declare global {
@@ -119,5 +145,9 @@ Promise.all([
     })
     .catch((error: Error) => {
         console.error('Error loading data:', error);
+        captureError(error, 'fatal', {
+            component: 'main',
+            action: 'loadData',
+        });
         root.render(<ErrorScreen message={`Failed to load data: ${error.message}`} />);
     });

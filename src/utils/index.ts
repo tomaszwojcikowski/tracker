@@ -24,4 +24,5 @@ export {
   type VolumeHistoryOptions,
 } from './volume';
 export * from './sanitize';
+export * from './errorReporting';
 

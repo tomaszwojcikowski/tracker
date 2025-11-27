@@ -53,6 +53,34 @@ describe('Resume Workout Feature', () => {
     return { completed: completedSets, total: totalSets };
   };
 
+  // Count completed exercises from session data (mirrors implementation)
+  // An exercise is considered "completed" if all its sets are done
+  const countExercisesFromSession = (session) => {
+    let completedExercises = 0;
+    let totalExercises = 0;
+
+    for (const [key, value] of Object.entries(session)) {
+      // Skip metadata fields
+      if (['completed', 'completedAt', 'lastModified', 'week', 'day', 'workoutNotes', 'addedExercises'].includes(key)) {
+        continue;
+      }
+
+      // Check if it's an exercise log entry with sets
+      if (value && typeof value === 'object' && !Array.isArray(value) && 'sets' in value) {
+        const sets = value.sets;
+        if (Array.isArray(sets) && sets.length > 0) {
+          totalExercises += 1;
+          // An exercise is completed when all its sets are done
+          if (sets.every(Boolean)) {
+            completedExercises += 1;
+          }
+        }
+      }
+    }
+
+    return { completed: completedExercises, total: totalExercises };
+  };
+
   // Get in-progress workout (mirrors implementation)
   const getInProgressWorkout = () => {
     const sessionPattern = /^session_w(\d+)d(\d+)$/;
@@ -66,10 +94,13 @@ describe('Resume Workout Feature', () => {
       const session = safeGetJSON(key, null);
       if (!session || session.completed) continue;
 
-      const { completed: completedSets, total: totalSets } = countSetsFromSession(session);
+      const { completed: completedSets } = countSetsFromSession(session);
 
       // Only consider if there's actual progress
       if (completedSets === 0) continue;
+
+      // Count exercises for progress display
+      const { completed: completedExercises, total: totalExercises } = countExercisesFromSession(session);
 
       const lastModified = session.lastModified ? new Date(session.lastModified).getTime() : 0;
 
@@ -78,10 +109,10 @@ describe('Resume Workout Feature', () => {
         mostRecent = {
           week: parseInt(match[1], 10),
           day: parseInt(match[2], 10),
-          completedSets,
-          totalSets,
+          completedExercises,
+          totalExercises,
           lastModified: new Date(lastModified),
-          progress: totalSets > 0 ? Math.round((completedSets / totalSets) * 100) : 0,
+          progress: totalExercises > 0 ? Math.round((completedExercises / totalExercises) * 100) : 0,
         };
       }
     }
@@ -107,14 +138,16 @@ describe('Resume Workout Feature', () => {
 
     if (!session) return null;
 
-    const { completed: completedSets, total: totalSets } = countSetsFromSession(session);
+    const { completed: completedSets } = countSetsFromSession(session);
 
     if (completedSets === 0) return null;
 
+    const { completed: completedExercises, total: totalExercises } = countExercisesFromSession(session);
+
     return {
-      completedSets,
-      totalSets,
-      progress: totalSets > 0 ? Math.round((completedSets / totalSets) * 100) : 0,
+      completedExercises,
+      totalExercises,
+      progress: totalExercises > 0 ? Math.round((completedExercises / totalExercises) * 100) : 0,
     };
   };
 
@@ -123,6 +156,79 @@ describe('Resume Workout Feature', () => {
     localStorage.clear();
     localStorage.setItem.mockClear();
     localStorage.getItem.mockClear();
+  });
+
+  describe('countExercisesFromSession', () => {
+    it('should count completed exercises correctly', () => {
+      const session = {
+        completed: false,
+        lastModified: new Date().toISOString(),
+        pull_ups: { sets: [true, true, true] }, // completed
+        push_ups: { sets: [true, true, true, true] }, // completed
+      };
+
+      const result = countExercisesFromSession(session);
+
+      expect(result.completed).toBe(2); // both exercises completed
+      expect(result.total).toBe(2);
+    });
+
+    it('should not count partially completed exercises as completed', () => {
+      const session = {
+        completed: false,
+        lastModified: new Date().toISOString(),
+        pull_ups: { sets: [true, true, false] }, // not completed
+        push_ups: { sets: [true, true, true, true] }, // completed
+      };
+
+      const result = countExercisesFromSession(session);
+
+      expect(result.completed).toBe(1); // only push_ups completed
+      expect(result.total).toBe(2);
+    });
+
+    it('should return zero for empty session', () => {
+      const session = {
+        completed: false,
+        lastModified: new Date().toISOString(),
+      };
+
+      const result = countExercisesFromSession(session);
+
+      expect(result.completed).toBe(0);
+      expect(result.total).toBe(0);
+    });
+
+    it('should ignore metadata fields', () => {
+      const session = {
+        completed: false,
+        completedAt: null,
+        lastModified: new Date().toISOString(),
+        week: 1,
+        day: 1,
+        workoutNotes: 'Test notes',
+        addedExercises: [],
+        pull_ups: { sets: [true, true] }, // completed
+      };
+
+      const result = countExercisesFromSession(session);
+
+      expect(result.completed).toBe(1);
+      expect(result.total).toBe(1);
+    });
+
+    it('should handle exercises without sets array', () => {
+      const session = {
+        completed: false,
+        pull_ups: { weight: '10kg' }, // No sets array
+        push_ups: { sets: [true, true] }, // completed
+      };
+
+      const result = countExercisesFromSession(session);
+
+      expect(result.completed).toBe(1);
+      expect(result.total).toBe(1);
+    });
   });
 
   describe('countSetsFromSession', () => {
@@ -217,8 +323,8 @@ describe('Resume Workout Feature', () => {
       safeSetJSON('session_w3d2', {
         completed: false,
         lastModified,
-        pull_ups: { sets: [true, true, false] },
-        push_ups: { sets: [true, false, false] },
+        pull_ups: { sets: [true, true, false] }, // not completed
+        push_ups: { sets: [true, false, false] }, // not completed
       });
 
       const result = getInProgressWorkout();
@@ -226,8 +332,27 @@ describe('Resume Workout Feature', () => {
       expect(result).not.toBe(null);
       expect(result.week).toBe(3);
       expect(result.day).toBe(2);
-      expect(result.completedSets).toBe(3);
-      expect(result.totalSets).toBe(6);
+      expect(result.completedExercises).toBe(0);
+      expect(result.totalExercises).toBe(2);
+      expect(result.progress).toBe(0);
+    });
+
+    it('should calculate progress based on completed exercises', () => {
+      const lastModified = new Date().toISOString();
+      safeSetJSON('session_w3d2', {
+        completed: false,
+        lastModified,
+        pull_ups: { sets: [true, true, true] }, // completed
+        push_ups: { sets: [true, false, false] }, // not completed
+      });
+
+      const result = getInProgressWorkout();
+
+      expect(result).not.toBe(null);
+      expect(result.week).toBe(3);
+      expect(result.day).toBe(2);
+      expect(result.completedExercises).toBe(1);
+      expect(result.totalExercises).toBe(2);
       expect(result.progress).toBe(50);
     });
 
@@ -335,16 +460,16 @@ describe('Resume Workout Feature', () => {
       safeSetJSON('session_w5d3', {
         completed: false,
         lastModified: new Date().toISOString(),
-        pull_ups: { sets: [true, true, true] },
-        squats: { sets: [true, false, false, false] },
+        pull_ups: { sets: [true, true, true] }, // completed
+        squats: { sets: [true, false, false, false] }, // not completed
       });
 
       const result = getWorkoutProgress(5, 3);
 
       expect(result).not.toBe(null);
-      expect(result.completedSets).toBe(4);
-      expect(result.totalSets).toBe(7);
-      expect(result.progress).toBe(57); // Math.round(4/7 * 100)
+      expect(result.completedExercises).toBe(1);
+      expect(result.totalExercises).toBe(2);
+      expect(result.progress).toBe(50); // 1/2 exercises completed
     });
 
     it('should return progress info for completed workout', () => {
@@ -357,13 +482,14 @@ describe('Resume Workout Feature', () => {
       const result = getWorkoutProgress(1, 1);
 
       expect(result).not.toBe(null);
-      expect(result.completedSets).toBe(3);
+      expect(result.completedExercises).toBe(1);
+      expect(result.totalExercises).toBe(1);
       expect(result.progress).toBe(100);
     });
   });
 
   describe('Progress calculation edge cases', () => {
-    it('should handle single set workout', () => {
+    it('should handle single exercise workout with one set completed', () => {
       safeSetJSON('session_w1d1', {
         completed: false,
         lastModified: new Date().toISOString(),
@@ -371,43 +497,60 @@ describe('Resume Workout Feature', () => {
       });
 
       const result = getWorkoutProgress(1, 1);
+      expect(result.completedExercises).toBe(1);
+      expect(result.totalExercises).toBe(1);
       expect(result.progress).toBe(100);
     });
 
-    it('should handle many exercises', () => {
+    it('should handle many exercises with varying completion', () => {
       const session = {
         completed: false,
         lastModified: new Date().toISOString(),
       };
 
-      // Add 10 exercises with varying completion
+      // Add 10 exercises - none fully completed (each has at least one false)
       for (let i = 0; i < 10; i++) {
         session[`exercise_${i}`] = {
-          sets: [true, i % 2 === 0, false], // 20 completed out of 30
+          sets: [true, i % 2 === 0, false], // None fully completed
         };
       }
 
       safeSetJSON('session_w1d1', session);
 
       const result = getWorkoutProgress(1, 1);
-      expect(result.totalSets).toBe(30);
-      expect(result.completedSets).toBe(15); // 10 first sets + 5 second sets
-      expect(result.progress).toBe(50);
+      expect(result.totalExercises).toBe(10);
+      expect(result.completedExercises).toBe(0); // None completed (all have at least one false)
+      expect(result.progress).toBe(0);
     });
 
-    it('should handle exercises with different set counts', () => {
+    it('should handle exercises with different set counts - all completed', () => {
       safeSetJSON('session_w1d1', {
         completed: false,
         lastModified: new Date().toISOString(),
-        exercise_1: { sets: [true, true] }, // 2 sets
-        exercise_2: { sets: [true, true, true, true, true] }, // 5 sets
-        exercise_3: { sets: [false] }, // 1 set
+        exercise_1: { sets: [true, true] }, // 2 sets - completed
+        exercise_2: { sets: [true, true, true, true, true] }, // 5 sets - completed
+        exercise_3: { sets: [true] }, // 1 set - completed
       });
 
       const result = getWorkoutProgress(1, 1);
-      expect(result.totalSets).toBe(8);
-      expect(result.completedSets).toBe(7);
-      expect(result.progress).toBe(88); // Math.round(7/8 * 100)
+      expect(result.totalExercises).toBe(3);
+      expect(result.completedExercises).toBe(3);
+      expect(result.progress).toBe(100);
+    });
+
+    it('should handle mixed completion status', () => {
+      safeSetJSON('session_w1d1', {
+        completed: false,
+        lastModified: new Date().toISOString(),
+        exercise_1: { sets: [true, true] }, // completed
+        exercise_2: { sets: [true, true, true, true, true] }, // completed
+        exercise_3: { sets: [false] }, // not completed
+      });
+
+      const result = getWorkoutProgress(1, 1);
+      expect(result.totalExercises).toBe(3);
+      expect(result.completedExercises).toBe(2);
+      expect(result.progress).toBe(67); // Math.round(2/3 * 100)
     });
   });
 

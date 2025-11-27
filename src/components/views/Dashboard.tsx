@@ -65,7 +65,7 @@ export function Dashboard({
     return session?.completed === true;
   };
 
-  const getDayProgress = (day: number): { completedSets: number; totalSets: number; progress: number } | null => {
+  const getDayProgress = (day: number): { completedExercises: number; totalExercises: number; progress: number } | null => {
     return getWorkoutProgress(currentWeek, day);
   };
 
@@ -119,7 +119,7 @@ export function Dashboard({
                   {inProgressWorkout.progress}%
                 </span>
                 <span className="text-xs text-sys-onSurfaceVar">
-                  {inProgressWorkout.completedSets}/{inProgressWorkout.totalSets} sets
+                  {inProgressWorkout.completedExercises}/{inProgressWorkout.totalExercises} exercises
                 </span>
               </div>
             </div>

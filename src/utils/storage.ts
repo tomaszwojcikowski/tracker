@@ -173,10 +173,10 @@ interface WorkoutSessionData {
 export interface InProgressWorkout {
   week: number;
   day: number;
-  completedSets: number;
-  totalSets: number;
+  completedExercises: number;
+  totalExercises: number;
   lastModified: Date;
-  progress: number; // 0-100 percentage
+  progress: number; // 0-100 percentage based on exercises
 }
 
 /**
@@ -206,6 +206,36 @@ function countSetsFromSession(session: WorkoutSessionData): { completed: number;
 }
 
 /**
+ * Count completed exercises from session data
+ * An exercise is considered "completed" if all its sets are done
+ */
+function countExercisesFromSession(session: WorkoutSessionData): { completed: number; total: number } {
+  let completedExercises = 0;
+  let totalExercises = 0;
+
+  for (const [key, value] of Object.entries(session)) {
+    // Skip metadata fields
+    if (['completed', 'completedAt', 'lastModified', 'week', 'day', 'workoutNotes', 'addedExercises'].includes(key)) {
+      continue;
+    }
+
+    // Check if it's an exercise log entry with sets
+    if (value && typeof value === 'object' && !Array.isArray(value) && 'sets' in value) {
+      const sets = (value as { sets?: boolean[] }).sets;
+      if (Array.isArray(sets) && sets.length > 0) {
+        totalExercises += 1;
+        // An exercise is completed when all its sets are done
+        if (sets.every(Boolean)) {
+          completedExercises += 1;
+        }
+      }
+    }
+  }
+
+  return { completed: completedExercises, total: totalExercises };
+}
+
+/**
  * Get information about the most recent in-progress workout
  * @returns InProgressWorkout if one exists, null otherwise
  */
@@ -226,10 +256,13 @@ export function getInProgressWorkout(): InProgressWorkout | null {
       if (!session || session.completed) continue;
 
       // Check if session has any workout data (not just empty)
-      const { completed: completedSets, total: totalSets } = countSetsFromSession(session);
+      const { completed: completedSets } = countSetsFromSession(session);
 
       // Only consider if there's actual progress (at least one set logged)
       if (completedSets === 0) continue;
+
+      // Count exercises for progress display
+      const { completed: completedExercises, total: totalExercises } = countExercisesFromSession(session);
 
       const lastModified = session.lastModified ? new Date(session.lastModified).getTime() : 0;
 
@@ -238,10 +271,10 @@ export function getInProgressWorkout(): InProgressWorkout | null {
         mostRecent = {
           week: parseInt(match[1], 10),
           day: parseInt(match[2], 10),
-          completedSets,
-          totalSets,
+          completedExercises,
+          totalExercises,
           lastModified: new Date(lastModified),
-          progress: totalSets > 0 ? Math.round((completedSets / totalSets) * 100) : 0,
+          progress: totalExercises > 0 ? Math.round((completedExercises / totalExercises) * 100) : 0,
         };
       }
     }
@@ -275,19 +308,21 @@ export function isWorkoutInProgress(week: number, day: number): boolean {
  * @param day - day number
  * @returns progress info or null if workout hasn't started
  */
-export function getWorkoutProgress(week: number, day: number): { completedSets: number; totalSets: number; progress: number } | null {
+export function getWorkoutProgress(week: number, day: number): { completedExercises: number; totalExercises: number; progress: number } | null {
   const key = `session_w${week}d${day}`;
   const session = safeGetJSON<WorkoutSessionData>(key);
 
   if (!session) return null;
 
-  const { completed: completedSets, total: totalSets } = countSetsFromSession(session);
+  const { completed: completedSets } = countSetsFromSession(session);
 
   if (completedSets === 0) return null;
 
+  const { completed: completedExercises, total: totalExercises } = countExercisesFromSession(session);
+
   return {
-    completedSets,
-    totalSets,
-    progress: totalSets > 0 ? Math.round((completedSets / totalSets) * 100) : 0,
+    completedExercises,
+    totalExercises,
+    progress: totalExercises > 0 ? Math.round((completedExercises / totalExercises) * 100) : 0,
   };
 }

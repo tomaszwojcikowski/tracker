@@ -108,7 +108,10 @@ function mergeLocalAndCloudData(
  */
 export const SettingsView: React.FC = () => {
     // Firebase state - using User type from firebase/auth
-    const [firebaseUser, setFirebaseUser] = useState<User | null>(null);
+    // Initialize with current user if already logged in (e.g., after redirect)
+    const [firebaseUser, setFirebaseUser] = useState<User | null>(
+        () => FirebaseService.isFirebaseInitialized() ? FirebaseService.getCurrentUser() : null
+    );
     const [firebaseSyncEnabled, setFirebaseSyncEnabled] = useState(true); // Default enabled
     const [firebaseMessage, setFirebaseMessage] = useState('');
     const [isSyncing, setIsSyncing] = useState(false);
@@ -130,6 +133,8 @@ export const SettingsView: React.FC = () => {
             FirebaseService.checkRedirectResult().then((result) => {
                 if (result) {
                     console.log('Redirect login successful');
+                    // Update user state immediately after redirect
+                    setFirebaseUser(result.user);
                     setFirebaseMessage('✓ Logged in successfully');
                     setTimeout(() => setFirebaseMessage(''), 3000);
                 }

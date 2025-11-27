@@ -62,6 +62,14 @@ export function usePWA(): PWAState {
             immediate: true, // Register immediately
             onNeedRefresh(): void {
                 setNeedRefresh(true);
+                // On mobile, auto-reload after a short delay to ensure fresh content
+                // Desktop users get the prompt to reload manually
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    console.log('PWA update detected on mobile, auto-reloading in 2 seconds...');
+                    setTimeout(() => {
+                        sw(true); // Reload the page
+                    }, 2000);
+                }
             },
             onOfflineReady(): void {
                 setOfflineReady(true);
@@ -103,9 +111,22 @@ export function usePWA(): PWAState {
 
     // Check for updates when app becomes visible (user returns to app on mobile)
     useEffect(() => {
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
         const handleVisibilityChange = (): void => {
             if (document.visibilityState === 'visible' && registration) {
+                // Check for updates
                 registration.update().catch(console.error);
+
+                // On mobile, if there's a waiting worker, activate it immediately
+                if (isMobile && registration.waiting) {
+                    console.log('PWA: Found waiting service worker on mobile visibility change, activating...');
+                    registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+                    // Reload after a short delay to ensure SW takes control
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 500);
+                }
             }
         };
 

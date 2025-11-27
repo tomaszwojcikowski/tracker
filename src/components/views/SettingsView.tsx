@@ -3,6 +3,7 @@ import * as FirebaseService from '../../firebase-service';
 import { ThemeSelector } from '../ThemeSelector';
 import { useTheme } from '../../hooks/useTheme';
 import { useHaptic, useLucideIcons } from '../../hooks';
+import { captureError, isErrorReportingEnabled } from '../../utils/errorReporting';
 import { getAllLocalData, mergeCloudData, FIREBASE_SYNC_ENABLED_KEY, type SessionData } from '../../utils/firebaseSync';
 import { formatRelativeTime } from '../../utils/time';
 import type { CloudData } from '../../firebase-service';
@@ -426,6 +427,23 @@ export const SettingsView: React.FC = () => {
                             })}
                         </span>
                     </div>
+                    {/* Sentry Test Button - for verifying error reporting */}
+                    {isErrorReportingEnabled() && (
+                        <div className="pt-3 border-t border-white/10">
+                            <button
+                                onClick={() => {
+                                    captureError(new Error('Test error from Settings page'), 'error', {
+                                        component: 'SettingsView',
+                                        action: 'testSentryButton',
+                                    });
+                                    alert('Test error sent to Sentry! Check your Sentry dashboard.');
+                                }}
+                                className="w-full py-2 px-4 bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 rounded-xl text-sm font-medium transition-colors"
+                            >
+                                Test Sentry Error Reporting
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

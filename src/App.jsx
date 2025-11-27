@@ -4,6 +4,7 @@ import { NavigationBar, TabContent } from './components/navigation';
 import { TopAppBar } from './components/TopAppBar';
 import { LoadingScreen, ErrorScreen } from './components/screens';
 import { Dashboard, HistoryView, SettingsView, ExerciseLibraryView, WorkoutPlayer } from './components/views';
+import { SkipLink } from './components/SkipLink';
 import { useLucideIcons } from './hooks';
 
 // Import from TypeScript utilities
@@ -202,6 +203,7 @@ const updateUrl = (state) => {
 
             return (
                 <div className="min-h-screen bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative">
+                    <SkipLink targetId="main-content" />
                     <TopAppBar
                         title={viewMode === 'workout' ? `Day ${activeDay}` : (activeTab === 'train' ? 'Dashboard' : activeTab === 'library' ? 'Exercise Library' : activeTab === 'history' ? 'History' : 'Settings')}
                         subtitle={viewMode === 'workout' ? `Week ${currentWeek}` : (activeTab === 'train' ? 'OnePlus Strength' : '')}
@@ -216,17 +218,17 @@ const updateUrl = (state) => {
                             </div>
                         </div>
                     ) : viewMode === 'workout' ? (
-                        <div className="animate-fade-in">
+                        <main id="main-content" className="animate-fade-in">
                             <WorkoutPlayer
                                 week={currentWeek}
                                 day={activeDay}
                                 onComplete={goBack}
                                 exerciseLibrary={EXERCISE_LIBRARY}
                             />
-                        </div>
+                        </main>
                     ) : (
                         <>
-                            <TabContent activeTab={activeTab}>
+                            <TabContent activeTab={activeTab} id="main-content">
                                 {activeTab === 'train' && <Dashboard currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} onStartWorkout={startWorkout} />}
                                 {activeTab === 'library' && <ExerciseLibraryView
                                     exerciseLibrary={EXERCISE_LIBRARY}

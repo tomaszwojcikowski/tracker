@@ -334,7 +334,7 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
                 </div>
             ) : (
                 <div className="space-y-3">
-                    {exercisesToShow.map(exercise => {
+                    {exercisesToShow.map((exercise) => {
                         const isTracked = trackedExercises.includes(exercise.name);
                         const stats = isTracked ? calculateExerciseStats(exercise.name) : null;
 
@@ -342,7 +342,7 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
                             <button
                                 key={exercise.id}
                                 onClick={() => handleExerciseClick(exercise)}
-                                className="w-full bg-sys-surface rounded-2xl p-4 border border-white/5 hover:border-sys-accent/30 transition-all active:scale-[0.98] text-left"
+                                className="stagger-item w-full bg-sys-surface rounded-2xl p-4 border border-white/5 hover:border-sys-accent/30 transition-all active:scale-[0.98] text-left"
                             >
                                 <div className="flex items-start justify-between gap-3">
                                     <div className="flex-1">

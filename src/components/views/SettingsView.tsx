@@ -352,16 +352,18 @@ export const SettingsView: React.FC = () => {
                             <button
                                 onClick={handleFirebaseLogin}
                                 disabled={isLoggingIn}
+                                aria-disabled={isLoggingIn}
+                                aria-label={isLoggingIn ? 'Signing in to Google, please wait' : 'Sign in with Google'}
                                 className={`w-full h-14 rounded-xl text-white font-bold flex items-center justify-center gap-2 transition-transform btn-gradient-primary ${isLoggingIn ? 'opacity-70' : 'active:scale-95'}`}
                             >
                                 {isLoggingIn ? (
                                     <>
-                                        <i data-lucide="loader-2" width="20" className="animate-spin"></i>
+                                        <i data-lucide="loader-2" width="20" className="animate-spin" aria-hidden="true"></i>
                                         <span>Signing in...</span>
                                     </>
                                 ) : (
                                     <>
-                                        <i data-lucide="log-in" width="20"></i>
+                                        <i data-lucide="log-in" width="20" aria-hidden="true"></i>
                                         <span>Sign In with Google</span>
                                     </>
                                 )}
@@ -402,7 +404,7 @@ export const SettingsView: React.FC = () => {
                     <div className="flex justify-between items-center">
                         <span className="text-sm text-sys-onSurfaceVar">Build Date</span>
                         <span className="text-sm font-medium text-white">
-                            {new Date(__BUILD_DATE__).toLocaleDateString('en-US', {
+                            {new Date(__BUILD_DATE__).toLocaleDateString(undefined, {
                                 year: 'numeric',
                                 month: 'short',
                                 day: 'numeric',

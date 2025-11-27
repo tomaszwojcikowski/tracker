@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import * as FirebaseService from '../../firebase-service';
 import { ThemeSelector } from '../ThemeSelector';
 import { useTheme } from '../../hooks/useTheme';
-import { useHaptic, useLucideIcons } from '../../hooks';
+import { useHaptic } from '../../hooks';
 import { useAuth } from '../../hooks/useAuth';
 import { LoginStatus } from '../auth/LoginStatus';
+import { RefreshCw, Info } from 'lucide-react';
 import { captureError, isErrorReportingEnabled } from '../../utils/errorReporting';
 import { getAllLocalData, mergeCloudData, FIREBASE_SYNC_ENABLED_KEY, type SessionData } from '../../utils/firebaseSync';
 import type { CloudData } from '../../firebase-service';
@@ -185,9 +186,6 @@ export const SettingsView: React.FC = () => {
         }
     }, []);
 
-    // Initialize Lucide icons when settings change
-    useLucideIcons([firebaseMessage, firebaseUser, isSyncing, authLoading, authError]);
-
     // Firebase handlers
     const handleFirebaseLogin = async () => {
         haptic.bump();
@@ -291,7 +289,7 @@ export const SettingsView: React.FC = () => {
                                 disabled={isSyncing}
                                 className={`w-full h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 transition-transform border border-white/5 ${isSyncing ? 'opacity-50' : 'active:scale-95'}`}
                             >
-                                <i data-lucide="refresh-cw" width="18" className={isSyncing ? 'animate-spin' : ''}></i>
+                                <RefreshCw size={18} className={isSyncing ? 'animate-spin' : ''} />
                                 <span>{isSyncing ? 'Syncing...' : 'Sync Now'}</span>
                             </button>
                         </div>
@@ -303,7 +301,7 @@ export const SettingsView: React.FC = () => {
             <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
                 <div className="flex items-center gap-3 mb-4">
                     <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
-                        <i data-lucide="info" width="24" className="text-sys-accent"></i>
+                        <Info size={24} className="text-sys-accent" />
                     </div>
                     <div>
                         <h3 className="text-lg font-bold text-white">App Info</h3>

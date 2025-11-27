@@ -1,5 +1,6 @@
 import React from 'react';
 import { User } from 'firebase/auth';
+import { Cloud, AlertCircle, X, CheckCircle, Clock, LogOut } from 'lucide-react';
 import { formatRelativeTime } from '../../utils/time';
 import * as FirebaseService from '../../firebase-service';
 
@@ -39,7 +40,7 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
         <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
             <div className="flex items-center gap-3 mb-4">
                 <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
-                    <i data-lucide="cloud" width="24" className="text-sys-accent"></i>
+                    <Cloud size={24} className="text-sys-accent" />
                 </div>
                 <div>
                     <h3 className="text-lg font-bold text-white">Cloud Sync</h3>
@@ -50,7 +51,7 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
             {/* Error Message */}
             {error && (
                 <div className="mb-4 p-3 rounded-xl bg-red-500/20 text-red-400 text-sm font-medium flex items-start gap-2">
-                    <i data-lucide="alert-circle" width="16" className="mt-0.5 shrink-0"></i>
+                    <AlertCircle size={16} className="mt-0.5 shrink-0" />
                     <div className="flex-1">
                         <p>{error}</p>
                         {error.includes('network') && (
@@ -62,7 +63,7 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
                         className="p-1 hover:bg-white/10 rounded-full transition-colors"
                         aria-label="Dismiss error"
                     >
-                        <i data-lucide="x" width="14"></i>
+                        <X size={14} />
                     </button>
                 </div>
             )}
@@ -93,7 +94,7 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
                             </div>
                         </div>
                         <div className="flex items-center gap-2 text-xs text-sys-success mb-2">
-                            <i data-lucide="check-circle" width="14"></i>
+                            <CheckCircle size={14} />
                             <span>Signed in with Google</span>
                         </div>
                         {(() => {
@@ -102,7 +103,7 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
                             if (timeAgo) {
                                 return (
                                     <div className="flex items-center gap-2 text-xs text-sys-onSurfaceVar">
-                                        <i data-lucide="clock" width="14"></i>
+                                        <Clock size={14} />
                                         <span>Last synced {timeAgo}</span>
                                     </div>
                                 );
@@ -119,7 +120,7 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
                         {loading ? (
                             <div className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full"></div>
                         ) : (
-                            <i data-lucide="log-out" width="16"></i>
+                            <LogOut size={16} />
                         )}
                         Sign Out
                     </button>

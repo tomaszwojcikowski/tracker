@@ -240,6 +240,31 @@ export async function handleLogout(): Promise<void> {
 }
 
 /**
+ * Recursively remove undefined values from an object
+ * Firebase Realtime Database doesn't accept undefined values
+ * @param obj - Object to sanitize
+ * @returns Sanitized object with undefined values removed
+ */
+function removeUndefinedValues<T extends Record<string, unknown>>(obj: T): T {
+    const result = {} as T;
+    for (const key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+            const value = obj[key];
+            if (value === undefined) {
+                // Skip undefined values
+                continue;
+            } else if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
+                // Recursively clean nested objects
+                result[key] = removeUndefinedValues(value as Record<string, unknown>) as T[Extract<keyof T, string>];
+            } else {
+                result[key] = value as T[Extract<keyof T, string>];
+            }
+        }
+    }
+    return result;
+}
+
+/**
  * Save data to Firebase under the current user's path
  * @param data - JSON data to save
  */
@@ -257,7 +282,9 @@ export async function saveToCloud(data: CloudData): Promise<void> {
     }
 
     try {
-        await set(currentUserRef, data);
+        // Remove undefined values - Firebase Realtime Database rejects them
+        const sanitizedData = removeUndefinedValues(data as unknown as Record<string, unknown>) as CloudData;
+        await set(currentUserRef, sanitizedData);
         console.log('Data saved to cloud successfully');
 
         // Update last sync timestamp
@@ -270,11 +297,11 @@ export async function saveToCloud(data: CloudData): Promise<void> {
 
 /**
  * Initialize sync system - sets up auth state listener and realtime sync
- * 
+ *
  * IMPORTANT: The onAuthChange callback is called AFTER the initial cloud data is received.
  * This ensures that cloud data is merged before any local data is pushed to the cloud,
  * preventing data overwrite issues.
- * 
+ *
  * @param onDataReceived - Callback when data is received from cloud (subsequent updates only)
  * @param onAuthChange - Callback when auth state changes, includes initial cloud data for merge-before-push
  */
@@ -326,7 +353,7 @@ export function initSync(
                     // Call onAuthChange with the user AND the initial cloud data
                     // This allows the app to merge cloud data BEFORE pushing local data
                     isFirstCallback = false;
-                    
+
                     if (onAuthChange) {
                         onAuthChange(user, data);
                     }

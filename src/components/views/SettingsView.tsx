@@ -11,7 +11,7 @@ import type { ExerciseHistory } from '../../types';
 
 /**
  * Merge local data with cloud data using smart merge strategy
- * 
+ *
  * This function ensures that:
  * 1. Cloud data is preserved and not overwritten by empty local data
  * 2. Local sessions with newer timestamps take precedence
@@ -32,7 +32,7 @@ function mergeLocalAndCloudData(
 
     // Build merged sessions using a flexible record type
     const mergedSessions: Record<string, SessionData> = {};
-    
+
     // First, copy all cloud sessions
     if (cloudData.sessions) {
         Object.entries(cloudData.sessions).forEach(([key, session]) => {
@@ -44,7 +44,7 @@ function mergeLocalAndCloudData(
     if (localData.sessions) {
         Object.entries(localData.sessions).forEach(([key, localSession]) => {
             const cloudSession = mergedSessions[key];
-            
+
             if (!cloudSession) {
                 // No cloud version, use local
                 mergedSessions[key] = localSession;
@@ -52,7 +52,7 @@ function mergeLocalAndCloudData(
                 // Both have timestamps, compare
                 const localTime = new Date(localSession.lastModified).getTime();
                 const cloudTime = new Date(cloudSession.lastModified).getTime();
-                
+
                 if (localTime > cloudTime) {
                     // Local is newer
                     mergedSessions[key] = localSession;
@@ -68,7 +68,7 @@ function mergeLocalAndCloudData(
 
     // Merge exercise history - combine entries
     const mergedHistory: ExerciseHistory = { ...(cloudData.exerciseHistory || {}) };
-    
+
     if (localData.exercise_history && Object.keys(localData.exercise_history).length > 0) {
         Object.entries(localData.exercise_history).forEach(([exerciseId, entries]) => {
             if (!mergedHistory[exerciseId]) {
@@ -87,12 +87,20 @@ function mergeLocalAndCloudData(
         });
     }
 
-    return {
+    // Build the result object, only including settings if defined
+    // Firebase Realtime Database rejects undefined values
+    const result: CloudData = {
         sessions: mergedSessions as CloudData['sessions'],
         exerciseHistory: mergedHistory,
-        settings: cloudData.settings,
         lastSyncTime: new Date().toISOString(),
     };
+
+    // Only add settings if they exist (Firebase rejects undefined)
+    if (cloudData.settings !== undefined) {
+        result.settings = cloudData.settings;
+    }
+
+    return result;
 }
 
 /**
@@ -145,22 +153,22 @@ export const SettingsView: React.FC = () => {
                 // This ensures we merge cloud data BEFORE pushing local data
                 (user: User | null, initialCloudData: CloudData | null) => {
                     setFirebaseUser(user);
-                    
+
                     if (user && savedSyncEnabled) {
                         setIsSyncing(true);
-                        
+
                         // STEP 1: Merge initial cloud data into local storage first
                         if (initialCloudData) {
                             console.log('Merging initial cloud data before pushing local changes');
                             mergeCloudData(initialCloudData as Parameters<typeof mergeCloudData>[0]);
                         }
-                        
+
                         // STEP 2: Get local data (now includes merged cloud data)
                         const localData = getAllLocalData();
-                        
+
                         // STEP 3: Smart merge - combine local and cloud data
                         const mergedData = mergeLocalAndCloudData(localData, initialCloudData);
-                        
+
                         // STEP 4: Push merged data to cloud
                         FirebaseService.saveToCloud(mergedData)
                             .then(() => {

@@ -104,6 +104,7 @@ export const SettingsView: React.FC = () => {
     const [firebaseSyncEnabled, setFirebaseSyncEnabled] = useState(true); // Default enabled
     const [firebaseMessage, setFirebaseMessage] = useState('');
     const [isSyncing, setIsSyncing] = useState(false);
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
 
     // Theme state
     const { theme, setTheme, themes } = useTheme();
@@ -126,6 +127,9 @@ export const SettingsView: React.FC = () => {
                 }
             }).catch((err) => {
                 console.error('Redirect result error:', err);
+                const message = err instanceof Error ? err.message : 'Unknown error';
+                setFirebaseMessage('✗ Login redirect failed: ' + message);
+                setTimeout(() => setFirebaseMessage(''), 5000);
             });
 
             FirebaseService.initSync(
@@ -178,11 +182,13 @@ export const SettingsView: React.FC = () => {
     }, []);
 
     // Initialize Lucide icons when settings change
-    useLucideIcons([firebaseMessage, firebaseUser, isSyncing]);
+    useLucideIcons([firebaseMessage, firebaseUser, isSyncing, isLoggingIn]);
 
     // Firebase handlers
     const handleFirebaseLogin = async () => {
         haptic.bump();
+        setIsLoggingIn(true);
+        setFirebaseMessage('');
         try {
             const result = await FirebaseService.handleLogin();
             // On desktop, we get a result. On mobile with redirect, we get void
@@ -198,6 +204,8 @@ export const SettingsView: React.FC = () => {
             const message = error instanceof Error ? error.message : 'Unknown error';
             setFirebaseMessage('✗ Login failed: ' + message);
             setTimeout(() => setFirebaseMessage(''), 5000);
+        } finally {
+            setIsLoggingIn(false);
         }
     };
 
@@ -343,10 +351,22 @@ export const SettingsView: React.FC = () => {
 
                             <button
                                 onClick={handleFirebaseLogin}
-                                className="w-full h-14 rounded-xl text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform btn-gradient-primary"
+                                disabled={isLoggingIn}
+                                aria-disabled={isLoggingIn}
+                                aria-label={isLoggingIn ? 'Signing in to Google, please wait' : 'Sign in with Google'}
+                                className={`w-full h-14 rounded-xl text-white font-bold flex items-center justify-center gap-2 transition-transform btn-gradient-primary ${isLoggingIn ? 'opacity-70' : 'active:scale-95'}`}
                             >
-                                <i data-lucide="log-in" width="20"></i>
-                                <span>Sign In with Google</span>
+                                {isLoggingIn ? (
+                                    <>
+                                        <i data-lucide="loader-2" width="20" className="animate-spin" aria-hidden="true"></i>
+                                        <span>Signing in...</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <i data-lucide="log-in" width="20" aria-hidden="true"></i>
+                                        <span>Sign In with Google</span>
+                                    </>
+                                )}
                             </button>
                         </>
                     )}
@@ -355,13 +375,46 @@ export const SettingsView: React.FC = () => {
                         <div className={`mt-4 p-3 rounded-xl text-sm text-center ${
                             firebaseMessage.startsWith('✓')
                                 ? 'bg-sys-success/10 border border-sys-success/30 text-sys-success'
-                                : 'bg-red-500/10 border border-red-500/30 text-red-500'
+                                : firebaseMessage.startsWith('↻')
+                                    ? 'bg-blue-500/10 border border-blue-500/30 text-blue-400'
+                                    : 'bg-red-500/10 border border-red-500/30 text-red-500'
                         }`}>
                             {firebaseMessage}
                         </div>
                     )}
                 </div>
             )}
+
+            {/* Build Info Section */}
+            <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
+                        <i data-lucide="info" width="24" className="text-sys-accent"></i>
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-bold text-white">App Info</h3>
+                        <p className="text-xs text-sys-onSurfaceVar">Build version and details</p>
+                    </div>
+                </div>
+                <div className="space-y-3 p-4 bg-sys-surfaceHigh rounded-xl">
+                    <div className="flex justify-between items-center">
+                        <span className="text-sm text-sys-onSurfaceVar">Version</span>
+                        <span className="text-sm font-medium text-white">{__BUILD_VERSION__}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                        <span className="text-sm text-sys-onSurfaceVar">Build Date</span>
+                        <span className="text-sm font-medium text-white">
+                            {new Date(__BUILD_DATE__).toLocaleDateString(undefined, {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                            })}
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

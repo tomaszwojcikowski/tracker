@@ -7,6 +7,7 @@
  */
 
 import type { StorageResult } from '../types';
+import { getWorkoutForDay } from '../data/programData';
 
 /**
  * Safely get and parse JSON from localStorage
@@ -238,6 +239,32 @@ function countExercisesFromSession(session: WorkoutSessionData): { completed: nu
 }
 
 /**
+ * Get total sets and exercises for a workout day from the workout plan
+ * @param week - week number
+ * @param day - day number
+ * @returns object with totalSets and totalExercises from the workout plan
+ */
+function getWorkoutTotalsFromPlan(week: number, day: number): { totalSets: number; totalExercises: number } {
+  try {
+    const workout = getWorkoutForDay(week, day);
+    let totalSets = 0;
+    let totalExercises = 0;
+
+    for (const section of workout.sections) {
+      for (const exercise of section.exercises) {
+        totalExercises += 1;
+        totalSets += exercise.sets;
+      }
+    }
+
+    return { totalSets, totalExercises };
+  } catch (error) {
+    console.warn(`Failed to get workout totals for week ${week} day ${day}:`, error);
+    return { totalSets: 0, totalExercises: 0 };
+  }
+}
+
+/**
  * Get information about the most recent in-progress workout
  * @returns InProgressWorkout if one exists, null otherwise
  */
@@ -257,22 +284,28 @@ export function getInProgressWorkout(): InProgressWorkout | null {
       const session = safeGetJSON<WorkoutSessionData>(key);
       if (!session || session.completed) continue;
 
-      // Check if session has any workout data (not just empty)
-      const { completed: completedSets, total: totalSets } = countSetsFromSession(session);
+      const week = parseInt(match[1], 10);
+      const day = parseInt(match[2], 10);
+
+      // Get completed sets from session (what user has logged)
+      const { completed: completedSets } = countSetsFromSession(session);
 
       // Only consider if there's actual progress (at least one set logged)
       if (completedSets === 0) continue;
 
-      // Count exercises for additional display
-      const { completed: completedExercises, total: totalExercises } = countExercisesFromSession(session);
+      // Count completed exercises from session
+      const { completed: completedExercises } = countExercisesFromSession(session);
+
+      // Get total sets and exercises from workout plan (all exercises in the day)
+      const { totalSets, totalExercises } = getWorkoutTotalsFromPlan(week, day);
 
       const lastModified = session.lastModified ? new Date(session.lastModified).getTime() : 0;
 
       if (lastModified > mostRecentTime) {
         mostRecentTime = lastModified;
         mostRecent = {
-          week: parseInt(match[1], 10),
-          day: parseInt(match[2], 10),
+          week,
+          day,
           completedSets,
           totalSets,
           completedExercises,
@@ -319,11 +352,15 @@ export function getWorkoutProgress(week: number, day: number): { completedSets: 
 
   if (!session) return null;
 
-  const { completed: completedSets, total: totalSets } = countSetsFromSession(session);
+  // Get completed sets/exercises from session (what user has logged)
+  const { completed: completedSets } = countSetsFromSession(session);
 
   if (completedSets === 0) return null;
 
-  const { completed: completedExercises, total: totalExercises } = countExercisesFromSession(session);
+  const { completed: completedExercises } = countExercisesFromSession(session);
+
+  // Get total sets and exercises from workout plan (all exercises in the day)
+  const { totalSets, totalExercises } = getWorkoutTotalsFromPlan(week, day);
 
   return {
     completedSets,

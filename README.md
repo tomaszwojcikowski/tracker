@@ -78,6 +78,7 @@ The production build outputs to the `dist/` directory and includes:
 - **Testing Library** - React component testing
 - **Lucide Icons** - Icon library
 - **Firebase** - Cloud sync and Google authentication
+- **Automerge** - CRDT-based conflict-free data synchronization
 - **Google Gemini AI** - Optional AI coaching integration
 
 ### Testing
@@ -156,11 +157,13 @@ For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 ### ☁️ Cloud Sync & Authentication (Firebase)
 - **Google Sign-In**: Secure authentication with your Google account
 - **Real-time Sync**: Automatically sync workout data across all your devices
+- **CRDT-Based Merging**: Conflict-free data synchronization using Automerge CRDTs
 - **Private Data**: Each user's data is securely isolated with Firebase Security Rules
 - **Bidirectional Sync**: Changes on any device instantly appear on all other devices
 - **Automatic & Manual Sync**: Choose between automatic sync or manual control
 - **Offline-First**: Works offline, syncs when connection is restored
 - **Cross-Device Support**: Use the same account on phone, tablet, and desktop
+- **Automatic Migration**: Seamless migration from timestamp-based to CRDT sync
 
 ### 🎯 Program Structure
 - **21-Week Program**: Structured training plan with 4 training days per week (Days 1, 2, 3, 5)

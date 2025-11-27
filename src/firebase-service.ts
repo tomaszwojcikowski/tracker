@@ -298,6 +298,18 @@ export async function saveToCloud(data: CloudData): Promise<void> {
 }
 
 /**
+ * Subscribe to auth state changes
+ * @param callback - Function to call when auth state changes
+ * @returns Unsubscribe function
+ */
+export function onAuthChange(callback: (user: User | null) => void): () => void {
+    if (!isFirebaseInitialized() || !auth) {
+        return () => {};
+    }
+    return onAuthStateChanged(auth, callback);
+}
+
+/**
  * Initialize sync system - sets up auth state listener and realtime sync
  *
  * IMPORTANT: The onAuthChange callback is called AFTER the initial cloud data is received.

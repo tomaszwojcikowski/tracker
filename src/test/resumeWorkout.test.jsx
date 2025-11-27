@@ -9,6 +9,22 @@ describe('Resume Workout Feature', () => {
   // Storage simulation
   let testStorage = {};
 
+  // Mock schedule for testing - maps 'week_day' to exercise count
+  // This simulates getCompleteSchedule() returning exercises for each day
+  const mockSchedule = {
+    '1_1': 10, // Week 1, Day 1 has 10 exercises
+    '1_2': 8,  // Week 1, Day 2 has 8 exercises
+    '2_3': 12, // Week 2, Day 3 has 12 exercises
+    '3_2': 15, // Week 3, Day 2 has 15 exercises
+    '5_3': 9,  // Week 5, Day 3 has 9 exercises
+    '15_5': 11, // Week 15, Day 5 has 11 exercises
+  };
+
+  // Get schedule exercise count (mirrors implementation)
+  const getScheduleExerciseCount = (week, day) => {
+    return mockSchedule[`${week}_${day}`] || 5; // Default to 5 exercises if not specified
+  };
+
   // Utility functions from storage.ts
   const safeGetJSON = (key, defaultValue = null) => {
     try {
@@ -55,6 +71,33 @@ describe('Resume Workout Feature', () => {
 
   // Count completed exercises from session data (mirrors implementation)
   // An exercise is considered "completed" if all its sets are done
+  // Note: This now only returns the completed count; total comes from schedule
+  const countCompletedExercisesFromSession = (session) => {
+    let completedExercises = 0;
+
+    for (const [key, value] of Object.entries(session)) {
+      // Skip metadata fields
+      if (['completed', 'completedAt', 'lastModified', 'week', 'day', 'workoutNotes', 'addedExercises'].includes(key)) {
+        continue;
+      }
+
+      // Check if it's an exercise log entry with sets
+      if (value && typeof value === 'object' && !Array.isArray(value) && 'sets' in value) {
+        const sets = value.sets;
+        if (Array.isArray(sets) && sets.length > 0) {
+          // An exercise is completed when all its sets are done
+          if (sets.every(Boolean)) {
+            completedExercises += 1;
+          }
+        }
+      }
+    }
+
+    return completedExercises;
+  };
+
+  // Legacy function that returns both completed and total (total from session, not schedule)
+  // Used for testing the counting logic in isolation
   const countExercisesFromSession = (session) => {
     let completedExercises = 0;
     let totalExercises = 0;
@@ -70,7 +113,6 @@ describe('Resume Workout Feature', () => {
         const sets = value.sets;
         if (Array.isArray(sets) && sets.length > 0) {
           totalExercises += 1;
-          // An exercise is completed when all its sets are done
           if (sets.every(Boolean)) {
             completedExercises += 1;
           }
@@ -82,6 +124,7 @@ describe('Resume Workout Feature', () => {
   };
 
   // Get in-progress workout (mirrors implementation)
+  // Now uses schedule-based total exercise count
   const getInProgressWorkout = () => {
     const sessionPattern = /^session_w(\d+)d(\d+)$/;
     let mostRecent = null;
@@ -99,16 +142,20 @@ describe('Resume Workout Feature', () => {
       // Only consider if there's actual progress
       if (completedSets === 0) continue;
 
-      // Count exercises for progress display
-      const { completed: completedExercises, total: totalExercises } = countExercisesFromSession(session);
+      const week = parseInt(match[1], 10);
+      const day = parseInt(match[2], 10);
+
+      // Count completed exercises from session and get total from schedule
+      const completedExercises = countCompletedExercisesFromSession(session);
+      const totalExercises = getScheduleExerciseCount(week, day);
 
       const lastModified = session.lastModified ? new Date(session.lastModified).getTime() : 0;
 
       if (lastModified > mostRecentTime) {
         mostRecentTime = lastModified;
         mostRecent = {
-          week: parseInt(match[1], 10),
-          day: parseInt(match[2], 10),
+          week,
+          day,
           completedExercises,
           totalExercises,
           lastModified: new Date(lastModified),
@@ -131,7 +178,8 @@ describe('Resume Workout Feature', () => {
     return completedSets > 0;
   };
 
-  // Get workout progress
+  // Get workout progress (mirrors implementation)
+  // Now uses schedule-based total exercise count
   const getWorkoutProgress = (week, day) => {
     const key = `session_w${week}d${day}`;
     const session = safeGetJSON(key, null);
@@ -142,7 +190,9 @@ describe('Resume Workout Feature', () => {
 
     if (completedSets === 0) return null;
 
-    const { completed: completedExercises, total: totalExercises } = countExercisesFromSession(session);
+    // Count completed exercises from session and get total from schedule
+    const completedExercises = countCompletedExercisesFromSession(session);
+    const totalExercises = getScheduleExerciseCount(week, day);
 
     return {
       completedExercises,
@@ -333,7 +383,8 @@ describe('Resume Workout Feature', () => {
       expect(result.week).toBe(3);
       expect(result.day).toBe(2);
       expect(result.completedExercises).toBe(0);
-      expect(result.totalExercises).toBe(2);
+      // Total exercises comes from schedule (mockSchedule['3_2'] = 15)
+      expect(result.totalExercises).toBe(15);
       expect(result.progress).toBe(0);
     });
 
@@ -352,8 +403,10 @@ describe('Resume Workout Feature', () => {
       expect(result.week).toBe(3);
       expect(result.day).toBe(2);
       expect(result.completedExercises).toBe(1);
-      expect(result.totalExercises).toBe(2);
-      expect(result.progress).toBe(50);
+      // Total exercises comes from schedule (mockSchedule['3_2'] = 15)
+      expect(result.totalExercises).toBe(15);
+      // Progress: 1/15 = 6.67% -> rounds to 7%
+      expect(result.progress).toBe(7);
     });
 
     it('should return most recent in-progress workout', () => {
@@ -468,8 +521,10 @@ describe('Resume Workout Feature', () => {
 
       expect(result).not.toBe(null);
       expect(result.completedExercises).toBe(1);
-      expect(result.totalExercises).toBe(2);
-      expect(result.progress).toBe(50); // 1/2 exercises completed
+      // Total exercises comes from schedule (mockSchedule['5_3'] = 9)
+      expect(result.totalExercises).toBe(9);
+      // Progress: 1/9 = 11.11% -> rounds to 11%
+      expect(result.progress).toBe(11);
     });
 
     it('should return progress info for completed workout', () => {
@@ -483,8 +538,10 @@ describe('Resume Workout Feature', () => {
 
       expect(result).not.toBe(null);
       expect(result.completedExercises).toBe(1);
-      expect(result.totalExercises).toBe(1);
-      expect(result.progress).toBe(100);
+      // Total exercises comes from schedule (mockSchedule['1_1'] = 10)
+      expect(result.totalExercises).toBe(10);
+      // Progress: 1/10 = 10%
+      expect(result.progress).toBe(10);
     });
   });
 
@@ -498,8 +555,10 @@ describe('Resume Workout Feature', () => {
 
       const result = getWorkoutProgress(1, 1);
       expect(result.completedExercises).toBe(1);
-      expect(result.totalExercises).toBe(1);
-      expect(result.progress).toBe(100);
+      // Total exercises comes from schedule (mockSchedule['1_1'] = 10)
+      expect(result.totalExercises).toBe(10);
+      // Progress: 1/10 = 10%
+      expect(result.progress).toBe(10);
     });
 
     it('should handle many exercises with varying completion', () => {
@@ -518,6 +577,7 @@ describe('Resume Workout Feature', () => {
       safeSetJSON('session_w1d1', session);
 
       const result = getWorkoutProgress(1, 1);
+      // Total exercises comes from schedule (mockSchedule['1_1'] = 10)
       expect(result.totalExercises).toBe(10);
       expect(result.completedExercises).toBe(0); // None completed (all have at least one false)
       expect(result.progress).toBe(0);
@@ -533,9 +593,11 @@ describe('Resume Workout Feature', () => {
       });
 
       const result = getWorkoutProgress(1, 1);
-      expect(result.totalExercises).toBe(3);
+      // Total exercises comes from schedule (mockSchedule['1_1'] = 10)
+      expect(result.totalExercises).toBe(10);
       expect(result.completedExercises).toBe(3);
-      expect(result.progress).toBe(100);
+      // Progress: 3/10 = 30%
+      expect(result.progress).toBe(30);
     });
 
     it('should handle mixed completion status', () => {
@@ -548,9 +610,11 @@ describe('Resume Workout Feature', () => {
       });
 
       const result = getWorkoutProgress(1, 1);
-      expect(result.totalExercises).toBe(3);
+      // Total exercises comes from schedule (mockSchedule['1_1'] = 10)
+      expect(result.totalExercises).toBe(10);
       expect(result.completedExercises).toBe(2);
-      expect(result.progress).toBe(67); // Math.round(2/3 * 100)
+      // Progress: 2/10 = 20%
+      expect(result.progress).toBe(20);
     });
   });
 
@@ -565,6 +629,8 @@ describe('Resume Workout Feature', () => {
       const result = getInProgressWorkout();
       expect(result.week).toBe(15);
       expect(result.day).toBe(5);
+      // Total exercises comes from schedule (mockSchedule['15_5'] = 11)
+      expect(result.totalExercises).toBe(11);
     });
 
     it('should ignore non-session keys', () => {
@@ -579,6 +645,8 @@ describe('Resume Workout Feature', () => {
       const result = getInProgressWorkout();
       expect(result).not.toBe(null);
       expect(result.week).toBe(1);
+      // Total exercises comes from schedule (mockSchedule['1_1'] = 10)
+      expect(result.totalExercises).toBe(10);
     });
   });
 });

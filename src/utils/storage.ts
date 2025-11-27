@@ -7,6 +7,7 @@
  */
 
 import type { StorageResult } from '../types';
+import { getCompleteSchedule } from './schedule';
 
 /**
  * Safely get and parse JSON from localStorage
@@ -236,6 +237,17 @@ function countExercisesFromSession(session: WorkoutSessionData): { completed: nu
 }
 
 /**
+ * Get the total number of exercises for a specific week and day from the schedule
+ * @param week - week number
+ * @param day - day number
+ * @returns total number of exercises in the schedule for that day
+ */
+function getScheduleExerciseCount(week: number, day: number): number {
+  const schedule = getCompleteSchedule();
+  return schedule.filter(item => item.w === week && item.d === day).length;
+}
+
+/**
  * Get information about the most recent in-progress workout
  * @returns InProgressWorkout if one exists, null otherwise
  */
@@ -261,16 +273,20 @@ export function getInProgressWorkout(): InProgressWorkout | null {
       // Only consider if there's actual progress (at least one set logged)
       if (completedSets === 0) continue;
 
-      // Count exercises for progress display
-      const { completed: completedExercises, total: totalExercises } = countExercisesFromSession(session);
+      const week = parseInt(match[1], 10);
+      const day = parseInt(match[2], 10);
+
+      // Count completed exercises from session and get total from schedule
+      const { completed: completedExercises } = countExercisesFromSession(session);
+      const totalExercises = getScheduleExerciseCount(week, day);
 
       const lastModified = session.lastModified ? new Date(session.lastModified).getTime() : 0;
 
       if (lastModified > mostRecentTime) {
         mostRecentTime = lastModified;
         mostRecent = {
-          week: parseInt(match[1], 10),
-          day: parseInt(match[2], 10),
+          week,
+          day,
           completedExercises,
           totalExercises,
           lastModified: new Date(lastModified),
@@ -318,7 +334,9 @@ export function getWorkoutProgress(week: number, day: number): { completedExerci
 
   if (completedSets === 0) return null;
 
-  const { completed: completedExercises, total: totalExercises } = countExercisesFromSession(session);
+  // Count completed exercises from session and get total from schedule
+  const { completed: completedExercises } = countExercisesFromSession(session);
+  const totalExercises = getScheduleExerciseCount(week, day);
 
   return {
     completedExercises,

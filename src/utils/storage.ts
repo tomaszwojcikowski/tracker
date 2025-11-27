@@ -242,7 +242,7 @@ function countExercisesFromSession(session: WorkoutSessionData): { completed: nu
  * @param day - day number
  * @returns total number of exercises in the schedule for that day
  */
-function getScheduleExerciseCount(week: number, day: number): number {
+export function getScheduleExerciseCount(week: number, day: number): number {
   const schedule = getCompleteSchedule();
   return schedule.filter(item => item.w === week && item.d === day).length;
 }

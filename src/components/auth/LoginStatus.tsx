@@ -57,7 +57,7 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
                             <p className="text-xs mt-1 opacity-80">Please check your internet connection and try again.</p>
                         )}
                     </div>
-                    <button 
+                    <button
                         onClick={onClearError}
                         className="p-1 hover:bg-white/10 rounded-full transition-colors"
                         aria-label="Dismiss error"

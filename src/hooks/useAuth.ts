@@ -16,7 +16,7 @@ export interface UseAuthReturn extends AuthState {
 }
 
 export function useAuth(): UseAuthReturn {
-    const [user, setUser] = useState<User | null>(() => 
+    const [user, setUser] = useState<User | null>(() =>
         FirebaseService.isFirebaseInitialized() ? FirebaseService.getCurrentUser() : null
     );
     const [loading, setLoading] = useState<boolean>(true);
@@ -37,11 +37,11 @@ export function useAuth(): UseAuthReturn {
                 // 1. Setup auth state listener
                 // We use initSync to hook into the existing service architecture
                 // but we might want to decouple this if we want pure auth first
-                
+
                 // Check if we are returning from a redirect
                 // This is critical for Chrome on Android
                 const redirectResult = await FirebaseService.checkRedirectResult();
-                
+
                 if (mounted) {
                     if (redirectResult) {
                         setUser(redirectResult.user);
@@ -88,7 +88,7 @@ export function useAuth(): UseAuthReturn {
         try {
             // This might trigger a redirect on mobile
             const result = await FirebaseService.handleLogin();
-            
+
             if (!result) {
                 // If no result, it means we're redirecting (mobile flow)
                 setIsRedirecting(true);

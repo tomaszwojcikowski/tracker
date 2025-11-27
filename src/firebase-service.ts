@@ -15,6 +15,8 @@ import { initializeApp, FirebaseApp } from "firebase/app";
 import {
     getAuth,
     signInWithPopup,
+    signInWithRedirect,
+    getRedirectResult,
     signOut,
     GoogleAuthProvider,
     onAuthStateChanged,
@@ -62,7 +64,7 @@ export interface FirebaseStatus {
  * Callback types for initSync
  */
 export type OnDataReceivedCallback = (data: CloudData | null) => void;
-export type OnAuthChangeCallback = (user: User | null) => void;
+export type OnAuthChangeCallback = (user: User | null, initialCloudData: CloudData | null) => void;
 
 // Re-export CloudData for consumers that import from firebase-service
 export type { CloudData } from './types';
@@ -149,18 +151,63 @@ export function getCurrentUser(): User | null {
 }
 
 /**
- * Sign in with Google popup
- * @returns User credential object
+ * Detect if running on a mobile device
+ * Uses user agent detection for better popup handling
  */
-export async function handleLogin(): Promise<UserCredential> {
+function isMobileDevice(): boolean {
+    if (typeof navigator === 'undefined') return false;
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+/**
+ * Check for redirect result on page load
+ * Should be called early in app initialization
+ * @returns User credential if redirected back from auth, null otherwise
+ */
+export async function checkRedirectResult(): Promise<UserCredential | null> {
+    if (!isFirebaseInitialized() || !auth) {
+        return null;
+    }
+
+    try {
+        const result = await getRedirectResult(auth);
+        if (result) {
+            console.log('User logged in via redirect:', result.user.uid);
+        }
+        return result;
+    } catch (error) {
+        console.error('Redirect result check failed:', error);
+        return null;
+    }
+}
+
+/**
+ * Sign in with Google
+ * Uses popup on desktop, redirect on mobile for better reliability
+ * @param forceRedirect - Force redirect method regardless of device
+ * @returns User credential object (for popup) or void (for redirect)
+ */
+export async function handleLogin(forceRedirect: boolean = false): Promise<UserCredential | void> {
     if (!isFirebaseInitialized() || !auth || !provider) {
         throw new Error('Firebase not initialized. Call initializeFirebase() first.');
     }
 
+    const useMobile = forceRedirect || isMobileDevice();
+
     try {
-        const result = await signInWithPopup(auth, provider);
-        console.log('User logged in:', result.user.uid);
-        return result;
+        if (useMobile) {
+            // Use redirect for mobile - more reliable
+            console.log('Using redirect authentication for mobile device');
+            await signInWithRedirect(auth, provider);
+            // Note: This will redirect the page, so we won't get here
+            // The result will be available via checkRedirectResult() on page reload
+            return;
+        } else {
+            // Use popup for desktop
+            const result = await signInWithPopup(auth, provider);
+            console.log('User logged in via popup:', result.user.uid);
+            return result;
+        }
     } catch (error) {
         console.error('Login failed:', error);
         throw error;
@@ -223,8 +270,13 @@ export async function saveToCloud(data: CloudData): Promise<void> {
 
 /**
  * Initialize sync system - sets up auth state listener and realtime sync
- * @param onDataReceived - Callback when data is received from cloud (snapshot)
- * @param onAuthChange - Callback when auth state changes (user or null)
+ * 
+ * IMPORTANT: The onAuthChange callback is called AFTER the initial cloud data is received.
+ * This ensures that cloud data is merged before any local data is pushed to the cloud,
+ * preventing data overwrite issues.
+ * 
+ * @param onDataReceived - Callback when data is received from cloud (subsequent updates only)
+ * @param onAuthChange - Callback when auth state changes, includes initial cloud data for merge-before-push
  */
 export function initSync(
     onDataReceived?: OnDataReceivedCallback,
@@ -254,23 +306,44 @@ export function initSync(
                 syncListener(); // Call the unsubscribe function
             }
 
+            // Track if this is the first data callback (initial sync)
+            let isFirstCallback = true;
+
             // Set up realtime listener
             // Fires immediately on login, and again whenever data changes remotely
             // onValue returns an unsubscribe function
             syncListener = onValue(currentUserRef, (snapshot: DataSnapshot) => {
                 const data = snapshot.val() as CloudData | null;
-                console.log('Data received from Firebase:', data ? 'yes' : 'no data');
+                console.log('Data received from Firebase:', data ? 'yes' : 'no data', isFirstCallback ? '(initial)' : '(update)');
 
                 // Update last sync timestamp when data is received
                 if (data) {
                     updateLastSyncTime();
                 }
 
-                if (onDataReceived) {
-                    onDataReceived(data);
+                if (isFirstCallback) {
+                    // First callback: this is the initial cloud data after login
+                    // Call onAuthChange with the user AND the initial cloud data
+                    // This allows the app to merge cloud data BEFORE pushing local data
+                    isFirstCallback = false;
+                    
+                    if (onAuthChange) {
+                        onAuthChange(user, data);
+                    }
+                } else {
+                    // Subsequent callbacks: these are realtime updates
+                    if (onDataReceived) {
+                        onDataReceived(data);
+                    }
                 }
             }, (error: Error) => {
                 console.error('Firebase read error:', error);
+                // Even on error, we should notify about auth state
+                // so the UI can update (but with null cloud data)
+                if (isFirstCallback && onAuthChange) {
+                    isFirstCallback = false;
+                    onAuthChange(user, null);
+                }
             });
 
         } else {
@@ -282,12 +355,11 @@ export function initSync(
                 syncListener = null;
             }
             currentUserRef = null;
-        }
 
-        // Notify about auth state change AFTER setting up user reference
-        // This ensures currentUserRef is initialized before the callback can use it
-        if (onAuthChange) {
-            onAuthChange(user);
+            // Notify about logout
+            if (onAuthChange) {
+                onAuthChange(null, null);
+            }
         }
     });
 }

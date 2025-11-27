@@ -407,4 +407,193 @@ describe('Firebase Sync - Timestamp-based merging', () => {
             expect(deviceBUpdated.workoutNotes).toBe('Much better today, added extra set!');
         });
     });
+
+    describe('Smart merge (local + cloud combination)', () => {
+        /**
+         * Helper function that mimics the mergeLocalAndCloudData behavior from SettingsView
+         * This tests the bidirectional merge where both local and cloud data are combined
+         */
+        const mergeLocalAndCloudData = (localData, cloudData) => {
+            if (!cloudData) {
+                return {
+                    sessions: localData.sessions,
+                    exerciseHistory: localData.exercise_history,
+                    lastSyncTime: new Date().toISOString(),
+                };
+            }
+
+            const mergedSessions = {};
+            
+            // Copy cloud sessions first
+            if (cloudData.sessions) {
+                Object.entries(cloudData.sessions).forEach(([key, session]) => {
+                    mergedSessions[key] = session;
+                });
+            }
+
+            // Merge local sessions
+            if (localData.sessions) {
+                Object.entries(localData.sessions).forEach(([key, localSession]) => {
+                    const cloudSession = mergedSessions[key];
+                    
+                    if (!cloudSession) {
+                        mergedSessions[key] = localSession;
+                    } else if (localSession.lastModified && cloudSession.lastModified) {
+                        const localTime = new Date(localSession.lastModified).getTime();
+                        const cloudTime = new Date(cloudSession.lastModified).getTime();
+                        
+                        if (localTime > cloudTime) {
+                            mergedSessions[key] = localSession;
+                        }
+                    } else if (localSession.lastModified) {
+                        mergedSessions[key] = localSession;
+                    }
+                });
+            }
+
+            // Merge exercise history
+            const mergedHistory = { ...(cloudData.exerciseHistory || {}) };
+            
+            if (localData.exercise_history) {
+                Object.entries(localData.exercise_history).forEach(([exerciseId, entries]) => {
+                    if (!mergedHistory[exerciseId]) {
+                        mergedHistory[exerciseId] = entries;
+                    } else {
+                        const existingDates = new Set(mergedHistory[exerciseId].map(e => e.date));
+                        entries.forEach(entry => {
+                            if (!existingDates.has(entry.date)) {
+                                mergedHistory[exerciseId].push(entry);
+                            }
+                        });
+                    }
+                });
+            }
+
+            return {
+                sessions: mergedSessions,
+                exerciseHistory: mergedHistory,
+                settings: cloudData.settings,
+                lastSyncTime: new Date().toISOString(),
+            };
+        };
+
+        it('should preserve cloud data when local has no sessions', () => {
+            const localData = { sessions: {}, exercise_history: {} };
+            const cloudData = {
+                sessions: {
+                    'session_w1d1': { 'pull_ups': { sets: [true, true] }, lastModified: '2024-01-15T10:00:00.000Z' }
+                },
+                exerciseHistory: {}
+            };
+
+            const merged = mergeLocalAndCloudData(localData, cloudData);
+            expect(merged.sessions['session_w1d1']).toEqual(cloudData.sessions['session_w1d1']);
+        });
+
+        it('should combine sessions from both local and cloud', () => {
+            const localData = {
+                sessions: {
+                    'session_w1d1': { 'pull_ups': { sets: [true] }, lastModified: '2024-01-15T11:00:00.000Z' }
+                },
+                exercise_history: {}
+            };
+            const cloudData = {
+                sessions: {
+                    'session_w1d2': { 'bench_press': { sets: [true, true] }, lastModified: '2024-01-15T10:00:00.000Z' }
+                },
+                exerciseHistory: {}
+            };
+
+            const merged = mergeLocalAndCloudData(localData, cloudData);
+            expect(merged.sessions['session_w1d1']).toBeDefined();
+            expect(merged.sessions['session_w1d2']).toBeDefined();
+        });
+
+        it('should keep local session when it has newer timestamp than cloud', () => {
+            const localData = {
+                sessions: {
+                    'session_w1d1': { 'pull_ups': { sets: [true, true, true] }, lastModified: '2024-01-15T12:00:00.000Z' }
+                },
+                exercise_history: {}
+            };
+            const cloudData = {
+                sessions: {
+                    'session_w1d1': { 'pull_ups': { sets: [true] }, lastModified: '2024-01-15T10:00:00.000Z' }
+                },
+                exerciseHistory: {}
+            };
+
+            const merged = mergeLocalAndCloudData(localData, cloudData);
+            expect(merged.sessions['session_w1d1']['pull_ups'].sets).toEqual([true, true, true]);
+        });
+
+        it('should keep cloud session when it has newer timestamp than local', () => {
+            const localData = {
+                sessions: {
+                    'session_w1d1': { 'pull_ups': { sets: [true] }, lastModified: '2024-01-15T08:00:00.000Z' }
+                },
+                exercise_history: {}
+            };
+            const cloudData = {
+                sessions: {
+                    'session_w1d1': { 'pull_ups': { sets: [true, true, true] }, lastModified: '2024-01-15T10:00:00.000Z' }
+                },
+                exerciseHistory: {}
+            };
+
+            const merged = mergeLocalAndCloudData(localData, cloudData);
+            expect(merged.sessions['session_w1d1']['pull_ups'].sets).toEqual([true, true, true]);
+        });
+
+        it('should combine exercise history from both sources', () => {
+            const localData = {
+                sessions: {},
+                exercise_history: {
+                    'pull_ups': [{ date: '2024-01-14', sets: 3, weight: 0 }]
+                }
+            };
+            const cloudData = {
+                sessions: {},
+                exerciseHistory: {
+                    'pull_ups': [{ date: '2024-01-15', sets: 4, weight: 5 }]
+                }
+            };
+
+            const merged = mergeLocalAndCloudData(localData, cloudData);
+            expect(merged.exerciseHistory['pull_ups']).toHaveLength(2);
+        });
+
+        it('should not duplicate exercise history entries with same date', () => {
+            const localData = {
+                sessions: {},
+                exercise_history: {
+                    'pull_ups': [{ date: '2024-01-15', sets: 3, weight: 0 }]
+                }
+            };
+            const cloudData = {
+                sessions: {},
+                exerciseHistory: {
+                    'pull_ups': [{ date: '2024-01-15', sets: 4, weight: 5 }]
+                }
+            };
+
+            const merged = mergeLocalAndCloudData(localData, cloudData);
+            // Cloud entry is preserved since it's added first; local duplicate by date is skipped
+            expect(merged.exerciseHistory['pull_ups']).toHaveLength(1);
+            expect(merged.exerciseHistory['pull_ups'][0].sets).toBe(4); // Cloud version
+        });
+
+        it('should handle null cloud data by using local data', () => {
+            const localData = {
+                sessions: {
+                    'session_w1d1': { 'pull_ups': { sets: [true] }, lastModified: '2024-01-15T10:00:00.000Z' }
+                },
+                exercise_history: { 'pull_ups': [{ date: '2024-01-15', sets: 3 }] }
+            };
+
+            const merged = mergeLocalAndCloudData(localData, null);
+            expect(merged.sessions['session_w1d1']).toBeDefined();
+            expect(merged.exerciseHistory['pull_ups']).toBeDefined();
+        });
+    });
 });

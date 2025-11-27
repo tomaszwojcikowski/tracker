@@ -7,7 +7,6 @@ import { useAuth } from '../../hooks/useAuth';
 import { LoginStatus } from '../auth/LoginStatus';
 import { captureError, isErrorReportingEnabled } from '../../utils/errorReporting';
 import { getAllLocalData, mergeCloudData, FIREBASE_SYNC_ENABLED_KEY, type SessionData } from '../../utils/firebaseSync';
-import { formatRelativeTime } from '../../utils/time';
 import type { CloudData } from '../../firebase-service';
 import type { User } from 'firebase/auth';
 import type { ExerciseHistory } from '../../types';
@@ -111,14 +110,14 @@ function mergeLocalAndCloudData(
  */
 export const SettingsView: React.FC = () => {
     // Use the new auth hook
-    const { 
-        user: firebaseUser, 
-        loading: authLoading, 
-        error: authError, 
-        isRedirecting, 
-        login, 
-        logout, 
-        clearError 
+    const {
+        user: firebaseUser,
+        loading: authLoading,
+        error: authError,
+        isRedirecting,
+        login,
+        logout,
+        clearError
     } = useAuth();
 
     const [firebaseSyncEnabled, setFirebaseSyncEnabled] = useState(true); // Default enabled
@@ -150,7 +149,7 @@ export const SettingsView: React.FC = () => {
                 // This ensures we merge cloud data BEFORE pushing local data
                 (user: User | null, initialCloudData: CloudData | null) => {
                     // Note: user state is handled by useAuth, but we need this for sync logic
-                    
+
                     if (user && savedSyncEnabled) {
                         setIsSyncing(true);
 
@@ -245,7 +244,7 @@ export const SettingsView: React.FC = () => {
             {/* Firebase Sync Section - Only shown if Firebase is configured at build time */}
             {FirebaseService.isFirebaseInitialized() && (
                 <>
-                    <LoginStatus 
+                    <LoginStatus
                         user={firebaseUser}
                         loading={authLoading}
                         error={authError}

@@ -118,14 +118,17 @@ const normalizeAddedExercises = (value: unknown): AddedExercise[] => {
 
 interface ExerciseListItemProps {
     exercise: Exercise;
-    onAdd: (exercise: Exercise, sets?: number, weight?: string) => void;
+    onAdd: (exercise: Exercise, sets?: number, weight?: string, rest?: number) => void;
     haptic: HapticFeedback;
 }
+
+const DEFAULT_REST_TIME = 90;
 
 const ExerciseListItem: React.FC<ExerciseListItemProps> = ({ exercise, onAdd, haptic }) => {
     const [showAddForm, setShowAddForm] = useState(false);
     const [sets, setSets] = useState(3);
     const [weight, setWeight] = useState('');
+    const [rest, setRest] = useState(DEFAULT_REST_TIME);
 
     return (
         <div className="bg-sys-surfaceHigh rounded-2xl p-4">
@@ -169,7 +172,7 @@ const ExerciseListItem: React.FC<ExerciseListItemProps> = ({ exercise, onAdd, ha
 
             {showAddForm && (
                 <div className="mt-4 pt-4 border-t border-white/5">
-                    <div className="grid grid-cols-2 gap-3 mb-3">
+                    <div className="grid grid-cols-3 gap-3 mb-3">
                         <div>
                             <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Sets</label>
                             <input
@@ -183,25 +186,38 @@ const ExerciseListItem: React.FC<ExerciseListItemProps> = ({ exercise, onAdd, ha
                         </div>
                         {!exercise.isBodyweight && (
                             <div>
-                                <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Weight (kg)</label>
+                                <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Weight</label>
                                 <input
                                     type="number"
                                     inputMode="decimal"
                                     value={weight}
                                     onChange={(e) => setWeight(e.target.value)}
-                                    placeholder="0"
+                                    placeholder="kg"
                                     className="w-full h-10 px-3 bg-sys-surface rounded-xl text-white text-center font-mono outline-none focus:ring-2 focus:ring-sys-accent"
                                 />
                             </div>
                         )}
+                        <div>
+                            <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Rest (s)</label>
+                            <input
+                                type="number"
+                                min="0"
+                                max="300"
+                                step="15"
+                                value={rest}
+                                onChange={(e) => setRest(parseInt(e.target.value) || DEFAULT_REST_TIME)}
+                                className="w-full h-10 px-3 bg-sys-surface rounded-xl text-white text-center font-mono outline-none focus:ring-2 focus:ring-sys-accent"
+                            />
+                        </div>
                     </div>
                     <button
                         onClick={() => {
                             haptic.success();
-                            onAdd(exercise, sets, weight);
+                            onAdd(exercise, sets, weight, rest);
                             setShowAddForm(false);
                             setSets(3);
                             setWeight('');
+                            setRest(DEFAULT_REST_TIME);
                         }}
                         className="w-full h-10 rounded-xl text-white font-semibold active:scale-95 transition-transform btn-gradient-success"
                     >
@@ -446,7 +462,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const addExerciseToWorkout = (
         exercise: Exercise,
         sets = 3,
-        weight = ''
+        weight = '',
+        rest = 90
     ): void => {
         try {
             if (!exercise || !exercise.id || !exercise.name) {
@@ -456,6 +473,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             }
 
             const validSets = Number.isInteger(sets) && sets > 0 && sets <= MAX_SETS ? sets : 3;
+            const validRest = Number.isInteger(rest) && rest >= 0 && rest <= 300 ? rest : 90;
 
             const isDuplicate = addedExercises.some((ex) => ex.id === exercise.id);
             if (isDuplicate) {
@@ -468,6 +486,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 id: exercise.id,
                 name: exercise.name,
                 sets: validSets,
+                rest: validRest,
                 isBodyweight: exercise.isBodyweight || false,
                 equipment: exercise.equipment || [],
                 primaryMuscles: exercise.primaryMuscles || [],
@@ -931,7 +950,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                     >
                                                                         Load (kg)
                                                                     </label>
-                                                                    {ex.loadRange && (
+                                                                    {/* Only show suggested load if min > 0 and unit is kg */}
+                                                                    {ex.loadRange && ex.loadRange.min > 0 && ex.loadRange.unit === 'kg' && (
                                                                         <span className="text-xs text-sys-accent font-medium">
                                                                             Suggested: {ex.loadRange.min === ex.loadRange.max
                                                                                 ? `${ex.loadRange.min}kg`
@@ -1047,12 +1067,30 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 </button>
                                             </div>
 
+                                            {/* Rest time indicator for added exercises */}
+                                            {ex.rest && ex.rest > 0 && (
+                                                <div className="mb-3">
+                                                    <button
+                                                        onClick={() => {
+                                                            haptic.bump();
+                                                            setTimerSeconds(ex.rest ?? 90);
+                                                            setTimerActive(true);
+                                                        }}
+                                                        className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-medium flex items-center gap-1.5 active:bg-sys-accent/20 transition-colors"
+                                                        aria-label={`Start ${ex.rest} second timer`}
+                                                    >
+                                                        <i data-lucide="timer" width="14"></i>
+                                                        <span>{ex.rest}s rest</span>
+                                                    </button>
+                                                </div>
+                                            )}
+
                                             {/* Set buttons for added exercises */}
                                             <div className="flex flex-wrap gap-4 mb-5">
                                                 {currentSetArray.map((isDone, i) => (
                                                     <button
                                                         key={`${exId}-set-${i}`}
-                                                        onClick={() => toggleSet(exId, i, ex.sets, 90)}
+                                                        onClick={() => toggleSet(exId, i, ex.sets, ex.rest ?? 90)}
                                                         className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold ${
                                                             isDone
                                                                 ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]'

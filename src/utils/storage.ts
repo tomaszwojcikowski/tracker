@@ -173,10 +173,12 @@ interface WorkoutSessionData {
 export interface InProgressWorkout {
   week: number;
   day: number;
+  completedSets: number;
+  totalSets: number;
   completedExercises: number;
   totalExercises: number;
   lastModified: Date;
-  progress: number; // 0-100 percentage based on exercises
+  progress: number; // 0-100 percentage based on completed sets
 }
 
 /**
@@ -256,12 +258,12 @@ export function getInProgressWorkout(): InProgressWorkout | null {
       if (!session || session.completed) continue;
 
       // Check if session has any workout data (not just empty)
-      const { completed: completedSets } = countSetsFromSession(session);
+      const { completed: completedSets, total: totalSets } = countSetsFromSession(session);
 
       // Only consider if there's actual progress (at least one set logged)
       if (completedSets === 0) continue;
 
-      // Count exercises for progress display
+      // Count exercises for additional display
       const { completed: completedExercises, total: totalExercises } = countExercisesFromSession(session);
 
       const lastModified = session.lastModified ? new Date(session.lastModified).getTime() : 0;
@@ -271,10 +273,13 @@ export function getInProgressWorkout(): InProgressWorkout | null {
         mostRecent = {
           week: parseInt(match[1], 10),
           day: parseInt(match[2], 10),
+          completedSets,
+          totalSets,
           completedExercises,
           totalExercises,
           lastModified: new Date(lastModified),
-          progress: totalExercises > 0 ? Math.round((completedExercises / totalExercises) * 100) : 0,
+          // Progress is based on sets completed, not exercises
+          progress: totalSets > 0 ? Math.round((completedSets / totalSets) * 100) : 0,
         };
       }
     }
@@ -308,21 +313,41 @@ export function isWorkoutInProgress(week: number, day: number): boolean {
  * @param day - day number
  * @returns progress info or null if workout hasn't started
  */
-export function getWorkoutProgress(week: number, day: number): { completedExercises: number; totalExercises: number; progress: number } | null {
+export function getWorkoutProgress(week: number, day: number): { completedSets: number; totalSets: number; completedExercises: number; totalExercises: number; progress: number } | null {
   const key = `session_w${week}d${day}`;
   const session = safeGetJSON<WorkoutSessionData>(key);
 
   if (!session) return null;
 
-  const { completed: completedSets } = countSetsFromSession(session);
+  const { completed: completedSets, total: totalSets } = countSetsFromSession(session);
 
   if (completedSets === 0) return null;
 
   const { completed: completedExercises, total: totalExercises } = countExercisesFromSession(session);
 
   return {
+    completedSets,
+    totalSets,
     completedExercises,
     totalExercises,
-    progress: totalExercises > 0 ? Math.round((completedExercises / totalExercises) * 100) : 0,
+    // Progress is based on sets completed, not exercises
+    progress: totalSets > 0 ? Math.round((completedSets / totalSets) * 100) : 0,
   };
+}
+
+/**
+ * Check if a workout session has any existing data (even if not in progress)
+ * @param week - week number
+ * @param day - day number
+ * @returns true if any data exists for this session
+ */
+export function hasWorkoutData(week: number, day: number): boolean {
+  const key = `session_w${week}d${day}`;
+  const session = safeGetJSON<WorkoutSessionData>(key);
+  
+  if (!session) return false;
+  if (session.completed) return true;
+  
+  const { total } = countSetsFromSession(session);
+  return total > 0;
 }

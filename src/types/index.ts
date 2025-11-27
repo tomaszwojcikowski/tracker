@@ -530,6 +530,7 @@ export interface AddedExercise {
   name: string;
   sets: number;
   weight?: string;
+  rest?: number; // Rest time in seconds, defaults to 90
   isBodyweight: boolean;
   equipment: string[];
   primaryMuscles: string[];

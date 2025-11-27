@@ -384,6 +384,15 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                         {history.map((entry, idx) => {
                             const isExpanded = expandedEntries[idx];
                             const hasExercises = entry.exercises && entry.exercises.length > 0;
+                            
+                            // Calculate summary stats for collapsed view
+                            const totalSets = hasExercises 
+                                ? entry.exercises!.reduce((sum, ex) => sum + (ex.totalSets || 0), 0)
+                                : 0;
+                            const completedSets = hasExercises 
+                                ? entry.exercises!.reduce((sum, ex) => sum + (ex.completedSets || 0), 0)
+                                : 0;
+                            const exerciseCount = hasExercises ? entry.exercises!.length : 0;
 
                             return (
                                 <div key={idx} className="stagger-item bg-sys-surface border border-white/5 rounded-3xl overflow-hidden">
@@ -397,6 +406,12 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                         <div className="flex-1 min-w-0 text-left">
                                             <h3 className="text-base font-bold text-white mb-1 truncate">Day {entry.day} Complete</h3>
                                             <p className="text-sm text-sys-onSurfaceVar">{new Date(entry.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</p>
+                                            {/* Summary stats in collapsed view */}
+                                            {hasExercises && !isExpanded && (
+                                                <p className="text-xs text-sys-onSurfaceVar/70 mt-1">
+                                                    {exerciseCount} exercises • {completedSets}/{totalSets} sets
+                                                </p>
+                                            )}
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <div className="h-10 w-10 rounded-full bg-sys-success/20 flex items-center justify-center flex-shrink-0">

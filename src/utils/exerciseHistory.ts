@@ -81,6 +81,7 @@ export interface ExerciseVolumeData {
 
 /**
  * Update exercise history with a new entry
+ * Prevents duplicate entries for the same date/week/day combination
  * @param exerciseName - Name of the exercise
  * @param entry - History entry with date, week, day, sets, weight, etc.
  */
@@ -115,14 +116,28 @@ export const updateExerciseHistory = (
     return;
   }
 
-  history[exerciseName].push(entry);
+  // Check for duplicate entry (same week and day on same date)
+  // If duplicate exists, update it instead of adding a new one
+  const existingIndex = history[exerciseName].findIndex(
+    (e) => e.date.split('T')[0] === entry.date.split('T')[0] && 
+           e.week === entry.week && 
+           e.day === entry.day
+  );
+
+  if (existingIndex !== -1) {
+    // Update existing entry with new data (user re-completed the workout)
+    history[exerciseName][existingIndex] = entry;
+  } else {
+    history[exerciseName].push(entry);
+  }
+  
   safeSetJSON(STORAGE_KEYS.EXERCISE_HISTORY, history);
 };
 
 /**
  * Get history for a specific exercise
  * @param exerciseName - Name of the exercise
- * @returns Array of history entries
+ * @returns Array of history entries sorted by date (oldest first)
  */
 export const getExerciseHistory = (
   exerciseName: string
@@ -144,7 +159,10 @@ export const getExerciseHistory = (
     return [];
   }
 
-  return exerciseHistory;
+  // Sort by date to ensure consistent ordering (oldest first)
+  return [...exerciseHistory].sort((a, b) => 
+    new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
 };
 
 /**
@@ -192,6 +210,8 @@ export const calculateExerciseStats = (exerciseName: string): ExerciseStats => {
       }
 
       // Calculate estimated 1RM using Epley formula: 1RM = weight × (1 + reps/30)
+      // Note: This assumes the user completed all prescribed reps with the logged weight
+      // Alternative formulas: Brzycki = weight × (36 / (37 - reps))
       if (entry.prescription && entry.weight) {
         const repsMatch = entry.prescription.match(/x\s*(\d+)\s*reps?\b/i);
         if (repsMatch) {

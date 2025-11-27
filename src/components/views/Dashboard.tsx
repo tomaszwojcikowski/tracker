@@ -6,7 +6,7 @@
 
 import { useState, useEffect } from 'react';
 import { useHaptic, useSwipeNavigation, useLucideIcons } from '../../hooks';
-import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, type InProgressWorkout } from '../../utils/storage';
+import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, hasWorkoutData, type InProgressWorkout } from '../../utils/storage';
 import { formatRelativeTime } from '../../utils/time';
 import { SwipeIndicator } from '../SwipeIndicator';
 import { getBlockForWeek } from '../../data/programData';
@@ -65,8 +65,12 @@ export function Dashboard({
     return session?.completed === true;
   };
 
-  const getDayProgress = (day: number): { completedExercises: number; totalExercises: number; progress: number } | null => {
+  const getDayProgress = (day: number): { completedSets: number; totalSets: number; completedExercises: number; totalExercises: number; progress: number } | null => {
     return getWorkoutProgress(currentWeek, day);
+  };
+
+  const hasExistingData = (day: number): boolean => {
+    return hasWorkoutData(currentWeek, day);
   };
 
   const handleResumeWorkout = () => {
@@ -119,7 +123,7 @@ export function Dashboard({
                   {inProgressWorkout.progress}%
                 </span>
                 <span className="text-xs text-sys-onSurfaceVar">
-                  {inProgressWorkout.completedExercises}/{inProgressWorkout.totalExercises} exercises
+                  {inProgressWorkout.completedSets}/{inProgressWorkout.totalSets} sets
                 </span>
               </div>
             </div>
@@ -170,6 +174,7 @@ export function Dashboard({
             const done = isCompleted(day);
             const dayProgress = getDayProgress(day);
             const isInProgress = !done && dayProgress !== null;
+            const hasPreviousData = !done && !isInProgress && hasExistingData(day);
             return (
               <button
                 key={day}
@@ -184,7 +189,7 @@ export function Dashboard({
                     ? 'bg-sys-accent/10 border-2 border-sys-accent/30'
                     : 'bg-sys-surface border-2 border-white/5'
                 }`}
-                aria-label={`${done ? 'Completed' : isInProgress ? 'Resume' : 'Start'} Day ${day} workout`}
+                aria-label={`${done ? 'View completed' : isInProgress ? 'Resume' : hasPreviousData ? 'Continue' : 'Start'} Day ${day} workout`}
               >
                 <div className="flex flex-col items-start">
                   <span
@@ -203,7 +208,13 @@ export function Dashboard({
                         : 'text-sys-onSurfaceVar/70'
                     }`}
                   >
-                    {done ? 'Completed' : isInProgress ? `In progress • ${dayProgress.progress}%` : 'Tap to start'}
+                    {done 
+                      ? 'Completed' 
+                      : isInProgress 
+                      ? `${dayProgress.completedSets}/${dayProgress.totalSets} sets • ${dayProgress.progress}%` 
+                      : hasPreviousData 
+                      ? 'Has previous data'
+                      : 'Tap to start'}
                   </span>
                 </div>
 

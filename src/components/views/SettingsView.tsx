@@ -117,7 +117,11 @@ export const SettingsView: React.FC = () => {
     const [firebaseMessage, setFirebaseMessage] = useState('');
     const [isSyncing, setIsSyncing] = useState(false);
     const [isLoggingIn, setIsLoggingIn] = useState(false);
-    const [isCheckingRedirect, setIsCheckingRedirect] = useState(true); // Track redirect check status
+    // Only show checking state if we don't already have a user
+    const [isCheckingRedirect, setIsCheckingRedirect] = useState(() => {
+        const currentUser = FirebaseService.isFirebaseInitialized() ? FirebaseService.getCurrentUser() : null;
+        return currentUser === null; // Only check if not already logged in
+    });
 
     // Theme state
     const { theme, setTheme, themes } = useTheme();
@@ -131,9 +135,6 @@ export const SettingsView: React.FC = () => {
 
         // Setup Firebase auth state listener (Firebase is auto-initialized from env vars)
         if (FirebaseService.isFirebaseInitialized()) {
-            // Show checking status on mobile
-            setFirebaseMessage('↻ Checking login status...');
-            
             // Check for redirect result first (for mobile login flow)
             FirebaseService.checkRedirectResult().then((result) => {
                 setIsCheckingRedirect(false);
@@ -143,16 +144,8 @@ export const SettingsView: React.FC = () => {
                     setFirebaseUser(result.user);
                     setFirebaseMessage('✓ Logged in as ' + (result.user.displayName || result.user.email));
                     setTimeout(() => setFirebaseMessage(''), 5000);
-                } else {
-                    // No redirect result - check if already logged in
-                    const currentUser = FirebaseService.getCurrentUser();
-                    if (currentUser) {
-                        setFirebaseUser(currentUser);
-                        setFirebaseMessage('');
-                    } else {
-                        setFirebaseMessage('');
-                    }
                 }
+                // Don't set message to empty here - let initSync handle the rest
             }).catch((err) => {
                 setIsCheckingRedirect(false);
                 console.error('Redirect result error:', err);

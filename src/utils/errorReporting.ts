@@ -95,15 +95,55 @@ export function initErrorReporting(): void {
                 maskAllText: true,
                 blockAllMedia: true,
             }),
+            // Capture console.error calls as breadcrumbs and errors
+            Sentry.captureConsoleIntegration({
+                levels: ['error', 'warn'],
+            }),
         ],
         // Performance monitoring sample rate (adjust based on traffic)
         tracesSampleRate: import.meta.env.PROD ? 0.1 : 1.0,
         // Session replay sample rate (only on errors)
         replaysSessionSampleRate: 0,
         replaysOnErrorSampleRate: 1.0,
+        // Capture console.error as Sentry events
+        beforeSend(event, hint) {
+            // Add extra context for console errors
+            if (hint.originalException && typeof hint.originalException === 'string') {
+                event.fingerprint = ['console-error', hint.originalException];
+            }
+            return event;
+        },
     });
 
-    console.log('Error reporting initialized');
+    // Also wrap console.error to capture as Sentry events
+    const originalConsoleError = console.error;
+    console.error = (...args: unknown[]) => {
+        // Call original console.error first
+        originalConsoleError.apply(console, args);
+        
+        // Send to Sentry if initialized
+        if (isErrorReportingEnabled()) {
+            const message = args.map(arg => 
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+            ).join(' ');
+            
+            // Check if first arg is an Error object
+            const firstArg = args[0];
+            if (firstArg instanceof Error) {
+                Sentry.captureException(firstArg, {
+                    extra: { consoleArgs: args.slice(1) },
+                    tags: { source: 'console.error' },
+                });
+            } else {
+                Sentry.captureMessage(message, {
+                    level: 'error',
+                    tags: { source: 'console.error' },
+                });
+            }
+        }
+    };
+
+    console.log('Error reporting initialized (console.error capture enabled)');
 }
 
 /**

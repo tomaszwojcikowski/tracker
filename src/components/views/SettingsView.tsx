@@ -117,6 +117,7 @@ export const SettingsView: React.FC = () => {
     const [firebaseMessage, setFirebaseMessage] = useState('');
     const [isSyncing, setIsSyncing] = useState(false);
     const [isLoggingIn, setIsLoggingIn] = useState(false);
+    const [isCheckingRedirect, setIsCheckingRedirect] = useState(true); // Track redirect check status
 
     // Theme state
     const { theme, setTheme, themes } = useTheme();
@@ -130,20 +131,35 @@ export const SettingsView: React.FC = () => {
 
         // Setup Firebase auth state listener (Firebase is auto-initialized from env vars)
         if (FirebaseService.isFirebaseInitialized()) {
+            // Show checking status on mobile
+            setFirebaseMessage('↻ Checking login status...');
+            
             // Check for redirect result first (for mobile login flow)
             FirebaseService.checkRedirectResult().then((result) => {
+                setIsCheckingRedirect(false);
                 if (result) {
-                    console.log('Redirect login successful');
+                    console.log('Redirect login successful:', result.user.email);
                     // Update user state immediately after redirect
                     setFirebaseUser(result.user);
-                    setFirebaseMessage('✓ Logged in successfully');
-                    setTimeout(() => setFirebaseMessage(''), 3000);
+                    setFirebaseMessage('✓ Logged in as ' + (result.user.displayName || result.user.email));
+                    setTimeout(() => setFirebaseMessage(''), 5000);
+                } else {
+                    // No redirect result - check if already logged in
+                    const currentUser = FirebaseService.getCurrentUser();
+                    if (currentUser) {
+                        setFirebaseUser(currentUser);
+                        setFirebaseMessage('');
+                    } else {
+                        setFirebaseMessage('');
+                    }
                 }
             }).catch((err) => {
+                setIsCheckingRedirect(false);
                 console.error('Redirect result error:', err);
                 const message = err instanceof Error ? err.message : 'Unknown error';
-                setFirebaseMessage('✗ Login redirect failed: ' + message);
-                setTimeout(() => setFirebaseMessage(''), 5000);
+                setFirebaseMessage('✗ Login failed: ' + message);
+                // Keep error visible longer
+                setTimeout(() => setFirebaseMessage(''), 10000);
             });
 
             FirebaseService.initSync(
@@ -288,6 +304,27 @@ export const SettingsView: React.FC = () => {
                             <p className="text-xs text-sys-onSurfaceVar">Sync data across devices with Google Auth</p>
                         </div>
                     </div>
+
+                    {/* Status message - always visible when there's a message */}
+                    {firebaseMessage && (
+                        <div className={`mb-4 p-3 rounded-xl text-sm font-medium ${
+                            firebaseMessage.startsWith('✓') ? 'bg-sys-success/20 text-sys-success' :
+                            firebaseMessage.startsWith('✗') ? 'bg-red-500/20 text-red-400' :
+                            'bg-sys-accent/20 text-sys-accent'
+                        }`}>
+                            {firebaseMessage}
+                        </div>
+                    )}
+
+                    {/* Loading state while checking redirect */}
+                    {isCheckingRedirect && !firebaseUser && (
+                        <div className="mb-4 p-4 bg-sys-surfaceHigh rounded-xl">
+                            <div className="flex items-center gap-3">
+                                <div className="animate-spin h-5 w-5 border-2 border-sys-accent border-t-transparent rounded-full"></div>
+                                <span className="text-sm text-sys-onSurfaceVar">Checking login status...</span>
+                            </div>
+                        </div>
+                    )}
 
                     {firebaseUser ? (
                         <>

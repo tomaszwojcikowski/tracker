@@ -173,7 +173,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                 const history = getExerciseHistory(stat.name);
 
                 return (
-                    <div key={idx} className="bg-sys-surface border border-white/5 rounded-3xl overflow-hidden">
+                    <div key={idx} className="stagger-item bg-sys-surface border border-white/5 rounded-3xl overflow-hidden">
                         <button
                             onClick={() => handleExerciseClick(stat.name)}
                             className="w-full p-5 flex items-center gap-4 active:bg-sys-surfaceHigh transition-colors text-left"
@@ -386,7 +386,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                             const hasExercises = entry.exercises && entry.exercises.length > 0;
 
                             return (
-                                <div key={idx} className="bg-sys-surface border border-white/5 rounded-3xl overflow-hidden">
+                                <div key={idx} className="stagger-item bg-sys-surface border border-white/5 rounded-3xl overflow-hidden">
                                     <button
                                         onClick={() => toggleExpanded(idx)}
                                         className="w-full p-5 flex items-center gap-5 active:bg-sys-surfaceHigh transition-colors"

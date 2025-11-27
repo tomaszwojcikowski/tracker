@@ -177,7 +177,7 @@ export function Dashboard({
                   haptic.tick();
                   onStartWorkout(day);
                 }}
-                className={`relative min-h-[72px] rounded-3xl px-6 py-5 flex items-center justify-between transition-all active:scale-[0.97] ${
+                className={`stagger-item relative min-h-[72px] rounded-3xl px-6 py-5 flex items-center justify-between transition-all active:scale-[0.97] ${
                   done
                     ? 'bg-sys-success/10 border-2 border-sys-success/30'
                     : isInProgress

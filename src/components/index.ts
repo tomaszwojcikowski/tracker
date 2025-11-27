@@ -69,6 +69,10 @@ export type { SwipeIndicatorProps } from './SwipeIndicator';
 export { ThemeSelector } from './ThemeSelector';
 export type { ThemeSelectorProps } from './ThemeSelector';
 
+// Accessibility components
+export { SkipLink } from './SkipLink';
+export type { SkipLinkProps } from './SkipLink';
+
 // App bar components
 export { TopAppBar } from './TopAppBar';
 export { ActionBar } from './ActionBar';

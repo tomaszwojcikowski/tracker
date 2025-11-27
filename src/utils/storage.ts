@@ -259,7 +259,10 @@ function getWorkoutTotalsFromPlan(week: number, day: number): { totalSets: numbe
 
     return { totalSets, totalExercises };
   } catch (error) {
-    console.warn(`Failed to get workout totals for week ${week} day ${day}:`, error);
+    // Log with context for debugging - this can happen if workout plan data is not loaded
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.warn(`Failed to get workout totals for week ${week} day ${day}: ${errorMessage}`);
+    // Return zeros as fallback - progress will show 0% which is a safe default
     return { totalSets: 0, totalExercises: 0 };
   }
 }

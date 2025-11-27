@@ -30,7 +30,7 @@ function mergeLocalAndCloudData(
         };
     }
 
-    // Use a mutable object for merging, with proper typing
+    // Build merged sessions using a flexible record type
     const mergedSessions: Record<string, SessionData> = {};
     
     // First, copy all cloud sessions
@@ -220,7 +220,7 @@ export const SettingsView: React.FC = () => {
         try {
             // Get local data including current workout
             const localData = getAllLocalData();
-            // Push to cloud - we trust the merge will happen correctly on next pull
+            // Push local data to cloud (realtime listener will handle incoming changes)
             await FirebaseService.saveToCloud(localData as unknown as CloudData);
             setFirebaseMessage('✓ Data synced to cloud successfully');
             setTimeout(() => setFirebaseMessage(''), 3000);

@@ -578,8 +578,9 @@ describe('Firebase Sync - Timestamp-based merging', () => {
             };
 
             const merged = mergeLocalAndCloudData(localData, cloudData);
-            // Should keep only cloud version (merged into cloud first)
+            // Cloud entry is preserved since it's added first; local duplicate by date is skipped
             expect(merged.exerciseHistory['pull_ups']).toHaveLength(1);
+            expect(merged.exerciseHistory['pull_ups'][0].sets).toBe(4); // Cloud version
         });
 
         it('should handle null cloud data by using local data', () => {

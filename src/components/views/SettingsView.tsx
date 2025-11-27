@@ -135,6 +135,9 @@ export const SettingsView: React.FC = () => {
 
         // Setup Firebase auth state listener (Firebase is auto-initialized from env vars)
         if (FirebaseService.isFirebaseInitialized()) {
+            // Show that we're checking
+            setFirebaseMessage('↻ Checking login...');
+            
             // Check for redirect result first (for mobile login flow)
             FirebaseService.checkRedirectResult().then((result) => {
                 setIsCheckingRedirect(false);
@@ -144,15 +147,18 @@ export const SettingsView: React.FC = () => {
                     setFirebaseUser(result.user);
                     setFirebaseMessage('✓ Logged in as ' + (result.user.displayName || result.user.email));
                     setTimeout(() => setFirebaseMessage(''), 5000);
+                } else {
+                    // No redirect result - clear message after a short delay
+                    setFirebaseMessage('');
                 }
-                // Don't set message to empty here - let initSync handle the rest
-            }).catch((err) => {
+            }).catch((err: unknown) => {
                 setIsCheckingRedirect(false);
                 console.error('Redirect result error:', err);
                 
-                // Extract error details
-                const errorCode = err?.code || '';
-                const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+                // Extract error details - handle both Firebase errors and regular errors
+                const firebaseErr = err as { code?: string; message?: string };
+                const errorCode = firebaseErr?.code || '';
+                const errorMessage = firebaseErr?.message || (err instanceof Error ? err.message : String(err));
                 
                 // Handle specific error cases
                 if (errorCode === 'auth/popup-closed-by-user' || errorCode === 'auth/cancelled-popup-request') {
@@ -164,9 +170,9 @@ export const SettingsView: React.FC = () => {
                 } else {
                     // Show full error for debugging
                     const displayMessage = errorCode ? `${errorCode}: ${errorMessage}` : errorMessage;
-                    setFirebaseMessage('✗ Login failed: ' + displayMessage);
-                    // Keep error visible longer
-                    setTimeout(() => setFirebaseMessage(''), 15000);
+                    setFirebaseMessage('✗ Error: ' + displayMessage);
+                    // Keep error visible much longer for debugging
+                    setTimeout(() => setFirebaseMessage(''), 30000);
                 }
             });
 

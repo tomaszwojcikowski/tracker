@@ -71,7 +71,13 @@ export function initErrorReporting(): void {
     }
 
     const environment = import.meta.env.MODE || 'development';
-    const release = typeof __BUILD_VERSION__ !== 'undefined' ? `tracker@${__BUILD_VERSION__}` : undefined;
+    // Safely get build version, defaulting to 'unknown' if not defined
+    let release: string | undefined;
+    try {
+        release = typeof __BUILD_VERSION__ !== 'undefined' ? `tracker@${__BUILD_VERSION__}` : 'tracker@unknown';
+    } catch {
+        release = 'tracker@unknown';
+    }
 
     Sentry.init({
         dsn,
@@ -95,14 +101,6 @@ export function initErrorReporting(): void {
         // Session replay sample rate (only on errors)
         replaysSessionSampleRate: 0,
         replaysOnErrorSampleRate: 1.0,
-        // Filter out known non-critical errors
-        beforeSend(event) {
-            // Don't send events if reporting is disabled
-            if (!isErrorReportingEnabled()) {
-                return null;
-            }
-            return event;
-        },
     });
 
     console.log('Error reporting initialized');

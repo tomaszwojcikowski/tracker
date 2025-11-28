@@ -673,7 +673,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             // User override: true = user wants expanded, false = user wants collapsed
             return !manualOverride;
         }
-        
+
         // Auto behavior: only the first incomplete exercise is expanded
         return exId !== firstIncompleteExerciseId;
     };

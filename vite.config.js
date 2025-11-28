@@ -15,6 +15,12 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
+      // Use injectManifest mode for custom service worker with error handling
+      // This allows us to handle IndexedDB errors that occur on OnePlus 12 devices
+      // after OAuth redirects
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.ts',
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
@@ -47,68 +53,9 @@ export default defineConfig({
           }
         ]
       },
-      workbox: {
-        // Cache static assets
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
-        // Runtime caching strategies
-        runtimeCaching: [
-          {
-            // Cache Google Fonts stylesheets
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-stylesheets',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              }
-            }
-          },
-          {
-            // Cache Google Fonts webfonts
-            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-webfonts',
-              expiration: {
-                maxEntries: 20,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              }
-            }
-          },
-          {
-            // Cache Lucide icons
-            urlPattern: /^https:\/\/unpkg\.com\/lucide.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'lucide-icons',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
-              }
-            }
-          },
-          {
-            // Cache workout data with stale-while-revalidate
-            urlPattern: /\.(json)$/i,
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheName: 'workout-data',
-              expiration: {
-                maxEntries: 20,
-                maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
-              }
-            }
-          }
-        ],
-        // Clean up outdated caches
-        cleanupOutdatedCaches: true,
-        // Skip waiting to activate new service worker immediately
-        skipWaiting: true,
-        clientsClaim: true,
-        // Navigations should be handled by the app shell
-        navigateFallback: 'index.html',
-        navigateFallbackDenylist: [/^\/api\//]
+      // injectManifest mode requires different workbox options
+      injectManifest: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}']
       },
       devOptions: {
         enabled: false // Disable in dev to avoid caching issues

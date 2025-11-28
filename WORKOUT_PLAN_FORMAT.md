@@ -130,6 +130,8 @@ This document defines the robust and complete workout plan format used by the Tr
 
 ### Exercise Specification
 
+The exercise specification has been updated to use structured fields instead of string parsing. The new format uses explicit fields for load, reps, and tempo data.
+
 ```json
 {
   "order": 1,
@@ -137,16 +139,25 @@ This document defines the robust and complete workout plan format used by the Tr
   "exerciseId": "pull_ups",
   "category": "main",
   "sets": 4,
-  "reps": "8",
-  "tempo": "2-0-1-0",
   "restSeconds": 120,
   "rpe": 8,
-  "load": "bodyweight",
   "notes": "Focus on full ROM",
   "alternatives": [],
   "progressionNotes": "Add weight when hitting 3x10",
   "videoUrl": null,
-  "cues": []
+  "cues": [],
+  
+  "loadMin": 0,
+  "loadMax": 0,
+  "loadUnit": "bodyweight",
+  
+  "repsType": "reps",
+  "repsValue": 8,
+  
+  "tempoEccentric": 2,
+  "tempoPauseBottom": 0,
+  "tempoConcentric": 1,
+  "tempoPauseTop": 0
 }
 ```
 
@@ -157,55 +168,133 @@ This document defines the robust and complete workout plan format used by the Tr
 | `exerciseId` | string | No | Reference to exercise in library |
 | `category` | string | No | Exercise category (warmup, main, accessory, cooldown, mobility, skill, core) |
 | `sets` | number | Yes | Number of sets |
-| `reps` | string | Yes | Rep scheme (number, range, time, AMRAP, etc.) |
-| `tempo` | string | No | Tempo prescription (eccentric-pause-concentric-pause) |
 | `restSeconds` | number | No | Rest between sets in seconds |
 | `rpe` | number | No | Target RPE (Rate of Perceived Exertion, 1-10) |
-| `load` | string | No | Preferred weight/load in kg (see Load Values below) |
 | `notes` | string | No | Training prescription and coaching cues |
 | `alternatives` | array | No | Array of alternative exercise IDs |
 | `progressionNotes` | string | No | How to progress this exercise |
 | `videoUrl` | string | No | Link to demonstration video |
 | `cues` | array | No | Array of coaching cue strings |
 
-### Load Values
+### Structured Load Fields
 
-The `load` field specifies the preferred/suggested weight for weighted exercises. Use concrete weight values rather than descriptive terms.
+Instead of parsing a `load` string, use these explicit fields:
 
-**Valid Load Formats:**
-- `null` - Pure bodyweight exercise (e.g., Pull-Ups, Dips, Plank)
-- `"bodyweight"` - Weighted exercise variant done without extra weight
-- `"5-10kg"` - Weight range in kg (most common)
-- `"10kg"` - Specific weight in kg
-- `"+2kg"` - Additional weight for bodyweight exercises
-- `"8-12kg per hand"` - Per-hand weight for dumbbell exercises
-- `"light band"` - Resistance band specification
-- `"~85kg"` - Approximate weight
+| Field | Type | Description |
+|-------|------|-------------|
+| `loadMin` | number | Minimum weight value |
+| `loadMax` | number | Maximum weight value (same as min for fixed loads) |
+| `loadUnit` | string | Unit: `"kg"`, `"band"`, `"bodyweight"`, or `"percent"` |
+| `loadPerHand` | boolean | Optional. True if load is per hand (for dumbbell exercises) |
 
-**Training Prescriptions (use `notes` field):**
-- `"Heavy"` - High intensity work
-- `"Light"` - Low intensity / technique focus
-- `"Moderate"` - Medium intensity
-- `"Deload"` - Recovery week
-- `"Accumulation"` - Volume building phase
-- `"Test"` - Max effort testing
+**Examples:**
+
+```json
+// Bodyweight exercise (no additional load)
+{ "loadMin": 0, "loadMax": 0, "loadUnit": "bodyweight" }
+
+// Fixed weight: 10kg
+{ "loadMin": 10, "loadMax": 10, "loadUnit": "kg" }
+
+// Weight range: 5-10kg
+{ "loadMin": 5, "loadMax": 10, "loadUnit": "kg" }
+
+// Dumbbells: 8-12kg per hand
+{ "loadMin": 8, "loadMax": 12, "loadUnit": "kg", "loadPerHand": true }
+
+// Light resistance band
+{ "loadMin": 1, "loadMax": 1, "loadUnit": "band" }
+
+// Medium resistance band
+{ "loadMin": 2, "loadMax": 2, "loadUnit": "band" }
+```
+
+### Structured Reps Fields
+
+Instead of parsing a `reps` string, use these explicit fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `repsType` | string | Type: `"reps"`, `"time"`, `"ladder"`, `"amrap"`, `"rm"`, `"max"`, `"effort"`, `"submax"`, `"none"` |
+| `repsValue` | number/array/null | Primary value (count, seconds, or ladder steps array) |
+| `repsMin` | number | Minimum reps for rep ranges |
+| `repsMax` | number | Maximum reps for rep ranges |
+| `repsUnit` | string | Unit for time-based: `"seconds"` |
+| `repsPerSide` | boolean | True if reps are per side |
+| `repsModifier` | number | Modifier for AMRAP (e.g., -1, -20) |
+
+**Examples:**
+
+```json
+// Fixed reps: 8 reps
+{ "repsType": "reps", "repsValue": 8 }
+
+// Rep range: 8-12 reps
+{ "repsType": "reps", "repsMin": 8, "repsMax": 12 }
+
+// Per side: 10/side
+{ "repsType": "reps", "repsValue": 10, "repsPerSide": true }
+
+// Time-based: 30 seconds
+{ "repsType": "time", "repsValue": 30, "repsUnit": "seconds" }
+
+// Time-based: 2 minutes (120 seconds)
+{ "repsType": "time", "repsValue": 120, "repsUnit": "seconds" }
+
+// Time range: 10-20 seconds
+{ "repsType": "time", "repsMin": 10, "repsMax": 20, "repsUnit": "seconds" }
+
+// Ladder: (1-2-3) reps
+{ "repsType": "ladder", "repsValue": [1, 2, 3] }
+
+// AMRAP Max
+{ "repsType": "amrap", "repsValue": null }
+
+// AMRAP - 1 (leave 1 rep in reserve)
+{ "repsType": "amrap", "repsValue": null, "repsModifier": 1 }
+
+// 3RM test
+{ "repsType": "rm", "repsValue": 3 }
+
+// Max reps
+{ "repsType": "max", "repsValue": null }
+
+// Effort-based: 50% effort
+{ "repsType": "effort", "repsValue": 50 }
+```
+
+### Structured Tempo Fields
+
+Instead of parsing a `tempo` string like "2-1-1-0", use these explicit fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `tempoEccentric` | number | Eccentric (lowering) phase duration in seconds |
+| `tempoPauseBottom` | number | Pause at bottom position in seconds |
+| `tempoConcentric` | number | Concentric (lifting) phase duration in seconds |
+| `tempoPauseTop` | number | Pause at top position in seconds |
 
 **Example:**
+
 ```json
+// Tempo 2-1-1-0 (2s down, 1s pause, 1s up, 0s pause at top)
 {
-  "exerciseName": "Goblet Squats",
-  "load": "16-24kg",
-  "notes": "Heavy"
+  "tempoEccentric": 2,
+  "tempoPauseBottom": 1,
+  "tempoConcentric": 1,
+  "tempoPauseTop": 0
 }
 ```
-Not:
-```json
-{
-  "exerciseName": "Goblet Squats",
-  "load": "Heavy",
-  "notes": null
-}
-```
+
+### Legacy Fields (Deprecated)
+
+The following fields are deprecated but still supported for backward compatibility:
+
+| Field | Replacement |
+|-------|-------------|
+| `reps` | Use `repsType`, `repsValue`, `repsMin`, `repsMax`, etc. |
+| `load` | Use `loadMin`, `loadMax`, `loadUnit`, `loadPerHand` |
+| `tempo` | Use `tempoEccentric`, `tempoPauseBottom`, `tempoConcentric`, `tempoPauseTop` |
 
 ### Valid Values
 
@@ -263,15 +352,23 @@ The `n` field in v1.0.0 contains mixed information. Migration should infer `cate
 
 ### Load/Intensity Extraction
 
-Notes containing load information should be parsed:
-- "Load: 10kg" → `load: "10kg"`
-- "Load: BW" → `load: "bodyweight"`
-- "Load: 50% (Easy)" → `load: "50%"`, `notes: "Easy"`
+Notes containing load information should be parsed into structured fields:
+- "Load: 10kg" → `loadMin: 10, loadMax: 10, loadUnit: "kg"`
+- "Load: BW" → `loadMin: 0, loadMax: 0, loadUnit: "bodyweight"`
+- "Load: 5-10kg" → `loadMin: 5, loadMax: 10, loadUnit: "kg"`
 
 ### Tempo Extraction
 
-Notes containing tempo should be parsed:
-- "Tempo 2-1-1-0" → `tempo: "2-1-1-0"`
+Notes containing tempo should be parsed into structured fields:
+- "Tempo 2-1-1-0" → `tempoEccentric: 2, tempoPauseBottom: 1, tempoConcentric: 1, tempoPauseTop: 0`
+
+### Reps Extraction
+
+Reps strings should be parsed into structured fields:
+- "8 reps" → `repsType: "reps", repsValue: 8`
+- "8-12 reps" → `repsType: "reps", repsMin: 8, repsMax: 12`
+- "2 min" → `repsType: "time", repsValue: 120, repsUnit: "seconds"`
+- "(1-2-3) reps" → `repsType: "ladder", repsValue: [1, 2, 3]`
 
 ## Example Complete Plan
 
@@ -333,16 +430,82 @@ Notes containing tempo should be parsed:
                     "exerciseId": "rower_zone_1",
                     "category": "warmup",
                     "sets": 1,
-                    "reps": "2 min",
-                    "tempo": null,
+                    "repsType": "time",
+                    "repsValue": 120,
+                    "repsUnit": "seconds",
                     "restSeconds": 60,
                     "rpe": 3,
-                    "load": "bodyweight",
                     "notes": "Easy pace, heart rate zone 1",
-                    "alternatives": [],
-                    "progressionNotes": null,
-                    "videoUrl": null,
                     "cues": ["Keep it easy", "Focus on form"]
+                  },
+                  {
+                    "order": 2,
+                    "exerciseName": "Band Pull-Aparts",
+                    "category": "warmup",
+                    "sets": 1,
+                    "repsType": "reps",
+                    "repsValue": 20,
+                    "loadMin": 1,
+                    "loadMax": 1,
+                    "loadUnit": "band",
+                    "notes": "Warm-up"
+                  },
+                  {
+                    "order": 3,
+                    "exerciseName": "Pull-Ups",
+                    "category": "main",
+                    "sets": 4,
+                    "repsType": "reps",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "tempoEccentric": 2,
+                    "tempoPauseBottom": 0,
+                    "tempoConcentric": 1,
+                    "tempoPauseTop": 0,
+                    "restSeconds": 120,
+                    "rpe": 7,
+                    "notes": "Focus on full ROM"
+                  },
+                  {
+                    "order": 4,
+                    "exerciseName": "Weighted Pull-Ups",
+                    "category": "main",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 5,
+                    "loadMin": 5,
+                    "loadMax": 10,
+                    "loadUnit": "kg",
+                    "restSeconds": 180,
+                    "rpe": 8,
+                    "notes": "Strength focus"
+                  },
+                  {
+                    "order": 5,
+                    "exerciseName": "Bulgarian Split Squat",
+                    "category": "accessory",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "repsPerSide": true,
+                    "loadMin": 8,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "notes": "Dumbbells per hand"
+                  },
+                  {
+                    "order": 6,
+                    "exerciseName": "Passive Dead Hang",
+                    "category": "cooldown",
+                    "sets": 1,
+                    "repsType": "time",
+                    "repsValue": 60,
+                    "repsUnit": "seconds",
+                    "notes": "Cool-down stretch"
                   }
                 ]
               }

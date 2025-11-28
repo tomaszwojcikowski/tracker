@@ -101,6 +101,44 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
 export type FormatVersion = '1.0.0' | '2.0.0';
 
 /**
+ * Structured reps data for internal use
+ */
+export interface RepsRange {
+  /** Type of rep scheme */
+  type: RepsType;
+  /** Primary value for reps (count, seconds, RM number, etc.) */
+  value?: number | number[] | null;
+  /** Minimum reps for rep ranges */
+  min?: number;
+  /** Maximum reps for rep ranges */
+  max?: number;
+  /** Unit for time-based reps */
+  unit?: 'seconds';
+  /** Whether reps are per side */
+  perSide?: boolean;
+  /** Modifier for AMRAP (e.g., -1, -20%) */
+  modifier?: number;
+  /** Original string representation */
+  raw: string;
+}
+
+/**
+ * Structured tempo data for internal use
+ */
+export interface TempoRange {
+  /** Eccentric (lowering) phase duration in seconds */
+  eccentric: number;
+  /** Pause at bottom position in seconds */
+  pauseBottom: number;
+  /** Concentric (lifting) phase duration in seconds */
+  concentric: number;
+  /** Pause at top position in seconds */
+  pauseTop: number;
+  /** Original string representation */
+  raw: string;
+}
+
+/**
  * V1.0.0 format entry (flat array item)
  */
 export interface V1Entry {
@@ -120,7 +158,21 @@ export interface V1Entry {
   load?: string;
   /** Parsed load range for weighted exercises */
   loadRange?: LoadRange;
+  /** Parsed reps range for structured reps data */
+  repsRange?: RepsRange;
+  /** Parsed tempo data */
+  tempoRange?: TempoRange;
 }
+
+/**
+ * Load unit types for structured load data
+ */
+export type LoadUnit = 'kg' | 'band' | 'bodyweight' | 'percent';
+
+/**
+ * Rep type for structured reps data
+ */
+export type RepsType = 'reps' | 'time' | 'ladder' | 'amrap' | 'rm' | 'max' | 'effort' | 'submax' | 'none';
 
 /**
  * V2.0.0 exercise definition
@@ -128,14 +180,55 @@ export interface V1Entry {
 export interface V2Exercise {
   exerciseName: string;
   sets: number;
-  reps: string;
+  order?: number;
   notes?: string;
   category?: string;
   rest?: number;
-  tempo?: string;
   rpe?: number;
-  /** Load/weight for weighted exercises */
+  
+  // ---- Legacy fields (deprecated, for backward compatibility) ----
+  /** @deprecated Use repsType/repsValue/repsMin/repsMax instead */
+  reps?: string;
+  /** @deprecated Use loadMin/loadMax/loadUnit instead */
   load?: string | null;
+  /** @deprecated Use tempoEccentric/tempoPauseBottom/tempoConcentric/tempoPauseTop instead */
+  tempo?: string;
+  
+  // ---- Structured load fields ----
+  /** Minimum weight value for weight ranges */
+  loadMin?: number;
+  /** Maximum weight value for weight ranges (same as min for fixed loads) */
+  loadMax?: number;
+  /** Unit of measurement for load */
+  loadUnit?: LoadUnit;
+  /** Whether the load is per hand (for dumbbell exercises) */
+  loadPerHand?: boolean;
+  
+  // ---- Structured reps fields ----
+  /** Type of rep scheme */
+  repsType?: RepsType;
+  /** Primary value for reps (count, seconds, RM number, etc.) */
+  repsValue?: number | number[] | null;
+  /** Minimum reps for rep ranges */
+  repsMin?: number;
+  /** Maximum reps for rep ranges */
+  repsMax?: number;
+  /** Unit for time-based reps */
+  repsUnit?: 'seconds';
+  /** Whether reps are per side */
+  repsPerSide?: boolean;
+  /** Modifier for AMRAP (e.g., -1, -20%) */
+  repsModifier?: number;
+  
+  // ---- Structured tempo fields ----
+  /** Eccentric (lowering) phase duration in seconds */
+  tempoEccentric?: number;
+  /** Pause at bottom position in seconds */
+  tempoPauseBottom?: number;
+  /** Concentric (lifting) phase duration in seconds */
+  tempoConcentric?: number;
+  /** Pause at top position in seconds */
+  tempoPauseTop?: number;
 }
 
 /**
@@ -358,22 +451,81 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
     phase.weeks.forEach((week) => {
       week.days.forEach((day) => {
         day.exercises.forEach((exercise) => {
-          const loadStr = exercise.load || undefined;
-          const loadRange = parseLoadRange(loadStr);
+          // Use new structured load fields if available, fall back to parsing old load field
+          let loadRange: LoadRange | null = null;
+          
+          if (exercise.loadMin !== undefined && exercise.loadMax !== undefined && exercise.loadUnit) {
+            // New format: use structured fields directly
+            loadRange = {
+              min: exercise.loadMin,
+              max: exercise.loadMax,
+              unit: exercise.loadUnit,
+              raw: exercise.loadMin === exercise.loadMax 
+                ? `${exercise.loadMin}${exercise.loadUnit === 'kg' ? 'kg' : ''}`
+                : `${exercise.loadMin}-${exercise.loadMax}${exercise.loadUnit === 'kg' ? 'kg' : ''}`,
+              perHand: exercise.loadPerHand,
+            };
+          } else if (exercise.load) {
+            // Legacy format: parse load string (backward compatibility)
+            loadRange = parseLoadRange(exercise.load);
+          }
+          
+          // Use new structured reps fields if available, fall back to parsing old reps string
+          let repsRange: RepsRange | null = null;
+          let repsStr = '';
+          
+          if (exercise.repsType) {
+            // New format: use structured reps fields directly
+            repsRange = {
+              type: exercise.repsType,
+              value: exercise.repsValue,
+              min: exercise.repsMin,
+              max: exercise.repsMax,
+              unit: exercise.repsUnit,
+              perSide: exercise.repsPerSide,
+              modifier: exercise.repsModifier,
+              raw: buildRepsString(exercise),
+            };
+            repsStr = repsRange.raw;
+          } else if (exercise.reps) {
+            // Legacy format: use reps string directly
+            repsStr = exercise.reps;
+            repsRange = parseRepsRange(exercise.reps);
+          }
+          
+          // Use new structured tempo fields if available
+          let tempoRange: TempoRange | undefined;
+          
+          if (exercise.tempoEccentric !== undefined) {
+            tempoRange = {
+              eccentric: exercise.tempoEccentric,
+              pauseBottom: exercise.tempoPauseBottom ?? 0,
+              concentric: exercise.tempoConcentric ?? 0,
+              pauseTop: exercise.tempoPauseTop ?? 0,
+              raw: `${exercise.tempoEccentric}-${exercise.tempoPauseBottom ?? 0}-${exercise.tempoConcentric ?? 0}-${exercise.tempoPauseTop ?? 0}`,
+            };
+          } else if (exercise.tempo) {
+            // Legacy format: parse tempo string
+            tempoRange = parseTempoRange(exercise.tempo) || undefined;
+          }
           
           internalFormat.push({
             w: week.weekNumber,
             d: day.dayNumber,
             ex: exercise.exerciseName,
             s: exercise.sets,
-            r: exercise.reps,
+            r: repsStr,
             // For v1.0.0 compatibility, combine notes and category
             // This preserves the original behavior where 'n' was a multi-purpose field
             n: exercise.notes || exercise.category || '',
-            // Pass through load for weighted exercises
-            load: loadStr,
+            // Pass through load for weighted exercises (for backward compatibility)
+            load: loadRange?.raw,
             // Include parsed load range
             loadRange: loadRange || undefined,
+            // Include parsed reps range
+            repsRange: repsRange || undefined,
+            // Include parsed tempo
+            tempoRange,
           });
         });
       });
@@ -381,6 +533,198 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
   });
 
   return internalFormat;
+}
+
+/**
+ * Build a human-readable reps string from structured reps data
+ */
+function buildRepsString(exercise: V2Exercise): string {
+  const { repsType, repsValue, repsMin, repsMax, repsPerSide, repsModifier } = exercise;
+  
+  switch (repsType) {
+    case 'reps':
+      if (repsMin !== undefined && repsMax !== undefined) {
+        return `${repsMin}-${repsMax} reps`;
+      }
+      if (repsValue !== null && repsValue !== undefined) {
+        return repsPerSide ? `${repsValue}/side` : `${repsValue} reps`;
+      }
+      return '';
+      
+    case 'time':
+      if (repsMin !== undefined && repsMax !== undefined) {
+        return `${repsMin}-${repsMax}s`;
+      }
+      if (repsValue !== null && repsValue !== undefined) {
+        const seconds = repsValue as number;
+        if (seconds >= 60 && seconds % 60 === 0) {
+          const mins = seconds / 60;
+          return repsPerSide ? `${mins} min/side` : `${mins} min`;
+        }
+        return repsPerSide ? `${seconds}s/side` : `${seconds}s`;
+      }
+      return '';
+      
+    case 'ladder':
+      if (Array.isArray(repsValue)) {
+        return `(${repsValue.join('-')}) reps`;
+      }
+      return '';
+      
+    case 'amrap':
+      if (repsModifier !== undefined) {
+        return `AMRAP - ${repsModifier}${repsModifier < 10 ? '' : '%'}`;
+      }
+      return 'AMRAP Max';
+      
+    case 'rm':
+      return repsValue !== null && repsValue !== undefined ? `${repsValue}RM` : '';
+      
+    case 'max':
+      return 'Max';
+      
+    case 'effort':
+      return repsValue !== null && repsValue !== undefined ? `${repsValue}% Effort` : '';
+      
+    case 'submax':
+      return 'Sub-max';
+      
+    case 'none':
+      return 'n/a';
+      
+    default:
+      return '';
+  }
+}
+
+/**
+ * Parse a reps string into structured RepsRange
+ */
+function parseRepsRange(reps: string): RepsRange | null {
+  if (!reps) return null;
+  
+  const raw = reps.trim();
+  const lower = raw.toLowerCase();
+  
+  // Ladder reps
+  const ladderMatch = raw.match(/^\((\d+(?:-\d+)+)\)\s*reps?$/i);
+  if (ladderMatch) {
+    return {
+      type: 'ladder',
+      value: ladderMatch[1].split('-').map(n => parseInt(n, 10)),
+      raw,
+    };
+  }
+  
+  // AMRAP
+  const amrapMatch = raw.match(/^AMRAP\s*(?:-\s*)?(\d+%?|Max)?$/i);
+  if (amrapMatch) {
+    const mod = amrapMatch[1];
+    if (mod && mod.toLowerCase() !== 'max') {
+      return { type: 'amrap', value: null, modifier: parseInt(mod, 10), raw };
+    }
+    return { type: 'amrap', value: null, raw };
+  }
+  
+  // RM tests
+  const rmMatch = raw.match(/^(\d+)RM$/i);
+  if (rmMatch) {
+    return { type: 'rm', value: parseInt(rmMatch[1], 10), raw };
+  }
+  
+  // Max
+  if (lower === 'max' || lower === 'pr attempt') {
+    return { type: 'max', value: null, raw };
+  }
+  
+  // Sub-max
+  if (lower === 'sub-max') {
+    return { type: 'submax', value: null, raw };
+  }
+  
+  // N/A
+  if (lower === 'n/a') {
+    return { type: 'none', value: null, raw };
+  }
+  
+  // Effort
+  const effortMatch = raw.match(/^(\d+)%\s*Effort$/i);
+  if (effortMatch) {
+    return { type: 'effort', value: parseInt(effortMatch[1], 10), raw };
+  }
+  
+  // Time-based
+  const perSideTime = lower.includes('/side');
+  const timeMatch = raw.match(/^(\d+(?:\.\d+)?)\s*(s|sec|min|m)(?:\/side)?$/i);
+  if (timeMatch) {
+    const value = parseFloat(timeMatch[1]);
+    const unit = timeMatch[2].toLowerCase();
+    const seconds = (unit === 'min' || unit === 'm') ? value * 60 : value;
+    return { type: 'time', value: seconds, unit: 'seconds', perSide: perSideTime || undefined, raw };
+  }
+  
+  // Time range
+  const timeRangeMatch = raw.match(/^(\d+)\s*-\s*(\d+)\s*(s|sec)$/i);
+  if (timeRangeMatch) {
+    return {
+      type: 'time',
+      min: parseInt(timeRangeMatch[1], 10),
+      max: parseInt(timeRangeMatch[2], 10),
+      unit: 'seconds',
+      raw,
+    };
+  }
+  
+  // Rep range
+  const rangeMatch = raw.match(/^(\d+)\s*-\s*(\d+)\s*reps?$/i);
+  if (rangeMatch) {
+    return {
+      type: 'reps',
+      min: parseInt(rangeMatch[1], 10),
+      max: parseInt(rangeMatch[2], 10),
+      raw,
+    };
+  }
+  
+  // Fixed reps with per-side
+  const perSideMatch = raw.match(/^(\d+)\s*(?:reps?)?\s*\/\s*side$/i);
+  if (perSideMatch) {
+    return { type: 'reps', value: parseInt(perSideMatch[1], 10), perSide: true, raw };
+  }
+  
+  // Fixed reps
+  const fixedMatch = raw.match(/^(\d+)\s*reps?$/i);
+  if (fixedMatch) {
+    return { type: 'reps', value: parseInt(fixedMatch[1], 10), raw };
+  }
+  
+  // Plain number (just digits)
+  const plainNumberMatch = raw.match(/^(\d+)$/);
+  if (plainNumberMatch) {
+    return { type: 'reps', value: parseInt(plainNumberMatch[1], 10), raw };
+  }
+  
+  return null;
+}
+
+/**
+ * Parse a tempo string into structured TempoRange
+ */
+function parseTempoRange(tempo: string): TempoRange | null {
+  if (!tempo) return null;
+  
+  const match = tempo.match(/^(\d+)-(\d+)-(\d+)-(\d+)$/);
+  if (match) {
+    return {
+      eccentric: parseInt(match[1], 10),
+      pauseBottom: parseInt(match[2], 10),
+      concentric: parseInt(match[3], 10),
+      pauseTop: parseInt(match[4], 10),
+      raw: tempo,
+    };
+  }
+  
+  return null;
 }
 
 // ============================================================================

@@ -382,6 +382,8 @@ export interface ActionBarProps {
   setEmomActive: (active: boolean) => void;
   setEmomSeconds: (seconds: number) => void;
   setEmomInterval: (interval: number | ((prev: number) => number)) => void;
+  completedSets?: number;
+  totalSets?: number;
 }
 
 /**

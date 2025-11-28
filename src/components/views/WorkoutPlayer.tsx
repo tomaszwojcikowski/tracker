@@ -275,6 +275,42 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     // Debounce exercise search
     const debouncedExerciseSearch = useDebounce(exerciseSearchTerm, DEBOUNCE_DELAY_MS);
 
+    // Calculate overall workout progress (completed sets / total sets)
+    const workoutProgress = useMemo(() => {
+        let completedSets = 0;
+        let totalSets = 0;
+
+        // Count sets from workout sections
+        if (workout?.sections) {
+            for (const section of workout.sections) {
+                for (const ex of section.exercises) {
+                    const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                    const exerciseLog = getExerciseLogEntry(logs, exId);
+                    const sets = exerciseLog.sets || [];
+                    const defaultSets = ex.sets || 3;
+                    const exerciseTotalSets = sets.length > 0 ? sets.length : defaultSets;
+                    const exerciseCompletedSets = sets.filter((s) => s).length;
+                    totalSets += exerciseTotalSets;
+                    completedSets += exerciseCompletedSets;
+                }
+            }
+        }
+
+        // Count sets from added exercises
+        for (const addedEx of addedExercises) {
+            const exId = `added_${addedEx.id}`;
+            const exerciseLog = getExerciseLogEntry(logs, exId);
+            const sets = exerciseLog.sets || [];
+            const defaultSets = addedEx.sets || 3;
+            const exerciseTotalSets = sets.length > 0 ? sets.length : defaultSets;
+            const exerciseCompletedSets = sets.filter((s) => s).length;
+            totalSets += exerciseTotalSets;
+            completedSets += exerciseCompletedSets;
+        }
+
+        return { completedSets, totalSets };
+    }, [workout, logs, addedExercises]);
+
     // Load session data on mount
     useEffect(() => {
         const parsedLogs = safeGetJSON<WorkoutSessionData>(sessionKey, {} as WorkoutSessionData);
@@ -1156,6 +1192,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         setEmomActive={setEmomActive}
                         setEmomSeconds={setEmomSeconds}
                         setEmomInterval={setEmomInterval}
+                        completedSets={workoutProgress.completedSets}
+                        totalSets={workoutProgress.totalSets}
                     />
                 )}
 

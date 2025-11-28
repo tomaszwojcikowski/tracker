@@ -29,6 +29,8 @@ export interface ActionBarProps {
   setEmomActive?: (active: boolean) => void;
   setEmomSeconds?: (seconds: number | ((s: number) => number)) => void;
   setEmomInterval?: (interval: number | ((i: number) => number)) => void;
+  completedSets?: number;
+  totalSets?: number;
 }
 
 export function ActionBar({
@@ -40,6 +42,8 @@ export function ActionBar({
   setEmomActive,
   setEmomSeconds,
   setEmomInterval,
+  completedSets = 0,
+  totalSets = 0,
 }: ActionBarProps) {
   const haptic = useHaptic();
   const [showConfirm, setShowConfirm] = useState(false);
@@ -169,10 +173,24 @@ export function ActionBar({
               haptic.bump();
               setShowConfirm(true);
             }}
-            className="w-full h-16 min-h-[56px] px-8 rounded-2xl text-white font-bold flex items-center justify-center gap-3 active:scale-95 transition-transform btn-gradient-success"
+            className="w-full h-12 min-h-[44px] px-6 rounded-xl bg-sys-surfaceHigh border border-white/10 text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform relative overflow-hidden"
           >
-            <CheckCircle2 size={24} />
-            <span className="text-base">FINISH</span>
+            {/* Progress bar background */}
+            {totalSets > 0 && (
+              <div
+                className="absolute inset-0 bg-sys-success/20 transition-all duration-500"
+                style={{ width: `${(completedSets / totalSets) * 100}%` }}
+              />
+            )}
+            <span className="relative z-10 text-sm flex items-center gap-2">
+              <CheckCircle2 size={18} />
+              <span>Finish</span>
+              {totalSets > 0 && (
+                <span className="text-sys-onSurfaceVar text-xs">
+                  ({completedSets}/{totalSets})
+                </span>
+              )}
+            </span>
           </button>
         </div>
       </div>

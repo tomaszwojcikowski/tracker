@@ -74,21 +74,5 @@ export const STORAGE_KEYS: StorageKeysMap = {
   TRACKER_WEEK: 'tracker_week',
 };
 
-/**
- * Training block definition
- */
-export interface ProgramBlock {
-  id: number;
-  name: string;
-  weeks: number[];
-}
+// Training blocks removed - use window.TRACKER_APP.workoutPlanMetadata.phases or src/data/programData.ts fallbacks
 
-// Training blocks
-export const PROGRAM_BLOCKS: ProgramBlock[] = [
-  { id: 1, name: 'Foundation', weeks: [1, 2, 3, 4] },
-  { id: 2, name: 'Intensification', weeks: [5, 6, 7, 8] },
-  { id: 3, name: 'Neutral Grip', weeks: [9, 10, 11, 12] },
-  { id: 4, name: 'Accumulation', weeks: [13, 14, 15, 16] },
-  { id: 5, name: 'Peak & Taper', weeks: [17, 18, 19, 20] },
-  { id: 6, name: 'Reload', weeks: [21] },
-];

@@ -86,7 +86,7 @@ tracker/
 
 **Critical Functions to Understand**:
 - `safeGetJSON`, `safeSetJSON`, `safeRemove` - localStorage utilities with error handling
-- `buildCompleteSchedule` - Auto-generates warmup/cooldown protocols for weeks 2-21
+- `buildCompleteSchedule` - Populates the schedule from raw data (v2 data is self-contained)
 - `toggleSet` - Handles set completion with RPE data management
 - `updateExerciseHistory` - Tracks workout performance
 - `calculateExerciseStats` - Computes statistics and 1RM estimates

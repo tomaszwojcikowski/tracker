@@ -66,7 +66,8 @@ The production build outputs to the `dist/` directory and includes:
 
 - `dist/index.html` - Optimized HTML entry point
 - `dist/assets/` - Bundled JS and CSS files
-- `dist/*.json` - Data files (schedule and exercises)
+- `dist/workout-plan-v2.json` - Workout plan data
+- `dist/exercises.json` - Exercise library data
 - `dist/colors.css` - CSS custom properties
 
 ### Technology Stack
@@ -96,7 +97,7 @@ npm run test:ui
 
 The test suite includes 100+ comprehensive Vitest specs covering:
 - **Storage Utilities** (`storageUtils.test.jsx`): LocalStorage operations with error handling
-- **Schedule Building** (`scheduleUtils.test.jsx`): Auto-generation of warmup/cooldown protocols
+- **Schedule Building** (`scheduleUtils.test.jsx`): Schedule data loading and processing
 - **Exercise History & Stats** (`exerciseHistory.test.jsx`): Workout timelines, stats, and 1RM calculations
 - **URL Routing & Deep Links** (`urlRouting.test.jsx`): State management, URL parsing, navigation behavior
 - **Set Toggle Logic** (`toggleSet.test.jsx`): Workout progress tracking and RPE data management

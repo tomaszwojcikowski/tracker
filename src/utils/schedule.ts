@@ -5,7 +5,7 @@
  */
 
 import type { WeekNumber, TrainingDay } from '../types';
-import type { LoadRange } from '../workout-plan-utils';
+import type { LoadRange, RepsRange, TempoRange } from '../workout-plan-utils';
 
 // ============================================================================
 // TYPES
@@ -23,6 +23,8 @@ export interface RawScheduleItem {
     n?: string;         // Notes/Section (optional)
     load?: string;      // Load/weight for weighted exercises (optional)
     loadRange?: LoadRange; // Parsed load range (optional)
+    repsRange?: RepsRange; // Parsed reps range (optional)
+    tempoRange?: TempoRange; // Parsed tempo range (optional)
 }
 
 /**
@@ -48,6 +50,10 @@ export interface WorkoutExercise {
     reps: string;
     notes: string;
     rest?: number;
+    load?: string;
+    loadRange?: LoadRange;
+    repsRange?: RepsRange;
+    tempoRange?: TempoRange;
 }
 
 /**
@@ -56,15 +62,6 @@ export interface WorkoutExercise {
 export interface Workout {
     title: string;
     sections: WorkoutSection[];
-}
-
-/**
- * Training block definition
- */
-export interface TrainingBlock {
-    id: number;
-    name: string;
-    weeks: WeekNumber[];
 }
 
 // ============================================================================
@@ -101,39 +98,15 @@ export function getCompleteSchedule(): RawScheduleItem[] {
 // ============================================================================
 
 /**
- * Build complete schedule with auto-generated warmups and cooldowns.
+ * Build complete schedule.
  *
- * Week 1 has explicit warmup/cooldown in the JSON.
- * For weeks 2-21, this function adds standard warmup/cooldown protocols
- * if not already present. This avoids repeating boilerplate exercises
- * in the schedule JSON.
+ * The workout plan data is now self-contained in the V2 JSON format,
+ * so no additional processing or auto-generation of warmups/cooldowns is needed.
+ * This function creates a copy of the raw schedule data for use by the rest of the application.
  */
 export function buildCompleteSchedule(): void {
-    // Start with all items from RAW_SCHEDULE
+    // The schedule is self-contained, so we just use the raw schedule as is
     COMPLETE_SCHEDULE = [...RAW_SCHEDULE];
-
-    const add = (w: number, d: number, ex: string, s: number, r: string, n: string): void => {
-        COMPLETE_SCHEDULE.push({ w, d, ex, s, r, n });
-    };
-
-    // Auto-generate standard warmups/cooldowns for weeks 2-21
-    for (let w = 2; w <= 21; w++) {
-        // Add standard warmups for pull days (D1/D5) if not already present
-        [1, 5].forEach(d => {
-            if (!RAW_SCHEDULE.some(i => i.w === w && i.d === d && i.ex.includes('Rower'))) {
-                add(w, d, 'Rower (Zone 1)', 1, '2 min', 'Warm-up');
-                add(w, d, 'Band Pull-Aparts', 1, '20 reps', 'Warm-up');
-                add(w, d, 'Scapular Pull-Ups', 3, '5 reps', 'Warm-up');
-            }
-        });
-
-        // Add standard cooldown for all training days (D1, D2, D3, D5)
-        [1, 2, 3, 5].forEach(d => {
-            if (!RAW_SCHEDULE.some(i => i.w === w && i.d === d && i.n?.includes('Cool-down'))) {
-                add(w, d, 'Cool-down Protocol', 1, '5 min', 'Cool-down');
-            }
-        });
-    }
 }
 
 // ============================================================================
@@ -189,6 +162,10 @@ export function getWorkout(week: WeekNumber, day: TrainingDay): Workout | null {
             sets: item.s,
             reps: item.r,
             notes: item.n ?? '',
+            load: item.load,
+            loadRange: item.loadRange,
+            repsRange: item.repsRange,
+            tempoRange: item.tempoRange,
         };
         sections[sectionType].push(exercise);
     });
@@ -207,27 +184,4 @@ export function getWorkout(week: WeekNumber, day: TrainingDay): Workout | null {
         title: `Week ${week} Day ${day}`,
         sections: finalSections,
     };
-}
-
-// ============================================================================
-// PROGRAM DATA
-// ============================================================================
-
-/**
- * Training blocks for the 21-week program
- */
-export const TRAINING_BLOCKS: TrainingBlock[] = [
-    { id: 1, name: 'Foundation', weeks: [1, 2, 3, 4] as WeekNumber[] },
-    { id: 2, name: 'Intensification', weeks: [5, 6, 7, 8] as WeekNumber[] },
-    { id: 3, name: 'Neutral Grip', weeks: [9, 10, 11, 12] as WeekNumber[] },
-    { id: 4, name: 'Accumulation', weeks: [13, 14, 15, 16] as WeekNumber[] },
-    { id: 5, name: 'Peak & Taper', weeks: [17, 18, 19, 20] as WeekNumber[] },
-    { id: 6, name: 'Reload', weeks: [21] as WeekNumber[] },
-];
-
-/**
- * Get the training block for a given week
- */
-export function getBlockForWeek(week: WeekNumber): TrainingBlock | undefined {
-    return TRAINING_BLOCKS.find(b => b.weeks.includes(week));
 }

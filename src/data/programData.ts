@@ -5,7 +5,7 @@
  */
 
 import { getCompleteSchedule } from '../utils/schedule';
-import type { LoadRange } from '../workout-plan-utils';
+import type { LoadRange, RepsRange, TempoRange } from '../workout-plan-utils';
 
 /**
  * Program block definition
@@ -30,6 +30,10 @@ export interface WorkoutExercise {
   load?: string;
   /** Parsed load range for weighted exercises */
   loadRange?: LoadRange;
+  /** Parsed reps range */
+  repsRange?: RepsRange;
+  /** Parsed tempo range */
+  tempoRange?: TempoRange;
 }
 
 /**
@@ -50,22 +54,24 @@ export interface DayWorkout {
 }
 
 /**
- * Program blocks (training phases)
- */
-export const PROGRAM_BLOCKS: ProgramBlock[] = [
-  { id: 1, name: 'Foundation', weeks: [1, 2, 3, 4] },
-  { id: 2, name: 'Intensification', weeks: [5, 6, 7, 8] },
-  { id: 3, name: 'Neutral Grip', weeks: [9, 10, 11, 12] },
-  { id: 4, name: 'Accumulation', weeks: [13, 14, 15, 16] },
-  { id: 5, name: 'Peak & Taper', weeks: [17, 18, 19, 20] },
-  { id: 6, name: 'Reload', weeks: [21] },
-];
-
-/**
  * Get the block for a given week
  */
 export function getBlockForWeek(week: number): ProgramBlock | undefined {
-  return PROGRAM_BLOCKS.find((b) => b.weeks.includes(week));
+  // Try to get from loaded metadata first
+  if (typeof window !== 'undefined' && window.TRACKER_APP?.workoutPlanMetadata?.phases) {
+    const phase = window.TRACKER_APP.workoutPlanMetadata.phases.find(
+      (p) => week >= p.startWeek && week <= p.endWeek
+    );
+    if (phase) {
+      return {
+        id: phase.number,
+        name: phase.name,
+        weeks: Array.from({ length: phase.endWeek - phase.startWeek + 1 }, (_, i) => phase.startWeek + i),
+      };
+    }
+  }
+
+  return undefined;
 }
 
 /**
@@ -79,32 +85,40 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
     return { title: 'Rest Day', sections: [] };
   }
 
-  const sections: Record<string, WorkoutExercise[]> = {
-    prep: [],
-    skill: [],
-    main: [],
-    access: [],
-    cool: [],
-  };
+  const finalSections: WorkoutSection[] = [];
+  let currentSection: WorkoutSection | null = null;
 
   dayExercises.forEach((item) => {
-    const n = (item.n || '').toLowerCase();
-    let type: keyof typeof sections = 'main';
-    if (n.includes('warm-up')) type = 'prep';
-    else if (n.includes('cool-down')) type = 'cool';
-    else if (
-      item.ex.toLowerCase().includes('skill') ||
-      n.includes('practice')
-    )
-      type = 'skill';
-    else if (n.includes('accessory') || n.includes('core')) type = 'access';
+    const sectionName = item.n || 'Main Work';
+
+    // Start new section if needed
+    if (!currentSection || currentSection.name !== sectionName) {
+      const n = sectionName.toLowerCase();
+      let type: WorkoutSection['type'] = 'main';
+      if (n.includes('warm-up')) type = 'prep';
+      else if (n.includes('cool-down')) type = 'cool';
+      else if (
+        item.ex.toLowerCase().includes('skill') ||
+        n.includes('practice')
+      )
+        type = 'skill';
+      else if (n.includes('accessory') || n.includes('core')) type = 'access';
+
+      currentSection = {
+        type,
+        name: sectionName,
+        exercises: [],
+      };
+      finalSections.push(currentSection);
+    }
 
     // Determine if exercise is weighted based on loadRange
     // If loadRange exists with kg unit and min > 0, it's a weighted exercise
     const loadRange = item.loadRange;
-    const isWeighted = loadRange && loadRange.unit === 'kg' && loadRange.min > 0;
+    const isWeighted =
+      loadRange && loadRange.unit === 'kg' && loadRange.min > 0;
 
-    sections[type].push({
+    currentSection.exercises.push({
       name: item.ex,
       prescription: `${item.s} x ${item.r}`,
       notes: item.n || '',
@@ -113,26 +127,9 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
       isBodyweight: !isWeighted,
       load: item.load || undefined,
       loadRange: loadRange || undefined,
+      repsRange: item.repsRange || undefined,
+      tempoRange: item.tempoRange || undefined,
     });
-  });
-
-  const sectionNameMap: Record<string, string> = {
-    prep: 'Warm Up',
-    skill: 'Skill',
-    main: 'Main Work',
-    access: 'Accessory',
-    cool: 'Cool Down',
-  };
-
-  const finalSections: WorkoutSection[] = [];
-  (Object.keys(sections) as Array<keyof typeof sections>).forEach((k) => {
-    if (sections[k].length > 0) {
-      finalSections.push({
-        type: k as WorkoutSection['type'],
-        name: sectionNameMap[k],
-        exercises: sections[k],
-      });
-    }
   });
 
   return { title: `Week ${week} Day ${day}`, sections: finalSections };
@@ -142,6 +139,5 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
  * PROGRAM_DATA object for backward compatibility
  */
 export const PROGRAM_DATA = {
-  blocks: PROGRAM_BLOCKS,
   getWorkout: getWorkoutForDay,
 };

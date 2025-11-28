@@ -11,6 +11,34 @@ import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, hasWorkoutData, 
 import { formatRelativeTime } from '../../utils/time';
 import { SwipeIndicator } from '../SwipeIndicator';
 import { getBlockForWeek } from '../../data/programData';
+import { getCompleteSchedule } from '../../utils/schedule';
+
+/** Maximum number of exercises to show in the summary */
+const MAX_EXERCISES_IN_SUMMARY = 3;
+
+/**
+ * Get a summary of main and skill exercises for a day (excluding warmup/accessory)
+ */
+function getExerciseSummary(week: number, day: number): string {
+  const schedule = getCompleteSchedule();
+  const dayExercises = schedule.filter((item) => item.w === week && item.d === day);
+  
+  if (dayExercises.length === 0) {
+    return 'Rest day';
+  }
+  
+  // Filter to only skill and main work exercises based on category
+  const mainExercises = dayExercises
+    .filter((item) => item.category === 'skill' || item.category === 'main')
+    .map((item) => item.ex)
+    .slice(0, MAX_EXERCISES_IN_SUMMARY);
+  
+  if (mainExercises.length === 0) {
+    return 'Rest day';
+  }
+  
+  return mainExercises.join(', ');
+}
 
 export interface DashboardProps {
   currentWeek: number;
@@ -212,7 +240,7 @@ export function Dashboard({
                       ? `${dayProgress.completedSets}/${dayProgress.totalSets} sets • ${dayProgress.progress}%`
                       : hasPreviousData
                       ? 'Has previous data'
-                      : 'Tap to start'}
+                      : getExerciseSummary(currentWeek, day)}
                   </span>
                 </div>
 

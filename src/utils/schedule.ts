@@ -21,6 +21,7 @@ export interface RawScheduleItem {
     s: number;          // Sets
     r: string;          // Reps
     n?: string;         // Notes/Section (optional)
+    category?: string;  // Exercise category (warmup, skill, main, accessory, cooldown)
     load?: string;      // Load/weight for weighted exercises (optional)
     loadRange?: LoadRange; // Parsed load range (optional)
     repsRange?: RepsRange; // Parsed reps range (optional)

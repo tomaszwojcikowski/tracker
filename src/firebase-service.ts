@@ -15,8 +15,6 @@ import { initializeApp, FirebaseApp } from "firebase/app";
 import {
     getAuth,
     signInWithPopup,
-    signInWithRedirect,
-    getRedirectResult,
     signOut,
     GoogleAuthProvider,
     onAuthStateChanged,
@@ -151,65 +149,26 @@ export function getCurrentUser(): User | null {
 }
 
 /**
- * Detect if running on a mobile device
- * Uses user agent detection for better popup handling
+ * Sign in with Google using popup
+ *
+ * Design decision: Always use popup authentication
+ * - Works reliably on mobile PWAs (redirect has known issues with service workers)
+ * - Consistent behavior across desktop and mobile
+ * - No need for special IndexedDB/storage handling
+ * - Simpler state management (no redirect result checking)
+ *
+ * @returns User credential object
+ * @throws Error if login fails or is cancelled
  */
-function isMobileDevice(): boolean {
-    if (typeof navigator === 'undefined') return false;
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
-
-/**
- * Check for redirect result on page load
- * Should be called early in app initialization
- * @returns User credential if redirected back from auth, null otherwise
- * @throws Error if redirect authentication failed
- */
-export async function checkRedirectResult(): Promise<UserCredential | null> {
-    if (!isFirebaseInitialized() || !auth) {
-        return null;
-    }
-
-    try {
-        const result = await getRedirectResult(auth);
-        if (result) {
-            console.log('User logged in via redirect:', result.user.uid);
-        }
-        return result;
-    } catch (error) {
-        console.error('Redirect result check failed:', error);
-        // Re-throw so the UI can display the error
-        throw error;
-    }
-}
-
-/**
- * Sign in with Google
- * Uses popup on desktop, redirect on mobile for better reliability
- * @param forceRedirect - Force redirect method regardless of device
- * @returns User credential object (for popup) or void (for redirect)
- */
-export async function handleLogin(forceRedirect: boolean = false): Promise<UserCredential | void> {
+export async function handleLogin(): Promise<UserCredential> {
     if (!isFirebaseInitialized() || !auth || !provider) {
         throw new Error('Firebase not initialized. Call initializeFirebase() first.');
     }
 
-    const useMobile = forceRedirect || isMobileDevice();
-
     try {
-        if (useMobile) {
-            // Use redirect for mobile - more reliable
-            console.log('Using redirect authentication for mobile device');
-            await signInWithRedirect(auth, provider);
-            // Note: This will redirect the page, so we won't get here
-            // The result will be available via checkRedirectResult() on page reload
-            return;
-        } else {
-            // Use popup for desktop
-            const result = await signInWithPopup(auth, provider);
-            console.log('User logged in via popup:', result.user.uid);
-            return result;
-        }
+        const result = await signInWithPopup(auth, provider);
+        console.log('User logged in:', result.user.uid);
+        return result;
     } catch (error) {
         console.error('Login failed:', error);
         throw error;

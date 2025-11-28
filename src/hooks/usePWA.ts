@@ -1,14 +1,9 @@
 /**
  * PWA Service Worker Registration Hook
  * Handles service worker updates and offline status
- *
- * Note: Service worker registration is delayed during OAuth redirects to avoid
- * IndexedDB errors on some devices (e.g., OnePlus 12) where the browser's
- * IndexedDB fails to initialize properly after OAuth redirect.
  */
 import { useState, useEffect, useCallback } from 'react';
 import { registerSW } from 'virtual:pwa-register';
-import { isOAuthRedirect } from '../utils/oauth';
 
 // ============================================================================
 // TYPES
@@ -62,14 +57,6 @@ export function usePWA(): PWAState {
     const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null);
 
     useEffect(() => {
-        // Skip service worker registration during OAuth redirects
-        // This prevents IndexedDB errors on OnePlus 12 devices where the browser's
-        // IndexedDB fails to initialize properly after returning from OAuth redirect
-        if (isOAuthRedirect()) {
-            console.log('PWA: Skipping service worker registration during OAuth redirect');
-            return;
-        }
-
         // Register service worker with update callbacks
         const sw = registerSW({
             immediate: true, // Register immediately

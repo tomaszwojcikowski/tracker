@@ -1,13 +1,11 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { User } from 'firebase/auth';
 import * as FirebaseService from '../firebase-service';
-import { setOAuthInProgress, clearOAuthInProgress } from '../utils/oauth';
 
 export interface AuthState {
     user: User | null;
     loading: boolean;
     error: string | null;
-    isRedirecting: boolean;
 }
 
 export interface UseAuthReturn extends AuthState {
@@ -16,73 +14,51 @@ export interface UseAuthReturn extends AuthState {
     clearError: () => void;
 }
 
+/**
+ * Simple, robust authentication hook
+ *
+ * Key design principles:
+ * 1. Uses popup authentication only (works reliably on mobile PWAs)
+ * 2. No dependency on service workers or special storage handling
+ * 3. Self-contained state management via Firebase's onAuthStateChanged
+ * 4. Handles popup blockers and mobile browser quirks gracefully
+ */
 export function useAuth(): UseAuthReturn {
-    const [user, setUser] = useState<User | null>(() =>
-        FirebaseService.isFirebaseInitialized() ? FirebaseService.getCurrentUser() : null
-    );
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [isRedirecting, setIsRedirecting] = useState<boolean>(false);
+    const mountedRef = useRef(true);
 
-    // Initialize auth state and check for redirects
+    // Subscribe to Firebase auth state changes
     useEffect(() => {
+        mountedRef.current = true;
+
         if (!FirebaseService.isFirebaseInitialized()) {
             setLoading(false);
             return;
         }
 
-        let mounted = true;
+        // Get current user immediately if available
+        const currentUser = FirebaseService.getCurrentUser();
+        if (currentUser) {
+            setUser(currentUser);
+            setLoading(false);
+        }
 
-        const initAuth = async () => {
-            try {
-                // 1. Setup auth state listener
-                // We use initSync to hook into the existing service architecture
-                // but we might want to decouple this if we want pure auth first
-
-                // Check if we are returning from a redirect
-                // This is critical for Chrome on Android
-                const redirectResult = await FirebaseService.checkRedirectResult();
-
-                if (mounted) {
-                    if (redirectResult) {
-                        setUser(redirectResult.user);
-                        // Clear any stale errors from before redirect
-                        setError(null);
-                        // Clear OAuth flag after successful authentication
-                        clearOAuthInProgress();
-                    }
-                }
-            } catch (err) {
-                // Clear OAuth flag on error
-                clearOAuthInProgress();
-                if (mounted) {
-                    console.error('Auth initialization error:', err);
-                    const message = err instanceof Error ? err.message : 'Authentication check failed';
-                    setError(message);
-                }
-            } finally {
-                if (mounted) {
-                    setLoading(false);
-                }
-            }
-        };
-
-        initAuth();
-
-        // Subscribe to auth changes
-        // We need a way to subscribe to auth changes without triggering the full sync logic immediately
-        // or we just rely on the existing service.
-        // For now, let's rely on the service's state if possible, but the service doesn't expose a simple listener.
-        // Let's add a listener here for UI updates.
+        // Subscribe to auth state changes - this is the single source of truth
         const unsubscribe = FirebaseService.onAuthChange((newUser) => {
-            if (mounted) {
+            if (mountedRef.current) {
                 setUser(newUser);
                 setLoading(false);
+                // Clear any stale errors when user changes
+                if (newUser) {
+                    setError(null);
+                }
             }
         });
 
         return () => {
-            mounted = false;
+            mountedRef.current = false;
             unsubscribe();
         };
     }, []);
@@ -90,48 +66,68 @@ export function useAuth(): UseAuthReturn {
     const login = useCallback(async () => {
         setError(null);
         setLoading(true);
+
         try {
-            // Set OAuth flag before attempting login
-            // This helps delay service worker registration if we redirect
-            setOAuthInProgress();
+            // Always use popup - more reliable on mobile PWAs than redirect
+            await FirebaseService.handleLogin();
+            // Auth state will be updated via onAuthChange listener
+        } catch (err) {
+            console.error('Login error:', err);
 
-            // This might trigger a redirect on mobile
-            const result = await FirebaseService.handleLogin();
+            if (mountedRef.current) {
+                // Provide user-friendly error messages
+                let message = 'Login failed';
 
-            if (!result) {
-                // If no result, it means we're redirecting (mobile flow)
-                setIsRedirecting(true);
-                // Loading state stays true until we return
-                // OAuth flag will be cleared after redirect completes in initAuth
-            } else {
-                // Popup flow (desktop) - clear OAuth flag immediately
-                clearOAuthInProgress();
-                setUser(result.user);
+                if (err instanceof Error) {
+                    const errorCode = (err as { code?: string }).code;
+
+                    switch (errorCode) {
+                        case 'auth/popup-closed-by-user':
+                            message = 'Sign-in was cancelled';
+                            break;
+                        case 'auth/popup-blocked':
+                            message = 'Popup was blocked. Please allow popups for this site.';
+                            break;
+                        case 'auth/cancelled-popup-request':
+                            // User clicked login multiple times - not an error
+                            message = '';
+                            break;
+                        case 'auth/network-request-failed':
+                            message = 'Network error. Please check your connection.';
+                            break;
+                        case 'auth/internal-error':
+                            message = 'An internal error occurred. Please try again.';
+                            break;
+                        default:
+                            message = err.message || 'Login failed';
+                    }
+                }
+
+                if (message) {
+                    setError(message);
+                }
                 setLoading(false);
             }
-        } catch (err) {
-            // Clear OAuth flag on error
-            clearOAuthInProgress();
-            console.error('Login error:', err);
-            const message = err instanceof Error ? err.message : 'Login failed';
-            setError(message);
-            setLoading(false);
-            setIsRedirecting(false);
         }
     }, []);
 
     const logout = useCallback(async () => {
         setError(null);
         setLoading(true);
+
         try {
             await FirebaseService.handleLogout();
-            setUser(null);
+            // Auth state will be updated via onAuthChange listener
         } catch (err) {
             console.error('Logout error:', err);
-            const message = err instanceof Error ? err.message : 'Logout failed';
-            setError(message);
+            if (mountedRef.current) {
+                const message = err instanceof Error ? err.message : 'Logout failed';
+                setError(message);
+            }
         } finally {
-            setLoading(false);
+            if (mountedRef.current) {
+                setLoading(false);
+            }
         }
     }, []);
 
@@ -143,7 +139,6 @@ export function useAuth(): UseAuthReturn {
         user,
         loading,
         error,
-        isRedirecting,
         login,
         logout,
         clearError

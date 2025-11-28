@@ -115,7 +115,6 @@ export const SettingsView: React.FC = () => {
         user: firebaseUser,
         loading: authLoading,
         error: authError,
-        isRedirecting,
         login,
         logout,
         clearError
@@ -246,7 +245,6 @@ export const SettingsView: React.FC = () => {
                         user={firebaseUser}
                         loading={authLoading}
                         error={authError}
-                        isRedirecting={isRedirecting}
                         onLogin={handleFirebaseLogin}
                         onLogout={handleFirebaseLogout}
                         onClearError={clearError}

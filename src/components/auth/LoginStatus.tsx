@@ -8,7 +8,6 @@ interface LoginStatusProps {
     user: User | null;
     loading: boolean;
     error: string | null;
-    isRedirecting: boolean;
     onLogin: () => void;
     onLogout: () => void;
     onClearError: () => void;
@@ -18,24 +17,10 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
     user,
     loading,
     error,
-    isRedirecting,
     onLogin,
     onLogout,
     onClearError
 }) => {
-    // If redirecting, show a specific full-width message
-    if (isRedirecting) {
-        return (
-            <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
-                <div className="flex flex-col items-center justify-center py-4 text-center">
-                    <div className="animate-spin h-8 w-8 border-2 border-sys-accent border-t-transparent rounded-full mb-3"></div>
-                    <h3 className="text-lg font-bold text-white">Redirecting to Google...</h3>
-                    <p className="text-sm text-sys-onSurfaceVar mt-1">Please wait while we connect to the login service.</p>
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
             <div className="flex items-center gap-3 mb-4">
@@ -57,6 +42,9 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
                         {error.includes('network') && (
                             <p className="text-xs mt-1 opacity-80">Please check your internet connection and try again.</p>
                         )}
+                        {error.includes('popup') && (
+                            <p className="text-xs mt-1 opacity-80">Tip: Make sure popups are allowed for this site.</p>
+                        )}
                     </div>
                     <button
                         onClick={onClearError}
@@ -68,11 +56,11 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
                 </div>
             )}
 
-            {/* Loading State (non-redirect) */}
+            {/* Loading State */}
             {loading && !user && (
                 <div className="mb-4 p-4 bg-sys-surfaceHigh rounded-xl flex items-center gap-3">
                     <div className="animate-spin h-5 w-5 border-2 border-sys-accent border-t-transparent rounded-full"></div>
-                    <span className="text-sm text-sys-onSurfaceVar">Checking login status...</span>
+                    <span className="text-sm text-sys-onSurfaceVar">Signing in...</span>
                 </div>
             )}
 

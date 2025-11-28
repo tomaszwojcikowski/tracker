@@ -6902,19 +6902,23 @@
             "days": [
               {
                 "dayNumber": 1,
-                "$ref": "template-w19d1"
+                "$ref": "template-w19d1",
+                "name": "Pull Day A"
               },
               {
                 "dayNumber": 2,
-                "$ref": "template-w19d1"
+                "$ref": "template-w19d1",
+                "name": "Mobility & Recovery"
               },
               {
                 "dayNumber": 3,
-                "$ref": "template-w19d1"
+                "$ref": "template-w19d1",
+                "name": "Lower Body"
               },
               {
                 "dayNumber": 5,
-                "$ref": "template-w19d1"
+                "$ref": "template-w19d1",
+                "name": "Pull Day B"
               }
             ]
           }

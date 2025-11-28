@@ -154,6 +154,8 @@ export interface ScheduleEntry {
   r: string;
   /** Notes/category (multi-purpose field) */
   n?: string;
+  /** Exercise category (warmup, skill, main, accessory, cooldown) */
+  category?: string;
   /** Load/weight for weighted exercises (e.g., "10kg", "5-10kg", "light band") */
   load?: string;
   /** Parsed load range for weighted exercises */
@@ -474,6 +476,8 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             r: repsStr,
             // Combine notes and category into single field
             n: exercise.notes || exercise.category || '',
+            // Preserve category for filtering
+            category: exercise.category,
             // Pass through load for weighted exercises
             load: loadRange?.raw,
             // Include parsed load range

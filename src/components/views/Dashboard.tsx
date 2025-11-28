@@ -10,26 +10,27 @@ import { PlayCircle, Check, Play, ChevronRight, ChevronLeft } from 'lucide-react
 import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, hasWorkoutData, type InProgressWorkout } from '../../utils/storage';
 import { formatRelativeTime } from '../../utils/time';
 import { SwipeIndicator } from '../SwipeIndicator';
-import { getBlockForWeek, getWorkoutForDay } from '../../data/programData';
+import { getBlockForWeek } from '../../data/programData';
+import { getCompleteSchedule } from '../../utils/schedule';
 
 /** Maximum number of exercises to show in the summary */
 const MAX_EXERCISES_IN_SUMMARY = 3;
 
 /**
- * Get a summary of main exercises for a day (excluding warmup)
+ * Get a summary of main and skill exercises for a day (excluding warmup/accessory)
  */
 function getExerciseSummary(week: number, day: number): string {
-  const workout = getWorkoutForDay(week, day);
+  const schedule = getCompleteSchedule();
+  const dayExercises = schedule.filter((item) => item.w === week && item.d === day);
   
-  if (!workout.sections || workout.sections.length === 0) {
+  if (dayExercises.length === 0) {
     return 'Rest day';
   }
   
-  // Get exercises from main sections (skip warmup/prep sections)
-  const mainExercises = workout.sections
-    .filter((section) => section.type === 'main' || section.type === 'skill')
-    .flatMap((section) => section.exercises ?? [])
-    .map((ex) => ex.name)
+  // Filter to only skill and main work exercises based on category
+  const mainExercises = dayExercises
+    .filter((item) => item.category === 'skill' || item.category === 'main')
+    .map((item) => item.ex)
     .slice(0, MAX_EXERCISES_IN_SUMMARY);
   
   if (mainExercises.length === 0) {

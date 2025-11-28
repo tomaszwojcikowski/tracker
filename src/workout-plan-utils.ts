@@ -2,7 +2,7 @@
  * Workout Plan Utilities
  *
  * This module provides utilities for loading and working with workout plans
- * in both v1.0.0 (flat array) and v2.0.0 (structured) formats.
+ * in v2.0.0 structured format.
  */
 
 // ============================================================================
@@ -98,12 +98,50 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
 /**
  * Format version string
  */
-export type FormatVersion = '1.0.0' | '2.0.0';
+export type FormatVersion = '2.0.0';
 
 /**
- * V1.0.0 format entry (flat array item)
+ * Structured reps data for internal use
  */
-export interface V1Entry {
+export interface RepsRange {
+  /** Type of rep scheme */
+  type: RepsType;
+  /** Primary value for reps (count, seconds, RM number, etc.) */
+  value?: number | number[] | null;
+  /** Minimum reps for rep ranges */
+  min?: number;
+  /** Maximum reps for rep ranges */
+  max?: number;
+  /** Unit for time-based reps */
+  unit?: 'seconds';
+  /** Whether reps are per side */
+  perSide?: boolean;
+  /** Modifier for AMRAP (e.g., -1, -20%) */
+  modifier?: number;
+  /** Original string representation */
+  raw: string;
+}
+
+/**
+ * Structured tempo data for internal use
+ */
+export interface TempoRange {
+  /** Eccentric (lowering) phase duration in seconds */
+  eccentric: number;
+  /** Pause at bottom position in seconds */
+  pauseBottom: number;
+  /** Concentric (lifting) phase duration in seconds */
+  concentric: number;
+  /** Pause at top position in seconds */
+  pauseTop: number;
+  /** Original string representation */
+  raw: string;
+}
+
+/**
+ * Internal schedule entry (flat format for compatibility with existing code)
+ */
+export interface ScheduleEntry {
   /** Week number */
   w: number;
   /** Day number */
@@ -120,7 +158,21 @@ export interface V1Entry {
   load?: string;
   /** Parsed load range for weighted exercises */
   loadRange?: LoadRange;
+  /** Parsed reps range for structured reps data */
+  repsRange?: RepsRange;
+  /** Parsed tempo data */
+  tempoRange?: TempoRange;
 }
+
+/**
+ * Load unit types for structured load data
+ */
+export type LoadUnit = 'kg' | 'band' | 'bodyweight' | 'percent';
+
+/**
+ * Rep type for structured reps data
+ */
+export type RepsType = 'reps' | 'time' | 'ladder' | 'amrap' | 'rm' | 'max' | 'effort' | 'submax' | 'none';
 
 /**
  * V2.0.0 exercise definition
@@ -128,14 +180,55 @@ export interface V1Entry {
 export interface V2Exercise {
   exerciseName: string;
   sets: number;
-  reps: string;
+  order?: number;
   notes?: string;
   category?: string;
   rest?: number;
-  tempo?: string;
   rpe?: number;
-  /** Load/weight for weighted exercises */
+  
+  // ---- Legacy fields (deprecated, for backward compatibility) ----
+  /** @deprecated Use repsType/repsValue/repsMin/repsMax instead */
+  reps?: string;
+  /** @deprecated Use loadMin/loadMax/loadUnit instead */
   load?: string | null;
+  /** @deprecated Use tempoEccentric/tempoPauseBottom/tempoConcentric/tempoPauseTop instead */
+  tempo?: string;
+  
+  // ---- Structured load fields ----
+  /** Minimum weight value for weight ranges */
+  loadMin?: number;
+  /** Maximum weight value for weight ranges (same as min for fixed loads) */
+  loadMax?: number;
+  /** Unit of measurement for load */
+  loadUnit?: LoadUnit;
+  /** Whether the load is per hand (for dumbbell exercises) */
+  loadPerHand?: boolean;
+  
+  // ---- Structured reps fields ----
+  /** Type of rep scheme */
+  repsType?: RepsType;
+  /** Primary value for reps (count, seconds, RM number, etc.) */
+  repsValue?: number | number[] | null;
+  /** Minimum reps for rep ranges */
+  repsMin?: number;
+  /** Maximum reps for rep ranges */
+  repsMax?: number;
+  /** Unit for time-based reps */
+  repsUnit?: 'seconds';
+  /** Whether reps are per side */
+  repsPerSide?: boolean;
+  /** Modifier for AMRAP (e.g., -1, -20%) */
+  repsModifier?: number;
+  
+  // ---- Structured tempo fields ----
+  /** Eccentric (lowering) phase duration in seconds */
+  tempoEccentric?: number;
+  /** Pause at bottom position in seconds */
+  tempoPauseBottom?: number;
+  /** Concentric (lifting) phase duration in seconds */
+  tempoConcentric?: number;
+  /** Pause at top position in seconds */
+  tempoPauseTop?: number;
 }
 
 /**
@@ -193,19 +286,14 @@ export interface V2WorkoutPlan {
 }
 
 /**
- * V1.0.0 format is just an array of entries
+ * Supported workout plan format (v2.0.0 only)
  */
-export type V1WorkoutPlan = V1Entry[];
-
-/**
- * Any supported workout plan format
- */
-export type WorkoutPlanData = V1WorkoutPlan | V2WorkoutPlan;
+export type WorkoutPlanData = V2WorkoutPlan;
 
 /**
  * Internal schedule format (compatible with buildCompleteSchedule)
  */
-export type InternalSchedule = V1Entry[];
+export type InternalSchedule = ScheduleEntry[];
 
 /**
  * Phase metadata for UI display
@@ -261,31 +349,13 @@ export interface PlanSummary {
 // ============================================================================
 
 /**
- * Validate v1.0.0 format
- */
-function validateV1Format(data: unknown): data is V1WorkoutPlan {
-  if (!Array.isArray(data)) return false;
-  if (data.length === 0) return false;
-
-  // Check first entry has required fields
-  const entry = data[0] as V1Entry;
-  return (
-    entry.w !== undefined &&
-    entry.d !== undefined &&
-    entry.ex !== undefined &&
-    entry.s !== undefined &&
-    entry.r !== undefined
-  );
-}
-
-/**
  * Validate v2.0.0 format
  */
 function validateV2Format(data: unknown): data is V2WorkoutPlan {
   if (!data || typeof data !== 'object') return false;
 
   const obj = data as Record<string, unknown>;
-  if (!obj.formatVersion || !obj.plan) return false;
+  if (!obj.formatVersion || obj.formatVersion !== '2.0.0' || !obj.plan) return false;
 
   const plan = obj.plan as Record<string, unknown>;
   return (
@@ -297,45 +367,8 @@ function validateV2Format(data: unknown): data is V2WorkoutPlan {
 }
 
 // ============================================================================
-// FORMAT DETECTION & CONVERSION
+// FORMAT CONVERSION
 // ============================================================================
-
-/**
- * Detect the format version of a workout plan
- * @param data - The workout plan data
- * @returns Format version ('1.0.0' or '2.0.0')
- * @throws Error if format is unknown
- */
-export function detectFormatVersion(data: unknown): FormatVersion {
-  // v2.0.0 has formatVersion field at root
-  if (data && typeof data === 'object' && 'formatVersion' in data) {
-    return (data as V2WorkoutPlan).formatVersion;
-  }
-
-  // v1.0.0 is a flat array
-  if (Array.isArray(data)) {
-    return '1.0.0';
-  }
-
-  // Unknown format
-  throw new Error('Unknown workout plan format');
-}
-
-/**
- * Convert v1.0.0 flat format to internal schedule format
- * (Compatible with existing buildCompleteSchedule function)
- * @param v1Data - v1.0.0 format data
- * @returns Internal schedule format
- * @throws Error if format is invalid
- */
-export function convertV1ToInternal(v1Data: unknown): InternalSchedule {
-  if (!validateV1Format(v1Data)) {
-    throw new Error('Invalid v1.0.0 workout plan format');
-  }
-
-  // v1.0.0 format is already compatible with internal format
-  return v1Data;
-}
 
 /**
  * Convert v2.0.0 structured format to internal schedule format
@@ -349,31 +382,106 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
     throw new Error('Invalid v2.0.0 workout plan format');
   }
 
-  const internalFormat: V1Entry[] = [];
+  const internalFormat: ScheduleEntry[] = [];
 
-  // Flatten the structured format back to flat array
-  // Note: The 'n' field combines notes and category for v1.0.0 compatibility
+  // Flatten the structured format back to flat array for internal use
+  // The 'n' field combines notes and category
   // Priority: notes (if present) > category (fallback) > empty string
   v2Data.plan.phases.forEach((phase) => {
     phase.weeks.forEach((week) => {
       week.days.forEach((day) => {
         day.exercises.forEach((exercise) => {
-          const loadStr = exercise.load || undefined;
-          const loadRange = parseLoadRange(loadStr);
+          // Use new structured load fields if available, fall back to parsing old load field
+          let loadRange: LoadRange | null = null;
+          
+          if (exercise.loadMin !== undefined && exercise.loadMax !== undefined && exercise.loadUnit) {
+            // New format: use structured fields directly
+            // Generate a human-readable raw string based on unit type
+            let rawStr: string;
+            if (exercise.loadUnit === 'bodyweight') {
+              rawStr = 'bodyweight';
+            } else if (exercise.loadUnit === 'band') {
+              const bandLevel = exercise.loadMin === 1 ? 'light' : exercise.loadMin === 2 ? 'medium' : 'heavy';
+              rawStr = `${bandLevel} band`;
+            } else if (exercise.loadUnit === 'percent') {
+              rawStr = `${exercise.loadMin}%`;
+            } else {
+              // kg unit
+              rawStr = exercise.loadMin === exercise.loadMax 
+                ? `${exercise.loadMin}kg`
+                : `${exercise.loadMin}-${exercise.loadMax}kg`;
+              if (exercise.loadPerHand) {
+                rawStr += ' per hand';
+              }
+            }
+            
+            loadRange = {
+              min: exercise.loadMin,
+              max: exercise.loadMax,
+              unit: exercise.loadUnit,
+              raw: rawStr,
+              perHand: exercise.loadPerHand,
+            };
+          } else if (exercise.load) {
+            // Legacy format: parse load string (backward compatibility)
+            loadRange = parseLoadRange(exercise.load);
+          }
+          
+          // Use new structured reps fields if available, fall back to parsing old reps string
+          let repsRange: RepsRange | null = null;
+          let repsStr = '';
+          
+          if (exercise.repsType) {
+            // New format: use structured reps fields directly
+            repsRange = {
+              type: exercise.repsType,
+              value: exercise.repsValue,
+              min: exercise.repsMin,
+              max: exercise.repsMax,
+              unit: exercise.repsUnit,
+              perSide: exercise.repsPerSide,
+              modifier: exercise.repsModifier,
+              raw: buildRepsString(exercise),
+            };
+            repsStr = repsRange.raw;
+          } else if (exercise.reps) {
+            // Legacy format: use reps string directly
+            repsStr = exercise.reps;
+            repsRange = parseRepsRange(exercise.reps);
+          }
+          
+          // Use new structured tempo fields if available
+          let tempoRange: TempoRange | undefined;
+          
+          if (exercise.tempoEccentric !== undefined) {
+            tempoRange = {
+              eccentric: exercise.tempoEccentric,
+              pauseBottom: exercise.tempoPauseBottom ?? 0,
+              concentric: exercise.tempoConcentric ?? 0,
+              pauseTop: exercise.tempoPauseTop ?? 0,
+              raw: `${exercise.tempoEccentric}-${exercise.tempoPauseBottom ?? 0}-${exercise.tempoConcentric ?? 0}-${exercise.tempoPauseTop ?? 0}`,
+            };
+          } else if (exercise.tempo) {
+            // Legacy format: parse tempo string
+            tempoRange = parseTempoRange(exercise.tempo) || undefined;
+          }
           
           internalFormat.push({
             w: week.weekNumber,
             d: day.dayNumber,
             ex: exercise.exerciseName,
             s: exercise.sets,
-            r: exercise.reps,
-            // For v1.0.0 compatibility, combine notes and category
-            // This preserves the original behavior where 'n' was a multi-purpose field
+            r: repsStr,
+            // Combine notes and category into single field
             n: exercise.notes || exercise.category || '',
             // Pass through load for weighted exercises
-            load: loadStr,
+            load: loadRange?.raw,
             // Include parsed load range
             loadRange: loadRange || undefined,
+            // Include parsed reps range
+            repsRange: repsRange || undefined,
+            // Include parsed tempo
+            tempoRange,
           });
         });
       });
@@ -381,6 +489,200 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
   });
 
   return internalFormat;
+}
+
+/**
+ * Build a human-readable reps string from structured reps data
+ */
+function buildRepsString(exercise: V2Exercise): string {
+  const { repsType, repsValue, repsMin, repsMax, repsPerSide, repsModifier } = exercise;
+  
+  switch (repsType) {
+    case 'reps':
+      if (repsMin !== undefined && repsMax !== undefined) {
+        return `${repsMin}-${repsMax} reps`;
+      }
+      if (repsValue !== null && repsValue !== undefined) {
+        return repsPerSide ? `${repsValue}/side` : `${repsValue} reps`;
+      }
+      return '';
+      
+    case 'time':
+      if (repsMin !== undefined && repsMax !== undefined) {
+        return `${repsMin}-${repsMax}s`;
+      }
+      if (repsValue !== null && repsValue !== undefined) {
+        const seconds = repsValue as number;
+        if (seconds >= 60 && seconds % 60 === 0) {
+          const mins = seconds / 60;
+          return repsPerSide ? `${mins} min/side` : `${mins} min`;
+        }
+        return repsPerSide ? `${seconds}s/side` : `${seconds}s`;
+      }
+      return '';
+      
+    case 'ladder':
+      if (Array.isArray(repsValue)) {
+        return `(${repsValue.join('-')}) reps`;
+      }
+      return '';
+      
+    case 'amrap':
+      if (repsModifier !== undefined) {
+        // Modifiers >= 10 are percentages, < 10 are reps in reserve
+        const isPercentage = repsModifier >= 10;
+        return `AMRAP - ${repsModifier}${isPercentage ? '%' : ''}`;
+      }
+      return 'AMRAP Max';
+      
+    case 'rm':
+      return repsValue !== null && repsValue !== undefined ? `${repsValue}RM` : '';
+      
+    case 'max':
+      return 'Max';
+      
+    case 'effort':
+      return repsValue !== null && repsValue !== undefined ? `${repsValue}% Effort` : '';
+      
+    case 'submax':
+      return 'Sub-max';
+      
+    case 'none':
+      return 'n/a';
+      
+    default:
+      return '';
+  }
+}
+
+/**
+ * Parse a reps string into structured RepsRange
+ */
+function parseRepsRange(reps: string): RepsRange | null {
+  if (!reps) return null;
+  
+  const raw = reps.trim();
+  const lower = raw.toLowerCase();
+  
+  // Ladder reps
+  const ladderMatch = raw.match(/^\((\d+(?:-\d+)+)\)\s*reps?$/i);
+  if (ladderMatch) {
+    return {
+      type: 'ladder',
+      value: ladderMatch[1].split('-').map(n => parseInt(n, 10)),
+      raw,
+    };
+  }
+  
+  // AMRAP
+  const amrapMatch = raw.match(/^AMRAP\s*(?:-\s*)?(\d+%?|Max)?$/i);
+  if (amrapMatch) {
+    const mod = amrapMatch[1];
+    if (mod && mod.toLowerCase() !== 'max') {
+      return { type: 'amrap', value: null, modifier: parseInt(mod, 10), raw };
+    }
+    return { type: 'amrap', value: null, raw };
+  }
+  
+  // RM tests
+  const rmMatch = raw.match(/^(\d+)RM$/i);
+  if (rmMatch) {
+    return { type: 'rm', value: parseInt(rmMatch[1], 10), raw };
+  }
+  
+  // Max
+  if (lower === 'max' || lower === 'pr attempt') {
+    return { type: 'max', value: null, raw };
+  }
+  
+  // Sub-max
+  if (lower === 'sub-max') {
+    return { type: 'submax', value: null, raw };
+  }
+  
+  // N/A
+  if (lower === 'n/a') {
+    return { type: 'none', value: null, raw };
+  }
+  
+  // Effort
+  const effortMatch = raw.match(/^(\d+)%\s*Effort$/i);
+  if (effortMatch) {
+    return { type: 'effort', value: parseInt(effortMatch[1], 10), raw };
+  }
+  
+  // Time-based
+  const perSideTime = lower.includes('/side');
+  const timeMatch = raw.match(/^(\d+(?:\.\d+)?)\s*(s|sec|min|m)(?:\/side)?$/i);
+  if (timeMatch) {
+    const value = parseFloat(timeMatch[1]);
+    const unit = timeMatch[2].toLowerCase();
+    const seconds = (unit === 'min' || unit === 'm') ? value * 60 : value;
+    return { type: 'time', value: seconds, unit: 'seconds', perSide: perSideTime ? true : undefined, raw };
+  }
+  
+  // Time range
+  const timeRangeMatch = raw.match(/^(\d+)\s*-\s*(\d+)\s*(s|sec)$/i);
+  if (timeRangeMatch) {
+    return {
+      type: 'time',
+      min: parseInt(timeRangeMatch[1], 10),
+      max: parseInt(timeRangeMatch[2], 10),
+      unit: 'seconds',
+      raw,
+    };
+  }
+  
+  // Rep range
+  const rangeMatch = raw.match(/^(\d+)\s*-\s*(\d+)\s*reps?$/i);
+  if (rangeMatch) {
+    return {
+      type: 'reps',
+      min: parseInt(rangeMatch[1], 10),
+      max: parseInt(rangeMatch[2], 10),
+      raw,
+    };
+  }
+  
+  // Fixed reps with per-side
+  const perSideMatch = raw.match(/^(\d+)\s*(?:reps?)?\s*\/\s*side$/i);
+  if (perSideMatch) {
+    return { type: 'reps', value: parseInt(perSideMatch[1], 10), perSide: true, raw };
+  }
+  
+  // Fixed reps
+  const fixedMatch = raw.match(/^(\d+)\s*reps?$/i);
+  if (fixedMatch) {
+    return { type: 'reps', value: parseInt(fixedMatch[1], 10), raw };
+  }
+  
+  // Plain number (just digits)
+  const plainNumberMatch = raw.match(/^(\d+)$/);
+  if (plainNumberMatch) {
+    return { type: 'reps', value: parseInt(plainNumberMatch[1], 10), raw };
+  }
+  
+  return null;
+}
+
+/**
+ * Parse a tempo string into structured TempoRange
+ */
+function parseTempoRange(tempo: string): TempoRange | null {
+  if (!tempo) return null;
+  
+  const match = tempo.match(/^(\d+)-(\d+)-(\d+)-(\d+)$/);
+  if (match) {
+    return {
+      eccentric: parseInt(match[1], 10),
+      pauseBottom: parseInt(match[2], 10),
+      concentric: parseInt(match[3], 10),
+      pauseTop: parseInt(match[4], 10),
+      raw: tempo,
+    };
+  }
+  
+  return null;
 }
 
 // ============================================================================
@@ -394,46 +696,33 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
  * @throws Error if format is unsupported
  */
 export function loadWorkoutPlan(data: unknown): LoadedWorkoutPlan {
-  const version = detectFormatVersion(data);
-
-  let schedule: InternalSchedule;
-  let metadata: WorkoutPlanMetadata;
-
-  if (version === '1.0.0') {
-    schedule = convertV1ToInternal(data);
-    // v1.0.0 has no metadata
-    metadata = {
-      version: '1.0.0',
-      name: 'Workout Plan',
-      description: null,
-      durationWeeks: Math.max(...schedule.map((e) => e.w)),
-    };
-  } else if (version === '2.0.0') {
-    const v2Data = data as V2WorkoutPlan;
-    schedule = convertV2ToInternal(v2Data);
-    // Extract metadata from v2.0.0 format
-    metadata = {
-      version: '2.0.0',
-      id: v2Data.plan.id,
-      name: v2Data.plan.name,
-      description: v2Data.plan.description,
-      author: v2Data.plan.author,
-      durationWeeks: v2Data.plan.durationWeeks,
-      goals: v2Data.plan.goals,
-      targetLevel: v2Data.plan.targetLevel,
-      equipment: v2Data.plan.equipment,
-      phases: v2Data.plan.phases.map((p) => ({
-        number: p.phaseNumber,
-        name: p.name,
-        description: p.description,
-        startWeek: p.startWeek,
-        endWeek: p.endWeek,
-        focus: p.focus,
-      })),
-    };
-  } else {
-    throw new Error(`Unsupported format version: ${version}`);
+  if (!validateV2Format(data)) {
+    throw new Error('Invalid workout plan format. Only v2.0.0 format is supported.');
   }
+
+  const v2Data = data as V2WorkoutPlan;
+  const schedule = convertV2ToInternal(v2Data);
+  
+  // Extract metadata from v2.0.0 format
+  const metadata: WorkoutPlanMetadata = {
+    version: '2.0.0',
+    id: v2Data.plan.id,
+    name: v2Data.plan.name,
+    description: v2Data.plan.description,
+    author: v2Data.plan.author,
+    durationWeeks: v2Data.plan.durationWeeks,
+    goals: v2Data.plan.goals,
+    targetLevel: v2Data.plan.targetLevel,
+    equipment: v2Data.plan.equipment,
+    phases: v2Data.plan.phases.map((p) => ({
+      number: p.phaseNumber,
+      name: p.name,
+      description: p.description,
+      startWeek: p.startWeek,
+      endWeek: p.endWeek,
+      focus: p.focus,
+    })),
+  };
 
   return { schedule, metadata };
 }
@@ -497,13 +786,7 @@ export function getExercisesWithDetails(
  * @returns True if v2.0.0 format
  */
 export function isV2Format(data: unknown): data is V2WorkoutPlan {
-  try {
-    return detectFormatVersion(data) === '2.0.0';
-  } catch {
-    // detectFormatVersion throws if format is unknown
-    // This is expected for invalid data, so we return false
-    return false;
-  }
+  return validateV2Format(data);
 }
 
 /**

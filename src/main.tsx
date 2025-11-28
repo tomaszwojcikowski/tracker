@@ -78,7 +78,7 @@ Promise.all([
     })
 ])
     .then(([scheduleData, exercisesData]) => {
-        // Load and convert workout plan (supports both v1.0.0 and v2.0.0 formats)
+        // Load and convert workout plan (v2.0.0 format only)
         let schedule;
         let metadata: WorkoutPlanMetadata;
         try {

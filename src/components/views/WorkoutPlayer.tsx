@@ -997,7 +997,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                         inputMode="decimal"
                                                                         value={exerciseLog.weight || ''}
                                                                         onChange={(e) => saveLog(exId, 'weight', e.target.value)}
-                                                                        placeholder={ex.load ? ex.load.replace(/[^0-9.]/g, '').split('-')[0] || '0' : '0'}
+                                                                        placeholder={ex.loadRange && ex.loadRange.unit === 'kg' && ex.loadRange.min > 0 ? String(ex.loadRange.min) : '0'}
                                                                         className="w-20 h-10 px-2 bg-sys-surfaceHigh rounded-lg text-white text-center text-xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                                     />
                                                                     <button

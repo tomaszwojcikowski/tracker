@@ -9,10 +9,41 @@
  * 1. Google Sign-In redirect briefly unloads the page
  * 2. When returning, the service worker tries to access IndexedDB
  *    before the browser has fully restored its state
- * 3. The IndexedDB backing store fails to open, breaking authentication
+ * 3. The IndexedDB backing store fails to open, causing errors
+ *
+ * Solution:
+ * 1. Main app: Skip service worker registration during OAuth redirects (usePWA.ts)
+ * 2. Service worker: Gracefully handle IndexedDB errors with unhandledrejection handler (sw.ts)
+ * 3. Caching: Use CacheableResponsePlugin instead of ExpirationPlugin to avoid IndexedDB usage
  */
 
 const OAUTH_IN_PROGRESS_KEY = 'oauth_in_progress';
+
+/**
+ * Check if an error is an IndexedDB backing store error
+ * This error occurs on some devices (e.g., OnePlus 12) when IndexedDB
+ * fails to initialize properly after OAuth redirect
+ *
+ * Note: This function is also defined in src/sw.ts for use in the service worker,
+ * which is built separately and can't import from this module.
+ * Keep both versions in sync if changes are needed.
+ *
+ * @param error - The error to check
+ * @returns true if this is an IndexedDB backing store error
+ */
+export function isIndexedDBBackingStoreError(error: unknown): boolean {
+    if (!error || typeof error !== 'object') return false;
+
+    const err = error as { name?: string; message?: string };
+    if (err.name !== 'UnknownError') return false;
+
+    const message = String(err.message || '');
+    return (
+        message.includes('IndexedDB') ||
+        message.includes('indexedDB') ||
+        message.includes('backing store')
+    );
+}
 
 /**
  * Check if the current page load is from an OAuth redirect

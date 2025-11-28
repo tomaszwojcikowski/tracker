@@ -11,6 +11,7 @@ import {
     setOAuthInProgress,
     clearOAuthInProgress,
     isOAuthInProgress,
+    isIndexedDBBackingStoreError,
 } from '../utils/oauth';
 
 // Mock sessionStorage
@@ -227,5 +228,75 @@ describe('PWA integration scenario', () => {
         // Step 5: On subsequent navigations (without OAuth params), redirect detection is false
         setMockLocation('https://example.com/tracker/', '');
         expect(isOAuthRedirect()).toBe(false);
+    });
+});
+
+describe('isIndexedDBBackingStoreError', () => {
+    it('should return true for IndexedDB backing store error', () => {
+        const error = {
+            name: 'UnknownError',
+            message: 'Internal error opening backing store for indexedDB.open.'
+        };
+        expect(isIndexedDBBackingStoreError(error)).toBe(true);
+    });
+
+    it('should return true for error with IndexedDB in message', () => {
+        const error = {
+            name: 'UnknownError',
+            message: 'IndexedDB connection failed'
+        };
+        expect(isIndexedDBBackingStoreError(error)).toBe(true);
+    });
+
+    it('should return true for error with indexedDB (lowercase) in message', () => {
+        const error = {
+            name: 'UnknownError',
+            message: 'Failed to open indexedDB database'
+        };
+        expect(isIndexedDBBackingStoreError(error)).toBe(true);
+    });
+
+    it('should return false for non-UnknownError errors', () => {
+        const error = {
+            name: 'TypeError',
+            message: 'Internal error opening backing store for indexedDB.open.'
+        };
+        expect(isIndexedDBBackingStoreError(error)).toBe(false);
+    });
+
+    it('should return false for UnknownError without IndexedDB message', () => {
+        const error = {
+            name: 'UnknownError',
+            message: 'Something else went wrong'
+        };
+        expect(isIndexedDBBackingStoreError(error)).toBe(false);
+    });
+
+    it('should return false for null', () => {
+        expect(isIndexedDBBackingStoreError(null)).toBe(false);
+    });
+
+    it('should return false for undefined', () => {
+        expect(isIndexedDBBackingStoreError(undefined)).toBe(false);
+    });
+
+    it('should return false for non-object values', () => {
+        expect(isIndexedDBBackingStoreError('error string')).toBe(false);
+        expect(isIndexedDBBackingStoreError(123)).toBe(false);
+        expect(isIndexedDBBackingStoreError(true)).toBe(false);
+    });
+
+    it('should handle error without message property', () => {
+        const error = { name: 'UnknownError' };
+        expect(isIndexedDBBackingStoreError(error)).toBe(false);
+    });
+
+    it('should match the exact error from OnePlus 12 device', () => {
+        // This is the actual error format seen in the problem statement
+        const error = {
+            name: 'UnknownError',
+            message: 'Internal error opening backing store for indexedDB.open.'
+        };
+        expect(isIndexedDBBackingStoreError(error)).toBe(true);
     });
 });

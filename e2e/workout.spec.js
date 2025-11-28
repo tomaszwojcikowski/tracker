@@ -7,6 +7,10 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Workout Flow', () => {
   test.beforeEach(async ({ page }) => {
+    // Skip onboarding by setting localStorage before navigating
+    await page.addInitScript(() => {
+      localStorage.setItem('tracker_onboarding_completed', 'true');
+    });
     await page.goto('/');
     // Wait for app to fully load - the navigation bar appears
     await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });

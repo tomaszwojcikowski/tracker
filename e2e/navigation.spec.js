@@ -7,6 +7,10 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Navigation', () => {
   test.beforeEach(async ({ page }) => {
+    // Skip onboarding by setting localStorage before navigating
+    await page.addInitScript(() => {
+      localStorage.setItem('tracker_onboarding_completed', 'true');
+    });
     await page.goto('/');
     // Wait for app to load - look for the navigation bar with tab buttons
     // The app has a fixed bottom navigation with buttons for Train, Library, History, Settings

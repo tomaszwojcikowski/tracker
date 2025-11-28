@@ -3,3 +3,7 @@ dist
 .DS_Store
 *.log
 *.bak
+
+# Playwright test results and reports
+test-results/
+playwright-report/

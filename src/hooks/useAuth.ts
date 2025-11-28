@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { User } from 'firebase/auth';
 import * as FirebaseService from '../firebase-service';
+import { setOAuthInProgress, clearOAuthInProgress } from '../utils/oauth';
 
 export interface AuthState {
     user: User | null;
@@ -47,9 +48,13 @@ export function useAuth(): UseAuthReturn {
                         setUser(redirectResult.user);
                         // Clear any stale errors from before redirect
                         setError(null);
+                        // Clear OAuth flag after successful authentication
+                        clearOAuthInProgress();
                     }
                 }
             } catch (err) {
+                // Clear OAuth flag on error
+                clearOAuthInProgress();
                 if (mounted) {
                     console.error('Auth initialization error:', err);
                     const message = err instanceof Error ? err.message : 'Authentication check failed';
@@ -86,6 +91,10 @@ export function useAuth(): UseAuthReturn {
         setError(null);
         setLoading(true);
         try {
+            // Set OAuth flag before attempting login
+            // This helps delay service worker registration if we redirect
+            setOAuthInProgress();
+
             // This might trigger a redirect on mobile
             const result = await FirebaseService.handleLogin();
 
@@ -93,12 +102,16 @@ export function useAuth(): UseAuthReturn {
                 // If no result, it means we're redirecting (mobile flow)
                 setIsRedirecting(true);
                 // Loading state stays true until we return
+                // OAuth flag will be cleared after redirect completes in initAuth
             } else {
-                // Popup flow (desktop)
+                // Popup flow (desktop) - clear OAuth flag immediately
+                clearOAuthInProgress();
                 setUser(result.user);
                 setLoading(false);
             }
         } catch (err) {
+            // Clear OAuth flag on error
+            clearOAuthInProgress();
             console.error('Login error:', err);
             const message = err instanceof Error ? err.message : 'Login failed';
             setError(message);

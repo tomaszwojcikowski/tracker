@@ -7,6 +7,7 @@ export * from './schedule';
 export * from './firebaseSync';
 export * from './urlState';
 export * from './automergeSync';
+export * from './oauth';
 // Volume utilities - note: calculateWorkoutVolume also exists in exerciseHistory
 // Import from ./volume directly if you need the volume-specific version
 export {

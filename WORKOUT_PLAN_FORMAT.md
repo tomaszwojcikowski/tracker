@@ -8,6 +8,8 @@ This document defines the robust and complete workout plan format used by the Tr
 
 **Current Version:** 2.0.0
 
+**JSON Schema:** [`workout-plan-v2.schema.json`](workout-plan-v2.schema.json)
+
 ## Design Principles
 
 1. **Completeness**: Capture all relevant training data including metadata, progressions, and constraints
@@ -145,14 +147,14 @@ The exercise specification has been updated to use structured fields instead of 
   "progressionNotes": "Add weight when hitting 3x10",
   "videoUrl": null,
   "cues": [],
-  
+
   "loadMin": 0,
   "loadMax": 0,
   "loadUnit": "bodyweight",
-  
+
   "repsType": "reps",
   "repsValue": 8,
-  
+
   "tempoEccentric": 2,
   "tempoPauseBottom": 0,
   "tempoConcentric": 1,
@@ -472,6 +474,28 @@ The following fields are deprecated but still supported for backward compatibili
 ```
 
 ## Validation Rules
+
+### Schema Validation
+
+Use the JSON Schema file to validate workout plans:
+
+```bash
+# Using ajv-cli
+npx ajv validate -s workout-plan-v2.schema.json -d workout-plan-v2.json
+
+# Using Node.js
+node -e "
+const Ajv = require('ajv');
+const schema = require('./workout-plan-v2.schema.json');
+const data = require('./workout-plan-v2.json');
+const ajv = new Ajv();
+const validate = ajv.compile(schema);
+const valid = validate(data);
+console.log(valid ? '✓ Valid' : '✗ Invalid:', validate.errors);
+"
+```
+
+### Semantic Rules
 
 1. **Week Numbers**: Must be sequential, starting at 1, with no gaps
 2. **Day Numbers**: Must be between 1-7, typically using 1,2,3,5 (4 is rest)

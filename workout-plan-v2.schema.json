@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/tomaszwojcikowski/tracker/workout-plan-v2.schema.json",
-  "title": "Workout Plan v2.0.0",
-  "description": "Schema for the Tracker application workout plan format v2.0.0",
+  "title": "Workout Plan v2.1.0",
+  "description": "Schema for the Tracker application workout plan format v2.1.0 with day references",
   "type": "object",
   "required": ["formatVersion", "plan"],
   "properties": {
@@ -70,11 +70,51 @@
           "items": { "type": "string" },
           "description": "Required equipment list"
         },
+        "dayTemplates": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/dayTemplate" },
+          "description": "Reusable day templates that can be referenced by $ref (v2.1+)"
+        },
         "phases": {
           "type": "array",
           "minItems": 1,
           "items": { "$ref": "#/definitions/phase" },
           "description": "Array of training phases (mesocycles)"
+        }
+      }
+    },
+    "dayTemplate": {
+      "type": "object",
+      "required": ["id", "exercises"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9_-]+$",
+          "description": "Unique identifier for this template (lowercase, alphanumeric, hyphens, underscores)"
+        },
+        "name": {
+          "type": ["string", "null"],
+          "description": "Template name"
+        },
+        "type": {
+          "type": ["string", "null"],
+          "enum": ["strength", "mobility", "cardio", "skill", "recovery", "rest", "test", null],
+          "description": "Session type"
+        },
+        "estimatedDuration": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Estimated duration in minutes"
+        },
+        "description": {
+          "type": ["string", "null"],
+          "description": "Template description"
+        },
+        "exercises": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/exercise" },
+          "description": "Array of exercise specifications"
         }
       }
     },
@@ -155,38 +195,70 @@
     },
     "day": {
       "type": "object",
-      "required": ["dayNumber", "exercises"],
-      "properties": {
-        "dayNumber": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 7,
-          "description": "Day number within the week (1-7)"
+      "required": ["dayNumber"],
+      "oneOf": [
+        {
+          "properties": {
+            "dayNumber": { "$ref": "#/definitions/dayNumber" },
+            "id": { "$ref": "#/definitions/dayId" },
+            "name": { "$ref": "#/definitions/dayName" },
+            "type": { "$ref": "#/definitions/dayType" },
+            "estimatedDuration": { "$ref": "#/definitions/dayEstimatedDuration" },
+            "description": { "$ref": "#/definitions/dayDescription" },
+            "exercises": { "$ref": "#/definitions/dayExercises" }
+          },
+          "required": ["dayNumber", "exercises"],
+          "additionalProperties": false
         },
-        "name": {
-          "type": ["string", "null"],
-          "description": "Descriptive name for the session"
-        },
-        "type": {
-          "type": ["string", "null"],
-          "enum": ["strength", "mobility", "cardio", "skill", "recovery", "rest", "test", null],
-          "description": "Session type"
-        },
-        "estimatedDuration": {
-          "type": ["integer", "null"],
-          "minimum": 0,
-          "description": "Estimated duration in minutes"
-        },
-        "description": {
-          "type": ["string", "null"],
-          "description": "Session description or notes"
-        },
-        "exercises": {
-          "type": "array",
-          "items": { "$ref": "#/definitions/exercise" },
-          "description": "Array of exercise specifications"
+        {
+          "properties": {
+            "dayNumber": { "$ref": "#/definitions/dayNumber" },
+            "$ref": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Reference to a day template or previously defined day by ID"
+            },
+            "name": { "$ref": "#/definitions/dayName" },
+            "description": { "$ref": "#/definitions/dayDescription" }
+          },
+          "required": ["dayNumber", "$ref"],
+          "additionalProperties": false
         }
-      }
+      ]
+    },
+    "dayNumber": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 7,
+      "description": "Day number within the week (1-7)"
+    },
+    "dayId": {
+      "type": ["string", "null"],
+      "pattern": "^[a-z0-9_-]+$",
+      "description": "Unique identifier for referencing this day (v2.1+)"
+    },
+    "dayName": {
+      "type": ["string", "null"],
+      "description": "Descriptive name for the session"
+    },
+    "dayType": {
+      "type": ["string", "null"],
+      "enum": ["strength", "mobility", "cardio", "skill", "recovery", "rest", "test", null],
+      "description": "Session type"
+    },
+    "dayEstimatedDuration": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "description": "Estimated duration in minutes"
+    },
+    "dayDescription": {
+      "type": ["string", "null"],
+      "description": "Session description or notes"
+    },
+    "dayExercises": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/exercise" },
+      "description": "Array of exercise specifications"
     },
     "exercise": {
       "type": "object",

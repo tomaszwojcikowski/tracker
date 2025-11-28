@@ -174,8 +174,225 @@ describe('Workout Plan Utilities', () => {
     });
 
     it('should throw error for invalid v2 format', () => {
-      expect(() => convertV2ToInternal({})).toThrow('Invalid v2.0.0 workout plan format');
+      expect(() => convertV2ToInternal({})).toThrow('Invalid v2.0.0/v2.1.0 workout plan format');
       expect(() => convertV2ToInternal({ formatVersion: '2.0.0' })).toThrow();
+    });
+
+    it('should resolve day references from dayTemplates in v2.1.0', () => {
+      // v2.1.0 data with day templates and references
+      const v21Data = {
+        formatVersion: '2.1.0',
+        plan: {
+          id: 'test-v21-plan',
+          name: 'Test v2.1 Plan',
+          description: 'Testing v2.1 format',
+          author: 'Test Author',
+          durationWeeks: 2,
+          goals: ['strength'],
+          targetLevel: 'beginner',
+          equipment: ['bar'],
+          dayTemplates: [
+            {
+              id: 'mobility-template',
+              dayNumber: 2,
+              name: 'Mobility Day',
+              type: 'mobility',
+              estimatedDuration: 30,
+              description: null,
+              exercises: [
+                {
+                  order: 1,
+                  exerciseName: 'Foam Rolling',
+                  exerciseId: null,
+                  category: 'mobility',
+                  sets: 1,
+                  reps: '10 min',
+                  tempo: null,
+                  restSeconds: null,
+                  rpe: null,
+                  load: null,
+                  notes: 'mobility template exercise',
+                  alternatives: [],
+                  progressionNotes: null,
+                  videoUrl: null,
+                  cues: []
+                }
+              ]
+            }
+          ],
+          phases: [
+            {
+              phaseNumber: 1,
+              name: 'Test Phase',
+              description: 'Testing phase',
+              startWeek: 1,
+              endWeek: 2,
+              focus: 'volume',
+              weeks: [
+                {
+                  weekNumber: 1,
+                  description: null,
+                  focus: null,
+                  volumeLevel: 'moderate',
+                  intensityLevel: 'low',
+                  days: [
+                    {
+                      dayNumber: 1,
+                      name: 'Push Day',
+                      type: 'strength',
+                      estimatedDuration: 60,
+                      description: null,
+                      exercises: [
+                        {
+                          order: 1,
+                          exerciseName: 'Bench Press',
+                          exerciseId: 'bench_press',
+                          category: 'main',
+                          sets: 3,
+                          reps: '8',
+                          tempo: null,
+                          restSeconds: 120,
+                          rpe: 8,
+                          load: '60kg',
+                          notes: 'Week 1 strength',
+                          alternatives: [],
+                          progressionNotes: null,
+                          videoUrl: null,
+                          cues: []
+                        }
+                      ]
+                    },
+                    {
+                      $ref: 'mobility-template',
+                      dayNumber: 2
+                    }
+                  ]
+                },
+                {
+                  weekNumber: 2,
+                  description: null,
+                  focus: null,
+                  volumeLevel: 'moderate',
+                  intensityLevel: 'low',
+                  days: [
+                    {
+                      dayNumber: 1,
+                      name: 'Push Day',
+                      type: 'strength',
+                      estimatedDuration: 60,
+                      description: null,
+                      exercises: [
+                        {
+                          order: 1,
+                          exerciseName: 'Bench Press',
+                          exerciseId: 'bench_press',
+                          category: 'main',
+                          sets: 3,
+                          reps: '8',
+                          tempo: null,
+                          restSeconds: 120,
+                          rpe: 8,
+                          load: '65kg',
+                          notes: 'Week 2 strength',
+                          alternatives: [],
+                          progressionNotes: null,
+                          videoUrl: null,
+                          cues: []
+                        }
+                      ]
+                    },
+                    {
+                      $ref: 'mobility-template',
+                      dayNumber: 2
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      const result = convertV2ToInternal(v21Data);
+
+      // Should have 4 exercises: 2 strength (w1d1, w2d1) + 2 mobility (w1d2, w2d2)
+      expect(result.length).toBe(4);
+
+      // Check week 1 day 1 (inline exercise)
+      expect(result[0]).toMatchObject({
+        w: 1,
+        d: 1,
+        ex: 'Bench Press',
+        n: 'Week 1 strength'
+      });
+
+      // Check week 1 day 2 (from template)
+      expect(result[1]).toMatchObject({
+        w: 1,
+        d: 2,
+        ex: 'Foam Rolling',
+        n: 'mobility template exercise'
+      });
+
+      // Check week 2 day 1 (inline exercise)
+      expect(result[2]).toMatchObject({
+        w: 2,
+        d: 1,
+        ex: 'Bench Press',
+        n: 'Week 2 strength'
+      });
+
+      // Check week 2 day 2 (from template)
+      expect(result[3]).toMatchObject({
+        w: 2,
+        d: 2,
+        ex: 'Foam Rolling',
+        n: 'mobility template exercise'
+      });
+    });
+
+    it('should throw error for missing day template reference', () => {
+      const v21DataWithBadRef = {
+        formatVersion: '2.1.0',
+        plan: {
+          id: 'bad-ref-plan',
+          name: 'Bad Ref Plan',
+          description: null,
+          author: null,
+          durationWeeks: 1,
+          goals: [],
+          targetLevel: 'beginner',
+          equipment: [],
+          dayTemplates: [],
+          phases: [
+            {
+              phaseNumber: 1,
+              name: 'Test',
+              description: null,
+              startWeek: 1,
+              endWeek: 1,
+              focus: 'volume',
+              weeks: [
+                {
+                  weekNumber: 1,
+                  description: null,
+                  focus: null,
+                  volumeLevel: 'low',
+                  intensityLevel: 'low',
+                  days: [
+                    {
+                      $ref: 'non-existent-template',
+                      dayNumber: 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      expect(() => convertV2ToInternal(v21DataWithBadRef)).toThrow('Day template "non-existent-template" not found');
     });
   });
 

@@ -6,9 +6,53 @@ This document defines the robust and complete workout plan format used by the Tr
 
 ## Version
 
-**Current Version:** 2.0.0
+**Current Version:** 2.1.0
 
 **JSON Schema:** [`workout-plan-v2.schema.json`](workout-plan-v2.schema.json)
+
+## What's New in v2.1.0
+
+Version 2.1.0 introduces **day references** to reduce file size and improve maintainability:
+
+1. **Day IDs**: Days can now have an optional `id` field for identification
+2. **Day References**: Days can reference other days using `$ref` field
+3. **Day Templates**: Optional `dayTemplates` array at plan level for reusable day definitions
+4. **~41% smaller files**: Repeated days (like mobility days) only need to be defined once
+
+### Quick Example
+
+```json
+{
+  "formatVersion": "2.1.0",
+  "plan": {
+    "dayTemplates": [
+      {
+        "id": "mobility-day",
+        "name": "Mobility & Recovery",
+        "type": "mobility",
+        "exercises": [...]
+      }
+    ],
+    "phases": [{
+      "weeks": [{
+        "weekNumber": 1,
+        "days": [
+          { "dayNumber": 1, "id": "w1d1-pull", "name": "Pull Day A", "exercises": [...] },
+          { "dayNumber": 2, "$ref": "mobility-day" },
+          { "dayNumber": 3, "id": "w1d3-lower", "name": "Lower Body", "exercises": [...] }
+        ]
+      }, {
+        "weekNumber": 2,
+        "days": [
+          { "dayNumber": 1, "$ref": "w1d1-pull" },
+          { "dayNumber": 2, "$ref": "mobility-day" },
+          { "dayNumber": 3, "$ref": "w1d3-lower" }
+        ]
+      }]
+    }]
+  }
+}
+```
 
 ## Design Principles
 
@@ -18,6 +62,7 @@ This document defines the robust and complete workout plan format used by the Tr
 4. **Extensibility**: Allow for future additions without breaking existing data
 5. **Type Safety**: Clear field types and constraints
 6. **Structured Data**: Use explicit fields instead of parsing strings
+7. **DRY (Don't Repeat Yourself)**: Use references for duplicate content (v2.1+)
 
 ## Format Structure
 
@@ -25,7 +70,7 @@ This document defines the robust and complete workout plan format used by the Tr
 
 ```json
 {
-  "formatVersion": "2.0.0",
+  "formatVersion": "2.1.0",
   "plan": {
     "id": "string",
     "name": "string",
@@ -38,6 +83,64 @@ This document defines the robust and complete workout plan format used by the Tr
     "goals": ["string"],
     "targetLevel": "beginner|intermediate|advanced|elite",
     "equipment": ["string"],
+    "dayTemplates": [],
+    "phases": []
+  }
+}
+```
+
+### Plan Metadata Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `formatVersion` | string | Yes | Format specification version (must be "2.1.x") |
+| `plan.id` | string | Yes | Unique identifier for the plan |
+| `plan.name` | string | Yes | Human-readable plan name |
+| `plan.description` | string | No | Detailed description of the training plan |
+| `plan.author` | string | No | Creator of the plan |
+| `plan.createdDate` | string | No | ISO 8601 date when plan was created |
+| `plan.lastModified` | string | No | ISO 8601 date of last modification |
+| `plan.version` | string | No | Plan version (independent of format version) |
+| `plan.durationWeeks` | number | Yes | Total duration in weeks |
+| `plan.goals` | array | No | Training goals (e.g., "muscle-up", "weighted-pull-ups") |
+| `plan.targetLevel` | string | No | Intended experience level |
+| `plan.equipment` | array | No | Required equipment list |
+| `plan.dayTemplates` | array | No | Reusable day templates (v2.1+) |
+| `plan.phases` | array | Yes | Array of training phases (mesocycles) |
+
+### Day Templates (v2.1+)
+
+Day templates allow you to define reusable day structures at the plan level. They follow the same structure as regular days but are defined once and referenced multiple times.
+
+```json
+{
+  "dayTemplates": [
+    {
+      "id": "mobility-standard",
+      "name": "Mobility & Recovery",
+      "type": "mobility",
+      "estimatedDuration": 25,
+      "exercises": [...]
+    },
+    {
+      "id": "deload-pull",
+      "name": "Deload Pull Day",
+      "type": "strength",
+      "estimatedDuration": 30,
+      "exercises": [...]
+    }
+  ]
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | Unique identifier for referencing this template |
+| `name` | string | No | Template name (can be overridden by referencing day) |
+| `type` | string | No | Session type |
+| `estimatedDuration` | number | No | Duration in minutes |
+| `description` | string | No | Template description |
+| `exercises` | array | Yes | Array of exercises |
     "phases": []
   }
 }
@@ -109,9 +212,14 @@ This document defines the robust and complete workout plan format used by the Tr
 
 ### Day Structure (Training Session)
 
+A day can be defined inline with full content, or reference another day/template.
+
+#### Inline Day Definition
+
 ```json
 {
   "dayNumber": 1,
+  "id": "w1d1-pull",
   "name": "Pull Day A",
   "type": "strength",
   "estimatedDuration": 60,
@@ -123,11 +231,36 @@ This document defines the robust and complete workout plan format used by the Tr
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `dayNumber` | number | Yes | Day number within the week (1-7) |
+| `id` | string | No | Unique identifier for referencing (v2.1+) |
 | `name` | string | No | Descriptive name for the session |
 | `type` | string | No | Session type (strength, mobility, cardio, skill, recovery, rest, test) |
 | `estimatedDuration` | number | No | Estimated duration in minutes |
 | `description` | string | No | Session description or notes |
-| `exercises` | array | Yes | Array of exercise specifications |
+| `exercises` | array | Yes* | Array of exercise specifications (*required unless using `$ref`) |
+
+#### Day Reference (v2.1+)
+
+Instead of duplicating day content, reference another day or template:
+
+```json
+{
+  "dayNumber": 2,
+  "$ref": "mobility-standard"
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `dayNumber` | number | Yes | Day number within the week (1-7) |
+| `$ref` | string | Yes | ID of the day or template to reference |
+| `name` | string | No | Override the referenced day's name |
+| `description` | string | No | Override the referenced day's description |
+
+**Reference Resolution Rules:**
+1. First, look for matching `id` in `dayTemplates`
+2. Then, look for matching `id` in any previously defined day within `phases`
+3. Override fields (`name`, `description`) are merged on top of referenced content
+4. `dayNumber` always comes from the referencing day, not the referenced
 
 ### Exercise Specification
 

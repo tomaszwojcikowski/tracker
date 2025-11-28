@@ -32,15 +32,15 @@ export interface LoadRange {
  */
 export function parseLoadRange(load: string | null | undefined): LoadRange | null {
   if (!load) return null;
-  
+
   const raw = load.trim();
   const lower = raw.toLowerCase();
-  
+
   // Handle bodyweight
   if (lower === 'bodyweight') {
     return { min: 0, max: 0, unit: 'bodyweight', raw };
   }
-  
+
   // Handle bands
   if (lower.includes('band')) {
     // Map band resistance to approximate values
@@ -50,7 +50,7 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
     if (lower.includes('heavy')) resistance = 3;
     return { min: resistance, max: resistance, unit: 'band', raw };
   }
-  
+
   // Handle percentage
   if (lower.includes('%')) {
     const match = raw.match(/(\d+)/);
@@ -59,14 +59,14 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
       return { min: value, max: value, unit: 'percent', raw };
     }
   }
-  
+
   // Handle per-hand notation
   const perHand = lower.includes('per hand');
-  
+
   // Handle kg ranges: "5-10kg", "10kg", "+2kg", "~85kg"
   // Remove non-numeric prefix characters like + or ~
   const cleaned = raw.replace(/per hand/gi, '').replace(/kg/gi, '').trim();
-  
+
   // Check for range (contains hyphen between numbers)
   const rangeMatch = cleaned.match(/^[+~]?(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)$/);
   if (rangeMatch) {
@@ -78,7 +78,7 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
       perHand,
     };
   }
-  
+
   // Check for single value
   const singleMatch = cleaned.match(/^[+~]?(\d+(?:\.\d+)?)$/);
   if (singleMatch) {
@@ -91,14 +91,14 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
       perHand,
     };
   }
-  
+
   return null;
 }
 
 /**
  * Format version string
  */
-export type FormatVersion = '2.0.0';
+export type FormatVersion = '2.0.0' | '2.1.0';
 
 /**
  * Structured reps data for internal use
@@ -187,7 +187,7 @@ export interface V2Exercise {
   category?: string;
   rest?: number;
   rpe?: number;
-  
+
   // ---- Legacy fields (deprecated, for backward compatibility) ----
   /** @deprecated Use repsType/repsValue/repsMin/repsMax instead */
   reps?: string;
@@ -195,7 +195,7 @@ export interface V2Exercise {
   load?: string | null;
   /** @deprecated Use tempoEccentric/tempoPauseBottom/tempoConcentric/tempoPauseTop instead */
   tempo?: string;
-  
+
   // ---- Structured load fields ----
   /** Minimum weight value for weight ranges */
   loadMin?: number;
@@ -205,7 +205,7 @@ export interface V2Exercise {
   loadUnit?: LoadUnit;
   /** Whether the load is per hand (for dumbbell exercises) */
   loadPerHand?: boolean;
-  
+
   // ---- Structured reps fields ----
   /** Type of rep scheme */
   repsType?: RepsType;
@@ -221,7 +221,7 @@ export interface V2Exercise {
   repsPerSide?: boolean;
   /** Modifier for AMRAP (e.g., -1, -20%) */
   repsModifier?: number;
-  
+
   // ---- Structured tempo fields ----
   /** Eccentric (lowering) phase duration in seconds */
   tempoEccentric?: number;
@@ -238,8 +238,28 @@ export interface V2Exercise {
  */
 export interface V2Day {
   dayNumber: number;
+  /** Unique ID for referencing this day (v2.1+) */
+  id?: string;
   name?: string;
+  type?: string;
+  estimatedDuration?: number;
   focus?: string;
+  description?: string | null;
+  /** Reference to another day or template (v2.1+) */
+  $ref?: string;
+  exercises?: V2Exercise[];
+}
+
+/**
+ * V2.1.0 day template definition
+ */
+export interface V2DayTemplate {
+  /** Unique ID for this template */
+  id: string;
+  name?: string;
+  type?: string;
+  estimatedDuration?: number;
+  description?: string | null;
   exercises: V2Exercise[];
 }
 
@@ -276,19 +296,21 @@ export interface V2Plan {
   goals?: string[];
   targetLevel?: string;
   equipment?: string[];
+  /** Day templates for v2.1+ format */
+  dayTemplates?: V2DayTemplate[];
   phases: V2Phase[];
 }
 
 /**
- * V2.0.0 format root structure
+ * V2.0.0/V2.1.0 format root structure
  */
 export interface V2WorkoutPlan {
-  formatVersion: '2.0.0';
+  formatVersion: '2.0.0' | '2.1.0';
   plan: V2Plan;
 }
 
 /**
- * Supported workout plan format (v2.0.0 only)
+ * Supported workout plan format (v2.0.0 and v2.1.0)
  */
 export type WorkoutPlanData = V2WorkoutPlan;
 
@@ -351,13 +373,14 @@ export interface PlanSummary {
 // ============================================================================
 
 /**
- * Validate v2.0.0 format
+ * Validate v2.0.0 or v2.1.0 format
  */
 function validateV2Format(data: unknown): data is V2WorkoutPlan {
   if (!data || typeof data !== 'object') return false;
 
   const obj = data as Record<string, unknown>;
-  if (!obj.formatVersion || obj.formatVersion !== '2.0.0' || !obj.plan) return false;
+  // Support both 2.0.0 and 2.1.0
+  if (!obj.formatVersion || (obj.formatVersion !== '2.0.0' && obj.formatVersion !== '2.1.0') || !obj.plan) return false;
 
   const plan = obj.plan as Record<string, unknown>;
   return (
@@ -373,18 +396,62 @@ function validateV2Format(data: unknown): data is V2WorkoutPlan {
 // ============================================================================
 
 /**
- * Convert v2.0.0 structured format to internal schedule format
+ * Resolve a day reference to get the actual exercises
+ * @param day - The day that may contain a $ref
+ * @param dayTemplates - Array of day templates from the plan
+ * @param dayRegistry - Registry of previously defined days by ID
+ * @returns The resolved exercises array, or null if not resolvable
+ */
+function resolveDayReference(
+  day: V2Day,
+  dayTemplates: V2DayTemplate[] | undefined,
+  dayRegistry: Map<string, V2Exercise[]>
+): V2Exercise[] | null {
+  // If day has exercises directly, return them
+  if (day.exercises && day.exercises.length > 0) {
+    return day.exercises;
+  }
+
+  // If day has a $ref, resolve it
+  if (day.$ref) {
+    // First, check day templates
+    if (dayTemplates) {
+      const template = dayTemplates.find(t => t.id === day.$ref);
+      if (template) {
+        return template.exercises;
+      }
+    }
+
+    // Then, check previously defined days
+    const resolvedExercises = dayRegistry.get(day.$ref);
+    if (resolvedExercises) {
+      return resolvedExercises;
+    }
+
+    throw new Error(`Day template "${day.$ref}" not found`);
+  }
+
+  // Day has neither exercises nor $ref
+  return day.exercises ?? null;
+}
+
+/**
+ * Convert v2.0.0/v2.1.0 structured format to internal schedule format
  * (Compatible with existing buildCompleteSchedule function)
- * @param v2Data - v2.0.0 format data
+ * @param v2Data - v2.0.0 or v2.1.0 format data
  * @returns Internal schedule format (flat array for compatibility)
  * @throws Error if format is invalid
  */
 export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
   if (!validateV2Format(v2Data)) {
-    throw new Error('Invalid v2.0.0 workout plan format');
+    throw new Error('Invalid v2.0.0/v2.1.0 workout plan format');
   }
 
   const internalFormat: ScheduleEntry[] = [];
+
+  // Registry for day IDs to their exercises (for v2.1 references)
+  const dayRegistry = new Map<string, V2Exercise[]>();
+  const dayTemplates = v2Data.plan.dayTemplates;
 
   // Flatten the structured format back to flat array for internal use
   // The 'n' field combines notes and category
@@ -392,10 +459,23 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
   v2Data.plan.phases.forEach((phase) => {
     phase.weeks.forEach((week) => {
       week.days.forEach((day) => {
-        day.exercises.forEach((exercise) => {
+        // Resolve day references (v2.1 feature)
+        const exercises = resolveDayReference(day, dayTemplates, dayRegistry);
+
+        // Register this day's exercises if it has an ID (for future references)
+        if (day.id && exercises) {
+          dayRegistry.set(day.id, exercises);
+        }
+
+        // Skip days with no exercises (empty or unresolvable reference)
+        if (!exercises || exercises.length === 0) {
+          return;
+        }
+
+        exercises.forEach((exercise) => {
           // Use new structured load fields if available, fall back to parsing old load field
           let loadRange: LoadRange | null = null;
-          
+
           if (exercise.loadMin !== undefined && exercise.loadMax !== undefined && exercise.loadUnit) {
             // New format: use structured fields directly
             // Generate a human-readable raw string based on unit type
@@ -409,14 +489,14 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
               rawStr = `${exercise.loadMin}%`;
             } else {
               // kg unit
-              rawStr = exercise.loadMin === exercise.loadMax 
+              rawStr = exercise.loadMin === exercise.loadMax
                 ? `${exercise.loadMin}kg`
                 : `${exercise.loadMin}-${exercise.loadMax}kg`;
               if (exercise.loadPerHand) {
                 rawStr += ' per hand';
               }
             }
-            
+
             loadRange = {
               min: exercise.loadMin,
               max: exercise.loadMax,
@@ -428,11 +508,11 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             // Legacy format: parse load string (backward compatibility)
             loadRange = parseLoadRange(exercise.load);
           }
-          
+
           // Use new structured reps fields if available, fall back to parsing old reps string
           let repsRange: RepsRange | null = null;
           let repsStr = '';
-          
+
           if (exercise.repsType) {
             // New format: use structured reps fields directly
             repsRange = {
@@ -451,10 +531,10 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             repsStr = exercise.reps;
             repsRange = parseRepsRange(exercise.reps);
           }
-          
+
           // Use new structured tempo fields if available
           let tempoRange: TempoRange | undefined;
-          
+
           if (exercise.tempoEccentric !== undefined) {
             tempoRange = {
               eccentric: exercise.tempoEccentric,
@@ -467,7 +547,7 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             // Legacy format: parse tempo string
             tempoRange = parseTempoRange(exercise.tempo) || undefined;
           }
-          
+
           internalFormat.push({
             w: week.weekNumber,
             d: day.dayNumber,
@@ -500,7 +580,7 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
  */
 function buildRepsString(exercise: V2Exercise): string {
   const { repsType, repsValue, repsMin, repsMax, repsPerSide, repsModifier } = exercise;
-  
+
   switch (repsType) {
     case 'reps':
       if (repsMin !== undefined && repsMax !== undefined) {
@@ -510,7 +590,7 @@ function buildRepsString(exercise: V2Exercise): string {
         return repsPerSide ? `${repsValue}/side` : `${repsValue} reps`;
       }
       return '';
-      
+
     case 'time':
       if (repsMin !== undefined && repsMax !== undefined) {
         return `${repsMin}-${repsMax}s`;
@@ -524,13 +604,13 @@ function buildRepsString(exercise: V2Exercise): string {
         return repsPerSide ? `${seconds}s/side` : `${seconds}s`;
       }
       return '';
-      
+
     case 'ladder':
       if (Array.isArray(repsValue)) {
         return `(${repsValue.join('-')}) reps`;
       }
       return '';
-      
+
     case 'amrap':
       if (repsModifier !== undefined) {
         // Modifiers >= 10 are percentages, < 10 are reps in reserve
@@ -538,22 +618,22 @@ function buildRepsString(exercise: V2Exercise): string {
         return `AMRAP - ${repsModifier}${isPercentage ? '%' : ''}`;
       }
       return 'AMRAP Max';
-      
+
     case 'rm':
       return repsValue !== null && repsValue !== undefined ? `${repsValue}RM` : '';
-      
+
     case 'max':
       return 'Max';
-      
+
     case 'effort':
       return repsValue !== null && repsValue !== undefined ? `${repsValue}% Effort` : '';
-      
+
     case 'submax':
       return 'Sub-max';
-      
+
     case 'none':
       return 'n/a';
-      
+
     default:
       return '';
   }
@@ -564,10 +644,10 @@ function buildRepsString(exercise: V2Exercise): string {
  */
 function parseRepsRange(reps: string): RepsRange | null {
   if (!reps) return null;
-  
+
   const raw = reps.trim();
   const lower = raw.toLowerCase();
-  
+
   // Ladder reps
   const ladderMatch = raw.match(/^\((\d+(?:-\d+)+)\)\s*reps?$/i);
   if (ladderMatch) {
@@ -577,7 +657,7 @@ function parseRepsRange(reps: string): RepsRange | null {
       raw,
     };
   }
-  
+
   // AMRAP
   const amrapMatch = raw.match(/^AMRAP\s*(?:-\s*)?(\d+%?|Max)?$/i);
   if (amrapMatch) {
@@ -587,34 +667,34 @@ function parseRepsRange(reps: string): RepsRange | null {
     }
     return { type: 'amrap', value: null, raw };
   }
-  
+
   // RM tests
   const rmMatch = raw.match(/^(\d+)RM$/i);
   if (rmMatch) {
     return { type: 'rm', value: parseInt(rmMatch[1], 10), raw };
   }
-  
+
   // Max
   if (lower === 'max' || lower === 'pr attempt') {
     return { type: 'max', value: null, raw };
   }
-  
+
   // Sub-max
   if (lower === 'sub-max') {
     return { type: 'submax', value: null, raw };
   }
-  
+
   // N/A
   if (lower === 'n/a') {
     return { type: 'none', value: null, raw };
   }
-  
+
   // Effort
   const effortMatch = raw.match(/^(\d+)%\s*Effort$/i);
   if (effortMatch) {
     return { type: 'effort', value: parseInt(effortMatch[1], 10), raw };
   }
-  
+
   // Time-based
   const perSideTime = lower.includes('/side');
   const timeMatch = raw.match(/^(\d+(?:\.\d+)?)\s*(s|sec|min|m)(?:\/side)?$/i);
@@ -624,7 +704,7 @@ function parseRepsRange(reps: string): RepsRange | null {
     const seconds = (unit === 'min' || unit === 'm') ? value * 60 : value;
     return { type: 'time', value: seconds, unit: 'seconds', perSide: perSideTime ? true : undefined, raw };
   }
-  
+
   // Time range
   const timeRangeMatch = raw.match(/^(\d+)\s*-\s*(\d+)\s*(s|sec)$/i);
   if (timeRangeMatch) {
@@ -636,7 +716,7 @@ function parseRepsRange(reps: string): RepsRange | null {
       raw,
     };
   }
-  
+
   // Rep range
   const rangeMatch = raw.match(/^(\d+)\s*-\s*(\d+)\s*reps?$/i);
   if (rangeMatch) {
@@ -647,25 +727,25 @@ function parseRepsRange(reps: string): RepsRange | null {
       raw,
     };
   }
-  
+
   // Fixed reps with per-side
   const perSideMatch = raw.match(/^(\d+)\s*(?:reps?)?\s*\/\s*side$/i);
   if (perSideMatch) {
     return { type: 'reps', value: parseInt(perSideMatch[1], 10), perSide: true, raw };
   }
-  
+
   // Fixed reps
   const fixedMatch = raw.match(/^(\d+)\s*reps?$/i);
   if (fixedMatch) {
     return { type: 'reps', value: parseInt(fixedMatch[1], 10), raw };
   }
-  
+
   // Plain number (just digits)
   const plainNumberMatch = raw.match(/^(\d+)$/);
   if (plainNumberMatch) {
     return { type: 'reps', value: parseInt(plainNumberMatch[1], 10), raw };
   }
-  
+
   return null;
 }
 
@@ -674,7 +754,7 @@ function parseRepsRange(reps: string): RepsRange | null {
  */
 function parseTempoRange(tempo: string): TempoRange | null {
   if (!tempo) return null;
-  
+
   const match = tempo.match(/^(\d+)-(\d+)-(\d+)-(\d+)$/);
   if (match) {
     return {
@@ -685,7 +765,7 @@ function parseTempoRange(tempo: string): TempoRange | null {
       raw: tempo,
     };
   }
-  
+
   return null;
 }
 
@@ -706,7 +786,7 @@ export function loadWorkoutPlan(data: unknown): LoadedWorkoutPlan {
 
   const v2Data = data as V2WorkoutPlan;
   const schedule = convertV2ToInternal(v2Data);
-  
+
   // Extract metadata from v2.0.0 format
   const metadata: WorkoutPlanMetadata = {
     version: '2.0.0',
@@ -781,7 +861,7 @@ export function getExercisesWithDetails(
   const day = week.days.find((d) => d.dayNumber === dayNumber);
   if (!day) return null;
 
-  return day.exercises;
+  return day.exercises ?? null;
 }
 
 /**

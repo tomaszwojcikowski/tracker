@@ -10,7 +10,34 @@ import { PlayCircle, Check, Play, ChevronRight, ChevronLeft } from 'lucide-react
 import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, hasWorkoutData, type InProgressWorkout } from '../../utils/storage';
 import { formatRelativeTime } from '../../utils/time';
 import { SwipeIndicator } from '../SwipeIndicator';
-import { getBlockForWeek } from '../../data/programData';
+import { getBlockForWeek, getWorkoutForDay } from '../../data/programData';
+
+/** Maximum number of exercises to show in the summary */
+const MAX_EXERCISES_IN_SUMMARY = 3;
+
+/**
+ * Get a summary of main exercises for a day (excluding warmup)
+ */
+function getExerciseSummary(week: number, day: number): string {
+  const workout = getWorkoutForDay(week, day);
+  
+  if (!workout.sections || workout.sections.length === 0) {
+    return 'Rest day';
+  }
+  
+  // Get exercises from main sections (skip warmup/prep sections)
+  const mainExercises = workout.sections
+    .filter((section) => section.type === 'main' || section.type === 'skill')
+    .flatMap((section) => section.exercises ?? [])
+    .map((ex) => ex.name)
+    .slice(0, MAX_EXERCISES_IN_SUMMARY);
+  
+  if (mainExercises.length === 0) {
+    return 'Rest day';
+  }
+  
+  return mainExercises.join(', ');
+}
 
 export interface DashboardProps {
   currentWeek: number;
@@ -212,7 +239,7 @@ export function Dashboard({
                       ? `${dayProgress.completedSets}/${dayProgress.totalSets} sets • ${dayProgress.progress}%`
                       : hasPreviousData
                       ? 'Has previous data'
-                      : 'Tap to start'}
+                      : getExerciseSummary(currentWeek, day)}
                   </span>
                 </div>
 

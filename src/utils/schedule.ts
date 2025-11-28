@@ -64,15 +64,6 @@ export interface Workout {
     sections: WorkoutSection[];
 }
 
-/**
- * Training block definition
- */
-export interface TrainingBlock {
-    id: number;
-    name: string;
-    weeks: WeekNumber[];
-}
-
 // ============================================================================
 // SCHEDULE DATA
 // ============================================================================
@@ -194,11 +185,3 @@ export function getWorkout(week: WeekNumber, day: TrainingDay): Workout | null {
         sections: finalSections,
     };
 }
-
-// ============================================================================
-// PROGRAM DATA
-// ============================================================================
-
-// Re-export getBlockForWeek from programData to avoid duplication.
-// The canonical implementation is in src/data/programData.ts.
-export { getBlockForWeek } from '../data/programData';

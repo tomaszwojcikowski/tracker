@@ -252,7 +252,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [emomSeconds, setEmomSeconds] = useState(0);
     const [emomActive, setEmomActive] = useState(false);
     const [emomInterval, setEmomInterval] = useState(() => safeGetJSON<number>('emom_interval', 60) ?? 60);
-    const [collapsedExercises, setCollapsedExercises] = useState<Record<string, boolean>>({});
+    // Track manual user overrides for exercise collapse state (true = user wants expanded, false = user wants collapsed)
+    const [manualCollapseOverrides, setManualCollapseOverrides] = useState<Record<string, boolean>>({});
     const [showTimerToast, setShowTimerToast] = useState(false);
     const [addedExercises, setAddedExercises] = useState<AddedExercise[]>([]);
     const [showExerciseSelector, setShowExerciseSelector] = useState(false);
@@ -438,7 +439,20 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     };
 
     const toggleExerciseCollapse = (exId: string): void => {
-        setCollapsedExercises((prev) => ({ ...prev, [exId]: !prev[exId] }));
+        setManualCollapseOverrides((prev) => {
+            const currentOverride = prev[exId];
+            // Toggle between: no override -> expanded -> collapsed -> no override
+            // If user has never touched it, clicking sets it to opposite of auto state
+            // If user has set it, clicking toggles the override
+            if (currentOverride === undefined) {
+                // First click: set explicit opposite of auto behavior
+                // (auto behavior is expanded if first incomplete, collapsed otherwise)
+                // We'll just toggle to the opposite
+                return { ...prev, [exId]: true };
+            }
+            // Toggle existing override
+            return { ...prev, [exId]: !currentOverride };
+        });
     };
 
     // ============================================================================
@@ -633,6 +647,37 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     // COMPUTED VALUES
     // ============================================================================
 
+    // Find the first incomplete exercise (the one that should be auto-expanded)
+    const firstIncompleteExerciseId = useMemo(() => {
+        for (const section of workout.sections) {
+            for (const ex of section.exercises) {
+                const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                const defaultSets = ex.sets || 3;
+                const sets = getExerciseLogEntry(logs, exId).sets || new Array(defaultSets).fill(false);
+                const completedSets = sets.filter((s) => s).length;
+                const totalSets = sets.length;
+                if (completedSets < totalSets) {
+                    return exId;
+                }
+            }
+        }
+        // All exercises complete, return null
+        return null;
+    }, [workout.sections, logs]);
+
+    // Compute effective collapsed state for an exercise
+    const isExerciseCollapsed = (exId: string): boolean => {
+        // Check if user has manually overridden the collapse state
+        const manualOverride = manualCollapseOverrides[exId];
+        if (manualOverride !== undefined) {
+            // User override: true = user wants expanded, false = user wants collapsed
+            return !manualOverride;
+        }
+        
+        // Auto behavior: only the first incomplete exercise is expanded
+        return exId !== firstIncompleteExerciseId;
+    };
+
     // @ts-expect-error - Reserved for future use
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const _hasIncompleteExercises = workout.sections.some((section: WorkoutSection) =>
@@ -759,7 +804,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                     const completedSets = currentSetArray.filter((s) => s).length;
                                     const totalSets = currentSetArray.length;
                                     const hasHistory = getExerciseHistory(ex.name).length > 0;
-                                    const isCollapsed = collapsedExercises[exId];
+                                    const isCollapsed = isExerciseCollapsed(exId);
 
                                     return (
                                         <div key={eIdx} id={exId} className="relative scroll-mt-20">

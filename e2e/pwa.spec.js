@@ -6,6 +6,13 @@ import { test, expect } from '@playwright/test';
  */
 
 test.describe('PWA Features', () => {
+  test.beforeEach(async ({ page }) => {
+    // Skip onboarding by setting localStorage before navigating
+    await page.addInitScript(() => {
+      localStorage.setItem('tracker_onboarding_completed', 'true');
+    });
+  });
+
   test('should have a valid manifest', async ({ page }) => {
     await page.goto('/');
     await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });

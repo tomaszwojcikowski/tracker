@@ -396,13 +396,30 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
           
           if (exercise.loadMin !== undefined && exercise.loadMax !== undefined && exercise.loadUnit) {
             // New format: use structured fields directly
+            // Generate a human-readable raw string based on unit type
+            let rawStr: string;
+            if (exercise.loadUnit === 'bodyweight') {
+              rawStr = 'bodyweight';
+            } else if (exercise.loadUnit === 'band') {
+              const bandLevel = exercise.loadMin === 1 ? 'light' : exercise.loadMin === 2 ? 'medium' : 'heavy';
+              rawStr = `${bandLevel} band`;
+            } else if (exercise.loadUnit === 'percent') {
+              rawStr = `${exercise.loadMin}%`;
+            } else {
+              // kg unit
+              rawStr = exercise.loadMin === exercise.loadMax 
+                ? `${exercise.loadMin}kg`
+                : `${exercise.loadMin}-${exercise.loadMax}kg`;
+              if (exercise.loadPerHand) {
+                rawStr += ' per hand';
+              }
+            }
+            
             loadRange = {
               min: exercise.loadMin,
               max: exercise.loadMax,
               unit: exercise.loadUnit,
-              raw: exercise.loadMin === exercise.loadMax 
-                ? `${exercise.loadMin}${exercise.loadUnit === 'kg' ? 'kg' : ''}`
-                : `${exercise.loadMin}-${exercise.loadMax}${exercise.loadUnit === 'kg' ? 'kg' : ''}`,
+              raw: rawStr,
               perHand: exercise.loadPerHand,
             };
           } else if (exercise.load) {
@@ -512,7 +529,9 @@ function buildRepsString(exercise: V2Exercise): string {
       
     case 'amrap':
       if (repsModifier !== undefined) {
-        return `AMRAP - ${repsModifier}${repsModifier < 10 ? '' : '%'}`;
+        // Modifiers >= 10 are percentages, < 10 are reps in reserve
+        const isPercentage = repsModifier >= 10;
+        return `AMRAP - ${repsModifier}${isPercentage ? '%' : ''}`;
       }
       return 'AMRAP Max';
       
@@ -599,7 +618,7 @@ function parseRepsRange(reps: string): RepsRange | null {
     const value = parseFloat(timeMatch[1]);
     const unit = timeMatch[2].toLowerCase();
     const seconds = (unit === 'min' || unit === 'm') ? value * 60 : value;
-    return { type: 'time', value: seconds, unit: 'seconds', perSide: perSideTime || undefined, raw };
+    return { type: 'time', value: seconds, unit: 'seconds', perSide: perSideTime ? true : undefined, raw };
   }
   
   // Time range

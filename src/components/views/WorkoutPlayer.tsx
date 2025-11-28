@@ -724,10 +724,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 }}
             />
 
-            <div {...swipeHandlers} className="px-5 pb-32 pt-6">
+            <div {...swipeHandlers} className="px-4 pb-32 pt-4">
                 {/* Workout Notes */}
-                <div className="mb-6">
-                    <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">
+                <div className="mb-4">
+                    <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-1 block">
                         Workout Notes
                     </label>
                     <textarea
@@ -742,7 +742,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             persistLogs(updatedLogs);
                         }}
                         placeholder="How are you feeling? Any notes for this workout..."
-                        className="w-full h-20 px-4 py-3 bg-sys-surface rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent resize-none border border-white/5"
+                        className="w-full h-14 px-3 py-2 bg-sys-surface rounded-xl text-white text-sm placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent resize-none border border-white/5"
                     />
                 </div>
 
@@ -759,22 +759,22 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         : 0;
 
                     return (
-                        <div key={sIdx} className="mb-8">
+                        <div key={sIdx} className="mb-5">
                             {/* Section Header */}
-                            <div className="mb-4">
-                                <div className="flex items-center gap-3 mb-2">
-                                    <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-sys-surfaceHigh">
+                            <div className="mb-2">
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="h-6 w-6 rounded-md flex items-center justify-center bg-sys-surfaceHigh">
                                         {section.type === 'prep' ? (
-                                            <Flame size={16} className="text-sys-accent" />
+                                            <Flame size={14} className="text-sys-accent" />
                                         ) : section.type === 'main' ? (
-                                            <Dumbbell size={16} className="text-sys-success" />
+                                            <Dumbbell size={14} className="text-sys-success" />
                                         ) : section.type === 'cool' ? (
-                                            <Snowflake size={16} className="text-sys-accent" />
+                                            <Snowflake size={14} className="text-sys-accent" />
                                         ) : (
-                                            <Activity size={16} className="text-white" />
+                                            <Activity size={14} className="text-white" />
                                         )}
                                     </div>
-                                    <span className="text-base font-bold text-white uppercase tracking-wide">
+                                    <span className="text-sm font-bold text-white uppercase tracking-wide">
                                         {section.name}
                                     </span>
                                     <div className="h-[2px] flex-1 bg-gradient-to-r from-white/20 to-transparent rounded-full"></div>
@@ -795,7 +795,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             </div>
 
                             {/* Exercises */}
-                            <div className="space-y-5">
+                            <div className="space-y-3">
                                 {section.exercises.map((ex: WorkoutExercise, eIdx: number) => {
                                     const defaultSets = ex.sets || 3;
                                     const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
@@ -807,9 +807,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                     const isCollapsed = isExerciseCollapsed(exId);
 
                                     return (
-                                        <div key={eIdx} id={exId} className="relative scroll-mt-20">
+                                        <div key={eIdx} id={exId} className="relative scroll-mt-16">
                                             <div
-                                                className={`bg-sys-surface rounded-3xl p-6 border relative z-10 overflow-hidden ${
+                                                className={`bg-sys-surface rounded-2xl p-4 border relative z-10 overflow-hidden ${
                                                     completedSets === totalSets
                                                         ? 'border-sys-success/30 bg-sys-success/5'
                                                         : 'border-white/5'
@@ -824,9 +824,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 )}
 
                                                 {/* Exercise Header */}
-                                                <div className="flex justify-between items-start mb-6">
+                                                <div className="flex justify-between items-start mb-3">
                                                     <div className="flex-1 pr-2">
-                                                        <div className="flex items-center gap-2 mb-1">
+                                                        <div className="flex items-center gap-2">
                                                             <button
                                                                 type="button"
                                                                 onClick={() => {
@@ -838,7 +838,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                 className={`text-left ${hasHistory ? 'cursor-pointer active:opacity-70 transition-opacity' : 'cursor-default'}`}
                                                                 aria-label={hasHistory ? `${ex.name} - tap to view history` : ex.name}
                                                             >
-                                                                <h3 className="text-lg font-semibold text-white leading-snug">
+                                                                <h3 className="text-base font-semibold text-white leading-tight">
                                                                     {ex.name}
                                                                 </h3>
                                                             </button>
@@ -854,11 +854,11 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                 </span>
                                                             )}
                                                         </div>
-                                                        <p className="text-sm text-sys-onSurfaceVar">
+                                                        <p className="text-xs text-sys-onSurfaceVar">
                                                             {ex.prescription}
                                                         </p>
                                                         {ex.notes && (
-                                                            <p className="text-xs text-sys-onSurfaceVar/70 mt-1">
+                                                            <p className="text-xs text-sys-onSurfaceVar/70">
                                                                 {ex.notes}
                                                             </p>
                                                         )}
@@ -870,10 +870,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                             haptic.tick();
                                                             toggleExerciseCollapse(exId);
                                                         }}
-                                                        className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
+                                                        className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
                                                         aria-label={isCollapsed ? 'Expand exercise' : 'Collapse exercise'}
                                                     >
-                                                        {isCollapsed ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
+                                                        {isCollapsed ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
                                                     </button>
                                                 </div>
 
@@ -881,7 +881,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 {!isCollapsed && (
                                                     <>
                                                         {/* Timer buttons */}
-                                                        <div className="flex gap-2 mb-5">
+                                                        <div className="flex gap-2 mb-3">
                                                             {ex.rest && ex.rest > 0 && (
                                                                 <button
                                                                     onClick={() => {
@@ -889,10 +889,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                         setTimerSeconds(ex.rest);
                                                                         setTimerActive(true);
                                                                     }}
-                                                                    className="h-10 px-4 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar text-sm font-semibold flex items-center justify-center gap-2 active:bg-sys-accent/20 transition-colors"
+                                                                    className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-semibold flex items-center justify-center gap-1.5 active:bg-sys-accent/20 transition-colors"
                                                                     aria-label={`Start ${ex.rest} second timer`}
                                                                 >
-                                                                    <Timer size={16} />
+                                                                    <Timer size={14} />
                                                                     <span>{ex.rest}s</span>
                                                                 </button>
                                                             )}
@@ -906,54 +906,54 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                         setEmomActive(false);
                                                                     }
                                                                 }}
-                                                                className={`h-10 px-4 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-colors ${
+                                                                className={`h-8 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors ${
                                                                     emomActive
                                                                         ? 'bg-sys-accent text-white'
                                                                         : 'bg-sys-surfaceHigh text-sys-onSurfaceVar active:bg-sys-accent/20'
                                                                 }`}
                                                                 aria-label={`Start EMOM timer with ${emomInterval} second interval`}
                                                             >
-                                                                <Repeat size={16} />
+                                                                <Repeat size={14} />
                                                                 <span>EMOM {emomInterval}s</span>
                                                             </button>
                                                         </div>
 
                                                         {/* Set buttons */}
-                                                        <div className="flex flex-wrap gap-4 mb-5">
+                                                        <div className="flex flex-wrap gap-2 mb-3">
                                                             {currentSetArray.map((isDone, i) => (
                                                                 <button
                                                                     key={`${exId}-set-${i}`}
                                                                     onClick={() => toggleSet(exId, i, defaultSets, ex.rest)}
-                                                                    className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold ${
+                                                                    className={`set-button h-11 w-11 min-w-[44px] min-h-[44px] rounded-xl flex items-center justify-center text-sm font-bold ${
                                                                         isDone
-                                                                            ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]'
+                                                                            ? 'completed bg-sys-accent text-white shadow-[0_0_16px_rgba(59,130,246,0.5)]'
                                                                             : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                                                     }`}
                                                                     aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                                 >
-                                                                    {isDone ? <Check size={24} /> : i + 1}
+                                                                    {isDone ? <Check size={20} /> : i + 1}
                                                                 </button>
                                                             ))}
 
                                                             {/* Add set button */}
                                                             <button
                                                                 onClick={() => addSet(exId, defaultSets)}
-                                                                className="h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center text-base font-bold border-2 border-dashed border-white/20 active:scale-95 transition-all"
+                                                                className="h-11 w-11 min-w-[44px] min-h-[44px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center text-sm font-bold border-2 border-dashed border-white/20 active:scale-95 transition-all"
                                                                 aria-label="Add set"
                                                             >
-                                                                <Plus size={20} />
+                                                                <Plus size={18} />
                                                             </button>
                                                         </div>
 
                                                         {/* Complete all button */}
                                                         {currentSetArray.some((s) => !s) && (
-                                                            <div className="flex gap-3 mb-5">
+                                                            <div className="flex gap-2 mb-3">
                                                                 <button
                                                                     onClick={() => completeAllSets(exId, defaultSets)}
-                                                                    className="flex-1 h-10 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar text-sm font-semibold flex items-center justify-center gap-2 active:bg-sys-accent/20 transition-colors"
+                                                                    className="flex-1 h-8 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-semibold flex items-center justify-center gap-1.5 active:bg-sys-accent/20 transition-colors"
                                                                     aria-label="Complete all sets"
                                                                 >
-                                                                    <CheckCheck size={16} />
+                                                                    <CheckCheck size={14} />
                                                                     <span>Complete All</span>
                                                                 </button>
                                                             </div>
@@ -961,8 +961,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                                                         {/* Weight input for weighted exercises */}
                                                         {!ex.isBodyweight && (
-                                                            <div className="pt-4 border-t border-white/5">
-                                                                <div className="flex items-center justify-between mb-2">
+                                                            <div className="pt-3 border-t border-white/5">
+                                                                <div className="flex items-center justify-between mb-1">
                                                                     <label
                                                                         htmlFor={`${exId}-weight`}
                                                                         className="text-xs text-sys-onSurfaceVar uppercase font-bold"
@@ -986,10 +986,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                             const current = parseFloat(exerciseLog.weight || '0');
                                                                             saveLog(exId, 'weight', Math.max(0, current - 2.5).toString());
                                                                         }}
-                                                                        className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
+                                                                        className="h-10 w-10 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
                                                                         aria-label="Decrease weight by 2.5kg"
                                                                     >
-                                                                        <Minus size={18} />
+                                                                        <Minus size={16} />
                                                                     </button>
                                                                     <input
                                                                         id={`${exId}-weight`}
@@ -998,7 +998,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                         value={exerciseLog.weight || ''}
                                                                         onChange={(e) => saveLog(exId, 'weight', e.target.value)}
                                                                         placeholder={ex.load ? ex.load.replace(/[^0-9.]/g, '').split('-')[0] || '0' : '0'}
-                                                                        className="w-24 h-14 px-2 bg-sys-surfaceHigh rounded-xl text-white text-center text-2xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                                                        className="w-20 h-10 px-2 bg-sys-surfaceHigh rounded-lg text-white text-center text-xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                                     />
                                                                     <button
                                                                         onClick={() => {
@@ -1006,10 +1006,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                             const current = parseFloat(exerciseLog.weight || '0');
                                                                             saveLog(exId, 'weight', (current + 2.5).toString());
                                                                         }}
-                                                                        className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
+                                                                        className="h-10 w-10 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
                                                                         aria-label="Increase weight by 2.5kg"
                                                                     >
-                                                                        <Plus size={18} />
+                                                                        <Plus size={16} />
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -1027,18 +1027,18 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                 {/* Added Exercises Section */}
                 {addedExercises.length > 0 && (
-                    <div className="mb-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-sys-surfaceHigh">
-                                <PlusCircle size={16} className="text-sys-success" />
+                    <div className="mb-5">
+                        <div className="flex items-center gap-2 mb-2">
+                            <div className="h-6 w-6 rounded-md flex items-center justify-center bg-sys-surfaceHigh">
+                                <PlusCircle size={14} className="text-sys-success" />
                             </div>
-                            <span className="text-base font-bold text-white uppercase tracking-wide">
+                            <span className="text-sm font-bold text-white uppercase tracking-wide">
                                 Added Exercises
                             </span>
                             <div className="h-[2px] flex-1 bg-gradient-to-r from-white/20 to-transparent rounded-full"></div>
                         </div>
 
-                        <div className="space-y-5">
+                        <div className="space-y-3">
                             {addedExercises.map((ex) => {
                                 const exId = `added_${ex.id}`;
                                 const exerciseLog = getExerciseLogEntry(logs, exId);
@@ -1047,18 +1047,18 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 const totalSets = currentSetArray.length;
 
                                 return (
-                                    <div key={ex.id} id={exId} className="relative scroll-mt-20">
+                                    <div key={ex.id} id={exId} className="relative scroll-mt-16">
                                         <div
-                                            className={`bg-sys-surface rounded-3xl p-6 border relative z-10 overflow-hidden ${
+                                            className={`bg-sys-surface rounded-2xl p-4 border relative z-10 overflow-hidden ${
                                                 completedSets === totalSets
                                                     ? 'border-sys-success/30 bg-sys-success/5'
                                                     : 'border-white/5'
                                             }`}
                                         >
-                                            <div className="flex justify-between items-start mb-6">
+                                            <div className="flex justify-between items-start mb-3">
                                                 <div className="flex-1 pr-2">
-                                                    <div className="flex items-center gap-2 mb-1">
-                                                        <h3 className="text-lg font-semibold text-white leading-snug">
+                                                    <div className="flex items-center gap-2">
+                                                        <h3 className="text-base font-semibold text-white leading-tight">
                                                             {ex.name}
                                                         </h3>
                                                         {completedSets > 0 && (
@@ -1073,51 +1073,51 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                             </span>
                                                         )}
                                                     </div>
-                                                    <p className="text-sm text-sys-onSurfaceVar">
+                                                    <p className="text-xs text-sys-onSurfaceVar">
                                                         {ex.sets} sets {ex.weight ? `@ ${ex.weight}kg` : ''}
                                                     </p>
                                                 </div>
                                                 <button
                                                     onClick={() => removeAddedExercise(ex.id)}
-                                                    className="h-10 w-10 min-w-[40px] rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center active:scale-90 transition-all"
+                                                    className="h-8 w-8 min-w-[32px] rounded-lg bg-red-500/10 text-red-500 flex items-center justify-center active:scale-90 transition-all"
                                                     aria-label="Remove exercise"
                                                 >
-                                                    <X size={20} />
+                                                    <X size={18} />
                                                 </button>
                                             </div>
 
                                             {/* Rest time indicator for added exercises */}
                                             {ex.rest && ex.rest > 0 && (
-                                                <div className="mb-3">
+                                                <div className="mb-2">
                                                     <button
                                                         onClick={() => {
                                                             haptic.bump();
                                                             setTimerSeconds(ex.rest ?? 90);
                                                             setTimerActive(true);
                                                         }}
-                                                        className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-medium flex items-center gap-1.5 active:bg-sys-accent/20 transition-colors"
+                                                        className="h-7 px-2.5 rounded-md bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-medium flex items-center gap-1 active:bg-sys-accent/20 transition-colors"
                                                         aria-label={`Start ${ex.rest} second timer`}
                                                     >
-                                                        <Timer size={14} />
-                                                        <span>{ex.rest}s rest</span>
+                                                        <Timer size={12} />
+                                                        <span>{ex.rest}s</span>
                                                     </button>
                                                 </div>
                                             )}
 
                                             {/* Set buttons for added exercises */}
-                                            <div className="flex flex-wrap gap-4 mb-5">
+                                            <div className="flex flex-wrap gap-2">
                                                 {currentSetArray.map((isDone, i) => (
                                                     <button
                                                         key={`${exId}-set-${i}`}
                                                         onClick={() => toggleSet(exId, i, ex.sets, ex.rest ?? 90)}
-                                                        className={`set-button h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl flex items-center justify-center text-base font-bold ${
+                                                        className={`set-button h-11 w-11 min-w-[44px] min-h-[44px] rounded-xl flex items-center justify-center text-sm font-bold ${
                                                             isDone
-                                                                ? 'completed bg-sys-accent text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]'
+                                                                ? 'completed bg-sys-accent text-white shadow-[0_0_16px_rgba(59,130,246,0.5)]'
                                                                 : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                                         }`}
                                                         aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                     >
-                                                        {isDone ? <Check size={24} /> : i + 1}
+                                                        {isDone ? <Check size={20} /> : i + 1}
                                                     </button>
                                                 ))}
                                             </div>
@@ -1131,15 +1131,15 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                 {/* Add Exercise Button */}
                 {!logs.completed && (
-                    <div className="mb-6">
+                    <div className="mb-4">
                         <button
                             onClick={() => {
                                 haptic.bump();
                                 setShowExerciseSelector(true);
                             }}
-                            className="w-full h-12 px-6 rounded-xl bg-sys-success/10 border border-sys-success/30 text-sys-success font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+                            className="w-full h-10 px-4 rounded-lg bg-sys-success/10 border border-sys-success/30 text-sys-success text-sm font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform"
                         >
-                            <PlusCircle size={20} />
+                            <PlusCircle size={18} />
                             <span>Add Exercise</span>
                         </button>
                     </div>

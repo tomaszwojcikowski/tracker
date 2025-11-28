@@ -945,8 +945,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                             </button>
                                                         </div>
 
-                                                        {/* Complete all button */}
-                                                        {currentSetArray.some((s) => !s) && (
+                                                        {/* Complete all button - only show if more than 1 set remains incomplete */}
+                                                        {currentSetArray.filter((s) => !s).length > 1 && (
                                                             <div className="flex gap-2 mb-3">
                                                                 <button
                                                                     onClick={() => completeAllSets(exId, defaultSets)}

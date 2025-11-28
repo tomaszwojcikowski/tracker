@@ -199,23 +199,6 @@ export function getWorkout(week: WeekNumber, day: TrainingDay): Workout | null {
 // PROGRAM DATA
 // ============================================================================
 
-/**
- * Get the training block for a given week
- */
-export function getBlockForWeek(week: WeekNumber): TrainingBlock | undefined {
-    // Try to get from loaded metadata first
-    if (typeof window !== 'undefined' && window.TRACKER_APP?.workoutPlanMetadata?.phases) {
-        const phase = window.TRACKER_APP.workoutPlanMetadata.phases.find(
-            (p) => week >= p.startWeek && week <= p.endWeek
-        );
-        if (phase) {
-            return {
-                id: phase.number,
-                name: phase.name,
-                weeks: Array.from({ length: phase.endWeek - phase.startWeek + 1 }, (_, i) => phase.startWeek + i) as WeekNumber[],
-            };
-        }
-    }
-
-    return undefined;
-}
+// Re-export getBlockForWeek from programData to avoid duplication.
+// The canonical implementation is in src/data/programData.ts.
+export { getBlockForWeek } from '../data/programData';

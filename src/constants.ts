@@ -74,5 +74,6 @@ export const STORAGE_KEYS: StorageKeysMap = {
   TRACKER_WEEK: 'tracker_week',
 };
 
-// Training blocks removed - use window.TRACKER_APP.workoutPlanMetadata.phases or src/data/programData.ts fallbacks
+// Training blocks removed - now loaded from window.TRACKER_APP.workoutPlanMetadata.phases at runtime
+// See src/data/programData.ts getBlockForWeek() for implementation
 

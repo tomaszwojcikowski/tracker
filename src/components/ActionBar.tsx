@@ -1,8 +1,8 @@
 /**
  * ActionBar Component
  *
- * Bottom action bar with EMOM timer display, rest timer display,
- * and a finish button with confirmation dialog.
+ * Bottom action bar with EMOM timer display and rest timer display.
+ * Only renders when a timer is active.
  */
 
 import { useHaptic } from '../hooks';

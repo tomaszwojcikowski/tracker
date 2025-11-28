@@ -111,7 +111,7 @@ export function getCompleteSchedule(): RawScheduleItem[] {
  *
  * The workout plan data is now self-contained in the V2 JSON format,
  * so no additional processing or auto-generation of warmups/cooldowns is needed.
- * This function simply populates the complete schedule from the raw data.
+ * This function creates a copy of the raw schedule data for use by the rest of the application.
  */
 export function buildCompleteSchedule(): void {
     // The schedule is self-contained, so we just use the raw schedule as is
@@ -199,23 +199,6 @@ export function getWorkout(week: WeekNumber, day: TrainingDay): Workout | null {
 // PROGRAM DATA
 // ============================================================================
 
-/**
- * Get the training block for a given week
- */
-export function getBlockForWeek(week: WeekNumber): TrainingBlock | undefined {
-    // Try to get from loaded metadata first
-    if (typeof window !== 'undefined' && window.TRACKER_APP?.workoutPlanMetadata?.phases) {
-        const phase = window.TRACKER_APP.workoutPlanMetadata.phases.find(
-            (p) => week >= p.startWeek && week <= p.endWeek
-        );
-        if (phase) {
-            return {
-                id: phase.number,
-                name: phase.name,
-                weeks: Array.from({ length: phase.endWeek - phase.startWeek + 1 }, (_, i) => phase.startWeek + i) as WeekNumber[],
-            };
-        }
-    }
-
-    return undefined;
-}
+// Re-export getBlockForWeek from programData to avoid duplication.
+// The canonical implementation is in src/data/programData.ts.
+export { getBlockForWeek } from '../data/programData';

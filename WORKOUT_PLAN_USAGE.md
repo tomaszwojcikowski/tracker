@@ -6,10 +6,10 @@ This guide explains how to use and work with workout plans in the Tracker applic
 
 The Tracker application uses a modern, structured workout plan format (v2.0.0) with rich metadata.
 
-- **v2.0.0**: Hierarchical format (Plan → Phases → Weeks → Days → Exercises)
-- **v1.0.0**: Legacy flat array format (deprecated)
+- **v2.0.0**: Hierarchical format (Plan → Phases → Weeks → Days → Exercises) - **Current standard**
+- **v1.0.0**: Legacy flat array format - **Deprecated, migration required**
 
-The application is fully migrated to use the v2.0.0 format by default.
+The application is fully migrated to use the v2.0.0 format by default. Legacy v1.0.0 files must be migrated using the provided migration script before use.
 
 ## Using Existing Plans
 
@@ -19,7 +19,7 @@ The app uses `workout-plan-v2.json` by default. This file is loaded automaticall
 
 ### Legacy Format (v1.0.0)
 
-The legacy `full-schedule.json` format is no longer the primary data source. If you have data in this format, you should migrate it to v2.0.0 using the provided migration script.
+The legacy `full-schedule.json` format is no longer supported at runtime. If you have data in this format, you must migrate it to v2.0.0 using the provided migration script before the app can use it.
 
 ## Creating a New Workout Plan
 

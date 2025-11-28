@@ -32,6 +32,8 @@ export {
   Send,
   LogIn,
   LogOut,
+  Play,
+  PlayCircle,
   
   // Content
   Dumbbell,

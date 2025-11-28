@@ -5,6 +5,7 @@ import { TopAppBar } from './components/TopAppBar';
 import { LoadingScreen, ErrorScreen } from './components/screens';
 import { Dashboard, HistoryView, SettingsView, ExerciseLibraryView, WorkoutPlayer } from './components/views';
 import { SkipLink } from './components/SkipLink';
+import { Onboarding, hasCompletedOnboarding } from './components/Onboarding';
 import { useLucideIcons } from './hooks';
 
 // Import from TypeScript utilities
@@ -63,6 +64,8 @@ const updateUrl = (state) => {
             const [currentWeek, setCurrentWeek] = useState(1);
             const [activeDay, setActiveDay] = useState(1);
             const [isInitialized, setIsInitialized] = useState(false);
+            // Initialize onboarding state directly to avoid flash of content
+            const [showOnboarding, setShowOnboarding] = useState(() => !hasCompletedOnboarding());
 
             // Track the initial history length to know if we can go back
             const initialHistoryLength = useRef(window.history.length);
@@ -202,51 +205,56 @@ const updateUrl = (state) => {
             };
 
             return (
-                <div className="min-h-screen bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative">
-                    <SkipLink targetId="main-content" />
-                    <TopAppBar
-                        title={viewMode === 'workout' ? `Day ${activeDay}` : (activeTab === 'train' ? 'Dashboard' : activeTab === 'library' ? 'Exercise Library' : activeTab === 'history' ? 'History' : 'Settings')}
-                        subtitle={viewMode === 'workout' ? `Week ${currentWeek}` : (activeTab === 'train' ? 'OnePlus Strength' : '')}
-                        showBack={viewMode === 'workout'}
-                        onBack={goBack}
-                    />
-
-                    {!isInitialized ? (
-                        <div className="flex items-center justify-center h-screen">
-                            <div className="text-center">
-                                <div className="text-lg text-sys-onSurfaceVar">Loading...</div>
-                            </div>
-                        </div>
-                    ) : viewMode === 'workout' ? (
-                        <main id="main-content" className="animate-fade-in">
-                            <WorkoutPlayer
-                                week={currentWeek}
-                                day={activeDay}
-                                onComplete={goBack}
-                                exerciseLibrary={EXERCISE_LIBRARY}
-                            />
-                        </main>
-                    ) : (
-                        <>
-                            <TabContent activeTab={activeTab} id="main-content">
-                                {activeTab === 'train' && <Dashboard currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} onStartWorkout={startWorkout} />}
-                                {activeTab === 'library' && <ExerciseLibraryView
-                                    exerciseLibrary={EXERCISE_LIBRARY}
-                                    getAllExercisesWithHistory={getAllExercisesWithHistory}
-                                    calculateExerciseStats={calculateExerciseStats}
-                                    getExerciseHistory={getExerciseHistory}
-                                />}
-                                {activeTab === 'history' && <HistoryView
-                                    calculateExerciseStats={calculateExerciseStats}
-                                    getExerciseHistory={getExerciseHistory}
-                                    getAllExercisesWithHistory={getAllExercisesWithHistory}
-                                />}
-                                {activeTab === 'profile' && <SettingsView />}
-                            </TabContent>
-                            <NavigationBar activeTab={activeTab} onTabChange={handleTabChange} />
-                        </>
+                <>
+                    {showOnboarding && (
+                        <Onboarding onComplete={() => setShowOnboarding(false)} />
                     )}
-                </div>
+                    <div className="min-h-screen bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative">
+                        <SkipLink targetId="main-content" />
+                        <TopAppBar
+                            title={viewMode === 'workout' ? `Day ${activeDay}` : (activeTab === 'train' ? 'Dashboard' : activeTab === 'library' ? 'Exercise Library' : activeTab === 'history' ? 'History' : 'Settings')}
+                            subtitle={viewMode === 'workout' ? `Week ${currentWeek}` : (activeTab === 'train' ? 'OnePlus Strength' : '')}
+                            showBack={viewMode === 'workout'}
+                            onBack={goBack}
+                        />
+
+                        {!isInitialized ? (
+                            <div className="flex items-center justify-center h-screen">
+                                <div className="text-center">
+                                    <div className="text-lg text-sys-onSurfaceVar">Loading...</div>
+                                </div>
+                            </div>
+                        ) : viewMode === 'workout' ? (
+                            <main id="main-content" className="animate-fade-in">
+                                <WorkoutPlayer
+                                    week={currentWeek}
+                                    day={activeDay}
+                                    onComplete={goBack}
+                                    exerciseLibrary={EXERCISE_LIBRARY}
+                                />
+                            </main>
+                        ) : (
+                            <>
+                                <TabContent activeTab={activeTab} id="main-content">
+                                    {activeTab === 'train' && <Dashboard currentWeek={currentWeek} setCurrentWeek={setCurrentWeek} onStartWorkout={startWorkout} />}
+                                    {activeTab === 'library' && <ExerciseLibraryView
+                                        exerciseLibrary={EXERCISE_LIBRARY}
+                                        getAllExercisesWithHistory={getAllExercisesWithHistory}
+                                        calculateExerciseStats={calculateExerciseStats}
+                                        getExerciseHistory={getExerciseHistory}
+                                    />}
+                                    {activeTab === 'history' && <HistoryView
+                                        calculateExerciseStats={calculateExerciseStats}
+                                        getExerciseHistory={getExerciseHistory}
+                                        getAllExercisesWithHistory={getAllExercisesWithHistory}
+                                    />}
+                                    {activeTab === 'profile' && <SettingsView />}
+                                </TabContent>
+                                <NavigationBar activeTab={activeTab} onTabChange={handleTabChange} />
+                            </>
+                        )}
+                    </div>
+                </>
             );
         };
 

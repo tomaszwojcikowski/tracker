@@ -30,6 +30,10 @@ export type { EmptyStateProps, EmptyWorkoutHistoryProps, EmptyExerciseHistoryPro
 // Error handling
 export { ErrorBoundary } from './ErrorBoundary';
 
+// Onboarding components
+export { Onboarding, hasCompletedOnboarding, markOnboardingComplete, resetOnboarding } from './Onboarding';
+export type { OnboardingProps } from './Onboarding';
+
 // PWA components
 export { default as PWAPrompt, UpdatePrompt, OfflineBanner } from './PWAPrompt';
 export { PWAWrapper } from './PWAWrapper';

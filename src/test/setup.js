@@ -7,12 +7,15 @@ afterEach(() => {
   cleanup();
 });
 
-// Mock localStorage
+// Mock localStorage with actual storage implementation
+const localStorageData = {};
 const localStorageMock = {
-  getItem: vi.fn(),
-  setItem: vi.fn(),
-  removeItem: vi.fn(),
-  clear: vi.fn(),
+  getItem: vi.fn((key) => localStorageData[key] ?? null),
+  setItem: vi.fn((key, value) => { localStorageData[key] = value; }),
+  removeItem: vi.fn((key) => { delete localStorageData[key]; }),
+  clear: vi.fn(() => {
+    Object.keys(localStorageData).forEach(key => delete localStorageData[key]);
+  }),
 };
 
 global.localStorage = localStorageMock;
@@ -22,6 +25,7 @@ vi.mock('lucide-react', () => ({
   Check: () => 'Check',
   ChevronRight: () => 'ChevronRight',
   ChevronDown: () => 'ChevronDown',
+  ChevronLeft: () => 'ChevronLeft',
   Plus: () => 'Plus',
   Calendar: () => 'Calendar',
   Dumbbell: () => 'Dumbbell',
@@ -30,4 +34,12 @@ vi.mock('lucide-react', () => ({
   User: () => 'User',
   Clock: () => 'Clock',
   X: () => 'X',
+  Cloud: () => 'Cloud',
+  Play: () => 'Play',
+  PlayCircle: () => 'PlayCircle',
+  RefreshCw: () => 'RefreshCw',
+  Info: () => 'Info',
+  Palette: () => 'Palette',
+  History: () => 'History',
+  Settings: () => 'Settings',
 }));

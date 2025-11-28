@@ -6,7 +6,8 @@
  */
 
 import { useState, useEffect } from 'react';
-import { useHaptic, useLucideIcons } from '../hooks';
+import { useHaptic } from '../hooks';
+import { X, Minus, Plus, CheckCircle2 } from 'lucide-react';
 
 export interface TimerState {
   time: number;
@@ -42,7 +43,6 @@ export function ActionBar({
 }: ActionBarProps) {
   const haptic = useHaptic();
   const [showConfirm, setShowConfirm] = useState(false);
-  useLucideIcons();
 
   // Keyboard shortcuts for dialog
   useEffect(() => {
@@ -83,7 +83,7 @@ export function ActionBar({
                   className="ml-auto h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
                   aria-label="Stop EMOM timer"
                 >
-                  <i data-lucide="x"></i>
+                  <X size={20} />
                 </button>
               </div>
               <div className="flex items-center gap-4">
@@ -108,7 +108,7 @@ export function ActionBar({
                     className="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
                     aria-label="Decrease interval by 5 seconds"
                   >
-                    <i data-lucide="minus"></i>
+                    <Minus size={20} />
                   </button>
                   <span className="text-sm text-sys-onSurfaceVar font-semibold min-w-[40px] text-center">
                     {emomState.interval}s
@@ -121,7 +121,7 @@ export function ActionBar({
                     className="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
                     aria-label="Increase interval by 5 seconds"
                   >
-                    <i data-lucide="plus"></i>
+                    <Plus size={20} />
                   </button>
                 </div>
               </div>
@@ -148,7 +148,7 @@ export function ActionBar({
                 className="h-10 w-10 min-w-[40px] rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
                 aria-label="Cancel timer"
               >
-                <i data-lucide="x"></i>
+                <X size={20} />
               </button>
               <button
                 onClick={() => {
@@ -171,7 +171,7 @@ export function ActionBar({
             }}
             className="w-full h-16 min-h-[56px] px-8 rounded-2xl text-white font-bold flex items-center justify-center gap-3 active:scale-95 transition-transform btn-gradient-success"
           >
-            <i data-lucide="check-circle-2"></i>
+            <CheckCircle2 size={24} />
             <span className="text-base">FINISH</span>
           </button>
         </div>

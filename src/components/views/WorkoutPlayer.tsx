@@ -8,7 +8,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { FloatingTimer } from '../FloatingTimer';
 import { ActionBar } from '../ActionBar';
 import { safeGetJSON, safeSetJSON } from '../../utils/storage';
-import { useHaptic, useSwipe, useDebounce, useLucideIcons, type HapticFeedback } from '../../hooks';
+import { useHaptic, useSwipe, useDebounce, type HapticFeedback } from '../../hooks';
+import {
+    Flame, Dumbbell, Snowflake, Activity, ChevronDown, ChevronUp, Timer, Repeat, Check, Plus, CheckCheck, Minus, PlusCircle, X, CheckCircle2
+} from 'lucide-react';
 import {
     DEBOUNCE_DELAY_MS,
     MAX_SETS,
@@ -165,7 +168,7 @@ const ExerciseListItem: React.FC<ExerciseListItemProps> = ({ exercise, onAdd, ha
                         className="h-10 w-10 rounded-xl bg-sys-surface text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-transform flex-shrink-0"
                         aria-label="Collapse form"
                     >
-                        <i data-lucide="chevron-up" width="20"></i>
+                        <ChevronUp size={20} />
                     </button>
                 )}
             </div>
@@ -270,23 +273,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
     // Debounce exercise search
     const debouncedExerciseSearch = useDebounce(exerciseSearchTerm, DEBOUNCE_DELAY_MS);
-
-    // Refresh Lucide icons
-    useLucideIcons([
-        collapsedExercises,
-        showTimerToast,
-        showExerciseSelector,
-        showExerciseHistory,
-        week,
-        day,
-        addedExercises,
-        logs,
-        timerSeconds,
-        timerActive,
-        emomSeconds,
-        emomActive,
-        emomInterval,
-    ]);
 
     // Load session data on mount
     useEffect(() => {
@@ -733,27 +719,15 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             <div className="mb-4">
                                 <div className="flex items-center gap-3 mb-2">
                                     <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-sys-surfaceHigh">
-                                        <i
-                                            data-lucide={
-                                                section.type === 'prep'
-                                                    ? 'flame'
-                                                    : section.type === 'main'
-                                                    ? 'dumbbell'
-                                                    : section.type === 'cool'
-                                                    ? 'snowflake'
-                                                    : 'activity'
-                                            }
-                                            width="16"
-                                            className={
-                                                section.type === 'prep'
-                                                    ? 'text-sys-accent'
-                                                    : section.type === 'main'
-                                                    ? 'text-sys-success'
-                                                    : section.type === 'cool'
-                                                    ? 'text-sys-accent'
-                                                    : 'text-white'
-                                            }
-                                        ></i>
+                                        {section.type === 'prep' ? (
+                                            <Flame size={16} className="text-sys-accent" />
+                                        ) : section.type === 'main' ? (
+                                            <Dumbbell size={16} className="text-sys-success" />
+                                        ) : section.type === 'cool' ? (
+                                            <Snowflake size={16} className="text-sys-accent" />
+                                        ) : (
+                                            <Activity size={16} className="text-white" />
+                                        )}
                                     </div>
                                     <span className="text-base font-bold text-white uppercase tracking-wide">
                                         {section.name}
@@ -854,7 +828,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
                                                         aria-label={isCollapsed ? 'Expand exercise' : 'Collapse exercise'}
                                                     >
-                                                        <i data-lucide={isCollapsed ? 'chevron-down' : 'chevron-up'} width="20"></i>
+                                                        {isCollapsed ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
                                                     </button>
                                                 </div>
 
@@ -873,7 +847,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                     className="h-10 px-4 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar text-sm font-semibold flex items-center justify-center gap-2 active:bg-sys-accent/20 transition-colors"
                                                                     aria-label={`Start ${ex.rest} second timer`}
                                                                 >
-                                                                    <i data-lucide="timer" width="16"></i>
+                                                                    <Timer size={16} />
                                                                     <span>{ex.rest}s</span>
                                                                 </button>
                                                             )}
@@ -894,7 +868,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                 }`}
                                                                 aria-label={`Start EMOM timer with ${emomInterval} second interval`}
                                                             >
-                                                                <i data-lucide="repeat" width="16"></i>
+                                                                <Repeat size={16} />
                                                                 <span>EMOM {emomInterval}s</span>
                                                             </button>
                                                         </div>
@@ -912,7 +886,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                     }`}
                                                                     aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                                 >
-                                                                    {isDone ? <i data-lucide="check" width="24" /> : i + 1}
+                                                                    {isDone ? <Check size={24} /> : i + 1}
                                                                 </button>
                                                             ))}
 
@@ -922,7 +896,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                 className="h-14 w-14 min-w-[56px] min-h-[56px] rounded-2xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center text-base font-bold border-2 border-dashed border-white/20 active:scale-95 transition-all"
                                                                 aria-label="Add set"
                                                             >
-                                                                <i data-lucide="plus" width="20"></i>
+                                                                <Plus size={20} />
                                                             </button>
                                                         </div>
 
@@ -934,7 +908,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                     className="flex-1 h-10 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar text-sm font-semibold flex items-center justify-center gap-2 active:bg-sys-accent/20 transition-colors"
                                                                     aria-label="Complete all sets"
                                                                 >
-                                                                    <i data-lucide="check-check" width="16"></i>
+                                                                    <CheckCheck size={16} />
                                                                     <span>Complete All</span>
                                                                 </button>
                                                             </div>
@@ -970,7 +944,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                         className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
                                                                         aria-label="Decrease weight by 2.5kg"
                                                                     >
-                                                                        <i data-lucide="minus" width="18"></i>
+                                                                        <Minus size={18} />
                                                                     </button>
                                                                     <input
                                                                         id={`${exId}-weight`}
@@ -990,7 +964,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                         className="h-14 w-12 rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
                                                                         aria-label="Increase weight by 2.5kg"
                                                                     >
-                                                                        <i data-lucide="plus" width="18"></i>
+                                                                        <Plus size={18} />
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -1011,7 +985,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     <div className="mb-8">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-sys-surfaceHigh">
-                                <i data-lucide="plus-circle" width="16" className="text-sys-success"></i>
+                                <PlusCircle size={16} className="text-sys-success" />
                             </div>
                             <span className="text-base font-bold text-white uppercase tracking-wide">
                                 Added Exercises
@@ -1063,7 +1037,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     className="h-10 w-10 min-w-[40px] rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center active:scale-90 transition-all"
                                                     aria-label="Remove exercise"
                                                 >
-                                                    <i data-lucide="x" width="20"></i>
+                                                    <X size={20} />
                                                 </button>
                                             </div>
 
@@ -1079,7 +1053,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-medium flex items-center gap-1.5 active:bg-sys-accent/20 transition-colors"
                                                         aria-label={`Start ${ex.rest} second timer`}
                                                     >
-                                                        <i data-lucide="timer" width="14"></i>
+                                                        <Timer size={14} />
                                                         <span>{ex.rest}s rest</span>
                                                     </button>
                                                 </div>
@@ -1098,7 +1072,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         }`}
                                                         aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                     >
-                                                        {isDone ? <i data-lucide="check" width="24" /> : i + 1}
+                                                        {isDone ? <Check size={24} /> : i + 1}
                                                     </button>
                                                 ))}
                                             </div>
@@ -1120,7 +1094,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             }}
                             className="w-full h-12 px-6 rounded-xl bg-sys-success/10 border border-sys-success/30 text-sys-success font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform"
                         >
-                            <i data-lucide="plus-circle" width="20"></i>
+                            <PlusCircle size={20} />
                             <span>Add Exercise</span>
                         </button>
                     </div>
@@ -1144,7 +1118,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 {showTimerToast && (
                     <div className="fixed top-20 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
                         <div className="bg-sys-accent px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-md w-full border border-white/10">
-                            <i data-lucide="check-circle-2" width="24" className="text-white flex-shrink-0"></i>
+                            <CheckCircle2 size={24} className="text-white flex-shrink-0" />
                             <span className="text-white font-bold text-base flex-1">Rest Complete!</span>
                             <button
                                 onClick={() => {
@@ -1154,7 +1128,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
                                 aria-label="Close notification"
                             >
-                                <i data-lucide="x" width="18"></i>
+                                <X size={18} />
                             </button>
                         </div>
                     </div>
@@ -1176,7 +1150,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
                                         aria-label="Close"
                                     >
-                                        <i data-lucide="x" width="20"></i>
+                                        <X size={20} />
                                     </button>
                                 </div>
 
@@ -1236,7 +1210,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
                                         aria-label="Close"
                                     >
-                                        <i data-lucide="x" width="20"></i>
+                                        <X size={20} />
                                     </button>
                                 </div>
                             </div>

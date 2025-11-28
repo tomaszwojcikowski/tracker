@@ -4,7 +4,7 @@
  * A sticky header bar with optional back button, title, and subtitle.
  */
 
-import { useLucideIcons } from '../hooks';
+import { ArrowLeft } from 'lucide-react';
 
 export interface TopAppBarProps {
   title: string;
@@ -19,8 +19,6 @@ export function TopAppBar({
   onBack,
   showBack = false,
 }: TopAppBarProps) {
-  useLucideIcons();
-
   return (
     <div className="bg-sys-black sticky top-0 z-40 safe-pt border-b border-white/10">
       <div className="h-16 flex items-center px-5 gap-4">
@@ -30,7 +28,7 @@ export function TopAppBar({
             className="h-10 w-10 -ml-1 text-sys-onSurface rounded-xl hover:bg-sys-surfaceHigh transition-colors flex items-center justify-center active:scale-90"
             aria-label="Go back"
           >
-            <i data-lucide="arrow-left"></i>
+            <ArrowLeft size={24} />
           </button>
         ) : null}
 

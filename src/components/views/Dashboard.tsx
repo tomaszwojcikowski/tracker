@@ -5,7 +5,8 @@
  */
 
 import { useState, useEffect } from 'react';
-import { useHaptic, useSwipeNavigation, useLucideIcons } from '../../hooks';
+import { useHaptic, useSwipeNavigation } from '../../hooks';
+import { PlayCircle, Check, Play, ChevronRight, ChevronLeft } from 'lucide-react';
 import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, hasWorkoutData, type InProgressWorkout } from '../../utils/storage';
 import { formatRelativeTime } from '../../utils/time';
 import { SwipeIndicator } from '../SwipeIndicator';
@@ -53,9 +54,6 @@ export function Dashboard({
     const inProgress = getInProgressWorkout();
     setInProgressWorkout(inProgress);
   }, [currentWeek]);
-
-  // Initialize Lucide icons when week changes (day completion status may update icons)
-  useLucideIcons([currentWeek, inProgressWorkout]);
 
   const isCompleted = (day: number): boolean => {
     const session = safeGetJSON<{ completed?: boolean } | null>(
@@ -107,7 +105,7 @@ export function Dashboard({
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-2xl bg-sys-accent/20 flex items-center justify-center">
-                  <i data-lucide="play-circle" className="text-sys-accent" width="24"></i>
+                  <PlayCircle className="text-sys-accent" width={24} />
                 </div>
                 <div className="text-left">
                   <h3 className="text-base font-bold text-white mb-1">
@@ -208,11 +206,11 @@ export function Dashboard({
                         : 'text-sys-onSurfaceVar/70'
                     }`}
                   >
-                    {done 
-                      ? 'Completed' 
-                      : isInProgress 
-                      ? `${dayProgress.completedSets}/${dayProgress.totalSets} sets • ${dayProgress.progress}%` 
-                      : hasPreviousData 
+                    {done
+                      ? 'Completed'
+                      : isInProgress
+                      ? `${dayProgress.completedSets}/${dayProgress.totalSets} sets • ${dayProgress.progress}%`
+                      : hasPreviousData
                       ? 'Has previous data'
                       : 'Tap to start'}
                   </span>
@@ -228,11 +226,11 @@ export function Dashboard({
                   }`}
                 >
                   {done ? (
-                    <i data-lucide="check"></i>
+                    <Check />
                   ) : isInProgress ? (
-                    <i data-lucide="play"></i>
+                    <Play />
                   ) : (
-                    <i data-lucide="chevron-right"></i>
+                    <ChevronRight />
                   )}
                 </div>
               </button>
@@ -247,7 +245,7 @@ export function Dashboard({
             disabled={currentWeek === 1}
             aria-label="Previous week"
           >
-            <i data-lucide="chevron-left"></i>
+            <ChevronLeft />
           </button>
           <div className="flex gap-2 px-4">
             {[...Array(5)].map((_, i) => {
@@ -274,7 +272,7 @@ export function Dashboard({
             disabled={currentWeek === 21}
             aria-label="Next week"
           >
-            <i data-lucide="chevron-right"></i>
+            <ChevronRight />
           </button>
         </div>
       </div>

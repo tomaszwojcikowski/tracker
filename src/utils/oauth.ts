@@ -16,13 +16,16 @@ const OAUTH_IN_PROGRESS_KEY = 'oauth_in_progress';
 
 /**
  * Check if the current page load is from an OAuth redirect
- * This detects common OAuth callback parameters in the URL
+ * This detects common OAuth callback parameters in the URL using
+ * URLSearchParams for precise matching (avoids false positives like 'encode=')
  */
 export function isOAuthRedirect(): boolean {
     if (typeof window === 'undefined') return false;
+    if (typeof sessionStorage === 'undefined') return false;
 
-    const url = window.location.href;
-    const hasOAuthParams = url.includes('code=') || url.includes('state=');
+    // Use URLSearchParams for precise parameter matching
+    const searchParams = new URLSearchParams(window.location.search);
+    const hasOAuthParams = searchParams.has('code') || searchParams.has('state');
     const hasOAuthFlag = sessionStorage.getItem(OAUTH_IN_PROGRESS_KEY) === 'true';
 
     return hasOAuthParams || hasOAuthFlag;

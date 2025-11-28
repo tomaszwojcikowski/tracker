@@ -75,9 +75,13 @@ describe('OAuth Utilities', () => {
     });
 
     describe('isOAuthRedirect', () => {
-        const setMockLocation = (href) => {
+        const setMockLocation = (href, search = '') => {
             delete window.location;
-            window.location = { href };
+            // Parse search from href if not explicitly provided
+            if (!search && href.includes('?')) {
+                search = href.substring(href.indexOf('?'));
+            }
+            window.location = { href, search };
         };
 
         afterEach(() => {
@@ -85,27 +89,27 @@ describe('OAuth Utilities', () => {
         });
 
         it('should return false when no OAuth parameters and no flag', () => {
-            setMockLocation('https://example.com/tracker/');
+            setMockLocation('https://example.com/tracker/', '');
             expect(isOAuthRedirect()).toBe(false);
         });
 
-        it('should return true when URL contains code= parameter', () => {
+        it('should return true when URL contains code parameter', () => {
             setMockLocation('https://example.com/tracker/?code=abc123&scope=email');
             expect(isOAuthRedirect()).toBe(true);
         });
 
-        it('should return true when URL contains state= parameter', () => {
+        it('should return true when URL contains state parameter', () => {
             setMockLocation('https://example.com/tracker/?state=xyz789');
             expect(isOAuthRedirect()).toBe(true);
         });
 
-        it('should return true when URL contains both code= and state= parameters', () => {
+        it('should return true when URL contains both code and state parameters', () => {
             setMockLocation('https://example.com/tracker/?code=abc123&state=xyz789');
             expect(isOAuthRedirect()).toBe(true);
         });
 
         it('should return true when OAuth flag is set even without URL parameters', () => {
-            setMockLocation('https://example.com/tracker/');
+            setMockLocation('https://example.com/tracker/', '');
             setOAuthInProgress();
             expect(isOAuthRedirect()).toBe(true);
         });
@@ -116,49 +120,73 @@ describe('OAuth Utilities', () => {
             expect(isOAuthRedirect()).toBe(true);
         });
 
-        it('should detect code= even as part of longer parameter names', () => {
-            // This is a trade-off: simple substring matching may match encode=,
-            // but this is acceptable because the only effect is a brief delay
-            // in service worker registration, which doesn't break functionality.
+        it('should not detect partial matches like encode=', () => {
+            // Using URLSearchParams ensures precise matching
             setMockLocation('https://example.com/tracker/?encode=true');
-            expect(isOAuthRedirect()).toBe(true);
+            expect(isOAuthRedirect()).toBe(false);
         });
 
-        it('should detect state= even as part of longer parameter names', () => {
-            // Same trade-off as above - simple matching for robustness
+        it('should not detect partial matches like estate=', () => {
+            // Using URLSearchParams ensures precise matching
             setMockLocation('https://example.com/tracker/?estate=value');
-            expect(isOAuthRedirect()).toBe(true);
+            expect(isOAuthRedirect()).toBe(false);
         });
     });
 
     describe('Edge cases', () => {
-        it('should work with complex URLs containing OAuth params', () => {
+        const setMockLocation = (href, search = '') => {
             delete window.location;
-            window.location = { href: 'https://example.com/tracker/?foo=bar&code=abc123&other=value' };
-            expect(isOAuthRedirect()).toBe(true);
+            if (!search && href.includes('?') && !href.includes('#')) {
+                search = href.substring(href.indexOf('?'));
+            } else if (!search && href.includes('?') && href.includes('#')) {
+                // Handle ?query#hash case - extract query before hash
+                const hashIndex = href.indexOf('#');
+                const queryIndex = href.indexOf('?');
+                if (queryIndex < hashIndex) {
+                    search = href.substring(queryIndex, hashIndex);
+                }
+            }
+            window.location = { href, search };
+        };
+
+        beforeEach(() => {
+            // Need to access the global mock, not create new
+            Object.defineProperty(global, 'sessionStorage', {
+                value: mockSessionStorage,
+                writable: true,
+            });
+            mockSessionStorage.clear();
+        });
+
+        afterEach(() => {
             window.location = originalLocation;
         });
 
-        it('should work with hash-based routing and OAuth params', () => {
-            delete window.location;
-            window.location = { href: 'https://example.com/tracker/#/home?code=abc123' };
+        it('should work with complex URLs containing OAuth params', () => {
+            setMockLocation('https://example.com/tracker/?foo=bar&code=abc123&other=value');
             expect(isOAuthRedirect()).toBe(true);
-            window.location = originalLocation;
+        });
+
+        it('should handle hash-based routing - OAuth params in query string', () => {
+            // When OAuth params are in query string, they're detected
+            setMockLocation('https://example.com/tracker/?code=abc123#/home', '?code=abc123');
+            expect(isOAuthRedirect()).toBe(true);
         });
 
         it('should handle URL-encoded parameters', () => {
-            delete window.location;
-            window.location = { href: 'https://example.com/tracker/?code=abc%20123' };
+            setMockLocation('https://example.com/tracker/?code=abc%20123');
             expect(isOAuthRedirect()).toBe(true);
-            window.location = originalLocation;
         });
     });
 });
 
 describe('PWA integration scenario', () => {
-    const setMockLocation = (href) => {
+    const setMockLocation = (href, search = '') => {
         delete window.location;
-        window.location = { href };
+        if (!search && href.includes('?')) {
+            search = href.substring(href.indexOf('?'));
+        }
+        window.location = { href, search };
     };
 
     beforeEach(() => {
@@ -179,7 +207,7 @@ describe('PWA integration scenario', () => {
 
     it('should correctly handle the full OAuth flow lifecycle', () => {
         // Step 1: User is on the app, no OAuth in progress
-        setMockLocation('https://example.com/tracker/');
+        setMockLocation('https://example.com/tracker/', '');
         expect(isOAuthRedirect()).toBe(false);
         expect(isOAuthInProgress()).toBe(false);
 
@@ -197,7 +225,7 @@ describe('PWA integration scenario', () => {
         expect(isOAuthInProgress()).toBe(false);
 
         // Step 5: On subsequent navigations (without OAuth params), redirect detection is false
-        setMockLocation('https://example.com/tracker/');
+        setMockLocation('https://example.com/tracker/', '');
         expect(isOAuthRedirect()).toBe(false);
     });
 });

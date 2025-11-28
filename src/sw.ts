@@ -93,6 +93,10 @@ registerRoute(
  * Check if an error is an IndexedDB backing store error
  * This error occurs on some devices (e.g., OnePlus 12) when IndexedDB
  * fails to initialize properly after OAuth redirect
+ *
+ * Note: This function is intentionally duplicated from src/utils/oauth.ts
+ * because service workers are built separately and can't import from
+ * the main app bundle. Keep both versions in sync if changes are needed.
  */
 function isIndexedDBBackingStoreError(error: unknown): boolean {
     if (!error || typeof error !== 'object') return false;

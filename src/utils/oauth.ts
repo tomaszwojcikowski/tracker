@@ -24,6 +24,10 @@ const OAUTH_IN_PROGRESS_KEY = 'oauth_in_progress';
  * This error occurs on some devices (e.g., OnePlus 12) when IndexedDB
  * fails to initialize properly after OAuth redirect
  *
+ * Note: This function is also defined in src/sw.ts for use in the service worker,
+ * which is built separately and can't import from this module.
+ * Keep both versions in sync if changes are needed.
+ *
  * @param error - The error to check
  * @returns true if this is an IndexedDB backing store error
  */

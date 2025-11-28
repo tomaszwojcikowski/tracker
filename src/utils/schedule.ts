@@ -102,7 +102,7 @@ export function getCompleteSchedule(): RawScheduleItem[] {
  *
  * The workout plan data is now self-contained in the V2 JSON format,
  * so no additional processing or auto-generation of warmups/cooldowns is needed.
- * This function simply populates the complete schedule from the raw data.
+ * This function creates a copy of the raw schedule data for use by the rest of the application.
  */
 export function buildCompleteSchedule(): void {
     // The schedule is self-contained, so we just use the raw schedule as is

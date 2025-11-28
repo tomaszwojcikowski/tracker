@@ -2,7 +2,7 @@
  * Workout Plan Utilities
  *
  * This module provides utilities for loading and working with workout plans
- * in both v1.0.0 (flat array) and v2.0.0 (structured) formats.
+ * in v2.0.0 structured format.
  */
 
 // ============================================================================
@@ -98,7 +98,7 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
 /**
  * Format version string
  */
-export type FormatVersion = '1.0.0' | '2.0.0';
+export type FormatVersion = '2.0.0';
 
 /**
  * Structured reps data for internal use
@@ -139,9 +139,9 @@ export interface TempoRange {
 }
 
 /**
- * V1.0.0 format entry (flat array item)
+ * Internal schedule entry (flat format for compatibility with existing code)
  */
-export interface V1Entry {
+export interface ScheduleEntry {
   /** Week number */
   w: number;
   /** Day number */
@@ -286,19 +286,14 @@ export interface V2WorkoutPlan {
 }
 
 /**
- * V1.0.0 format is just an array of entries
+ * Supported workout plan format (v2.0.0 only)
  */
-export type V1WorkoutPlan = V1Entry[];
-
-/**
- * Any supported workout plan format
- */
-export type WorkoutPlanData = V1WorkoutPlan | V2WorkoutPlan;
+export type WorkoutPlanData = V2WorkoutPlan;
 
 /**
  * Internal schedule format (compatible with buildCompleteSchedule)
  */
-export type InternalSchedule = V1Entry[];
+export type InternalSchedule = ScheduleEntry[];
 
 /**
  * Phase metadata for UI display
@@ -354,31 +349,13 @@ export interface PlanSummary {
 // ============================================================================
 
 /**
- * Validate v1.0.0 format
- */
-function validateV1Format(data: unknown): data is V1WorkoutPlan {
-  if (!Array.isArray(data)) return false;
-  if (data.length === 0) return false;
-
-  // Check first entry has required fields
-  const entry = data[0] as V1Entry;
-  return (
-    entry.w !== undefined &&
-    entry.d !== undefined &&
-    entry.ex !== undefined &&
-    entry.s !== undefined &&
-    entry.r !== undefined
-  );
-}
-
-/**
  * Validate v2.0.0 format
  */
 function validateV2Format(data: unknown): data is V2WorkoutPlan {
   if (!data || typeof data !== 'object') return false;
 
   const obj = data as Record<string, unknown>;
-  if (!obj.formatVersion || !obj.plan) return false;
+  if (!obj.formatVersion || obj.formatVersion !== '2.0.0' || !obj.plan) return false;
 
   const plan = obj.plan as Record<string, unknown>;
   return (
@@ -390,45 +367,8 @@ function validateV2Format(data: unknown): data is V2WorkoutPlan {
 }
 
 // ============================================================================
-// FORMAT DETECTION & CONVERSION
+// FORMAT CONVERSION
 // ============================================================================
-
-/**
- * Detect the format version of a workout plan
- * @param data - The workout plan data
- * @returns Format version ('1.0.0' or '2.0.0')
- * @throws Error if format is unknown
- */
-export function detectFormatVersion(data: unknown): FormatVersion {
-  // v2.0.0 has formatVersion field at root
-  if (data && typeof data === 'object' && 'formatVersion' in data) {
-    return (data as V2WorkoutPlan).formatVersion;
-  }
-
-  // v1.0.0 is a flat array
-  if (Array.isArray(data)) {
-    return '1.0.0';
-  }
-
-  // Unknown format
-  throw new Error('Unknown workout plan format');
-}
-
-/**
- * Convert v1.0.0 flat format to internal schedule format
- * (Compatible with existing buildCompleteSchedule function)
- * @param v1Data - v1.0.0 format data
- * @returns Internal schedule format
- * @throws Error if format is invalid
- */
-export function convertV1ToInternal(v1Data: unknown): InternalSchedule {
-  if (!validateV1Format(v1Data)) {
-    throw new Error('Invalid v1.0.0 workout plan format');
-  }
-
-  // v1.0.0 format is already compatible with internal format
-  return v1Data;
-}
 
 /**
  * Convert v2.0.0 structured format to internal schedule format
@@ -442,10 +382,10 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
     throw new Error('Invalid v2.0.0 workout plan format');
   }
 
-  const internalFormat: V1Entry[] = [];
+  const internalFormat: ScheduleEntry[] = [];
 
-  // Flatten the structured format back to flat array
-  // Note: The 'n' field combines notes and category for v1.0.0 compatibility
+  // Flatten the structured format back to flat array for internal use
+  // The 'n' field combines notes and category
   // Priority: notes (if present) > category (fallback) > empty string
   v2Data.plan.phases.forEach((phase) => {
     phase.weeks.forEach((week) => {
@@ -515,10 +455,9 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             ex: exercise.exerciseName,
             s: exercise.sets,
             r: repsStr,
-            // For v1.0.0 compatibility, combine notes and category
-            // This preserves the original behavior where 'n' was a multi-purpose field
+            // Combine notes and category into single field
             n: exercise.notes || exercise.category || '',
-            // Pass through load for weighted exercises (for backward compatibility)
+            // Pass through load for weighted exercises
             load: loadRange?.raw,
             // Include parsed load range
             loadRange: loadRange || undefined,
@@ -738,46 +677,33 @@ function parseTempoRange(tempo: string): TempoRange | null {
  * @throws Error if format is unsupported
  */
 export function loadWorkoutPlan(data: unknown): LoadedWorkoutPlan {
-  const version = detectFormatVersion(data);
-
-  let schedule: InternalSchedule;
-  let metadata: WorkoutPlanMetadata;
-
-  if (version === '1.0.0') {
-    schedule = convertV1ToInternal(data);
-    // v1.0.0 has no metadata
-    metadata = {
-      version: '1.0.0',
-      name: 'Workout Plan',
-      description: null,
-      durationWeeks: Math.max(...schedule.map((e) => e.w)),
-    };
-  } else if (version === '2.0.0') {
-    const v2Data = data as V2WorkoutPlan;
-    schedule = convertV2ToInternal(v2Data);
-    // Extract metadata from v2.0.0 format
-    metadata = {
-      version: '2.0.0',
-      id: v2Data.plan.id,
-      name: v2Data.plan.name,
-      description: v2Data.plan.description,
-      author: v2Data.plan.author,
-      durationWeeks: v2Data.plan.durationWeeks,
-      goals: v2Data.plan.goals,
-      targetLevel: v2Data.plan.targetLevel,
-      equipment: v2Data.plan.equipment,
-      phases: v2Data.plan.phases.map((p) => ({
-        number: p.phaseNumber,
-        name: p.name,
-        description: p.description,
-        startWeek: p.startWeek,
-        endWeek: p.endWeek,
-        focus: p.focus,
-      })),
-    };
-  } else {
-    throw new Error(`Unsupported format version: ${version}`);
+  if (!validateV2Format(data)) {
+    throw new Error('Invalid workout plan format. Only v2.0.0 format is supported.');
   }
+
+  const v2Data = data as V2WorkoutPlan;
+  const schedule = convertV2ToInternal(v2Data);
+  
+  // Extract metadata from v2.0.0 format
+  const metadata: WorkoutPlanMetadata = {
+    version: '2.0.0',
+    id: v2Data.plan.id,
+    name: v2Data.plan.name,
+    description: v2Data.plan.description,
+    author: v2Data.plan.author,
+    durationWeeks: v2Data.plan.durationWeeks,
+    goals: v2Data.plan.goals,
+    targetLevel: v2Data.plan.targetLevel,
+    equipment: v2Data.plan.equipment,
+    phases: v2Data.plan.phases.map((p) => ({
+      number: p.phaseNumber,
+      name: p.name,
+      description: p.description,
+      startWeek: p.startWeek,
+      endWeek: p.endWeek,
+      focus: p.focus,
+    })),
+  };
 
   return { schedule, metadata };
 }
@@ -841,13 +767,7 @@ export function getExercisesWithDetails(
  * @returns True if v2.0.0 format
  */
 export function isV2Format(data: unknown): data is V2WorkoutPlan {
-  try {
-    return detectFormatVersion(data) === '2.0.0';
-  } catch {
-    // detectFormatVersion throws if format is unknown
-    // This is expected for invalid data, so we return false
-    return false;
-  }
+  return validateV2Format(data);
 }
 
 /**

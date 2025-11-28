@@ -7,7 +7,6 @@ This document defines the robust and complete workout plan format used by the Tr
 ## Version
 
 **Current Version:** 2.0.0
-**Previous Version:** 1.0.0 (flat array format)
 
 ## Design Principles
 
@@ -16,7 +15,7 @@ This document defines the robust and complete workout plan format used by the Tr
 3. **Structure**: Organize data hierarchically (plan → phases → weeks → days → exercises)
 4. **Extensibility**: Allow for future additions without breaking existing data
 5. **Type Safety**: Clear field types and constraints
-6. **Zero Data Loss**: Migration from v1.0.0 must preserve all information
+6. **Structured Data**: Use explicit fields instead of parsing strings
 
 ## Format Structure
 
@@ -324,52 +323,6 @@ The following fields are deprecated but still supported for backward compatibili
 - `test`: Testing/assessment
 - `technique`: Technical refinement
 
-## Migration from v1.0.0
-
-### Field Mapping
-
-| v1.0.0 Field | v2.0.0 Field | Transformation |
-|--------------|--------------|----------------|
-| `w` | `weekNumber` in week object | Direct mapping |
-| `d` | `dayNumber` in day object | Direct mapping |
-| `ex` | `exerciseName` in exercise | Direct mapping |
-| `s` | `sets` in exercise | Direct mapping |
-| `r` | `reps` in exercise | Direct mapping |
-| `n` | `notes` + `category` | Parse to extract category and notes |
-
-### Category Inference Rules
-
-The `n` field in v1.0.0 contains mixed information. Migration should infer `category` based on the note value:
-
-- "Warm-up" → `category: "warmup"`
-- "Cool-down" → `category: "cooldown"`
-- "Mobility", "Pre-hab" → `category: "mobility"`
-- "Practice", "Skill: *" → `category: "skill"`
-- "Core" → `category: "core"`
-- "Volume", "Intensity", "Load: *", "Tempo *" → `category: "main"`
-- "Accessory" → `category: "accessory"`
-- All others → `category: "main"` (default)
-
-### Load/Intensity Extraction
-
-Notes containing load information should be parsed into structured fields:
-- "Load: 10kg" → `loadMin: 10, loadMax: 10, loadUnit: "kg"`
-- "Load: BW" → `loadMin: 0, loadMax: 0, loadUnit: "bodyweight"`
-- "Load: 5-10kg" → `loadMin: 5, loadMax: 10, loadUnit: "kg"`
-
-### Tempo Extraction
-
-Notes containing tempo should be parsed into structured fields:
-- "Tempo 2-1-1-0" → `tempoEccentric: 2, tempoPauseBottom: 1, tempoConcentric: 1, tempoPauseTop: 0`
-
-### Reps Extraction
-
-Reps strings should be parsed into structured fields:
-- "8 reps" → `repsType: "reps", repsValue: 8`
-- "8-12 reps" → `repsType: "reps", repsMin: 8, repsMax: 12`
-- "2 min" → `repsType: "time", repsValue: 120, repsUnit: "seconds"`
-- "(1-2-3) reps" → `repsType: "ladder", repsValue: [1, 2, 3]`
-
 ## Example Complete Plan
 
 ```json
@@ -524,10 +477,10 @@ Reps strings should be parsed into structured fields:
 2. **Day Numbers**: Must be between 1-7, typically using 1,2,3,5 (4 is rest)
 3. **Exercise Order**: Must be sequential, starting at 1, with no gaps within a day
 4. **Phase Coverage**: Phases must cover all weeks with no gaps or overlaps
-5. **Format Version**: Must match semantic versioning pattern (X.Y.Z)
+5. **Format Version**: Must be "2.0.0"
 6. **Dates**: Must be valid ISO 8601 format
 
-## Benefits of New Format
+## Benefits of Format
 
 1. **Better Organization**: Clear hierarchical structure
 2. **Rich Metadata**: Comprehensive information at all levels
@@ -537,15 +490,14 @@ Reps strings should be parsed into structured fields:
 6. **Analytics**: Phase/focus data enables better progress tracking
 7. **Flexibility**: Supports varying workout styles and progressions
 8. **Type Safety**: Clear data types enable better validation
+9. **No Parsing Required**: Structured load, reps, and tempo fields eliminate string parsing
 
 ## Implementation Notes
 
-1. **Backward Compatibility**: App should support reading v1.0.0 format and auto-migrate
-2. **Gradual Migration**: Support both formats during transition period
-3. **Validation**: Implement schema validation on load
-4. **Performance**: Consider lazy loading for large plans
-5. **Storage**: New format will be larger - ensure localStorage has capacity
-6. **Testing**: Comprehensive test coverage for migration logic
+1. **Validation**: Implement schema validation on load
+2. **Performance**: Consider lazy loading for large plans
+3. **Storage**: Ensure localStorage has capacity for the format
+4. **Testing**: Comprehensive test coverage for data loading
 
 ## Future Extensions
 

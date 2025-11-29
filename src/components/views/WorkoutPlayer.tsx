@@ -499,7 +499,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             if (!wasCompleted && newSets[setIndex]) {
                 // Show RPE prompt for the completed set
                 setRpePrompt({ exerciseId: exId, setIndex });
-                
+
                 // Start rest timer
                 if (typeof restTime === 'number' && restTime > 0) {
                     setTimerSeconds(restTime);
@@ -854,7 +854,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             />
 
             {/* Gesture hint for swipe navigation - shown on first workout */}
-            <GestureHint 
+            <GestureHint
                 type="swipe-right"
                 storageKey="workout_player_back"
                 message="Swipe right to go back"

@@ -40,10 +40,10 @@ export const GestureHint: React.FC<GestureHintProps> = ({
     useEffect(() => {
         // Check if hint was already shown
         const wasShown = safeGetJSON<boolean>(`gesture_hint_${storageKey}`, false);
-        
+
         if (forceShow || !wasShown) {
             setIsVisible(true);
-            
+
             // Mark as shown
             if (!forceShow) {
                 safeSetJSON(`gesture_hint_${storageKey}`, true);

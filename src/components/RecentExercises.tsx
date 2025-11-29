@@ -31,16 +31,16 @@ export const getRecentExercises = (): RecentExercise[] => {
  */
 export const addRecentExercise = (exercise: Exercise): void => {
     const recent = getRecentExercises();
-    
+
     // Remove if already exists
     const filtered = recent.filter(r => r.id !== exercise.id);
-    
+
     // Add to front
     const updated: RecentExercise[] = [
         { id: exercise.id, name: exercise.name, lastUsed: new Date().toISOString() },
         ...filtered,
     ].slice(0, MAX_RECENT);
-    
+
     safeSetJSON(STORAGE_KEY, updated);
 };
 
@@ -69,7 +69,7 @@ export const RecentExercisesList: React.FC<RecentExercisesListProps> = ({
     addedExerciseIds = [],
 }) => {
     const recentExercises = getRecentExercises();
-    
+
     // Filter out already added exercises and find full exercise objects
     const availableRecent = recentExercises
         .filter(r => !addedExerciseIds.includes(r.id))

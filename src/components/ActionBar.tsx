@@ -5,12 +5,17 @@
  * Only renders when a timer is active.
  */
 
+import { useState, useCallback, useEffect } from 'react';
 import { useHaptic } from '../hooks';
-import { X, Minus, Plus } from 'lucide-react';
+import { X, Minus, Plus, Maximize2 } from 'lucide-react';
+import { FullscreenRestTimer } from './FullscreenRestTimer';
+import { safeGetJSON, safeSetJSON } from '../utils/storage';
 
 export interface TimerState {
   time: number;
   active: boolean;
+  /** Total time the timer was started with (for progress calculation) */
+  totalTime?: number;
 }
 
 export interface EmomState {
@@ -39,9 +44,81 @@ export function ActionBar({
   setEmomInterval,
 }: ActionBarProps) {
   const haptic = useHaptic();
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(() =>
+    safeGetJSON<boolean>('rest_timer_sound', true) ?? true
+  );
+
+  // Track total time when timer starts
+  const [totalTime, setTotalTime] = useState(timerState.totalTime ?? timerState.time);
+
+  // Update total time when timer starts fresh (time increases or resets to new value)
+  useEffect(() => {
+    if (timerState.time > 0 && timerState.time > totalTime) {
+      setTotalTime(timerState.time);
+    }
+    // Reset total time when timer is stopped
+    if (timerState.time === 0 && !timerState.active) {
+      setTotalTime(0);
+    }
+  }, [timerState.time, timerState.active, totalTime]);
+
+  // Also capture initial total time from props if provided
+  useEffect(() => {
+    if (timerState.totalTime && timerState.totalTime > 0) {
+      setTotalTime(timerState.totalTime);
+    }
+  }, [timerState.totalTime]);
+
+  const toggleSound = useCallback(() => {
+    setSoundEnabled(prev => {
+      const newValue = !prev;
+      safeSetJSON('rest_timer_sound', newValue);
+      return newValue;
+    });
+  }, []);
+
+  const handleExpand = useCallback(() => {
+    haptic.tick();
+    setIsFullscreen(true);
+  }, [haptic]);
+
+  const handleMinimize = useCallback(() => {
+    haptic.tick();
+    setIsFullscreen(false);
+  }, [haptic]);
+
+  const handleStop = useCallback(() => {
+    setTimerActive(false);
+    setTimerSeconds(0);
+    setIsFullscreen(false);
+  }, [setTimerActive, setTimerSeconds]);
+
+  const handleAddTime = useCallback((amount: number) => {
+    setTimerSeconds((s: number) => Math.max(0, s + amount));
+    // Also increase total time to maintain progress bar accuracy
+    if (amount > 0) {
+      setTotalTime(prev => prev + amount);
+    }
+  }, [setTimerSeconds]);
 
   // Only show the action bar if there's an active timer
   const hasActiveTimer = timerState.time > 0 || emomState?.active;
+
+  // Render fullscreen timer if expanded
+  if (isFullscreen && timerState.time > 0) {
+    return (
+      <FullscreenRestTimer
+        seconds={timerState.time}
+        totalSeconds={totalTime}
+        onStop={handleStop}
+        onAddTime={handleAddTime}
+        onMinimize={handleMinimize}
+        soundEnabled={soundEnabled}
+        onToggleSound={toggleSound}
+      />
+    );
+  }
 
   if (!hasActiveTimer) {
     return null;
@@ -116,6 +193,13 @@ export function ActionBar({
       {timerState.time > 0 && (
         <div className="px-4 pt-3 pb-3">
           <div className="glass-panel px-5 py-4 rounded-2xl flex items-center gap-4 shadow-lg animate-slide-up">
+            <button
+              onClick={handleExpand}
+              className="h-10 w-10 min-w-[40px] rounded-full bg-white/10 hover:bg-white/20 text-sys-accent flex items-center justify-center active:scale-90 transition-all"
+              aria-label="Expand timer to fullscreen"
+            >
+              <Maximize2 size={20} />
+            </button>
             <span className="text-2xl font-mono font-bold text-white min-w-[80px]">
               {Math.floor(timerState.time / 60)}:
               {timerState.time % 60 < 10 ? '0' : ''}

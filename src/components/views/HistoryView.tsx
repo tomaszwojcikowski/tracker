@@ -36,6 +36,8 @@ interface GlobalHistoryEntry {
         rpe?: Record<string, string>;
     }>;
     workoutNotes?: string;
+    /** Whether this is a custom/empty workout (week=0, day=0) */
+    isEmptyWorkout?: boolean;
 }
 
 interface ExerciseStatsViewProps {
@@ -359,8 +361,8 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
         const validHistory = h.filter(entry =>
             entry &&
             typeof entry === 'object' &&
-            entry.week &&
-            entry.day &&
+            typeof entry.week === 'number' &&
+            typeof entry.day === 'number' &&
             entry.date
         );
 
@@ -474,16 +476,24 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                         className="w-full p-5 flex items-center gap-4 active:bg-sys-surfaceHigh transition-colors"
                                         aria-expanded={isExpanded}
                                     >
-                                        {/* Week Badge */}
-                                        <div className="relative h-14 w-14 min-w-[56px] rounded-2xl bg-gradient-to-br from-sys-accent/20 to-sys-accent/5 border border-sys-accent/30 flex flex-col items-center justify-center" aria-hidden="true">
-                                            <span className="text-[10px] font-semibold text-sys-accent uppercase tracking-wider">Week</span>
-                                            <span className="text-lg font-bold text-sys-accent leading-none">{entry.week}</span>
-                                        </div>
+                                        {/* Week Badge - Custom style for empty workouts */}
+                                        {entry.isEmptyWorkout || (entry.week === 0 && entry.day === 0) ? (
+                                            <div className="relative h-14 w-14 min-w-[56px] rounded-2xl bg-gradient-to-br from-sys-success/20 to-sys-success/5 border border-sys-success/30 flex flex-col items-center justify-center" aria-hidden="true">
+                                                <i data-lucide="plus" width="24" className="text-sys-success"></i>
+                                            </div>
+                                        ) : (
+                                            <div className="relative h-14 w-14 min-w-[56px] rounded-2xl bg-gradient-to-br from-sys-accent/20 to-sys-accent/5 border border-sys-accent/30 flex flex-col items-center justify-center" aria-hidden="true">
+                                                <span className="text-[10px] font-semibold text-sys-accent uppercase tracking-wider">Week</span>
+                                                <span className="text-lg font-bold text-sys-accent leading-none">{entry.week}</span>
+                                            </div>
+                                        )}
                                         
                                         {/* Content */}
                                         <div className="flex-1 min-w-0 text-left">
                                             <div className="flex items-center gap-2 mb-1">
-                                                <h3 className="text-base font-bold text-white truncate">Day {entry.day}</h3>
+                                                <h3 className="text-base font-bold text-white truncate">
+                                                    {entry.isEmptyWorkout || (entry.week === 0 && entry.day === 0) ? 'Custom Workout' : `Day ${entry.day}`}
+                                                </h3>
                                                 {isFullyComplete && (
                                                     <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-sys-success/20 text-sys-success text-[10px] font-bold uppercase">
                                                         <i data-lucide="check" width="10"></i>

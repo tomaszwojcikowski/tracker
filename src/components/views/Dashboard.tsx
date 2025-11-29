@@ -6,7 +6,7 @@
 
 import { useState, useEffect } from 'react';
 import { useHaptic, useSwipeNavigation } from '../../hooks';
-import { PlayCircle, Check, Play, ChevronRight, ChevronLeft } from 'lucide-react';
+import { PlayCircle, Check, Play, ChevronRight, ChevronLeft, Plus } from 'lucide-react';
 import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, hasWorkoutData, type InProgressWorkout } from '../../utils/storage';
 import { formatRelativeTime } from '../../utils/time';
 import { SwipeIndicator } from '../SwipeIndicator';
@@ -44,12 +44,14 @@ export interface DashboardProps {
   currentWeek: number;
   setCurrentWeek: (week: number) => void;
   onStartWorkout: (day: number) => void;
+  onStartEmptyWorkout?: () => void;
 }
 
 export function Dashboard({
   currentWeek,
   setCurrentWeek,
   onStartWorkout,
+  onStartEmptyWorkout,
 }: DashboardProps) {
   const [progress, setProgress] = useState(0);
   const [inProgressWorkout, setInProgressWorkout] = useState<InProgressWorkout | null>(null);
@@ -265,6 +267,28 @@ export function Dashboard({
             );
           })}
         </div>
+
+        {/* Start Empty Workout Button */}
+        {onStartEmptyWorkout && (
+          <div className="mt-6">
+            <button
+              onClick={() => {
+                haptic.bump();
+                onStartEmptyWorkout();
+              }}
+              className="w-full min-h-[56px] rounded-3xl px-6 py-4 flex items-center justify-center gap-3 transition-all active:scale-[0.97] bg-gradient-to-r from-sys-accent/10 to-sys-success/10 border-2 border-dashed border-white/20 hover:border-sys-accent/40"
+              aria-label="Start an empty workout"
+            >
+              <div className="h-10 w-10 min-w-[40px] rounded-2xl bg-sys-surfaceHigh flex items-center justify-center">
+                <Plus className="text-sys-accent" size={20} />
+              </div>
+              <div className="flex flex-col items-start text-left">
+                <span className="text-sm font-bold text-white">Start Custom Workout</span>
+                <span className="text-xs text-sys-onSurfaceVar">Add your own exercises</span>
+              </div>
+            </button>
+          </div>
+        )}
 
         <div className="mt-10 flex justify-center items-center gap-2">
           <button

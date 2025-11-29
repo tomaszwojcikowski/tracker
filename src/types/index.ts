@@ -333,6 +333,8 @@ export interface WorkoutPlayerProps {
   day: ValidDay;
   onComplete: () => void;
   exerciseLibrary: Exercise[];
+  /** Whether this is an empty/custom workout not tied to the program */
+  isEmptyWorkout?: boolean;
 }
 
 /**
@@ -342,6 +344,8 @@ export interface DashboardProps {
   currentWeek: number;
   setCurrentWeek: (week: number) => void;
   onStartWorkout: (day: ValidDay) => void;
+  /** Callback to start an empty/custom workout */
+  onStartEmptyWorkout?: () => void;
 }
 
 /**

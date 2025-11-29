@@ -805,6 +805,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                     const totalSets = currentSetArray.length;
                                     const hasHistory = getExerciseHistory(ex.name).length > 0;
                                     const isCollapsed = isExerciseCollapsed(exId);
+                                    const isFirstIncomplete = exId === firstIncompleteExerciseId;
 
                                     return (
                                         <div key={eIdx} id={exId} className="relative scroll-mt-16">
@@ -812,7 +813,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 className={`bg-sys-surface rounded-2xl p-4 border relative z-10 overflow-hidden ${
                                                     completedSets === totalSets
                                                         ? 'border-sys-success/30 bg-sys-success/5'
-                                                        : 'border-white/5'
+                                                        : isFirstIncomplete
+                                                            ? 'border-sys-accent/50 bg-sys-accent/10'
+                                                            : 'border-white/5'
                                                 }`}
                                             >
                                                 {/* Progress bar */}
@@ -880,43 +883,48 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 {/* Collapsed content */}
                                                 {!isCollapsed && (
                                                     <>
-                                                        {/* Timer buttons */}
-                                                        <div className="flex gap-2 mb-3">
-                                                            {ex.rest && ex.rest > 0 && (
-                                                                <button
-                                                                    onClick={() => {
-                                                                        haptic.bump();
-                                                                        setTimerSeconds(ex.rest);
-                                                                        setTimerActive(true);
-                                                                    }}
-                                                                    className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-semibold flex items-center justify-center gap-1.5 active:bg-sys-accent/20 transition-colors"
-                                                                    aria-label={`Start ${ex.rest} second timer`}
-                                                                >
-                                                                    <Timer size={14} />
-                                                                    <span>{ex.rest}s</span>
-                                                                </button>
-                                                            )}
-                                                            <button
-                                                                onClick={() => {
-                                                                    haptic.bump();
-                                                                    if (!emomActive) {
-                                                                        setEmomSeconds(emomInterval);
-                                                                        setEmomActive(true);
-                                                                    } else {
-                                                                        setEmomActive(false);
-                                                                    }
-                                                                }}
-                                                                className={`h-8 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors ${
-                                                                    emomActive
-                                                                        ? 'bg-sys-accent text-white'
-                                                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar active:bg-sys-accent/20'
-                                                                }`}
-                                                                aria-label={`Start EMOM timer with ${emomInterval} second interval`}
-                                                            >
-                                                                <Repeat size={14} />
-                                                                <span>EMOM {emomInterval}s</span>
-                                                            </button>
-                                                        </div>
+                                                        {/* Timer buttons - only render if there's at least one button to show */}
+                                                        {(ex.rest && ex.rest > 0 || totalSets > 1) && (
+                                                            <div className="flex gap-2 mb-3">
+                                                                {ex.rest && ex.rest > 0 && (
+                                                                    <button
+                                                                        onClick={() => {
+                                                                            haptic.bump();
+                                                                            setTimerSeconds(ex.rest);
+                                                                            setTimerActive(true);
+                                                                        }}
+                                                                        className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-semibold flex items-center justify-center gap-1.5 active:bg-sys-accent/20 transition-colors"
+                                                                        aria-label={`Start ${ex.rest} second timer`}
+                                                                    >
+                                                                        <Timer size={14} />
+                                                                        <span>{ex.rest}s</span>
+                                                                    </button>
+                                                                )}
+                                                                {/* EMOM button - only show for exercises with more than 1 set */}
+                                                                {totalSets > 1 && (
+                                                                    <button
+                                                                        onClick={() => {
+                                                                            haptic.bump();
+                                                                            if (!emomActive) {
+                                                                                setEmomSeconds(emomInterval);
+                                                                                setEmomActive(true);
+                                                                            } else {
+                                                                                setEmomActive(false);
+                                                                            }
+                                                                        }}
+                                                                        className={`h-8 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors ${
+                                                                            emomActive
+                                                                                ? 'bg-sys-accent text-white'
+                                                                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar active:bg-sys-accent/20'
+                                                                        }`}
+                                                                        aria-label={`Start EMOM timer with ${emomInterval} second interval`}
+                                                                    >
+                                                                        <Repeat size={14} />
+                                                                        <span>EMOM {emomInterval}s</span>
+                                                                    </button>
+                                                                )}
+                                                            </div>
+                                                        )}
 
                                                         {/* Set buttons */}
                                                         <div className="flex flex-wrap gap-2 mb-3">

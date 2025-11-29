@@ -4,11 +4,19 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    background-color: var(--color-black);
+    min-height: 100%;
+    min-height: 100dvh;
+}
+
 body {
     background: var(--gradient-dark);
     color: var(--color-neutral-50);
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior-y: none;
+    min-height: 100%;
+    min-height: 100dvh;
 }
 ::-webkit-scrollbar { display: none; }
 .safe-pb { padding-bottom: env(safe-area-inset-bottom, 24px); }

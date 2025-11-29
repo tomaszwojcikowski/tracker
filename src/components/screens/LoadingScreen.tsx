@@ -17,7 +17,7 @@ export function LoadingScreen({
   subMessage = 'Loading workout schedule and exercises',
 }: LoadingScreenProps) {
   return (
-    <div className="min-h-screen bg-sys-black text-white flex items-center justify-center p-5">
+    <div className="min-h-screen min-h-[100dvh] bg-sys-black text-white flex items-center justify-center p-5">
       <div className="text-center max-w-md">
         <div className="mb-6">
           <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mx-auto mb-4 animate-pulse">
@@ -68,7 +68,7 @@ export function ErrorScreen({ message, onRetry }: ErrorScreenProps) {
   };
 
   return (
-    <div className="min-h-screen bg-sys-black text-white flex items-center justify-center p-5">
+    <div className="min-h-screen min-h-[100dvh] bg-sys-black text-white flex items-center justify-center p-5">
       <div className="text-center max-w-md">
         <div className="mb-6">
           <div className="h-20 w-20 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-4">

@@ -162,7 +162,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
             // Default error UI
             return (
-                <div className="min-h-screen bg-sys-black flex flex-col items-center justify-center p-6">
+                <div className="min-h-screen min-h-[100dvh] bg-sys-black flex flex-col items-center justify-center p-6">
                     {/* Error icon */}
                     <div
                         className="h-20 w-20 rounded-full bg-sys-error/10 flex items-center justify-center mb-6"

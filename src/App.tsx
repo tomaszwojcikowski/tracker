@@ -260,7 +260,7 @@ const App: React.FC = () => {
             {showOnboarding && (
                 <Onboarding onComplete={() => setShowOnboarding(false)} />
             )}
-            <div className="min-h-screen bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative">
+            <div className="min-h-screen min-h-[100dvh] bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative">
                 <SkipLink targetId="main-content" />
                 <TopAppBar
                     title={getTitle()}
@@ -275,13 +275,13 @@ const App: React.FC = () => {
                 />
 
                 {!isInitialized ? (
-                    <div className="flex items-center justify-center h-screen">
+                    <div className="flex-1 flex items-center justify-center">
                         <div className="text-center">
                             <div className="text-lg text-sys-onSurfaceVar">Loading...</div>
                         </div>
                     </div>
                 ) : viewMode === 'workout' ? (
-                    <main id="main-content" className="animate-fade-in">
+                    <main id="main-content" className="flex-1 animate-fade-in">
                         <WorkoutPlayer
                             week={currentWeek}
                             day={activeDay}
@@ -291,7 +291,7 @@ const App: React.FC = () => {
                         />
                     </main>
                 ) : viewMode === 'empty-workout' ? (
-                    <main id="main-content" className="animate-fade-in">
+                    <main id="main-content" className="flex-1 animate-fade-in">
                         <WorkoutPlayer
                             week={0}
                             day={0}

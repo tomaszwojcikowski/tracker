@@ -87,3 +87,7 @@ export type { ActionBarProps, TimerState, EmomState } from './ActionBar';
 // Screen components
 export { LoadingScreen, ErrorScreen } from './screens';
 export type { LoadingScreenProps, ErrorScreenProps } from './screens';
+
+// Compact view components
+export { CompactExerciseRow } from './CompactExerciseRow';
+export type { CompactExerciseRowProps } from './CompactExerciseRow';

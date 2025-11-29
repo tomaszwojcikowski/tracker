@@ -1,0 +1,322 @@
+/**
+ * CompactExerciseRow Component
+ *
+ * High-density exercise row for power users.
+ * Features: 32px set buttons, weight stepper (±1kg), tap-to-expand prescription,
+ * auto-fill from history, auto-collapse when complete.
+ */
+
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Check, Minus, Plus, ChevronDown } from 'lucide-react';
+import { getExerciseHistory } from '../utils/exerciseHistory';
+import type { HapticFeedback } from '../hooks';
+
+// ============================================================================
+// TYPES
+// ============================================================================
+
+export interface CompactExerciseRowProps {
+    /** Exercise ID (normalized name) */
+    exId: string;
+    /** Display name */
+    name: string;
+    /** Prescription text (e.g., "3x8-10 reps") */
+    prescription?: string;
+    /** Optional notes */
+    notes?: string;
+    /** Array of set completion states */
+    sets: boolean[];
+    /** Default number of sets */
+    defaultSets: number;
+    /** Current weight value */
+    weight: string;
+    /** Whether this is a bodyweight exercise */
+    isBodyweight?: boolean;
+    /** Rest time in seconds */
+    restTime?: number;
+    /** Whether this is the first incomplete exercise (highlighted) */
+    isFirstIncomplete?: boolean;
+    /** Haptic feedback interface */
+    haptic: HapticFeedback;
+    /** Callback when set is toggled */
+    onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number) => void;
+    /** Callback when weight changes */
+    onWeightChange: (exId: string, weight: string) => void;
+    /** Callback when add set is clicked */
+    onAddSet: (exId: string, defaultSets: number) => void;
+}
+
+// ============================================================================
+// COMPONENT
+// ============================================================================
+
+export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
+    exId,
+    name,
+    prescription,
+    notes,
+    sets,
+    defaultSets,
+    weight,
+    isBodyweight = false,
+    restTime,
+    isFirstIncomplete = false,
+    haptic,
+    onToggleSet,
+    onWeightChange,
+    onAddSet,
+}) => {
+    // State
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [isEditingWeight, setIsEditingWeight] = useState(false);
+    const [localWeight, setLocalWeight] = useState(weight);
+    const [isPrevWeight, setIsPrevWeight] = useState(false);
+    const [userModified, setUserModified] = useState(false);
+    const weightInputRef = useRef<HTMLInputElement>(null);
+
+    // Computed values
+    const completedSets = sets.filter(Boolean).length;
+    const totalSets = sets.length;
+    const isComplete = completedSets === totalSets && totalSets > 0;
+
+    // Auto-fill weight from history on mount
+    useEffect(() => {
+        if (!isBodyweight && !weight && !userModified) {
+            const history = getExerciseHistory(name);
+            if (history.length > 0) {
+                // Get the most recent entry with a weight
+                const lastWithWeight = [...history]
+                    .reverse()
+                    .find((entry) => entry.weight && entry.weight > 0);
+                if (lastWithWeight?.weight) {
+                    const prevWeight = String(lastWithWeight.weight);
+                    setLocalWeight(prevWeight);
+                    setIsPrevWeight(true);
+                    onWeightChange(exId, prevWeight);
+                }
+            }
+        }
+    }, [name, isBodyweight, weight, userModified, exId, onWeightChange]);
+
+    // Sync local weight with prop
+    useEffect(() => {
+        if (weight !== localWeight && !isEditingWeight) {
+            setLocalWeight(weight);
+        }
+    }, [weight, localWeight, isEditingWeight]);
+
+    // Focus input when editing
+    useEffect(() => {
+        if (isEditingWeight && weightInputRef.current) {
+            weightInputRef.current.focus();
+            weightInputRef.current.select();
+        }
+    }, [isEditingWeight]);
+
+    // Handlers
+    const handleToggleExpand = useCallback(() => {
+        haptic.tick();
+        setIsExpanded((prev) => !prev);
+    }, [haptic]);
+
+    const handleWeightTap = useCallback(() => {
+        if (!isBodyweight) {
+            haptic.tick();
+            setIsEditingWeight(true);
+        }
+    }, [isBodyweight, haptic]);
+
+    const handleWeightBlur = useCallback(() => {
+        setIsEditingWeight(false);
+        if (localWeight !== weight) {
+            setUserModified(true);
+            setIsPrevWeight(false);
+            onWeightChange(exId, localWeight);
+        }
+    }, [localWeight, weight, exId, onWeightChange]);
+
+    const handleWeightKeyDown = useCallback(
+        (e: React.KeyboardEvent) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                (e.target as HTMLInputElement).blur();
+            }
+        },
+        []
+    );
+
+    const handleWeightStep = useCallback(
+        (delta: number) => {
+            haptic.tick();
+            const currentValue = parseFloat(localWeight) || 0;
+            const newValue = Math.max(0, currentValue + delta);
+            const newWeight = newValue.toString();
+            setLocalWeight(newWeight);
+            setUserModified(true);
+            setIsPrevWeight(false);
+            onWeightChange(exId, newWeight);
+        },
+        [localWeight, exId, onWeightChange, haptic]
+    );
+
+    const handleSetToggle = useCallback(
+        (setIndex: number) => {
+            onToggleSet(exId, setIndex, defaultSets, restTime);
+        },
+        [exId, defaultSets, restTime, onToggleSet]
+    );
+
+    const handleAddSet = useCallback(() => {
+        onAddSet(exId, defaultSets);
+    }, [exId, defaultSets, onAddSet]);
+
+    // ============================================================================
+    // RENDER: COLLAPSED COMPLETE STATE
+    // ============================================================================
+
+    if (isComplete && !isExpanded) {
+        return (
+            <button
+                onClick={handleToggleExpand}
+                className="w-full h-9 px-3 flex items-center gap-2 bg-sys-success/10 rounded-xl border border-sys-success/20 active:bg-sys-success/20 transition-colors"
+                aria-label={`${name} - completed, tap to edit`}
+            >
+                <div className="flex items-center justify-center h-5 w-5 rounded-full bg-sys-success text-white flex-shrink-0">
+                    <Check size={12} strokeWidth={3} />
+                </div>
+                <span className="flex-1 text-sm font-medium text-white truncate text-left">
+                    {name}
+                </span>
+                <span className="text-xs text-sys-success font-semibold">
+                    {completedSets}/{totalSets}
+                </span>
+                <ChevronDown size={14} className="text-sys-onSurfaceVar flex-shrink-0" />
+            </button>
+        );
+    }
+
+    // ============================================================================
+    // RENDER: EXPANDED/ACTIVE STATE
+    // ============================================================================
+
+    return (
+        <div
+            className={`rounded-xl border overflow-hidden transition-all ${
+                isFirstIncomplete
+                    ? 'bg-sys-accent/10 border-sys-accent/30'
+                    : 'bg-sys-surface border-white/5'
+            }`}
+        >
+            {/* Main Row - Always visible */}
+            <div className="h-14 px-3 flex items-center gap-2">
+                {/* Exercise Name - Tap to expand prescription */}
+                <button
+                    onClick={handleToggleExpand}
+                    className="flex-1 min-w-0 flex items-center gap-1.5 text-left active:opacity-70 transition-opacity"
+                >
+                    <span className="text-sm font-semibold text-white truncate">
+                        {name}
+                    </span>
+                    {(prescription || notes) && (
+                        <ChevronDown
+                            size={14}
+                            className={`text-sys-onSurfaceVar flex-shrink-0 transition-transform ${
+                                isExpanded ? 'rotate-180' : ''
+                            }`}
+                        />
+                    )}
+                </button>
+
+                {/* Set Buttons */}
+                <div className="flex items-center gap-1 flex-shrink-0">
+                    {sets.map((isDone, i) => (
+                        <button
+                            key={`${exId}-set-${i}`}
+                            onClick={() => handleSetToggle(i)}
+                            className={`h-8 w-8 rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
+                                isDone
+                                    ? 'bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
+                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                            }`}
+                            aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
+                        >
+                            {isDone ? <Check size={14} /> : i + 1}
+                        </button>
+                    ))}
+                    {/* Add Set Button */}
+                    <button
+                        onClick={handleAddSet}
+                        className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center border border-dashed border-white/20 active:scale-90 transition-all"
+                        aria-label="Add set"
+                    >
+                        <Plus size={12} />
+                    </button>
+                </div>
+
+                {/* Weight Stepper (only for weighted exercises) */}
+                {!isBodyweight && (
+                    <div className="flex items-center gap-0.5 flex-shrink-0 bg-sys-surfaceHigh rounded-lg overflow-hidden">
+                        <button
+                            onClick={() => handleWeightStep(-1)}
+                            className="h-8 w-8 flex items-center justify-center text-sys-onSurfaceVar active:bg-white/10 transition-colors"
+                            aria-label="Decrease weight by 1kg"
+                        >
+                            <Minus size={14} />
+                        </button>
+                        {isEditingWeight ? (
+                            <input
+                                ref={weightInputRef}
+                                type="number"
+                                inputMode="decimal"
+                                value={localWeight}
+                                onChange={(e) => setLocalWeight(e.target.value)}
+                                onBlur={handleWeightBlur}
+                                onKeyDown={handleWeightKeyDown}
+                                className="w-14 h-8 bg-transparent text-center text-sm font-mono text-white outline-none"
+                            />
+                        ) : (
+                            <button
+                                onClick={handleWeightTap}
+                                className="w-14 h-8 flex items-center justify-center text-sm font-mono text-white active:bg-white/10 transition-colors"
+                                aria-label="Edit weight"
+                            >
+                                {localWeight || '0'}
+                                {isPrevWeight && (
+                                    <span className="text-[10px] text-sys-onSurfaceVar ml-0.5">
+                                        (prev)
+                                    </span>
+                                )}
+                            </button>
+                        )}
+                        <button
+                            onClick={() => handleWeightStep(1)}
+                            className="h-8 w-8 flex items-center justify-center text-sys-onSurfaceVar active:bg-white/10 transition-colors"
+                            aria-label="Increase weight by 1kg"
+                        >
+                            <Plus size={14} />
+                        </button>
+                    </div>
+                )}
+            </div>
+
+            {/* Expandable Prescription Row */}
+            <div
+                className={`overflow-hidden transition-all duration-150 ease-out ${
+                    isExpanded ? 'max-h-20' : 'max-h-0'
+                }`}
+            >
+                <div className="px-3 pb-2 pt-0">
+                    <div className="h-px bg-white/5 mb-2" />
+                    {prescription && (
+                        <p className="text-xs text-sys-onSurfaceVar">{prescription}</p>
+                    )}
+                    {notes && (
+                        <p className="text-xs text-sys-onSurfaceVar/70 mt-0.5">{notes}</p>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default CompactExerciseRow;

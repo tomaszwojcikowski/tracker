@@ -1009,6 +1009,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 onToggleSet={toggleSet}
                                                 onWeightChange={handleWeightChange}
                                                 onAddSet={addSet}
+                                                onCompleteAllSets={completeAllSets}
                                             />
                                         );
                                     }

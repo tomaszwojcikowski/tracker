@@ -6,8 +6,8 @@
  * auto-fill from history, auto-collapse when complete.
  */
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Check, Minus, Plus, ChevronDown } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { Check, Minus, Plus, ChevronDown, CheckCheck } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import type { HapticFeedback } from '../hooks';
 
@@ -44,6 +44,8 @@ export interface CompactExerciseRowProps {
     onWeightChange: (exId: string, weight: string) => void;
     /** Callback when add set is clicked */
     onAddSet: (exId: string, defaultSets: number) => void;
+    /** Callback when complete all sets is clicked */
+    onCompleteAllSets: (exId: string, defaultSets: number) => void;
 }
 
 // ============================================================================
@@ -65,9 +67,10 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     onToggleSet,
     onWeightChange,
     onAddSet,
+    onCompleteAllSets,
 }) => {
-    // State
-    const [isExpanded, setIsExpanded] = useState(false);
+    // State - auto-expand the first incomplete exercise
+    const [isExpanded, setIsExpanded] = useState(isFirstIncomplete);
     const [isEditingWeight, setIsEditingWeight] = useState(false);
     const [localWeight, setLocalWeight] = useState(weight);
     const [isPrevWeight, setIsPrevWeight] = useState(false);
@@ -170,6 +173,10 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
         onAddSet(exId, defaultSets);
     }, [exId, defaultSets, onAddSet]);
 
+    const handleCompleteAllSets = useCallback(() => {
+        onCompleteAllSets(exId, defaultSets);
+    }, [exId, defaultSets, onCompleteAllSets]);
+
     // ============================================================================
     // RENDER: COLLAPSED COMPLETE STATE
     // ============================================================================
@@ -199,6 +206,9 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     // RENDER: EXPANDED/ACTIVE STATE
     // ============================================================================
 
+    // Memoize hasIncompleteSets to avoid unnecessary array iterations
+    const hasIncompleteSets = useMemo(() => sets.some((s) => !s), [sets]);
+
     return (
         <div
             className={`rounded-xl border overflow-hidden transition-all ${
@@ -214,10 +224,10 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                     onClick={handleToggleExpand}
                     className="flex-1 min-w-0 flex items-center gap-1.5 text-left active:opacity-70 transition-opacity"
                 >
-                    <span className="text-sm font-semibold text-white truncate">
+                    <span className={`text-sm font-semibold text-white ${isExpanded ? '' : 'truncate'}`}>
                         {name}
                     </span>
-                    {(prescription || notes) && (
+                    {(prescription || notes || !isBodyweight) && (
                         <ChevronDown
                             size={14}
                             className={`text-sys-onSurfaceVar flex-shrink-0 transition-transform ${
@@ -243,76 +253,93 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                             {isDone ? <Check size={14} /> : i + 1}
                         </button>
                     ))}
-                    {/* Add Set Button */}
-                    <button
-                        onClick={handleAddSet}
-                        className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center border border-dashed border-white/20 active:scale-90 transition-all"
-                        aria-label="Add set"
-                    >
-                        <Plus size={12} />
-                    </button>
+                    {/* Complete All Sets Button - only show when there are incomplete sets */}
+                    {hasIncompleteSets && (
+                        <button
+                            onClick={handleCompleteAllSets}
+                            className="h-8 w-8 rounded-lg bg-sys-success/20 text-sys-success flex items-center justify-center active:scale-90 transition-all"
+                            aria-label="Complete all sets"
+                        >
+                            <CheckCheck size={14} />
+                        </button>
+                    )}
                 </div>
-
-                {/* Weight Stepper (only for weighted exercises) */}
-                {!isBodyweight && (
-                    <div className="flex items-center gap-0.5 flex-shrink-0 bg-sys-surfaceHigh rounded-lg overflow-hidden">
-                        <button
-                            onClick={() => handleWeightStep(-1)}
-                            className="h-8 w-8 flex items-center justify-center text-sys-onSurfaceVar active:bg-white/10 transition-colors"
-                            aria-label="Decrease weight by 1kg"
-                        >
-                            <Minus size={14} />
-                        </button>
-                        {isEditingWeight ? (
-                            <input
-                                ref={weightInputRef}
-                                type="number"
-                                inputMode="decimal"
-                                value={localWeight}
-                                onChange={(e) => setLocalWeight(e.target.value)}
-                                onBlur={handleWeightBlur}
-                                onKeyDown={handleWeightKeyDown}
-                                className="w-14 h-8 bg-transparent text-center text-sm font-mono text-white outline-none"
-                            />
-                        ) : (
-                            <button
-                                onClick={handleWeightTap}
-                                className="w-14 h-8 flex items-center justify-center text-sm font-mono text-white active:bg-white/10 transition-colors"
-                                aria-label="Edit weight"
-                            >
-                                {localWeight || '0'}
-                                {isPrevWeight && (
-                                    <span className="text-[10px] text-sys-onSurfaceVar ml-0.5">
-                                        (prev)
-                                    </span>
-                                )}
-                            </button>
-                        )}
-                        <button
-                            onClick={() => handleWeightStep(1)}
-                            className="h-8 w-8 flex items-center justify-center text-sys-onSurfaceVar active:bg-white/10 transition-colors"
-                            aria-label="Increase weight by 1kg"
-                        >
-                            <Plus size={14} />
-                        </button>
-                    </div>
-                )}
             </div>
 
-            {/* Expandable Prescription Row */}
+            {/* Expandable Section - Contains prescription, weight, and add set */}
             <div
                 className={`overflow-hidden transition-all duration-150 ease-out ${
-                    isExpanded ? 'max-h-20' : 'max-h-0'
+                    isExpanded ? 'max-h-48' : 'max-h-0'
                 }`}
             >
-                <div className="px-3 pb-2 pt-0">
+                <div className="px-3 pb-3 pt-0">
                     <div className="h-px bg-white/5 mb-2" />
+                    
+                    {/* Prescription and Notes */}
                     {prescription && (
-                        <p className="text-xs text-sys-onSurfaceVar">{prescription}</p>
+                        <p className="text-xs text-sys-onSurfaceVar mb-1">{prescription}</p>
                     )}
                     {notes && (
-                        <p className="text-xs text-sys-onSurfaceVar/70 mt-0.5">{notes}</p>
+                        <p className="text-xs text-sys-onSurfaceVar/70 mb-2">{notes}</p>
                     )}
+                    
+                    {/* Weight Stepper and Add Set Row */}
+                    <div className="flex items-center gap-2 mt-2">
+                        {/* Weight Stepper (only for weighted exercises) */}
+                        {!isBodyweight && (
+                            <div className="flex items-center gap-0.5 bg-sys-surfaceHigh rounded-lg overflow-hidden">
+                                <button
+                                    onClick={() => handleWeightStep(-1)}
+                                    className="h-8 w-8 flex items-center justify-center text-sys-onSurfaceVar active:bg-white/10 transition-colors"
+                                    aria-label="Decrease weight by 1kg"
+                                >
+                                    <Minus size={14} />
+                                </button>
+                                {isEditingWeight ? (
+                                    <input
+                                        ref={weightInputRef}
+                                        type="number"
+                                        inputMode="decimal"
+                                        value={localWeight}
+                                        onChange={(e) => setLocalWeight(e.target.value)}
+                                        onBlur={handleWeightBlur}
+                                        onKeyDown={handleWeightKeyDown}
+                                        className="w-14 h-8 bg-transparent text-center text-sm font-mono text-white outline-none"
+                                    />
+                                ) : (
+                                    <button
+                                        onClick={handleWeightTap}
+                                        className="w-14 h-8 flex items-center justify-center text-sm font-mono text-white active:bg-white/10 transition-colors"
+                                        aria-label="Edit weight"
+                                    >
+                                        {localWeight || '0'}
+                                        {isPrevWeight && (
+                                            <span className="text-[10px] text-sys-onSurfaceVar ml-0.5">
+                                                (prev)
+                                            </span>
+                                        )}
+                                    </button>
+                                )}
+                                <button
+                                    onClick={() => handleWeightStep(1)}
+                                    className="h-8 w-8 flex items-center justify-center text-sys-onSurfaceVar active:bg-white/10 transition-colors"
+                                    aria-label="Increase weight by 1kg"
+                                >
+                                    <Plus size={14} />
+                                </button>
+                            </div>
+                        )}
+                        
+                        {/* Add Set Button */}
+                        <button
+                            onClick={handleAddSet}
+                            className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center gap-1.5 border border-dashed border-white/20 active:scale-95 transition-all text-xs font-medium"
+                            aria-label="Add set"
+                        >
+                            <Plus size={12} />
+                            <span>Add Set</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

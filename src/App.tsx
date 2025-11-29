@@ -276,7 +276,7 @@ const App: React.FC = () => {
                 <div className="animate-fade-in">
                     <WorkoutPlayer
                         week={0}
-                        day={0 as ValidDay}
+                        day={0}
                         onComplete={goBack}
                         exerciseLibrary={EXERCISE_LIBRARY}
                         isEmptyWorkout={true}

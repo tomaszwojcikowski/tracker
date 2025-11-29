@@ -704,7 +704,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 title: isEmptyWorkout ? 'Custom Workout' : workout.title,
                 exercises: exerciseSummary,
                 workoutNotes: workoutNotes || null,
-                isEmptyWorkout: isEmptyWorkout || undefined,
+                isEmptyWorkout: isEmptyWorkout ? true : undefined,
             };
 
             const history = safeGetJSON('global_history', [] as unknown[]) as unknown[];

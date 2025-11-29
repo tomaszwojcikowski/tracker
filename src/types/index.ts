@@ -330,7 +330,8 @@ export type ValidTab = TabId;
  */
 export interface WorkoutPlayerProps {
   week: number;
-  day: ValidDay;
+  /** Day number: 1, 2, 3, 5 for program workouts, or 0 for empty/custom workouts */
+  day: ValidDay | 0;
   onComplete: () => void;
   exerciseLibrary: Exercise[];
   /** Whether this is an empty/custom workout not tied to the program */

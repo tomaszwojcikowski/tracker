@@ -1,16 +1,23 @@
 /**
  * TopAppBar Component
  *
- * A sticky header bar with optional back button, title, and subtitle.
+ * A sticky header bar with optional back button, title, subtitle, and workout timer.
  */
 
 import { ArrowLeft } from 'lucide-react';
+import { WorkoutTimerDisplay } from './WorkoutTimerDisplay';
 
 export interface TopAppBarProps {
   title: string;
   subtitle?: string;
   onBack?: () => void;
   showBack?: boolean;
+  /** Workout timer props - when provided, shows timer in the header */
+  workoutTimer?: {
+    elapsedSeconds: number;
+    isRunning: boolean;
+    onToggle: () => void;
+  };
 }
 
 export function TopAppBar({
@@ -18,6 +25,7 @@ export function TopAppBar({
   subtitle,
   onBack,
   showBack = false,
+  workoutTimer,
 }: TopAppBarProps) {
   return (
     <div className="bg-sys-black sticky top-0 z-40 safe-pt border-b border-white/10">
@@ -31,6 +39,15 @@ export function TopAppBar({
             <ArrowLeft size={24} />
           </button>
         ) : null}
+
+        {/* Workout Timer - shows in top left when in workout mode */}
+        {workoutTimer && (
+          <WorkoutTimerDisplay
+            elapsedSeconds={workoutTimer.elapsedSeconds}
+            isRunning={workoutTimer.isRunning}
+            onToggle={workoutTimer.onToggle}
+          />
+        )}
 
         <div className="flex-1 min-w-0">
           <h1 className="text-xl font-bold text-sys-onSurface tracking-tight truncate">

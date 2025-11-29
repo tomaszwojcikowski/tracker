@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { App, buildCompleteSchedule, fetchWithTimeout, FETCH_TIMEOUT_MS, setRAW_SCHEDULE, setEXERCISE_LIBRARY } from './App';
+import { App, buildCompleteSchedule, fetchWithTimeout, FETCH_TIMEOUT_MS, setRAW_SCHEDULE, setEXERCISE_LIBRARY } from './App.tsx';
 import { loadWorkoutPlan, WorkoutPlanMetadata } from './workout-plan-utils';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { LoadingScreen, ErrorScreen } from './components/screens';

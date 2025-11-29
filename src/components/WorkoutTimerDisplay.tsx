@@ -12,6 +12,9 @@ import type { WorkoutTimerDisplayProps } from '../types';
 
 /**
  * Compact workout timer display for the TopAppBar
+ * 
+ * When running: Shows Timer icon (indicating active) - tap to pause
+ * When paused: Shows Pause icon + Play icon (indicating paused, tap to resume)
  */
 export const WorkoutTimerDisplay: React.FC<WorkoutTimerDisplayProps> = ({
   elapsedSeconds,

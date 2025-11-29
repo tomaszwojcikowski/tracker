@@ -89,10 +89,19 @@ export function useWorkoutTimer(
   const storageKey = getTimerStorageKey(week, day);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Load initial state from localStorage
-  const [elapsedSeconds, setElapsedSeconds] = useState<number>(() => {
+  // Helper to load saved timer state from localStorage
+  const loadSavedState = (): WorkoutTimerState | null => {
     const saved = safeGetJSON<WorkoutTimerState>(storageKey);
     if (saved && saved.week === week && saved.day === day) {
+      return saved;
+    }
+    return null;
+  };
+
+  // Load initial state from localStorage
+  const [elapsedSeconds, setElapsedSeconds] = useState<number>(() => {
+    const saved = loadSavedState();
+    if (saved) {
       // If timer was running when we left, calculate elapsed time
       if (saved.isRunning && saved.startedAt) {
         const additionalSeconds = Math.floor((Date.now() - saved.startedAt) / 1000);
@@ -104,8 +113,8 @@ export function useWorkoutTimer(
   });
 
   const [isRunning, setIsRunning] = useState<boolean>(() => {
-    const saved = safeGetJSON<WorkoutTimerState>(storageKey);
-    if (saved && saved.week === week && saved.day === day) {
+    const saved = loadSavedState();
+    if (saved) {
       return saved.isRunning;
     }
     return autoStart;
@@ -113,8 +122,8 @@ export function useWorkoutTimer(
 
   const [startedAt, setStartedAt] = useState<number | null>(() => {
     if (autoStart) {
-      const saved = safeGetJSON<WorkoutTimerState>(storageKey);
-      if (saved && saved.week === week && saved.day === day && saved.isRunning) {
+      const saved = loadSavedState();
+      if (saved && saved.isRunning) {
         return saved.startedAt;
       }
       return Date.now();
@@ -138,13 +147,15 @@ export function useWorkoutTimer(
   );
 
   // Auto-start timer when autoStart becomes true (e.g., entering workout mode)
+  // We intentionally only depend on autoStart to avoid re-triggering when isRunning/elapsedSeconds change
   useEffect(() => {
     if (autoStart && !isRunning && elapsedSeconds < MAX_TIMER_SECONDS) {
       const now = Date.now();
       setIsRunning(true);
       setStartedAt(now);
     }
-  }, [autoStart]); // Only run when autoStart changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStart]);
 
   // Timer tick effect
   useEffect(() => {

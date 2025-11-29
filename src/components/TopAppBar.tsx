@@ -40,15 +40,6 @@ export function TopAppBar({
           </button>
         ) : null}
 
-        {/* Workout Timer - shows in top left when in workout mode */}
-        {workoutTimer && (
-          <WorkoutTimerDisplay
-            elapsedSeconds={workoutTimer.elapsedSeconds}
-            isRunning={workoutTimer.isRunning}
-            onToggle={workoutTimer.onToggle}
-          />
-        )}
-
         <div className="flex-1 min-w-0">
           <h1 className="text-xl font-bold text-sys-onSurface tracking-tight truncate">
             {title}
@@ -59,6 +50,15 @@ export function TopAppBar({
             </p>
           )}
         </div>
+
+        {/* Workout Timer - shows on the right side when in workout mode */}
+        {workoutTimer && (
+          <WorkoutTimerDisplay
+            elapsedSeconds={workoutTimer.elapsedSeconds}
+            isRunning={workoutTimer.isRunning}
+            onToggle={workoutTimer.onToggle}
+          />
+        )}
       </div>
     </div>
   );

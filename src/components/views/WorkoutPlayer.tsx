@@ -296,7 +296,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [showExerciseHistory, setShowExerciseHistory] = useState<string | null>(null);
     const [workoutNotes, setWorkoutNotes] = useState('');
     const [showFinishConfirm, setShowFinishConfirm] = useState(false);
-    const [compactView, setCompactView] = useState(() => 
+    const [compactView, setCompactView] = useState(() =>
         safeGetJSON<boolean>('workout_compact_view', false) ?? false
     );
 
@@ -622,11 +622,11 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             const workoutDurationSeconds = onWorkoutFinish ? onWorkoutFinish() : 0;
 
             const timestamp = new Date().toISOString();
-            
+
             // For empty workouts, use 0 for week/day
             const effectiveWeek = isEmptyWorkout ? 0 : week;
             const effectiveDay = isEmptyWorkout ? 0 : day;
-            
+
             const updatedLogs: WorkoutSessionData = {
                 ...logs,
                 completed: true,
@@ -736,7 +736,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
             const history = safeGetJSON('global_history', [] as unknown[]) as unknown[];
             let cleanHistory: unknown[];
-            
+
             if (isEmptyWorkout) {
                 // For empty workouts, always add as a new entry (don't deduplicate)
                 cleanHistory = Array.isArray(history) ? history : [];

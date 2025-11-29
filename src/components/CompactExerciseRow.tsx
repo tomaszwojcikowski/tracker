@@ -6,7 +6,7 @@
  * auto-fill from history, auto-collapse when complete.
  */
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { Check, Minus, Plus, ChevronDown, CheckCheck } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import type { HapticFeedback } from '../hooks';
@@ -206,8 +206,8 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     // RENDER: EXPANDED/ACTIVE STATE
     // ============================================================================
 
-    // Compute if there are incomplete sets (for showing complete all button)
-    const hasIncompleteSets = sets.some((s) => !s);
+    // Memoize hasIncompleteSets to avoid unnecessary array iterations
+    const hasIncompleteSets = useMemo(() => sets.some((s) => !s), [sets]);
 
     return (
         <div

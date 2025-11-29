@@ -45,6 +45,8 @@ interface WorkoutSessionData {
     day?: number;
     workoutNotes?: string;
     addedExercises?: AddedExercise[];
+    /** Workout duration in seconds */
+    durationSeconds?: number;
     [exerciseId: string]: ExerciseLogEntry | AddedExercise[] | string | number | boolean | undefined;
 }
 
@@ -241,6 +243,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     day,
     onComplete,
     exerciseLibrary,
+    onWorkoutFinish,
 }) => {
     const sessionKey = useMemo(() => `session_w${week}d${day}`, [week, day]);
     const workout = useMemo(() => PROGRAM_DATA.getWorkout(week, day), [week, day]);
@@ -566,6 +569,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
     const handleFinish = async (): Promise<void> => {
         try {
+            // Stop the workout timer and get final duration
+            const workoutDurationSeconds = onWorkoutFinish ? onWorkoutFinish() : 0;
+
             const timestamp = new Date().toISOString();
             const updatedLogs: WorkoutSessionData = {
                 ...logs,
@@ -575,6 +581,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 week,
                 day,
                 workoutNotes,
+                durationSeconds: workoutDurationSeconds,
             };
             persistLogs(updatedLogs);
 
@@ -656,7 +663,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 }
             });
 
-            // Save to global history
+            // Save to global history with duration
             const historyEntry = {
                 week,
                 day,
@@ -664,6 +671,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 title: workout.title,
                 exercises: exerciseSummary,
                 workoutNotes: workoutNotes || null,
+                durationSeconds: workoutDurationSeconds,
             };
 
             const history = safeGetJSON('global_history', [] as unknown[]) as unknown[];

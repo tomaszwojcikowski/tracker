@@ -333,6 +333,8 @@ export interface WorkoutPlayerProps {
   day: ValidDay;
   onComplete: () => void;
   exerciseLibrary: Exercise[];
+  /** Callback when workout is finished, returns final duration in seconds */
+  onWorkoutFinish?: () => number;
 }
 
 /**
@@ -533,6 +535,22 @@ export interface AddedExercise {
   isBodyweight: boolean;
   equipment: string[];
   primaryMuscles: string[];
+}
+
+// ============================================================================
+// WORKOUT TIMER TYPES
+// ============================================================================
+
+/**
+ * WorkoutTimerDisplay component props
+ */
+export interface WorkoutTimerDisplayProps {
+  /** Current elapsed time in seconds */
+  elapsedSeconds: number;
+  /** Whether timer is currently running */
+  isRunning: boolean;
+  /** Toggle between running and paused */
+  onToggle: () => void;
 }
 
 // ============================================================================

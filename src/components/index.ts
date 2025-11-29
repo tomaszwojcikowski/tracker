@@ -65,6 +65,7 @@ export type { WorkoutProgressProps, WeightChangeIndicatorProps, TimerRingProps, 
 export { PullToRefresh } from './PullToRefresh';
 export { FloatingTimer } from './FloatingTimer';
 export { SwipeIndicator } from './SwipeIndicator';
+export { WorkoutTimerDisplay } from './WorkoutTimerDisplay';
 export type { PullToRefreshProps } from './PullToRefresh';
 export type { FloatingTimerProps } from './FloatingTimer';
 export type { SwipeIndicatorProps } from './SwipeIndicator';

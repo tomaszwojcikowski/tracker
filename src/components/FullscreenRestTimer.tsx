@@ -116,10 +116,12 @@ export const FullscreenRestTimer: React.FC<FullscreenRestTimerProps> = ({
   }, [haptic, onMinimize]);
 
   const handleReset = useCallback(() => {
-    haptic.bump();
-    // Reset to total seconds by adding the difference
+    // Only reset if there's time to add back and totalSeconds is valid
+    if (totalSeconds <= 0) return;
+    
     const diff = totalSeconds - seconds;
     if (diff > 0) {
+      haptic.bump();
       onAddTime(diff);
     }
   }, [haptic, totalSeconds, seconds, onAddTime]);
@@ -314,7 +316,7 @@ export const FullscreenRestTimer: React.FC<FullscreenRestTimerProps> = ({
 
             <button
               onClick={handleReset}
-              disabled={seconds >= totalSeconds}
+              disabled={seconds === totalSeconds || totalSeconds <= 0}
               className="h-16 w-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all shadow-lg"
               aria-label="Reset timer"
             >

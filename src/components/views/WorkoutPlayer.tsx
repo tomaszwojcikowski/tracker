@@ -5,7 +5,6 @@
  */
 
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
-import { FloatingTimer } from '../FloatingTimer';
 import { ActionBar } from '../ActionBar';
 import { CompactExerciseRow } from '../CompactExerciseRow';
 import { RPESelector } from '../RPESelector';
@@ -839,20 +838,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
     return (
         <>
-            <FloatingTimer
-                seconds={timerSeconds}
-                active={timerActive}
-                onStop={() => {
-                    haptic.bump();
-                    setTimerActive(false);
-                    setTimerSeconds(0);
-                }}
-                onAddTime={() => {
-                    haptic.bump();
-                    setTimerSeconds((s) => s + 30);
-                }}
-            />
-
             {/* Gesture hint for swipe navigation - shown on first workout */}
             <GestureHint
                 type="swipe-right"

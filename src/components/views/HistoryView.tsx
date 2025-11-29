@@ -178,14 +178,17 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
 
     // Calculate overall summary stats
     const totalWorkoutsSum = exerciseStats.reduce((sum, stat) => sum + stat.totalWorkouts, 0);
-    const maxWeightOverall = Math.max(...exerciseStats.filter(s => s.maxWeight).map(s => s.maxWeight || 0));
+    const exercisesWithWeight = exerciseStats.filter(s => s.maxWeight && s.maxWeight > 0);
+    const maxWeightOverall = exercisesWithWeight.length > 0 
+        ? Math.max(...exercisesWithWeight.map(s => s.maxWeight || 0)) 
+        : 0;
 
     return (
         <div className="space-y-5">
             {/* Summary Stats Banner */}
             <div className="bg-gradient-to-br from-sys-accent/20 via-sys-surface to-sys-surfaceHigh rounded-3xl p-5 border border-sys-accent/20">
                 <div className="flex items-center gap-3 mb-4">
-                    <div className="h-10 w-10 rounded-xl bg-sys-accent/30 flex items-center justify-center">
+                    <div className="h-10 w-10 rounded-xl bg-sys-accent/30 flex items-center justify-center" aria-hidden="true">
                         <i data-lucide="trending-up" width="20" className="text-sys-accent"></i>
                     </div>
                     <div>
@@ -215,9 +218,10 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                         <button
                             onClick={() => handleExerciseClick(stat.name)}
                             className="w-full p-5 flex items-center gap-4 active:bg-sys-surfaceHigh transition-colors text-left"
+                            aria-expanded={isExpanded}
                         >
                             {/* Exercise Icon/Initial */}
-                            <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-sys-accent/30 to-sys-accent/10 border border-sys-accent/20 flex items-center justify-center flex-shrink-0">
+                            <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-sys-accent/30 to-sys-accent/10 border border-sys-accent/20 flex items-center justify-center flex-shrink-0" aria-hidden="true">
                                 <span className="text-lg font-bold text-sys-accent">{stat.name.charAt(0)}</span>
                             </div>
                             <div className="flex-1 min-w-0">
@@ -468,9 +472,10 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                     <button
                                         onClick={() => toggleExpanded(idx)}
                                         className="w-full p-5 flex items-center gap-4 active:bg-sys-surfaceHigh transition-colors"
+                                        aria-expanded={isExpanded}
                                     >
                                         {/* Week Badge */}
-                                        <div className="relative h-14 w-14 min-w-[56px] rounded-2xl bg-gradient-to-br from-sys-accent/20 to-sys-accent/5 border border-sys-accent/30 flex flex-col items-center justify-center">
+                                        <div className="relative h-14 w-14 min-w-[56px] rounded-2xl bg-gradient-to-br from-sys-accent/20 to-sys-accent/5 border border-sys-accent/30 flex flex-col items-center justify-center" aria-hidden="true">
                                             <span className="text-[10px] font-semibold text-sys-accent uppercase tracking-wider">Week</span>
                                             <span className="text-lg font-bold text-sys-accent leading-none">{entry.week}</span>
                                         </div>

@@ -45,6 +45,8 @@ interface WorkoutSessionData {
     day?: number;
     workoutNotes?: string;
     addedExercises?: AddedExercise[];
+    /** Workout duration in seconds */
+    durationSeconds?: number;
     [exerciseId: string]: ExerciseLogEntry | AddedExercise[] | string | number | boolean | undefined;
 }
 
@@ -242,6 +244,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     onComplete,
     exerciseLibrary,
     isEmptyWorkout = false,
+    onWorkoutFinish,
 }) => {
     // For empty workouts, generate a unique session key based on timestamp
     // This allows multiple empty workouts to be tracked separately
@@ -596,6 +599,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
     const handleFinish = async (): Promise<void> => {
         try {
+            // Stop the workout timer and get final duration
+            const workoutDurationSeconds = onWorkoutFinish ? onWorkoutFinish() : 0;
+
             const timestamp = new Date().toISOString();
             
             // For empty workouts, use 0 for week/day
@@ -610,6 +616,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 week: effectiveWeek,
                 day: effectiveDay,
                 workoutNotes,
+                durationSeconds: workoutDurationSeconds,
             };
             persistLogs(updatedLogs);
 
@@ -696,7 +703,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 }
             });
 
-            // Save to global history
+            // Save to global history with duration
             const historyEntry = {
                 week: effectiveWeek,
                 day: effectiveDay,
@@ -705,6 +712,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 exercises: exerciseSummary,
                 workoutNotes: workoutNotes || null,
                 isEmptyWorkout: isEmptyWorkout ? true : undefined,
+                durationSeconds: workoutDurationSeconds,
             };
 
             const history = safeGetJSON('global_history', [] as unknown[]) as unknown[];

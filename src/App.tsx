@@ -11,7 +11,9 @@ import { NavigationBar, TabContent } from './components/navigation';
 import { TopAppBar } from './components/TopAppBar';
 import { LoadingScreen, ErrorScreen } from './components/screens';
 import { Dashboard, HistoryView, SettingsView, ExerciseLibraryView, WorkoutPlayer } from './components/views';
-import { useLucideIcons } from './hooks';
+import { SkipLink } from './components/SkipLink';
+import { Onboarding, hasCompletedOnboarding } from './components/Onboarding';
+import { useLucideIcons, useWorkoutTimer } from './hooks';
 
 // Import from TypeScript utilities
 import {
@@ -86,9 +88,14 @@ const App: React.FC = () => {
     const [currentWeek, setCurrentWeek] = useState<number>(1);
     const [activeDay, setActiveDay] = useState<ValidDay>(1);
     const [isInitialized, setIsInitialized] = useState<boolean>(false);
+    // Initialize onboarding state directly to avoid flash of content
+    const [showOnboarding, setShowOnboarding] = useState<boolean>(() => !hasCompletedOnboarding());
 
     // Track the initial history length to know if we can go back
     const initialHistoryLength = useRef<number>(window.history.length);
+
+    // Workout timer - only active when in workout mode
+    const workoutTimer = useWorkoutTimer(currentWeek, activeDay, viewMode === 'workout');
 
     // Initialize state from URL or localStorage on mount
     useEffect(() => {
@@ -249,75 +256,88 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative">
-            <TopAppBar
-                title={getTitle()}
-                subtitle={getSubtitle()}
-                showBack={viewMode === 'workout' || viewMode === 'empty-workout'}
-                onBack={goBack}
-            />
-
-            {!isInitialized ? (
-                <div className="flex items-center justify-center h-screen">
-                    <div className="text-center">
-                        <div className="text-lg text-sys-onSurfaceVar">Loading...</div>
-                    </div>
-                </div>
-            ) : viewMode === 'workout' ? (
-                <div className="animate-fade-in">
-                    <WorkoutPlayer
-                        week={currentWeek}
-                        day={activeDay}
-                        onComplete={goBack}
-                        exerciseLibrary={EXERCISE_LIBRARY}
-                    />
-                </div>
-            ) : viewMode === 'empty-workout' ? (
-                <div className="animate-fade-in">
-                    <WorkoutPlayer
-                        week={0}
-                        day={0}
-                        onComplete={goBack}
-                        exerciseLibrary={EXERCISE_LIBRARY}
-                        isEmptyWorkout={true}
-                    />
-                </div>
-            ) : (
-                <>
-                    <TabContent activeTab={activeTab}>
-                        {activeTab === 'train' && (
-                            <Dashboard
-                                currentWeek={currentWeek}
-                                setCurrentWeek={setCurrentWeek}
-                                onStartWorkout={startWorkout}
-                                onStartEmptyWorkout={startEmptyWorkout}
-                            />
-                        )}
-                        {activeTab === 'library' && (
-                            <ExerciseLibraryView
-                                exerciseLibrary={EXERCISE_LIBRARY}
-                                getAllExercisesWithHistory={getAllExercisesWithHistory}
-                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                calculateExerciseStats={calculateExerciseStats as any}
-                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                getExerciseHistory={getExerciseHistory as any}
-                            />
-                        )}
-                        {activeTab === 'history' && (
-                            <HistoryView
-                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                calculateExerciseStats={calculateExerciseStats as any}
-                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                getExerciseHistory={getExerciseHistory as any}
-                                getAllExercisesWithHistory={getAllExercisesWithHistory}
-                            />
-                        )}
-                        {activeTab === 'profile' && <SettingsView />}
-                    </TabContent>
-                    <NavigationBar activeTab={activeTab} onTabChange={handleTabChange} />
-                </>
+        <>
+            {showOnboarding && (
+                <Onboarding onComplete={() => setShowOnboarding(false)} />
             )}
-        </div>
+            <div className="min-h-screen bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative">
+                <SkipLink targetId="main-content" />
+                <TopAppBar
+                    title={getTitle()}
+                    subtitle={getSubtitle()}
+                    showBack={viewMode === 'workout' || viewMode === 'empty-workout'}
+                    onBack={goBack}
+                    workoutTimer={(viewMode === 'workout' || viewMode === 'empty-workout') ? {
+                        elapsedSeconds: workoutTimer.elapsedSeconds,
+                        isRunning: workoutTimer.isRunning,
+                        onToggle: workoutTimer.toggle,
+                    } : undefined}
+                />
+
+                {!isInitialized ? (
+                    <div className="flex items-center justify-center h-screen">
+                        <div className="text-center">
+                            <div className="text-lg text-sys-onSurfaceVar">Loading...</div>
+                        </div>
+                    </div>
+                ) : viewMode === 'workout' ? (
+                    <main id="main-content" className="animate-fade-in">
+                        <WorkoutPlayer
+                            week={currentWeek}
+                            day={activeDay}
+                            onComplete={goBack}
+                            exerciseLibrary={EXERCISE_LIBRARY}
+                            onWorkoutFinish={workoutTimer.stop}
+                        />
+                    </main>
+                ) : viewMode === 'empty-workout' ? (
+                    <main id="main-content" className="animate-fade-in">
+                        <WorkoutPlayer
+                            week={0}
+                            day={0}
+                            onComplete={goBack}
+                            exerciseLibrary={EXERCISE_LIBRARY}
+                            isEmptyWorkout={true}
+                            onWorkoutFinish={workoutTimer.stop}
+                        />
+                    </main>
+                ) : (
+                    <>
+                        <TabContent activeTab={activeTab} id="main-content">
+                            {activeTab === 'train' && (
+                                <Dashboard
+                                    currentWeek={currentWeek}
+                                    setCurrentWeek={setCurrentWeek}
+                                    onStartWorkout={startWorkout}
+                                    onStartEmptyWorkout={startEmptyWorkout}
+                                />
+                            )}
+                            {activeTab === 'library' && (
+                                <ExerciseLibraryView
+                                    exerciseLibrary={EXERCISE_LIBRARY}
+                                    getAllExercisesWithHistory={getAllExercisesWithHistory}
+                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                    calculateExerciseStats={calculateExerciseStats as any}
+                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                    getExerciseHistory={getExerciseHistory as any}
+                                />
+                            )}
+                            {activeTab === 'history' && (
+                                <HistoryView
+                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                    calculateExerciseStats={calculateExerciseStats as any}
+                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                    getExerciseHistory={getExerciseHistory as any}
+                                    getAllExercisesWithHistory={getAllExercisesWithHistory}
+                                />
+                            )}
+                            {activeTab === 'profile' && <SettingsView />}
+                        </TabContent>
+                        <NavigationBar activeTab={activeTab} onTabChange={handleTabChange} />
+                    </>
+                )}
+            </div>
+        </>
     );
 };
 

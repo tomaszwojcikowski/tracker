@@ -13,6 +13,15 @@ interface ExerciseStatData {
     recentProgress: Array<{ weight: number; date: string }>;
 }
 
+// Raw stats returned from calculateExerciseStats (without name)
+interface RawExerciseStats {
+    totalWorkouts: number;
+    maxWeight: number | null;
+    maxSets: number | null;
+    estimated1RM: number | null;
+    recentProgress: Array<{ weight: number; date: string }>;
+}
+
 interface ExerciseHistoryEntry {
     date: string;
     week: number;
@@ -46,7 +55,7 @@ interface ExerciseStatsViewProps {
 
 interface HistoryViewProps {
     // Props for external dependencies injected from parent
-    calculateExerciseStats: (name: string) => ExerciseStatData;
+    calculateExerciseStats: (name: string) => RawExerciseStats;
     getExerciseHistory: (name: string) => ExerciseHistoryEntry[];
     getAllExercisesWithHistory: () => string[];
 }
@@ -138,7 +147,7 @@ const SimpleWeightGraph: React.FC<SimpleWeightGraphProps> = ({ data }) => {
 
 // Exercise Stats View component - shows stats for all exercises
 interface ExerciseStatsViewInternalProps extends ExerciseStatsViewProps {
-    calculateExerciseStats: (name: string) => ExerciseStatData;
+    calculateExerciseStats: (name: string) => RawExerciseStats;
     getExerciseHistory: (name: string) => ExerciseHistoryEntry[];
     getAllExercisesWithHistory: () => string[];
 }
@@ -155,8 +164,11 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
     // Get all exercises that have history
     const trackedExercises = getAllExercisesWithHistory();
 
-    // Calculate stats for each exercise
-    const exerciseStats: ExerciseStatData[] = trackedExercises.map(name => calculateExerciseStats(name));
+    // Calculate stats for each exercise and include the name
+    const exerciseStats: ExerciseStatData[] = trackedExercises.map(name => ({
+        name,
+        ...calculateExerciseStats(name),
+    }));
 
     // Initialize Lucide icons
     useLucideIcons([selectedExercise, exerciseStats]);
@@ -181,8 +193,8 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
     // Calculate overall summary stats
     const totalWorkoutsSum = exerciseStats.reduce((sum, stat) => sum + stat.totalWorkouts, 0);
     const exercisesWithWeight = exerciseStats.filter(s => s.maxWeight && s.maxWeight > 0);
-    const maxWeightOverall = exercisesWithWeight.length > 0 
-        ? Math.max(...exercisesWithWeight.map(s => s.maxWeight || 0)) 
+    const maxWeightOverall = exercisesWithWeight.length > 0
+        ? Math.max(...exercisesWithWeight.map(s => s.maxWeight || 0))
         : 0;
 
     return (
@@ -457,12 +469,12 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                         {history.map((entry, idx) => {
                             const isExpanded = expandedEntries[idx];
                             const hasExercises = entry.exercises && entry.exercises.length > 0;
-                            
+
                             // Calculate summary stats for collapsed view
-                            const totalSets = hasExercises 
+                            const totalSets = hasExercises
                                 ? entry.exercises!.reduce((sum, ex) => sum + (ex.totalSets || 0), 0)
                                 : 0;
-                            const completedSets = hasExercises 
+                            const completedSets = hasExercises
                                 ? entry.exercises!.reduce((sum, ex) => sum + (ex.completedSets || 0), 0)
                                 : 0;
                             const exerciseCount = hasExercises ? entry.exercises!.length : 0;
@@ -487,7 +499,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                                 <span className="text-lg font-bold text-sys-accent leading-none">{entry.week}</span>
                                             </div>
                                         )}
-                                        
+
                                         {/* Content */}
                                         <div className="flex-1 min-w-0 text-left">
                                             <div className="flex items-center gap-2 mb-1">
@@ -519,7 +531,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                                 </div>
                                             )}
                                         </div>
-                                        
+
                                         {/* Expand/Collapse Indicator */}
                                         <div className={`h-10 w-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all ${isExpanded ? 'bg-sys-accent text-white rotate-180' : 'bg-white/10 text-sys-onSurfaceVar'}`}>
                                             <i data-lucide="chevron-down" width="18"></i>
@@ -568,7 +580,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                                                             <span>{ex.completedSets}/{ex.totalSets}</span>
                                                                         </div>
                                                                     </div>
-                                                                    
+
                                                                     {/* Weight & RPE */}
                                                                     <div className="flex items-center gap-3 flex-wrap">
                                                                         {ex.weight && (

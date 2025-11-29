@@ -11,6 +11,7 @@ interface ErrorBoundaryState {
     error: Error | null;
     errorInfo: ErrorInfo | null;
     isRecovering: boolean;
+    rawError: unknown;
 }
 
 /**
@@ -32,25 +33,59 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             error: null,
             errorInfo: null,
             isRecovering: false,
+            rawError: null,
         };
     }
 
-    static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
+    static getDerivedStateFromError(error: unknown): Partial<ErrorBoundaryState> {
         // Update state so the next render will show the fallback UI
-        return { hasError: true, error };
+        // Handle non-Error objects that might be thrown
+        const normalizedError = error instanceof Error
+            ? error
+            : new Error(
+                typeof error === 'string'
+                    ? error
+                    : typeof error === 'object' && error !== null
+                        ? JSON.stringify(error, Object.getOwnPropertyNames(error))
+                        : String(error)
+            );
+        return { hasError: true, error: normalizedError, rawError: error };
     }
 
-    componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-        // Log error details
-        console.error('ErrorBoundary caught an error:', error, errorInfo);
+    componentDidCatch(error: unknown, errorInfo: ErrorInfo): void {
+        // Enhanced error logging with more details
+        const errorDetails = {
+            type: typeof error,
+            isError: error instanceof Error,
+            constructor: error?.constructor?.name,
+            message: error instanceof Error ? error.message : String(error),
+            keys: error && typeof error === 'object' ? Object.keys(error) : [],
+            ownPropertyNames: error && typeof error === 'object' ? Object.getOwnPropertyNames(error) : [],
+            stringified: (() => {
+                try {
+                    return JSON.stringify(error, Object.getOwnPropertyNames(error as object));
+                } catch {
+                    return String(error);
+                }
+            })(),
+        };
+        console.error('ErrorBoundary caught an error:', errorDetails, errorInfo);
         this.setState({ errorInfo });
 
+        // Normalize error for reporting
+        const normalizedError = error instanceof Error
+            ? error
+            : new Error(errorDetails.stringified || 'Unknown error');
+
         // Send to error tracking service if configured
-        captureError(error, 'error', {
+        captureError(normalizedError, 'error', {
             component: 'ErrorBoundary',
             action: 'componentDidCatch',
             extra: {
                 componentStack: errorInfo.componentStack,
+                originalErrorType: errorDetails.type,
+                originalErrorConstructor: errorDetails.constructor,
+                rawErrorDetails: errorDetails.stringified,
             },
         });
     }
@@ -108,6 +143,17 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         const { hasError, error, isRecovering } = this.state;
         const { children, fallback } = this.props;
 
+        // Convert rawError to a displayable string
+        const rawErrorDisplay: string | null = (() => {
+            const raw = this.state.rawError;
+            if (raw === null || raw === undefined) return null;
+            try {
+                return JSON.stringify(raw, null, 2);
+            } catch {
+                return String(raw);
+            }
+        })();
+
         if (hasError) {
             // Custom fallback UI provided
             if (fallback) {
@@ -149,13 +195,13 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                     </p>
 
                     {/* Error details (collapsed) */}
-                    {error && (
+                    {(error || rawErrorDisplay) && (
                         <details className="mb-6 w-full max-w-sm">
                             <summary className="text-xs text-sys-onSurfaceVar cursor-pointer hover:text-white transition-colors">
                                 Show error details
                             </summary>
                             <pre className="mt-2 p-3 bg-sys-surface rounded-xl text-xs text-sys-error overflow-auto max-h-32 border border-white/5">
-                                {error.message || error.toString()}
+                                {error?.message || error?.toString() || rawErrorDisplay}
                             </pre>
                         </details>
                     )}

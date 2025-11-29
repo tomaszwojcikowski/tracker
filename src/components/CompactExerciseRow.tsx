@@ -177,6 +177,9 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
         onCompleteAllSets(exId, defaultSets);
     }, [exId, defaultSets, onCompleteAllSets]);
 
+    // Memoize hasIncompleteSets - MUST be before any early returns to follow Rules of Hooks
+    const hasIncompleteSets = useMemo(() => sets.some((s) => !s), [sets]);
+
     // ============================================================================
     // RENDER: COLLAPSED COMPLETE STATE
     // ============================================================================
@@ -205,9 +208,6 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     // ============================================================================
     // RENDER: EXPANDED/ACTIVE STATE
     // ============================================================================
-
-    // Memoize hasIncompleteSets to avoid unnecessary array iterations
-    const hasIncompleteSets = useMemo(() => sets.some((s) => !s), [sets]);
 
     return (
         <div
@@ -274,7 +274,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
             >
                 <div className="px-3 pb-3 pt-0">
                     <div className="h-px bg-white/5 mb-2" />
-                    
+
                     {/* Prescription and Notes */}
                     {prescription && (
                         <p className="text-xs text-sys-onSurfaceVar mb-1">{prescription}</p>
@@ -282,7 +282,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                     {notes && (
                         <p className="text-xs text-sys-onSurfaceVar/70 mb-2">{notes}</p>
                     )}
-                    
+
                     {/* Weight Stepper and Add Set Row */}
                     <div className="flex items-center gap-2 mt-2">
                         {/* Weight Stepper (only for weighted exercises) */}
@@ -329,7 +329,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                                 </button>
                             </div>
                         )}
-                        
+
                         {/* Add Set Button */}
                         <button
                             onClick={handleAddSet}

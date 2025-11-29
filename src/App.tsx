@@ -43,7 +43,7 @@ import type { Exercise } from './types';
 // TYPES
 // ============================================================================
 
-type ViewMode = 'tab' | 'workout';
+type ViewMode = 'tab' | 'workout' | 'empty-workout';
 type TabId = 'train' | 'library' | 'history' | 'coach' | 'profile';
 type ValidDay = 1 | 2 | 3 | 5;
 
@@ -199,6 +199,15 @@ const App: React.FC = () => {
         window.history.pushState(state, '', newUrl);
     };
 
+    const startEmptyWorkout = (): void => {
+        setViewMode('empty-workout');
+
+        // Push new entry to history for empty workout
+        const state: AppStateLocal = { viewMode: 'empty-workout', activeTab, currentWeek, activeDay };
+        const newUrl = buildUrl({ ...state, viewMode: 'tab', activeTab: 'train' } as Parameters<typeof buildUrl>[0]) + '&emptyWorkout=true';
+        window.history.pushState(state, '', newUrl);
+    };
+
     const goBack = (): void => {
         // Check if there's history to go back to
         const hasHistory = window.history.length > initialHistoryLength.current;
@@ -228,6 +237,7 @@ const App: React.FC = () => {
     };
 
     const getTitle = (): string => {
+        if (viewMode === 'empty-workout') return 'Custom Workout';
         if (viewMode === 'workout') return `Day ${activeDay}`;
         switch (activeTab) {
             case 'train': return 'Dashboard';
@@ -239,6 +249,7 @@ const App: React.FC = () => {
     };
 
     const getSubtitle = (): string => {
+        if (viewMode === 'empty-workout') return 'Add exercises to get started';
         if (viewMode === 'workout') return `Week ${currentWeek}`;
         if (activeTab === 'train') return 'OnePlus Strength';
         return '';
@@ -254,9 +265,9 @@ const App: React.FC = () => {
                 <TopAppBar
                     title={getTitle()}
                     subtitle={getSubtitle()}
-                    showBack={viewMode === 'workout'}
+                    showBack={viewMode === 'workout' || viewMode === 'empty-workout'}
                     onBack={goBack}
-                    workoutTimer={viewMode === 'workout' ? {
+                    workoutTimer={(viewMode === 'workout' || viewMode === 'empty-workout') ? {
                         elapsedSeconds: workoutTimer.elapsedSeconds,
                         isRunning: workoutTimer.isRunning,
                         onToggle: workoutTimer.toggle,
@@ -279,6 +290,17 @@ const App: React.FC = () => {
                             onWorkoutFinish={workoutTimer.stop}
                         />
                     </main>
+                ) : viewMode === 'empty-workout' ? (
+                    <main id="main-content" className="animate-fade-in">
+                        <WorkoutPlayer
+                            week={0}
+                            day={0}
+                            onComplete={goBack}
+                            exerciseLibrary={EXERCISE_LIBRARY}
+                            isEmptyWorkout={true}
+                            onWorkoutFinish={workoutTimer.stop}
+                        />
+                    </main>
                 ) : (
                     <>
                         <TabContent activeTab={activeTab} id="main-content">
@@ -287,6 +309,7 @@ const App: React.FC = () => {
                                     currentWeek={currentWeek}
                                     setCurrentWeek={setCurrentWeek}
                                     onStartWorkout={startWorkout}
+                                    onStartEmptyWorkout={startEmptyWorkout}
                                 />
                             )}
                             {activeTab === 'library' && (

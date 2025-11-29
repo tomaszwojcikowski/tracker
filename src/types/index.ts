@@ -330,9 +330,12 @@ export type ValidTab = TabId;
  */
 export interface WorkoutPlayerProps {
   week: number;
-  day: ValidDay;
+  /** Day number: 1, 2, 3, 5 for program workouts, or 0 for empty/custom workouts */
+  day: ValidDay | 0;
   onComplete: () => void;
   exerciseLibrary: Exercise[];
+  /** Whether this is an empty/custom workout not tied to the program */
+  isEmptyWorkout?: boolean;
   /** Callback when workout is finished, returns final duration in seconds */
   onWorkoutFinish?: () => number;
 }
@@ -344,6 +347,8 @@ export interface DashboardProps {
   currentWeek: number;
   setCurrentWeek: (week: number) => void;
   onStartWorkout: (day: ValidDay) => void;
+  /** Callback to start an empty/custom workout */
+  onStartEmptyWorkout?: () => void;
 }
 
 /**

@@ -243,10 +243,40 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     day,
     onComplete,
     exerciseLibrary,
+    isEmptyWorkout = false,
     onWorkoutFinish,
 }) => {
-    const sessionKey = useMemo(() => `session_w${week}d${day}`, [week, day]);
-    const workout = useMemo(() => PROGRAM_DATA.getWorkout(week, day), [week, day]);
+    // For empty workouts, generate a unique session key based on timestamp
+    // This allows multiple empty workouts to be tracked separately
+    const [emptyWorkoutId] = useState(() => {
+        if (isEmptyWorkout) {
+            // Check if we have an existing empty workout session to resume
+            const existingKey = sessionStorage.getItem('current_empty_workout_key');
+            if (existingKey) {
+                return existingKey;
+            }
+            // Create a new empty workout session
+            const newKey = `session_empty_${Date.now()}`;
+            sessionStorage.setItem('current_empty_workout_key', newKey);
+            return newKey;
+        }
+        return '';
+    });
+
+    const sessionKey = useMemo(() => {
+        if (isEmptyWorkout) {
+            return emptyWorkoutId;
+        }
+        return `session_w${week}d${day}`;
+    }, [week, day, isEmptyWorkout, emptyWorkoutId]);
+
+    const workout = useMemo(() => {
+        if (isEmptyWorkout) {
+            // Return an empty workout structure for custom workouts
+            return { title: 'Custom Workout', sections: [] };
+        }
+        return PROGRAM_DATA.getWorkout(week, day);
+    }, [week, day, isEmptyWorkout]);
 
     // State
     const [logs, setLogs] = useState<WorkoutSessionData>({});
@@ -573,13 +603,18 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             const workoutDurationSeconds = onWorkoutFinish ? onWorkoutFinish() : 0;
 
             const timestamp = new Date().toISOString();
+            
+            // For empty workouts, use 0 for week/day
+            const effectiveWeek = isEmptyWorkout ? 0 : week;
+            const effectiveDay = isEmptyWorkout ? 0 : day;
+            
             const updatedLogs: WorkoutSessionData = {
                 ...logs,
                 completed: true,
                 completedAt: timestamp,
                 lastModified: timestamp,
-                week,
-                day,
+                week: effectiveWeek,
+                day: effectiveDay,
                 workoutNotes,
                 durationSeconds: workoutDurationSeconds,
             };
@@ -598,41 +633,43 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
             const exerciseSummary: ExerciseSummaryItem[] = [];
 
-            // Process scheduled exercises
-            workout.sections.forEach((section: WorkoutSection) => {
-                section.exercises.forEach((ex: WorkoutExercise) => {
-                    const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
-                    const exLog = getExerciseLogEntry(updatedLogs, exId);
-                    const sets = exLog.sets || [];
-                    const completedSets = sets.filter((s) => s).length;
-                    const totalSets = sets.length || ex.sets || 0;
-                    const parsedWeight = parseWeight(exLog.weight || '');
+            // Process scheduled exercises (only for non-empty workouts)
+            if (!isEmptyWorkout) {
+                workout.sections.forEach((section: WorkoutSection) => {
+                    section.exercises.forEach((ex: WorkoutExercise) => {
+                        const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                        const exLog = getExerciseLogEntry(updatedLogs, exId);
+                        const sets = exLog.sets || [];
+                        const completedSets = sets.filter((s) => s).length;
+                        const totalSets = sets.length || ex.sets || 0;
+                        const parsedWeight = parseWeight(exLog.weight || '');
 
-                    exerciseSummary.push({
-                        name: ex.name,
-                        prescription: ex.prescription,
-                        completedSets,
-                        totalSets,
-                        weight: parsedWeight ?? null,
-                        isBodyweight: ex.isBodyweight,
-                    });
-
-                    if (completedSets > 0) {
-                        updateExerciseHistory(ex.name, {
-                            date: completionDate,
-                            week,
-                            day,
-                            sets: completedSets,
-                            totalSets,
-                            weight: parseWeight(exLog.weight) ?? undefined,
+                        exerciseSummary.push({
+                            name: ex.name,
                             prescription: ex.prescription,
+                            completedSets,
+                            totalSets,
+                            weight: parsedWeight ?? null,
                             isBodyweight: ex.isBodyweight,
                         });
-                    }
-                });
-            });
 
-            // Process added exercises
+                        if (completedSets > 0) {
+                            updateExerciseHistory(ex.name, {
+                                date: completionDate,
+                                week: effectiveWeek,
+                                day: effectiveDay,
+                                sets: completedSets,
+                                totalSets,
+                                weight: parseWeight(exLog.weight) ?? undefined,
+                                prescription: ex.prescription,
+                                isBodyweight: ex.isBodyweight,
+                            });
+                        }
+                    });
+                });
+            }
+
+            // Process added exercises (for both regular and empty workouts)
             addedExercises.forEach((ex) => {
                 const exId = `added_${ex.id}`;
                 const exLog = getExerciseLogEntry(updatedLogs, exId);
@@ -640,8 +677,11 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 const completedSets = sets.filter((s) => s).length;
                 const totalSets = sets.length || ex.sets || 0;
 
+                // For empty workouts, don't label added exercises as "(Added)"
+                const displayName = isEmptyWorkout ? ex.name : `${ex.name} (Added)`;
+
                 exerciseSummary.push({
-                    name: `${ex.name} (Added)`,
+                    name: displayName,
                     prescription: `${ex.sets} sets`,
                     completedSets,
                     totalSets,
@@ -652,8 +692,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 if (completedSets > 0) {
                     updateExerciseHistory(ex.name, {
                         date: completionDate,
-                        week,
-                        day,
+                        week: effectiveWeek,
+                        day: effectiveDay,
                         sets: completedSets,
                         totalSets,
                         weight: parseWeight(ex.weight || exLog.weight) ?? undefined,
@@ -665,21 +705,35 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
             // Save to global history with duration
             const historyEntry = {
-                week,
-                day,
+                week: effectiveWeek,
+                day: effectiveDay,
                 date: completionDate,
-                title: workout.title,
+                title: isEmptyWorkout ? 'Custom Workout' : workout.title,
                 exercises: exerciseSummary,
                 workoutNotes: workoutNotes || null,
+                isEmptyWorkout: isEmptyWorkout ? true : undefined,
                 durationSeconds: workoutDurationSeconds,
             };
 
             const history = safeGetJSON('global_history', [] as unknown[]) as unknown[];
-            const cleanHistory = Array.isArray(history)
-                ? history.filter((h: any) => !(h?.week === week && h?.day === day))
-                : [];
+            let cleanHistory: unknown[];
+            
+            if (isEmptyWorkout) {
+                // For empty workouts, always add as a new entry (don't deduplicate)
+                cleanHistory = Array.isArray(history) ? history : [];
+            } else {
+                // For regular workouts, remove duplicates for the same week/day
+                cleanHistory = Array.isArray(history)
+                    ? history.filter((h: any) => !(h?.week === effectiveWeek && h?.day === effectiveDay))
+                    : [];
+            }
             cleanHistory.push(historyEntry);
             safeSetJSON('global_history', cleanHistory);
+
+            // Clear empty workout session key when completing
+            if (isEmptyWorkout) {
+                sessionStorage.removeItem('current_empty_workout_key');
+            }
 
             onComplete();
         } catch (error) {
@@ -790,6 +844,31 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         className="w-full h-14 px-3 py-2 bg-sys-surface rounded-xl text-white text-sm placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent resize-none border border-white/5"
                     />
                 </div>
+
+                {/* Empty Workout Prompt */}
+                {isEmptyWorkout && addedExercises.length === 0 && !logs.completed && (
+                    <div className="mb-6 p-6 rounded-3xl bg-gradient-to-br from-sys-accent/10 via-sys-surface to-sys-surfaceHigh border-2 border-dashed border-sys-accent/30">
+                        <div className="flex flex-col items-center text-center">
+                            <div className="h-16 w-16 rounded-2xl bg-sys-accent/20 flex items-center justify-center mb-4">
+                                <PlusCircle size={32} className="text-sys-accent" />
+                            </div>
+                            <h3 className="text-lg font-bold text-white mb-2">Build Your Workout</h3>
+                            <p className="text-sm text-sys-onSurfaceVar mb-4 max-w-[280px]">
+                                Add exercises from the library to create your custom workout session.
+                            </p>
+                            <button
+                                onClick={() => {
+                                    haptic.bump();
+                                    setShowExerciseSelector(true);
+                                }}
+                                className="h-12 px-6 rounded-xl text-white font-semibold active:scale-95 transition-transform btn-gradient-primary flex items-center gap-2"
+                            >
+                                <PlusCircle size={18} />
+                                <span>Add First Exercise</span>
+                            </button>
+                        </div>
+                    </div>
+                )}
 
                 {/* Workout Sections */}
                 {workout.sections.map((section: WorkoutSection, sIdx: number) => {
@@ -1086,7 +1165,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 <PlusCircle size={14} className="text-sys-success" />
                             </div>
                             <span className="text-sm font-bold text-white uppercase tracking-wide">
-                                Added Exercises
+                                {isEmptyWorkout ? 'Exercises' : 'Added Exercises'}
                             </span>
                             <div className="h-[2px] flex-1 bg-gradient-to-r from-white/20 to-transparent rounded-full"></div>
                         </div>

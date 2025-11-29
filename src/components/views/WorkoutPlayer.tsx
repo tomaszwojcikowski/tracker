@@ -4,13 +4,14 @@
  * Main workout execution view with exercise tracking, timers, and set logging.
  */
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { FloatingTimer } from '../FloatingTimer';
 import { ActionBar } from '../ActionBar';
+import { CompactExerciseRow } from '../CompactExerciseRow';
 import { safeGetJSON, safeSetJSON } from '../../utils/storage';
 import { useHaptic, useSwipe, useDebounce, type HapticFeedback } from '../../hooks';
 import {
-    Flame, Dumbbell, Snowflake, Activity, ChevronDown, ChevronUp, Timer, Repeat, Check, Plus, CheckCheck, Minus, PlusCircle, X, CheckCircle2
+    Flame, Dumbbell, Snowflake, Activity, ChevronDown, ChevronUp, Timer, Repeat, Check, Plus, CheckCheck, Minus, PlusCircle, X, CheckCircle2, LayoutGrid, LayoutList
 } from 'lucide-react';
 import {
     DEBOUNCE_DELAY_MS,
@@ -295,8 +296,21 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [showExerciseHistory, setShowExerciseHistory] = useState<string | null>(null);
     const [workoutNotes, setWorkoutNotes] = useState('');
     const [showFinishConfirm, setShowFinishConfirm] = useState(false);
+    const [compactView, setCompactView] = useState(() =>
+        safeGetJSON<boolean>('workout_compact_view', false) ?? false
+    );
 
     const haptic = useHaptic();
+
+    // Toggle compact view and persist preference
+    const toggleCompactView = useCallback(() => {
+        haptic.tick();
+        setCompactView((prev) => {
+            const newValue = !prev;
+            safeSetJSON('workout_compact_view', newValue);
+            return newValue;
+        });
+    }, [haptic]);
 
     // Swipe handlers for back navigation
     const swipeHandlers = useSwipe({
@@ -502,6 +516,11 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         saveLog(exId, 'sets', [...currentSets, false]);
     };
 
+    // Handler for weight changes from compact view
+    const handleWeightChange = useCallback((exId: string, weight: string): void => {
+        saveLog(exId, 'weight', weight);
+    }, []);
+
     const completeAllSets = (exId: string, defaultSets: number): void => {
         haptic.success();
         const allCompleted = new Array(defaultSets).fill(true);
@@ -603,11 +622,11 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             const workoutDurationSeconds = onWorkoutFinish ? onWorkoutFinish() : 0;
 
             const timestamp = new Date().toISOString();
-            
+
             // For empty workouts, use 0 for week/day
             const effectiveWeek = isEmptyWorkout ? 0 : week;
             const effectiveDay = isEmptyWorkout ? 0 : day;
-            
+
             const updatedLogs: WorkoutSessionData = {
                 ...logs,
                 completed: true,
@@ -717,7 +736,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
             const history = safeGetJSON('global_history', [] as unknown[]) as unknown[];
             let cleanHistory: unknown[];
-            
+
             if (isEmptyWorkout) {
                 // For empty workouts, always add as a new entry (don't deduplicate)
                 cleanHistory = Array.isArray(history) ? history : [];
@@ -845,6 +864,32 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     />
                 </div>
 
+                {/* View Mode Toggle */}
+                <div className="flex justify-end mb-4">
+                    <div className="flex items-center bg-sys-surfaceHigh rounded-lg p-1 border border-white/5">
+                        <button
+                            onClick={toggleCompactView}
+                            className={`h-8 w-8 rounded-md flex items-center justify-center transition-all ${
+                                !compactView ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
+                            }`}
+                            aria-label="Card view"
+                            aria-pressed={!compactView}
+                        >
+                            <LayoutGrid size={16} />
+                        </button>
+                        <button
+                            onClick={toggleCompactView}
+                            className={`h-8 w-8 rounded-md flex items-center justify-center transition-all ${
+                                compactView ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
+                            }`}
+                            aria-label="Compact list view"
+                            aria-pressed={compactView}
+                        >
+                            <LayoutList size={16} />
+                        </button>
+                    </div>
+                </div>
+
                 {/* Empty Workout Prompt */}
                 {isEmptyWorkout && addedExercises.length === 0 && !logs.completed && (
                     <div className="mb-6 p-6 rounded-3xl bg-gradient-to-br from-sys-accent/10 via-sys-surface to-sys-surfaceHigh border-2 border-dashed border-sys-accent/30">
@@ -884,21 +929,21 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                     return (
                         <div key={sIdx} className="mb-5">
-                            {/* Section Header */}
-                            <div className="mb-2">
+                            {/* Section Header - Compact mode: sticky, minimal */}
+                            <div className={`mb-2 ${compactView ? 'sticky top-0 z-10 bg-sys-black/95 backdrop-blur-sm py-1 -mx-4 px-4' : ''}`}>
                                 <div className="flex items-center gap-2 mb-1">
-                                    <div className="h-6 w-6 rounded-md flex items-center justify-center bg-sys-surfaceHigh">
+                                    <div className={`rounded-md flex items-center justify-center bg-sys-surfaceHigh ${compactView ? 'h-5 w-5' : 'h-6 w-6'}`}>
                                         {section.type === 'prep' ? (
-                                            <Flame size={14} className="text-sys-accent" />
+                                            <Flame size={compactView ? 12 : 14} className="text-sys-accent" />
                                         ) : section.type === 'main' ? (
-                                            <Dumbbell size={14} className="text-sys-success" />
+                                            <Dumbbell size={compactView ? 12 : 14} className="text-sys-success" />
                                         ) : section.type === 'cool' ? (
-                                            <Snowflake size={14} className="text-sys-accent" />
+                                            <Snowflake size={compactView ? 12 : 14} className="text-sys-accent" />
                                         ) : (
-                                            <Activity size={14} className="text-white" />
+                                            <Activity size={compactView ? 12 : 14} className="text-white" />
                                         )}
                                     </div>
-                                    <span className="text-sm font-bold text-white uppercase tracking-wide">
+                                    <span className={`font-bold text-white uppercase tracking-wide ${compactView ? 'text-xs' : 'text-sm'}`}>
                                         {section.name}
                                     </span>
                                     <div className="h-[2px] flex-1 bg-gradient-to-r from-white/20 to-transparent rounded-full"></div>
@@ -908,7 +953,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         </span>
                                     )}
                                 </div>
-                                {sectionProgress > 0 && (
+                                {!compactView && sectionProgress > 0 && (
                                     <div className="h-1 bg-sys-surfaceHigh rounded-full overflow-hidden mx-1">
                                         <div
                                             className="h-full bg-gradient-to-r from-sys-accent to-sys-success transition-all duration-500"
@@ -919,17 +964,42 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             </div>
 
                             {/* Exercises */}
-                            <div className="space-y-3">
+                            <div className={compactView ? 'space-y-1' : 'space-y-3'}>
                                 {section.exercises.map((ex: WorkoutExercise, eIdx: number) => {
                                     const defaultSets = ex.sets || 3;
                                     const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
                                     const exerciseLog = getExerciseLogEntry(logs, exId);
                                     const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
+                                    const isFirstIncomplete = exId === firstIncompleteExerciseId;
+
+                                    // Compact View Rendering
+                                    if (compactView) {
+                                        return (
+                                            <CompactExerciseRow
+                                                key={eIdx}
+                                                exId={exId}
+                                                name={ex.name}
+                                                prescription={ex.prescription}
+                                                notes={ex.notes}
+                                                sets={currentSetArray}
+                                                defaultSets={defaultSets}
+                                                weight={exerciseLog.weight || ''}
+                                                isBodyweight={ex.isBodyweight}
+                                                restTime={ex.rest}
+                                                isFirstIncomplete={isFirstIncomplete}
+                                                haptic={haptic}
+                                                onToggleSet={toggleSet}
+                                                onWeightChange={handleWeightChange}
+                                                onAddSet={addSet}
+                                            />
+                                        );
+                                    }
+
+                                    // Card View Rendering (original)
                                     const completedSets = currentSetArray.filter((s) => s).length;
                                     const totalSets = currentSetArray.length;
                                     const hasHistory = getExerciseHistory(ex.name).length > 0;
                                     const isCollapsed = isExerciseCollapsed(exId);
-                                    const isFirstIncomplete = exId === firstIncompleteExerciseId;
 
                                     return (
                                         <div key={eIdx} id={exId} className="relative scroll-mt-16">

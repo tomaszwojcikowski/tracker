@@ -359,3 +359,53 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     min-height: 48px;
     min-width: 48px;
 }
+
+/* ============================================================================
+   COMPACT VIEW STYLES
+   High-density workout view for power users
+   ============================================================================ */
+
+/* Compact exercise row base */
+.compact-row {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Compact set button - smaller touch target for power users */
+.compact-set-button {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.compact-set-button:active {
+    transform: scale(0.9);
+}
+
+.compact-set-button.completed {
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+}
+
+/* Weight stepper group */
+.weight-stepper {
+    transition: background-color 0.1s ease;
+}
+
+.weight-stepper:active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Compact section header - sticky with blur */
+.compact-section-header {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Hide scrollbar in number inputs but keep functionality */
+.compact-weight-input {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.compact-weight-input::-webkit-outer-spin-button,
+.compact-weight-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

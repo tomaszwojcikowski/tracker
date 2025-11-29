@@ -77,6 +77,10 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const [userModified, setUserModified] = useState(false);
     const weightInputRef = useRef<HTMLInputElement>(null);
 
+    // Constants for set scrolling
+    const MAX_VISIBLE_SETS = 3;
+    const needsScrolling = sets.length > MAX_VISIBLE_SETS;
+
     // Computed values
     const completedSets = sets.filter(Boolean).length;
     const totalSets = sets.length;
@@ -180,6 +184,9 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     // Memoize hasIncompleteSets - MUST be before any early returns to follow Rules of Hooks
     const hasIncompleteSets = useMemo(() => sets.some((s) => !s), [sets]);
 
+    // Only show complete-all button when there are 2+ sets and incomplete sets
+    const showCompleteAllButton = totalSets > 1 && hasIncompleteSets;
+
     // ============================================================================
     // RENDER: COLLAPSED COMPLETE STATE
     // ============================================================================
@@ -237,24 +244,33 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                     )}
                 </button>
 
-                {/* Set Buttons */}
+                {/* Set Buttons - horizontally scrollable when > MAX_VISIBLE_SETS */}
                 <div className="flex items-center gap-1 flex-shrink-0">
-                    {sets.map((isDone, i) => (
-                        <button
-                            key={`${exId}-set-${i}`}
-                            onClick={() => handleSetToggle(i)}
-                            className={`h-8 w-8 rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
-                                isDone
-                                    ? 'bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
-                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                            }`}
-                            aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
-                        >
-                            {isDone ? <Check size={14} /> : i + 1}
-                        </button>
-                    ))}
-                    {/* Complete All Sets Button - only show when there are incomplete sets */}
-                    {hasIncompleteSets && (
+                    <div
+                        className={`flex items-center gap-1 ${
+                            needsScrolling
+                                ? 'overflow-x-auto max-w-[108px] snap-x snap-mandatory'
+                                : ''
+                        }`}
+                        style={needsScrolling ? { scrollbarWidth: 'none', msOverflowStyle: 'none' } : undefined}
+                    >
+                        {sets.map((isDone, i) => (
+                            <button
+                                key={`${exId}-set-${i}`}
+                                onClick={() => handleSetToggle(i)}
+                                className={`h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 snap-start ${
+                                    isDone
+                                        ? 'bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
+                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                }`}
+                                aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
+                            >
+                                {isDone ? <Check size={14} /> : i + 1}
+                            </button>
+                        ))}
+                    </div>
+                    {/* Complete All Sets Button - only show when there are 2+ sets with incomplete */}
+                    {showCompleteAllButton && (
                         <button
                             onClick={handleCompleteAllSets}
                             className="h-8 w-8 rounded-lg bg-sys-success/20 text-sys-success flex items-center justify-center active:scale-90 transition-all"

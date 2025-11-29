@@ -8,6 +8,10 @@ import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { FloatingTimer } from '../FloatingTimer';
 import { ActionBar } from '../ActionBar';
 import { CompactExerciseRow } from '../CompactExerciseRow';
+import { RPESelector } from '../RPESelector';
+import { GestureHint } from '../GestureHint';
+import { RecentExercisesList, addRecentExercise } from '../RecentExercises';
+import { ExerciseDetailModal } from '../modals';
 import { safeGetJSON, safeSetJSON } from '../../utils/storage';
 import { useHaptic, useSwipe, useDebounce, type HapticFeedback } from '../../hooks';
 import {
@@ -21,7 +25,6 @@ import { PROGRAM_DATA, type WorkoutExercise, type WorkoutSection } from '../../d
 import {
     updateExerciseHistory,
     getExerciseHistory,
-    calculateExerciseStats,
 } from '../../utils/exerciseHistory';
 import { playTickSound, playBeepSound } from '../../utils/audio';
 import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../../types';
@@ -299,6 +302,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [compactView, setCompactView] = useState(() =>
         safeGetJSON<boolean>('workout_compact_view', false) ?? false
     );
+    // RPE selector state: { exerciseId, setIndex } or null
+    const [rpePrompt, setRpePrompt] = useState<{ exerciseId: string; setIndex: number } | null>(null);
 
     const haptic = useHaptic();
 
@@ -486,21 +491,27 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     delete updatedRPEs[setIndex];
                     saveLog(exId, 'rpe', updatedRPEs);
                 }
+                // Clear RPE prompt if uncompleting the set that was being prompted
+                setRpePrompt(null);
             }
 
-            // Start rest timer if completing a set
-            if (!wasCompleted && newSets[setIndex] && typeof restTime === 'number' && restTime > 0) {
-                setTimerSeconds(restTime);
-                setTimerActive(true);
+            // Start rest timer and show RPE prompt if completing a set
+            if (!wasCompleted && newSets[setIndex]) {
+                // Show RPE prompt for the completed set
+                setRpePrompt({ exerciseId: exId, setIndex });
+                
+                // Start rest timer
+                if (typeof restTime === 'number' && restTime > 0) {
+                    setTimerSeconds(restTime);
+                    setTimerActive(true);
+                }
             }
         } catch (error) {
             console.error('Failed to toggle set:', error);
         }
     };
 
-    // @ts-expect-error - Reserved for future RPE UI feature
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const _saveRPE = (exId: string, setIndex: number, rpe: RPEValue): void => {
+    const saveRPE = (exId: string, setIndex: number, rpe: RPEValue): void => {
         try {
             const currentRPEs: RPEData = { ...(getExerciseLogEntry(logs, exId).rpe ?? {}) };
             const updatedRPEs: RPEData = { ...currentRPEs, [setIndex]: rpe };
@@ -842,6 +853,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 }}
             />
 
+            {/* Gesture hint for swipe navigation - shown on first workout */}
+            <GestureHint 
+                type="swipe-right"
+                storageKey="workout_player_back"
+                message="Swipe right to go back"
+            />
+
             <div {...swipeHandlers} className="px-4 pb-32 pt-4">
                 {/* Workout Notes */}
                 <div className="mb-4">
@@ -1146,6 +1164,20 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                 <Plus size={18} />
                                                             </button>
                                                         </div>
+
+                                                        {/* RPE Selector - shown after completing a set */}
+                                                        {rpePrompt?.exerciseId === exId && (
+                                                            <RPESelector
+                                                                value={getExerciseLogEntry(logs, exId).rpe?.[rpePrompt.setIndex]}
+                                                                onChange={(rpe: RPEValue) => {
+                                                                    saveRPE(exId, rpePrompt.setIndex, rpe);
+                                                                    setRpePrompt(null);
+                                                                }}
+                                                                onSkip={() => setRpePrompt(null)}
+                                                                setNumber={rpePrompt.setIndex + 1}
+                                                                showAsPrompt
+                                                            />
+                                                        )}
 
                                                         {/* Complete all button - only show if more than 1 set remains incomplete */}
                                                         {currentSetArray.filter((s) => !s).length > 1 && (
@@ -1487,12 +1519,26 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             </div>
 
                             <div className="flex-1 overflow-y-auto p-4">
+                                {/* Recent Exercises - shown at top when no search term */}
+                                {!debouncedExerciseSearch && (
+                                    <RecentExercisesList
+                                        exerciseLibrary={exerciseLibrary}
+                                        onSelect={(exercise) => {
+                                            addExerciseToWorkout(exercise);
+                                            addRecentExercise(exercise);
+                                        }}
+                                    />
+                                )}
+
                                 <div className="space-y-3">
                                     {filteredExercises.map((exercise) => (
                                         <ExerciseListItem
                                             key={exercise.id}
                                             exercise={exercise}
-                                            onAdd={addExerciseToWorkout}
+                                            onAdd={(ex, sets, weight, rest) => {
+                                                addExerciseToWorkout(ex, sets, weight, rest);
+                                                addRecentExercise(ex);
+                                            }}
                                             haptic={haptic}
                                         />
                                     ))}
@@ -1502,80 +1548,17 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     </div>
                 )}
 
-                {/* Exercise History Modal */}
-                {showExerciseHistory && (
-                    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm animate-slide-up">
-                        <div className="bg-sys-surface rounded-t-3xl w-full max-h-[85vh] border-t border-white/10 flex flex-col">
-                            <div className="p-6 border-b border-white/10">
-                                <div className="flex items-center justify-between mb-2">
-                                    <h3 className="text-xl font-bold text-white">{showExerciseHistory}</h3>
-                                    <button
-                                        onClick={() => {
-                                            haptic.tick();
-                                            setShowExerciseHistory(null);
-                                        }}
-                                        className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
-                                        aria-label="Close"
-                                    >
-                                        <X size={20} />
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className="flex-1 overflow-y-auto p-6">
-                                {(() => {
-                                    const history = getExerciseHistory(showExerciseHistory);
-                                    const stats = calculateExerciseStats(showExerciseHistory);
-
-                                    return (
-                                        <>
-                                            <div className="grid grid-cols-2 gap-3 mb-6">
-                                                <div className="bg-sys-surfaceHigh rounded-xl p-4">
-                                                    <div className="text-xs text-sys-onSurfaceVar mb-1">Workouts</div>
-                                                    <div className="text-2xl font-bold text-white">{stats.totalWorkouts}</div>
-                                                </div>
-                                                {stats.maxWeight && (
-                                                    <div className="bg-sys-surfaceHigh rounded-xl p-4">
-                                                        <div className="text-xs text-sys-onSurfaceVar mb-1">Max Weight</div>
-                                                        <div className="text-2xl font-bold text-sys-accent">{stats.maxWeight}kg</div>
-                                                    </div>
-                                                )}
-                                            </div>
-
-                                            <h4 className="text-sm font-bold text-white mb-3">Recent History</h4>
-                                            <div className="space-y-2">
-                                                {history.slice(-5).reverse().map((entry, idx) => (
-                                                    <div key={idx} className="bg-sys-surfaceHigh rounded-xl p-3">
-                                                        <div className="flex items-center justify-between">
-                                                            <div className="flex-1">
-                                                                <div className="text-sm font-semibold text-white">
-                                                                    {new Date(entry.date).toLocaleDateString('en-US', {
-                                                                        month: 'short',
-                                                                        day: 'numeric',
-                                                                    })}
-                                                                </div>
-                                                                <div className="text-xs text-sys-onSurfaceVar">
-                                                                    W{entry.week} D{entry.day}
-                                                                </div>
-                                                            </div>
-                                                            <div className="text-right">
-                                                                <div className="text-sm font-bold text-white">{entry.sets} sets</div>
-                                                                {entry.weight && (
-                                                                    <div className="text-xs text-sys-accent font-semibold">{entry.weight}kg</div>
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </>
-                                    );
-                                })()}
-                            </div>
-                        </div>
-                    </div>
-                )}
+                {/* Exercise History Modal - Using new ExerciseDetailModal */}
+                <ExerciseDetailModal
+                    isOpen={!!showExerciseHistory}
+                    exerciseName={showExerciseHistory ?? ''}
+                    onClose={() => {
+                        haptic.tick();
+                        setShowExerciseHistory(null);
+                    }}
+                />
             </div>
         </>
     );
 };
+

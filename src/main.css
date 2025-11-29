@@ -409,3 +409,147 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     -webkit-appearance: none;
     margin: 0;
 }
+
+/* ============================================================================
+   GESTURE HINT ANIMATIONS
+   Swipe gesture tutorial animations
+   ============================================================================ */
+
+@keyframes swipeRight {
+    0%, 100% {
+        transform: translateX(-20px);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateX(20px);
+        opacity: 1;
+    }
+}
+
+@keyframes swipeLeft {
+    0%, 100% {
+        transform: translateX(20px);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateX(-20px);
+        opacity: 1;
+    }
+}
+
+@keyframes swipeHorizontal {
+    0%, 100% {
+        transform: translateX(-30px);
+        opacity: 0.6;
+    }
+    25% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(30px);
+        opacity: 0.6;
+    }
+    75% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ============================================================================
+   OLED DARK MODE OPTIMIZATIONS
+   True black surfaces for AMOLED/OLED screens (5.1)
+   ============================================================================ */
+
+:root.theme-oled {
+    --color-black: #000000;
+    --color-surface-dark: #000000;
+    --color-surface-elevated: #0a0a0a;
+}
+
+:root.theme-oled body {
+    background: #000000;
+}
+
+:root.theme-oled .bg-sys-surface {
+    background-color: #050505 !important;
+}
+
+:root.theme-oled .bg-sys-surfaceHigh {
+    background-color: #0a0a0a !important;
+}
+
+:root.theme-oled .bg-sys-black {
+    background-color: #000000 !important;
+}
+
+:root.theme-oled .glass-panel {
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* Subtle borders for OLED to define edges */
+:root.theme-oled .border-white\/5 {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ============================================================================
+   LARGER TOUCH TARGETS FOR WORKOUT MODE (5.4)
+   Increased button sizes for easier tapping during exercise
+   ============================================================================ */
+
+.workout-set-button-large {
+    min-height: 52px;
+    min-width: 52px;
+    height: 52px;
+    width: 52px;
+}
+
+/* Set button with swipe animation hint */
+.set-button-swipeable {
+    position: relative;
+    overflow: hidden;
+}
+
+.set-button-swipeable::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    transform: translateY(-50%) translateX(-100%);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.set-button-swipeable:active::after {
+    animation: swipeHint 0.4s ease-out;
+}
+
+@keyframes swipeHint {
+    0% {
+        transform: translateY(-50%) translateX(-100%);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-50%) translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* RPE selector colors */
+.rpe-6, .rpe-7 {
+    --rpe-color: #22c55e;
+}
+.rpe-8 {
+    --rpe-color: #eab308;
+}
+.rpe-9 {
+    --rpe-color: #f97316;
+}
+.rpe-10 {
+    --rpe-color: #ef4444;
+}

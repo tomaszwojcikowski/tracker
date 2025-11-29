@@ -4,8 +4,9 @@ export type { NavigationBarProps } from './navigation/NavigationBar';
 export type { TabContentProps } from './navigation/TabContent';
 
 // Modal components
-export { ConfirmDialog } from './modals';
+export { ConfirmDialog, ExerciseDetailModal } from './modals';
 export type { ConfirmDialogProps, ConfirmDialogVariant } from './modals/ConfirmDialog';
+export type { ExerciseDetailModalProps } from './modals/ExerciseDetailModal';
 
 // Skeleton components
 export {
@@ -91,3 +92,15 @@ export type { LoadingScreenProps, ErrorScreenProps } from './screens';
 // Compact view components
 export { CompactExerciseRow } from './CompactExerciseRow';
 export type { CompactExerciseRowProps } from './CompactExerciseRow';
+
+// RPE components
+export { RPESelector, RPEBadge } from './RPESelector';
+export type { RPESelectorProps, RPEBadgeProps } from './RPESelector';
+
+// Gesture hints
+export { GestureHint, useGestureHint } from './GestureHint';
+export type { GestureHintProps } from './GestureHint';
+
+// Recent exercises
+export { RecentExercisesList, getRecentExercises, addRecentExercise, clearRecentExercises } from './RecentExercises';
+export type { RecentExercisesListProps, RecentExercise } from './RecentExercises';

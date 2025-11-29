@@ -374,7 +374,6 @@ export interface EmomState {
  * ActionBar component props
  */
 export interface ActionBarProps {
-  onFinish: () => void;
   timerState: TimerState;
   setTimerActive: (active: boolean) => void;
   setTimerSeconds: (seconds: number | ((prev: number) => number)) => void;

@@ -261,6 +261,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [selectedMuscleFilter, setSelectedMuscleFilter] = useState<MuscleFilter>('all');
     const [showExerciseHistory, setShowExerciseHistory] = useState<string | null>(null);
     const [workoutNotes, setWorkoutNotes] = useState('');
+    const [showFinishConfirm, setShowFinishConfirm] = useState(false);
 
     const haptic = useHaptic();
 
@@ -274,6 +275,42 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
     // Debounce exercise search
     const debouncedExerciseSearch = useDebounce(exerciseSearchTerm, DEBOUNCE_DELAY_MS);
+
+    // Calculate overall workout progress (completed sets / total sets)
+    const workoutProgress = useMemo(() => {
+        let completedSets = 0;
+        let totalSets = 0;
+
+        // Count sets from workout sections
+        if (workout?.sections) {
+            for (const section of workout.sections) {
+                for (const ex of section.exercises) {
+                    const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                    const exerciseLog = getExerciseLogEntry(logs, exId);
+                    const sets = exerciseLog.sets || [];
+                    const defaultSets = ex.sets || 3;
+                    const exerciseTotalSets = sets.length > 0 ? sets.length : defaultSets;
+                    const exerciseCompletedSets = sets.filter((s) => s).length;
+                    totalSets += exerciseTotalSets;
+                    completedSets += exerciseCompletedSets;
+                }
+            }
+        }
+
+        // Count sets from added exercises
+        for (const addedEx of addedExercises) {
+            const exId = `added_${addedEx.id}`;
+            const exerciseLog = getExerciseLogEntry(logs, exId);
+            const sets = exerciseLog.sets || [];
+            const defaultSets = addedEx.sets || 3;
+            const exerciseTotalSets = sets.length > 0 ? sets.length : defaultSets;
+            const exerciseCompletedSets = sets.filter((s) => s).length;
+            totalSets += exerciseTotalSets;
+            completedSets += exerciseCompletedSets;
+        }
+
+        return { completedSets, totalSets };
+    }, [workout, logs, addedExercises]);
 
     // Load session data on mount
     useEffect(() => {
@@ -1145,19 +1182,46 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     </div>
                 )}
 
-                {/* Action Bar */}
+                {/* Finish Workout Button */}
                 {!logs.completed && (
-                    <ActionBar
-                        onFinish={handleFinish}
-                        timerState={{ time: timerSeconds, active: timerActive }}
-                        setTimerActive={setTimerActive}
-                        setTimerSeconds={setTimerSeconds}
-                        emomState={{ active: emomActive, seconds: emomSeconds, interval: emomInterval }}
-                        setEmomActive={setEmomActive}
-                        setEmomSeconds={setEmomSeconds}
-                        setEmomInterval={setEmomInterval}
-                    />
+                    <div className="mb-8 flex justify-center">
+                        <button
+                            onClick={() => {
+                                haptic.bump();
+                                setShowFinishConfirm(true);
+                            }}
+                            className="h-10 min-h-[40px] px-6 rounded-xl bg-sys-surfaceHigh border border-white/10 text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform relative overflow-hidden"
+                        >
+                            {/* Progress bar background */}
+                            {workoutProgress.totalSets > 0 && (
+                                <div
+                                    className="absolute inset-0 bg-sys-success/20 transition-all duration-500"
+                                    style={{ width: `${(workoutProgress.completedSets / workoutProgress.totalSets) * 100}%` }}
+                                />
+                            )}
+                            <span className="relative z-10 text-sm flex items-center gap-2">
+                                <CheckCircle2 size={16} />
+                                <span>Finish</span>
+                                {workoutProgress.totalSets > 0 && (
+                                    <span className="text-sys-onSurfaceVar text-xs">
+                                        ({workoutProgress.completedSets}/{workoutProgress.totalSets})
+                                    </span>
+                                )}
+                            </span>
+                        </button>
+                    </div>
                 )}
+
+                {/* Action Bar (Timers only) */}
+                <ActionBar
+                    timerState={{ time: timerSeconds, active: timerActive }}
+                    setTimerActive={setTimerActive}
+                    setTimerSeconds={setTimerSeconds}
+                    emomState={{ active: emomActive, seconds: emomSeconds, interval: emomInterval }}
+                    setEmomActive={setEmomActive}
+                    setEmomSeconds={setEmomSeconds}
+                    setEmomInterval={setEmomInterval}
+                />
 
                 {/* Timer Toast */}
                 {showTimerToast && (
@@ -1175,6 +1239,39 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             >
                                 <X size={18} />
                             </button>
+                        </div>
+                    </div>
+                )}
+
+                {/* Finish Confirmation Dialog */}
+                {showFinishConfirm && (
+                    <div className="fixed inset-0 z-50 flex items-end justify-center p-4 bg-black/60 backdrop-blur-sm animate-slide-up safe-pb">
+                        <div className="bg-sys-surface rounded-3xl p-6 w-full max-w-md border border-white/10">
+                            <h3 className="text-xl font-bold text-white mb-2">Finish Workout?</h3>
+                            <p className="text-sys-onSurfaceVar mb-6">
+                                Your progress will be saved and logged to history.
+                            </p>
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={() => {
+                                        haptic.tick();
+                                        setShowFinishConfirm(false);
+                                    }}
+                                    className="flex-1 h-14 rounded-xl bg-sys-surfaceHigh text-white font-semibold active:scale-95 transition-transform hover-lift"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        haptic.success();
+                                        setShowFinishConfirm(false);
+                                        handleFinish();
+                                    }}
+                                    className="flex-1 h-14 rounded-xl text-white font-semibold active:scale-95 transition-transform btn-gradient-success"
+                                >
+                                    Finish
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )}

@@ -36,6 +36,13 @@ export const parseWeight = (weight: unknown): number | null => {
 
 /**
  * Type guard to check if a value is an ExerciseLogEntry
+ *
+ * ExerciseLogEntry has optional sets (boolean[]), weight, and rpe.
+ * AddedExercise has required id, name, and sets (number).
+ *
+ * The check excludes objects that have all three AddedExercise-specific fields
+ * (id, name, sets) to distinguish between the two types.
+ *
  * @param value - Value to check
  * @returns True if value is an ExerciseLogEntry
  */
@@ -44,6 +51,7 @@ export const isExerciseLogEntry = (value: unknown): value is ExerciseLogEntry =>
         typeof value === 'object' &&
         value !== null &&
         !Array.isArray(value) &&
+        // Exclude AddedExercise objects which have id, name, and sets (number) as required fields
         !('id' in value && 'name' in value && 'sets' in value)
     );
 };
@@ -58,7 +66,8 @@ export const getExerciseLogEntry = (
     logs: WorkoutSessionData,
     exerciseId: string
 ): ExerciseLogEntry => {
-    const entry = logs[exerciseId];
+    const exercises = logs.exercises ?? {};
+    const entry = exercises[exerciseId];
     if (isExerciseLogEntry(entry)) {
         return entry;
     }

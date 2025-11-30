@@ -40,8 +40,8 @@ export interface UseEmomTimerReturn {
     stop: () => void;
     /** Toggle the EMOM timer */
     toggle: () => void;
-    /** Set the interval duration (simple number) */
-    setInterval: (seconds: number) => void;
+    /** Set the interval duration (simple number setter) */
+    setIntervalDuration: (seconds: number) => void;
     /** Set seconds directly */
     setSeconds: React.Dispatch<React.SetStateAction<number>>;
     /** Set active state directly */
@@ -107,7 +107,7 @@ export function useEmomTimer({ haptic }: UseEmomTimerOptions): UseEmomTimerRetur
         }
     }, [active, interval]);
 
-    const setInterval = useCallback((newInterval: number) => {
+    const setIntervalDuration = useCallback((newInterval: number) => {
         setIntervalState(newInterval);
     }, []);
 
@@ -118,7 +118,7 @@ export function useEmomTimer({ haptic }: UseEmomTimerOptions): UseEmomTimerRetur
         start,
         stop,
         toggle,
-        setInterval,
+        setIntervalDuration,
         setSeconds,
         setActive,
         setIntervalState,

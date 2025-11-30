@@ -7,6 +7,7 @@
 import React from 'react';
 import { Check, X, Timer } from 'lucide-react';
 import type { AddedExercise } from '../types';
+import type { HapticFeedback } from '../hooks';
 
 // ============================================================================
 // TYPES
@@ -18,10 +19,7 @@ export interface AddedExerciseCardProps {
     /** Current set completion array */
     sets: boolean[];
     /** Haptic feedback interface */
-    haptic: {
-        tick: () => void;
-        bump: () => void;
-    };
+    haptic: Pick<HapticFeedback, 'tick' | 'bump'>;
     /** Callbacks */
     onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number) => void;
     onRemove: (exerciseId: string) => void;

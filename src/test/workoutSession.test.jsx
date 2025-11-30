@@ -71,7 +71,9 @@ describe('Workout Session Utilities', () => {
     describe('getExerciseLogEntry', () => {
         it('should return existing log entry', () => {
             const logs = {
-                bench_press: { sets: [true, false], weight: '50', rpe: { 0: '8' } },
+                exercises: {
+                    bench_press: { sets: [true, false], weight: '50', rpe: { 0: '8' } },
+                },
             };
 
             const result = getExerciseLogEntry(logs, 'bench_press');
@@ -80,7 +82,7 @@ describe('Workout Session Utilities', () => {
         });
 
         it('should return empty object for missing entry', () => {
-            const logs = {};
+            const logs = { exercises: {} };
 
             const result = getExerciseLogEntry(logs, 'squats');
 
@@ -89,7 +91,9 @@ describe('Workout Session Utilities', () => {
 
         it('should return empty object for non-log entry', () => {
             const logs = {
-                some_id: { id: 'test', name: 'Test', sets: 3 }, // This is AddedExercise format
+                exercises: {
+                    some_id: { id: 'test', name: 'Test', sets: 3 }, // This is AddedExercise format
+                },
             };
 
             // This should be handled by the type guard
@@ -100,7 +104,9 @@ describe('Workout Session Utilities', () => {
 
         it('should handle null in logs', () => {
             const logs = {
-                bench_press: null,
+                exercises: {
+                    bench_press: null,
+                },
             };
 
             const result = getExerciseLogEntry(logs, 'bench_press');

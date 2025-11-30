@@ -23,6 +23,7 @@ import {
 import { RPESelector } from './RPESelector';
 import type { RPEValue } from '../types';
 import type { ExerciseLogEntry } from '../types/workout';
+import type { HapticFeedback } from '../hooks';
 
 // ============================================================================
 // TYPES
@@ -79,11 +80,7 @@ export interface ExerciseCardProps {
     /** EMOM timer interval */
     emomTimerInterval: number;
     /** Haptic feedback interface */
-    haptic: {
-        tick: () => void;
-        bump: () => void;
-        success: () => void;
-    };
+    haptic: Pick<HapticFeedback, 'tick' | 'bump' | 'success'>;
     /** Callbacks */
     onToggleCollapse: (exId: string) => void;
     onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number) => void;

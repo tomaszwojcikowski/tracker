@@ -162,12 +162,16 @@ export function useWorkoutSession({
     ): void => {
         setLogs(prevLogs => {
             const currentEntry = getExerciseLogEntry(prevLogs, id);
-            const updatedLogs: WorkoutSessionData = {
-                ...prevLogs,
+            const updatedExercises = {
+                ...(prevLogs.exercises ?? {}),
                 [id]: {
                     ...currentEntry,
                     [field]: value,
                 },
+            };
+            const updatedLogs: WorkoutSessionData = {
+                ...prevLogs,
+                exercises: updatedExercises,
                 lastModified: new Date().toISOString(),
             };
             const success = safeSetJSON(sessionKey, updatedLogs);
@@ -220,13 +224,10 @@ export function useWorkoutSession({
             const wasCompleted = newSets[setIndex];
             newSets[setIndex] = !newSets[setIndex];
 
-            let updatedLogs: WorkoutSessionData = {
-                ...prevLogs,
-                [exId]: {
-                    ...currentEntry,
-                    sets: newSets,
-                },
-                lastModified: new Date().toISOString(),
+            // Build updated entry
+            let updatedEntry: ExerciseLogEntry = {
+                ...currentEntry,
+                sets: newSets,
             };
 
             // Clear RPE if uncompleting a set
@@ -235,16 +236,21 @@ export function useWorkoutSession({
                 if (currentRPEs[setIndex]) {
                     const updatedRPEs: RPEData = { ...currentRPEs };
                     delete updatedRPEs[setIndex];
-                    const existingEntry = updatedLogs[exId] as ExerciseLogEntry;
-                    updatedLogs = {
-                        ...updatedLogs,
-                        [exId]: {
-                            ...existingEntry,
-                            rpe: updatedRPEs,
-                        },
+                    updatedEntry = {
+                        ...updatedEntry,
+                        rpe: updatedRPEs,
                     };
                 }
             }
+
+            const updatedLogs: WorkoutSessionData = {
+                ...prevLogs,
+                exercises: {
+                    ...(prevLogs.exercises ?? {}),
+                    [exId]: updatedEntry,
+                },
+                lastModified: new Date().toISOString(),
+            };
 
             // Determine if we should start timer
             let shouldStartTimer = false;
@@ -284,12 +290,12 @@ export function useWorkoutSession({
         let result = { shouldStartTimer: false };
 
         setLogs(prevLogs => {
-            let updatedLogs: WorkoutSessionData = { ...prevLogs };
+            const updatedExercises = { ...(prevLogs.exercises ?? {}) };
             let anyWasIncomplete = false;
             let hasIncompleteSetsAfter = false;
 
             exerciseIds.forEach((exId) => {
-                const currentEntry = getExerciseLogEntry(updatedLogs, exId);
+                const currentEntry = getExerciseLogEntry(prevLogs, exId);
                 const currentSets = currentEntry.sets || new Array(defaultSets).fill(false);
                 const newSets = [...currentSets];
                 while (newSets.length <= roundIndex) newSets.push(false);
@@ -302,12 +308,10 @@ export function useWorkoutSession({
                 const completedSetsCount = newSets.filter(Boolean).length;
                 if (completedSetsCount < newSets.length) hasIncompleteSetsAfter = true;
 
-                updatedLogs = {
-                    ...updatedLogs,
-                    [exId]: {
-                        ...currentEntry,
-                        sets: newSets,
-                    },
+                // Build updated entry
+                let updatedEntry: ExerciseLogEntry = {
+                    ...currentEntry,
+                    sets: newSets,
                 };
 
                 // Clear RPE if uncompleting
@@ -316,19 +320,21 @@ export function useWorkoutSession({
                     if (currentRPEs[roundIndex]) {
                         const updatedRPEs: RPEData = { ...currentRPEs };
                         delete updatedRPEs[roundIndex];
-                        const existingEntry = updatedLogs[exId] as ExerciseLogEntry;
-                        updatedLogs = {
-                            ...updatedLogs,
-                            [exId]: {
-                                ...existingEntry,
-                                rpe: updatedRPEs,
-                            },
+                        updatedEntry = {
+                            ...updatedEntry,
+                            rpe: updatedRPEs,
                         };
                     }
                 }
+
+                updatedExercises[exId] = updatedEntry;
             });
 
-            updatedLogs.lastModified = new Date().toISOString();
+            const updatedLogs: WorkoutSessionData = {
+                ...prevLogs,
+                exercises: updatedExercises,
+                lastModified: new Date().toISOString(),
+            };
 
             // Start timer if completing and there are incomplete sets remaining
             if (anyWasIncomplete && typeof restTime === 'number' && restTime > 0 && hasIncompleteSetsAfter) {
@@ -353,9 +359,12 @@ export function useWorkoutSession({
             const updatedRPEs: RPEData = { ...currentRPEs, [setIndex]: rpe };
             const updatedLogs: WorkoutSessionData = {
                 ...prevLogs,
-                [exId]: {
-                    ...currentEntry,
-                    rpe: updatedRPEs,
+                exercises: {
+                    ...(prevLogs.exercises ?? {}),
+                    [exId]: {
+                        ...currentEntry,
+                        rpe: updatedRPEs,
+                    },
                 },
                 lastModified: new Date().toISOString(),
             };
@@ -386,18 +395,19 @@ export function useWorkoutSession({
         const allCompleted = new Array(defaultSets).fill(true);
 
         setLogs(prevLogs => {
-            let updatedLogs: WorkoutSessionData = { ...prevLogs };
+            const updatedExercises = { ...(prevLogs.exercises ?? {}) };
             exerciseIds.forEach((exId) => {
-                const currentEntry = getExerciseLogEntry(updatedLogs, exId);
-                updatedLogs = {
-                    ...updatedLogs,
-                    [exId]: {
-                        ...currentEntry,
-                        sets: allCompleted,
-                    },
+                const currentEntry = getExerciseLogEntry(prevLogs, exId);
+                updatedExercises[exId] = {
+                    ...currentEntry,
+                    sets: allCompleted,
                 };
             });
-            updatedLogs.lastModified = new Date().toISOString();
+            const updatedLogs: WorkoutSessionData = {
+                ...prevLogs,
+                exercises: updatedExercises,
+                lastModified: new Date().toISOString(),
+            };
             safeSetJSON(sessionKey, updatedLogs);
             return updatedLogs;
         });

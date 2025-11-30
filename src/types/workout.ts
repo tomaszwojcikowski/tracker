@@ -37,7 +37,8 @@ export interface WorkoutSessionData {
     addedExercises?: AddedExercise[];
     /** Workout duration in seconds */
     durationSeconds?: number;
-    [exerciseId: string]: ExerciseLogEntry | AddedExercise[] | string | number | boolean | undefined;
+    /** Exercise log entries keyed by exercise ID */
+    exercises?: Record<string, ExerciseLogEntry>;
 }
 
 // ============================================================================

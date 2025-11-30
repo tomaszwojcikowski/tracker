@@ -41,13 +41,7 @@ import {
     normalizeAddedExercises,
 } from '../../utils/workoutSession';
 import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../../types';
-import type { WorkoutSessionData, ExerciseLogEntry, MuscleFilter } from '../../types/workout';
-
-// ============================================================================
-// LOCAL TYPES
-// ============================================================================
-
-type RPEData = Record<number, RPEValue>;
+import type { WorkoutSessionData, ExerciseLogEntry, MuscleFilter, RPEData } from '../../types/workout';
 
 // ============================================================================
 // MAIN WORKOUT PLAYER COMPONENT
@@ -224,12 +218,16 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         value: ExerciseLogEntry[keyof ExerciseLogEntry]
     ): void => {
         const currentEntry = getExerciseLogEntry(logs, id);
-        const updatedLogs: WorkoutSessionData = {
-            ...logs,
+        const updatedExercises = {
+            ...(logs.exercises ?? {}),
             [id]: {
                 ...currentEntry,
                 [field]: value,
             },
+        };
+        const updatedLogs: WorkoutSessionData = {
+            ...logs,
+            exercises: updatedExercises,
             lastModified: new Date().toISOString(),
         };
         persistLogs(updatedLogs);
@@ -312,13 +310,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             }
 
             // Build updated logs with all exercises toggled
-            let updatedLogs: WorkoutSessionData = { ...logs };
+            const updatedExercises = { ...(logs.exercises ?? {}) };
             let anyWasCompleted = false;
             let anyWasIncomplete = false;
             let hasIncompleteSetsAfter = false;
 
             exerciseIds.forEach((exId) => {
-                const currentEntry = getExerciseLogEntry(updatedLogs, exId);
+                const currentEntry = getExerciseLogEntry(logs, exId);
                 const currentSets = currentEntry.sets || new Array(defaultSets).fill(false);
                 const newSets = [...currentSets];
                 while (newSets.length <= roundIndex) newSets.push(false);
@@ -333,12 +331,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 const completedSetsCount = newSets.filter(Boolean).length;
                 if (completedSetsCount < newSets.length) hasIncompleteSetsAfter = true;
 
-                updatedLogs = {
-                    ...updatedLogs,
-                    [exId]: {
-                        ...currentEntry,
-                        sets: newSets,
-                    },
+                // Build updated entry
+                let updatedEntry: ExerciseLogEntry = {
+                    ...currentEntry,
+                    sets: newSets,
                 };
 
                 // Clear RPE if uncompleting a set
@@ -347,19 +343,21 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     if (currentRPEs[roundIndex]) {
                         const updatedRPEs: RPEData = { ...currentRPEs };
                         delete updatedRPEs[roundIndex];
-                        const existingEntry = updatedLogs[exId] as ExerciseLogEntry;
-                        updatedLogs = {
-                            ...updatedLogs,
-                            [exId]: {
-                                ...existingEntry,
-                                rpe: updatedRPEs,
-                            },
+                        updatedEntry = {
+                            ...updatedEntry,
+                            rpe: updatedRPEs,
                         };
                     }
                 }
+
+                updatedExercises[exId] = updatedEntry;
             });
 
-            updatedLogs.lastModified = new Date().toISOString();
+            const updatedLogs: WorkoutSessionData = {
+                ...logs,
+                exercises: updatedExercises,
+                lastModified: new Date().toISOString(),
+            };
             persistLogs(updatedLogs);
 
             // Handle RPE prompt and timer - only if completing (not uncompleting)
@@ -412,18 +410,19 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         haptic.success();
         const allCompleted = new Array(defaultSets).fill(true);
 
-        let updatedLogs: WorkoutSessionData = { ...logs };
+        const updatedExercises = { ...(logs.exercises ?? {}) };
         exerciseIds.forEach((exId) => {
-            const currentEntry = getExerciseLogEntry(updatedLogs, exId);
-            updatedLogs = {
-                ...updatedLogs,
-                [exId]: {
-                    ...currentEntry,
-                    sets: allCompleted,
-                },
+            const currentEntry = getExerciseLogEntry(logs, exId);
+            updatedExercises[exId] = {
+                ...currentEntry,
+                sets: allCompleted,
             };
         });
-        updatedLogs.lastModified = new Date().toISOString();
+        const updatedLogs: WorkoutSessionData = {
+            ...logs,
+            exercises: updatedExercises,
+            lastModified: new Date().toISOString(),
+        };
         persistLogs(updatedLogs);
     };
 

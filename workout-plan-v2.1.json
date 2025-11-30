@@ -2206,44 +2206,16 @@
                 "dayNumber": 3,
                 "name": "Lower Body",
                 "type": "strength",
-                "estimatedDuration": 29,
-                "description": null,
+                "estimatedDuration": 20,
+                "description": "Deload focus on light Goblet Squats and recovery work.",
                 "exercises": [
-                  {
-                    "category": "main",
-                    "sets": 4,
-                    "exerciseName": "RDL",
-                    "notes": "Posterior chain focus.",
-                    "loadMin": 85,
-                    "loadMax": 85,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "restSeconds": 120
-                  },
-                  {
-                    "category": "accessory",
-                    "sets": 3,
-                    "exerciseName": "Weighted Glute Bridge",
-                    "notes": "Accessory. Tempo 2-1-1-0. Squeeze glutes hard at top.",
-                    "loadMin": 40,
-                    "loadMax": 60,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "restSeconds": 60,
-                    "cues": [
-                      "No lumbar hyperextension"
-                    ]
-                  },
                   {
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Goblet Squats",
-                    "notes": "Light (Deload). Reinforce healthy squat patterns. Ankle mobility focus.",
-                    "loadMin": 16,
-                    "loadMax": 24,
+                    "notes": "Deload. Reinforce healthy squat patterns with light load. Focus on ankle mobility and tempo control.",
+                    "loadMin": 12,
+                    "loadMax": 16,
                     "loadUnit": "kg",
                     "repsType": "reps",
                     "repsValue": 10,
@@ -2252,19 +2224,6 @@
                       "Upright torso",
                       "Knees track toes"
                     ]
-                  },
-                  {
-                    "category": "accessory",
-                    "sets": 3,
-                    "exerciseName": "Face Pulls",
-                    "notes": "Accessory. Tempo 2-1-1-0. Upper back health.",
-                    "loadMin": 2,
-                    "loadMax": 2,
-                    "loadUnit": "band",
-                    "repsType": "reps",
-                    "repsMin": 15,
-                    "repsMax": 20,
-                    "restSeconds": 60
                   },
                   {
                     "category": "cooldown",

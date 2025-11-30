@@ -266,10 +266,8 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                         <div className="absolute left-1 bottom-0 w-0.5 h-2 bg-amber-500/80 z-20" />
                     )}
                     {isFirstInSuperset && (
-                        <div className="absolute -left-0.5 top-2 z-20">
-                            <div className="flex items-center gap-0.5 bg-amber-500 text-amber-950 text-[8px] font-bold px-1 py-0.5 rounded-r-md">
-                                <Link size={8} strokeWidth={3} />
-                            </div>
+                        <div className="absolute left-0.5 top-1 z-20">
+                            <div className="h-1.5 w-1.5 rounded-full bg-amber-500" title="Superset" />
                         </div>
                     )}
                 </>

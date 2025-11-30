@@ -1056,11 +1056,11 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     {showSupersetConnectorBottom && (
                                                         <div className="absolute left-2 bottom-0 w-0.5 h-3 bg-gradient-to-t from-amber-500/80 to-amber-500 z-20" />
                                                     )}
-                                                    {/* Superset badge for first exercise in group */}
+                                                    {/* Superset badge for first exercise in group - positioned above the card */}
                                                     {isFirstInSuperset && (
-                                                        <div className="absolute -left-1 top-4 z-20">
-                                                            <div className="flex items-center gap-1 bg-amber-500 text-amber-950 text-[10px] font-bold px-1.5 py-0.5 rounded-r-md shadow-lg">
-                                                                <Link size={10} strokeWidth={3} />
+                                                        <div className="absolute left-4 -top-2 z-20">
+                                                            <div className="flex items-center gap-1 bg-amber-500/90 text-amber-950 text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-lg">
+                                                                <Link size={8} strokeWidth={3} />
                                                                 <span>SUPERSET</span>
                                                             </div>
                                                         </div>

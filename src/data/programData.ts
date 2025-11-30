@@ -101,28 +101,30 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
     return { title: 'Rest Day', sections: [] };
   }
 
+  // Map category to section name and type
+  const categoryToSection: Record<string, { name: string; type: WorkoutSection['type'] }> = {
+    warmup: { name: 'Warm-up', type: 'prep' },
+    skill: { name: 'Skill Practice', type: 'skill' },
+    main: { name: 'Main Work', type: 'main' },
+    accessory: { name: 'Accessory', type: 'access' },
+    core: { name: 'Core', type: 'access' },
+    mobility: { name: 'Mobility', type: 'cool' },
+    cooldown: { name: 'Cool-down', type: 'cool' },
+  };
+
   const finalSections: WorkoutSection[] = [];
   let currentSection: WorkoutSection | null = null;
 
   dayExercises.forEach((item) => {
-    const sectionName = item.n || 'Main Work';
+    // Use category for section grouping, fall back to detecting from notes for legacy data
+    const category = item.category?.toLowerCase() || '';
+    const sectionInfo = categoryToSection[category] || { name: 'Main Work', type: 'main' as const };
 
-    // Start new section if needed
-    if (!currentSection || currentSection.name !== sectionName) {
-      const n = sectionName.toLowerCase();
-      let type: WorkoutSection['type'] = 'main';
-      if (n.includes('warm-up')) type = 'prep';
-      else if (n.includes('cool-down')) type = 'cool';
-      else if (
-        item.ex.toLowerCase().includes('skill') ||
-        n.includes('practice')
-      )
-        type = 'skill';
-      else if (n.includes('accessory') || n.includes('core')) type = 'access';
-
+    // Start new section if needed (group by category)
+    if (!currentSection || currentSection.name !== sectionInfo.name) {
       currentSection = {
-        type,
-        name: sectionName,
+        type: sectionInfo.type,
+        name: sectionInfo.name,
         exercises: [],
       };
       finalSections.push(currentSection);

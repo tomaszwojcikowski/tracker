@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Check, Minus, Plus, ChevronDown, CheckCheck } from 'lucide-react';
+import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import type { HapticFeedback } from '../hooks';
 
@@ -36,6 +36,12 @@ export interface CompactExerciseRowProps {
     restTime?: number;
     /** Whether this is the first incomplete exercise (highlighted) */
     isFirstIncomplete?: boolean;
+    /** Whether this exercise is an EMOM exercise */
+    isEmom?: boolean;
+    /** Superset group ID (consecutive EMOM exercises share the same group ID) */
+    supersetGroup?: number;
+    /** Position within superset: 'first', 'middle', 'last', or 'only' */
+    supersetPosition?: 'first' | 'middle' | 'last' | 'only';
     /** Haptic feedback interface */
     haptic: HapticFeedback;
     /** Callback when set is toggled */
@@ -63,6 +69,9 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     isBodyweight = false,
     restTime,
     isFirstIncomplete = false,
+    isEmom = false,
+    supersetGroup,
+    supersetPosition,
     haptic,
     onToggleSet,
     onWeightChange,
@@ -187,28 +196,54 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     // Only show complete-all button when there are 2+ sets and incomplete sets
     const showCompleteAllButton = totalSets > 1 && hasIncompleteSets;
 
+    // Superset indicator logic
+    const hasSupersetGroup = supersetGroup !== undefined;
+    const isFirstInSuperset = supersetPosition === 'first';
+    const isMiddleInSuperset = supersetPosition === 'middle';
+    const isLastInSuperset = supersetPosition === 'last';
+    const showSupersetConnectorTop = isMiddleInSuperset || isLastInSuperset;
+    const showSupersetConnectorBottom = isFirstInSuperset || isMiddleInSuperset;
+
     // ============================================================================
     // RENDER: COLLAPSED COMPLETE STATE
     // ============================================================================
 
     if (isComplete && !isExpanded) {
         return (
-            <button
-                onClick={handleToggleExpand}
-                className="w-full h-9 px-3 flex items-center gap-2 bg-sys-success/10 rounded-xl border border-sys-success/20 active:bg-sys-success/20 transition-colors"
-                aria-label={`${name} - completed, tap to edit`}
-            >
-                <div className="flex items-center justify-center h-5 w-5 rounded-full bg-sys-success text-white flex-shrink-0">
-                    <Check size={12} strokeWidth={3} />
-                </div>
-                <span className="flex-1 text-sm font-medium text-white truncate text-left">
-                    {name}
-                </span>
-                <span className="text-xs text-sys-success font-semibold">
-                    {completedSets}/{totalSets}
-                </span>
-                <ChevronDown size={14} className="text-sys-onSurfaceVar flex-shrink-0" />
-            </button>
+            <div className="relative">
+                {/* Superset Connector Lines for compact completed state */}
+                {hasSupersetGroup && (
+                    <>
+                        {showSupersetConnectorTop && (
+                            <div className="absolute left-1 top-0 w-0.5 h-2 bg-amber-500/80 z-20" />
+                        )}
+                        {showSupersetConnectorBottom && (
+                            <div className="absolute left-1 bottom-0 w-0.5 h-2 bg-amber-500/80 z-20" />
+                        )}
+                    </>
+                )}
+                <button
+                    onClick={handleToggleExpand}
+                    className={`w-full h-9 px-3 flex items-center gap-2 bg-sys-success/10 rounded-xl border border-sys-success/20 active:bg-sys-success/20 transition-colors ${hasSupersetGroup ? 'ml-3' : ''}`}
+                    aria-label={`${name} - completed, tap to edit`}
+                >
+                    <div className="flex items-center justify-center h-5 w-5 rounded-full bg-sys-success text-white flex-shrink-0">
+                        <Check size={12} strokeWidth={3} />
+                    </div>
+                    <span className="flex-1 text-sm font-medium text-white truncate text-left">
+                        {name}
+                    </span>
+                    {isEmom && (
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-purple-500/20 text-purple-400 flex-shrink-0">
+                            <Zap size={8} strokeWidth={3} />
+                        </span>
+                    )}
+                    <span className="text-xs text-sys-success font-semibold">
+                        {completedSets}/{totalSets}
+                    </span>
+                    <ChevronDown size={14} className="text-sys-onSurfaceVar flex-shrink-0" />
+                </button>
+            </div>
         );
     }
 
@@ -217,13 +252,32 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     // ============================================================================
 
     return (
-        <div
-            className={`rounded-xl border overflow-hidden transition-all ${
-                isFirstIncomplete
-                    ? 'bg-sys-accent/10 border-sys-accent/30'
-                    : 'bg-sys-surface border-white/5'
-            }`}
-        >
+        <div className="relative">
+            {/* Superset Connector Lines */}
+            {hasSupersetGroup && (
+                <>
+                    {showSupersetConnectorTop && (
+                        <div className="absolute left-1 top-0 w-0.5 h-2 bg-amber-500/80 z-20" />
+                    )}
+                    {showSupersetConnectorBottom && (
+                        <div className="absolute left-1 bottom-0 w-0.5 h-2 bg-amber-500/80 z-20" />
+                    )}
+                    {isFirstInSuperset && (
+                        <div className="absolute left-0.5 top-1 z-20" aria-label="Superset exercise">
+                            <div className="h-1.5 w-1.5 rounded-full bg-amber-500" title="Superset" role="img" aria-hidden="true" />
+                        </div>
+                    )}
+                </>
+            )}
+            <div
+                className={`rounded-xl border overflow-hidden transition-all ${
+                    isFirstIncomplete
+                        ? 'bg-sys-accent/10 border-sys-accent/30'
+                        : hasSupersetGroup
+                            ? 'bg-amber-500/5 border-amber-500/20'
+                            : 'bg-sys-surface border-white/5'
+                } ${hasSupersetGroup ? 'ml-3' : ''}`}
+            >
             {/* Main Row - Always visible */}
             <div className="h-14 px-3 flex items-center gap-2">
                 {/* Exercise Name - Tap to expand prescription */}
@@ -231,6 +285,12 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                     onClick={handleToggleExpand}
                     className="flex-1 min-w-0 flex items-center gap-1.5 text-left active:opacity-70 transition-opacity"
                 >
+                    {/* EMOM Badge (inline with name for compact view) */}
+                    {isEmom && (
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-purple-500/20 text-purple-400 flex-shrink-0">
+                            <Zap size={8} strokeWidth={3} />
+                        </span>
+                    )}
                     <span className={`text-sm font-semibold text-white ${isExpanded ? '' : 'truncate'}`}>
                         {name}
                     </span>
@@ -357,6 +417,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                         </button>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     );

@@ -7,3 +7,4 @@ dist
 # Playwright test results and reports
 test-results/
 playwright-report/
+public/workout-plan-v2.1.json

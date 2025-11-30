@@ -21,6 +21,7 @@ import {
     useDebounce,
     useRestTimer,
     useEmomTimer,
+    useExerciseCollapse,
 } from '../../hooks';
 import {
     Flame, Dumbbell, Snowflake, Activity, ChevronDown, ChevronUp, Timer, Repeat, Check, Plus, CheckCheck, Minus, PlusCircle, X, CheckCircle2, LayoutGrid, LayoutList, Link, Zap, ArrowRightLeft, Info
@@ -95,8 +96,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
     // State
     const [logs, setLogs] = useState<WorkoutSessionData>({});
-    // Track manual user overrides for exercise collapse state (true = user wants expanded, false = user wants collapsed)
-    const [manualCollapseOverrides, setManualCollapseOverrides] = useState<Record<string, boolean>>({});
     const [addedExercises, setAddedExercises] = useState<AddedExercise[]>([]);
     const [showExerciseSelector, setShowExerciseSelector] = useState(false);
     const [exerciseSearchTerm, setExerciseSearchTerm] = useState('');
@@ -429,23 +428,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         persistLogs(updatedLogs);
     };
 
-    const toggleExerciseCollapse = (exId: string): void => {
-        setManualCollapseOverrides((prev) => {
-            const currentOverride = prev[exId];
-            // Toggle between: no override -> expanded -> collapsed -> no override
-            // If user has never touched it, clicking sets it to opposite of auto state
-            // If user has set it, clicking toggles the override
-            if (currentOverride === undefined) {
-                // First click: set explicit opposite of auto behavior
-                // (auto behavior is expanded if first incomplete, collapsed otherwise)
-                // We'll just toggle to the opposite
-                return { ...prev, [exId]: true };
-            }
-            // Toggle existing override
-            return { ...prev, [exId]: !currentOverride };
-        });
-    };
-
     // ============================================================================
     // ADD EXERCISE FUNCTIONS
     // ============================================================================
@@ -685,18 +667,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         return null;
     }, [workout.sections, logs]);
 
-    // Compute effective collapsed state for an exercise
-    const isExerciseCollapsed = (exId: string): boolean => {
-        // Check if user has manually overridden the collapse state
-        const manualOverride = manualCollapseOverrides[exId];
-        if (manualOverride !== undefined) {
-            // User override: true = user wants expanded, false = user wants collapsed
-            return !manualOverride;
-        }
-
-        // Auto behavior: only the first incomplete exercise is expanded
-        return exId !== firstIncompleteExerciseId;
-    };
+    // Use extracted collapse hook
+    const exerciseCollapse = useExerciseCollapse({ firstIncompleteExerciseId });
 
     // @ts-expect-error - Reserved for future use
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -964,7 +936,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         const completedSets = currentSetArray.filter((s) => s).length;
                                         const totalSets = currentSetArray.length;
                                         const hasHistory = getExerciseHistory(ex.name).length > 0;
-                                        const isCollapsed = isExerciseCollapsed(exId);
+                                        const isCollapsed = exerciseCollapse.isCollapsed(exId);
                                         const isFirstIncomplete = exId === firstIncompleteExerciseId;
 
                                     // Determine superset connector styling
@@ -1096,7 +1068,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     <button
                                                         onClick={() => {
                                                             haptic.tick();
-                                                            toggleExerciseCollapse(exId);
+                                                            exerciseCollapse.toggle(exId);
                                                         }}
                                                         className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
                                                         aria-label={isCollapsed ? 'Expand exercise' : 'Collapse exercise'}

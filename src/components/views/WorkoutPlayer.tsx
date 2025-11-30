@@ -670,16 +670,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     // Use extracted collapse hook
     const exerciseCollapse = useExerciseCollapse({ firstIncompleteExerciseId });
 
-    // @ts-expect-error - Reserved for future use
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const _hasIncompleteExercises = workout.sections.some((section: WorkoutSection) =>
-        section.exercises.some((ex: WorkoutExercise) => {
-            const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
-            const sets = getExerciseLogEntry(logs, exId).sets || [];
-            return sets.length === 0 || !sets.every((s) => s);
-        })
-    );
-
     const filteredExercises = useMemo(() => {
         const normalizedFilter = selectedMuscleFilter.toLowerCase();
         const searchTerm = debouncedExerciseSearch.toLowerCase();

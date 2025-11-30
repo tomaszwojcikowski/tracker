@@ -11,9 +11,9 @@ import { SupersetGroup } from '../SupersetGroup';
 import type { SupersetExercise } from '../SupersetGroup';
 import { RPESelector } from '../RPESelector';
 import { GestureHint } from '../GestureHint';
-import { RecentExercisesList, addRecentExercise } from '../RecentExercises';
 import { ExerciseDetailModal, NotesModal } from '../modals';
-import { ExerciseListItem } from '../ExerciseListItem';
+import { AddedExerciseCard } from '../AddedExerciseCard';
+import { ExerciseSelectorModal } from '../ExerciseSelectorModal';
 import { safeGetJSON, safeSetJSON } from '../../utils/storage';
 import {
     useHaptic,
@@ -24,7 +24,8 @@ import {
     useExerciseCollapse,
 } from '../../hooks';
 import {
-    Flame, Dumbbell, Snowflake, Activity, ChevronDown, ChevronUp, Timer, Repeat, Check, Plus, CheckCheck, Minus, PlusCircle, X, CheckCircle2, LayoutGrid, LayoutList, Link, Zap, ArrowRightLeft, Info
+    Flame, Dumbbell, Snowflake, Activity, LayoutGrid, LayoutList, PlusCircle, X, CheckCircle2, Check, Timer,
+    ChevronDown, ChevronUp, Repeat, Plus, CheckCheck, Minus, Link, Zap, ArrowRightLeft, Info
 } from 'lucide-react';
 import {
     DEBOUNCE_DELAY_MS,
@@ -42,7 +43,6 @@ import {
 } from '../../utils/workoutSession';
 import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../../types';
 import type { WorkoutSessionData, ExerciseLogEntry, MuscleFilter } from '../../types/workout';
-import { MUSCLE_FILTERS } from '../../types/workout';
 
 // ============================================================================
 // LOCAL TYPES
@@ -1257,85 +1257,17 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 const exId = `added_${ex.id}`;
                                 const exerciseLog = getExerciseLogEntry(logs, exId);
                                 const currentSetArray = exerciseLog.sets || new Array(ex.sets).fill(false);
-                                const completedSets = currentSetArray.filter((s) => s).length;
-                                const totalSets = currentSetArray.length;
 
                                 return (
-                                    <div key={ex.id} id={exId} className="relative scroll-mt-16">
-                                        <div
-                                            className={`bg-sys-surface rounded-2xl p-4 border relative z-10 overflow-hidden ${
-                                                completedSets === totalSets
-                                                    ? 'border-sys-success/30 bg-sys-success/5'
-                                                    : 'border-white/5'
-                                            }`}
-                                        >
-                                            <div className="flex justify-between items-start mb-3">
-                                                <div className="flex-1 pr-2">
-                                                    <div className="flex items-center gap-2">
-                                                        <h3 className="text-base font-semibold text-white leading-tight">
-                                                            {ex.name}
-                                                        </h3>
-                                                        {completedSets > 0 && (
-                                                            <span
-                                                                className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                                                                    completedSets === totalSets
-                                                                        ? 'bg-sys-success/20 text-sys-success'
-                                                                        : 'bg-sys-accent/10 text-sys-accent'
-                                                                }`}
-                                                            >
-                                                                {completedSets}/{totalSets}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    <p className="text-xs text-sys-onSurfaceVar">
-                                                        {ex.sets} sets {ex.weight ? `@ ${ex.weight}kg` : ''}
-                                                    </p>
-                                                </div>
-                                                <button
-                                                    onClick={() => removeAddedExercise(ex.id)}
-                                                    className="h-8 w-8 min-w-[32px] rounded-lg bg-red-500/10 text-red-500 flex items-center justify-center active:scale-90 transition-all"
-                                                    aria-label="Remove exercise"
-                                                >
-                                                    <X size={18} />
-                                                </button>
-                                            </div>
-
-                                            {/* Rest time indicator for added exercises */}
-                                            {ex.rest && ex.rest > 0 && (
-                                                <div className="mb-2">
-                                                    <button
-                                                        onClick={() => {
-                                                            haptic.bump();
-                                                            restTimer.start(ex.rest ?? 90);
-                                                        }}
-                                                        className="h-7 px-2.5 rounded-md bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-medium flex items-center gap-1 active:bg-sys-accent/20 transition-colors"
-                                                        aria-label={`Start ${ex.rest} second timer`}
-                                                    >
-                                                        <Timer size={12} />
-                                                        <span>{ex.rest}s</span>
-                                                    </button>
-                                                </div>
-                                            )}
-
-                                            {/* Set buttons for added exercises */}
-                                            <div className="flex flex-wrap gap-2">
-                                                {currentSetArray.map((isDone, i) => (
-                                                    <button
-                                                        key={`${exId}-set-${i}`}
-                                                        onClick={() => toggleSet(exId, i, ex.sets, ex.rest ?? 90)}
-                                                        className={`set-button h-11 w-11 min-w-[44px] min-h-[44px] rounded-xl flex items-center justify-center text-sm font-bold ${
-                                                            isDone
-                                                                ? 'completed bg-sys-accent text-white shadow-[0_0_16px_rgba(59,130,246,0.5)]'
-                                                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                                                        }`}
-                                                        aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
-                                                    >
-                                                        {isDone ? <Check size={20} /> : i + 1}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <AddedExerciseCard
+                                        key={ex.id}
+                                        exercise={ex}
+                                        sets={currentSetArray}
+                                        haptic={haptic}
+                                        onToggleSet={toggleSet}
+                                        onRemove={removeAddedExercise}
+                                        onStartRestTimer={restTimer.start}
+                                    />
                                 );
                             })}
                         </div>
@@ -1453,79 +1385,22 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 )}
 
                 {/* Exercise Selector Modal */}
-                {showExerciseSelector && exerciseLibrary.length > 0 && (
-                    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm animate-slide-up">
-                        <div className="bg-sys-surface rounded-t-3xl w-full max-h-[85vh] border-t border-white/10 flex flex-col">
-                            <div className="p-6 border-b border-white/10">
-                                <div className="flex items-center justify-between mb-4">
-                                    <h3 className="text-xl font-bold text-white">Add Exercise</h3>
-                                    <button
-                                        onClick={() => {
-                                            haptic.tick();
-                                            setShowExerciseSelector(false);
-                                            setExerciseSearchTerm('');
-                                        }}
-                                        className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
-                                        aria-label="Close"
-                                    >
-                                        <X size={20} />
-                                    </button>
-                                </div>
-
-                                <input
-                                    type="text"
-                                    placeholder="Search exercises..."
-                                    value={exerciseSearchTerm}
-                                    onChange={(e) => setExerciseSearchTerm(e.target.value)}
-                                    className="w-full h-12 px-4 bg-sys-surfaceHigh rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all"
-                                />
-
-                                <div className="flex gap-2 mt-3 overflow-x-auto pb-2">
-                                    {MUSCLE_FILTERS.map((filter) => (
-                                        <button
-                                            key={filter}
-                                            onClick={() => setSelectedMuscleFilter(filter)}
-                                            className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
-                                                selectedMuscleFilter === filter
-                                                    ? 'bg-sys-accent text-white'
-                                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                                            }`}
-                                        >
-                                            {filter.charAt(0).toUpperCase() + filter.slice(1)}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="flex-1 overflow-y-auto p-4">
-                                {/* Recent Exercises - shown at top when no search term */}
-                                {!debouncedExerciseSearch && (
-                                    <RecentExercisesList
-                                        exerciseLibrary={exerciseLibrary}
-                                        onSelect={(exercise) => {
-                                            addExerciseToWorkout(exercise);
-                                            addRecentExercise(exercise);
-                                        }}
-                                    />
-                                )}
-
-                                <div className="space-y-3">
-                                    {filteredExercises.map((exercise) => (
-                                        <ExerciseListItem
-                                            key={exercise.id}
-                                            exercise={exercise}
-                                            onAdd={(ex, sets, weight, rest) => {
-                                                addExerciseToWorkout(ex, sets, weight, rest);
-                                                addRecentExercise(ex);
-                                            }}
-                                            haptic={haptic}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )}
+                <ExerciseSelectorModal
+                    isOpen={showExerciseSelector}
+                    searchTerm={exerciseSearchTerm}
+                    debouncedSearchTerm={debouncedExerciseSearch}
+                    selectedFilter={selectedMuscleFilter}
+                    filteredExercises={filteredExercises}
+                    exerciseLibrary={exerciseLibrary}
+                    haptic={haptic}
+                    onSearchChange={setExerciseSearchTerm}
+                    onFilterChange={setSelectedMuscleFilter}
+                    onAddExercise={addExerciseToWorkout}
+                    onClose={() => {
+                        setShowExerciseSelector(false);
+                        setExerciseSearchTerm('');
+                    }}
+                />
 
                 {/* Exercise History Modal - Using new ExerciseDetailModal */}
                 <ExerciseDetailModal

@@ -71,7 +71,7 @@ export interface ExerciseCardProps {
     /** Superset group number */
     supersetGroup?: number;
     /** Position in superset */
-    supersetPosition?: 'first' | 'middle' | 'last';
+    supersetPosition?: 'first' | 'middle' | 'last' | 'only';
     /** RPE prompt state */
     rpePrompt: { exerciseId: string; setIndex: number } | null;
     /** EMOM timer state */

@@ -9,11 +9,11 @@ import { ActionBar } from '../ActionBar';
 import { CompactExerciseRow } from '../CompactExerciseRow';
 import { SupersetGroup } from '../SupersetGroup';
 import type { SupersetExercise } from '../SupersetGroup';
-import { RPESelector } from '../RPESelector';
 import { GestureHint } from '../GestureHint';
 import { ExerciseDetailModal, NotesModal } from '../modals';
 import { AddedExerciseCard } from '../AddedExerciseCard';
 import { ExerciseSelectorModal } from '../ExerciseSelectorModal';
+import { ExerciseCard } from '../ExerciseCard';
 import { safeGetJSON, safeSetJSON } from '../../utils/storage';
 import {
     useHaptic,
@@ -24,8 +24,7 @@ import {
     useExerciseCollapse,
 } from '../../hooks';
 import {
-    Flame, Dumbbell, Snowflake, Activity, LayoutGrid, LayoutList, PlusCircle, X, CheckCircle2, Check, Timer,
-    ChevronDown, ChevronUp, Repeat, Plus, CheckCheck, Minus, Link, Zap, ArrowRightLeft, Info
+    Flame, Dumbbell, Snowflake, Activity, LayoutGrid, LayoutList, PlusCircle, X, CheckCircle2
 } from 'lucide-react';
 import {
     DEBOUNCE_DELAY_MS,
@@ -921,308 +920,51 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
                                         const exerciseLog = getExerciseLogEntry(logs, exId);
                                         const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
-
-                                        // Card View Rendering (original)
-                                        const completedSets = currentSetArray.filter((s) => s).length;
-                                        const totalSets = currentSetArray.length;
+                                        const effectiveName = getEffectiveExerciseName(ex);
                                         const hasHistory = getExerciseHistory(ex.name).length > 0;
                                         const isCollapsed = exerciseCollapse.isCollapsed(exId);
                                         const isFirstIncomplete = exId === firstIncompleteExerciseId;
 
-                                    // Determine superset connector styling
-                                    const hasSupersetGroup = ex.supersetGroup !== undefined;
-                                    const isFirstInSuperset = ex.supersetPosition === 'first';
-                                    const isMiddleInSuperset = ex.supersetPosition === 'middle';
-                                    const isLastInSuperset = ex.supersetPosition === 'last';
-                                    const showSupersetConnectorTop = isMiddleInSuperset || isLastInSuperset;
-                                    const showSupersetConnectorBottom = isFirstInSuperset || isMiddleInSuperset;
-
-                                    return (
-                                        <div key={eIdx} id={exId} className="relative scroll-mt-16">
-                                            {/* Superset Connector Line (vertical line on the left) */}
-                                            {hasSupersetGroup && (
-                                                <>
-                                                    {/* Top connector */}
-                                                    {showSupersetConnectorTop && (
-                                                        <div className="absolute left-2 top-0 w-0.5 h-3 bg-gradient-to-b from-amber-500/80 to-amber-500 z-20" />
-                                                    )}
-                                                    {/* Bottom connector */}
-                                                    {showSupersetConnectorBottom && (
-                                                        <div className="absolute left-2 bottom-0 w-0.5 h-3 bg-gradient-to-t from-amber-500/80 to-amber-500 z-20" />
-                                                    )}
-                                                    {/* Superset badge for first exercise in group - positioned above the card */}
-                                                    {isFirstInSuperset && (
-                                                        <div className="absolute left-4 -top-2 z-20">
-                                                            <div className="flex items-center gap-1 bg-amber-500/90 text-amber-950 text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-lg">
-                                                                <Link size={8} strokeWidth={3} />
-                                                                <span>SUPERSET</span>
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                </>
-                                            )}
-                                            <div
-                                                className={`bg-sys-surface rounded-2xl p-4 border relative z-10 overflow-hidden ${
-                                                    completedSets === totalSets
-                                                        ? 'border-sys-success/30 bg-sys-success/5'
-                                                        : isFirstIncomplete
-                                                            ? 'border-sys-accent/50 bg-sys-accent/10'
-                                                            : hasSupersetGroup
-                                                                ? 'border-amber-500/30 bg-amber-500/5'
-                                                                : 'border-white/5'
-                                                } ${hasSupersetGroup ? 'ml-4' : ''}`}
-                                            >
-                                                {/* Progress bar */}
-                                                {completedSets > 0 && (
-                                                    <div
-                                                        className="progress-bar"
-                                                        style={{ width: `${(completedSets / totalSets) * 100}%` }}
-                                                    ></div>
-                                                )}
-
-                                                {/* Exercise Header */}
-                                                <div className="flex justify-between items-start mb-3">
-                                                    <div className="flex-1 pr-2">
-                                                        <div className="flex items-center gap-2 flex-wrap">
-                                                            {(() => {
-                                                                const effectiveName = getEffectiveExerciseName(ex);
-                                                                return (
-                                                                    <button
-                                                                        type="button"
-                                                                        onClick={() => {
-                                                                            if (hasHistory) {
-                                                                                haptic.tick();
-                                                                                setShowExerciseHistory(effectiveName);
-                                                                            }
-                                                                        }}
-                                                                        className={`text-left ${hasHistory ? 'cursor-pointer active:opacity-70 transition-opacity' : 'cursor-default'}`}
-                                                                        aria-label={hasHistory ? `${effectiveName} - tap to view history` : effectiveName}
-                                                                    >
-                                                                        <h3 className="text-base font-semibold text-white leading-tight">
-                                                                            {effectiveName}
-                                                                        </h3>
-                                                                    </button>
-                                                                );
-                                                            })()}
-                                                            {/* Swap to alternative button */}
-                                                            {ex.alternatives && ex.alternatives.length > 0 && (
-                                                                <button
-                                                                    onClick={() => {
-                                                                        haptic.tick();
-                                                                        setShowAlternativesFor({ name: ex.name, alternatives: ex.alternatives || [] });
-                                                                    }}
-                                                                    className="h-6 w-6 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
-                                                                    aria-label="Swap to alternative exercise"
-                                                                >
-                                                                    <ArrowRightLeft size={12} />
-                                                                </button>
-                                                            )}
-                                                            {/* EMOM Badge */}
-                                                            {ex.isEmom && (
-                                                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">
-                                                                    <Zap size={10} strokeWidth={3} />
-                                                                    EMOM
-                                                                </span>
-                                                            )}
-                                                            {completedSets > 0 && (
-                                                                <span
-                                                                    className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                                                                        completedSets === totalSets
-                                                                            ? 'bg-sys-success/20 text-sys-success'
-                                                                            : 'bg-sys-accent/10 text-sys-accent'
-                                                                    }`}
-                                                                >
-                                                                    {completedSets}/{totalSets}
-                                                                </span>
-                                                            )}
-                                                            {/* Notes icon button */}
-                                                            {ex.notes && (
-                                                                <button
-                                                                    onClick={() => {
-                                                                        haptic.tick();
-                                                                        setShowNotesFor({ exerciseName: getEffectiveExerciseName(ex), notes: ex.notes });
-                                                                    }}
-                                                                    className="h-6 w-6 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
-                                                                    aria-label="View notes"
-                                                                >
-                                                                    <Info size={12} />
-                                                                </button>
-                                                            )}
-                                                        </div>
-                                                        <p className="text-xs text-sys-onSurfaceVar">
-                                                            {ex.prescription}
-                                                        </p>
-                                                    </div>
-
-                                                    {/* Collapse button */}
-                                                    <button
-                                                        onClick={() => {
-                                                            haptic.tick();
-                                                            exerciseCollapse.toggle(exId);
-                                                        }}
-                                                        className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
-                                                        aria-label={isCollapsed ? 'Expand exercise' : 'Collapse exercise'}
-                                                    >
-                                                        {isCollapsed ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
-                                                    </button>
-                                                </div>
-
-                                                {/* Collapsed content */}
-                                                {!isCollapsed && (
-                                                    <>
-                                                        {/* Timer buttons - only render if there's at least one button to show */}
-                                                        {(ex.rest && ex.rest > 0 || totalSets > 1) && (
-                                                            <div className="flex gap-2 mb-3">
-                                                                {ex.rest && ex.rest > 0 && (
-                                                                    <button
-                                                                        onClick={() => {
-                                                                            haptic.bump();
-                                                                            restTimer.start(ex.rest);
-                                                                        }}
-                                                                        className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-semibold flex items-center justify-center gap-1.5 active:bg-sys-accent/20 transition-colors"
-                                                                        aria-label={`Start ${ex.rest} second timer`}
-                                                                    >
-                                                                        <Timer size={14} />
-                                                                        <span>{ex.rest}s</span>
-                                                                    </button>
-                                                                )}
-                                                                {/* EMOM button - only show for exercises with more than 1 set */}
-                                                                {totalSets > 1 && (
-                                                                    <button
-                                                                        onClick={() => {
-                                                                            haptic.bump();
-                                                                            emomTimer.toggle();
-                                                                        }}
-                                                                        className={`h-8 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors ${
-                                                                            emomTimer.active
-                                                                                ? 'bg-sys-accent text-white'
-                                                                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar active:bg-sys-accent/20'
-                                                                        }`}
-                                                                        aria-label={`Start EMOM timer with ${emomTimer.interval} second interval`}
-                                                                    >
-                                                                        <Repeat size={14} />
-                                                                        <span>EMOM {emomTimer.interval}s</span>
-                                                                    </button>
-                                                                )}
-                                                            </div>
-                                                        )}
-
-                                                        {/* Set buttons */}
-                                                        <div className="flex flex-wrap gap-2 mb-3">
-                                                            {currentSetArray.map((isDone, i) => (
-                                                                <button
-                                                                    key={`${exId}-set-${i}`}
-                                                                    onClick={() => toggleSet(exId, i, defaultSets, ex.rest)}
-                                                                    className={`set-button h-11 w-11 min-w-[44px] min-h-[44px] rounded-xl flex items-center justify-center text-sm font-bold ${
-                                                                        isDone
-                                                                            ? 'completed bg-sys-accent text-white shadow-[0_0_16px_rgba(59,130,246,0.5)]'
-                                                                            : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                                                                    }`}
-                                                                    aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
-                                                                >
-                                                                    {isDone ? <Check size={20} /> : i + 1}
-                                                                </button>
-                                                            ))}
-
-                                                            {/* Add set button */}
-                                                            <button
-                                                                onClick={() => addSet(exId, defaultSets)}
-                                                                className="h-11 w-11 min-w-[44px] min-h-[44px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center text-sm font-bold border-2 border-dashed border-white/20 active:scale-95 transition-all"
-                                                                aria-label="Add set"
-                                                            >
-                                                                <Plus size={18} />
-                                                            </button>
-                                                        </div>
-
-                                                        {/* RPE Selector - shown after completing a set */}
-                                                        {rpePrompt?.exerciseId === exId && (
-                                                            <RPESelector
-                                                                value={getExerciseLogEntry(logs, exId).rpe?.[rpePrompt.setIndex]}
-                                                                onChange={(rpe: RPEValue) => {
-                                                                    saveRPE(exId, rpePrompt.setIndex, rpe);
-                                                                    setRpePrompt(null);
-                                                                }}
-                                                                onSkip={() => setRpePrompt(null)}
-                                                                setNumber={rpePrompt.setIndex + 1}
-                                                                showAsPrompt
-                                                            />
-                                                        )}
-
-                                                        {/* Complete all button - only show if more than 1 set remains incomplete */}
-                                                        {currentSetArray.filter((s) => !s).length > 1 && (
-                                                            <div className="flex gap-2 mb-3">
-                                                                <button
-                                                                    onClick={() => completeAllSets(exId, defaultSets)}
-                                                                    className="flex-1 h-8 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-semibold flex items-center justify-center gap-1.5 active:bg-sys-accent/20 transition-colors"
-                                                                    aria-label="Complete all sets"
-                                                                >
-                                                                    <CheckCheck size={14} />
-                                                                    <span>Complete All</span>
-                                                                </button>
-                                                            </div>
-                                                        )}
-
-                                                        {/* Weight input for weighted exercises */}
-                                                        {!ex.isBodyweight && (
-                                                            <div className="pt-3 border-t border-white/5">
-                                                                <div className="flex items-center justify-between mb-1">
-                                                                    <label
-                                                                        htmlFor={`${exId}-weight`}
-                                                                        className="text-xs text-sys-onSurfaceVar uppercase font-bold"
-                                                                    >
-                                                                        Load (kg)
-                                                                    </label>
-                                                                    {/* Only show suggested load if min > 0 and unit is kg */}
-                                                                    {ex.loadRange && ex.loadRange.min > 0 && ex.loadRange.unit === 'kg' && (
-                                                                        <span className="text-xs text-sys-accent font-medium">
-                                                                            Suggested: {ex.loadRange.min === ex.loadRange.max
-                                                                                ? `${ex.loadRange.min}kg`
-                                                                                : `${ex.loadRange.min}-${ex.loadRange.max}kg`}
-                                                                            {ex.loadRange.perHand ? ' per hand' : ''}
-                                                                        </span>
-                                                                    )}
-                                                                </div>
-                                                                <div className="relative flex items-center justify-center gap-2">
-                                                                    <button
-                                                                        onClick={() => {
-                                                                            haptic.tick();
-                                                                            const current = parseFloat(exerciseLog.weight || '0');
-                                                                            saveLog(exId, 'weight', Math.max(0, current - 2.5).toString());
-                                                                        }}
-                                                                        className="h-10 w-10 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
-                                                                        aria-label="Decrease weight by 2.5kg"
-                                                                    >
-                                                                        <Minus size={16} />
-                                                                    </button>
-                                                                    <input
-                                                                        id={`${exId}-weight`}
-                                                                        type="number"
-                                                                        inputMode="decimal"
-                                                                        value={exerciseLog.weight || ''}
-                                                                        onChange={(e) => saveLog(exId, 'weight', e.target.value)}
-                                                                        placeholder={ex.loadRange && ex.loadRange.unit === 'kg' && ex.loadRange.min > 0 ? String(ex.loadRange.min) : '0'}
-                                                                        className="w-20 h-10 px-2 bg-sys-surfaceHigh rounded-lg text-white text-center text-xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                                                                    />
-                                                                    <button
-                                                                        onClick={() => {
-                                                                            haptic.tick();
-                                                                            const current = parseFloat(exerciseLog.weight || '0');
-                                                                            saveLog(exId, 'weight', (current + 2.5).toString());
-                                                                        }}
-                                                                        className="h-10 w-10 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
-                                                                        aria-label="Increase weight by 2.5kg"
-                                                                    >
-                                                                        <Plus size={16} />
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    </>
-                                                )}
-                                            </div>
-                                        </div>
-                                    );
-                                });
+                                        return (
+                                            <ExerciseCard
+                                                key={eIdx}
+                                                exId={exId}
+                                                name={ex.name}
+                                                effectiveName={effectiveName}
+                                                prescription={ex.prescription}
+                                                notes={ex.notes}
+                                                isBodyweight={ex.isBodyweight}
+                                                isEmom={ex.isEmom}
+                                                restTime={ex.rest}
+                                                loadRange={ex.loadRange}
+                                                alternatives={ex.alternatives}
+                                                sets={currentSetArray}
+                                                defaultSets={defaultSets}
+                                                exerciseLog={exerciseLog}
+                                                hasHistory={hasHistory}
+                                                isFirstIncomplete={isFirstIncomplete}
+                                                isCollapsed={isCollapsed}
+                                                supersetGroup={ex.supersetGroup}
+                                                supersetPosition={ex.supersetPosition}
+                                                rpePrompt={rpePrompt}
+                                                emomTimerActive={emomTimer.active}
+                                                emomTimerInterval={emomTimer.interval}
+                                                haptic={haptic}
+                                                onToggleCollapse={(id) => exerciseCollapse.toggle(id)}
+                                                onToggleSet={toggleSet}
+                                                onAddSet={addSet}
+                                                onCompleteAllSets={completeAllSets}
+                                                onSaveWeight={(id, weight) => saveLog(id, 'weight', weight)}
+                                                onSaveRPE={saveRPE}
+                                                onClearRPEPrompt={() => setRpePrompt(null)}
+                                                onStartRestTimer={(seconds) => restTimer.start(seconds)}
+                                                onToggleEmomTimer={() => emomTimer.toggle()}
+                                                onShowHistory={setShowExerciseHistory}
+                                                onShowNotes={(name, notes) => setShowNotesFor({ exerciseName: name, notes })}
+                                                onShowAlternatives={(name, alts) => setShowAlternativesFor({ name, alternatives: alts })}
+                                            />
+                                        );
+                                    });
                                 })()}
                             </div>
                         </div>

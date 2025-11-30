@@ -57,7 +57,7 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
     const displayHistory = showFullHistory ? history : history.slice(-5);
 
     return (
-        <div className="px-5 pb-32 pt-6">
+        <div className="px-5 pb-20 pt-6">
             {/* Header */}
             <div className="flex items-center gap-4 mb-6">
                 <button
@@ -279,7 +279,7 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
     }
 
     return (
-        <div className="px-5 pb-32 pt-6">
+        <div className="px-5 pb-20 pt-6">
             <h2 className="text-2xl font-bold text-white mb-6">Exercise Library</h2>
 
             {/* Search and Filters */}

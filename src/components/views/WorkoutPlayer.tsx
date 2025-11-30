@@ -697,7 +697,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 message="Swipe right to go back"
             />
 
-            <div {...swipeHandlers} className="px-4 pb-32 pt-4">
+            <div {...swipeHandlers} className="px-4 pb-20 pt-4">
                 {/* Workout Notes */}
                 <div className="mb-4">
                     <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-1 block">
@@ -876,9 +876,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         exercises={supersetExercises}
                                                         isFirstIncomplete={groupHasFirstIncomplete}
                                                         haptic={haptic}
+                                                        emomTimerActive={emomTimer.active}
+                                                        emomTimerInterval={emomTimer.interval}
                                                         onToggleRound={toggleSupersetRound}
                                                         onWeightChange={handleWeightChange}
                                                         onCompleteAllRounds={completeAllSupersetSets}
+                                                        onToggleEmomTimer={() => emomTimer.toggle()}
                                                     />
                                                 );
                                                 return;

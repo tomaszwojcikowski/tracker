@@ -224,6 +224,12 @@ export { useTheme, THEMES } from './useTheme';
 // Re-export workout timer hook
 export { useWorkoutTimer, formatTimerTime, MAX_TIMER_SECONDS } from './useWorkoutTimer';
 
+// Re-export workout session hooks (extracted from WorkoutPlayer)
+export { useWorkoutSession } from './useWorkoutSession';
+export { useRestTimer } from './useRestTimer';
+export { useEmomTimer } from './useEmomTimer';
+export { useExerciseCollapse } from './useExerciseCollapse';
+
 // Type exports
 export type { OptimisticSyncOptions, OptimisticSyncReturn } from './useOptimisticSync';
 export type { FocusTrapOptions, KeyboardShortcutOptions, AriaPoliteness, KeyboardModifiers } from './useAccessibility';
@@ -233,3 +239,7 @@ export type { LongPressOptions, LongPressHandlers } from './useLongPress';
 export type { PullToRefreshOptions, PullToRefreshHandlers, PullToRefreshReturn } from './usePullToRefresh';
 export type { SwipeNavigationOptions, SwipeNavigationHandlers, SwipeNavigationReturn, SwipeDirection } from './useSwipeNavigation';
 export type { WorkoutTimerState, WorkoutTimerReturn } from './useWorkoutTimer';
+export type { UseWorkoutSessionOptions, UseWorkoutSessionReturn } from './useWorkoutSession';
+export type { UseRestTimerOptions, UseRestTimerReturn } from './useRestTimer';
+export type { UseEmomTimerOptions, UseEmomTimerReturn } from './useEmomTimer';
+export type { UseExerciseCollapseOptions, UseExerciseCollapseReturn } from './useExerciseCollapse';

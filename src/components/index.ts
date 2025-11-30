@@ -110,3 +110,7 @@ export type { GestureHintProps } from './GestureHint';
 // Recent exercises
 export { RecentExercisesList, getRecentExercises, addRecentExercise, clearRecentExercises } from './RecentExercises';
 export type { RecentExercisesListProps, RecentExercise } from './RecentExercises';
+
+// Exercise selector components (extracted from WorkoutPlayer)
+export { ExerciseListItem } from './ExerciseListItem';
+export type { ExerciseListItemProps } from './ExerciseListItem';

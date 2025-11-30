@@ -10,11 +10,11 @@ import { CompactExerciseRow } from '../CompactExerciseRow';
 import { RPESelector } from '../RPESelector';
 import { GestureHint } from '../GestureHint';
 import { RecentExercisesList, addRecentExercise } from '../RecentExercises';
-import { ExerciseDetailModal } from '../modals';
+import { ExerciseDetailModal, NotesModal } from '../modals';
 import { safeGetJSON, safeSetJSON } from '../../utils/storage';
 import { useHaptic, useSwipe, useDebounce, type HapticFeedback } from '../../hooks';
 import {
-    Flame, Dumbbell, Snowflake, Activity, ChevronDown, ChevronUp, Timer, Repeat, Check, Plus, CheckCheck, Minus, PlusCircle, X, CheckCircle2, LayoutGrid, LayoutList, Link, Zap, ArrowRightLeft
+    Flame, Dumbbell, Snowflake, Activity, ChevronDown, ChevronUp, Timer, Repeat, Check, Plus, CheckCheck, Minus, PlusCircle, X, CheckCircle2, LayoutGrid, LayoutList, Link, Zap, ArrowRightLeft, Info
 } from 'lucide-react';
 import {
     DEBOUNCE_DELAY_MS,
@@ -296,6 +296,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [exerciseSearchTerm, setExerciseSearchTerm] = useState('');
     const [selectedMuscleFilter, setSelectedMuscleFilter] = useState<MuscleFilter>('all');
     const [showExerciseHistory, setShowExerciseHistory] = useState<string | null>(null);
+    // Notes modal state: { exerciseName, notes } or null
+    const [showNotesFor, setShowNotesFor] = useState<{ exerciseName: string; notes: string } | null>(null);
     const [workoutNotes, setWorkoutNotes] = useState('');
     const [showFinishConfirm, setShowFinishConfirm] = useState(false);
     const [compactView, setCompactView] = useState(() =>
@@ -525,7 +527,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     const totalSets = newSets.length;
                     const completedSetsCount = newSets.filter(Boolean).length;
                     const hasIncompleteSets = completedSetsCount < totalSets;
-                    
+
                     if (hasIncompleteSets) {
                         setTimerSeconds(restTime);
                         setTimerActive(true);
@@ -1141,15 +1143,23 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                     {completedSets}/{totalSets}
                                                                 </span>
                                                             )}
+                                                            {/* Notes icon button */}
+                                                            {ex.notes && (
+                                                                <button
+                                                                    onClick={() => {
+                                                                        haptic.tick();
+                                                                        setShowNotesFor({ exerciseName: getEffectiveExerciseName(ex), notes: ex.notes });
+                                                                    }}
+                                                                    className="h-6 w-6 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
+                                                                    aria-label="View notes"
+                                                                >
+                                                                    <Info size={12} />
+                                                                </button>
+                                                            )}
                                                         </div>
                                                         <p className="text-xs text-sys-onSurfaceVar">
                                                             {ex.prescription}
                                                         </p>
-                                                        {ex.notes && (
-                                                            <p className="text-xs text-sys-onSurfaceVar/70">
-                                                                {ex.notes}
-                                                            </p>
-                                                        )}
                                                     </div>
 
                                                     {/* Collapse button */}
@@ -1634,7 +1644,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 {/* Alternatives Picker Modal */}
                 {showAlternativesFor && (
                     <div className="fixed inset-0 bg-black/60 z-50 flex items-end justify-center" onClick={() => setShowAlternativesFor(null)}>
-                        <div 
+                        <div
                             className="bg-sys-surface rounded-t-3xl w-full max-w-lg p-5 pb-8 animate-slide-up"
                             onClick={(e) => e.stopPropagation()}
                         >
@@ -1693,6 +1703,17 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         </div>
                     </div>
                 )}
+
+                {/* Notes Modal */}
+                <NotesModal
+                    isOpen={!!showNotesFor}
+                    exerciseName={showNotesFor?.exerciseName ?? ''}
+                    notes={showNotesFor?.notes ?? ''}
+                    onClose={() => {
+                        haptic.tick();
+                        setShowNotesFor(null);
+                    }}
+                />
             </div>
         </>
     );

@@ -7,8 +7,9 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap } from 'lucide-react';
+import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap, Info } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
+import { NotesModal } from './modals';
 import type { HapticFeedback } from '../hooks';
 
 // ============================================================================
@@ -84,6 +85,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const [localWeight, setLocalWeight] = useState(weight);
     const [isPrevWeight, setIsPrevWeight] = useState(false);
     const [userModified, setUserModified] = useState(false);
+    const [showNotesModal, setShowNotesModal] = useState(false);
     const weightInputRef = useRef<HTMLInputElement>(null);
 
     // Constants for set scrolling
@@ -190,6 +192,12 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
         onCompleteAllSets(exId, defaultSets);
     }, [exId, defaultSets, onCompleteAllSets]);
 
+    const handleShowNotes = useCallback((e: React.MouseEvent) => {
+        e.stopPropagation();
+        haptic.tick();
+        setShowNotesModal(true);
+    }, [haptic]);
+
     // Memoize hasIncompleteSets - MUST be before any early returns to follow Rules of Hooks
     const hasIncompleteSets = useMemo(() => sets.some((s) => !s), [sets]);
 
@@ -294,7 +302,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                     <span className={`text-sm font-semibold text-white ${isExpanded ? '' : 'truncate'}`}>
                         {name}
                     </span>
-                    {(prescription || notes || !isBodyweight) && (
+                    {(prescription || !isBodyweight) && (
                         <ChevronDown
                             size={14}
                             className={`text-sys-onSurfaceVar flex-shrink-0 transition-transform ${
@@ -303,6 +311,17 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                         />
                     )}
                 </button>
+
+                {/* Notes Icon Button */}
+                {notes && (
+                    <button
+                        onClick={handleShowNotes}
+                        className="h-7 w-7 rounded-full bg-sys-surfaceHigh flex items-center justify-center flex-shrink-0 active:scale-90 transition-transform"
+                        aria-label="View notes"
+                    >
+                        <Info size={14} className="text-sys-onSurfaceVar" />
+                    </button>
+                )}
 
                 {/* Set Buttons - horizontally scrollable when > MAX_VISIBLE_SETS */}
                 <div className="flex items-center gap-1 flex-shrink-0">
@@ -351,12 +370,9 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                 <div className="px-3 pb-3 pt-0">
                     <div className="h-px bg-white/5 mb-2" />
 
-                    {/* Prescription and Notes */}
+                    {/* Prescription */}
                     {prescription && (
-                        <p className="text-xs text-sys-onSurfaceVar mb-1">{prescription}</p>
-                    )}
-                    {notes && (
-                        <p className="text-xs text-sys-onSurfaceVar/70 mb-2">{notes}</p>
+                        <p className="text-xs text-sys-onSurfaceVar mb-2">{prescription}</p>
                     )}
 
                     {/* Weight Stepper and Add Set Row */}
@@ -419,6 +435,16 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                 </div>
             </div>
             </div>
+
+            {/* Notes Modal */}
+            {notes && (
+                <NotesModal
+                    exerciseName={name}
+                    notes={notes}
+                    isOpen={showNotesModal}
+                    onClose={() => setShowNotesModal(false)}
+                />
+            )}
         </div>
     );
 };

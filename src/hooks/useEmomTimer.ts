@@ -34,6 +34,8 @@ export interface UseEmomTimerReturn {
     active: boolean;
     /** Current interval setting (seconds per round) */
     interval: number;
+    /** Current round number (1-based, starts at 1 when timer starts) */
+    round: number;
     /** Start the EMOM timer */
     start: () => void;
     /** Stop the EMOM timer */
@@ -48,6 +50,8 @@ export interface UseEmomTimerReturn {
     setActive: React.Dispatch<React.SetStateAction<boolean>>;
     /** Set interval state directly (supports functional updates) */
     setIntervalState: React.Dispatch<React.SetStateAction<number>>;
+    /** Set round directly */
+    setRound: React.Dispatch<React.SetStateAction<number>>;
 }
 
 // ============================================================================
@@ -57,6 +61,7 @@ export interface UseEmomTimerReturn {
 export function useEmomTimer({ haptic }: UseEmomTimerOptions): UseEmomTimerReturn {
     const [seconds, setSeconds] = useState(0);
     const [active, setActive] = useState(false);
+    const [round, setRound] = useState(0);
     const [interval, setIntervalState] = useState(() =>
         safeGetJSON<number>(EMOM_INTERVAL_STORAGE_KEY, DEFAULT_EMOM_INTERVAL) ?? DEFAULT_EMOM_INTERVAL
     );
@@ -77,8 +82,9 @@ export function useEmomTimer({ haptic }: UseEmomTimerOptions): UseEmomTimerRetur
             return () => clearInterval(timerInterval);
         }
         if (seconds === 0 && active) {
-            // Reset to interval and continue
+            // Reset to interval and continue, increment round
             setSeconds(interval);
+            setRound((r) => r + 1);
             haptic.timer();
             playBeepSound();
         }
@@ -91,18 +97,22 @@ export function useEmomTimer({ haptic }: UseEmomTimerOptions): UseEmomTimerRetur
 
     const start = useCallback(() => {
         setSeconds(interval);
+        setRound(1);
         setActive(true);
     }, [interval]);
 
     const stop = useCallback(() => {
         setActive(false);
+        setRound(0);
     }, []);
 
     const toggle = useCallback(() => {
         if (active) {
             setActive(false);
+            setRound(0);
         } else {
             setSeconds(interval);
+            setRound(1);
             setActive(true);
         }
     }, [active, interval]);
@@ -115,6 +125,7 @@ export function useEmomTimer({ haptic }: UseEmomTimerOptions): UseEmomTimerRetur
         seconds,
         active,
         interval,
+        round,
         start,
         stop,
         toggle,
@@ -122,5 +133,6 @@ export function useEmomTimer({ haptic }: UseEmomTimerOptions): UseEmomTimerRetur
         setSeconds,
         setActive,
         setIntervalState,
+        setRound,
     };
 }

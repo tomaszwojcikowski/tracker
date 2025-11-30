@@ -2,13 +2,14 @@
  * ActionBar Component
  *
  * Bottom action bar with EMOM timer display and rest timer display.
+ * Both timers can be expanded to fullscreen mode.
  * Only renders when a timer is active.
  */
 
 import { useState, useCallback, useEffect } from 'react';
 import { useHaptic } from '../hooks';
-import { X, Minus, Plus, Maximize2 } from 'lucide-react';
-import { FullscreenRestTimer } from './FullscreenRestTimer';
+import { X, Minus, Plus, Maximize2, Repeat } from 'lucide-react';
+import { FullscreenTimer } from './FullscreenTimer';
 import { safeGetJSON, safeSetJSON } from '../utils/storage';
 
 export interface TimerState {
@@ -22,6 +23,8 @@ export interface EmomState {
   active: boolean;
   seconds: number;
   interval: number;
+  /** Current round number (1-based) */
+  round?: number;
 }
 
 export interface ActionBarProps {
@@ -44,7 +47,8 @@ export function ActionBar({
   setEmomInterval,
 }: ActionBarProps) {
   const haptic = useHaptic();
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isRestFullscreen, setIsRestFullscreen] = useState(false);
+  const [isEmomFullscreen, setIsEmomFullscreen] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(() =>
     safeGetJSON<boolean>('rest_timer_sound', true) ?? true
   );
@@ -78,20 +82,21 @@ export function ActionBar({
     });
   }, []);
 
-  const handleExpand = useCallback(() => {
+  // REST timer handlers
+  const handleExpandRest = useCallback(() => {
     haptic.tick();
-    setIsFullscreen(true);
+    setIsRestFullscreen(true);
   }, [haptic]);
 
-  const handleMinimize = useCallback(() => {
+  const handleMinimizeRest = useCallback(() => {
     haptic.tick();
-    setIsFullscreen(false);
+    setIsRestFullscreen(false);
   }, [haptic]);
 
-  const handleStop = useCallback(() => {
+  const handleStopRest = useCallback(() => {
     setTimerActive(false);
     setTimerSeconds(0);
-    setIsFullscreen(false);
+    setIsRestFullscreen(false);
   }, [setTimerActive, setTimerSeconds]);
 
   const handleAddTime = useCallback((amount: number) => {
@@ -102,18 +107,61 @@ export function ActionBar({
     }
   }, [setTimerSeconds]);
 
+  // EMOM timer handlers
+  const handleExpandEmom = useCallback(() => {
+    haptic.tick();
+    setIsEmomFullscreen(true);
+  }, [haptic]);
+
+  const handleMinimizeEmom = useCallback(() => {
+    haptic.tick();
+    setIsEmomFullscreen(false);
+  }, [haptic]);
+
+  const handleStopEmom = useCallback(() => {
+    setEmomActive?.(false);
+    setEmomSeconds?.(0);
+    setIsEmomFullscreen(false);
+  }, [setEmomActive, setEmomSeconds]);
+
+  const handleAdjustEmomInterval = useCallback((amount: number) => {
+    setEmomInterval?.((i: number) => {
+      const newInterval = i + amount;
+      return Math.min(180, Math.max(10, newInterval));
+    });
+  }, [setEmomInterval]);
+
   // Only show the action bar if there's an active timer
   const hasActiveTimer = timerState.time > 0 || emomState?.active;
 
-  // Render fullscreen timer if expanded
-  if (isFullscreen && timerState.time > 0) {
+  // Render fullscreen REST timer if expanded
+  if (isRestFullscreen && timerState.time > 0) {
     return (
-      <FullscreenRestTimer
+      <FullscreenTimer
+        mode="rest"
         seconds={timerState.time}
         totalSeconds={totalTime}
-        onStop={handleStop}
+        onStop={handleStopRest}
         onAddTime={handleAddTime}
-        onMinimize={handleMinimize}
+        onMinimize={handleMinimizeRest}
+        soundEnabled={soundEnabled}
+        onToggleSound={toggleSound}
+      />
+    );
+  }
+
+  // Render fullscreen EMOM timer if expanded
+  if (isEmomFullscreen && emomState?.active) {
+    return (
+      <FullscreenTimer
+        mode="emom"
+        seconds={emomState.seconds}
+        totalSeconds={emomState.interval}
+        round={emomState.round}
+        onStop={handleStopEmom}
+        onAddTime={() => {}} // EMOM doesn't use add time
+        onMinimize={handleMinimizeEmom}
+        onAdjustInterval={handleAdjustEmomInterval}
         soundEnabled={soundEnabled}
         onToggleSound={toggleSound}
       />
@@ -131,9 +179,26 @@ export function ActionBar({
         <div className="px-4 pt-3 pb-2">
           <div className="glass-panel px-5 py-4 rounded-2xl shadow-lg animate-slide-up">
             <div className="flex items-center gap-3 mb-3">
-              <span className="text-xs font-semibold text-sys-accent uppercase tracking-wider">
-                EMOM Timer
+              {/* Expand button */}
+              <button
+                onClick={handleExpandEmom}
+                className="h-8 w-8 rounded-full bg-violet-500/20 hover:bg-violet-500/30 text-violet-300 flex items-center justify-center active:scale-90 transition-all"
+                aria-label="Expand EMOM timer to fullscreen"
+              >
+                <Maximize2 size={16} />
+              </button>
+              <span className="text-xs font-semibold text-violet-400 uppercase tracking-wider">
+                EMOM
               </span>
+              {/* Round counter */}
+              {emomState.round !== undefined && emomState.round > 0 && (
+                <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-violet-500/20">
+                  <Repeat size={12} className="text-violet-300" />
+                  <span className="text-xs font-bold text-violet-300">
+                    Round {emomState.round}
+                  </span>
+                </div>
+              )}
               <button
                 onClick={() => {
                   haptic.bump();
@@ -194,7 +259,7 @@ export function ActionBar({
         <div className="px-4 pt-3 pb-3">
           <div className="glass-panel px-5 py-4 rounded-2xl flex items-center gap-4 shadow-lg animate-slide-up">
             <button
-              onClick={handleExpand}
+              onClick={handleExpandRest}
               className="h-10 w-10 min-w-[40px] rounded-full bg-white/10 hover:bg-white/20 text-sys-accent flex items-center justify-center active:scale-90 transition-all"
               aria-label="Expand timer to fullscreen"
             >

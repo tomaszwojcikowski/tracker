@@ -30,6 +30,22 @@
       "bench",
       "box"
     ],
+    "programRules": {
+      "weeklyPullUpCap": {
+        "min": 36,
+        "max": 40,
+        "note": "Max weekly pull-up reps strictly capped per program rules (doc)."
+      },
+      "day5AccessoryTimeCapSeconds": 600,
+      "neutralGripTracking": {
+        "appliesTo": "Block 3 (weeks 9-12)",
+        "note": "Use the same neutral-grip implement (rings/parallel bars) for the whole block."
+      },
+      "dipGovernor": {
+        "appliesTo": "Block 4 (weeks 13-15)",
+        "rule": "If shoulder pinch occurs during weighted dips switch immediately to Straight Bar Dips or Weighted Bench Dips."
+      }
+    },
     "phases": [
       {
         "phaseNumber": 1,
@@ -5356,15 +5372,15 @@
           },
           {
             "weekNumber": 12,
-            "description": null,
-            "focus": null,
+            "description": "Connective-tissue deload — explicit restrictions: NO Dead Hangs, NO Long Hollow Holds, NO Weighted Core",
+            "focus": "deload",
             "volumeLevel": "low",
             "intensityLevel": "low",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Day A",
-                "type": "strength",
+                "name": "Pull Day A (Connective-Tissue Deload)",
+                "type": "recovery",
                 "estimatedDuration": 57,
                 "description": null,
                 "exercises": [
@@ -5486,8 +5502,8 @@
                     "order": 8,
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Cluster Pull-Ups (Neutral)",
-                    "notes": "Deload. Cluster sets for unilateral stability.",
+                    "exerciseName": "Clusters",
+                    "notes": "Deload. 3x(3-3-3). Do not exceed low tension rules. NO Dead Hangs, NO Long Hollow Holds, NO Weighted Core.",
                     "repsType": "ladder",
                     "repsValue": [
                       3,
@@ -5506,9 +5522,23 @@
                   },
                   {
                     "order": 9,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Straight-Arm Tuck Holds",
+                    "notes": "Deload. Max 3×6s per program restrictions; NO dead hangs.",
+                    "repsType": "time",
+                    "repsValue": 6,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Passive Dead Hang",
+                    "exerciseName": "Butcher's Block Stretch",
                     "notes": "Cool-down. Spinal decompression.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -5794,8 +5824,8 @@
                     "order": 8,
                     "category": "main",
                     "sets": 2,
-                    "exerciseName": "Neutral Grip Weighted Pull-Ups",
-                    "notes": "Primary Goal: Build elite pulling strength.",
+                    "exerciseName": "Neutral Grip Pull-ups (Light)",
+                    "notes": "Deload. Unweighted or very light per doc. NO Dead Hangs, NO Long Hollow Holds, NO Weighted Core.",
                     "loadMin": 0,
                     "loadMax": 0,
                     "loadUnit": "bodyweight",
@@ -5807,7 +5837,6 @@
                       "Ring Rows",
                       "Assisted Pull-Ups"
                     ],
-                    "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form. (e.g. if 3x5 is goal, must hit 5,5,5 to add 1kg).",
                     "cues": [
                       "Full ROM",
                       "Chin over bar",
@@ -6671,12 +6700,12 @@
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Weighted Pull-Ups",
-                    "notes": "Primary Goal: Build elite pulling strength.",
+                    "notes": "Week 14 prescribed Weighted Pulls to 16kg.",
                     "loadMin": 16,
                     "loadMax": 16,
                     "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 4,
+                    "repsValue": 3,
                     "restSeconds": 120,
                     "alternatives": [
                       "Lat Pulldowns",
@@ -6709,7 +6738,7 @@
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Dragon Flags OR Weighted V-Ups",
-                    "notes": "Core Hard. Hard Core. Keep biceps by ears.",
+                    "notes": "Core Hard. Dragon Flags (negatives) — conditional (only if tendons feel excellent); Otherwise: Weighted V-Ups 3×8-10.",
                     "loadMin": 3,
                     "loadMax": 5,
                     "loadUnit": "kg",
@@ -6999,7 +7028,7 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Day B",
+                "name": "Pull Day B (Week 15 Peak / PR Attempt)",
                 "type": "strength",
                 "estimatedDuration": 55,
                 "description": null,
@@ -7122,20 +7151,20 @@
                     "order": 8,
                     "category": "main",
                     "sets": 1,
-                    "exerciseName": "Weighted Pull-Ups",
-                    "notes": "Primary Goal: Build elite pulling strength.",
+                    "exerciseName": "Weighted Pull-Ups (PR attempt)",
+                    "notes": "Per doc Week 15 Weighted Pulls to 17.5kg (PR attempt). Apply double-progression safely.",
                     "loadMin": 17.5,
                     "loadMax": 17.5,
                     "loadUnit": "kg",
-                    "repsType": "max",
-                    "repsValue": null,
-                    "restSeconds": 120,
+                    "repsType": "rm",
+                    "repsValue": 1,
+                    "restSeconds": 180,
                     "alternatives": [
                       "Lat Pulldowns",
                       "Ring Rows",
                       "Assisted Pull-Ups"
                     ],
-                    "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form. (e.g. if 3x5 is goal, must hit 5,5,5 to add 1kg).",
+                    "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form.",
                     "cues": [
                       "Full ROM",
                       "Chin over bar",
@@ -7144,6 +7173,24 @@
                   },
                   {
                     "order": 9,
+                    "category": "accessory",
+                    "sets": 4,
+                    "exerciseName": "Weighted Dips",
+                    "notes": "4×5 per doc; Dip Governor may alter exercise.",
+                    "loadMin": 5,
+                    "loadMax": 10,
+                    "loadUnit": "kg",
+                    "repsType": "reps",
+                    "repsValue": 5,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Straight Bar Dips",
+                      "Weighted Bench Dips"
+                    ],
+                    "progressionNotes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately."
+                  },
+                  {
+                    "order": 10,
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Side Planks",
@@ -7158,7 +7205,7 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 10,
+                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -7511,7 +7558,7 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Day A",
+                "name": "Pull Day A (Tapered Intensity)",
                 "type": "strength",
                 "estimatedDuration": 62,
                 "description": null,
@@ -7740,7 +7787,7 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Day B",
+                "name": "Pull Day B (Archer Negative Peak)",
                 "type": "strength",
                 "estimatedDuration": 60,
                 "description": null,
@@ -7864,10 +7911,11 @@
                     "category": "main",
                     "sets": 4,
                     "exerciseName": "Archer Negatives",
-                    "notes": "5s Descent",
+                    "notes": "4×2/side; 5-6s eccentric; no pause at bottom.",
                     "repsType": "reps",
                     "repsValue": 2,
                     "repsPerSide": true,
+                    "tempoEccentric": 5,
                     "loadMin": 0,
                     "loadMax": 0,
                     "loadUnit": "bodyweight",
@@ -7937,17 +7985,17 @@
           },
           {
             "weekNumber": 18,
-            "description": null,
+            "description": "Reduce volume by 20% from baseline per doc.",
             "focus": null,
             "volumeLevel": "moderate",
             "intensityLevel": "moderate",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Day A",
+                "name": "Pull Day A (Taper)",
                 "type": "strength",
                 "estimatedDuration": 57,
-                "description": null,
+                "description": "Reduce volume by 20% from baseline per doc.",
                 "exercises": [
                   {
                     "order": 1,
@@ -8275,10 +8323,11 @@
                     "category": "main",
                     "sets": 5,
                     "exerciseName": "Archer Negatives",
-                    "notes": "Volume Peak",
+                    "notes": "5×3/side; 5–6s eccentric.",
                     "repsType": "reps",
                     "repsValue": 3,
                     "repsPerSide": true,
+                    "tempoEccentric": 5,
                     "loadMin": 0,
                     "loadMax": 0,
                     "loadUnit": "bodyweight",
@@ -8341,8 +8390,8 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Day A",
-                "type": "strength",
+                "name": "Deload Day",
+                "type": "recovery",
                 "estimatedDuration": 45,
                 "description": null,
                 "exercises": [
@@ -8924,17 +8973,17 @@
         "weeks": [
           {
             "weekNumber": 20,
-            "description": null,
+            "description": "TEST WEEK (doc-prescribed tests)",
             "focus": null,
             "volumeLevel": "low",
             "intensityLevel": "peak",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Day A",
+                "name": "Endurance Test Day",
                 "type": "test",
                 "estimatedDuration": 29,
-                "description": null,
+                "description": "Battery Conservation Warm-up: 5 min rower + 10 scap pulls + 3 reps @50% + 1 rep @75% + rest 4 min",
                 "exercises": [
                   {
                     "order": 1,
@@ -9148,10 +9197,10 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Day B",
+                "name": "Strength Test Day",
                 "type": "test",
                 "estimatedDuration": 31,
-                "description": null,
+                "description": "Battery Conservation Warm-up: same as Day 1",
                 "exercises": [
                   {
                     "order": 1,
@@ -9299,15 +9348,15 @@
           },
           {
             "weekNumber": 21,
-            "description": null,
+            "description": "Post-Program Reload. NO Weighted Dips, NO Weighted Pulls.",
             "focus": null,
             "volumeLevel": "low",
-            "intensityLevel": "peak",
+            "intensityLevel": "low",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Day A",
-                "type": "strength",
+                "name": "Reload Week (60% of Week 1)",
+                "type": "recovery",
                 "estimatedDuration": 12,
                 "description": null,
                 "exercises": [

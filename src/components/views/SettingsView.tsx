@@ -225,7 +225,7 @@ export const SettingsView: React.FC = () => {
     };
 
     return (
-        <div className="px-5 pb-32 pt-6">
+        <div className="px-5 pb-20 pt-6">
             <h2 className="text-2xl font-bold text-white mb-6">Settings</h2>
 
             {/* Theme Selection */}

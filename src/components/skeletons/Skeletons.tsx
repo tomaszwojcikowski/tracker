@@ -78,7 +78,7 @@ export const ExerciseLibraryItemSkeleton: React.FC = () => (
  * WorkoutDaySkeleton - Loading placeholder for the entire workout day view
  */
 export const WorkoutDaySkeleton: React.FC = () => (
-    <div className="px-5 pb-32 pt-6 animate-pulse">
+    <div className="px-5 pb-20 pt-6 animate-pulse">
         {/* Header */}
         <div className="mb-6">
             <div className="h-8 bg-sys-surfaceHigh rounded w-1/2 mb-2" />

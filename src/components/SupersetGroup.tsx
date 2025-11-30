@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useCallback, useMemo } from 'react';
-import { Check, Zap, Info, ChevronDown, CheckCheck, Minus, Plus } from 'lucide-react';
+import { Check, Zap, Info, ChevronDown, CheckCheck, Minus, Plus, Repeat } from 'lucide-react';
 import { getShortExerciseName } from '../constants';
 import { NotesModal } from './modals';
 import type { HapticFeedback } from '../hooks';
@@ -35,12 +35,18 @@ export interface SupersetGroupProps {
     isFirstIncomplete?: boolean;
     /** Haptic feedback interface */
     haptic: HapticFeedback;
+    /** EMOM timer state */
+    emomTimerActive?: boolean;
+    /** EMOM timer interval in seconds */
+    emomTimerInterval?: number;
     /** Callback when a round is toggled for all exercises */
     onToggleRound: (exerciseIds: string[], roundIndex: number, defaultSets: number, restTime?: number) => void;
     /** Callback when weight changes for an exercise */
     onWeightChange: (exId: string, weight: string) => void;
     /** Callback to complete all rounds */
     onCompleteAllRounds: (exerciseIds: string[], defaultSets: number) => void;
+    /** Callback to toggle EMOM timer */
+    onToggleEmomTimer?: () => void;
 }
 
 // ============================================================================
@@ -51,9 +57,12 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
     exercises,
     isFirstIncomplete = false,
     haptic,
+    emomTimerActive = false,
+    emomTimerInterval = 60,
     onToggleRound,
     onWeightChange,
     onCompleteAllRounds,
+    onToggleEmomTimer,
 }) => {
     const [isExpanded, setIsExpanded] = useState(isFirstIncomplete);
     const [showNotesFor, setShowNotesFor] = useState<{ name: string; notes: string } | null>(null);
@@ -99,6 +108,13 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
         haptic.success();
         onCompleteAllRounds(exerciseIds, totalRounds);
     }, [haptic, exerciseIds, totalRounds, onCompleteAllRounds]);
+
+    const handleToggleEmom = useCallback(() => {
+        if (onToggleEmomTimer) {
+            haptic.tick();
+            onToggleEmomTimer();
+        }
+    }, [haptic, onToggleEmomTimer]);
 
     const handleShowNotes = useCallback((name: string, notes: string, e: React.MouseEvent) => {
         e.stopPropagation();
@@ -194,6 +210,26 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                         <Zap size={10} strokeWidth={3} />
                         EMOM SUPERSET
                     </span>
+
+                    {/* EMOM Timer Button */}
+                    {onToggleEmomTimer && (
+                        <button
+                            type="button"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleToggleEmom();
+                            }}
+                            className={`h-7 px-2 rounded-lg text-[10px] font-bold flex items-center justify-center gap-1 transition-all active:scale-95 ${
+                                emomTimerActive
+                                    ? 'bg-sys-accent text-white'
+                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                            }`}
+                            aria-label={`${emomTimerActive ? 'Stop' : 'Start'} EMOM timer with ${emomTimerInterval} second interval`}
+                        >
+                            <Repeat size={10} />
+                            <span>{emomTimerInterval}s</span>
+                        </button>
+                    )}
 
                     <div className="flex-1 pointer-events-none" />
 

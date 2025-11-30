@@ -414,7 +414,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
 
     return (
         <PullToRefresh onRefresh={handlePullRefresh} className="h-full">
-            <div className="px-5 pb-32 pt-6">
+            <div className="px-5 pb-20 pt-6">
                 {/* Header with Toggle */}
                 <div className="flex justify-between items-center mb-6">
                     <div>

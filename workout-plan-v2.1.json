@@ -602,8 +602,8 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Unilateral Leg Work: Use Alternating EMOM (Min 1 Left, Min 2 Right).",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Unilateral Leg Work: Use Alternating EMOM (Min 1 Left, Min 2 Right).",
                     "loadMin": 8,
                     "loadMax": 16,
                     "loadUnit": "kg",
@@ -621,13 +621,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Unilateral Leg Work: Use Alternating EMOM (Min 1 Left, Min 2 Right).",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Unilateral Leg Work: Use Alternating EMOM (Min 1 Left, Min 2 Right).",
                     "loadMin": 8,
                     "loadMax": 16,
                     "loadUnit": "kg",
@@ -645,7 +646,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
@@ -1241,8 +1243,8 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Unilateral Leg Work.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Unilateral Leg Work.",
                     "loadMin": 8,
                     "loadMax": 16,
                     "loadUnit": "kg",
@@ -1260,13 +1262,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Unilateral Leg Work.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Unilateral Leg Work.",
                     "loadMin": 8,
                     "loadMax": 16,
                     "loadUnit": "kg",
@@ -1284,7 +1287,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "cooldown",
@@ -1865,8 +1869,8 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Unilateral Leg Work.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Unilateral Leg Work.",
                     "loadMin": 8,
                     "loadMax": 16,
                     "loadUnit": "kg",
@@ -1884,13 +1888,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Unilateral Leg Work.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Unilateral Leg Work.",
                     "loadMin": 8,
                     "loadMax": 16,
                     "loadUnit": "kg",
@@ -1908,7 +1913,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "cooldown",
@@ -2434,8 +2440,8 @@
                   {
                     "category": "main",
                     "sets": 2,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "Deload. EMOM. Unilateral Leg Work.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. Deload. EMOM. Unilateral Leg Work.",
                     "loadMin": 8,
                     "loadMax": 16,
                     "loadUnit": "kg",
@@ -2453,13 +2459,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 2,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "Deload. EMOM. Unilateral Leg Work.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. Deload. EMOM. Unilateral Leg Work.",
                     "loadMin": 8,
                     "loadMax": 16,
                     "loadUnit": "kg",
@@ -2477,7 +2484,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "cooldown",
@@ -2979,8 +2987,8 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Unilateral Leg Work: Use Alternating EMOM (Min 1 Left, Min 2 Right).",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Unilateral Leg Work: Use Alternating EMOM (Min 1 Left, Min 2 Right).",
                     "loadMin": 8,
                     "loadMax": 16,
                     "loadUnit": "kg",
@@ -2998,13 +3006,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Unilateral Leg Work: Use Alternating EMOM (Min 1 Left, Min 2 Right).",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Unilateral Leg Work: Use Alternating EMOM (Min 1 Left, Min 2 Right).",
                     "loadMin": 8,
                     "loadMax": 16,
                     "loadUnit": "kg",
@@ -3022,7 +3031,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
@@ -3505,8 +3515,8 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Unilateral Leg Work.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Unilateral Leg Work.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -3524,13 +3534,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Unilateral Leg Work.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Unilateral Leg Work.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -3548,7 +3559,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
@@ -4031,8 +4043,8 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Unilateral Leg Work.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Unilateral Leg Work.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -4050,13 +4062,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Unilateral Leg Work.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Unilateral Leg Work.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -4074,7 +4087,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
@@ -4886,8 +4900,8 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -4905,13 +4919,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -4929,7 +4944,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "core",
@@ -5376,8 +5392,8 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -5395,13 +5411,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -5419,7 +5436,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "core",
@@ -5879,8 +5897,8 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -5898,13 +5916,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -5922,7 +5941,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "core",
@@ -6945,8 +6965,8 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -6964,13 +6984,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -6988,7 +7009,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "core",
@@ -7456,8 +7478,8 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -7475,13 +7497,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -7499,7 +7522,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "core",
@@ -7979,8 +8003,8 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -7998,13 +8022,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -8022,7 +8047,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "core",
@@ -8748,8 +8774,8 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -8767,13 +8793,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -8791,7 +8818,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "core",
@@ -9186,8 +9214,8 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -9205,13 +9233,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 10,
                     "loadMax": 18,
                     "loadUnit": "kg",
@@ -9229,7 +9258,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "core",
@@ -9794,8 +9824,8 @@
                   {
                     "category": "main",
                     "sets": 2,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "Deload. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. Deload. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 8,
                     "loadMax": 12,
                     "loadUnit": "kg",
@@ -9813,13 +9843,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 2,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "Deload. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. Deload. Unilateral Leg Work. Squat pattern for balanced lower body development.",
                     "loadMin": 8,
                     "loadMax": 12,
                     "loadUnit": "kg",
@@ -9837,7 +9868,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "core",
@@ -10659,8 +10691,8 @@
                   {
                     "category": "main",
                     "sets": 2,
-                    "exerciseName": "Bulgarian Split Squat (Left)",
-                    "notes": "EMOM. Alternating EMOM (Min 1 Left, Min 2 Right). Light loading.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Left side. EMOM. Alternating EMOM (Min 1 Left, Min 2 Right). Light loading.",
                     "loadMin": 6,
                     "loadMax": 12,
                     "loadUnit": "kg",
@@ -10678,13 +10710,14 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "main",
                     "sets": 2,
-                    "exerciseName": "Bulgarian Split Squat (Right)",
-                    "notes": "EMOM. Alternating EMOM (Min 1 Left, Min 2 Right). Light loading.",
+                    "exerciseName": "Bulgarian Split Squat",
+                    "notes": "Right side. EMOM. Alternating EMOM (Min 1 Left, Min 2 Right). Light loading.",
                     "loadMin": 6,
                     "loadMax": 12,
                     "loadUnit": "kg",
@@ -10702,7 +10735,8 @@
                     "cues": [
                       "Vertical shin",
                       "Drive through heel"
-                    ]
+                    ],
+                    "isUnilateral": true
                   },
                   {
                     "category": "core",
@@ -11124,8 +11158,8 @@
           {
             "category": "main",
             "sets": 3,
-            "exerciseName": "Bulgarian Split Squat (Left)",
-            "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+            "exerciseName": "Bulgarian Split Squat",
+            "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
             "loadMin": 10,
             "loadMax": 18,
             "loadUnit": "kg",
@@ -11143,13 +11177,14 @@
             "cues": [
               "Vertical shin",
               "Drive through heel"
-            ]
+            ],
+            "isUnilateral": true
           },
           {
             "category": "main",
             "sets": 3,
-            "exerciseName": "Bulgarian Split Squat (Right)",
-            "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+            "exerciseName": "Bulgarian Split Squat",
+            "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
             "loadMin": 10,
             "loadMax": 18,
             "loadUnit": "kg",
@@ -11167,7 +11202,8 @@
             "cues": [
               "Vertical shin",
               "Drive through heel"
-            ]
+            ],
+            "isUnilateral": true
           },
           {
             "category": "core",

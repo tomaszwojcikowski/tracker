@@ -51,6 +51,8 @@ export interface ExerciseCardProps {
     isBodyweight?: boolean;
     /** EMOM exercise flag */
     isEmom?: boolean;
+    /** Unilateral exercise flag */
+    isUnilateral?: boolean;
     /** Rest time in seconds */
     restTime?: number;
     /** Load range suggestion */
@@ -108,6 +110,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     notes,
     isBodyweight,
     isEmom,
+    isUnilateral,
     restTime,
     loadRange,
     alternatives,
@@ -227,6 +230,14 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">
                                     <Zap size={10} strokeWidth={3} />
                                     EMOM
+                                </span>
+                            )}
+
+                            {/* Unilateral Badge */}
+                            {isUnilateral && (
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                                    <ArrowRightLeft size={10} strokeWidth={3} />
+                                    PER SIDE
                                 </span>
                             )}
 

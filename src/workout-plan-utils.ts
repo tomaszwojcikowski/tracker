@@ -166,6 +166,8 @@ export interface ScheduleEntry {
   tempoRange?: TempoRange;
   /** Whether this exercise uses EMOM timing */
   isEmom?: boolean;
+  /** Whether this exercise is performed unilaterally (per side) */
+  isUnilateral?: boolean;
   /** Superset group ID */
   supersetGroup?: number;
   /** Rest between sets in seconds */
@@ -247,6 +249,8 @@ export interface V2Exercise {
   // ---- EMOM and Superset fields ----
   /** Whether this exercise uses EMOM (Every Minute On the Minute) timing */
   isEmom?: boolean;
+  /** Whether this exercise is performed unilaterally (per side) */
+  isUnilateral?: boolean;
   /** Superset group ID. Exercises with the same supersetGroup value are performed together */
   supersetGroup?: number;
 }
@@ -586,6 +590,7 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             tempoRange,
             // EMOM and superset fields
             isEmom: exercise.isEmom,
+            isUnilateral: exercise.isUnilateral,
             supersetGroup: exercise.supersetGroup,
             // Rest and alternatives
             restSeconds: exercise.restSeconds,

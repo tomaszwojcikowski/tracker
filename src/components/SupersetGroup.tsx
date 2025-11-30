@@ -137,6 +137,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                 <div className="absolute left-1 top-0 bottom-0 w-0.5 bg-amber-500/80 rounded-full" />
 
                 <button
+                    type="button"
                     onClick={handleToggleExpand}
                     className="w-full ml-3 h-auto min-h-[36px] px-3 py-2 flex items-center gap-2 bg-sys-success/10 rounded-xl border border-sys-success/20 active:bg-sys-success/20 transition-colors"
                     aria-label="Superset completed, tap to edit"
@@ -194,14 +195,18 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                         EMOM SUPERSET
                     </span>
 
-                    <div className="flex-1" />
+                    <div className="flex-1 pointer-events-none" />
 
                     {/* Shared Round Buttons */}
                     <div className="flex items-center gap-1">
                         {roundStates.map((isDone, i) => (
                             <button
                                 key={i}
-                                onClick={() => handleToggleRound(i)}
+                                type="button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleToggleRound(i);
+                                }}
                                 className={`h-8 w-8 rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
                                     isDone
                                         ? 'bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
@@ -214,7 +219,11 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                         ))}
                         {hasIncompleteRounds && totalRounds > 1 && (
                             <button
-                                onClick={handleCompleteAll}
+                                type="button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleCompleteAll();
+                                }}
                                 className="h-8 w-8 rounded-lg bg-sys-success/20 text-sys-success flex items-center justify-center active:scale-90 transition-all"
                                 aria-label="Complete all rounds"
                             >
@@ -230,6 +239,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                         <div key={i} className="px-3 py-2 flex items-center gap-2">
                             {/* Exercise name */}
                             <button
+                                type="button"
                                 onClick={handleToggleExpand}
                                 className="flex-1 min-w-0 flex items-center gap-1.5 text-left"
                             >
@@ -246,6 +256,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                             {/* Notes button */}
                             {ex.notes && (
                                 <button
+                                    type="button"
                                     onClick={(e) => handleShowNotes(ex.name, ex.notes!, e)}
                                     className="h-6 w-6 rounded-full bg-sys-surfaceHigh flex items-center justify-center flex-shrink-0 active:scale-90"
                                     aria-label="View notes"
@@ -258,6 +269,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                             {!ex.isBodyweight && (
                                 <div className="flex items-center gap-0.5 bg-sys-surfaceHigh rounded-lg overflow-hidden flex-shrink-0">
                                     <button
+                                        type="button"
                                         onClick={() => handleWeightStep(ex.exId, -1)}
                                         className="h-7 w-7 flex items-center justify-center text-sys-onSurfaceVar active:bg-white/10"
                                         aria-label="Decrease weight"
@@ -268,6 +280,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                                         {localWeights[ex.exId] || '0'}
                                     </span>
                                     <button
+                                        type="button"
                                         onClick={() => handleWeightStep(ex.exId, 1)}
                                         className="h-7 w-7 flex items-center justify-center text-sys-onSurfaceVar active:bg-white/10"
                                         aria-label="Increase weight"

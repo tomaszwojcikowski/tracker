@@ -397,6 +397,15 @@
           "minimum": 0,
           "description": "Pause at top position in seconds"
         },
+        "isEmom": {
+          "type": ["boolean", "null"],
+          "description": "Whether this exercise uses EMOM (Every Minute On the Minute) timing"
+        },
+        "supersetGroup": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "Superset group ID. Exercises with the same supersetGroup value are performed together as a superset"
+        },
         "reps": {
           "type": ["string", "null"],
           "description": "DEPRECATED: Use repsType, repsValue, repsMin, repsMax instead"

@@ -619,7 +619,9 @@
                     "loadUnit": "kg",
                     "loadPerHand": true,
                     "repsType": "reps",
-                    "repsValue": 8
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1
                   },
                   {
                     "order": 12,
@@ -632,7 +634,9 @@
                     "loadUnit": "kg",
                     "loadPerHand": true,
                     "repsType": "reps",
-                    "repsValue": 8
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1
                   },
                   {
                     "order": 13,
@@ -645,7 +649,9 @@
                     "loadUnit": "kg",
                     "repsType": "reps",
                     "repsMin": 12,
-                    "repsMax": 15
+                    "repsMax": 15,
+                    "isEmom": true,
+                    "supersetGroup": 1
                   },
                   {
                     "order": 14,
@@ -2472,7 +2478,8 @@
                     "repsValue": 4,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight"
+                    "loadUnit": "bodyweight",
+                    "isEmom": true
                   },
                   {
                     "order": 10,
@@ -2910,7 +2917,9 @@
                     "loadUnit": "kg",
                     "loadPerHand": true,
                     "repsType": "reps",
-                    "repsValue": 8
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 3
                   },
                   {
                     "order": 12,
@@ -2923,7 +2932,9 @@
                     "loadUnit": "kg",
                     "loadPerHand": true,
                     "repsType": "reps",
-                    "repsValue": 8
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 3
                   },
                   {
                     "order": 13,
@@ -2935,7 +2946,9 @@
                     "loadMax": 5,
                     "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 15
+                    "repsValue": 15,
+                    "isEmom": true,
+                    "supersetGroup": 3
                   },
                   {
                     "order": 14,
@@ -3095,7 +3108,8 @@
                     "repsValue": 4,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight"
+                    "loadUnit": "bodyweight",
+                    "isEmom": true
                   },
                   {
                     "order": 9,
@@ -3641,7 +3655,8 @@
                     "repsValue": 3,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight"
+                    "loadUnit": "bodyweight",
+                    "isEmom": true
                   },
                   {
                     "order": 9,
@@ -4186,7 +4201,8 @@
                     "repsValue": 3,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight"
+                    "loadUnit": "bodyweight",
+                    "isEmom": true
                   },
                   {
                     "order": 9,

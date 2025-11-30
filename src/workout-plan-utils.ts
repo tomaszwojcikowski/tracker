@@ -164,6 +164,10 @@ export interface ScheduleEntry {
   repsRange?: RepsRange;
   /** Parsed tempo data */
   tempoRange?: TempoRange;
+  /** Whether this exercise uses EMOM timing */
+  isEmom?: boolean;
+  /** Superset group ID */
+  supersetGroup?: number;
 }
 
 /**
@@ -231,6 +235,12 @@ export interface V2Exercise {
   tempoConcentric?: number;
   /** Pause at top position in seconds */
   tempoPauseTop?: number;
+
+  // ---- EMOM and Superset fields ----
+  /** Whether this exercise uses EMOM (Every Minute On the Minute) timing */
+  isEmom?: boolean;
+  /** Superset group ID. Exercises with the same supersetGroup value are performed together */
+  supersetGroup?: number;
 }
 
 /**
@@ -566,6 +576,9 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             repsRange: repsRange || undefined,
             // Include parsed tempo
             tempoRange,
+            // EMOM and superset fields
+            isEmom: exercise.isEmom,
+            supersetGroup: exercise.supersetGroup,
           });
         });
       });

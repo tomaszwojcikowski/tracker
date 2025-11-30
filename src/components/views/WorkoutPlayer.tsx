@@ -14,7 +14,7 @@ import { ExerciseDetailModal } from '../modals';
 import { safeGetJSON, safeSetJSON } from '../../utils/storage';
 import { useHaptic, useSwipe, useDebounce, type HapticFeedback } from '../../hooks';
 import {
-    Flame, Dumbbell, Snowflake, Activity, ChevronDown, ChevronUp, Timer, Repeat, Check, Plus, CheckCheck, Minus, PlusCircle, X, CheckCircle2, LayoutGrid, LayoutList
+    Flame, Dumbbell, Snowflake, Activity, ChevronDown, ChevronUp, Timer, Repeat, Check, Plus, CheckCheck, Minus, PlusCircle, X, CheckCircle2, LayoutGrid, LayoutList, Link, Zap
 } from 'lucide-react';
 import {
     DEBOUNCE_DELAY_MS,
@@ -998,6 +998,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 isBodyweight={ex.isBodyweight}
                                                 restTime={ex.rest}
                                                 isFirstIncomplete={isFirstIncomplete}
+                                                isEmom={ex.isEmom}
+                                                supersetGroup={ex.supersetGroup}
+                                                supersetPosition={ex.supersetPosition}
                                                 haptic={haptic}
                                                 onToggleSet={toggleSet}
                                                 onWeightChange={handleWeightChange}
@@ -1013,16 +1016,48 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                     const hasHistory = getExerciseHistory(ex.name).length > 0;
                                     const isCollapsed = isExerciseCollapsed(exId);
 
+                                    // Determine superset connector styling
+                                    const hasSupersetGroup = ex.supersetGroup !== undefined;
+                                    const isFirstInSuperset = ex.supersetPosition === 'first';
+                                    const isMiddleInSuperset = ex.supersetPosition === 'middle';
+                                    const isLastInSuperset = ex.supersetPosition === 'last';
+                                    const showSupersetConnectorTop = isMiddleInSuperset || isLastInSuperset;
+                                    const showSupersetConnectorBottom = isFirstInSuperset || isMiddleInSuperset;
+
                                     return (
                                         <div key={eIdx} id={exId} className="relative scroll-mt-16">
+                                            {/* Superset Connector Line (vertical line on the left) */}
+                                            {hasSupersetGroup && (
+                                                <>
+                                                    {/* Top connector */}
+                                                    {showSupersetConnectorTop && (
+                                                        <div className="absolute left-2 top-0 w-0.5 h-3 bg-gradient-to-b from-amber-500/80 to-amber-500 z-20" />
+                                                    )}
+                                                    {/* Bottom connector */}
+                                                    {showSupersetConnectorBottom && (
+                                                        <div className="absolute left-2 bottom-0 w-0.5 h-3 bg-gradient-to-t from-amber-500/80 to-amber-500 z-20" />
+                                                    )}
+                                                    {/* Superset badge for first exercise in group */}
+                                                    {isFirstInSuperset && (
+                                                        <div className="absolute -left-1 top-4 z-20">
+                                                            <div className="flex items-center gap-1 bg-amber-500 text-amber-950 text-[10px] font-bold px-1.5 py-0.5 rounded-r-md shadow-lg">
+                                                                <Link size={10} strokeWidth={3} />
+                                                                <span>SUPERSET</span>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </>
+                                            )}
                                             <div
                                                 className={`bg-sys-surface rounded-2xl p-4 border relative z-10 overflow-hidden ${
                                                     completedSets === totalSets
                                                         ? 'border-sys-success/30 bg-sys-success/5'
                                                         : isFirstIncomplete
                                                             ? 'border-sys-accent/50 bg-sys-accent/10'
-                                                            : 'border-white/5'
-                                                }`}
+                                                            : hasSupersetGroup
+                                                                ? 'border-amber-500/30 bg-amber-500/5'
+                                                                : 'border-white/5'
+                                                } ${hasSupersetGroup ? 'ml-4' : ''}`}
                                             >
                                                 {/* Progress bar */}
                                                 {completedSets > 0 && (
@@ -1035,7 +1070,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 {/* Exercise Header */}
                                                 <div className="flex justify-between items-start mb-3">
                                                     <div className="flex-1 pr-2">
-                                                        <div className="flex items-center gap-2">
+                                                        <div className="flex items-center gap-2 flex-wrap">
                                                             <button
                                                                 type="button"
                                                                 onClick={() => {
@@ -1051,6 +1086,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                     {ex.name}
                                                                 </h3>
                                                             </button>
+                                                            {/* EMOM Badge */}
+                                                            {ex.isEmom && (
+                                                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">
+                                                                    <Zap size={10} strokeWidth={3} />
+                                                                    EMOM
+                                                                </span>
+                                                            )}
                                                             {completedSets > 0 && (
                                                                 <span
                                                                     className={`text-xs font-bold px-2 py-0.5 rounded-full ${

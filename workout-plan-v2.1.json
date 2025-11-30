@@ -7013,19 +7013,20 @@
                     "isUnilateral": true
                   },
                   {
-                    "category": "core",
+                    "category": "main",
                     "sets": 3,
-                    "exerciseName": "Weighted Hollow Rocks",
-                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
-                    "repsValue": 15,
+                    "exerciseName": "Side Planks",
+                    "notes": "Core Recovery",
+                    "repsType": "time",
+                    "repsValue": 45,
+                    "repsUnit": "seconds",
+                    "repsPerSide": true,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
                     "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
+                    "supersetGroup": 1
                   },
                   {
                     "category": "cooldown",
@@ -7463,19 +7464,6 @@
                     "restSeconds": 60
                   },
                   {
-                    "category": "core",
-                    "sets": 3,
-                    "exerciseName": "Dragon Flags OR Weighted V-Ups",
-                    "notes": "Core Hard. Dragon Flags (negatives) — conditional (only if tendons feel excellent); Otherwise: Weighted V-Ups 3×8-10.",
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "restSeconds": 60,
-                    "progressionNotes": "Start 1.25kg. Progress only with perfect form."
-                  },
-                  {
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Bulgarian Split Squat",
@@ -7528,17 +7516,16 @@
                   {
                     "category": "core",
                     "sets": 3,
-                    "exerciseName": "Weighted Hollow Rocks",
-                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
+                    "exerciseName": "Dragon Flags OR Weighted V-Ups",
+                    "notes": "Core Hard. Dragon Flags (negatives) — conditional (only if tendons feel excellent); Otherwise: Weighted V-Ups 3×8-10.",
                     "loadMin": 3,
                     "loadMax": 5,
                     "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 15,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
+                    "repsValue": 8,
+                    "restSeconds": 60,
+                    "isUnilateral": false,
+                    "supersetGroup": 1
                   },
                   {
                     "category": "cooldown",
@@ -7957,7 +7944,7 @@
                     ]
                   },
                   {
-                    "category": "accessory",
+                    "category": "main",
                     "sets": 4,
                     "exerciseName": "Weighted Dips",
                     "notes": "4×5 per doc; Dip Governor may alter exercise.",
@@ -7972,20 +7959,6 @@
                       "Weighted Bench Dips"
                     ],
                     "progressionNotes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately."
-                  },
-                  {
-                    "category": "core",
-                    "sets": 3,
-                    "exerciseName": "Side Planks",
-                    "notes": "Core Recovery",
-                    "repsType": "time",
-                    "repsValue": 45,
-                    "repsUnit": "seconds",
-                    "repsPerSide": true,
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60
                   },
                   {
                     "category": "accessory",
@@ -8051,19 +8024,19 @@
                     "isUnilateral": true
                   },
                   {
-                    "category": "core",
+                    "category": "main",
                     "sets": 3,
-                    "exerciseName": "Weighted Hollow Rocks",
-                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
-                    "repsValue": 15,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
+                    "exerciseName": "Side Planks",
+                    "notes": "Core Recovery",
+                    "repsType": "time",
+                    "repsValue": 45,
+                    "repsUnit": "seconds",
+                    "repsPerSide": true,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "supersetGroup": 1
                   },
                   {
                     "category": "cooldown",
@@ -8758,19 +8731,7 @@
                     "loadUnit": "bodyweight",
                     "restSeconds": 120
                   },
-                  {
-                    "category": "core",
-                    "sets": 3,
-                    "exerciseName": "Weighted V-Ups",
-                    "notes": "Core Hard. Hard Core. Keep biceps by ears.",
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
-                    "repsValue": 10,
-                    "restSeconds": 60,
-                    "progressionNotes": "Start 1.25kg. Progress only with perfect form."
-                  },
+
                   {
                     "category": "main",
                     "sets": 3,
@@ -8822,19 +8783,18 @@
                     "isUnilateral": true
                   },
                   {
-                    "category": "core",
+                    "category": "main",
                     "sets": 3,
-                    "exerciseName": "Weighted Hollow Rocks",
-                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
+                    "exerciseName": "Weighted V-Ups",
+                    "notes": "Core Hard. Hard Core. Keep biceps by ears.",
                     "loadMin": 3,
                     "loadMax": 5,
                     "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 15,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
+                    "repsValue": 10,
+                    "restSeconds": 60,
+                    "progressionNotes": "Start 1.25kg. Progress only with perfect form.",
+                    "supersetGroup": 1
                   },
                   {
                     "category": "cooldown",

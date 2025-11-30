@@ -19,7 +19,7 @@ describe('useExerciseCollapse', () => {
             const { result } = renderHook(() =>
                 useExerciseCollapse({ firstIncompleteExerciseId: 'exercise_1' })
             );
-            
+
             expect(result.current.manualOverrides).toEqual({});
         });
     });
@@ -29,7 +29,7 @@ describe('useExerciseCollapse', () => {
             const { result } = renderHook(() =>
                 useExerciseCollapse({ firstIncompleteExerciseId: 'exercise_1' })
             );
-            
+
             expect(result.current.isCollapsed('exercise_1')).toBe(false);
         });
 
@@ -37,7 +37,7 @@ describe('useExerciseCollapse', () => {
             const { result } = renderHook(() =>
                 useExerciseCollapse({ firstIncompleteExerciseId: 'exercise_1' })
             );
-            
+
             expect(result.current.isCollapsed('exercise_2')).toBe(true);
             expect(result.current.isCollapsed('exercise_3')).toBe(true);
         });
@@ -46,7 +46,7 @@ describe('useExerciseCollapse', () => {
             const { result } = renderHook(() =>
                 useExerciseCollapse({ firstIncompleteExerciseId: null })
             );
-            
+
             expect(result.current.isCollapsed('exercise_1')).toBe(true);
             expect(result.current.isCollapsed('exercise_2')).toBe(true);
         });
@@ -57,12 +57,12 @@ describe('useExerciseCollapse', () => {
                     useExerciseCollapse({ firstIncompleteExerciseId }),
                 { initialProps: { firstIncompleteExerciseId: 'exercise_1' } }
             );
-            
+
             expect(result.current.isCollapsed('exercise_1')).toBe(false);
             expect(result.current.isCollapsed('exercise_2')).toBe(true);
-            
+
             rerender({ firstIncompleteExerciseId: 'exercise_2' });
-            
+
             expect(result.current.isCollapsed('exercise_1')).toBe(true);
             expect(result.current.isCollapsed('exercise_2')).toBe(false);
         });
@@ -73,14 +73,14 @@ describe('useExerciseCollapse', () => {
             const { result } = renderHook(() =>
                 useExerciseCollapse({ firstIncompleteExerciseId: 'exercise_1' })
             );
-            
+
             // exercise_2 is collapsed by default
             expect(result.current.isCollapsed('exercise_2')).toBe(true);
-            
+
             act(() => {
                 result.current.toggle('exercise_2');
             });
-            
+
             expect(result.current.isCollapsed('exercise_2')).toBe(false);
         });
 
@@ -88,20 +88,20 @@ describe('useExerciseCollapse', () => {
             const { result } = renderHook(() =>
                 useExerciseCollapse({ firstIncompleteExerciseId: 'exercise_1' })
             );
-            
+
             // exercise_1 is expanded by default
             expect(result.current.isCollapsed('exercise_1')).toBe(false);
-            
+
             act(() => {
                 result.current.toggle('exercise_1');
             });
-            
+
             expect(result.current.isCollapsed('exercise_1')).toBe(false); // First toggle sets override to true (expanded)
-            
+
             act(() => {
                 result.current.toggle('exercise_1');
             });
-            
+
             expect(result.current.isCollapsed('exercise_1')).toBe(true); // Second toggle sets override to false (collapsed)
         });
 
@@ -109,11 +109,11 @@ describe('useExerciseCollapse', () => {
             const { result } = renderHook(() =>
                 useExerciseCollapse({ firstIncompleteExerciseId: 'exercise_1' })
             );
-            
+
             act(() => {
                 result.current.toggle('exercise_2');
             });
-            
+
             expect(result.current.manualOverrides).toHaveProperty('exercise_2');
         });
 
@@ -123,17 +123,17 @@ describe('useExerciseCollapse', () => {
                     useExerciseCollapse({ firstIncompleteExerciseId }),
                 { initialProps: { firstIncompleteExerciseId: 'exercise_1' } }
             );
-            
+
             // Manually expand exercise_3
             act(() => {
                 result.current.toggle('exercise_3');
             });
-            
+
             expect(result.current.isCollapsed('exercise_3')).toBe(false);
-            
+
             // Change first incomplete
             rerender({ firstIncompleteExerciseId: 'exercise_2' });
-            
+
             // exercise_3 should still be expanded due to manual override
             expect(result.current.isCollapsed('exercise_3')).toBe(false);
         });
@@ -144,12 +144,12 @@ describe('useExerciseCollapse', () => {
             const { result } = renderHook(() =>
                 useExerciseCollapse({ firstIncompleteExerciseId: 'exercise_1' })
             );
-            
+
             act(() => {
                 result.current.toggle('exercise_2'); // Expand exercise_2
                 result.current.toggle('exercise_3'); // Expand exercise_3
             });
-            
+
             expect(result.current.isCollapsed('exercise_1')).toBe(false); // Auto expanded
             expect(result.current.isCollapsed('exercise_2')).toBe(false); // Manually expanded
             expect(result.current.isCollapsed('exercise_3')).toBe(false); // Manually expanded
@@ -160,21 +160,21 @@ describe('useExerciseCollapse', () => {
             const { result } = renderHook(() =>
                 useExerciseCollapse({ firstIncompleteExerciseId: 'exercise_1' })
             );
-            
+
             // Expand exercise_2
             act(() => {
                 result.current.toggle('exercise_2');
             });
-            
+
             expect(result.current.isCollapsed('exercise_2')).toBe(false);
-            
+
             // Toggle exercise_2 again to collapse
             act(() => {
                 result.current.toggle('exercise_2');
             });
-            
+
             expect(result.current.isCollapsed('exercise_2')).toBe(true);
-            
+
             // Other exercises should be unaffected
             expect(result.current.isCollapsed('exercise_1')).toBe(false);
         });
@@ -185,7 +185,7 @@ describe('useExerciseCollapse', () => {
             const { result } = renderHook(() =>
                 useExerciseCollapse({ firstIncompleteExerciseId: '' })
             );
-            
+
             expect(result.current.isCollapsed('')).toBe(false); // Empty matches empty
             expect(result.current.isCollapsed('exercise_1')).toBe(true);
         });
@@ -194,14 +194,14 @@ describe('useExerciseCollapse', () => {
             const { result } = renderHook(() =>
                 useExerciseCollapse({ firstIncompleteExerciseId: 'exercise_1' })
             );
-            
+
             // Rapid toggles should settle correctly
             act(() => {
                 result.current.toggle('exercise_2');
                 result.current.toggle('exercise_2');
                 result.current.toggle('exercise_2');
             });
-            
+
             // After 3 toggles: undefined -> true -> false -> true
             // isCollapsed returns !override, so true -> false -> true -> false
             expect(result.current.manualOverrides['exercise_2']).toBe(true);

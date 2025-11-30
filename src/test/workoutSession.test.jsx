@@ -73,17 +73,17 @@ describe('Workout Session Utilities', () => {
             const logs = {
                 bench_press: { sets: [true, false], weight: '50', rpe: { 0: '8' } },
             };
-            
+
             const result = getExerciseLogEntry(logs, 'bench_press');
-            
+
             expect(result).toEqual({ sets: [true, false], weight: '50', rpe: { 0: '8' } });
         });
 
         it('should return empty object for missing entry', () => {
             const logs = {};
-            
+
             const result = getExerciseLogEntry(logs, 'squats');
-            
+
             expect(result).toEqual({});
         });
 
@@ -91,10 +91,10 @@ describe('Workout Session Utilities', () => {
             const logs = {
                 some_id: { id: 'test', name: 'Test', sets: 3 }, // This is AddedExercise format
             };
-            
+
             // This should be handled by the type guard
             const result = getExerciseLogEntry(logs, 'some_id');
-            
+
             expect(result).toEqual({});
         });
 
@@ -102,9 +102,9 @@ describe('Workout Session Utilities', () => {
             const logs = {
                 bench_press: null,
             };
-            
+
             const result = getExerciseLogEntry(logs, 'bench_press');
-            
+
             expect(result).toEqual({});
         });
     });
@@ -115,9 +115,9 @@ describe('Workout Session Utilities', () => {
                 { id: 'ex1', name: 'Exercise 1', sets: 3 },
                 { id: 'ex2', name: 'Exercise 2', sets: 4, weight: '20', rest: 60 },
             ];
-            
+
             const result = normalizeAddedExercises(input);
-            
+
             expect(result).toHaveLength(2);
             expect(result[0]).toEqual({ id: 'ex1', name: 'Exercise 1', sets: 3 });
         });
@@ -130,9 +130,9 @@ describe('Workout Session Utilities', () => {
                 null,
                 undefined,
             ];
-            
+
             const result = normalizeAddedExercises(input);
-            
+
             expect(result).toHaveLength(1);
         });
 

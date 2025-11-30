@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useHaptic, useDebounce, useLucideIcons } from '../../hooks';
-import { DEBOUNCE_DELAY_MS } from '../../constants';
+import { DEBOUNCE_DELAY_MS, getShortExerciseName } from '../../constants';
 import type { Exercise } from '../../types';
 
 // Exercise stats type for display
@@ -345,15 +345,21 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
                                 className="stagger-item w-full bg-sys-surface rounded-2xl p-4 border border-white/5 hover:border-sys-accent/30 transition-all active:scale-[0.98] text-left"
                             >
                                 <div className="flex items-start justify-between gap-3">
-                                    <div className="flex-1">
+                                    <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <h4 className="text-base font-semibold text-white">{exercise.name}</h4>
+                                            <h4 className="text-base font-semibold text-white truncate">{exercise.name}</h4>
                                             {isTracked && stats && (
-                                                <span className="text-xs px-2 py-0.5 bg-sys-success/20 rounded-full text-sys-success font-bold">
+                                                <span className="text-xs px-2 py-0.5 bg-sys-success/20 rounded-full text-sys-success font-bold flex-shrink-0">
                                                     {stats.totalWorkouts}
                                                 </span>
                                             )}
                                         </div>
+                                        {/* Show short name if different from full name */}
+                                        {getShortExerciseName(exercise.name) !== exercise.name && (
+                                            <p className="text-xs text-sys-accent mb-1">
+                                                Short: {getShortExerciseName(exercise.name)}
+                                            </p>
+                                        )}
                                         <p className="text-xs text-sys-onSurfaceVar mb-2">
                                             {exercise.primaryMuscles.join(', ')}
                                         </p>

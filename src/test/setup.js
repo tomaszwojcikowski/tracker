@@ -23,10 +23,12 @@ global.localStorage = localStorageMock;
 // Mock lucide-react icons
 vi.mock('lucide-react', () => ({
   Check: () => 'Check',
+  CheckCheck: () => 'CheckCheck',
   ChevronRight: () => 'ChevronRight',
   ChevronDown: () => 'ChevronDown',
   ChevronLeft: () => 'ChevronLeft',
   Plus: () => 'Plus',
+  Minus: () => 'Minus',
   Calendar: () => 'Calendar',
   Dumbbell: () => 'Dumbbell',
   BookOpen: () => 'BookOpen',
@@ -42,4 +44,5 @@ vi.mock('lucide-react', () => ({
   Palette: () => 'Palette',
   History: () => 'History',
   Settings: () => 'Settings',
+  Zap: () => 'Zap',
 }));

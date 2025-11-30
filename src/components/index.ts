@@ -95,6 +95,10 @@ export type { LoadingScreenProps, ErrorScreenProps } from './screens';
 export { CompactExerciseRow } from './CompactExerciseRow';
 export type { CompactExerciseRowProps } from './CompactExerciseRow';
 
+// Superset group component
+export { SupersetGroup } from './SupersetGroup';
+export type { SupersetGroupProps, SupersetExercise } from './SupersetGroup';
+
 // RPE components
 export { RPESelector, RPEBadge } from './RPESelector';
 export type { RPESelectorProps, RPEBadgeProps } from './RPESelector';

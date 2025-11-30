@@ -9,6 +9,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap, Info } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
+import { getShortExerciseName } from '../constants';
 import { NotesModal } from './modals';
 import type { HapticFeedback } from '../hooks';
 
@@ -201,6 +202,9 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     // Memoize hasIncompleteSets - MUST be before any early returns to follow Rules of Hooks
     const hasIncompleteSets = useMemo(() => sets.some((s) => !s), [sets]);
 
+    // Get short name for display
+    const displayName = useMemo(() => getShortExerciseName(name), [name]);
+
     // Only show complete-all button when there are 2+ sets and incomplete sets
     const showCompleteAllButton = totalSets > 1 && hasIncompleteSets;
 
@@ -238,8 +242,8 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                     <div className="flex items-center justify-center h-5 w-5 rounded-full bg-sys-success text-white flex-shrink-0">
                         <Check size={12} strokeWidth={3} />
                     </div>
-                    <span className="flex-1 text-sm font-medium text-white truncate text-left">
-                        {name}
+                    <span className="flex-1 text-sm font-medium text-white truncate text-left" title={name}>
+                        {displayName}
                     </span>
                     {isEmom && (
                         <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-purple-500/20 text-purple-400 flex-shrink-0">
@@ -299,8 +303,8 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                             <Zap size={8} strokeWidth={3} />
                         </span>
                     )}
-                    <span className={`text-sm font-semibold text-white ${isExpanded ? '' : 'truncate'}`}>
-                        {name}
+                    <span className="text-sm font-semibold text-white truncate" title={name}>
+                        {displayName}
                     </span>
                     {(prescription || !isBodyweight) && (
                         <ChevronDown

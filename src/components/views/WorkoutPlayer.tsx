@@ -7,6 +7,8 @@
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { ActionBar } from '../ActionBar';
 import { CompactExerciseRow } from '../CompactExerciseRow';
+import { SupersetGroup } from '../SupersetGroup';
+import type { SupersetExercise } from '../SupersetGroup';
 import { RPESelector } from '../RPESelector';
 import { GestureHint } from '../GestureHint';
 import { RecentExercisesList, addRecentExercise } from '../RecentExercises';
@@ -997,45 +999,122 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                             {/* Exercises */}
                             <div className={compactView ? 'space-y-1' : 'space-y-3'}>
-                                {section.exercises.map((ex: WorkoutExercise, eIdx: number) => {
-                                    const defaultSets = ex.sets || 3;
-                                    const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
-                                    const exerciseLog = getExerciseLogEntry(logs, exId);
-                                    const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
-                                    const isFirstIncomplete = exId === firstIncompleteExerciseId;
-
-                                    // Compact View Rendering
+                                {(() => {
+                                    // For compact view, group superset exercises together
                                     if (compactView) {
-                                        return (
-                                            <CompactExerciseRow
-                                                key={eIdx}
-                                                exId={exId}
-                                                name={ex.name}
-                                                prescription={ex.prescription}
-                                                notes={ex.notes}
-                                                sets={currentSetArray}
-                                                defaultSets={defaultSets}
-                                                weight={exerciseLog.weight || ''}
-                                                isBodyweight={ex.isBodyweight}
-                                                restTime={ex.rest}
-                                                isFirstIncomplete={isFirstIncomplete}
-                                                isEmom={ex.isEmom}
-                                                supersetGroup={ex.supersetGroup}
-                                                supersetPosition={ex.supersetPosition}
-                                                haptic={haptic}
-                                                onToggleSet={toggleSet}
-                                                onWeightChange={handleWeightChange}
-                                                onAddSet={addSet}
-                                                onCompleteAllSets={completeAllSets}
-                                            />
-                                        );
+                                        const renderedGroups = new Set<number>();
+                                        const elements: React.ReactNode[] = [];
+
+                                        section.exercises.forEach((ex: WorkoutExercise, eIdx: number) => {
+                                            const defaultSets = ex.sets || 3;
+                                            const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                                            const exerciseLog = getExerciseLogEntry(logs, exId);
+                                            const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
+                                            const isFirstIncomplete = exId === firstIncompleteExerciseId;
+
+                                            // Check if this exercise is part of a superset group
+                                            if (ex.supersetGroup !== undefined && ex.isEmom) {
+                                                // Skip if we already rendered this group
+                                                if (renderedGroups.has(ex.supersetGroup)) {
+                                                    return;
+                                                }
+                                                renderedGroups.add(ex.supersetGroup);
+
+                                                // Collect all exercises in this superset group
+                                                const groupExercises = section.exercises.filter(
+                                                    (e) => e.supersetGroup === ex.supersetGroup
+                                                );
+
+                                                // Build SupersetExercise array
+                                                const supersetExercises: SupersetExercise[] = groupExercises.map((gex) => {
+                                                    const gexId = gex.name.replace(/\s+/g, '_').toLowerCase();
+                                                    const gexLog = getExerciseLogEntry(logs, gexId);
+                                                    const gexDefaultSets = gex.sets || 3;
+                                                    const gexSetArray = gexLog.sets || new Array(gexDefaultSets).fill(false);
+                                                    return {
+                                                        exId: gexId,
+                                                        name: gex.name,
+                                                        prescription: gex.prescription,
+                                                        notes: gex.notes,
+                                                        sets: gexSetArray,
+                                                        defaultSets: gexDefaultSets,
+                                                        weight: gexLog.weight || '',
+                                                        isBodyweight: gex.isBodyweight,
+                                                        restTime: gex.rest,
+                                                    };
+                                                });
+
+                                                // Check if any exercise in the group is first incomplete
+                                                const groupHasFirstIncomplete = groupExercises.some(
+                                                    (gex) => gex.name.replace(/\s+/g, '_').toLowerCase() === firstIncompleteExerciseId
+                                                );
+
+                                                elements.push(
+                                                    <SupersetGroup
+                                                        key={`superset-${ex.supersetGroup}`}
+                                                        exercises={supersetExercises}
+                                                        isFirstIncomplete={groupHasFirstIncomplete}
+                                                        haptic={haptic}
+                                                        onToggleRound={(exerciseIds, roundIndex, defaultSets, restTime) => {
+                                                            // Toggle the round for all exercises in the group
+                                                            exerciseIds.forEach((eid) => {
+                                                                toggleSet(eid, roundIndex, defaultSets, restTime);
+                                                            });
+                                                        }}
+                                                        onWeightChange={handleWeightChange}
+                                                        onCompleteAllRounds={(exerciseIds, defaultSets) => {
+                                                            // Complete all sets for all exercises
+                                                            exerciseIds.forEach((eid) => {
+                                                                completeAllSets(eid, defaultSets);
+                                                            });
+                                                        }}
+                                                    />
+                                                );
+                                                return;
+                                            }
+
+                                            // Regular exercise (not in superset)
+                                            elements.push(
+                                                <CompactExerciseRow
+                                                    key={eIdx}
+                                                    exId={exId}
+                                                    name={ex.name}
+                                                    prescription={ex.prescription}
+                                                    notes={ex.notes}
+                                                    sets={currentSetArray}
+                                                    defaultSets={defaultSets}
+                                                    weight={exerciseLog.weight || ''}
+                                                    isBodyweight={ex.isBodyweight}
+                                                    restTime={ex.rest}
+                                                    isFirstIncomplete={isFirstIncomplete}
+                                                    isEmom={ex.isEmom}
+                                                    supersetGroup={ex.supersetGroup}
+                                                    supersetPosition={ex.supersetPosition}
+                                                    haptic={haptic}
+                                                    onToggleSet={toggleSet}
+                                                    onWeightChange={handleWeightChange}
+                                                    onAddSet={addSet}
+                                                    onCompleteAllSets={completeAllSets}
+                                                />
+                                            );
+                                        });
+
+                                        return elements;
                                     }
 
-                                    // Card View Rendering (original)
-                                    const completedSets = currentSetArray.filter((s) => s).length;
-                                    const totalSets = currentSetArray.length;
-                                    const hasHistory = getExerciseHistory(ex.name).length > 0;
-                                    const isCollapsed = isExerciseCollapsed(exId);
+                                    // Card view - render exercises normally
+                                    return section.exercises.map((ex: WorkoutExercise, eIdx: number) => {
+                                        const defaultSets = ex.sets || 3;
+                                        const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                                        const exerciseLog = getExerciseLogEntry(logs, exId);
+                                        const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
+
+                                        // Card View Rendering (original)
+                                        const completedSets = currentSetArray.filter((s) => s).length;
+                                        const totalSets = currentSetArray.length;
+                                        const hasHistory = getExerciseHistory(ex.name).length > 0;
+                                        const isCollapsed = isExerciseCollapsed(exId);
+                                        const isFirstIncomplete = exId === firstIncompleteExerciseId;
 
                                     // Determine superset connector styling
                                     const hasSupersetGroup = ex.supersetGroup !== undefined;
@@ -1336,7 +1415,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                             </div>
                                         </div>
                                     );
-                                })}
+                                });
+                                })()}
                             </div>
                         </div>
                     );

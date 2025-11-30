@@ -70,7 +70,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -84,7 +83,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -98,7 +96,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -112,7 +109,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -125,7 +121,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -143,7 +138,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -166,7 +160,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -184,7 +177,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "skill",
                     "sets": 3,
                     "exerciseName": "Skill: Crow Stand",
@@ -199,7 +191,6 @@
                     "restSeconds": 90
                   },
                   {
-                    "order": 9,
                     "category": "main",
                     "sets": 4,
                     "exerciseName": "Pull-Up Ladders",
@@ -217,7 +208,6 @@
                     "progressionNotes": "Volume accumulation phase. Do not fail sets."
                   },
                   {
-                    "order": 10,
                     "category": "accessory",
                     "sets": 3,
                     "exerciseName": "Ring Rows",
@@ -235,7 +225,6 @@
                     ]
                   },
                   {
-                    "order": 11,
                     "category": "accessory",
                     "sets": 3,
                     "exerciseName": "Incline Push-Ups",
@@ -253,7 +242,6 @@
                     ]
                   },
                   {
-                    "order": 12,
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Hollow Rocks",
@@ -271,7 +259,6 @@
                     ]
                   },
                   {
-                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -285,10 +272,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -299,7 +285,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -313,7 +298,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 16,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -341,7 +325,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "main",
                     "sets": 4,
                     "exerciseName": "RDL",
@@ -354,7 +337,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 2,
                     "category": "accessory",
                     "sets": 3,
                     "exerciseName": "Weighted Glute Bridge",
@@ -371,7 +353,6 @@
                     ]
                   },
                   {
-                    "order": 3,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Goblet Squats",
@@ -388,7 +369,6 @@
                     ]
                   },
                   {
-                    "order": 4,
                     "category": "accessory",
                     "sets": 3,
                     "exerciseName": "Face Pulls",
@@ -402,7 +382,6 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 5,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Couch Stretch",
@@ -417,7 +396,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 6,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Light Weighted Jefferson Curl",
@@ -436,7 +414,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "90/90 Hip Rotations",
@@ -459,7 +436,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -473,7 +449,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -487,7 +462,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -501,7 +475,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -514,7 +487,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -532,7 +504,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -555,7 +526,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -573,7 +543,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "skill",
                     "sets": 3,
                     "exerciseName": "Skill: HSPU Volume",
@@ -586,7 +555,6 @@
                     "restSeconds": 90
                   },
                   {
-                    "order": 9,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Weighted Pull-Ups",
@@ -610,7 +578,6 @@
                     ]
                   },
                   {
-                    "order": 10,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Dips",
@@ -633,7 +600,6 @@
                     ]
                   },
                   {
-                    "order": 11,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Bulgarian Split Squat (Left)",
@@ -658,7 +624,6 @@
                     ]
                   },
                   {
-                    "order": 12,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Bulgarian Split Squat (Right)",
@@ -683,7 +648,6 @@
                     ]
                   },
                   {
-                    "order": 13,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Weighted Hollow Rocks",
@@ -700,7 +664,6 @@
                     "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
                   },
                   {
-                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -715,7 +678,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -729,7 +691,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 16,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -762,7 +723,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -776,7 +736,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -790,7 +749,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -804,7 +762,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -817,7 +774,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -835,7 +791,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -858,7 +813,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -876,7 +830,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 5,
                     "exerciseName": "Pull-Up Ladders",
@@ -894,7 +847,56 @@
                     "progressionNotes": "Volume accumulation phase. Do not fail sets."
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Ring Rows",
+                    "notes": "Accessory. Tempo 2-1-1-0. Stop if sharp pain.",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Dumbbell Rows",
+                      "Cable Rows",
+                      "Inverted Rows"
+                    ]
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Incline Push-Ups",
+                    "notes": "Accessory. Tempo 2-1-1-0.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Dips",
+                      "Diamond Push-Ups"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "Core. Ground-Based. Watch for elbow tightness.",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "V-Ups",
+                      "Dead Bugs"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -908,10 +910,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -922,7 +923,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -936,7 +936,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -964,7 +963,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "main",
                     "sets": 4,
                     "exerciseName": "RDL",
@@ -977,7 +975,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 2,
                     "category": "accessory",
                     "sets": 3,
                     "exerciseName": "Weighted Glute Bridge",
@@ -994,7 +991,6 @@
                     ]
                   },
                   {
-                    "order": 3,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Goblet Squats",
@@ -1011,7 +1007,6 @@
                     ]
                   },
                   {
-                    "order": 4,
                     "category": "accessory",
                     "sets": 3,
                     "exerciseName": "Face Pulls",
@@ -1025,7 +1020,6 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 5,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Couch Stretch",
@@ -1040,7 +1034,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 6,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Light Weighted Jefferson Curl",
@@ -1059,7 +1052,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "90/90 Hip Rotations",
@@ -1082,7 +1074,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -1096,7 +1087,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -1110,7 +1100,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -1124,7 +1113,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -1137,7 +1125,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -1155,7 +1142,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -1178,7 +1164,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -1196,7 +1181,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Weighted Pull-Ups",
@@ -1220,7 +1204,6 @@
                     ]
                   },
                   {
-                    "order": 9,
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Ground-Based Flutter Kicks",
@@ -1234,7 +1217,76 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 10,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Dips",
+                    "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Push-Ups",
+                      "Bench Dips",
+                      "Chest Press Machine"
+                    ],
+                    "progressionNotes": "Double Progression Rule applies.",
+                    "cues": [
+                      "Shoulders down",
+                      "Don't flair elbows"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 8,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 8,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -1249,7 +1301,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -1263,7 +1314,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -1296,7 +1346,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -1310,7 +1359,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -1324,7 +1372,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -1338,7 +1385,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -1351,7 +1397,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -1369,7 +1414,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -1392,7 +1436,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -1410,7 +1453,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 5,
                     "exerciseName": "Pull-Up Ladders",
@@ -1428,7 +1470,56 @@
                     "progressionNotes": "Volume accumulation phase. Do not fail sets."
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Ring Rows",
+                    "notes": "Accessory. Tempo 2-1-1-0. Stop if sharp pain.",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Dumbbell Rows",
+                      "Cable Rows",
+                      "Inverted Rows"
+                    ]
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Incline Push-Ups",
+                    "notes": "Accessory. Tempo 2-1-1-0.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Dips",
+                      "Diamond Push-Ups"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "Core. Ground-Based. Watch for elbow tightness.",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "V-Ups",
+                      "Dead Bugs"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -1442,10 +1533,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -1456,7 +1546,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -1470,7 +1559,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -1498,7 +1586,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "main",
                     "sets": 4,
                     "exerciseName": "RDL",
@@ -1511,7 +1598,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 2,
                     "category": "accessory",
                     "sets": 3,
                     "exerciseName": "Weighted Glute Bridge",
@@ -1528,7 +1614,6 @@
                     ]
                   },
                   {
-                    "order": 3,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Goblet Squats",
@@ -1545,7 +1630,6 @@
                     ]
                   },
                   {
-                    "order": 4,
                     "category": "accessory",
                     "sets": 3,
                     "exerciseName": "Face Pulls",
@@ -1559,7 +1643,6 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 5,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Couch Stretch",
@@ -1574,7 +1657,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 6,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Light Weighted Jefferson Curl",
@@ -1593,7 +1675,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "90/90 Hip Rotations",
@@ -1616,7 +1697,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -1630,7 +1710,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -1644,7 +1723,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -1658,7 +1736,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -1671,7 +1748,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -1689,7 +1765,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -1712,7 +1787,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -1730,7 +1804,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Weighted Pull-Ups",
@@ -1754,7 +1827,6 @@
                     ]
                   },
                   {
-                    "order": 9,
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Weighted V-Ups",
@@ -1769,7 +1841,76 @@
                     "progressionNotes": "Start 1.25kg. Progress only with perfect form."
                   },
                   {
-                    "order": 10,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Dips",
+                    "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Push-Ups",
+                      "Bench Dips",
+                      "Chest Press Machine"
+                    ],
+                    "progressionNotes": "Double Progression Rule applies.",
+                    "cues": [
+                      "Shoulders down",
+                      "Don't flair elbows"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 8,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 8,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -1784,7 +1925,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -1798,7 +1938,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -1831,7 +1970,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -1845,7 +1983,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -1859,7 +1996,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -1873,7 +2009,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -1886,7 +2021,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -1904,7 +2038,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -1927,7 +2060,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -1945,7 +2077,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Pull-Up Ladders",
@@ -1963,7 +2094,56 @@
                     "progressionNotes": "Volume accumulation phase. Do not fail sets."
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Ring Rows",
+                    "notes": "Deload. Accessory. Tempo 2-1-1-0. Stop if sharp pain.",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Dumbbell Rows",
+                      "Cable Rows",
+                      "Inverted Rows"
+                    ]
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Incline Push-Ups",
+                    "notes": "Deload. Accessory. Tempo 2-1-1-0.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Dips",
+                      "Diamond Push-Ups"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 2,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "Deload. Core. Ground-Based. Watch for elbow tightness.",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "V-Ups",
+                      "Dead Bugs"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -1977,10 +2157,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -1991,7 +2170,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -2005,7 +2183,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -2033,7 +2210,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "main",
                     "sets": 4,
                     "exerciseName": "RDL",
@@ -2046,7 +2222,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 2,
                     "category": "accessory",
                     "sets": 3,
                     "exerciseName": "Weighted Glute Bridge",
@@ -2063,7 +2238,6 @@
                     ]
                   },
                   {
-                    "order": 3,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Goblet Squats",
@@ -2080,7 +2254,6 @@
                     ]
                   },
                   {
-                    "order": 4,
                     "category": "accessory",
                     "sets": 3,
                     "exerciseName": "Face Pulls",
@@ -2094,7 +2267,6 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 5,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Couch Stretch",
@@ -2109,7 +2281,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 6,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Light Weighted Jefferson Curl",
@@ -2128,7 +2299,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "90/90 Hip Rotations",
@@ -2151,7 +2321,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -2165,7 +2334,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -2179,7 +2347,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -2193,7 +2360,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -2206,7 +2372,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -2224,7 +2389,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -2247,7 +2411,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -2265,7 +2428,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Weighted Pull-Ups",
@@ -2289,7 +2451,76 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "main",
+                    "sets": 2,
+                    "exerciseName": "Dips",
+                    "notes": "Deload. Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Push-Ups",
+                      "Bench Dips",
+                      "Chest Press Machine"
+                    ],
+                    "progressionNotes": "Double Progression Rule applies.",
+                    "cues": [
+                      "Shoulders down",
+                      "Don't flair elbows"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 2,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "Deload. EMOM. Unilateral Leg Work.",
+                    "loadMin": 8,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 2,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "Deload. EMOM. Unilateral Leg Work.",
+                    "loadMin": 8,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -2304,7 +2535,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -2318,7 +2548,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -2361,7 +2590,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -2375,7 +2603,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -2389,7 +2616,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -2403,7 +2629,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -2416,7 +2641,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -2434,7 +2658,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -2457,7 +2680,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -2475,7 +2697,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "skill",
                     "sets": 3,
                     "exerciseName": "Skill: Tuck Planche Hold",
@@ -2495,7 +2716,6 @@
                     ]
                   },
                   {
-                    "order": 9,
                     "category": "main",
                     "sets": 8,
                     "exerciseName": "Pull-Up EMOM",
@@ -2509,7 +2729,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 10,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Feet-Elevated Ring Rows",
@@ -2531,7 +2750,6 @@
                     ]
                   },
                   {
-                    "order": 11,
                     "category": "accessory",
                     "sets": 3,
                     "exerciseName": "Parallette Push-Ups",
@@ -2549,7 +2767,23 @@
                     ]
                   },
                   {
-                    "order": 12,
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "Core. Ground-Based. Watch for elbow tightness.",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "V-Ups",
+                      "Dead Bugs"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -2563,10 +2797,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -2577,7 +2810,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -2591,7 +2823,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -2623,7 +2854,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -2637,7 +2867,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -2651,7 +2880,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -2665,7 +2893,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -2678,7 +2905,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -2696,7 +2922,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -2719,7 +2944,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -2737,7 +2961,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "skill",
                     "sets": 3,
                     "exerciseName": "Skill: PPPU Lean",
@@ -2754,7 +2977,6 @@
                     ]
                   },
                   {
-                    "order": 9,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Weighted Pull-Ups",
@@ -2778,7 +3000,6 @@
                     ]
                   },
                   {
-                    "order": 10,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Weighted Dips",
@@ -2797,7 +3018,6 @@
                     "progressionNotes": "Double Progression Rule: Hit top reps to add weight."
                   },
                   {
-                    "order": 11,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Bulgarian Split Squat (Left)",
@@ -2822,7 +3042,6 @@
                     ]
                   },
                   {
-                    "order": 12,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Bulgarian Split Squat (Right)",
@@ -2847,7 +3066,6 @@
                     ]
                   },
                   {
-                    "order": 13,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Weighted Hollow Rocks",
@@ -2863,7 +3081,6 @@
                     "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
                   },
                   {
-                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -2878,7 +3095,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -2892,7 +3108,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 16,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -2925,7 +3140,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -2939,7 +3153,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -2953,7 +3166,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -2967,7 +3179,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -2980,7 +3191,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -2998,7 +3208,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -3021,7 +3230,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -3039,7 +3247,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 9,
                     "exerciseName": "Pull-Up EMOM",
@@ -3053,7 +3260,55 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-Elevated Ring Rows",
+                    "notes": "Accessory. Tempo 2-1-1-0. Feet elevated for increased difficulty.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Ring Rows",
+                      "Dumbbell Rows"
+                    ]
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Parallette Push-Ups",
+                    "notes": "Accessory. Tempo 2-1-1-0. Increased ROM.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Push-Ups",
+                      "Diamond Push-Ups"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "Core. Ground-Based. Watch for elbow tightness.",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "V-Ups",
+                      "Dead Bugs"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -3067,10 +3322,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -3081,7 +3335,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -3095,7 +3348,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -3127,7 +3379,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -3141,7 +3392,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -3155,7 +3405,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -3169,7 +3418,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -3182,7 +3430,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -3200,7 +3447,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -3223,7 +3469,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -3241,7 +3486,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 1,
                     "exerciseName": "Weighted Pull-Ups",
@@ -3265,7 +3509,28 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Weighted Dips",
+                    "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 5,
+                    "loadMax": 10,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Dips",
+                      "Bench Dips",
+                      "Chest Press Machine"
+                    ],
+                    "progressionNotes": "Double Progression Rule applies.",
+                    "cues": [
+                      "Shoulders down",
+                      "Don't flair elbows"
+                    ]
+                  },
+                  {
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Dead Bugs",
@@ -3279,7 +3544,54 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 10,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -3294,7 +3606,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -3308,7 +3619,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -3341,7 +3651,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -3355,7 +3664,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -3369,7 +3677,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -3383,7 +3690,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -3396,7 +3702,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -3414,7 +3719,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -3437,7 +3741,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -3455,7 +3758,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 10,
                     "exerciseName": "Pull-Up EMOM",
@@ -3469,7 +3771,55 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-Elevated Ring Rows",
+                    "notes": "Accessory. Tempo 2-1-1-0. Feet elevated for increased difficulty.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Ring Rows",
+                      "Dumbbell Rows"
+                    ]
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Parallette Push-Ups",
+                    "notes": "Accessory. Tempo 2-1-1-0. Increased ROM.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Push-Ups",
+                      "Diamond Push-Ups"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "Core. Ground-Based. Watch for elbow tightness.",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "V-Ups",
+                      "Dead Bugs"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -3483,10 +3833,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -3497,7 +3846,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -3511,7 +3859,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -3543,7 +3890,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -3557,7 +3903,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -3571,7 +3916,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -3585,7 +3929,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -3598,7 +3941,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -3616,7 +3958,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -3639,7 +3980,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -3657,7 +3997,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Weighted Pull-Ups",
@@ -3681,7 +4020,28 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Weighted Dips",
+                    "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 5,
+                    "loadMax": 10,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Dips",
+                      "Bench Dips",
+                      "Chest Press Machine"
+                    ],
+                    "progressionNotes": "Double Progression Rule applies.",
+                    "cues": [
+                      "Shoulders down",
+                      "Don't flair elbows"
+                    ]
+                  },
+                  {
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Weighted V-Ups",
@@ -3695,7 +4055,54 @@
                     "progressionNotes": "Start 1.25kg. Progress only with perfect form."
                   },
                   {
-                    "order": 10,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -3710,7 +4117,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -3724,7 +4130,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -3757,7 +4162,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -3771,7 +4175,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -3785,7 +4188,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -3799,7 +4201,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -3812,7 +4213,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -3830,7 +4230,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -3853,7 +4252,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -3871,7 +4269,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 6,
                     "exerciseName": "Pull-Up EMOM",
@@ -3885,7 +4282,55 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Feet-Elevated Ring Rows",
+                    "notes": "Deload. Accessory. Tempo 2-1-1-0. Feet elevated for increased difficulty.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Ring Rows",
+                      "Dumbbell Rows"
+                    ]
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Parallette Push-Ups",
+                    "notes": "Deload. Accessory. Tempo 2-1-1-0. Increased ROM.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Push-Ups",
+                      "Diamond Push-Ups"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 2,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "Deload. Core. Ground-Based. Watch for elbow tightness.",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "V-Ups",
+                      "Dead Bugs"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -3899,10 +4344,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -3913,7 +4357,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -3927,7 +4370,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -3955,7 +4397,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "RDL",
@@ -3968,7 +4409,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 2,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Rower Leg Curls (2-Leg)",
@@ -3981,7 +4421,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 3,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Goblet Squats",
@@ -3998,7 +4437,6 @@
                     ]
                   },
                   {
-                    "order": 4,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Back Extensions",
@@ -4011,7 +4449,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 5,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Couch Stretch",
@@ -4026,7 +4463,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 6,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Light Weighted Jefferson Curl",
@@ -4045,7 +4481,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "90/90 Hip Rotations",
@@ -4091,7 +4526,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -4105,7 +4539,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -4119,7 +4552,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -4133,7 +4565,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -4146,7 +4577,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -4164,7 +4594,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -4187,7 +4616,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -4205,7 +4633,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 4,
                     "exerciseName": "Cluster Pull-Ups (Neutral)",
@@ -4227,7 +4654,30 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-Elevated Ring Rows",
+                    "notes": "Accessory. Tempo 2-1-1-0. Neutral grip block.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Parallette Push-Ups",
+                    "notes": "Accessory. Tempo 2-1-1-0.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -4241,10 +4691,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -4255,7 +4704,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -4269,7 +4717,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -4301,7 +4748,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -4315,7 +4761,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -4329,7 +4774,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -4343,7 +4787,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -4356,7 +4799,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -4374,7 +4816,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -4397,7 +4838,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -4415,7 +4855,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Neutral Grip Weighted Pull-Ups",
@@ -4439,7 +4878,6 @@
                     ]
                   },
                   {
-                    "order": 9,
                     "category": "accessory",
                     "sets": 3,
                     "exerciseName": "PPPU",
@@ -4457,7 +4895,6 @@
                     ]
                   },
                   {
-                    "order": 10,
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Weighted Hollow Hold",
@@ -4471,7 +4908,6 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -4486,7 +4922,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -4500,7 +4935,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -4533,7 +4967,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -4547,7 +4980,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -4561,7 +4993,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -4575,7 +5006,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -4588,7 +5018,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -4606,7 +5035,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -4629,7 +5057,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -4647,7 +5074,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 4,
                     "exerciseName": "Cluster Pull-Ups (Neutral)",
@@ -4669,7 +5095,30 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-Elevated Ring Rows",
+                    "notes": "Accessory. Tempo 2-1-1-0. Neutral grip block.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Parallette Push-Ups",
+                    "notes": "Accessory. Tempo 2-1-1-0.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -4683,10 +5132,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -4697,7 +5145,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -4711,7 +5158,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -4743,7 +5189,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -4757,7 +5202,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -4771,7 +5215,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -4785,7 +5228,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -4798,7 +5240,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -4816,7 +5257,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -4839,7 +5279,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -4857,7 +5296,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Ring Support Holds",
@@ -4871,7 +5309,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 9,
                     "category": "accessory",
                     "sets": 2,
                     "exerciseName": "Chest Supported Row",
@@ -4885,7 +5322,6 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 10,
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Dead Bugs",
@@ -4899,7 +5335,6 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -4914,7 +5349,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -4928,7 +5362,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -4961,7 +5394,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -4975,7 +5407,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -4989,7 +5420,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -5003,7 +5433,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -5016,7 +5445,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -5034,7 +5462,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -5057,7 +5484,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -5075,7 +5501,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 5,
                     "exerciseName": "Cluster Pull-Ups (Neutral)",
@@ -5097,7 +5522,30 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-Elevated Ring Rows",
+                    "notes": "Accessory. Tempo 2-1-1-0. Neutral grip block.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Parallette Push-Ups",
+                    "notes": "Accessory. Tempo 2-1-1-0.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -5111,10 +5559,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -5125,7 +5572,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -5139,7 +5585,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -5171,7 +5616,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -5185,7 +5629,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -5199,7 +5642,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -5213,7 +5655,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -5226,7 +5667,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -5244,7 +5684,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -5267,7 +5706,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -5285,7 +5723,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Neutral Grip Weighted Pull-Ups",
@@ -5309,7 +5746,6 @@
                     ]
                   },
                   {
-                    "order": 9,
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Weighted V-Ups",
@@ -5323,7 +5759,22 @@
                     "progressionNotes": "Start 1.25kg. Progress only with perfect form."
                   },
                   {
-                    "order": 10,
+                    "category": "skill",
+                    "sets": 3,
+                    "exerciseName": "PPPU (Pseudo Planche Push-Ups)",
+                    "notes": "Skill. Lean forward, hands at hip level.",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 90,
+                    "cues": [
+                      "Protract scapula",
+                      "Lean forward"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -5338,7 +5789,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -5352,7 +5802,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -5385,7 +5834,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -5399,7 +5847,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -5413,7 +5860,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -5427,7 +5873,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -5440,7 +5885,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -5458,7 +5902,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -5481,7 +5924,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -5499,7 +5941,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Clusters",
@@ -5521,7 +5962,6 @@
                     ]
                   },
                   {
-                    "order": 9,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Straight-Arm Tuck Holds",
@@ -5535,7 +5975,30 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 10,
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Feet-Elevated Ring Rows",
+                    "notes": "Deload. Accessory. Tempo 2-1-1-0. Neutral grip block.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Parallette Push-Ups",
+                    "notes": "Deload. Accessory. Tempo 2-1-1-0.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Butcher's Block Stretch",
@@ -5549,10 +6012,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -5563,7 +6025,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -5577,7 +6038,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -5605,7 +6065,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Single Leg RDL",
@@ -5620,7 +6079,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 2,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Goblet Squats",
@@ -5637,7 +6095,6 @@
                     ]
                   },
                   {
-                    "order": 3,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Face Pulls",
@@ -5650,7 +6107,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 4,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Couch Stretch",
@@ -5665,7 +6121,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 5,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Light Weighted Jefferson Curl",
@@ -5684,7 +6139,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "90/90 Hip Rotations",
@@ -5707,7 +6161,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -5721,7 +6174,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -5735,7 +6187,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -5749,7 +6200,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -5762,7 +6212,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -5780,7 +6229,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -5803,7 +6251,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -5821,7 +6268,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Neutral Grip Pull-ups (Light)",
@@ -5844,7 +6290,35 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "skill",
+                    "sets": 2,
+                    "exerciseName": "PPPU (Pseudo Planche Push-Ups)",
+                    "notes": "Deload. Skill. Lean forward, hands at hip level.",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 90,
+                    "cues": [
+                      "Protract scapula",
+                      "Lean forward"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 2,
+                    "exerciseName": "Hollow Hold",
+                    "notes": "Deload. Core. Ground-Based isometric.",
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -5859,7 +6333,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -5873,7 +6346,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -5916,7 +6388,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -5930,7 +6401,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -5944,7 +6414,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -5958,7 +6427,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -5971,7 +6439,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -5989,7 +6456,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -6012,7 +6478,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -6030,7 +6495,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Pull-Ups",
@@ -6049,7 +6513,22 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-on-Floor Rows",
+                    "notes": "Accessory. Tempo 3-1-1-0. Maintain pulling volume.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Ring Rows",
+                      "Dumbbell Rows"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -6063,10 +6542,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -6077,7 +6555,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -6091,7 +6568,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -6123,7 +6599,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -6137,7 +6612,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -6151,7 +6625,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -6165,7 +6638,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -6178,7 +6650,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -6196,7 +6667,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -6219,7 +6689,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -6237,7 +6706,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Weighted Pull-Ups",
@@ -6261,7 +6729,6 @@
                     ]
                   },
                   {
-                    "order": 9,
                     "category": "accessory",
                     "sets": 4,
                     "exerciseName": "Weighted Dips",
@@ -6280,7 +6747,6 @@
                     "progressionNotes": "Double Progression Rule: Hit top reps to add weight."
                   },
                   {
-                    "order": 10,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Chest Supported Row",
@@ -6298,7 +6764,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 11,
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Side Planks",
@@ -6313,7 +6778,6 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -6328,7 +6792,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -6342,7 +6805,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -6375,7 +6837,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -6389,7 +6850,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -6403,7 +6863,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -6417,7 +6876,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -6430,7 +6888,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -6448,7 +6905,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -6471,7 +6927,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -6489,7 +6944,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Pull-Ups",
@@ -6508,7 +6962,22 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-on-Floor Rows",
+                    "notes": "Accessory. Tempo 3-1-1-0. Maintain pulling volume.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Ring Rows",
+                      "Dumbbell Rows"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -6522,10 +6991,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -6536,7 +7004,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -6550,7 +7017,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -6582,7 +7048,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -6596,7 +7061,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -6610,7 +7074,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -6624,7 +7087,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -6637,7 +7099,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -6655,7 +7116,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -6678,7 +7138,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -6696,7 +7155,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Weighted Pull-Ups",
@@ -6720,7 +7178,28 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Weighted Dips",
+                    "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 5,
+                    "loadMax": 10,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Dips",
+                      "Bench Dips",
+                      "Chest Press Machine"
+                    ],
+                    "progressionNotes": "Double Progression Rule applies.",
+                    "cues": [
+                      "Shoulders down",
+                      "Don't flair elbows"
+                    ]
+                  },
+                  {
                     "category": "accessory",
                     "sets": 2,
                     "exerciseName": "Chest Supported Row",
@@ -6734,7 +7213,6 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 10,
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Dragon Flags OR Weighted V-Ups",
@@ -6748,7 +7226,6 @@
                     "progressionNotes": "Start 1.25kg. Progress only with perfect form."
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -6763,7 +7240,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -6777,7 +7253,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -6810,7 +7285,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -6824,7 +7298,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -6838,7 +7311,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -6852,7 +7324,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -6865,7 +7336,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -6883,7 +7353,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -6906,7 +7375,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -6924,7 +7392,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 1,
                     "exerciseName": "Pull-Ups",
@@ -6942,7 +7409,6 @@
                     ]
                   },
                   {
-                    "order": 9,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Pull-Ups",
@@ -6960,7 +7426,22 @@
                     ]
                   },
                   {
-                    "order": 10,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-on-Floor Rows",
+                    "notes": "Accessory. Tempo 3-1-1-0. Maintain pulling volume.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Ring Rows",
+                      "Dumbbell Rows"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -6974,10 +7455,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -6988,7 +7468,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -7002,7 +7481,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -7034,7 +7512,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -7048,7 +7525,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -7062,7 +7538,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -7076,7 +7551,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -7089,7 +7563,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -7107,7 +7580,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -7130,7 +7602,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -7148,7 +7619,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 1,
                     "exerciseName": "Weighted Pull-Ups (PR attempt)",
@@ -7172,7 +7642,6 @@
                     ]
                   },
                   {
-                    "order": 9,
                     "category": "accessory",
                     "sets": 4,
                     "exerciseName": "Weighted Dips",
@@ -7190,7 +7659,6 @@
                     "progressionNotes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately."
                   },
                   {
-                    "order": 10,
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Side Planks",
@@ -7205,7 +7673,19 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 11,
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Chest Supported Row",
+                    "notes": "Accessory. Horizontal pull for balance.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 15,
+                    "loadMax": 25,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "restSeconds": 60
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -7220,7 +7700,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -7234,7 +7713,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -7267,7 +7745,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -7281,7 +7758,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -7295,7 +7771,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -7309,7 +7784,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -7322,7 +7796,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -7340,7 +7813,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -7363,7 +7835,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -7381,7 +7852,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Pull-Ups",
@@ -7400,7 +7870,22 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Feet-on-Floor Rows",
+                    "notes": "Deload. Accessory. Tempo 3-1-1-0. Maintain pulling volume.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Ring Rows",
+                      "Dumbbell Rows"
+                    ]
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -7414,10 +7899,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -7428,7 +7912,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -7442,7 +7925,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -7470,7 +7952,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "mobility",
                     "sets": 1,
                     "exerciseName": "Light Mobility",
@@ -7484,7 +7965,6 @@
                     "restSeconds": 90
                   },
                   {
-                    "order": 2,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Couch Stretch",
@@ -7499,7 +7979,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 3,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Light Weighted Jefferson Curl",
@@ -7518,7 +7997,6 @@
                     ]
                   },
                   {
-                    "order": 4,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "90/90 Hip Rotations",
@@ -7564,7 +8042,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -7578,7 +8055,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -7592,7 +8068,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -7606,7 +8081,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -7619,7 +8093,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -7637,7 +8110,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -7660,7 +8132,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -7678,7 +8149,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Pull-Ups",
@@ -7697,7 +8167,6 @@
                     ]
                   },
                   {
-                    "order": 9,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Feet-on-Floor Rows",
@@ -7719,7 +8188,6 @@
                     ]
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -7733,10 +8201,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -7747,7 +8214,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -7761,7 +8227,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -7793,7 +8258,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -7807,7 +8271,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -7821,7 +8284,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -7835,7 +8297,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -7848,7 +8309,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -7866,7 +8326,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -7889,7 +8348,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -7907,7 +8365,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 4,
                     "exerciseName": "Archer Negatives",
@@ -7922,7 +8379,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 9,
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Weighted V-Ups",
@@ -7936,7 +8392,6 @@
                     "progressionNotes": "Start 1.25kg. Progress only with perfect form."
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -7951,7 +8406,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -7965,7 +8419,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -7998,7 +8451,6 @@
                 "description": "Reduce volume by 20% from baseline per doc.",
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -8012,7 +8464,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -8026,7 +8477,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -8040,7 +8490,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -8053,7 +8502,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -8071,7 +8519,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -8094,7 +8541,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -8112,7 +8558,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Pull-Ups",
@@ -8131,7 +8576,6 @@
                     ]
                   },
                   {
-                    "order": 9,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -8145,10 +8589,9 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -8159,7 +8602,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -8173,7 +8615,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -8205,7 +8646,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -8219,7 +8659,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -8233,7 +8672,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Rower Sprints",
@@ -8247,7 +8685,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -8260,7 +8697,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -8278,7 +8714,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -8301,7 +8736,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -8319,7 +8753,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 5,
                     "exerciseName": "Archer Negatives",
@@ -8334,7 +8767,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 9,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -8349,7 +8781,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -8363,7 +8794,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -8396,7 +8826,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -8410,7 +8839,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -8424,7 +8852,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 2,
                     "exerciseName": "Rower Sprints",
@@ -8438,7 +8865,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -8451,7 +8877,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -8469,7 +8894,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 2,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -8492,7 +8916,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -8510,7 +8933,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Pull-Ups",
@@ -8528,7 +8950,6 @@
                     ]
                   },
                   {
-                    "order": 9,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -8542,7 +8963,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Butcher's Block Stretch",
@@ -8556,7 +8976,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -8570,7 +8989,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -8594,7 +9012,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "mobility",
                     "sets": 1,
                     "exerciseName": "Knee-to-Wall Ankle Mob",
@@ -8609,7 +9026,6 @@
                     "restSeconds": 90
                   },
                   {
-                    "order": 2,
                     "category": "mobility",
                     "sets": 2,
                     "exerciseName": "Tibialis Wall Raises",
@@ -8623,7 +9039,6 @@
                     "restSeconds": 90
                   },
                   {
-                    "order": 3,
                     "category": "mobility",
                     "sets": 2,
                     "exerciseName": "Deep Squat Iso-Hold",
@@ -8637,7 +9052,6 @@
                     "restSeconds": 90
                   },
                   {
-                    "order": 4,
                     "category": "mobility",
                     "sets": 1,
                     "exerciseName": "Band Internal Rotations",
@@ -8651,7 +9065,6 @@
                     "restSeconds": 90
                   },
                   {
-                    "order": 5,
                     "category": "mobility",
                     "sets": 1,
                     "exerciseName": "Mobility Flow",
@@ -8665,7 +9078,6 @@
                     "restSeconds": 90
                   },
                   {
-                    "order": 6,
                     "category": "core",
                     "sets": 2,
                     "exerciseName": "Pallof Press",
@@ -8678,7 +9090,6 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 7,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Child's Pose",
@@ -8692,7 +9103,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 8,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Box Breathing (4-4-4-4)",
@@ -8715,7 +9125,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "mobility",
                     "sets": 1,
                     "exerciseName": "Mobility Flow",
@@ -8729,7 +9138,6 @@
                     "restSeconds": 90
                   },
                   {
-                    "order": 2,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Couch Stretch",
@@ -8744,7 +9152,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 3,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Light Weighted Jefferson Curl",
@@ -8763,7 +9170,6 @@
                     ]
                   },
                   {
-                    "order": 4,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "90/90 Hip Rotations",
@@ -8786,7 +9192,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -8800,7 +9205,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -8814,7 +9218,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 2,
                     "exerciseName": "Rower Sprints",
@@ -8828,7 +9231,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band Pull-Aparts",
@@ -8841,7 +9243,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Band External Rotations",
@@ -8859,7 +9260,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "warmup",
                     "sets": 2,
                     "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -8882,7 +9282,6 @@
                     ]
                   },
                   {
-                    "order": 7,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Passive Bar Hang",
@@ -8900,7 +9299,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Archer Negatives",
@@ -8914,7 +9312,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 9,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -8929,7 +9326,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -8943,7 +9339,6 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -8986,7 +9381,6 @@
                 "description": "Battery Conservation Warm-up: 5 min rower + 10 scap pulls + 3 reps @50% + 1 rep @75% + rest 4 min",
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -9000,7 +9394,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -9014,7 +9407,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Scapular Pull-Ups",
@@ -9037,7 +9429,6 @@
                     ]
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Pull-Ups",
@@ -9055,7 +9446,6 @@
                     ]
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Pull-Ups",
@@ -9073,7 +9463,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "main",
                     "sets": 1,
                     "exerciseName": "Rest",
@@ -9087,7 +9476,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 7,
                     "category": "main",
                     "sets": 1,
                     "exerciseName": "Max Reps Pull-Ups (BW)",
@@ -9105,7 +9493,6 @@
                     ]
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 1,
                     "exerciseName": "Max Reps Dips",
@@ -9137,7 +9524,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "mobility",
                     "sets": 1,
                     "exerciseName": "Rest",
@@ -9159,7 +9545,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "mobility",
                     "sets": 1,
                     "exerciseName": "Rest",
@@ -9181,7 +9566,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "mobility",
                     "sets": 1,
                     "exerciseName": "Rest",
@@ -9203,7 +9587,6 @@
                 "description": "Battery Conservation Warm-up: same as Day 1",
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 1)",
@@ -9217,7 +9600,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 2,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Rower (Zone 2)",
@@ -9231,7 +9613,6 @@
                     "restSeconds": 30
                   },
                   {
-                    "order": 3,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Scapular Pull-Ups",
@@ -9254,7 +9635,6 @@
                     ]
                   },
                   {
-                    "order": 4,
                     "category": "warmup",
                     "sets": 3,
                     "exerciseName": "Pull-Ups",
@@ -9272,7 +9652,6 @@
                     ]
                   },
                   {
-                    "order": 5,
                     "category": "warmup",
                     "sets": 1,
                     "exerciseName": "Pull-Ups",
@@ -9290,7 +9669,6 @@
                     ]
                   },
                   {
-                    "order": 6,
                     "category": "main",
                     "sets": 1,
                     "exerciseName": "Rest",
@@ -9304,7 +9682,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 7,
                     "category": "main",
                     "sets": 1,
                     "exerciseName": "3RM Weighted Pull-Up",
@@ -9317,7 +9694,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 8,
                     "category": "main",
                     "sets": 1,
                     "exerciseName": "5RM Weighted Push-Up",
@@ -9330,7 +9706,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 9,
                     "category": "main",
                     "sets": 1,
                     "exerciseName": "Max Quality Archer Negatives",
@@ -9361,7 +9736,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Pull-Up Ladders",
@@ -9379,7 +9753,6 @@
                     "progressionNotes": "Volume accumulation phase. Do not fail sets."
                   },
                   {
-                    "order": 2,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Ring Rows",
@@ -9397,7 +9770,6 @@
                     ]
                   },
                   {
-                    "order": 3,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Incline Push-Ups",
@@ -9415,7 +9787,6 @@
                     ]
                   },
                   {
-                    "order": 4,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Hollow Rocks",
@@ -9442,7 +9813,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "mobility",
                     "sets": 1,
                     "exerciseName": "Knee-to-Wall Ankle Mob",
@@ -9457,7 +9827,6 @@
                     "restSeconds": 90
                   },
                   {
-                    "order": 2,
                     "category": "mobility",
                     "sets": 3,
                     "exerciseName": "Tibialis Wall Raises",
@@ -9471,7 +9840,6 @@
                     "restSeconds": 90
                   },
                   {
-                    "order": 3,
                     "category": "mobility",
                     "sets": 2,
                     "exerciseName": "Deep Squat Iso-Hold",
@@ -9485,7 +9853,6 @@
                     "restSeconds": 90
                   },
                   {
-                    "order": 4,
                     "category": "mobility",
                     "sets": 2,
                     "exerciseName": "Band Internal Rotations",
@@ -9499,7 +9866,6 @@
                     "restSeconds": 90
                   },
                   {
-                    "order": 5,
                     "category": "mobility",
                     "sets": 1,
                     "exerciseName": "Mobility Flow",
@@ -9522,7 +9888,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "RDL",
@@ -9535,7 +9900,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 2,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Weighted Glute Bridge",
@@ -9551,7 +9915,6 @@
                     ]
                   },
                   {
-                    "order": 3,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Goblet Squats",
@@ -9568,7 +9931,6 @@
                     ]
                   },
                   {
-                    "order": 4,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Face Pulls",
@@ -9590,7 +9952,6 @@
                 "description": null,
                 "exercises": [
                   {
-                    "order": 1,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Weighted Pull-Ups",
@@ -9614,7 +9975,6 @@
                     ]
                   },
                   {
-                    "order": 2,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Dips",
@@ -9637,7 +9997,6 @@
                     ]
                   },
                   {
-                    "order": 3,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Bulgarian Split Squat",
@@ -9660,7 +10019,6 @@
                     ]
                   },
                   {
-                    "order": 4,
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Weighted Hollow Rocks",
@@ -9690,7 +10048,6 @@
         "description": null,
         "exercises": [
           {
-            "order": 1,
             "category": "mobility",
             "sets": 1,
             "exerciseName": "Knee-to-Wall Ankle Mob",
@@ -9705,7 +10062,6 @@
             "restSeconds": 0
           },
           {
-            "order": 2,
             "category": "mobility",
             "sets": 3,
             "exerciseName": "Tibialis Wall Raises",
@@ -9719,7 +10075,6 @@
             "restSeconds": 0
           },
           {
-            "order": 3,
             "category": "mobility",
             "sets": 2,
             "exerciseName": "Deep Squat Iso-Hold",
@@ -9733,7 +10088,6 @@
             "restSeconds": 0
           },
           {
-            "order": 4,
             "category": "mobility",
             "sets": 2,
             "exerciseName": "Band Internal Rotations",
@@ -9747,7 +10101,6 @@
             "restSeconds": 0
           },
           {
-            "order": 5,
             "category": "mobility",
             "sets": 1,
             "exerciseName": "Mobility Flow",
@@ -9761,7 +10114,6 @@
             "restSeconds": 0
           },
           {
-            "order": 6,
             "category": "core",
             "sets": 3,
             "exerciseName": "Pallof Press",
@@ -9774,10 +10126,9 @@
             "restSeconds": 60
           },
           {
-            "order": 7,
             "category": "cooldown",
             "sets": 1,
-            "exerciseName": "Child\u2019s Pose",
+            "exerciseName": "Child’s Pose",
             "notes": "Cool-down. Focus on breathing into lower back.",
             "repsType": "time",
             "repsValue": 120,
@@ -9788,7 +10139,6 @@
             "restSeconds": 0
           },
           {
-            "order": 8,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "Box Breathing (4-4-4-4)",
@@ -9812,7 +10162,6 @@
         "description": null,
         "exercises": [
           {
-            "order": 1,
             "category": "main",
             "sets": 4,
             "exerciseName": "RDL",
@@ -9825,7 +10174,6 @@
             "restSeconds": 180
           },
           {
-            "order": 2,
             "category": "accessory",
             "sets": 3,
             "exerciseName": "Rower Leg Curls (2-Leg)",
@@ -9838,7 +10186,6 @@
             "restSeconds": 60
           },
           {
-            "order": 3,
             "category": "main",
             "sets": 3,
             "exerciseName": "Goblet Squats",
@@ -9855,7 +10202,6 @@
             ]
           },
           {
-            "order": 4,
             "category": "accessory",
             "sets": 3,
             "exerciseName": "Back Extensions",
@@ -9868,7 +10214,6 @@
             "restSeconds": 60
           },
           {
-            "order": 5,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "Couch Stretch",
@@ -9883,7 +10228,6 @@
             "restSeconds": 0
           },
           {
-            "order": 6,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "Light Weighted Jefferson Curl",
@@ -9902,7 +10246,6 @@
             ]
           },
           {
-            "order": 7,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "90/90 Hip Rotations",
@@ -9926,7 +10269,6 @@
         "description": null,
         "exercises": [
           {
-            "order": 1,
             "category": "warmup",
             "sets": 1,
             "exerciseName": "Rower (Zone 1)",
@@ -9940,7 +10282,6 @@
             "restSeconds": 0
           },
           {
-            "order": 2,
             "category": "warmup",
             "sets": 1,
             "exerciseName": "Rower (Zone 2)",
@@ -9954,7 +10295,6 @@
             "restSeconds": 0
           },
           {
-            "order": 3,
             "category": "warmup",
             "sets": 3,
             "exerciseName": "Rower Sprints",
@@ -9968,7 +10308,6 @@
             "restSeconds": 60
           },
           {
-            "order": 4,
             "category": "warmup",
             "sets": 1,
             "exerciseName": "Band Pull-Aparts",
@@ -9981,7 +10320,6 @@
             "restSeconds": 45
           },
           {
-            "order": 5,
             "category": "warmup",
             "sets": 1,
             "exerciseName": "Band External Rotations",
@@ -9999,7 +10337,6 @@
             ]
           },
           {
-            "order": 6,
             "category": "warmup",
             "sets": 3,
             "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
@@ -10017,7 +10354,6 @@
             ]
           },
           {
-            "order": 7,
             "category": "warmup",
             "sets": 1,
             "exerciseName": "Passive Bar Hang",
@@ -10035,7 +10371,6 @@
             ]
           },
           {
-            "order": 8,
             "category": "main",
             "sets": 2,
             "exerciseName": "Weighted Pull-Ups",
@@ -10058,7 +10393,6 @@
             ]
           },
           {
-            "order": 9,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "Banded Pec Stretch",
@@ -10073,7 +10407,6 @@
             "restSeconds": 0
           },
           {
-            "order": 10,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "Lat Prayer",
@@ -10087,7 +10420,6 @@
             "restSeconds": 0
           },
           {
-            "order": 11,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "Standing Quad Stretch",
@@ -10112,7 +10444,6 @@
         "description": null,
         "exercises": [
           {
-            "order": 1,
             "category": "main",
             "sets": 3,
             "exerciseName": "Single Leg RDL",
@@ -10127,7 +10458,6 @@
             "restSeconds": 180
           },
           {
-            "order": 2,
             "category": "main",
             "sets": 3,
             "exerciseName": "Goblet Squats",
@@ -10144,7 +10474,6 @@
             ]
           },
           {
-            "order": 3,
             "category": "accessory",
             "sets": 3,
             "exerciseName": "Face Pulls",
@@ -10157,7 +10486,6 @@
             "restSeconds": 60
           },
           {
-            "order": 4,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "Couch Stretch",
@@ -10172,7 +10500,6 @@
             "restSeconds": 0
           },
           {
-            "order": 5,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "Light Weighted Jefferson Curl",
@@ -10191,7 +10518,6 @@
             ]
           },
           {
-            "order": 6,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "90/90 Hip Rotations",
@@ -10215,7 +10541,6 @@
         "description": null,
         "exercises": [
           {
-            "order": 1,
             "category": "main",
             "sets": 4,
             "exerciseName": "RDL",
@@ -10228,7 +10553,6 @@
             "restSeconds": 180
           },
           {
-            "order": 2,
             "category": "main",
             "sets": 3,
             "exerciseName": "Goblet Squats",
@@ -10245,7 +10569,6 @@
             ]
           },
           {
-            "order": 3,
             "category": "accessory",
             "sets": 3,
             "exerciseName": "Face Pulls",
@@ -10258,7 +10581,6 @@
             "restSeconds": 60
           },
           {
-            "order": 4,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "Couch Stretch",
@@ -10273,7 +10595,6 @@
             "restSeconds": 0
           },
           {
-            "order": 5,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "Light Weighted Jefferson Curl",
@@ -10292,7 +10613,6 @@
             ]
           },
           {
-            "order": 6,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "90/90 Hip Rotations",
@@ -10316,7 +10636,6 @@
         "description": null,
         "exercises": [
           {
-            "order": 1,
             "category": "mobility",
             "sets": 1,
             "exerciseName": "Mobility Flow",
@@ -10330,7 +10649,6 @@
             "restSeconds": 0
           },
           {
-            "order": 2,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "Couch Stretch",
@@ -10345,7 +10663,6 @@
             "restSeconds": 0
           },
           {
-            "order": 3,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "Light Weighted Jefferson Curl",
@@ -10364,7 +10681,6 @@
             ]
           },
           {
-            "order": 4,
             "category": "cooldown",
             "sets": 1,
             "exerciseName": "90/90 Hip Rotations",

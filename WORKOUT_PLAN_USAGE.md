@@ -66,7 +66,6 @@ Use the full structured format with metadata:
                 "description": "Push and pull exercises",
                 "exercises": [
                   {
-                    "order": 1,
                     "exerciseName": "Pull-Ups",
                     "exerciseId": "pull_ups",
                     "category": "main",
@@ -443,7 +442,6 @@ The app is configured to use the v2.0.0 format by default.
                 "estimatedDuration": 60,
                 "exercises": [
                   {
-                    "order": 1,
                     "exerciseName": "Exercise",
                     "category": "main",
                     "sets": 3,
@@ -501,7 +499,6 @@ The app is configured to use the v2.0.0 format by default.
 | `dayNumber` | Day | number | Day number (1-7) |
 | `type` | Day | string | Session type |
 | `exercises` | Day | array | Exercise objects |
-| `order` | Exercise | number | Exercise order |
 | `exerciseName` | Exercise | string | Exercise name |
 | `sets` | Exercise | number | Number of sets |
 | `reps` | Exercise | string | Rep scheme |
@@ -538,13 +535,11 @@ The app is configured to use the v2.0.0 format by default.
 ✅ **Required:**
 - Week numbers: 1-21 (sequential, no gaps)
 - Day numbers: 1-7 (typically 1, 2, 3, 5)
-- Exercise order: Sequential from 1
 - Phase coverage: All weeks, no gaps/overlaps
 
 ❌ **Invalid:**
 - Missing required fields
 - Week/day out of range
-- Duplicate exercise orders
 - Phase gaps or overlaps
 
 ## API Usage

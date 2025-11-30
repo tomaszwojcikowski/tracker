@@ -262,13 +262,8 @@
     },
     "exercise": {
       "type": "object",
-      "required": ["order", "exerciseName", "sets"],
+      "required": ["exerciseName", "sets"],
       "properties": {
-        "order": {
-          "type": "integer",
-          "minimum": 1,
-          "description": "Exercise order in the workout (1-indexed)"
-        },
         "exerciseName": {
           "type": "string",
           "minLength": 1,

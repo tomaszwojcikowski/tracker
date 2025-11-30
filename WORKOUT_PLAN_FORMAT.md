@@ -268,7 +268,6 @@ The exercise specification has been updated to use structured fields instead of 
 
 ```json
 {
-  "order": 1,
   "exerciseName": "Pull-Ups",
   "exerciseId": "pull_ups",
   "category": "main",
@@ -296,8 +295,7 @@ The exercise specification has been updated to use structured fields instead of 
 ```
 
 | Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `order` | number | Yes | Exercise order in the workout (1-indexed) |
+|-------|------|----------|-----------|
 | `exerciseName` | string | Yes | Full exercise name as displayed to user |
 | `exerciseId` | string | No | Reference to exercise in library |
 | `category` | string | No | Exercise category (warmup, main, accessory, cooldown, mobility, skill, core) |
@@ -513,7 +511,6 @@ The following fields are deprecated but still supported for backward compatibili
                 "description": "Upper body pulling and skill work",
                 "exercises": [
                   {
-                    "order": 1,
                     "exerciseName": "Rower (Zone 1)",
                     "exerciseId": "rower_zone_1",
                     "category": "warmup",
@@ -527,7 +524,6 @@ The following fields are deprecated but still supported for backward compatibili
                     "cues": ["Keep it easy", "Focus on form"]
                   },
                   {
-                    "order": 2,
                     "exerciseName": "Band Pull-Aparts",
                     "category": "warmup",
                     "sets": 1,
@@ -539,7 +535,6 @@ The following fields are deprecated but still supported for backward compatibili
                     "notes": "Warm-up"
                   },
                   {
-                    "order": 3,
                     "exerciseName": "Pull-Ups",
                     "category": "main",
                     "sets": 4,
@@ -558,7 +553,6 @@ The following fields are deprecated but still supported for backward compatibili
                     "notes": "Focus on full ROM"
                   },
                   {
-                    "order": 4,
                     "exerciseName": "Weighted Pull-Ups",
                     "category": "main",
                     "sets": 3,
@@ -572,7 +566,6 @@ The following fields are deprecated but still supported for backward compatibili
                     "notes": "Strength focus"
                   },
                   {
-                    "order": 5,
                     "exerciseName": "Bulgarian Split Squat",
                     "category": "accessory",
                     "sets": 3,
@@ -586,7 +579,6 @@ The following fields are deprecated but still supported for backward compatibili
                     "notes": "Dumbbells per hand"
                   },
                   {
-                    "order": 6,
                     "exerciseName": "Passive Dead Hang",
                     "category": "cooldown",
                     "sets": 1,
@@ -632,8 +624,7 @@ console.log(valid ? '✓ Valid' : '✗ Invalid:', validate.errors);
 
 1. **Week Numbers**: Must be sequential, starting at 1, with no gaps
 2. **Day Numbers**: Must be between 1-7, typically using 1,2,3,5 (4 is rest)
-3. **Exercise Order**: Must be sequential, starting at 1, with no gaps within a day
-4. **Phase Coverage**: Phases must cover all weeks with no gaps or overlaps
+3. **Phase Coverage**: Phases must cover all weeks with no gaps or overlaps
 5. **Format Version**: Must be "2.0.0"
 6. **Dates**: Must be valid ISO 8601 format
 

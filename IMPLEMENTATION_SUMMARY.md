@@ -214,7 +214,7 @@ Status:          Clean
 - Exercise collection
 
 **Exercise Level:**
-- Order, name, ID (links to library)
+- Name, ID (links to library)
 - Category (warmup, main, accessory, cooldown, mobility, skill, core)
 - Sets and reps
 - Tempo prescription (e.g., "2-0-1-0")
@@ -282,7 +282,6 @@ Status:          Clean
 **After (v2.0.0):**
 ```json
 {
-  "order": 1,
   "exerciseName": "Pull-Ups",
   "exerciseId": null,
   "category": "main",

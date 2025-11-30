@@ -55,9 +55,9 @@ tracker/
 │   ├── navigation.spec.js
 │   ├── workout.spec.js
 │   └── pwa.spec.js
-├── public/               # Static assets
-├── workout-plan-v2.1.json  # Current workout program (v2.1 format with programRules)
-├── exercises.json        # Exercise library data (50+ exercises)
+├── public/               # Static assets (auto-populated during build)
+├── workout-plan-v2.1.json  # Current workout program (v2.1 format with programRules) - edit this file, NOT public/
+├── exercises.json        # Exercise library data (50+ exercises) - edit this file, NOT public/
 ├── tsconfig.json         # TypeScript configuration
 ├── playwright.config.js  # E2E test configuration
 ├── eslint.config.js      # ESLint flat config
@@ -495,6 +495,7 @@ export function useMyHook(): MyHookReturn {
 14. **CRDT Sync**: Prefer `useAutomergeSync` for new sync features; it provides conflict-free merging
 15. **Modular Architecture**: Place new code in appropriate directories (components/, hooks/, utils/)
 16. **Run Typecheck**: Always run `npm run typecheck` before committing TypeScript changes
+17. **JSON Data Files**: Edit root-level JSON files (`workout-plan-v2.1.json`, `exercises.json`) only. Do NOT manually copy to `public/` — the build step handles this automatically.
 
 ## Agent Interaction Examples
 

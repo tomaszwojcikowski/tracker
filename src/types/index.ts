@@ -579,6 +579,22 @@ export type StorageResult<T> = Result<T, string>;
  */
 export type Nullable<T> = T | null;
 
+// ============================================================================
+// RE-EXPORTS FROM WORKOUT MODULE
+// ============================================================================
+
+export type {
+  ExerciseLogEntry,
+  WorkoutSessionData,
+  MuscleFilter,
+  RestTimerState,
+  EmomTimerState,
+  WorkoutProgress,
+} from './workout';
+
+export { MUSCLE_FILTERS } from './workout';
+
+
 /**
  * Optional type helper
  */

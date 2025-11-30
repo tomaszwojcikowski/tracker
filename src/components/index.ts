@@ -110,3 +110,17 @@ export type { GestureHintProps } from './GestureHint';
 // Recent exercises
 export { RecentExercisesList, getRecentExercises, addRecentExercise, clearRecentExercises } from './RecentExercises';
 export type { RecentExercisesListProps, RecentExercise } from './RecentExercises';
+
+// Exercise selector components (extracted from WorkoutPlayer)
+export { ExerciseListItem } from './ExerciseListItem';
+export type { ExerciseListItemProps } from './ExerciseListItem';
+
+// Exercise card components (extracted from WorkoutPlayer)
+export { ExerciseCard } from './ExerciseCard';
+export type { ExerciseCardProps, LoadRange } from './ExerciseCard';
+
+export { AddedExerciseCard } from './AddedExerciseCard';
+export type { AddedExerciseCardProps } from './AddedExerciseCard';
+
+export { ExerciseSelectorModal } from './ExerciseSelectorModal';
+export type { ExerciseSelectorModalProps } from './ExerciseSelectorModal';

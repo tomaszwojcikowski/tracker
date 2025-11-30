@@ -27,3 +27,14 @@ export {
 export * from './sanitize';
 export * from './errorReporting';
 
+// Workout session utilities (extracted from WorkoutPlayer)
+export {
+  parseWeight,
+  isExerciseLogEntry,
+  getExerciseLogEntry,
+  normalizeAddedExercises,
+  getExerciseId,
+  getAddedExerciseId,
+} from './workoutSession';
+
+

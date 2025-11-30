@@ -98,7 +98,7 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
 /**
  * Format version string
  */
-export type FormatVersion = '2.0.0' | '2.1.0';
+export type FormatVersion = '2.0.0' | '2.1.0' | '2.2.0';
 
 /**
  * Structured reps data for internal use
@@ -187,6 +187,81 @@ export type LoadUnit = 'kg' | 'band' | 'bodyweight' | 'percent';
 export type RepsType = 'reps' | 'time' | 'ladder' | 'amrap' | 'rm' | 'max' | 'effort' | 'submax' | 'none';
 
 /**
+ * V2.2.0 exercise template definition
+ * Exercise templates allow defining common exercises once with all their default properties.
+ * When referenced via $ref, any field can be overridden.
+ */
+export interface V2ExerciseTemplate {
+  /** Unique identifier for this exercise template */
+  id: string;
+  /** Full exercise name as displayed to user */
+  exerciseName: string;
+  /** Number of sets */
+  sets?: number;
+  notes?: string;
+  category?: string;
+  restSeconds?: number;
+  rpe?: number;
+  alternatives?: string[];
+  progressionNotes?: string;
+  cues?: string[];
+  loadMin?: number;
+  loadMax?: number;
+  loadUnit?: LoadUnit;
+  loadPerHand?: boolean;
+  repsType?: RepsType;
+  repsValue?: number | number[] | null;
+  repsMin?: number;
+  repsMax?: number;
+  repsUnit?: 'seconds';
+  repsPerSide?: boolean;
+  repsModifier?: number;
+  tempoEccentric?: number;
+  tempoPauseBottom?: number;
+  tempoConcentric?: number;
+  tempoPauseTop?: number;
+  isEmom?: boolean;
+  isUnilateral?: boolean;
+  supersetGroup?: number;
+}
+
+/**
+ * V2.2.0 exercise reference - references an exercise template with optional overrides
+ */
+export interface V2ExerciseRef {
+  /** Reference to an exercise template ID */
+  $ref: string;
+  /** Override fields from the template */
+  exerciseName?: string;
+  sets?: number;
+  notes?: string;
+  category?: string;
+  restSeconds?: number;
+  rpe?: number;
+  alternatives?: string[];
+  progressionNotes?: string;
+  cues?: string[];
+  loadMin?: number;
+  loadMax?: number;
+  loadUnit?: LoadUnit;
+  loadPerHand?: boolean;
+  repsType?: RepsType;
+  repsValue?: number | number[] | null;
+  repsMin?: number;
+  repsMax?: number;
+  repsUnit?: 'seconds';
+  repsPerSide?: boolean;
+  repsModifier?: number;
+  tempoEccentric?: number;
+  tempoPauseBottom?: number;
+  tempoConcentric?: number;
+  tempoPauseTop?: number;
+  isEmom?: boolean;
+  isUnilateral?: boolean;
+  supersetGroup?: number;
+}
+
+/**
  * V2.0.0 exercise definition
  */
 export interface V2Exercise {
@@ -201,6 +276,10 @@ export interface V2Exercise {
   restSeconds?: number;
   /** Array of alternative exercise names or IDs */
   alternatives?: string[];
+  /** Progression notes for this exercise */
+  progressionNotes?: string;
+  /** Coaching cues */
+  cues?: string[];
 
   // ---- Legacy fields (deprecated, for backward compatibility) ----
   /** @deprecated Use repsType/repsValue/repsMin/repsMax instead */
@@ -269,7 +348,8 @@ export interface V2Day {
   description?: string | null;
   /** Reference to another day or template (v2.1+) */
   $ref?: string;
-  exercises?: V2Exercise[];
+  /** Exercises can be full definitions or references (v2.2+) */
+  exercises?: (V2Exercise | V2ExerciseRef)[];
 }
 
 /**
@@ -278,11 +358,14 @@ export interface V2Day {
 export interface V2DayTemplate {
   /** Unique ID for this template */
   id: string;
+  /** Default day number for this template */
+  dayNumber?: number;
   name?: string;
   type?: string;
   estimatedDuration?: number;
   description?: string | null;
-  exercises: V2Exercise[];
+  /** Exercises can be full definitions or references (v2.2+) */
+  exercises: (V2Exercise | V2ExerciseRef)[];
 }
 
 /**
@@ -318,16 +401,18 @@ export interface V2Plan {
   goals?: string[];
   targetLevel?: string;
   equipment?: string[];
+  /** Exercise templates for v2.2+ format */
+  exerciseTemplates?: V2ExerciseTemplate[];
   /** Day templates for v2.1+ format */
   dayTemplates?: V2DayTemplate[];
   phases: V2Phase[];
 }
 
 /**
- * V2.0.0/V2.1.0 format root structure
+ * V2.0.0/V2.1.0/V2.2.0 format root structure
  */
 export interface V2WorkoutPlan {
-  formatVersion: '2.0.0' | '2.1.0';
+  formatVersion: '2.0.0' | '2.1.0' | '2.2.0';
   plan: V2Plan;
 }
 
@@ -395,14 +480,15 @@ export interface PlanSummary {
 // ============================================================================
 
 /**
- * Validate v2.0.0 or v2.1.0 format
+ * Validate v2.0.0, v2.1.0, or v2.2.0 format
  */
 function validateV2Format(data: unknown): data is V2WorkoutPlan {
   if (!data || typeof data !== 'object') return false;
 
   const obj = data as Record<string, unknown>;
-  // Support both 2.0.0 and 2.1.0
-  if (!obj.formatVersion || (obj.formatVersion !== '2.0.0' && obj.formatVersion !== '2.1.0') || !obj.plan) return false;
+  // Support 2.0.0, 2.1.0, and 2.2.0
+  const validVersions = ['2.0.0', '2.1.0', '2.2.0'];
+  if (!obj.formatVersion || !validVersions.includes(obj.formatVersion as string) || !obj.plan) return false;
 
   const plan = obj.plan as Record<string, unknown>;
   return (
@@ -418,20 +504,100 @@ function validateV2Format(data: unknown): data is V2WorkoutPlan {
 // ============================================================================
 
 /**
+ * Check if an exercise entry is a reference (v2.2+)
+ */
+function isExerciseRef(exercise: V2Exercise | V2ExerciseRef): exercise is V2ExerciseRef {
+  return '$ref' in exercise && typeof exercise.$ref === 'string';
+}
+
+/**
+ * Resolve an exercise reference to a full exercise definition (v2.2+)
+ * @param exerciseOrRef - The exercise or exercise reference
+ * @param exerciseTemplates - Map of exercise templates by ID
+ * @returns The resolved exercise with all fields filled in
+ */
+function resolveExerciseReference(
+  exerciseOrRef: V2Exercise | V2ExerciseRef,
+  exerciseTemplates: Map<string, V2ExerciseTemplate>
+): V2Exercise {
+  // If it's already a full exercise, return it
+  if (!isExerciseRef(exerciseOrRef)) {
+    return exerciseOrRef;
+  }
+
+  // Find the template
+  const template = exerciseTemplates.get(exerciseOrRef.$ref);
+  if (!template) {
+    throw new Error(`Exercise template "${exerciseOrRef.$ref}" not found`);
+  }
+
+  // Merge template with overrides
+  // The reference can override any field from the template
+  const resolved: V2Exercise = {
+    exerciseName: exerciseOrRef.exerciseName ?? template.exerciseName,
+    sets: exerciseOrRef.sets ?? template.sets ?? 1,
+    notes: exerciseOrRef.notes ?? template.notes,
+    category: exerciseOrRef.category ?? template.category,
+    restSeconds: exerciseOrRef.restSeconds ?? template.restSeconds,
+    rpe: exerciseOrRef.rpe ?? template.rpe,
+    alternatives: exerciseOrRef.alternatives ?? template.alternatives,
+    progressionNotes: exerciseOrRef.progressionNotes ?? template.progressionNotes,
+    loadMin: exerciseOrRef.loadMin ?? template.loadMin,
+    loadMax: exerciseOrRef.loadMax ?? template.loadMax,
+    loadUnit: exerciseOrRef.loadUnit ?? template.loadUnit,
+    loadPerHand: exerciseOrRef.loadPerHand ?? template.loadPerHand,
+    repsType: exerciseOrRef.repsType ?? template.repsType,
+    repsValue: exerciseOrRef.repsValue ?? template.repsValue,
+    repsMin: exerciseOrRef.repsMin ?? template.repsMin,
+    repsMax: exerciseOrRef.repsMax ?? template.repsMax,
+    repsUnit: exerciseOrRef.repsUnit ?? template.repsUnit,
+    repsPerSide: exerciseOrRef.repsPerSide ?? template.repsPerSide,
+    repsModifier: exerciseOrRef.repsModifier ?? template.repsModifier,
+    tempoEccentric: exerciseOrRef.tempoEccentric ?? template.tempoEccentric,
+    tempoPauseBottom: exerciseOrRef.tempoPauseBottom ?? template.tempoPauseBottom,
+    tempoConcentric: exerciseOrRef.tempoConcentric ?? template.tempoConcentric,
+    tempoPauseTop: exerciseOrRef.tempoPauseTop ?? template.tempoPauseTop,
+    isEmom: exerciseOrRef.isEmom ?? template.isEmom,
+    isUnilateral: exerciseOrRef.isUnilateral ?? template.isUnilateral,
+    supersetGroup: exerciseOrRef.supersetGroup ?? template.supersetGroup,
+  };
+
+  // Add cues if present
+  if (exerciseOrRef.cues ?? template.cues) {
+    (resolved as V2Exercise & { cues?: string[] }).cues = exerciseOrRef.cues ?? template.cues;
+  }
+
+  return resolved;
+}
+
+/**
+ * Resolve all exercises in an array, handling both full exercises and references (v2.2+)
+ */
+function resolveExercises(
+  exercises: (V2Exercise | V2ExerciseRef)[] | undefined,
+  exerciseTemplates: Map<string, V2ExerciseTemplate>
+): V2Exercise[] {
+  if (!exercises) return [];
+  return exercises.map(ex => resolveExerciseReference(ex, exerciseTemplates));
+}
+
+/**
  * Resolve a day reference to get the actual exercises
  * @param day - The day that may contain a $ref
  * @param dayTemplates - Array of day templates from the plan
  * @param dayRegistry - Registry of previously defined days by ID
+ * @param exerciseTemplates - Map of exercise templates by ID (v2.2+)
  * @returns The resolved exercises array, or null if not resolvable
  */
 function resolveDayReference(
   day: V2Day,
   dayTemplates: V2DayTemplate[] | undefined,
-  dayRegistry: Map<string, V2Exercise[]>
+  dayRegistry: Map<string, V2Exercise[]>,
+  exerciseTemplates: Map<string, V2ExerciseTemplate>
 ): V2Exercise[] | null {
-  // If day has exercises directly, return them
+  // If day has exercises directly, resolve any references and return them
   if (day.exercises && day.exercises.length > 0) {
-    return day.exercises;
+    return resolveExercises(day.exercises, exerciseTemplates);
   }
 
   // If day has a $ref, resolve it
@@ -440,7 +606,7 @@ function resolveDayReference(
     if (dayTemplates) {
       const template = dayTemplates.find(t => t.id === day.$ref);
       if (template) {
-        return template.exercises;
+        return resolveExercises(template.exercises, exerciseTemplates);
       }
     }
 
@@ -454,22 +620,30 @@ function resolveDayReference(
   }
 
   // Day has neither exercises nor $ref
-  return day.exercises ?? null;
+  return resolveExercises(day.exercises, exerciseTemplates);
 }
 
 /**
- * Convert v2.0.0/v2.1.0 structured format to internal schedule format
+ * Convert v2.0.0/v2.1.0/v2.2.0 structured format to internal schedule format
  * (Compatible with existing buildCompleteSchedule function)
- * @param v2Data - v2.0.0 or v2.1.0 format data
+ * @param v2Data - v2.0.0, v2.1.0, or v2.2.0 format data
  * @returns Internal schedule format (flat array for compatibility)
  * @throws Error if format is invalid
  */
 export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
   if (!validateV2Format(v2Data)) {
-    throw new Error('Invalid v2.0.0/v2.1.0 workout plan format');
+    throw new Error('Invalid v2.0.0/v2.1.0/v2.2.0 workout plan format');
   }
 
   const internalFormat: ScheduleEntry[] = [];
+
+  // Build exercise templates map (v2.2+)
+  const exerciseTemplates = new Map<string, V2ExerciseTemplate>();
+  if (v2Data.plan.exerciseTemplates) {
+    for (const template of v2Data.plan.exerciseTemplates) {
+      exerciseTemplates.set(template.id, template);
+    }
+  }
 
   // Registry for day IDs to their exercises (for v2.1 references)
   const dayRegistry = new Map<string, V2Exercise[]>();
@@ -481,8 +655,8 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
   v2Data.plan.phases.forEach((phase) => {
     phase.weeks.forEach((week) => {
       week.days.forEach((day) => {
-        // Resolve day references (v2.1 feature)
-        const exercises = resolveDayReference(day, dayTemplates, dayRegistry);
+        // Resolve day references (v2.1 feature) and exercise references (v2.2 feature)
+        const exercises = resolveDayReference(day, dayTemplates, dayRegistry, exerciseTemplates);
 
         // Register this day's exercises if it has an ID (for future references)
         if (day.id && exercises) {
@@ -860,8 +1034,8 @@ export function getPhaseForWeek(
 }
 
 /**
- * Get exercise details from v2.0.0 format
- * @param v2Data - v2.0.0 format data
+ * Get exercise details from v2.0.0/v2.1.0/v2.2.0 format
+ * @param v2Data - v2.0.0, v2.1.0, or v2.2.0 format data
  * @param weekNumber - Week number
  * @param dayNumber - Day number
  * @returns Array of exercise objects with full details, or null if not found
@@ -873,6 +1047,14 @@ export function getExercisesWithDetails(
 ): V2Exercise[] | null {
   if (!validateV2Format(v2Data)) {
     return null;
+  }
+
+  // Build exercise templates map (v2.2+)
+  const exerciseTemplates = new Map<string, V2ExerciseTemplate>();
+  if (v2Data.plan.exerciseTemplates) {
+    for (const template of v2Data.plan.exerciseTemplates) {
+      exerciseTemplates.set(template.id, template);
+    }
   }
 
   // Find the phase containing this week
@@ -890,7 +1072,8 @@ export function getExercisesWithDetails(
   const day = week.days.find((d) => d.dayNumber === dayNumber);
   if (!day) return null;
 
-  return day.exercises ?? null;
+  // Resolve exercise references (v2.2+)
+  return resolveExercises(day.exercises, exerciseTemplates);
 }
 
 /**

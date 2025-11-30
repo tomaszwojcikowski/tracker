@@ -319,4 +319,228 @@ describe('SupersetGroup', () => {
       expect(screen.getByTestId('notes-modal')).toBeInTheDocument();
     });
   });
+
+  describe('Round Toggle Behavior', () => {
+    it('should pass all exercise IDs when toggling any round', () => {
+      const onToggleRound = vi.fn();
+
+      render(
+        <SupersetGroup
+          exercises={mockExercises}
+          haptic={mockHaptic}
+          onToggleRound={onToggleRound}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+        />
+      );
+
+      // Click round 2 button
+      fireEvent.click(screen.getByRole('button', { name: 'Round 2' }));
+
+      // Should be called with all exercise IDs
+      expect(onToggleRound).toHaveBeenCalledWith(
+        ['bss_left', 'bss_right'],
+        1, // roundIndex for Round 2
+        3, // defaultSets
+        60 // restTime from first exercise
+      );
+    });
+
+    it('should pass all exercise IDs when toggling a completed round (unmarking)', () => {
+      const onToggleRound = vi.fn();
+      const completedRound1 = [
+        { ...mockExercises[0], sets: [true, false, false] },
+        { ...mockExercises[1], sets: [true, false, false] },
+      ];
+
+      render(
+        <SupersetGroup
+          exercises={completedRound1}
+          haptic={mockHaptic}
+          onToggleRound={onToggleRound}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+        />
+      );
+
+      // Click the completed round 1 button to unmark it
+      fireEvent.click(screen.getByRole('button', { name: 'Round 1 completed' }));
+
+      // Should be called with all exercise IDs to unmark all
+      expect(onToggleRound).toHaveBeenCalledWith(
+        ['bss_left', 'bss_right'],
+        0, // roundIndex for Round 1
+        3,
+        60
+      );
+    });
+
+    it('should show round as incomplete when only some exercises have that set done', () => {
+      // Only first exercise has round 1 complete
+      const mixedState = [
+        { ...mockExercises[0], sets: [true, false, false] },
+        { ...mockExercises[1], sets: [false, false, false] },
+      ];
+
+      render(
+        <SupersetGroup
+          exercises={mixedState}
+          haptic={mockHaptic}
+          onToggleRound={vi.fn()}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+        />
+      );
+
+      // Round 1 should NOT show as completed since not all exercises have it done
+      expect(screen.getByRole('button', { name: 'Round 1' })).toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: 'Round 1 completed' })).not.toBeInTheDocument();
+    });
+
+    it('should show round as complete only when ALL exercises have that set done', () => {
+      const allRound1Complete = [
+        { ...mockExercises[0], sets: [true, false, false] },
+        { ...mockExercises[1], sets: [true, false, false] },
+      ];
+
+      render(
+        <SupersetGroup
+          exercises={allRound1Complete}
+          haptic={mockHaptic}
+          onToggleRound={vi.fn()}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+        />
+      );
+
+      // Round 1 should show as completed
+      expect(screen.getByRole('button', { name: 'Round 1 completed' })).toBeInTheDocument();
+      // Round 2 and 3 should still be incomplete
+      expect(screen.getByRole('button', { name: 'Round 2' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Round 3' })).toBeInTheDocument();
+    });
+
+    it('should correctly count completed rounds for display', () => {
+      // All rounds complete for all exercises
+      const fullyComplete = [
+        { ...mockExercises[0], sets: [true, true, true] },
+        { ...mockExercises[1], sets: [true, true, true] },
+      ];
+
+      render(
+        <SupersetGroup
+          exercises={fullyComplete}
+          haptic={mockHaptic}
+          onToggleRound={vi.fn()}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+        />
+      );
+
+      // Should show 3/3 in collapsed state
+      expect(screen.getByText('3/3')).toBeInTheDocument();
+    });
+
+    it('should not count round as complete when only partial exercises done', () => {
+      // Mixed: first exercise has round 1+2, second only has round 1
+      const mixedCompletion = [
+        { ...mockExercises[0], sets: [true, true, false] },
+        { ...mockExercises[1], sets: [true, false, false] },
+      ];
+
+      render(
+        <SupersetGroup
+          exercises={mixedCompletion}
+          haptic={mockHaptic}
+          onToggleRound={vi.fn()}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+        />
+      );
+
+      // Only round 1 is fully complete (both exercises have sets[0] = true)
+      expect(screen.getByRole('button', { name: 'Round 1 completed' })).toBeInTheDocument();
+      // Round 2 is NOT complete (only first exercise has it)
+      expect(screen.getByRole('button', { name: 'Round 2' })).toBeInTheDocument();
+    });
+
+    it('should work with more than 2 exercises in the superset', () => {
+      const onToggleRound = vi.fn();
+      const threeExercises = [
+        ...mockExercises,
+        {
+          exId: 'step_ups',
+          name: 'Step Ups',
+          sets: [false, false, false],
+          defaultSets: 3,
+          weight: '10',
+          isBodyweight: false,
+          restTime: 60,
+        },
+      ];
+
+      render(
+        <SupersetGroup
+          exercises={threeExercises}
+          haptic={mockHaptic}
+          onToggleRound={onToggleRound}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+        />
+      );
+
+      fireEvent.click(screen.getByRole('button', { name: 'Round 1' }));
+
+      // Should include all 3 exercise IDs
+      expect(onToggleRound).toHaveBeenCalledWith(
+        ['bss_left', 'bss_right', 'step_ups'],
+        0,
+        3,
+        60
+      );
+    });
+  });
+
+  describe('Complete All Rounds', () => {
+    it('should pass all exercise IDs when completing all rounds', () => {
+      const onCompleteAllRounds = vi.fn();
+
+      render(
+        <SupersetGroup
+          exercises={mockExercises}
+          haptic={mockHaptic}
+          onToggleRound={vi.fn()}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={onCompleteAllRounds}
+        />
+      );
+
+      fireEvent.click(screen.getByRole('button', { name: 'Complete all rounds' }));
+
+      expect(onCompleteAllRounds).toHaveBeenCalledWith(
+        ['bss_left', 'bss_right'],
+        3
+      );
+    });
+
+    it('should not show complete all button when all rounds done', () => {
+      const fullyComplete = [
+        { ...mockExercises[0], sets: [true, true, true] },
+        { ...mockExercises[1], sets: [true, true, true] },
+      ];
+
+      render(
+        <SupersetGroup
+          exercises={fullyComplete}
+          haptic={mockHaptic}
+          onToggleRound={vi.fn()}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+        />
+      );
+
+      // In collapsed state, no complete all button
+      expect(screen.queryByRole('button', { name: 'Complete all rounds' })).not.toBeInTheDocument();
+    });
+  });
 });

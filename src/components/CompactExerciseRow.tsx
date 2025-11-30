@@ -88,10 +88,16 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const [userModified, setUserModified] = useState(false);
     const [showNotesModal, setShowNotesModal] = useState(false);
     const weightInputRef = useRef<HTMLInputElement>(null);
+    const setsContainerRef = useRef<HTMLDivElement>(null);
 
-    // Constants for set scrolling
-    const MAX_VISIBLE_SETS = 3;
-    const needsScrolling = sets.length > MAX_VISIBLE_SETS;
+    // Constants for set scrolling - show 3.5 buttons to indicate more are available
+    // Button width (32px) + gap (4px) = 36px per button
+    // 3.5 buttons = 126px (shows partial 4th button as hint)
+    const BUTTON_WIDTH = 32;
+    const BUTTON_GAP = 4;
+    const VISIBLE_BUTTONS = 3.5;
+    const MAX_SCROLL_WIDTH = VISIBLE_BUTTONS * (BUTTON_WIDTH + BUTTON_GAP) - BUTTON_GAP;
+    const needsScrolling = sets.length > 3;
 
     // Computed values
     const completedSets = sets.filter(Boolean).length;
@@ -181,6 +187,48 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const handleSetToggle = useCallback(
         (setIndex: number) => {
             onToggleSet(exId, setIndex, defaultSets, restTime);
+
+            // Auto-scroll to next incomplete set after toggling
+            // We need to wait a frame for the state to update
+            requestAnimationFrame(() => {
+                if (!setsContainerRef.current) return;
+
+                // Find the next incomplete set (after the current one, or from beginning)
+                const buttons = setsContainerRef.current.querySelectorAll('button');
+                let nextIncompleteIndex = -1;
+
+                // First, look for incomplete sets after the current index
+                for (let i = setIndex + 1; i < buttons.length; i++) {
+                    const button = buttons[i];
+                    // Check if button is NOT marked as complete (doesn't have check icon)
+                    if (!button.querySelector('svg')) {
+                        nextIncompleteIndex = i;
+                        break;
+                    }
+                }
+
+                // If no incomplete found after, look from the beginning
+                if (nextIncompleteIndex === -1) {
+                    for (let i = 0; i < setIndex; i++) {
+                        const button = buttons[i];
+                        if (!button.querySelector('svg')) {
+                            nextIncompleteIndex = i;
+                            break;
+                        }
+                    }
+                }
+
+                // Scroll to the next incomplete set if found
+                if (nextIncompleteIndex !== -1 && buttons[nextIncompleteIndex]) {
+                    const buttonWidth = 32; // h-8 = 32px
+                    const gap = 4; // gap-1 = 4px
+                    const scrollPosition = nextIncompleteIndex * (buttonWidth + gap);
+                    setsContainerRef.current.scrollTo({
+                        left: scrollPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         },
         [exId, defaultSets, restTime, onToggleSet]
     );
@@ -327,15 +375,20 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                     </button>
                 )}
 
-                {/* Set Buttons - horizontally scrollable when > MAX_VISIBLE_SETS */}
+                {/* Set Buttons - horizontally scrollable when > 3 sets */}
                 <div className="flex items-center gap-1 flex-shrink-0">
                     <div
+                        ref={setsContainerRef}
                         className={`flex items-center gap-1 ${
                             needsScrolling
-                                ? 'overflow-x-auto max-w-[108px] snap-x snap-mandatory'
+                                ? 'overflow-x-auto snap-x snap-mandatory'
                                 : ''
                         }`}
-                        style={needsScrolling ? { scrollbarWidth: 'none', msOverflowStyle: 'none' } : undefined}
+                        style={needsScrolling ? {
+                            maxWidth: `${MAX_SCROLL_WIDTH}px`,
+                            scrollbarWidth: 'none',
+                            msOverflowStyle: 'none'
+                        } : undefined}
                     >
                         {sets.map((isDone, i) => (
                             <button

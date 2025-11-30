@@ -541,6 +541,92 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         }
     };
 
+    // Toggle a round for multiple exercises in a superset at once
+    // This avoids the stale state issue when calling toggleSet multiple times
+    const toggleSupersetRound = (
+        exerciseIds: string[],
+        roundIndex: number,
+        defaultSets: number,
+        restTime?: number
+    ): void => {
+        try {
+            haptic.tick();
+
+            if (!exerciseIds.length || roundIndex < 0 || !Number.isInteger(roundIndex)) {
+                console.error('Invalid superset toggle parameters:', { exerciseIds, roundIndex, defaultSets });
+                return;
+            }
+
+            // Build updated logs with all exercises toggled
+            let updatedLogs: WorkoutSessionData = { ...logs };
+            let anyWasCompleted = false;
+            let anyWasIncomplete = false;
+            let hasIncompleteSetsAfter = false;
+
+            exerciseIds.forEach((exId) => {
+                const currentEntry = getExerciseLogEntry(updatedLogs, exId);
+                const currentSets = currentEntry.sets || new Array(defaultSets).fill(false);
+                const newSets = [...currentSets];
+                while (newSets.length <= roundIndex) newSets.push(false);
+
+                const wasCompleted = newSets[roundIndex];
+                if (wasCompleted) anyWasCompleted = true;
+                if (!wasCompleted) anyWasIncomplete = true;
+
+                newSets[roundIndex] = !newSets[roundIndex];
+
+                // Check if there are incomplete sets after this toggle
+                const completedSetsCount = newSets.filter(Boolean).length;
+                if (completedSetsCount < newSets.length) hasIncompleteSetsAfter = true;
+
+                updatedLogs = {
+                    ...updatedLogs,
+                    [exId]: {
+                        ...currentEntry,
+                        sets: newSets,
+                    },
+                };
+
+                // Clear RPE if uncompleting a set
+                if (wasCompleted && !newSets[roundIndex]) {
+                    const currentRPEs: RPEData = { ...(currentEntry.rpe ?? {}) };
+                    if (currentRPEs[roundIndex]) {
+                        const updatedRPEs: RPEData = { ...currentRPEs };
+                        delete updatedRPEs[roundIndex];
+                        const existingEntry = updatedLogs[exId] as ExerciseLogEntry;
+                        updatedLogs = {
+                            ...updatedLogs,
+                            [exId]: {
+                                ...existingEntry,
+                                rpe: updatedRPEs,
+                            },
+                        };
+                    }
+                }
+            });
+
+            updatedLogs.lastModified = new Date().toISOString();
+            persistLogs(updatedLogs);
+
+            // Handle RPE prompt and timer - only if completing (not uncompleting)
+            if (anyWasIncomplete) {
+                // Clear any previous RPE prompt when completing superset round
+                setRpePrompt(null);
+
+                // Start rest timer if completing and there are incomplete sets remaining
+                if (typeof restTime === 'number' && restTime > 0 && hasIncompleteSetsAfter) {
+                    setTimerSeconds(restTime);
+                    setTimerActive(true);
+                }
+            } else if (anyWasCompleted) {
+                // Clear RPE prompt if uncompleting
+                setRpePrompt(null);
+            }
+        } catch (error) {
+            console.error('Failed to toggle superset round:', error);
+        }
+    };
+
     const saveRPE = (exId: string, setIndex: number, rpe: RPEValue): void => {
         try {
             const currentRPEs: RPEData = { ...(getExerciseLogEntry(logs, exId).rpe ?? {}) };
@@ -566,6 +652,26 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         haptic.success();
         const allCompleted = new Array(defaultSets).fill(true);
         saveLog(exId, 'sets', allCompleted);
+    };
+
+    // Complete all sets for multiple exercises in a superset at once
+    const completeAllSupersetSets = (exerciseIds: string[], defaultSets: number): void => {
+        haptic.success();
+        const allCompleted = new Array(defaultSets).fill(true);
+
+        let updatedLogs: WorkoutSessionData = { ...logs };
+        exerciseIds.forEach((exId) => {
+            const currentEntry = getExerciseLogEntry(updatedLogs, exId);
+            updatedLogs = {
+                ...updatedLogs,
+                [exId]: {
+                    ...currentEntry,
+                    sets: allCompleted,
+                },
+            };
+        });
+        updatedLogs.lastModified = new Date().toISOString();
+        persistLogs(updatedLogs);
     };
 
     const toggleExerciseCollapse = (exId: string): void => {
@@ -1055,19 +1161,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         exercises={supersetExercises}
                                                         isFirstIncomplete={groupHasFirstIncomplete}
                                                         haptic={haptic}
-                                                        onToggleRound={(exerciseIds, roundIndex, defaultSets, restTime) => {
-                                                            // Toggle the round for all exercises in the group
-                                                            exerciseIds.forEach((eid) => {
-                                                                toggleSet(eid, roundIndex, defaultSets, restTime);
-                                                            });
-                                                        }}
+                                                        onToggleRound={toggleSupersetRound}
                                                         onWeightChange={handleWeightChange}
-                                                        onCompleteAllRounds={(exerciseIds, defaultSets) => {
-                                                            // Complete all sets for all exercises
-                                                            exerciseIds.forEach((eid) => {
-                                                                completeAllSets(eid, defaultSets);
-                                                            });
-                                                        }}
+                                                        onCompleteAllRounds={completeAllSupersetSets}
                                                     />
                                                 );
                                                 return;

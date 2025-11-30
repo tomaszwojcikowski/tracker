@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Check, Minus, Plus, ChevronDown, CheckCheck, Link, Zap, Flame } from 'lucide-react';
+import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import type { HapticFeedback } from '../hooks';
 
@@ -38,8 +38,6 @@ export interface CompactExerciseRowProps {
     isFirstIncomplete?: boolean;
     /** Whether this exercise is an EMOM exercise */
     isEmom?: boolean;
-    /** Whether this exercise uses AMRAP format */
-    isAmrap?: boolean;
     /** Superset group ID (consecutive EMOM exercises share the same group ID) */
     supersetGroup?: number;
     /** Position within superset: 'first', 'middle', 'last', or 'only' */
@@ -72,7 +70,6 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     restTime,
     isFirstIncomplete = false,
     isEmom = false,
-    isAmrap = false,
     supersetGroup,
     supersetPosition,
     haptic,

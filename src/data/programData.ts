@@ -133,13 +133,10 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
     const loadRange = item.loadRange;
     const isWeighted =
       loadRange && loadRange.unit === 'kg' && loadRange.min > 0;
-    
+
     // Use isEmom from data if available, otherwise detect from text (fallback for legacy data)
     const isEmom = item.isEmom ?? detectEmomFromText(item.ex, item.n || '');
-    
-    // Use isAmrap from data if available, otherwise detect from repsRange (fallback)
-    const isAmrap = item.isAmrap ?? (item.repsRange?.type === 'amrap');
-    
+
     // Use restSeconds from data if available, otherwise default to 90
     const restTime = item.restSeconds ?? 90;
 
@@ -155,7 +152,6 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
       repsRange: item.repsRange || undefined,
       tempoRange: item.tempoRange || undefined,
       isEmom,
-      isAmrap,
       // Use supersetGroup from data directly if available
       supersetGroup: item.supersetGroup,
       // Pass through alternatives
@@ -167,7 +163,7 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
   finalSections.forEach((section) => {
     let currentSupersetGroup = 0;
     let groupStartIdx = -1;
-    
+
     section.exercises.forEach((ex, idx) => {
       if (ex.isEmom) {
         if (groupStartIdx === -1) {
@@ -184,11 +180,11 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
         }
       }
     });
-    
+
     // Third pass: Assign superset positions
     const groupCounts: Record<number, number> = {};
     const groupIndices: Record<number, number[]> = {};
-    
+
     section.exercises.forEach((ex, idx) => {
       if (ex.supersetGroup) {
         if (!groupCounts[ex.supersetGroup]) {
@@ -199,7 +195,7 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
         groupIndices[ex.supersetGroup].push(idx);
       }
     });
-    
+
     // Assign positions within each group
     Object.entries(groupIndices).forEach(([, indices]) => {
       const count = indices.length;

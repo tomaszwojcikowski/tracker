@@ -40,6 +40,8 @@ export interface WorkoutExercise {
   supersetGroup?: number;
   /** Position within superset: 'first', 'middle', 'last', or 'only' */
   supersetPosition?: 'first' | 'middle' | 'last' | 'only';
+  /** Array of alternative exercise names */
+  alternatives?: string[];
 }
 
 /**
@@ -137,13 +139,16 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
     
     // Use isAmrap from data if available, otherwise detect from repsRange (fallback)
     const isAmrap = item.isAmrap ?? (item.repsRange?.type === 'amrap');
+    
+    // Use restSeconds from data if available, otherwise default to 90
+    const restTime = item.restSeconds ?? 90;
 
     currentSection.exercises.push({
       name: item.ex,
       prescription: `${item.s} x ${item.r}`,
       notes: item.n || '',
       sets: item.s,
-      rest: 90,
+      rest: restTime,
       isBodyweight: !isWeighted,
       load: item.load || undefined,
       loadRange: loadRange || undefined,
@@ -153,6 +158,8 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
       isAmrap,
       // Use supersetGroup from data directly if available
       supersetGroup: item.supersetGroup,
+      // Pass through alternatives
+      alternatives: item.alternatives,
     });
   });
 

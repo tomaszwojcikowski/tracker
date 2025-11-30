@@ -14,7 +14,7 @@ import { ExerciseDetailModal } from '../modals';
 import { safeGetJSON, safeSetJSON } from '../../utils/storage';
 import { useHaptic, useSwipe, useDebounce, type HapticFeedback } from '../../hooks';
 import {
-    Flame, Dumbbell, Snowflake, Activity, ChevronDown, ChevronUp, Timer, Repeat, Check, Plus, CheckCheck, Minus, PlusCircle, X, CheckCircle2, LayoutGrid, LayoutList, Link, Zap
+    Flame, Dumbbell, Snowflake, Activity, ChevronDown, ChevronUp, Timer, Repeat, Check, Plus, CheckCheck, Minus, PlusCircle, X, CheckCircle2, LayoutGrid, LayoutList, Link, Zap, ArrowRightLeft
 } from 'lucide-react';
 import {
     DEBOUNCE_DELAY_MS,
@@ -303,6 +303,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     );
     // RPE selector state: { exerciseId, setIndex } or null
     const [rpePrompt, setRpePrompt] = useState<{ exerciseId: string; setIndex: number } | null>(null);
+    // Exercise swaps: maps original exercise name to swapped alternative name
+    const [exerciseSwaps, setExerciseSwaps] = useState<Record<string, string>>({});
+    // Currently showing alternatives picker for which exercise
+    const [showAlternativesFor, setShowAlternativesFor] = useState<{ name: string; alternatives: string[] } | null>(null);
 
     const haptic = useHaptic();
 
@@ -315,6 +319,21 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             return newValue;
         });
     }, [haptic]);
+
+    // Handle swapping an exercise to an alternative
+    const handleSwapExercise = useCallback((originalName: string, alternativeName: string) => {
+        haptic.bump();
+        setExerciseSwaps((prev) => ({
+            ...prev,
+            [originalName]: alternativeName,
+        }));
+        setShowAlternativesFor(null);
+    }, [haptic]);
+
+    // Get the effective exercise name (swapped or original)
+    const getEffectiveExerciseName = useCallback((ex: WorkoutExercise): string => {
+        return exerciseSwaps[ex.name] || ex.name;
+    }, [exerciseSwaps]);
 
     // Swipe handlers for back navigation
     const swipeHandlers = useSwipe({
@@ -1071,21 +1090,39 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 <div className="flex justify-between items-start mb-3">
                                                     <div className="flex-1 pr-2">
                                                         <div className="flex items-center gap-2 flex-wrap">
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => {
-                                                                    if (hasHistory) {
+                                                            {(() => {
+                                                                const effectiveName = getEffectiveExerciseName(ex);
+                                                                return (
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => {
+                                                                            if (hasHistory) {
+                                                                                haptic.tick();
+                                                                                setShowExerciseHistory(effectiveName);
+                                                                            }
+                                                                        }}
+                                                                        className={`text-left ${hasHistory ? 'cursor-pointer active:opacity-70 transition-opacity' : 'cursor-default'}`}
+                                                                        aria-label={hasHistory ? `${effectiveName} - tap to view history` : effectiveName}
+                                                                    >
+                                                                        <h3 className="text-base font-semibold text-white leading-tight">
+                                                                            {effectiveName}
+                                                                        </h3>
+                                                                    </button>
+                                                                );
+                                                            })()}
+                                                            {/* Swap to alternative button */}
+                                                            {ex.alternatives && ex.alternatives.length > 0 && (
+                                                                <button
+                                                                    onClick={() => {
                                                                         haptic.tick();
-                                                                        setShowExerciseHistory(ex.name);
-                                                                    }
-                                                                }}
-                                                                className={`text-left ${hasHistory ? 'cursor-pointer active:opacity-70 transition-opacity' : 'cursor-default'}`}
-                                                                aria-label={hasHistory ? `${ex.name} - tap to view history` : ex.name}
-                                                            >
-                                                                <h3 className="text-base font-semibold text-white leading-tight">
-                                                                    {ex.name}
-                                                                </h3>
-                                                            </button>
+                                                                        setShowAlternativesFor({ name: ex.name, alternatives: ex.alternatives || [] });
+                                                                    }}
+                                                                    className="h-6 w-6 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
+                                                                    aria-label="Swap to alternative exercise"
+                                                                >
+                                                                    <ArrowRightLeft size={12} />
+                                                                </button>
+                                                            )}
                                                             {/* EMOM Badge */}
                                                             {ex.isEmom && (
                                                                 <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">
@@ -1593,6 +1630,69 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         setShowExerciseHistory(null);
                     }}
                 />
+
+                {/* Alternatives Picker Modal */}
+                {showAlternativesFor && (
+                    <div className="fixed inset-0 bg-black/60 z-50 flex items-end justify-center" onClick={() => setShowAlternativesFor(null)}>
+                        <div 
+                            className="bg-sys-surface rounded-t-3xl w-full max-w-lg p-5 pb-8 animate-slide-up"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="text-lg font-semibold text-white">Swap Exercise</h3>
+                                <button
+                                    onClick={() => {
+                                        haptic.tick();
+                                        setShowAlternativesFor(null);
+                                    }}
+                                    className="h-8 w-8 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center"
+                                >
+                                    <X size={18} />
+                                </button>
+                            </div>
+                            <p className="text-sm text-sys-onSurfaceVar mb-4">
+                                Choose an alternative for <span className="text-white font-medium">{showAlternativesFor.name}</span>
+                            </p>
+                            <div className="space-y-2">
+                                {/* Option to use original */}
+                                <button
+                                    onClick={() => {
+                                        // Reset to original
+                                        setExerciseSwaps((prev) => {
+                                            const next = { ...prev };
+                                            delete next[showAlternativesFor.name];
+                                            return next;
+                                        });
+                                        haptic.bump();
+                                        setShowAlternativesFor(null);
+                                    }}
+                                    className={`w-full text-left p-3 rounded-xl border transition-all ${
+                                        !exerciseSwaps[showAlternativesFor.name]
+                                            ? 'bg-sys-accent/10 border-sys-accent/30 text-white'
+                                            : 'bg-sys-surfaceHigh border-white/5 text-sys-onSurfaceVar'
+                                    }`}
+                                >
+                                    <span className="font-medium">{showAlternativesFor.name}</span>
+                                    <span className="text-xs ml-2 opacity-60">(original)</span>
+                                </button>
+                                {/* Alternative options */}
+                                {showAlternativesFor.alternatives.map((alt, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => handleSwapExercise(showAlternativesFor.name, alt)}
+                                        className={`w-full text-left p-3 rounded-xl border transition-all ${
+                                            exerciseSwaps[showAlternativesFor.name] === alt
+                                                ? 'bg-sys-accent/10 border-sys-accent/30 text-white'
+                                                : 'bg-sys-surfaceHigh border-white/5 text-sys-onSurfaceVar'
+                                        }`}
+                                    >
+                                        <span className="font-medium">{alt}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );

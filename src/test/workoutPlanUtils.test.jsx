@@ -133,7 +133,11 @@ describe('Workout Plan Utilities', () => {
         load: 'bodyweight',
         loadRange: { min: 0, max: 0, unit: 'bodyweight', raw: 'bodyweight' },
         repsRange: { type: 'reps', value: 8, raw: '8' },
-        tempoRange: undefined
+        tempoRange: undefined,
+        isEmom: undefined,
+        supersetGroup: undefined,
+        restSeconds: 120,
+        alternatives: []
       });
 
       // Check second exercise (has bodyweight load)
@@ -148,7 +152,11 @@ describe('Workout Plan Utilities', () => {
         load: 'bodyweight',
         loadRange: { min: 0, max: 0, unit: 'bodyweight', raw: 'bodyweight' },
         repsRange: { type: 'reps', value: 10, raw: '10' },
-        tempoRange: undefined
+        tempoRange: undefined,
+        isEmom: undefined,
+        supersetGroup: undefined,
+        restSeconds: 90,
+        alternatives: []
       });
 
       // Check third exercise (load: null becomes undefined)
@@ -163,7 +171,11 @@ describe('Workout Plan Utilities', () => {
         load: undefined,
         loadRange: undefined,
         repsRange: { type: 'time', value: 600, unit: 'seconds', perSide: undefined, raw: '10 min' },
-        tempoRange: undefined
+        tempoRange: undefined,
+        isEmom: undefined,
+        supersetGroup: undefined,
+        restSeconds: null,
+        alternatives: []
       });
     });
 

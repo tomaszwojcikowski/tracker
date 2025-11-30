@@ -168,6 +168,10 @@ export interface ScheduleEntry {
   isEmom?: boolean;
   /** Superset group ID */
   supersetGroup?: number;
+  /** Rest between sets in seconds */
+  restSeconds?: number;
+  /** Array of alternative exercise names */
+  alternatives?: string[];
 }
 
 /**
@@ -191,6 +195,10 @@ export interface V2Exercise {
   category?: string;
   rest?: number;
   rpe?: number;
+  /** Rest between sets in seconds */
+  restSeconds?: number;
+  /** Array of alternative exercise names or IDs */
+  alternatives?: string[];
 
   // ---- Legacy fields (deprecated, for backward compatibility) ----
   /** @deprecated Use repsType/repsValue/repsMin/repsMax instead */
@@ -579,6 +587,9 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             // EMOM and superset fields
             isEmom: exercise.isEmom,
             supersetGroup: exercise.supersetGroup,
+            // Rest and alternatives
+            restSeconds: exercise.restSeconds,
+            alternatives: exercise.alternatives,
           });
         });
       });

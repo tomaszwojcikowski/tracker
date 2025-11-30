@@ -288,7 +288,7 @@
                     "order": 14,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -895,6 +895,59 @@
                   },
                   {
                     "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Ring Rows",
+                    "notes": "Accessory. Tempo 2-1-1-0. Stop if sharp pain.",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Dumbbell Rows",
+                      "Cable Rows",
+                      "Inverted Rows"
+                    ]
+                  },
+                  {
+                    "order": 10,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Incline Push-Ups",
+                    "notes": "Accessory. Tempo 2-1-1-0.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Dips",
+                      "Diamond Push-Ups"
+                    ]
+                  },
+                  {
+                    "order": 11,
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "Core. Ground-Based. Watch for elbow tightness.",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "V-Ups",
+                      "Dead Bugs"
+                    ]
+                  },
+                  {
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -911,7 +964,7 @@
                     "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -1234,7 +1287,80 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 10,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Dips",
+                    "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Push-Ups",
+                      "Bench Dips",
+                      "Chest Press Machine"
+                    ],
+                    "progressionNotes": "Double Progression Rule applies.",
+                    "cues": [
+                      "Shoulders down",
+                      "Don't flair elbows"
+                    ],
+                    "order": 10
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 8,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ],
+                    "order": 11
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 8,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ],
+                    "order": 12
+                  },
+                  {
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -1249,7 +1375,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -1263,7 +1389,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -1428,7 +1554,60 @@
                     "progressionNotes": "Volume accumulation phase. Do not fail sets."
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Ring Rows",
+                    "notes": "Accessory. Tempo 2-1-1-0. Stop if sharp pain.",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Dumbbell Rows",
+                      "Cable Rows",
+                      "Inverted Rows"
+                    ],
+                    "order": 9
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Incline Push-Ups",
+                    "notes": "Accessory. Tempo 2-1-1-0.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Dips",
+                      "Diamond Push-Ups"
+                    ],
+                    "order": 10
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "Core. Ground-Based. Watch for elbow tightness.",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "V-Ups",
+                      "Dead Bugs"
+                    ],
+                    "order": 11
+                  },
+                  {
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -1442,10 +1621,10 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -1456,7 +1635,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -1470,7 +1649,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -1769,7 +1948,80 @@
                     "progressionNotes": "Start 1.25kg. Progress only with perfect form."
                   },
                   {
-                    "order": 10,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Dips",
+                    "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Push-Ups",
+                      "Bench Dips",
+                      "Chest Press Machine"
+                    ],
+                    "progressionNotes": "Double Progression Rule applies.",
+                    "cues": [
+                      "Shoulders down",
+                      "Don't flair elbows"
+                    ],
+                    "order": 10
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 8,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ],
+                    "order": 11
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 8,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ],
+                    "order": 12
+                  },
+                  {
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -1784,7 +2036,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -1798,7 +2050,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -1963,7 +2215,60 @@
                     "progressionNotes": "Volume accumulation phase. Do not fail sets."
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Ring Rows",
+                    "notes": "Deload. Accessory. Tempo 2-1-1-0. Stop if sharp pain.",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Dumbbell Rows",
+                      "Cable Rows",
+                      "Inverted Rows"
+                    ],
+                    "order": 9
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Incline Push-Ups",
+                    "notes": "Deload. Accessory. Tempo 2-1-1-0.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Dips",
+                      "Diamond Push-Ups"
+                    ],
+                    "order": 10
+                  },
+                  {
+                    "category": "core",
+                    "sets": 2,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "Deload. Core. Ground-Based. Watch for elbow tightness.",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "V-Ups",
+                      "Dead Bugs"
+                    ],
+                    "order": 11
+                  },
+                  {
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -1977,10 +2282,10 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -1991,7 +2296,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -2005,7 +2310,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -2289,7 +2594,80 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "main",
+                    "sets": 2,
+                    "exerciseName": "Dips",
+                    "notes": "Deload. Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Push-Ups",
+                      "Bench Dips",
+                      "Chest Press Machine"
+                    ],
+                    "progressionNotes": "Double Progression Rule applies.",
+                    "cues": [
+                      "Shoulders down",
+                      "Don't flair elbows"
+                    ],
+                    "order": 9
+                  },
+                  {
+                    "category": "main",
+                    "sets": 2,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "Deload. EMOM. Unilateral Leg Work.",
+                    "loadMin": 8,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ],
+                    "order": 10
+                  },
+                  {
+                    "category": "main",
+                    "sets": 2,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "Deload. EMOM. Unilateral Leg Work.",
+                    "loadMin": 8,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ],
+                    "order": 11
+                  },
+                  {
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -2304,7 +2682,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -2318,7 +2696,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -2549,7 +2927,25 @@
                     ]
                   },
                   {
-                    "order": 12,
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "Core. Ground-Based. Watch for elbow tightness.",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "V-Ups",
+                      "Dead Bugs"
+                    ],
+                    "order": 12
+                  },
+                  {
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -2563,10 +2959,10 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 13,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -2577,7 +2973,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 14,
+                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -2591,7 +2987,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 15,
+                    "order": 16,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -3053,7 +3449,59 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-Elevated Ring Rows",
+                    "notes": "Accessory. Tempo 2-1-1-0. Feet elevated for increased difficulty.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Ring Rows",
+                      "Dumbbell Rows"
+                    ],
+                    "order": 9
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Parallette Push-Ups",
+                    "notes": "Accessory. Tempo 2-1-1-0. Increased ROM.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Push-Ups",
+                      "Diamond Push-Ups"
+                    ],
+                    "order": 10
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "Core. Ground-Based. Watch for elbow tightness.",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "V-Ups",
+                      "Dead Bugs"
+                    ],
+                    "order": 11
+                  },
+                  {
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -3067,10 +3515,10 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -3081,7 +3529,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -3095,7 +3543,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -3265,7 +3713,30 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Weighted Dips",
+                    "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 5,
+                    "loadMax": 10,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Dips",
+                      "Bench Dips",
+                      "Chest Press Machine"
+                    ],
+                    "progressionNotes": "Double Progression Rule applies.",
+                    "cues": [
+                      "Shoulders down",
+                      "Don't flair elbows"
+                    ],
+                    "order": 9
+                  },
+                  {
+                    "order": 10,
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Dead Bugs",
@@ -3279,7 +3750,57 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 10,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ],
+                    "order": 11
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ],
+                    "order": 12
+                  },
+                  {
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -3294,7 +3815,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -3308,7 +3829,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -3469,7 +3990,59 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-Elevated Ring Rows",
+                    "notes": "Accessory. Tempo 2-1-1-0. Feet elevated for increased difficulty.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Ring Rows",
+                      "Dumbbell Rows"
+                    ],
+                    "order": 9
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Parallette Push-Ups",
+                    "notes": "Accessory. Tempo 2-1-1-0. Increased ROM.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Push-Ups",
+                      "Diamond Push-Ups"
+                    ],
+                    "order": 10
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "Core. Ground-Based. Watch for elbow tightness.",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "V-Ups",
+                      "Dead Bugs"
+                    ],
+                    "order": 11
+                  },
+                  {
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -3483,10 +4056,10 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -3497,7 +4070,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -3511,7 +4084,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -3681,7 +4254,30 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Weighted Dips",
+                    "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 5,
+                    "loadMax": 10,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Dips",
+                      "Bench Dips",
+                      "Chest Press Machine"
+                    ],
+                    "progressionNotes": "Double Progression Rule applies.",
+                    "cues": [
+                      "Shoulders down",
+                      "Don't flair elbows"
+                    ],
+                    "order": 9
+                  },
+                  {
+                    "order": 10,
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Weighted V-Ups",
@@ -3695,7 +4291,57 @@
                     "progressionNotes": "Start 1.25kg. Progress only with perfect form."
                   },
                   {
-                    "order": 10,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ],
+                    "order": 11
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ],
+                    "order": 12
+                  },
+                  {
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -3710,7 +4356,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -3724,7 +4370,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -3885,7 +4531,59 @@
                     "restSeconds": 120
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Feet-Elevated Ring Rows",
+                    "notes": "Deload. Accessory. Tempo 2-1-1-0. Feet elevated for increased difficulty.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Ring Rows",
+                      "Dumbbell Rows"
+                    ],
+                    "order": 9
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Parallette Push-Ups",
+                    "notes": "Deload. Accessory. Tempo 2-1-1-0. Increased ROM.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Push-Ups",
+                      "Diamond Push-Ups"
+                    ],
+                    "order": 10
+                  },
+                  {
+                    "category": "core",
+                    "sets": 2,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "Deload. Core. Ground-Based. Watch for elbow tightness.",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "V-Ups",
+                      "Dead Bugs"
+                    ],
+                    "order": 11
+                  },
+                  {
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -3899,10 +4597,10 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -3913,7 +4611,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -3927,7 +4625,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -4227,7 +4925,33 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-Elevated Ring Rows",
+                    "notes": "Accessory. Tempo 2-1-1-0. Neutral grip block.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "order": 9
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Parallette Push-Ups",
+                    "notes": "Accessory. Tempo 2-1-1-0.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "order": 10
+                  },
+                  {
+                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -4241,10 +4965,10 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -4255,7 +4979,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -4269,7 +4993,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -4669,7 +5393,33 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-Elevated Ring Rows",
+                    "notes": "Accessory. Tempo 2-1-1-0. Neutral grip block.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "order": 9
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Parallette Push-Ups",
+                    "notes": "Accessory. Tempo 2-1-1-0.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "order": 10
+                  },
+                  {
+                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -4683,10 +5433,10 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -4697,7 +5447,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -4711,7 +5461,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -4899,7 +5649,38 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 11,
+                    "category": "skill",
+                    "sets": 3,
+                    "exerciseName": "PPPU (Pseudo Planche Push-Ups)",
+                    "notes": "Skill. Lean forward, hands at hip level.",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 90,
+                    "cues": [
+                      "Protract scapula",
+                      "Lean forward"
+                    ],
+                    "order": 11
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Hollow Hold",
+                    "notes": "Core. Ground-Based isometric.",
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "order": 12
+                  },
+                  {
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -4914,7 +5695,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -4928,7 +5709,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 13,
+                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -5097,7 +5878,33 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-Elevated Ring Rows",
+                    "notes": "Accessory. Tempo 2-1-1-0. Neutral grip block.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "order": 9
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Parallette Push-Ups",
+                    "notes": "Accessory. Tempo 2-1-1-0.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "order": 10
+                  },
+                  {
+                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -5111,10 +5918,10 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -5125,7 +5932,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -5139,7 +5946,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -5323,7 +6130,38 @@
                     "progressionNotes": "Start 1.25kg. Progress only with perfect form."
                   },
                   {
-                    "order": 10,
+                    "category": "skill",
+                    "sets": 3,
+                    "exerciseName": "PPPU (Pseudo Planche Push-Ups)",
+                    "notes": "Skill. Lean forward, hands at hip level.",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 90,
+                    "cues": [
+                      "Protract scapula",
+                      "Lean forward"
+                    ],
+                    "order": 10
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Hollow Hold",
+                    "notes": "Core. Ground-Based isometric.",
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "order": 11
+                  },
+                  {
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -5338,7 +6176,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -5352,7 +6190,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -5535,7 +6373,33 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 10,
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Feet-Elevated Ring Rows",
+                    "notes": "Deload. Accessory. Tempo 2-1-1-0. Neutral grip block.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "order": 10
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Parallette Push-Ups",
+                    "notes": "Deload. Accessory. Tempo 2-1-1-0.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "order": 11
+                  },
+                  {
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Butcher's Block Stretch",
@@ -5549,10 +6413,10 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -5563,7 +6427,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -5577,7 +6441,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -5844,7 +6708,38 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "skill",
+                    "sets": 2,
+                    "exerciseName": "PPPU (Pseudo Planche Push-Ups)",
+                    "notes": "Deload. Skill. Lean forward, hands at hip level.",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 90,
+                    "cues": [
+                      "Protract scapula",
+                      "Lean forward"
+                    ],
+                    "order": 9
+                  },
+                  {
+                    "category": "core",
+                    "sets": 2,
+                    "exerciseName": "Hollow Hold",
+                    "notes": "Deload. Core. Ground-Based isometric.",
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "order": 10
+                  },
+                  {
+                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -5859,7 +6754,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -5873,7 +6768,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -6049,7 +6944,24 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-on-Floor Rows",
+                    "notes": "Accessory. Tempo 3-1-1-0. Maintain pulling volume.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Ring Rows",
+                      "Dumbbell Rows"
+                    ],
+                    "order": 9
+                  },
+                  {
+                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -6063,10 +6975,10 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
+                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -6077,7 +6989,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -6091,7 +7003,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -6508,7 +7420,24 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-on-Floor Rows",
+                    "notes": "Accessory. Tempo 3-1-1-0. Maintain pulling volume.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Ring Rows",
+                      "Dumbbell Rows"
+                    ],
+                    "order": 9
+                  },
+                  {
+                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -6522,10 +7451,10 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
+                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -6536,7 +7465,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -6550,7 +7479,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -6720,7 +7649,30 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Weighted Dips",
+                    "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 5,
+                    "loadMax": 10,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Dips",
+                      "Bench Dips",
+                      "Chest Press Machine"
+                    ],
+                    "progressionNotes": "Double Progression Rule applies.",
+                    "cues": [
+                      "Shoulders down",
+                      "Don't flair elbows"
+                    ],
+                    "order": 9
+                  },
+                  {
+                    "order": 10,
                     "category": "accessory",
                     "sets": 2,
                     "exerciseName": "Chest Supported Row",
@@ -6734,7 +7686,7 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 10,
+                    "order": 11,
                     "category": "core",
                     "sets": 3,
                     "exerciseName": "Dragon Flags OR Weighted V-Ups",
@@ -6748,7 +7700,22 @@
                     "progressionNotes": "Start 1.25kg. Progress only with perfect form."
                   },
                   {
-                    "order": 11,
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Side Plank",
+                    "notes": "Core. Anti-rotation stability.",
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "repsUnit": "seconds",
+                    "repsPerSide": true,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "order": 12
+                  },
+                  {
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -6763,7 +7730,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -6777,7 +7744,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 13,
+                    "order": 15,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -6960,7 +7927,24 @@
                     ]
                   },
                   {
-                    "order": 10,
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Feet-on-Floor Rows",
+                    "notes": "Accessory. Tempo 3-1-1-0. Maintain pulling volume.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Ring Rows",
+                      "Dumbbell Rows"
+                    ],
+                    "order": 10
+                  },
+                  {
+                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -6974,10 +7958,10 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -6988,7 +7972,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -7002,7 +7986,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 13,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -7205,7 +8189,21 @@
                     "restSeconds": 60
                   },
                   {
-                    "order": 11,
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Chest Supported Row",
+                    "notes": "Accessory. Horizontal pull for balance.",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 15,
+                    "loadMax": 25,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "restSeconds": 60,
+                    "order": 11
+                  },
+                  {
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -7220,7 +8218,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Lat Prayer",
@@ -7234,7 +8232,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 14,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Standing Quad Stretch",
@@ -7400,7 +8398,24 @@
                     ]
                   },
                   {
-                    "order": 9,
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Feet-on-Floor Rows",
+                    "notes": "Deload. Accessory. Tempo 3-1-1-0. Maintain pulling volume.",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "alternatives": [
+                      "Ring Rows",
+                      "Dumbbell Rows"
+                    ],
+                    "order": 9
+                  },
+                  {
+                    "order": 10,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Passive Dead Hang",
@@ -7414,10 +8429,10 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 10,
+                    "order": 11,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -7428,7 +8443,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 11,
+                    "order": 12,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Cobra Stretch",
@@ -7442,7 +8457,7 @@
                     "restSeconds": 0
                   },
                   {
-                    "order": 12,
+                    "order": 13,
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Wrist Extensor Stretch",
@@ -7736,7 +8751,7 @@
                     "order": 11,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -8148,7 +9163,7 @@
                     "order": 10,
                     "category": "cooldown",
                     "sets": 1,
-                    "exerciseName": "Butcher\u2019s Block Stretch",
+                    "exerciseName": "Butcher’s Block Stretch",
                     "notes": "Cool-down. Targeting Lats/Triceps.",
                     "repsType": "time",
                     "repsValue": 60,
@@ -9777,7 +10792,7 @@
             "order": 7,
             "category": "cooldown",
             "sets": 1,
-            "exerciseName": "Child\u2019s Pose",
+            "exerciseName": "Child’s Pose",
             "notes": "Cool-down. Focus on breathing into lower back.",
             "repsType": "time",
             "repsValue": 120,

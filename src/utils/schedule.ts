@@ -221,7 +221,7 @@ function getSectionType(note: string): SectionType {
  */
 export function getWorkout(week: WeekNumber, day: TrainingDay, programId?: string): Workout | null {
     const completeSchedule = getCompleteSchedule(programId);
-    const dayExercises = completeSchedule.filter((i: RawScheduleItem) => i.w === week && i.d === day);
+    const dayExercises = completeSchedule.filter(i => i.w === week && i.d === day);
 
     if (dayExercises.length === 0) {
         return null;
@@ -235,7 +235,7 @@ export function getWorkout(week: WeekNumber, day: TrainingDay, programId?: strin
         cool: [],
     };
 
-    dayExercises.forEach((item: RawScheduleItem) => {
+    dayExercises.forEach(item => {
         const sectionType = getSectionType(item.n ?? '');
         const exercise: WorkoutExercise = {
             id: `${item.ex.toLowerCase().replace(/[^a-z0-9]+/g, '_')}_${week}_${day}`,

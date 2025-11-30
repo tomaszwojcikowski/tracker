@@ -222,8 +222,9 @@ class ProgramRegistryImpl implements ProgramRegistry {
     const plan = planJson.plan;
     
     // Validate required fields
-    if (!plan.id || !plan.name || !plan.version || !plan.durationWeeks) {
-      throw new Error('Invalid workout plan: missing required fields (id, name, version, durationWeeks)');
+    // Note: durationWeeks must be > 0 (a program with 0 weeks is invalid)
+    if (!plan.id || !plan.name || !plan.version || typeof plan.durationWeeks !== 'number' || plan.durationWeeks <= 0) {
+      throw new Error('Invalid workout plan: missing required fields (id, name, version, durationWeeks > 0)');
     }
 
     const manifest: ProgramManifest = {

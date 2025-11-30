@@ -56,7 +56,7 @@ tracker/
 │   ├── workout.spec.js
 │   └── pwa.spec.js
 ├── public/               # Static assets
-├── workout-plan-v2.json  # Current workout program (v2 format)
+├── workout-plan-v2.1.json  # Current workout program (v2.1 format with programRules)
 ├── exercises.json        # Exercise library data (50+ exercises)
 ├── tsconfig.json         # TypeScript configuration
 ├── playwright.config.js  # E2E test configuration

@@ -6,6 +6,8 @@
 **Status:** ✅ Complete
 **Branch:** copilot/design-workout-plan-format
 
+> **Update (v2.1.0):** The workout plan has been updated to v2.1.0 format with `programRules` section and complete accessory exercises for all weeks. The current file is `workout-plan-v2.1.json`. References to `workout-plan-v2.json` in this document are historical.
+
 ## Objective
 
 Design and document a robust and complete workout plan format that:
@@ -400,7 +402,7 @@ Status:          Clean
         4. Advanced Phase
         5. Peaking Phase
         6. Testing & Reload
-    
+
     > **Note:** These phase names are taken directly from `workout-plan-v2.json`. If the JSON file is updated, ensure this documentation reflects the actual phase names.
 
 4.  **Breaking Change: PROGRAM_BLOCKS Removed:**
@@ -411,7 +413,7 @@ Status:          Clean
       ```typescript
       // Before (deprecated):
       const block = PROGRAM_BLOCKS.find(b => b.weeks.includes(currentWeek));
-      
+
       // After (recommended):
       import { getBlockForWeek } from '@/data';
       const block = getBlockForWeek(currentWeek);

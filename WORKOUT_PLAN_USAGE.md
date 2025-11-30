@@ -13,9 +13,9 @@ The application only supports v2.0.0 format at runtime. If you have data in v1.0
 
 ## Using Existing Plans
 
-The app uses `workout-plan-v2.json` by default. This file is loaded automatically when the app starts.
+The app uses `workout-plan-v2.1.json` by default. This file is loaded automatically when the app starts.
 
-**No changes needed** - the app works out of the box with the v2 format.
+**No changes needed** - the app works out of the box with the v2.1 format.
 
 ### Legacy Format (v1.0.0)
 
@@ -114,7 +114,7 @@ node migrate-workout-plan.js
 - Creates detailed migration report
 
 **Output:**
-- `workout-plan-v2.json` - New format file
+- `workout-plan-v2.1.json` - New format file
 - `migration-report.json` - Migration statistics and warnings
 
 **Review the migration:**
@@ -123,7 +123,7 @@ node migrate-workout-plan.js
 cat migration-report.json | jq '.stats'
 
 # Review first few exercises
-cat workout-plan-v2.json | jq '.plan.phases[0].weeks[0].days[0].exercises[0]'
+cat workout-plan-v2.1.json | jq '.plan.phases[0].weeks[0].days[0].exercises[0]'
 ```
 
 ### v2.0.0 → v1.0.0
@@ -143,9 +143,9 @@ console.log(\`✓ \${data.length} entries\`);
 console.log(\`✓ First: \${data[0].ex}\`);
 "
 
-# Test v2 format
+# Test v2.1 format
 node -e "
-const data = require('./workout-plan-v2.json');
+const data = require('./workout-plan-v2.1.json');
 console.log('✓ Valid JSON');
 console.log(\`✓ Format: \${data.formatVersion}\`);
 console.log(\`✓ Plan: \${data.plan.name}\`);
@@ -277,7 +277,7 @@ console.log(missing.length ? \`Missing: \${missing}\` : '✓ All required fields
 
 The migration script doesn't automatically link exercises to the library. To fix:
 
-1. Open `workout-plan-v2.json`
+1. Open `workout-plan-v2.1.json`
 2. Find exercises with `"exerciseId": null`
 3. Match with IDs from `exercises.json`
 4. Update manually or write a script
@@ -631,7 +631,7 @@ const mainExercises = schedule.filter(e =>
 
 ```
 tracker/
-├── workout-plan-v2.json            # v2.0.0 format (current)
+├── workout-plan-v2.1.json          # v2.1.0 format (current)
 ├── full-schedule.json              # v1.0.0 format (legacy)
 ├── migration-report.json           # Migration details
 ├── migrate-workout-plan.js         # Migration script

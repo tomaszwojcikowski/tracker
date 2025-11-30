@@ -66,7 +66,7 @@ The production build outputs to the `dist/` directory and includes:
 
 - `dist/index.html` - Optimized HTML entry point
 - `dist/assets/` - Bundled JS and CSS files
-- `dist/workout-plan-v2.json` - Workout plan data
+- `dist/workout-plan-v2.1.json` - Workout plan data
 - `dist/exercises.json` - Exercise library data
 - `dist/colors.css` - CSS custom properties
 
@@ -262,9 +262,9 @@ The tracker supports two workout plan formats:
 - File: `full-schedule.json`
 - Used for backward compatibility
 
-### Format v2.0.0 (Current)
-- Comprehensive structured format with full metadata
-- File: `workout-plan-v2.json`
+### Format v2.1.0 (Current)
+- Comprehensive structured format with full metadata and programRules
+- File: `workout-plan-v2.1.json`
 - Features:
   - Plan metadata (name, description, author, goals)
   - Phase/mesocycle structure (6 training phases)
@@ -281,7 +281,7 @@ node migrate-workout-plan.js
 ```
 
 This generates:
-- `workout-plan-v2.json` - Converted plan in new format
+- `workout-plan-v2.1.json` - Converted plan in new format
 - `migration-report.json` - Detailed migration report
 
 For complete format specification, see [WORKOUT_PLAN_FORMAT.md](WORKOUT_PLAN_FORMAT.md)

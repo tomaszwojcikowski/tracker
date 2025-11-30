@@ -614,13 +614,13 @@ Use the JSON Schema file to validate workout plans:
 
 ```bash
 # Using ajv-cli
-npx ajv validate -s workout-plan-v2.schema.json -d workout-plan-v2.json
+npx ajv validate -s workout-plan-v2.schema.json -d workout-plan-v2.1.json
 
 # Using Node.js
 node -e "
 const Ajv = require('ajv');
 const schema = require('./workout-plan-v2.schema.json');
-const data = require('./workout-plan-v2.json');
+const data = require('./workout-plan-v2.1.json');
 const ajv = new Ajv();
 const validate = ajv.compile(schema);
 const valid = validate(data);

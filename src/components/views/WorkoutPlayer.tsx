@@ -499,10 +499,18 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 // Show RPE prompt for the completed set
                 setRpePrompt({ exerciseId: exId, setIndex });
 
-                // Start rest timer
+                // Only start rest timer between sets, not after completing the last set of an exercise.
+                // This prevents the timer from activating when moving to the next exercise.
+                // Timer should only run when there are still incomplete sets remaining.
                 if (typeof restTime === 'number' && restTime > 0) {
-                    setTimerSeconds(restTime);
-                    setTimerActive(true);
+                    const totalSets = newSets.length;
+                    const completedSetsCount = newSets.filter(Boolean).length;
+                    const hasIncompleteSets = completedSetsCount < totalSets;
+                    
+                    if (hasIncompleteSets) {
+                        setTimerSeconds(restTime);
+                        setTimerActive(true);
+                    }
                 }
             }
         } catch (error) {

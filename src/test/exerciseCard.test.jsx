@@ -1,0 +1,428 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+
+/**
+ * ExerciseCard Component Tests
+ *
+ * Tests the ExerciseCard component used in the workout player card view.
+ * Covers rendering, user interactions, and callback handling.
+ */
+
+// Mock the RPESelector component
+vi.mock('../components/RPESelector', () => ({
+    RPESelector: ({ value, onChange, onSkip, setNumber, showAsPrompt }) => (
+        <div data-testid="rpe-selector" data-set={setNumber} data-prompt={showAsPrompt}>
+            <button onClick={() => onChange('8')}>RPE 8</button>
+            <button onClick={onSkip}>Skip</button>
+        </div>
+    ),
+}));
+
+// Mock lucide-react icons
+vi.mock('lucide-react', () => ({
+    ChevronDown: () => <span data-testid="icon-chevron-down">▼</span>,
+    ChevronUp: () => <span data-testid="icon-chevron-up">▲</span>,
+    Timer: () => <span data-testid="icon-timer">⏱</span>,
+    Repeat: () => <span data-testid="icon-repeat">🔄</span>,
+    Check: () => <span data-testid="icon-check">✓</span>,
+    Plus: () => <span data-testid="icon-plus">+</span>,
+    CheckCheck: () => <span data-testid="icon-checkcheck">✓✓</span>,
+    Minus: () => <span data-testid="icon-minus">-</span>,
+    Link: () => <span data-testid="icon-link">🔗</span>,
+    Zap: () => <span data-testid="icon-zap">⚡</span>,
+    ArrowRightLeft: () => <span data-testid="icon-swap">⇄</span>,
+    Info: () => <span data-testid="icon-info">ℹ</span>,
+}));
+
+import { ExerciseCard } from '../components/ExerciseCard';
+
+describe('ExerciseCard', () => {
+    // Default props for rendering
+    const defaultHaptic = {
+        tick: vi.fn(),
+        bump: vi.fn(),
+        success: vi.fn(),
+    };
+
+    const defaultProps = {
+        exId: 'bench_press',
+        name: 'Bench Press',
+        effectiveName: 'Bench Press',
+        prescription: '3x8 reps',
+        sets: [false, false, false],
+        defaultSets: 3,
+        exerciseLog: { sets: [false, false, false], weight: '', rpe: {} },
+        hasHistory: false,
+        isFirstIncomplete: false,
+        isCollapsed: false,
+        rpePrompt: null,
+        emomTimerActive: false,
+        emomTimerInterval: 60,
+        haptic: defaultHaptic,
+        onToggleCollapse: vi.fn(),
+        onToggleSet: vi.fn(),
+        onAddSet: vi.fn(),
+        onCompleteAllSets: vi.fn(),
+        onSaveWeight: vi.fn(),
+        onSaveRPE: vi.fn(),
+        onClearRPEPrompt: vi.fn(),
+        onStartRestTimer: vi.fn(),
+        onToggleEmomTimer: vi.fn(),
+        onShowHistory: vi.fn(),
+        onShowNotes: vi.fn(),
+        onShowAlternatives: vi.fn(),
+    };
+
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
+
+    describe('Rendering', () => {
+        it('should render exercise name and prescription', () => {
+            render(<ExerciseCard {...defaultProps} />);
+            
+            expect(screen.getByText('Bench Press')).toBeInTheDocument();
+            expect(screen.getByText('3x8 reps')).toBeInTheDocument();
+        });
+
+        it('should render set buttons for each set', () => {
+            render(<ExerciseCard {...defaultProps} />);
+            
+            // Should have 3 set buttons + 1 add set button
+            expect(screen.getByRole('button', { name: 'Set 1' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Set 2' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Set 3' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Add set' })).toBeInTheDocument();
+        });
+
+        it('should show completed status for finished sets', () => {
+            render(
+                <ExerciseCard
+                    {...defaultProps}
+                    sets={[true, true, false]}
+                    exerciseLog={{ sets: [true, true, false], weight: '', rpe: {} }}
+                />
+            );
+            
+            expect(screen.getByRole('button', { name: 'Set 1 completed' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Set 2 completed' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Set 3' })).toBeInTheDocument();
+        });
+
+        it('should show progress counter when sets are completed', () => {
+            render(
+                <ExerciseCard
+                    {...defaultProps}
+                    sets={[true, true, false]}
+                    exerciseLog={{ sets: [true, true, false], weight: '', rpe: {} }}
+                />
+            );
+            
+            expect(screen.getByText('2/3')).toBeInTheDocument();
+        });
+
+        it('should display EMOM badge when exercise is EMOM type', () => {
+            render(<ExerciseCard {...defaultProps} isEmom={true} />);
+            
+            expect(screen.getByText('EMOM')).toBeInTheDocument();
+        });
+
+        it('should hide content when collapsed', () => {
+            render(<ExerciseCard {...defaultProps} isCollapsed={true} />);
+            
+            // Set buttons should not be visible when collapsed
+            expect(screen.queryByRole('button', { name: 'Set 1' })).not.toBeInTheDocument();
+        });
+
+        it('should show superset badge when first in superset', () => {
+            render(
+                <ExerciseCard
+                    {...defaultProps}
+                    supersetGroup={1}
+                    supersetPosition="first"
+                />
+            );
+            
+            expect(screen.getByText('SUPERSET')).toBeInTheDocument();
+        });
+    });
+
+    describe('User Interactions', () => {
+        it('should call onToggleSet when set button is clicked', () => {
+            render(<ExerciseCard {...defaultProps} />);
+            
+            fireEvent.click(screen.getByRole('button', { name: 'Set 1' }));
+            
+            expect(defaultProps.onToggleSet).toHaveBeenCalledWith('bench_press', 0, 3, undefined);
+        });
+
+        it('should call onToggleSet with rest time when provided', () => {
+            render(<ExerciseCard {...defaultProps} restTime={90} />);
+            
+            fireEvent.click(screen.getByRole('button', { name: 'Set 1' }));
+            
+            expect(defaultProps.onToggleSet).toHaveBeenCalledWith('bench_press', 0, 3, 90);
+        });
+
+        it('should call onAddSet when add set button is clicked', () => {
+            render(<ExerciseCard {...defaultProps} />);
+            
+            fireEvent.click(screen.getByRole('button', { name: 'Add set' }));
+            
+            expect(defaultProps.onAddSet).toHaveBeenCalledWith('bench_press', 3);
+        });
+
+        it('should call onToggleCollapse when collapse button is clicked', () => {
+            render(<ExerciseCard {...defaultProps} />);
+            
+            fireEvent.click(screen.getByRole('button', { name: 'Collapse exercise' }));
+            
+            expect(defaultProps.haptic.tick).toHaveBeenCalled();
+            expect(defaultProps.onToggleCollapse).toHaveBeenCalledWith('bench_press');
+        });
+
+        it('should show Complete All button when multiple sets remain', () => {
+            render(<ExerciseCard {...defaultProps} />);
+            
+            expect(screen.getByRole('button', { name: 'Complete all sets' })).toBeInTheDocument();
+        });
+
+        it('should call onCompleteAllSets when Complete All button is clicked', () => {
+            render(<ExerciseCard {...defaultProps} />);
+            
+            fireEvent.click(screen.getByRole('button', { name: 'Complete all sets' }));
+            
+            expect(defaultProps.onCompleteAllSets).toHaveBeenCalledWith('bench_press', 3);
+        });
+
+        it('should hide Complete All button when only 1 set remains', () => {
+            render(
+                <ExerciseCard
+                    {...defaultProps}
+                    sets={[true, true, false]}
+                    exerciseLog={{ sets: [true, true, false], weight: '', rpe: {} }}
+                />
+            );
+            
+            expect(screen.queryByRole('button', { name: 'Complete all sets' })).not.toBeInTheDocument();
+        });
+    });
+
+    describe('Rest Timer', () => {
+        it('should show rest timer button when rest time is set', () => {
+            render(<ExerciseCard {...defaultProps} restTime={90} />);
+            
+            expect(screen.getByRole('button', { name: 'Start 90 second timer' })).toBeInTheDocument();
+        });
+
+        it('should call onStartRestTimer when rest timer button is clicked', () => {
+            render(<ExerciseCard {...defaultProps} restTime={90} />);
+            
+            fireEvent.click(screen.getByRole('button', { name: 'Start 90 second timer' }));
+            
+            expect(defaultProps.haptic.bump).toHaveBeenCalled();
+            expect(defaultProps.onStartRestTimer).toHaveBeenCalledWith(90);
+        });
+    });
+
+    describe('EMOM Timer', () => {
+        it('should show EMOM timer button when multiple sets exist', () => {
+            render(<ExerciseCard {...defaultProps} />);
+            
+            expect(screen.getByRole('button', { name: 'Start EMOM timer with 60 second interval' })).toBeInTheDocument();
+        });
+
+        it('should call onToggleEmomTimer when EMOM button is clicked', () => {
+            render(<ExerciseCard {...defaultProps} />);
+            
+            fireEvent.click(screen.getByRole('button', { name: 'Start EMOM timer with 60 second interval' }));
+            
+            expect(defaultProps.haptic.bump).toHaveBeenCalled();
+            expect(defaultProps.onToggleEmomTimer).toHaveBeenCalled();
+        });
+
+        it('should show active state when EMOM timer is active', () => {
+            render(<ExerciseCard {...defaultProps} emomTimerActive={true} />);
+            
+            const emomButton = screen.getByRole('button', { name: 'Start EMOM timer with 60 second interval' });
+            expect(emomButton).toHaveClass('bg-sys-accent');
+        });
+    });
+
+    describe('Weight Input', () => {
+        it('should show weight input for non-bodyweight exercises', () => {
+            render(<ExerciseCard {...defaultProps} />);
+            
+            expect(screen.getByLabelText('Decrease weight by 2.5kg')).toBeInTheDocument();
+            expect(screen.getByRole('spinbutton')).toBeInTheDocument();
+            expect(screen.getByLabelText('Increase weight by 2.5kg')).toBeInTheDocument();
+        });
+
+        it('should hide weight input for bodyweight exercises', () => {
+            render(<ExerciseCard {...defaultProps} isBodyweight={true} />);
+            
+            expect(screen.queryByLabelText('Decrease weight by 2.5kg')).not.toBeInTheDocument();
+        });
+
+        it('should call onSaveWeight when weight is changed', () => {
+            render(<ExerciseCard {...defaultProps} />);
+            
+            const input = screen.getByRole('spinbutton');
+            fireEvent.change(input, { target: { value: '60' } });
+            
+            expect(defaultProps.onSaveWeight).toHaveBeenCalledWith('bench_press', '60');
+        });
+
+        it('should decrease weight when minus button is clicked', () => {
+            render(
+                <ExerciseCard
+                    {...defaultProps}
+                    exerciseLog={{ sets: [false, false, false], weight: '50', rpe: {} }}
+                />
+            );
+            
+            fireEvent.click(screen.getByLabelText('Decrease weight by 2.5kg'));
+            
+            expect(defaultProps.haptic.tick).toHaveBeenCalled();
+            expect(defaultProps.onSaveWeight).toHaveBeenCalledWith('bench_press', '47.5');
+        });
+
+        it('should increase weight when plus button is clicked', () => {
+            render(
+                <ExerciseCard
+                    {...defaultProps}
+                    exerciseLog={{ sets: [false, false, false], weight: '50', rpe: {} }}
+                />
+            );
+            
+            fireEvent.click(screen.getByLabelText('Increase weight by 2.5kg'));
+            
+            expect(defaultProps.haptic.tick).toHaveBeenCalled();
+            expect(defaultProps.onSaveWeight).toHaveBeenCalledWith('bench_press', '52.5');
+        });
+
+        it('should show suggested load when loadRange is provided', () => {
+            render(
+                <ExerciseCard
+                    {...defaultProps}
+                    loadRange={{ min: 40, max: 60, unit: 'kg' }}
+                />
+            );
+            
+            expect(screen.getByText('Suggested: 40-60kg')).toBeInTheDocument();
+        });
+    });
+
+    describe('Notes and Alternatives', () => {
+        it('should show notes button when notes are provided', () => {
+            render(<ExerciseCard {...defaultProps} notes="Keep elbows tucked" />);
+            
+            expect(screen.getByRole('button', { name: 'View notes' })).toBeInTheDocument();
+        });
+
+        it('should call onShowNotes when notes button is clicked', () => {
+            render(<ExerciseCard {...defaultProps} notes="Keep elbows tucked" />);
+            
+            fireEvent.click(screen.getByRole('button', { name: 'View notes' }));
+            
+            expect(defaultProps.haptic.tick).toHaveBeenCalled();
+            expect(defaultProps.onShowNotes).toHaveBeenCalledWith('Bench Press', 'Keep elbows tucked');
+        });
+
+        it('should show alternatives button when alternatives exist', () => {
+            render(
+                <ExerciseCard
+                    {...defaultProps}
+                    alternatives={['Dumbbell Press', 'Push-Ups']}
+                />
+            );
+            
+            expect(screen.getByRole('button', { name: 'Swap to alternative exercise' })).toBeInTheDocument();
+        });
+
+        it('should call onShowAlternatives when alternatives button is clicked', () => {
+            render(
+                <ExerciseCard
+                    {...defaultProps}
+                    alternatives={['Dumbbell Press', 'Push-Ups']}
+                />
+            );
+            
+            fireEvent.click(screen.getByRole('button', { name: 'Swap to alternative exercise' }));
+            
+            expect(defaultProps.haptic.tick).toHaveBeenCalled();
+            expect(defaultProps.onShowAlternatives).toHaveBeenCalledWith(
+                'Bench Press',
+                ['Dumbbell Press', 'Push-Ups']
+            );
+        });
+    });
+
+    describe('RPE Selector', () => {
+        it('should show RPE selector when rpePrompt matches exercise', () => {
+            render(
+                <ExerciseCard
+                    {...defaultProps}
+                    rpePrompt={{ exerciseId: 'bench_press', setIndex: 0 }}
+                />
+            );
+            
+            expect(screen.getByTestId('rpe-selector')).toBeInTheDocument();
+        });
+
+        it('should not show RPE selector for different exercise', () => {
+            render(
+                <ExerciseCard
+                    {...defaultProps}
+                    rpePrompt={{ exerciseId: 'squats', setIndex: 0 }}
+                />
+            );
+            
+            expect(screen.queryByTestId('rpe-selector')).not.toBeInTheDocument();
+        });
+    });
+
+    describe('Exercise History', () => {
+        it('should make name clickable when history exists', () => {
+            render(<ExerciseCard {...defaultProps} hasHistory={true} />);
+            
+            const nameButton = screen.getByRole('button', { name: 'Bench Press - tap to view history' });
+            expect(nameButton).toBeInTheDocument();
+        });
+
+        it('should call onShowHistory when name is clicked with history', () => {
+            render(<ExerciseCard {...defaultProps} hasHistory={true} />);
+            
+            fireEvent.click(screen.getByRole('button', { name: 'Bench Press - tap to view history' }));
+            
+            expect(defaultProps.haptic.tick).toHaveBeenCalled();
+            expect(defaultProps.onShowHistory).toHaveBeenCalledWith('Bench Press');
+        });
+    });
+
+    describe('Visual States', () => {
+        it('should highlight first incomplete exercise', () => {
+            const { container } = render(
+                <ExerciseCard {...defaultProps} isFirstIncomplete={true} />
+            );
+            
+            // Should have accent border when first incomplete
+            const card = container.querySelector('.border-sys-accent\\/50');
+            expect(card).toBeInTheDocument();
+        });
+
+        it('should show success styling when all sets completed', () => {
+            const { container } = render(
+                <ExerciseCard
+                    {...defaultProps}
+                    sets={[true, true, true]}
+                    exerciseLog={{ sets: [true, true, true], weight: '', rpe: {} }}
+                />
+            );
+            
+            const card = container.querySelector('.border-sys-success\\/30');
+            expect(card).toBeInTheDocument();
+        });
+    });
+});

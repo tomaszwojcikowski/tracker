@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, renderHook, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { useEmomTimer } from '../hooks/useEmomTimer';
 
 /**
  * EMOM Timer Tests
@@ -444,8 +445,6 @@ describe('EMOM Timer Functionality', () => {
  * Tests the EMOM timer hook for round tracking, countdown functionality,
  * and haptic feedback.
  */
-import { renderHook, act } from '@testing-library/react';
-import { useEmomTimer } from '../hooks/useEmomTimer';
 
 // Mock the haptic interface
 const createMockHaptic = () => ({

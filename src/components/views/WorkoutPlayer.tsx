@@ -13,8 +13,15 @@ import { RPESelector } from '../RPESelector';
 import { GestureHint } from '../GestureHint';
 import { RecentExercisesList, addRecentExercise } from '../RecentExercises';
 import { ExerciseDetailModal, NotesModal } from '../modals';
+import { ExerciseListItem } from '../ExerciseListItem';
 import { safeGetJSON, safeSetJSON } from '../../utils/storage';
-import { useHaptic, useSwipe, useDebounce, type HapticFeedback } from '../../hooks';
+import {
+    useHaptic,
+    useSwipe,
+    useDebounce,
+    useRestTimer,
+    useEmomTimer,
+} from '../../hooks';
 import {
     Flame, Dumbbell, Snowflake, Activity, ChevronDown, ChevronUp, Timer, Repeat, Check, Plus, CheckCheck, Minus, PlusCircle, X, CheckCircle2, LayoutGrid, LayoutList, Link, Zap, ArrowRightLeft, Info
 } from 'lucide-react';
@@ -27,217 +34,20 @@ import {
     updateExerciseHistory,
     getExerciseHistory,
 } from '../../utils/exerciseHistory';
-import { playTickSound, playBeepSound } from '../../utils/audio';
+import {
+    parseWeight,
+    getExerciseLogEntry,
+    normalizeAddedExercises,
+} from '../../utils/workoutSession';
 import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../../types';
+import type { WorkoutSessionData, ExerciseLogEntry, MuscleFilter } from '../../types/workout';
+import { MUSCLE_FILTERS } from '../../types/workout';
 
 // ============================================================================
-// TYPES
+// LOCAL TYPES
 // ============================================================================
 
 type RPEData = Record<number, RPEValue>;
-
-interface ExerciseLogEntry {
-    sets?: boolean[];
-    weight?: string;
-    rpe?: RPEData;
-}
-
-interface WorkoutSessionData {
-    completed?: boolean;
-    completedAt?: string;
-    lastModified?: string;
-    week?: number;
-    day?: number;
-    workoutNotes?: string;
-    addedExercises?: AddedExercise[];
-    /** Workout duration in seconds */
-    durationSeconds?: number;
-    [exerciseId: string]: ExerciseLogEntry | AddedExercise[] | string | number | boolean | undefined;
-}
-
-const MUSCLE_FILTERS = [
-    'all',
-    'pull',
-    'push',
-    'legs',
-    'core',
-    'cardio',
-    'skill',
-    'arms',
-    'shoulders',
-    'olympic',
-    'functional',
-    'plyometric',
-    'mobility',
-] as const;
-
-type MuscleFilter = (typeof MUSCLE_FILTERS)[number];
-
-// ============================================================================
-// HELPER FUNCTIONS
-// ============================================================================
-
-const parseWeight = (weight: unknown): number | null => {
-    if (weight === null || weight === undefined) return null;
-    if (typeof weight === 'number') return weight;
-    if (typeof weight !== 'string') return null;
-
-    const cleaned = weight.replace(/[^0-9.\-]/g, '').trim();
-    if (!cleaned) return null;
-
-    const parsed = parseFloat(cleaned);
-    return Number.isFinite(parsed) ? parsed : null;
-};
-
-const isExerciseLogEntry = (value: unknown): value is ExerciseLogEntry => {
-    return (
-        typeof value === 'object' &&
-        value !== null &&
-        !Array.isArray(value) &&
-        !('id' in value && 'name' in value && 'sets' in value)
-    );
-};
-
-const getExerciseLogEntry = (
-    logs: WorkoutSessionData,
-    exerciseId: string
-): ExerciseLogEntry => {
-    const entry = logs[exerciseId];
-    if (isExerciseLogEntry(entry)) {
-        return entry;
-    }
-    return {};
-};
-
-const normalizeAddedExercises = (value: unknown): AddedExercise[] => {
-    if (!Array.isArray(value)) return [];
-    return value.filter((item): item is AddedExercise => {
-        return (
-            !!item &&
-            typeof item === 'object' &&
-            'id' in item &&
-            'name' in item &&
-            'sets' in item
-        );
-    });
-};
-
-// ============================================================================
-// EXERCISE LIST ITEM COMPONENT
-// ============================================================================
-
-interface ExerciseListItemProps {
-    exercise: Exercise;
-    onAdd: (exercise: Exercise, sets?: number, weight?: string, rest?: number) => void;
-    haptic: HapticFeedback;
-}
-
-const DEFAULT_REST_TIME = 90;
-
-const ExerciseListItem: React.FC<ExerciseListItemProps> = ({ exercise, onAdd, haptic }) => {
-    const [showAddForm, setShowAddForm] = useState(false);
-    const [sets, setSets] = useState(3);
-    const [weight, setWeight] = useState('');
-    const [rest, setRest] = useState(DEFAULT_REST_TIME);
-
-    return (
-        <div className="bg-sys-surfaceHigh rounded-2xl p-4">
-            <div className="flex items-start justify-between gap-3">
-                <div className="flex-1">
-                    <h4 className="text-base font-semibold text-white mb-1">{exercise.name}</h4>
-                    <p className="text-xs text-sys-onSurfaceVar mb-2">
-                        {exercise.primaryMuscles.join(', ')}
-                    </p>
-                    <div className="flex flex-wrap gap-1">
-                        {exercise.equipment.slice(0, 3).map((eq) => (
-                            <span key={eq} className="text-xs px-2 py-1 bg-sys-surface rounded-lg text-sys-onSurfaceVar">
-                                {eq}
-                            </span>
-                        ))}
-                        {!exercise.isBodyweight && (
-                            <span className="text-xs px-2 py-1 bg-sys-accent/10 rounded-lg text-sys-accent">
-                                Weighted
-                            </span>
-                        )}
-                    </div>
-                </div>
-
-                {!showAddForm ? (
-                    <button
-                        onClick={() => { haptic.tick(); setShowAddForm(true); }}
-                        className="h-10 px-4 rounded-xl text-white font-semibold text-sm active:scale-95 transition-transform flex-shrink-0 btn-gradient-primary"
-                    >
-                        Add
-                    </button>
-                ) : (
-                    <button
-                        onClick={() => { haptic.tick(); setShowAddForm(false); }}
-                        className="h-10 w-10 rounded-xl bg-sys-surface text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-transform flex-shrink-0"
-                        aria-label="Collapse form"
-                    >
-                        <ChevronUp size={20} />
-                    </button>
-                )}
-            </div>
-
-            {showAddForm && (
-                <div className="mt-4 pt-4 border-t border-white/5">
-                    <div className="grid grid-cols-3 gap-3 mb-3">
-                        <div>
-                            <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Sets</label>
-                            <input
-                                type="number"
-                                min="1"
-                                max="10"
-                                value={sets}
-                                onChange={(e) => setSets(parseInt(e.target.value) || 1)}
-                                className="w-full h-10 px-3 bg-sys-surface rounded-xl text-white text-center font-mono outline-none focus:ring-2 focus:ring-sys-accent"
-                            />
-                        </div>
-                        {!exercise.isBodyweight && (
-                            <div>
-                                <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Weight</label>
-                                <input
-                                    type="number"
-                                    inputMode="decimal"
-                                    value={weight}
-                                    onChange={(e) => setWeight(e.target.value)}
-                                    placeholder="kg"
-                                    className="w-full h-10 px-3 bg-sys-surface rounded-xl text-white text-center font-mono outline-none focus:ring-2 focus:ring-sys-accent"
-                                />
-                            </div>
-                        )}
-                        <div>
-                            <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-2 block">Rest (s)</label>
-                            <input
-                                type="number"
-                                min="0"
-                                max="300"
-                                step="15"
-                                value={rest}
-                                onChange={(e) => setRest(parseInt(e.target.value) || DEFAULT_REST_TIME)}
-                                className="w-full h-10 px-3 bg-sys-surface rounded-xl text-white text-center font-mono outline-none focus:ring-2 focus:ring-sys-accent"
-                            />
-                        </div>
-                    </div>
-                    <button
-                        onClick={() => {
-                            haptic.success();
-                            onAdd(exercise, sets, weight, rest);
-                            setShowAddForm(false);
-                            setSets(3);
-                            setWeight('');
-                            setRest(DEFAULT_REST_TIME);
-                        }}
-                        className="w-full h-10 rounded-xl text-white font-semibold active:scale-95 transition-transform btn-gradient-success"
-                    >
-                        Add to Workout
-                    </button>
-                </div>
-            )}
-        </div>
-    );
-};
 
 // ============================================================================
 // MAIN WORKOUT PLAYER COMPONENT
@@ -285,14 +95,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
     // State
     const [logs, setLogs] = useState<WorkoutSessionData>({});
-    const [timerSeconds, setTimerSeconds] = useState(0);
-    const [timerActive, setTimerActive] = useState(false);
-    const [emomSeconds, setEmomSeconds] = useState(0);
-    const [emomActive, setEmomActive] = useState(false);
-    const [emomInterval, setEmomInterval] = useState(() => safeGetJSON<number>('emom_interval', 60) ?? 60);
     // Track manual user overrides for exercise collapse state (true = user wants expanded, false = user wants collapsed)
     const [manualCollapseOverrides, setManualCollapseOverrides] = useState<Record<string, boolean>>({});
-    const [showTimerToast, setShowTimerToast] = useState(false);
     const [addedExercises, setAddedExercises] = useState<AddedExercise[]>([]);
     const [showExerciseSelector, setShowExerciseSelector] = useState(false);
     const [exerciseSearchTerm, setExerciseSearchTerm] = useState('');
@@ -313,6 +117,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [showAlternativesFor, setShowAlternativesFor] = useState<{ name: string; alternatives: string[] } | null>(null);
 
     const haptic = useHaptic();
+
+    // Use extracted timer hooks
+    const restTimer = useRestTimer({ haptic });
+    const emomTimer = useEmomTimer({ haptic });
 
     // Toggle compact view and persist preference
     const toggleCompactView = useCallback(() => {
@@ -400,57 +208,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         }
     }, [sessionKey]);
 
-    // Rest timer effect
-    useEffect(() => {
-        if (timerActive && timerSeconds > 0) {
-            const interval = setInterval(() => setTimerSeconds((s) => s - 1), 1000);
-            return () => clearInterval(interval);
-        }
-        if (timerSeconds === 0 && timerActive) {
-            setTimerActive(false);
-            haptic.timer();
-            setShowTimerToast(true);
-        }
-    }, [timerActive, timerSeconds, haptic]);
-
-    // EMOM timer effect
-    useEffect(() => {
-        if (emomActive && emomSeconds > 0) {
-            const interval = setInterval(() => {
-                setEmomSeconds((s) => {
-                    const newValue = s - 1;
-                    if (newValue <= 5 && newValue >= 1) {
-                        playTickSound();
-                    }
-                    return newValue;
-                });
-            }, 1000);
-            return () => clearInterval(interval);
-        }
-        if (emomSeconds === 0 && emomActive) {
-            setEmomSeconds(emomInterval);
-            haptic.timer();
-            playBeepSound();
-        }
-    }, [emomActive, emomSeconds, emomInterval, haptic]);
-
-    // Save EMOM interval preference
-    useEffect(() => {
-        safeSetJSON('emom_interval', emomInterval);
-    }, [emomInterval]);
-
-    // Escape key to dismiss toast
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === 'Escape' && showTimerToast) {
-                setShowTimerToast(false);
-            }
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [showTimerToast]);
-
     // ============================================================================
     // PERSISTENCE FUNCTIONS
     // ============================================================================
@@ -531,8 +288,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     const hasIncompleteSets = completedSetsCount < totalSets;
 
                     if (hasIncompleteSets) {
-                        setTimerSeconds(restTime);
-                        setTimerActive(true);
+                        restTimer.start(restTime);
                     }
                 }
             }
@@ -615,8 +371,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                 // Start rest timer if completing and there are incomplete sets remaining
                 if (typeof restTime === 'number' && restTime > 0 && hasIncompleteSetsAfter) {
-                    setTimerSeconds(restTime);
-                    setTimerActive(true);
+                    restTimer.start(restTime);
                 }
             } else if (anyWasCompleted) {
                 // Clear RPE prompt if uncompleting
@@ -1360,8 +1115,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                     <button
                                                                         onClick={() => {
                                                                             haptic.bump();
-                                                                            setTimerSeconds(ex.rest);
-                                                                            setTimerActive(true);
+                                                                            restTimer.start(ex.rest);
                                                                         }}
                                                                         className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-semibold flex items-center justify-center gap-1.5 active:bg-sys-accent/20 transition-colors"
                                                                         aria-label={`Start ${ex.rest} second timer`}
@@ -1375,22 +1129,17 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                                     <button
                                                                         onClick={() => {
                                                                             haptic.bump();
-                                                                            if (!emomActive) {
-                                                                                setEmomSeconds(emomInterval);
-                                                                                setEmomActive(true);
-                                                                            } else {
-                                                                                setEmomActive(false);
-                                                                            }
+                                                                            emomTimer.toggle();
                                                                         }}
                                                                         className={`h-8 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors ${
-                                                                            emomActive
+                                                                            emomTimer.active
                                                                                 ? 'bg-sys-accent text-white'
                                                                                 : 'bg-sys-surfaceHigh text-sys-onSurfaceVar active:bg-sys-accent/20'
                                                                         }`}
-                                                                        aria-label={`Start EMOM timer with ${emomInterval} second interval`}
+                                                                        aria-label={`Start EMOM timer with ${emomTimer.interval} second interval`}
                                                                     >
                                                                         <Repeat size={14} />
-                                                                        <span>EMOM {emomInterval}s</span>
+                                                                        <span>EMOM {emomTimer.interval}s</span>
                                                                     </button>
                                                                 )}
                                                             </div>
@@ -1585,8 +1334,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     <button
                                                         onClick={() => {
                                                             haptic.bump();
-                                                            setTimerSeconds(ex.rest ?? 90);
-                                                            setTimerActive(true);
+                                                            restTimer.start(ex.rest ?? 90);
                                                         }}
                                                         className="h-7 px-2.5 rounded-md bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-medium flex items-center gap-1 active:bg-sys-accent/20 transition-colors"
                                                         aria-label={`Start ${ex.rest} second timer`}
@@ -1670,17 +1418,17 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                 {/* Action Bar (Timers only) */}
                 <ActionBar
-                    timerState={{ time: timerSeconds, active: timerActive }}
-                    setTimerActive={setTimerActive}
-                    setTimerSeconds={setTimerSeconds}
-                    emomState={{ active: emomActive, seconds: emomSeconds, interval: emomInterval }}
-                    setEmomActive={setEmomActive}
-                    setEmomSeconds={setEmomSeconds}
-                    setEmomInterval={setEmomInterval}
+                    timerState={{ time: restTimer.seconds, active: restTimer.active }}
+                    setTimerActive={restTimer.setActive}
+                    setTimerSeconds={restTimer.setSeconds}
+                    emomState={{ active: emomTimer.active, seconds: emomTimer.seconds, interval: emomTimer.interval }}
+                    setEmomActive={emomTimer.setActive}
+                    setEmomSeconds={emomTimer.setSeconds}
+                    setEmomInterval={emomTimer.setIntervalState}
                 />
 
                 {/* Timer Toast */}
-                {showTimerToast && (
+                {restTimer.showToast && (
                     <div className="fixed top-20 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
                         <div className="bg-sys-accent px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-md w-full border border-white/10">
                             <CheckCircle2 size={24} className="text-white flex-shrink-0" />
@@ -1688,7 +1436,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             <button
                                 onClick={() => {
                                     haptic.tick();
-                                    setShowTimerToast(false);
+                                    restTimer.dismissToast();
                                 }}
                                 className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
                                 aria-label="Close notification"

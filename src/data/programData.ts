@@ -36,6 +36,8 @@ export interface WorkoutExercise {
   tempoRange?: TempoRange;
   /** Whether this exercise is an EMOM exercise */
   isEmom?: boolean;
+  /** Whether this exercise is unilateral */
+  isUnilateral?: boolean;
   /** Superset group ID (consecutive EMOM exercises share the same group ID) */
   supersetGroup?: number;
   /** Position within superset: 'first', 'middle', 'last', or 'only' */
@@ -154,6 +156,7 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
       repsRange: item.repsRange || undefined,
       tempoRange: item.tempoRange || undefined,
       isEmom,
+      isUnilateral: item.isUnilateral,
       // Use supersetGroup from data directly if available
       supersetGroup: item.supersetGroup,
       // Pass through alternatives
@@ -162,11 +165,21 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
   });
 
   // Second pass: Assign superset groups to consecutive EMOM exercises within each section
+  // Only if supersetGroup is not already assigned from data
   finalSections.forEach((section) => {
-    let currentSupersetGroup = 0;
+    let currentSupersetGroup = 100; // Start high to avoid conflict with manual groups
     let groupStartIdx = -1;
 
     section.exercises.forEach((ex, idx) => {
+      // If supersetGroup is already assigned (from JSON), respect it
+      if (ex.supersetGroup !== undefined) {
+          // Reset auto-grouping if we encounter a manual group
+          if (groupStartIdx !== -1) {
+              groupStartIdx = -1;
+          }
+          return;
+      }
+
       if (ex.isEmom) {
         if (groupStartIdx === -1) {
           // Start a new potential superset group
@@ -205,6 +218,8 @@ export function getWorkoutForDay(week: number, day: number): DayWorkout {
         // Single EMOM exercise - not a superset
         section.exercises[indices[0]].supersetPosition = 'only';
         // Remove superset group for single exercises (not a true superset)
+        // UNLESS it was manually assigned in the data (e.g. for unilateral exercises that might be single in list but part of logic)
+        // Actually, if it's single in the list, it can't be a superset visually.
         section.exercises[indices[0]].supersetGroup = undefined;
       } else {
         indices.forEach((exIdx, posIdx) => {

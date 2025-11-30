@@ -27,6 +27,7 @@ export interface RawScheduleItem {
     repsRange?: RepsRange; // Parsed reps range (optional)
     tempoRange?: TempoRange; // Parsed tempo range (optional)
     isEmom?: boolean;   // Whether this exercise uses EMOM timing
+    isUnilateral?: boolean; // Whether this exercise is performed unilaterally (per side)
     supersetGroup?: number; // Superset group ID
     restSeconds?: number; // Rest between sets in seconds
     alternatives?: string[]; // Array of alternative exercise names

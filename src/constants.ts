@@ -82,6 +82,7 @@ export const STORAGE_KEYS: StorageKeysMap = {
  * Used when the full name would overflow the available space
  */
 export const EXERCISE_SHORT_NAMES: Record<string, string> = {
+  'Bulgarian Split Squat': 'BSS',
   'Bulgarian Split Squat (Left)': 'BSS (L)',
   'Bulgarian Split Squat (Right)': 'BSS (R)',
   'Scapular Pull-Ups (3s ISO-HOLD)': 'Scap Pull-Ups',

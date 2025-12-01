@@ -124,7 +124,7 @@ const App: React.FC = () => {
             setCurrentWeek(savedState.currentWeek);
             setActiveDay(savedState.activeDay as ValidDay);
         }
-        
+
         // Load program ID from URL or saved state
         if (urlParams.programId) {
             setProgramId(urlParams.programId);
@@ -251,10 +251,10 @@ const App: React.FC = () => {
      */
     const handleProgramChange = (newProgramId: string): void => {
         setProgramId(newProgramId);
-        
+
         // Reset week to 1 when switching programs
         setCurrentWeek(1);
-        
+
         // Update URL with new program
         const state: AppStateLocal = { viewMode, activeTab, currentWeek: 1, activeDay, programId: newProgramId };
         const newUrl = updateUrl(state);

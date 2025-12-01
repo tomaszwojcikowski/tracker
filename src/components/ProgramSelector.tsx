@@ -96,7 +96,7 @@ function ProgramCard({ program, isActive, onSelect, isLoading }: ProgramCardProp
               </span>
             )}
           </div>
-          
+
           {program.description && (
             <p className="text-sm text-sys-onSurfaceVar line-clamp-2 mb-3">
               {program.description}
@@ -163,7 +163,7 @@ function ProgramSelectorModal({
 
   const handleSelect = async (programId: string) => {
     if (programId === currentProgramId) return;
-    
+
     setSelectingId(programId);
     try {
       await onSelect(programId);
@@ -185,11 +185,11 @@ function ProgramSelectorModal({
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 animate-fade-in"
       onClick={handleClose}
     >
-      <div 
+      <div
         className="w-full max-w-md bg-sys-surfaceHigh rounded-t-3xl max-h-[85vh] flex flex-col animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
@@ -294,7 +294,7 @@ export function ProgramSelector({
             </div>
             <ChevronRight size={20} className="text-sys-onSurfaceVar" />
           </div>
-          
+
           {currentProgram && (
             <div className="mt-3 pt-3 border-t border-white/5 flex items-center gap-3">
               <span className="flex items-center gap-1 text-xs text-sys-onSurfaceVar">

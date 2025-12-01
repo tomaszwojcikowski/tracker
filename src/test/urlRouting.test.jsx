@@ -20,22 +20,22 @@ describe('URL Routing & State Management', () => {
 
   const getUrlParams = () => {
     const params = new URLSearchParams(window.location.search);
-    
+
     const view = params.get('view');
     const tab = params.get('tab');
     const weekParam = params.get('week');
     const dayParam = params.get('day');
     const programParam = params.get('program');
-    
+
     const week = weekParam ? parseInt(weekParam, 10) : null;
     const day = dayParam ? parseInt(dayParam, 10) : null;
-    
+
     const isValidWeek = week !== null && week >= 1 && week <= 21;
     const isValidDay = day !== null && VALID_DAYS.includes(day);
-    
+
     // Parse program ID (no validation needed - any non-empty string is valid)
     const programId = programParam && programParam.trim().length > 0 ? programParam : null;
-    
+
     return {
       view: VALID_VIEW_MODES.includes(view) ? view : null,
       tab: VALID_TABS.includes(tab) ? tab : null,
@@ -47,7 +47,7 @@ describe('URL Routing & State Management', () => {
 
   const updateUrl = (state) => {
     const params = new URLSearchParams();
-    
+
     if (state.viewMode === 'workout') {
       params.set('view', 'workout');
       params.set('week', state.currentWeek);
@@ -58,7 +58,7 @@ describe('URL Routing & State Management', () => {
         params.set('week', state.currentWeek);
       }
     }
-    
+
     return `?${params.toString()}`;
   };
 
@@ -81,22 +81,22 @@ describe('URL Routing & State Management', () => {
     try {
       const saved = localStorage.getItem('tracker_app_state');
       if (!saved) return null;
-      
+
       const state = JSON.parse(saved);
-      
+
       // Validate loaded state
       if (!VALID_VIEW_MODES.includes(state.viewMode)) return null;
       if (state.activeTab && !VALID_TABS.includes(state.activeTab)) return null;
       if (state.currentWeek && (state.currentWeek < 1 || state.currentWeek > 21)) return null;
       if (state.activeDay && !VALID_DAYS.includes(state.activeDay)) return null;
-      
+
       // Validate programId - must be non-empty string if present
       if (state.programId !== undefined) {
         if (typeof state.programId !== 'string' || state.programId.trim().length === 0) {
           state.programId = undefined;
         }
       }
-      
+
       return state;
     } catch (error) {
       console.error('Failed to load app state:', error);
@@ -507,7 +507,7 @@ describe('URL Routing & State Management', () => {
       expect(urlParams.view).toBe('workout');
       expect(urlParams.week).toBe(10);
       expect(urlParams.day).toBe(3);
-      
+
       // Saved state should still be valid but not prioritized
       expect(loadedState).toEqual(savedState);
     });
@@ -520,26 +520,26 @@ describe('URL Routing & State Management', () => {
     describe('getUrlParams with programId', () => {
       it('should parse programId from URL', () => {
         window.location.search = '?program=my-program-id&tab=train';
-        
+
         const params = getUrlParams();
-        
+
         expect(params.programId).toBe('my-program-id');
         expect(params.tab).toBe('train');
       });
 
       it('should return null for missing programId', () => {
         window.location.search = '?tab=train';
-        
+
         const params = getUrlParams();
-        
+
         expect(params.programId).toBe(null);
       });
 
       it('should handle programId with workout view', () => {
         window.location.search = '?program=oneplus-strength&view=workout&week=5&day=1';
-        
+
         const params = getUrlParams();
-        
+
         expect(params.programId).toBe('oneplus-strength');
         expect(params.view).toBe('workout');
         expect(params.week).toBe(5);
@@ -548,17 +548,17 @@ describe('URL Routing & State Management', () => {
 
       it('should trim whitespace from programId', () => {
         window.location.search = '?program=  &tab=train';
-        
+
         const params = getUrlParams();
-        
+
         expect(params.programId).toBe(null);
       });
 
       it('should handle complex programId with special characters', () => {
         window.location.search = '?program=beginner-bodyweight-4week&tab=train';
-        
+
         const params = getUrlParams();
-        
+
         expect(params.programId).toBe('beginner-bodyweight-4week');
       });
     });
@@ -567,12 +567,12 @@ describe('URL Routing & State Management', () => {
       // Mock the updateUrl function to include programId
       const updateUrlWithProgram = (state) => {
         const params = new URLSearchParams();
-        
+
         // Always include program ID if present
         if (state.programId) {
           params.set('program', state.programId);
         }
-        
+
         if (state.viewMode === 'workout') {
           params.set('view', 'workout');
           params.set('week', state.currentWeek);
@@ -583,7 +583,7 @@ describe('URL Routing & State Management', () => {
             params.set('week', state.currentWeek);
           }
         }
-        
+
         return `?${params.toString()}`;
       };
 

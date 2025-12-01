@@ -26,21 +26,21 @@ const MAX_EXERCISES_IN_SUMMARY = 3;
 function getExerciseSummary(week: number, day: number): string {
   const schedule = getCompleteSchedule();
   const dayExercises = schedule.filter((item) => item.w === week && item.d === day);
-  
+
   if (dayExercises.length === 0) {
     return 'Rest day';
   }
-  
+
   // Filter to only skill and main work exercises based on category
   const mainExercises = dayExercises
     .filter((item) => item.category === 'skill' || item.category === 'main')
     .map((item) => item.ex)
     .slice(0, MAX_EXERCISES_IN_SUMMARY);
-  
+
   if (mainExercises.length === 0) {
     return 'Rest day';
   }
-  
+
   return mainExercises.join(', ');
 }
 
@@ -63,10 +63,10 @@ export function Dashboard({
   const [progress, setProgress] = useState(0);
   const [inProgressWorkout, setInProgressWorkout] = useState<InProgressWorkout | null>(null);
   const haptic = useHaptic();
-  
+
   // Get program context for program-aware features
   const { currentProgram, metadata } = useProgram();
-  
+
   // Calculate max weeks based on current program
   const maxWeeks = metadata?.durationWeeks ?? currentProgram?.durationWeeks ?? 21;
 
@@ -127,7 +127,7 @@ export function Dashboard({
   };
 
   const currentBlock = getBlockForWeek(currentWeek) || { name: 'Unknown' };
-  
+
   // Get program name with fallback
   const programName = currentProgram?.name ?? 'OnePlus Strength';
 
@@ -144,8 +144,8 @@ export function Dashboard({
         className="flex-1 overflow-y-auto px-5 pb-20 pt-6"
       >
         {/* Program Selector Card */}
-        <ProgramSelector 
-          variant="card" 
+        <ProgramSelector
+          variant="card"
           className="mb-6"
           onProgramChange={onProgramChange}
         />

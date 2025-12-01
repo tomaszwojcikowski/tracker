@@ -8,6 +8,7 @@ import { LoadingScreen, ErrorScreen } from './components/screens';
 import { initErrorReporting, captureError } from './utils/errorReporting';
 import { autoMigrate, getMigrationStatus } from './services/storageMigration';
 import { initializeDefaultProgram, getProgramRegistry } from './services/programRegistry';
+import { ProgramProvider } from './context/ProgramContext';
 
 // Initialize error reporting as early as possible
 initErrorReporting();
@@ -137,7 +138,7 @@ Promise.all([
         // Initialize program registry with the loaded workout plan
         // This registers the default program if not already registered
         initializeDefaultProgram(scheduleData);
-        
+
         // Store program data in registry for access by other modules
         const registry = getProgramRegistry();
         const activeProgram = registry.getActiveProgram();
@@ -164,9 +165,11 @@ Promise.all([
         root.render(
             <React.Suspense fallback={<LoadingScreen />}>
                 <ErrorBoundary>
-                    <PWAApp>
-                        <App />
-                    </PWAApp>
+                    <ProgramProvider initialProgramData={scheduleData}>
+                        <PWAApp>
+                            <App />
+                        </PWAApp>
+                    </ProgramProvider>
                 </ErrorBoundary>
             </React.Suspense>
         );

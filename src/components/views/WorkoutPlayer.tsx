@@ -779,13 +779,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         </button>
                         <button
                             onClick={() => {
-                                if (viewMode === 'focus') {
-                                    haptic.tick();
-                                    setViewMode('list');
-                                    if (!compactView) toggleCompactView();
-                                } else if (!compactView) {
-                                    toggleCompactView();
-                                }
+                                haptic.tick();
+                                setViewMode('list');
+                                setCompactView(true);
                             }}
                             className={`h-8 w-8 rounded-md flex items-center justify-center transition-all ${
                                 viewMode === 'list' && compactView ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'

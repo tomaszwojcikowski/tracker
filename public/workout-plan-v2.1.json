@@ -3592,6 +3592,21 @@
                     ]
                   },
                   {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Weighted Hollow Rocks",
+                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
+                    "loadMin": 3,
+                    "loadMax": 5,
+                    "loadUnit": "kg",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -4101,6 +4116,21 @@
                       "Vertical shin",
                       "Drive through heel"
                     ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Weighted Hollow Rocks",
+                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
+                    "loadMin": 3,
+                    "loadMax": 5,
+                    "loadUnit": "kg",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
                   },
                   {
                     "category": "cooldown",
@@ -4895,17 +4925,67 @@
                     ]
                   },
                   {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
                     "category": "core",
                     "sets": 3,
-                    "exerciseName": "Weighted Hollow Hold",
-                    "notes": "Core Hard",
+                    "exerciseName": "Weighted Hollow Rocks",
+                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
                     "loadMin": 3,
                     "loadMax": 5,
                     "loadUnit": "kg",
-                    "repsType": "time",
-                    "repsValue": 45,
-                    "repsUnit": "seconds",
-                    "restSeconds": 60
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
                   },
                   {
                     "category": "cooldown",
@@ -5333,6 +5413,69 @@
                     "loadMax": 0,
                     "loadUnit": "bodyweight",
                     "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Weighted Hollow Rocks",
+                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
+                    "loadMin": 3,
+                    "loadMax": 5,
+                    "loadUnit": "kg",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
                   },
                   {
                     "category": "cooldown",
@@ -5773,6 +5916,69 @@
                       "Protract scapula",
                       "Lean forward"
                     ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Weighted Hollow Rocks",
+                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
+                    "loadMin": 3,
+                    "loadMax": 5,
+                    "loadUnit": "kg",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
                   },
                   {
                     "category": "cooldown",
@@ -6778,6 +6984,69 @@
                     "restSeconds": 60
                   },
                   {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Weighted Hollow Rocks",
+                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
+                    "loadMin": 3,
+                    "loadMax": 5,
+                    "loadUnit": "kg",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -7224,6 +7493,69 @@
                     "repsValue": 8,
                     "restSeconds": 60,
                     "progressionNotes": "Start 1.25kg. Progress only with perfect form."
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Weighted Hollow Rocks",
+                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
+                    "loadMin": 3,
+                    "loadMax": 5,
+                    "loadUnit": "kg",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
                   },
                   {
                     "category": "cooldown",
@@ -7684,6 +8016,69 @@
                     "loadUnit": "kg",
                     "loadPerHand": true,
                     "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Weighted Hollow Rocks",
+                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
+                    "loadMin": 3,
+                    "loadMax": 5,
+                    "loadUnit": "kg",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
                   },
                   {
                     "category": "cooldown",
@@ -8392,6 +8787,69 @@
                     "progressionNotes": "Start 1.25kg. Progress only with perfect form."
                   },
                   {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Weighted Hollow Rocks",
+                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
+                    "loadMin": 3,
+                    "loadMax": 5,
+                    "loadUnit": "kg",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
+                  },
+                  {
                     "category": "cooldown",
                     "sets": 1,
                     "exerciseName": "Banded Pec Stretch",
@@ -8765,6 +9223,69 @@
                     "loadMax": 0,
                     "loadUnit": "bodyweight",
                     "restSeconds": 120
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 3,
+                    "exerciseName": "Weighted Hollow Rocks",
+                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
+                    "loadMin": 3,
+                    "loadMax": 5,
+                    "loadUnit": "kg",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
                   },
                   {
                     "category": "cooldown",
@@ -9310,6 +9831,69 @@
                     "loadMax": 0,
                     "loadUnit": "bodyweight",
                     "restSeconds": 120
+                  },
+                  {
+                    "category": "main",
+                    "sets": 2,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "Deload. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 8,
+                    "loadMax": 12,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "main",
+                    "sets": 2,
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "Deload. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+                    "loadMin": 8,
+                    "loadMax": 12,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 2,
+                    "exerciseName": "Weighted Hollow Rocks",
+                    "notes": "Deload. Arms straight overhead. If lower back arches, drop weight immediately.",
+                    "loadMin": 2,
+                    "loadMax": 3,
+                    "loadUnit": "kg",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "progressionNotes": "Deload weight."
                   },
                   {
                     "category": "cooldown",
@@ -9948,17 +10532,136 @@
                 "dayNumber": 5,
                 "name": "Pull Day B",
                 "type": "strength",
-                "estimatedDuration": 12,
-                "description": null,
+                "estimatedDuration": 46,
+                "description": "Reload version of Week 1 Pull Day B. 60% volume. NO weighted pulls or dips.",
                 "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "Rower (Zone 1)",
+                    "notes": "Warm-up. Min 1-2: Easy pace to warm up (Zone 1).",
+                    "repsType": "time",
+                    "repsValue": 120,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "Rower (Zone 2)",
+                    "notes": "Warm-up. Min 3-4: Moderate intensity (Zone 2).",
+                    "repsType": "time",
+                    "repsValue": 120,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Rower Sprints",
+                    "notes": "Warm-up. Reload: 2 x 10s Sprints to wake up CNS without fatigue.",
+                    "repsType": "time",
+                    "repsValue": 10,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "Band Pull-Aparts",
+                    "notes": "Warm-up. Tendon prep.",
+                    "loadMin": 1,
+                    "loadMax": 1,
+                    "loadUnit": "band",
+                    "repsType": "reps",
+                    "repsValue": 20,
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "Band External Rotations",
+                    "notes": "Warm-up. Pin elbow to ribcage using a towel roll.",
+                    "loadMin": 1,
+                    "loadMax": 1,
+                    "loadUnit": "band",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "repsPerSide": true,
+                    "restSeconds": 30,
+                    "cues": [
+                      "Elbow pinned",
+                      "Rotate away from belly"
+                    ]
+                  },
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Scapular Pull-Ups (3s ISO-HOLD)",
+                    "notes": "Warm-up. Depress scapula and hold 3s at top.",
+                    "repsType": "reps",
+                    "repsValue": 5,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30,
+                    "alternatives": [
+                      "Lat Pulldowns",
+                      "Ring Rows",
+                      "Assisted Pull-Ups"
+                    ],
+                    "cues": [
+                      "Straight arms",
+                      "Depress scapula",
+                      "Hold 3s"
+                    ]
+                  },
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "Passive Bar Hang",
+                    "notes": "Warm-up. Light passive hang for tissue decompression.",
+                    "repsType": "time",
+                    "repsValue": 20,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30,
+                    "cues": [
+                      "Relax shoulders",
+                      "Decompress spine"
+                    ]
+                  },
+                  {
+                    "category": "skill",
+                    "sets": 2,
+                    "exerciseName": "Skill: HSPU Volume (Reload)",
+                    "notes": "60% Vol (Reload). Practice the groove, stop far from failure.",
+                    "repsType": "reps",
+                    "repsValue": 3,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 90
+                  },
                   {
                     "category": "main",
                     "sets": 2,
-                    "exerciseName": "Weighted Pull-Ups",
-                    "notes": "60% (Reload). Primary Goal: Build elite pulling strength.",
-                    "loadMin": 5,
-                    "loadMax": 10,
-                    "loadUnit": "kg",
+                    "exerciseName": "Pull-Ups",
+                    "notes": "Reload. NO weighted pulls. Tempo 2-1-1. Focus on perfect reps.",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
                     "repsType": "reps",
                     "repsValue": 5,
                     "restSeconds": 120,
@@ -9967,7 +10670,6 @@
                       "Ring Rows",
                       "Assisted Pull-Ups"
                     ],
-                    "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form. (e.g. if 3x5 is goal, must hit 5,5,5 to add 1kg).",
                     "cues": [
                       "Full ROM",
                       "Chin over bar",
@@ -9978,9 +10680,9 @@
                     "category": "main",
                     "sets": 2,
                     "exerciseName": "Dips",
-                    "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
+                    "notes": "Reload. Bodyweight only. Dip Governor Rule: stop if shoulder pinch.",
                     "repsType": "reps",
-                    "repsValue": 10,
+                    "repsValue": 8,
                     "loadMin": 0,
                     "loadMax": 0,
                     "loadUnit": "bodyweight",
@@ -9990,7 +10692,6 @@
                       "Bench Dips",
                       "Chest Press Machine"
                     ],
-                    "progressionNotes": "Double Progression Rule applies.",
                     "cues": [
                       "Shoulders down",
                       "Don't flair elbows"
@@ -9999,14 +10700,16 @@
                   {
                     "category": "main",
                     "sets": 2,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Light. Unilateral Leg Work: Use Alternating EMOM (Min 1 Left, Min 2 Right).",
-                    "loadMin": 8,
-                    "loadMax": 16,
+                    "exerciseName": "Bulgarian Split Squat (Left)",
+                    "notes": "EMOM. Alternating EMOM (Min 1 Left, Min 2 Right). Light loading.",
+                    "loadMin": 6,
+                    "loadMax": 12,
                     "loadUnit": "kg",
                     "loadPerHand": true,
                     "repsType": "reps",
-                    "repsValue": 8,
+                    "repsValue": 6,
+                    "isEmom": true,
+                    "supersetGroup": 1,
                     "restSeconds": 120,
                     "alternatives": [
                       "Lunges",
@@ -10021,15 +10724,82 @@
                   {
                     "category": "main",
                     "sets": 2,
-                    "exerciseName": "Weighted Hollow Rocks",
-                    "notes": "Light. Arms straight overhead. If lower back arches, drop weight immediately.",
+                    "exerciseName": "Bulgarian Split Squat (Right)",
+                    "notes": "EMOM. Alternating EMOM (Min 1 Left, Min 2 Right). Light loading.",
+                    "loadMin": 6,
+                    "loadMax": 12,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
                     "repsType": "reps",
-                    "repsValue": 12,
+                    "repsValue": 6,
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120,
+                    "alternatives": [
+                      "Lunges",
+                      "Step-Ups",
+                      "Split Squats"
+                    ],
+                    "cues": [
+                      "Vertical shin",
+                      "Drive through heel"
+                    ]
+                  },
+                  {
+                    "category": "core",
+                    "sets": 2,
+                    "exerciseName": "Hollow Rocks",
+                    "notes": "EMOM. Pair with Bulgarians. Bodyweight only for tissue reset.",
+                    "repsType": "time",
+                    "repsValue": 20,
+                    "repsUnit": "seconds",
                     "loadMin": 0,
                     "loadMax": 0,
                     "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
+                    "isEmom": true,
+                    "supersetGroup": 1,
+                    "restSeconds": 120
+                  },
+                  {
+                    "category": "cooldown",
+                    "sets": 1,
+                    "exerciseName": "Banded Pec Stretch",
+                    "notes": "Cool-down. Release tension from dips.",
+                    "repsType": "time",
+                    "repsValue": 60,
+                    "repsUnit": "seconds",
+                    "repsPerSide": true,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 0
+                  },
+                  {
+                    "category": "cooldown",
+                    "sets": 1,
+                    "exerciseName": "Lat Prayer",
+                    "notes": "Cool-down. Lat release.",
+                    "repsType": "time",
+                    "repsValue": 60,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 0
+                  },
+                  {
+                    "category": "cooldown",
+                    "sets": 1,
+                    "exerciseName": "Standing Quad Stretch",
+                    "notes": "Cool-down. Quad release.",
+                    "repsType": "time",
+                    "repsValue": 60,
+                    "repsUnit": "seconds",
+                    "repsPerSide": true,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 0
                   }
                 ]
               }
@@ -10391,6 +11161,69 @@
               "Chin over bar",
               "Controlled descent"
             ]
+          },
+          {
+            "category": "main",
+            "sets": 3,
+            "exerciseName": "Bulgarian Split Squat (Left)",
+            "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+            "loadMin": 10,
+            "loadMax": 18,
+            "loadUnit": "kg",
+            "loadPerHand": true,
+            "repsType": "reps",
+            "repsValue": 8,
+            "isEmom": true,
+            "supersetGroup": 1,
+            "restSeconds": 120,
+            "alternatives": [
+              "Lunges",
+              "Step-Ups",
+              "Split Squats"
+            ],
+            "cues": [
+              "Vertical shin",
+              "Drive through heel"
+            ]
+          },
+          {
+            "category": "main",
+            "sets": 3,
+            "exerciseName": "Bulgarian Split Squat (Right)",
+            "notes": "EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
+            "loadMin": 10,
+            "loadMax": 18,
+            "loadUnit": "kg",
+            "loadPerHand": true,
+            "repsType": "reps",
+            "repsValue": 8,
+            "isEmom": true,
+            "supersetGroup": 1,
+            "restSeconds": 120,
+            "alternatives": [
+              "Lunges",
+              "Step-Ups",
+              "Split Squats"
+            ],
+            "cues": [
+              "Vertical shin",
+              "Drive through heel"
+            ]
+          },
+          {
+            "category": "core",
+            "sets": 3,
+            "exerciseName": "Weighted Hollow Rocks",
+            "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
+            "loadMin": 3,
+            "loadMax": 5,
+            "loadUnit": "kg",
+            "repsType": "reps",
+            "repsValue": 15,
+            "isEmom": true,
+            "supersetGroup": 1,
+            "restSeconds": 120,
+            "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
           },
           {
             "category": "cooldown",

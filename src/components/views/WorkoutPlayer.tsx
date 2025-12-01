@@ -697,7 +697,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 message="Swipe right to go back"
             />
 
-            <div {...swipeHandlers} className="px-4 pb-32 pt-4">
+            <div {...swipeHandlers} className="px-4 pb-20 pt-4">
                 {/* Workout Notes */}
                 <div className="mb-4">
                     <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-1 block">
@@ -876,9 +876,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         exercises={supersetExercises}
                                                         isFirstIncomplete={groupHasFirstIncomplete}
                                                         haptic={haptic}
+                                                        emomTimerActive={emomTimer.active}
+                                                        emomTimerInterval={emomTimer.interval}
                                                         onToggleRound={toggleSupersetRound}
                                                         onWeightChange={handleWeightChange}
                                                         onCompleteAllRounds={completeAllSupersetSets}
+                                                        onToggleEmomTimer={() => emomTimer.toggle()}
                                                     />
                                                 );
                                                 return;
@@ -899,6 +902,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     restTime={ex.rest}
                                                     isFirstIncomplete={isFirstIncomplete}
                                                     isEmom={ex.isEmom}
+                                                    isUnilateral={ex.isUnilateral}
                                                     supersetGroup={ex.supersetGroup}
                                                     supersetPosition={ex.supersetPosition}
                                                     haptic={haptic}
@@ -934,6 +938,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 notes={ex.notes}
                                                 isBodyweight={ex.isBodyweight}
                                                 isEmom={ex.isEmom}
+                                                isUnilateral={ex.isUnilateral}
                                                 restTime={ex.rest}
                                                 loadRange={ex.loadRange}
                                                 alternatives={ex.alternatives}
@@ -1056,7 +1061,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     timerState={{ time: restTimer.seconds, active: restTimer.active }}
                     setTimerActive={restTimer.setActive}
                     setTimerSeconds={restTimer.setSeconds}
-                    emomState={{ active: emomTimer.active, seconds: emomTimer.seconds, interval: emomTimer.interval }}
+                    emomState={{ active: emomTimer.active, seconds: emomTimer.seconds, interval: emomTimer.interval, round: emomTimer.round }}
                     setEmomActive={emomTimer.setActive}
                     setEmomSeconds={emomTimer.setSeconds}
                     setEmomInterval={emomTimer.setIntervalState}

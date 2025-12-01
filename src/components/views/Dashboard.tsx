@@ -124,7 +124,7 @@ export function Dashboard({
       />
       <div
         {...swipeHandlers}
-        className="flex-1 overflow-y-auto px-5 pb-32 pt-6"
+        className="flex-1 overflow-y-auto px-5 pb-20 pt-6"
       >
         {/* Resume Workout Banner */}
         {inProgressWorkout && (

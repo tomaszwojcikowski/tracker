@@ -98,7 +98,7 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
 /**
  * Format version string
  */
-export type FormatVersion = '2.0.0' | '2.1.0';
+export type FormatVersion = '2.0.0' | '2.1.0' | '2.2.0' | '2.3.0';
 
 /**
  * Structured reps data for internal use
@@ -166,6 +166,8 @@ export interface ScheduleEntry {
   tempoRange?: TempoRange;
   /** Whether this exercise uses EMOM timing */
   isEmom?: boolean;
+  /** Whether this exercise is performed unilaterally (per side) */
+  isUnilateral?: boolean;
   /** Superset group ID */
   supersetGroup?: number;
   /** Rest between sets in seconds */
@@ -185,6 +187,111 @@ export type LoadUnit = 'kg' | 'band' | 'bodyweight' | 'percent';
 export type RepsType = 'reps' | 'time' | 'ladder' | 'amrap' | 'rm' | 'max' | 'effort' | 'submax' | 'none';
 
 /**
+ * V2.2.0 exercise template definition
+ * Exercise templates allow defining common exercises once with all their default properties.
+ * When referenced via $ref, any field can be overridden.
+ */
+export interface V2ExerciseTemplate {
+  /** Unique identifier for this exercise template */
+  id: string;
+  /** Full exercise name as displayed to user */
+  exerciseName: string;
+  /** Number of sets */
+  sets?: number;
+  notes?: string;
+  category?: string;
+  restSeconds?: number;
+  rpe?: number;
+  alternatives?: string[];
+  progressionNotes?: string;
+  cues?: string[];
+  loadMin?: number;
+  loadMax?: number;
+  loadUnit?: LoadUnit;
+  loadPerHand?: boolean;
+  repsType?: RepsType;
+  repsValue?: number | number[] | null;
+  repsMin?: number;
+  repsMax?: number;
+  repsUnit?: 'seconds';
+  repsPerSide?: boolean;
+  repsModifier?: number;
+  tempoEccentric?: number;
+  tempoPauseBottom?: number;
+  tempoConcentric?: number;
+  tempoPauseTop?: number;
+  isEmom?: boolean;
+  isUnilateral?: boolean;
+  supersetGroup?: number;
+}
+
+/**
+ * V2.2.0 exercise reference - references an exercise template with optional overrides
+ */
+export interface V2ExerciseRef {
+  /** Reference to an exercise template ID */
+  $ref: string;
+  /** Override fields from the template */
+  exerciseName?: string;
+  sets?: number;
+  notes?: string;
+  category?: string;
+  restSeconds?: number;
+  rpe?: number;
+  alternatives?: string[];
+  progressionNotes?: string;
+  cues?: string[];
+  loadMin?: number;
+  loadMax?: number;
+  loadUnit?: LoadUnit;
+  loadPerHand?: boolean;
+  repsType?: RepsType;
+  repsValue?: number | number[] | null;
+  repsMin?: number;
+  repsMax?: number;
+  repsUnit?: 'seconds';
+  repsPerSide?: boolean;
+  repsModifier?: number;
+  tempoEccentric?: number;
+  tempoPauseBottom?: number;
+  tempoConcentric?: number;
+  tempoPauseTop?: number;
+  isEmom?: boolean;
+  isUnilateral?: boolean;
+  supersetGroup?: number;
+}
+
+/**
+ * V2.3.0 routine template definition
+ * Routine templates allow defining reusable sequences of exercises (like warmups and cooldowns)
+ * that can be inserted into any workout day using the $routine reference.
+ */
+export interface V2RoutineTemplate {
+  /** Unique identifier for this routine template */
+  id: string;
+  /** Human-readable name for the routine */
+  name: string;
+  /** Description of the routine's purpose */
+  description?: string | null;
+  /** Category of routine (warmup, cooldown, mobility, activation, prehab, rehab) */
+  category?: 'warmup' | 'cooldown' | 'mobility' | 'activation' | 'prehab' | 'rehab';
+  /** Estimated duration in minutes */
+  estimatedDuration?: number;
+  /** Body areas or movement patterns this routine targets */
+  targetAreas?: string[];
+  /** Sequence of exercises in this routine */
+  exercises: (V2Exercise | V2ExerciseRef)[];
+}
+
+/**
+ * V2.3.0 routine reference - references a routine template to insert its exercises inline
+ */
+export interface V2RoutineRef {
+  /** Reference to a routine template ID */
+  $routine: string;
+}
+
+/**
  * V2.0.0 exercise definition
  */
 export interface V2Exercise {
@@ -199,6 +306,10 @@ export interface V2Exercise {
   restSeconds?: number;
   /** Array of alternative exercise names or IDs */
   alternatives?: string[];
+  /** Progression notes for this exercise */
+  progressionNotes?: string;
+  /** Coaching cues */
+  cues?: string[];
 
   // ---- Legacy fields (deprecated, for backward compatibility) ----
   /** @deprecated Use repsType/repsValue/repsMin/repsMax instead */
@@ -247,6 +358,8 @@ export interface V2Exercise {
   // ---- EMOM and Superset fields ----
   /** Whether this exercise uses EMOM (Every Minute On the Minute) timing */
   isEmom?: boolean;
+  /** Whether this exercise is performed unilaterally (per side) */
+  isUnilateral?: boolean;
   /** Superset group ID. Exercises with the same supersetGroup value are performed together */
   supersetGroup?: number;
 }
@@ -265,7 +378,8 @@ export interface V2Day {
   description?: string | null;
   /** Reference to another day or template (v2.1+) */
   $ref?: string;
-  exercises?: V2Exercise[];
+  /** Exercises can be full definitions, references, or routine references (v2.2+/v2.3+) */
+  exercises?: (V2Exercise | V2ExerciseRef | V2RoutineRef)[];
 }
 
 /**
@@ -274,11 +388,14 @@ export interface V2Day {
 export interface V2DayTemplate {
   /** Unique ID for this template */
   id: string;
+  /** Default day number for this template */
+  dayNumber?: number;
   name?: string;
   type?: string;
   estimatedDuration?: number;
   description?: string | null;
-  exercises: V2Exercise[];
+  /** Exercises can be full definitions, references, or routine references (v2.2+/v2.3+) */
+  exercises: (V2Exercise | V2ExerciseRef | V2RoutineRef)[];
 }
 
 /**
@@ -314,16 +431,20 @@ export interface V2Plan {
   goals?: string[];
   targetLevel?: string;
   equipment?: string[];
+  /** Routine templates for v2.3+ format (warmups, cooldowns, etc.) */
+  routineTemplates?: V2RoutineTemplate[];
+  /** Exercise templates for v2.2+ format */
+  exerciseTemplates?: V2ExerciseTemplate[];
   /** Day templates for v2.1+ format */
   dayTemplates?: V2DayTemplate[];
   phases: V2Phase[];
 }
 
 /**
- * V2.0.0/V2.1.0 format root structure
+ * V2.0.0/V2.1.0/V2.2.0/V2.3.0 format root structure
  */
 export interface V2WorkoutPlan {
-  formatVersion: '2.0.0' | '2.1.0';
+  formatVersion: '2.0.0' | '2.1.0' | '2.2.0' | '2.3.0';
   plan: V2Plan;
 }
 
@@ -391,14 +512,15 @@ export interface PlanSummary {
 // ============================================================================
 
 /**
- * Validate v2.0.0 or v2.1.0 format
+ * Validate v2.0.0, v2.1.0, or v2.2.0 format
  */
 function validateV2Format(data: unknown): data is V2WorkoutPlan {
   if (!data || typeof data !== 'object') return false;
 
   const obj = data as Record<string, unknown>;
-  // Support both 2.0.0 and 2.1.0
-  if (!obj.formatVersion || (obj.formatVersion !== '2.0.0' && obj.formatVersion !== '2.1.0') || !obj.plan) return false;
+  // Support 2.0.0, 2.1.0, 2.2.0, and 2.3.0
+  const validVersions = ['2.0.0', '2.1.0', '2.2.0', '2.3.0'];
+  if (!obj.formatVersion || !validVersions.includes(obj.formatVersion as string) || !obj.plan) return false;
 
   const plan = obj.plan as Record<string, unknown>;
   return (
@@ -414,20 +536,138 @@ function validateV2Format(data: unknown): data is V2WorkoutPlan {
 // ============================================================================
 
 /**
+ * Check if an exercise entry is a reference (v2.2+)
+ */
+function isExerciseRef(exercise: V2Exercise | V2ExerciseRef | V2RoutineRef): exercise is V2ExerciseRef {
+  return '$ref' in exercise && typeof (exercise as V2ExerciseRef).$ref === 'string';
+}
+
+/**
+ * Check if an entry is a routine reference (v2.3+)
+ */
+function isRoutineRef(entry: V2Exercise | V2ExerciseRef | V2RoutineRef): entry is V2RoutineRef {
+  return '$routine' in entry && typeof (entry as V2RoutineRef).$routine === 'string';
+}
+
+/**
+ * Resolve an exercise reference to a full exercise definition (v2.2+)
+ * @param exerciseOrRef - The exercise or exercise reference
+ * @param exerciseTemplates - Map of exercise templates by ID
+ * @returns The resolved exercise with all fields filled in
+ */
+function resolveExerciseReference(
+  exerciseOrRef: V2Exercise | V2ExerciseRef,
+  exerciseTemplates: Map<string, V2ExerciseTemplate>
+): V2Exercise {
+  // If it's already a full exercise, return it
+  if (!isExerciseRef(exerciseOrRef)) {
+    return exerciseOrRef as V2Exercise;
+  }
+
+  // Find the template
+  const template = exerciseTemplates.get(exerciseOrRef.$ref);
+  if (!template) {
+    throw new Error(`Exercise template "${exerciseOrRef.$ref}" not found`);
+  }
+
+  // Merge template with overrides
+  // The reference can override any field from the template
+  const resolved: V2Exercise = {
+    exerciseName: exerciseOrRef.exerciseName ?? template.exerciseName,
+    sets: exerciseOrRef.sets ?? template.sets ?? 1,
+    notes: exerciseOrRef.notes ?? template.notes,
+    category: exerciseOrRef.category ?? template.category,
+    restSeconds: exerciseOrRef.restSeconds ?? template.restSeconds,
+    rpe: exerciseOrRef.rpe ?? template.rpe,
+    alternatives: exerciseOrRef.alternatives ?? template.alternatives,
+    progressionNotes: exerciseOrRef.progressionNotes ?? template.progressionNotes,
+    loadMin: exerciseOrRef.loadMin ?? template.loadMin,
+    loadMax: exerciseOrRef.loadMax ?? template.loadMax,
+    loadUnit: exerciseOrRef.loadUnit ?? template.loadUnit,
+    loadPerHand: exerciseOrRef.loadPerHand ?? template.loadPerHand,
+    repsType: exerciseOrRef.repsType ?? template.repsType,
+    repsValue: exerciseOrRef.repsValue ?? template.repsValue,
+    repsMin: exerciseOrRef.repsMin ?? template.repsMin,
+    repsMax: exerciseOrRef.repsMax ?? template.repsMax,
+    repsUnit: exerciseOrRef.repsUnit ?? template.repsUnit,
+    repsPerSide: exerciseOrRef.repsPerSide ?? template.repsPerSide,
+    repsModifier: exerciseOrRef.repsModifier ?? template.repsModifier,
+    tempoEccentric: exerciseOrRef.tempoEccentric ?? template.tempoEccentric,
+    tempoPauseBottom: exerciseOrRef.tempoPauseBottom ?? template.tempoPauseBottom,
+    tempoConcentric: exerciseOrRef.tempoConcentric ?? template.tempoConcentric,
+    tempoPauseTop: exerciseOrRef.tempoPauseTop ?? template.tempoPauseTop,
+    isEmom: exerciseOrRef.isEmom ?? template.isEmom,
+    isUnilateral: exerciseOrRef.isUnilateral ?? template.isUnilateral,
+    supersetGroup: exerciseOrRef.supersetGroup ?? template.supersetGroup,
+  };
+
+  // Add cues if present
+  if (exerciseOrRef.cues ?? template.cues) {
+    (resolved as V2Exercise & { cues?: string[] }).cues = exerciseOrRef.cues ?? template.cues;
+  }
+
+  return resolved;
+}
+
+/**
+ * Resolve all exercises in an array, handling full exercises, exercise references, and routine references (v2.2+/v2.3+)
+ * @param exercises - Array of exercises, exercise refs, or routine refs
+ * @param exerciseTemplates - Map of exercise templates by ID
+ * @param routineTemplates - Map of routine templates by ID (v2.3+)
+ */
+function resolveExercises(
+  exercises: (V2Exercise | V2ExerciseRef | V2RoutineRef)[] | undefined,
+  exerciseTemplates: Map<string, V2ExerciseTemplate>,
+  routineTemplates?: Map<string, V2RoutineTemplate>
+): V2Exercise[] {
+  if (!exercises) return [];
+
+  const result: V2Exercise[] = [];
+
+  for (const ex of exercises) {
+    // Handle routine references (v2.3+) - expand inline
+    if (isRoutineRef(ex)) {
+      if (!routineTemplates) {
+        throw new Error(`Routine reference "${ex.$routine}" found but no routine templates defined`);
+      }
+      const routine = routineTemplates.get(ex.$routine);
+      if (!routine) {
+        throw new Error(`Routine template "${ex.$routine}" not found`);
+      }
+      // Recursively resolve exercises from the routine (routines can contain exercise refs but not other routines)
+      const routineExercises = resolveExercises(
+        routine.exercises as (V2Exercise | V2ExerciseRef)[],
+        exerciseTemplates
+      );
+      result.push(...routineExercises);
+    } else {
+      // Handle regular exercise or exercise reference
+      result.push(resolveExerciseReference(ex as V2Exercise | V2ExerciseRef, exerciseTemplates));
+    }
+  }
+
+  return result;
+}
+
+/**
  * Resolve a day reference to get the actual exercises
  * @param day - The day that may contain a $ref
  * @param dayTemplates - Array of day templates from the plan
  * @param dayRegistry - Registry of previously defined days by ID
+ * @param exerciseTemplates - Map of exercise templates by ID (v2.2+)
+ * @param routineTemplates - Map of routine templates by ID (v2.3+)
  * @returns The resolved exercises array, or null if not resolvable
  */
 function resolveDayReference(
   day: V2Day,
   dayTemplates: V2DayTemplate[] | undefined,
-  dayRegistry: Map<string, V2Exercise[]>
+  dayRegistry: Map<string, V2Exercise[]>,
+  exerciseTemplates: Map<string, V2ExerciseTemplate>,
+  routineTemplates?: Map<string, V2RoutineTemplate>
 ): V2Exercise[] | null {
-  // If day has exercises directly, return them
+  // If day has exercises directly, resolve any references and return them
   if (day.exercises && day.exercises.length > 0) {
-    return day.exercises;
+    return resolveExercises(day.exercises, exerciseTemplates, routineTemplates);
   }
 
   // If day has a $ref, resolve it
@@ -436,7 +676,7 @@ function resolveDayReference(
     if (dayTemplates) {
       const template = dayTemplates.find(t => t.id === day.$ref);
       if (template) {
-        return template.exercises;
+        return resolveExercises(template.exercises, exerciseTemplates, routineTemplates);
       }
     }
 
@@ -450,22 +690,38 @@ function resolveDayReference(
   }
 
   // Day has neither exercises nor $ref
-  return day.exercises ?? null;
+  return resolveExercises(day.exercises, exerciseTemplates, routineTemplates);
 }
 
 /**
- * Convert v2.0.0/v2.1.0 structured format to internal schedule format
+ * Convert v2.0.0/v2.1.0/v2.2.0/v2.3.0 structured format to internal schedule format
  * (Compatible with existing buildCompleteSchedule function)
- * @param v2Data - v2.0.0 or v2.1.0 format data
+ * @param v2Data - v2.0.0, v2.1.0, v2.2.0, or v2.3.0 format data
  * @returns Internal schedule format (flat array for compatibility)
  * @throws Error if format is invalid
  */
 export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
   if (!validateV2Format(v2Data)) {
-    throw new Error('Invalid v2.0.0/v2.1.0 workout plan format');
+    throw new Error('Invalid v2.0.0/v2.1.0/v2.2.0/v2.3.0 workout plan format');
   }
 
   const internalFormat: ScheduleEntry[] = [];
+
+  // Build routine templates map (v2.3+)
+  const routineTemplates = new Map<string, V2RoutineTemplate>();
+  if (v2Data.plan.routineTemplates) {
+    for (const template of v2Data.plan.routineTemplates) {
+      routineTemplates.set(template.id, template);
+    }
+  }
+
+  // Build exercise templates map (v2.2+)
+  const exerciseTemplates = new Map<string, V2ExerciseTemplate>();
+  if (v2Data.plan.exerciseTemplates) {
+    for (const template of v2Data.plan.exerciseTemplates) {
+      exerciseTemplates.set(template.id, template);
+    }
+  }
 
   // Registry for day IDs to their exercises (for v2.1 references)
   const dayRegistry = new Map<string, V2Exercise[]>();
@@ -477,8 +733,8 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
   v2Data.plan.phases.forEach((phase) => {
     phase.weeks.forEach((week) => {
       week.days.forEach((day) => {
-        // Resolve day references (v2.1 feature)
-        const exercises = resolveDayReference(day, dayTemplates, dayRegistry);
+        // Resolve day references (v2.1 feature), exercise references (v2.2 feature), and routine references (v2.3 feature)
+        const exercises = resolveDayReference(day, dayTemplates, dayRegistry, exerciseTemplates, routineTemplates);
 
         // Register this day's exercises if it has an ID (for future references)
         if (day.id && exercises) {
@@ -586,6 +842,7 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             tempoRange,
             // EMOM and superset fields
             isEmom: exercise.isEmom,
+            isUnilateral: exercise.isUnilateral,
             supersetGroup: exercise.supersetGroup,
             // Rest and alternatives
             restSeconds: exercise.restSeconds,
@@ -855,8 +1112,8 @@ export function getPhaseForWeek(
 }
 
 /**
- * Get exercise details from v2.0.0 format
- * @param v2Data - v2.0.0 format data
+ * Get exercise details from v2.0.0/v2.1.0/v2.2.0/v2.3.0 format
+ * @param v2Data - v2.0.0, v2.1.0, v2.2.0, or v2.3.0 format data
  * @param weekNumber - Week number
  * @param dayNumber - Day number
  * @returns Array of exercise objects with full details, or null if not found
@@ -868,6 +1125,22 @@ export function getExercisesWithDetails(
 ): V2Exercise[] | null {
   if (!validateV2Format(v2Data)) {
     return null;
+  }
+
+  // Build routine templates map (v2.3+)
+  const routineTemplates = new Map<string, V2RoutineTemplate>();
+  if (v2Data.plan.routineTemplates) {
+    for (const template of v2Data.plan.routineTemplates) {
+      routineTemplates.set(template.id, template);
+    }
+  }
+
+  // Build exercise templates map (v2.2+)
+  const exerciseTemplates = new Map<string, V2ExerciseTemplate>();
+  if (v2Data.plan.exerciseTemplates) {
+    for (const template of v2Data.plan.exerciseTemplates) {
+      exerciseTemplates.set(template.id, template);
+    }
   }
 
   // Find the phase containing this week
@@ -885,7 +1158,8 @@ export function getExercisesWithDetails(
   const day = week.days.find((d) => d.dayNumber === dayNumber);
   if (!day) return null;
 
-  return day.exercises ?? null;
+  // Resolve exercise references (v2.2+) and routine references (v2.3+)
+  return resolveExercises(day.exercises, exerciseTemplates, routineTemplates);
 }
 
 /**

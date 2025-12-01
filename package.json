@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "prebuild": "cp workout-plan-v2.1.json public/",
-    "predev": "cp workout-plan-v2.1.json public/",
+    "prebuild": "cp workout-plan-v2.3.json public/",
+    "predev": "cp workout-plan-v2.3.json public/",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",

@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, renderHook, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { useEmomTimer } from '../hooks/useEmomTimer';
 
 /**
  * EMOM Timer Tests
@@ -177,6 +178,71 @@ describe('EMOM Timer Functionality', () => {
             }
             
             expect(emomSeconds).toBe(60);
+        });
+    });
+
+    describe('EMOM Round Tracking', () => {
+        it('should initialize with round 0 when inactive', () => {
+            const emomActive = false;
+            const round = 0;
+            
+            expect(emomActive).toBe(false);
+            expect(round).toBe(0);
+        });
+
+        it('should start at round 1 when timer starts', () => {
+            // Simulating timer start behavior
+            const interval = 60;
+            let emomSeconds = interval;
+            let emomActive = true;
+            let round = 1;
+            
+            expect(emomSeconds).toBe(60);
+            expect(emomActive).toBe(true);
+            expect(round).toBe(1);
+        });
+
+        it('should increment round when interval resets', () => {
+            const interval = 60;
+            let emomSeconds = 1;
+            let round = 1;
+            
+            // Count down to zero
+            emomSeconds = emomSeconds - 1;
+            expect(emomSeconds).toBe(0);
+            
+            // Should reset to interval and increment round
+            if (emomSeconds === 0) {
+                emomSeconds = interval;
+                round = round + 1;
+            }
+            
+            expect(emomSeconds).toBe(60);
+            expect(round).toBe(2);
+        });
+
+        it('should track multiple round increments', () => {
+            const interval = 60;
+            let round = 1;
+            
+            // Simulate multiple round completions
+            for (let i = 0; i < 5; i++) {
+                round = round + 1;
+            }
+            
+            expect(round).toBe(6);
+        });
+
+        it('should reset round to 0 when timer stops', () => {
+            let emomActive = true;
+            let round = 5;
+            
+            // Stop timer
+            emomActive = false;
+            round = 0;
+            
+            expect(emomActive).toBe(false);
+            expect(round).toBe(0);
         });
     });
 
@@ -369,6 +435,183 @@ describe('EMOM Timer Functionality', () => {
             interval = Math.max(10, 0);
             
             expect(interval).toBe(10); // Should maintain minimum
+        });
+    });
+});
+
+/**
+ * useEmomTimer Hook Tests
+ * 
+ * Tests the EMOM timer hook for round tracking, countdown functionality,
+ * and haptic feedback.
+ */
+
+// Mock the haptic interface
+const createMockHaptic = () => ({
+    tick: vi.fn(),
+    bump: vi.fn(),
+    success: vi.fn(),
+    timer: vi.fn(),
+});
+
+describe('useEmomTimer Hook', () => {
+    let mockHaptic;
+
+    beforeEach(() => {
+        vi.useFakeTimers();
+        mockHaptic = createMockHaptic();
+        
+        // Mock localStorage
+        const localStorageMock = {};
+        global.localStorage = {
+            getItem: vi.fn((key) => localStorageMock[key] || null),
+            setItem: vi.fn((key, value) => {
+                localStorageMock[key] = value;
+            }),
+            removeItem: vi.fn((key) => {
+                delete localStorageMock[key];
+            }),
+            clear: vi.fn(() => {
+                Object.keys(localStorageMock).forEach(key => delete localStorageMock[key]);
+            })
+        };
+
+        // Mock AudioContext
+        global.AudioContext = vi.fn().mockImplementation(() => ({
+            createOscillator: vi.fn(() => ({
+                connect: vi.fn(),
+                start: vi.fn(),
+                stop: vi.fn(),
+                frequency: { value: 0 },
+                type: 'sine'
+            })),
+            createGain: vi.fn(() => ({
+                connect: vi.fn(),
+                gain: {
+                    setValueAtTime: vi.fn(),
+                    exponentialRampToValueAtTime: vi.fn()
+                }
+            })),
+            destination: {},
+            currentTime: 0
+        }));
+    });
+
+    afterEach(() => {
+        vi.useRealTimers();
+        vi.clearAllMocks();
+    });
+
+    describe('Round Tracking', () => {
+        it('should start with round 0 when inactive', () => {
+            const { result } = renderHook(() => useEmomTimer({ haptic: mockHaptic }));
+
+            expect(result.current.active).toBe(false);
+            expect(result.current.round).toBe(0);
+        });
+
+        it('should set round to 1 when timer starts', () => {
+            const { result } = renderHook(() => useEmomTimer({ haptic: mockHaptic }));
+
+            act(() => {
+                result.current.start();
+            });
+
+            expect(result.current.active).toBe(true);
+            expect(result.current.round).toBe(1);
+        });
+
+        it('should increment round when interval resets', () => {
+            const { result } = renderHook(() => useEmomTimer({ haptic: mockHaptic }));
+
+            // Start timer with 2-second interval for quick testing
+            act(() => {
+                result.current.setIntervalDuration(2);
+            });
+
+            act(() => {
+                result.current.start();
+            });
+
+            expect(result.current.round).toBe(1);
+            expect(result.current.seconds).toBe(2);
+
+            // Advance time to complete first interval
+            act(() => {
+                vi.advanceTimersByTime(2000);
+            });
+
+            // Round should increment when timer resets
+            expect(result.current.round).toBe(2);
+        });
+
+        it('should reset round to 0 when timer stops', () => {
+            const { result } = renderHook(() => useEmomTimer({ haptic: mockHaptic }));
+
+            act(() => {
+                result.current.start();
+            });
+
+            expect(result.current.round).toBe(1);
+
+            act(() => {
+                result.current.stop();
+            });
+
+            expect(result.current.round).toBe(0);
+            expect(result.current.active).toBe(false);
+        });
+
+        it('should reset round to 0 when timer is toggled off', () => {
+            const { result } = renderHook(() => useEmomTimer({ haptic: mockHaptic }));
+
+            act(() => {
+                result.current.toggle();
+            });
+
+            expect(result.current.round).toBe(1);
+            expect(result.current.active).toBe(true);
+
+            act(() => {
+                result.current.toggle();
+            });
+
+            expect(result.current.round).toBe(0);
+            expect(result.current.active).toBe(false);
+        });
+    });
+
+    describe('Countdown Behavior', () => {
+        it('should start with seconds equal to interval', () => {
+            const { result } = renderHook(() => useEmomTimer({ haptic: mockHaptic }));
+
+            expect(result.current.interval).toBe(60); // default
+            
+            act(() => {
+                result.current.start();
+            });
+
+            expect(result.current.seconds).toBe(60);
+        });
+
+        it('should countdown every second', () => {
+            const { result } = renderHook(() => useEmomTimer({ haptic: mockHaptic }));
+
+            act(() => {
+                result.current.start();
+            });
+
+            act(() => {
+                vi.advanceTimersByTime(1000);
+            });
+
+            expect(result.current.seconds).toBe(59);
+
+            act(() => {
+                vi.advanceTimersByTime(5000);
+            });
+
+            expect(result.current.seconds).toBe(54);
         });
     });
 });

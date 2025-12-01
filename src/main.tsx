@@ -54,7 +54,7 @@ root.render(<LoadingScreen />);
 
 // Load both schedule and exercise library data with timeout
 Promise.all([
-    fetchWithTimeout(`${import.meta.env.BASE_URL}workout-plan-v2.1.json`, FETCH_TIMEOUT_MS).then(response => {
+    fetchWithTimeout(`${import.meta.env.BASE_URL}workout-plan-v2.3.json`, FETCH_TIMEOUT_MS).then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error loading schedule! status: ${response.status}`);
         }

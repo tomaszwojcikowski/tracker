@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://github.com/tomaszwojcikowski/tracker/workout-plan-v2.schema.json",
-  "title": "Workout Plan v2.1.0",
-  "description": "Schema for the Tracker application workout plan format v2.1.0 with day references",
+  "$id": "https://github.com/tomaszwojcikowski/tracker/workout-plan-v2.2.schema.json",
+  "title": "Workout Plan v2.2.0",
+  "description": "Schema for the Tracker application workout plan format v2.2.0 with exercise templates. Exercise templates allow defining common exercises once and referencing them throughout the plan, with optional field overrides.",
   "type": "object",
   "required": ["formatVersion", "plan"],
   "properties": {
@@ -70,6 +70,16 @@
           "items": { "type": "string" },
           "description": "Required equipment list"
         },
+        "programRules": {
+          "type": "object",
+          "description": "Program-specific rules and constraints",
+          "additionalProperties": true
+        },
+        "exerciseTemplates": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/exerciseTemplate" },
+          "description": "Reusable exercise templates that can be referenced by $ref (v2.2+). Define common exercises once with all their default properties."
+        },
         "dayTemplates": {
           "type": "array",
           "items": { "$ref": "#/definitions/dayTemplate" },
@@ -83,6 +93,160 @@
         }
       }
     },
+    "exerciseTemplate": {
+      "type": "object",
+      "required": ["id", "exerciseName"],
+      "description": "A reusable exercise template. All exercise properties except 'id' and 'exerciseName' are optional and can be overridden when referenced.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9_-]+$",
+          "description": "Unique identifier for this exercise template (lowercase, alphanumeric, hyphens, underscores)"
+        },
+        "exerciseName": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Full exercise name as displayed to user"
+        },
+        "exerciseId": {
+          "type": ["string", "null"],
+          "description": "Reference to exercise in library"
+        },
+        "category": {
+          "type": ["string", "null"],
+          "enum": ["warmup", "main", "accessory", "cooldown", "mobility", "skill", "core", null],
+          "description": "Default exercise category"
+        },
+        "sets": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Default number of sets"
+        },
+        "restSeconds": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Default rest between sets in seconds"
+        },
+        "rpe": {
+          "type": ["number", "null"],
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Default target RPE"
+        },
+        "notes": {
+          "type": ["string", "null"],
+          "description": "Default training prescription and coaching cues"
+        },
+        "alternatives": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Array of alternative exercise names or IDs"
+        },
+        "progressionNotes": {
+          "type": ["string", "null"],
+          "description": "How to progress this exercise"
+        },
+        "videoUrl": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "Link to demonstration video"
+        },
+        "cues": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Array of coaching cue strings"
+        },
+        "loadMin": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "description": "Default minimum weight value"
+        },
+        "loadMax": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "description": "Default maximum weight value"
+        },
+        "loadUnit": {
+          "type": ["string", "null"],
+          "enum": ["kg", "lb", "band", "bodyweight", "percent", null],
+          "description": "Default load unit"
+        },
+        "loadPerHand": {
+          "type": ["boolean", "null"],
+          "description": "True if load is per hand (for dumbbell exercises)"
+        },
+        "repsType": {
+          "type": ["string", "null"],
+          "enum": ["reps", "time", "ladder", "amrap", "rm", "max", "effort", "submax", "none", null],
+          "description": "Default reps type"
+        },
+        "repsValue": {
+          "oneOf": [
+            { "type": "integer", "minimum": 0 },
+            { "type": "array", "items": { "type": "integer", "minimum": 1 } },
+            { "type": "null" }
+          ],
+          "description": "Default primary value (count, seconds, or ladder steps array)"
+        },
+        "repsMin": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Default minimum reps for rep ranges"
+        },
+        "repsMax": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Default maximum reps for rep ranges"
+        },
+        "repsUnit": {
+          "type": ["string", "null"],
+          "enum": ["seconds", "minutes", null],
+          "description": "Default unit for time-based reps"
+        },
+        "repsPerSide": {
+          "type": ["boolean", "null"],
+          "description": "True if reps are per side"
+        },
+        "repsModifier": {
+          "type": ["integer", "null"],
+          "description": "Modifier for AMRAP (e.g., -1 for leave 1 rep in reserve)"
+        },
+        "tempoEccentric": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Eccentric phase duration in seconds"
+        },
+        "tempoPauseBottom": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Pause at bottom position in seconds"
+        },
+        "tempoConcentric": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Concentric phase duration in seconds"
+        },
+        "tempoPauseTop": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Pause at top position in seconds"
+        },
+        "isEmom": {
+          "type": ["boolean", "null"],
+          "description": "Whether this exercise uses EMOM timing"
+        },
+        "isUnilateral": {
+          "type": ["boolean", "null"],
+          "description": "Whether this exercise is performed per side"
+        },
+        "supersetGroup": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "Default superset group ID"
+        }
+      }
+    },
     "dayTemplate": {
       "type": "object",
       "required": ["id", "exercises"],
@@ -92,6 +256,12 @@
           "minLength": 1,
           "pattern": "^[a-z0-9_-]+$",
           "description": "Unique identifier for this template (lowercase, alphanumeric, hyphens, underscores)"
+        },
+        "dayNumber": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7,
+          "description": "Default day number"
         },
         "name": {
           "type": ["string", "null"],
@@ -113,8 +283,8 @@
         },
         "exercises": {
           "type": "array",
-          "items": { "$ref": "#/definitions/exercise" },
-          "description": "Array of exercise specifications"
+          "items": { "$ref": "#/definitions/exerciseOrRef" },
+          "description": "Array of exercise specifications or references"
         }
       }
     },
@@ -205,7 +375,11 @@
             "type": { "$ref": "#/definitions/dayType" },
             "estimatedDuration": { "$ref": "#/definitions/dayEstimatedDuration" },
             "description": { "$ref": "#/definitions/dayDescription" },
-            "exercises": { "$ref": "#/definitions/dayExercises" }
+            "exercises": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/exerciseOrRef" },
+              "description": "Array of exercise specifications or references"
+            }
           },
           "required": ["dayNumber", "exercises"],
           "additionalProperties": false
@@ -255,10 +429,155 @@
       "type": ["string", "null"],
       "description": "Session description or notes"
     },
-    "dayExercises": {
-      "type": "array",
-      "items": { "$ref": "#/definitions/exercise" },
-      "description": "Array of exercise specifications"
+    "exerciseOrRef": {
+      "oneOf": [
+        { "$ref": "#/definitions/exercise" },
+        { "$ref": "#/definitions/exerciseRef" }
+      ]
+    },
+    "exerciseRef": {
+      "type": "object",
+      "required": ["$ref"],
+      "description": "Reference to an exercise template with optional field overrides. Any field specified here will override the template's default value.",
+      "properties": {
+        "$ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reference to an exercise template ID defined in exerciseTemplates"
+        },
+        "exerciseName": {
+          "type": "string",
+          "description": "Override exercise name (e.g., for left/right side variations)"
+        },
+        "category": {
+          "type": ["string", "null"],
+          "enum": ["warmup", "main", "accessory", "cooldown", "mobility", "skill", "core", null],
+          "description": "Override exercise category"
+        },
+        "sets": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Override number of sets"
+        },
+        "restSeconds": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Override rest between sets"
+        },
+        "rpe": {
+          "type": ["number", "null"],
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Override target RPE"
+        },
+        "notes": {
+          "type": ["string", "null"],
+          "description": "Override notes"
+        },
+        "alternatives": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Override alternatives"
+        },
+        "progressionNotes": {
+          "type": ["string", "null"],
+          "description": "Override progression notes"
+        },
+        "cues": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Override cues"
+        },
+        "loadMin": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "description": "Override minimum weight"
+        },
+        "loadMax": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "description": "Override maximum weight"
+        },
+        "loadUnit": {
+          "type": ["string", "null"],
+          "enum": ["kg", "lb", "band", "bodyweight", "percent", null],
+          "description": "Override load unit"
+        },
+        "loadPerHand": {
+          "type": ["boolean", "null"],
+          "description": "Override per-hand flag"
+        },
+        "repsType": {
+          "type": ["string", "null"],
+          "enum": ["reps", "time", "ladder", "amrap", "rm", "max", "effort", "submax", "none", null],
+          "description": "Override reps type"
+        },
+        "repsValue": {
+          "oneOf": [
+            { "type": "integer", "minimum": 0 },
+            { "type": "array", "items": { "type": "integer", "minimum": 1 } },
+            { "type": "null" }
+          ],
+          "description": "Override reps value"
+        },
+        "repsMin": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Override minimum reps"
+        },
+        "repsMax": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Override maximum reps"
+        },
+        "repsUnit": {
+          "type": ["string", "null"],
+          "enum": ["seconds", "minutes", null],
+          "description": "Override reps unit"
+        },
+        "repsPerSide": {
+          "type": ["boolean", "null"],
+          "description": "Override per-side flag"
+        },
+        "repsModifier": {
+          "type": ["integer", "null"],
+          "description": "Override AMRAP modifier"
+        },
+        "tempoEccentric": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Override tempo eccentric"
+        },
+        "tempoPauseBottom": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Override tempo pause bottom"
+        },
+        "tempoConcentric": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Override tempo concentric"
+        },
+        "tempoPauseTop": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Override tempo pause top"
+        },
+        "isEmom": {
+          "type": ["boolean", "null"],
+          "description": "Override EMOM flag"
+        },
+        "isUnilateral": {
+          "type": ["boolean", "null"],
+          "description": "Override unilateral flag"
+        },
+        "supersetGroup": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "Override superset group"
+        }
+      },
+      "additionalProperties": false
     },
     "exercise": {
       "type": "object",
@@ -395,6 +714,10 @@
         "isEmom": {
           "type": ["boolean", "null"],
           "description": "Whether this exercise uses EMOM (Every Minute On the Minute) timing"
+        },
+        "isUnilateral": {
+          "type": ["boolean", "null"],
+          "description": "Whether this exercise is performed per side"
         },
         "supersetGroup": {
           "type": ["integer", "null"],

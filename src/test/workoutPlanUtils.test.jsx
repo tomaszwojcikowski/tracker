@@ -186,7 +186,7 @@ describe('Workout Plan Utilities', () => {
     });
 
     it('should throw error for invalid v2 format', () => {
-      expect(() => convertV2ToInternal({})).toThrow('Invalid v2.0.0/v2.1.0 workout plan format');
+      expect(() => convertV2ToInternal({})).toThrow('Invalid v2.0.0/v2.1.0/v2.2.0/v2.3.0 workout plan format');
       expect(() => convertV2ToInternal({ formatVersion: '2.0.0' })).toThrow();
     });
 
@@ -405,6 +405,509 @@ describe('Workout Plan Utilities', () => {
       };
 
       expect(() => convertV2ToInternal(v21DataWithBadRef)).toThrow('Day template "non-existent-template" not found');
+    });
+
+    it('should resolve exercise references from exerciseTemplates in v2.2.0', () => {
+      // v2.2.0 data with exercise templates and references
+      const v22Data = {
+        formatVersion: '2.2.0',
+        plan: {
+          id: 'test-v22-plan',
+          name: 'Test v2.2 Plan',
+          description: 'Testing v2.2 format with exercise templates',
+          author: null,
+          durationWeeks: 1,
+          goals: [],
+          targetLevel: 'intermediate',
+          equipment: ['pull-up-bar'],
+          exerciseTemplates: [
+            {
+              id: 'warmup-rower-zone1',
+              exerciseName: 'Rower (Zone 1)',
+              category: 'warmup',
+              sets: 1,
+              notes: 'Warm-up. Easy pace.',
+              repsType: 'time',
+              repsValue: 120,
+              repsUnit: 'seconds',
+              loadMin: 0,
+              loadMax: 0,
+              loadUnit: 'bodyweight',
+              restSeconds: 30
+            },
+            {
+              id: 'cooldown-stretch',
+              exerciseName: 'Lat Stretch',
+              category: 'cooldown',
+              sets: 1,
+              notes: 'Cool-down. Hold stretch.',
+              repsType: 'time',
+              repsValue: 60,
+              repsUnit: 'seconds',
+              loadMin: 0,
+              loadMax: 0,
+              loadUnit: 'bodyweight',
+              restSeconds: 0
+            }
+          ],
+          dayTemplates: [],
+          phases: [
+            {
+              phaseNumber: 1,
+              name: 'Test Phase',
+              description: 'Testing v2.2 features',
+              startWeek: 1,
+              endWeek: 1,
+              focus: 'volume',
+              weeks: [
+                {
+                  weekNumber: 1,
+                  description: null,
+                  focus: null,
+                  volumeLevel: 'moderate',
+                  intensityLevel: 'low',
+                  days: [
+                    {
+                      dayNumber: 1,
+                      name: 'Test Day',
+                      type: 'strength',
+                      estimatedDuration: 30,
+                      description: null,
+                      exercises: [
+                        // Reference to warmup template
+                        { $ref: 'warmup-rower-zone1' },
+                        // Full exercise definition (inline)
+                        {
+                          exerciseName: 'Pull-Ups',
+                          category: 'main',
+                          sets: 3,
+                          repsType: 'reps',
+                          repsValue: 8,
+                          loadMin: 0,
+                          loadMax: 0,
+                          loadUnit: 'bodyweight',
+                          restSeconds: 120,
+                          notes: 'Main exercise'
+                        },
+                        // Reference with override
+                        {
+                          $ref: 'cooldown-stretch',
+                          notes: 'Custom note for this day',
+                          repsValue: 90
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      const result = convertV2ToInternal(v22Data);
+
+      // Should have 3 exercises
+      expect(result.length).toBe(3);
+
+      // Check resolved warmup template
+      expect(result[0]).toMatchObject({
+        w: 1,
+        d: 1,
+        ex: 'Rower (Zone 1)',
+        s: 1,
+        n: 'Warm-up. Easy pace.',
+        category: 'warmup',
+        restSeconds: 30
+      });
+      expect(result[0].repsRange.type).toBe('time');
+      expect(result[0].repsRange.value).toBe(120);
+
+      // Check inline exercise
+      expect(result[1]).toMatchObject({
+        w: 1,
+        d: 1,
+        ex: 'Pull-Ups',
+        s: 3,
+        n: 'Main exercise',
+        category: 'main',
+        restSeconds: 120
+      });
+
+      // Check resolved template with overrides
+      expect(result[2]).toMatchObject({
+        w: 1,
+        d: 1,
+        ex: 'Lat Stretch',
+        s: 1,
+        n: 'Custom note for this day', // overridden
+        category: 'cooldown',
+        restSeconds: 0
+      });
+      expect(result[2].repsRange.value).toBe(90); // overridden from 60
+    });
+
+    it('should throw error for missing exercise template reference in v2.2.0', () => {
+      const v22DataWithBadRef = {
+        formatVersion: '2.2.0',
+        plan: {
+          id: 'bad-exercise-ref-plan',
+          name: 'Bad Exercise Ref Plan',
+          description: null,
+          author: null,
+          durationWeeks: 1,
+          goals: [],
+          targetLevel: 'beginner',
+          equipment: [],
+          exerciseTemplates: [],
+          dayTemplates: [],
+          phases: [
+            {
+              phaseNumber: 1,
+              name: 'Test',
+              description: null,
+              startWeek: 1,
+              endWeek: 1,
+              focus: 'volume',
+              weeks: [
+                {
+                  weekNumber: 1,
+                  description: null,
+                  focus: null,
+                  volumeLevel: 'low',
+                  intensityLevel: 'low',
+                  days: [
+                    {
+                      dayNumber: 1,
+                      name: 'Test Day',
+                      exercises: [
+                        { $ref: 'non-existent-exercise' }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      expect(() => convertV2ToInternal(v22DataWithBadRef)).toThrow('Exercise template "non-existent-exercise" not found');
+    });
+
+    it('should resolve routine references from routineTemplates in v2.3.0', () => {
+      // v2.3.0 data with routine templates
+      const v23Data = {
+        formatVersion: '2.3.0',
+        plan: {
+          id: 'test-v23-plan',
+          name: 'Test v2.3 Plan with Routine Templates',
+          description: 'Testing v2.3 format with routine templates',
+          author: null,
+          durationWeeks: 1,
+          goals: [],
+          targetLevel: 'intermediate',
+          equipment: ['pull-up-bar', 'rower'],
+          routineTemplates: [
+            {
+              id: 'warmup-pull',
+              name: 'Pull Day Warmup',
+              description: 'Full warmup for pull day',
+              category: 'warmup',
+              estimatedDuration: 5,
+              targetAreas: ['shoulders', 'upper-back'],
+              exercises: [
+                {
+                  exerciseName: 'Rower (Zone 1)',
+                  category: 'warmup',
+                  sets: 1,
+                  repsType: 'time',
+                  repsValue: 120,
+                  repsUnit: 'seconds',
+                  loadMin: 0,
+                  loadMax: 0,
+                  loadUnit: 'bodyweight',
+                  restSeconds: 30
+                },
+                {
+                  exerciseName: 'Band Pull-Aparts',
+                  category: 'warmup',
+                  sets: 1,
+                  repsType: 'reps',
+                  repsValue: 20,
+                  loadMin: 1,
+                  loadMax: 1,
+                  loadUnit: 'band',
+                  restSeconds: 30
+                }
+              ]
+            },
+            {
+              id: 'cooldown-upper',
+              name: 'Upper Body Cooldown',
+              category: 'cooldown',
+              exercises: [
+                {
+                  exerciseName: 'Passive Dead Hang',
+                  category: 'cooldown',
+                  sets: 1,
+                  repsType: 'time',
+                  repsValue: 60,
+                  repsUnit: 'seconds',
+                  loadMin: 0,
+                  loadMax: 0,
+                  loadUnit: 'bodyweight',
+                  restSeconds: 0
+                }
+              ]
+            }
+          ],
+          exerciseTemplates: [],
+          dayTemplates: [],
+          phases: [
+            {
+              phaseNumber: 1,
+              name: 'Test Phase',
+              description: 'Testing v2.3 features',
+              startWeek: 1,
+              endWeek: 1,
+              focus: 'volume',
+              weeks: [
+                {
+                  weekNumber: 1,
+                  description: null,
+                  focus: null,
+                  volumeLevel: 'moderate',
+                  intensityLevel: 'low',
+                  days: [
+                    {
+                      dayNumber: 1,
+                      name: 'Pull Day A',
+                      type: 'strength',
+                      estimatedDuration: 60,
+                      description: null,
+                      exercises: [
+                        // Routine reference expands to 2 exercises
+                        { $routine: 'warmup-pull' },
+                        // Main exercise
+                        {
+                          exerciseName: 'Pull-Ups',
+                          category: 'main',
+                          sets: 4,
+                          repsType: 'reps',
+                          repsValue: 8,
+                          loadMin: 0,
+                          loadMax: 0,
+                          loadUnit: 'bodyweight',
+                          restSeconds: 120
+                        },
+                        // Cooldown routine reference expands to 1 exercise
+                        { $routine: 'cooldown-upper' }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      const result = convertV2ToInternal(v23Data);
+
+      // Should have 4 exercises total: 2 from warmup routine + 1 main + 1 from cooldown routine
+      expect(result.length).toBe(4);
+
+      // Check first warmup exercise (from routine)
+      expect(result[0]).toMatchObject({
+        w: 1,
+        d: 1,
+        ex: 'Rower (Zone 1)',
+        s: 1,
+        category: 'warmup'
+      });
+      expect(result[0].repsRange.type).toBe('time');
+      expect(result[0].repsRange.value).toBe(120);
+
+      // Check second warmup exercise (from routine)
+      expect(result[1]).toMatchObject({
+        w: 1,
+        d: 1,
+        ex: 'Band Pull-Aparts',
+        s: 1,
+        category: 'warmup'
+      });
+      expect(result[1].repsRange.type).toBe('reps');
+      expect(result[1].repsRange.value).toBe(20);
+
+      // Check main exercise (inline)
+      expect(result[2]).toMatchObject({
+        w: 1,
+        d: 1,
+        ex: 'Pull-Ups',
+        s: 4,
+        category: 'main'
+      });
+
+      // Check cooldown exercise (from routine)
+      expect(result[3]).toMatchObject({
+        w: 1,
+        d: 1,
+        ex: 'Passive Dead Hang',
+        s: 1,
+        category: 'cooldown'
+      });
+    });
+
+    it('should resolve routine templates containing exercise template references in v2.3.0', () => {
+      // v2.3.0 data where routine templates contain $ref to exercise templates
+      const v23DataWithRefs = {
+        formatVersion: '2.3.0',
+        plan: {
+          id: 'test-v23-nested-refs',
+          name: 'Test v2.3 Nested References',
+          description: null,
+          author: null,
+          durationWeeks: 1,
+          goals: [],
+          targetLevel: 'beginner',
+          equipment: [],
+          routineTemplates: [
+            {
+              id: 'warmup-standard',
+              name: 'Standard Warmup',
+              category: 'warmup',
+              exercises: [
+                // Reference to exercise template inside routine template
+                { $ref: 'warmup-rower' },
+                { $ref: 'warmup-band-pulls' }
+              ]
+            }
+          ],
+          exerciseTemplates: [
+            {
+              id: 'warmup-rower',
+              exerciseName: 'Rower Easy',
+              category: 'warmup',
+              sets: 1,
+              repsType: 'time',
+              repsValue: 120,
+              repsUnit: 'seconds',
+              loadMin: 0,
+              loadMax: 0,
+              loadUnit: 'bodyweight',
+              restSeconds: 30
+            },
+            {
+              id: 'warmup-band-pulls',
+              exerciseName: 'Band Pull-Aparts',
+              category: 'warmup',
+              sets: 1,
+              repsType: 'reps',
+              repsValue: 15,
+              loadMin: 1,
+              loadMax: 1,
+              loadUnit: 'band',
+              restSeconds: 30
+            }
+          ],
+          dayTemplates: [],
+          phases: [
+            {
+              phaseNumber: 1,
+              name: 'Test',
+              description: null,
+              startWeek: 1,
+              endWeek: 1,
+              focus: null,
+              weeks: [
+                {
+                  weekNumber: 1,
+                  days: [
+                    {
+                      dayNumber: 1,
+                      name: 'Test Day',
+                      exercises: [
+                        { $routine: 'warmup-standard' },
+                        {
+                          exerciseName: 'Main Exercise',
+                          category: 'main',
+                          sets: 3,
+                          repsType: 'reps',
+                          repsValue: 10,
+                          loadMin: 0,
+                          loadMax: 0,
+                          loadUnit: 'bodyweight',
+                          restSeconds: 90
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      const result = convertV2ToInternal(v23DataWithRefs);
+
+      // Should have 3 exercises: 2 from warmup routine (resolved from exercise templates) + 1 main
+      expect(result.length).toBe(3);
+
+      expect(result[0].ex).toBe('Rower Easy');
+      expect(result[0].category).toBe('warmup');
+
+      expect(result[1].ex).toBe('Band Pull-Aparts');
+      expect(result[1].category).toBe('warmup');
+
+      expect(result[2].ex).toBe('Main Exercise');
+      expect(result[2].category).toBe('main');
+    });
+
+    it('should throw error for missing routine template reference in v2.3.0', () => {
+      const v23DataWithBadRef = {
+        formatVersion: '2.3.0',
+        plan: {
+          id: 'bad-routine-ref-plan',
+          name: 'Bad Routine Ref Plan',
+          description: null,
+          author: null,
+          durationWeeks: 1,
+          goals: [],
+          targetLevel: 'beginner',
+          equipment: [],
+          routineTemplates: [],
+          exerciseTemplates: [],
+          dayTemplates: [],
+          phases: [
+            {
+              phaseNumber: 1,
+              name: 'Test',
+              description: null,
+              startWeek: 1,
+              endWeek: 1,
+              focus: null,
+              weeks: [
+                {
+                  weekNumber: 1,
+                  days: [
+                    {
+                      dayNumber: 1,
+                      name: 'Test Day',
+                      exercises: [
+                        { $routine: 'non-existent-routine' }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      expect(() => convertV2ToInternal(v23DataWithBadRef)).toThrow('Routine template "non-existent-routine" not found');
     });
   });
 

@@ -16,5 +16,6 @@ export {
 export type {
   ProgramManifest,
   ProgramRegistry,
+  ProgramData,
   WorkoutPlanJson,
 } from './programRegistry';

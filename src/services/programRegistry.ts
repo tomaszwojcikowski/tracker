@@ -3,9 +3,16 @@
  *
  * Manages multiple workout programs, allowing the tracker app to support
  * different workout programs instead of just a single hardcoded program.
+ * 
+ * This service handles:
+ * - Program manifest storage (metadata about programs)
+ * - Program data storage (schedule, metadata from loaded plans)
+ * - Active program tracking
+ * - Program switching
  */
 
 import { safeGetJSON, safeSetJSON } from '../utils/storage';
+import type { WorkoutPlanMetadata, InternalSchedule } from '../workout-plan-utils';
 
 // ============================================================================
 // TYPES
@@ -49,6 +56,16 @@ interface StoredProgramManifest extends Omit<ProgramManifest, 'installedAt'> {
 }
 
 /**
+ * Program data containing schedule and metadata
+ */
+export interface ProgramData {
+  /** Converted schedule data in internal format */
+  schedule: InternalSchedule;
+  /** Program metadata including phases */
+  metadata: WorkoutPlanMetadata;
+}
+
+/**
  * Interface for the Program Registry
  */
 export interface ProgramRegistry {
@@ -56,6 +73,8 @@ export interface ProgramRegistry {
   getAvailablePrograms(): ProgramManifest[];
   /** Get the currently active program */
   getActiveProgram(): ProgramManifest | null;
+  /** Get the active program ID */
+  getActiveProgramId(): string | null;
   /** Set the active program by ID */
   setActiveProgram(programId: string): void;
   /** Get a program by its ID */
@@ -66,6 +85,14 @@ export interface ProgramRegistry {
   importProgram(planJson: WorkoutPlanJson): Promise<ProgramManifest>;
   /** Unregister a program by ID */
   unregisterProgram(programId: string): boolean;
+  /** Store program data (schedule and metadata) for a program */
+  setProgramData(programId: string, data: ProgramData): void;
+  /** Get program data for a specific program */
+  getProgramData(programId: string): ProgramData | null;
+  /** Get program data for the currently active program */
+  getActiveProgramData(): ProgramData | null;
+  /** Check if program data is loaded for a program */
+  hasProgramData(programId: string): boolean;
 }
 
 /**
@@ -133,10 +160,12 @@ export function resetProgramRegistry(): void {
  */
 class ProgramRegistryImpl implements ProgramRegistry {
   private programs: Map<string, ProgramManifest>;
+  private programData: Map<string, ProgramData>;
   private activeProgramId: string | null;
 
   constructor() {
     this.programs = new Map();
+    this.programData = new Map();
     this.activeProgramId = null;
     this.loadFromStorage();
   }
@@ -191,6 +220,10 @@ class ProgramRegistryImpl implements ProgramRegistry {
       return null;
     }
     return this.programs.get(this.activeProgramId) ?? null;
+  }
+
+  getActiveProgramId(): string | null {
+    return this.activeProgramId;
   }
 
   setActiveProgram(programId: string): void {
@@ -262,9 +295,30 @@ class ProgramRegistryImpl implements ProgramRegistry {
     }
 
     this.programs.delete(programId);
+    // Also remove program data
+    this.programData.delete(programId);
     this.updateActiveFlags();
     this.saveToStorage();
     return true;
+  }
+
+  setProgramData(programId: string, data: ProgramData): void {
+    this.programData.set(programId, data);
+  }
+
+  getProgramData(programId: string): ProgramData | null {
+    return this.programData.get(programId) ?? null;
+  }
+
+  getActiveProgramData(): ProgramData | null {
+    if (!this.activeProgramId) {
+      return null;
+    }
+    return this.programData.get(this.activeProgramId) ?? null;
+  }
+
+  hasProgramData(programId: string): boolean {
+    return this.programData.has(programId);
   }
 }
 

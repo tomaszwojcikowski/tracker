@@ -2,10 +2,12 @@
  * Program Data Module
  *
  * Contains workout program structure and helper functions.
+ * All functions operate in the context of a program ID for multi-program support.
  */
 
 import { getCompleteSchedule } from '../utils/schedule';
-import type { LoadRange, RepsRange, TempoRange } from '../workout-plan-utils';
+import { getProgramRegistry } from '../services/programRegistry';
+import type { LoadRange, RepsRange, TempoRange, PhaseMetadata } from '../workout-plan-utils';
 
 /**
  * Program block definition
@@ -64,12 +66,46 @@ export interface DayWorkout {
 }
 
 /**
- * Get the block for a given week
+ * Get phase metadata for a given week from the program registry
+ * @param week - The week number
+ * @param programId - Optional program ID (defaults to active program)
+ * @returns Phase metadata array or undefined
  */
-export function getBlockForWeek(week: number): ProgramBlock | undefined {
-  // Try to get from loaded metadata first
+function getPhasesForProgram(programId?: string): PhaseMetadata[] | undefined {
+  const registry = getProgramRegistry();
+  const id = programId ?? registry.getActiveProgramId();
+  
+  if (!id) {
+    // Fall back to window.TRACKER_APP for backward compatibility
+    if (typeof window !== 'undefined' && window.TRACKER_APP?.workoutPlanMetadata?.phases) {
+      return window.TRACKER_APP.workoutPlanMetadata.phases;
+    }
+    return undefined;
+  }
+  
+  const programData = registry.getProgramData(id);
+  if (programData?.metadata?.phases) {
+    return programData.metadata.phases;
+  }
+  
+  // Fall back to window.TRACKER_APP for backward compatibility
   if (typeof window !== 'undefined' && window.TRACKER_APP?.workoutPlanMetadata?.phases) {
-    const phase = window.TRACKER_APP.workoutPlanMetadata.phases.find(
+    return window.TRACKER_APP.workoutPlanMetadata.phases;
+  }
+  
+  return undefined;
+}
+
+/**
+ * Get the block (phase) for a given week
+ * @param week - The week number
+ * @param programId - Optional program ID (defaults to active program)
+ */
+export function getBlockForWeek(week: number, programId?: string): ProgramBlock | undefined {
+  const phases = getPhasesForProgram(programId);
+  
+  if (phases) {
+    const phase = phases.find(
       (p) => week >= p.startWeek && week <= p.endWeek
     );
     if (phase) {
@@ -94,9 +130,12 @@ function detectEmomFromText(name: string, notes: string): boolean {
 
 /**
  * Get workout data for a specific week and day
+ * @param week - The week number
+ * @param day - The day number
+ * @param programId - Optional program ID (defaults to active program)
  */
-export function getWorkoutForDay(week: number, day: number): DayWorkout {
-  const schedule = getCompleteSchedule();
+export function getWorkoutForDay(week: number, day: number, programId?: string): DayWorkout {
+  const schedule = getCompleteSchedule(programId);
   const dayExercises = schedule.filter((i) => i.w === week && i.d === day);
 
   if (dayExercises.length === 0) {

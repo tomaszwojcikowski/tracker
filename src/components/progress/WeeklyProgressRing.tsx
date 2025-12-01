@@ -56,10 +56,11 @@ export const WeeklyProgressRing: React.FC<WeeklyProgressRingProps> = ({
                 <p className="text-sm text-sys-onSurfaceVar mb-2">
                     {completedWorkouts} of {totalWorkouts} workouts completed
                 </p>
-                <div className="flex gap-1">
+                <div className="flex gap-1" data-testid="workout-indicators">
                     {Array.from({ length: totalWorkouts }).map((_, i) => (
                         <div
                             key={i}
+                            data-testid={`workout-indicator-${i}`}
                             className={`h-1.5 flex-1 rounded-full ${
                                 i < completedWorkouts ? 'bg-sys-accent' : 'bg-sys-surfaceHigh'
                             }`}

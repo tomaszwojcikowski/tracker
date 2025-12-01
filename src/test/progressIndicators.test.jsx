@@ -319,53 +319,46 @@ describe('WeeklyProgressRing', () => {
     });
 
     it('should render workout indicator bars matching total workouts', () => {
-        const { container } = render(
+        render(
             <WeeklyProgressRing completedWorkouts={2} totalWorkouts={4} currentWeek={1} />
         );
 
-        // Find the indicator bars container (last div with gap-1)
-        const indicatorBars = container.querySelectorAll('.rounded-full.h-1\\.5');
-        expect(indicatorBars).toHaveLength(4);
+        const indicatorContainer = screen.getByTestId('workout-indicators');
+        expect(indicatorContainer.children).toHaveLength(4);
     });
 
     it('should apply completed class to completed workout indicators', () => {
-        const { container } = render(
+        render(
             <WeeklyProgressRing completedWorkouts={2} totalWorkouts={4} currentWeek={1} />
         );
 
-        const indicatorBars = container.querySelectorAll('.rounded-full.h-1\\.5');
-        
         // First 2 should be completed (bg-sys-accent)
-        expect(indicatorBars[0]).toHaveClass('bg-sys-accent');
-        expect(indicatorBars[1]).toHaveClass('bg-sys-accent');
+        expect(screen.getByTestId('workout-indicator-0')).toHaveClass('bg-sys-accent');
+        expect(screen.getByTestId('workout-indicator-1')).toHaveClass('bg-sys-accent');
         
         // Last 2 should be incomplete (bg-sys-surfaceHigh)
-        expect(indicatorBars[2]).toHaveClass('bg-sys-surfaceHigh');
-        expect(indicatorBars[3]).toHaveClass('bg-sys-surfaceHigh');
+        expect(screen.getByTestId('workout-indicator-2')).toHaveClass('bg-sys-surfaceHigh');
+        expect(screen.getByTestId('workout-indicator-3')).toHaveClass('bg-sys-surfaceHigh');
     });
 
     it('should render all indicators as completed when all workouts are done', () => {
-        const { container } = render(
+        render(
             <WeeklyProgressRing completedWorkouts={4} totalWorkouts={4} currentWeek={1} />
         );
 
-        const indicatorBars = container.querySelectorAll('.rounded-full.h-1\\.5');
-        
-        indicatorBars.forEach(bar => {
-            expect(bar).toHaveClass('bg-sys-accent');
-        });
+        for (let i = 0; i < 4; i++) {
+            expect(screen.getByTestId(`workout-indicator-${i}`)).toHaveClass('bg-sys-accent');
+        }
     });
 
     it('should render all indicators as incomplete when no workouts are done', () => {
-        const { container } = render(
+        render(
             <WeeklyProgressRing completedWorkouts={0} totalWorkouts={4} currentWeek={1} />
         );
 
-        const indicatorBars = container.querySelectorAll('.rounded-full.h-1\\.5');
-        
-        indicatorBars.forEach(bar => {
-            expect(bar).toHaveClass('bg-sys-surfaceHigh');
-        });
+        for (let i = 0; i < 4; i++) {
+            expect(screen.getByTestId(`workout-indicator-${i}`)).toHaveClass('bg-sys-surfaceHigh');
+        }
     });
 
     it('should render SVG with two circles (background and progress)', () => {

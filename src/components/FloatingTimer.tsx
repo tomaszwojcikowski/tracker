@@ -14,19 +14,19 @@ export interface FloatingTimerProps {
 
 /**
  * FloatingTimer - Compact minimized timer indicator
- * 
+ *
  * This component shows ONLY when:
  * 1. Timer is active
  * 2. ActionBar is NOT visible (user scrolled away or in different view)
- * 
+ *
  * Tapping expands to full ActionBar/fullscreen timer.
  * This prevents the UI conflict of showing timers in multiple places.
  */
-export const FloatingTimer: React.FC<FloatingTimerProps> = ({ 
-    seconds, 
-    active, 
+export const FloatingTimer: React.FC<FloatingTimerProps> = ({
+    seconds,
+    active,
     onExpand,
-    actionBarVisible = false 
+    actionBarVisible = false
 }) => {
     // Don't show if timer not active, no time left, or ActionBar is visible
     if (!active || seconds <= 0 || actionBarVisible) return null;

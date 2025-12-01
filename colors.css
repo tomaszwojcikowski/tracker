@@ -206,7 +206,7 @@
 
   /* Tertiary Colors - Pink */
   --color-tertiary-500: #ec4899;
-  
+
   /* Surface Variants (MD3) */
   --color-surface-variant: #1e1640;
   --color-on-surface-variant: #94a3b8;
@@ -292,7 +292,7 @@
 
   /* Tertiary Colors - Amber */
   --color-tertiary-500: #f59e0b;
-  
+
   /* Surface Variants (MD3) */
   --color-surface-variant: #162d42;
   --color-on-surface-variant: #94a3b8;
@@ -365,7 +365,7 @@
 
   /* Tertiary Colors - Violet */
   --color-tertiary-500: #8b5cf6;
-  
+
   /* Surface Variants (MD3) */
   --color-surface-variant: #331a1a;
   --color-on-surface-variant: #a8a29e;
@@ -438,7 +438,7 @@
 
   /* Tertiary Colors - Amber */
   --color-tertiary-500: #f59e0b;
-  
+
   /* Surface Variants (MD3) - Light mode inverted */
   --color-surface-variant: #e2e8f0;
   --color-on-surface-variant: #64748b;
@@ -477,7 +477,7 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  
+
   /* Glass effect shadow */
   --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 

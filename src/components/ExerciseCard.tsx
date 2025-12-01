@@ -412,6 +412,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                         id={`${exId}-weight`}
                                         type="number"
                                         inputMode="decimal"
+                                        pattern="[0-9]*"
+                                        enterKeyHint="done"
                                         value={exerciseLog.weight || ''}
                                         onChange={(e) => onSaveWeight(exId, e.target.value)}
                                         placeholder={loadRange && loadRange.unit === 'kg' && loadRange.min > 0 ? String(loadRange.min) : '0'}

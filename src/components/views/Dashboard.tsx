@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import { useHaptic, useSwipeNavigation } from '../../hooks';
-import { PlayCircle, Check, Play, ChevronRight, ChevronLeft, Plus } from 'lucide-react';
+import { PlayCircle, Check, Play, ChevronRight, ChevronLeft, Plus, Trophy } from 'lucide-react';
 import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, hasWorkoutData, type InProgressWorkout } from '../../utils/storage';
 import { formatRelativeTime } from '../../utils/time';
 import { SwipeIndicator } from '../SwipeIndicator';
@@ -16,6 +16,7 @@ import { getCompleteSchedule } from '../../utils/schedule';
 import { getSessionKey } from '../../services/storageNamespace';
 import { ProgramSelector } from '../ProgramSelector';
 import { useProgram } from '../../context/ProgramContext';
+import { WeeklyProgressRing } from '../progress';
 
 /** Maximum number of exercises to show in the summary */
 const MAX_EXERCISES_IN_SUMMARY = 3;
@@ -60,7 +61,6 @@ export function Dashboard({
   onStartEmptyWorkout,
   onProgramChange,
 }: DashboardProps) {
-  const [progress, setProgress] = useState(0);
   const [inProgressWorkout, setInProgressWorkout] = useState<InProgressWorkout | null>(null);
   const haptic = useHaptic();
 
@@ -89,8 +89,6 @@ export function Dashboard({
       }
     },
   });
-
-  useEffect(() => setProgress((currentWeek / maxWeeks) * 100), [currentWeek, maxWeeks]);
 
   // Check for in-progress workouts on mount and when week changes
   useEffect(() => {
@@ -127,9 +125,13 @@ export function Dashboard({
   };
 
   const currentBlock = getBlockForWeek(currentWeek) || { name: 'Unknown' };
-
-  // Get program name with fallback
-  const programName = currentProgram?.name ?? 'OnePlus Strength';
+  const days = [1, 2, 3, 5];
+  const completedWorkouts = days.filter(day => isCompleted(day)).length;
+  const totalWorkouts = days.length;
+  
+  // Find the next workout to do (first incomplete day)
+  // If all completed, show the last one or none as "next"
+  const nextWorkoutDay = days.find(day => !isCompleted(day));
 
   return (
     <>
@@ -150,13 +152,20 @@ export function Dashboard({
           onProgramChange={onProgramChange}
         />
 
+        {/* Weekly Progress Ring */}
+        <WeeklyProgressRing
+            completedWorkouts={completedWorkouts}
+            totalWorkouts={totalWorkouts}
+            currentWeek={currentWeek}
+        />
+
         {/* Resume Workout Banner */}
         {inProgressWorkout && (
           <button
             onClick={handleResumeWorkout}
             className="w-full mb-6 p-5 rounded-3xl bg-gradient-to-r from-sys-accent/20 to-sys-accent/10 border-2 border-sys-accent/30 active:scale-[0.98] transition-all"
           >
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-2xl bg-sys-accent/20 flex items-center justify-center">
                   <PlayCircle className="text-sys-accent" width={24} />
@@ -174,13 +183,10 @@ export function Dashboard({
                 <span className="text-lg font-bold text-sys-accent">
                   {inProgressWorkout.progress}%
                 </span>
-                <span className="text-xs text-sys-onSurfaceVar">
-                  {inProgressWorkout.completedSets}/{inProgressWorkout.totalSets} sets
-                </span>
               </div>
             </div>
             {/* Progress bar */}
-            <div className="mt-4 w-full bg-black/30 h-2 rounded-full overflow-hidden">
+            <div className="w-full bg-black/30 h-2 rounded-full overflow-hidden">
               <div
                 className="h-full bg-sys-accent transition-all duration-300 rounded-full"
                 style={{ width: `${inProgressWorkout.progress}%` }}
@@ -189,44 +195,67 @@ export function Dashboard({
           </button>
         )}
 
-        <div className="card-modern p-7 mb-8 relative overflow-hidden border border-white/5">
-          <div className="relative z-10">
-            <h2 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-1">
-              {programName}
-            </h2>
-            <h3 className="text-sm font-medium text-sys-accent mb-3">
-              {currentBlock.name}
-            </h3>
-            <div className="flex items-baseline gap-3 mb-6">
-              <span className="text-5xl font-bold text-sys-accent tracking-tighter">
-                W{currentWeek}
-              </span>
-              <span className="text-sys-onSurfaceVar font-mono text-xl">
-                / {maxWeeks}
-              </span>
-            </div>
-            <div className="w-full bg-black/30 h-2 rounded-full overflow-hidden">
-              <div
-                className="progress-bar-fill h-full transition-all duration-500 rounded-full"
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex justify-between items-end mb-6 px-1">
-          <h3 className="text-2xl font-bold text-white">Weekly Plan</h3>
-          <span className="text-sm text-sys-onSurfaceVar font-medium">
-            Week {currentWeek}
+        <div className="flex justify-between items-end mb-4 px-1">
+          <h3 className="text-xl font-bold text-white">Workouts</h3>
+          <span className="text-sm text-sys-accent font-medium">
+            {currentBlock.name}
           </span>
         </div>
 
-        <div className="grid grid-cols-1 gap-4">
-          {[1, 2, 3, 5].map((day) => {
+        <div className="flex flex-col gap-4">
+          {days.map((day) => {
             const done = isCompleted(day);
             const dayProgress = getDayProgress(day);
             const isInProgress = !done && dayProgress !== null;
             const hasPreviousData = !done && !isInProgress && hasExistingData(day);
+            
+            // Determine if this is the "Hero" card (next up)
+            // It's the hero if it's the next workout day, OR if it's in progress
+            
+            // Let's simplify: Hero card is the next scheduled workout if no workout is in progress.
+            // If a workout is in progress, the resume banner handles it, so we can show standard list.
+            // But let's make the next available workout prominent.
+            
+            const isNextUp = day === nextWorkoutDay && !inProgressWorkout;
+
+            if (isNextUp) {
+                return (
+                    <button
+                        key={day}
+                        onClick={() => {
+                            haptic.tick();
+                            onStartWorkout(day);
+                        }}
+                        className="relative overflow-hidden rounded-[32px] p-6 text-left transition-all active:scale-[0.98] group"
+                    >
+                        {/* Background with gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-sys-primary to-sys-primaryDim opacity-20 group-active:opacity-30 transition-opacity" />
+                        <div className="absolute inset-0 border-2 border-sys-primary/30 rounded-[32px]" />
+                        
+                        <div className="relative z-10">
+                            <div className="flex justify-between items-start mb-4">
+                                <div className="px-3 py-1 rounded-full bg-sys-primary/20 border border-sys-primary/30 text-sys-primary text-xs font-bold uppercase tracking-wider">
+                                    Next Up
+                                </div>
+                                <div className="h-10 w-10 rounded-full bg-sys-primary text-sys-black flex items-center justify-center shadow-lg shadow-sys-primary/20">
+                                    <Play size={20} fill="currentColor" />
+                                </div>
+                            </div>
+                            
+                            <h3 className="text-3xl font-bold text-white mb-2">Day {day}</h3>
+                            <p className="text-sys-onSurfaceVar text-sm line-clamp-2 mb-4">
+                                {getExerciseSummary(currentWeek, day)}
+                            </p>
+                            
+                            <div className="flex items-center gap-2 text-sys-primary text-sm font-bold">
+                                <span>Start Workout</span>
+                                <ChevronRight size={16} />
+                            </div>
+                        </div>
+                    </button>
+                );
+            }
+
             return (
               <button
                 key={day}
@@ -234,25 +263,28 @@ export function Dashboard({
                   haptic.tick();
                   onStartWorkout(day);
                 }}
-                className={`stagger-item relative min-h-[72px] rounded-3xl px-6 py-5 flex items-center justify-between transition-all active:scale-[0.97] ${
+                className={`relative min-h-[72px] rounded-3xl px-6 py-5 flex items-center justify-between transition-all active:scale-[0.97] ${
                   done
-                    ? 'bg-sys-success/10 border-2 border-sys-success/30'
+                    ? 'bg-sys-surface border border-sys-success/30'
                     : isInProgress
-                    ? 'bg-sys-accent/10 border-2 border-sys-accent/30'
-                    : 'bg-sys-surface border-2 border-white/5'
+                    ? 'bg-sys-surface border border-sys-accent/30'
+                    : 'bg-sys-surface border border-white/5'
                 }`}
                 aria-label={`${done ? 'View completed' : isInProgress ? 'Resume' : hasPreviousData ? 'Continue' : 'Start'} Day ${day} workout`}
               >
                 <div className="flex flex-col items-start">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span
+                        className={`text-sm font-bold uppercase tracking-wider ${
+                        done ? 'text-sys-success' : isInProgress ? 'text-sys-accent' : 'text-sys-onSurfaceVar'
+                        }`}
+                    >
+                        Day {day}
+                    </span>
+                    {done && <Check size={14} className="text-sys-success" />}
+                  </div>
                   <span
-                    className={`text-sm font-bold uppercase tracking-wider mb-1 ${
-                      done ? 'text-sys-success' : isInProgress ? 'text-sys-accent' : 'text-sys-onSurfaceVar'
-                    }`}
-                  >
-                    Day {day}
-                  </span>
-                  <span
-                    className={`text-xs ${
+                    className={`text-xs text-left line-clamp-1 ${
                       done
                         ? 'text-sys-success/70'
                         : isInProgress
@@ -263,7 +295,7 @@ export function Dashboard({
                     {done
                       ? 'Completed'
                       : isInProgress
-                      ? `${dayProgress.completedSets}/${dayProgress.totalSets} sets • ${dayProgress.progress}%`
+                      ? `${dayProgress?.completedSets}/${dayProgress?.totalSets} sets • ${dayProgress?.progress}%`
                       : hasPreviousData
                       ? 'Has previous data'
                       : getExerciseSummary(currentWeek, day)}
@@ -271,20 +303,20 @@ export function Dashboard({
                 </div>
 
                 <div
-                  className={`h-12 w-12 min-w-[48px] rounded-2xl flex items-center justify-center ${
+                  className={`h-10 w-10 min-w-[40px] rounded-full flex items-center justify-center ${
                     done
-                      ? 'bg-sys-success text-sys-black'
+                      ? 'bg-sys-success/10 text-sys-success'
                       : isInProgress
-                      ? 'bg-sys-accent text-sys-black'
+                      ? 'bg-sys-accent/10 text-sys-accent'
                       : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                   }`}
                 >
                   {done ? (
-                    <Check />
+                    <Trophy size={18} />
                   ) : isInProgress ? (
-                    <Play />
+                    <Play size={18} />
                   ) : (
-                    <ChevronRight />
+                    <ChevronRight size={18} />
                   )}
                 </div>
               </button>
@@ -300,7 +332,7 @@ export function Dashboard({
                 haptic.bump();
                 onStartEmptyWorkout();
               }}
-              className="w-full min-h-[56px] rounded-3xl px-6 py-4 flex items-center justify-center gap-3 transition-all active:scale-[0.97] bg-gradient-to-r from-sys-accent/10 to-sys-success/10 border-2 border-dashed border-white/20 hover:border-sys-accent/40"
+              className="w-full min-h-[56px] rounded-3xl px-6 py-4 flex items-center justify-center gap-3 transition-all active:scale-[0.97] bg-sys-surface border border-dashed border-white/20 hover:border-sys-accent/40"
               aria-label="Start an empty workout"
             >
               <div className="h-10 w-10 min-w-[40px] rounded-2xl bg-sys-surfaceHigh flex items-center justify-center">
@@ -355,3 +387,4 @@ export function Dashboard({
     </>
   );
 }
+

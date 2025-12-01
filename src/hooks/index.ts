@@ -243,3 +243,16 @@ export type { UseWorkoutSessionOptions, UseWorkoutSessionReturn } from './useWor
 export type { UseRestTimerOptions, UseRestTimerReturn } from './useRestTimer';
 export type { UseEmomTimerOptions, UseEmomTimerReturn } from './useEmomTimer';
 export type { UseExerciseCollapseOptions, UseExerciseCollapseReturn } from './useExerciseCollapse';
+
+// Re-export snackbar hook and provider
+export {
+    useSnackbar,
+    SnackbarProvider,
+} from './useSnackbar';
+export type {
+    SnackbarVariant,
+    SnackbarAction,
+    SnackbarMessage,
+    SnackbarContextValue,
+    SnackbarProviderProps,
+} from './useSnackbar';

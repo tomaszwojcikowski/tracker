@@ -1,6 +1,6 @@
 /**
  * Lucide React Icons
- * 
+ *
  * This file exports all Lucide icons used in the application.
  * Using lucide-react instead of the global lucide library provides:
  * - Tree-shaking (only used icons are bundled)
@@ -20,7 +20,7 @@ export {
   X,
   Menu,
   MoreVertical,
-  
+
   // Actions
   Check,
   CheckCircle2,
@@ -34,7 +34,8 @@ export {
   LogOut,
   Play,
   PlayCircle,
-  
+  Maximize2,
+
   // Content
   Dumbbell,
   BookOpen,
@@ -50,25 +51,25 @@ export {
   BarChart2,
   TrendingUp,
   Award,
-  
+
   // Exercise categories
   Zap,
   Wind,
   Activity,
-  
+
   // Status
   Loader,
   AlertCircle,
   CheckCircle,
-  
+
   // Cloud
   Cloud,
   CloudOff,
-  
+
   // Search
   Search,
   Filter,
-  
+
   // Theme
   Palette,
 } from 'lucide-react';

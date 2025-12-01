@@ -92,7 +92,7 @@ export const VolumeTrendBadge: React.FC<VolumeTrendBadgeProps> = ({ trend }) => 
         neutral: {
             icon: '→',
             text: 'Stable',
-            className: 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+            className: 'bg-sys-tertiary/10 text-sys-tertiary'
         }
     };
 

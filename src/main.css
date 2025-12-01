@@ -553,3 +553,308 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 .rpe-10 {
     --rpe-color: #ef4444;
 }
+
+/* ============================================================================
+   MATERIAL DESIGN 3 RIPPLE EFFECT
+   Touch feedback with expanding circular ripple
+   ============================================================================ */
+
+.ripple-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--state-pressed);
+    transform: scale(0);
+    animation: ripple 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.ripple-effect.primary {
+    background: var(--state-primary-pressed);
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* ============================================================================
+   MATERIAL DESIGN 3 BUTTON VARIANTS
+   Filled, Outlined, Tonal, and Text button styles
+   ============================================================================ */
+
+/* Base button reset */
+.btn-md3 {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 24px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    line-height: 20px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-md3:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+}
+
+/* Filled Button - Primary container color */
+.btn-filled {
+    background: var(--color-primary-500);
+    color: white;
+    box-shadow: var(--elevation-1);
+}
+
+.btn-filled:hover:not(:disabled) {
+    box-shadow: var(--elevation-2);
+    background: linear-gradient(var(--state-hover), var(--state-hover)), var(--color-primary-500);
+}
+
+.btn-filled:active:not(:disabled) {
+    box-shadow: var(--elevation-1);
+    background: linear-gradient(var(--state-pressed), var(--state-pressed)), var(--color-primary-500);
+}
+
+.btn-filled:focus-visible {
+    outline: 2px solid var(--color-primary-300);
+    outline-offset: 2px;
+}
+
+/* Outlined Button - Border with transparent background */
+.btn-outlined {
+    background: transparent;
+    color: var(--color-primary-500);
+    border: 1px solid var(--color-neutral-600);
+}
+
+.btn-outlined:hover:not(:disabled) {
+    background: var(--state-primary-hover);
+}
+
+.btn-outlined:active:not(:disabled) {
+    background: var(--state-primary-pressed);
+}
+
+.btn-outlined:focus-visible {
+    outline: 2px solid var(--color-primary-300);
+    outline-offset: 2px;
+}
+
+/* Tonal Button - Secondary container color */
+.btn-tonal {
+    background: var(--color-primary-900);
+    color: var(--color-primary-300);
+}
+
+.btn-tonal:hover:not(:disabled) {
+    background: linear-gradient(var(--state-hover), var(--state-hover)), var(--color-primary-900);
+    box-shadow: var(--elevation-1);
+}
+
+.btn-tonal:active:not(:disabled) {
+    background: linear-gradient(var(--state-pressed), var(--state-pressed)), var(--color-primary-900);
+}
+
+.btn-tonal:focus-visible {
+    outline: 2px solid var(--color-primary-300);
+    outline-offset: 2px;
+}
+
+/* Text Button - No container */
+.btn-text {
+    background: transparent;
+    color: var(--color-primary-500);
+    padding: 0 12px;
+}
+
+.btn-text:hover:not(:disabled) {
+    background: var(--state-primary-hover);
+}
+
+.btn-text:active:not(:disabled) {
+    background: var(--state-primary-pressed);
+}
+
+.btn-text:focus-visible {
+    outline: 2px solid var(--color-primary-300);
+    outline-offset: 2px;
+}
+
+/* FAB - Floating Action Button */
+.btn-fab {
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    border-radius: 16px;
+    background: var(--color-primary-500);
+    color: white;
+    box-shadow: var(--elevation-3);
+}
+
+.btn-fab:hover:not(:disabled) {
+    box-shadow: var(--elevation-4);
+    background: linear-gradient(var(--state-hover), var(--state-hover)), var(--color-primary-500);
+}
+
+.btn-fab:active:not(:disabled) {
+    box-shadow: var(--elevation-3);
+    background: linear-gradient(var(--state-pressed), var(--state-pressed)), var(--color-primary-500);
+}
+
+/* Small FAB */
+.btn-fab-small {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+}
+
+/* Extended FAB */
+.btn-fab-extended {
+    width: auto;
+    height: 56px;
+    padding: 0 20px;
+    border-radius: 16px;
+    gap: 12px;
+}
+
+/* Icon Button */
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 20px;
+    background: transparent;
+    color: var(--color-neutral-50);
+}
+
+.btn-icon:hover:not(:disabled) {
+    background: var(--state-hover);
+}
+
+.btn-icon:active:not(:disabled) {
+    background: var(--state-pressed);
+}
+
+/* ============================================================================
+   MATERIAL DESIGN 3 ELEVATION SURFACES
+   Surface containers with tint overlay
+   ============================================================================ */
+
+.surface-elevation-1 {
+    background: linear-gradient(var(--surface-tint-1), var(--surface-tint-1)), var(--color-surface-dark);
+    box-shadow: var(--elevation-1);
+}
+
+.surface-elevation-2 {
+    background: linear-gradient(var(--surface-tint-2), var(--surface-tint-2)), var(--color-surface-dark);
+    box-shadow: var(--elevation-2);
+}
+
+.surface-elevation-3 {
+    background: linear-gradient(var(--surface-tint-3), var(--surface-tint-3)), var(--color-surface-dark);
+    box-shadow: var(--elevation-3);
+}
+
+.surface-elevation-4 {
+    background: linear-gradient(var(--surface-tint-4), var(--surface-tint-4)), var(--color-surface-dark);
+    box-shadow: var(--elevation-4);
+}
+
+.surface-elevation-5 {
+    background: linear-gradient(var(--surface-tint-5), var(--surface-tint-5)), var(--color-surface-dark);
+    box-shadow: var(--elevation-5);
+}
+
+/* ============================================================================
+   STATE LAYER UTILITIES
+   Hover, focus, pressed states for interactive elements
+   ============================================================================ */
+
+.state-layer {
+    position: relative;
+}
+
+.state-layer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.state-layer:hover::after {
+    background: var(--state-hover);
+    opacity: 1;
+}
+
+.state-layer:active::after {
+    background: var(--state-pressed);
+    opacity: 1;
+}
+
+.state-layer:focus-visible::after {
+    background: var(--state-focus);
+    opacity: 1;
+}
+
+/* ============================================================================
+   MATERIAL DESIGN 3 BORDER RADIUS STANDARDIZATION
+   Consistent corner radius system:
+   - Extra Small (4dp): Small components, chips
+   - Small (8dp): Buttons, text fields
+   - Medium (12dp): Cards, dialogs
+   - Large (16dp): FABs, navigation rail
+   - Extra Large (28dp): Bottom sheets, large surfaces
+   - Full: Pills, circular buttons
+   ============================================================================ */
+
+/* Card container - medium radius (16dp = rounded-2xl) */
+.radius-card {
+    border-radius: 1rem; /* 16px */
+}
+
+/* Input fields - small radius (12dp = rounded-xl) */
+.radius-input {
+    border-radius: 0.75rem; /* 12px */
+}
+
+/* Buttons - small to medium (8-12dp) */
+.radius-button {
+    border-radius: 0.5rem; /* 8px */
+}
+
+/* Bottom sheets - extra large top radius (28dp) */
+.radius-sheet {
+    border-top-left-radius: 1.75rem; /* 28px */
+    border-top-right-radius: 1.75rem;
+}
+
+/* Chips and badges - full radius */
+.radius-pill {
+    border-radius: 9999px;
+}

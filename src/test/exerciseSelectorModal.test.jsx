@@ -194,7 +194,7 @@ describe('ExerciseSelectorModal', () => {
             );
 
             const pullButton = screen.getByRole('button', { name: 'Pull' });
-            expect(pullButton).toHaveClass('bg-sys-accent');
+            expect(pullButton).toHaveClass('btn-filled');
         });
     });
 

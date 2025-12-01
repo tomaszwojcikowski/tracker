@@ -227,7 +227,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* EMOM Badge */}
                             {isEmom && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-tertiary/20 text-sys-tertiary border border-sys-tertiary/30">
                                     <Zap size={10} strokeWidth={3} />
                                     EMOM
                                 </span>

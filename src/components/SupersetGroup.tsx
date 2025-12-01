@@ -206,7 +206,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
             }`}>
                 {/* Header with EMOM badge and shared round counter */}
                 <div className="px-3 py-2 flex items-center gap-2 border-b border-white/5">
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400">
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-tertiary/20 text-sys-tertiary">
                         <Zap size={10} strokeWidth={3} />
                         EMOM SUPERSET
                     </span>

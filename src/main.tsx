@@ -138,7 +138,7 @@ Promise.all([
         // Initialize program registry with the loaded workout plan
         // This registers the default program if not already registered
         initializeDefaultProgram(scheduleData);
-        
+
         // Store program data in registry for access by other modules
         const registry = getProgramRegistry();
         const activeProgram = registry.getActiveProgram();

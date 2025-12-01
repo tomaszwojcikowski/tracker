@@ -133,8 +133,8 @@ test.describe('Program Selector', () => {
       await settingsTab.click();
       await page.waitForTimeout(500);
 
-      // Should show program management section
-      const programSection = page.locator('text=Workout Programs');
+      // Should show program management section - use first() to avoid strict mode violation
+      const programSection = page.getByRole('heading', { name: 'Workout Programs' }).first();
       await expect(programSection).toBeVisible();
     });
 

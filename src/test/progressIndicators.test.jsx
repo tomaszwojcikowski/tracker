@@ -6,6 +6,7 @@ import {
     TimerRing,
     ProgressRing,
 } from '../components/progress/ProgressIndicators';
+import { WeeklyProgressRing } from '../components/progress/WeeklyProgressRing';
 
 describe('WorkoutProgress', () => {
     it('should display completed and total sets', () => {
@@ -264,5 +265,148 @@ describe('ProgressRing', () => {
 
         const svg = screen.getByRole('progressbar');
         expect(svg).toHaveClass('custom-ring');
+    });
+});
+
+describe('WeeklyProgressRing', () => {
+    it('should display current week', () => {
+        render(
+            <WeeklyProgressRing completedWorkouts={2} totalWorkouts={4} currentWeek={5} />
+        );
+
+        expect(screen.getByText('Week 5')).toBeInTheDocument();
+    });
+
+    it('should display completed and total workouts', () => {
+        render(
+            <WeeklyProgressRing completedWorkouts={2} totalWorkouts={4} currentWeek={1} />
+        );
+
+        expect(screen.getByText('2 of 4 workouts completed')).toBeInTheDocument();
+    });
+
+    it('should calculate and display correct percentage (0%)', () => {
+        render(
+            <WeeklyProgressRing completedWorkouts={0} totalWorkouts={4} currentWeek={1} />
+        );
+
+        expect(screen.getByText('0%')).toBeInTheDocument();
+    });
+
+    it('should calculate and display correct percentage (50%)', () => {
+        render(
+            <WeeklyProgressRing completedWorkouts={2} totalWorkouts={4} currentWeek={1} />
+        );
+
+        expect(screen.getByText('50%')).toBeInTheDocument();
+    });
+
+    it('should calculate and display correct percentage (100%)', () => {
+        render(
+            <WeeklyProgressRing completedWorkouts={4} totalWorkouts={4} currentWeek={1} />
+        );
+
+        expect(screen.getByText('100%')).toBeInTheDocument();
+    });
+
+    it('should handle zero total workouts', () => {
+        render(
+            <WeeklyProgressRing completedWorkouts={0} totalWorkouts={0} currentWeek={1} />
+        );
+
+        expect(screen.getByText('0%')).toBeInTheDocument();
+        expect(screen.getByText('0 of 0 workouts completed')).toBeInTheDocument();
+    });
+
+    it('should render workout indicator bars matching total workouts', () => {
+        const { container } = render(
+            <WeeklyProgressRing completedWorkouts={2} totalWorkouts={4} currentWeek={1} />
+        );
+
+        // Find the indicator bars container (last div with gap-1)
+        const indicatorBars = container.querySelectorAll('.rounded-full.h-1\\.5');
+        expect(indicatorBars).toHaveLength(4);
+    });
+
+    it('should apply completed class to completed workout indicators', () => {
+        const { container } = render(
+            <WeeklyProgressRing completedWorkouts={2} totalWorkouts={4} currentWeek={1} />
+        );
+
+        const indicatorBars = container.querySelectorAll('.rounded-full.h-1\\.5');
+        
+        // First 2 should be completed (bg-sys-accent)
+        expect(indicatorBars[0]).toHaveClass('bg-sys-accent');
+        expect(indicatorBars[1]).toHaveClass('bg-sys-accent');
+        
+        // Last 2 should be incomplete (bg-sys-surfaceHigh)
+        expect(indicatorBars[2]).toHaveClass('bg-sys-surfaceHigh');
+        expect(indicatorBars[3]).toHaveClass('bg-sys-surfaceHigh');
+    });
+
+    it('should render all indicators as completed when all workouts are done', () => {
+        const { container } = render(
+            <WeeklyProgressRing completedWorkouts={4} totalWorkouts={4} currentWeek={1} />
+        );
+
+        const indicatorBars = container.querySelectorAll('.rounded-full.h-1\\.5');
+        
+        indicatorBars.forEach(bar => {
+            expect(bar).toHaveClass('bg-sys-accent');
+        });
+    });
+
+    it('should render all indicators as incomplete when no workouts are done', () => {
+        const { container } = render(
+            <WeeklyProgressRing completedWorkouts={0} totalWorkouts={4} currentWeek={1} />
+        );
+
+        const indicatorBars = container.querySelectorAll('.rounded-full.h-1\\.5');
+        
+        indicatorBars.forEach(bar => {
+            expect(bar).toHaveClass('bg-sys-surfaceHigh');
+        });
+    });
+
+    it('should render SVG with two circles (background and progress)', () => {
+        const { container } = render(
+            <WeeklyProgressRing completedWorkouts={2} totalWorkouts={4} currentWeek={1} />
+        );
+
+        const circles = container.querySelectorAll('circle');
+        expect(circles).toHaveLength(2);
+    });
+
+    it('should cap percentage at 100% when completed exceeds total', () => {
+        render(
+            <WeeklyProgressRing completedWorkouts={5} totalWorkouts={4} currentWeek={1} />
+        );
+
+        // Should show 100% due to Math.min in the component
+        expect(screen.getByText('100%')).toBeInTheDocument();
+    });
+
+    it('should handle partial completion (3/4)', () => {
+        render(
+            <WeeklyProgressRing completedWorkouts={3} totalWorkouts={4} currentWeek={10} />
+        );
+
+        expect(screen.getByText('75%')).toBeInTheDocument();
+        expect(screen.getByText('3 of 4 workouts completed')).toBeInTheDocument();
+        expect(screen.getByText('Week 10')).toBeInTheDocument();
+    });
+
+    it('should display correct week number for different weeks', () => {
+        const { rerender } = render(
+            <WeeklyProgressRing completedWorkouts={1} totalWorkouts={4} currentWeek={1} />
+        );
+
+        expect(screen.getByText('Week 1')).toBeInTheDocument();
+
+        rerender(
+            <WeeklyProgressRing completedWorkouts={1} totalWorkouts={4} currentWeek={21} />
+        );
+
+        expect(screen.getByText('Week 21')).toBeInTheDocument();
     });
 });

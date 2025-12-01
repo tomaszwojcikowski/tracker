@@ -55,7 +55,7 @@ const WeightGraph: React.FC<{ data: Array<{ weight: number; date: string }> }> =
     const points = weightData.map((d, i) => {
         const x = padding + (i / (weightData.length - 1)) * (width - 2 * padding);
         const y = height - padding - ((d.weight - effectiveMin) / effectiveRange) * (height - 2 * padding);
-        return { x, y, val: d.weight, date: d.date };
+        return { x, y };
     });
 
     const polylinePoints = points.map(p => `${p.x},${p.y}`).join(' ');
@@ -166,6 +166,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                 <button
                     onClick={onClose}
                     className="h-8 w-8 rounded-full bg-sys-surfaceHigh flex items-center justify-center text-sys-onSurfaceVar active:scale-90 transition-all"
+                    aria-label="Close exercise details"
                 >
                     <X size={18} />
                 </button>
@@ -202,7 +203,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                         </div>
                         <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Max Sets</div>
                         <div className="text-xl font-bold text-white">
-                            {stats.maxSets || '-'}
+                            {stats.maxSets !== null ? stats.maxSets : '-'}
                         </div>
                     </div>
                 </div>
@@ -219,8 +220,8 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
 
                     {recentHistory.length > 0 ? (
                         <div className="space-y-2">
-                            {recentHistory.map((entry, idx) => (
-                                <div key={idx} className="bg-sys-surfaceHigh rounded-xl p-3 flex items-center justify-between border border-white/5">
+                            {recentHistory.map((entry) => (
+                                <div key={entry.date} className="bg-sys-surfaceHigh rounded-xl p-3 flex items-center justify-between border border-white/5">
                                     <div className="flex items-center gap-3">
                                         <div className="h-10 w-10 rounded-lg bg-sys-surface flex flex-col items-center justify-center text-xs font-bold border border-white/5">
                                             <span className="text-sys-onSurfaceVar uppercase text-[10px]">

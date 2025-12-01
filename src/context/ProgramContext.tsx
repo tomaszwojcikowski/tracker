@@ -55,6 +55,32 @@ export interface ProgramContextValue {
 const ProgramContext = createContext<ProgramContextValue | undefined>(undefined);
 
 // ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
+
+/**
+ * Create a minimal WorkoutPlan object from a ProgramManifest
+ * Used when program data is already stored in the registry
+ */
+function createMinimalWorkoutPlan(program: ProgramManifest): WorkoutPlan {
+  return {
+    formatVersion: '2.3.0',
+    plan: {
+      id: program.id,
+      name: program.name,
+      version: program.version,
+      durationWeeks: program.durationWeeks,
+      description: program.description,
+      author: program.author,
+      targetLevel: program.targetLevel,
+      goals: program.goals,
+      equipment: program.equipment,
+      phases: [], // Not needed - schedule is already available in registry
+    },
+  } as WorkoutPlan;
+}
+
+// ============================================================================
 // PROVIDER PROPS
 // ============================================================================
 
@@ -167,23 +193,8 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
       const storedData = registry.getProgramData(programId);
       
       if (storedData) {
-        // Use stored data - construct a minimal WorkoutPlan for syncing
-        // The full data is already in the registry
-        data = {
-          formatVersion: '2.3.0',
-          plan: {
-            id: programId,
-            name: program.name,
-            version: program.version,
-            durationWeeks: program.durationWeeks,
-            description: program.description,
-            author: program.author,
-            targetLevel: program.targetLevel,
-            goals: program.goals,
-            equipment: program.equipment,
-            phases: [], // Not needed for syncing - schedule is already available
-          },
-        } as WorkoutPlan;
+        // Use stored data - construct a minimal WorkoutPlan
+        data = createMinimalWorkoutPlan(program);
         
         // Sync with schedule utilities using stored schedule
         setActiveScheduleProgram(programId);
@@ -255,22 +266,8 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
             const storedData = registry.getProgramData(program.id);
             
             if (storedData) {
-              // Use stored data - construct a minimal WorkoutPlan for syncing
-              data = {
-                formatVersion: '2.3.0',
-                plan: {
-                  id: program.id,
-                  name: program.name,
-                  version: program.version,
-                  durationWeeks: program.durationWeeks,
-                  description: program.description,
-                  author: program.author,
-                  targetLevel: program.targetLevel,
-                  goals: program.goals,
-                  equipment: program.equipment,
-                  phases: [],
-                },
-              } as WorkoutPlan;
+              // Use stored data - construct a minimal WorkoutPlan
+              data = createMinimalWorkoutPlan(program);
               
               // Sync with schedule utilities using stored schedule
               setActiveScheduleProgram(program.id);

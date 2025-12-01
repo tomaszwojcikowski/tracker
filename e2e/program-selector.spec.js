@@ -381,3 +381,136 @@ test.describe('Deep Linking with Program Context', () => {
     expect(savedState?.currentWeek).toBe(5);
   });
 });
+
+test.describe('Settings Programs Tab', () => {
+  test.beforeEach(async ({ page }) => {
+    // Skip onboarding
+    await page.addInitScript(() => {
+      localStorage.setItem('tracker_onboarding_completed', 'true');
+    });
+    await page.goto('/');
+    await page.waitForSelector('button[aria-label="Settings"]', { timeout: 15000 });
+
+    // Navigate to Settings
+    const settingsTab = page.locator('button[aria-label="Settings"]');
+    await settingsTab.click();
+    await page.waitForTimeout(500);
+  });
+
+  test('should have General and Programs tabs in settings', async ({ page }) => {
+    // Check for tab buttons
+    const generalTab = page.locator('button:has-text("General")');
+    const programsTab = page.locator('button:has-text("Programs")');
+
+    await expect(generalTab).toBeVisible();
+    await expect(programsTab).toBeVisible();
+  });
+
+  test('should switch to Programs tab when clicked', async ({ page }) => {
+    // Click on Programs tab
+    const programsTab = page.locator('button:has-text("Programs")');
+    await programsTab.click();
+    await page.waitForTimeout(300);
+
+    // Programs tab should be active (has accent background)
+    await expect(programsTab).toHaveClass(/bg-sys-accent/);
+  });
+
+  test('should show available sample programs in Programs tab', async ({ page }) => {
+    // Click on Programs tab
+    const programsTab = page.locator('button:has-text("Programs")');
+    await programsTab.click();
+    await page.waitForTimeout(300);
+
+    // Should show sample programs section
+    const content = await page.locator('body').textContent();
+
+    // Check for sample program names
+    const hasSamplePrograms =
+      /Beginner Bodyweight|Pull-Up Builder|Strength Fundamentals|Mobility|Flexibility/i.test(content);
+    expect(hasSamplePrograms).toBe(true);
+  });
+
+  test('should show "Available Programs" label when there are uninstalled programs', async ({ page }) => {
+    // Click on Programs tab
+    const programsTab = page.locator('button:has-text("Programs")');
+    await programsTab.click();
+    await page.waitForTimeout(300);
+
+    // Should show "Available Programs" section
+    const availableLabel = page.locator('text=Available Programs');
+    await expect(availableLabel).toBeVisible();
+  });
+
+  test('should show program duration in weeks for sample programs', async ({ page }) => {
+    // Click on Programs tab
+    const programsTab = page.locator('button:has-text("Programs")');
+    await programsTab.click();
+    await page.waitForTimeout(300);
+
+    // Should show duration for programs (e.g., "4 weeks", "6 weeks", "8 weeks")
+    const content = await page.locator('body').textContent();
+    const hasDuration = /\d+ weeks/i.test(content);
+    expect(hasDuration).toBe(true);
+  });
+
+  test('should show difficulty level badges for sample programs', async ({ page }) => {
+    // Click on Programs tab
+    const programsTab = page.locator('button:has-text("Programs")');
+    await programsTab.click();
+    await page.waitForTimeout(300);
+
+    // Should show difficulty badges
+    const content = await page.locator('body').textContent();
+    const hasLevelBadges = /Beginner|Intermediate|Advanced/i.test(content);
+    expect(hasLevelBadges).toBe(true);
+  });
+
+  test('should import and activate a sample program when clicked', async ({ page }) => {
+    // Click on Programs tab
+    const programsTab = page.locator('button:has-text("Programs")');
+    await programsTab.click();
+    await page.waitForTimeout(300);
+
+    // Find a sample program to import (look for one with a + icon)
+    const sampleProgram = page.locator('button:has-text("2-Week Mobility")').first();
+
+    if (await sampleProgram.isVisible()) {
+      await sampleProgram.click();
+      await page.waitForTimeout(1000);
+
+      // After import, the program should show "Active" badge
+      const activeIndicator = page.locator('text=Active');
+      await expect(activeIndicator).toBeVisible({ timeout: 5000 });
+    }
+  });
+
+  test('should persist selected program after page reload', async ({ page }) => {
+    // Click on Programs tab
+    const programsTab = page.locator('button:has-text("Programs")');
+    await programsTab.click();
+    await page.waitForTimeout(300);
+
+    // Import a sample program
+    const sampleProgram = page.locator('button:has-text("2-Week Mobility")').first();
+
+    if (await sampleProgram.isVisible()) {
+      await sampleProgram.click();
+      await page.waitForTimeout(1000);
+
+      // Reload the page
+      await page.reload();
+      await page.waitForSelector('button[aria-label="Settings"]', { timeout: 15000 });
+
+      // Navigate back to Settings > Programs
+      await page.locator('button[aria-label="Settings"]').click();
+      await page.waitForTimeout(300);
+      await page.locator('button:has-text("Programs")').click();
+      await page.waitForTimeout(300);
+
+      // The imported program should show as Active
+      const activeIndicator = page.locator('text=Active');
+      await expect(activeIndicator).toBeVisible();
+    }
+  });
+});

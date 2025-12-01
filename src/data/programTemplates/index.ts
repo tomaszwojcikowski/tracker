@@ -1,6 +1,6 @@
 /**
  * Sample Programs Index
- * 
+ *
  * This file provides metadata about available sample programs that can be imported.
  * The actual program files are stored in /public/programs/ and loaded on demand.
  */
@@ -34,11 +34,25 @@ export function getFullManifest(info: SampleProgramInfo): Omit<ProgramManifest, 
 
 /**
  * Available sample programs
- * 
+ *
  * These programs are bundled with the app and can be imported by users.
  * They provide different workout styles and durations.
  */
 export const SAMPLE_PROGRAMS: SampleProgramInfo[] = [
+  {
+    manifest: {
+      id: 'beginner-bodyweight-v1',
+      name: 'Beginner Bodyweight',
+      version: '1.0.0',
+      description: 'A 4-week program for beginners focusing on fundamental movements.',
+      author: 'Tracker',
+      durationWeeks: 4,
+      targetLevel: 'beginner',
+      goals: ['foundational-strength', 'movement-quality', 'consistency'],
+      equipment: ['pull-up-bar', 'floor-space'],
+    },
+    dataPath: '/programs/beginner-bodyweight.json',
+  },
   {
     manifest: {
       id: 'beginner-bodyweight-4week',
@@ -52,6 +66,20 @@ export const SAMPLE_PROGRAMS: SampleProgramInfo[] = [
       equipment: ['pull-up-bar', 'resistance-bands'],
     },
     dataPath: '/programs/beginner-bodyweight-4week.json',
+  },
+  {
+    manifest: {
+      id: 'pull-up-strength-v1',
+      name: '8-Week Pull-Up Builder',
+      version: '1.0.0',
+      description: 'Build pull-up strength with progressive overload and accessory work.',
+      author: 'Tracker',
+      durationWeeks: 8,
+      targetLevel: 'intermediate',
+      goals: ['pull-up-strength', 'upper-body-strength', 'grip-strength'],
+      equipment: ['pull-up-bar', 'resistance-bands', 'dumbbells'],
+    },
+    dataPath: '/programs/pull-up-strength.json',
   },
   {
     manifest: {

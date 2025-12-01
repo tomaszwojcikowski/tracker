@@ -145,8 +145,9 @@ describe('ProgramSelector', () => {
     it('should display duration for all programs', () => {
       render(<ProgramSelector variant="full" />);
 
-      expect(screen.getByText('12 weeks')).toBeInTheDocument();
-      expect(screen.getByText('4 weeks')).toBeInTheDocument();
+      // There can be multiple programs with similar durations (installed + sample programs)
+      expect(screen.getAllByText('12 weeks').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('4 weeks').length).toBeGreaterThan(0);
     });
   });
 
@@ -193,13 +194,15 @@ describe('ProgramSelector', () => {
     it('should show correct label for beginner level', () => {
       render(<ProgramSelector variant="full" />);
 
-      expect(screen.getByText('Beginner')).toBeInTheDocument();
+      // There can be multiple beginner badges (installed + sample programs)
+      expect(screen.getAllByText('Beginner').length).toBeGreaterThan(0);
     });
 
     it('should show correct label for intermediate level', () => {
       render(<ProgramSelector variant="full" />);
 
-      expect(screen.getByText('Intermediate')).toBeInTheDocument();
+      // There can be multiple intermediate badges (installed + sample programs)
+      expect(screen.getAllByText('Intermediate').length).toBeGreaterThan(0);
     });
   });
 

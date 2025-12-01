@@ -75,8 +75,8 @@ describe('NotesModal', () => {
             const onClose = vi.fn();
             render(<NotesModal {...defaultProps} onClose={onClose} />);
 
-            // The backdrop is the outer fixed div
-            const backdrop = screen.getByRole('dialog').parentElement;
+            // The backdrop is the div with backdrop-blur class (BottomSheet scrim)
+            const backdrop = document.querySelector('.backdrop-blur-sm');
             fireEvent.click(backdrop);
 
             expect(onClose).toHaveBeenCalledTimes(1);

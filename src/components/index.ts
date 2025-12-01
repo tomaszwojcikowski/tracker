@@ -130,3 +130,10 @@ export type { ExerciseSelectorModalProps } from './ExerciseSelectorModal';
 // Program selector component
 export { ProgramSelector } from './ProgramSelector';
 export type { ProgramSelectorProps } from './ProgramSelector';
+
+// MD3 Bottom Sheet component
+export { BottomSheet } from './BottomSheet';
+export type { BottomSheetProps } from './BottomSheet';
+
+// MD3 Snackbar component
+export { Snackbar } from './Snackbar';

@@ -1,11 +1,12 @@
 /**
  * Notes Modal Component
  *
- * Simple slide-up modal for displaying exercise notes.
+ * MD3 bottom sheet modal for displaying exercise notes.
  */
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { X, Info } from 'lucide-react';
+import { BottomSheet } from '../BottomSheet';
 
 export interface NotesModalProps {
     /** Exercise name */
@@ -19,7 +20,7 @@ export interface NotesModalProps {
 }
 
 /**
- * Notes Modal - Slide-up modal for exercise notes
+ * Notes Modal - Bottom sheet for exercise notes
  */
 export const NotesModal: React.FC<NotesModalProps> = ({
     exerciseName,
@@ -27,77 +28,37 @@ export const NotesModal: React.FC<NotesModalProps> = ({
     onClose,
     isOpen,
 }) => {
-    const modalRef = useRef<HTMLDivElement>(null);
-
-    // Handle escape key and focus trap
-    useEffect(() => {
-        if (!isOpen) return;
-
-        const handleEscape = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') {
-                onClose();
-            }
-        };
-
-        document.addEventListener('keydown', handleEscape);
-        document.body.style.overflow = 'hidden';
-
-        // Focus the modal
-        modalRef.current?.focus();
-
-        return () => {
-            document.removeEventListener('keydown', handleEscape);
-            document.body.style.overflow = '';
-        };
-    }, [isOpen, onClose]);
-
-    if (!isOpen) return null;
-
     return (
-        <div
-            className="fixed inset-0 z-[100] flex items-end justify-center"
-            onClick={onClose}
+        <BottomSheet
+            isOpen={isOpen}
+            onClose={onClose}
+            ariaLabelledBy="notes-modal-title"
+            maxHeight={60}
         >
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-
-            {/* Modal */}
-            <div
-                ref={modalRef}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="notes-modal-title"
-                tabIndex={-1}
-                className="relative w-full max-w-lg bg-sys-surface rounded-t-3xl p-4 pb-8 animate-slide-up"
-                onClick={(e) => e.stopPropagation()}
-            >
-                {/* Handle */}
-                <div className="flex justify-center mb-3">
-                    <div className="w-10 h-1 rounded-full bg-white/20" />
-                </div>
-
-                {/* Header */}
-                <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-full bg-sys-accent/20 flex items-center justify-center">
-                            <Info size={16} className="text-sys-accent" />
-                        </div>
-                        <h2
-                            id="notes-modal-title"
-                            className="text-lg font-semibold text-white"
-                        >
-                            Notes
-                        </h2>
+            {/* Header */}
+            <div className="flex items-center justify-between px-4 pb-3">
+                <div className="flex items-center gap-2">
+                    <div className="h-8 w-8 rounded-full bg-sys-accent/20 flex items-center justify-center">
+                        <Info size={16} className="text-sys-accent" />
                     </div>
-                    <button
-                        onClick={onClose}
-                        className="h-8 w-8 rounded-full bg-sys-surfaceHigh flex items-center justify-center active:scale-95 transition-transform"
-                        aria-label="Close"
+                    <h2
+                        id="notes-modal-title"
+                        className="text-lg font-semibold text-white"
                     >
-                        <X size={18} className="text-sys-onSurfaceVar" />
-                    </button>
+                        Notes
+                    </h2>
                 </div>
+                <button
+                    onClick={onClose}
+                    className="btn-icon bg-sys-surfaceHigh"
+                    aria-label="Close"
+                >
+                    <X size={18} />
+                </button>
+            </div>
 
+            {/* Content */}
+            <div className="px-4 pb-8">
                 {/* Exercise Name */}
                 <p className="text-sm font-medium text-sys-accent mb-2">{exerciseName}</p>
 
@@ -108,7 +69,7 @@ export const NotesModal: React.FC<NotesModalProps> = ({
                     </p>
                 </div>
             </div>
-        </div>
+        </BottomSheet>
     );
 };
 

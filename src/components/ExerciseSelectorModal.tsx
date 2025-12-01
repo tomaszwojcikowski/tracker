@@ -1,13 +1,14 @@
 /**
  * ExerciseSelectorModal Component
  *
- * Modal for searching and adding exercises to a workout.
+ * MD3 bottom sheet modal for searching and adding exercises to a workout.
  */
 
 import React from 'react';
 import { X } from 'lucide-react';
 import { ExerciseListItem } from './ExerciseListItem';
 import { RecentExercisesList, addRecentExercise } from './RecentExercises';
+import { BottomSheet } from './BottomSheet';
 import { MUSCLE_FILTERS } from '../types/workout';
 import type { Exercise } from '../types';
 import type { MuscleFilter } from '../types/workout';
@@ -65,70 +66,79 @@ export const ExerciseSelectorModal: React.FC<ExerciseSelectorModalProps> = ({
         addRecentExercise(exercise);
     };
 
+    const handleClose = () => {
+        haptic.tick();
+        onClose();
+    };
+
     return (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm animate-slide-up">
-            <div className="bg-sys-surface rounded-t-3xl w-full max-h-[85vh] border-t border-white/10 flex flex-col">
-                <div className="p-6 border-b border-white/10">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-xl font-bold text-white">Add Exercise</h3>
-                        <button
-                            onClick={() => {
-                                haptic.tick();
-                                onClose();
-                            }}
-                            className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
-                            aria-label="Close"
-                        >
-                            <X size={20} />
-                        </button>
-                    </div>
-
-                    <input
-                        type="text"
-                        placeholder="Search exercises..."
-                        value={searchTerm}
-                        onChange={(e) => onSearchChange(e.target.value)}
-                        className="w-full h-12 px-4 bg-sys-surfaceHigh rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all"
-                    />
-
-                    <div className="flex gap-2 mt-3 overflow-x-auto pb-2">
-                        {MUSCLE_FILTERS.map((filter) => (
-                            <button
-                                key={filter}
-                                onClick={() => onFilterChange(filter)}
-                                className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
-                                    selectedFilter === filter
-                                        ? 'bg-sys-accent text-white'
-                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                                }`}
-                            >
-                                {filter.charAt(0).toUpperCase() + filter.slice(1)}
-                            </button>
-                        ))}
-                    </div>
+        <BottomSheet
+            isOpen={isOpen}
+            onClose={handleClose}
+            ariaLabel="Add Exercise"
+            maxHeight={85}
+            showHandle={false}
+            className="border-t border-white/10"
+        >
+            {/* Header */}
+            <div className="p-6 border-b border-white/10">
+                <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl font-bold text-white">Add Exercise</h3>
+                    <button
+                        onClick={handleClose}
+                        className="btn-icon bg-sys-surfaceHigh"
+                        aria-label="Close"
+                    >
+                        <X size={20} />
+                    </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-4">
-                    {/* Recent Exercises - shown at top when no search term */}
-                    {!debouncedSearchTerm && (
-                        <RecentExercisesList
-                            exerciseLibrary={exerciseLibrary}
-                            onSelect={handleAdd}
-                        />
-                    )}
+                <input
+                    type="text"
+                    placeholder="Search exercises..."
+                    value={searchTerm}
+                    onChange={(e) => onSearchChange(e.target.value)}
+                    className="w-full h-12 px-4 bg-sys-surfaceHigh rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all"
+                />
 
-                    <div className="space-y-3">
-                        {filteredExercises.map((exercise) => (
-                            <ExerciseListItem
-                                key={exercise.id}
-                                exercise={exercise}
-                                onAdd={handleAdd}
-                                haptic={haptic}
-                            />
-                        ))}
-                    </div>
+                <div className="flex gap-2 mt-3 overflow-x-auto pb-2 -mx-2 px-2">
+                    {MUSCLE_FILTERS.map((filter) => (
+                        <button
+                            key={filter}
+                            onClick={() => onFilterChange(filter)}
+                            className={`btn-md3 px-4 py-2 text-sm whitespace-nowrap transition-all ${
+                                selectedFilter === filter
+                                    ? 'btn-filled'
+                                    : 'btn-tonal'
+                            }`}
+                        >
+                            {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                        </button>
+                    ))}
                 </div>
             </div>
-        </div>
+
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto p-4 pb-8">
+                {/* Recent Exercises - shown at top when no search term */}
+                {!debouncedSearchTerm && (
+                    <RecentExercisesList
+                        exerciseLibrary={exerciseLibrary}
+                        onSelect={handleAdd}
+                    />
+                )}
+
+                <div className="space-y-3">
+                    {filteredExercises.map((exercise) => (
+                        <ExerciseListItem
+                            key={exercise.id}
+                            exercise={exercise}
+                            onAdd={handleAdd}
+                            haptic={haptic}
+                        />
+                    ))}
+                </div>
+            </div>
+        </BottomSheet>
     );
 };

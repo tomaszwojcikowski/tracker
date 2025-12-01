@@ -5,3 +5,5 @@ export {
     TimerRing,
     ProgressRing,
 } from './ProgressIndicators';
+
+export { WeeklyProgressRing } from './WeeklyProgressRing';

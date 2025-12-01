@@ -1,0 +1,754 @@
+{
+  "$schema": "../../workout-plan-v2.3.schema.json",
+  "formatVersion": "2.3.0",
+  "plan": {
+    "id": "beginner-bodyweight-4week",
+    "name": "4-Week Beginner Bodyweight Program",
+    "description": "A beginner-friendly bodyweight program designed to build foundational strength and movement patterns. Perfect for those new to calisthenics or returning after a break.",
+    "author": "Tracker App",
+    "createdDate": "2024-12-01",
+    "lastModified": "2024-12-01T00:00:00.000Z",
+    "version": "1.0.0",
+    "durationWeeks": 4,
+    "goals": [
+      "foundational-strength",
+      "movement-patterns",
+      "bodyweight-basics",
+      "consistency"
+    ],
+    "targetLevel": "beginner",
+    "equipment": [
+      "pull-up-bar",
+      "resistance-bands"
+    ],
+    "phases": [
+      {
+        "phaseNumber": 1,
+        "name": "Foundation",
+        "description": "Learn basic movements and build initial strength",
+        "startWeek": 1,
+        "endWeek": 4,
+        "focus": "technique",
+        "weeks": [
+          {
+            "weekNumber": 1,
+            "description": "Introduction week - focus on form",
+            "focus": "technique",
+            "volumeLevel": "low",
+            "intensityLevel": "low",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Upper Body Basics",
+                "type": "strength",
+                "estimatedDuration": 30,
+                "description": "Introduction to upper body movements",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "Arm Circles",
+                    "notes": "Forward and backward, loosen up shoulders",
+                    "repsType": "reps",
+                    "repsValue": 20,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "Jumping Jacks",
+                    "notes": "Get the heart rate up",
+                    "repsType": "reps",
+                    "repsValue": 30,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Wall Push-Ups",
+                    "notes": "Keep core tight, full range of motion",
+                    "repsType": "reps",
+                    "repsMin": 8,
+                    "repsMax": 12,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Dead Hang",
+                    "notes": "Grip the bar, relax shoulders, build grip strength",
+                    "repsType": "time",
+                    "repsMin": 10,
+                    "repsMax": 20,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Plank",
+                    "notes": "Keep body in straight line",
+                    "repsType": "time",
+                    "repsValue": 20,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Rest & Recovery",
+                "type": "rest",
+                "estimatedDuration": 0,
+                "description": "Active recovery or complete rest",
+                "exercises": []
+              },
+              {
+                "dayNumber": 3,
+                "name": "Lower Body Basics",
+                "type": "strength",
+                "estimatedDuration": 25,
+                "description": "Introduction to lower body movements",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "High Knees",
+                    "notes": "Light and controlled",
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bodyweight Squats",
+                    "notes": "Keep chest up, knees tracking over toes",
+                    "repsType": "reps",
+                    "repsMin": 10,
+                    "repsMax": 15,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Glute Bridges",
+                    "notes": "Squeeze glutes at the top",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Calf Raises",
+                    "notes": "Full range of motion, controlled",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Full Body",
+                "type": "strength",
+                "estimatedDuration": 30,
+                "description": "Full body workout combining movements",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "March in Place",
+                    "notes": "Get blood flowing",
+                    "repsType": "time",
+                    "repsValue": 60,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 2,
+                    "exerciseName": "Incline Push-Ups",
+                    "notes": "Use a sturdy surface",
+                    "repsType": "reps",
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 2,
+                    "exerciseName": "Bodyweight Squats",
+                    "notes": "Focus on depth and form",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 2,
+                    "exerciseName": "Dead Hang",
+                    "notes": "Build towards pull-ups",
+                    "repsType": "time",
+                    "repsMin": 15,
+                    "repsMax": 25,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "cooldown",
+                    "sets": 1,
+                    "exerciseName": "Standing Quad Stretch",
+                    "notes": "Hold each side",
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "repsUnit": "seconds",
+                    "repsPerSide": true,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 0
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 2,
+            "description": "Building consistency",
+            "focus": "volume",
+            "volumeLevel": "low",
+            "intensityLevel": "low",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Upper Body",
+                "type": "strength",
+                "estimatedDuration": 35,
+                "description": "Upper body with added volume",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "Arm Circles",
+                    "notes": "Forward and backward",
+                    "repsType": "reps",
+                    "repsValue": 20,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Incline Push-Ups",
+                    "notes": "Progress from wall push-ups",
+                    "repsType": "reps",
+                    "repsMin": 8,
+                    "repsMax": 12,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Band-Assisted Pull-Ups",
+                    "notes": "Use thick band for assistance",
+                    "repsType": "reps",
+                    "repsMin": 3,
+                    "repsMax": 5,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 90
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Plank",
+                    "notes": "Hold strong position",
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Rest",
+                "type": "rest",
+                "estimatedDuration": 0,
+                "description": "Recovery day",
+                "exercises": []
+              },
+              {
+                "dayNumber": 3,
+                "name": "Lower Body",
+                "type": "strength",
+                "estimatedDuration": 30,
+                "description": "Lower body with added volume",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "High Knees",
+                    "notes": "Warm up legs",
+                    "repsType": "time",
+                    "repsValue": 45,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bodyweight Squats",
+                    "notes": "Full depth if comfortable",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Lunges",
+                    "notes": "Alternate legs",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "repsPerSide": true,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Glute Bridges",
+                    "notes": "Pause at top",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Full Body",
+                "type": "strength",
+                "estimatedDuration": 35,
+                "description": "Full body circuit",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "Jumping Jacks",
+                    "notes": "Get moving",
+                    "repsType": "reps",
+                    "repsValue": 40,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Incline Push-Ups",
+                    "notes": "Good form throughout",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bodyweight Squats",
+                    "notes": "Control the movement",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Dead Hang",
+                    "notes": "Grip work and lat stretch",
+                    "repsType": "time",
+                    "repsValue": 20,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 3,
+            "description": "Increasing challenge",
+            "focus": "volume",
+            "volumeLevel": "moderate",
+            "intensityLevel": "low",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Upper Body",
+                "type": "strength",
+                "estimatedDuration": 40,
+                "description": "Upper body progression",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "Arm Circles",
+                    "notes": "Loosen shoulders",
+                    "repsType": "reps",
+                    "repsValue": 20,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Incline Push-Ups",
+                    "notes": "Lower the incline if possible",
+                    "repsType": "reps",
+                    "repsMin": 10,
+                    "repsMax": 12,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Band-Assisted Pull-Ups",
+                    "notes": "Try a thinner band",
+                    "repsType": "reps",
+                    "repsMin": 4,
+                    "repsMax": 6,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 90
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Plank",
+                    "notes": "Build time under tension",
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Rest",
+                "type": "rest",
+                "estimatedDuration": 0,
+                "description": "Recovery",
+                "exercises": []
+              },
+              {
+                "dayNumber": 3,
+                "name": "Lower Body",
+                "type": "strength",
+                "estimatedDuration": 35,
+                "description": "Lower body progression",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "High Knees",
+                    "notes": "Dynamic warmup",
+                    "repsType": "time",
+                    "repsValue": 60,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Bodyweight Squats",
+                    "notes": "Add pause at bottom",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Lunges",
+                    "notes": "Walking lunges if space allows",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "repsPerSide": true,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Single Leg Glute Bridges",
+                    "notes": "Progress from regular bridges",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "repsPerSide": true,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Full Body",
+                "type": "strength",
+                "estimatedDuration": 40,
+                "description": "Full body challenge",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "Jumping Jacks",
+                    "notes": "Get heart rate up",
+                    "repsType": "reps",
+                    "repsValue": 50,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Incline Push-Ups",
+                    "notes": "Approaching floor level",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bodyweight Squats",
+                    "notes": "Quality reps",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Band-Assisted Pull-Ups",
+                    "notes": "Focus on full range of motion",
+                    "repsType": "reps",
+                    "repsValue": 5,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 90
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Mountain Climbers",
+                    "notes": "Core and cardio",
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 4,
+            "description": "Testing progress",
+            "focus": "test",
+            "volumeLevel": "moderate",
+            "intensityLevel": "moderate",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Upper Body Test",
+                "type": "test",
+                "estimatedDuration": 40,
+                "description": "Test upper body progress",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "Arm Circles",
+                    "notes": "Prepare for testing",
+                    "repsType": "reps",
+                    "repsValue": 20,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Push-Ups",
+                    "notes": "Try full push-ups! Use incline if needed.",
+                    "repsType": "amrap",
+                    "repsModifier": 1,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 120
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Pull-Up Negatives",
+                    "notes": "Jump up, slow 5-second lower",
+                    "repsType": "reps",
+                    "repsMin": 3,
+                    "repsMax": 5,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 120
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 1,
+                    "exerciseName": "Plank",
+                    "notes": "Max hold - beat your week 1 time!",
+                    "repsType": "max",
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Rest",
+                "type": "rest",
+                "estimatedDuration": 0,
+                "description": "Recovery before final tests",
+                "exercises": []
+              },
+              {
+                "dayNumber": 3,
+                "name": "Lower Body Test",
+                "type": "test",
+                "estimatedDuration": 35,
+                "description": "Test lower body progress",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "High Knees",
+                    "notes": "Prepare for testing",
+                    "repsType": "time",
+                    "repsValue": 60,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bodyweight Squats",
+                    "notes": "Max quality reps",
+                    "repsType": "amrap",
+                    "repsModifier": 2,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 120
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squats",
+                    "notes": "Try this challenging variation!",
+                    "repsType": "reps",
+                    "repsMin": 5,
+                    "repsMax": 8,
+                    "repsPerSide": true,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 90
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Celebration Workout",
+                "type": "strength",
+                "estimatedDuration": 40,
+                "description": "Celebrate 4 weeks of progress!",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 1,
+                    "exerciseName": "Jumping Jacks",
+                    "notes": "Get energized!",
+                    "repsType": "reps",
+                    "repsValue": 50,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Push-Ups",
+                    "notes": "Show off your progress!",
+                    "repsType": "reps",
+                    "repsMin": 5,
+                    "repsMax": 10,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Bodyweight Squats",
+                    "notes": "Strong and controlled",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Pull-Up Negatives",
+                    "notes": "Building towards your first pull-up!",
+                    "repsType": "reps",
+                    "repsValue": 5,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 90
+                  },
+                  {
+                    "category": "cooldown",
+                    "sets": 1,
+                    "exerciseName": "Passive Dead Hang",
+                    "notes": "Relax and stretch",
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

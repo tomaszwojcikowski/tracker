@@ -1,0 +1,1262 @@
+{
+  "$schema": "../../workout-plan-v2.3.schema.json",
+  "formatVersion": "2.3.0",
+  "plan": {
+    "id": "strength-fundamentals-6week",
+    "name": "6-Week Strength Fundamentals",
+    "description": "A focused 6-week program to build core strength using compound movements. Features progressive overload with barbell and dumbbell exercises. Ideal for those who have gym access and want to build a solid strength foundation.",
+    "author": "Tracker App",
+    "createdDate": "2024-12-01",
+    "lastModified": "2024-12-01T00:00:00.000Z",
+    "version": "1.0.0",
+    "durationWeeks": 6,
+    "goals": [
+      "strength-building",
+      "compound-movements",
+      "progressive-overload",
+      "muscle-development"
+    ],
+    "targetLevel": "intermediate",
+    "equipment": [
+      "barbell",
+      "dumbbells",
+      "bench",
+      "squat-rack",
+      "pull-up-bar"
+    ],
+    "phases": [
+      {
+        "phaseNumber": 1,
+        "name": "Foundation",
+        "description": "Establish baseline strength with moderate volume",
+        "startWeek": 1,
+        "endWeek": 2,
+        "focus": "technique",
+        "weeks": [
+          {
+            "weekNumber": 1,
+            "description": "Week 1 - Baseline",
+            "focus": "technique",
+            "volumeLevel": "moderate",
+            "intensityLevel": "moderate",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Push Day",
+                "type": "strength",
+                "estimatedDuration": 45,
+                "description": "Chest, shoulders, and triceps",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Push-Ups",
+                    "notes": "Warm up the pressing muscles",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Bench Press",
+                    "notes": "Control the weight, focus on form",
+                    "repsType": "reps",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "loadMin": 40,
+                    "loadMax": 60,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "rpe": 7
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Overhead Press",
+                    "notes": "Strict form, no leg drive",
+                    "repsType": "reps",
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "loadMin": 20,
+                    "loadMax": 35,
+                    "loadUnit": "kg",
+                    "restSeconds": 90,
+                    "rpe": 7
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Dumbbell Flyes",
+                    "notes": "Stretch at the bottom, squeeze at top",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 8,
+                    "loadMax": 14,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Tricep Dips",
+                    "notes": "Bench dips or parallel bars",
+                    "repsType": "reps",
+                    "repsMin": 10,
+                    "repsMax": 15,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Rest",
+                "type": "rest",
+                "estimatedDuration": 0,
+                "description": "Recovery",
+                "exercises": []
+              },
+              {
+                "dayNumber": 3,
+                "name": "Pull Day",
+                "type": "strength",
+                "estimatedDuration": 50,
+                "description": "Back and biceps",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Band Pull-Aparts",
+                    "notes": "Activate upper back",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "band",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Barbell Rows",
+                    "notes": "Keep core tight, row to lower chest",
+                    "repsType": "reps",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "loadMin": 40,
+                    "loadMax": 60,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "rpe": 7
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Pull-Ups",
+                    "notes": "Full range of motion",
+                    "repsType": "reps",
+                    "repsMin": 5,
+                    "repsMax": 8,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 90
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Face Pulls",
+                    "notes": "External rotation at the top",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "band",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Dumbbell Curls",
+                    "notes": "Control the negative",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 8,
+                    "loadMax": 14,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "restSeconds": 60
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Legs Day",
+                "type": "strength",
+                "estimatedDuration": 50,
+                "description": "Quads, hamstrings, and glutes",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Bodyweight Squats",
+                    "notes": "Warm up the legs",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Back Squats",
+                    "notes": "Break parallel, drive through heels",
+                    "repsType": "reps",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "loadMin": 50,
+                    "loadMax": 80,
+                    "loadUnit": "kg",
+                    "restSeconds": 150,
+                    "rpe": 7
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Romanian Deadlift",
+                    "notes": "Feel the hamstring stretch",
+                    "repsType": "reps",
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "loadMin": 40,
+                    "loadMax": 60,
+                    "loadUnit": "kg",
+                    "restSeconds": 90,
+                    "rpe": 7
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Walking Lunges",
+                    "notes": "Controlled steps, knee tracking",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "repsPerSide": true,
+                    "loadMin": 10,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "restSeconds": 90
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Calf Raises",
+                    "notes": "Full range of motion",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 2,
+            "description": "Week 2 - Consolidate",
+            "focus": "technique",
+            "volumeLevel": "moderate",
+            "intensityLevel": "moderate",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Push Day",
+                "type": "strength",
+                "estimatedDuration": 45,
+                "description": "Building on week 1",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Push-Ups",
+                    "notes": "Warm up",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Bench Press",
+                    "notes": "Same weight as week 1, aim for higher reps",
+                    "repsType": "reps",
+                    "repsMin": 7,
+                    "repsMax": 9,
+                    "loadMin": 40,
+                    "loadMax": 60,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "rpe": 7
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Overhead Press",
+                    "notes": "Added set from last week",
+                    "repsType": "reps",
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "loadMin": 20,
+                    "loadMax": 35,
+                    "loadUnit": "kg",
+                    "restSeconds": 90,
+                    "rpe": 7
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Incline Dumbbell Press",
+                    "notes": "Upper chest focus",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 12,
+                    "loadMax": 20,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Tricep Pushdowns",
+                    "notes": "Feel the squeeze",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "band",
+                    "restSeconds": 45
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Rest",
+                "type": "rest",
+                "estimatedDuration": 0,
+                "description": "Recovery",
+                "exercises": []
+              },
+              {
+                "dayNumber": 3,
+                "name": "Pull Day",
+                "type": "strength",
+                "estimatedDuration": 50,
+                "description": "Back and biceps progression",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Band Pull-Aparts",
+                    "notes": "Activate upper back",
+                    "repsType": "reps",
+                    "repsValue": 20,
+                    "loadUnit": "band",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Barbell Rows",
+                    "notes": "Aim for extra rep",
+                    "repsType": "reps",
+                    "repsMin": 7,
+                    "repsMax": 9,
+                    "loadMin": 40,
+                    "loadMax": 60,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "rpe": 7
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Pull-Ups",
+                    "notes": "Try for one more rep than last week",
+                    "repsType": "reps",
+                    "repsMin": 6,
+                    "repsMax": 9,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 90
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Dumbbell Rows",
+                    "notes": "One arm at a time",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "repsPerSide": true,
+                    "loadMin": 14,
+                    "loadMax": 22,
+                    "loadUnit": "kg",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Hammer Curls",
+                    "notes": "Brachialis and forearm work",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 8,
+                    "loadMax": 14,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "restSeconds": 60
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Legs Day",
+                "type": "strength",
+                "estimatedDuration": 55,
+                "description": "Building leg strength",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Goblet Squats",
+                    "notes": "Warm up with light dumbbell",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 10,
+                    "loadMax": 16,
+                    "loadUnit": "kg",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 5,
+                    "exerciseName": "Back Squats",
+                    "notes": "Added set, maintain depth",
+                    "repsType": "reps",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "loadMin": 50,
+                    "loadMax": 80,
+                    "loadUnit": "kg",
+                    "restSeconds": 150,
+                    "rpe": 7
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Romanian Deadlift",
+                    "notes": "Added set",
+                    "repsType": "reps",
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "loadMin": 40,
+                    "loadMax": 60,
+                    "loadUnit": "kg",
+                    "restSeconds": 90,
+                    "rpe": 7
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Leg Press",
+                    "notes": "Deep range of motion",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 80,
+                    "loadMax": 120,
+                    "loadUnit": "kg",
+                    "restSeconds": 90
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "phaseNumber": 2,
+        "name": "Build",
+        "description": "Progressive overload with increased intensity",
+        "startWeek": 3,
+        "endWeek": 4,
+        "focus": "intensity",
+        "weeks": [
+          {
+            "weekNumber": 3,
+            "description": "Week 3 - Intensity increase",
+            "focus": "intensity",
+            "volumeLevel": "moderate",
+            "intensityLevel": "high",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Push Day",
+                "type": "strength",
+                "estimatedDuration": 50,
+                "description": "Heavier loads",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Push-Ups",
+                    "notes": "Prime the muscles",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 5,
+                    "exerciseName": "Bench Press",
+                    "notes": "Add 2.5-5kg from week 2",
+                    "repsType": "reps",
+                    "repsMin": 5,
+                    "repsMax": 7,
+                    "loadMin": 45,
+                    "loadMax": 65,
+                    "loadUnit": "kg",
+                    "restSeconds": 150,
+                    "rpe": 8
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Overhead Press",
+                    "notes": "Increase load slightly",
+                    "repsType": "reps",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "loadMin": 22,
+                    "loadMax": 40,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "rpe": 8
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Dips",
+                    "notes": "Add weight if possible",
+                    "repsType": "reps",
+                    "repsMin": 8,
+                    "repsMax": 12,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 90
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Lateral Raises",
+                    "notes": "Side delts",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadMin": 6,
+                    "loadMax": 10,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "restSeconds": 45
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Rest",
+                "type": "rest",
+                "estimatedDuration": 0,
+                "description": "Recovery",
+                "exercises": []
+              },
+              {
+                "dayNumber": 3,
+                "name": "Pull Day",
+                "type": "strength",
+                "estimatedDuration": 55,
+                "description": "Heavier pulling",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Scapular Pull-Ups",
+                    "notes": "Activate lats",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 5,
+                    "exerciseName": "Barbell Rows",
+                    "notes": "Add weight from week 2",
+                    "repsType": "reps",
+                    "repsMin": 5,
+                    "repsMax": 7,
+                    "loadMin": 45,
+                    "loadMax": 65,
+                    "loadUnit": "kg",
+                    "restSeconds": 150,
+                    "rpe": 8
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Weighted Pull-Ups",
+                    "notes": "Add weight if you can do 10+ bodyweight",
+                    "repsType": "reps",
+                    "repsMin": 5,
+                    "repsMax": 8,
+                    "loadMin": 0,
+                    "loadMax": 10,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "rpe": 8
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Cable Rows",
+                    "notes": "Squeeze at contraction",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadUnit": "band",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 4,
+                    "exerciseName": "Barbell Curls",
+                    "notes": "No swinging",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 15,
+                    "loadMax": 25,
+                    "loadUnit": "kg",
+                    "restSeconds": 60
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Legs Day",
+                "type": "strength",
+                "estimatedDuration": 55,
+                "description": "Heavy leg day",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Leg Swings",
+                    "notes": "Dynamic warmup",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "repsPerSide": true,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 5,
+                    "exerciseName": "Back Squats",
+                    "notes": "Add 2.5-5kg from week 2",
+                    "repsType": "reps",
+                    "repsMin": 5,
+                    "repsMax": 7,
+                    "loadMin": 55,
+                    "loadMax": 85,
+                    "loadUnit": "kg",
+                    "restSeconds": 180,
+                    "rpe": 8
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Romanian Deadlift",
+                    "notes": "Increase load",
+                    "repsType": "reps",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "loadMin": 45,
+                    "loadMax": 70,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "rpe": 8
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Bulgarian Split Squats",
+                    "notes": "Dumbbells in each hand",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "repsPerSide": true,
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "loadPerHand": true,
+                    "restSeconds": 90
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Leg Curls",
+                    "notes": "Hamstring isolation",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadUnit": "band",
+                    "restSeconds": 60
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 4,
+            "description": "Week 4 - Peak intensity",
+            "focus": "intensity",
+            "volumeLevel": "high",
+            "intensityLevel": "high",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Push Day",
+                "type": "strength",
+                "estimatedDuration": 55,
+                "description": "Peak push volume",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Push-Ups",
+                    "notes": "Light warmup",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 5,
+                    "exerciseName": "Bench Press",
+                    "notes": "Same weight, more reps",
+                    "repsType": "reps",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "loadMin": 45,
+                    "loadMax": 65,
+                    "loadUnit": "kg",
+                    "restSeconds": 150,
+                    "rpe": 8
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Overhead Press",
+                    "notes": "Push for progress",
+                    "repsType": "reps",
+                    "repsMin": 7,
+                    "repsMax": 9,
+                    "loadMin": 22,
+                    "loadMax": 40,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "rpe": 8
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Close Grip Bench",
+                    "notes": "Tricep emphasis",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 35,
+                    "loadMax": 50,
+                    "loadUnit": "kg",
+                    "restSeconds": 90
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 4,
+                    "exerciseName": "Weighted Dips",
+                    "notes": "Add weight if possible",
+                    "repsType": "reps",
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "loadMin": 0,
+                    "loadMax": 10,
+                    "loadUnit": "kg",
+                    "restSeconds": 90
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Rest",
+                "type": "rest",
+                "estimatedDuration": 0,
+                "description": "Recovery",
+                "exercises": []
+              },
+              {
+                "dayNumber": 3,
+                "name": "Pull Day",
+                "type": "strength",
+                "estimatedDuration": 55,
+                "description": "Peak pull volume",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Band Pull-Aparts",
+                    "notes": "Activate back",
+                    "repsType": "reps",
+                    "repsValue": 20,
+                    "loadUnit": "band",
+                    "restSeconds": 30
+                  },
+                  {
+                    "category": "main",
+                    "sets": 5,
+                    "exerciseName": "Barbell Rows",
+                    "notes": "Same weight, more reps",
+                    "repsType": "reps",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "loadMin": 45,
+                    "loadMax": 65,
+                    "loadUnit": "kg",
+                    "restSeconds": 150,
+                    "rpe": 8
+                  },
+                  {
+                    "category": "main",
+                    "sets": 5,
+                    "exerciseName": "Weighted Pull-Ups",
+                    "notes": "Extra set",
+                    "repsType": "reps",
+                    "repsMin": 5,
+                    "repsMax": 8,
+                    "loadMin": 0,
+                    "loadMax": 10,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "rpe": 8
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 4,
+                    "exerciseName": "Dumbbell Rows",
+                    "notes": "Heavy rows",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "repsPerSide": true,
+                    "loadMin": 18,
+                    "loadMax": 28,
+                    "loadUnit": "kg",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Preacher Curls",
+                    "notes": "Isolation work",
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 10,
+                    "loadMax": 18,
+                    "loadUnit": "kg",
+                    "restSeconds": 60
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Legs Day",
+                "type": "strength",
+                "estimatedDuration": 60,
+                "description": "Peak leg volume",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Box Jumps",
+                    "notes": "Activate legs explosively",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45
+                  },
+                  {
+                    "category": "main",
+                    "sets": 5,
+                    "exerciseName": "Back Squats",
+                    "notes": "Push for more reps at same weight",
+                    "repsType": "reps",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "loadMin": 55,
+                    "loadMax": 85,
+                    "loadUnit": "kg",
+                    "restSeconds": 180,
+                    "rpe": 8
+                  },
+                  {
+                    "category": "main",
+                    "sets": 4,
+                    "exerciseName": "Conventional Deadlift",
+                    "notes": "Full deadlift this week",
+                    "repsType": "reps",
+                    "repsMin": 5,
+                    "repsMax": 6,
+                    "loadMin": 60,
+                    "loadMax": 100,
+                    "loadUnit": "kg",
+                    "restSeconds": 180,
+                    "rpe": 8
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Front Squats",
+                    "notes": "Quad emphasis",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 40,
+                    "loadMax": 60,
+                    "loadUnit": "kg",
+                    "restSeconds": 120
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Standing Calf Raises",
+                    "notes": "Full range, heavy",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadMin": 20,
+                    "loadMax": 40,
+                    "loadUnit": "kg",
+                    "restSeconds": 60
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "phaseNumber": 3,
+        "name": "Test & Deload",
+        "description": "Test strength gains and recover",
+        "startWeek": 5,
+        "endWeek": 6,
+        "focus": "test",
+        "weeks": [
+          {
+            "weekNumber": 5,
+            "description": "Week 5 - Deload",
+            "focus": "deload",
+            "volumeLevel": "low",
+            "intensityLevel": "low",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Light Push",
+                "type": "recovery",
+                "estimatedDuration": 35,
+                "description": "Recovery week - reduce volume and intensity",
+                "exercises": [
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Bench Press",
+                    "notes": "60% of your week 4 weight",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 30,
+                    "loadMax": 45,
+                    "loadUnit": "kg",
+                    "restSeconds": 90,
+                    "rpe": 5
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Overhead Press",
+                    "notes": "Light and controlled",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 15,
+                    "loadMax": 25,
+                    "loadUnit": "kg",
+                    "restSeconds": 60,
+                    "rpe": 5
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Push-Ups",
+                    "notes": "Easy movement",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Rest",
+                "type": "rest",
+                "estimatedDuration": 0,
+                "description": "Recovery",
+                "exercises": []
+              },
+              {
+                "dayNumber": 3,
+                "name": "Light Pull",
+                "type": "recovery",
+                "estimatedDuration": 35,
+                "description": "Recovery - light pulling",
+                "exercises": [
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Barbell Rows",
+                    "notes": "60% of week 4 weight",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 30,
+                    "loadMax": 45,
+                    "loadUnit": "kg",
+                    "restSeconds": 90,
+                    "rpe": 5
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Pull-Ups",
+                    "notes": "Bodyweight only, easy",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "rpe": 5
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 2,
+                    "exerciseName": "Face Pulls",
+                    "notes": "Light band work",
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "loadUnit": "band",
+                    "restSeconds": 45
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Light Legs",
+                "type": "recovery",
+                "estimatedDuration": 35,
+                "description": "Recovery - light legs",
+                "exercises": [
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Back Squats",
+                    "notes": "60% of week 4 weight",
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "loadMin": 35,
+                    "loadMax": 55,
+                    "loadUnit": "kg",
+                    "restSeconds": 90,
+                    "rpe": 5
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Romanian Deadlift",
+                    "notes": "Light and controlled",
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 30,
+                    "loadMax": 45,
+                    "loadUnit": "kg",
+                    "restSeconds": 60,
+                    "rpe": 5
+                  },
+                  {
+                    "category": "cooldown",
+                    "sets": 1,
+                    "exerciseName": "Walking",
+                    "notes": "Easy 10 minute walk",
+                    "repsType": "time",
+                    "repsValue": 600,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 0
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 6,
+            "description": "Week 6 - Test Week",
+            "focus": "test",
+            "volumeLevel": "low",
+            "intensityLevel": "peak",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Bench Test",
+                "type": "test",
+                "estimatedDuration": 45,
+                "description": "Test your bench press max",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 3,
+                    "exerciseName": "Bench Press",
+                    "notes": "Warmup sets: empty bar, 50%, 70%",
+                    "repsType": "reps",
+                    "repsValue": 5,
+                    "loadMin": 20,
+                    "loadMax": 50,
+                    "loadUnit": "kg",
+                    "restSeconds": 90
+                  },
+                  {
+                    "category": "main",
+                    "sets": 1,
+                    "exerciseName": "Bench Press",
+                    "notes": "Work up to a heavy 3RM - leave 1 rep in reserve",
+                    "repsType": "rm",
+                    "repsValue": 3,
+                    "loadMin": 50,
+                    "loadMax": 80,
+                    "loadUnit": "kg",
+                    "restSeconds": 180,
+                    "rpe": 9
+                  },
+                  {
+                    "category": "accessory",
+                    "sets": 3,
+                    "exerciseName": "Push-Ups",
+                    "notes": "Max reps to celebrate",
+                    "repsType": "amrap",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 120
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Rest",
+                "type": "rest",
+                "estimatedDuration": 0,
+                "description": "Recovery before next test",
+                "exercises": []
+              },
+              {
+                "dayNumber": 3,
+                "name": "Pull Test",
+                "type": "test",
+                "estimatedDuration": 45,
+                "description": "Test pulling strength",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 2,
+                    "exerciseName": "Pull-Ups",
+                    "notes": "Easy warmup sets",
+                    "repsType": "reps",
+                    "repsValue": 5,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60
+                  },
+                  {
+                    "category": "main",
+                    "sets": 1,
+                    "exerciseName": "Pull-Ups",
+                    "notes": "Max reps test - go for a new PR!",
+                    "repsType": "max",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 180
+                  },
+                  {
+                    "category": "main",
+                    "sets": 1,
+                    "exerciseName": "Barbell Rows",
+                    "notes": "Heavy 5RM test",
+                    "repsType": "rm",
+                    "repsValue": 5,
+                    "loadMin": 50,
+                    "loadMax": 80,
+                    "loadUnit": "kg",
+                    "restSeconds": 180,
+                    "rpe": 9
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Squat Test",
+                "type": "test",
+                "estimatedDuration": 50,
+                "description": "Test squat max",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "sets": 3,
+                    "exerciseName": "Back Squats",
+                    "notes": "Warmup: empty bar, 50%, 70%",
+                    "repsType": "reps",
+                    "repsValue": 5,
+                    "loadMin": 20,
+                    "loadMax": 60,
+                    "loadUnit": "kg",
+                    "restSeconds": 90
+                  },
+                  {
+                    "category": "main",
+                    "sets": 1,
+                    "exerciseName": "Back Squats",
+                    "notes": "Work up to a heavy 3RM",
+                    "repsType": "rm",
+                    "repsValue": 3,
+                    "loadMin": 60,
+                    "loadMax": 100,
+                    "loadUnit": "kg",
+                    "restSeconds": 240,
+                    "rpe": 9
+                  },
+                  {
+                    "category": "cooldown",
+                    "sets": 1,
+                    "exerciseName": "Passive Dead Hang",
+                    "notes": "Celebrate your progress!",
+                    "repsType": "time",
+                    "repsValue": 60,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

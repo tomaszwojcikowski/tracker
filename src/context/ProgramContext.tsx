@@ -55,6 +55,32 @@ export interface ProgramContextValue {
 const ProgramContext = createContext<ProgramContextValue | undefined>(undefined);
 
 // ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
+
+/**
+ * Create a minimal WorkoutPlan object from a ProgramManifest
+ * Used when program data is already stored in the registry
+ */
+function createMinimalWorkoutPlan(program: ProgramManifest): WorkoutPlan {
+  return {
+    formatVersion: '2.3.0',
+    plan: {
+      id: program.id,
+      name: program.name,
+      version: program.version,
+      durationWeeks: program.durationWeeks,
+      description: program.description,
+      author: program.author,
+      targetLevel: program.targetLevel,
+      goals: program.goals,
+      equipment: program.equipment,
+      phases: [], // Not needed - schedule is already available in registry
+    },
+  } as WorkoutPlan;
+}
+
+// ============================================================================
 // PROVIDER PROPS
 // ============================================================================
 
@@ -119,11 +145,23 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
    * Load program data from a URL
    */
   const loadProgramData = useCallback(async (dataPath: string): Promise<WorkoutPlan> => {
+    if (!dataPath) {
+      throw new Error('Program data path is not specified');
+    }
+    
     const response = await fetch(dataPath);
     if (!response.ok) {
-      throw new Error(`Failed to load program data: ${response.statusText}`);
+      if (response.status === 404) {
+        throw new Error(`Program data not found at ${dataPath}`);
+      }
+      throw new Error(`Failed to load program data: ${response.status} ${response.statusText}`);
     }
-    return await response.json() as WorkoutPlan;
+    
+    try {
+      return await response.json() as WorkoutPlan;
+    } catch {
+      throw new Error('Failed to parse program data: invalid JSON format');
+    }
   }, []);
 
   /**
@@ -150,11 +188,30 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
         throw new Error(`Program with ID "${programId}" not found`);
       }
 
-      // Load the program data
-      const data = await loadProgramData(program.dataPath);
+      // Check if program data is already stored in registry
+      let data: WorkoutPlan;
+      const storedData = registry.getProgramData(programId);
       
-      // Sync program data with schedule utilities
-      syncProgramData(programId, data);
+      if (storedData) {
+        // Use stored data - construct a minimal WorkoutPlan
+        data = createMinimalWorkoutPlan(program);
+        
+        // Sync with schedule utilities using stored schedule
+        setActiveScheduleProgram(programId);
+        setRawSchedule(storedData.schedule, programId);
+        buildCompleteSchedule(programId);
+        
+        setSchedule(storedData.schedule);
+        setMetadata(storedData.metadata);
+      } else if (program.dataPath) {
+        // Load the program data from URL
+        data = await loadProgramData(program.dataPath);
+        
+        // Sync program data with schedule utilities
+        syncProgramData(programId, data);
+      } else {
+        throw new Error('Program data is not available');
+      }
       
       setCurrentProgram(program);
       setProgramData(data);
@@ -205,12 +262,34 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
           if (initialProgramData && initialProgramData.plan.id === program.id) {
             data = initialProgramData;
           } else {
-            // Otherwise load it from the data path
-            data = await loadProgramData(program.dataPath);
+            // Check if program data is already stored in registry
+            const storedData = registry.getProgramData(program.id);
+            
+            if (storedData) {
+              // Use stored data - construct a minimal WorkoutPlan
+              data = createMinimalWorkoutPlan(program);
+              
+              // Sync with schedule utilities using stored schedule
+              setActiveScheduleProgram(program.id);
+              setRawSchedule(storedData.schedule, program.id);
+              buildCompleteSchedule(program.id);
+              
+              setSchedule(storedData.schedule);
+              setMetadata(storedData.metadata);
+            } else if (program.dataPath) {
+              // Otherwise load it from the data path
+              data = await loadProgramData(program.dataPath);
+            } else {
+              throw new Error('Program data is not available');
+            }
           }
           
-          // Sync program data with schedule utilities
-          syncProgramData(program.id, data);
+          // Sync program data with schedule utilities if we loaded from initial or dataPath
+          if (initialProgramData && initialProgramData.plan.id === program.id) {
+            syncProgramData(program.id, data);
+          } else if (program.dataPath) {
+            syncProgramData(program.id, data);
+          }
           
           setProgramData(data);
           setCurrentProgram(program);

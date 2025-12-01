@@ -114,15 +114,15 @@ test.describe('Program Selector', () => {
       expect(hasDetails).toBe(true);
     });
 
-    test('should show Import Program button', async ({ page }) => {
+    test('should show Add New Program button', async ({ page }) => {
       // Open modal
       const programCard = page.locator('button:has-text("Current Program")');
       await programCard.click();
       await page.waitForTimeout(300);
 
-      // Should have import button
-      const importButton = page.locator('button:has-text("Import Program")');
-      await expect(importButton).toBeVisible();
+      // Should have add new program button
+      const addButton = page.locator('button:has-text("Add New Program")');
+      await expect(addButton).toBeVisible();
     });
   });
 

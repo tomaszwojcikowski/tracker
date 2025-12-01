@@ -6,10 +6,54 @@
  */
 
 import React, { useState, useCallback } from 'react';
-import { ChevronRight, Check, Clock, Target, Dumbbell, X, Download } from 'lucide-react';
+import { ChevronRight, Check, Clock, Target, Dumbbell, X, Plus, Loader2 } from 'lucide-react';
 import { useProgram } from '../context/ProgramContext';
 import { useHaptic } from '../hooks';
 import type { ProgramManifest } from '../services/programRegistry';
+import { importProgram } from '../utils/programImportExport';
+
+// ============================================================================
+// SAMPLE PROGRAMS CONFIG
+// ============================================================================
+
+interface SampleProgramInfo {
+  id: string;
+  name: string;
+  description: string;
+  durationWeeks: number;
+  targetLevel: string;
+  path: string;
+}
+
+/**
+ * Get the correct path for sample programs based on the base URL
+ */
+function getSampleProgramPath(filename: string): string {
+  const base = import.meta.env.BASE_URL || '/';
+  return `${base}programs/${filename}`;
+}
+
+/**
+ * Available sample programs that can be imported
+ */
+const SAMPLE_PROGRAMS: SampleProgramInfo[] = [
+  {
+    id: 'beginner-bodyweight-v1',
+    name: 'Beginner Bodyweight',
+    description: 'A 4-week program for beginners focusing on fundamental movements.',
+    durationWeeks: 4,
+    targetLevel: 'beginner',
+    path: getSampleProgramPath('beginner-bodyweight.json'),
+  },
+  {
+    id: 'pull-up-strength-v1',
+    name: '8-Week Pull-Up Builder',
+    description: 'Build pull-up strength with progressive overload and accessory work.',
+    durationWeeks: 8,
+    targetLevel: 'intermediate',
+    path: getSampleProgramPath('pull-up-strength.json'),
+  },
+];
 
 // ============================================================================
 // TYPES
@@ -79,6 +123,9 @@ function ProgramCard({ program, isActive, onSelect, isLoading }: ProgramCardProp
     <button
       onClick={handleClick}
       disabled={isLoading}
+      role="option"
+      aria-selected={isActive}
+      aria-label={`${program.name}${isActive ? ' (Active)' : ''}, ${program.durationWeeks} weeks, ${getTargetLevelLabel(program.targetLevel)}`}
       className={`w-full p-4 rounded-2xl border text-left transition-all ${
         isActive
           ? 'bg-sys-accent/10 border-sys-accent'
@@ -90,7 +137,7 @@ function ProgramCard({ program, isActive, onSelect, isLoading }: ProgramCardProp
           <div className="flex items-center gap-2 mb-1">
             <h4 className="text-base font-semibold text-white truncate">{program.name}</h4>
             {isActive && (
-              <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-sys-accent/20 text-sys-accent text-xs font-medium">
+              <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-sys-accent/20 text-sys-accent text-xs font-medium" aria-hidden="true">
                 <Check size={12} />
                 Active
               </span>
@@ -106,7 +153,7 @@ function ProgramCard({ program, isActive, onSelect, isLoading }: ProgramCardProp
           <div className="flex flex-wrap items-center gap-2">
             {/* Duration */}
             <span className="flex items-center gap-1 text-xs text-sys-onSurfaceVar">
-              <Clock size={12} />
+              <Clock size={12} aria-hidden="true" />
               {program.durationWeeks} weeks
             </span>
 
@@ -118,7 +165,7 @@ function ProgramCard({ program, isActive, onSelect, isLoading }: ProgramCardProp
             {/* Goals */}
             {program.goals.length > 0 && (
               <span className="flex items-center gap-1 text-xs text-sys-onSurfaceVar">
-                <Target size={12} />
+                <Target size={12} aria-hidden="true" />
                 {program.goals.slice(0, 2).map(g => g.replace(/-/g, ' ')).join(', ')}
                 {program.goals.length > 2 && ` +${program.goals.length - 2}`}
               </span>
@@ -127,9 +174,12 @@ function ProgramCard({ program, isActive, onSelect, isLoading }: ProgramCardProp
         </div>
 
         {/* Selection indicator */}
-        <div className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
-          isActive ? 'bg-sys-accent border-sys-accent' : 'border-white/20'
-        }`}>
+        <div 
+          className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
+            isActive ? 'bg-sys-accent border-sys-accent' : 'border-white/20'
+          }`}
+          aria-hidden="true"
+        >
           {isActive && <Check size={14} className="text-white" />}
         </div>
       </div>
@@ -147,6 +197,7 @@ interface ProgramSelectorModalProps {
   programs: ProgramManifest[];
   currentProgramId: string | null;
   onSelect: (programId: string) => Promise<void>;
+  onRefresh: () => void;
   isLoading: boolean;
 }
 
@@ -156,29 +207,78 @@ function ProgramSelectorModal({
   programs,
   currentProgramId,
   onSelect,
+  onRefresh,
   isLoading,
 }: ProgramSelectorModalProps): React.ReactElement | null {
   const [selectingId, setSelectingId] = useState<string | null>(null);
+  const [importingId, setImportingId] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showSamplePrograms, setShowSamplePrograms] = useState(false);
   const haptic = useHaptic();
+
+  // Get list of programs that can be imported (not already installed)
+  const installedProgramIds = new Set(programs.map(p => p.id));
+  const availableSamplePrograms = SAMPLE_PROGRAMS.filter(p => !installedProgramIds.has(p.id));
 
   const handleSelect = async (programId: string) => {
     if (programId === currentProgramId) return;
 
     setSelectingId(programId);
+    setErrorMessage(null);
     try {
       await onSelect(programId);
       haptic.success();
       onClose();
     } catch (error) {
       haptic.error();
-      console.error('Failed to switch program:', error);
+      const message = error instanceof Error ? error.message : 'Failed to switch program';
+      setErrorMessage(message);
     } finally {
       setSelectingId(null);
     }
   };
 
+  const handleImportSampleProgram = async (sample: SampleProgramInfo) => {
+    setImportingId(sample.id);
+    setErrorMessage(null);
+    
+    try {
+      // Fetch the program JSON
+      const response = await fetch(sample.path);
+      if (!response.ok) {
+        throw new Error(`Failed to load program: ${response.statusText}`);
+      }
+      const programJson = await response.json();
+      
+      // Import the program
+      const result = await importProgram(programJson, { setActive: false });
+      
+      if (!result.success) {
+        throw new Error(result.errors.join(', '));
+      }
+      
+      // Refresh the program list
+      onRefresh();
+      
+      haptic.success();
+      // Switch to the newly imported program
+      if (result.manifest) {
+        await onSelect(result.manifest.id);
+      }
+      onClose();
+    } catch (error) {
+      haptic.error();
+      const message = error instanceof Error ? error.message : 'Failed to import program';
+      setErrorMessage(message);
+    } finally {
+      setImportingId(null);
+    }
+  };
+
   const handleClose = () => {
     haptic.tick();
+    setErrorMessage(null);
+    setShowSamplePrograms(false);
     onClose();
   };
 
@@ -188,6 +288,9 @@ function ProgramSelectorModal({
     <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 animate-fade-in"
       onClick={handleClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="program-selector-title"
     >
       <div
         className="w-full max-w-md bg-sys-surfaceHigh rounded-t-3xl max-h-[85vh] flex flex-col animate-slide-up"
@@ -195,52 +298,132 @@ function ProgramSelectorModal({
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-white/5">
-          <h3 className="text-lg font-bold text-white">Select Program</h3>
+          <h3 id="program-selector-title" className="text-lg font-bold text-white">
+            {showSamplePrograms ? 'Add New Program' : 'Select Program'}
+          </h3>
           <button
             onClick={handleClose}
             className="p-2 rounded-xl hover:bg-sys-surface transition-colors"
+            aria-label="Close program selector"
           >
             <X size={20} className="text-sys-onSurfaceVar" />
           </button>
         </div>
 
-        {/* Program List */}
+        {/* Error Message */}
+        {errorMessage && (
+          <div className="mx-4 mt-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm" role="alert">
+            {errorMessage}
+          </div>
+        )}
+
+        {/* Content */}
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
-          {programs.length === 0 ? (
-            <div className="text-center py-8">
-              <Dumbbell size={48} className="mx-auto text-sys-onSurfaceVar/50 mb-3" />
-              <p className="text-sys-onSurfaceVar">No programs available</p>
-              <p className="text-sm text-sys-onSurfaceVar/70 mt-1">
-                Import a workout plan to get started
-              </p>
-            </div>
+          {showSamplePrograms ? (
+            /* Sample Programs List */
+            <>
+              <button
+                onClick={() => setShowSamplePrograms(false)}
+                className="flex items-center gap-2 text-sm text-sys-accent mb-2"
+              >
+                <ChevronRight size={16} className="rotate-180" />
+                Back to my programs
+              </button>
+              
+              {availableSamplePrograms.length === 0 ? (
+                <div className="text-center py-8">
+                  <Check size={48} className="mx-auto text-sys-success/50 mb-3" />
+                  <p className="text-sys-onSurfaceVar">All sample programs installed</p>
+                  <p className="text-sm text-sys-onSurfaceVar/70 mt-1">
+                    You've added all available sample programs
+                  </p>
+                </div>
+              ) : (
+                availableSamplePrograms.map((sample) => (
+                  <button
+                    key={sample.id}
+                    onClick={() => handleImportSampleProgram(sample)}
+                    disabled={importingId !== null}
+                    className={`w-full p-4 rounded-2xl border text-left transition-all bg-sys-surface border-white/5 hover:border-sys-accent/30 active:scale-[0.98] ${
+                      importingId === sample.id ? 'opacity-70' : ''
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="text-base font-semibold text-white truncate">{sample.name}</h4>
+                        </div>
+                        <p className="text-sm text-sys-onSurfaceVar line-clamp-2 mb-3">
+                          {sample.description}
+                        </p>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="flex items-center gap-1 text-xs text-sys-onSurfaceVar">
+                            <Clock size={12} aria-hidden="true" />
+                            {sample.durationWeeks} weeks
+                          </span>
+                          <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getTargetLevelColor(sample.targetLevel)}`}>
+                            {getTargetLevelLabel(sample.targetLevel)}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-sys-accent/10 flex items-center justify-center">
+                        {importingId === sample.id ? (
+                          <Loader2 size={20} className="text-sys-accent animate-spin" />
+                        ) : (
+                          <Plus size={20} className="text-sys-accent" />
+                        )}
+                      </div>
+                    </div>
+                  </button>
+                ))
+              )}
+            </>
           ) : (
-            programs.map((program) => (
-              <ProgramCard
-                key={program.id}
-                program={program}
-                isActive={program.id === currentProgramId}
-                onSelect={() => handleSelect(program.id)}
-                isLoading={selectingId === program.id || isLoading}
-              />
-            ))
+            /* Installed Programs List */
+            <>
+              {programs.length === 0 ? (
+                <div className="text-center py-8">
+                  <Dumbbell size={48} className="mx-auto text-sys-onSurfaceVar/50 mb-3" />
+                  <p className="text-sys-onSurfaceVar">No programs available</p>
+                  <p className="text-sm text-sys-onSurfaceVar/70 mt-1">
+                    Add a program to get started
+                  </p>
+                </div>
+              ) : (
+                programs.map((program) => (
+                  <ProgramCard
+                    key={program.id}
+                    program={program}
+                    isActive={program.id === currentProgramId}
+                    onSelect={() => handleSelect(program.id)}
+                    isLoading={selectingId === program.id || isLoading}
+                  />
+                ))
+              )}
+            </>
           )}
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 border-t border-white/5 space-y-3">
-          <button
-            className="w-full h-12 rounded-xl bg-sys-surface text-white font-medium flex items-center justify-center gap-2 border border-white/5 active:scale-[0.98] transition-transform"
-            onClick={() => {
-              // TODO: Implement program import
-              haptic.bump();
-              alert('Program import coming soon!');
-            }}
-          >
-            <Download size={18} />
-            Import Program
-          </button>
-        </div>
+        {!showSamplePrograms && (
+          <div className="p-4 border-t border-white/5 space-y-3">
+            <button
+              onClick={() => {
+                haptic.tick();
+                setShowSamplePrograms(true);
+              }}
+              className="w-full h-12 rounded-xl bg-sys-surface text-white font-medium flex items-center justify-center gap-2 border border-white/5 active:scale-[0.98] transition-transform hover:border-sys-accent/30"
+            >
+              <Plus size={18} />
+              Add New Program
+              {availableSamplePrograms.length > 0 && (
+                <span className="text-xs bg-sys-accent/20 text-sys-accent px-2 py-0.5 rounded-full ml-1">
+                  {availableSamplePrograms.length}
+                </span>
+              )}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -256,7 +439,7 @@ export function ProgramSelector({
   className = '',
 }: ProgramSelectorProps): React.ReactElement {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { currentProgram, availablePrograms, switchProgram, isLoading } = useProgram();
+  const { currentProgram, availablePrograms, switchProgram, refreshPrograms, isLoading } = useProgram();
   const haptic = useHaptic();
 
   const handleOpenModal = useCallback(() => {
@@ -314,6 +497,7 @@ export function ProgramSelector({
           programs={availablePrograms}
           currentProgramId={currentProgram?.id ?? null}
           onSelect={handleProgramSelect}
+          onRefresh={refreshPrograms}
           isLoading={isLoading}
         />
       </>

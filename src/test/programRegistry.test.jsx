@@ -141,7 +141,7 @@ describe('Program Registry Service', () => {
       const invalidPlan = { plan: { name: 'Missing ID' } };
       
       await expect(registry.importProgram(invalidPlan)).rejects.toThrow(
-        'Invalid workout plan: missing required fields (id, name, version, durationWeeks > 0)'
+        'Invalid workout plan: missing or invalid fields'
       );
     });
   });

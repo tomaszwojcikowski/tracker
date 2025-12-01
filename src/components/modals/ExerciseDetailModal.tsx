@@ -70,7 +70,7 @@ const WeightGraph: React.FC<{ data: Array<{ weight: number; date: string }> }> =
                 </h3>
                 <span className="text-xs text-sys-onSurfaceVar">Last {weightData.length} sessions</span>
             </div>
-            
+
             <div className="relative">
                 <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-32" preserveAspectRatio="none">
                     <defs>
@@ -79,14 +79,14 @@ const WeightGraph: React.FC<{ data: Array<{ weight: number; date: string }> }> =
                             <stop offset="100%" stopColor="var(--color-accent)" stopOpacity="0" />
                         </linearGradient>
                     </defs>
-                    
+
                     {/* Grid lines */}
                     <line x1={padding} y1={padding} x2={width - padding} y2={padding} stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="4 4" />
                     <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                    
+
                     {/* Area fill */}
                     <polygon points={areaPoints} fill="url(#graphGradient)" />
-                    
+
                     {/* Line */}
                     <polyline
                         points={polylinePoints}
@@ -96,21 +96,21 @@ const WeightGraph: React.FC<{ data: Array<{ weight: number; date: string }> }> =
                         strokeLinecap="round"
                         strokeLinejoin="round"
                     />
-                    
+
                     {/* Data points */}
                     {points.map((p, i) => (
-                        <circle 
-                            key={i} 
-                            cx={p.x} 
-                            cy={p.y} 
-                            r="3" 
-                            fill="var(--color-surface)" 
-                            stroke="var(--color-accent)" 
-                            strokeWidth="2" 
+                        <circle
+                            key={i}
+                            cx={p.x}
+                            cy={p.y}
+                            r="3"
+                            fill="var(--color-surface)"
+                            stroke="var(--color-accent)"
+                            strokeWidth="2"
                         />
                     ))}
                 </svg>
-                
+
                 {/* Labels */}
                 <div className="absolute top-0 right-0 text-xs font-bold text-sys-accent transform -translate-y-1/2">
                     {maxWeight}kg
@@ -133,7 +133,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
 }) => {
     const history = getExerciseHistory(exerciseName);
     const stats = calculateExerciseStats(exerciseName);
-    
+
     // Prepare graph data (chronological)
     const graphData = useMemo(() => {
         return history
@@ -216,7 +216,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                         <Calendar size={16} className="text-sys-accent" />
                         History
                     </h3>
-                    
+
                     {recentHistory.length > 0 ? (
                         <div className="space-y-2">
                             {recentHistory.map((entry, idx) => (
@@ -245,7 +245,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     {/* Highlight PRs or good performance */}
                                     {stats.maxWeight && entry.weight === stats.maxWeight && (
                                         <div className="h-6 px-2 rounded-full bg-sys-accent/20 text-sys-accent text-[10px] font-bold flex items-center border border-sys-accent/30">

@@ -2,10 +2,15 @@
  * Firebase Sync Utilities
  *
  * Functions for syncing data between local storage and Firebase.
+ * All sync operations now use program-scoped namespaced keys.
  */
 
 import { safeGetJSON, safeSetJSON } from './storage';
 import type { WeekNumber, TrainingDay, ExerciseHistory } from '../types';
+import {
+    getExerciseHistoryKey,
+    getSessionKey,
+} from '../services/storageNamespace';
 
 // ============================================================================
 // TYPES
@@ -57,7 +62,8 @@ export interface LocalData {
 export const FIREBASE_SYNC_ENABLED_KEY = 'firebase_sync_enabled';
 
 /**
- * Storage key for exercise history
+ * Storage key for exercise history (base key - use getExerciseHistoryKey() for namespaced version)
+ * @deprecated Use getExerciseHistoryKey() from storageNamespace service for program-scoped access
  */
 export const EXERCISE_HISTORY_KEY = 'exercise_history';
 
@@ -73,7 +79,7 @@ const TRAINING_DAYS: TrainingDay[] = [1, 2, 3, 5];
 /**
  * Get all local data that should be synced to Firebase
  *
- * This includes workout sessions and exercise history.
+ * This includes workout sessions and exercise history for the active program.
  *
  * Note: This function iterates through all possible workout sessions (84 total).
  * This is intentional and not a performance issue because:
@@ -83,19 +89,23 @@ const TRAINING_DAYS: TrainingDay[] = [1, 2, 3, 5];
  * 4. The actual data transfer to Firebase is the bottleneck, not this collection
  */
 export function getAllLocalData(): LocalData {
+    const exerciseHistoryStorageKey = getExerciseHistoryKey();
     const data: LocalData = {
-        exercise_history: safeGetJSON<ExerciseHistory>(EXERCISE_HISTORY_KEY, {}),
+        exercise_history: safeGetJSON<ExerciseHistory>(exerciseHistoryStorageKey, {}),
         sessions: {} as Record<SessionKey, SessionData>,
     };
 
     // Collect all workout session data (21 weeks × 4 days = 84 sessions max)
     // Only non-empty sessions are included in the sync
+    // Uses namespaced keys for program isolation
     for (let week = 1; week <= 21; week++) {
         for (const day of TRAINING_DAYS) {
-            const key = `session_w${week}d${day}` as SessionKey;
-            const sessionData = safeGetJSON<SessionData | null>(key, null);
+            const namespacedKey = getSessionKey(week, day);
+            const baseKey = getBaseSessionKey(week as WeekNumber, day);
+            const sessionData = safeGetJSON<SessionData | null>(namespacedKey, null);
             if (sessionData && Object.keys(sessionData).length > 0) {
-                data.sessions[key] = sessionData;
+                // Store with base key in the data structure for Firebase compatibility
+                data.sessions[baseKey] = sessionData;
             }
         }
     }
@@ -120,6 +130,7 @@ export function getAllLocalData(): LocalData {
  * 4. Otherwise: compare timestamps and keep the newer version
  *
  * Note: Exercise history always uses cloud data (no timestamp comparison)
+ * All data is stored using program-scoped namespaced keys.
  *
  * @param cloudData - Data from Firebase
  */
@@ -128,22 +139,36 @@ export function mergeCloudData(cloudData: CloudData | null | undefined): void {
 
     console.log('Merging cloud data with local data');
 
-    // Merge exercise history (always use cloud history)
+    // Merge exercise history (always use cloud history) - use namespaced key
     if (cloudData.exercise_history) {
-        safeSetJSON(EXERCISE_HISTORY_KEY, cloudData.exercise_history);
+        const exerciseHistoryStorageKey = getExerciseHistoryKey();
+        safeSetJSON(exerciseHistoryStorageKey, cloudData.exercise_history);
     }
 
     // Merge workout sessions based on timestamps
+    // Cloud data uses base keys (session_w1d1), we convert to namespaced keys
     if (cloudData.sessions) {
         Object.keys(cloudData.sessions).forEach(keyString => {
-            const key = keyString as SessionKey;
-            const cloudSession = cloudData.sessions![key];
-            const localSession = safeGetJSON<SessionData | null>(key, null);
+            const baseKey = keyString as SessionKey;
+            const cloudSession = cloudData.sessions![baseKey];
+            
+            // Parse week and day from base key
+            const match = baseKey.match(/^session_w(\d+)d(\d+)$/);
+            if (!match) {
+                console.warn(`Invalid session key format: ${baseKey}`);
+                return;
+            }
+            const week = parseInt(match[1], 10);
+            const day = parseInt(match[2], 10);
+            
+            // Get the namespaced key for the current program
+            const namespacedKey = getSessionKey(week, day);
+            const localSession = safeGetJSON<SessionData | null>(namespacedKey, null);
 
             // If no local session exists, use cloud data
             if (!localSession) {
-                console.log(`No local session for ${key}, using cloud data`);
-                safeSetJSON(key, cloudSession);
+                console.log(`No local session for ${namespacedKey}, using cloud data`);
+                safeSetJSON(namespacedKey, cloudSession);
                 return;
             }
 
@@ -154,9 +179,9 @@ export function mergeCloudData(cloudData: CloudData | null | undefined): void {
             // If either timestamp is missing, use cloud data (backward compatibility)
             if (!cloudTimestamp || !localTimestamp) {
                 console.log(
-                    `Missing timestamp for ${key}, using cloud data (cloud: ${cloudTimestamp || 'none'}, local: ${localTimestamp || 'none'})`
+                    `Missing timestamp for ${namespacedKey}, using cloud data (cloud: ${cloudTimestamp || 'none'}, local: ${localTimestamp || 'none'})`
                 );
-                safeSetJSON(key, cloudSession);
+                safeSetJSON(namespacedKey, cloudSession);
                 return;
             }
 
@@ -167,22 +192,22 @@ export function mergeCloudData(cloudData: CloudData | null | undefined): void {
             // Check for invalid dates (NaN) - if either is invalid, use cloud data
             if (isNaN(cloudDate.getTime()) || isNaN(localDate.getTime())) {
                 console.log(
-                    `Invalid timestamp detected for ${key}, using cloud data (cloud: ${cloudTimestamp}, local: ${localTimestamp})`
+                    `Invalid timestamp detected for ${namespacedKey}, using cloud data (cloud: ${cloudTimestamp}, local: ${localTimestamp})`
                 );
-                safeSetJSON(key, cloudSession);
+                safeSetJSON(namespacedKey, cloudSession);
                 return;
             }
 
             if (cloudDate > localDate) {
                 // Cloud data is newer, use it
                 console.log(
-                    `Using cloud data for ${key} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`
+                    `Using cloud data for ${namespacedKey} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`
                 );
-                safeSetJSON(key, cloudSession);
+                safeSetJSON(namespacedKey, cloudSession);
             } else {
                 // Local data is newer or equal, keep it
                 console.log(
-                    `Keeping local data for ${key} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`
+                    `Keeping local data for ${namespacedKey} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`
                 );
             }
         });
@@ -210,24 +235,34 @@ export function setSyncEnabled(enabled: boolean): void {
 }
 
 /**
- * Generate a session key for a given week and day
+ * Generate a base session key (without namespace prefix)
+ * @deprecated Use getSessionKey from storageNamespace for namespaced keys
+ * @example
+ * // Instead of:
+ * const key = getBaseSessionKey(1, 1); // 'session_w1d1'
+ * 
+ * // Use for namespaced storage:
+ * import { getSessionKey } from '../services/storageNamespace';
+ * const key = getSessionKey(1, 1); // 'p:program-id:session_w1d1'
  */
-export function getSessionKey(week: WeekNumber, day: TrainingDay): SessionKey {
+export function getBaseSessionKey(week: WeekNumber, day: TrainingDay): SessionKey {
     return `session_w${week}d${day}`;
 }
 
 /**
  * Get session data for a given week and day
+ * Uses program-scoped namespaced key
  */
 export function getSessionData(week: WeekNumber, day: TrainingDay): SessionData | null {
-    const key = getSessionKey(week, day);
-    return safeGetJSON<SessionData | null>(key, null);
+    const namespacedKey = getSessionKey(week, day);
+    return safeGetJSON<SessionData | null>(namespacedKey, null);
 }
 
 /**
  * Save session data for a given week and day
+ * Uses program-scoped namespaced key
  */
 export function saveSessionData(week: WeekNumber, day: TrainingDay, data: SessionData): boolean {
-    const key = getSessionKey(week, day);
-    return safeSetJSON(key, data);
+    const namespacedKey = getSessionKey(week, day);
+    return safeSetJSON(namespacedKey, data);
 }

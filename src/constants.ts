@@ -52,6 +52,15 @@ export const DEFAULT_TAB: TabName = 'train';
 
 /**
  * Storage key names for localStorage
+ * 
+ * Note: Keys listed here are the base keys. For program-scoped data,
+ * use the storageNamespace service to get namespaced keys.
+ * 
+ * Namespaced keys (program-specific data):
+ * - EXERCISE_HISTORY, GLOBAL_HISTORY, and session keys are scoped per program
+ * 
+ * Global keys (shared across programs):
+ * - APP_STATE, FIREBASE_*, EMOM_INTERVAL, TRACKER_WEEK
  */
 export interface StorageKeysMap {
   APP_STATE: string;
@@ -61,6 +70,12 @@ export interface StorageKeysMap {
   FIREBASE_LAST_SYNC: string;
   EMOM_INTERVAL: string;
   TRACKER_WEEK: string;
+  /** Storage migration status key */
+  MIGRATION_STATUS: string;
+  /** Program registry key */
+  PROGRAM_REGISTRY: string;
+  /** Active program key */
+  ACTIVE_PROGRAM: string;
 }
 
 // Storage keys
@@ -72,6 +87,9 @@ export const STORAGE_KEYS: StorageKeysMap = {
   FIREBASE_LAST_SYNC: 'firebase_last_sync_time',
   EMOM_INTERVAL: 'emom_interval',
   TRACKER_WEEK: 'tracker_week',
+  MIGRATION_STATUS: 'tracker_storage_migration_v1',
+  PROGRAM_REGISTRY: 'tracker_program_registry',
+  ACTIVE_PROGRAM: 'tracker_active_program',
 };
 
 // Training blocks removed - now loaded from window.TRACKER_APP.workoutPlanMetadata.phases at runtime

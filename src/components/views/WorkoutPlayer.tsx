@@ -40,6 +40,7 @@ import {
     getExerciseLogEntry,
     normalizeAddedExercises,
 } from '../../utils/workoutSession';
+import { getSessionKey, getNamespacedKey } from '../../services/storageNamespace';
 import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../../types';
 import type { WorkoutSessionData, ExerciseLogEntry, MuscleFilter, RPEData } from '../../types/workout';
 
@@ -57,6 +58,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 }) => {
     // For empty workouts, generate a unique session key based on timestamp
     // This allows multiple empty workouts to be tracked separately
+    // Empty workout keys are also namespaced per program
     const [emptyWorkoutId] = useState(() => {
         if (isEmptyWorkout) {
             // Check if we have an existing empty workout session to resume
@@ -64,8 +66,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             if (existingKey) {
                 return existingKey;
             }
-            // Create a new empty workout session
-            const newKey = `session_empty_${Date.now()}`;
+            // Create a new empty workout session with namespaced key
+            const baseKey = `session_empty_${Date.now()}`;
+            const newKey = getNamespacedKey(baseKey);
             sessionStorage.setItem('current_empty_workout_key', newKey);
             return newKey;
         }
@@ -76,7 +79,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         if (isEmptyWorkout) {
             return emptyWorkoutId;
         }
-        return `session_w${week}d${day}`;
+        // Use namespaced session key for program isolation
+        return getSessionKey(week, day);
     }, [week, day, isEmptyWorkout, emptyWorkoutId]);
 
     const workout = useMemo(() => {

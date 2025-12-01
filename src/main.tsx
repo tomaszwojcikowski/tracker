@@ -6,6 +6,8 @@ import { loadWorkoutPlan, WorkoutPlanMetadata } from './workout-plan-utils';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { LoadingScreen, ErrorScreen } from './components/screens';
 import { initErrorReporting, captureError } from './utils/errorReporting';
+import { autoMigrate, getMigrationStatus } from './services/storageMigration';
+import { initializeDefaultProgram, getProgramRegistry } from './services/programRegistry';
 
 // Initialize error reporting as early as possible
 initErrorReporting();
@@ -130,6 +132,32 @@ Promise.all([
                 window.TRACKER_APP = {};
             }
             window.TRACKER_APP.workoutPlanMetadata = metadata;
+        }
+
+        // Initialize program registry with the loaded workout plan
+        // This registers the default program if not already registered
+        initializeDefaultProgram(scheduleData);
+        
+        // Store program data in registry for access by other modules
+        const registry = getProgramRegistry();
+        const activeProgram = registry.getActiveProgram();
+        if (activeProgram) {
+            registry.setProgramData(activeProgram.id, {
+                schedule: schedule,
+                metadata: metadata,
+            });
+        }
+
+        // Run storage migration if needed (migrates legacy keys to program-scoped keys)
+        // This is safe to call on every app start - it's a no-op if already migrated
+        const migrationResult = autoMigrate();
+        if (migrationResult) {
+            const status = getMigrationStatus();
+            if (status && status.keysMigrated > 0) {
+                console.log(`Storage migration completed: ${status.keysMigrated} keys migrated to program-scoped namespace`);
+            }
+        } else {
+            console.warn('Storage migration failed - some data may not be isolated per program');
         }
 
         // Re-render with the actual app wrapped in PWA provider and ErrorBoundary

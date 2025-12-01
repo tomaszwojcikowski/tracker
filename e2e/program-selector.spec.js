@@ -127,30 +127,35 @@ test.describe('Program Selector', () => {
   });
 
   test.describe('Settings Program Management', () => {
-    test('should display program section in settings', async ({ page }) => {
+    test('should display Programs tab in settings', async ({ page }) => {
       // Navigate to Settings tab
       const settingsTab = page.locator('button[aria-label="Settings"]');
       await settingsTab.click();
       await page.waitForTimeout(500);
 
-      // Should show program management section - use first() to avoid strict mode violation
-      const programSection = page.getByRole('heading', { name: 'Workout Programs' }).first();
-      await expect(programSection).toBeVisible();
+      // Should show Programs tab button
+      const programsTab = page.locator('button:has-text("Programs")');
+      await expect(programsTab).toBeVisible();
     });
 
-    test('should show program list in settings', async ({ page }) => {
+    test('should show program list when Programs tab is clicked', async ({ page }) => {
       // Navigate to Settings tab
       const settingsTab = page.locator('button[aria-label="Settings"]');
       await settingsTab.click();
       await page.waitForTimeout(500);
 
-      // Should display program selector in full variant
+      // Click on Programs tab
+      const programsTab = page.locator('button:has-text("Programs")');
+      await programsTab.click();
+      await page.waitForTimeout(300);
+
+      // Should display program selector with available programs
       const body = page.locator('body');
       const content = await body.textContent();
 
-      // Should have program management content
-      const hasProgramManagement = /Workout Programs|Manage your training programs/i.test(content);
-      expect(hasProgramManagement).toBe(true);
+      // Should have program content (sample programs or installed programs)
+      const hasProgramContent = /weeks|Beginner|Intermediate|Available Programs/i.test(content);
+      expect(hasProgramContent).toBe(true);
     });
   });
 });

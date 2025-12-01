@@ -764,9 +764,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 if (viewMode === 'focus') {
                                     haptic.tick();
                                     setViewMode('list');
-                                    if (compactView) toggleCompactView();
-                                } else if (compactView) {
-                                    toggleCompactView();
+                                    if (compactView) toggleCompactView(); // ensure compactView is false
+                                } else {
+                                    if (compactView) toggleCompactView(); // ensure compactView is false
                                 }
                             }}
                             className={`h-8 w-8 rounded-md flex items-center justify-center transition-all ${

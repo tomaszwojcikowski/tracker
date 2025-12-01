@@ -110,15 +110,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     // RPE selector state: { exerciseId, setIndex } or null
     const [rpePrompt, setRpePrompt] = useState<{ exerciseId: string; setIndex: number } | null>(null);
 
-    // Ensure focusIndex is always within bounds of allExercises
-    useEffect(() => {
-        // If focusIndex is out of bounds, reset to last valid index or 0
-        if (focusIndex >= allExercises.length && allExercises.length > 0) {
-            setFocusIndex(allExercises.length - 1);
-        } else if (allExercises.length === 0) {
-            setFocusIndex(0);
-        }
-    }, [allExercises.length, focusIndex]);
     // Exercise swaps: maps original exercise name to swapped alternative name
     const [exerciseSwaps, setExerciseSwaps] = useState<Record<string, string>>({});
     // Currently showing alternatives picker for which exercise
@@ -232,6 +223,16 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
         return exercises;
     }, [workout, addedExercises]);
+
+    // Ensure focusIndex is always within bounds of allExercises
+    useEffect(() => {
+        // If focusIndex is out of bounds, reset to last valid index or 0
+        if (focusIndex >= allExercises.length && allExercises.length > 0) {
+            setFocusIndex(allExercises.length - 1);
+        } else if (allExercises.length === 0) {
+            setFocusIndex(0);
+        }
+    }, [allExercises.length, focusIndex]);
 
     // Load session data on mount
     useEffect(() => {

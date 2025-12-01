@@ -25,6 +25,7 @@ describe('URL Routing & State Management', () => {
     const tab = params.get('tab');
     const weekParam = params.get('week');
     const dayParam = params.get('day');
+    const programParam = params.get('program');
     
     const week = weekParam ? parseInt(weekParam, 10) : null;
     const day = dayParam ? parseInt(dayParam, 10) : null;
@@ -32,11 +33,15 @@ describe('URL Routing & State Management', () => {
     const isValidWeek = week !== null && week >= 1 && week <= 21;
     const isValidDay = day !== null && VALID_DAYS.includes(day);
     
+    // Parse program ID (no validation needed - any non-empty string is valid)
+    const programId = programParam && programParam.trim().length > 0 ? programParam : null;
+    
     return {
       view: VALID_VIEW_MODES.includes(view) ? view : null,
       tab: VALID_TABS.includes(tab) ? tab : null,
       week: isValidWeek ? week : null,
       day: isValidDay ? day : null,
+      programId,
     };
   };
 
@@ -63,6 +68,7 @@ describe('URL Routing & State Management', () => {
       activeTab: state.activeTab,
       currentWeek: state.currentWeek,
       activeDay: state.activeDay,
+      programId: state.programId,
     };
     try {
       localStorage.setItem('tracker_app_state', JSON.stringify(stateToSave));
@@ -83,6 +89,13 @@ describe('URL Routing & State Management', () => {
       if (state.activeTab && !VALID_TABS.includes(state.activeTab)) return null;
       if (state.currentWeek && (state.currentWeek < 1 || state.currentWeek > 21)) return null;
       if (state.activeDay && !VALID_DAYS.includes(state.activeDay)) return null;
+      
+      // Validate programId - must be non-empty string if present
+      if (state.programId !== undefined) {
+        if (typeof state.programId !== 'string' || state.programId.trim().length === 0) {
+          state.programId = undefined;
+        }
+      }
       
       return state;
     } catch (error) {
@@ -497,6 +510,226 @@ describe('URL Routing & State Management', () => {
       
       // Saved state should still be valid but not prioritized
       expect(loadedState).toEqual(savedState);
+    });
+  });
+
+  // ============================================================================
+  // PROGRAM ID SUPPORT TESTS
+  // ============================================================================
+  describe('Program ID support', () => {
+    describe('getUrlParams with programId', () => {
+      it('should parse programId from URL', () => {
+        window.location.search = '?program=my-program-id&tab=train';
+        
+        const params = getUrlParams();
+        
+        expect(params.programId).toBe('my-program-id');
+        expect(params.tab).toBe('train');
+      });
+
+      it('should return null for missing programId', () => {
+        window.location.search = '?tab=train';
+        
+        const params = getUrlParams();
+        
+        expect(params.programId).toBe(null);
+      });
+
+      it('should handle programId with workout view', () => {
+        window.location.search = '?program=oneplus-strength&view=workout&week=5&day=1';
+        
+        const params = getUrlParams();
+        
+        expect(params.programId).toBe('oneplus-strength');
+        expect(params.view).toBe('workout');
+        expect(params.week).toBe(5);
+        expect(params.day).toBe(1);
+      });
+
+      it('should trim whitespace from programId', () => {
+        window.location.search = '?program=  &tab=train';
+        
+        const params = getUrlParams();
+        
+        expect(params.programId).toBe(null);
+      });
+
+      it('should handle complex programId with special characters', () => {
+        window.location.search = '?program=beginner-bodyweight-4week&tab=train';
+        
+        const params = getUrlParams();
+        
+        expect(params.programId).toBe('beginner-bodyweight-4week');
+      });
+    });
+
+    describe('updateUrl with programId', () => {
+      // Mock the updateUrl function to include programId
+      const updateUrlWithProgram = (state) => {
+        const params = new URLSearchParams();
+        
+        // Always include program ID if present
+        if (state.programId) {
+          params.set('program', state.programId);
+        }
+        
+        if (state.viewMode === 'workout') {
+          params.set('view', 'workout');
+          params.set('week', state.currentWeek);
+          params.set('day', state.activeDay);
+        } else {
+          params.set('tab', state.activeTab);
+          if (state.currentWeek && state.currentWeek !== DEFAULT_WEEK) {
+            params.set('week', state.currentWeek);
+          }
+        }
+        
+        return `?${params.toString()}`;
+      };
+
+      it('should include programId in workout URL', () => {
+        const state = {
+          viewMode: 'workout',
+          currentWeek: 5,
+          activeDay: 1,
+          activeTab: 'train',
+          programId: 'my-program',
+        };
+
+        const url = updateUrlWithProgram(state);
+
+        expect(url).toBe('?program=my-program&view=workout&week=5&day=1');
+      });
+
+      it('should include programId in tab URL', () => {
+        const state = {
+          viewMode: 'tab',
+          activeTab: 'history',
+          currentWeek: 10,
+          activeDay: 1,
+          programId: 'beginner-program',
+        };
+
+        const url = updateUrlWithProgram(state);
+
+        expect(url).toBe('?program=beginner-program&tab=history&week=10');
+      });
+
+      it('should not include programId when undefined', () => {
+        const state = {
+          viewMode: 'tab',
+          activeTab: 'train',
+          currentWeek: 1,
+          activeDay: 1,
+        };
+
+        const url = updateUrlWithProgram(state);
+
+        expect(url).not.toContain('program=');
+      });
+    });
+
+    describe('saveAppState with programId', () => {
+      beforeEach(() => {
+        localStorage.clear();
+        localStorage.setItem.mockClear();
+        localStorage.setItem.mockImplementation(() => {});
+      });
+
+      it('should save programId in app state', () => {
+        const state = {
+          viewMode: 'workout',
+          activeTab: 'train',
+          currentWeek: 5,
+          activeDay: 2,
+          programId: 'my-program',
+        };
+
+        saveAppState(state);
+
+        const savedData = JSON.parse(localStorage.setItem.mock.calls[0][1]);
+        expect(savedData.programId).toBe('my-program');
+      });
+
+      it('should save state without programId when not provided', () => {
+        const state = {
+          viewMode: 'tab',
+          activeTab: 'history',
+          currentWeek: 10,
+          activeDay: 1,
+        };
+
+        saveAppState(state);
+
+        const savedData = JSON.parse(localStorage.setItem.mock.calls[0][1]);
+        expect(savedData.programId).toBeUndefined();
+      });
+    });
+
+    describe('loadAppState with programId', () => {
+      beforeEach(() => {
+        localStorage.clear();
+        localStorage.getItem.mockClear();
+      });
+
+      it('should load programId from saved state', () => {
+        const savedState = {
+          viewMode: 'tab',
+          activeTab: 'train',
+          currentWeek: 5,
+          activeDay: 1,
+          programId: 'saved-program',
+        };
+        localStorage.getItem.mockReturnValue(JSON.stringify(savedState));
+
+        const loadedState = loadAppState();
+
+        expect(loadedState.programId).toBe('saved-program');
+      });
+
+      it('should handle missing programId in saved state', () => {
+        const savedState = {
+          viewMode: 'tab',
+          activeTab: 'train',
+          currentWeek: 5,
+          activeDay: 1,
+        };
+        localStorage.getItem.mockReturnValue(JSON.stringify(savedState));
+
+        const loadedState = loadAppState();
+
+        expect(loadedState.programId).toBeUndefined();
+      });
+
+      it('should validate programId as string', () => {
+        const savedState = {
+          viewMode: 'tab',
+          activeTab: 'train',
+          currentWeek: 5,
+          activeDay: 1,
+          programId: 123, // Invalid - should be string
+        };
+        localStorage.getItem.mockReturnValue(JSON.stringify(savedState));
+
+        const loadedState = loadAppState();
+
+        expect(loadedState.programId).toBeUndefined();
+      });
+
+      it('should reject empty string programId', () => {
+        const savedState = {
+          viewMode: 'tab',
+          activeTab: 'train',
+          currentWeek: 5,
+          activeDay: 1,
+          programId: '  ', // Empty/whitespace only
+        };
+        localStorage.getItem.mockReturnValue(JSON.stringify(savedState));
+
+        const loadedState = loadAppState();
+
+        expect(loadedState.programId).toBeUndefined();
+      });
     });
   });
 });

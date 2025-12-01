@@ -216,6 +216,8 @@ export interface AppState {
   activeTab: TabId;
   currentWeek: WeekNumber;
   activeDay: TrainingDay;
+  /** Optional program ID for multi-program support */
+  programId?: string;
 }
 
 /**

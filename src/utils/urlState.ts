@@ -71,6 +71,8 @@ export interface UrlParams {
     tab: TabId | null;
     week: WeekNumber | null;
     day: TrainingDay | null;
+    /** Program ID for multi-program support */
+    programId: string | null;
 }
 
 // ============================================================================
@@ -86,6 +88,7 @@ export function getUrlParams(): UrlParams {
     const dayParam = params.get('day');
     const viewParam = params.get('view');
     const tabParam = params.get('tab');
+    const programParam = params.get('program');
 
     // Parse and validate week (1-21)
     let week: WeekNumber | null = null;
@@ -117,7 +120,10 @@ export function getUrlParams(): UrlParams {
         tab = tabParam as TabId;
     }
 
-    return { view, tab, week, day };
+    // Parse program ID (no validation needed - any string is valid)
+    const programId = programParam && programParam.trim().length > 0 ? programParam : null;
+
+    return { view, tab, week, day, programId };
 }
 
 /**
@@ -125,6 +131,11 @@ export function getUrlParams(): UrlParams {
  */
 export function buildUrl(state: AppState): string {
     const params = new URLSearchParams();
+
+    // Always include program ID if present (for multi-program support)
+    if (state.programId) {
+        params.set('program', state.programId);
+    }
 
     if (state.viewMode === 'workout') {
         params.set('view', 'workout');
@@ -166,6 +177,7 @@ export function saveAppState(state: AppState): boolean {
         activeTab: state.activeTab,
         currentWeek: state.currentWeek,
         activeDay: state.activeDay,
+        programId: state.programId,
     });
 }
 
@@ -194,6 +206,10 @@ export function loadAppState(): AppState | null {
             loaded.activeDay && (VALID_DAYS as readonly number[]).includes(loaded.activeDay)
                 ? loaded.activeDay
                 : DEFAULT_DAY,
+        // Program ID is optional and can be any valid string
+        programId: loaded.programId && typeof loaded.programId === 'string' && loaded.programId.trim().length > 0
+            ? loaded.programId
+            : undefined,
     };
 
     return validatedState;
@@ -247,6 +263,11 @@ export function initializeAppState(): AppState {
         if (urlParams.week) {
             state.currentWeek = urlParams.week;
         }
+    }
+
+    // Program ID from URL takes priority over saved state
+    if (urlParams.programId) {
+        state.programId = urlParams.programId;
     }
 
     return state;

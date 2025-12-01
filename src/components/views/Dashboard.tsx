@@ -14,6 +14,8 @@ import { SwipeIndicator } from '../SwipeIndicator';
 import { getBlockForWeek } from '../../data/programData';
 import { getCompleteSchedule } from '../../utils/schedule';
 import { getSessionKey } from '../../services/storageNamespace';
+import { ProgramSelector } from '../ProgramSelector';
+import { useProgram } from '../../context/ProgramContext';
 
 /** Maximum number of exercises to show in the summary */
 const MAX_EXERCISES_IN_SUMMARY = 3;
@@ -47,6 +49,8 @@ export interface DashboardProps {
   setCurrentWeek: (week: number) => void;
   onStartWorkout: (day: number) => void;
   onStartEmptyWorkout?: () => void;
+  /** Optional callback when program changes */
+  onProgramChange?: (programId: string) => void;
 }
 
 export function Dashboard({
@@ -54,10 +58,17 @@ export function Dashboard({
   setCurrentWeek,
   onStartWorkout,
   onStartEmptyWorkout,
+  onProgramChange,
 }: DashboardProps) {
   const [progress, setProgress] = useState(0);
   const [inProgressWorkout, setInProgressWorkout] = useState<InProgressWorkout | null>(null);
   const haptic = useHaptic();
+  
+  // Get program context for program-aware features
+  const { currentProgram, metadata } = useProgram();
+  
+  // Calculate max weeks based on current program
+  const maxWeeks = metadata?.durationWeeks ?? currentProgram?.durationWeeks ?? 21;
 
   // Enhanced swipe navigation with visual feedback
   const {
@@ -66,7 +77,7 @@ export function Dashboard({
     handlers: swipeHandlers,
   } = useSwipeNavigation({
     onSwipeLeft: () => {
-      if (currentWeek < 21) {
+      if (currentWeek < maxWeeks) {
         haptic.swipe();
         setCurrentWeek(currentWeek + 1);
       }
@@ -79,7 +90,7 @@ export function Dashboard({
     },
   });
 
-  useEffect(() => setProgress((currentWeek / 21) * 100), [currentWeek]);
+  useEffect(() => setProgress((currentWeek / maxWeeks) * 100), [currentWeek, maxWeeks]);
 
   // Check for in-progress workouts on mount and when week changes
   useEffect(() => {
@@ -116,19 +127,29 @@ export function Dashboard({
   };
 
   const currentBlock = getBlockForWeek(currentWeek) || { name: 'Unknown' };
+  
+  // Get program name with fallback
+  const programName = currentProgram?.name ?? 'OnePlus Strength';
 
   return (
     <>
       <SwipeIndicator
         direction={swipeDirection}
         progress={swipeProgress}
-        leftLabel={currentWeek < 21 ? `Week ${currentWeek + 1}` : null}
+        leftLabel={currentWeek < maxWeeks ? `Week ${currentWeek + 1}` : null}
         rightLabel={currentWeek > 1 ? `Week ${currentWeek - 1}` : null}
       />
       <div
         {...swipeHandlers}
         className="flex-1 overflow-y-auto px-5 pb-20 pt-6"
       >
+        {/* Program Selector Card */}
+        <ProgramSelector 
+          variant="card" 
+          className="mb-6"
+          onProgramChange={onProgramChange}
+        />
+
         {/* Resume Workout Banner */}
         {inProgressWorkout && (
           <button
@@ -170,18 +191,18 @@ export function Dashboard({
 
         <div className="card-modern p-7 mb-8 relative overflow-hidden border border-white/5">
           <div className="relative z-10">
-            <h2 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-2">
-              Current Phase
+            <h2 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-1">
+              {programName}
             </h2>
-            <h1 className="text-3xl font-bold text-white mb-5 leading-tight">
+            <h3 className="text-sm font-medium text-sys-accent mb-3">
               {currentBlock.name}
-            </h1>
+            </h3>
             <div className="flex items-baseline gap-3 mb-6">
               <span className="text-5xl font-bold text-sys-accent tracking-tighter">
                 W{currentWeek}
               </span>
               <span className="text-sys-onSurfaceVar font-mono text-xl">
-                / 21
+                / {maxWeeks}
               </span>
             </div>
             <div className="w-full bg-black/30 h-2 rounded-full overflow-hidden">
@@ -305,7 +326,7 @@ export function Dashboard({
           <div className="flex gap-2 px-4">
             {[...Array(5)].map((_, i) => {
               const dotWeek = currentWeek - 2 + i;
-              if (dotWeek < 1 || dotWeek > 21)
+              if (dotWeek < 1 || dotWeek > maxWeeks)
                 return <div key={i} className="w-2 h-2" />;
               return (
                 <button
@@ -322,9 +343,9 @@ export function Dashboard({
             })}
           </div>
           <button
-            onClick={() => setCurrentWeek(Math.min(21, currentWeek + 1))}
+            onClick={() => setCurrentWeek(Math.min(maxWeeks, currentWeek + 1))}
             className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
-            disabled={currentWeek === 21}
+            disabled={currentWeek === maxWeeks}
             aria-label="Next week"
           >
             <ChevronRight />

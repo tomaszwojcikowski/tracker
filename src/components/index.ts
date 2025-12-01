@@ -126,3 +126,7 @@ export type { AddedExerciseCardProps } from './AddedExerciseCard';
 
 export { ExerciseSelectorModal } from './ExerciseSelectorModal';
 export type { ExerciseSelectorModalProps } from './ExerciseSelectorModal';
+
+// Program selector component
+export { ProgramSelector } from './ProgramSelector';
+export type { ProgramSelectorProps } from './ProgramSelector';

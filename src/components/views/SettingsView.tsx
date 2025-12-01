@@ -5,9 +5,10 @@ import { useTheme } from '../../hooks/useTheme';
 import { useHaptic } from '../../hooks';
 import { useAuth } from '../../hooks/useAuth';
 import { LoginStatus } from '../auth/LoginStatus';
-import { RefreshCw, Info } from 'lucide-react';
+import { RefreshCw, Info, Dumbbell } from 'lucide-react';
 import { captureError, isErrorReportingEnabled } from '../../utils/errorReporting';
 import { getAllLocalData, mergeCloudData, FIREBASE_SYNC_ENABLED_KEY, type SessionData } from '../../utils/firebaseSync';
+import { ProgramSelector } from '../ProgramSelector';
 import type { CloudData } from '../../firebase-service';
 import type { User } from 'firebase/auth';
 import type { ExerciseHistory } from '../../types';
@@ -227,6 +228,20 @@ export const SettingsView: React.FC = () => {
     return (
         <div className="px-5 pb-20 pt-6">
             <h2 className="text-2xl font-bold text-white mb-6">Settings</h2>
+
+            {/* Program Management Section */}
+            <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
+                        <Dumbbell size={24} className="text-sys-accent" />
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-bold text-white">Workout Programs</h3>
+                        <p className="text-xs text-sys-onSurfaceVar">Manage your training programs</p>
+                    </div>
+                </div>
+                <ProgramSelector variant="full" />
+            </div>
 
             {/* Theme Selection */}
             <ThemeSelector

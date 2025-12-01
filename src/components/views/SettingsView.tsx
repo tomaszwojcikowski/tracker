@@ -7,7 +7,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { LoginStatus } from '../auth/LoginStatus';
 import { RefreshCw, Info, Dumbbell, Settings } from 'lucide-react';
 import { captureError, isErrorReportingEnabled } from '../../utils/errorReporting';
-import { getAllLocalData, mergeCloudData, FIREBASE_SYNC_ENABLED_KEY, type SessionData } from '../../utils/firebaseSync';
+import { getAllLocalData, mergeCloudData, FIREBASE_SYNC_ENABLED_KEY, type SessionData, type GlobalHistoryEntry } from '../../utils/firebaseSync';
 import { ProgramSelector } from '../ProgramSelector';
 import type { CloudData } from '../../firebase-service';
 import type { User } from 'firebase/auth';
@@ -33,6 +33,8 @@ function mergeLocalAndCloudData(
         return {
             sessions: localData.sessions as CloudData['sessions'],
             exerciseHistory: localData.exercise_history,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            global_history: localData.global_history as any,
             lastSyncTime: new Date().toISOString(),
         };
     }
@@ -94,11 +96,33 @@ function mergeLocalAndCloudData(
         });
     }
 
+    // Merge global history - combine entries
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const cloudGlobalHistory = (cloudData as any).global_history as GlobalHistoryEntry[] | undefined;
+    const mergedGlobalHistory: GlobalHistoryEntry[] = [...(cloudGlobalHistory || [])];
+    
+    if (localData.global_history && localData.global_history.length > 0) {
+        // Create a Set of existing entry keys (date + week + day) for quick lookup
+        const existingEntryKeys = new Set(
+            mergedGlobalHistory.map(entry => `${entry.date}-${entry.week}-${entry.day}`)
+        );
+        
+        // Add local entries that don't exist in cloud
+        localData.global_history.forEach(localEntry => {
+            const entryKey = `${localEntry.date}-${localEntry.week}-${localEntry.day}`;
+            if (!existingEntryKeys.has(entryKey)) {
+                mergedGlobalHistory.push(localEntry);
+            }
+        });
+    }
+
     // Build the result object, only including settings if defined
     // Firebase Realtime Database rejects undefined values
     const result: CloudData = {
         sessions: mergedSessions as CloudData['sessions'],
         exerciseHistory: mergedHistory,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        global_history: mergedGlobalHistory as any,
         lastSyncTime: new Date().toISOString(),
     };
 

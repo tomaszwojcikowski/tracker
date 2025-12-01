@@ -40,8 +40,10 @@ import {
     getExerciseLogEntry,
     normalizeAddedExercises,
 } from '../../utils/workoutSession';
-import { getSessionKey, getNamespacedKey } from '../../services/storageNamespace';
-import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../../types';
+import { getSessionKey, getNamespacedKey, getGlobalHistoryKey } from '../../services/storageNamespace';
+import { getAllLocalData, FIREBASE_SYNC_ENABLED_KEY } from '../../utils/firebaseSync';
+import * as FirebaseService from '../../firebase-service';
+import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue, CloudData } from '../../types';
 import type { WorkoutSessionData, ExerciseLogEntry, MuscleFilter, RPEData } from '../../types/workout';
 
 // ============================================================================
@@ -608,7 +610,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 }
             });
 
-            // Save to global history with duration
+            // Save to global history with duration (use namespaced key for program isolation)
+            const globalHistoryKey = getGlobalHistoryKey();
             const historyEntry = {
                 week: effectiveWeek,
                 day: effectiveDay,
@@ -620,7 +623,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 durationSeconds: workoutDurationSeconds,
             };
 
-            const history = safeGetJSON('global_history', [] as unknown[]) as unknown[];
+            const history = safeGetJSON(globalHistoryKey, [] as unknown[]) as unknown[];
             let cleanHistory: unknown[];
 
             if (isEmptyWorkout) {
@@ -633,11 +636,26 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     : [];
             }
             cleanHistory.push(historyEntry);
-            safeSetJSON('global_history', cleanHistory);
+            safeSetJSON(globalHistoryKey, cleanHistory);
 
             // Clear empty workout session key when completing
             if (isEmptyWorkout) {
                 sessionStorage.removeItem('current_empty_workout_key');
+            }
+
+            // Automatically sync to cloud if Firebase is configured and user is logged in
+            // This ensures workout data is backed up immediately after completion
+            const syncEnabled = safeGetJSON<boolean>(FIREBASE_SYNC_ENABLED_KEY, true);
+            if (syncEnabled && FirebaseService.isFirebaseInitialized() && FirebaseService.getCurrentUser()) {
+                try {
+                    const localData = getAllLocalData();
+                    await FirebaseService.saveToCloud(localData as unknown as CloudData);
+                    console.log('Workout data synced to cloud successfully');
+                } catch (syncError) {
+                    // Don't block workout completion if sync fails
+                    // User can manually sync later from settings
+                    console.error('Failed to sync workout to cloud:', syncError);
+                }
             }
 
             onComplete();

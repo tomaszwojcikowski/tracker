@@ -10,6 +10,7 @@ import type { WeekNumber, TrainingDay, ExerciseHistory } from '../types';
 import {
     getExerciseHistoryKey,
     getSessionKey,
+    getGlobalHistoryKey,
 } from '../services/storageNamespace';
 
 // ============================================================================
@@ -35,11 +36,39 @@ export interface SessionData {
 }
 
 /**
+ * Exercise summary entry within a global history entry
+ */
+export interface ExerciseSummaryEntry {
+    name: string;
+    prescription: string;
+    completedSets: number;
+    totalSets: number;
+    weight?: string | number | null;
+    rpe?: Record<string, string>;
+    isBodyweight?: boolean;
+}
+
+/**
+ * Global history entry for workout timeline
+ */
+export interface GlobalHistoryEntry {
+    date: string;
+    week: number;
+    day: number;
+    title?: string;
+    exercises?: ExerciseSummaryEntry[];
+    workoutNotes?: string | null;
+    isEmptyWorkout?: boolean;
+    durationSeconds?: number;
+}
+
+/**
  * Cloud data structure for sync
  */
 export interface CloudData {
     sessions?: Record<SessionKey, SessionData>;
     exercise_history?: ExerciseHistory;
+    global_history?: GlobalHistoryEntry[];
     settings?: Record<string, unknown>;
     lastSyncTime?: string;
 }
@@ -49,6 +78,7 @@ export interface CloudData {
  */
 export interface LocalData {
     exercise_history: ExerciseHistory;
+    global_history: GlobalHistoryEntry[];
     sessions: Record<SessionKey, SessionData>;
 }
 
@@ -79,7 +109,7 @@ const TRAINING_DAYS: TrainingDay[] = [1, 2, 3, 5];
 /**
  * Get all local data that should be synced to Firebase
  *
- * This includes workout sessions and exercise history for the active program.
+ * This includes workout sessions, exercise history, and global history for the active program.
  *
  * Note: This function iterates through all possible workout sessions (84 total).
  * This is intentional and not a performance issue because:
@@ -90,8 +120,10 @@ const TRAINING_DAYS: TrainingDay[] = [1, 2, 3, 5];
  */
 export function getAllLocalData(): LocalData {
     const exerciseHistoryStorageKey = getExerciseHistoryKey();
+    const globalHistoryStorageKey = getGlobalHistoryKey();
     const data: LocalData = {
         exercise_history: safeGetJSON<ExerciseHistory>(exerciseHistoryStorageKey, {}),
+        global_history: safeGetJSON<GlobalHistoryEntry[]>(globalHistoryStorageKey, []),
         sessions: {} as Record<SessionKey, SessionData>,
     };
 
@@ -143,6 +175,32 @@ export function mergeCloudData(cloudData: CloudData | null | undefined): void {
     if (cloudData.exercise_history) {
         const exerciseHistoryStorageKey = getExerciseHistoryKey();
         safeSetJSON(exerciseHistoryStorageKey, cloudData.exercise_history);
+    }
+
+    // Merge global history - merge entries based on date to avoid duplicates
+    if (cloudData.global_history && Array.isArray(cloudData.global_history)) {
+        const globalHistoryStorageKey = getGlobalHistoryKey();
+        const localGlobalHistory = safeGetJSON<GlobalHistoryEntry[]>(globalHistoryStorageKey, []);
+        
+        // Create a Set of existing entry keys (date + week + day) for quick lookup
+        const existingEntryKeys = new Set(
+            localGlobalHistory.map(entry => `${entry.date}-${entry.week}-${entry.day}`)
+        );
+        
+        // Add cloud entries that don't exist locally
+        const mergedHistory = [...localGlobalHistory];
+        cloudData.global_history.forEach(cloudEntry => {
+            const entryKey = `${cloudEntry.date}-${cloudEntry.week}-${cloudEntry.day}`;
+            if (!existingEntryKeys.has(entryKey)) {
+                mergedHistory.push(cloudEntry);
+            }
+        });
+        
+        // Sort by date (newest first would be consistent with how history is displayed)
+        mergedHistory.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        
+        safeSetJSON(globalHistoryStorageKey, mergedHistory);
+        console.log(`Merged global history: ${localGlobalHistory.length} local + ${cloudData.global_history.length} cloud = ${mergedHistory.length} total`);
     }
 
     // Merge workout sessions based on timestamps

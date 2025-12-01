@@ -24,7 +24,7 @@ import {
     useExerciseCollapse,
 } from '../../hooks';
 import {
-    Flame, Dumbbell, Snowflake, Activity, LayoutGrid, LayoutList, PlusCircle, X, CheckCircle2
+    Flame, Dumbbell, Snowflake, Activity, LayoutGrid, LayoutList, PlusCircle, X, CheckCircle2, Maximize2, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import {
     DEBOUNCE_DELAY_MS,
@@ -105,6 +105,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [compactView, setCompactView] = useState(() =>
         safeGetJSON<boolean>('workout_compact_view', false) ?? false
     );
+    const [viewMode, setViewMode] = useState<'list' | 'focus'>('list');
+    const [focusIndex, setFocusIndex] = useState(0);
     // RPE selector state: { exerciseId, setIndex } or null
     const [rpePrompt, setRpePrompt] = useState<{ exerciseId: string; setIndex: number } | null>(null);
     // Exercise swaps: maps original exercise name to swapped alternative name
@@ -189,6 +191,37 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
         return { completedSets, totalSets };
     }, [workout, logs, addedExercises]);
+
+    // Flatten exercises for focus mode navigation
+    const allExercises = useMemo(() => {
+        const exercises: Array<{
+            type: 'program' | 'added';
+            data: WorkoutExercise | AddedExercise;
+            section?: string;
+            id: string;
+        }> = [];
+
+        workout?.sections?.forEach(section => {
+            section.exercises.forEach(ex => {
+                exercises.push({
+                    type: 'program',
+                    data: ex,
+                    section: section.name,
+                    id: ex.name.replace(/\s+/g, '_').toLowerCase()
+                });
+            });
+        });
+
+        addedExercises.forEach(ex => {
+            exercises.push({
+                type: 'added',
+                data: ex,
+                id: `added_${ex.id}`
+            });
+        });
+
+        return exercises;
+    }, [workout, addedExercises]);
 
     // Load session data on mount
     useEffect(() => {
@@ -727,24 +760,54 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 <div className="flex justify-end mb-4">
                     <div className="flex items-center bg-sys-surfaceHigh rounded-lg p-1 border border-white/5">
                         <button
-                            onClick={toggleCompactView}
+                            onClick={() => {
+                                if (viewMode === 'focus') {
+                                    haptic.tick();
+                                    setViewMode('list');
+                                    if (compactView) toggleCompactView();
+                                } else if (compactView) {
+                                    toggleCompactView();
+                                }
+                            }}
                             className={`h-8 w-8 rounded-md flex items-center justify-center transition-all ${
-                                !compactView ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
+                                viewMode === 'list' && !compactView ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
                             }`}
                             aria-label="Card view"
-                            aria-pressed={!compactView}
+                            aria-pressed={viewMode === 'list' && !compactView}
                         >
                             <LayoutGrid size={16} />
                         </button>
                         <button
-                            onClick={toggleCompactView}
+                            onClick={() => {
+                                if (viewMode === 'focus') {
+                                    haptic.tick();
+                                    setViewMode('list');
+                                    if (!compactView) toggleCompactView();
+                                } else if (!compactView) {
+                                    toggleCompactView();
+                                }
+                            }}
                             className={`h-8 w-8 rounded-md flex items-center justify-center transition-all ${
-                                compactView ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
+                                viewMode === 'list' && compactView ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
                             }`}
                             aria-label="Compact list view"
-                            aria-pressed={compactView}
+                            aria-pressed={viewMode === 'list' && compactView}
                         >
                             <LayoutList size={16} />
+                        </button>
+                        <div className="w-[1px] h-4 bg-white/10 mx-1" />
+                        <button
+                            onClick={() => {
+                                haptic.tick();
+                                setViewMode(viewMode === 'focus' ? 'list' : 'focus');
+                            }}
+                            className={`h-8 w-8 rounded-md flex items-center justify-center transition-all ${
+                                viewMode === 'focus' ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
+                            }`}
+                            aria-label="Focus mode"
+                            aria-pressed={viewMode === 'focus'}
+                        >
+                            <Maximize2 size={16} />
                         </button>
                     </div>
                 </div>
@@ -775,6 +838,127 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 )}
 
                 {/* Workout Sections */}
+                {viewMode === 'focus' ? (
+                    <div className="flex-1 flex flex-col min-h-[60vh]">
+                        {allExercises.length > 0 ? (
+                            <div className="flex-1 flex flex-col">
+                                <div className="flex items-center justify-between mb-4">
+                                    <button
+                                        onClick={() => {
+                                            haptic.tick();
+                                            setFocusIndex(Math.max(0, focusIndex - 1));
+                                        }}
+                                        disabled={focusIndex === 0}
+                                        className="h-10 w-10 rounded-full bg-sys-surfaceHigh text-white flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
+                                    >
+                                        <ChevronLeft size={20} />
+                                    </button>
+                                    <div className="text-center">
+                                        <span className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider">
+                                            Exercise {focusIndex + 1} of {allExercises.length}
+                                        </span>
+                                        {allExercises[focusIndex].section && (
+                                            <div className="text-xs text-sys-accent font-bold">
+                                                {allExercises[focusIndex].section}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <button
+                                        onClick={() => {
+                                            haptic.tick();
+                                            setFocusIndex(Math.min(allExercises.length - 1, focusIndex + 1));
+                                        }}
+                                        disabled={focusIndex === allExercises.length - 1}
+                                        className="h-10 w-10 rounded-full bg-sys-surfaceHigh text-white flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
+                                    >
+                                        <ChevronRight size={20} />
+                                    </button>
+                                </div>
+
+                                {(() => {
+                                    const item = allExercises[focusIndex];
+                                    
+                                    if (item.type === 'added') {
+                                        const ex = item.data as AddedExercise;
+                                        const exId = item.id;
+                                        const defaultSets = ex.sets || 3;
+                                        const exerciseLog = getExerciseLogEntry(logs, exId);
+                                        const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
+                                        
+                                        return (
+                                            <AddedExerciseCard
+                                                key={ex.id}
+                                                exercise={ex}
+                                                sets={currentSetArray}
+                                                haptic={haptic}
+                                                onToggleSet={toggleSet}
+                                                onRemove={removeAddedExercise}
+                                                onStartRestTimer={restTimer.start}
+                                            />
+                                        );
+                                    }
+
+                                    const ex = item.data as WorkoutExercise;
+                                    const exId = item.id;
+                                    const defaultSets = ex.sets || 3;
+                                    const exerciseLog = getExerciseLogEntry(logs, exId);
+                                    const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
+                                    const effectiveName = getEffectiveExerciseName(ex);
+                                    const hasHistory = getExerciseHistory(ex.name).length > 0;
+                                    const isFirstIncomplete = exId === firstIncompleteExerciseId;
+
+                                    return (
+                                        <div className="flex-1">
+                                            <ExerciseCard
+                                                key={exId}
+                                                exId={exId}
+                                                name={ex.name}
+                                                effectiveName={effectiveName}
+                                                prescription={ex.prescription}
+                                                notes={ex.notes}
+                                                isBodyweight={ex.isBodyweight}
+                                                isEmom={ex.isEmom}
+                                                isUnilateral={ex.isUnilateral}
+                                                restTime={ex.rest}
+                                                loadRange={ex.loadRange}
+                                                alternatives={ex.alternatives}
+                                                sets={currentSetArray}
+                                                defaultSets={defaultSets}
+                                                exerciseLog={exerciseLog}
+                                                hasHistory={hasHistory}
+                                                isFirstIncomplete={isFirstIncomplete}
+                                                isCollapsed={false}
+                                                supersetGroup={ex.supersetGroup}
+                                                supersetPosition={ex.supersetPosition}
+                                                rpePrompt={rpePrompt}
+                                                emomTimerActive={emomTimer.active}
+                                                emomTimerInterval={emomTimer.interval}
+                                                haptic={haptic}
+                                                onToggleCollapse={() => {}}
+                                                onToggleSet={toggleSet}
+                                                onAddSet={addSet}
+                                                onCompleteAllSets={completeAllSets}
+                                                onSaveWeight={(id, weight) => saveLog(id, 'weight', weight)}
+                                                onSaveRPE={saveRPE}
+                                                onClearRPEPrompt={() => setRpePrompt(null)}
+                                                onStartRestTimer={(seconds) => restTimer.start(seconds)}
+                                                onToggleEmomTimer={() => emomTimer.toggle()}
+                                                onShowHistory={setShowExerciseHistory}
+                                                onShowNotes={(name, notes) => setShowNotesFor({ exerciseName: name, notes })}
+                                                onShowAlternatives={(name, alts) => setShowAlternativesFor({ name, alternatives: alts })}
+                                            />
+                                        </div>
+                                    );
+                                })()}
+                            </div>
+                        ) : (
+                            <div className="flex-1 flex items-center justify-center text-sys-onSurfaceVar">
+                                No exercises found
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <>
                 {workout.sections.map((section: WorkoutSection, sIdx: number) => {
                     const sectionExercises = section.exercises.length;
                     const sectionCompletedExercises = section.exercises.filter((ex: WorkoutExercise) => {
@@ -1012,6 +1196,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             })}
                         </div>
                     </div>
+                )}
+                </>
                 )}
 
                 {/* Add Exercise Button */}

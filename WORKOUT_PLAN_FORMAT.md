@@ -6,9 +6,87 @@ This document defines the robust and complete workout plan format used by the Tr
 
 ## Version
 
-**Current Version:** 2.1.0
+**Current Version:** 2.3.0
 
-**JSON Schema:** [`workout-plan-v2.schema.json`](workout-plan-v2.schema.json)
+**JSON Schema:** [`workout-plan-v2.3.schema.json`](workout-plan-v2.3.schema.json)
+
+## What's New in v2.3.0
+
+Version 2.3.0 introduces **routine templates** for reusable exercise sequences like warmups and cooldowns:
+
+1. **Routine Templates**: Define reusable sequences of exercises at the plan level
+2. **Routine References**: Insert entire routines inline using `$routine` reference
+3. **Common Use Cases**: Warmup routines, cooldown stretches, mobility flows, activation sequences
+4. **Even smaller files**: Warmups and cooldowns that repeat across many days only need to be defined once
+
+### Quick Example
+
+```json
+{
+  "formatVersion": "2.3.0",
+  "plan": {
+    "routineTemplates": [
+      {
+        "id": "warmup-pull-day",
+        "name": "Pull Day Warmup",
+        "category": "warmup",
+        "estimatedDuration": 8,
+        "targetAreas": ["shoulders", "upper-back", "pulling"],
+        "exercises": [
+          { "$ref": "warmup-rower-zone1" },
+          { "$ref": "warmup-band-pull-aparts" },
+          { "$ref": "warmup-scapular-pullups" }
+        ]
+      },
+      {
+        "id": "cooldown-upper",
+        "name": "Upper Body Cooldown",
+        "category": "cooldown",
+        "estimatedDuration": 5,
+        "exercises": [
+          { "$ref": "cooldown-passive-dead-hang" },
+          { "$ref": "cooldown-butchers-block" },
+          { "$ref": "cooldown-cobra-stretch" }
+        ]
+      }
+    ],
+    "phases": [{
+      "weeks": [{
+        "weekNumber": 1,
+        "days": [
+          {
+            "dayNumber": 1,
+            "name": "Pull Day A",
+            "exercises": [
+              { "$routine": "warmup-pull-day" },
+              { "exerciseName": "Pull-Ups", "sets": 4, "repsType": "reps", "repsValue": 8 },
+              { "exerciseName": "Ring Rows", "sets": 3, "repsType": "reps", "repsValue": 12 },
+              { "$routine": "cooldown-upper" }
+            ]
+          }
+        ]
+      }]
+    }]
+  }
+}
+```
+
+### Version History
+
+| Version | Key Feature | File Size Impact |
+|---------|-------------|------------------|
+| v2.3.0 | Routine templates (`$routine`) | ~20% smaller (warmup/cooldown reuse) |
+| v2.2.0 | Exercise templates (`$ref` for exercises) | ~15% smaller |
+| v2.1.0 | Day templates (`$ref` for days) | ~41% smaller |
+| v2.0.0 | Structured format | Baseline |
+
+## What's New in v2.2.0
+
+Version 2.2.0 introduces **exercise templates** for reusable exercise definitions:
+
+1. **Exercise Templates**: Define common exercises once at the plan level
+2. **Exercise References**: Reference exercises using `$ref` with optional field overrides
+3. **~15% smaller files**: Repeated exercises only need to be defined once
 
 ## What's New in v2.1.0
 
@@ -19,7 +97,7 @@ Version 2.1.0 introduces **day references** to reduce file size and improve main
 3. **Day Templates**: Optional `dayTemplates` array at plan level for reusable day definitions
 4. **~41% smaller files**: Repeated days (like mobility days) only need to be defined once
 
-### Quick Example
+### Quick Example (Day References)
 
 ```json
 {
@@ -70,7 +148,7 @@ Version 2.1.0 introduces **day references** to reduce file size and improve main
 
 ```json
 {
-  "formatVersion": "2.1.0",
+  "formatVersion": "2.3.0",
   "plan": {
     "id": "string",
     "name": "string",
@@ -83,6 +161,8 @@ Version 2.1.0 introduces **day references** to reduce file size and improve main
     "goals": ["string"],
     "targetLevel": "beginner|intermediate|advanced|elite",
     "equipment": ["string"],
+    "routineTemplates": [],
+    "exerciseTemplates": [],
     "dayTemplates": [],
     "phases": []
   }
@@ -93,7 +173,7 @@ Version 2.1.0 introduces **day references** to reduce file size and improve main
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `formatVersion` | string | Yes | Format specification version (must be "2.1.x") |
+| `formatVersion` | string | Yes | Format specification version (semantic versioning) |
 | `plan.id` | string | Yes | Unique identifier for the plan |
 | `plan.name` | string | Yes | Human-readable plan name |
 | `plan.description` | string | No | Detailed description of the training plan |
@@ -105,8 +185,90 @@ Version 2.1.0 introduces **day references** to reduce file size and improve main
 | `plan.goals` | array | No | Training goals (e.g., "muscle-up", "weighted-pull-ups") |
 | `plan.targetLevel` | string | No | Intended experience level |
 | `plan.equipment` | array | No | Required equipment list |
+| `plan.routineTemplates` | array | No | Reusable routine templates for warmups, cooldowns, etc. (v2.3+) |
+| `plan.exerciseTemplates` | array | No | Reusable exercise templates (v2.2+) |
 | `plan.dayTemplates` | array | No | Reusable day templates (v2.1+) |
 | `plan.phases` | array | Yes | Array of training phases (mesocycles) |
+
+### Routine Templates (v2.3+)
+
+Routine templates allow you to define reusable sequences of exercises that can be inserted inline into any workout day. This is especially useful for:
+
+- **Warmup routines**: Define once, use at the start of every workout
+- **Cooldown stretches**: Consistent cooldown protocols across all days
+- **Mobility flows**: Reusable mobility sequences
+- **Activation sequences**: Pre-workout activation drills
+
+```json
+{
+  "routineTemplates": [
+    {
+      "id": "warmup-pull-day",
+      "name": "Pull Day Warmup",
+      "description": "Full warmup protocol for pulling sessions",
+      "category": "warmup",
+      "estimatedDuration": 8,
+      "targetAreas": ["shoulders", "upper-back", "lats", "rotator-cuff"],
+      "exercises": [
+        { "$ref": "warmup-rower-zone1" },
+        { "$ref": "warmup-rower-zone2" },
+        { "$ref": "warmup-band-pull-aparts" },
+        { "$ref": "warmup-band-external-rotations" },
+        { "$ref": "warmup-scapular-pullups" },
+        { "$ref": "warmup-passive-bar-hang" }
+      ]
+    },
+    {
+      "id": "cooldown-upper",
+      "name": "Upper Body Cooldown",
+      "category": "cooldown",
+      "estimatedDuration": 5,
+      "exercises": [
+        { "$ref": "cooldown-passive-dead-hang" },
+        { "$ref": "cooldown-butchers-block" },
+        { "$ref": "cooldown-cobra-stretch" },
+        { "$ref": "cooldown-wrist-extensor" }
+      ]
+    }
+  ]
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | Unique identifier for referencing this routine (lowercase, alphanumeric, hyphens, underscores) |
+| `name` | string | Yes | Human-readable name for the routine |
+| `description` | string | No | Description of the routine's purpose |
+| `category` | string | No | Category: `warmup`, `cooldown`, `mobility`, `activation`, `prehab`, `rehab` |
+| `estimatedDuration` | number | No | Estimated duration in minutes |
+| `targetAreas` | array | No | Body areas or movement patterns targeted |
+| `exercises` | array | Yes | Sequence of exercises (can include `$ref` to exercise templates) |
+
+#### Using Routine Templates
+
+To insert a routine into a day's exercises, use the `$routine` reference:
+
+```json
+{
+  "dayNumber": 1,
+  "name": "Pull Day A",
+  "exercises": [
+    { "$routine": "warmup-pull-day" },
+    { "exerciseName": "Pull-Ups", "sets": 4, "repsType": "reps", "repsValue": 8 },
+    { "exerciseName": "Ring Rows", "sets": 3, "repsType": "reps", "repsValue": 12 },
+    { "$routine": "cooldown-upper" }
+  ]
+}
+```
+
+When the plan is loaded, routine references are expanded inline - the exercises from `warmup-pull-day` are inserted at the beginning, and exercises from `cooldown-upper` are appended at the end.
+
+**Best Practices:**
+- Use naming conventions: `warmup-*`, `cooldown-*`, `mobility-*`, `activation-*`
+- Group related exercises in routines (all shoulder warmup exercises together)
+- Keep routines focused on a specific purpose
+- Routines can reference exercise templates with `$ref`
+- Routines cannot reference other routines (no nesting)
 
 ### Day Templates (v2.1+)
 

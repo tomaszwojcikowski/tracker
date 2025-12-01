@@ -354,4 +354,107 @@ describe('Program Registry Service', () => {
       expect(DEFAULT_PROGRAM_ID).toBe('oneplus-12-pro-tracker-v1');
     });
   });
+
+  describe('Program Data Storage', () => {
+    it('should store program data for a program', async () => {
+      const registry = getProgramRegistry();
+      await registry.importProgram(samplePlanJson);
+      
+      const programData = {
+        schedule: [{ w: 1, d: 1, ex: 'Pull-Ups', s: 3, r: '5 reps' }],
+        metadata: {
+          version: '2.0.0',
+          name: 'Test Program',
+          durationWeeks: 12,
+        },
+      };
+      
+      registry.setProgramData('test-program-v1', programData);
+      
+      const retrieved = registry.getProgramData('test-program-v1');
+      expect(retrieved).not.toBeNull();
+      expect(retrieved.schedule).toHaveLength(1);
+      expect(retrieved.metadata.name).toBe('Test Program');
+    });
+
+    it('should return null for non-existent program data', () => {
+      const registry = getProgramRegistry();
+      
+      const data = registry.getProgramData('non-existent');
+      expect(data).toBeNull();
+    });
+
+    it('should get active program data', async () => {
+      const registry = getProgramRegistry();
+      await registry.importProgram(samplePlanJson);
+      
+      const programData = {
+        schedule: [{ w: 1, d: 1, ex: 'Push-Ups', s: 3, r: '10 reps' }],
+        metadata: {
+          version: '2.0.0',
+          name: 'Active Program',
+          durationWeeks: 8,
+        },
+      };
+      
+      registry.setProgramData('test-program-v1', programData);
+      
+      const activeData = registry.getActiveProgramData();
+      expect(activeData).not.toBeNull();
+      expect(activeData.metadata.name).toBe('Active Program');
+    });
+
+    it('should return null for active program data when no active program', () => {
+      const registry = getProgramRegistry();
+      
+      const activeData = registry.getActiveProgramData();
+      expect(activeData).toBeNull();
+    });
+
+    it('should check if program data exists', async () => {
+      const registry = getProgramRegistry();
+      await registry.importProgram(samplePlanJson);
+      
+      expect(registry.hasProgramData('test-program-v1')).toBe(false);
+      
+      registry.setProgramData('test-program-v1', {
+        schedule: [],
+        metadata: { version: '2.0.0', name: 'Test', durationWeeks: 1 },
+      });
+      
+      expect(registry.hasProgramData('test-program-v1')).toBe(true);
+    });
+
+    it('should remove program data when unregistering a program', async () => {
+      const registry = getProgramRegistry();
+      await registry.importProgram(samplePlanJson);
+      await registry.importProgram(anotherPlanJson);
+      
+      registry.setProgramData('test-program-v1', {
+        schedule: [],
+        metadata: { version: '2.0.0', name: 'Test', durationWeeks: 1 },
+      });
+      
+      expect(registry.hasProgramData('test-program-v1')).toBe(true);
+      
+      registry.setActiveProgram('another-program-v1');
+      registry.unregisterProgram('test-program-v1');
+      
+      expect(registry.hasProgramData('test-program-v1')).toBe(false);
+    });
+  });
+
+  describe('getActiveProgramId', () => {
+    it('should return null when no active program', () => {
+      const registry = getProgramRegistry();
+      expect(registry.getActiveProgramId()).toBeNull();
+    });
+
+    it('should return the active program ID', async () => {
+      const registry = getProgramRegistry();
+      await registry.importProgram(samplePlanJson);
+      
+      expect(registry.getActiveProgramId()).toBe('test-program-v1');
+    });
+  });
 });

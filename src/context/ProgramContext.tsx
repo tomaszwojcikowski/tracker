@@ -2,11 +2,14 @@
  * Program Context Provider
  *
  * Provides program state and switching functionality to all components.
+ * Syncs program data with schedule utilities for multi-program support.
  */
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
-import type { ProgramManifest, WorkoutPlanJson } from '../services/programRegistry';
+import type { ProgramManifest, WorkoutPlanJson, ProgramData } from '../services/programRegistry';
 import { getProgramRegistry, initializeDefaultProgram } from '../services/programRegistry';
+import { loadWorkoutPlan, type WorkoutPlanMetadata, type InternalSchedule } from '../workout-plan-utils';
+import { setRawSchedule, buildCompleteSchedule, setActiveScheduleProgram } from '../utils/schedule';
 
 // ============================================================================
 // TYPES
@@ -27,6 +30,10 @@ export interface ProgramContextValue {
   currentProgram: ProgramManifest | null;
   /** Full workout plan data for the current program */
   programData: WorkoutPlan | null;
+  /** Parsed schedule in internal format for the current program */
+  schedule: InternalSchedule | null;
+  /** Parsed metadata for the current program */
+  metadata: WorkoutPlanMetadata | null;
   /** List of all available programs */
   availablePrograms: ProgramManifest[];
   /** Switch to a different program by ID */
@@ -37,6 +44,8 @@ export interface ProgramContextValue {
   error: Error | null;
   /** Refresh the list of available programs */
   refreshPrograms: () => void;
+  /** Get the current program ID */
+  currentProgramId: string | null;
 }
 
 // ============================================================================
@@ -63,13 +72,48 @@ export interface ProgramProviderProps {
  * ProgramProvider component
  *
  * Wraps the app and provides program state to all components.
+ * Syncs program schedule data with schedule utilities when program changes.
  */
 export function ProgramProvider({ children, initialProgramData }: ProgramProviderProps): React.ReactElement {
   const [currentProgram, setCurrentProgram] = useState<ProgramManifest | null>(null);
   const [programData, setProgramData] = useState<WorkoutPlan | null>(initialProgramData ?? null);
+  const [schedule, setSchedule] = useState<InternalSchedule | null>(null);
+  const [metadata, setMetadata] = useState<WorkoutPlanMetadata | null>(null);
   const [availablePrograms, setAvailablePrograms] = useState<ProgramManifest[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+
+  /**
+   * Process and sync program data with schedule utilities
+   */
+  const syncProgramData = useCallback((programId: string, data: WorkoutPlan) => {
+    try {
+      // Load and convert the workout plan
+      const result = loadWorkoutPlan(data);
+      
+      // Store in registry
+      const registry = getProgramRegistry();
+      const programDataToStore: ProgramData = {
+        schedule: result.schedule,
+        metadata: result.metadata,
+      };
+      registry.setProgramData(programId, programDataToStore);
+      
+      // Sync with schedule utilities
+      setActiveScheduleProgram(programId);
+      setRawSchedule(result.schedule, programId);
+      buildCompleteSchedule(programId);
+      
+      // Update local state
+      setSchedule(result.schedule);
+      setMetadata(result.metadata);
+      
+      return result;
+    } catch (err) {
+      console.error(`Failed to sync program data for ${programId}:`, err);
+      throw err;
+    }
+  }, []);
 
   /**
    * Load program data from a URL
@@ -109,6 +153,9 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
       // Load the program data
       const data = await loadProgramData(program.dataPath);
       
+      // Sync program data with schedule utilities
+      syncProgramData(programId, data);
+      
       setCurrentProgram(program);
       setProgramData(data);
       refreshPrograms();
@@ -119,7 +166,7 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
     } finally {
       setIsLoading(false);
     }
-  }, [loadProgramData, refreshPrograms]);
+  }, [loadProgramData, refreshPrograms, syncProgramData]);
 
   /**
    * Initialize on mount
@@ -152,14 +199,20 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
         }
 
         if (program) {
+          let data: WorkoutPlan;
+          
           // If we already have program data matching the active program, use it
           if (initialProgramData && initialProgramData.plan.id === program.id) {
-            setProgramData(initialProgramData);
+            data = initialProgramData;
           } else {
             // Otherwise load it from the data path
-            const data = await loadProgramData(program.dataPath);
-            setProgramData(data);
+            data = await loadProgramData(program.dataPath);
           }
+          
+          // Sync program data with schedule utilities
+          syncProgramData(program.id, data);
+          
+          setProgramData(data);
           setCurrentProgram(program);
         }
 
@@ -174,7 +227,7 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
     };
 
     initialize();
-  }, [initialProgramData, loadProgramData, refreshPrograms]);
+  }, [initialProgramData, loadProgramData, refreshPrograms, syncProgramData]);
 
   /**
    * Context value
@@ -182,14 +235,19 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
   const value = useMemo<ProgramContextValue>(() => ({
     currentProgram,
     programData,
+    schedule,
+    metadata,
     availablePrograms,
     switchProgram,
     isLoading,
     error,
     refreshPrograms,
+    currentProgramId: currentProgram?.id ?? null,
   }), [
     currentProgram,
     programData,
+    schedule,
+    metadata,
     availablePrograms,
     switchProgram,
     isLoading,
@@ -230,9 +288,25 @@ export function useCurrentProgram(): ProgramManifest | null {
 }
 
 /**
+ * Hook to get the current program ID
+ */
+export function useCurrentProgramId(): string | null {
+  const { currentProgramId } = useProgram();
+  return currentProgramId;
+}
+
+/**
  * Hook to check if a program is loading
  */
 export function useProgramLoading(): boolean {
   const { isLoading } = useProgram();
   return isLoading;
+}
+
+/**
+ * Hook to access program schedule and metadata
+ */
+export function useProgramSchedule(): { schedule: InternalSchedule | null; metadata: WorkoutPlanMetadata | null } {
+  const { schedule, metadata } = useProgram();
+  return { schedule, metadata };
 }

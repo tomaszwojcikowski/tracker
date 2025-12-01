@@ -9,7 +9,9 @@ export {
   ProgramProvider,
   useProgram,
   useCurrentProgram,
+  useCurrentProgramId,
   useProgramLoading,
+  useProgramSchedule,
 } from './ProgramContext';
 
 export type {

@@ -34,6 +34,7 @@ export {
   LogOut,
   Play,
   PlayCircle,
+  Maximize2,
   
   // Content
   Dumbbell,

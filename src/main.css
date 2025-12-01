@@ -821,3 +821,40 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     background: var(--state-focus);
     opacity: 1;
 }
+
+/* ============================================================================
+   MATERIAL DESIGN 3 BORDER RADIUS STANDARDIZATION
+   Consistent corner radius system:
+   - Extra Small (4dp): Small components, chips
+   - Small (8dp): Buttons, text fields
+   - Medium (12dp): Cards, dialogs
+   - Large (16dp): FABs, navigation rail
+   - Extra Large (28dp): Bottom sheets, large surfaces
+   - Full: Pills, circular buttons
+   ============================================================================ */
+
+/* Card container - medium radius (16dp = rounded-2xl) */
+.radius-card {
+    border-radius: 1rem; /* 16px */
+}
+
+/* Input fields - small radius (12dp = rounded-xl) */
+.radius-input {
+    border-radius: 0.75rem; /* 12px */
+}
+
+/* Buttons - small to medium (8-12dp) */
+.radius-button {
+    border-radius: 0.5rem; /* 8px */
+}
+
+/* Bottom sheets - extra large top radius (28dp) */
+.radius-sheet {
+    border-top-left-radius: 1.75rem; /* 28px */
+    border-top-right-radius: 1.75rem;
+}
+
+/* Chips and badges - full radius */
+.radius-pill {
+    border-radius: 9999px;
+}

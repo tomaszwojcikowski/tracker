@@ -130,6 +130,24 @@
   --gradient-accent: linear-gradient(135deg, #0ea5e9 0%, #d946ef 100%);
   --gradient-primary-vertical: linear-gradient(to bottom, #38bdf8, #0284c7);
 
+  /* Tertiary Colors - Pink (MD3 tertiary role) */
+  --color-tertiary-50: #fdf2f8;
+  --color-tertiary-100: #fce7f3;
+  --color-tertiary-200: #fbcfe8;
+  --color-tertiary-300: #f9a8d4;
+  --color-tertiary-400: #f472b6;
+  --color-tertiary-500: #ec4899;
+  --color-tertiary-600: #db2777;
+  --color-tertiary-700: #be185d;
+  --color-tertiary-800: #9d174d;
+  --color-tertiary-900: #831843;
+
+  /* Surface Variants (MD3) */
+  --color-surface-variant: #2a2a2a;
+  --color-on-surface-variant: #a3a3a3;
+  --color-outline: #525252;
+  --color-outline-variant: #404040;
+
   /* Colored Shadows */
   --shadow-primary: 0 10px 30px -5px rgba(14, 165, 233, 0.3);
   --shadow-secondary: 0 10px 30px -5px rgba(217, 70, 239, 0.3);
@@ -185,6 +203,15 @@
   --color-surface-dark: #0c0a1a;
   --color-surface-elevated: #150f2e;
   --color-surface-elevated-high: #1e1640;
+
+  /* Tertiary Colors - Pink */
+  --color-tertiary-500: #ec4899;
+  
+  /* Surface Variants (MD3) */
+  --color-surface-variant: #1e1640;
+  --color-on-surface-variant: #94a3b8;
+  --color-outline: #475569;
+  --color-outline-variant: #334155;
 
   /* Gradients - Electric Neon */
   --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
@@ -263,6 +290,15 @@
   --color-surface-elevated: #0f2132;
   --color-surface-elevated-high: #162d42;
 
+  /* Tertiary Colors - Amber */
+  --color-tertiary-500: #f59e0b;
+  
+  /* Surface Variants (MD3) */
+  --color-surface-variant: #162d42;
+  --color-on-surface-variant: #94a3b8;
+  --color-outline: #475569;
+  --color-outline-variant: #334155;
+
   /* Gradients - Ocean Depths */
   --gradient-primary: linear-gradient(135deg, #0891b2 0%, #2dd4bf 100%);
   --gradient-secondary: linear-gradient(135deg, #14b8a6 0%, #0ea5e9 100%);
@@ -327,6 +363,15 @@
   --color-surface-elevated: #261212;
   --color-surface-elevated-high: #331a1a;
 
+  /* Tertiary Colors - Violet */
+  --color-tertiary-500: #8b5cf6;
+  
+  /* Surface Variants (MD3) */
+  --color-surface-variant: #331a1a;
+  --color-on-surface-variant: #a8a29e;
+  --color-outline: #57534e;
+  --color-outline-variant: #44403c;
+
   /* Gradients - Sunset Fire */
   --gradient-primary: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
   --gradient-secondary: linear-gradient(135deg, #ec4899 0%, #f97316 100%);
@@ -390,6 +435,15 @@
   --color-surface-dark: #f8fafc;
   --color-surface-elevated: #ffffff;
   --color-surface-elevated-high: #f1f5f9;
+
+  /* Tertiary Colors - Amber */
+  --color-tertiary-500: #f59e0b;
+  
+  /* Surface Variants (MD3) - Light mode inverted */
+  --color-surface-variant: #e2e8f0;
+  --color-on-surface-variant: #64748b;
+  --color-outline: #cbd5e1;
+  --color-outline-variant: #e2e8f0;
 
   /* Gradients - Clean Light */
   --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);

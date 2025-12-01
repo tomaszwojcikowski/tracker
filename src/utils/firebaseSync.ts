@@ -101,7 +101,7 @@ export function getAllLocalData(): LocalData {
     for (let week = 1; week <= 21; week++) {
         for (const day of TRAINING_DAYS) {
             const namespacedKey = getSessionKey(week, day);
-            const baseKey = `session_w${week}d${day}` as SessionKey;
+            const baseKey = getBaseSessionKey(week as WeekNumber, day);
             const sessionData = safeGetJSON<SessionData | null>(namespacedKey, null);
             if (sessionData && Object.keys(sessionData).length > 0) {
                 // Store with base key in the data structure for Firebase compatibility
@@ -235,8 +235,15 @@ export function setSyncEnabled(enabled: boolean): void {
 }
 
 /**
- * Generate a base session key for a given week and day
+ * Generate a base session key (without namespace prefix)
  * @deprecated Use getSessionKey from storageNamespace for namespaced keys
+ * @example
+ * // Instead of:
+ * const key = getBaseSessionKey(1, 1); // 'session_w1d1'
+ * 
+ * // Use for namespaced storage:
+ * import { getSessionKey } from '../services/storageNamespace';
+ * const key = getSessionKey(1, 1); // 'p:program-id:session_w1d1'
  */
 export function getBaseSessionKey(week: WeekNumber, day: TrainingDay): SessionKey {
     return `session_w${week}d${day}`;

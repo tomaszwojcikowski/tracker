@@ -621,9 +621,9 @@ function resolveExercises(
   routineTemplates?: Map<string, V2RoutineTemplate>
 ): V2Exercise[] {
   if (!exercises) return [];
-  
+
   const result: V2Exercise[] = [];
-  
+
   for (const ex of exercises) {
     // Handle routine references (v2.3+) - expand inline
     if (isRoutineRef(ex)) {
@@ -645,7 +645,7 @@ function resolveExercises(
       result.push(resolveExerciseReference(ex as V2Exercise | V2ExerciseRef, exerciseTemplates));
     }
   }
-  
+
   return result;
 }
 

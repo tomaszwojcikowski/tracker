@@ -490,7 +490,7 @@ describe('Workout Plan Utilities', () => {
                           notes: 'Main exercise'
                         },
                         // Reference with override
-                        { 
+                        {
                           $ref: 'cooldown-stretch',
                           notes: 'Custom note for this day',
                           repsValue: 90

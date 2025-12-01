@@ -66,8 +66,17 @@ export interface DayWorkout {
 }
 
 /**
+ * Get phases from legacy window global (backward compatibility)
+ */
+function getLegacyWindowPhases(): PhaseMetadata[] | undefined {
+  if (typeof window !== 'undefined' && window.TRACKER_APP?.workoutPlanMetadata?.phases) {
+    return window.TRACKER_APP.workoutPlanMetadata.phases;
+  }
+  return undefined;
+}
+
+/**
  * Get phase metadata for a given week from the program registry
- * @param week - The week number
  * @param programId - Optional program ID (defaults to active program)
  * @returns Phase metadata array or undefined
  */
@@ -77,10 +86,7 @@ function getPhasesForProgram(programId?: string): PhaseMetadata[] | undefined {
   
   if (!id) {
     // Fall back to window.TRACKER_APP for backward compatibility
-    if (typeof window !== 'undefined' && window.TRACKER_APP?.workoutPlanMetadata?.phases) {
-      return window.TRACKER_APP.workoutPlanMetadata.phases;
-    }
-    return undefined;
+    return getLegacyWindowPhases();
   }
   
   const programData = registry.getProgramData(id);
@@ -89,11 +95,7 @@ function getPhasesForProgram(programId?: string): PhaseMetadata[] | undefined {
   }
   
   // Fall back to window.TRACKER_APP for backward compatibility
-  if (typeof window !== 'undefined' && window.TRACKER_APP?.workoutPlanMetadata?.phases) {
-    return window.TRACKER_APP.workoutPlanMetadata.phases;
-  }
-  
-  return undefined;
+  return getLegacyWindowPhases();
 }
 
 /**

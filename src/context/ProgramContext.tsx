@@ -110,7 +110,7 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
       
       return result;
     } catch (err) {
-      console.error('Failed to sync program data:', err);
+      console.error(`Failed to sync program data for ${programId}:`, err);
       throw err;
     }
   }, []);

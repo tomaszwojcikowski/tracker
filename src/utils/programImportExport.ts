@@ -523,6 +523,17 @@ export async function importProgramFromFile(
 
 /**
  * Export a program to JSON
+ * 
+ * Note: The exported plan structure contains metadata only and does not include
+ * the full workout schedule with exercises. This is because the original raw
+ * plan JSON is not stored in the registry. The export is primarily useful for:
+ * - Backing up progress data
+ * - Transferring progress between devices
+ * - Creating a snapshot of program completion stats
+ * 
+ * To export a complete program with exercises, you would need to store the
+ * original plan JSON when importing.
+ * 
  * @param programId - The program ID to export
  * @param options - Export options
  * @returns Exported program data or null if not found
@@ -545,9 +556,10 @@ export function exportProgram(
     return null;
   }
 
-  // Build the base workout plan structure
-  // Note: We don't have the original raw plan data stored, so we reconstruct from metadata
-  // In a real implementation, you might want to store the original plan JSON
+  // Build the base workout plan structure (metadata only)
+  // NOTE: We don't have the original raw plan data stored, so we reconstruct from metadata.
+  // The weeks array is empty because exercise data would need to be reconstructed from schedule.
+  // This export is primarily useful for progress data backup, not full program transfer.
   const plan: V2WorkoutPlan = {
     formatVersion: '2.3.0',
     plan: {
@@ -828,7 +840,7 @@ export function archiveProgress(programId: string): string | null {
   const success = safeSetJSON(archiveKey, archive);
 
   if (!success) {
-    console.error('Failed to save progress archive');
+    console.error(`Failed to save progress archive for program "${programId}" (archive ID: ${archiveId})`);
     return null;
   }
 
@@ -946,7 +958,7 @@ export function restoreProgressFromArchive(archiveId: string): boolean {
   for (const [sessionName, sessionData] of Object.entries(archive.sessions)) {
     const sessionKey = `${prefix}${sessionName}`;
     if (!safeSetJSON(sessionKey, sessionData)) {
-      console.error(`Failed to restore session: ${sessionName}`);
+      console.error(`Failed to restore session "${sessionName}" for program "${archive.programId}" (archive: ${archiveId})`);
     }
   }
 

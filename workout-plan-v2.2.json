@@ -649,19 +649,6 @@
                     ]
                   },
                   {
-                    "category": "core",
-                    "sets": 3,
-                    "exerciseName": "Ground-Based Flutter Kicks",
-                    "notes": "Core Recovery. Core recovery.",
-                    "repsType": "time",
-                    "repsValue": 30,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60
-                  },
-                  {
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Dips",
@@ -732,6 +719,20 @@
                       "Drive through heel"
                     ],
                     "isUnilateral": true
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Ground-Based Flutter Kicks",
+                    "notes": "Core Recovery. Core recovery.",
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "repsUnit": "seconds",
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "cooldown-banded-pec-stretch"
@@ -985,20 +986,6 @@
                     ]
                   },
                   {
-                    "category": "core",
-                    "sets": 3,
-                    "exerciseName": "Weighted V-Ups",
-                    "notes": "Core Hard. Hard Core. Keep biceps by ears.",
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "restSeconds": 60,
-                    "progressionNotes": "Start 1.25kg. Progress only with perfect form."
-                  },
-                  {
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Dips",
@@ -1069,6 +1056,21 @@
                       "Drive through heel"
                     ],
                     "isUnilateral": true
+                  },
+                  {
+                    "category": "main",
+                    "sets": 3,
+                    "exerciseName": "Weighted V-Ups",
+                    "notes": "Core Hard. Hard Core. Keep biceps by ears.",
+                    "loadMin": 3,
+                    "loadMax": 5,
+                    "loadUnit": "kg",
+                    "repsType": "reps",
+                    "repsMin": 10,
+                    "repsMax": 12,
+                    "restSeconds": 60,
+                    "progressionNotes": "Start 1.25kg. Progress only with perfect form.",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "cooldown-banded-pec-stretch"
@@ -1904,19 +1906,6 @@
                     ]
                   },
                   {
-                    "category": "core",
-                    "sets": 3,
-                    "exerciseName": "Dead Bugs",
-                    "notes": "Core Recovery",
-                    "repsType": "reps",
-                    "repsValue": 12,
-                    "repsPerSide": true,
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60
-                  },
-                  {
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Bulgarian Split Squat",
@@ -1969,17 +1958,16 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Weighted Hollow Rocks",
-                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "loadUnit": "kg",
+                    "exerciseName": "Dead Bugs",
+                    "notes": "Core Recovery",
                     "repsType": "reps",
-                    "repsValue": 15,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
+                    "repsValue": 12,
+                    "repsPerSide": true,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "cooldown-banded-pec-stretch"
@@ -2197,19 +2185,6 @@
                     ]
                   },
                   {
-                    "category": "core",
-                    "sets": 3,
-                    "exerciseName": "Weighted V-Ups",
-                    "notes": "Core Hard. Hard Core. Keep biceps by ears.",
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
-                    "repsValue": 12,
-                    "restSeconds": 60,
-                    "progressionNotes": "Start 1.25kg. Progress only with perfect form."
-                  },
-                  {
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Bulgarian Split Squat",
@@ -2262,17 +2237,16 @@
                   {
                     "category": "main",
                     "sets": 3,
-                    "exerciseName": "Weighted Hollow Rocks",
-                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
+                    "exerciseName": "Weighted V-Ups",
+                    "notes": "Core Hard. Hard Core. Keep biceps by ears.",
                     "loadMin": 3,
                     "loadMax": 5,
                     "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 15,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
+                    "repsValue": 12,
+                    "restSeconds": 60,
+                    "progressionNotes": "Start 1.25kg. Progress only with perfect form.",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "cooldown-banded-pec-stretch"
@@ -2718,7 +2692,7 @@
                     "isUnilateral": true
                   },
                   {
-                    "category": "core",
+                    "category": "main",
                     "sets": 3,
                     "exerciseName": "Weighted Hollow Rocks",
                     "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
@@ -2912,19 +2886,6 @@
                     "restSeconds": 60
                   },
                   {
-                    "category": "core",
-                    "sets": 3,
-                    "exerciseName": "Dead Bugs",
-                    "notes": "Core Recovery",
-                    "repsType": "reps",
-                    "repsValue": 12,
-                    "repsPerSide": true,
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60
-                  },
-                  {
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Bulgarian Split Squat",
@@ -2975,19 +2936,18 @@
                     "isUnilateral": true
                   },
                   {
-                    "category": "core",
+                    "category": "main",
                     "sets": 3,
-                    "exerciseName": "Weighted Hollow Rocks",
-                    "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "loadUnit": "kg",
+                    "exerciseName": "Dead Bugs",
+                    "notes": "Core Recovery",
                     "repsType": "reps",
-                    "repsValue": 15,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
+                    "repsValue": 12,
+                    "repsPerSide": true,
+                    "loadMin": 0,
+                    "loadMax": 0,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "cooldown-banded-pec-stretch"
@@ -3166,19 +3126,6 @@
                     ]
                   },
                   {
-                    "category": "core",
-                    "sets": 3,
-                    "exerciseName": "Weighted V-Ups",
-                    "notes": "Core Hard. Hard Core. Keep biceps by ears.",
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
-                    "repsValue": 12,
-                    "restSeconds": 60,
-                    "progressionNotes": "Start 1.25kg. Progress only with perfect form."
-                  },
-                  {
                     "category": "skill",
                     "sets": 3,
                     "exerciseName": "PPPU (Pseudo Planche Push-Ups)",
@@ -3245,7 +3192,7 @@
                     "isUnilateral": true
                   },
                   {
-                    "category": "core",
+                    "category": "main",
                     "sets": 3,
                     "exerciseName": "Weighted Hollow Rocks",
                     "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
@@ -3728,20 +3675,6 @@
                     "restSeconds": 120
                   },
                   {
-                    "category": "core",
-                    "sets": 3,
-                    "exerciseName": "Side Planks",
-                    "notes": "Core Recovery",
-                    "repsType": "time",
-                    "repsValue": 45,
-                    "repsUnit": "seconds",
-                    "repsPerSide": true,
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60
-                  },
-                  {
                     "category": "main",
                     "sets": 3,
                     "exerciseName": "Bulgarian Split Squat",
@@ -4058,7 +3991,7 @@
                     "isUnilateral": true
                   },
                   {
-                    "category": "core",
+                    "category": "main",
                     "sets": 3,
                     "exerciseName": "Dragon Flags OR Weighted V-Ups",
                     "notes": "Core Hard. Dragon Flags (negatives) — conditional (only if tendons feel excellent); Otherwise: Weighted V-Ups 3×8-10.",
@@ -4907,7 +4840,7 @@
                     "isUnilateral": true
                   },
                   {
-                    "category": "core",
+                    "category": "main",
                     "sets": 3,
                     "exerciseName": "Weighted Hollow Rocks",
                     "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
@@ -5250,7 +5183,7 @@
                     "isUnilateral": true
                   },
                   {
-                    "category": "core",
+                    "category": "main",
                     "sets": 2,
                     "exerciseName": "Weighted Hollow Rocks",
                     "notes": "Deload. Arms straight overhead. If lower back arches, drop weight immediately.",
@@ -5951,7 +5884,7 @@
                     "isUnilateral": true
                   },
                   {
-                    "category": "core",
+                    "category": "main",
                     "sets": 2,
                     "exerciseName": "Hollow Rocks",
                     "notes": "EMOM. Pair with Bulgarians. Bodyweight only for tissue reset.",

@@ -1,6 +1,6 @@
 /**
  * Tests for sample program templates
- * 
+ *
  * Verifies that sample programs are properly configured and can be loaded.
  */
 
@@ -66,7 +66,7 @@ describe('Sample Programs', () => {
         });
 
         it('should return correct program for each known ID', () => {
-            const ids = ['beginner-bodyweight-4week', 'strength-fundamentals-6week', 'mobility-flexibility-2week'];
+            const ids = ['beginner-bodyweight-v1', 'beginner-bodyweight-4week', 'pull-up-strength-v1', 'strength-fundamentals-6week', 'mobility-flexibility-2week'];
             ids.forEach(id => {
                 const program = getSampleProgramById(id);
                 expect(program).toBeDefined();
@@ -102,7 +102,7 @@ describe('Sample Programs', () => {
         it('should return programs sorted by duration ascending', () => {
             const sorted = getSampleProgramsByDuration();
             expect(sorted.length).toBe(SAMPLE_PROGRAMS.length);
-            
+
             for (let i = 1; i < sorted.length; i++) {
                 expect(sorted[i].manifest.durationWeeks).toBeGreaterThanOrEqual(
                     sorted[i - 1].manifest.durationWeeks

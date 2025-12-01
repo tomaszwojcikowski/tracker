@@ -5,13 +5,16 @@ import { useTheme } from '../../hooks/useTheme';
 import { useHaptic } from '../../hooks';
 import { useAuth } from '../../hooks/useAuth';
 import { LoginStatus } from '../auth/LoginStatus';
-import { RefreshCw, Info, Dumbbell } from 'lucide-react';
+import { RefreshCw, Info, Dumbbell, Settings } from 'lucide-react';
 import { captureError, isErrorReportingEnabled } from '../../utils/errorReporting';
 import { getAllLocalData, mergeCloudData, FIREBASE_SYNC_ENABLED_KEY, type SessionData } from '../../utils/firebaseSync';
 import { ProgramSelector } from '../ProgramSelector';
 import type { CloudData } from '../../firebase-service';
 import type { User } from 'firebase/auth';
 import type { ExerciseHistory } from '../../types';
+
+// Settings tab type
+type SettingsTab = 'general' | 'programs';
 
 /**
  * Merge local data with cloud data using smart merge strategy
@@ -111,6 +114,9 @@ function mergeLocalAndCloudData(
  * SettingsView component - displays app settings including theme selection and cloud sync
  */
 export const SettingsView: React.FC = () => {
+    // Settings tab state
+    const [activeTab, setActiveTab] = useState<SettingsTab>('general');
+
     // Use the new auth hook
     const {
         user: firebaseUser,
@@ -229,134 +235,167 @@ export const SettingsView: React.FC = () => {
         <div className="px-5 pb-20 pt-6">
             <h2 className="text-2xl font-bold text-white mb-6">Settings</h2>
 
-            {/* Program Management Section */}
-            <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
-                <div className="flex items-center gap-3 mb-4">
-                    <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
-                        <Dumbbell size={24} className="text-sys-accent" />
-                    </div>
-                    <div>
-                        <h3 className="text-lg font-bold text-white">Workout Programs</h3>
-                        <p className="text-xs text-sys-onSurfaceVar">Manage your training programs</p>
-                    </div>
-                </div>
-                <ProgramSelector variant="full" />
+            {/* Tab Navigation */}
+            <div className="flex gap-2 mb-6 p-1 bg-sys-surface rounded-2xl border border-white/5">
+                <button
+                    onClick={() => {
+                        haptic.tick();
+                        setActiveTab('general');
+                    }}
+                    className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-medium text-sm transition-all ${
+                        activeTab === 'general'
+                            ? 'bg-sys-accent text-white'
+                            : 'text-sys-onSurfaceVar hover:text-white'
+                    }`}
+                >
+                    <Settings size={18} />
+                    General
+                </button>
+                <button
+                    onClick={() => {
+                        haptic.tick();
+                        setActiveTab('programs');
+                    }}
+                    className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-medium text-sm transition-all ${
+                        activeTab === 'programs'
+                            ? 'bg-sys-accent text-white'
+                            : 'text-sys-onSurfaceVar hover:text-white'
+                    }`}
+                >
+                    <Dumbbell size={18} />
+                    Programs
+                </button>
             </div>
 
-            {/* Theme Selection */}
-            <ThemeSelector
-                theme={theme}
-                setTheme={(newTheme: string) => {
-                    haptic.bump();
-                    setTheme(newTheme as Parameters<typeof setTheme>[0]);
-                }}
-                themes={themes}
-            />
-
-            {/* Firebase Sync Section - Only shown if Firebase is configured at build time */}
-            {FirebaseService.isFirebaseInitialized() && (
+            {/* General Tab Content */}
+            {activeTab === 'general' && (
                 <>
-                    <LoginStatus
-                        user={firebaseUser}
-                        loading={authLoading}
-                        error={authError}
-                        onLogin={handleFirebaseLogin}
-                        onLogout={handleFirebaseLogout}
-                        onClearError={clearError}
+                    {/* Theme Selection */}
+                    <ThemeSelector
+                        theme={theme}
+                        setTheme={(newTheme: string) => {
+                            haptic.bump();
+                            setTheme(newTheme as Parameters<typeof setTheme>[0]);
+                        }}
+                        themes={themes}
                     />
 
-                    {/* Sync Controls - Only shown when logged in */}
-                    {firebaseUser && (
-                        <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
-                            {/* Status message - always visible when there's a message */}
-                            {firebaseMessage && (
-                                <div className={`mb-4 p-3 rounded-xl text-sm font-medium ${
-                                    firebaseMessage.startsWith('✓') ? 'bg-sys-success/20 text-sys-success' :
-                                    firebaseMessage.startsWith('✗') ? 'bg-red-500/20 text-red-400' :
-                                    'bg-sys-accent/20 text-sys-accent'
-                                }`}>
-                                    {firebaseMessage}
+                    {/* Firebase Sync Section - Only shown if Firebase is configured at build time */}
+                    {FirebaseService.isFirebaseInitialized() && (
+                        <>
+                            <LoginStatus
+                                user={firebaseUser}
+                                loading={authLoading}
+                                error={authError}
+                                onLogin={handleFirebaseLogin}
+                                onLogout={handleFirebaseLogout}
+                                onClearError={clearError}
+                            />
+
+                            {/* Sync Controls - Only shown when logged in */}
+                            {firebaseUser && (
+                                <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
+                                    {/* Status message - always visible when there's a message */}
+                                    {firebaseMessage && (
+                                        <div className={`mb-4 p-3 rounded-xl text-sm font-medium ${
+                                            firebaseMessage.startsWith('✓') ? 'bg-sys-success/20 text-sys-success' :
+                                            firebaseMessage.startsWith('✗') ? 'bg-red-500/20 text-red-400' :
+                                            'bg-sys-accent/20 text-sys-accent'
+                                        }`}>
+                                            {firebaseMessage}
+                                        </div>
+                                    )}
+
+                                    {/* Auto-sync toggle */}
+                                    <div className="mb-4 p-4 bg-sys-surfaceHigh rounded-xl">
+                                        <div className="flex items-start gap-3">
+                                            <button
+                                                onClick={handleSyncToggle}
+                                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${firebaseSyncEnabled ? 'bg-sys-success' : 'bg-sys-onSurfaceVar'}`}
+                                            >
+                                                <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${firebaseSyncEnabled ? 'translate-x-6' : 'translate-x-1'}`}></span>
+                                            </button>
+                                            <div className="flex-1">
+                                                <h4 className="text-sm font-semibold text-white mb-1">Automatic Sync</h4>
+                                                <p className="text-xs text-sys-onSurfaceVar leading-relaxed">
+                                                    Automatically sync data to cloud when changes are made
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        onClick={handleManualSync}
+                                        disabled={isSyncing}
+                                        className={`w-full h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 transition-transform border border-white/5 ${isSyncing ? 'opacity-50' : 'active:scale-95'}`}
+                                    >
+                                        <RefreshCw size={18} className={isSyncing ? 'animate-spin' : ''} />
+                                        <span>{isSyncing ? 'Syncing...' : 'Sync Now'}</span>
+                                    </button>
                                 </div>
                             )}
-
-                            {/* Auto-sync toggle */}
-                            <div className="mb-4 p-4 bg-sys-surfaceHigh rounded-xl">
-                                <div className="flex items-start gap-3">
-                                    <button
-                                        onClick={handleSyncToggle}
-                                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${firebaseSyncEnabled ? 'bg-sys-success' : 'bg-sys-onSurfaceVar'}`}
-                                    >
-                                        <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${firebaseSyncEnabled ? 'translate-x-6' : 'translate-x-1'}`}></span>
-                                    </button>
-                                    <div className="flex-1">
-                                        <h4 className="text-sm font-semibold text-white mb-1">Automatic Sync</h4>
-                                        <p className="text-xs text-sys-onSurfaceVar leading-relaxed">
-                                            Automatically sync data to cloud when changes are made
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button
-                                onClick={handleManualSync}
-                                disabled={isSyncing}
-                                className={`w-full h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 transition-transform border border-white/5 ${isSyncing ? 'opacity-50' : 'active:scale-95'}`}
-                            >
-                                <RefreshCw size={18} className={isSyncing ? 'animate-spin' : ''} />
-                                <span>{isSyncing ? 'Syncing...' : 'Sync Now'}</span>
-                            </button>
-                        </div>
+                        </>
                     )}
+
+                    {/* Build Info Section */}
+                    <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
+                                <Info size={24} className="text-sys-accent" />
+                            </div>
+                            <div>
+                                <h3 className="text-lg font-bold text-white">App Info</h3>
+                                <p className="text-xs text-sys-onSurfaceVar">Build version and details</p>
+                            </div>
+                        </div>
+                        <div className="space-y-3 p-4 bg-sys-surfaceHigh rounded-xl">
+                            <div className="flex justify-between items-center">
+                                <span className="text-sm text-sys-onSurfaceVar">Version</span>
+                                <span className="text-sm font-medium text-white">{__BUILD_VERSION__}</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span className="text-sm text-sys-onSurfaceVar">Build Date</span>
+                                <span className="text-sm font-medium text-white">
+                                    {new Date(__BUILD_DATE__).toLocaleDateString(undefined, {
+                                        year: 'numeric',
+                                        month: 'short',
+                                        day: 'numeric',
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                    })}
+                                </span>
+                            </div>
+                            {/* Sentry Test Button - for verifying error reporting */}
+                            {isErrorReportingEnabled() && (
+                                <div className="pt-3 border-t border-white/10">
+                                    <button
+                                        onClick={() => {
+                                            captureError(new Error('Test error from Settings page'), 'error', {
+                                                component: 'SettingsView',
+                                                action: 'testSentryButton',
+                                            });
+                                            alert('Test error sent to Sentry! Check your Sentry dashboard.');
+                                        }}
+                                        className="w-full py-2 px-4 bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 rounded-xl text-sm font-medium transition-colors"
+                                    >
+                                        Test Sentry Error Reporting
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </>
             )}
 
-            {/* Build Info Section */}
-            <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
-                <div className="flex items-center gap-3 mb-4">
-                    <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
-                        <Info size={24} className="text-sys-accent" />
-                    </div>
-                    <div>
-                        <h3 className="text-lg font-bold text-white">App Info</h3>
-                        <p className="text-xs text-sys-onSurfaceVar">Build version and details</p>
-                    </div>
+            {/* Programs Tab Content */}
+            {activeTab === 'programs' && (
+                <div className="space-y-4">
+                    <p className="text-sm text-sys-onSurfaceVar mb-4">
+                        Choose from available workout programs or import new ones. Your progress is saved separately for each program.
+                    </p>
+                    <ProgramSelector variant="full" />
                 </div>
-                <div className="space-y-3 p-4 bg-sys-surfaceHigh rounded-xl">
-                    <div className="flex justify-between items-center">
-                        <span className="text-sm text-sys-onSurfaceVar">Version</span>
-                        <span className="text-sm font-medium text-white">{__BUILD_VERSION__}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                        <span className="text-sm text-sys-onSurfaceVar">Build Date</span>
-                        <span className="text-sm font-medium text-white">
-                            {new Date(__BUILD_DATE__).toLocaleDateString(undefined, {
-                                year: 'numeric',
-                                month: 'short',
-                                day: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit',
-                            })}
-                        </span>
-                    </div>
-                    {/* Sentry Test Button - for verifying error reporting */}
-                    {isErrorReportingEnabled() && (
-                        <div className="pt-3 border-t border-white/10">
-                            <button
-                                onClick={() => {
-                                    captureError(new Error('Test error from Settings page'), 'error', {
-                                        component: 'SettingsView',
-                                        action: 'testSentryButton',
-                                    });
-                                    alert('Test error sent to Sentry! Check your Sentry dashboard.');
-                                }}
-                                className="w-full py-2 px-4 bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 rounded-xl text-sm font-medium transition-colors"
-                            >
-                                Test Sentry Error Reporting
-                            </button>
-                        </div>
-                    )}
-                </div>
-            </div>
+            )}
         </div>
     );
 };

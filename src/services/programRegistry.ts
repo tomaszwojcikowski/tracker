@@ -304,7 +304,7 @@ export function initializeDefaultProgram(defaultPlanJson: WorkoutPlanJson): void
   // If registry is empty, register the default program
   if (programs.length === 0) {
     const manifest = extractManifestFromPlan(defaultPlanJson);
-    manifest.dataPath = '/workout-plan-v2.1.json';
+    manifest.dataPath = '/workout-plan-v2.3.json';
     registry.registerProgram(manifest);
     registry.setActiveProgram(manifest.id);
   }

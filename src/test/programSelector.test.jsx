@@ -231,12 +231,12 @@ describe('ProgramSelector', () => {
       expect(button).toBeInTheDocument();
     });
 
-    it('should have accessible buttons for each program in full variant', () => {
+    it('should have accessible options for each program in full variant', () => {
       render(<ProgramSelector variant="full" />);
 
-      const buttons = screen.getAllByRole('button');
-      // Should have 2 program buttons
-      expect(buttons.length).toBeGreaterThanOrEqual(2);
+      const options = screen.getAllByRole('option');
+      // Should have 2 program options
+      expect(options.length).toBeGreaterThanOrEqual(2);
     });
   });
 

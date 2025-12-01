@@ -254,10 +254,17 @@ class ProgramRegistryImpl implements ProgramRegistry {
   async importProgram(planJson: WorkoutPlanJson): Promise<ProgramManifest> {
     const plan = planJson.plan;
     
-    // Validate required fields
-    // Note: durationWeeks must be > 0 (a program with 0 weeks is invalid)
-    if (!plan.id || !plan.name || !plan.version || typeof plan.durationWeeks !== 'number' || plan.durationWeeks <= 0) {
-      throw new Error('Invalid workout plan: missing required fields (id, name, version, durationWeeks > 0)');
+    // Validate required fields with specific error messages
+    const missingFields: string[] = [];
+    if (!plan.id) missingFields.push('id');
+    if (!plan.name) missingFields.push('name');
+    if (!plan.version) missingFields.push('version');
+    if (typeof plan.durationWeeks !== 'number' || plan.durationWeeks <= 0) {
+      missingFields.push('durationWeeks (must be > 0)');
+    }
+    
+    if (missingFields.length > 0) {
+      throw new Error(`Invalid workout plan: missing or invalid fields: ${missingFields.join(', ')}`);
     }
 
     const manifest: ProgramManifest = {

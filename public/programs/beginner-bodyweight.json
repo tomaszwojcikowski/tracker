@@ -1,0 +1,646 @@
+{
+  "formatVersion": "2.3.0",
+  "plan": {
+    "id": "beginner-bodyweight-v1",
+    "name": "Beginner Bodyweight",
+    "description": "A 4-week beginner program focusing on fundamental bodyweight movements. Perfect for those new to fitness or getting back into training.",
+    "author": "Tracker",
+    "createdDate": "2024-01-01",
+    "version": "1.0.0",
+    "durationWeeks": 4,
+    "goals": [
+      "foundational-strength",
+      "movement-quality",
+      "consistency"
+    ],
+    "targetLevel": "beginner",
+    "equipment": [
+      "pull-up-bar",
+      "floor-space"
+    ],
+    "phases": [
+      {
+        "phaseNumber": 1,
+        "name": "Foundation",
+        "description": "Build basic strength and movement patterns",
+        "startWeek": 1,
+        "endWeek": 4,
+        "focus": "technique",
+        "weeks": [
+          {
+            "weekNumber": 1,
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Upper Body A",
+                "type": "strength",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "exerciseName": "Arm Circles",
+                    "sets": 2,
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "notes": "Forward and backward"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Push-Ups",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "notes": "Use knee push-ups if needed"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Inverted Rows",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "notes": "Use a table or bar at hip height"
+                  },
+                  {
+                    "category": "accessory",
+                    "exerciseName": "Plank",
+                    "sets": 3,
+                    "repsType": "time",
+                    "repsValue": 20,
+                    "notes": "Hold with good form"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Lower Body A",
+                "type": "strength",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "exerciseName": "Leg Swings",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Each leg"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Bodyweight Squats",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "notes": "Focus on depth and control"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Lunges",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "notes": "Each leg"
+                  },
+                  {
+                    "category": "accessory",
+                    "exerciseName": "Glute Bridges",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "notes": "Squeeze at the top"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Full Body",
+                "type": "strength",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "exerciseName": "Jumping Jacks",
+                    "sets": 2,
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "notes": "Light warmup"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Burpees",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 5,
+                    "notes": "Take your time"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Mountain Climbers",
+                    "sets": 3,
+                    "repsType": "time",
+                    "repsValue": 20,
+                    "notes": "Controlled pace"
+                  },
+                  {
+                    "category": "accessory",
+                    "exerciseName": "Dead Bug",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "notes": "Each side"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Active Recovery",
+                "type": "recovery",
+                "exercises": [
+                  {
+                    "category": "mobility",
+                    "exerciseName": "Cat-Cow Stretch",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Slow and controlled"
+                  },
+                  {
+                    "category": "mobility",
+                    "exerciseName": "Hip Circles",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Each direction"
+                  },
+                  {
+                    "category": "mobility",
+                    "exerciseName": "Child's Pose",
+                    "sets": 2,
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "notes": "Relax and breathe"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 2,
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Upper Body A",
+                "type": "strength",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "exerciseName": "Arm Circles",
+                    "sets": 2,
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "notes": "Forward and backward"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Push-Ups",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Progress from week 1"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Inverted Rows",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Progress from week 1"
+                  },
+                  {
+                    "category": "accessory",
+                    "exerciseName": "Plank",
+                    "sets": 3,
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "notes": "Hold with good form"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Lower Body A",
+                "type": "strength",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "exerciseName": "Leg Swings",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Each leg"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Bodyweight Squats",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "notes": "Progress from week 1"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Lunges",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Each leg"
+                  },
+                  {
+                    "category": "accessory",
+                    "exerciseName": "Glute Bridges",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "notes": "Progress from week 1"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Full Body",
+                "type": "strength",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "exerciseName": "Jumping Jacks",
+                    "sets": 2,
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "notes": "Light warmup"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Burpees",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 6,
+                    "notes": "Progress from week 1"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Mountain Climbers",
+                    "sets": 3,
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "notes": "Progress from week 1"
+                  },
+                  {
+                    "category": "accessory",
+                    "exerciseName": "Dead Bug",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Each side"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Active Recovery",
+                "type": "recovery",
+                "exercises": [
+                  {
+                    "category": "mobility",
+                    "exerciseName": "Cat-Cow Stretch",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Slow and controlled"
+                  },
+                  {
+                    "category": "mobility",
+                    "exerciseName": "Hip Circles",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Each direction"
+                  },
+                  {
+                    "category": "mobility",
+                    "exerciseName": "Child's Pose",
+                    "sets": 2,
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "notes": "Relax and breathe"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 3,
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Upper Body A",
+                "type": "strength",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "exerciseName": "Arm Circles",
+                    "sets": 2,
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "notes": "Forward and backward"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Push-Ups",
+                    "sets": 4,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Extra set this week"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Inverted Rows",
+                    "sets": 4,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Extra set this week"
+                  },
+                  {
+                    "category": "accessory",
+                    "exerciseName": "Plank",
+                    "sets": 3,
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "notes": "Hold with good form"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Lower Body A",
+                "type": "strength",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "exerciseName": "Leg Swings",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Each leg"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Bodyweight Squats",
+                    "sets": 4,
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "notes": "Extra set this week"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Lunges",
+                    "sets": 4,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Each leg"
+                  },
+                  {
+                    "category": "accessory",
+                    "exerciseName": "Glute Bridges",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "notes": "Hold at top"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Full Body",
+                "type": "strength",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "exerciseName": "Jumping Jacks",
+                    "sets": 2,
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "notes": "Light warmup"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Burpees",
+                    "sets": 4,
+                    "repsType": "reps",
+                    "repsValue": 6,
+                    "notes": "Extra set this week"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Mountain Climbers",
+                    "sets": 4,
+                    "repsType": "time",
+                    "repsValue": 25,
+                    "notes": "Extra set this week"
+                  },
+                  {
+                    "category": "accessory",
+                    "exerciseName": "Dead Bug",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Each side"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Active Recovery",
+                "type": "recovery",
+                "exercises": [
+                  {
+                    "category": "mobility",
+                    "exerciseName": "Cat-Cow Stretch",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Slow and controlled"
+                  },
+                  {
+                    "category": "mobility",
+                    "exerciseName": "Hip Circles",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Each direction"
+                  },
+                  {
+                    "category": "mobility",
+                    "exerciseName": "Child's Pose",
+                    "sets": 2,
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "notes": "Relax and breathe"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 4,
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Upper Body A - Deload",
+                "type": "strength",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "exerciseName": "Arm Circles",
+                    "sets": 2,
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "notes": "Forward and backward"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Push-Ups",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Deload week - reduced volume"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Inverted Rows",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Deload week - reduced volume"
+                  },
+                  {
+                    "category": "accessory",
+                    "exerciseName": "Plank",
+                    "sets": 2,
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "notes": "Deload week"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Lower Body A - Deload",
+                "type": "strength",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "exerciseName": "Leg Swings",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Each leg"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Bodyweight Squats",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "notes": "Deload week - reduced volume"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Lunges",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Each leg - Deload week"
+                  },
+                  {
+                    "category": "accessory",
+                    "exerciseName": "Glute Bridges",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 15,
+                    "notes": "Deload week"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Full Body - Deload",
+                "type": "strength",
+                "exercises": [
+                  {
+                    "category": "warmup",
+                    "exerciseName": "Jumping Jacks",
+                    "sets": 2,
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "notes": "Light warmup"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Burpees",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 5,
+                    "notes": "Deload week"
+                  },
+                  {
+                    "category": "main",
+                    "exerciseName": "Mountain Climbers",
+                    "sets": 2,
+                    "repsType": "time",
+                    "repsValue": 20,
+                    "notes": "Deload week"
+                  },
+                  {
+                    "category": "accessory",
+                    "exerciseName": "Dead Bug",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 8,
+                    "notes": "Each side - Deload week"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Active Recovery",
+                "type": "recovery",
+                "exercises": [
+                  {
+                    "category": "mobility",
+                    "exerciseName": "Cat-Cow Stretch",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Extra stretching on deload"
+                  },
+                  {
+                    "category": "mobility",
+                    "exerciseName": "Hip Circles",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "notes": "Each direction"
+                  },
+                  {
+                    "category": "mobility",
+                    "exerciseName": "Child's Pose",
+                    "sets": 3,
+                    "repsType": "time",
+                    "repsValue": 45,
+                    "notes": "Relax and breathe"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

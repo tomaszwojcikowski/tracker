@@ -41,9 +41,9 @@ import {
     normalizeAddedExercises,
 } from '../../utils/workoutSession';
 import { getSessionKey, getNamespacedKey, getGlobalHistoryKey } from '../../services/storageNamespace';
-import { getAllLocalData, FIREBASE_SYNC_ENABLED_KEY } from '../../utils/firebaseSync';
+import { getAllLocalData, localDataToCloudData, FIREBASE_SYNC_ENABLED_KEY } from '../../utils/firebaseSync';
 import * as FirebaseService from '../../firebase-service';
-import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue, CloudData } from '../../types';
+import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../../types';
 import type { WorkoutSessionData, ExerciseLogEntry, MuscleFilter, RPEData } from '../../types/workout';
 
 // ============================================================================
@@ -649,7 +649,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             if (syncEnabled && FirebaseService.isFirebaseInitialized() && FirebaseService.getCurrentUser()) {
                 try {
                     const localData = getAllLocalData();
-                    await FirebaseService.saveToCloud(localData as unknown as CloudData);
+                    const cloudData = localDataToCloudData(localData);
+                    await FirebaseService.saveToCloud(cloudData);
                     console.log('Workout data synced to cloud successfully');
                 } catch (syncError) {
                     // Don't block workout completion if sync fails

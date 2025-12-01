@@ -33,8 +33,7 @@ function mergeLocalAndCloudData(
         return {
             sessions: localData.sessions as CloudData['sessions'],
             exerciseHistory: localData.exercise_history,
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            global_history: localData.global_history as any,
+            global_history: localData.global_history,
             lastSyncTime: new Date().toISOString(),
         };
     }
@@ -97,8 +96,7 @@ function mergeLocalAndCloudData(
     }
 
     // Merge global history - combine entries
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const cloudGlobalHistory = (cloudData as any).global_history as GlobalHistoryEntry[] | undefined;
+    const cloudGlobalHistory = cloudData.global_history;
     const mergedGlobalHistory: GlobalHistoryEntry[] = [...(cloudGlobalHistory || [])];
     
     if (localData.global_history && localData.global_history.length > 0) {
@@ -121,8 +119,7 @@ function mergeLocalAndCloudData(
     const result: CloudData = {
         sessions: mergedSessions as CloudData['sessions'],
         exerciseHistory: mergedHistory,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        global_history: mergedGlobalHistory as any,
+        global_history: mergedGlobalHistory,
         lastSyncTime: new Date().toISOString(),
     };
 

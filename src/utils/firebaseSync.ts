@@ -6,7 +6,7 @@
  */
 
 import { safeGetJSON, safeSetJSON } from './storage';
-import type { WeekNumber, TrainingDay, ExerciseHistory } from '../types';
+import type { WeekNumber, TrainingDay, ExerciseHistory, CloudData as TypesCloudData } from '../types';
 import {
     getExerciseHistoryKey,
     getSessionKey,
@@ -143,6 +143,21 @@ export function getAllLocalData(): LocalData {
     }
 
     return data;
+}
+
+/**
+ * Convert LocalData to CloudData format for Firebase sync
+ * This handles the naming convention differences between the two interfaces
+ * @param localData - Data collected from localStorage
+ * @returns CloudData formatted for Firebase (compatible with firebase-service types)
+ */
+export function localDataToCloudData(localData: LocalData): TypesCloudData {
+    return {
+        sessions: localData.sessions as TypesCloudData['sessions'],
+        exercise_history: localData.exercise_history,
+        global_history: localData.global_history,
+        lastSyncTime: new Date().toISOString(),
+    };
 }
 
 // ============================================================================

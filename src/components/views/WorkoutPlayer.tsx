@@ -813,8 +813,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             onClick={() => {
                                 haptic.tick();
                                 handleViewModeChange('list');
-                                setCompactView(true);
-                                safeSetJSON('workout_compact_view', true);
+                                if (!compactView) {
+                                    setCompactView(true);
+                                    safeSetJSON('workout_compact_view', true);
+                                }
                             }}
                             className={`h-8 w-8 rounded-md flex items-center justify-center transition-all ${
                                 viewMode === 'list' && compactView ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'

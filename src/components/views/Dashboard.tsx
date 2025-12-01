@@ -2,6 +2,7 @@
  * Dashboard Component
  *
  * Main training dashboard showing current week, progress, and daily workouts.
+ * Uses program-scoped storage keys for data isolation between programs.
  */
 
 import { useState, useEffect } from 'react';
@@ -12,6 +13,7 @@ import { formatRelativeTime } from '../../utils/time';
 import { SwipeIndicator } from '../SwipeIndicator';
 import { getBlockForWeek } from '../../data/programData';
 import { getCompleteSchedule } from '../../utils/schedule';
+import { getSessionKey } from '../../services/storageNamespace';
 
 /** Maximum number of exercises to show in the summary */
 const MAX_EXERCISES_IN_SUMMARY = 3;
@@ -86,8 +88,9 @@ export function Dashboard({
   }, [currentWeek]);
 
   const isCompleted = (day: number): boolean => {
+    const sessionKey = getSessionKey(currentWeek, day);
     const session = safeGetJSON<{ completed?: boolean } | null>(
-      `session_w${currentWeek}d${day}`,
+      sessionKey,
       null
     );
     return session?.completed === true;

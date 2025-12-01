@@ -1,10 +1,11 @@
 import { safeGetJSON, safeSetJSON } from './storage';
-import { STORAGE_KEYS } from '../constants';
+import { getExerciseHistoryKey } from '../services/storageNamespace';
 
 /**
  * Exercise History Utilities
  *
  * Functions for tracking and analyzing exercise performance over time.
+ * All functions operate on the active program's namespaced storage.
  */
 
 /**
@@ -89,15 +90,16 @@ export const updateExerciseHistory = (
   exerciseName: string,
   entry: ExerciseHistoryEntry
 ): void => {
+  const storageKey = getExerciseHistoryKey();
   const history = safeGetJSON<ExerciseHistoryRecord>(
-    STORAGE_KEYS.EXERCISE_HISTORY,
+    storageKey,
     {}
   );
 
   // Validate history structure
   if (typeof history !== 'object' || history === null) {
     console.warn('Invalid exercise history, resetting');
-    safeSetJSON(STORAGE_KEYS.EXERCISE_HISTORY, {});
+    safeSetJSON(storageKey, {});
     return;
   }
 
@@ -131,7 +133,7 @@ export const updateExerciseHistory = (
     history[exerciseName].push(entry);
   }
   
-  safeSetJSON(STORAGE_KEYS.EXERCISE_HISTORY, history);
+  safeSetJSON(storageKey, history);
 };
 
 /**
@@ -142,8 +144,9 @@ export const updateExerciseHistory = (
 export const getExerciseHistory = (
   exerciseName: string
 ): ExerciseHistoryEntry[] => {
+  const storageKey = getExerciseHistoryKey();
   const history = safeGetJSON<ExerciseHistoryRecord>(
-    STORAGE_KEYS.EXERCISE_HISTORY,
+    storageKey,
     {}
   );
 
@@ -249,8 +252,9 @@ export const calculateExerciseStats = (exerciseName: string): ExerciseStats => {
  * @returns Sorted array of exercise names
  */
 export const getAllExercisesWithHistory = (): string[] => {
+  const storageKey = getExerciseHistoryKey();
   const history = safeGetJSON<ExerciseHistoryRecord>(
-    STORAGE_KEYS.EXERCISE_HISTORY,
+    storageKey,
     {}
   );
   return Object.keys(history).sort();

@@ -4,10 +4,16 @@
  * Safe wrappers for localStorage operations with error handling.
  * These functions prevent crashes from quota exceeded, JSON parse errors,
  * or localStorage being unavailable.
+ * 
+ * Program-Scoped Storage:
+ * Functions like getInProgressWorkout, isWorkoutInProgress, getWorkoutProgress,
+ * and hasWorkoutData now use program-scoped namespaced keys to isolate
+ * data between different workout programs.
  */
 
 import type { StorageResult } from '../types';
 import { getWorkoutForDay } from '../data/programData';
+import { getSessionKey as getNamespacedSessionKey, parseSessionKey, getActiveProgramId, NAMESPACE_PREFIX, NAMESPACE_SEPARATOR } from '../services/storageNamespace';
 
 /**
  * Safely get and parse JSON from localStorage
@@ -269,11 +275,15 @@ function getWorkoutTotalsFromPlan(week: number, day: number): { totalSets: numbe
 
 /**
  * Get information about the most recent in-progress workout
+ * Searches for in-progress workouts scoped to the active program
  * @returns InProgressWorkout if one exists, null otherwise
  */
 export function getInProgressWorkout(): InProgressWorkout | null {
   try {
-    const sessionPattern = /^session_w(\d+)d(\d+)$/;
+    // Pattern to match namespaced session keys: p:{programId}:session_w{week}d{day}
+    const programId = getActiveProgramId();
+    const prefix = `${NAMESPACE_PREFIX}${programId}${NAMESPACE_SEPARATOR}`;
+    
     let mostRecent: InProgressWorkout | null = null;
     let mostRecentTime = 0;
 
@@ -281,14 +291,17 @@ export function getInProgressWorkout(): InProgressWorkout | null {
       const key = localStorage.key(i);
       if (!key) continue;
 
-      const match = key.match(sessionPattern);
-      if (!match) continue;
+      // Check if key belongs to current program's namespace
+      if (!key.startsWith(prefix)) continue;
+
+      // Parse session info from the key
+      const sessionInfo = parseSessionKey(key);
+      if (!sessionInfo) continue;
 
       const session = safeGetJSON<WorkoutSessionData>(key);
       if (!session || session.completed) continue;
 
-      const week = parseInt(match[1], 10);
-      const day = parseInt(match[2], 10);
+      const { week, day } = sessionInfo;
 
       // Get completed sets from session (what user has logged)
       const { completed: completedSets } = countSetsFromSession(session);
@@ -329,12 +342,13 @@ export function getInProgressWorkout(): InProgressWorkout | null {
 
 /**
  * Check if a specific workout session is in progress
+ * Uses program-scoped namespaced key
  * @param week - week number
  * @param day - day number
  * @returns true if the workout has started but not completed
  */
 export function isWorkoutInProgress(week: number, day: number): boolean {
-  const key = `session_w${week}d${day}`;
+  const key = getNamespacedSessionKey(week, day);
   const session = safeGetJSON<WorkoutSessionData>(key);
 
   if (!session || session.completed) return false;
@@ -345,12 +359,13 @@ export function isWorkoutInProgress(week: number, day: number): boolean {
 
 /**
  * Get progress information for a specific workout
+ * Uses program-scoped namespaced key
  * @param week - week number
  * @param day - day number
  * @returns progress info or null if workout hasn't started
  */
 export function getWorkoutProgress(week: number, day: number): { completedSets: number; totalSets: number; completedExercises: number; totalExercises: number; progress: number } | null {
-  const key = `session_w${week}d${day}`;
+  const key = getNamespacedSessionKey(week, day);
   const session = safeGetJSON<WorkoutSessionData>(key);
 
   if (!session) return null;
@@ -377,12 +392,13 @@ export function getWorkoutProgress(week: number, day: number): { completedSets: 
 
 /**
  * Check if a workout session has any existing data (even if not in progress)
+ * Uses program-scoped namespaced key
  * @param week - week number
  * @param day - day number
  * @returns true if any data exists for this session
  */
 export function hasWorkoutData(week: number, day: number): boolean {
-  const key = `session_w${week}d${day}`;
+  const key = getNamespacedSessionKey(week, day);
   const session = safeGetJSON<WorkoutSessionData>(key);
   
   if (!session) return false;

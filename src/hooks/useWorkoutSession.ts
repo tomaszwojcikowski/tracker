@@ -6,6 +6,9 @@
  *
  * This hook extracts common session management logic used by both regular
  * and compact workout views.
+ * 
+ * All session data is stored using program-scoped namespaced keys to isolate
+ * workout data between different programs.
  */
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
@@ -16,6 +19,7 @@ import {
     getExerciseId,
     getAddedExerciseId,
 } from '../utils/workoutSession';
+import { getSessionKey, getNamespacedKey } from '../services/storageNamespace';
 import type { WorkoutSessionData, ExerciseLogEntry, RPEData, WorkoutProgress } from '../types/workout';
 import type { AddedExercise, RPEValue, Exercise } from '../types';
 import type { WorkoutSection } from '../data/programData';
@@ -104,15 +108,18 @@ export function useWorkoutSession({
     sections,
 }: UseWorkoutSessionOptions): UseWorkoutSessionReturn {
     // For empty workouts, generate a unique session key based on timestamp
+    // Empty workout keys are also namespaced per program
     const [emptyWorkoutId] = useState(() => {
         if (isEmptyWorkout) {
             const existingKey = sessionStorage.getItem('current_empty_workout_key');
             if (existingKey) {
                 return existingKey;
             }
-            const newKey = `session_empty_${Date.now()}`;
-            sessionStorage.setItem('current_empty_workout_key', newKey);
-            return newKey;
+            // Namespace empty workout keys too
+            const baseKey = `session_empty_${Date.now()}`;
+            const namespacedKey = getNamespacedKey(baseKey);
+            sessionStorage.setItem('current_empty_workout_key', namespacedKey);
+            return namespacedKey;
         }
         return '';
     });
@@ -121,7 +128,8 @@ export function useWorkoutSession({
         if (isEmptyWorkout) {
             return emptyWorkoutId;
         }
-        return `session_w${week}d${day}`;
+        // Use namespaced session key for program isolation
+        return getSessionKey(week, day);
     }, [week, day, isEmptyWorkout, emptyWorkoutId]);
 
     // State

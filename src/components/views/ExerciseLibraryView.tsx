@@ -280,8 +280,6 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
 
     return (
         <div className="px-5 pb-20 pt-6">
-            <h2 className="text-2xl font-bold text-white mb-6">Exercise Library</h2>
-
             {/* Search and Filters */}
             <div className="mb-6">
                 <input
@@ -292,13 +290,13 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
                     className="w-full h-12 px-4 bg-sys-surfaceHigh rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all mb-3"
                 />
 
-                {/* Category Filter */}
-                <div className="flex gap-2 overflow-x-auto pb-2 mb-3">
+                {/* Category Filter - improved touch targets */}
+                <div className="flex gap-2 overflow-x-auto pb-2 mb-3 -mx-1 px-1">
                     {['all', 'pull', 'push', 'legs', 'core', 'cardio', 'skill', 'arms', 'shoulders'].map(filter => (
                         <button
                             key={filter}
                             onClick={() => setCategoryFilter(filter)}
-                            className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
+                            className={`min-h-[44px] px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
                                 categoryFilter === filter
                                     ? 'bg-sys-accent text-white'
                                     : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'

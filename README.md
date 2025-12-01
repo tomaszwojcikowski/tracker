@@ -173,6 +173,15 @@ For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 - **Progress Tracking**: Visual indicators show completion status for each section
 - **Collapsible Exercises**: Compact view for completed exercises to reduce scrolling
 
+### 📦 Program Management
+- **Program Import**: Import custom workout programs from JSON files with schema validation
+- **Program Export**: Export programs with or without user progress data
+- **Version Migration**: Automatic migration between format versions (v2.0 → v2.3)
+- **Progress Tracking**: Track completion percentage and statistics per program
+- **Progress Archive**: Archive and restore program progress for fresh starts
+- **Program Reset**: Reset program progress while preserving archived data
+- **Sample Programs**: Built-in program templates for beginners, intermediate, and mobility focus
+
 ### ⚡ User Experience
 - **Fast Interactions**: Debounced search inputs and optimized rendering
 - **Keyboard Shortcuts**: Escape key to dismiss toasts and modals

@@ -26,6 +26,7 @@ export {
 } from './volume';
 export * from './sanitize';
 export * from './errorReporting';
+export * from './programImportExport';
 
 // Workout session utilities (extracted from WorkoutPlayer)
 export {

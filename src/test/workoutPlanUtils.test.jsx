@@ -186,7 +186,7 @@ describe('Workout Plan Utilities', () => {
     });
 
     it('should throw error for invalid v2 format', () => {
-      expect(() => convertV2ToInternal({})).toThrow('Invalid v2.0.0/v2.1.0 workout plan format');
+      expect(() => convertV2ToInternal({})).toThrow('Invalid v2.0.0/v2.1.0/v2.2.0 workout plan format');
       expect(() => convertV2ToInternal({ formatVersion: '2.0.0' })).toThrow();
     });
 
@@ -405,6 +405,194 @@ describe('Workout Plan Utilities', () => {
       };
 
       expect(() => convertV2ToInternal(v21DataWithBadRef)).toThrow('Day template "non-existent-template" not found');
+    });
+
+    it('should resolve exercise references from exerciseTemplates in v2.2.0', () => {
+      // v2.2.0 data with exercise templates and references
+      const v22Data = {
+        formatVersion: '2.2.0',
+        plan: {
+          id: 'test-v22-plan',
+          name: 'Test v2.2 Plan',
+          description: 'Testing v2.2 format with exercise templates',
+          author: null,
+          durationWeeks: 1,
+          goals: [],
+          targetLevel: 'intermediate',
+          equipment: ['pull-up-bar'],
+          exerciseTemplates: [
+            {
+              id: 'warmup-rower-zone1',
+              exerciseName: 'Rower (Zone 1)',
+              category: 'warmup',
+              sets: 1,
+              notes: 'Warm-up. Easy pace.',
+              repsType: 'time',
+              repsValue: 120,
+              repsUnit: 'seconds',
+              loadMin: 0,
+              loadMax: 0,
+              loadUnit: 'bodyweight',
+              restSeconds: 30
+            },
+            {
+              id: 'cooldown-stretch',
+              exerciseName: 'Lat Stretch',
+              category: 'cooldown',
+              sets: 1,
+              notes: 'Cool-down. Hold stretch.',
+              repsType: 'time',
+              repsValue: 60,
+              repsUnit: 'seconds',
+              loadMin: 0,
+              loadMax: 0,
+              loadUnit: 'bodyweight',
+              restSeconds: 0
+            }
+          ],
+          dayTemplates: [],
+          phases: [
+            {
+              phaseNumber: 1,
+              name: 'Test Phase',
+              description: 'Testing v2.2 features',
+              startWeek: 1,
+              endWeek: 1,
+              focus: 'volume',
+              weeks: [
+                {
+                  weekNumber: 1,
+                  description: null,
+                  focus: null,
+                  volumeLevel: 'moderate',
+                  intensityLevel: 'low',
+                  days: [
+                    {
+                      dayNumber: 1,
+                      name: 'Test Day',
+                      type: 'strength',
+                      estimatedDuration: 30,
+                      description: null,
+                      exercises: [
+                        // Reference to warmup template
+                        { $ref: 'warmup-rower-zone1' },
+                        // Full exercise definition (inline)
+                        {
+                          exerciseName: 'Pull-Ups',
+                          category: 'main',
+                          sets: 3,
+                          repsType: 'reps',
+                          repsValue: 8,
+                          loadMin: 0,
+                          loadMax: 0,
+                          loadUnit: 'bodyweight',
+                          restSeconds: 120,
+                          notes: 'Main exercise'
+                        },
+                        // Reference with override
+                        { 
+                          $ref: 'cooldown-stretch',
+                          notes: 'Custom note for this day',
+                          repsValue: 90
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      const result = convertV2ToInternal(v22Data);
+
+      // Should have 3 exercises
+      expect(result.length).toBe(3);
+
+      // Check resolved warmup template
+      expect(result[0]).toMatchObject({
+        w: 1,
+        d: 1,
+        ex: 'Rower (Zone 1)',
+        s: 1,
+        n: 'Warm-up. Easy pace.',
+        category: 'warmup',
+        restSeconds: 30
+      });
+      expect(result[0].repsRange.type).toBe('time');
+      expect(result[0].repsRange.value).toBe(120);
+
+      // Check inline exercise
+      expect(result[1]).toMatchObject({
+        w: 1,
+        d: 1,
+        ex: 'Pull-Ups',
+        s: 3,
+        n: 'Main exercise',
+        category: 'main',
+        restSeconds: 120
+      });
+
+      // Check resolved template with overrides
+      expect(result[2]).toMatchObject({
+        w: 1,
+        d: 1,
+        ex: 'Lat Stretch',
+        s: 1,
+        n: 'Custom note for this day', // overridden
+        category: 'cooldown',
+        restSeconds: 0
+      });
+      expect(result[2].repsRange.value).toBe(90); // overridden from 60
+    });
+
+    it('should throw error for missing exercise template reference in v2.2.0', () => {
+      const v22DataWithBadRef = {
+        formatVersion: '2.2.0',
+        plan: {
+          id: 'bad-exercise-ref-plan',
+          name: 'Bad Exercise Ref Plan',
+          description: null,
+          author: null,
+          durationWeeks: 1,
+          goals: [],
+          targetLevel: 'beginner',
+          equipment: [],
+          exerciseTemplates: [],
+          dayTemplates: [],
+          phases: [
+            {
+              phaseNumber: 1,
+              name: 'Test',
+              description: null,
+              startWeek: 1,
+              endWeek: 1,
+              focus: 'volume',
+              weeks: [
+                {
+                  weekNumber: 1,
+                  description: null,
+                  focus: null,
+                  volumeLevel: 'low',
+                  intensityLevel: 'low',
+                  days: [
+                    {
+                      dayNumber: 1,
+                      name: 'Test Day',
+                      exercises: [
+                        { $ref: 'non-existent-exercise' }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      expect(() => convertV2ToInternal(v22DataWithBadRef)).toThrow('Exercise template "non-existent-exercise" not found');
     });
   });
 

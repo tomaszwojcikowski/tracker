@@ -8,13 +8,28 @@
 import type { ProgramManifest } from '../../services/programRegistry';
 
 /**
+ * Sample program manifest without runtime-added fields
+ */
+type SampleProgramManifest = Omit<ProgramManifest, 'installedAt' | 'isActive' | 'dataPath'>;
+
+/**
  * Sample program definition with load path
  */
 export interface SampleProgramInfo {
-  /** Program manifest with metadata */
-  manifest: Omit<ProgramManifest, 'installedAt' | 'isActive'>;
+  /** Program manifest with metadata (dataPath is added from the outer dataPath) */
+  manifest: SampleProgramManifest;
   /** Path to load the program JSON from */
   dataPath: string;
+}
+
+/**
+ * Get full manifest with dataPath included
+ */
+export function getFullManifest(info: SampleProgramInfo): Omit<ProgramManifest, 'installedAt' | 'isActive'> {
+  return {
+    ...info.manifest,
+    dataPath: info.dataPath,
+  };
 }
 
 /**
@@ -35,7 +50,6 @@ export const SAMPLE_PROGRAMS: SampleProgramInfo[] = [
       targetLevel: 'beginner',
       goals: ['foundational-strength', 'movement-patterns', 'bodyweight-basics', 'consistency'],
       equipment: ['pull-up-bar', 'resistance-bands'],
-      dataPath: '/programs/beginner-bodyweight-4week.json',
     },
     dataPath: '/programs/beginner-bodyweight-4week.json',
   },
@@ -50,7 +64,6 @@ export const SAMPLE_PROGRAMS: SampleProgramInfo[] = [
       targetLevel: 'intermediate',
       goals: ['strength-building', 'compound-movements', 'progressive-overload', 'muscle-development'],
       equipment: ['barbell', 'dumbbells', 'bench', 'squat-rack', 'pull-up-bar'],
-      dataPath: '/programs/strength-fundamentals-6week.json',
     },
     dataPath: '/programs/strength-fundamentals-6week.json',
   },
@@ -65,7 +78,6 @@ export const SAMPLE_PROGRAMS: SampleProgramInfo[] = [
       targetLevel: 'beginner',
       goals: ['improved-flexibility', 'joint-mobility', 'injury-prevention', 'recovery'],
       equipment: ['yoga-mat', 'resistance-bands'],
-      dataPath: '/programs/mobility-flexibility-2week.json',
     },
     dataPath: '/programs/mobility-flexibility-2week.json',
   },

@@ -43,8 +43,8 @@ test.describe('New Features', () => {
     await page.locator('button[aria-label="Train"]').click();
     await page.waitForTimeout(1000); // Wait for dashboard to load
 
-    // Start Day 1 Workout
-    const startButton = page.locator('button[aria-label="Start Day 1 workout"]');
+    // Start Day 1 Workout - aria-label can be Start/Resume/Continue depending on state
+    const startButton = page.locator('button[aria-label*="Day 1 workout"]');
     await expect(startButton).toBeVisible();
     await startButton.click();
 

@@ -927,14 +927,14 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                                 {(() => {
                                     const item = allExercises[focusIndex];
-                                    
+
                                     if (item.type === 'added') {
                                         const ex = item.data as AddedExercise;
                                         const exId = item.id;
                                         const defaultSets = ex.sets || 3;
                                         const exerciseLog = getExerciseLogEntry(logs, exId);
                                         const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
-                                        
+
                                         return (
                                             <AddedExerciseCard
                                                 key={ex.id}
@@ -1072,7 +1072,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                             const isFirstIncomplete = exId === firstIncompleteExerciseId;
 
                                             // Check if this exercise is part of a superset group
-                                            if (ex.supersetGroup !== undefined && ex.isEmom) {
+                                            if (ex.supersetGroup !== undefined) {
                                                 // Skip if we already rendered this group
                                                 if (renderedGroups.has(ex.supersetGroup)) {
                                                     return;

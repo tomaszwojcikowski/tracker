@@ -299,54 +299,7 @@
                     ]
                   },
                   {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Unilateral Leg Work: Use Alternating EMOM (Min 1 Left, Min 2 Right).",
-                    "loadMin": 8,
-                    "loadMax": 16,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Unilateral Leg Work: Use Alternating EMOM (Min 1 Left, Min 2 Right).",
-                    "loadMin": 8,
-                    "loadMax": 16,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss"
                   },
                   {
                     "$ref": "core-weighted-hollow-rocks",
@@ -584,54 +537,7 @@
                     ]
                   },
                   {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Unilateral Leg Work.",
-                    "loadMin": 8,
-                    "loadMax": 16,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Unilateral Leg Work.",
-                    "loadMin": 8,
-                    "loadMax": 16,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss"
                   },
                   {
                     "category": "main",
@@ -876,54 +782,7 @@
                     ]
                   },
                   {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Unilateral Leg Work.",
-                    "loadMin": 8,
-                    "loadMax": 16,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Unilateral Leg Work.",
-                    "loadMin": 8,
-                    "loadMax": 16,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss"
                   },
                   {
                     "category": "main",
@@ -1137,54 +996,8 @@
                     ]
                   },
                   {
-                    "category": "main",
-                    "sets": 2,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. Deload. EMOM. Unilateral Leg Work.",
-                    "loadMin": 8,
-                    "loadMax": 16,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 2,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. Deload. EMOM. Unilateral Leg Work.",
-                    "loadMin": 8,
-                    "loadMax": 16,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss",
+                    "sets": 2
                   },
                   {
                     "$routine": "cooldown-push-day"
@@ -1410,54 +1223,8 @@
                     "progressionNotes": "Double Progression Rule: Hit top reps to add weight."
                   },
                   {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Unilateral Leg Work: Use Alternating EMOM (Min 1 Left, Min 2 Right).",
-                    "loadMin": 8,
-                    "loadMax": 16,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 3,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Unilateral Leg Work: Use Alternating EMOM (Min 1 Left, Min 2 Right).",
-                    "loadMin": 8,
-                    "loadMax": 16,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 3,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss",
+                    "supersetGroup": 3
                   },
                   {
                     "category": "main",
@@ -1651,54 +1418,7 @@
                     ]
                   },
                   {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Unilateral Leg Work.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Unilateral Leg Work.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss"
                   },
                   {
                     "category": "main",
@@ -1892,54 +1612,7 @@
                     ]
                   },
                   {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Unilateral Leg Work.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Unilateral Leg Work.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss"
                   },
                   {
                     "category": "main",
@@ -2286,54 +1959,7 @@
                     ]
                   },
                   {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss"
                   },
                   {
                     "category": "main",
@@ -2491,54 +2117,7 @@
                     "restSeconds": 60
                   },
                   {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss"
                   },
                   {
                     "category": "main",
@@ -2709,54 +2288,7 @@
                     ]
                   },
                   {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss"
                   },
                   {
                     "category": "main",
@@ -3145,54 +2677,7 @@
                     "restSeconds": 120
                   },
                   {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss"
                   },
                   {
                     "category": "main",
@@ -3372,54 +2857,7 @@
                     "restSeconds": 60
                   },
                   {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss"
                   },
                   {
                     "category": "main",
@@ -3609,54 +3047,7 @@
                     "restSeconds": 60
                   },
                   {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss"
                   },
                   {
                     "category": "main",
@@ -3916,54 +3307,7 @@
                     "restSeconds": 120
                   },
                   {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss"
                   },
                   {
                     "category": "main",
@@ -4081,54 +3425,7 @@
                     "restSeconds": 120
                   },
                   {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 3,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 10,
-                    "loadMax": 18,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss"
                   },
                   {
                     "category": "main",
@@ -4335,54 +3632,8 @@
                     "restSeconds": 120
                   },
                   {
-                    "category": "main",
-                    "sets": 2,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. Deload. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 8,
-                    "loadMax": 12,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 2,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. Deload. Unilateral Leg Work. Squat pattern for balanced lower body development.",
-                    "loadMin": 8,
-                    "loadMax": 12,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss",
+                    "sets": 2
                   },
                   {
                     "category": "main",
@@ -4986,54 +4237,8 @@
                     ]
                   },
                   {
-                    "category": "main",
-                    "sets": 2,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Left side. EMOM. Alternating EMOM (Min 1 Left, Min 2 Right). Light loading.",
-                    "loadMin": 6,
-                    "loadMax": 12,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 6,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
-                  },
-                  {
-                    "category": "main",
-                    "sets": 2,
-                    "exerciseName": "Bulgarian Split Squat",
-                    "notes": "Right side. EMOM. Alternating EMOM (Min 1 Left, Min 2 Right). Light loading.",
-                    "loadMin": 6,
-                    "loadMax": 12,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 6,
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lunges",
-                      "Step-Ups",
-                      "Split Squats"
-                    ],
-                    "cues": [
-                      "Vertical shin",
-                      "Drive through heel"
-                    ],
-                    "isUnilateral": true
+                    "$routine": "superset-bss",
+                    "sets": 2
                   },
                   {
                     "category": "main",
@@ -5399,32 +4604,6 @@
             "$routine": "cooldown-lower-body"
           }
         ]
-      },
-      {
-        "id": "template-lower-body-3",
-        "dayNumber": 3,
-        "name": "Lower Body",
-        "type": "strength",
-        "estimatedDuration": 12,
-        "description": null,
-        "exercises": [
-          {
-            "category": "mobility",
-            "sets": 1,
-            "exerciseName": "Mobility Flow",
-            "notes": "Recovery",
-            "repsType": "time",
-            "repsValue": 1200,
-            "repsUnit": "seconds",
-            "loadMin": 0,
-            "loadMax": 0,
-            "loadUnit": "bodyweight",
-            "restSeconds": 0
-          },
-          {
-            "$routine": "cooldown-lower-body"
-          }
-        ]
       }
     ],
     "exerciseTemplates": [
@@ -5753,6 +4932,58 @@
         "repsMax": 15,
         "restSeconds": 60,
         "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
+      },
+      {
+        "id": "main-bss-left",
+        "exerciseName": "Bulgarian Split Squat",
+        "category": "main",
+        "sets": 3,
+        "notes": "Left side. EMOM. Unilateral Leg Work.",
+        "loadMin": 10,
+        "loadMax": 18,
+        "loadUnit": "kg",
+        "loadPerHand": true,
+        "repsType": "reps",
+        "repsValue": 8,
+        "isEmom": true,
+        "supersetGroup": 1,
+        "restSeconds": 120,
+        "alternatives": [
+          "Lunges",
+          "Step-Ups",
+          "Split Squats"
+        ],
+        "cues": [
+          "Vertical shin",
+          "Drive through heel"
+        ],
+        "isUnilateral": true
+      },
+      {
+        "id": "main-bss-right",
+        "exerciseName": "Bulgarian Split Squat",
+        "category": "main",
+        "sets": 3,
+        "notes": "Right side. EMOM. Unilateral Leg Work.",
+        "loadMin": 10,
+        "loadMax": 18,
+        "loadUnit": "kg",
+        "loadPerHand": true,
+        "repsType": "reps",
+        "repsValue": 8,
+        "isEmom": true,
+        "supersetGroup": 1,
+        "restSeconds": 120,
+        "alternatives": [
+          "Lunges",
+          "Step-Ups",
+          "Split Squats"
+        ],
+        "cues": [
+          "Vertical shin",
+          "Drive through heel"
+        ],
+        "isUnilateral": true
       }
     ],
     "routineTemplates": [
@@ -5861,6 +5092,26 @@
           },
           {
             "$ref": "cooldown-90-90-hip-rotations"
+          }
+        ]
+      },
+      {
+        "id": "superset-bss",
+        "name": "Bulgarian Split Squat EMOM Pair",
+        "description": "Left/Right Bulgarian Split Squat superset for unilateral leg development.",
+        "category": "activation",
+        "estimatedDuration": 8,
+        "targetAreas": [
+          "quads",
+          "glutes",
+          "hamstrings"
+        ],
+        "exercises": [
+          {
+            "$ref": "main-bss-left"
+          },
+          {
+            "$ref": "main-bss-right"
           }
         ]
       }

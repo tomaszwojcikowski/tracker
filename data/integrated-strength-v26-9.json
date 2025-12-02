@@ -988,6 +988,123 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "notes": "Tempo 3-1-1-0. Reduced joint stress"
+      },
+      {
+        "id": "ex-pull-ups-amrap-minus",
+        "exerciseName": "Pull-ups AMRAP -2",
+        "category": "main",
+        "sets": 3,
+        "repsType": "amrap",
+        "repsModifier": -2,
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "notes": "Stop 2 reps before failure. Technical cap at 30 total reps",
+        "alternatives": [
+          "Lat Pulldowns",
+          "Assisted Pull-Ups"
+        ]
+      },
+      {
+        "id": "ex-weighted-dips-heavy",
+        "exerciseName": "Weighted Dips",
+        "category": "main",
+        "sets": 4,
+        "repsType": "reps",
+        "repsValue": 5,
+        "loadUnit": "kg",
+        "restSeconds": 120,
+        "notes": "Dip Governor Rule applies. If shoulder pinch, switch immediately",
+        "alternatives": [
+          "Straight Bar Dips",
+          "Weighted Bench Dips"
+        ],
+        "cues": [
+          "Shoulders down",
+          "Don't flair elbows"
+        ]
+      },
+      {
+        "id": "ex-dragon-flags-negatives",
+        "exerciseName": "Dragon Flags (Negatives)",
+        "category": "core",
+        "sets": 3,
+        "repsType": "reps",
+        "repsMin": 3,
+        "repsMax": 5,
+        "loadUnit": "bodyweight",
+        "restSeconds": 90,
+        "notes": "ONLY if tendons feel excellent. Otherwise, use Weighted V-Ups",
+        "alternatives": [
+          "Weighted V-Ups"
+        ],
+        "cues": [
+          "Controlled descent",
+          "5s eccentric"
+        ]
+      },
+      {
+        "id": "ex-max-pull-ups",
+        "exerciseName": "Max Reps Pull-Ups (BW)",
+        "category": "main",
+        "sets": 1,
+        "repsType": "max",
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "notes": "TEST. Test to technical failure",
+        "alternatives": [
+          "Lat Pulldowns",
+          "Assisted Pull-Ups"
+        ]
+      },
+      {
+        "id": "ex-max-dips",
+        "exerciseName": "Max Reps Dips",
+        "category": "main",
+        "sets": 1,
+        "repsType": "max",
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "notes": "TEST. Dip Governor Rule applies",
+        "alternatives": [
+          "Push-Ups",
+          "Bench Dips"
+        ]
+      },
+      {
+        "id": "ex-3rm-weighted-pull-up",
+        "exerciseName": "3RM Weighted Pull-Up",
+        "category": "main",
+        "sets": 1,
+        "repsType": "rm",
+        "repsValue": 3,
+        "loadMin": 15,
+        "loadMax": 20,
+        "loadUnit": "kg",
+        "restSeconds": 120,
+        "notes": "TEST. 3-rep max"
+      },
+      {
+        "id": "ex-5rm-weighted-push-up",
+        "exerciseName": "5RM Weighted Push-Up",
+        "category": "main",
+        "sets": 1,
+        "repsType": "rm",
+        "repsValue": 5,
+        "loadMin": 10,
+        "loadMax": 15,
+        "loadUnit": "kg",
+        "restSeconds": 120,
+        "notes": "TEST. 5-rep max"
+      },
+      {
+        "id": "ex-max-quality-archer-negatives",
+        "exerciseName": "Max Quality Archer Negatives",
+        "category": "main",
+        "sets": 1,
+        "repsType": "max",
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "notes": "TEST. Quality over quantity"
       }
     ],
     "phases": [

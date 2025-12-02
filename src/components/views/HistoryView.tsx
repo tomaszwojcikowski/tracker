@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { safeGetJSON } from '../../utils/storage';
+import { getGlobalHistoryKey } from '../../services/storageNamespace';
 import { PullToRefresh } from '../PullToRefresh';
 import { useHaptic, useLucideIcons } from '../../hooks';
 
@@ -373,7 +374,8 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
     const haptic = useHaptic();
 
     const loadHistory = async () => {
-        const h = safeGetJSON<GlobalHistoryEntry[]>('global_history', []);
+        const globalHistoryKey = getGlobalHistoryKey();
+        const h = safeGetJSON<GlobalHistoryEntry[]>(globalHistoryKey, []);
 
         // Validate that history is an array
         if (!Array.isArray(h)) {

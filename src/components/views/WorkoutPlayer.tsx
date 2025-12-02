@@ -22,9 +22,10 @@ import {
     useRestTimer,
     useEmomTimer,
     useExerciseCollapse,
+    useKeyboardShortcut,
 } from '../../hooks';
 import {
-    Flame, Dumbbell, Snowflake, Activity, LayoutGrid, LayoutList, PlusCircle, X, CheckCircle2
+    Flame, Dumbbell, Snowflake, Activity, LayoutGrid, LayoutList, PlusCircle, X, CheckCircle2, Maximize2, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import {
     DEBOUNCE_DELAY_MS,
@@ -39,8 +40,10 @@ import {
     parseWeight,
     getExerciseLogEntry,
     normalizeAddedExercises,
+    getExerciseId,
 } from '../../utils/workoutSession';
-import { getSessionKey, getNamespacedKey } from '../../services/storageNamespace';
+import { getSessionKey, getNamespacedKey, getGlobalHistoryKey } from '../../services/storageNamespace';
+import { syncService } from '../../services/SyncService';
 import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../../types';
 import type { WorkoutSessionData, ExerciseLogEntry, MuscleFilter, RPEData } from '../../types/workout';
 
@@ -105,8 +108,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [compactView, setCompactView] = useState(() =>
         safeGetJSON<boolean>('workout_compact_view', false) ?? false
     );
+    const [viewMode, setViewMode] = useState<'list' | 'focus'>(() =>
+        safeGetJSON<'list' | 'focus'>('workout_view_mode', 'list') ?? 'list'
+    );
+    const [focusIndex, setFocusIndex] = useState(0);
     // RPE selector state: { exerciseId, setIndex } or null
     const [rpePrompt, setRpePrompt] = useState<{ exerciseId: string; setIndex: number } | null>(null);
+
     // Exercise swaps: maps original exercise name to swapped alternative name
     const [exerciseSwaps, setExerciseSwaps] = useState<Record<string, string>>({});
     // Currently showing alternatives picker for which exercise
@@ -127,6 +135,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             return newValue;
         });
     }, [haptic]);
+
+    // Handle view mode change and persist preference
+    const handleViewModeChange = useCallback((newMode: 'list' | 'focus') => {
+        setViewMode(newMode);
+        safeSetJSON('workout_view_mode', newMode);
+    }, []);
 
     // Handle swapping an exercise to an alternative
     const handleSwapExercise = useCallback((originalName: string, alternativeName: string) => {
@@ -163,7 +177,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         if (workout?.sections) {
             for (const section of workout.sections) {
                 for (const ex of section.exercises) {
-                    const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                    const exId = getExerciseId(ex.name);
                     const exerciseLog = getExerciseLogEntry(logs, exId);
                     const sets = exerciseLog.sets || [];
                     const defaultSets = ex.sets || 3;
@@ -190,6 +204,60 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         return { completedSets, totalSets };
     }, [workout, logs, addedExercises]);
 
+    // Flatten exercises for focus mode navigation
+    const allExercises = useMemo(() => {
+        const exercises: Array<{
+            type: 'program' | 'added';
+            data: WorkoutExercise | AddedExercise;
+            section?: string;
+            id: string;
+        }> = [];
+
+        workout?.sections?.forEach(section => {
+            section.exercises.forEach(ex => {
+                exercises.push({
+                    type: 'program',
+                    data: ex,
+                    section: section.name,
+                    id: getExerciseId(ex.name)
+                });
+            });
+        });
+
+        addedExercises.forEach(ex => {
+            exercises.push({
+                type: 'added',
+                data: ex,
+                id: `added_${ex.id}`
+            });
+        });
+
+        return exercises;
+    }, [workout, addedExercises]);
+
+    // Ensure focusIndex is always within bounds of allExercises
+    useEffect(() => {
+        // If focusIndex is out of bounds, reset to last valid index or 0
+        if (focusIndex >= allExercises.length && allExercises.length > 0) {
+            setFocusIndex(allExercises.length - 1);
+        } else if (allExercises.length === 0) {
+            setFocusIndex(0);
+        }
+    }, [allExercises.length, focusIndex]);
+
+    // Keyboard navigation for focus mode
+    useKeyboardShortcut('ArrowLeft', () => {
+        if (viewMode === 'focus' && focusIndex > 0) {
+            setFocusIndex(focusIndex - 1);
+        }
+    }, { enabled: viewMode === 'focus' });
+
+    useKeyboardShortcut('ArrowRight', () => {
+        if (viewMode === 'focus' && focusIndex < allExercises.length - 1) {
+            setFocusIndex(focusIndex + 1);
+        }
+    }, { enabled: viewMode === 'focus' });
+
     // Load session data on mount
     useEffect(() => {
         const parsedLogs = safeGetJSON<WorkoutSessionData>(sessionKey, {} as WorkoutSessionData);
@@ -213,6 +281,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         const success = safeSetJSON(sessionKey, updatedLogs);
         if (!success) {
             alert('Failed to save progress. Your storage might be full.');
+        } else {
+            // Schedule a background sync to cloud
+            syncService.scheduleSync();
         }
     };
 
@@ -542,7 +613,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             if (!isEmptyWorkout) {
                 workout.sections.forEach((section: WorkoutSection) => {
                     section.exercises.forEach((ex: WorkoutExercise) => {
-                        const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                        const exId = getExerciseId(ex.name);
                         const exLog = getExerciseLogEntry(updatedLogs, exId);
                         const sets = exLog.sets || [];
                         const completedSets = sets.filter((s) => s).length;
@@ -608,7 +679,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 }
             });
 
-            // Save to global history with duration
+            // Save to global history with duration (use namespaced key for program isolation)
+            const globalHistoryKey = getGlobalHistoryKey();
             const historyEntry = {
                 week: effectiveWeek,
                 day: effectiveDay,
@@ -620,7 +692,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 durationSeconds: workoutDurationSeconds,
             };
 
-            const history = safeGetJSON('global_history', [] as unknown[]) as unknown[];
+            const history = safeGetJSON(globalHistoryKey, [] as unknown[]) as unknown[];
             let cleanHistory: unknown[];
 
             if (isEmptyWorkout) {
@@ -633,11 +705,21 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     : [];
             }
             cleanHistory.push(historyEntry);
-            safeSetJSON('global_history', cleanHistory);
+            safeSetJSON(globalHistoryKey, cleanHistory);
 
             // Clear empty workout session key when completing
             if (isEmptyWorkout) {
                 sessionStorage.removeItem('current_empty_workout_key');
+            }
+
+            // Automatically sync to cloud if Firebase is configured and user is logged in
+            // This ensures workout data is backed up immediately after completion
+            try {
+                await syncService.syncNow();
+            } catch (syncError) {
+                // Don't block workout completion if sync fails
+                // User can manually sync later from settings
+                console.error('Failed to sync workout to cloud:', syncError);
             }
 
             onComplete();
@@ -655,7 +737,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const firstIncompleteExerciseId = useMemo(() => {
         for (const section of workout.sections) {
             for (const ex of section.exercises) {
-                const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                const exId = getExerciseId(ex.name);
                 const defaultSets = ex.sets || 3;
                 const sets = getExerciseLogEntry(logs, exId).sets || new Array(defaultSets).fill(false);
                 const completedSets = sets.filter((s) => s).length;
@@ -727,24 +809,53 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 <div className="flex justify-end mb-4">
                     <div className="flex items-center bg-sys-surfaceHigh rounded-lg p-1 border border-white/5">
                         <button
-                            onClick={toggleCompactView}
+                            onClick={() => {
+                                if (viewMode === 'focus') {
+                                    haptic.tick();
+                                    handleViewModeChange('list');
+                                    if (compactView) toggleCompactView(); // ensure compactView is false
+                                } else {
+                                    if (compactView) toggleCompactView(); // ensure compactView is false
+                                }
+                            }}
                             className={`h-8 w-8 rounded-md flex items-center justify-center transition-all ${
-                                !compactView ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
+                                viewMode === 'list' && !compactView ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
                             }`}
                             aria-label="Card view"
-                            aria-pressed={!compactView}
+                            aria-pressed={viewMode === 'list' && !compactView}
                         >
                             <LayoutGrid size={16} />
                         </button>
                         <button
-                            onClick={toggleCompactView}
+                            onClick={() => {
+                                haptic.tick();
+                                handleViewModeChange('list');
+                                if (!compactView) {
+                                    setCompactView(true);
+                                    safeSetJSON('workout_compact_view', true);
+                                }
+                            }}
                             className={`h-8 w-8 rounded-md flex items-center justify-center transition-all ${
-                                compactView ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
+                                viewMode === 'list' && compactView ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
                             }`}
                             aria-label="Compact list view"
-                            aria-pressed={compactView}
+                            aria-pressed={viewMode === 'list' && compactView}
                         >
                             <LayoutList size={16} />
+                        </button>
+                        <div className="w-[1px] h-4 bg-white/10 mx-1" />
+                        <button
+                            onClick={() => {
+                                haptic.tick();
+                                handleViewModeChange(viewMode === 'focus' ? 'list' : 'focus');
+                            }}
+                            className={`h-8 w-8 rounded-md flex items-center justify-center transition-all ${
+                                viewMode === 'focus' ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
+                            }`}
+                            aria-label="Focus mode"
+                            aria-pressed={viewMode === 'focus'}
+                        >
+                            <Maximize2 size={16} />
                         </button>
                     </div>
                 </div>
@@ -775,10 +886,133 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 )}
 
                 {/* Workout Sections */}
+                {viewMode === 'focus' ? (
+                    <div className="flex-1 flex flex-col min-h-[60vh]">
+                        {allExercises.length > 0 && focusIndex >= 0 && focusIndex < allExercises.length ? (
+                            <div className="flex-1 flex flex-col">
+                                <div className="flex items-center justify-between mb-4">
+                                    <button
+                                        onClick={() => {
+                                            haptic.tick();
+                                            setFocusIndex(Math.max(0, focusIndex - 1));
+                                        }}
+                                        disabled={focusIndex === 0}
+                                        className="h-10 w-10 rounded-full bg-sys-surfaceHigh text-white flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
+                                        aria-label="Previous exercise"
+                                    >
+                                        <ChevronLeft size={20} />
+                                    </button>
+                                    <div className="text-center">
+                                        <span className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider">
+                                            Exercise {focusIndex + 1} of {allExercises.length}
+                                        </span>
+                                        {focusIndex >= 0 && focusIndex < allExercises.length && allExercises[focusIndex].section && (
+                                            <div className="text-xs text-sys-accent font-bold">
+                                                {allExercises[focusIndex].section}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <button
+                                        onClick={() => {
+                                            haptic.tick();
+                                            setFocusIndex(Math.min(allExercises.length - 1, focusIndex + 1));
+                                        }}
+                                        disabled={focusIndex === allExercises.length - 1}
+                                        className="h-10 w-10 rounded-full bg-sys-surfaceHigh text-white flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
+                                        aria-label="Next exercise"
+                                    >
+                                        <ChevronRight size={20} />
+                                    </button>
+                                </div>
+
+                                {(() => {
+                                    const item = allExercises[focusIndex];
+                                    
+                                    if (item.type === 'added') {
+                                        const ex = item.data as AddedExercise;
+                                        const exId = item.id;
+                                        const defaultSets = ex.sets || 3;
+                                        const exerciseLog = getExerciseLogEntry(logs, exId);
+                                        const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
+                                        
+                                        return (
+                                            <AddedExerciseCard
+                                                key={ex.id}
+                                                exercise={ex}
+                                                sets={currentSetArray}
+                                                haptic={haptic}
+                                                onToggleSet={toggleSet}
+                                                onRemove={removeAddedExercise}
+                                                onStartRestTimer={restTimer.start}
+                                            />
+                                        );
+                                    }
+
+                                    const ex = item.data as WorkoutExercise;
+                                    const exId = item.id;
+                                    const defaultSets = ex.sets || 3;
+                                    const exerciseLog = getExerciseLogEntry(logs, exId);
+                                    const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
+                                    const effectiveName = getEffectiveExerciseName(ex);
+                                    const hasHistory = getExerciseHistory(ex.name).length > 0;
+                                    const isFirstIncomplete = exId === firstIncompleteExerciseId;
+
+                                    return (
+                                        <div className="flex-1">
+                                            <ExerciseCard
+                                                key={exId}
+                                                exId={exId}
+                                                name={ex.name}
+                                                effectiveName={effectiveName}
+                                                prescription={ex.prescription}
+                                                notes={ex.notes}
+                                                isBodyweight={ex.isBodyweight}
+                                                isEmom={ex.isEmom}
+                                                isUnilateral={ex.isUnilateral}
+                                                restTime={ex.rest}
+                                                loadRange={ex.loadRange}
+                                                alternatives={ex.alternatives}
+                                                sets={currentSetArray}
+                                                defaultSets={defaultSets}
+                                                exerciseLog={exerciseLog}
+                                                hasHistory={hasHistory}
+                                                isFirstIncomplete={isFirstIncomplete}
+                                                isCollapsed={false}
+                                                supersetGroup={ex.supersetGroup}
+                                                supersetPosition={ex.supersetPosition}
+                                                rpePrompt={rpePrompt}
+                                                emomTimerActive={emomTimer.active}
+                                                emomTimerInterval={emomTimer.interval}
+                                                haptic={haptic}
+                                                onToggleCollapse={() => {}}
+                                                onToggleSet={toggleSet}
+                                                onAddSet={addSet}
+                                                onCompleteAllSets={completeAllSets}
+                                                onSaveWeight={(id, weight) => saveLog(id, 'weight', weight)}
+                                                onSaveRPE={saveRPE}
+                                                onClearRPEPrompt={() => setRpePrompt(null)}
+                                                onStartRestTimer={(seconds) => restTimer.start(seconds)}
+                                                onToggleEmomTimer={() => emomTimer.toggle()}
+                                                onShowHistory={setShowExerciseHistory}
+                                                onShowNotes={(name, notes) => setShowNotesFor({ exerciseName: name, notes })}
+                                                onShowAlternatives={(name, alts) => setShowAlternativesFor({ name, alternatives: alts })}
+                                            />
+                                        </div>
+                                    );
+                                })()}
+                            </div>
+                        ) : (
+                            <div className="flex-1 flex items-center justify-center text-sys-onSurfaceVar">
+                                No exercises found
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <>
                 {workout.sections.map((section: WorkoutSection, sIdx: number) => {
                     const sectionExercises = section.exercises.length;
                     const sectionCompletedExercises = section.exercises.filter((ex: WorkoutExercise) => {
-                        const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                        const exId = getExerciseId(ex.name);
                         const sets = getExerciseLogEntry(logs, exId).sets || [];
                         return sets.length > 0 && sets.every((s) => s);
                     }).length;
@@ -832,7 +1066,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                                         section.exercises.forEach((ex: WorkoutExercise, eIdx: number) => {
                                             const defaultSets = ex.sets || 3;
-                                            const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                                            const exId = getExerciseId(ex.name);
                                             const exerciseLog = getExerciseLogEntry(logs, exId);
                                             const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
                                             const isFirstIncomplete = exId === firstIncompleteExerciseId;
@@ -852,7 +1086,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                                                 // Build SupersetExercise array
                                                 const supersetExercises: SupersetExercise[] = groupExercises.map((gex) => {
-                                                    const gexId = gex.name.replace(/\s+/g, '_').toLowerCase();
+                                                    const gexId = getExerciseId(gex.name);
                                                     const gexLog = getExerciseLogEntry(logs, gexId);
                                                     const gexDefaultSets = gex.sets || 3;
                                                     const gexSetArray = gexLog.sets || new Array(gexDefaultSets).fill(false);
@@ -871,7 +1105,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                                                 // Check if any exercise in the group is first incomplete
                                                 const groupHasFirstIncomplete = groupExercises.some(
-                                                    (gex) => gex.name.replace(/\s+/g, '_').toLowerCase() === firstIncompleteExerciseId
+                                                    (gex) => getExerciseId(gex.name) === firstIncompleteExerciseId
                                                 );
 
                                                 elements.push(
@@ -924,7 +1158,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                     // Card view - render exercises normally
                                     return section.exercises.map((ex: WorkoutExercise, eIdx: number) => {
                                         const defaultSets = ex.sets || 3;
-                                        const exId = ex.name.replace(/\s+/g, '_').toLowerCase();
+                                        const exId = getExerciseId(ex.name);
                                         const exerciseLog = getExerciseLogEntry(logs, exId);
                                         const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
                                         const effectiveName = getEffectiveExerciseName(ex);
@@ -1012,6 +1246,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             })}
                         </div>
                     </div>
+                )}
+                </>
                 )}
 
                 {/* Add Exercise Button */}

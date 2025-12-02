@@ -238,11 +238,41 @@ export interface UserSettings {
 // ============================================================================
 
 /**
+ * Exercise summary entry within a global history entry
+ */
+export interface ExerciseSummaryEntry {
+  name: string;
+  prescription: string;
+  completedSets: number;
+  totalSets: number;
+  weight?: string | number | null;
+  rpe?: Record<string, string>;
+  isBodyweight?: boolean;
+}
+
+/**
+ * Global history entry for workout timeline
+ */
+export interface GlobalHistoryEntry {
+  date: string;
+  week: number;
+  day: number;
+  title?: string;
+  exercises?: ExerciseSummaryEntry[];
+  workoutNotes?: string | null;
+  isEmptyWorkout?: boolean;
+  durationSeconds?: number;
+}
+
+/**
  * Cloud data structure for sync
  */
 export interface CloudData {
   sessions?: Record<SessionKey, SessionData>;
   exerciseHistory?: ExerciseHistory;
+  /** @deprecated use exerciseHistory instead */
+  exercise_history?: ExerciseHistory;
+  global_history?: GlobalHistoryEntry[];
   settings?: UserSettings;
   lastSyncTime?: string;
 }

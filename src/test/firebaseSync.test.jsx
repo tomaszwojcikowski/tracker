@@ -596,4 +596,106 @@ describe('Firebase Sync - Timestamp-based merging', () => {
             expect(merged.exerciseHistory['pull_ups']).toBeDefined();
         });
     });
+
+    describe('Global history merging', () => {
+        /**
+         * Helper function that mimics the global history merge behavior from firebaseSync
+         */
+        const mergeGlobalHistory = (localHistory, cloudHistory) => {
+            if (!cloudHistory || !Array.isArray(cloudHistory)) {
+                return localHistory || [];
+            }
+
+            const existingEntryKeys = new Set(
+                (localHistory || []).map(entry => `${entry.date}-${entry.week}-${entry.day}`)
+            );
+
+            const mergedHistory = [...(localHistory || [])];
+            cloudHistory.forEach(cloudEntry => {
+                const entryKey = `${cloudEntry.date}-${cloudEntry.week}-${cloudEntry.day}`;
+                if (!existingEntryKeys.has(entryKey)) {
+                    mergedHistory.push(cloudEntry);
+                }
+            });
+
+            // Sort by date (newest first)
+            mergedHistory.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+            return mergedHistory;
+        };
+
+        it('should merge cloud history entries that do not exist locally', () => {
+            const localHistory = [
+                { date: '2024-01-14T10:00:00.000Z', week: 1, day: 1, title: 'Day 1' }
+            ];
+            const cloudHistory = [
+                { date: '2024-01-15T10:00:00.000Z', week: 1, day: 2, title: 'Day 2' },
+                { date: '2024-01-13T10:00:00.000Z', week: 1, day: 3, title: 'Day 3' }
+            ];
+
+            const merged = mergeGlobalHistory(localHistory, cloudHistory);
+            expect(merged).toHaveLength(3);
+            // Should be sorted by date (newest first)
+            expect(merged[0].day).toBe(2); // 2024-01-15
+            expect(merged[1].day).toBe(1); // 2024-01-14
+            expect(merged[2].day).toBe(3); // 2024-01-13
+        });
+
+        it('should not duplicate entries with same date/week/day', () => {
+            const localHistory = [
+                { date: '2024-01-14T10:00:00.000Z', week: 1, day: 1, title: 'Day 1 Local' }
+            ];
+            const cloudHistory = [
+                { date: '2024-01-14T10:00:00.000Z', week: 1, day: 1, title: 'Day 1 Cloud' } // Same date/week/day
+            ];
+
+            const merged = mergeGlobalHistory(localHistory, cloudHistory);
+            expect(merged).toHaveLength(1);
+            expect(merged[0].title).toBe('Day 1 Local'); // Local version is kept
+        });
+
+        it('should handle empty local history', () => {
+            const localHistory = [];
+            const cloudHistory = [
+                { date: '2024-01-15T10:00:00.000Z', week: 1, day: 1, title: 'Day 1' }
+            ];
+
+            const merged = mergeGlobalHistory(localHistory, cloudHistory);
+            expect(merged).toHaveLength(1);
+            expect(merged[0].title).toBe('Day 1');
+        });
+
+        it('should handle empty cloud history', () => {
+            const localHistory = [
+                { date: '2024-01-15T10:00:00.000Z', week: 1, day: 1, title: 'Day 1' }
+            ];
+            const cloudHistory = [];
+
+            const merged = mergeGlobalHistory(localHistory, cloudHistory);
+            expect(merged).toHaveLength(1);
+            expect(merged[0].title).toBe('Day 1');
+        });
+
+        it('should handle null cloud history', () => {
+            const localHistory = [
+                { date: '2024-01-15T10:00:00.000Z', week: 1, day: 1, title: 'Day 1' }
+            ];
+
+            const merged = mergeGlobalHistory(localHistory, null);
+            expect(merged).toHaveLength(1);
+        });
+
+        it('should handle custom workouts (week=0, day=0) separately', () => {
+            const localHistory = [
+                { date: '2024-01-14T10:00:00.000Z', week: 0, day: 0, title: 'Custom Workout 1', isEmptyWorkout: true }
+            ];
+            const cloudHistory = [
+                { date: '2024-01-15T10:00:00.000Z', week: 0, day: 0, title: 'Custom Workout 2', isEmptyWorkout: true }
+            ];
+
+            const merged = mergeGlobalHistory(localHistory, cloudHistory);
+            // Different dates, so both should be included
+            expect(merged).toHaveLength(2);
+        });
+    });
 });

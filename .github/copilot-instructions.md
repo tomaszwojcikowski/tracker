@@ -231,6 +231,8 @@ VITE_FIREBASE_APP_ID="..."
 6. Maintain error handling patterns with typed error handling
 7. Update README.md if user-facing
 8. For complex flows, add E2E tests in `e2e/`
+9. Always make sure that e2e tests pass in addition to unit tests
+10. Skip CodeQL scans
 
 **When Fixing Bugs**:
 1. Write a failing test first

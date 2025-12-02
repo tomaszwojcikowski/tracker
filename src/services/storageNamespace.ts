@@ -237,6 +237,27 @@ export function getExerciseHistoryKeyForProgram(programId: string): string {
 }
 
 // ============================================================================
+// GLOBAL HISTORY KEY HELPERS
+// ============================================================================
+
+/**
+ * Get the namespaced global history key for the active program
+ * @returns Namespaced global history key
+ */
+export function getGlobalHistoryKey(): string {
+  return getNamespacedKey('global_history');
+}
+
+/**
+ * Get the namespaced global history key for a specific program
+ * @param programId - Program identifier
+ * @returns Namespaced global history key
+ */
+export function getGlobalHistoryKeyForProgram(programId: string): string {
+  return getNamespacedKeyForProgram(programId, 'global_history');
+}
+
+// ============================================================================
 // KEY ENUMERATION
 // ============================================================================
 

@@ -1712,6 +1712,7 @@
                     "loadMax": 0,
                     "loadUnit": "bodyweight",
                     "restSeconds": 60,
+                    "isEmom": true,
                     "supersetGroup": 1
                   },
                   {
@@ -2551,6 +2552,7 @@
                     "loadMax": 0,
                     "loadUnit": "bodyweight",
                     "restSeconds": 60,
+                    "isEmom": true,
                     "supersetGroup": 1
                   },
                   {
@@ -3444,6 +3446,7 @@
                     "repsValue": 8,
                     "restSeconds": 60,
                     "isUnilateral": false,
+                    "isEmom": true,
                     "supersetGroup": 1
                   },
                   {
@@ -5366,7 +5369,7 @@
             "isUnilateral": true
           },
           {
-            "category": "core",
+            "category": "main",
             "sets": 3,
             "exerciseName": "Weighted Hollow Rocks",
             "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",

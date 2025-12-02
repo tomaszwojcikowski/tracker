@@ -1,4 +1,4 @@
-import { expect, afterEach, vi } from 'vitest';
+import { afterEach, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
@@ -8,17 +8,17 @@ afterEach(() => {
 });
 
 // Mock localStorage with actual storage implementation
-const localStorageData = {};
+const localStorageData: Record<string, string> = {};
 const localStorageMock = {
-  getItem: vi.fn((key) => localStorageData[key] ?? null),
-  setItem: vi.fn((key, value) => { localStorageData[key] = value; }),
-  removeItem: vi.fn((key) => { delete localStorageData[key]; }),
-  clear: vi.fn(() => {
+  getItem: vi.fn((key: string): string | null => localStorageData[key] ?? null),
+  setItem: vi.fn((key: string, value: string): void => { localStorageData[key] = value; }),
+  removeItem: vi.fn((key: string): void => { delete localStorageData[key]; }),
+  clear: vi.fn((): void => {
     Object.keys(localStorageData).forEach(key => delete localStorageData[key]);
   }),
 };
 
-global.localStorage = localStorageMock;
+(global as typeof globalThis & { localStorage: typeof localStorageMock }).localStorage = localStorageMock;
 
 // Mock lucide-react icons
 vi.mock('lucide-react', () => ({

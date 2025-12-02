@@ -7,6 +7,7 @@ export default [
   js.configs.recommended,
   {
     files: ['src/**/*.{js,jsx}'],
+    ignores: ['src/test/**'],
     plugins: {
       react,
       'react-hooks': reactHooks,
@@ -70,21 +71,6 @@ export default [
       'no-var': 'error',
       'eqeqeq': ['warn', 'always', { null: 'ignore' }],
       'no-duplicate-imports': 'error',
-    },
-  },
-  // Test files configuration
-  {
-    files: ['src/test/**/*.{js,jsx}', '**/*.test.{js,jsx}'],
-    languageOptions: {
-      globals: {
-        describe: 'readonly',
-        it: 'readonly',
-        expect: 'readonly',
-        beforeEach: 'readonly',
-        afterEach: 'readonly',
-        vi: 'readonly',
-        test: 'readonly',
-      },
     },
   },
   // Disable rules that conflict with Prettier

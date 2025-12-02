@@ -406,7 +406,6 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [expandedEntries, setExpandedEntries] = useState<Record<number, boolean>>({});
     const [viewMode, setViewMode] = useState<'timeline' | 'stats'>('timeline');
-    const [selectedExerciseForGraph, setSelectedExerciseForGraph] = useState<string | null>(null);
     const haptic = useHaptic();
 
     const loadHistory = async () => {
@@ -503,7 +502,6 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                     </div>
                 ) : viewMode === 'stats' ? (
                     <ExerciseStatsView
-                        onSelectExercise={setSelectedExerciseForGraph}
                         calculateExerciseStats={calculateExerciseStats}
                         getExerciseHistory={getExerciseHistory}
                         getAllExercisesWithHistory={getAllExercisesWithHistory}

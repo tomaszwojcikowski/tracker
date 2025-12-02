@@ -4,7 +4,6 @@
  * A sticky header bar with optional back button, title, subtitle, and workout timer.
  */
 
-import React from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { WorkoutTimerDisplay } from './WorkoutTimerDisplay';
 import { clsx } from 'clsx';

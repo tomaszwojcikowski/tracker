@@ -8,7 +8,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import './main.css';
-import { NavigationBar, TabContent } from './components/navigation';
+import { NavigationBar } from './components/navigation';
 import { TopAppBar } from './components/TopAppBar';
 import { LoadingScreen, ErrorScreen } from './components/screens';
 import { Dashboard, HistoryView, SettingsView, ExerciseLibraryView, WorkoutPlayer } from './components/views';

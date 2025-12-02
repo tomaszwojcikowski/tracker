@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { ArrowLeft, Search, Filter, Dumbbell, History, TrendingUp, Calendar, ChevronDown, ChevronUp, X, ChevronRight, CheckSquare, Square, BarChart2 } from 'lucide-react';
+import { ArrowLeft, Search, ChevronRight, CheckSquare, Square, BarChart2 } from 'lucide-react';
 import { useHaptic, useDebounce } from '../../hooks';
 import { DEBOUNCE_DELAY_MS, getShortExerciseName } from '../../constants';
 import type { Exercise } from '../../types';

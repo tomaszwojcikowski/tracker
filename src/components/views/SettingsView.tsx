@@ -160,7 +160,7 @@ export const SettingsView: React.FC = () => {
     const [isSyncing, setIsSyncing] = useState(false);
 
     // Theme state
-    const { theme, setTheme, themes } = useTheme();
+    const { currentTheme, setTheme, themes } = useTheme();
 
     const haptic = useHaptic();
 
@@ -295,7 +295,7 @@ export const SettingsView: React.FC = () => {
                 <>
                     {/* Theme Selection */}
                     <ThemeSelector
-                        theme={theme}
+                        theme={currentTheme}
                         setTheme={(newTheme: string) => {
                             haptic.bump();
                             setTheme(newTheme as Parameters<typeof setTheme>[0]);

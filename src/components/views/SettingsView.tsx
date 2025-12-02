@@ -240,7 +240,7 @@ export const SettingsView: React.FC = () => {
                         haptic.tick();
                         setActiveTab('general');
                     }}
-                    className={`flex-1 flex items-center justify-center gap-2 min-h-[48px] py-3 px-4 rounded-xl font-medium text-sm transition-all ${
+                    className={`flex-1 flex items-center justify-center gap-2 min-h-[44px] py-3 px-4 rounded-xl font-medium text-sm transition-all ${
                         activeTab === 'general'
                             ? 'bg-sys-accent text-white'
                             : 'text-sys-onSurfaceVar hover:text-white'
@@ -254,7 +254,7 @@ export const SettingsView: React.FC = () => {
                         haptic.tick();
                         setActiveTab('programs');
                     }}
-                    className={`flex-1 flex items-center justify-center gap-2 min-h-[48px] py-3 px-4 rounded-xl font-medium text-sm transition-all ${
+                    className={`flex-1 flex items-center justify-center gap-2 min-h-[44px] py-3 px-4 rounded-xl font-medium text-sm transition-all ${
                         activeTab === 'programs'
                             ? 'bg-sys-accent text-white'
                             : 'text-sys-onSurfaceVar hover:text-white'

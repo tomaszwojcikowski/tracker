@@ -14,7 +14,7 @@ import { LoadingScreen, ErrorScreen } from './components/screens';
 import { Dashboard, HistoryView, SettingsView, ExerciseLibraryView, WorkoutPlayer } from './components/views';
 import { SkipLink } from './components/SkipLink';
 import { Onboarding, hasCompletedOnboarding } from './components/Onboarding';
-import { useWorkoutTimer } from './hooks';
+import { useWorkoutTimer, useTheme } from './hooks';
 
 // Import from TypeScript utilities
 import {
@@ -85,6 +85,9 @@ const updateUrl = (state: AppStateLocal): string => {
 // ============================================================================
 
 const App: React.FC = () => {
+    // Initialize theme globally
+    useTheme();
+
     const [activeTab, setActiveTab] = useState<TabId>('train');
     const [viewMode, setViewMode] = useState<ViewMode>('tab');
     const [currentWeek, setCurrentWeek] = useState<number>(1);

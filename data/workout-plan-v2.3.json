@@ -2269,7 +2269,7 @@
                     ]
                   },
                   {
-                    "category": "accessory",
+                    "category": "main",
                     "sets": 3,
                     "exerciseName": "PPPU",
                     "notes": "Accessory. Pseudo Planche Push Up. Maintain scapular protraction throughout.",
@@ -2835,7 +2835,7 @@
                     "restSeconds": 60
                   },
                   {
-                    "category": "accessory",
+                    "category": "main",
                     "sets": 2,
                     "exerciseName": "Feet-Elevated Ring Rows",
                     "notes": "Deload. Accessory. Tempo 2-1-1-0. Neutral grip block.",
@@ -2847,7 +2847,7 @@
                     "restSeconds": 60
                   },
                   {
-                    "category": "accessory",
+                    "category": "main",
                     "sets": 2,
                     "exerciseName": "Parallette Push-Ups",
                     "notes": "Deload. Accessory. Tempo 2-1-1-0.",
@@ -2861,19 +2861,6 @@
                   {
                     "$ref": "cooldown-butchers-block",
                     "notes": "Cool-down. Spinal decompression."
-                  },
-                  {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -3901,7 +3888,7 @@
                 "dayNumber": 2
               },
               {
-                "$ref": "template-lower-body-3",
+                "$ref": "template-lower-body-2",
                 "dayNumber": 3
               },
               {
@@ -4066,7 +4053,7 @@
                 "dayNumber": 2
               },
               {
-                "$ref": "template-lower-body-3",
+                "$ref": "template-lower-body-2",
                 "dayNumber": 3
               },
               {
@@ -4321,29 +4308,8 @@
                 ]
               },
               {
-                "dayNumber": 3,
-                "name": "Lower Body",
-                "type": "mobility",
-                "estimatedDuration": 20,
-                "description": null,
-                "exercises": [
-                  {
-                    "category": "mobility",
-                    "sets": 1,
-                    "exerciseName": "Mobility Flow",
-                    "notes": "Recovery",
-                    "repsType": "time",
-                    "repsValue": 900,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 90
-                  },
-                  {
-                    "$routine": "cooldown-lower-body"
-                  }
-                ]
+                "$ref": "template-lower-body-2",
+                "dayNumber": 3
               },
               {
                 "dayNumber": 5,
@@ -4607,27 +4573,6 @@
               {
                 "dayNumber": 3,
                 "name": "Lower Body",
-                "type": "mobility",
-                "estimatedDuration": 2,
-                "description": null,
-                "exercises": [
-                  {
-                    "category": "mobility",
-                    "sets": 1,
-                    "exerciseName": "Rest",
-                    "notes": "Recovery. Recovery interval.",
-                    "repsType": "none",
-                    "repsValue": null,
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 90
-                  }
-                ]
-              },
-              {
-                "dayNumber": 4,
-                "name": "Day 4",
                 "type": "mobility",
                 "estimatedDuration": 2,
                 "description": null,

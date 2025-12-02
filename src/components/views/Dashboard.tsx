@@ -6,7 +6,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { useHaptic, useSwipeNavigation } from '../../hooks';
+import { useHaptic, useSwipeNavigation, useScrollToElement } from '../../hooks';
 import { PlayCircle, Check, Play, ChevronRight, ChevronLeft, Plus, Trophy } from 'lucide-react';
 import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, hasWorkoutData, type InProgressWorkout } from '../../utils/storage';
 import { formatRelativeTime } from '../../utils/time';
@@ -95,6 +95,18 @@ export function Dashboard({
     const inProgress = getInProgressWorkout();
     setInProgressWorkout(inProgress);
   }, [currentWeek]);
+
+  // Scroll to the active day card when the view loads
+  // Priority: in-progress workout > next incomplete day
+  const activeDayId = inProgressWorkout
+    ? `day-card-${inProgressWorkout.day}`
+    : undefined; // Let the page naturally show top (Weekly Progress Ring is prominent)
+
+  useScrollToElement({
+    elementId: activeDayId,
+    delay: 150,
+    enabled: !!activeDayId,
+  });
 
   const isCompleted = (day: number): boolean => {
     const sessionKey = getSessionKey(currentWeek, day);
@@ -222,11 +234,12 @@ export function Dashboard({
                 return (
                     <button
                         key={day}
+                        id={`day-card-${day}`}
                         onClick={() => {
                             haptic.tick();
                             onStartWorkout(day);
                         }}
-                        className="relative overflow-hidden rounded-[32px] p-6 text-left transition-all active:scale-[0.98] group"
+                        className="relative overflow-hidden rounded-[32px] p-6 text-left transition-all active:scale-[0.98] group scroll-mt-16"
                         aria-label={`Start Day ${day} workout`}
                     >
                         {/* Background with gradient */}
@@ -260,11 +273,12 @@ export function Dashboard({
             return (
               <button
                 key={day}
+                id={`day-card-${day}`}
                 onClick={() => {
                   haptic.tick();
                   onStartWorkout(day);
                 }}
-                className={`relative min-h-[72px] rounded-3xl px-6 py-5 flex items-center justify-between transition-all active:scale-[0.97] ${
+                className={`relative min-h-[72px] rounded-3xl px-6 py-5 flex items-center justify-between transition-all active:scale-[0.97] scroll-mt-16 ${
                   done
                     ? 'bg-sys-surface border border-sys-success/30'
                     : isInProgress

@@ -23,6 +23,7 @@ import {
     useEmomTimer,
     useExerciseCollapse,
     useKeyboardShortcut,
+    useScrollToElement,
 } from '../../hooks';
 import {
     Flame, Dumbbell, Snowflake, Activity, LayoutGrid, LayoutList, PlusCircle, X, CheckCircle2, Maximize2, ChevronLeft, ChevronRight
@@ -753,6 +754,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
     // Use extracted collapse hook
     const exerciseCollapse = useExerciseCollapse({ firstIncompleteExerciseId });
+
+    // Scroll to first incomplete exercise when workout view loads (only in list view)
+    useScrollToElement({
+        elementId: viewMode === 'list' ? firstIncompleteExerciseId : null,
+        delay: 150,
+        enabled: viewMode === 'list',
+    });
 
     const filteredExercises = useMemo(() => {
         const normalizedFilter = selectedMuscleFilter.toLowerCase();

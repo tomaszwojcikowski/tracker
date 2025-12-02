@@ -20,7 +20,7 @@ import {
 import { safeGetJSON } from '../../utils/storage';
 import { getGlobalHistoryKey } from '../../services/storageNamespace';
 import { PullToRefresh } from '../PullToRefresh';
-import { useHaptic } from '../../hooks';
+import { useHaptic, useScrollToTop } from '../../hooks';
 
 // Types for exercise stats display
 interface ExerciseStatData {
@@ -407,6 +407,9 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
     const [expandedEntries, setExpandedEntries] = useState<Record<number, boolean>>({});
     const [viewMode, setViewMode] = useState<'timeline' | 'stats'>('timeline');
     const haptic = useHaptic();
+
+    // Scroll to top when view loads
+    useScrollToTop();
 
     const loadHistory = async () => {
         const globalHistoryKey = getGlobalHistoryKey();

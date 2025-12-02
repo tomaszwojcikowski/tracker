@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as FirebaseService from '../../firebase-service';
 import { ThemeSelector } from '../ThemeSelector';
 import { useTheme } from '../../hooks/useTheme';
-import { useHaptic } from '../../hooks';
+import { useHaptic, useScrollToTop } from '../../hooks';
 import { useAuth } from '../../hooks/useAuth';
 import { LoginStatus } from '../auth/LoginStatus';
 import { RefreshCw, Info, Dumbbell, Settings } from 'lucide-react';
@@ -163,6 +163,9 @@ export const SettingsView: React.FC = () => {
     const { currentTheme, setTheme, themes } = useTheme();
 
     const haptic = useHaptic();
+
+    // Scroll to top when view loads
+    useScrollToTop();
 
     useEffect(() => {
         // Load Firebase sync setting

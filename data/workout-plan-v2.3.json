@@ -104,71 +104,40 @@
                     "progressionNotes": "Volume accumulation phase. Do not fail sets."
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-ring-rows",
                     "sets": 3,
-                    "exerciseName": "Ring Rows",
                     "notes": "Accessory. Tempo 2-1-1-0. Stop if sharp pain.",
                     "repsType": "reps",
                     "repsValue": 15,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Dumbbell Rows",
-                      "Cable Rows",
-                      "Inverted Rows"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-incline-pushups",
                     "sets": 3,
-                    "exerciseName": "Incline Push-Ups",
                     "notes": "Accessory. Tempo 2-1-1-0.",
                     "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Dips",
-                      "Incline Push-Ups",
-                      "Diamond Push-Ups"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "core",
+                    "$ref": "core-hollow-rocks",
                     "sets": 3,
-                    "exerciseName": "Hollow Rocks",
                     "notes": "Core. Ground-Based. Watch for elbow tightness.",
                     "repsType": "time",
                     "repsValue": 25,
                     "repsUnit": "seconds",
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "V-Ups",
-                      "Dead Bugs"
-                    ]
+                    "restSeconds": 60
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -202,17 +171,13 @@
                     "restSeconds": 120
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-weighted-glute-bridge",
                     "sets": 3,
-                    "exerciseName": "Weighted Glute Bridge",
                     "notes": "Accessory. Tempo 2-1-1-0. Squeeze glutes hard at top.",
                     "loadMin": 40,
                     "loadMax": 60,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
                     "repsMin": 10,
                     "repsMax": 12,
-                    "restSeconds": 60,
                     "cues": [
                       "No lumbar hyperextension"
                     ]
@@ -254,27 +219,13 @@
                     "restSeconds": 90
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-weighted-pull-ups",
                     "sets": 3,
-                    "exerciseName": "Weighted Pull-Ups",
                     "notes": "Primary Goal: Build elite pulling strength.",
                     "loadMin": 8,
                     "loadMax": 10,
-                    "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 5,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ],
-                    "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form. (e.g. if 3x5 is goal, must hit 5,5,5 to add 1kg).",
-                    "cues": [
-                      "Full ROM",
-                      "Chin over bar",
-                      "Controlled descent"
-                    ]
+                    "repsValue": 5
                   },
                   {
                     "category": "main",
@@ -354,70 +305,40 @@
                     "progressionNotes": "Volume accumulation phase. Do not fail sets."
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-ring-rows",
                     "sets": 3,
-                    "exerciseName": "Ring Rows",
                     "notes": "Accessory. Tempo 2-1-1-0. Stop if sharp pain.",
                     "repsType": "reps",
                     "repsValue": 15,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Dumbbell Rows",
-                      "Cable Rows",
-                      "Inverted Rows"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-incline-pushups",
                     "sets": 3,
-                    "exerciseName": "Incline Push-Ups",
                     "notes": "Accessory. Tempo 2-1-1-0.",
                     "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Dips",
-                      "Diamond Push-Ups"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "core",
+                    "$ref": "core-hollow-rocks",
                     "sets": 3,
-                    "exerciseName": "Hollow Rocks",
                     "notes": "Core. Ground-Based. Watch for elbow tightness.",
                     "repsType": "time",
                     "repsValue": 25,
                     "repsUnit": "seconds",
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "V-Ups",
-                      "Dead Bugs"
-                    ]
+                    "restSeconds": 60
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -451,17 +372,13 @@
                     "restSeconds": 120
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-weighted-glute-bridge",
                     "sets": 3,
-                    "exerciseName": "Weighted Glute Bridge",
                     "notes": "Accessory. Tempo 2-1-1-0. Squeeze glutes hard at top.",
                     "loadMin": 40,
                     "loadMax": 60,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
                     "repsMin": 10,
                     "repsMax": 12,
-                    "restSeconds": 60,
                     "cues": [
                       "No lumbar hyperextension"
                     ]
@@ -492,27 +409,13 @@
                     "$routine": "warmup-pull-day"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-weighted-pull-ups",
                     "sets": 2,
-                    "exerciseName": "Weighted Pull-Ups",
                     "notes": "Primary Goal: Build elite pulling strength.",
                     "loadMin": 9,
                     "loadMax": 11,
-                    "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 5,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ],
-                    "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form. (e.g. if 3x5 is goal, must hit 5,5,5 to add 1kg).",
-                    "cues": [
-                      "Full ROM",
-                      "Chin over bar",
-                      "Controlled descent"
-                    ]
+                    "repsValue": 5
                   },
                   {
                     "category": "main",
@@ -598,70 +501,40 @@
                     "progressionNotes": "Volume accumulation phase. Do not fail sets."
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-ring-rows",
                     "sets": 3,
-                    "exerciseName": "Ring Rows",
                     "notes": "Accessory. Tempo 2-1-1-0. Stop if sharp pain.",
                     "repsType": "reps",
                     "repsValue": 15,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Dumbbell Rows",
-                      "Cable Rows",
-                      "Inverted Rows"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-incline-pushups",
                     "sets": 3,
-                    "exerciseName": "Incline Push-Ups",
                     "notes": "Accessory. Tempo 2-1-1-0.",
                     "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Dips",
-                      "Diamond Push-Ups"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "core",
+                    "$ref": "core-hollow-rocks",
                     "sets": 3,
-                    "exerciseName": "Hollow Rocks",
                     "notes": "Core. Ground-Based. Watch for elbow tightness.",
                     "repsType": "time",
                     "repsValue": 25,
                     "repsUnit": "seconds",
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "V-Ups",
-                      "Dead Bugs"
-                    ]
+                    "restSeconds": 60
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -695,17 +568,13 @@
                     "restSeconds": 120
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-weighted-glute-bridge",
                     "sets": 3,
-                    "exerciseName": "Weighted Glute Bridge",
                     "notes": "Accessory. Tempo 2-1-1-0. Squeeze glutes hard at top.",
                     "loadMin": 40,
                     "loadMax": 60,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
                     "repsMin": 10,
                     "repsMax": 12,
-                    "restSeconds": 60,
                     "cues": [
                       "No lumbar hyperextension"
                     ]
@@ -737,27 +606,13 @@
                     "$routine": "warmup-pull-day"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-weighted-pull-ups",
                     "sets": 2,
-                    "exerciseName": "Weighted Pull-Ups",
                     "notes": "Primary Goal: Build elite pulling strength.",
                     "loadMin": 10,
                     "loadMax": 12,
-                    "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 5,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ],
-                    "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form. (e.g. if 3x5 is goal, must hit 5,5,5 to add 1kg).",
-                    "cues": [
-                      "Full ROM",
-                      "Chin over bar",
-                      "Controlled descent"
-                    ]
+                    "repsValue": 5
                   },
                   {
                     "category": "main",
@@ -844,70 +699,40 @@
                     "progressionNotes": "Volume accumulation phase. Do not fail sets."
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-ring-rows",
                     "sets": 2,
-                    "exerciseName": "Ring Rows",
                     "notes": "Deload. Accessory. Tempo 2-1-1-0. Stop if sharp pain.",
                     "repsType": "reps",
                     "repsValue": 15,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Dumbbell Rows",
-                      "Cable Rows",
-                      "Inverted Rows"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-incline-pushups",
                     "sets": 2,
-                    "exerciseName": "Incline Push-Ups",
                     "notes": "Deload. Accessory. Tempo 2-1-1-0.",
                     "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Dips",
-                      "Diamond Push-Ups"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "core",
+                    "$ref": "core-hollow-rocks",
                     "sets": 2,
-                    "exerciseName": "Hollow Rocks",
                     "notes": "Deload. Core. Ground-Based. Watch for elbow tightness.",
                     "repsType": "time",
                     "repsValue": 25,
                     "repsUnit": "seconds",
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "V-Ups",
-                      "Dead Bugs"
-                    ]
+                    "restSeconds": 60
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -951,27 +776,13 @@
                     "$routine": "warmup-pull-day"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-weighted-pull-ups",
                     "sets": 2,
-                    "exerciseName": "Weighted Pull-Ups",
                     "notes": "50% (Easy). Primary Goal: Build elite pulling strength.",
                     "loadMin": 5,
                     "loadMax": 10,
-                    "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 3,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ],
-                    "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form. (e.g. if 3x5 is goal, must hit 5,5,5 to add 1kg).",
-                    "cues": [
-                      "Full ROM",
-                      "Chin over bar",
-                      "Controlled descent"
-                    ]
+                    "repsValue": 3
                   },
                   {
                     "category": "main",
@@ -1069,75 +880,42 @@
                     "restSeconds": 120
                   },
                   {
-                    "category": "main",
+                    "$ref": "accessory-feet-elevated-ring-rows",
                     "sets": 3,
-                    "exerciseName": "Feet-Elevated Ring Rows",
                     "notes": "Tempo 2-1-1-0. Stop if sharp pain.",
-                    "repsType": "reps",
                     "repsValue": 10,
                     "tempoEccentric": 2,
                     "tempoPauseBottom": 1,
                     "tempoConcentric": 1,
                     "tempoPauseTop": 0,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Dumbbell Rows",
-                      "Cable Rows",
-                      "Inverted Rows"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-parallette-pushups",
                     "sets": 3,
-                    "exerciseName": "Parallette Push-Ups",
                     "notes": "Accessory. Deep range of motion.",
-                    "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Dips",
-                      "Incline Push-Ups",
-                      "Diamond Push-Ups"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "core",
+                    "$ref": "core-hollow-rocks",
                     "sets": 3,
-                    "exerciseName": "Hollow Rocks",
                     "notes": "Core. Ground-Based. Watch for elbow tightness.",
                     "repsType": "time",
                     "repsValue": 25,
                     "repsUnit": "seconds",
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "V-Ups",
-                      "Dead Bugs"
-                    ]
+                    "restSeconds": 60
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -1182,63 +960,36 @@
                     ]
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-weighted-pull-ups",
                     "sets": 2,
-                    "exerciseName": "Weighted Pull-Ups",
                     "notes": "Primary Goal: Build elite pulling strength.",
                     "loadMin": 10,
                     "loadMax": 10,
-                    "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 4,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ],
-                    "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form. (e.g. if 3x5 is goal, must hit 5,5,5 to add 1kg).",
-                    "cues": [
-                      "Full ROM",
-                      "Chin over bar",
-                      "Controlled descent"
-                    ]
+                    "repsValue": 4
                   },
                   {
-                    "category": "main",
+                    "$ref": "accessory-weighted-dips",
                     "sets": 3,
-                    "exerciseName": "Weighted Dips",
                     "notes": "Double Progression. Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
                     "loadMin": 5,
                     "loadMax": 10,
-                    "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 5,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Push-Ups",
-                      "Bench Dips",
-                      "Chest Press Machine"
-                    ],
-                    "progressionNotes": "Double Progression Rule: Hit top reps to add weight."
+                    "repsValue": 5
                   },
                   {
                     "$routine": "superset-bss",
                     "supersetGroup": 3
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-weighted-hollow-rocks",
                     "sets": 3,
-                    "exerciseName": "Weighted Hollow Rocks",
                     "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
                     "loadMin": 3,
                     "loadMax": 5,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
                     "repsValue": 15,
                     "isEmom": true,
                     "supersetGroup": 3,
-                    "restSeconds": 120,
                     "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
                   },
                   {
@@ -1282,69 +1033,38 @@
                     "restSeconds": 120
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-feet-elevated-ring-rows",
                     "sets": 3,
-                    "exerciseName": "Feet-Elevated Ring Rows",
                     "notes": "Accessory. Tempo 2-1-1-0. Feet elevated for increased difficulty.",
-                    "repsType": "reps",
                     "repsValue": 12,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Ring Rows",
-                      "Dumbbell Rows"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-parallette-pushups",
                     "sets": 3,
-                    "exerciseName": "Parallette Push-Ups",
                     "notes": "Accessory. Tempo 2-1-1-0. Increased ROM.",
-                    "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Push-Ups",
-                      "Diamond Push-Ups"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "core",
+                    "$ref": "core-hollow-rocks",
                     "sets": 3,
-                    "exerciseName": "Hollow Rocks",
                     "notes": "Core. Ground-Based. Watch for elbow tightness.",
                     "repsType": "time",
                     "repsValue": 25,
                     "repsUnit": "seconds",
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "V-Ups",
-                      "Dead Bugs"
-                    ]
+                    "restSeconds": 60
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -1373,45 +1093,22 @@
                     "$routine": "warmup-pull-day"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-weighted-pull-ups",
                     "sets": 1,
-                    "exerciseName": "Weighted Pull-Ups",
                     "notes": "Heavy. Primary Goal: Build elite pulling strength.",
                     "loadMin": 5,
                     "loadMax": 10,
-                    "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 4,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ],
-                    "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form. (e.g. if 3x5 is goal, must hit 5,5,5 to add 1kg).",
-                    "cues": [
-                      "Full ROM",
-                      "Chin over bar",
-                      "Controlled descent"
-                    ]
+                    "repsValue": 4
                   },
                   {
-                    "category": "main",
+                    "$ref": "accessory-weighted-dips",
                     "sets": 3,
-                    "exerciseName": "Weighted Dips",
                     "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
                     "repsType": "reps",
                     "repsValue": 8,
                     "loadMin": 5,
                     "loadMax": 10,
-                    "loadUnit": "kg",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Dips",
-                      "Bench Dips",
-                      "Chest Press Machine"
-                    ],
-                    "progressionNotes": "Double Progression Rule applies.",
                     "cues": [
                       "Shoulders down",
                       "Don't flair elbows"
@@ -1476,69 +1173,38 @@
                     "restSeconds": 120
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-feet-elevated-ring-rows",
                     "sets": 3,
-                    "exerciseName": "Feet-Elevated Ring Rows",
                     "notes": "Accessory. Tempo 2-1-1-0. Feet elevated for increased difficulty.",
-                    "repsType": "reps",
                     "repsValue": 12,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Ring Rows",
-                      "Dumbbell Rows"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-parallette-pushups",
                     "sets": 3,
-                    "exerciseName": "Parallette Push-Ups",
                     "notes": "Accessory. Tempo 2-1-1-0. Increased ROM.",
-                    "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Push-Ups",
-                      "Diamond Push-Ups"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "core",
+                    "$ref": "core-hollow-rocks",
                     "sets": 3,
-                    "exerciseName": "Hollow Rocks",
                     "notes": "Core. Ground-Based. Watch for elbow tightness.",
                     "repsType": "time",
                     "repsValue": 25,
                     "repsUnit": "seconds",
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "V-Ups",
-                      "Dead Bugs"
-                    ]
+                    "restSeconds": 60
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -1567,45 +1233,22 @@
                     "$routine": "warmup-pull-day"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-weighted-pull-ups",
                     "sets": 3,
-                    "exerciseName": "Weighted Pull-Ups",
                     "notes": "Heavy. Primary Goal: Build elite pulling strength.",
                     "loadMin": 5,
                     "loadMax": 10,
-                    "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 3,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ],
-                    "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form. (e.g. if 3x5 is goal, must hit 5,5,5 to add 1kg).",
-                    "cues": [
-                      "Full ROM",
-                      "Chin over bar",
-                      "Controlled descent"
-                    ]
+                    "repsValue": 3
                   },
                   {
-                    "category": "main",
+                    "$ref": "accessory-weighted-dips",
                     "sets": 3,
-                    "exerciseName": "Weighted Dips",
                     "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
                     "repsType": "reps",
                     "repsValue": 8,
                     "loadMin": 5,
                     "loadMax": 10,
-                    "loadUnit": "kg",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Dips",
-                      "Bench Dips",
-                      "Chest Press Machine"
-                    ],
-                    "progressionNotes": "Double Progression Rule applies.",
                     "cues": [
                       "Shoulders down",
                       "Don't flair elbows"
@@ -1669,69 +1312,38 @@
                     "restSeconds": 120
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-feet-elevated-ring-rows",
                     "sets": 2,
-                    "exerciseName": "Feet-Elevated Ring Rows",
                     "notes": "Deload. Accessory. Tempo 2-1-1-0. Feet elevated for increased difficulty.",
-                    "repsType": "reps",
                     "repsValue": 12,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Ring Rows",
-                      "Dumbbell Rows"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-parallette-pushups",
                     "sets": 2,
-                    "exerciseName": "Parallette Push-Ups",
                     "notes": "Deload. Accessory. Tempo 2-1-1-0. Increased ROM.",
-                    "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Push-Ups",
-                      "Diamond Push-Ups"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "core",
+                    "$ref": "core-hollow-rocks",
                     "sets": 2,
-                    "exerciseName": "Hollow Rocks",
                     "notes": "Deload. Core. Ground-Based. Watch for elbow tightness.",
                     "repsType": "time",
                     "repsValue": 25,
                     "repsUnit": "seconds",
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "V-Ups",
-                      "Dead Bugs"
-                    ]
+                    "restSeconds": 60
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -1853,44 +1465,27 @@
                     ]
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-feet-elevated-ring-rows",
                     "sets": 3,
-                    "exerciseName": "Feet-Elevated Ring Rows",
                     "notes": "Accessory. Tempo 2-1-1-0. Neutral grip block.",
-                    "repsType": "reps",
                     "repsValue": 12,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60
+                    "loadMax": 0
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-parallette-pushups",
                     "sets": 3,
-                    "exerciseName": "Parallette Push-Ups",
                     "notes": "Accessory. Tempo 2-1-1-0.",
-                    "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60
+                    "loadMax": 0
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -1962,18 +1557,14 @@
                     "$routine": "superset-bss"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-weighted-hollow-rocks",
                     "sets": 3,
-                    "exerciseName": "Weighted Hollow Rocks",
                     "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
                     "loadMin": 3,
                     "loadMax": 5,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
                     "repsValue": 15,
                     "isEmom": true,
                     "supersetGroup": 1,
-                    "restSeconds": 120,
                     "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
                   },
                   {
@@ -2025,44 +1616,27 @@
                     ]
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-feet-elevated-ring-rows",
                     "sets": 3,
-                    "exerciseName": "Feet-Elevated Ring Rows",
                     "notes": "Accessory. Tempo 2-1-1-0. Neutral grip block.",
-                    "repsType": "reps",
                     "repsValue": 12,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60
+                    "loadMax": 0
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-parallette-pushups",
                     "sets": 3,
-                    "exerciseName": "Parallette Push-Ups",
                     "notes": "Accessory. Tempo 2-1-1-0.",
-                    "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60
+                    "loadMax": 0
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -2183,44 +1757,27 @@
                     ]
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-feet-elevated-ring-rows",
                     "sets": 3,
-                    "exerciseName": "Feet-Elevated Ring Rows",
                     "notes": "Accessory. Tempo 2-1-1-0. Neutral grip block.",
-                    "repsType": "reps",
                     "repsValue": 12,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60
+                    "loadMax": 0
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-parallette-pushups",
                     "sets": 3,
-                    "exerciseName": "Parallette Push-Ups",
                     "notes": "Accessory. Tempo 2-1-1-0.",
-                    "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60
+                    "loadMax": 0
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -2291,18 +1848,14 @@
                     "$routine": "superset-bss"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-weighted-hollow-rocks",
                     "sets": 3,
-                    "exerciseName": "Weighted Hollow Rocks",
                     "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
                     "loadMin": 3,
                     "loadMax": 5,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
                     "repsValue": 15,
                     "isEmom": true,
                     "supersetGroup": 1,
-                    "restSeconds": 120,
                     "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
                   },
                   {
@@ -2367,28 +1920,20 @@
                     "restSeconds": 60
                   },
                   {
-                    "category": "main",
+                    "$ref": "accessory-feet-elevated-ring-rows",
                     "sets": 2,
-                    "exerciseName": "Feet-Elevated Ring Rows",
                     "notes": "Deload. Accessory. Tempo 2-1-1-0. Neutral grip block.",
-                    "repsType": "reps",
                     "repsValue": 12,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60
+                    "loadMax": 0
                   },
                   {
-                    "category": "main",
+                    "$ref": "accessory-parallette-pushups",
                     "sets": 2,
-                    "exerciseName": "Parallette Push-Ups",
                     "notes": "Deload. Accessory. Tempo 2-1-1-0.",
-                    "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60
+                    "loadMax": 0
                   },
                   {
                     "$ref": "cooldown-butchers-block",
@@ -2414,18 +1959,12 @@
                 "description": null,
                 "exercises": [
                   {
-                    "category": "main",
+                    "$ref": "main-rdl",
                     "sets": 2,
-                    "exerciseName": "Single Leg RDL",
                     "notes": "Deload. Posterior chain focus.",
                     "loadMin": 8,
                     "loadMax": 12,
-                    "loadUnit": "kg",
-                    "loadPerHand": true,
-                    "repsType": "reps",
-                    "repsValue": 8,
-                    "repsPerSide": true,
-                    "restSeconds": 120
+                    "repsValue": 8
                   },
                   {
                     "$ref": "main-goblet-squats",
@@ -2543,54 +2082,30 @@
                     "$routine": "warmup-pull-day"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-pull-ups",
                     "sets": 3,
-                    "exerciseName": "Pull-Ups",
                     "notes": "Accumulation",
                     "repsType": "amrap",
                     "repsValue": null,
                     "repsModifier": 2,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ]
+                    "restSeconds": 120
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-feet-on-floor-rows",
                     "sets": 3,
-                    "exerciseName": "Feet-on-Floor Rows",
                     "notes": "Accessory. Tempo 3-1-1-0. Maintain pulling volume.",
-                    "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Ring Rows",
-                      "Dumbbell Rows"
-                    ]
+                    "loadMax": 0
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -2619,45 +2134,22 @@
                     "$routine": "warmup-pull-day"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-weighted-pull-ups",
                     "sets": 2,
-                    "exerciseName": "Weighted Pull-Ups",
                     "notes": "Primary Goal: Build elite pulling strength.",
                     "loadMin": 14,
                     "loadMax": 14,
-                    "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 4,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ],
-                    "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form. (e.g. if 3x5 is goal, must hit 5,5,5 to add 1kg).",
-                    "cues": [
-                      "Full ROM",
-                      "Chin over bar",
-                      "Controlled descent"
-                    ]
+                    "repsValue": 4
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-weighted-dips",
                     "sets": 4,
-                    "exerciseName": "Weighted Dips",
                     "notes": "Accessory. Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
                     "loadMin": 5,
                     "loadMax": 10,
-                    "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 5,
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Push-Ups",
-                      "Bench Dips",
-                      "Chest Press Machine"
-                    ],
-                    "progressionNotes": "Double Progression Rule: Hit top reps to add weight."
+                    "repsValue": 5
                   },
                   {
                     "category": "main",
@@ -2723,54 +2215,30 @@
                     "$routine": "warmup-pull-day"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-pull-ups",
                     "sets": 3,
-                    "exerciseName": "Pull-Ups",
                     "notes": "Volume Increase",
                     "repsType": "amrap",
                     "repsValue": null,
                     "repsModifier": 1,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ]
+                    "restSeconds": 120
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-feet-on-floor-rows",
                     "sets": 3,
-                    "exerciseName": "Feet-on-Floor Rows",
                     "notes": "Accessory. Tempo 3-1-1-0. Maintain pulling volume.",
-                    "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Ring Rows",
-                      "Dumbbell Rows"
-                    ]
+                    "loadMax": 0
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -2799,45 +2267,22 @@
                     "$routine": "warmup-pull-day"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-weighted-pull-ups",
                     "sets": 2,
-                    "exerciseName": "Weighted Pull-Ups",
                     "notes": "Week 14 prescribed Weighted Pulls to 16kg.",
                     "loadMin": 16,
                     "loadMax": 16,
-                    "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 3,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ],
-                    "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form. (e.g. if 3x5 is goal, must hit 5,5,5 to add 1kg).",
-                    "cues": [
-                      "Full ROM",
-                      "Chin over bar",
-                      "Controlled descent"
-                    ]
+                    "repsValue": 3
                   },
                   {
-                    "category": "main",
+                    "$ref": "accessory-weighted-dips",
                     "sets": 3,
-                    "exerciseName": "Weighted Dips",
                     "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately.",
                     "repsType": "reps",
                     "repsValue": 8,
                     "loadMin": 5,
                     "loadMax": 10,
-                    "loadUnit": "kg",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Dips",
-                      "Bench Dips",
-                      "Chest Press Machine"
-                    ],
-                    "progressionNotes": "Double Progression Rule applies.",
                     "cues": [
                       "Shoulders down",
                       "Don't flair elbows"
@@ -2902,70 +2347,39 @@
                     "$routine": "warmup-pull-day"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-pull-ups",
                     "sets": 1,
-                    "exerciseName": "Pull-Ups",
                     "notes": "All Out",
                     "repsType": "amrap",
                     "repsValue": null,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ]
+                    "restSeconds": 120
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-pull-ups",
                     "sets": 2,
-                    "exerciseName": "Pull-Ups",
                     "notes": "Back-off",
                     "repsType": "submax",
                     "repsValue": null,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ]
+                    "restSeconds": 120
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-feet-on-floor-rows",
                     "sets": 3,
-                    "exerciseName": "Feet-on-Floor Rows",
                     "notes": "Accessory. Tempo 3-1-1-0. Maintain pulling volume.",
-                    "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Ring Rows",
-                      "Dumbbell Rows"
-                    ]
+                    "loadMax": 0
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -3017,21 +2431,13 @@
                     ]
                   },
                   {
-                    "category": "main",
+                    "$ref": "accessory-weighted-dips",
                     "sets": 4,
-                    "exerciseName": "Weighted Dips",
                     "notes": "4×5 per doc; Dip Governor may alter exercise.",
                     "loadMin": 5,
                     "loadMax": 10,
-                    "loadUnit": "kg",
                     "repsType": "reps",
-                    "repsValue": 5,
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Straight Bar Dips",
-                      "Weighted Bench Dips"
-                    ],
-                    "progressionNotes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately."
+                    "repsValue": 5
                   },
                   {
                     "category": "accessory",
@@ -3092,54 +2498,30 @@
                     "$routine": "warmup-pull-day"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-pull-ups",
                     "sets": 2,
-                    "exerciseName": "Pull-Ups",
                     "notes": "Deload",
                     "repsType": "amrap",
                     "repsValue": null,
                     "repsModifier": 4,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ]
+                    "restSeconds": 120
                   },
                   {
-                    "category": "accessory",
+                    "$ref": "accessory-feet-on-floor-rows",
                     "sets": 2,
-                    "exerciseName": "Feet-on-Floor Rows",
                     "notes": "Deload. Accessory. Tempo 3-1-1-0. Maintain pulling volume.",
-                    "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 60,
-                    "alternatives": [
-                      "Ring Rows",
-                      "Dumbbell Rows"
-                    ]
+                    "loadMax": 0
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -3212,59 +2594,34 @@
                     "$routine": "warmup-pull-day"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-pull-ups",
                     "sets": 3,
-                    "exerciseName": "Pull-Ups",
                     "notes": "Tapering",
                     "repsType": "amrap",
                     "repsValue": null,
                     "repsModifier": 1,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ]
+                    "restSeconds": 120
                   },
                   {
-                    "category": "main",
+                    "$ref": "accessory-feet-on-floor-rows",
                     "sets": 3,
-                    "exerciseName": "Feet-on-Floor Rows",
                     "notes": null,
-                    "repsType": "reps",
                     "repsValue": 10,
                     "tempoEccentric": 3,
                     "tempoPauseBottom": 1,
                     "tempoConcentric": 1,
                     "tempoPauseTop": 0,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Dumbbell Rows",
-                      "Cable Rows",
-                      "Inverted Rows"
-                    ]
+                    "loadMax": 0
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -3351,38 +2708,22 @@
                     "$routine": "warmup-pull-day"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-pull-ups",
                     "sets": 3,
-                    "exerciseName": "Pull-Ups",
                     "notes": "Taper",
                     "repsType": "amrap",
                     "repsValue": null,
                     "repsModifier": 20,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ]
+                    "restSeconds": 120
                   },
                   {
                     "$ref": "cooldown-passive-dead-hang"
                   },
                   {
-                    "category": "cooldown",
-                    "sets": 1,
-                    "exerciseName": "Butcher’s Block Stretch",
-                    "notes": "Cool-down. Targeting Lats/Triceps.",
-                    "repsType": "time",
-                    "repsValue": 60,
-                    "repsUnit": "seconds",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0
+                    "$ref": "cooldown-butchers-block",
+                    "notes": "Cool-down. Targeting Lats/Triceps."
                   },
                   {
                     "$ref": "cooldown-cobra-stretch"
@@ -3428,18 +2769,14 @@
                     "$routine": "superset-bss"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-weighted-hollow-rocks",
                     "sets": 3,
-                    "exerciseName": "Weighted Hollow Rocks",
                     "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
                     "loadMin": 3,
                     "loadMax": 5,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
                     "repsValue": 15,
                     "isEmom": true,
                     "supersetGroup": 1,
-                    "restSeconds": 120,
                     "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
                   },
                   {
@@ -3470,21 +2807,14 @@
                     "$routine": "warmup-pull-day"
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-pull-ups",
                     "sets": 2,
-                    "exerciseName": "Pull-Ups",
                     "notes": "Deload - 50% volume, stay fresh",
                     "repsType": "reps",
                     "repsValue": 5,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ]
+                    "restSeconds": 120
                   },
                   {
                     "$routine": "cooldown-pull-day"
@@ -3636,18 +2966,14 @@
                     "sets": 2
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-weighted-hollow-rocks",
                     "sets": 2,
-                    "exerciseName": "Weighted Hollow Rocks",
                     "notes": "Deload. Arms straight overhead. If lower back arches, drop weight immediately.",
                     "loadMin": 2,
                     "loadMax": 3,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
                     "repsValue": 12,
                     "isEmom": true,
                     "supersetGroup": 1,
-                    "restSeconds": 120,
                     "progressionNotes": "Deload weight."
                   },
                   {
@@ -3713,38 +3039,24 @@
                     ]
                   },
                   {
-                    "category": "warmup",
+                    "$ref": "main-pull-ups",
                     "sets": 3,
-                    "exerciseName": "Pull-Ups",
                     "notes": "Warm-up",
                     "repsType": "effort",
                     "repsValue": 50,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 30,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ]
+                    "restSeconds": 30
                   },
                   {
-                    "category": "warmup",
+                    "$ref": "main-pull-ups",
                     "sets": 1,
-                    "exerciseName": "Pull-Ups",
                     "notes": "Warm-up",
                     "repsType": "effort",
                     "repsValue": 75,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 30,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ]
+                    "restSeconds": 30
                   },
                   {
                     "category": "main",
@@ -3878,38 +3190,24 @@
                     ]
                   },
                   {
-                    "category": "warmup",
+                    "$ref": "main-pull-ups",
                     "sets": 3,
-                    "exerciseName": "Pull-Ups",
                     "notes": "Warm-up",
                     "repsType": "effort",
                     "repsValue": 50,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 30,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ]
+                    "restSeconds": 30
                   },
                   {
-                    "category": "warmup",
+                    "$ref": "main-pull-ups",
                     "sets": 1,
-                    "exerciseName": "Pull-Ups",
                     "notes": "Warm-up",
                     "repsType": "effort",
                     "repsValue": 75,
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 30,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ]
+                    "restSeconds": 30
                   },
                   {
                     "category": "main",
@@ -3996,55 +3294,33 @@
                     "progressionNotes": "Volume accumulation phase. Do not fail sets."
                   },
                   {
-                    "category": "main",
+                    "$ref": "accessory-ring-rows",
                     "sets": 2,
-                    "exerciseName": "Ring Rows",
                     "notes": "60% Vol (Reload). Tempo 2-1-1-0. Stop if sharp pain.",
                     "repsType": "reps",
                     "repsValue": 15,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Dumbbell Rows",
-                      "Cable Rows",
-                      "Inverted Rows"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "main",
+                    "$ref": "accessory-incline-pushups",
                     "sets": 2,
-                    "exerciseName": "Incline Push-Ups",
                     "notes": "60% Vol (Reload). Tempo 2-1-1-0.",
                     "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 0,
-                    "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "Dips",
-                      "Incline Push-Ups",
-                      "Diamond Push-Ups"
-                    ]
+                    "loadMax": 0
                   },
                   {
-                    "category": "main",
+                    "$ref": "core-hollow-rocks",
                     "sets": 2,
-                    "exerciseName": "Hollow Rocks",
                     "notes": "60% Vol (Reload). Ground-Based. Watch for elbow tightness.",
                     "repsType": "time",
                     "repsValue": 25,
                     "repsUnit": "seconds",
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "alternatives": [
-                      "V-Ups",
-                      "Dead Bugs"
-                    ]
+                    "restSeconds": 120
                   }
                 ]
               },
@@ -4143,16 +3419,12 @@
                     "restSeconds": 120
                   },
                   {
-                    "category": "main",
+                    "$ref": "accessory-weighted-glute-bridge",
                     "sets": 2,
-                    "exerciseName": "Weighted Glute Bridge",
                     "notes": "Light. Tempo 2-1-1-0. Squeeze glutes hard at top.",
                     "loadMin": 40,
                     "loadMax": 60,
-                    "loadUnit": "kg",
-                    "repsType": "reps",
                     "repsValue": 10,
-                    "restSeconds": 120,
                     "cues": [
                       "No lumbar hyperextension"
                     ]
@@ -4194,21 +3466,14 @@
                     "restSeconds": 90
                   },
                   {
-                    "category": "main",
+                    "$ref": "main-pull-ups",
                     "sets": 2,
-                    "exerciseName": "Pull-Ups",
                     "notes": "Reload. NO weighted pulls. Tempo 2-1-1. Focus on perfect reps.",
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
                     "repsType": "reps",
                     "repsValue": 5,
                     "restSeconds": 120,
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Ring Rows",
-                      "Assisted Pull-Ups"
-                    ],
                     "cues": [
                       "Full ROM",
                       "Chin over bar",
@@ -4241,16 +3506,14 @@
                     "sets": 2
                   },
                   {
-                    "category": "main",
+                    "$ref": "core-hollow-rocks",
                     "sets": 2,
-                    "exerciseName": "Hollow Rocks",
                     "notes": "EMOM. Pair with Bulgarians. Bodyweight only for tissue reset.",
                     "repsType": "time",
                     "repsValue": 20,
                     "repsUnit": "seconds",
                     "loadMin": 0,
                     "loadMax": 0,
-                    "loadUnit": "bodyweight",
                     "isEmom": true,
                     "supersetGroup": 1,
                     "restSeconds": 120
@@ -4447,26 +3710,13 @@
             "$routine": "warmup-pull-day"
           },
           {
-            "category": "main",
+            "$ref": "main-weighted-pull-ups",
             "sets": 2,
-            "exerciseName": "Weighted Pull-Ups",
             "notes": "Easy. Primary Goal: Build elite pulling strength.",
             "loadMin": 5,
             "loadMax": 10,
-            "loadUnit": "kg",
             "repsType": "reps",
-            "repsValue": 3,
-            "restSeconds": 180,
-            "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form. (e.g. if 3x5 is goal, must hit 5,5,5 to add 1kg).",
-            "alternatives": [
-              "Lat Pulldowns",
-              "Banded Pull-downs"
-            ],
-            "cues": [
-              "Full ROM",
-              "Chin over bar",
-              "Controlled descent"
-            ]
+            "repsValue": 3
           },
           {
             "category": "main",
@@ -4519,18 +3769,14 @@
             "isUnilateral": true
           },
           {
-            "category": "main",
+            "$ref": "main-weighted-hollow-rocks",
             "sets": 3,
-            "exerciseName": "Weighted Hollow Rocks",
             "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
             "loadMin": 3,
             "loadMax": 5,
-            "loadUnit": "kg",
-            "repsType": "reps",
             "repsValue": 15,
             "isEmom": true,
             "supersetGroup": 1,
-            "restSeconds": 120,
             "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
           },
           {
@@ -4550,18 +3796,12 @@
         "description": null,
         "exercises": [
           {
-            "category": "main",
+            "$ref": "main-rdl",
             "sets": 3,
-            "exerciseName": "Single Leg RDL",
             "notes": "Unilateral. Posterior chain focus.",
             "loadMin": 8,
             "loadMax": 12,
-            "loadUnit": "kg",
-            "loadPerHand": true,
-            "repsType": "reps",
-            "repsValue": 8,
-            "repsPerSide": true,
-            "restSeconds": 180
+            "repsValue": 8
           },
           {
             "$ref": "main-goblet-squats"
@@ -4727,20 +3967,6 @@
         "category": "cooldown",
         "sets": 1,
         "notes": "Cool-down. Spinal decompression.",
-        "repsType": "time",
-        "repsValue": 60,
-        "repsUnit": "seconds",
-        "loadMin": 0,
-        "loadMax": 0,
-        "loadUnit": "bodyweight",
-        "restSeconds": 0
-      },
-      {
-        "id": "cooldown-butchers-block",
-        "exerciseName": "Butcher's Block Stretch",
-        "category": "cooldown",
-        "sets": 1,
-        "notes": "Cool-down. Targeting Lats/Triceps.",
         "repsType": "time",
         "repsValue": 60,
         "repsUnit": "seconds",
@@ -4920,18 +4146,15 @@
       },
       {
         "id": "core-weighted-hollow-rocks",
-        "exerciseName": "Weighted Hollow Rocks",
-        "category": "core",
         "sets": 3,
         "notes": "Core Work. Arms straight overhead. If lower back arches, drop weight immediately.",
         "loadMin": 1.25,
         "loadMax": 2.5,
-        "loadUnit": "kg",
-        "repsType": "reps",
         "repsMin": 12,
         "repsMax": 15,
-        "restSeconds": 60,
-        "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s."
+        "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s.",
+        "exerciseName": "Weighted Hollow Rocks",
+        "category": "core"
       },
       {
         "id": "main-bss-left",
@@ -4984,6 +4207,164 @@
           "Drive through heel"
         ],
         "isUnilateral": true
+      },
+      {
+        "id": "accessory-feet-elevated-ring-rows",
+        "sets": 3,
+        "notes": "Accessory. Tempo 2-1-1-0. Neutral grip block.",
+        "repsValue": 12,
+        "loadMin": 0,
+        "loadMax": 0,
+        "exerciseName": "Feet-Elevated Ring Rows",
+        "category": "accessory"
+      },
+      {
+        "id": "accessory-parallette-pushups",
+        "sets": 3,
+        "notes": "Accessory. Tempo 2-1-1-0.",
+        "repsValue": 10,
+        "loadMin": 0,
+        "loadMax": 0,
+        "exerciseName": "Parallette Push-Ups",
+        "category": "accessory"
+      },
+      {
+        "id": "main-weighted-hollow-rocks",
+        "sets": 3,
+        "notes": "EMOM. Arms straight overhead. If lower back arches, drop weight immediately.",
+        "loadMin": 3,
+        "loadMax": 5,
+        "repsValue": 15,
+        "isEmom": true,
+        "supersetGroup": 1,
+        "progressionNotes": "Start 1.25/2.5kg. Move to 5kg only when holding shape perfectly for 45s.",
+        "exerciseName": "Weighted Hollow Rocks",
+        "category": "main"
+      },
+      {
+        "id": "main-rdl",
+        "exerciseName": "RDL",
+        "category": "main",
+        "sets": 4,
+        "notes": "Posterior chain focus.",
+        "loadMin": 85,
+        "loadMax": 85,
+        "loadUnit": "kg",
+        "repsType": "reps",
+        "repsValue": 8,
+        "restSeconds": 120
+      },
+      {
+        "id": "accessory-weighted-glute-bridge",
+        "sets": 3,
+        "notes": "Accessory. Tempo 2-1-1-0. Squeeze glutes hard at top.",
+        "loadMin": 40,
+        "loadMax": 60,
+        "repsValue": 12,
+        "exerciseName": "Weighted Glute Bridge",
+        "category": "accessory"
+      },
+      {
+        "id": "accessory-feet-on-floor-rows",
+        "sets": 3,
+        "notes": "Accessory. Tempo 3-1-1-0. Maintain pulling volume.",
+        "repsValue": 10,
+        "loadMin": 0,
+        "loadMax": 0,
+        "exerciseName": "Feet-on-Floor Rows",
+        "category": "accessory"
+      },
+      {
+        "id": "cooldown-butchers-block",
+        "exerciseName": "Butcher’s Block Stretch",
+        "category": "cooldown",
+        "sets": 1,
+        "notes": "Cool-down. Targeting Lats/Triceps.",
+        "repsType": "time",
+        "repsValue": 60,
+        "repsUnit": "seconds",
+        "loadMin": 0,
+        "loadMax": 0,
+        "loadUnit": "bodyweight",
+        "restSeconds": 0
+      },
+      {
+        "id": "main-pull-ups",
+        "exerciseName": "Pull-Ups",
+        "category": "main",
+        "sets": 3,
+        "repsType": "amrap",
+        "repsValue": null,
+        "loadMin": 0,
+        "loadMax": 0,
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "alternatives": [
+          "Lat Pulldowns",
+          "Ring Rows",
+          "Assisted Pull-Ups"
+        ]
+      },
+      {
+        "id": "main-weighted-pull-ups",
+        "exerciseName": "Weighted Pull-Ups",
+        "category": "main",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 5,
+        "loadUnit": "kg",
+        "restSeconds": 120,
+        "alternatives": [
+          "Lat Pulldowns",
+          "Ring Rows",
+          "Assisted Pull-Ups"
+        ],
+        "progressionNotes": "DOUBLE PROGRESSION RULE: Earn weight increase only when hitting top rep range for ALL sets with perfect form. (e.g. if 3x5 is goal, must hit 5,5,5 to add 1kg).",
+        "cues": [
+          "Full ROM",
+          "Chin over bar",
+          "Controlled descent"
+        ]
+      },
+      {
+        "id": "accessory-weighted-dips",
+        "exerciseName": "Weighted Dips",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 5,
+        "loadUnit": "kg",
+        "restSeconds": 60,
+        "alternatives": [
+          "Push-Ups",
+          "Bench Dips",
+          "Chest Press Machine"
+        ],
+        "progressionNotes": "Double Progression Rule: Hit top reps to add weight."
+      },
+      {
+        "id": "accessory-ring-rows",
+        "exerciseName": "Ring Rows",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 12,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "alternatives": [
+          "Dumbbell Rows",
+          "Barbell Rows"
+        ]
+      },
+      {
+        "id": "accessory-incline-pushups",
+        "exerciseName": "Incline Push-Ups",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 12,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60
       }
     ],
     "routineTemplates": [

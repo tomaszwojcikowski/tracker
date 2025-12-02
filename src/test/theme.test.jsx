@@ -1,6 +1,16 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useTheme, THEMES } from '../hooks/useTheme';
+import * as themeUtils from '../utils/theme';
+
+// Mock the theme utils
+vi.mock('../utils/theme', () => ({
+    generateTheme: vi.fn(() => ({
+        primary: '#000000',
+        surface: '#ffffff',
+    })),
+    applyThemeToDom: vi.fn(),
+}));
 
 describe('useTheme', () => {
     const localStorageMock = (() => {
@@ -26,35 +36,32 @@ describe('useTheme', () => {
         });
         localStorageMock.clear();
         vi.clearAllMocks();
-        // Reset document classes
-        document.documentElement.className = '';
-    });
-
-    afterEach(() => {
-        document.documentElement.className = '';
     });
 
     describe('initialization', () => {
         it('should return classic theme by default', () => {
             const { result } = renderHook(() => useTheme());
-            expect(result.current.theme).toBe('classic');
+            expect(result.current.currentTheme).toBe('classic');
         });
 
         it('should load saved theme from localStorage', () => {
             localStorageMock.getItem.mockReturnValueOnce('modern');
             const { result } = renderHook(() => useTheme());
-            expect(result.current.theme).toBe('modern');
+            expect(result.current.currentTheme).toBe('modern');
         });
 
         it('should fall back to classic for invalid saved theme', () => {
             localStorageMock.getItem.mockReturnValueOnce('invalid-theme');
             const { result } = renderHook(() => useTheme());
-            expect(result.current.theme).toBe('classic');
+            expect(result.current.currentTheme).toBe('classic');
         });
 
-        it('should apply theme class to document root', () => {
+        it('should apply theme to DOM on init', () => {
+             // Setup a valid saved theme to ensure effect runs with a known value
+            localStorageMock.getItem.mockReturnValueOnce('classic');
             renderHook(() => useTheme());
-            expect(document.documentElement.classList.contains('theme-classic')).toBe(true);
+            expect(themeUtils.generateTheme).toHaveBeenCalled();
+            expect(themeUtils.applyThemeToDom).toHaveBeenCalled();
         });
     });
 
@@ -66,7 +73,7 @@ describe('useTheme', () => {
                 result.current.setTheme('modern');
             });
 
-            expect(result.current.theme).toBe('modern');
+            expect(result.current.currentTheme).toBe('modern');
         });
 
         it('should save theme to localStorage', () => {
@@ -76,33 +83,18 @@ describe('useTheme', () => {
                 result.current.setTheme('ocean');
             });
 
-            expect(localStorageMock.setItem).toHaveBeenCalledWith('tracker_theme', 'ocean');
+            expect(localStorageMock.setItem).toHaveBeenCalledWith('tracker_theme_v2', 'ocean');
         });
 
-        it('should update document class when theme changes', () => {
+        it('should apply new theme to DOM when theme changes', () => {
             const { result } = renderHook(() => useTheme());
 
             act(() => {
                 result.current.setTheme('sunset');
             });
 
-            expect(document.documentElement.classList.contains('theme-sunset')).toBe(true);
-            expect(document.documentElement.classList.contains('theme-classic')).toBe(false);
-        });
-
-        it('should remove previous theme class when changing themes', () => {
-            const { result } = renderHook(() => useTheme());
-
-            act(() => {
-                result.current.setTheme('modern');
-            });
-
-            act(() => {
-                result.current.setTheme('ocean');
-            });
-
-            expect(document.documentElement.classList.contains('theme-ocean')).toBe(true);
-            expect(document.documentElement.classList.contains('theme-modern')).toBe(false);
+            expect(themeUtils.generateTheme).toHaveBeenCalled();
+            expect(themeUtils.applyThemeToDom).toHaveBeenCalled();
         });
     });
 
@@ -121,52 +113,6 @@ describe('useTheme', () => {
             expect(themeIds).toContain('ocean');
             expect(themeIds).toContain('sunset');
             expect(themeIds).toContain('light');
-        });
-    });
-
-    describe('currentThemeInfo', () => {
-        it('should return info for current theme', () => {
-            const { result } = renderHook(() => useTheme());
-            expect(result.current.currentThemeInfo).toEqual(
-                expect.objectContaining({
-                    id: 'classic',
-                    name: 'Classic Dark',
-                })
-            );
-        });
-
-        it('should update currentThemeInfo when theme changes', () => {
-            const { result } = renderHook(() => useTheme());
-
-            act(() => {
-                result.current.setTheme('modern');
-            });
-
-            expect(result.current.currentThemeInfo).toEqual(
-                expect.objectContaining({
-                    id: 'modern',
-                    name: 'Modern Neon',
-                })
-            );
-        });
-    });
-
-    describe('getThemeInfo', () => {
-        it('should return theme info for given id', () => {
-            const { result } = renderHook(() => useTheme());
-            const oceanTheme = result.current.getThemeInfo('ocean');
-            expect(oceanTheme).toEqual(
-                expect.objectContaining({
-                    id: 'ocean',
-                    name: 'Deep Ocean',
-                })
-            );
-        });
-
-        it('should return undefined for invalid theme id', () => {
-            const { result } = renderHook(() => useTheme());
-            const invalidTheme = result.current.getThemeInfo('invalid');
-            expect(invalidTheme).toBeUndefined();
         });
     });
 

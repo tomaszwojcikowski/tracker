@@ -153,47 +153,7 @@ export function useDebounce<T>(value: T, delay: number = DEBOUNCE_DELAY_MS): T {
     return debouncedValue;
 }
 
-// ============================================================================
-// LUCIDE ICONS HOOK (DEPRECATED)
-// ============================================================================
 
-declare global {
-    interface Window {
-        lucide?: {
-            createIcons: () => void;
-        };
-    }
-}
-
-/**
- * Lucide icon refresh hook
- * Ensures Lucide icons are re-rendered after React updates
- * @param deps - Dependencies that trigger icon refresh
- * @deprecated Use lucide-react components instead
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const useLucideIcons = (deps: any[] = []): void => {
-    useEffect(() => {
-        // Use double RAF to ensure DOM is fully updated
-        let rafId1: number;
-        let rafId2: number;
-
-        rafId1 = requestAnimationFrame(() => {
-            rafId2 = requestAnimationFrame(() => {
-                if (window.lucide) {
-                    window.lucide.createIcons();
-                }
-            });
-        });
-
-        // Cleanup: cancel pending RAF callbacks
-        return () => {
-            if (rafId1) cancelAnimationFrame(rafId1);
-            if (rafId2) cancelAnimationFrame(rafId2);
-        };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, deps);
-};
 
 // Re-export optimistic sync hook and types
 export { useOptimisticSync, SyncStatus } from './useOptimisticSync';
@@ -256,3 +216,4 @@ export type {
     SnackbarContextValue,
     SnackbarProviderProps,
 } from './useSnackbar';
+export { useMediaQuery } from './useMediaQuery';

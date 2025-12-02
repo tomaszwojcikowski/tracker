@@ -7,11 +7,12 @@
 
 import React from 'react';
 import { SyncStatus } from '../hooks/useOptimisticSync';
+import { Cloud, CheckCircle, CloudOff } from '../icons';
 
 type SyncStatusType = typeof SyncStatus[keyof typeof SyncStatus];
 
 interface StatusDisplay {
-  icon: string;
+  Icon: React.ElementType;
   color: string;
   bgColor: string;
   label: string;
@@ -25,7 +26,7 @@ function getStatusDisplay(status: SyncStatusType, pendingChanges: boolean): Stat
   switch (status) {
     case SyncStatus.SYNCING:
       return {
-        icon: 'cloud',
+        Icon: Cloud,
         color: 'text-blue-400',
         bgColor: 'bg-blue-400/10',
         label: 'Syncing...',
@@ -33,7 +34,7 @@ function getStatusDisplay(status: SyncStatusType, pendingChanges: boolean): Stat
       };
     case SyncStatus.SUCCESS:
       return {
-        icon: 'cloud-check',
+        Icon: CheckCircle,
         color: 'text-green-400',
         bgColor: 'bg-green-400/10',
         label: 'Synced',
@@ -41,7 +42,7 @@ function getStatusDisplay(status: SyncStatusType, pendingChanges: boolean): Stat
       };
     case SyncStatus.ERROR:
       return {
-        icon: 'cloud-off',
+        Icon: CloudOff,
         color: 'text-red-400',
         bgColor: 'bg-red-400/10',
         label: 'Sync failed',
@@ -49,7 +50,7 @@ function getStatusDisplay(status: SyncStatusType, pendingChanges: boolean): Stat
       };
     case SyncStatus.OFFLINE:
       return {
-        icon: 'cloud-off',
+        Icon: CloudOff,
         color: 'text-gray-400',
         bgColor: 'bg-gray-400/10',
         label: 'Offline',
@@ -59,7 +60,7 @@ function getStatusDisplay(status: SyncStatusType, pendingChanges: boolean): Stat
     default:
       if (pendingChanges) {
         return {
-          icon: 'cloud',
+          Icon: Cloud,
           color: 'text-yellow-400',
           bgColor: 'bg-yellow-400/10',
           label: 'Pending sync',
@@ -67,7 +68,7 @@ function getStatusDisplay(status: SyncStatusType, pendingChanges: boolean): Stat
         };
       }
       return {
-        icon: 'cloud',
+        Icon: Cloud,
         color: 'text-sys-onSurfaceVar',
         bgColor: 'bg-sys-surface',
         label: 'Cloud sync',
@@ -99,8 +100,7 @@ export function SyncStatusIndicator({
   if (compact) {
     return (
       <div className={`flex items-center gap-1.5 ${display.color}`}>
-        <i
-          data-lucide={display.icon}
+        <display.Icon
           className={`w-4 h-4 ${display.animate ? 'animate-pulse' : ''}`}
         />
         {status === SyncStatus.SYNCING && (
@@ -115,8 +115,7 @@ export function SyncStatusIndicator({
       <div
         className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${display.bgColor}`}
       >
-        <i
-          data-lucide={display.icon}
+        <display.Icon
           className={`w-4 h-4 ${display.color} ${display.animate ? 'animate-pulse' : ''}`}
         />
         <span className={`text-xs font-medium ${display.color}`}>
@@ -157,8 +156,7 @@ export function InlineSyncStatus({ status, pendingChanges }: InlineSyncStatusPro
       className={`inline-flex items-center gap-1 text-xs ${display.color}`}
       title={display.label}
     >
-      <i
-        data-lucide={display.icon}
+      <display.Icon
         className={`w-3 h-3 ${display.animate ? 'animate-pulse' : ''}`}
       />
     </span>

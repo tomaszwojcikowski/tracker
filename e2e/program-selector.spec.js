@@ -58,7 +58,8 @@ test.describe('Program Selector', () => {
       await expect(modalTitle).toBeVisible();
 
       // Click on the backdrop (outside the modal content)
-      await page.locator('.bg-black\\/60').click({ position: { x: 10, y: 10 } });
+      // Use a position that avoids the Navigation Rail (80px wide) on desktop
+      await page.locator('.bg-black\\/60').click({ position: { x: 200, y: 100 } });
       await page.waitForTimeout(300);
 
       // Modal should be closed

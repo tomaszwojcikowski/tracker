@@ -69,6 +69,27 @@
   --opacity-hover: 0.8;
   --opacity-glass: 0.7;
   --opacity-dimmed: 0.9;
+
+  /* ===== MD3 DEFAULT MAPPINGS (Overridden by Theme Engine) ===== */
+  --color-primary-container: var(--color-primary-900);
+  --color-on-primary-container: var(--color-primary-100);
+  --color-secondary: var(--color-secondary-500);
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: var(--color-secondary-900);
+  --color-on-secondary-container: var(--color-secondary-100);
+  --color-tertiary-container: var(--color-tertiary-900);
+  --color-on-tertiary-container: var(--color-tertiary-100);
+  --color-error: var(--color-error-500);
+  --color-on-error: #ffffff;
+  --color-error-container: var(--color-error-900);
+  --color-on-error-container: var(--color-error-100);
+  --color-background: var(--color-black);
+  --color-on-background: var(--color-neutral-50);
+  --color-inverse-surface: var(--color-neutral-50);
+  --color-inverse-on-surface: var(--color-black);
+  --color-inverse-primary: var(--color-primary-400);
+  --color-scrim: #000000;
+  --color-shadow: #000000;
 }
 
 /* ============================================================================

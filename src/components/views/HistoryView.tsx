@@ -11,7 +11,6 @@ import {
     ChevronDown,
     CalendarDays,
     BarChart3,
-    RefreshCw,
     History,
     Plus,
     Check,
@@ -403,7 +402,6 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
     getAllExercisesWithHistory,
 }) => {
     const [history, setHistory] = useState<GlobalHistoryEntry[]>([]);
-    const [isRefreshing, setIsRefreshing] = useState(false);
     const [expandedEntries, setExpandedEntries] = useState<Record<number, boolean>>({});
     const [viewMode, setViewMode] = useState<'timeline' | 'stats'>('timeline');
     const haptic = useHaptic();
@@ -441,20 +439,10 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
     // Pull-to-refresh handler
     const handlePullRefresh = async () => {
         haptic.bump();
-        setIsRefreshing(true);
         // Small delay for visual feedback
         await new Promise(resolve => setTimeout(resolve, 500));
         await loadHistory();
-        setIsRefreshing(false);
         haptic.success();
-    };
-
-    const handleRefresh = () => {
-        setIsRefreshing(true);
-        setTimeout(() => {
-            loadHistory();
-            setIsRefreshing(false);
-        }, 500);
     };
 
     const toggleExpanded = (idx: number) => {
@@ -467,7 +455,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
             <div className="px-5 pb-20 pt-6">
                 {/* Header with Toggle - mobile-optimized layout */}
                 <div className="flex flex-col gap-4 mb-6">
-                    {/* Segmented Control and Refresh - full width on mobile */}
+                    {/* Segmented Control - full width on mobile */}
                     <div className="flex items-center gap-2">
                         <div className="flex flex-1 bg-sys-surfaceHigh rounded-2xl p-1 border border-white/5">
                             <button
@@ -485,14 +473,6 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                 <span>Stats</span>
                             </button>
                         </div>
-                        {/* Refresh Button */}
-                        <button
-                            onClick={handleRefresh}
-                            className={`h-11 w-11 min-w-[44px] rounded-2xl bg-sys-surfaceHigh border border-white/5 text-sys-onSurfaceVar hover:text-white flex items-center justify-center active:scale-90 transition-all ${isRefreshing ? 'animate-spin' : ''}`}
-                            aria-label="Refresh history"
-                        >
-                            <RefreshCw size={18} />
-                        </button>
                     </div>
                 </div>
                 {history.length === 0 ? (

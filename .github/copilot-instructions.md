@@ -51,13 +51,25 @@ tracker/
 │   └── test/                 # Unit tests (Vitest + Testing Library)
 │       ├── setup.js
 │       ├── *.test.jsx        # 12+ test files, 210+ specs
+├── data/                 # Data files (JSON)
+│   ├── exercises.json    # Exercise library data (50+ exercises) - edit this file, NOT public/
+│   ├── workout-plan-v2.3.json  # Current workout program (v2.3 format)
+│   └── *.schema.json     # JSON schemas for validation
+├── docs/                 # Documentation
+│   ├── DEPLOYMENT.md     # GitHub Pages deployment
+│   ├── FIREBASE_SETUP.md # Firebase configuration
+│   ├── PROGRAM_ARCHITECTURE.md
+│   ├── STORAGE_NAMESPACE.md
+│   ├── TESTING.md        # Manual testing scenarios
+│   └── WORKOUT_PLAN_*.md # Workout plan documentation
+├── scripts/              # Migration and utility scripts
+│   ├── migrate-*.mjs     # Workout plan migration scripts
+│   └── normalize-*.js    # Data normalization scripts
 ├── e2e/                  # End-to-end tests (Playwright)
 │   ├── navigation.spec.js
 │   ├── workout.spec.js
 │   └── pwa.spec.js
 ├── public/               # Static assets (auto-populated during build)
-├── workout-plan-v2.1.json  # Current workout program (v2.1 format with programRules) - edit this file, NOT public/
-├── exercises.json        # Exercise library data (50+ exercises) - edit this file, NOT public/
 ├── tsconfig.json         # TypeScript configuration
 ├── playwright.config.js  # E2E test configuration
 ├── eslint.config.js      # ESLint flat config
@@ -497,7 +509,7 @@ export function useMyHook(): MyHookReturn {
 14. **CRDT Sync**: Prefer `useAutomergeSync` for new sync features; it provides conflict-free merging
 15. **Modular Architecture**: Place new code in appropriate directories (components/, hooks/, utils/)
 16. **Run Typecheck**: Always run `npm run typecheck` before committing TypeScript changes
-17. **JSON Data Files**: Edit root-level JSON files (`workout-plan-v2.1.json`, `exercises.json`) only. Do NOT manually copy to `public/` — the build step handles this automatically.
+17. **JSON Data Files**: Edit JSON files in `data/` folder (`data/workout-plan-v2.3.json`, `data/exercises.json`) only. Do NOT manually copy to `public/` — the build step handles this automatically.
 
 ## Agent Interaction Examples
 

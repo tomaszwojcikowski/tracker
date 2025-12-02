@@ -7,6 +7,8 @@ dist
 # Playwright test results and reports
 test-results/
 playwright-report/
-public/workout-plan-v2.1.json
-public/workout-plan-v2.2.json
+
+# Copied during build (source files in data/ and root)
 public/workout-plan-v2.3.json
+public/exercises.json
+public/colors.css

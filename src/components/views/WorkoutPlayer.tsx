@@ -277,7 +277,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     // PERSISTENCE FUNCTIONS
     // ============================================================================
 
-    const persistLogs = (updatedLogs: WorkoutSessionData): void => {
+    const persistLogs = useCallback((updatedLogs: WorkoutSessionData): void => {
         setLogs(updatedLogs);
         const success = safeSetJSON(sessionKey, updatedLogs);
         if (!success) {
@@ -286,9 +286,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             // Schedule a background sync to cloud
             syncService.scheduleSync();
         }
-    };
+    }, [sessionKey]);
 
-    const saveLog = (
+    const saveLog = useCallback((
         id: string,
         field: keyof ExerciseLogEntry,
         value: ExerciseLogEntry[keyof ExerciseLogEntry]
@@ -307,7 +307,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             lastModified: new Date().toISOString(),
         };
         persistLogs(updatedLogs);
-    };
+    }, [logs, persistLogs]);
 
     // ============================================================================
     // SET TOGGLE & RPE
@@ -473,7 +473,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     // Handler for weight changes from compact view
     const handleWeightChange = useCallback((exId: string, weight: string): void => {
         saveLog(exId, 'weight', weight);
-    }, []);
+    }, [saveLog]);
 
     const completeAllSets = (exId: string, defaultSets: number): void => {
         haptic.success();

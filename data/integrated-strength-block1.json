@@ -1,0 +1,942 @@
+{
+  "$schema": "./workout-plan-v2.3.schema.json",
+  "formatVersion": "2.3.0",
+  "plan": {
+    "id": "integrated-strength-v26-9",
+    "name": "The 20-Week Integrated Strength Program (V26.9: Longevity Update)",
+    "description": "Build elite pulling strength (max pull-ups, pull-up variations) while maintaining all-around capacity (pushing, lower body) and protecting knee/shoulder health. Optimized for the 40+ athlete with Volume Management and Joint Longevity principles.",
+    "author": "V26.9 Program",
+    "createdDate": "2025-12-02",
+    "lastModified": "2025-12-02T20:02:00.000Z",
+    "version": "26.9.0",
+    "durationWeeks": 21,
+    "goals": [
+      "elite-pulling-strength",
+      "max-pull-ups",
+      "joint-longevity",
+      "volume-management",
+      "40-plus-optimization"
+    ],
+    "targetLevel": "advanced",
+    "equipment": [
+      "pull-up-bar",
+      "rings",
+      "dip-bars",
+      "resistance-bands",
+      "rower",
+      "dumbbells",
+      "barbell"
+    ],
+    "programRules": {
+      "volumeCap": {
+        "weeklyPullUpReps": {
+          "min": 36,
+          "max": 40
+        }
+      },
+      "earlyWarningSystem": {
+        "reduceVolumeBy": 0.3,
+        "triggers": [
+          "Elbow tightness > 24 hours",
+          "Sharp pain during Ring Rows or PPPU",
+          "Grip fatigue lasting into Day 3",
+          "Shoulder pinch or impingement on Dips or HSPU"
+        ]
+      },
+      "coldStartRowerProtocol": {
+        "description": "Before Day 1 & 5 sessions",
+        "duration": "5 minutes",
+        "protocol": "Min 1-2: Zone 1, Min 3-4: Zone 2, Min 5: 3x10s Sprints"
+      },
+      "globalTendonPrepWarmup": {
+        "description": "Perform immediately after Rower Protocol",
+        "exercises": [
+          "20 Band Pull-Aparts",
+          "15 Band External Rotations per side",
+          "3x5 Scapular Pull-ups with 3s ISO-HOLD",
+          "20-30s Passive Bar Hang"
+        ]
+      },
+      "repBeforeLoadRule": {
+        "description": "Double Progression: Add weight only when hitting top rep range for all sets with perfect form"
+      },
+      "standardTempo": "2-1-1-0",
+      "day5AccessoryCap": "10 minutes hard cap",
+      "dipGovernorRule": "If shoulder pinch occurs during weighted dips, switch to Straight Bar Dips or Weighted Bench Dips",
+      "gripSaverProtocol": "Day 5 core work must be ground-based (V-Ups/Hollows) to prevent medial epicondylitis"
+    },
+    "routineTemplates": [
+      {
+        "id": "warmup-rower-protocol",
+        "name": "Rower Protocol",
+        "description": "Cold Start Protocol before Day 1 & 5",
+        "category": "warmup",
+        "estimatedDuration": 5,
+        "targetAreas": ["cardiovascular", "cns-activation"],
+        "exercises": [
+          {
+            "exerciseName": "Rower - Easy (Zone 1)",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 120,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Min 1-2: Easy pace"
+          },
+          {
+            "exerciseName": "Rower - Moderate (Zone 2)",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 120,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Min 3-4: Moderate pace"
+          },
+          {
+            "exerciseName": "Rower - Sprints",
+            "category": "warmup",
+            "sets": 3,
+            "repsType": "time",
+            "repsValue": 10,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "restSeconds": 10,
+            "notes": "Min 5: 3 x 10s Sprints (CNS activation)"
+          }
+        ]
+      },
+      {
+        "id": "warmup-global-tendon-prep",
+        "name": "Global Tendon Prep",
+        "description": "Essential tendon preparation immediately after rower",
+        "category": "prehab",
+        "estimatedDuration": 5,
+        "targetAreas": ["shoulders", "rotator-cuff", "scapula", "grip"],
+        "exercises": [
+          {
+            "exerciseName": "Band Pull-Aparts",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 20,
+            "loadUnit": "band",
+            "restSeconds": 30
+          },
+          {
+            "exerciseName": "Band External Rotations",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 15,
+            "repsPerSide": true,
+            "loadUnit": "band",
+            "restSeconds": 30,
+            "cues": ["Pin elbow to ribcage", "Use towel roll"]
+          },
+          {
+            "exerciseName": "Scapular Pull-ups",
+            "category": "warmup",
+            "sets": 3,
+            "repsType": "reps",
+            "repsValue": 5,
+            "loadUnit": "bodyweight",
+            "restSeconds": 30,
+            "notes": "3s ISO-HOLD at top. No bouncy reps",
+            "cues": ["Straight arms", "Depress scapula", "Hold 3s"]
+          },
+          {
+            "exerciseName": "Passive Bar Hang",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "time",
+            "repsMin": 20,
+            "repsMax": 30,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "restSeconds": 0
+          }
+        ]
+      },
+      {
+        "id": "cooldown-day1",
+        "name": "Day 1 Cooldown",
+        "description": "Volume Reset cooldown for Day 1",
+        "category": "cooldown",
+        "estimatedDuration": 4,
+        "targetAreas": ["spine", "lats", "triceps", "abs", "forearms"],
+        "exercises": [
+          {
+            "exerciseName": "Passive Dead Hang",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsMin": 30,
+            "repsMax": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Spinal decompression"
+          },
+          {
+            "exerciseName": "Butcher's Block Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Targeting Lats/Triceps"
+          },
+          {
+            "exerciseName": "Cobra Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Releasing abs from Hollow Rocks"
+          },
+          {
+            "exerciseName": "Wrist Extensor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight"
+          }
+        ]
+      },
+      {
+        "id": "cooldown-day5",
+        "name": "Day 5 Cooldown",
+        "description": "Anterior Chain Openers for Day 5",
+        "category": "cooldown",
+        "estimatedDuration": 4,
+        "targetAreas": ["pecs", "lats", "quads"],
+        "exercises": [
+          {
+            "exerciseName": "Banded Pec Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Releasing tension from Dips"
+          },
+          {
+            "exerciseName": "Lat Prayer (Bench/Box)",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Releasing Lats"
+          },
+          {
+            "exerciseName": "Standing Quad Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Releasing Quads from Split Squats"
+          }
+        ]
+      },
+      {
+        "id": "cooldown-day3",
+        "name": "Day 3 Cooldown",
+        "description": "Post-Hinge Recovery cooldown",
+        "category": "cooldown",
+        "estimatedDuration": 5,
+        "targetAreas": ["hip-flexors", "spine", "hips"],
+        "exercises": [
+          {
+            "exerciseName": "Couch Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 90,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Critical for hip flexors after Squats"
+          },
+          {
+            "exerciseName": "Light Weighted Jefferson Curl",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 120,
+            "repsUnit": "seconds",
+            "loadMin": 10,
+            "loadMax": 12,
+            "loadUnit": "kg",
+            "notes": "Spinal segmentation. Use empty bar or light DB, NOT PVC"
+          },
+          {
+            "exerciseName": "90/90 Hip Rotations",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 10,
+            "repsPerSide": true,
+            "loadUnit": "bodyweight"
+          }
+        ]
+      },
+      {
+        "id": "mobility-ankle-circuit",
+        "name": "Ankle Mobility Circuit",
+        "description": "Essential for Day 2 and supporting Goblet Squats",
+        "category": "mobility",
+        "estimatedDuration": 7,
+        "targetAreas": ["ankles", "tibialis", "squat-pattern"],
+        "exercises": [
+          {
+            "exerciseName": "Knee-to-Wall Mobilization",
+            "category": "mobility",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 120,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight"
+          },
+          {
+            "exerciseName": "Tibialis Wall Raises",
+            "category": "mobility",
+            "sets": 3,
+            "repsType": "reps",
+            "repsMin": 15,
+            "repsMax": 20,
+            "loadUnit": "bodyweight"
+          },
+          {
+            "exerciseName": "Deep Squat Iso-Hold",
+            "category": "mobility",
+            "sets": 2,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight"
+          }
+        ]
+      },
+      {
+        "id": "day2-recovery-flow",
+        "name": "Day 2 Recovery Flow",
+        "description": "System Reset cooldown for recovery day",
+        "category": "cooldown",
+        "estimatedDuration": 5,
+        "targetAreas": ["breathing", "recovery"],
+        "exercises": [
+          {
+            "exerciseName": "Child's Pose",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 120,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Focus on breathing into lower back"
+          },
+          {
+            "exerciseName": "Box Breathing",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 180,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "4s In, 4s Hold, 4s Out, 4s Hold"
+          }
+        ]
+      },
+      {
+        "id": "superset-bss",
+        "name": "Bulgarian Split Squat EMOM Superset",
+        "description": "Alternating EMOM for unilateral leg work",
+        "category": "main",
+        "estimatedDuration": 6,
+        "targetAreas": ["quads", "glutes", "unilateral-stability"],
+        "exercises": [
+          {
+            "$ref": "ex-bulgarian-split-squat-left"
+          },
+          {
+            "$ref": "ex-bulgarian-split-squat-right"
+          }
+        ]
+      }
+    ],
+    "exerciseTemplates": [
+      {
+        "id": "ex-pull-up-ladders",
+        "exerciseName": "Pull-Up Ladders",
+        "category": "main",
+        "sets": 4,
+        "repsType": "ladder",
+        "repsValue": [1, 2, 3],
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "notes": "Ladders: 1, 2, 3 reps. Focus on perfect form.",
+        "progressionNotes": "Volume accumulation phase. Do not fail sets."
+      },
+      {
+        "id": "ex-weighted-pull-ups",
+        "exerciseName": "Weighted Pull-Ups",
+        "category": "main",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 5,
+        "loadUnit": "kg",
+        "restSeconds": 120,
+        "notes": "Double Progression Rule applies",
+        "progressionNotes": "Earn weight increase only when hitting top rep range for ALL sets with perfect form",
+        "alternatives": ["Lat Pulldowns", "Assisted Pull-Ups"]
+      },
+      {
+        "id": "ex-ring-rows",
+        "exerciseName": "Ring Rows",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 15,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "tempoEccentric": 2,
+        "tempoPauseBottom": 1,
+        "tempoConcentric": 1,
+        "tempoPauseTop": 0,
+        "notes": "Tempo 2-1-1-0. Stop if sharp pain"
+      },
+      {
+        "id": "ex-incline-pushups",
+        "exerciseName": "Incline Push-Ups",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 10,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "tempoEccentric": 2,
+        "tempoPauseBottom": 1,
+        "tempoConcentric": 1,
+        "tempoPauseTop": 0,
+        "notes": "Tempo 2-1-1-0"
+      },
+      {
+        "id": "ex-hollow-rocks",
+        "exerciseName": "Hollow Rocks",
+        "category": "core",
+        "sets": 3,
+        "repsType": "time",
+        "repsValue": 25,
+        "repsUnit": "seconds",
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "notes": "Ground-Based. Watch for elbow tightness"
+      },
+      {
+        "id": "ex-dips",
+        "exerciseName": "Dips",
+        "category": "main",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 10,
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "notes": "Dip Governor Rule: If shoulder pinch occurs, switch immediately",
+        "alternatives": ["Push-Ups", "Bench Dips", "Straight Bar Dips"],
+        "cues": ["Shoulders down", "Don't flair elbows"],
+        "progressionNotes": "Double Progression Rule applies"
+      },
+      {
+        "id": "ex-bulgarian-split-squat-left",
+        "exerciseName": "Bulgarian Split Squat (Left)",
+        "category": "main",
+        "sets": 1,
+        "repsType": "reps",
+        "repsValue": 8,
+        "loadUnit": "kg",
+        "loadPerHand": true,
+        "isEmom": true,
+        "isUnilateral": true,
+        "supersetGroup": 1,
+        "restSeconds": 60,
+        "notes": "EMOM Min 1: Left Leg",
+        "cues": ["Vertical shin", "Drive through heel"]
+      },
+      {
+        "id": "ex-bulgarian-split-squat-right",
+        "exerciseName": "Bulgarian Split Squat (Right)",
+        "category": "main",
+        "sets": 1,
+        "repsType": "reps",
+        "repsValue": 8,
+        "loadUnit": "kg",
+        "loadPerHand": true,
+        "isEmom": true,
+        "isUnilateral": true,
+        "supersetGroup": 1,
+        "restSeconds": 60,
+        "notes": "EMOM Min 2: Right Leg",
+        "cues": ["Vertical shin", "Drive through heel"]
+      },
+      {
+        "id": "ex-weighted-hollow-rocks",
+        "exerciseName": "Weighted Hollow Rocks / V-Ups",
+        "category": "core",
+        "sets": 1,
+        "repsType": "reps",
+        "repsMin": 12,
+        "repsMax": 15,
+        "loadUnit": "kg",
+        "isEmom": true,
+        "supersetGroup": 1,
+        "restSeconds": 120,
+        "notes": "EMOM Min 3. Arms straight overhead. If lower back arches, drop weight immediately",
+        "progressionNotes": "Start 1.25kg or 2.5kg. Progress to 5kg only when holding perfect form for 45s"
+      },
+      {
+        "id": "ex-rdl",
+        "exerciseName": "RDL",
+        "category": "main",
+        "sets": 4,
+        "repsType": "reps",
+        "repsValue": 8,
+        "loadUnit": "kg",
+        "restSeconds": 120,
+        "notes": "Posterior chain focus"
+      },
+      {
+        "id": "ex-weighted-glute-bridge",
+        "exerciseName": "Weighted Glute Bridge",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsMin": 10,
+        "repsMax": 12,
+        "loadUnit": "kg",
+        "restSeconds": 60,
+        "tempoEccentric": 2,
+        "tempoPauseBottom": 1,
+        "tempoConcentric": 1,
+        "tempoPauseTop": 0,
+        "notes": "Tempo 2-1-1-0. Squeeze glutes hard at top. Place weight on hip crease",
+        "cues": ["No lumbar hyperextension"]
+      },
+      {
+        "id": "ex-goblet-squats",
+        "exerciseName": "Goblet Squats",
+        "category": "main",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 10,
+        "loadUnit": "kg",
+        "restSeconds": 120,
+        "notes": "Reinforce healthy squat patterns. Ankle mobility focus",
+        "cues": ["Upright torso", "Knees track toes"]
+      },
+      {
+        "id": "ex-face-pulls",
+        "exerciseName": "Face Pulls",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsMin": 15,
+        "repsMax": 20,
+        "loadUnit": "band",
+        "restSeconds": 60,
+        "tempoEccentric": 2,
+        "tempoPauseBottom": 1,
+        "tempoConcentric": 1,
+        "tempoPauseTop": 0,
+        "notes": "Tempo 2-1-1-0"
+      },
+      {
+        "id": "ex-pallof-press",
+        "exerciseName": "Pallof Press",
+        "category": "core",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 12,
+        "loadUnit": "band",
+        "restSeconds": 60
+      },
+      {
+        "id": "ex-band-internal-rotations",
+        "exerciseName": "Band Internal Rotations",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 20,
+        "repsPerSide": true,
+        "loadUnit": "band",
+        "restSeconds": 60,
+        "notes": "Shoulder Balance"
+      },
+      {
+        "id": "ex-mobility-flow",
+        "exerciseName": "Mobility Flow",
+        "category": "mobility",
+        "sets": 1,
+        "repsType": "time",
+        "repsValue": 600,
+        "repsUnit": "seconds",
+        "loadUnit": "bodyweight",
+        "restSeconds": 0
+      },
+      {
+        "id": "ex-crow-stand",
+        "exerciseName": "Skill: Crow Stand",
+        "category": "skill",
+        "sets": 3,
+        "repsType": "time",
+        "repsMin": 10,
+        "repsMax": 20,
+        "repsUnit": "seconds",
+        "loadUnit": "bodyweight",
+        "restSeconds": 90,
+        "notes": "Practice balance and wrist loading"
+      },
+      {
+        "id": "ex-hspu-volume",
+        "exerciseName": "Skill: HSPU Volume",
+        "category": "skill",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 3,
+        "loadUnit": "bodyweight",
+        "restSeconds": 90,
+        "notes": "Skill practice. Stop immediately if shoulder pinch occurs"
+      }
+    ],
+    "phases": [
+      {
+        "phaseNumber": 1,
+        "name": "BLOCK 1: FOUNDATION",
+        "description": "Establish volume baseline (36-40 reps) without tendon agitation. Reinforce healthy squat patterns via Goblet Squats. Build connective tissue tolerance through high-frequency hanging.",
+        "startWeek": 1,
+        "endWeek": 4,
+        "focus": "volume",
+        "weeks": [
+          {
+            "weekNumber": 1,
+            "description": "Establishing the volume baseline with moderate intensity",
+            "volumeLevel": "moderate",
+            "intensityLevel": "moderate",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Pull Volume (Workout A)",
+                "type": "strength",
+                "estimatedDuration": 77,
+                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: ~39 reps. Core Focus (Dynamic): [HARD WEEK]",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-crow-stand" },
+                  {
+                    "$ref": "ex-pull-up-ladders",
+                    "notes": "Volume baseline. Total: 24 reps (4 ladders x 6 reps)"
+                  },
+                  { "$ref": "ex-ring-rows" },
+                  { "$ref": "ex-incline-pushups" },
+                  { "$ref": "ex-hollow-rocks" },
+                  { "$routine": "cooldown-day1" }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Recovery + Anti-Rotation + Ankles",
+                "type": "mobility",
+                "estimatedDuration": 30,
+                "exercises": [
+                  { "$routine": "mobility-ankle-circuit" },
+                  { "$ref": "ex-band-internal-rotations", "notes": "Shoulder Balance" },
+                  { "$ref": "ex-mobility-flow" },
+                  { "$ref": "ex-pallof-press" },
+                  { "$routine": "day2-recovery-flow" }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Posterior Chain + Knee Health",
+                "type": "strength",
+                "estimatedDuration": 40,
+                "exercises": [
+                  { "$ref": "ex-rdl", "loadMin": 85, "loadMax": 85 },
+                  { "$ref": "ex-weighted-glute-bridge", "loadMin": 40, "loadMax": 60 },
+                  { "$ref": "ex-goblet-squats", "notes": "Light/Technical focus" },
+                  { "$ref": "ex-face-pulls" },
+                  { "$routine": "cooldown-day3" }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Pull Intensity + Push (Workout B)",
+                "type": "strength",
+                "estimatedDuration": 76,
+                "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 15 reps",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-hspu-volume" },
+                  { "$ref": "ex-weighted-pull-ups", "loadMin": 8, "loadMax": 10, "notes": "Total: 15 reps (3x5)" },
+                  { "$ref": "ex-dips" },
+                  { "$routine": "superset-bss" },
+                  { "$ref": "ex-weighted-hollow-rocks", "loadMin": 0, "loadMax": 0, "notes": "Bodyweight for Week 1" },
+                  { "$routine": "cooldown-day5" }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 2,
+            "description": "Increasing metabolic accumulation; lower intensity on core",
+            "volumeLevel": "high",
+            "intensityLevel": "moderate",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Pull Volume (Workout A)",
+                "type": "strength",
+                "estimatedDuration": 80,
+                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: 40 reps. Core Focus (Dynamic): [RECOVERY WEEK]",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-crow-stand" },
+                  {
+                    "$ref": "ex-pull-up-ladders",
+                    "sets": 5,
+                    "notes": "Volume increase. Total: 30 reps (5 ladders x 6 reps)"
+                  },
+                  { "$ref": "ex-ring-rows" },
+                  { "$ref": "ex-incline-pushups" },
+                  { "$ref": "ex-hollow-rocks" },
+                  { "$routine": "cooldown-day1" }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Recovery + Anti-Rotation + Ankles",
+                "type": "mobility",
+                "estimatedDuration": 30,
+                "exercises": [
+                  { "$routine": "mobility-ankle-circuit" },
+                  { "$ref": "ex-band-internal-rotations" },
+                  { "$ref": "ex-mobility-flow" },
+                  { "$ref": "ex-pallof-press" },
+                  { "$routine": "day2-recovery-flow" }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Posterior Chain + Knee Health",
+                "type": "strength",
+                "estimatedDuration": 40,
+                "exercises": [
+                  { "$ref": "ex-rdl", "loadMin": 85, "loadMax": 85 },
+                  { "$ref": "ex-weighted-glute-bridge", "loadMin": 40, "loadMax": 60 },
+                  { "$ref": "ex-goblet-squats", "repsValue": 12, "notes": "Moderate Weight" },
+                  { "$ref": "ex-face-pulls" },
+                  { "$routine": "cooldown-day3" }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Pull Intensity + Push (Workout B)",
+                "type": "strength",
+                "estimatedDuration": 70,
+                "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 10 reps",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-hspu-volume" },
+                  { "$ref": "ex-weighted-pull-ups", "sets": 2, "loadMin": 9, "loadMax": 11, "notes": "Total: 10 reps (2x5). +1-2kg from Week 1" },
+                  { "$ref": "ex-dips" },
+                  { "$routine": "superset-bss" },
+                  {
+                    "exerciseName": "Ground-Based Flutter Kicks",
+                    "category": "core",
+                    "sets": 3,
+                    "repsType": "time",
+                    "repsValue": 30,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "notes": "Core Recovery"
+                  },
+                  { "$routine": "cooldown-day5" }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 3,
+            "description": "Peak volume for the block; focus on perfect ladder execution",
+            "volumeLevel": "high",
+            "intensityLevel": "high",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Pull Volume (Workout A)",
+                "type": "strength",
+                "estimatedDuration": 80,
+                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: 40 reps. Core Focus (Dynamic): [HARD WEEK]",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-crow-stand" },
+                  {
+                    "$ref": "ex-pull-up-ladders",
+                    "sets": 5,
+                    "notes": "Volume peak. Total: 30 reps (5 ladders x 6 reps)"
+                  },
+                  { "$ref": "ex-ring-rows" },
+                  { "$ref": "ex-incline-pushups" },
+                  { "$ref": "ex-hollow-rocks" },
+                  { "$routine": "cooldown-day1" }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Recovery + Anti-Rotation + Ankles",
+                "type": "mobility",
+                "estimatedDuration": 30,
+                "exercises": [
+                  { "$routine": "mobility-ankle-circuit" },
+                  { "$ref": "ex-band-internal-rotations" },
+                  { "$ref": "ex-mobility-flow" },
+                  { "$ref": "ex-pallof-press" },
+                  { "$routine": "day2-recovery-flow" }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Posterior Chain + Knee Health",
+                "type": "strength",
+                "estimatedDuration": 40,
+                "exercises": [
+                  { "$ref": "ex-rdl", "loadMin": 85, "loadMax": 85 },
+                  { "$ref": "ex-weighted-glute-bridge", "loadMin": 40, "loadMax": 60 },
+                  { "$ref": "ex-goblet-squats", "loadMin": 24, "loadMax": 32, "notes": "Heavier" },
+                  { "$ref": "ex-face-pulls" },
+                  { "$routine": "cooldown-day3" }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Pull Intensity + Push (Workout B)",
+                "type": "strength",
+                "estimatedDuration": 70,
+                "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 10 reps",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-hspu-volume" },
+                  { "$ref": "ex-weighted-pull-ups", "sets": 2, "loadMin": 10, "loadMax": 12, "notes": "Total: 10 reps (2x5). +2kg from Week 1" },
+                  { "$ref": "ex-dips" },
+                  { "$routine": "superset-bss" },
+                  {
+                    "exerciseName": "Weighted V-Ups",
+                    "category": "core",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsMin": 10,
+                    "repsMax": 12,
+                    "loadMin": 3,
+                    "loadMax": 5,
+                    "loadUnit": "kg",
+                    "restSeconds": 60,
+                    "notes": "Core Hard. Keep biceps by ears",
+                    "progressionNotes": "Start 1.25kg. Progress only with perfect form"
+                  },
+                  { "$routine": "cooldown-day5" }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 4,
+            "description": "System reset. Volume dropped by 40%",
+            "volumeLevel": "low",
+            "intensityLevel": "low",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Pull Volume (Workout A) - DELOAD",
+                "type": "strength",
+                "estimatedDuration": 60,
+                "description": "Weekly Pull Total Target: ~20 reps. RPE 6 MAX",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  {
+                    "$ref": "ex-pull-up-ladders",
+                    "sets": 3,
+                    "notes": "Deload. Total: 18 reps (3 ladders x 6 reps). RPE 6 MAX"
+                  },
+                  { "$ref": "ex-ring-rows", "sets": 2, "notes": "Deload" },
+                  { "$ref": "ex-incline-pushups", "sets": 2, "notes": "Deload" },
+                  { "$ref": "ex-hollow-rocks", "sets": 2, "notes": "Deload" },
+                  { "$routine": "cooldown-day1" }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Recovery + Anti-Rotation + Ankles",
+                "type": "mobility",
+                "estimatedDuration": 30,
+                "exercises": [
+                  { "$routine": "mobility-ankle-circuit" },
+                  { "$ref": "ex-band-internal-rotations" },
+                  { "$ref": "ex-mobility-flow" },
+                  { "$ref": "ex-pallof-press" },
+                  { "$routine": "day2-recovery-flow" }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Posterior Chain + Knee Health - DELOAD",
+                "type": "strength",
+                "estimatedDuration": 25,
+                "exercises": [
+                  { "$ref": "ex-goblet-squats", "sets": 2, "loadMin": 12, "loadMax": 16, "notes": "Deload Weight" },
+                  { "$routine": "cooldown-day3" }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Pull Intensity + Push (Workout B) - DELOAD",
+                "type": "strength",
+                "estimatedDuration": 55,
+                "description": "Weekly Pull Total Target: ~20 reps | Day 5 adds 6 reps",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-weighted-pull-ups", "sets": 2, "repsValue": 3, "loadMin": 5, "loadMax": 10, "notes": "Easy. 50% load. Total: 6 reps" },
+                  { "$ref": "ex-dips", "sets": 2, "notes": "Deload" },
+                  { "$routine": "superset-bss" },
+                  { "$routine": "cooldown-day5" }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

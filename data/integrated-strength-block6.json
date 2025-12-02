@@ -1,0 +1,352 @@
+{
+  "$schema": "./workout-plan-v2.3.schema.json",
+  "formatVersion": "2.3.0",
+  "plan": {
+    "id": "integrated-strength-v26-9-block6",
+    "name": "BLOCK 6: TEST WEEK & POST-PROGRAM RELOAD (Weeks 20-21)",
+    "description": "Week 20: Performance testing and preparation for next cycle. Week 21: Full connective tissue reset with 60% of Week 1 volume. NO Weighted Dips/Pulls.",
+    "author": "V26.9 Program",
+    "createdDate": "2025-12-02",
+    "lastModified": "2025-12-02T20:02:00.000Z",
+    "version": "26.9.0",
+    "durationWeeks": 2,
+    "goals": [
+      "performance-testing",
+      "connective-tissue-reset",
+      "cycle-transition"
+    ],
+    "targetLevel": "advanced",
+    "equipment": [
+      "pull-up-bar",
+      "rings",
+      "dip-bars",
+      "resistance-bands",
+      "rower",
+      "dumbbells",
+      "weight-vest"
+    ],
+    "exerciseTemplates": [
+      {
+        "id": "ex-battery-conservation-warmup",
+        "exerciseName": "Battery Conservation Warm-up",
+        "category": "warmup",
+        "sets": 1,
+        "repsType": "none",
+        "loadUnit": "bodyweight",
+        "notes": "5 mins Rower + 10 Scap Pulls + 3 Reps @ 50% + 1 Rep @ 75% + Rest 4 min"
+      },
+      {
+        "id": "ex-max-pull-ups",
+        "exerciseName": "Max Reps Pull-Ups (BW)",
+        "category": "main",
+        "sets": 1,
+        "repsType": "max",
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "notes": "TEST. Test to technical failure",
+        "alternatives": ["Lat Pulldowns", "Assisted Pull-Ups"]
+      },
+      {
+        "id": "ex-max-dips",
+        "exerciseName": "Max Reps Dips",
+        "category": "main",
+        "sets": 1,
+        "repsType": "max",
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "notes": "TEST. Dip Governor Rule applies",
+        "alternatives": ["Push-Ups", "Bench Dips"]
+      },
+      {
+        "id": "ex-3rm-weighted-pull-up",
+        "exerciseName": "3RM Weighted Pull-Up",
+        "category": "main",
+        "sets": 1,
+        "repsType": "rm",
+        "repsValue": 3,
+        "loadMin": 15,
+        "loadMax": 20,
+        "loadUnit": "kg",
+        "restSeconds": 120,
+        "notes": "TEST. 3-rep max"
+      },
+      {
+        "id": "ex-5rm-weighted-push-up",
+        "exerciseName": "5RM Weighted Push-Up",
+        "category": "main",
+        "sets": 1,
+        "repsType": "rm",
+        "repsValue": 5,
+        "loadMin": 10,
+        "loadMax": 15,
+        "loadUnit": "kg",
+        "restSeconds": 120,
+        "notes": "TEST. 5-rep max"
+      },
+      {
+        "id": "ex-max-quality-archer-negatives",
+        "exerciseName": "Max Quality Archer Negatives",
+        "category": "main",
+        "sets": 1,
+        "repsType": "max",
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "notes": "TEST. Quality over quantity"
+      }
+    ],
+    "phases": [
+      {
+        "phaseNumber": 6,
+        "name": "BLOCK 6: TEST WEEK & POST-PROGRAM RELOAD",
+        "description": "Week 20: Performance testing. Week 21: Full connective tissue reset.",
+        "startWeek": 20,
+        "endWeek": 21,
+        "focus": "test",
+        "weeks": [
+          {
+            "weekNumber": 20,
+            "description": "TEST WEEK (doc-prescribed tests)",
+            "volumeLevel": "low",
+            "intensityLevel": "peak",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Endurance Test Day",
+                "type": "test",
+                "estimatedDuration": 29,
+                "description": "Battery Conservation Warm-up: 5 min rower + 10 scap pulls + 3 reps @50% + 1 rep @75% + rest 4 min",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  {
+                    "exerciseName": "Scapular Pull-Ups",
+                    "category": "warmup",
+                    "sets": 1,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30,
+                    "notes": "Warm-up. Battery conservation",
+                    "cues": ["Straight arms", "Depress scapula", "Hold 3s"]
+                  },
+                  {
+                    "exerciseName": "Pull-Ups",
+                    "category": "warmup",
+                    "sets": 1,
+                    "repsType": "reps",
+                    "repsValue": 3,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30,
+                    "notes": "Warm-up @ 50%"
+                  },
+                  {
+                    "exerciseName": "Pull-Ups",
+                    "category": "warmup",
+                    "sets": 1,
+                    "repsType": "reps",
+                    "repsValue": 1,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30,
+                    "notes": "Warm-up @ 75%"
+                  },
+                  {
+                    "exerciseName": "Rest",
+                    "category": "warmup",
+                    "sets": 1,
+                    "repsType": "time",
+                    "repsValue": 240,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 0,
+                    "notes": "Battery Saver. 4 min rest"
+                  },
+                  { "$ref": "ex-max-pull-ups" },
+                  { "$ref": "ex-max-dips" }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Mobility & Recovery",
+                "type": "mobility",
+                "estimatedDuration": 2,
+                "exercises": [
+                  {
+                    "exerciseName": "Rest",
+                    "category": "mobility",
+                    "sets": 1,
+                    "repsType": "none",
+                    "loadUnit": "bodyweight",
+                    "notes": "Recovery"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Lower Body",
+                "type": "mobility",
+                "estimatedDuration": 2,
+                "exercises": [
+                  {
+                    "exerciseName": "Rest",
+                    "category": "mobility",
+                    "sets": 1,
+                    "repsType": "none",
+                    "loadUnit": "bodyweight",
+                    "notes": "Recovery"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Strength Test Day",
+                "type": "test",
+                "estimatedDuration": 31,
+                "description": "Battery Conservation Warm-up: same as Day 1",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  {
+                    "exerciseName": "Scapular Pull-Ups",
+                    "category": "warmup",
+                    "sets": 1,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30,
+                    "notes": "Warm-up. Battery conservation"
+                  },
+                  {
+                    "exerciseName": "Pull-Ups",
+                    "category": "warmup",
+                    "sets": 1,
+                    "repsType": "reps",
+                    "repsValue": 3,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30,
+                    "notes": "Warm-up @ 50%"
+                  },
+                  {
+                    "exerciseName": "Pull-Ups",
+                    "category": "warmup",
+                    "sets": 1,
+                    "repsType": "reps",
+                    "repsValue": 1,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 30,
+                    "notes": "Warm-up @ 75%"
+                  },
+                  {
+                    "exerciseName": "Rest",
+                    "category": "warmup",
+                    "sets": 1,
+                    "repsType": "time",
+                    "repsValue": 240,
+                    "repsUnit": "seconds",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 0,
+                    "notes": "Battery Saver. 4 min rest"
+                  },
+                  { "$ref": "ex-3rm-weighted-pull-up" },
+                  { "$ref": "ex-5rm-weighted-push-up" },
+                  { "$ref": "ex-max-quality-archer-negatives" }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 21,
+            "description": "Post-Program Reload. NO Weighted Dips, NO Weighted Pulls",
+            "volumeLevel": "low",
+            "intensityLevel": "low",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Reload Week (60% of Week 1)",
+                "type": "recovery",
+                "estimatedDuration": 50,
+                "description": "Objective: Full connective tissue reset. Volume: 60% of Week 1",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  {
+                    "$ref": "ex-pull-up-ladders",
+                    "sets": 2,
+                    "notes": "60% Vol (Reload). Total: 12 reps (2 ladders x 6 reps)"
+                  },
+                  { "$ref": "ex-ring-rows", "sets": 2, "notes": "60% Vol (Reload)" },
+                  { "$ref": "ex-incline-pushups", "sets": 2, "notes": "60% Vol (Reload)" },
+                  { "$ref": "ex-hollow-rocks", "sets": 2, "notes": "60% Vol (Reload)" }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Mobility & Recovery",
+                "type": "mobility",
+                "estimatedDuration": 30,
+                "exercises": [
+                  { "$routine": "mobility-ankle-circuit" },
+                  { "$ref": "ex-band-internal-rotations" },
+                  { "$ref": "ex-mobility-flow" },
+                  { "$routine": "day2-recovery-flow" }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Lower Body",
+                "type": "strength",
+                "estimatedDuration": 35,
+                "exercises": [
+                  { "$ref": "ex-rdl", "sets": 3, "repsValue": 8, "loadMin": 60, "loadMax": 80, "notes": "60% (Reload)" },
+                  { "$ref": "ex-weighted-glute-bridge", "sets": 2, "repsValue": 10, "loadMin": 40, "loadMax": 60, "notes": "Light" },
+                  { "$ref": "ex-goblet-squats", "sets": 2, "notes": "Light" },
+                  { "$ref": "ex-face-pulls", "sets": 2, "notes": "Light" }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Pull Day B - Reload",
+                "type": "strength",
+                "estimatedDuration": 60,
+                "description": "Reload version of Week 1 Pull Day B. 60% volume. NO weighted pulls or dips",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  {
+                    "$ref": "ex-hspu-volume",
+                    "sets": 2,
+                    "notes": "60% Vol (Reload). Practice the groove, stop far from failure"
+                  },
+                  {
+                    "exerciseName": "Pull-Ups",
+                    "category": "main",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 5,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 120,
+                    "notes": "Reload. NO weighted pulls. Tempo 2-1-1. Perfect reps only",
+                    "cues": ["Full ROM", "Chin over bar", "Controlled descent"]
+                  },
+                  {
+                    "$ref": "ex-dips",
+                    "sets": 2,
+                    "repsValue": 8,
+                    "notes": "Reload. Bodyweight only. Stop if shoulder pinch"
+                  },
+                  { "$routine": "superset-bss" },
+                  {
+                    "$ref": "ex-hollow-rocks",
+                    "sets": 2,
+                    "repsType": "time",
+                    "repsValue": 20,
+                    "repsUnit": "seconds",
+                    "notes": "EMOM. Bodyweight only for tissue reset"
+                  },
+                  { "$routine": "cooldown-day5" }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

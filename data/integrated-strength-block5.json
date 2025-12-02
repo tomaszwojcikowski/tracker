@@ -1,0 +1,318 @@
+{
+  "$schema": "./workout-plan-v2.3.schema.json",
+  "formatVersion": "2.3.0",
+  "plan": {
+    "id": "integrated-strength-v26-9-block5",
+    "name": "BLOCK 5: PEAK & TAPER (Weeks 17-19)",
+    "description": "Sharpen neural drive for the final test. Minimize joint stress via Archer Negatives. Execute Full Deload to supercompensate for Week 20.",
+    "author": "V26.9 Program",
+    "createdDate": "2025-12-02",
+    "lastModified": "2025-12-02T20:02:00.000Z",
+    "version": "26.9.0",
+    "durationWeeks": 3,
+    "goals": [
+      "neural-sharpening",
+      "taper",
+      "test-preparation"
+    ],
+    "targetLevel": "advanced",
+    "equipment": [
+      "pull-up-bar",
+      "rings",
+      "dip-bars",
+      "resistance-bands",
+      "rower",
+      "dumbbells"
+    ],
+    "exerciseTemplates": [
+      {
+        "id": "ex-archer-negatives",
+        "exerciseName": "Archer Negatives",
+        "category": "main",
+        "sets": 4,
+        "repsType": "reps",
+        "repsValue": 2,
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "notes": "5-6 second eccentric. NO pause at bottom",
+        "cues": ["Slow descent", "Control the movement"]
+      },
+      {
+        "id": "ex-feet-on-floor-rows",
+        "exerciseName": "Feet-on-Floor Rows",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 10,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "tempoEccentric": 3,
+        "tempoPauseBottom": 1,
+        "tempoConcentric": 1,
+        "tempoPauseTop": 0,
+        "notes": "Tempo 3-1-1-0. Reduced joint stress"
+      }
+    ],
+    "phases": [
+      {
+        "phaseNumber": 5,
+        "name": "BLOCK 5: PEAK & TAPER",
+        "description": "Sharpen neural drive for the final test. Minimize joint stress via Archer Negatives. Execute Full Deload to supercompensate for Week 20.",
+        "startWeek": 17,
+        "endWeek": 19,
+        "focus": "deload",
+        "weeks": [
+          {
+            "weekNumber": 17,
+            "description": "High intensity, reduced joint stress variations",
+            "volumeLevel": "moderate",
+            "intensityLevel": "high",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Pull Volume - Taper",
+                "type": "strength",
+                "estimatedDuration": 70,
+                "description": "Weekly Pull Total Target: 30-35 reps (Tapering)",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { 
+                    "exerciseName": "Pull-ups AMRAP -1",
+                    "category": "main",
+                    "sets": 3,
+                    "repsType": "amrap",
+                    "repsModifier": -1,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 120,
+                    "notes": "AMRAP -1. Taper volume",
+                    "alternatives": ["Lat Pulldowns", "Assisted Pull-Ups"]
+                  },
+                  { "$ref": "ex-feet-on-floor-rows" },
+                  { "$routine": "cooldown-day1" }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Recovery + Anti-Rotation + Ankles",
+                "type": "mobility",
+                "estimatedDuration": 30,
+                "exercises": [
+                  { "$routine": "mobility-ankle-circuit" },
+                  { "$ref": "ex-band-internal-rotations" },
+                  { "$ref": "ex-mobility-flow" },
+                  { "$ref": "ex-pallof-press" },
+                  { "$routine": "day2-recovery-flow" }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Lower Body - Taper",
+                "type": "strength",
+                "estimatedDuration": 35,
+                "exercises": [
+                  { "$ref": "ex-rdl", "sets": 3, "loadMin": 60, "loadMax": 80, "notes": "Taper volume" },
+                  { "$ref": "ex-goblet-squats", "sets": 3, "notes": "Taper" },
+                  { "$ref": "ex-face-pulls", "sets": 2, "notes": "Taper" },
+                  { "$routine": "cooldown-day3" }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Archer Negatives Introduction",
+                "type": "strength",
+                "estimatedDuration": 75,
+                "description": "Introducing Archer Negatives for neural sharpening",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-archer-negatives", "notes": "Archer Tempo Rule: 5-6 second eccentric. NO pause at bottom" },
+                  { "$routine": "superset-bss" },
+                  {
+                    "exerciseName": "Weighted V-Ups",
+                    "category": "core",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 3,
+                    "loadMax": 5,
+                    "loadUnit": "kg",
+                    "restSeconds": 60,
+                    "notes": "Core Hard"
+                  },
+                  { "$routine": "cooldown-day5" }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 18,
+            "description": "Tapering + Archer Negative Peak",
+            "volumeLevel": "moderate",
+            "intensityLevel": "moderate",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Pull Volume - Taper",
+                "type": "strength",
+                "estimatedDuration": 65,
+                "description": "Weekly Pull Total Target: 25-30 reps. Reduce volume by 20%",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { 
+                    "exerciseName": "Pull-ups AMRAP -2",
+                    "category": "main",
+                    "sets": 2,
+                    "repsType": "amrap",
+                    "repsModifier": -2,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 120,
+                    "notes": "Volume reduced by 20%",
+                    "alternatives": ["Lat Pulldowns", "Assisted Pull-Ups"]
+                  },
+                  { "$ref": "ex-feet-on-floor-rows", "sets": 2 },
+                  { "$routine": "cooldown-day1" }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Recovery + Anti-Rotation + Ankles",
+                "type": "mobility",
+                "estimatedDuration": 30,
+                "exercises": [
+                  { "$routine": "mobility-ankle-circuit" },
+                  { "$ref": "ex-band-internal-rotations" },
+                  { "$ref": "ex-mobility-flow" },
+                  { "$ref": "ex-pallof-press" },
+                  { "$routine": "day2-recovery-flow" }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Lower Body - Taper",
+                "type": "strength",
+                "estimatedDuration": 30,
+                "exercises": [
+                  { "$ref": "ex-rdl", "sets": 3, "loadMin": 60, "loadMax": 80, "notes": "Taper" },
+                  { "$ref": "ex-goblet-squats", "sets": 2, "notes": "Taper" },
+                  { "$ref": "ex-face-pulls", "sets": 2, "notes": "Taper" },
+                  { "$routine": "cooldown-day3" }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Archer Negatives Peak",
+                "type": "strength",
+                "estimatedDuration": 75,
+                "description": "Peak Archer Negative volume",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-archer-negatives", "sets": 5, "repsValue": 3, "notes": "Peak volume. 5-6s eccentric" },
+                  { "$routine": "superset-bss" },
+                  {
+                    "exerciseName": "Weighted V-Ups",
+                    "category": "core",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 10,
+                    "loadMin": 3,
+                    "loadMax": 5,
+                    "loadUnit": "kg",
+                    "restSeconds": 60,
+                    "notes": "Core Hard"
+                  },
+                  { "$routine": "cooldown-day5" }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 19,
+            "description": "The calm before the test. 50% volume",
+            "volumeLevel": "low",
+            "intensityLevel": "low",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Pull Volume - FULL DELOAD",
+                "type": "recovery",
+                "estimatedDuration": 55,
+                "description": "Weekly Pull Total Target: ~15 reps. Very Low Intensity",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { 
+                    "exerciseName": "Pull-ups",
+                    "category": "main",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 5,
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 120,
+                    "notes": "50% volume. Very low intensity",
+                    "alternatives": ["Lat Pulldowns", "Assisted Pull-Ups"]
+                  },
+                  { "$ref": "ex-feet-on-floor-rows", "sets": 2, "notes": "Deload" },
+                  { "$routine": "cooldown-day1" }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Mobility & Recovery",
+                "type": "mobility",
+                "estimatedDuration": 30,
+                "exercises": [
+                  { "$routine": "mobility-ankle-circuit" },
+                  { "$ref": "ex-band-internal-rotations" },
+                  { "$ref": "ex-mobility-flow" },
+                  { "$ref": "ex-pallof-press", "sets": 2, "notes": "Reduced" },
+                  { "$routine": "day2-recovery-flow" }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Lower Body - FULL DELOAD",
+                "type": "recovery",
+                "estimatedDuration": 20,
+                "exercises": [
+                  { "$ref": "ex-rdl", "sets": 2, "repsValue": 8, "loadMin": 60, "loadMax": 80, "notes": "Deload" },
+                  { "$ref": "ex-goblet-squats", "sets": 2, "notes": "Deload" },
+                  { "$routine": "cooldown-day3" }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Movement Prep - FULL DELOAD",
+                "type": "recovery",
+                "estimatedDuration": 45,
+                "description": "Light movement only. Preparing for Test Week",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-archer-negatives", "sets": 2, "repsValue": 2, "notes": "Deload. 50% volume, 5s descent" },
+                  { "$routine": "superset-bss", "sets": 2 },
+                  { 
+                    "exerciseName": "Weighted Hollow Rocks",
+                    "category": "core",
+                    "sets": 2,
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 2,
+                    "loadMax": 3,
+                    "loadUnit": "kg",
+                    "restSeconds": 120,
+                    "notes": "Deload weight"
+                  },
+                  { "$routine": "cooldown-day5" }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

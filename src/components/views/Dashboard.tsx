@@ -128,7 +128,7 @@ export function Dashboard({
   const days = [1, 2, 3, 5];
   const completedWorkouts = days.filter(day => isCompleted(day)).length;
   const totalWorkouts = days.length;
-  
+
   // Find the next workout to do (first incomplete day)
   // If all completed, show the last one or none as "next"
   const nextWorkoutDay = days.find(day => !isCompleted(day));
@@ -208,14 +208,14 @@ export function Dashboard({
             const dayProgress = getDayProgress(day);
             const isInProgress = !done && dayProgress !== null;
             const hasPreviousData = !done && !isInProgress && hasExistingData(day);
-            
+
             // Determine if this is the "Hero" card (next up)
             // It's the hero if it's the next workout day, OR if it's in progress
-            
+
             // Let's simplify: Hero card is the next scheduled workout if no workout is in progress.
             // If a workout is in progress, the resume banner handles it, so we can show standard list.
             // But let's make the next available workout prominent.
-            
+
             const isNextUp = day === nextWorkoutDay && !inProgressWorkout;
 
             if (isNextUp) {
@@ -227,11 +227,12 @@ export function Dashboard({
                             onStartWorkout(day);
                         }}
                         className="relative overflow-hidden rounded-[32px] p-6 text-left transition-all active:scale-[0.98] group"
+                        aria-label={`Start Day ${day} workout`}
                     >
                         {/* Background with gradient */}
                         <div className="absolute inset-0 bg-gradient-to-br from-sys-primary to-sys-primaryDim opacity-20 group-active:opacity-30 transition-opacity" />
                         <div className="absolute inset-0 border-2 border-sys-primary/30 rounded-[32px]" />
-                        
+
                         <div className="relative z-10">
                             <div className="flex justify-between items-start mb-4">
                                 <div className="px-3 py-1 rounded-full bg-sys-primary/20 border border-sys-primary/30 text-sys-primary text-xs font-bold uppercase tracking-wider">
@@ -241,12 +242,12 @@ export function Dashboard({
                                     <Play size={20} fill="currentColor" />
                                 </div>
                             </div>
-                            
+
                             <h3 className="text-3xl font-bold text-white mb-2">Day {day}</h3>
                             <p className="text-sys-onSurfaceVar text-sm line-clamp-2 mb-4">
                                 {getExerciseSummary(currentWeek, day)}
                             </p>
-                            
+
                             <div className="flex items-center gap-2 text-sys-primary text-sm font-bold">
                                 <span>Start Workout</span>
                                 <ChevronRight size={16} />

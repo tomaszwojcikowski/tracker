@@ -33,7 +33,7 @@ export function TopAppBar({
         {showBack ? (
           <button
             onClick={onBack}
-            className="h-10 w-10 -ml-1 text-sys-onSurface rounded-xl hover:bg-sys-surfaceHigh transition-colors flex items-center justify-center active:scale-90"
+            className="h-10 w-10 -ml-1 text-sys-onSurface rounded-xl hover:bg-sys-surfaceHigh transition-colors flex items-center justify-center active:scale-95"
             aria-label="Go back"
           >
             <ArrowLeft size={24} />

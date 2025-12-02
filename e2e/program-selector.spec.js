@@ -302,8 +302,8 @@ test.describe('Program-Aware Week Navigation', () => {
   });
 
   test('should navigate to next week', async ({ page }) => {
-    // Get current week text
-    const weekDisplay = page.locator('text=/W\\d+/');
+    // Get current week text - matches "Week 1", "Week 2", etc.
+    const weekDisplay = page.locator('text=/Week \\d+/');
     const initialWeek = await weekDisplay.first().textContent();
 
     // Click next week
@@ -322,8 +322,8 @@ test.describe('Program-Aware Week Navigation', () => {
     await nextButton.click();
     await page.waitForTimeout(300);
 
-    // Get current week
-    const weekDisplay = page.locator('text=/W\\d+/');
+    // Get current week - matches "Week 1", "Week 2", etc.
+    const weekDisplay = page.locator('text=/Week \\d+/');
     const currentWeek = await weekDisplay.first().textContent();
 
     // Click previous week

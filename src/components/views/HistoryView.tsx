@@ -294,15 +294,28 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                 </div>
 
                                 {/* Progress Graph */}
-                                {stat.recentProgress && stat.recentProgress.length > 1 && (
-                                    <div className="mb-5">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <i data-lucide="trending-up" width="16" className="text-sys-accent"></i>
-                                            <h4 className="text-sm font-semibold text-white">Weight Progress</h4>
+                                {(() => {
+                                    // Filter for valid weights and ensure we have at least 2 points
+                                    const validProgress = stat.recentProgress?.filter(p => p.weight && p.weight > 0) || [];
+
+                                    if (validProgress.length < 2) return null;
+
+                                    // Ensure weights are numbers for the graph
+                                    const graphData = validProgress.map(p => ({
+                                        ...p,
+                                        weight: Number(p.weight)
+                                    }));
+
+                                    return (
+                                        <div className="mb-5">
+                                            <div className="flex items-center gap-2 mb-3">
+                                                <i data-lucide="trending-up" width="16" className="text-sys-accent"></i>
+                                                <h4 className="text-sm font-semibold text-white">Weight Progress</h4>
+                                            </div>
+                                            <SimpleWeightGraph data={graphData} />
                                         </div>
-                                        <SimpleWeightGraph data={stat.recentProgress} />
-                                    </div>
-                                )}
+                                    );
+                                })()}
 
                                 {/* Recent History */}
                                 <div>
@@ -417,34 +430,30 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
     return (
         <PullToRefresh onRefresh={handlePullRefresh} className="h-full">
             <div className="px-5 pb-20 pt-6">
-                {/* Header with Toggle */}
-                <div className="flex justify-between items-center mb-6">
-                    <div>
-                        <h2 className="text-2xl font-bold text-white">History</h2>
-                        <p className="text-xs text-sys-onSurfaceVar mt-0.5">Track your progress</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        {/* Segmented Control */}
-                        <div className="flex bg-sys-surfaceHigh rounded-2xl p-1.5 border border-white/5">
+                {/* Header with Toggle - mobile-optimized layout */}
+                <div className="flex flex-col gap-4 mb-6">
+                    {/* Segmented Control and Refresh - full width on mobile */}
+                    <div className="flex items-center gap-2">
+                        <div className="flex flex-1 bg-sys-surfaceHigh rounded-2xl p-1 border border-white/5">
                             <button
                                 onClick={() => { haptic.tick(); setViewMode('timeline'); }}
-                                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${viewMode === 'timeline' ? 'bg-sys-accent text-white shadow-lg shadow-sys-accent/25' : 'text-sys-onSurfaceVar hover:text-white'}`}
+                                className={`flex-1 flex items-center justify-center gap-1.5 min-h-[44px] px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${viewMode === 'timeline' ? 'bg-sys-accent text-white shadow-lg shadow-sys-accent/25' : 'text-sys-onSurfaceVar hover:text-white'}`}
                             >
-                                <i data-lucide="calendar-days" width="14"></i>
+                                <i data-lucide="calendar-days" width="16"></i>
                                 <span>Timeline</span>
                             </button>
                             <button
                                 onClick={() => { haptic.tick(); setViewMode('stats'); }}
-                                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${viewMode === 'stats' ? 'bg-sys-accent text-white shadow-lg shadow-sys-accent/25' : 'text-sys-onSurfaceVar hover:text-white'}`}
+                                className={`flex-1 flex items-center justify-center gap-1.5 min-h-[44px] px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${viewMode === 'stats' ? 'bg-sys-accent text-white shadow-lg shadow-sys-accent/25' : 'text-sys-onSurfaceVar hover:text-white'}`}
                             >
-                                <i data-lucide="bar-chart-3" width="14"></i>
+                                <i data-lucide="bar-chart-3" width="16"></i>
                                 <span>Stats</span>
                             </button>
                         </div>
                         {/* Refresh Button */}
                         <button
                             onClick={handleRefresh}
-                            className={`h-11 w-11 rounded-2xl bg-sys-surfaceHigh border border-white/5 text-sys-onSurfaceVar hover:text-white flex items-center justify-center active:scale-90 transition-all ${isRefreshing ? 'animate-spin' : ''}`}
+                            className={`h-11 w-11 min-w-[44px] rounded-2xl bg-sys-surfaceHigh border border-white/5 text-sys-onSurfaceVar hover:text-white flex items-center justify-center active:scale-90 transition-all ${isRefreshing ? 'animate-spin' : ''}`}
                             aria-label="Refresh history"
                         >
                             <i data-lucide="refresh-cw" width="18"></i>

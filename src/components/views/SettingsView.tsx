@@ -258,16 +258,14 @@ export const SettingsView: React.FC = () => {
 
     return (
         <div className="px-5 pb-20 pt-6">
-            <h2 className="text-2xl font-bold text-white mb-6">Settings</h2>
-
-            {/* Tab Navigation */}
-            <div className="flex gap-2 mb-6 p-1 bg-sys-surface rounded-2xl border border-white/5">
+            {/* Tab Navigation - improved touch targets */}
+            <div className="flex gap-2 mb-6 p-1.5 bg-sys-surface rounded-2xl border border-white/5">
                 <button
                     onClick={() => {
                         haptic.tick();
                         setActiveTab('general');
                     }}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-medium text-sm transition-all ${
+                    className={`flex-1 flex items-center justify-center gap-2 min-h-[44px] py-3 px-4 rounded-xl font-medium text-sm transition-all ${
                         activeTab === 'general'
                             ? 'bg-sys-accent text-white'
                             : 'text-sys-onSurfaceVar hover:text-white'
@@ -281,7 +279,7 @@ export const SettingsView: React.FC = () => {
                         haptic.tick();
                         setActiveTab('programs');
                     }}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-medium text-sm transition-all ${
+                    className={`flex-1 flex items-center justify-center gap-2 min-h-[44px] py-3 px-4 rounded-xl font-medium text-sm transition-all ${
                         activeTab === 'programs'
                             ? 'bg-sys-accent text-white'
                             : 'text-sys-onSurfaceVar hover:text-white'

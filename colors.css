@@ -142,9 +142,9 @@
   --color-tertiary-800: #9d174d;
   --color-tertiary-900: #831843;
 
-  /* Surface Variants (MD3) */
+  /* Surface Variants (MD3) - improved contrast for accessibility */
   --color-surface-variant: #2a2a2a;
-  --color-on-surface-variant: #a3a3a3;
+  --color-on-surface-variant: #b8b8b8;
   --color-outline: #525252;
   --color-outline-variant: #404040;
 

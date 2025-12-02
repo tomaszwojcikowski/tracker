@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { useHaptic, useDebounce, useLucideIcons } from '../../hooks';
+import { ArrowLeft, Search, ChevronRight, CheckSquare, Square, BarChart2 } from 'lucide-react';
+import { useHaptic, useDebounce } from '../../hooks';
 import { DEBOUNCE_DELAY_MS, getShortExerciseName } from '../../constants';
 import type { Exercise } from '../../types';
 
@@ -51,9 +52,6 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
     const history = getExerciseHistory(exercise.name);
     const stats = calculateExerciseStats(exercise.name);
 
-    // Initialize Lucide icons when exercise detail view changes
-    useLucideIcons([showFullHistory, history]);
-
     const displayHistory = showFullHistory ? history : history.slice(-5);
 
     return (
@@ -65,7 +63,7 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
                     className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
                     aria-label="Go back"
                 >
-                    <i data-lucide="arrow-left" width="20"></i>
+                    <ArrowLeft size={20} />
                 </button>
                 <h2 className="text-2xl font-bold text-white flex-1">{exercise.name}</h2>
             </div>
@@ -197,7 +195,7 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
             ) : (
                 <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
                     <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
-                        <i data-lucide="bar-chart-2" width="40" className="text-sys-onSurfaceVar"></i>
+                        <BarChart2 size={40} className="text-sys-onSurfaceVar" />
                     </div>
                     <h3 className="text-lg font-semibold text-white mb-2">No History Yet</h3>
                     <p className="text-sm text-sys-onSurfaceVar text-center max-w-[250px]">
@@ -254,9 +252,6 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
         return exercises;
     }, [exerciseLibrary, debouncedSearchTerm, categoryFilter, showOnlyTracked, trackedExercises]);
 
-    // Initialize Lucide icons when library view or filters change
-    useLucideIcons([selectedExercise, exercisesToShow, categoryFilter, showOnlyTracked]);
-
     const handleExerciseClick = (exercise: Exercise) => {
         haptic.tick();
         setSelectedExercise(exercise);
@@ -282,13 +277,18 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
         <div className="px-5 pb-20 pt-6">
             {/* Search and Filters */}
             <div className="mb-6">
-                <input
-                    type="text"
-                    placeholder="Search exercises..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full h-12 px-4 bg-sys-surfaceHigh rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all mb-3"
-                />
+                <div className="relative mb-3">
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-sys-onSurfaceVar">
+                        <Search size={20} />
+                    </div>
+                    <input
+                        type="text"
+                        placeholder="Search exercises..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full h-12 pl-11 pr-4 bg-sys-surfaceHigh rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all"
+                    />
+                </div>
 
                 {/* Category Filter - improved touch targets */}
                 <div className="flex gap-2 overflow-x-auto pb-2 mb-3 -mx-1 px-1">
@@ -316,7 +316,7 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
                             : 'bg-sys-surfaceHigh text-sys-onSurfaceVar border border-white/5'
                     }`}
                 >
-                    <i data-lucide={showOnlyTracked ? "check-square" : "square"} width="18"></i>
+                    {showOnlyTracked ? <CheckSquare size={18} /> : <Square size={18} />}
                     <span>Show Only Tracked ({trackedExercises.length})</span>
                 </button>
             </div>
@@ -325,7 +325,7 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
             {exercisesToShow.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
                     <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
-                        <i data-lucide="search" width="40" className="text-sys-onSurfaceVar"></i>
+                        <Search size={40} className="text-sys-onSurfaceVar" />
                     </div>
                     <h3 className="text-lg font-semibold text-white mb-2">No Exercises Found</h3>
                     <p className="text-sm text-sys-onSurfaceVar text-center">Try adjusting your filters</p>
@@ -377,7 +377,7 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
                                         )}
                                     </div>
                                     <div className="flex-shrink-0">
-                                        <i data-lucide="chevron-right" width="20" className="text-sys-onSurfaceVar"></i>
+                                        <ChevronRight size={20} className="text-sys-onSurfaceVar" />
                                     </div>
                                 </div>
                             </button>

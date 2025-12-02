@@ -6,14 +6,15 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import './main.css';
-import { NavigationBar, TabContent } from './components/navigation';
+import { NavigationBar } from './components/navigation';
 import { TopAppBar } from './components/TopAppBar';
 import { LoadingScreen, ErrorScreen } from './components/screens';
 import { Dashboard, HistoryView, SettingsView, ExerciseLibraryView, WorkoutPlayer } from './components/views';
 import { SkipLink } from './components/SkipLink';
 import { Onboarding, hasCompletedOnboarding } from './components/Onboarding';
-import { useLucideIcons, useWorkoutTimer } from './hooks';
+import { useWorkoutTimer } from './hooks';
 
 // Import from TypeScript utilities
 import {
@@ -153,9 +154,6 @@ const App: React.FC = () => {
         const newUrl = updateUrl(state);
         window.history.replaceState(state, '', newUrl);
     }, [viewMode, activeTab, currentWeek, activeDay, programId, isInitialized]);
-
-    // Initialize Lucide icons when view or tab changes
-    useLucideIcons([viewMode, activeTab, isInitialized]);
 
     // Handle browser back/forward button
     useEffect(() => {
@@ -305,62 +303,90 @@ const App: React.FC = () => {
                             <div className="text-lg text-sys-onSurfaceVar">Loading...</div>
                         </div>
                     </div>
-                ) : viewMode === 'workout' ? (
-                    <main id="main-content" className="flex-1 animate-fade-in">
-                        <WorkoutPlayer
-                            week={currentWeek}
-                            day={activeDay}
-                            onComplete={goBack}
-                            exerciseLibrary={EXERCISE_LIBRARY}
-                            onWorkoutFinish={workoutTimer.stop}
-                        />
-                    </main>
-                ) : viewMode === 'empty-workout' ? (
-                    <main id="main-content" className="flex-1 animate-fade-in">
-                        <WorkoutPlayer
-                            week={0}
-                            day={0}
-                            onComplete={goBack}
-                            exerciseLibrary={EXERCISE_LIBRARY}
-                            isEmptyWorkout={true}
-                            onWorkoutFinish={workoutTimer.stop}
-                        />
-                    </main>
                 ) : (
-                    <>
-                        <TabContent activeTab={activeTab} id="main-content">
-                            {activeTab === 'train' && (
-                                <Dashboard
-                                    currentWeek={currentWeek}
-                                    setCurrentWeek={setCurrentWeek}
-                                    onStartWorkout={startWorkout}
-                                    onStartEmptyWorkout={startEmptyWorkout}
-                                    onProgramChange={handleProgramChange}
-                                />
-                            )}
-                            {activeTab === 'library' && (
-                                <ExerciseLibraryView
+                    <AnimatePresence mode="wait">
+                        {viewMode === 'workout' ? (
+                            <motion.main
+                                key="workout"
+                                id="main-content"
+                                className="flex-1"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <WorkoutPlayer
+                                    week={currentWeek}
+                                    day={activeDay}
+                                    onComplete={goBack}
                                     exerciseLibrary={EXERCISE_LIBRARY}
-                                    getAllExercisesWithHistory={getAllExercisesWithHistory}
-                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                    calculateExerciseStats={calculateExerciseStats as any}
-                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                    getExerciseHistory={getExerciseHistory as any}
+                                    onWorkoutFinish={workoutTimer.stop}
                                 />
-                            )}
-                            {activeTab === 'history' && (
-                                <HistoryView
-                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                    calculateExerciseStats={calculateExerciseStats as any}
-                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                    getExerciseHistory={getExerciseHistory as any}
-                                    getAllExercisesWithHistory={getAllExercisesWithHistory}
+                            </motion.main>
+                        ) : viewMode === 'empty-workout' ? (
+                            <motion.main
+                                key="empty-workout"
+                                id="main-content"
+                                className="flex-1"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <WorkoutPlayer
+                                    week={0}
+                                    day={0}
+                                    onComplete={goBack}
+                                    exerciseLibrary={EXERCISE_LIBRARY}
+                                    isEmptyWorkout={true}
+                                    onWorkoutFinish={workoutTimer.stop}
                                 />
-                            )}
-                            {activeTab === 'profile' && <SettingsView />}
-                        </TabContent>
-                        <NavigationBar activeTab={activeTab} onTabChange={handleTabChange} />
-                    </>
+                            </motion.main>
+                        ) : (
+                            <React.Fragment key="tab-content">
+                                <motion.div
+                                    key={activeTab}
+                                    id="main-content"
+                                    className="flex-1 flex flex-col"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    {activeTab === 'train' && (
+                                        <Dashboard
+                                            currentWeek={currentWeek}
+                                            setCurrentWeek={setCurrentWeek}
+                                            onStartWorkout={startWorkout}
+                                            onStartEmptyWorkout={startEmptyWorkout}
+                                            onProgramChange={handleProgramChange}
+                                        />
+                                    )}
+                                    {activeTab === 'library' && (
+                                        <ExerciseLibraryView
+                                            exerciseLibrary={EXERCISE_LIBRARY}
+                                            getAllExercisesWithHistory={getAllExercisesWithHistory}
+                                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                            calculateExerciseStats={calculateExerciseStats as any}
+                                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                            getExerciseHistory={getExerciseHistory as any}
+                                        />
+                                    )}
+                                    {activeTab === 'history' && (
+                                        <HistoryView
+                                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                            calculateExerciseStats={calculateExerciseStats as any}
+                                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                            getExerciseHistory={getExerciseHistory as any}
+                                            getAllExercisesWithHistory={getAllExercisesWithHistory}
+                                        />
+                                    )}
+                                    {activeTab === 'profile' && <SettingsView />}
+                                </motion.div>
+                                <NavigationBar activeTab={activeTab} onTabChange={handleTabChange} />
+                            </React.Fragment>
+                        )}
+                    </AnimatePresence>
                 )}
             </div>
         </>

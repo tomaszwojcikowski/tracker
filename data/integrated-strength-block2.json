@@ -1,0 +1,441 @@
+{
+  "$schema": "./workout-plan-v2.3.schema.json",
+  "formatVersion": "2.3.0",
+  "plan": {
+    "id": "integrated-strength-v26-9-block2",
+    "name": "BLOCK 2: INTENSIFICATION (Weeks 5-8)",
+    "description": "Transition to density-based volume (EMOMs) to spike metabolism. Manage hamstring fatigue with specific post-session recovery. Increase pushing capacity via higher volume dips/push-ups.",
+    "author": "V26.9 Program",
+    "createdDate": "2025-12-02",
+    "lastModified": "2025-12-02T20:02:00.000Z",
+    "version": "26.9.0",
+    "durationWeeks": 4,
+    "goals": [
+      "density-based-volume",
+      "emom-training",
+      "pushing-capacity"
+    ],
+    "targetLevel": "advanced",
+    "equipment": [
+      "pull-up-bar",
+      "rings",
+      "dip-bars",
+      "resistance-bands",
+      "rower",
+      "dumbbells",
+      "parallettes"
+    ],
+    "exerciseTemplates": [
+      {
+        "id": "ex-pull-up-emom",
+        "exerciseName": "Pull-Up EMOM",
+        "category": "main",
+        "sets": 8,
+        "repsType": "reps",
+        "repsValue": 4,
+        "loadUnit": "bodyweight",
+        "isEmom": true,
+        "restSeconds": 60,
+        "notes": "Perform reps at the start of every minute. Density training"
+      },
+      {
+        "id": "ex-feet-elevated-ring-rows",
+        "exerciseName": "Feet-Elevated Ring Rows",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 10,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "tempoEccentric": 2,
+        "tempoPauseBottom": 1,
+        "tempoConcentric": 1,
+        "tempoPauseTop": 0,
+        "notes": "Tempo 2-1-1-0. Stop if sharp pain"
+      },
+      {
+        "id": "ex-parallette-pushups",
+        "exerciseName": "Parallette Push-Ups",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 10,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "tempoEccentric": 2,
+        "tempoPauseBottom": 1,
+        "tempoConcentric": 1,
+        "tempoPauseTop": 0,
+        "notes": "Deep range of motion. Tempo 2-1-1-0"
+      },
+      {
+        "id": "ex-tuck-planche",
+        "exerciseName": "Skill: Tuck Planche Hold",
+        "category": "skill",
+        "sets": 3,
+        "repsType": "time",
+        "repsMin": 6,
+        "repsMax": 8,
+        "repsUnit": "seconds",
+        "loadUnit": "bodyweight",
+        "restSeconds": 90,
+        "notes": "Arms straight, scapula protracted and depressed. Knees to chest",
+        "cues": ["Arms straight", "Scapula protracted", "Knees tight"]
+      },
+      {
+        "id": "ex-pppu-lean",
+        "exerciseName": "Skill: PPPU Lean",
+        "category": "skill",
+        "sets": 3,
+        "repsType": "none",
+        "loadUnit": "bodyweight",
+        "restSeconds": 90,
+        "notes": "Pseudo Planche Push Up practice. Maintain scapular protraction",
+        "cues": ["Lean forward", "Glutes squeezed"]
+      },
+      {
+        "id": "ex-weighted-dips",
+        "exerciseName": "Weighted Dips",
+        "category": "main",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 5,
+        "loadUnit": "kg",
+        "restSeconds": 120,
+        "notes": "Double Progression. Dip Governor Rule applies",
+        "alternatives": ["Straight Bar Dips", "Weighted Bench Dips"],
+        "cues": ["Shoulders down", "Don't flair elbows"]
+      },
+      {
+        "id": "ex-rower-leg-curls",
+        "exerciseName": "Rower Leg Curls (2-Leg)",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 10,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "notes": "Substituted for Sliders. Heels on rower seat, lift hips, slide away and back"
+      },
+      {
+        "id": "ex-back-extensions",
+        "exerciseName": "Back Extensions",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 12,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "tempoEccentric": 2,
+        "tempoPauseBottom": 1,
+        "tempoConcentric": 1,
+        "tempoPauseTop": 0,
+        "notes": "Tempo 2-1-1-0"
+      },
+      {
+        "id": "ex-dead-bugs",
+        "exerciseName": "Dead Bugs",
+        "category": "core",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 12,
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "notes": "Core Recovery"
+      }
+    ],
+    "phases": [
+      {
+        "phaseNumber": 2,
+        "name": "BLOCK 2: INTENSIFICATION",
+        "description": "Transition to density-based volume (EMOMs) to spike metabolism. Manage hamstring fatigue with specific post-session recovery. Block Skills: (A) Tuck Planche, (B) PPPU Lean.",
+        "startWeek": 5,
+        "endWeek": 8,
+        "focus": "intensity",
+        "weeks": [
+          {
+            "weekNumber": 5,
+            "description": "Moderate intensity start, EMOM volume introduction",
+            "volumeLevel": "moderate",
+            "intensityLevel": "moderate",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Pull Volume",
+                "type": "strength",
+                "estimatedDuration": 78,
+                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: ~40 reps. Core Focus (Dynamic): [HARD WEEK]",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-tuck-planche" },
+                  { "$ref": "ex-pull-up-emom", "sets": 8, "notes": "EMOM introduction. Total: 32 reps (8 minutes x 4 reps)" },
+                  { "$ref": "ex-feet-elevated-ring-rows" },
+                  { "$ref": "ex-parallette-pushups" },
+                  { "$ref": "ex-hollow-rocks" },
+                  { "$routine": "cooldown-day1" }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Recovery + Anti-Rotation + Ankles",
+                "type": "mobility",
+                "estimatedDuration": 30,
+                "exercises": [
+                  { "$routine": "mobility-ankle-circuit" },
+                  { "$ref": "ex-band-internal-rotations" },
+                  { "$ref": "ex-mobility-flow" },
+                  { "$ref": "ex-pallof-press" },
+                  { "$routine": "day2-recovery-flow" }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Posterior Chain (Hamstring Focus)",
+                "type": "strength",
+                "estimatedDuration": 45,
+                "exercises": [
+                  { "$ref": "ex-rdl", "repsValue": 10, "loadMin": 60, "loadMax": 80 },
+                  { "$ref": "ex-rower-leg-curls" },
+                  { "$ref": "ex-goblet-squats" },
+                  { "$ref": "ex-back-extensions" },
+                  { "$routine": "cooldown-day3" }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Pull Intensity",
+                "type": "strength",
+                "estimatedDuration": 75,
+                "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 8 reps. Day 5 Accessory Timer: 10 Min Cap",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-pppu-lean" },
+                  { "$ref": "ex-weighted-pull-ups", "sets": 2, "repsValue": 4, "loadMin": 10, "loadMax": 10, "notes": "Double Progression. Total: 8 reps" },
+                  { "$ref": "ex-weighted-dips", "loadMin": 5, "loadMax": 10 },
+                  { "$routine": "superset-bss" },
+                  { "$ref": "ex-weighted-hollow-rocks", "sets": 3, "loadMin": 3, "loadMax": 5, "repsValue": 15, "notes": "EMOM circuit. 10 min cap" },
+                  { "$routine": "cooldown-day5" }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 6,
+            "description": "Volume peak for EMOMs",
+            "volumeLevel": "high",
+            "intensityLevel": "moderate",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Pull Volume",
+                "type": "strength",
+                "estimatedDuration": 82,
+                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: 40 reps. Core Focus (Dynamic): [RECOVERY WEEK]",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-tuck-planche" },
+                  { "$ref": "ex-pull-up-emom", "sets": 9, "notes": "Volume peak. Total: 36 reps (9 minutes x 4 reps)" },
+                  { "$ref": "ex-feet-elevated-ring-rows", "repsValue": 12 },
+                  { "$ref": "ex-parallette-pushups" },
+                  { "$ref": "ex-hollow-rocks" },
+                  { "$routine": "cooldown-day1" }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Recovery + Anti-Rotation + Ankles",
+                "type": "mobility",
+                "estimatedDuration": 30,
+                "exercises": [
+                  { "$routine": "mobility-ankle-circuit" },
+                  { "$ref": "ex-band-internal-rotations" },
+                  { "$ref": "ex-mobility-flow" },
+                  { "$ref": "ex-pallof-press" },
+                  { "$routine": "day2-recovery-flow" }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Posterior Chain (Hamstring Focus)",
+                "type": "strength",
+                "estimatedDuration": 45,
+                "exercises": [
+                  { "$ref": "ex-rdl", "repsValue": 10, "loadMin": 60, "loadMax": 80 },
+                  { "$ref": "ex-rower-leg-curls" },
+                  { "$ref": "ex-goblet-squats" },
+                  { "$ref": "ex-back-extensions" },
+                  { "$routine": "cooldown-day3" }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Pull Intensity",
+                "type": "strength",
+                "estimatedDuration": 70,
+                "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 4 reps",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-pppu-lean" },
+                  { "$ref": "ex-weighted-pull-ups", "sets": 1, "repsValue": 4, "loadMin": 5, "loadMax": 10, "notes": "Heavy single set. Total: 4 reps" },
+                  { "$ref": "ex-weighted-dips", "repsValue": 8, "loadMin": 5, "loadMax": 10 },
+                  { "$routine": "superset-bss" },
+                  { "$ref": "ex-dead-bugs", "notes": "Core Recovery. EMOM" },
+                  { "$routine": "cooldown-day5" }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 7,
+            "description": "Intensity Peak. Shifting to triples for speed",
+            "volumeLevel": "high",
+            "intensityLevel": "high",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Pull Volume",
+                "type": "strength",
+                "estimatedDuration": 85,
+                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: 39 reps. Core Focus (Dynamic): [HARD WEEK]",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-tuck-planche" },
+                  { "$ref": "ex-pull-up-emom", "sets": 10, "repsValue": 3, "notes": "Intensity peak. Triples for speed. Total: 30 reps (10 minutes x 3 reps)" },
+                  { "$ref": "ex-feet-elevated-ring-rows", "repsValue": 12 },
+                  { "$ref": "ex-parallette-pushups" },
+                  { "$ref": "ex-hollow-rocks" },
+                  { "$routine": "cooldown-day1" }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Recovery + Anti-Rotation + Ankles",
+                "type": "mobility",
+                "estimatedDuration": 30,
+                "exercises": [
+                  { "$routine": "mobility-ankle-circuit" },
+                  { "$ref": "ex-band-internal-rotations" },
+                  { "$ref": "ex-mobility-flow" },
+                  { "$ref": "ex-pallof-press" },
+                  { "$routine": "day2-recovery-flow" }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Posterior Chain (Hamstring Focus)",
+                "type": "strength",
+                "estimatedDuration": 45,
+                "exercises": [
+                  { "$ref": "ex-rdl", "repsValue": 10, "loadMin": 60, "loadMax": 80 },
+                  { "$ref": "ex-rower-leg-curls" },
+                  { "$ref": "ex-goblet-squats" },
+                  { "$ref": "ex-back-extensions" },
+                  { "$routine": "cooldown-day3" }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Pull Intensity",
+                "type": "strength",
+                "estimatedDuration": 75,
+                "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 9 reps",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-pppu-lean" },
+                  { "$ref": "ex-weighted-pull-ups", "sets": 3, "repsValue": 3, "loadMin": 5, "loadMax": 10, "notes": "Heavy triples. Total: 9 reps" },
+                  { "$ref": "ex-weighted-dips", "repsValue": 8, "loadMin": 5, "loadMax": 10 },
+                  { "$routine": "superset-bss" },
+                  {
+                    "exerciseName": "Weighted V-Ups",
+                    "category": "core",
+                    "sets": 3,
+                    "repsType": "reps",
+                    "repsValue": 12,
+                    "loadMin": 3,
+                    "loadMax": 5,
+                    "loadUnit": "kg",
+                    "restSeconds": 60,
+                    "notes": "Core Hard. Keep biceps by ears"
+                  },
+                  { "$routine": "cooldown-day5" }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 8,
+            "description": "Standard deload. Focus on mobility",
+            "volumeLevel": "low",
+            "intensityLevel": "low",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Pull Volume - DELOAD",
+                "type": "strength",
+                "estimatedDuration": 65,
+                "description": "Weekly Pull Total Target: ~20 reps. RPE 6 MAX",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-pull-up-emom", "sets": 6, "repsValue": 3, "notes": "Deload. Total: 18 reps. RPE 6 MAX" },
+                  { "$ref": "ex-feet-elevated-ring-rows", "sets": 2 },
+                  { "$ref": "ex-parallette-pushups", "sets": 2 },
+                  { "$ref": "ex-hollow-rocks", "sets": 2 },
+                  { "$routine": "cooldown-day1" }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Recovery + Anti-Rotation + Ankles",
+                "type": "mobility",
+                "estimatedDuration": 30,
+                "exercises": [
+                  { "$routine": "mobility-ankle-circuit" },
+                  { "$ref": "ex-band-internal-rotations" },
+                  { "$ref": "ex-mobility-flow" },
+                  { "$ref": "ex-pallof-press" },
+                  { "$routine": "day2-recovery-flow" }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Posterior Chain - DELOAD",
+                "type": "strength",
+                "estimatedDuration": 30,
+                "exercises": [
+                  { "$ref": "ex-rdl", "sets": 2, "repsValue": 10, "loadMin": 60, "loadMax": 80, "notes": "Deload" },
+                  { "$ref": "ex-rower-leg-curls", "sets": 2, "notes": "Deload" },
+                  { "$ref": "ex-goblet-squats", "sets": 2, "notes": "Deload" },
+                  { "$ref": "ex-back-extensions", "sets": 2, "notes": "Deload" },
+                  { "$routine": "cooldown-day3" }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Pull Intensity - DELOAD",
+                "type": "strength",
+                "estimatedDuration": 60,
+                "description": "Weekly Pull Total Target: ~20 reps | Day 5 adds 6 reps",
+                "exercises": [
+                  { "$routine": "warmup-rower-protocol" },
+                  { "$routine": "warmup-global-tendon-prep" },
+                  { "$ref": "ex-weighted-pull-ups", "sets": 2, "repsValue": 3, "loadMin": 5, "loadMax": 10, "notes": "Easy. Total: 6 reps" },
+                  { "$ref": "ex-weighted-dips", "sets": 2, "notes": "Deload" },
+                  { "$routine": "superset-bss" },
+                  { "$routine": "cooldown-day5" }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

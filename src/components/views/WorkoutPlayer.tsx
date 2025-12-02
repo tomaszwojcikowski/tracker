@@ -757,7 +757,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
     // Scroll to first incomplete exercise when workout view loads (only in list view)
     useScrollToElement({
-        elementId: viewMode === 'list' ? firstIncompleteExerciseId : null,
+        elementId: firstIncompleteExerciseId,
         delay: 150,
         enabled: viewMode === 'list',
     });

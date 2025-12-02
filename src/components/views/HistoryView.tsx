@@ -293,15 +293,28 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                 </div>
 
                                 {/* Progress Graph */}
-                                {stat.recentProgress && stat.recentProgress.length > 1 && (
-                                    <div className="mb-5">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <i data-lucide="trending-up" width="16" className="text-sys-accent"></i>
-                                            <h4 className="text-sm font-semibold text-white">Weight Progress</h4>
+                                {(() => {
+                                    // Filter for valid weights and ensure we have at least 2 points
+                                    const validProgress = stat.recentProgress?.filter(p => p.weight && p.weight > 0) || [];
+
+                                    if (validProgress.length < 2) return null;
+
+                                    // Ensure weights are numbers for the graph
+                                    const graphData = validProgress.map(p => ({
+                                        ...p,
+                                        weight: Number(p.weight)
+                                    }));
+
+                                    return (
+                                        <div className="mb-5">
+                                            <div className="flex items-center gap-2 mb-3">
+                                                <i data-lucide="trending-up" width="16" className="text-sys-accent"></i>
+                                                <h4 className="text-sm font-semibold text-white">Weight Progress</h4>
+                                            </div>
+                                            <SimpleWeightGraph data={graphData} />
                                         </div>
-                                        <SimpleWeightGraph data={stat.recentProgress} />
-                                    </div>
-                                )}
+                                    );
+                                })()}
 
                                 {/* Recent History */}
                                 <div>

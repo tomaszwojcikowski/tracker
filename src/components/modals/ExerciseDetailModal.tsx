@@ -162,15 +162,20 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                         </div>
 
                         {/* Progress Graph */}
-                        {stats.recentProgress && stats.recentProgress.length > 1 && (
-                            <div>
-                                <div className="flex items-center gap-2 mb-2">
-                                    <TrendingUp size={14} className="text-sys-accent" />
-                                    <span className="text-xs font-semibold text-white">Weight Progress</span>
+                        {(() => {
+                            const validProgress = stats.recentProgress?.filter(p => p.weight && p.weight > 0) || [];
+                            if (validProgress.length < 2) return null;
+
+                            return (
+                                <div>
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <TrendingUp size={14} className="text-sys-accent" />
+                                        <span className="text-xs font-semibold text-white">Weight Progress</span>
+                                    </div>
+                                    <WeightGraph data={validProgress.map(p => ({ weight: Number(p.weight), date: p.date }))} />
                                 </div>
-                                <WeightGraph data={stats.recentProgress.map(p => ({ weight: p.weight || 0, date: p.date }))} />
-                            </div>
-                        )}
+                            );
+                        })()}
 
                         {/* Recent History */}
                         {recentHistory.length > 0 && (

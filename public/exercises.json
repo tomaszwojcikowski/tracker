@@ -1244,5 +1244,1106 @@
     "variations": [
       "Weighted Bench Dips"
     ]
+  },
+  {
+    "id": "dumbbell_flyes",
+    "name": "Dumbbell Flyes",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "dumbbells",
+      "bench"
+    ],
+    "category": "push",
+    "isBodyweight": false,
+    "variations": [
+      "Incline Dumbbell Flyes",
+      "Decline Dumbbell Flyes"
+    ],
+    "suggestedLoad": "8-14kg per hand"
+  },
+  {
+    "id": "incline_dumbbell_press",
+    "name": "Incline Dumbbell Press",
+    "primaryMuscles": [
+      "upper_chest",
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "triceps"
+    ],
+    "equipment": [
+      "dumbbells",
+      "bench"
+    ],
+    "category": "push",
+    "isBodyweight": false,
+    "variations": [
+      "Low Incline Press",
+      "High Incline Press"
+    ],
+    "suggestedLoad": "12-18kg per hand"
+  },
+  {
+    "id": "dumbbell_pullover",
+    "name": "Dumbbell Pullover",
+    "primaryMuscles": [
+      "lats",
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "core"
+    ],
+    "equipment": [
+      "dumbbell",
+      "bench"
+    ],
+    "category": "pull",
+    "isBodyweight": false,
+    "variations": [
+      "Cross-Bench Pullover"
+    ],
+    "suggestedLoad": "10-16kg"
+  },
+  {
+    "id": "band_lat_pulldown",
+    "name": "Band Lat Pulldown",
+    "primaryMuscles": [
+      "lats",
+      "upper_back"
+    ],
+    "secondaryMuscles": [
+      "biceps"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "category": "pull",
+    "isBodyweight": false,
+    "variations": [
+      "Wide Grip Band Pulldown",
+      "Close Grip Band Pulldown"
+    ],
+    "suggestedLoad": "medium-heavy band"
+  },
+  {
+    "id": "straight_arm_pulldown",
+    "name": "Straight Arm Pulldown",
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "core"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "category": "pull",
+    "isBodyweight": false,
+    "variations": [],
+    "suggestedLoad": "light-medium band"
+  },
+  {
+    "id": "lateral_raises",
+    "name": "Lateral Raises",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "traps"
+    ],
+    "equipment": [
+      "dumbbells"
+    ],
+    "category": "shoulders",
+    "isBodyweight": false,
+    "variations": [
+      "Seated Lateral Raises",
+      "Band Lateral Raises"
+    ],
+    "suggestedLoad": "5-10kg per hand"
+  },
+  {
+    "id": "front_raises",
+    "name": "Front Raises",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "upper_chest"
+    ],
+    "equipment": [
+      "dumbbells"
+    ],
+    "category": "shoulders",
+    "isBodyweight": false,
+    "variations": [
+      "Barbell Front Raise",
+      "Alternating Front Raises"
+    ],
+    "suggestedLoad": "5-10kg per hand"
+  },
+  {
+    "id": "rear_delt_raises",
+    "name": "Rear Delt Raises",
+    "primaryMuscles": [
+      "rear_delts"
+    ],
+    "secondaryMuscles": [
+      "upper_back",
+      "traps"
+    ],
+    "equipment": [
+      "dumbbells"
+    ],
+    "category": "shoulders",
+    "isBodyweight": false,
+    "variations": [
+      "Bent Over Rear Delt Raises",
+      "Incline Rear Delt Raises"
+    ],
+    "suggestedLoad": "4-8kg per hand"
+  },
+  {
+    "id": "upright_row",
+    "name": "Upright Row",
+    "primaryMuscles": [
+      "shoulders",
+      "traps"
+    ],
+    "secondaryMuscles": [
+      "biceps"
+    ],
+    "equipment": [
+      "barbell",
+      "dumbbells"
+    ],
+    "category": "shoulders",
+    "isBodyweight": false,
+    "variations": [
+      "Dumbbell Upright Row",
+      "Wide Grip Upright Row"
+    ],
+    "suggestedLoad": "20-30kg"
+  },
+  {
+    "id": "skull_crushers",
+    "name": "Skull Crushers",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": [
+      "barbell",
+      "dumbbells",
+      "bench"
+    ],
+    "category": "arms",
+    "isBodyweight": false,
+    "variations": [
+      "EZ-Bar Skull Crushers",
+      "Dumbbell Skull Crushers"
+    ],
+    "suggestedLoad": "10-20kg"
+  },
+  {
+    "id": "diamond_push_ups",
+    "name": "Diamond Push-Ups",
+    "primaryMuscles": [
+      "triceps",
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "push",
+    "isBodyweight": true,
+    "variations": [
+      "Elevated Diamond Push-Ups",
+      "Decline Diamond Push-Ups"
+    ]
+  },
+  {
+    "id": "concentration_curl",
+    "name": "Concentration Curl",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "equipment": [
+      "dumbbell"
+    ],
+    "category": "arms",
+    "isBodyweight": false,
+    "variations": [],
+    "suggestedLoad": "8-14kg"
+  },
+  {
+    "id": "incline_dumbbell_curl",
+    "name": "Incline Dumbbell Curl",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "equipment": [
+      "dumbbells",
+      "bench"
+    ],
+    "category": "arms",
+    "isBodyweight": false,
+    "variations": [
+      "Supinated Incline Curl",
+      "Hammer Incline Curl"
+    ],
+    "suggestedLoad": "6-12kg per hand"
+  },
+  {
+    "id": "hammer_curl",
+    "name": "Hammer Curl",
+    "primaryMuscles": [
+      "biceps",
+      "forearms"
+    ],
+    "secondaryMuscles": [],
+    "equipment": [
+      "dumbbells"
+    ],
+    "category": "arms",
+    "isBodyweight": false,
+    "variations": [
+      "Cross Body Hammer Curl",
+      "Alternating Hammer Curl"
+    ],
+    "suggestedLoad": "8-14kg per hand"
+  },
+  {
+    "id": "band_tricep_pushdown",
+    "name": "Band Tricep Pushdown",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": [
+      "band"
+    ],
+    "category": "arms",
+    "isBodyweight": false,
+    "variations": [
+      "Overhead Band Extension"
+    ],
+    "suggestedLoad": "medium band"
+  },
+  {
+    "id": "calf_raises",
+    "name": "Calf Raises",
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "equipment": [
+      "bodyweight",
+      "dumbbells"
+    ],
+    "category": "legs",
+    "isBodyweight": true,
+    "variations": [
+      "Single Leg Calf Raises",
+      "Seated Calf Raises",
+      "Donkey Calf Raises"
+    ]
+  },
+  {
+    "id": "step_ups",
+    "name": "Step-Ups",
+    "primaryMuscles": [
+      "quads",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings"
+    ],
+    "equipment": [
+      "bench",
+      "dumbbells"
+    ],
+    "category": "legs",
+    "isBodyweight": false,
+    "variations": [
+      "Lateral Step-Ups",
+      "Weighted Step-Ups"
+    ],
+    "suggestedLoad": "8-16kg per hand"
+  },
+  {
+    "id": "hip_thrust",
+    "name": "Hip Thrust",
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings",
+      "core"
+    ],
+    "equipment": [
+      "barbell",
+      "bench"
+    ],
+    "category": "legs",
+    "isBodyweight": false,
+    "variations": [
+      "Single Leg Hip Thrust",
+      "Banded Hip Thrust"
+    ],
+    "suggestedLoad": "40-80kg"
+  },
+  {
+    "id": "nordic_curl",
+    "name": "Nordic Curl",
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "glutes"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "legs",
+    "isBodyweight": true,
+    "variations": [
+      "Assisted Nordic Curl",
+      "Band Assisted Nordic Curl"
+    ]
+  },
+  {
+    "id": "sissy_squat",
+    "name": "Sissy Squat",
+    "primaryMuscles": [
+      "quads"
+    ],
+    "secondaryMuscles": [
+      "core"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "legs",
+    "isBodyweight": true,
+    "variations": [
+      "Assisted Sissy Squat",
+      "Weighted Sissy Squat"
+    ]
+  },
+  {
+    "id": "sumo_squat",
+    "name": "Sumo Squat",
+    "primaryMuscles": [
+      "quads",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "adductors",
+      "hamstrings"
+    ],
+    "equipment": [
+      "dumbbell"
+    ],
+    "category": "legs",
+    "isBodyweight": false,
+    "variations": [
+      "Sumo Goblet Squat",
+      "Sumo Pulse Squat"
+    ],
+    "suggestedLoad": "16-28kg"
+  },
+  {
+    "id": "hanging_leg_raises",
+    "name": "Hanging Leg Raises",
+    "primaryMuscles": [
+      "abs",
+      "hip_flexors"
+    ],
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "equipment": [
+      "bar"
+    ],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": [
+      "Hanging Knee Raises",
+      "Toes to Bar"
+    ]
+  },
+  {
+    "id": "russian_twist",
+    "name": "Russian Twist",
+    "primaryMuscles": [
+      "obliques",
+      "core"
+    ],
+    "secondaryMuscles": [
+      "hip_flexors"
+    ],
+    "equipment": [
+      "bodyweight",
+      "dumbbell"
+    ],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": [
+      "Weighted Russian Twist",
+      "Feet Elevated Russian Twist"
+    ]
+  },
+  {
+    "id": "crunches",
+    "name": "Crunches",
+    "primaryMuscles": [
+      "abs"
+    ],
+    "secondaryMuscles": [],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": [
+      "Weighted Crunches",
+      "Decline Crunches"
+    ]
+  },
+  {
+    "id": "reverse_crunches",
+    "name": "Reverse Crunches",
+    "primaryMuscles": [
+      "abs",
+      "hip_flexors"
+    ],
+    "secondaryMuscles": [],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": [
+      "Decline Reverse Crunches"
+    ]
+  },
+  {
+    "id": "bicycle_crunches",
+    "name": "Bicycle Crunches",
+    "primaryMuscles": [
+      "abs",
+      "obliques"
+    ],
+    "secondaryMuscles": [
+      "hip_flexors"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "dumbbell_shrugs",
+    "name": "Dumbbell Shrugs",
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "dumbbells"
+    ],
+    "category": "shoulders",
+    "isBodyweight": false,
+    "variations": [
+      "Barbell Shrugs",
+      "Behind Back Shrugs"
+    ],
+    "suggestedLoad": "15-25kg per hand"
+  },
+  {
+    "id": "barbell_shrugs",
+    "name": "Barbell Shrugs",
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "forearms"
+    ],
+    "equipment": [
+      "barbell"
+    ],
+    "category": "shoulders",
+    "isBodyweight": false,
+    "variations": [
+      "Behind Back Barbell Shrugs"
+    ],
+    "suggestedLoad": "40-60kg"
+  },
+  {
+    "id": "close_grip_bench_press",
+    "name": "Close Grip Bench Press",
+    "primaryMuscles": [
+      "triceps",
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "barbell",
+      "bench"
+    ],
+    "category": "push",
+    "isBodyweight": false,
+    "variations": [],
+    "suggestedLoad": "30-50kg"
+  },
+  {
+    "id": "wrist_curls",
+    "name": "Wrist Curls",
+    "primaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMuscles": [],
+    "equipment": [
+      "dumbbells",
+      "barbell"
+    ],
+    "category": "arms",
+    "isBodyweight": false,
+    "variations": [
+      "Reverse Wrist Curls",
+      "Behind Back Wrist Curls"
+    ],
+    "suggestedLoad": "5-10kg"
+  },
+  {
+    "id": "reverse_curl",
+    "name": "Reverse Curl",
+    "primaryMuscles": [
+      "forearms",
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": [
+      "barbell",
+      "dumbbells"
+    ],
+    "category": "arms",
+    "isBodyweight": false,
+    "variations": [
+      "EZ-Bar Reverse Curl"
+    ],
+    "suggestedLoad": "10-20kg"
+  },
+  {
+    "id": "floor_press",
+    "name": "Floor Press",
+    "primaryMuscles": [
+      "chest",
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "barbell",
+      "dumbbells"
+    ],
+    "category": "push",
+    "isBodyweight": false,
+    "variations": [
+      "Dumbbell Floor Press",
+      "Single Arm Floor Press"
+    ],
+    "suggestedLoad": "30-50kg"
+  },
+  {
+    "id": "band_curls",
+    "name": "Band Curls",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "category": "arms",
+    "isBodyweight": false,
+    "variations": [
+      "Band Hammer Curls"
+    ],
+    "suggestedLoad": "medium band"
+  },
+  {
+    "id": "band_rows",
+    "name": "Band Rows",
+    "primaryMuscles": [
+      "upper_back",
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "biceps"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "category": "pull",
+    "isBodyweight": false,
+    "variations": [
+      "Seated Band Rows",
+      "Single Arm Band Rows"
+    ],
+    "suggestedLoad": "medium-heavy band"
+  },
+  {
+    "id": "band_chest_press",
+    "name": "Band Chest Press",
+    "primaryMuscles": [
+      "chest",
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "category": "push",
+    "isBodyweight": false,
+    "variations": [
+      "Incline Band Press",
+      "Single Arm Band Press"
+    ],
+    "suggestedLoad": "medium-heavy band"
+  },
+  {
+    "id": "band_shoulder_press",
+    "name": "Band Shoulder Press",
+    "primaryMuscles": [
+      "shoulders",
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": [
+      "band"
+    ],
+    "category": "push",
+    "isBodyweight": false,
+    "variations": [],
+    "suggestedLoad": "medium band"
+  },
+  {
+    "id": "band_lateral_raises",
+    "name": "Band Lateral Raises",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "traps"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "category": "shoulders",
+    "isBodyweight": false,
+    "variations": [],
+    "suggestedLoad": "light-medium band"
+  },
+  {
+    "id": "inverted_rows",
+    "name": "Inverted Rows",
+    "primaryMuscles": [
+      "upper_back",
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "core"
+    ],
+    "equipment": [
+      "bar",
+      "bodyweight"
+    ],
+    "category": "pull",
+    "isBodyweight": true,
+    "variations": [
+      "Feet Elevated Inverted Rows",
+      "Underhand Inverted Rows"
+    ]
+  },
+  {
+    "id": "archer_push_ups",
+    "name": "Archer Push-Ups",
+    "primaryMuscles": [
+      "chest",
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "core"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "push",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "decline_push_ups",
+    "name": "Decline Push-Ups",
+    "primaryMuscles": [
+      "upper_chest",
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "triceps"
+    ],
+    "equipment": [
+      "bodyweight",
+      "bench"
+    ],
+    "category": "push",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "pseudo_planche_push_ups",
+    "name": "Pseudo Planche Push-Ups",
+    "primaryMuscles": [
+      "chest",
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "core"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "push",
+    "isBodyweight": true,
+    "variations": [
+      "Elevated Pseudo Planche Push-Ups"
+    ]
+  },
+  {
+    "id": "glute_ham_raise",
+    "name": "Glute Ham Raise",
+    "primaryMuscles": [
+      "hamstrings",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "lower_back"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "legs",
+    "isBodyweight": true,
+    "variations": [
+      "Assisted Glute Ham Raise"
+    ]
+  },
+  {
+    "id": "pistol_squat",
+    "name": "Pistol Squat",
+    "primaryMuscles": [
+      "quads",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings",
+      "core"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "legs",
+    "isBodyweight": true,
+    "variations": [
+      "Assisted Pistol Squat",
+      "Weighted Pistol Squat"
+    ]
+  },
+  {
+    "id": "dragon_flag",
+    "name": "Dragon Flag",
+    "primaryMuscles": [
+      "abs",
+      "core"
+    ],
+    "secondaryMuscles": [
+      "hip_flexors"
+    ],
+    "equipment": [
+      "bench",
+      "bodyweight"
+    ],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": [
+      "Tuck Dragon Flag",
+      "Single Leg Dragon Flag"
+    ]
+  },
+  {
+    "id": "ab_rollout",
+    "name": "Ab Rollout",
+    "primaryMuscles": [
+      "abs",
+      "core"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "lats"
+    ],
+    "equipment": [
+      "barbell",
+      "bodyweight"
+    ],
+    "category": "core",
+    "isBodyweight": false,
+    "variations": [
+      "Kneeling Ab Rollout",
+      "Standing Ab Rollout"
+    ]
+  },
+  {
+    "id": "front_squat",
+    "name": "Front Squat",
+    "primaryMuscles": [
+      "quads",
+      "core"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "upper_back"
+    ],
+    "equipment": [
+      "barbell"
+    ],
+    "category": "legs",
+    "isBodyweight": false,
+    "variations": [
+      "Zombie Front Squat"
+    ],
+    "suggestedLoad": "40-60kg"
+  },
+  {
+    "id": "pendlay_row",
+    "name": "Pendlay Row",
+    "primaryMuscles": [
+      "upper_back",
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "lower_back"
+    ],
+    "equipment": [
+      "barbell"
+    ],
+    "category": "pull",
+    "isBodyweight": false,
+    "variations": [],
+    "suggestedLoad": "40-60kg"
+  },
+  {
+    "id": "sumo_deadlift",
+    "name": "Sumo Deadlift",
+    "primaryMuscles": [
+      "glutes",
+      "quads"
+    ],
+    "secondaryMuscles": [
+      "hamstrings",
+      "lower_back"
+    ],
+    "equipment": [
+      "barbell"
+    ],
+    "category": "legs",
+    "isBodyweight": false,
+    "variations": [],
+    "suggestedLoad": "60-100kg"
+  },
+  {
+    "id": "good_morning",
+    "name": "Good Morning",
+    "primaryMuscles": [
+      "hamstrings",
+      "lower_back"
+    ],
+    "secondaryMuscles": [
+      "glutes"
+    ],
+    "equipment": [
+      "barbell"
+    ],
+    "category": "legs",
+    "isBodyweight": false,
+    "variations": [
+      "Seated Good Morning"
+    ],
+    "suggestedLoad": "20-40kg"
+  },
+  {
+    "id": "arnold_press",
+    "name": "Arnold Press",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "upper_chest"
+    ],
+    "equipment": [
+      "dumbbells"
+    ],
+    "category": "push",
+    "isBodyweight": false,
+    "variations": [
+      "Seated Arnold Press"
+    ],
+    "suggestedLoad": "8-14kg per hand"
+  },
+  {
+    "id": "zottman_curl",
+    "name": "Zottman Curl",
+    "primaryMuscles": [
+      "biceps",
+      "forearms"
+    ],
+    "secondaryMuscles": [],
+    "equipment": [
+      "dumbbells"
+    ],
+    "category": "arms",
+    "isBodyweight": false,
+    "variations": [],
+    "suggestedLoad": "6-12kg per hand"
+  },
+  {
+    "id": "overhead_tricep_extension",
+    "name": "Overhead Tricep Extension",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": [
+      "dumbbell",
+      "barbell"
+    ],
+    "category": "arms",
+    "isBodyweight": false,
+    "variations": [
+      "Seated Overhead Extension",
+      "Single Arm Overhead Extension"
+    ],
+    "suggestedLoad": "8-16kg"
+  },
+  {
+    "id": "tricep_kickback",
+    "name": "Tricep Kickback",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": [
+      "dumbbells"
+    ],
+    "category": "arms",
+    "isBodyweight": false,
+    "variations": [
+      "Band Kickback"
+    ],
+    "suggestedLoad": "4-10kg per hand"
+  },
+  {
+    "id": "preacher_curl",
+    "name": "Preacher Curl",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "equipment": [
+      "barbell",
+      "dumbbells",
+      "bench"
+    ],
+    "category": "arms",
+    "isBodyweight": false,
+    "variations": [
+      "Dumbbell Preacher Curl",
+      "EZ-Bar Preacher Curl"
+    ],
+    "suggestedLoad": "15-25kg"
+  },
+  {
+    "id": "band_good_morning",
+    "name": "Band Good Morning",
+    "primaryMuscles": [
+      "hamstrings",
+      "lower_back"
+    ],
+    "secondaryMuscles": [
+      "glutes"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "category": "legs",
+    "isBodyweight": false,
+    "variations": [],
+    "suggestedLoad": "medium-heavy band"
+  },
+  {
+    "id": "band_squat",
+    "name": "Band Squat",
+    "primaryMuscles": [
+      "quads",
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "category": "legs",
+    "isBodyweight": false,
+    "variations": [
+      "Band Front Squat"
+    ],
+    "suggestedLoad": "heavy band"
   }
 ]

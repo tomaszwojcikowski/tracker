@@ -1365,7 +1365,7 @@
     "isBodyweight": false,
     "variations": [
       "Seated Lateral Raises",
-      "Cable Lateral Raises"
+      "Band Lateral Raises"
     ],
     "suggestedLoad": "5-10kg per hand"
   },
@@ -1525,7 +1525,7 @@
     "isBodyweight": false,
     "variations": [
       "Cross Body Hammer Curl",
-      "Rope Hammer Curl"
+      "Alternating Hammer Curl"
     ],
     "suggestedLoad": "8-14kg per hand"
   },
@@ -1659,8 +1659,7 @@
       "hamstrings"
     ],
     "equipment": [
-      "dumbbell",
-      "kettlebell"
+      "dumbbell"
     ],
     "category": "legs",
     "isBodyweight": false,
@@ -1725,7 +1724,7 @@
     "isBodyweight": true,
     "variations": [
       "Weighted Crunches",
-      "Cable Crunches"
+      "Decline Crunches"
     ]
   },
   {

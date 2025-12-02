@@ -5,8 +5,8 @@
  * Uses MD3 BottomSheet pattern for consistent mobile UX.
  */
 
-import React from 'react';
-import { X, TrendingUp, Calendar, Dumbbell, Trophy, Clock } from 'lucide-react';
+import React, { useMemo } from 'react';
+import { X, TrendingUp, Calendar, Dumbbell, Trophy, Activity } from 'lucide-react';
 import { getExerciseHistory, calculateExerciseStats } from '../../utils/exerciseHistory';
 import { BottomSheet } from '../BottomSheet';
 
@@ -20,53 +20,104 @@ export interface ExerciseDetailModalProps {
 }
 
 /**
- * Simple Weight Progress Graph (SVG-based)
+ * Enhanced Weight Progress Graph (SVG-based)
  */
 const WeightGraph: React.FC<{ data: Array<{ weight: number; date: string }> }> = ({ data }) => {
-    if (!data || data.length < 2) return null;
+    if (!data || data.length < 2) return (
+        <div className="bg-sys-surfaceHigh rounded-xl p-6 flex flex-col items-center justify-center text-sys-onSurfaceVar h-40">
+            <Activity size={24} className="mb-2 opacity-50" />
+            <span className="text-xs">Not enough data for graph</span>
+        </div>
+    );
 
     const weightData = data.filter(d => d.weight && d.weight > 0);
-    if (weightData.length < 2) return null;
+    if (weightData.length < 2) return (
+        <div className="bg-sys-surfaceHigh rounded-xl p-6 flex flex-col items-center justify-center text-sys-onSurfaceVar h-40">
+            <Activity size={24} className="mb-2 opacity-50" />
+            <span className="text-xs">Not enough data for graph</span>
+        </div>
+    );
 
     const weights = weightData.map(d => d.weight);
     const maxWeight = Math.max(...weights);
     const minWeight = Math.min(...weights);
-    const range = maxWeight - minWeight || 1;
+    // Add 10% padding to range
+    const range = (maxWeight - minWeight) || 1;
+    const paddingY = range * 0.1;
+    const effectiveMin = Math.max(0, minWeight - paddingY);
+    const effectiveMax = maxWeight + paddingY;
+    const effectiveRange = effectiveMax - effectiveMin;
 
-    const width = 100;
-    const height = 50;
-    const padding = 6;
+    const width = 300;
+    const height = 150;
+    const padding = 20;
 
     const points = weightData.map((d, i) => {
-        const x = (i / (weightData.length - 1)) * (width - 2 * padding) + padding;
-        const y = height - padding - ((d.weight - minWeight) / range) * (height - 2 * padding);
-        return `${x},${y}`;
-    }).join(' ');
+        const x = padding + (i / (weightData.length - 1)) * (width - 2 * padding);
+        const y = height - padding - ((d.weight - effectiveMin) / effectiveRange) * (height - 2 * padding);
+        return { x, y };
+    });
 
-    const areaPoints = `${padding},${height - padding} ${points} ${width - padding},${height - padding}`;
+    const polylinePoints = points.map(p => `${p.x},${p.y}`).join(' ');
+    const areaPoints = `${padding},${height - padding} ${polylinePoints} ${width - padding},${height - padding}`;
 
     return (
-        <div className="bg-sys-surfaceHigh rounded-xl p-3">
-            <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-16" preserveAspectRatio="none">
-                <defs>
-                    <linearGradient id="graphGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="var(--color-accent)" stopOpacity="0.3" />
-                        <stop offset="100%" stopColor="var(--color-accent)" stopOpacity="0" />
-                    </linearGradient>
-                </defs>
-                <polygon points={areaPoints} fill="url(#graphGradient)" />
-                <polyline
-                    points={points}
-                    fill="none"
-                    stroke="var(--color-accent)"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                />
-            </svg>
-            <div className="flex justify-between text-xs mt-2">
-                <span className="text-sys-onSurfaceVar">{minWeight}kg</span>
-                <span className="text-sys-accent font-semibold">{maxWeight}kg</span>
+        <div className="bg-sys-surfaceHigh rounded-xl p-4">
+            <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                    <TrendingUp size={16} className="text-sys-accent" />
+                    Progress
+                </h3>
+                <span className="text-xs text-sys-onSurfaceVar">Last {weightData.length} sessions</span>
+            </div>
+
+            <div className="relative">
+                <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-32" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="graphGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="var(--color-accent)" stopOpacity="0.3" />
+                            <stop offset="100%" stopColor="var(--color-accent)" stopOpacity="0" />
+                        </linearGradient>
+                    </defs>
+
+                    {/* Grid lines */}
+                    <line x1={padding} y1={padding} x2={width - padding} y2={padding} stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="4 4" />
+                    <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+
+                    {/* Area fill */}
+                    <polygon points={areaPoints} fill="url(#graphGradient)" />
+
+                    {/* Line */}
+                    <polyline
+                        points={polylinePoints}
+                        fill="none"
+                        stroke="var(--color-accent)"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+
+                    {/* Data points */}
+                    {points.map((p, i) => (
+                        <circle
+                            key={i}
+                            cx={p.x}
+                            cy={p.y}
+                            r="3"
+                            fill="var(--color-surface)"
+                            stroke="var(--color-accent)"
+                            strokeWidth="2"
+                        />
+                    ))}
+                </svg>
+
+                {/* Labels */}
+                <div className="absolute top-0 right-0 text-xs font-bold text-sys-accent transform -translate-y-1/2">
+                    {maxWeight}kg
+                </div>
+                <div className="absolute bottom-0 left-0 text-xs text-sys-onSurfaceVar transform translate-y-1/2">
+                    {minWeight}kg
+                </div>
             </div>
         </div>
     );
@@ -82,137 +133,136 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
 }) => {
     const history = getExerciseHistory(exerciseName);
     const stats = calculateExerciseStats(exerciseName);
-    const recentHistory = history.slice(-5).reverse();
+
+    // Prepare graph data (chronological)
+    const graphData = useMemo(() => {
+        return history
+            .filter(h => h.weight && typeof h.weight === 'number')
+            .map(h => ({
+                weight: h.weight as number,
+                date: h.date
+            }));
+    }, [history]);
+
+    const recentHistory = [...history].reverse().slice(0, 10);
 
     return (
         <BottomSheet
             isOpen={isOpen}
             onClose={onClose}
             ariaLabelledBy="exercise-modal-title"
-            maxHeight={80}
+            maxHeight={85}
         >
             {/* Header */}
             <div className="flex items-center justify-between px-5 pb-4 border-b border-white/5">
                 <div>
-                    <h2 id="exercise-modal-title" className="text-lg font-bold text-white">
+                    <h2 id="exercise-modal-title" className="text-xl font-bold text-white">
                         {exerciseName}
                     </h2>
-                    <p className="text-xs text-sys-onSurfaceVar">
-                        {stats.totalWorkouts} workout{stats.totalWorkouts !== 1 ? 's' : ''} logged
+                    <p className="text-xs text-sys-onSurfaceVar mt-1">
+                        {stats.totalWorkouts} sessions completed
                     </p>
                 </div>
                 <button
                     onClick={onClose}
-                    className="btn-icon bg-sys-surfaceHigh"
-                    aria-label="Close"
+                    className="h-8 w-8 rounded-full bg-sys-surfaceHigh flex items-center justify-center text-sys-onSurfaceVar active:scale-90 transition-all"
+                    aria-label="Close exercise details"
                 >
-                    <X size={20} />
+                    <X size={18} />
                 </button>
             </div>
 
-            {/* Content */}
-            <div className="flex-1 overflow-y-auto p-5 space-y-4 pb-8">
-                {stats.totalWorkouts === 0 ? (
-                    <div className="text-center py-8">
-                        <div className="h-16 w-16 rounded-full bg-sys-surfaceHigh flex items-center justify-center mx-auto mb-4">
-                            <Dumbbell size={28} className="text-sys-onSurfaceVar" />
+            <div className="p-5 space-y-6 overflow-y-auto pb-safe">
+                {/* Stats Grid */}
+                <div className="grid grid-cols-3 gap-3">
+                    <div className="bg-sys-surfaceHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-1 opacity-10">
+                            <Trophy size={32} />
                         </div>
-                        <p className="text-sm text-sys-onSurfaceVar">
-                            No history yet. Complete this exercise to see your progress.
-                        </p>
+                        <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Est. 1RM</div>
+                        <div className="text-xl font-bold text-white">
+                            {stats.estimated1RM ? (
+                                <span>{stats.estimated1RM}<span className="text-xs font-normal text-sys-onSurfaceVar ml-0.5">kg</span></span>
+                            ) : '-'}
+                        </div>
                     </div>
-                ) : (
-                    <>
-                        {/* Stats Grid */}
-                        <div className="grid grid-cols-2 gap-3">
-                            <div className="bg-sys-surfaceHigh rounded-xl p-3">
-                                <div className="flex items-center gap-2 mb-1">
-                                    <Calendar size={14} className="text-sys-onSurfaceVar" />
-                                    <span className="text-[10px] text-sys-onSurfaceVar uppercase tracking-wider">Workouts</span>
-                                </div>
-                                <span className="text-2xl font-bold text-white">{stats.totalWorkouts}</span>
-                            </div>
-                            {stats.maxWeight && (
-                                <div className="bg-sys-accent/10 rounded-xl p-3 border border-sys-accent/20">
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <Dumbbell size={14} className="text-sys-accent" />
-                                        <span className="text-[10px] text-sys-accent uppercase tracking-wider">Max Weight</span>
-                                    </div>
-                                    <span className="text-2xl font-bold text-sys-accent">{stats.maxWeight}kg</span>
-                                </div>
-                            )}
-                            {stats.maxSets && (
-                                <div className="bg-sys-surfaceHigh rounded-xl p-3">
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <Trophy size={14} className="text-sys-onSurfaceVar" />
-                                        <span className="text-[10px] text-sys-onSurfaceVar uppercase tracking-wider">Max Sets</span>
-                                    </div>
-                                    <span className="text-2xl font-bold text-white">{stats.maxSets}</span>
-                                </div>
-                            )}
-                            {stats.estimated1RM && (
-                                <div className="bg-sys-success/10 rounded-xl p-3 border border-sys-success/20">
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <TrendingUp size={14} className="text-sys-success" />
-                                        <span className="text-[10px] text-sys-success uppercase tracking-wider">Est. 1RM</span>
-                                    </div>
-                                    <span className="text-2xl font-bold text-sys-success">{stats.estimated1RM}kg</span>
-                                </div>
-                            )}
+                    <div className="bg-sys-surfaceHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-1 opacity-10">
+                            <Dumbbell size={32} />
                         </div>
+                        <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Max Weight</div>
+                        <div className="text-xl font-bold text-white">
+                            {stats.maxWeight ? (
+                                <span>{stats.maxWeight}<span className="text-xs font-normal text-sys-onSurfaceVar ml-0.5">kg</span></span>
+                            ) : '-'}
+                        </div>
+                    </div>
+                    <div className="bg-sys-surfaceHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-1 opacity-10">
+                            <Activity size={32} />
+                        </div>
+                        <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Max Sets</div>
+                        <div className="text-xl font-bold text-white">
+                            {stats.maxSets !== null ? stats.maxSets : '-'}
+                        </div>
+                    </div>
+                </div>
 
-                        {/* Progress Graph */}
-                        {stats.recentProgress && stats.recentProgress.length > 1 && (
-                            <div>
-                                <div className="flex items-center gap-2 mb-2">
-                                    <TrendingUp size={14} className="text-sys-accent" />
-                                    <span className="text-xs font-semibold text-white">Weight Progress</span>
-                                </div>
-                                <WeightGraph data={stats.recentProgress.map(p => ({ weight: p.weight || 0, date: p.date }))} />
-                            </div>
-                        )}
+                {/* Progress Graph */}
+                <WeightGraph data={graphData} />
 
-                        {/* Recent History */}
-                        {recentHistory.length > 0 && (
-                            <div>
-                                <div className="flex items-center gap-2 mb-2">
-                                    <Clock size={14} className="text-sys-onSurfaceVar" />
-                                    <span className="text-xs font-semibold text-white">Recent Sessions</span>
-                                </div>
-                                <div className="space-y-2">
-                                    {recentHistory.map((entry, idx) => (
-                                        <div key={idx} className="bg-sys-surfaceHigh rounded-xl p-3 flex items-center gap-3">
-                                            <div className="h-10 w-10 rounded-lg bg-white/5 flex flex-col items-center justify-center flex-shrink-0">
-                                                <span className="text-xs font-bold text-white leading-none">
-                                                    {new Date(entry.date).getDate()}
-                                                </span>
-                                                <span className="text-[10px] text-sys-onSurfaceVar uppercase">
-                                                    {new Date(entry.date).toLocaleDateString('en-US', { month: 'short' })}
-                                                </span>
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <div className="text-sm font-semibold text-white">
-                                                    {entry.sets} sets
-                                                </div>
-                                                <div className="text-xs text-sys-onSurfaceVar">
-                                                    Week {entry.week}, Day {entry.day}
-                                                </div>
-                                            </div>
-                                            {entry.weight && (
-                                                <span className="px-2.5 py-1 rounded-lg bg-sys-accent/15 text-sys-accent text-sm font-bold flex-shrink-0">
-                                                    {entry.weight}kg
-                                                </span>
-                                            )}
+                {/* History List */}
+                <div>
+                    <h3 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
+                        <Calendar size={16} className="text-sys-accent" />
+                        History
+                    </h3>
+
+                    {recentHistory.length > 0 ? (
+                        <div className="space-y-2">
+                            {recentHistory.map((entry) => (
+                                <div key={entry.date} className="bg-sys-surfaceHigh rounded-xl p-3 flex items-center justify-between border border-white/5">
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-10 w-10 rounded-lg bg-sys-surface flex flex-col items-center justify-center text-xs font-bold border border-white/5">
+                                            <span className="text-sys-onSurfaceVar uppercase text-[10px]">
+                                                {new Date(entry.date).toLocaleDateString('en-US', { month: 'short' })}
+                                            </span>
+                                            <span className="text-white text-sm">
+                                                {new Date(entry.date).getDate()}
+                                            </span>
                                         </div>
-                                    ))}
+                                        <div>
+                                            <div className="text-white font-medium text-sm">
+                                                {entry.weight ? `${entry.weight}kg` : 'Bodyweight'}
+                                            </div>
+                                            <div className="text-xs text-sys-onSurfaceVar flex items-center gap-2">
+                                                <span>{entry.sets} sets</span>
+                                                {entry.prescription && (
+                                                    <>
+                                                        <span className="w-1 h-1 rounded-full bg-white/20"></span>
+                                                        <span>{entry.prescription}</span>
+                                                    </>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Highlight PRs or good performance */}
+                                    {stats.maxWeight && entry.weight === stats.maxWeight && (
+                                        <div className="h-6 px-2 rounded-full bg-sys-accent/20 text-sys-accent text-[10px] font-bold flex items-center border border-sys-accent/30">
+                                            PR
+                                        </div>
+                                    )}
                                 </div>
-                            </div>
-                        )}
-                    </>
-                )}
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-8 text-sys-onSurfaceVar text-sm bg-sys-surfaceHigh rounded-xl border border-dashed border-white/10">
+                            No history available yet.
+                        </div>
+                    )}
+                </div>
             </div>
         </BottomSheet>
     );
 };
-
-export default ExerciseDetailModal;

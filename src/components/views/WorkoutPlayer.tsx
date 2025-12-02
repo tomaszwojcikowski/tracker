@@ -41,8 +41,7 @@ import {
     normalizeAddedExercises,
 } from '../../utils/workoutSession';
 import { getSessionKey, getNamespacedKey, getGlobalHistoryKey } from '../../services/storageNamespace';
-import { getAllLocalData, localDataToCloudData, FIREBASE_SYNC_ENABLED_KEY } from '../../utils/firebaseSync';
-import * as FirebaseService from '../../firebase-service';
+import { syncService } from '../../services/SyncService';
 import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../../types';
 import type { WorkoutSessionData, ExerciseLogEntry, MuscleFilter, RPEData } from '../../types/workout';
 
@@ -215,6 +214,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         const success = safeSetJSON(sessionKey, updatedLogs);
         if (!success) {
             alert('Failed to save progress. Your storage might be full.');
+        } else {
+            // Schedule a background sync to cloud
+            syncService.scheduleSync();
         }
     };
 
@@ -645,18 +647,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
             // Automatically sync to cloud if Firebase is configured and user is logged in
             // This ensures workout data is backed up immediately after completion
-            const syncEnabled = safeGetJSON<boolean>(FIREBASE_SYNC_ENABLED_KEY, true);
-            if (syncEnabled && FirebaseService.isFirebaseInitialized() && FirebaseService.getCurrentUser()) {
-                try {
-                    const localData = getAllLocalData();
-                    const cloudData = localDataToCloudData(localData);
-                    await FirebaseService.saveToCloud(cloudData);
-                    console.log('Workout data synced to cloud successfully');
-                } catch (syncError) {
-                    // Don't block workout completion if sync fails
-                    // User can manually sync later from settings
-                    console.error('Failed to sync workout to cloud:', syncError);
-                }
+            try {
+                await syncService.syncNow();
+            } catch (syncError) {
+                // Don't block workout completion if sync fails
+                // User can manually sync later from settings
+                console.error('Failed to sync workout to cloud:', syncError);
             }
 
             onComplete();

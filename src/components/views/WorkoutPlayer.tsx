@@ -42,7 +42,8 @@ import {
     normalizeAddedExercises,
     getExerciseId,
 } from '../../utils/workoutSession';
-import { getSessionKey, getNamespacedKey } from '../../services/storageNamespace';
+import { getSessionKey, getNamespacedKey, getGlobalHistoryKey } from '../../services/storageNamespace';
+import { syncService } from '../../services/SyncService';
 import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../../types';
 import type { WorkoutSessionData, ExerciseLogEntry, MuscleFilter, RPEData } from '../../types/workout';
 
@@ -280,6 +281,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         const success = safeSetJSON(sessionKey, updatedLogs);
         if (!success) {
             alert('Failed to save progress. Your storage might be full.');
+        } else {
+            // Schedule a background sync to cloud
+            syncService.scheduleSync();
         }
     };
 
@@ -675,7 +679,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 }
             });
 
-            // Save to global history with duration
+            // Save to global history with duration (use namespaced key for program isolation)
+            const globalHistoryKey = getGlobalHistoryKey();
             const historyEntry = {
                 week: effectiveWeek,
                 day: effectiveDay,
@@ -687,7 +692,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 durationSeconds: workoutDurationSeconds,
             };
 
-            const history = safeGetJSON('global_history', [] as unknown[]) as unknown[];
+            const history = safeGetJSON(globalHistoryKey, [] as unknown[]) as unknown[];
             let cleanHistory: unknown[];
 
             if (isEmptyWorkout) {
@@ -700,11 +705,21 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     : [];
             }
             cleanHistory.push(historyEntry);
-            safeSetJSON('global_history', cleanHistory);
+            safeSetJSON(globalHistoryKey, cleanHistory);
 
             // Clear empty workout session key when completing
             if (isEmptyWorkout) {
                 sessionStorage.removeItem('current_empty_workout_key');
+            }
+
+            // Automatically sync to cloud if Firebase is configured and user is logged in
+            // This ensures workout data is backed up immediately after completion
+            try {
+                await syncService.syncNow();
+            } catch (syncError) {
+                // Don't block workout completion if sync fails
+                // User can manually sync later from settings
+                console.error('Failed to sync workout to cloud:', syncError);
             }
 
             onComplete();

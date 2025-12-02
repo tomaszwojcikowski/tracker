@@ -190,6 +190,9 @@ export { useRestTimer } from './useRestTimer';
 export { useEmomTimer } from './useEmomTimer';
 export { useExerciseCollapse } from './useExerciseCollapse';
 
+// Re-export scroll hooks
+export { useScrollToElement, useScrollToTop } from './useScrollToElement';
+
 // Type exports
 export type { OptimisticSyncOptions, OptimisticSyncReturn } from './useOptimisticSync';
 export type { FocusTrapOptions, KeyboardShortcutOptions, AriaPoliteness, KeyboardModifiers } from './useAccessibility';
@@ -203,6 +206,7 @@ export type { UseWorkoutSessionOptions, UseWorkoutSessionReturn } from './useWor
 export type { UseRestTimerOptions, UseRestTimerReturn } from './useRestTimer';
 export type { UseEmomTimerOptions, UseEmomTimerReturn } from './useEmomTimer';
 export type { UseExerciseCollapseOptions, UseExerciseCollapseReturn } from './useExerciseCollapse';
+export type { UseScrollToElementOptions } from './useScrollToElement';
 
 // Re-export snackbar hook and provider
 export {

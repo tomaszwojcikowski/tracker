@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { ArrowLeft, Search, ChevronRight, CheckSquare, Square, BarChart2 } from 'lucide-react';
-import { useHaptic, useDebounce } from '../../hooks';
+import { useHaptic, useDebounce, useScrollToTop } from '../../hooks';
 import { DEBOUNCE_DELAY_MS, getShortExerciseName } from '../../constants';
 import type { Exercise } from '../../types';
 
@@ -221,6 +221,9 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
     const [categoryFilter, setCategoryFilter] = useState<string>('all');
     const [showOnlyTracked, setShowOnlyTracked] = useState(false);
     const haptic = useHaptic();
+
+    // Scroll to top when view loads
+    useScrollToTop();
 
     // Debounce search term to improve performance
     const debouncedSearchTerm = useDebounce(searchTerm, DEBOUNCE_DELAY_MS);

@@ -6,13 +6,13 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      'virtual:pwa-register': path.resolve(__dirname, 'src/test/__mocks__/pwa-register.js'),
+      'virtual:pwa-register': path.resolve(__dirname, 'src/test/__mocks__/pwa-register.ts'),
     },
   },
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './src/test/setup.js',
+    setupFiles: './src/test/setup.ts',
     exclude: ['node_modules', 'e2e'],
     coverage: {
       reporter: ['text', 'json', 'html'],

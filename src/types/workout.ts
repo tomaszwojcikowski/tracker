@@ -25,6 +25,22 @@ export interface ExerciseLogEntry {
 }
 
 /**
+ * Request payload for showing exercise details in the workout player
+ */
+export interface ExerciseDetailRequest {
+    /** Name currently displayed to the user (handles swaps/aliases) */
+    displayName: string;
+    /** Name to use when looking up history entries */
+    historyLookupName: string;
+    /** Original programmed exercise name */
+    originalName: string;
+    /** Optional alternative exercises available for swapping */
+    alternatives?: string[];
+    /** Whether the exercise is currently swapped to an alternative */
+    isSwapped?: boolean;
+}
+
+/**
  * Workout session data stored in localStorage
  */
 export interface WorkoutSessionData {

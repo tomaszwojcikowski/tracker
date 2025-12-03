@@ -7,11 +7,12 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap, Info } from 'lucide-react';
+import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap, Info, History } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
 import { NotesModal } from './modals';
 import type { HapticFeedback } from '../hooks';
+import type { ExerciseDetailRequest } from '../types/workout';
 
 // ============================================================================
 // TYPES
@@ -22,6 +23,8 @@ export interface CompactExerciseRowProps {
     exId: string;
     /** Display name */
     name: string;
+    /** Optional override when exercise is swapped */
+    displayName?: string;
     /** Prescription text (e.g., "3x8-10 reps") */
     prescription?: string;
     /** Optional notes */
@@ -48,6 +51,10 @@ export interface CompactExerciseRowProps {
     supersetPosition?: 'first' | 'middle' | 'last' | 'only';
     /** Haptic feedback interface */
     haptic: HapticFeedback;
+    /** Whether this exercise has any historical entries */
+    hasHistory?: boolean;
+    /** Alternative exercises available for swapping */
+    alternatives?: string[];
     /** Callback when set is toggled */
     onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number) => void;
     /** Callback when weight changes */
@@ -56,6 +63,8 @@ export interface CompactExerciseRowProps {
     onAddSet: (exId: string, defaultSets: number) => void;
     /** Callback when complete all sets is clicked */
     onCompleteAllSets: (exId: string, defaultSets: number) => void;
+    /** Callback to show exercise details */
+    onShowHistory?: (request: ExerciseDetailRequest) => void;
 }
 
 // ============================================================================
@@ -65,6 +74,7 @@ export interface CompactExerciseRowProps {
 export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     exId,
     name,
+    displayName = name,
     prescription,
     notes,
     sets,
@@ -78,10 +88,13 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     supersetGroup,
     supersetPosition,
     haptic,
+    hasHistory = false,
+    alternatives,
     onToggleSet,
     onWeightChange,
     onAddSet,
     onCompleteAllSets,
+    onShowHistory,
 }) => {
     // State - auto-expand the first incomplete exercise
     const [isExpanded, setIsExpanded] = useState(isFirstIncomplete);
@@ -107,10 +120,12 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const totalSets = sets.length;
     const isComplete = completedSets === totalSets && totalSets > 0;
 
+    const historyLookupName = displayName;
+
     // Auto-fill weight from history on mount
     useEffect(() => {
         if (!isBodyweight && !weight && !userModified) {
-            const history = getExerciseHistory(name);
+            const history = getExerciseHistory(historyLookupName);
             if (history.length > 0) {
                 // Get the most recent entry with a weight
                 const lastWithWeight = [...history]
@@ -124,7 +139,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                 }
             }
         }
-    }, [name, isBodyweight, weight, userModified, exId, onWeightChange]);
+    }, [historyLookupName, isBodyweight, weight, userModified, exId, onWeightChange]);
 
     // Sync local weight with prop
     useEffect(() => {
@@ -254,7 +269,20 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const hasIncompleteSets = useMemo(() => sets.some((s) => !s), [sets]);
 
     // Get short name for display
-    const displayName = useMemo(() => getShortExerciseName(name), [name]);
+    const shortDisplayName = useMemo(() => getShortExerciseName(historyLookupName), [historyLookupName]);
+    const handleShowDetails = useCallback((e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (!onShowHistory) return;
+        haptic.tick();
+        onShowHistory({
+            displayName: historyLookupName,
+            historyLookupName,
+            originalName: name,
+            alternatives,
+            isSwapped: historyLookupName !== name,
+        });
+    }, [onShowHistory, haptic, historyLookupName, name, alternatives]);
+
 
     // Only show complete-all button when there are 2+ sets and incomplete sets
     const showCompleteAllButton = totalSets > 1 && hasIncompleteSets;
@@ -288,13 +316,13 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                 <button
                     onClick={handleToggleExpand}
                     className={`w-full h-9 px-3 flex items-center gap-2 bg-sys-success/10 rounded-xl border border-sys-success/20 active:bg-sys-success/20 transition-colors ${hasSupersetGroup ? 'ml-3' : ''}`}
-                    aria-label={`${name} - completed, tap to edit`}
+                    aria-label={`${historyLookupName} - completed, tap to edit`}
                 >
                     <div className="flex items-center justify-center h-5 w-5 rounded-full bg-sys-success text-white flex-shrink-0">
                         <Check size={12} strokeWidth={3} />
                     </div>
-                    <span className="flex-1 text-sm font-medium text-white truncate text-left" title={name}>
-                        {displayName}
+                    <span className="flex-1 text-sm font-medium text-white truncate text-left" title={historyLookupName}>
+                        {shortDisplayName}
                     </span>
                     {isEmom && (
                         <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-purple-500/20 text-purple-400 flex-shrink-0">
@@ -365,8 +393,8 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                             <span className="text-[8px]">L/R</span>
                         </span>
                     )}
-                    <span className="text-sm font-semibold text-white truncate" title={name}>
-                        {displayName}
+                    <span className="text-sm font-semibold text-white truncate" title={historyLookupName}>
+                        {shortDisplayName}
                     </span>
                     {(prescription || !isBodyweight) && (
                         <ChevronDown
@@ -377,6 +405,17 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                         />
                     )}
                 </button>
+
+                {/* Details Icon Button */}
+                {onShowHistory && (
+                    <button
+                        onClick={handleShowDetails}
+                        className={`h-7 w-7 rounded-full bg-sys-surfaceHigh flex items-center justify-center flex-shrink-0 active:scale-90 transition-transform ${!hasHistory ? 'opacity-80' : ''}`}
+                        aria-label={`View details for ${historyLookupName}`}
+                    >
+                        <History size={14} className="text-sys-onSurfaceVar" />
+                    </button>
+                )}
 
                 {/* Notes Icon Button */}
                 {notes && (
@@ -510,7 +549,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
             {/* Notes Modal */}
             {notes && (
                 <NotesModal
-                    exerciseName={name}
+                    exerciseName={historyLookupName}
                     notes={notes}
                     isOpen={showNotesModal}
                     onClose={() => setShowNotesModal(false)}

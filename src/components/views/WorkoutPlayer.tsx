@@ -46,7 +46,7 @@ import {
 import { getSessionKey, getNamespacedKey, getGlobalHistoryKey } from '../../services/storageNamespace';
 import { syncService } from '../../services/SyncService';
 import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../../types';
-import type { WorkoutSessionData, ExerciseLogEntry, MuscleFilter, RPEData } from '../../types/workout';
+import type { WorkoutSessionData, ExerciseLogEntry, MuscleFilter, RPEData, ExerciseDetailRequest } from '../../types/workout';
 
 // ============================================================================
 // MAIN WORKOUT PLAYER COMPONENT
@@ -101,7 +101,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [showExerciseSelector, setShowExerciseSelector] = useState(false);
     const [exerciseSearchTerm, setExerciseSearchTerm] = useState('');
     const [selectedMuscleFilter, setSelectedMuscleFilter] = useState<MuscleFilter>('all');
-    const [showExerciseHistory, setShowExerciseHistory] = useState<string | null>(null);
+    const [exerciseDetail, setExerciseDetail] = useState<ExerciseDetailRequest | null>(null);
     // Notes modal state: { exerciseName, notes } or null
     const [showNotesFor, setShowNotesFor] = useState<{ exerciseName: string; notes: string } | null>(null);
     const [workoutNotes, setWorkoutNotes] = useState('');
@@ -120,6 +120,15 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [exerciseSwaps, setExerciseSwaps] = useState<Record<string, string>>({});
     // Currently showing alternatives picker for which exercise
     const [showAlternativesFor, setShowAlternativesFor] = useState<{ name: string; alternatives: string[] } | null>(null);
+
+    const handleShowExerciseDetail = useCallback((request: ExerciseDetailRequest) => {
+        setExerciseDetail(request);
+    }, []);
+
+    const handleSwapFromDetails = useCallback((originalName: string, alternatives: string[]) => {
+        setExerciseDetail(null);
+        setShowAlternativesFor({ name: originalName, alternatives });
+    }, []);
 
     const haptic = useHaptic();
 
@@ -962,7 +971,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                     const exerciseLog = getExerciseLogEntry(logs, exId);
                                     const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
                                     const effectiveName = getEffectiveExerciseName(ex);
-                                    const hasHistory = getExerciseHistory(ex.name).length > 0;
+                                    const hasHistory = getExerciseHistory(effectiveName).length > 0;
                                     const isFirstIncomplete = exId === firstIncompleteExerciseId;
 
                                     return (
@@ -1001,7 +1010,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 onClearRPEPrompt={() => setRpePrompt(null)}
                                                 onStartRestTimer={(seconds) => restTimer.start(seconds)}
                                                 onToggleEmomTimer={() => emomTimer.toggle()}
-                                                onShowHistory={setShowExerciseHistory}
+                                                onShowHistory={handleShowExerciseDetail}
                                                 onShowNotes={(name, notes) => setShowNotesFor({ exerciseName: name, notes })}
                                                 onShowAlternatives={(name, alts) => setShowAlternativesFor({ name, alternatives: alts })}
                                             />
@@ -1077,6 +1086,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                             const exId = getExerciseId(ex.name);
                                             const exerciseLog = getExerciseLogEntry(logs, exId);
                                             const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
+                                            const effectiveName = getEffectiveExerciseName(ex);
+                                            const hasHistory = getExerciseHistory(effectiveName).length > 0;
                                             const isFirstIncomplete = exId === firstIncompleteExerciseId;
 
                                             // Check if this exercise is part of a superset group
@@ -1098,9 +1109,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     const gexLog = getExerciseLogEntry(logs, gexId);
                                                     const gexDefaultSets = gex.sets || 3;
                                                     const gexSetArray = gexLog.sets || new Array(gexDefaultSets).fill(false);
+                                                    const gexEffectiveName = getEffectiveExerciseName(gex);
+                                                    const gexHasHistory = getExerciseHistory(gexEffectiveName).length > 0;
                                                     return {
                                                         exId: gexId,
-                                                        name: gex.name,
+                                                        name: gexEffectiveName,
+                                                        originalName: gex.name,
                                                         prescription: gex.prescription,
                                                         notes: gex.notes,
                                                         sets: gexSetArray,
@@ -1108,6 +1122,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         weight: gexLog.weight || '',
                                                         isBodyweight: gex.isBodyweight,
                                                         restTime: gex.rest,
+                                                        hasHistory: gexHasHistory,
+                                                        alternatives: gex.alternatives,
                                                     };
                                                 });
 
@@ -1128,6 +1144,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         onWeightChange={handleWeightChange}
                                                         onCompleteAllRounds={completeAllSupersetSets}
                                                         onToggleEmomTimer={() => emomTimer.toggle()}
+                                                        onShowHistory={handleShowExerciseDetail}
                                                     />
                                                 );
                                                 return;
@@ -1139,6 +1156,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     key={eIdx}
                                                     exId={exId}
                                                     name={ex.name}
+                                                    displayName={effectiveName}
                                                     prescription={ex.prescription}
                                                     notes={ex.notes}
                                                     sets={currentSetArray}
@@ -1152,10 +1170,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     supersetGroup={ex.supersetGroup}
                                                     supersetPosition={ex.supersetPosition}
                                                     haptic={haptic}
+                                                    hasHistory={hasHistory}
+                                                    alternatives={ex.alternatives}
                                                     onToggleSet={toggleSet}
                                                     onWeightChange={handleWeightChange}
                                                     onAddSet={addSet}
                                                     onCompleteAllSets={completeAllSets}
+                                                    onShowHistory={handleShowExerciseDetail}
                                                 />
                                             );
                                         });
@@ -1170,7 +1191,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         const exerciseLog = getExerciseLogEntry(logs, exId);
                                         const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
                                         const effectiveName = getEffectiveExerciseName(ex);
-                                        const hasHistory = getExerciseHistory(ex.name).length > 0;
+                                        const hasHistory = getExerciseHistory(effectiveName).length > 0;
                                         const isCollapsed = exerciseCollapse.isCollapsed(exId);
                                         const isFirstIncomplete = exId === firstIncompleteExerciseId;
 
@@ -1209,7 +1230,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 onClearRPEPrompt={() => setRpePrompt(null)}
                                                 onStartRestTimer={(seconds) => restTimer.start(seconds)}
                                                 onToggleEmomTimer={() => emomTimer.toggle()}
-                                                onShowHistory={setShowExerciseHistory}
+                                                onShowHistory={handleShowExerciseDetail}
                                                 onShowNotes={(name, notes) => setShowNotesFor({ exerciseName: name, notes })}
                                                 onShowAlternatives={(name, alts) => setShowAlternativesFor({ name, alternatives: alts })}
                                             />
@@ -1388,11 +1409,16 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                 {/* Exercise History Modal - Using new ExerciseDetailModal */}
                 <ExerciseDetailModal
-                    isOpen={!!showExerciseHistory}
-                    exerciseName={showExerciseHistory ?? ''}
+                    isOpen={!!exerciseDetail}
+                    exerciseName={exerciseDetail?.displayName ?? ''}
+                    historyLookupName={exerciseDetail?.historyLookupName}
+                    originalName={exerciseDetail?.originalName}
+                    alternatives={exerciseDetail?.alternatives}
+                    isSwapped={exerciseDetail?.isSwapped}
+                    onSwapExercise={exerciseDetail?.alternatives?.length ? handleSwapFromDetails : undefined}
                     onClose={() => {
                         haptic.tick();
-                        setShowExerciseHistory(null);
+                        setExerciseDetail(null);
                     }}
                 />
 

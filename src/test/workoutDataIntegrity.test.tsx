@@ -19,7 +19,7 @@ describe('Workout Data Integrity', () => {
     // schedule is a flat array of ScheduleEntry objects
 
     // Check for Butcher's Block Stretch
-    const butchersBlock = schedule.find(entry => entry.ex === "Butcher’s Block Stretch");
+    const butchersBlock = schedule.find(entry => entry.ex === "Butcher's Block Stretch");
     expect(butchersBlock).toBeDefined();
 
     // Check for Pull-Ups

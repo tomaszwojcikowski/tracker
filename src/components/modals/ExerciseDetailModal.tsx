@@ -6,18 +6,65 @@
  */
 
 import React, { useMemo } from 'react';
-import { X, TrendingUp, Calendar, Dumbbell, Trophy, Activity } from 'lucide-react';
+import { X, TrendingUp, Calendar, Dumbbell, Trophy, Activity, ArrowRightLeft } from 'lucide-react';
 import { getExerciseHistory, calculateExerciseStats } from '../../utils/exerciseHistory';
+import type { ExerciseHistoryEntry } from '../../utils/exerciseHistory';
 import { BottomSheet } from '../BottomSheet';
 
 export interface ExerciseDetailModalProps {
     /** Exercise name to show details for */
     exerciseName: string;
+    /** Optional override for which name to use when fetching history */
+    historyLookupName?: string;
+    /** Original programmed exercise name */
+    originalName?: string;
+    /** Whether exercise is currently swapped */
+    isSwapped?: boolean;
+    /** Available alternatives for swapping */
+    alternatives?: string[];
+    /** Callback to trigger swap flow */
+    onSwapExercise?: (originalName: string, alternatives: string[]) => void;
     /** Callback when modal is closed */
     onClose: () => void;
     /** Whether modal is visible */
     isOpen: boolean;
 }
+
+const extractRepsFromPrescription = (prescription?: string): string | null => {
+    if (!prescription) return null;
+    if (/amrap/i.test(prescription)) {
+        return 'AMRAP';
+    }
+
+    const xMatch = prescription.match(/x\s*(\d+(?:\s*-\s*\d+)?)/i);
+    if (xMatch?.[1]) {
+        return xMatch[1].replace(/\s+/g, '');
+    }
+
+    const repsMatch = prescription.match(/(\d+(?:-\d+)?)\s*reps?/i);
+    if (repsMatch?.[1]) {
+        return repsMatch[1];
+    }
+
+    return null;
+};
+
+const formatSetsLabel = (entry: ExerciseHistoryEntry): string => {
+    if (typeof entry.totalSets === 'number' && entry.totalSets > 0) {
+        return `${entry.sets}/${entry.totalSets}`;
+    }
+    return entry.sets?.toString() ?? '—';
+};
+
+const formatWeightLabel = (entry: ExerciseHistoryEntry): string => {
+    if (typeof entry.weight === 'number' && entry.weight > 0) {
+        return `${entry.weight}kg`;
+    }
+    if (entry.isBodyweight || !entry.weight || entry.weight === 0) {
+        return 'Bodyweight';
+    }
+    return '—';
+};
 
 /**
  * Enhanced Weight Progress Graph (SVG-based)
@@ -128,11 +175,18 @@ const WeightGraph: React.FC<{ data: Array<{ weight: number; date: string }> }> =
  */
 export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
     exerciseName,
+    historyLookupName,
+    originalName,
+    isSwapped = false,
+    alternatives,
+    onSwapExercise,
     onClose,
     isOpen,
 }) => {
-    const history = getExerciseHistory(exerciseName);
-    const stats = calculateExerciseStats(exerciseName);
+    const lookupName = historyLookupName || exerciseName;
+    const history = lookupName ? getExerciseHistory(lookupName) : [];
+    const stats = calculateExerciseStats(lookupName);
+    const canSwap = Boolean(onSwapExercise && alternatives?.length && originalName);
 
     // Prepare graph data (chronological)
     const graphData = useMemo(() => {
@@ -144,7 +198,13 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
             }));
     }, [history]);
 
-    const recentHistory = [...history].reverse().slice(0, 10);
+    const recentHistory = history.slice(-3).reverse();
+
+    const handleSwapClick = (): void => {
+        if (canSwap && originalName && alternatives) {
+            onSwapExercise?.(originalName, alternatives);
+        }
+    };
 
     return (
         <BottomSheet
@@ -154,22 +214,39 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
             maxHeight={85}
         >
             {/* Header */}
-            <div className="flex items-center justify-between px-5 pb-4 border-b border-white/5">
-                <div>
-                    <h2 id="exercise-modal-title" className="text-xl font-bold text-white">
+            <div className="flex items-center justify-between px-5 pb-4 border-b border-white/5 gap-3">
+                <div className="min-w-0">
+                    <h2 id="exercise-modal-title" className="text-xl font-bold text-white truncate">
                         {exerciseName}
                     </h2>
+                    {isSwapped && originalName && (
+                        <p className="text-[11px] text-sys-onSurfaceVar mt-0.5 truncate">
+                            Swapped from <span className="text-white font-medium">{originalName}</span>
+                        </p>
+                    )}
                     <p className="text-xs text-sys-onSurfaceVar mt-1">
                         {stats.totalWorkouts} sessions completed
                     </p>
                 </div>
-                <button
-                    onClick={onClose}
-                    className="h-8 w-8 rounded-full bg-sys-surfaceHigh flex items-center justify-center text-sys-onSurfaceVar active:scale-90 transition-all"
-                    aria-label="Close exercise details"
-                >
-                    <X size={18} />
-                </button>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                    {canSwap && (
+                        <button
+                            onClick={handleSwapClick}
+                            className="h-8 px-3 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-semibold flex items-center gap-1.5 active:scale-95 transition-all border border-white/10"
+                            aria-label="Swap exercise"
+                        >
+                            <ArrowRightLeft size={14} />
+                            <span>Swap</span>
+                        </button>
+                    )}
+                    <button
+                        onClick={onClose}
+                        className="h-8 w-8 rounded-full bg-sys-surfaceHigh flex items-center justify-center text-sys-onSurfaceVar active:scale-90 transition-all"
+                        aria-label="Close exercise details"
+                    >
+                        <X size={18} />
+                    </button>
+                </div>
             </div>
 
             <div className="p-5 space-y-6 overflow-y-auto pb-safe">
@@ -213,52 +290,68 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
 
                 {/* History List */}
                 <div>
-                    <h3 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
-                        <Calendar size={16} className="text-sys-accent" />
-                        History
-                    </h3>
+                    <div className="flex items-center justify-between mb-3">
+                        <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                            <Calendar size={16} className="text-sys-accent" />
+                            Recent Sessions
+                        </h3>
+                        <span className="text-[10px] uppercase text-sys-onSurfaceVar font-semibold tracking-wider">Last 3</span>
+                    </div>
 
                     {recentHistory.length > 0 ? (
-                        <div className="space-y-2">
-                            {recentHistory.map((entry) => (
-                                <div key={entry.date} className="bg-sys-surfaceHigh rounded-xl p-3 flex items-center justify-between border border-white/5">
-                                    <div className="flex items-center gap-3">
-                                        <div className="h-10 w-10 rounded-lg bg-sys-surface flex flex-col items-center justify-center text-xs font-bold border border-white/5">
-                                            <span className="text-sys-onSurfaceVar uppercase text-[10px]">
-                                                {new Date(entry.date).toLocaleDateString('en-US', { month: 'short' })}
-                                            </span>
-                                            <span className="text-white text-sm">
-                                                {new Date(entry.date).getDate()}
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <div className="text-white font-medium text-sm">
-                                                {entry.weight ? `${entry.weight}kg` : 'Bodyweight'}
-                                            </div>
-                                            <div className="text-xs text-sys-onSurfaceVar flex items-center gap-2">
-                                                <span>{entry.sets} sets</span>
-                                                {entry.prescription && (
-                                                    <>
-                                                        <span className="w-1 h-1 rounded-full bg-white/20"></span>
-                                                        <span>{entry.prescription}</span>
-                                                    </>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div className="space-y-3">
+                            {recentHistory.map((entry, idx) => {
+                                const repsLabel = extractRepsFromPrescription(entry.prescription) ?? '—';
+                                const setsLabel = formatSetsLabel(entry);
+                                const weightLabel = formatWeightLabel(entry);
+                                const isPr = Boolean(stats.maxWeight && entry.weight === stats.maxWeight && entry.weight);
+                                const formattedDate = new Date(entry.date).toLocaleDateString('en-US', {
+                                    month: 'short',
+                                    day: 'numeric',
+                                    year: 'numeric'
+                                });
 
-                                    {/* Highlight PRs or good performance */}
-                                    {stats.maxWeight && entry.weight === stats.maxWeight && (
-                                        <div className="h-6 px-2 rounded-full bg-sys-accent/20 text-sys-accent text-[10px] font-bold flex items-center border border-sys-accent/30">
-                                            PR
+                                return (
+                                    <div key={`${entry.date}-${idx}`} className="bg-sys-surfaceHigh rounded-xl p-4 border border-white/5">
+                                        <div className="flex items-center justify-between mb-3">
+                                            <div>
+                                                <div className="text-sm font-semibold text-white">{formattedDate}</div>
+                                                <div className="text-[11px] text-sys-onSurfaceVar">
+                                                    Week {entry.week} • Day {entry.day}
+                                                </div>
+                                            </div>
+                                            {isPr && (
+                                                <div className="h-6 px-2 rounded-full bg-sys-accent/20 text-sys-accent text-[10px] font-bold flex items-center border border-sys-accent/30">
+                                                    PR
+                                                </div>
+                                            )}
                                         </div>
-                                    )}
-                                </div>
-                            ))}
+                                        <div className="grid grid-cols-3 gap-2 text-center">
+                                            <div>
+                                                <div className="text-[10px] uppercase text-sys-onSurfaceVar tracking-wide">Sets</div>
+                                                <div className="text-white font-semibold text-sm">{setsLabel}</div>
+                                            </div>
+                                            <div>
+                                                <div className="text-[10px] uppercase text-sys-onSurfaceVar tracking-wide">Reps</div>
+                                                <div className="text-white font-semibold text-sm">{repsLabel}</div>
+                                            </div>
+                                            <div>
+                                                <div className="text-[10px] uppercase text-sys-onSurfaceVar tracking-wide">Weight</div>
+                                                <div className="text-white font-semibold text-sm">{weightLabel}</div>
+                                            </div>
+                                        </div>
+                                        {entry.prescription && (
+                                            <p className="text-[11px] text-sys-onSurfaceVar mt-2 text-center">
+                                                {entry.prescription}
+                                            </p>
+                                        )}
+                                    </div>
+                                );
+                            })}
                         </div>
                     ) : (
                         <div className="text-center py-8 text-sys-onSurfaceVar text-sm bg-sys-surfaceHigh rounded-xl border border-dashed border-white/10">
-                            No history available yet.
+                            No history yet. Complete this exercise to build your log.
                         </div>
                     )}
                 </div>

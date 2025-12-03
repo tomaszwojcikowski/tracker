@@ -7,10 +7,11 @@
  */
 
 import React, { useState, useCallback, useMemo } from 'react';
-import { Check, Zap, Info, ChevronDown, CheckCheck, Minus, Plus, Repeat } from 'lucide-react';
+import { Check, Zap, Info, ChevronDown, CheckCheck, Minus, Plus, Repeat, History } from 'lucide-react';
 import { getShortExerciseName } from '../constants';
 import { NotesModal } from './modals';
 import type { HapticFeedback } from '../hooks';
+import type { ExerciseDetailRequest } from '../types/workout';
 
 // ============================================================================
 // TYPES
@@ -19,6 +20,7 @@ import type { HapticFeedback } from '../hooks';
 export interface SupersetExercise {
     exId: string;
     name: string;
+    originalName?: string;
     prescription?: string;
     notes?: string;
     sets: boolean[];
@@ -26,6 +28,8 @@ export interface SupersetExercise {
     weight: string;
     isBodyweight?: boolean;
     restTime?: number;
+    hasHistory?: boolean;
+    alternatives?: string[];
 }
 
 export interface SupersetGroupProps {
@@ -47,6 +51,8 @@ export interface SupersetGroupProps {
     onCompleteAllRounds: (exerciseIds: string[], defaultSets: number) => void;
     /** Callback to toggle EMOM timer */
     onToggleEmomTimer?: () => void;
+    /** Callback to show exercise detail/history */
+    onShowHistory?: (request: ExerciseDetailRequest) => void;
 }
 
 // ============================================================================
@@ -63,6 +69,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
     onWeightChange,
     onCompleteAllRounds,
     onToggleEmomTimer,
+    onShowHistory,
 }) => {
     const [isExpanded, setIsExpanded] = useState(isFirstIncomplete);
     const [showNotesFor, setShowNotesFor] = useState<{ name: string; notes: string } | null>(null);
@@ -134,6 +141,19 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
         const newWeight = newValue.toString();
         handleWeightChange(exId, newWeight);
     }, [haptic, localWeights, handleWeightChange]);
+
+    const handleShowDetails = useCallback((exercise: SupersetExercise, e: React.MouseEvent) => {
+        if (!onShowHistory) return;
+        e.stopPropagation();
+        haptic.tick();
+        onShowHistory({
+            displayName: exercise.name,
+            historyLookupName: exercise.name,
+            originalName: exercise.originalName ?? exercise.name,
+            alternatives: exercise.alternatives,
+            isSwapped: exercise.originalName ? exercise.originalName !== exercise.name : false,
+        });
+    }, [onShowHistory, haptic]);
 
     // Check which round indices are complete
     const roundStates = useMemo(() => {
@@ -271,8 +291,8 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
 
                 {/* Exercise List */}
                 <div className="divide-y divide-white/5">
-                    {exercises.map((ex, i) => (
-                        <div key={i} className="px-3 py-2 flex items-center gap-2">
+                            {exercises.map((ex, i) => (
+                                <div key={i} className="px-3 py-2 flex items-center gap-2">
                             {/* Exercise name */}
                             <button
                                 type="button"
@@ -300,6 +320,18 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                                     <Info size={12} className="text-sys-onSurfaceVar" />
                                 </button>
                             )}
+
+                                    {/* Details button */}
+                                    {onShowHistory && (
+                                        <button
+                                            type="button"
+                                            onClick={(e) => handleShowDetails(ex, e)}
+                                            className={`h-6 w-6 rounded-full bg-sys-surfaceHigh flex items-center justify-center flex-shrink-0 active:scale-90 ${!ex.hasHistory ? 'opacity-80' : ''}`}
+                                            aria-label={`View details for ${ex.name}`}
+                                        >
+                                            <History size={12} className="text-sys-onSurfaceVar" />
+                                        </button>
+                                    )}
 
                             {/* Weight stepper (only for weighted exercises) */}
                             {!ex.isBodyweight && (

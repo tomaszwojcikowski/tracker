@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 import { RPESelector } from './RPESelector';
 import type { RPEValue } from '../types';
-import type { ExerciseLogEntry } from '../types/workout';
+import type { ExerciseDetailRequest, ExerciseLogEntry } from '../types/workout';
 import type { HapticFeedback } from '../hooks';
 
 // ============================================================================
@@ -93,7 +93,7 @@ export interface ExerciseCardProps {
     onClearRPEPrompt: () => void;
     onStartRestTimer: (seconds: number) => void;
     onToggleEmomTimer: () => void;
-    onShowHistory: (name: string) => void;
+    onShowHistory: (request: ExerciseDetailRequest) => void;
     onShowNotes: (exerciseName: string, notes: string) => void;
     onShowAlternatives: (name: string, alternatives: string[]) => void;
 }
@@ -141,6 +141,17 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 }) => {
     const completedSets = sets.filter((s) => s).length;
     const totalSets = sets.length;
+
+    const handleShowDetails = (): void => {
+        haptic.tick();
+        onShowHistory({
+            displayName: effectiveName,
+            historyLookupName: effectiveName,
+            originalName: name,
+            alternatives,
+            isSwapped: effectiveName !== name,
+        });
+    };
 
     // Superset connector styling
     const hasSupersetGroup = supersetGroup !== undefined;
@@ -197,14 +208,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                         <div className="flex items-center gap-2 flex-wrap">
                             <button
                                 type="button"
-                                onClick={() => {
-                                    if (hasHistory) {
-                                        haptic.tick();
-                                        onShowHistory(effectiveName);
-                                    }
-                                }}
-                                className={`text-left ${hasHistory ? 'cursor-pointer active:opacity-70 transition-opacity' : 'cursor-default'}`}
-                                aria-label={hasHistory ? `${effectiveName} - tap to view history` : effectiveName}
+                                onClick={handleShowDetails}
+                                className={`text-left cursor-pointer active:opacity-70 transition-opacity ${!hasHistory ? 'opacity-90' : ''}`}
+                                aria-label={`View details for ${effectiveName}`}
                             >
                                 <h3 className="text-base font-semibold text-white leading-tight">
                                     {effectiveName}

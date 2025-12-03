@@ -70,54 +70,41 @@ const formatWeightLabel = (entry: ExerciseHistoryEntry): string => {
  * Enhanced Weight Progress Graph (SVG-based)
  */
 const WeightGraph: React.FC<{ data: Array<{ weight: number; date: string }> }> = ({ data }) => {
-    if (!data || data.length < 2) return (
-        <div className="bg-sys-surfaceHigh rounded-xl p-6 flex flex-col items-center justify-center text-sys-onSurfaceVar h-40">
-            <Activity size={24} className="mb-2 opacity-50" />
-            <span className="text-xs">Not enough data for graph</span>
-        </div>
-    );
-
-    const weightData = data.filter(d => d.weight && d.weight > 0);
-    if (weightData.length < 2) return (
-        <div className="bg-sys-surfaceHigh rounded-xl p-6 flex flex-col items-center justify-center text-sys-onSurfaceVar h-40">
-            <Activity size={24} className="mb-2 opacity-50" />
-            <span className="text-xs">Not enough data for graph</span>
-        </div>
-    );
-
-    const weights = weightData.map(d => d.weight);
-    const maxWeight = Math.max(...weights);
-    const minWeight = Math.min(...weights);
-    // Add 10% padding to range
-    const range = (maxWeight - minWeight) || 1;
-    const paddingY = range * 0.1;
-    const effectiveMin = Math.max(0, minWeight - paddingY);
-    const effectiveMax = maxWeight + paddingY;
-    const effectiveRange = effectiveMax - effectiveMin;
+    const sanitizedData = Array.isArray(data) ? data : [];
+    const weightData = sanitizedData.filter((d) => typeof d.weight === 'number' && d.weight > 0);
+    const hasGraph = weightData.length >= 2;
 
     const width = 300;
     const height = 150;
     const padding = 20;
 
-    const points = weightData.map((d, i) => {
-        const x = padding + (i / (weightData.length - 1)) * (width - 2 * padding);
-        const y = height - padding - ((d.weight - effectiveMin) / effectiveRange) * (height - 2 * padding);
-        return { x, y };
-    });
+    let graphContent: React.ReactNode = (
+        <div className="h-40 flex flex-col items-center justify-center text-sys-onSurfaceVar text-xs gap-2 rounded-xl border border-dashed border-white/10 bg-sys-surfaceHigh/60">
+            <Activity size={24} className="opacity-50" />
+            <span>Not enough data for graph</span>
+        </div>
+    );
 
-    const polylinePoints = points.map(p => `${p.x},${p.y}`).join(' ');
-    const areaPoints = `${padding},${height - padding} ${polylinePoints} ${width - padding},${height - padding}`;
+    if (hasGraph) {
+        const weights = weightData.map((d) => d.weight);
+        const maxWeight = Math.max(...weights);
+        const minWeight = Math.min(...weights);
+        const range = maxWeight - minWeight || 1;
+        const paddingY = range * 0.1;
+        const effectiveMin = Math.max(0, minWeight - paddingY);
+        const effectiveMax = maxWeight + paddingY;
+        const effectiveRange = effectiveMax - effectiveMin;
 
-    return (
-        <div className="bg-sys-surfaceHigh rounded-xl p-4">
-            <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <TrendingUp size={16} className="text-sys-accent" />
-                    Progress
-                </h3>
-                <span className="text-xs text-sys-onSurfaceVar">Last {weightData.length} sessions</span>
-            </div>
+        const points = weightData.map((d, i) => {
+            const x = padding + (i / (weightData.length - 1)) * (width - 2 * padding);
+            const y = height - padding - ((d.weight - effectiveMin) / effectiveRange) * (height - 2 * padding);
+            return { x, y };
+        });
 
+        const polylinePoints = points.map((p) => `${p.x},${p.y}`).join(' ');
+        const areaPoints = `${padding},${height - padding} ${polylinePoints} ${width - padding},${height - padding}`;
+
+        graphContent = (
             <div className="relative">
                 <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-32" preserveAspectRatio="none">
                     <defs>
@@ -127,14 +114,11 @@ const WeightGraph: React.FC<{ data: Array<{ weight: number; date: string }> }> =
                         </linearGradient>
                     </defs>
 
-                    {/* Grid lines */}
                     <line x1={padding} y1={padding} x2={width - padding} y2={padding} stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="4 4" />
                     <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
 
-                    {/* Area fill */}
                     <polygon points={areaPoints} fill="url(#graphGradient)" />
 
-                    {/* Line */}
                     <polyline
                         points={polylinePoints}
                         fill="none"
@@ -144,21 +128,11 @@ const WeightGraph: React.FC<{ data: Array<{ weight: number; date: string }> }> =
                         strokeLinejoin="round"
                     />
 
-                    {/* Data points */}
                     {points.map((p, i) => (
-                        <circle
-                            key={i}
-                            cx={p.x}
-                            cy={p.y}
-                            r="3"
-                            fill="var(--color-surface)"
-                            stroke="var(--color-accent)"
-                            strokeWidth="2"
-                        />
+                        <circle key={i} cx={p.x} cy={p.y} r="3" fill="var(--color-surface)" stroke="var(--color-accent)" strokeWidth="2" />
                     ))}
                 </svg>
 
-                {/* Labels */}
                 <div className="absolute top-0 right-0 text-xs font-bold text-sys-accent transform -translate-y-1/2">
                     {maxWeight}kg
                 </div>
@@ -166,6 +140,21 @@ const WeightGraph: React.FC<{ data: Array<{ weight: number; date: string }> }> =
                     {minWeight}kg
                 </div>
             </div>
+        );
+    }
+
+    return (
+        <div className="bg-sys-surfaceHigh rounded-xl p-4">
+            <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                    <TrendingUp size={16} className="text-sys-accent" />
+                    Progress
+                </h3>
+                <span className="text-xs text-sys-onSurfaceVar">
+                    {hasGraph ? `Last ${weightData.length} sessions` : 'Complete 2 sessions to unlock'}
+                </span>
+            </div>
+            {graphContent}
         </div>
     );
 };

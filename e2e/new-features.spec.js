@@ -96,11 +96,11 @@ test.describe('New Features', () => {
     // If Pull-Ups is not in Day 1, this test might fail.
     // Let's check if any exercise has history indicator.
 
-    // The aria-label format is "${name} - tap to view history"
-    const historyButton = page.locator('button[aria-label*="tap to view history"]').first();
+    // The aria-label format is "View details for ${name}"
+    const historyButton = page.getByRole('button', {
+      name: /View details for Pull-Up Ladders/i,
+    });
 
-    // If no history button found, maybe the seeded name doesn't match the workout.
-    // But let's try.
     await expect(historyButton).toBeVisible();
 
     await historyButton.click();

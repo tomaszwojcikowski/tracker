@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap, History } from 'lucide-react';
+import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap, Info } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
 import type { HapticFeedback } from '../hooks';
@@ -415,7 +415,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                         className={`flex items-center gap-1.5 h-7 px-3 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar text-[10px] font-bold tracking-wide uppercase flex-shrink-0 active:scale-95 transition-all ${!hasHistory ? 'opacity-80' : ''}`}
                         aria-label={`View details and history for ${historyLookupName}`}
                     >
-                        <History size={12} className="text-sys-onSurfaceVar" />
+                        <Info size={12} className="text-sys-onSurfaceVar" />
                     </button>
                 )}
 

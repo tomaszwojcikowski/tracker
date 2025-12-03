@@ -328,16 +328,16 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                         <button
                                             key={`${exId}-set-${i}`}
                                             onClick={() => onToggleSet(exId, i, defaultSets, restTime)}
-                                            className={`set-button h-11 w-11 min-w-[44px] min-h-[44px] rounded-xl flex items-center justify-center text-sm font-bold ${
+                                            className={`set-button h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
                                                 isDone
                                                     ? allComplete
-                                                        ? 'completed bg-sys-success text-white shadow-[0_0_16px_rgba(16,185,129,0.5)]'
-                                                        : 'completed bg-sys-accent text-white shadow-[0_0_16px_rgba(59,130,246,0.5)]'
+                                                        ? 'completed bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.4)]'
+                                                        : 'completed bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
                                                     : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                             }`}
                                             aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                         >
-                                            {isDone ? <Check size={20} /> : i + 1}
+                                            {isDone ? <Check size={14} /> : i + 1}
                                         </button>
                                     );
                                 } else {
@@ -360,10 +360,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             {/* Add set button */}
                             <button
                                 onClick={() => onAddSet(exId, defaultSets)}
-                                className="h-11 w-11 min-w-[44px] min-h-[44px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center text-sm font-bold border-2 border-dashed border-white/20 active:scale-95 transition-all"
+                                className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center text-xs font-bold border-2 border-dashed border-white/20 active:scale-95 transition-all"
                                 aria-label="Add set"
                             >
-                                <Plus size={18} />
+                                <Plus size={14} />
                             </button>
                         </div>
 

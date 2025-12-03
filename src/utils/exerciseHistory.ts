@@ -21,6 +21,7 @@ export interface ExerciseHistoryEntry {
   rpe?: Record<number, string>;
   totalSets?: number;
   isBodyweight?: boolean;
+  notes?: string;
 }
 
 /**

@@ -18,23 +18,12 @@ import {
     Link,
     Zap,
     ArrowRightLeft,
-    Info,
 } from 'lucide-react';
 import { RPESelector } from './RPESelector';
 import type { RPEValue } from '../types';
 import type { ExerciseDetailRequest, ExerciseLogEntry } from '../types/workout';
+import type { LoadRange } from '../workout-plan-utils';
 import type { HapticFeedback } from '../hooks';
-
-// ============================================================================
-// TYPES
-// ============================================================================
-
-export interface LoadRange {
-    min: number;
-    max: number;
-    unit: string;
-    perHand?: boolean;
-}
 
 export interface ExerciseCardProps {
     /** Exercise ID */
@@ -94,7 +83,6 @@ export interface ExerciseCardProps {
     onStartRestTimer: (seconds: number) => void;
     onToggleEmomTimer: () => void;
     onShowHistory: (request: ExerciseDetailRequest) => void;
-    onShowNotes: (exerciseName: string, notes: string) => void;
     onShowAlternatives: (name: string, alternatives: string[]) => void;
 }
 
@@ -136,7 +124,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     onStartRestTimer,
     onToggleEmomTimer,
     onShowHistory,
-    onShowNotes,
     onShowAlternatives,
 }) => {
     const completedSets = sets.filter((s) => s).length;
@@ -150,6 +137,15 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             originalName: name,
             alternatives,
             isSwapped: effectiveName !== name,
+            metadata: {
+                prescription,
+                notes,
+                restTime,
+                isBodyweight,
+                isEmom,
+                isUnilateral,
+                loadRange,
+            },
         });
     };
 
@@ -210,7 +206,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 type="button"
                                 onClick={handleShowDetails}
                                 className={`text-left cursor-pointer active:opacity-70 transition-opacity ${!hasHistory ? 'opacity-90' : ''}`}
-                                aria-label={`View details for ${effectiveName}`}
+                                aria-label={`View details and history for ${effectiveName}`}
                             >
                                 <h3 className="text-base font-semibold text-white leading-tight">
                                     {effectiveName}
@@ -259,19 +255,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 </span>
                             )}
 
-                            {/* Notes icon button */}
-                            {notes && (
-                                <button
-                                    onClick={() => {
-                                        haptic.tick();
-                                        onShowNotes(effectiveName, notes);
-                                    }}
-                                    className="h-6 w-6 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
-                                    aria-label="View notes"
-                                >
-                                    <Info size={12} />
-                                </button>
-                            )}
                         </div>
                         <p className="text-xs text-sys-onSurfaceVar">{prescription}</p>
                     </div>

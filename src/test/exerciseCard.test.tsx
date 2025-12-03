@@ -32,7 +32,6 @@ vi.mock('lucide-react', () => ({
     Link: () => <span data-testid="icon-link">🔗</span>,
     Zap: () => <span data-testid="icon-zap">⚡</span>,
     ArrowRightLeft: () => <span data-testid="icon-swap">⇄</span>,
-    Info: () => <span data-testid="icon-info">ℹ</span>,
 }));
 
 import { ExerciseCard } from '../components/ExerciseCard';
@@ -70,7 +69,6 @@ describe('ExerciseCard', () => {
         onStartRestTimer: vi.fn(),
         onToggleEmomTimer: vi.fn(),
         onShowHistory: vi.fn(),
-        onShowNotes: vi.fn(),
         onShowAlternatives: vi.fn(),
     };
 
@@ -306,7 +304,7 @@ describe('ExerciseCard', () => {
             render(
                 <ExerciseCard
                     {...defaultProps}
-                    loadRange={{ min: 40, max: 60, unit: 'kg' }}
+                    loadRange={{ min: 40, max: 60, unit: 'kg', raw: '40-60kg' }}
                 />
             );
 
@@ -314,22 +312,7 @@ describe('ExerciseCard', () => {
         });
     });
 
-    describe('Notes and Alternatives', () => {
-        it('should show notes button when notes are provided', () => {
-            render(<ExerciseCard {...defaultProps} notes="Keep elbows tucked" />);
-
-            expect(screen.getByRole('button', { name: 'View notes' })).toBeInTheDocument();
-        });
-
-        it('should call onShowNotes when notes button is clicked', () => {
-            render(<ExerciseCard {...defaultProps} notes="Keep elbows tucked" />);
-
-            fireEvent.click(screen.getByRole('button', { name: 'View notes' }));
-
-            expect(defaultProps.haptic.tick).toHaveBeenCalled();
-            expect(defaultProps.onShowNotes).toHaveBeenCalledWith('Bench Press', 'Keep elbows tucked');
-        });
-
+    describe('Alternatives', () => {
         it('should show alternatives button when alternatives exist', () => {
             render(
                 <ExerciseCard
@@ -387,14 +370,14 @@ describe('ExerciseCard', () => {
         it('should make name clickable when history exists', () => {
             render(<ExerciseCard {...defaultProps} hasHistory={true} />);
 
-            const nameButton = screen.getByRole('button', { name: 'View details for Bench Press' });
+            const nameButton = screen.getByRole('button', { name: 'View details and history for Bench Press' });
             expect(nameButton).toBeInTheDocument();
         });
 
         it('should call onShowHistory when name is clicked with history', () => {
             render(<ExerciseCard {...defaultProps} hasHistory={true} />);
 
-            fireEvent.click(screen.getByRole('button', { name: 'View details for Bench Press' }));
+            fireEvent.click(screen.getByRole('button', { name: 'View details and history for Bench Press' }));
 
             expect(defaultProps.haptic.tick).toHaveBeenCalled();
             expect(defaultProps.onShowHistory).toHaveBeenCalledWith(
@@ -403,6 +386,22 @@ describe('ExerciseCard', () => {
                     historyLookupName: 'Bench Press',
                     originalName: 'Bench Press',
                     isSwapped: false,
+                })
+            );
+        });
+
+        it('should include notes in detail metadata when requesting history', () => {
+            render(<ExerciseCard {...defaultProps} hasHistory={true} notes="Keep elbows tucked" restTime={90} />);
+
+            fireEvent.click(screen.getByRole('button', { name: 'View details and history for Bench Press' }));
+
+            expect(defaultProps.onShowHistory).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    metadata: expect.objectContaining({
+                        notes: 'Keep elbows tucked',
+                        prescription: '3x8 reps',
+                        restTime: 90,
+                    }),
                 })
             );
         });

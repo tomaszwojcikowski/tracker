@@ -10,7 +10,7 @@ import { CompactExerciseRow } from '../CompactExerciseRow';
 import { SupersetGroup } from '../SupersetGroup';
 import type { SupersetExercise } from '../SupersetGroup';
 import { GestureHint } from '../GestureHint';
-import { ExerciseDetailModal, NotesModal } from '../modals';
+import { ExerciseDetailModal } from '../modals';
 import { AddedExerciseCard } from '../AddedExerciseCard';
 import { ExerciseSelectorModal } from '../ExerciseSelectorModal';
 import { ExerciseCard } from '../ExerciseCard';
@@ -102,8 +102,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [exerciseSearchTerm, setExerciseSearchTerm] = useState('');
     const [selectedMuscleFilter, setSelectedMuscleFilter] = useState<MuscleFilter>('all');
     const [exerciseDetail, setExerciseDetail] = useState<ExerciseDetailRequest | null>(null);
-    // Notes modal state: { exerciseName, notes } or null
-    const [showNotesFor, setShowNotesFor] = useState<{ exerciseName: string; notes: string } | null>(null);
     const [workoutNotes, setWorkoutNotes] = useState('');
     const [showFinishConfirm, setShowFinishConfirm] = useState(false);
     const [compactView, setCompactView] = useState(() =>
@@ -1011,7 +1009,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 onStartRestTimer={(seconds) => restTimer.start(seconds)}
                                                 onToggleEmomTimer={() => emomTimer.toggle()}
                                                 onShowHistory={handleShowExerciseDetail}
-                                                onShowNotes={(name, notes) => setShowNotesFor({ exerciseName: name, notes })}
                                                 onShowAlternatives={(name, alts) => setShowAlternativesFor({ name, alternatives: alts })}
                                             />
                                         </div>
@@ -1124,6 +1121,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         restTime: gex.rest,
                                                         hasHistory: gexHasHistory,
                                                         alternatives: gex.alternatives,
+                                                        isEmom: gex.isEmom,
+                                                        isUnilateral: gex.isUnilateral,
+                                                        loadRange: gex.loadRange,
                                                     };
                                                 });
 
@@ -1231,7 +1231,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 onStartRestTimer={(seconds) => restTimer.start(seconds)}
                                                 onToggleEmomTimer={() => emomTimer.toggle()}
                                                 onShowHistory={handleShowExerciseDetail}
-                                                onShowNotes={(name, notes) => setShowNotesFor({ exerciseName: name, notes })}
                                                 onShowAlternatives={(name, alts) => setShowAlternativesFor({ name, alternatives: alts })}
                                             />
                                         );
@@ -1415,6 +1414,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     originalName={exerciseDetail?.originalName}
                     alternatives={exerciseDetail?.alternatives}
                     isSwapped={exerciseDetail?.isSwapped}
+                    metadata={exerciseDetail?.metadata}
                     onSwapExercise={exerciseDetail?.alternatives?.length ? handleSwapFromDetails : undefined}
                     onClose={() => {
                         haptic.tick();
@@ -1486,15 +1486,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 )}
 
                 {/* Notes Modal */}
-                <NotesModal
-                    isOpen={!!showNotesFor}
-                    exerciseName={showNotesFor?.exerciseName ?? ''}
-                    notes={showNotesFor?.notes ?? ''}
-                    onClose={() => {
-                        haptic.tick();
-                        setShowNotesFor(null);
-                    }}
-                />
             </div>
         </>
     );

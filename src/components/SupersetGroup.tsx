@@ -7,11 +7,11 @@
  */
 
 import React, { useState, useCallback, useMemo } from 'react';
-import { Check, Zap, Info, ChevronDown, CheckCheck, Minus, Plus, Repeat, History } from 'lucide-react';
+import { Check, Zap, ChevronDown, CheckCheck, Minus, Plus, Repeat, History } from 'lucide-react';
 import { getShortExerciseName } from '../constants';
-import { NotesModal } from './modals';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest } from '../types/workout';
+import type { LoadRange } from '../workout-plan-utils';
 
 // ============================================================================
 // TYPES
@@ -30,6 +30,9 @@ export interface SupersetExercise {
     restTime?: number;
     hasHistory?: boolean;
     alternatives?: string[];
+    isEmom?: boolean;
+    isUnilateral?: boolean;
+    loadRange?: LoadRange | null;
 }
 
 export interface SupersetGroupProps {
@@ -72,7 +75,6 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
     onShowHistory,
 }) => {
     const [isExpanded, setIsExpanded] = useState(isFirstIncomplete);
-    const [showNotesFor, setShowNotesFor] = useState<{ name: string; notes: string } | null>(null);
     const [localWeights, setLocalWeights] = useState<Record<string, string>>(() => {
         const weights: Record<string, string> = {};
         exercises.forEach(ex => {
@@ -123,12 +125,6 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
         }
     }, [haptic, onToggleEmomTimer]);
 
-    const handleShowNotes = useCallback((name: string, notes: string, e: React.MouseEvent) => {
-        e.stopPropagation();
-        haptic.tick();
-        setShowNotesFor({ name, notes });
-    }, [haptic]);
-
     const handleWeightChange = useCallback((exId: string, weight: string) => {
         setLocalWeights(prev => ({ ...prev, [exId]: weight }));
         onWeightChange(exId, weight);
@@ -152,6 +148,15 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
             originalName: exercise.originalName ?? exercise.name,
             alternatives: exercise.alternatives,
             isSwapped: exercise.originalName ? exercise.originalName !== exercise.name : false,
+            metadata: {
+                prescription: exercise.prescription,
+                notes: exercise.notes,
+                restTime: exercise.restTime,
+                isBodyweight: exercise.isBodyweight,
+                isEmom: exercise.isEmom,
+                isUnilateral: exercise.isUnilateral,
+                loadRange: exercise.loadRange,
+            },
         });
     }, [onShowHistory, haptic]);
 
@@ -309,27 +314,16 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                                 )}
                             </button>
 
-                            {/* Notes button */}
-                            {ex.notes && (
-                                <button
-                                    type="button"
-                                    onClick={(e) => handleShowNotes(ex.name, ex.notes!, e)}
-                                    className="h-6 w-6 rounded-full bg-sys-surfaceHigh flex items-center justify-center flex-shrink-0 active:scale-90"
-                                    aria-label="View notes"
-                                >
-                                    <Info size={12} className="text-sys-onSurfaceVar" />
-                                </button>
-                            )}
-
-                                    {/* Details button */}
+                                    {/* Display details button */}
                                     {onShowHistory && (
                                         <button
                                             type="button"
                                             onClick={(e) => handleShowDetails(ex, e)}
-                                            className={`h-6 w-6 rounded-full bg-sys-surfaceHigh flex items-center justify-center flex-shrink-0 active:scale-90 ${!ex.hasHistory ? 'opacity-80' : ''}`}
-                                            aria-label={`View details for ${ex.name}`}
+                                            className={`flex items-center gap-1.5 h-6 px-3 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar text-[9px] font-bold tracking-wide uppercase flex-shrink-0 active:scale-95 transition-all ${!ex.hasHistory ? 'opacity-80' : ''}`}
+                                            aria-label={`View details and history for ${ex.name}`}
                                         >
-                                            <History size={12} className="text-sys-onSurfaceVar" />
+                                            <History size={10} className="text-sys-onSurfaceVar" />
+                                            <span>Display details</span>
                                         </button>
                                     )}
 
@@ -362,15 +356,6 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                 </div>
             </div>
 
-            {/* Notes Modal */}
-            {showNotesFor && (
-                <NotesModal
-                    exerciseName={showNotesFor.name}
-                    notes={showNotesFor.notes}
-                    isOpen={true}
-                    onClose={() => setShowNotesFor(null)}
-                />
-            )}
         </div>
     );
 };

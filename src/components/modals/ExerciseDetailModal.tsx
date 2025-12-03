@@ -6,9 +6,21 @@
  */
 
 import React, { useMemo } from 'react';
-import { X, TrendingUp, Calendar, Dumbbell, Trophy, Activity, ArrowRightLeft } from 'lucide-react';
+import {
+    X,
+    TrendingUp,
+    Calendar,
+    Dumbbell,
+    Trophy,
+    Activity,
+    ArrowRightLeft,
+    Timer,
+    ClipboardList,
+    FileText,
+} from 'lucide-react';
 import { getExerciseHistory, calculateExerciseStats } from '../../utils/exerciseHistory';
 import type { ExerciseHistoryEntry } from '../../utils/exerciseHistory';
+import type { ExerciseDetailMetadata } from '../../types/workout';
 import { BottomSheet } from '../BottomSheet';
 
 export interface ExerciseDetailModalProps {
@@ -28,6 +40,8 @@ export interface ExerciseDetailModalProps {
     onClose: () => void;
     /** Whether modal is visible */
     isOpen: boolean;
+    /** Supplemental metadata for exercise details */
+    metadata?: ExerciseDetailMetadata;
 }
 
 const extractRepsFromPrescription = (prescription?: string): string | null => {
@@ -64,6 +78,37 @@ const formatWeightLabel = (entry: ExerciseHistoryEntry): string => {
         return 'Bodyweight';
     }
     return '—';
+};
+
+const formatRestTime = (seconds?: number): string | null => {
+    if (!seconds || seconds <= 0) return null;
+    if (seconds < 60) {
+        return `${seconds}s`;
+    }
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return remainingSeconds
+        ? `${minutes}m ${remainingSeconds}s`
+        : `${minutes}m`;
+};
+
+const formatLoadRangeLabel = (range?: ExerciseDetailMetadata['loadRange']): string | null => {
+    if (!range) return null;
+    if (range.unit === 'kg') {
+        const value = range.min === range.max ? `${range.min}` : `${range.min}-${range.max}`;
+        const suffix = range.perHand ? ' kg per hand' : ' kg';
+        return `${value}${suffix}`;
+    }
+    if (range.unit === 'band') {
+        return range.raw || 'Band resistance';
+    }
+    if (range.unit === 'bodyweight') {
+        return 'Bodyweight';
+    }
+    if (range.unit === 'percent') {
+        return `${range.min}%`;
+    }
+    return range.raw || null;
 };
 
 /**
@@ -171,11 +216,37 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
     onSwapExercise,
     onClose,
     isOpen,
+    metadata,
 }) => {
     const lookupName = historyLookupName || exerciseName;
     const history = lookupName ? getExerciseHistory(lookupName) : [];
     const stats = calculateExerciseStats(lookupName);
     const canSwap = Boolean(onSwapExercise && alternatives?.length && originalName);
+    const restLabel = formatRestTime(metadata?.restTime);
+    const loadLabel = formatLoadRangeLabel(metadata?.loadRange);
+    const detailBadges = [
+        metadata?.isEmom
+            ? {
+                  label: 'EMOM',
+                  className: 'bg-sys-tertiary/20 text-sys-tertiary border border-sys-tertiary/30',
+              }
+            : null,
+        metadata?.isUnilateral
+            ? {
+                  label: 'Per Side',
+                  className: 'bg-blue-500/20 text-blue-200 border border-blue-500/30',
+              }
+            : null,
+        metadata?.isBodyweight
+            ? {
+                  label: 'Bodyweight',
+                  className: 'bg-amber-500/15 text-amber-200 border border-amber-500/30',
+              }
+            : null,
+    ].filter((chip): chip is { label: string; className: string } => Boolean(chip));
+    const showMetadataCard = Boolean(
+        detailBadges.length || metadata?.prescription || restLabel || loadLabel
+    );
 
     // Prepare graph data (chronological)
     const graphData = useMemo(() => {
@@ -239,6 +310,68 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
             </div>
 
             <div className="p-5 space-y-6 overflow-y-auto pb-safe">
+                {showMetadataCard && (
+                    <div className="bg-sys-surfaceHigh rounded-xl p-4 border border-white/5 space-y-4">
+                        <div className="flex items-center gap-2 text-white">
+                            <ClipboardList size={16} className="text-sys-accent" />
+                            <h3 className="text-sm font-bold">Exercise Details</h3>
+                        </div>
+                        {detailBadges.length > 0 && (
+                            <div className="flex flex-wrap gap-2">
+                                {detailBadges.map((badge) => (
+                                    <span
+                                        key={badge.label}
+                                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${badge.className}`}
+                                    >
+                                        {badge.label}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
+                        <div className="space-y-3 text-sm text-white">
+                            {metadata?.prescription && (
+                                <div className="flex items-start gap-3">
+                                    <Dumbbell size={16} className="mt-0.5 text-sys-accent" />
+                                    <div>
+                                        <p className="text-xs uppercase tracking-wider text-white/60">Prescription</p>
+                                        <p className="font-semibold leading-tight">{metadata.prescription}</p>
+                                    </div>
+                                </div>
+                            )}
+                            {restLabel && (
+                                <div className="flex items-start gap-3">
+                                    <Timer size={16} className="mt-0.5 text-sys-accent" />
+                                    <div>
+                                        <p className="text-xs uppercase tracking-wider text-white/60">Rest Between Sets</p>
+                                        <p className="font-semibold leading-tight">{restLabel}</p>
+                                    </div>
+                                </div>
+                            )}
+                            {loadLabel && (
+                                <div className="flex items-start gap-3">
+                                    <ArrowRightLeft size={16} className="mt-0.5 text-sys-accent" />
+                                    <div>
+                                        <p className="text-xs uppercase tracking-wider text-white/60">Suggested Load</p>
+                                        <p className="font-semibold leading-tight">{loadLabel}</p>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+
+                {metadata?.notes && (
+                    <div className="bg-sys-surfaceHigh rounded-xl p-4 border border-white/5 space-y-3">
+                        <div className="flex items-center gap-2 text-white">
+                            <FileText size={16} className="text-sys-accent" />
+                            <h3 className="text-sm font-bold">Coaching Notes</h3>
+                        </div>
+                        <p className="text-sm leading-relaxed text-white/80 whitespace-pre-line">
+                            {metadata.notes}
+                        </p>
+                    </div>
+                )}
+
                 {/* Stats Grid */}
                 <div className="grid grid-cols-3 gap-3">
                     <div className="bg-sys-surfaceHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">

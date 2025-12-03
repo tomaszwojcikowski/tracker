@@ -423,7 +423,6 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                         aria-label={`View details and history for ${historyLookupName}`}
                     >
                         <History size={12} className="text-sys-onSurfaceVar" />
-                        <span>Display details</span>
                     </button>
                 )}
 

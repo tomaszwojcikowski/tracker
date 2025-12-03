@@ -323,7 +323,6 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                                             aria-label={`View details and history for ${ex.name}`}
                                         >
                                             <History size={10} className="text-sys-onSurfaceVar" />
-                                            <span>Display details</span>
                                         </button>
                                     )}
 

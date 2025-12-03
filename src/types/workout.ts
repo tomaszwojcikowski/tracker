@@ -5,6 +5,7 @@
  */
 
 import type { RPEValue, AddedExercise } from './index';
+import type { LoadRange } from '../workout-plan-utils';
 
 // ============================================================================
 // SESSION DATA TYPES
@@ -27,6 +28,23 @@ export interface ExerciseLogEntry {
 /**
  * Request payload for showing exercise details in the workout player
  */
+export interface ExerciseDetailMetadata {
+    /** Programmed prescription text */
+    prescription?: string;
+    /** Optional exercise notes */
+    notes?: string;
+    /** Rest time in seconds */
+    restTime?: number;
+    /** Whether the exercise is bodyweight */
+    isBodyweight?: boolean;
+    /** Whether the exercise follows an EMOM structure */
+    isEmom?: boolean;
+    /** Whether the exercise is unilateral */
+    isUnilateral?: boolean;
+    /** Suggested load range */
+    loadRange?: LoadRange | null;
+}
+
 export interface ExerciseDetailRequest {
     /** Name currently displayed to the user (handles swaps/aliases) */
     displayName: string;
@@ -38,6 +56,8 @@ export interface ExerciseDetailRequest {
     alternatives?: string[];
     /** Whether the exercise is currently swapped to an alternative */
     isSwapped?: boolean;
+    /** Optional metadata for detail view */
+    metadata?: ExerciseDetailMetadata;
 }
 
 /**

@@ -23,18 +23,8 @@ import {
 import { RPESelector } from './RPESelector';
 import type { RPEValue } from '../types';
 import type { ExerciseDetailRequest, ExerciseLogEntry } from '../types/workout';
+import type { LoadRange } from '../workout-plan-utils';
 import type { HapticFeedback } from '../hooks';
-
-// ============================================================================
-// TYPES
-// ============================================================================
-
-export interface LoadRange {
-    min: number;
-    max: number;
-    unit: string;
-    perHand?: boolean;
-}
 
 export interface ExerciseCardProps {
     /** Exercise ID */
@@ -150,6 +140,15 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             originalName: name,
             alternatives,
             isSwapped: effectiveName !== name,
+            metadata: {
+                prescription,
+                notes,
+                restTime,
+                isBodyweight,
+                isEmom,
+                isUnilateral,
+                loadRange,
+            },
         });
     };
 
@@ -210,7 +209,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 type="button"
                                 onClick={handleShowDetails}
                                 className={`text-left cursor-pointer active:opacity-70 transition-opacity ${!hasHistory ? 'opacity-90' : ''}`}
-                                aria-label={`View details for ${effectiveName}`}
+                                aria-label={`View details and history for ${effectiveName}`}
                             >
                                 <h3 className="text-base font-semibold text-white leading-tight">
                                     {effectiveName}

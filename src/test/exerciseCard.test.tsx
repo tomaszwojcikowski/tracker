@@ -387,14 +387,14 @@ describe('ExerciseCard', () => {
         it('should make name clickable when history exists', () => {
             render(<ExerciseCard {...defaultProps} hasHistory={true} />);
 
-            const nameButton = screen.getByRole('button', { name: 'View details for Bench Press' });
+            const nameButton = screen.getByRole('button', { name: 'View details and history for Bench Press' });
             expect(nameButton).toBeInTheDocument();
         });
 
         it('should call onShowHistory when name is clicked with history', () => {
             render(<ExerciseCard {...defaultProps} hasHistory={true} />);
 
-            fireEvent.click(screen.getByRole('button', { name: 'View details for Bench Press' }));
+            fireEvent.click(screen.getByRole('button', { name: 'View details and history for Bench Press' }));
 
             expect(defaultProps.haptic.tick).toHaveBeenCalled();
             expect(defaultProps.onShowHistory).toHaveBeenCalledWith(

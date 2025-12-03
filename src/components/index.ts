@@ -119,7 +119,8 @@ export type { ExerciseListItemProps } from './ExerciseListItem';
 
 // Exercise card components (extracted from WorkoutPlayer)
 export { ExerciseCard } from './ExerciseCard';
-export type { ExerciseCardProps, LoadRange } from './ExerciseCard';
+export type { ExerciseCardProps } from './ExerciseCard';
+export type { LoadRange } from '../workout-plan-utils';
 
 export { AddedExerciseCard } from './AddedExerciseCard';
 export type { AddedExerciseCardProps } from './AddedExerciseCard';

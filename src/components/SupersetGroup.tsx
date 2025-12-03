@@ -12,6 +12,7 @@ import { getShortExerciseName } from '../constants';
 import { NotesModal } from './modals';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest } from '../types/workout';
+import type { LoadRange } from '../workout-plan-utils';
 
 // ============================================================================
 // TYPES
@@ -30,6 +31,9 @@ export interface SupersetExercise {
     restTime?: number;
     hasHistory?: boolean;
     alternatives?: string[];
+    isEmom?: boolean;
+    isUnilateral?: boolean;
+    loadRange?: LoadRange | null;
 }
 
 export interface SupersetGroupProps {
@@ -152,6 +156,15 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
             originalName: exercise.originalName ?? exercise.name,
             alternatives: exercise.alternatives,
             isSwapped: exercise.originalName ? exercise.originalName !== exercise.name : false,
+            metadata: {
+                prescription: exercise.prescription,
+                notes: exercise.notes,
+                restTime: exercise.restTime,
+                isBodyweight: exercise.isBodyweight,
+                isEmom: exercise.isEmom,
+                isUnilateral: exercise.isUnilateral,
+                loadRange: exercise.loadRange,
+            },
         });
     }, [onShowHistory, haptic]);
 
@@ -327,7 +340,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                                             type="button"
                                             onClick={(e) => handleShowDetails(ex, e)}
                                             className={`h-6 w-6 rounded-full bg-sys-surfaceHigh flex items-center justify-center flex-shrink-0 active:scale-90 ${!ex.hasHistory ? 'opacity-80' : ''}`}
-                                            aria-label={`View details for ${ex.name}`}
+                                            aria-label={`View details and history for ${ex.name}`}
                                         >
                                             <History size={12} className="text-sys-onSurfaceVar" />
                                         </button>

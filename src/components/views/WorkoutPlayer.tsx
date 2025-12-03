@@ -1124,6 +1124,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         restTime: gex.rest,
                                                         hasHistory: gexHasHistory,
                                                         alternatives: gex.alternatives,
+                                                        isEmom: gex.isEmom,
+                                                        isUnilateral: gex.isUnilateral,
+                                                        loadRange: gex.loadRange,
                                                     };
                                                 });
 
@@ -1415,6 +1418,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     originalName={exerciseDetail?.originalName}
                     alternatives={exerciseDetail?.alternatives}
                     isSwapped={exerciseDetail?.isSwapped}
+                    metadata={exerciseDetail?.metadata}
                     onSwapExercise={exerciseDetail?.alternatives?.length ? handleSwapFromDetails : undefined}
                     onClose={() => {
                         haptic.tick();

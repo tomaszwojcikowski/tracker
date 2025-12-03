@@ -280,9 +280,26 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
             originalName: name,
             alternatives,
             isSwapped: historyLookupName !== name,
+            metadata: {
+                prescription,
+                notes,
+                restTime,
+                isBodyweight,
+                isEmom,
+                isUnilateral,
+            },
         });
-    }, [onShowHistory, haptic, historyLookupName, name, alternatives]);
-
+    }, [
+        onShowHistory,
+        haptic,
+        historyLookupName,
+        name,
+        alternatives,
+        restTime,
+        isBodyweight,
+        isEmom,
+        isUnilateral,
+    ]);
 
     // Only show complete-all button when there are 2+ sets and incomplete sets
     const showCompleteAllButton = totalSets > 1 && hasIncompleteSets;
@@ -411,7 +428,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                     <button
                         onClick={handleShowDetails}
                         className={`h-7 w-7 rounded-full bg-sys-surfaceHigh flex items-center justify-center flex-shrink-0 active:scale-90 transition-transform ${!hasHistory ? 'opacity-80' : ''}`}
-                        aria-label={`View details for ${historyLookupName}`}
+                        aria-label={`View details and history for ${historyLookupName}`}
                     >
                         <History size={14} className="text-sys-onSurfaceVar" />
                     </button>

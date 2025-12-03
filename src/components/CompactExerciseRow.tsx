@@ -7,10 +7,9 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap, Info, History } from 'lucide-react';
+import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap, History } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
-import { NotesModal } from './modals';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest } from '../types/workout';
 
@@ -102,7 +101,6 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const [localWeight, setLocalWeight] = useState(weight);
     const [isPrevWeight, setIsPrevWeight] = useState(false);
     const [userModified, setUserModified] = useState(false);
-    const [showNotesModal, setShowNotesModal] = useState(false);
     const weightInputRef = useRef<HTMLInputElement>(null);
     const setsContainerRef = useRef<HTMLDivElement>(null);
 
@@ -258,12 +256,6 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const handleCompleteAllSets = useCallback(() => {
         onCompleteAllSets(exId, defaultSets);
     }, [exId, defaultSets, onCompleteAllSets]);
-
-    const handleShowNotes = useCallback((e: React.MouseEvent) => {
-        e.stopPropagation();
-        haptic.tick();
-        setShowNotesModal(true);
-    }, [haptic]);
 
     // Memoize hasIncompleteSets - MUST be before any early returns to follow Rules of Hooks
     const hasIncompleteSets = useMemo(() => sets.some((s) => !s), [sets]);
@@ -423,25 +415,15 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                     )}
                 </button>
 
-                {/* Details Icon Button */}
+                {/* Display Details Button */}
                 {onShowHistory && (
                     <button
                         onClick={handleShowDetails}
-                        className={`h-7 w-7 rounded-full bg-sys-surfaceHigh flex items-center justify-center flex-shrink-0 active:scale-90 transition-transform ${!hasHistory ? 'opacity-80' : ''}`}
+                        className={`flex items-center gap-1.5 h-7 px-3 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar text-[10px] font-bold tracking-wide uppercase flex-shrink-0 active:scale-95 transition-all ${!hasHistory ? 'opacity-80' : ''}`}
                         aria-label={`View details and history for ${historyLookupName}`}
                     >
-                        <History size={14} className="text-sys-onSurfaceVar" />
-                    </button>
-                )}
-
-                {/* Notes Icon Button */}
-                {notes && (
-                    <button
-                        onClick={handleShowNotes}
-                        className="h-7 w-7 rounded-full bg-sys-surfaceHigh flex items-center justify-center flex-shrink-0 active:scale-90 transition-transform"
-                        aria-label="View notes"
-                    >
-                        <Info size={14} className="text-sys-onSurfaceVar" />
+                        <History size={12} className="text-sys-onSurfaceVar" />
+                        <span>Display details</span>
                     </button>
                 )}
 
@@ -563,15 +545,6 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
             </div>
             </div>
 
-            {/* Notes Modal */}
-            {notes && (
-                <NotesModal
-                    exerciseName={historyLookupName}
-                    notes={notes}
-                    isOpen={showNotesModal}
-                    onClose={() => setShowNotesModal(false)}
-                />
-            )}
         </div>
     );
 };

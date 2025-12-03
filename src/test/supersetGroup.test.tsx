@@ -18,18 +18,6 @@ vi.mock('../constants', () => ({
   },
 }));
 
-// Mock the NotesModal
-vi.mock('../components/modals', () => ({
-  NotesModal: ({ isOpen, onClose, exerciseName, notes }) =>
-    isOpen ? (
-      <div data-testid="notes-modal">
-        <div>{exerciseName}</div>
-        <div>{notes}</div>
-        <button onClick={onClose}>Close</button>
-      </div>
-    ) : null,
-}));
-
 describe('SupersetGroup', () => {
   let SupersetGroup;
   let mockHaptic;
@@ -288,40 +276,6 @@ describe('SupersetGroup', () => {
       // Round 1 button should show checkmark (completed)
       const round1Button = screen.getByRole('button', { name: 'Round 1 completed' });
       expect(round1Button).toBeInTheDocument();
-    });
-  });
-
-  describe('Notes Modal', () => {
-    it('should show notes button when exercise has notes', () => {
-      render(
-        <SupersetGroup
-          exercises={mockExercises}
-          haptic={mockHaptic}
-          onToggleRound={vi.fn()}
-          onWeightChange={vi.fn()}
-          onCompleteAllRounds={vi.fn()}
-        />
-      );
-
-      const notesButtons = screen.getAllByRole('button', { name: 'View notes' });
-      expect(notesButtons).toHaveLength(2);
-    });
-
-    it('should open notes modal when notes button clicked', () => {
-      render(
-        <SupersetGroup
-          exercises={mockExercises}
-          haptic={mockHaptic}
-          onToggleRound={vi.fn()}
-          onWeightChange={vi.fn()}
-          onCompleteAllRounds={vi.fn()}
-        />
-      );
-
-      const notesButtons = screen.getAllByRole('button', { name: 'View notes' });
-      fireEvent.click(notesButtons[0]);
-
-      expect(screen.getByTestId('notes-modal')).toBeInTheDocument();
     });
   });
 

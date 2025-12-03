@@ -18,7 +18,6 @@ import {
     Link,
     Zap,
     ArrowRightLeft,
-    Info,
 } from 'lucide-react';
 import { RPESelector } from './RPESelector';
 import type { RPEValue } from '../types';
@@ -84,7 +83,6 @@ export interface ExerciseCardProps {
     onStartRestTimer: (seconds: number) => void;
     onToggleEmomTimer: () => void;
     onShowHistory: (request: ExerciseDetailRequest) => void;
-    onShowNotes: (exerciseName: string, notes: string) => void;
     onShowAlternatives: (name: string, alternatives: string[]) => void;
 }
 
@@ -126,7 +124,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     onStartRestTimer,
     onToggleEmomTimer,
     onShowHistory,
-    onShowNotes,
     onShowAlternatives,
 }) => {
     const completedSets = sets.filter((s) => s).length;
@@ -258,19 +255,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 </span>
                             )}
 
-                            {/* Notes icon button */}
-                            {notes && (
-                                <button
-                                    onClick={() => {
-                                        haptic.tick();
-                                        onShowNotes(effectiveName, notes);
-                                    }}
-                                    className="h-6 w-6 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
-                                    aria-label="View notes"
-                                >
-                                    <Info size={12} />
-                                </button>
-                            )}
                         </div>
                         <p className="text-xs text-sys-onSurfaceVar">{prescription}</p>
                     </div>

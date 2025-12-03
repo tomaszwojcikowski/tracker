@@ -434,7 +434,12 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                     placeholder="Add your notes about this exercise..."
                                     className="w-full min-h-[100px] bg-sys-surface rounded-lg p-3 text-sm text-white placeholder-white/40 border border-white/10 focus:border-sys-accent focus:outline-none resize-y"
                                     autoFocus
+                                    aria-label="Exercise notes"
+                                    aria-describedby="notes-help-text"
                                 />
+                                <p id="notes-help-text" className="sr-only">
+                                    Enter your personal notes about this exercise. These notes are specific to this workout session.
+                                </p>
                                 <div className="flex gap-2 justify-end">
                                     <button
                                         onClick={handleCancelEditUserNotes}

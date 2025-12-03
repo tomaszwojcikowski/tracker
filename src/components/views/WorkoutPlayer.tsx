@@ -129,9 +129,14 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     }, []);
 
     const handleUpdateUserNotes = useCallback((exerciseId: string, notes: string): void => {
-        const updatedExercises = { ...logs.exercises };
-        const currentEntry = updatedExercises[exerciseId] || {};
+        const currentEntry = logs.exercises?.[exerciseId] || {};
         
+        // Skip update if notes haven't changed
+        if (currentEntry.userNotes === notes) {
+            return;
+        }
+        
+        const updatedExercises = { ...logs.exercises };
         updatedExercises[exerciseId] = {
             ...currentEntry,
             userNotes: notes,

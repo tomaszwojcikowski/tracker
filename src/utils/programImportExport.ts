@@ -110,6 +110,8 @@ export interface ArchivedProgress {
   programId: string;
   /** When the archive was created */
   archivedAt: string;
+  /** Millisecond timestamp for precise sorting */
+  archivedAtMs?: number;
   /** Progress statistics at time of archive */
   stats: ProgramProgress;
   /** Exercise history */
@@ -523,17 +525,17 @@ export async function importProgramFromFile(
 
 /**
  * Export a program to JSON
- * 
+ *
  * Note: The exported plan structure contains metadata only and does not include
  * the full workout schedule with exercises. This is because the original raw
  * plan JSON is not stored in the registry. The export is primarily useful for:
  * - Backing up progress data
  * - Transferring progress between devices
  * - Creating a snapshot of program completion stats
- * 
+ *
  * To export a complete program with exercises, you would need to store the
  * original plan JSON when importing.
- * 
+ *
  * @param programId - The program ID to export
  * @param options - Export options
  * @returns Exported program data or null if not found
@@ -825,11 +827,13 @@ export function archiveProgress(programId: string): string | null {
   });
 
   // Create archive
-  const archiveId = `${programId}_${Date.now()}`;
+  const timestamp = Date.now();
+  const archiveId = `${programId}_${timestamp}`;
   const archive: ArchivedProgress = {
     id: archiveId,
     programId,
-    archivedAt: new Date().toISOString(),
+    archivedAt: new Date(timestamp).toISOString(),
+    archivedAtMs: timestamp,
     stats: progress,
     exerciseHistory,
     sessions,
@@ -868,7 +872,11 @@ export function getArchivedProgress(programId: string): ArchivedProgress[] {
       return safeGetJSON<ArchivedProgress>(archiveKey);
     })
     .filter((archive): archive is ArchivedProgress => archive !== null)
-    .sort((a, b) => new Date(b.archivedAt).getTime() - new Date(a.archivedAt).getTime());
+    .sort((a, b) => {
+      const aTime = typeof a.archivedAtMs === 'number' ? a.archivedAtMs : new Date(a.archivedAt).getTime();
+      const bTime = typeof b.archivedAtMs === 'number' ? b.archivedAtMs : new Date(b.archivedAt).getTime();
+      return bTime - aTime;
+    });
 }
 
 /**

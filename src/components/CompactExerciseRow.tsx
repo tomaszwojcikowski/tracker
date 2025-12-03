@@ -263,6 +263,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
             originalName: name,
             alternatives,
             isSwapped: historyLookupName !== name,
+            exerciseId: exId,
             metadata: {
                 prescription,
                 notes,
@@ -277,6 +278,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
         haptic,
         historyLookupName,
         name,
+        exId,
         alternatives,
         restTime,
         isBodyweight,

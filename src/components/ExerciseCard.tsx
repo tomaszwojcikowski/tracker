@@ -140,6 +140,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             originalName: name,
             alternatives,
             isSwapped: effectiveName !== name,
+            exerciseId: exId,
             metadata: {
                 prescription,
                 notes,

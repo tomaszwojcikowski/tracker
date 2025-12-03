@@ -128,6 +128,28 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         setShowAlternativesFor({ name: originalName, alternatives });
     }, []);
 
+    const handleUpdateUserNotes = useCallback((exerciseId: string, notes: string): void => {
+        const updatedExercises = { ...logs.exercises };
+        const currentEntry = updatedExercises[exerciseId] || {};
+        
+        updatedExercises[exerciseId] = {
+            ...currentEntry,
+            userNotes: notes,
+        };
+        
+        const updatedLogs: WorkoutSessionData = {
+            ...logs,
+            exercises: updatedExercises,
+            lastModified: new Date().toISOString(),
+        };
+        
+        setLogs(updatedLogs);
+        safeSetJSON(sessionKey, updatedLogs);
+        
+        // Trigger cloud sync if available
+        syncService.scheduleSync();
+    }, [logs, sessionKey]);
+
     const haptic = useHaptic();
 
     // Use extracted timer hooks
@@ -647,7 +669,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 weight: parseWeight(exLog.weight) ?? undefined,
                                 prescription: ex.prescription,
                                 isBodyweight: ex.isBodyweight,
-                                notes: exLog.notes,
+                                notes: exLog.userNotes || exLog.notes,
                             });
                         }
                     });
@@ -684,7 +706,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         weight: parseWeight(ex.weight || exLog.weight) ?? undefined,
                         prescription: `${ex.sets} sets`,
                         isBodyweight: ex.isBodyweight,
-                        notes: exLog.notes,
+                        notes: exLog.userNotes || exLog.notes,
                     });
                 }
             });
@@ -1419,6 +1441,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     alternatives={exerciseDetail?.alternatives}
                     isSwapped={exerciseDetail?.isSwapped}
                     metadata={exerciseDetail?.metadata}
+                    exerciseId={exerciseDetail?.exerciseId}
+                    currentUserNotes={
+                        exerciseDetail?.exerciseId 
+                            ? getExerciseLogEntry(logs, exerciseDetail.exerciseId).userNotes 
+                            : undefined
+                    }
+                    onUpdateUserNotes={handleUpdateUserNotes}
                     onSwapExercise={exerciseDetail?.alternatives?.length ? handleSwapFromDetails : undefined}
                     onClose={() => {
                         haptic.tick();

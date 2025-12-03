@@ -148,6 +148,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
             originalName: exercise.originalName ?? exercise.name,
             alternatives: exercise.alternatives,
             isSwapped: exercise.originalName ? exercise.originalName !== exercise.name : false,
+            exerciseId: exercise.exId,
             metadata: {
                 prescription: exercise.prescription,
                 notes: exercise.notes,

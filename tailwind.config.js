@@ -64,6 +64,37 @@ export default {
           scrim: 'var(--color-scrim)',
           shadow: 'var(--color-shadow)',
         },
+        // Workout section colors
+        warmup: {
+          500: 'var(--color-warmup-500)',
+          600: 'var(--color-warmup-600)',
+          700: 'var(--color-warmup-700)',
+        },
+        skill: {
+          500: 'var(--color-skill-500)',
+          600: 'var(--color-skill-600)',
+          700: 'var(--color-skill-700)',
+        },
+        main: {
+          500: 'var(--color-main-500)',
+          600: 'var(--color-main-600)',
+          700: 'var(--color-main-700)',
+        },
+        accessory: {
+          500: 'var(--color-accessory-500)',
+          600: 'var(--color-accessory-600)',
+          700: 'var(--color-accessory-700)',
+        },
+        core: {
+          500: 'var(--color-core-500)',
+          600: 'var(--color-core-600)',
+          700: 'var(--color-core-700)',
+        },
+        cooldown: {
+          500: 'var(--color-cooldown-500)',
+          600: 'var(--color-cooldown-600)',
+          700: 'var(--color-cooldown-700)',
+        },
         // Error palette for direct access
         error: {
           50: 'var(--color-error-50)',

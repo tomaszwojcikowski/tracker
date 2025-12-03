@@ -858,3 +858,105 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 .radius-pill {
     border-radius: 9999px;
 }
+
+/* ============================================================================
+   WORKOUT SECTION COLOR UTILITIES
+   Gradient backgrounds and glows for different workout sections
+   ============================================================================ */
+
+/* Workout section headers with gradients */
+.section-warmup {
+    background: var(--gradient-warmup);
+    box-shadow: 0 4px 12px var(--color-warmup-glow);
+}
+
+.section-skill {
+    background: var(--gradient-skill);
+    box-shadow: 0 4px 12px var(--color-skill-glow);
+}
+
+.section-main {
+    background: var(--gradient-main);
+    box-shadow: 0 4px 12px var(--color-main-glow);
+}
+
+.section-accessory {
+    background: var(--gradient-accessory);
+    box-shadow: 0 4px 12px var(--color-accessory-glow);
+}
+
+.section-core {
+    background: var(--gradient-core);
+    box-shadow: 0 4px 12px var(--color-core-glow);
+}
+
+.section-cooldown {
+    background: var(--gradient-cooldown);
+    box-shadow: 0 4px 12px var(--color-cooldown-glow);
+}
+
+/* Icon tints for section headers */
+.icon-warmup {
+    color: var(--color-warmup-500);
+}
+
+.icon-skill {
+    color: var(--color-skill-500);
+}
+
+.icon-main {
+    color: var(--color-main-500);
+}
+
+.icon-accessory {
+    color: var(--color-accessory-500);
+}
+
+.icon-core {
+    color: var(--color-core-500);
+}
+
+.icon-cooldown {
+    color: var(--color-cooldown-500);
+}
+
+/* Border accent for section containers */
+.border-warmup {
+    border-left: 3px solid var(--color-warmup-600);
+}
+
+.border-skill {
+    border-left: 3px solid var(--color-skill-600);
+}
+
+.border-main {
+    border-left: 3px solid var(--color-main-600);
+}
+
+.border-accessory {
+    border-left: 3px solid var(--color-accessory-600);
+}
+
+.border-core {
+    border-left: 3px solid var(--color-core-600);
+}
+
+.border-cooldown {
+    border-left: 3px solid var(--color-cooldown-600);
+}
+
+/* Status indicators */
+.status-completed {
+    color: var(--color-completed-500);
+    filter: drop-shadow(0 0 8px var(--color-completed-glow));
+}
+
+.status-progress {
+    color: var(--color-progress-500);
+    filter: drop-shadow(0 0 8px var(--color-progress-glow));
+}
+
+.status-pending {
+    color: var(--color-pending-500);
+    opacity: 0.6;
+}

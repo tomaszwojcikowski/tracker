@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Controls - Two Proposals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #3b82f6;
+        }
+        
+        .proposals {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        @media (max-width: 768px) {
+            .proposals {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .proposal {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 16px;
+            padding: 24px;
+        }
+        
+        .proposal h2 {
+            color: #3b82f6;
+            margin-bottom: 16px;
+            font-size: 24px;
+        }
+        
+        .proposal h3 {
+            color: #9ca3af;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .exercise-card {
+            background: #262626;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .exercise-name {
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .exercise-prescription {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+        
+        .sets-container {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .set-button {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        
+        /* Proposal 1 - Progressive Reveal */
+        .proposal-1 .set-button.completed {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 0 16px rgba(59, 130, 246, 0.5);
+        }
+        
+        .proposal-1 .set-button.active {
+            background: #3b82f6;
+            color: white;
+            border: 2px solid #60a5fa;
+            animation: pulse 2s infinite;
+        }
+        
+        .proposal-1 .dot-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4b5563;
+        }
+        
+        .proposal-1 .progress-text {
+            color: #9ca3af;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+        
+        /* Proposal 2 - Ghost Buttons */
+        .proposal-2 .set-button.completed {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 0 16px rgba(59, 130, 246, 0.5);
+        }
+        
+        .proposal-2 .set-button.active {
+            background: #3b82f6;
+            color: white;
+            border: 2px solid #60a5fa;
+            animation: pulse 2s infinite;
+        }
+        
+        .proposal-2 .set-button.disabled {
+            background: transparent;
+            color: #4b5563;
+            border: 2px dashed #374151;
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        .proposal-2 .progress-text {
+            color: #9ca3af;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 16px rgba(59, 130, 246, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 24px rgba(59, 130, 246, 0.8);
+            }
+        }
+        
+        .complete-badge {
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .pros-cons {
+            margin-top: 24px;
+            padding: 16px;
+            background: #121212;
+            border-radius: 8px;
+        }
+        
+        .pros-cons h4 {
+            color: #10b981;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .pros-cons.cons h4 {
+            color: #ef4444;
+        }
+        
+        .pros-cons ul {
+            list-style: none;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .pros-cons li:before {
+            content: "✓ ";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+        
+        .pros-cons.cons li:before {
+            content: "✗ ";
+            color: #ef4444;
+        }
+        
+        .note {
+            background: #1e3a8a;
+            border-left: 4px solid #3b82f6;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 40px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Set Controls - Two Proposals</h1>
+        
+        <div class="proposals">
+            <!-- Proposal 1: Progressive Reveal -->
+            <div class="proposal proposal-1">
+                <h2>Proposal 1: Progressive Reveal</h2>
+                <p style="color: #9ca3af; margin-bottom: 20px;">
+                    Show only the next incomplete set. Future sets are minimal dots.
+                </p>
+                
+                <h3>State 1: No sets completed (0/3)</h3>
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <div>
+                            <div class="exercise-name">Scapular Pull-ups</div>
+                            <div class="exercise-prescription">3 x 5 reps</div>
+                        </div>
+                    </div>
+                    <div class="sets-container">
+                        <div class="set-button active">1</div>
+                        <div class="dot-indicator"></div>
+                        <div class="dot-indicator"></div>
+                        <span class="progress-text">(1/3)</span>
+                    </div>
+                </div>
+                
+                <h3>State 2: 1 set completed (1/3)</h3>
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <div>
+                            <div class="exercise-name">Scapular Pull-ups</div>
+                            <div class="exercise-prescription">3 x 5 reps</div>
+                        </div>
+                    </div>
+                    <div class="sets-container">
+                        <div class="set-button completed">✓</div>
+                        <div class="set-button active">2</div>
+                        <div class="dot-indicator"></div>
+                        <span class="progress-text">(2/3)</span>
+                    </div>
+                </div>
+                
+                <h3>State 3: 2 sets completed (2/3)</h3>
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <div>
+                            <div class="exercise-name">Scapular Pull-ups</div>
+                            <div class="exercise-prescription">3 x 5 reps</div>
+                        </div>
+                    </div>
+                    <div class="sets-container">
+                        <div class="set-button completed">✓</div>
+                        <div class="set-button completed">✓</div>
+                        <div class="set-button active">3</div>
+                        <span class="progress-text">(3/3)</span>
+                    </div>
+                </div>
+                
+                <h3>State 4: All complete</h3>
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <div>
+                            <div class="exercise-name">Scapular Pull-ups</div>
+                            <div class="exercise-prescription">3 x 5 reps</div>
+                        </div>
+                    </div>
+                    <div class="sets-container">
+                        <div class="set-button completed">✓</div>
+                        <div class="set-button completed">✓</div>
+                        <div class="set-button completed">✓</div>
+                        <span class="complete-badge">✓ Complete</span>
+                    </div>
+                </div>
+                
+                <div class="pros-cons">
+                    <h4>Pros</h4>
+                    <ul>
+                        <li>Cleanest UI, minimal clutter</li>
+                        <li>Impossible to skip sets</li>
+                        <li>Clear visual hierarchy</li>
+                        <li>Great with many sets (5+)</li>
+                        <li>Reduces cognitive load</li>
+                    </ul>
+                </div>
+                
+                <div class="pros-cons cons">
+                    <h4>Cons</h4>
+                    <ul>
+                        <li>Can't see exact remaining count</li>
+                        <li>More radical design change</li>
+                        <li>May feel restrictive</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Proposal 2: Ghost Buttons -->
+            <div class="proposal proposal-2">
+                <h2>Proposal 2: Ghost Buttons</h2>
+                <p style="color: #9ca3af; margin-bottom: 20px;">
+                    Show all set buttons, but future ones are dimmed/disabled.
+                </p>
+                
+                <h3>State 1: No sets completed (0/3)</h3>
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <div>
+                            <div class="exercise-name">Scapular Pull-ups</div>
+                            <div class="exercise-prescription">3 x 5 reps</div>
+                        </div>
+                    </div>
+                    <div class="sets-container">
+                        <div class="set-button active">1</div>
+                        <div class="set-button disabled">2</div>
+                        <div class="set-button disabled">3</div>
+                        <span class="progress-text">(0/3)</span>
+                    </div>
+                </div>
+                
+                <h3>State 2: 1 set completed (1/3)</h3>
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <div>
+                            <div class="exercise-name">Scapular Pull-ups</div>
+                            <div class="exercise-prescription">3 x 5 reps</div>
+                        </div>
+                    </div>
+                    <div class="sets-container">
+                        <div class="set-button completed">✓</div>
+                        <div class="set-button active">2</div>
+                        <div class="set-button disabled">3</div>
+                        <span class="progress-text">(1/3)</span>
+                    </div>
+                </div>
+                
+                <h3>State 3: 2 sets completed (2/3)</h3>
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <div>
+                            <div class="exercise-name">Scapular Pull-ups</div>
+                            <div class="exercise-prescription">3 x 5 reps</div>
+                        </div>
+                    </div>
+                    <div class="sets-container">
+                        <div class="set-button completed">✓</div>
+                        <div class="set-button completed">✓</div>
+                        <div class="set-button active">3</div>
+                        <span class="progress-text">(2/3)</span>
+                    </div>
+                </div>
+                
+                <h3>State 4: All complete</h3>
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <div>
+                            <div class="exercise-name">Scapular Pull-ups</div>
+                            <div class="exercise-prescription">3 x 5 reps</div>
+                        </div>
+                    </div>
+                    <div class="sets-container">
+                        <div class="set-button completed">✓</div>
+                        <div class="set-button completed">✓</div>
+                        <div class="set-button completed">✓</div>
+                        <span class="complete-badge">✓ Complete</span>
+                    </div>
+                </div>
+                
+                <div class="pros-cons">
+                    <h4>Pros</h4>
+                    <ul>
+                        <li>Less radical change</li>
+                        <li>See total set count at a glance</li>
+                        <li>Spatial consistency maintained</li>
+                        <li>Prevents set skipping</li>
+                        <li>Familiar interaction pattern</li>
+                    </ul>
+                </div>
+                
+                <div class="pros-cons cons">
+                    <h4>Cons</h4>
+                    <ul>
+                        <li>More visual clutter with many sets</li>
+                        <li>Takes more horizontal space</li>
+                        <li>Disabled buttons might confuse</li>
+                        <li>Not as clean/minimal</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="note">
+            <strong>📋 Note:</strong> Both proposals prevent users from accidentally skipping sets while showing progress clearly. 
+            <strong>Proposal 1</strong> is cleaner and more minimal, while <strong>Proposal 2</strong> maintains spatial consistency 
+            and lets users see all sets at once. Choose based on your preference for minimalism vs. information density.
+        </div>
+    </div>
+</body>
+</html>

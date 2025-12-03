@@ -79,6 +79,7 @@ export interface ExerciseCardProps {
     onCompleteAllSets: (exId: string, defaultSets: number) => void;
     onSaveWeight: (exId: string, weight: string) => void;
     onSaveRPE: (exId: string, setIndex: number, rpe: RPEValue) => void;
+    onSaveNotes: (exId: string, notes: string) => void;
     onClearRPEPrompt: () => void;
     onStartRestTimer: (seconds: number) => void;
     onToggleEmomTimer: () => void;
@@ -120,6 +121,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     onCompleteAllSets,
     onSaveWeight,
     onSaveRPE,
+    onSaveNotes,
     onClearRPEPrompt,
     onStartRestTimer,
     onToggleEmomTimer,
@@ -128,6 +130,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 }) => {
     const completedSets = sets.filter((s) => s).length;
     const totalSets = sets.length;
+    const allComplete = completedSets === totalSets && totalSets > 0;
 
     const handleShowDetails = (): void => {
         haptic.tick();
@@ -311,22 +314,47 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             </div>
                         )}
 
-                        {/* Set buttons */}
-                        <div className="flex flex-wrap gap-2 mb-3">
-                            {sets.map((isDone, i) => (
-                                <button
-                                    key={`${exId}-set-${i}`}
-                                    onClick={() => onToggleSet(exId, i, defaultSets, restTime)}
-                                    className={`set-button h-11 w-11 min-w-[44px] min-h-[44px] rounded-xl flex items-center justify-center text-sm font-bold ${
-                                        isDone
-                                            ? 'completed bg-sys-accent text-white shadow-[0_0_16px_rgba(59,130,246,0.5)]'
-                                            : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                                    }`}
-                                    aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
-                                >
-                                    {isDone ? <Check size={20} /> : i + 1}
-                                </button>
-                            ))}
+                        {/* Set buttons - Progressive Reveal */}
+                        <div className="flex flex-wrap gap-2 mb-3 items-center">
+                            {sets.map((isDone, i) => {
+                                // Find first incomplete set
+                                const firstIncompleteIndex = sets.findIndex(s => !s);
+                                const isNextIncomplete = i === firstIncompleteIndex;
+                                const shouldShowAsButton = isDone || isNextIncomplete;
+                                
+                                if (shouldShowAsButton) {
+                                    return (
+                                        <button
+                                            key={`${exId}-set-${i}`}
+                                            onClick={() => onToggleSet(exId, i, defaultSets, restTime)}
+                                            className={`set-button h-11 w-11 min-w-[44px] min-h-[44px] rounded-xl flex items-center justify-center text-sm font-bold ${
+                                                isDone
+                                                    ? allComplete
+                                                        ? 'completed bg-sys-success text-white shadow-[0_0_16px_rgba(16,185,129,0.5)]'
+                                                        : 'completed bg-sys-accent text-white shadow-[0_0_16px_rgba(59,130,246,0.5)]'
+                                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                            }`}
+                                            aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
+                                        >
+                                            {isDone ? <Check size={20} /> : i + 1}
+                                        </button>
+                                    );
+                                } else {
+                                    // Future sets shown as dots
+                                    return (
+                                        <div
+                                            key={`${exId}-dot-${i}`}
+                                            className="w-2 h-2 rounded-full bg-sys-onSurfaceVar opacity-30"
+                                            aria-label={`Set ${i + 1} pending`}
+                                        />
+                                    );
+                                }
+                            })}
+
+                            {/* Progress indicator */}
+                            <span className="text-xs text-sys-onSurfaceVar font-semibold">
+                                ({completedSets}/{totalSets})
+                            </span>
 
                             {/* Add set button */}
                             <button
@@ -422,6 +450,24 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 </div>
                             </div>
                         )}
+
+                        {/* Notes input */}
+                        <div className="pt-3 border-t border-white/5">
+                            <label
+                                htmlFor={`${exId}-notes`}
+                                className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-1 block"
+                            >
+                                Exercise Notes
+                            </label>
+                            <textarea
+                                id={`${exId}-notes`}
+                                value={exerciseLog.notes || ''}
+                                onChange={(e) => onSaveNotes(exId, e.target.value)}
+                                placeholder="Add notes about form, feeling, adjustments..."
+                                className="w-full h-20 px-3 py-2 bg-sys-surfaceHigh rounded-lg text-white text-sm outline-none focus:ring-2 focus:ring-sys-accent transition-all resize-none"
+                                enterKeyHint="done"
+                            />
+                        </div>
                     </>
                 )}
             </div>

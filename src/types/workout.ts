@@ -23,6 +23,7 @@ export interface ExerciseLogEntry {
     sets?: boolean[];
     weight?: string;
     rpe?: RPEData;
+    notes?: string;
 }
 
 /**

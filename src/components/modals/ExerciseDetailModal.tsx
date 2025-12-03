@@ -467,6 +467,14 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                                 {entry.prescription}
                                             </p>
                                         )}
+                                        {entry.notes && (
+                                            <div className="mt-3 pt-3 border-t border-white/5">
+                                                <div className="flex items-start gap-2">
+                                                    <FileText size={12} className="mt-0.5 text-sys-accent flex-shrink-0" />
+                                                    <p className="text-[11px] text-white/80 leading-relaxed">{entry.notes}</p>
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                 );
                             })}

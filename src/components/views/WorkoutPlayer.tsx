@@ -49,6 +49,72 @@ import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../.
 import type { WorkoutSessionData, ExerciseLogEntry, MuscleFilter, RPEData, ExerciseDetailRequest } from '../../types/workout';
 
 // ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
+
+/**
+ * Get color classes for workout section based on name or type
+ */
+function getSectionColorClasses(sectionName: string, sectionType?: string): {
+    iconColor: string;
+    gradientBar: string;
+    iconBg: string;
+} {
+    const nameLower = sectionName.toLowerCase();
+    
+    // Match by common section names
+    if (nameLower.includes('warm') || sectionType === 'prep') {
+        return {
+            iconColor: 'icon-warmup',
+            gradientBar: 'from-warmup-500/20 to-transparent',
+            iconBg: 'bg-warmup-600/20'
+        };
+    }
+    if (nameLower.includes('skill')) {
+        return {
+            iconColor: 'icon-skill',
+            gradientBar: 'from-skill-500/20 to-transparent',
+            iconBg: 'bg-skill-600/20'
+        };
+    }
+    if (nameLower.includes('main') || nameLower.includes('work') || sectionType === 'main') {
+        return {
+            iconColor: 'icon-main',
+            gradientBar: 'from-main-500/20 to-transparent',
+            iconBg: 'bg-main-600/20'
+        };
+    }
+    if (nameLower.includes('accessory') || nameLower.includes('assistance')) {
+        return {
+            iconColor: 'icon-accessory',
+            gradientBar: 'from-accessory-500/20 to-transparent',
+            iconBg: 'bg-accessory-600/20'
+        };
+    }
+    if (nameLower.includes('core') || nameLower.includes('ab')) {
+        return {
+            iconColor: 'icon-core',
+            gradientBar: 'from-core-500/20 to-transparent',
+            iconBg: 'bg-core-600/20'
+        };
+    }
+    if (nameLower.includes('cool') || nameLower.includes('stretch') || sectionType === 'cool') {
+        return {
+            iconColor: 'icon-cooldown',
+            gradientBar: 'from-cooldown-500/20 to-transparent',
+            iconBg: 'bg-cooldown-600/20'
+        };
+    }
+    
+    // Default colors
+    return {
+        iconColor: 'text-sys-accent',
+        gradientBar: 'from-sys-accent/20 to-transparent',
+        iconBg: 'bg-sys-surfaceHigh'
+    };
+}
+
+// ============================================================================
 // MAIN WORKOUT PLAYER COMPONENT
 // ============================================================================
 
@@ -1064,26 +1130,28 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         ? (sectionCompletedExercises / sectionExercises) * 100
                         : 0;
 
+                    const colors = getSectionColorClasses(section.name, section.type);
+                    
                     return (
                         <div key={sIdx} className="mb-5">
                             {/* Section Header - Compact mode: sticky, minimal */}
                             <div className={`mb-2 ${compactView ? 'sticky top-0 z-10 bg-sys-black/95 backdrop-blur-sm py-1 -mx-4 px-4' : ''}`}>
                                 <div className="flex items-center gap-2 mb-1">
-                                    <div className={`rounded-md flex items-center justify-center bg-sys-surfaceHigh ${compactView ? 'h-5 w-5' : 'h-6 w-6'}`}>
+                                    <div className={`rounded-md flex items-center justify-center ${colors.iconBg} ${compactView ? 'h-5 w-5' : 'h-6 w-6'}`}>
                                         {section.type === 'prep' ? (
-                                            <Flame size={compactView ? 12 : 14} className="text-sys-accent" />
+                                            <Flame size={compactView ? 12 : 14} className={colors.iconColor} />
                                         ) : section.type === 'main' ? (
-                                            <Dumbbell size={compactView ? 12 : 14} className="text-sys-success" />
+                                            <Dumbbell size={compactView ? 12 : 14} className={colors.iconColor} />
                                         ) : section.type === 'cool' ? (
-                                            <Snowflake size={compactView ? 12 : 14} className="text-sys-accent" />
+                                            <Snowflake size={compactView ? 12 : 14} className={colors.iconColor} />
                                         ) : (
-                                            <Activity size={compactView ? 12 : 14} className="text-white" />
+                                            <Activity size={compactView ? 12 : 14} className={colors.iconColor} />
                                         )}
                                     </div>
                                     <span className={`font-bold text-white uppercase tracking-wide ${compactView ? 'text-xs' : 'text-sm'}`}>
                                         {section.name}
                                     </span>
-                                    <div className="h-[2px] flex-1 bg-gradient-to-r from-white/20 to-transparent rounded-full"></div>
+                                    <div className={`h-[2px] flex-1 bg-gradient-to-r ${colors.gradientBar} rounded-full`}></div>
                                     {sectionProgress > 0 && (
                                         <span className="text-xs font-bold text-sys-onSurfaceVar">
                                             {sectionCompletedExercises}/{sectionExercises}
@@ -1093,7 +1161,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 {!compactView && sectionProgress > 0 && (
                                     <div className="h-1 bg-sys-surfaceHigh rounded-full overflow-hidden mx-1">
                                         <div
-                                            className="h-full bg-gradient-to-r from-sys-accent to-sys-success transition-all duration-500"
+                                            className={`h-full bg-gradient-to-r ${colors.gradientBar.replace('/20', '')} transition-all duration-500`}
                                             style={{ width: `${sectionProgress}%` }}
                                         ></div>
                                     </div>
@@ -1333,12 +1401,16 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 haptic.bump();
                                 setShowFinishConfirm(true);
                             }}
-                            className="h-10 min-h-[40px] px-6 rounded-xl bg-sys-surfaceHigh border border-white/10 text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform relative overflow-hidden"
+                            className={`h-10 min-h-[40px] px-6 rounded-xl font-medium flex items-center justify-center gap-2 active:scale-95 transition-all relative overflow-hidden ${
+                                workoutProgress.totalSets > 0 && workoutProgress.completedSets === workoutProgress.totalSets
+                                    ? 'bg-gradient-to-r from-sys-success to-sys-accent text-white shadow-lg shadow-sys-success/30 border-0'
+                                    : 'bg-sys-surfaceHigh border border-white/10 text-white'
+                            }`}
                         >
-                            {/* Progress bar background */}
-                            {workoutProgress.totalSets > 0 && (
+                            {/* Progress bar background for incomplete workouts */}
+                            {workoutProgress.totalSets > 0 && workoutProgress.completedSets < workoutProgress.totalSets && (
                                 <div
-                                    className="absolute inset-0 bg-sys-success/20 transition-all duration-500"
+                                    className="absolute inset-0 bg-gradient-to-r from-sys-success/20 to-sys-accent/20 transition-all duration-500"
                                     style={{ width: `${(workoutProgress.completedSets / workoutProgress.totalSets) * 100}%` }}
                                 />
                             )}
@@ -1346,7 +1418,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 <CheckCircle2 size={16} />
                                 <span>Finish</span>
                                 {workoutProgress.totalSets > 0 && (
-                                    <span className="text-sys-onSurfaceVar text-xs">
+                                    <span className={workoutProgress.completedSets === workoutProgress.totalSets ? 'text-white/90 text-xs' : 'text-sys-onSurfaceVar text-xs'}>
                                         ({workoutProgress.completedSets}/{workoutProgress.totalSets})
                                     </span>
                                 )}

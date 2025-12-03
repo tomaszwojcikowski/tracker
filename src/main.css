@@ -93,16 +93,50 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 
 /* Enhanced set button with modern effects */
 .set-button {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: inherit;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: var(--shadow-md);
+    background-image:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(15, 23, 42, 0.35));
+}
+
+.set-button::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0));
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
 }
 
 .set-button:active {
     animation: scaleBounce 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: translateY(1px);
+}
+
+.set-button:focus-visible {
+    outline: 2px solid rgba(59, 130, 246, 0.7);
+    outline-offset: 2px;
 }
 
 .set-button.completed {
-    box-shadow: var(--shadow-primary);
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: var(--shadow-primary), 0 10px 25px rgba(14, 165, 233, 0.35);
+    background-image: linear-gradient(135deg, rgba(59, 130, 246, 1), rgba(14, 165, 233, 0.9));
+}
+
+.set-button.completed::after {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.1));
+    opacity: 0.75;
+}
+
+.set-button:not(.completed):hover::after {
+    opacity: 0.7;
 }
 
 /* Modern gradient buttons */

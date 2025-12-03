@@ -104,15 +104,6 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const weightInputRef = useRef<HTMLInputElement>(null);
     const setsContainerRef = useRef<HTMLDivElement>(null);
 
-    // Constants for set scrolling - show 3.5 buttons to indicate more are available
-    // Button width (32px) + gap (4px) = 36px per button
-    // 3.5 buttons = 126px (shows partial 4th button as hint)
-    const BUTTON_WIDTH = 32;
-    const BUTTON_GAP = 4;
-    const VISIBLE_BUTTONS = 3.5;
-    const MAX_SCROLL_WIDTH = VISIBLE_BUTTONS * (BUTTON_WIDTH + BUTTON_GAP) - BUTTON_GAP;
-    const needsScrolling = sets.length > 3;
-
     // Computed values
     const completedSets = sets.filter(Boolean).length;
     const totalSets = sets.length;

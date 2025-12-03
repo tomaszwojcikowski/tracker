@@ -79,6 +79,7 @@ export interface ExerciseCardProps {
     onCompleteAllSets: (exId: string, defaultSets: number) => void;
     onSaveWeight: (exId: string, weight: string) => void;
     onSaveRPE: (exId: string, setIndex: number, rpe: RPEValue) => void;
+    onSaveNotes: (exId: string, notes: string) => void;
     onClearRPEPrompt: () => void;
     onStartRestTimer: (seconds: number) => void;
     onToggleEmomTimer: () => void;
@@ -120,6 +121,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     onCompleteAllSets,
     onSaveWeight,
     onSaveRPE,
+    onSaveNotes,
     onClearRPEPrompt,
     onStartRestTimer,
     onToggleEmomTimer,
@@ -448,6 +450,24 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 </div>
                             </div>
                         )}
+
+                        {/* Notes input */}
+                        <div className="pt-3 border-t border-white/5">
+                            <label
+                                htmlFor={`${exId}-notes`}
+                                className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-1 block"
+                            >
+                                Exercise Notes
+                            </label>
+                            <textarea
+                                id={`${exId}-notes`}
+                                value={exerciseLog.notes || ''}
+                                onChange={(e) => onSaveNotes(exId, e.target.value)}
+                                placeholder="Add notes about form, feeling, adjustments..."
+                                className="w-full h-20 px-3 py-2 bg-sys-surfaceHigh rounded-lg text-white text-sm outline-none focus:ring-2 focus:ring-sys-accent transition-all resize-none"
+                                enterKeyHint="done"
+                            />
+                        </div>
                     </>
                 )}
             </div>

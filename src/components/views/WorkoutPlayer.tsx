@@ -647,6 +647,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 weight: parseWeight(exLog.weight) ?? undefined,
                                 prescription: ex.prescription,
                                 isBodyweight: ex.isBodyweight,
+                                notes: exLog.notes,
                             });
                         }
                     });
@@ -683,6 +684,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         weight: parseWeight(ex.weight || exLog.weight) ?? undefined,
                         prescription: `${ex.sets} sets`,
                         isBodyweight: ex.isBodyweight,
+                        notes: exLog.notes,
                     });
                 }
             });
@@ -1005,6 +1007,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 onCompleteAllSets={completeAllSets}
                                                 onSaveWeight={(id, weight) => saveLog(id, 'weight', weight)}
                                                 onSaveRPE={saveRPE}
+                                                onSaveNotes={(id, notes) => saveLog(id, 'notes', notes)}
                                                 onClearRPEPrompt={() => setRpePrompt(null)}
                                                 onStartRestTimer={(seconds) => restTimer.start(seconds)}
                                                 onToggleEmomTimer={() => emomTimer.toggle()}
@@ -1227,6 +1230,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 onCompleteAllSets={completeAllSets}
                                                 onSaveWeight={(id, weight) => saveLog(id, 'weight', weight)}
                                                 onSaveRPE={saveRPE}
+                                                onSaveNotes={(id, notes) => saveLog(id, 'notes', notes)}
                                                 onClearRPEPrompt={() => setRpePrompt(null)}
                                                 onStartRestTimer={(seconds) => restTimer.start(seconds)}
                                                 onToggleEmomTimer={() => emomTimer.toggle()}

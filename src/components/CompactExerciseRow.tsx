@@ -104,15 +104,6 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const weightInputRef = useRef<HTMLInputElement>(null);
     const setsContainerRef = useRef<HTMLDivElement>(null);
 
-    // Constants for set scrolling - show 3.5 buttons to indicate more are available
-    // Button width (32px) + gap (4px) = 36px per button
-    // 3.5 buttons = 126px (shows partial 4th button as hint)
-    const BUTTON_WIDTH = 32;
-    const BUTTON_GAP = 4;
-    const VISIBLE_BUTTONS = 3.5;
-    const MAX_SCROLL_WIDTH = VISIBLE_BUTTONS * (BUTTON_WIDTH + BUTTON_GAP) - BUTTON_GAP;
-    const needsScrolling = sets.length > 3;
-
     // Computed values
     const completedSets = sets.filter(Boolean).length;
     const totalSets = sets.length;
@@ -426,41 +417,56 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                     </button>
                 )}
 
-                {/* Set Buttons - horizontally scrollable when > 3 sets */}
+                {/* Set Buttons - Progressive Reveal: Show completed + next incomplete + dots for future */}
                 <div className="flex items-center gap-1 flex-shrink-0">
                     <div
                         ref={setsContainerRef}
-                        className={`flex items-center gap-1 ${
-                            needsScrolling
-                                ? 'overflow-x-auto snap-x snap-mandatory'
-                                : ''
-                        }`}
-                        style={needsScrolling ? {
-                            maxWidth: `${MAX_SCROLL_WIDTH}px`,
-                            scrollbarWidth: 'none',
-                            msOverflowStyle: 'none'
-                        } : undefined}
+                        className="flex items-center gap-1"
                     >
-                        {sets.map((isDone, i) => (
-                            <button
-                                key={`${exId}-set-${i}`}
-                                onClick={() => handleSetToggle(i)}
-                                className={`h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 snap-start ${
-                                    isDone
-                                        ? 'bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
-                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                                }`}
-                                aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
-                            >
-                                {isDone ? <Check size={14} /> : i + 1}
-                            </button>
-                        ))}
+                        {sets.map((isDone, i) => {
+                            // Find first incomplete set
+                            const firstIncompleteIndex = sets.findIndex(s => !s);
+                            const isNextIncomplete = i === firstIncompleteIndex;
+                            const shouldShowAsButton = isDone || isNextIncomplete;
+                            
+                            if (shouldShowAsButton) {
+                                return (
+                                    <button
+                                        key={`${exId}-set-${i}`}
+                                        onClick={() => handleSetToggle(i)}
+                                        className={`h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
+                                            isDone
+                                                ? isComplete
+                                                    ? 'bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.4)]'
+                                                    : 'bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
+                                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                        }`}
+                                        aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
+                                    >
+                                        {isDone ? <Check size={14} /> : i + 1}
+                                    </button>
+                                );
+                            } else {
+                                // Future sets shown as dots
+                                return (
+                                    <div
+                                        key={`${exId}-dot-${i}`}
+                                        className="w-2 h-2 rounded-full bg-sys-onSurfaceVar/30"
+                                        aria-label={`Set ${i + 1} pending`}
+                                    />
+                                );
+                            }
+                        })}
                     </div>
-                    {/* Complete All Sets Button - only show when there are 2+ sets with incomplete */}
+                    {/* Progress indicator */}
+                    <span className="text-xs text-sys-onSurfaceVar font-semibold ml-1">
+                        ({completedSets}/{totalSets})
+                    </span>
+                    {/* Complete All Sets Button - only show when there are 2+ incomplete sets */}
                     {showCompleteAllButton && (
                         <button
                             onClick={handleCompleteAllSets}
-                            className="h-8 w-8 rounded-lg bg-sys-success/20 text-sys-success flex items-center justify-center active:scale-90 transition-all"
+                            className="h-8 w-8 rounded-lg bg-sys-success/20 text-sys-success flex items-center justify-center active:scale-90 transition-all ml-1"
                             aria-label="Complete all sets"
                         >
                             <CheckCheck size={14} />

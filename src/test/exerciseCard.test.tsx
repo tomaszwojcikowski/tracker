@@ -87,11 +87,14 @@ describe('ExerciseCard', () => {
         it('should render set buttons for each set', () => {
             render(<ExerciseCard {...defaultProps} />);
 
-            // Should have 3 set buttons + 1 add set button
+            // With progressive reveal: only first incomplete set is shown as button, rest are dots
             expect(screen.getByRole('button', { name: 'Set 1' })).toBeInTheDocument();
-            expect(screen.getByRole('button', { name: 'Set 2' })).toBeInTheDocument();
-            expect(screen.getByRole('button', { name: 'Set 3' })).toBeInTheDocument();
+            // Sets 2 and 3 are shown as dots (not buttons)
+            expect(screen.getByLabelText('Set 2 pending')).toBeInTheDocument();
+            expect(screen.getByLabelText('Set 3 pending')).toBeInTheDocument();
             expect(screen.getByRole('button', { name: 'Add set' })).toBeInTheDocument();
+            // Progress indicator should be shown
+            expect(screen.getByText('(0/3)')).toBeInTheDocument();
         });
 
         it('should show completed status for finished sets', () => {

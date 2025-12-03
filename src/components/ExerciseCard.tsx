@@ -128,6 +128,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 }) => {
     const completedSets = sets.filter((s) => s).length;
     const totalSets = sets.length;
+    const allComplete = completedSets === totalSets && totalSets > 0;
 
     const handleShowDetails = (): void => {
         haptic.tick();
@@ -311,22 +312,47 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             </div>
                         )}
 
-                        {/* Set buttons */}
-                        <div className="flex flex-wrap gap-2 mb-3">
-                            {sets.map((isDone, i) => (
-                                <button
-                                    key={`${exId}-set-${i}`}
-                                    onClick={() => onToggleSet(exId, i, defaultSets, restTime)}
-                                    className={`set-button h-11 w-11 min-w-[44px] min-h-[44px] rounded-xl flex items-center justify-center text-sm font-bold ${
-                                        isDone
-                                            ? 'completed bg-sys-accent text-white shadow-[0_0_16px_rgba(59,130,246,0.5)]'
-                                            : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                                    }`}
-                                    aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
-                                >
-                                    {isDone ? <Check size={20} /> : i + 1}
-                                </button>
-                            ))}
+                        {/* Set buttons - Progressive Reveal */}
+                        <div className="flex flex-wrap gap-2 mb-3 items-center">
+                            {sets.map((isDone, i) => {
+                                // Find first incomplete set
+                                const firstIncompleteIndex = sets.findIndex(s => !s);
+                                const isNextIncomplete = i === firstIncompleteIndex;
+                                const shouldShowAsButton = isDone || isNextIncomplete;
+                                
+                                if (shouldShowAsButton) {
+                                    return (
+                                        <button
+                                            key={`${exId}-set-${i}`}
+                                            onClick={() => onToggleSet(exId, i, defaultSets, restTime)}
+                                            className={`set-button h-11 w-11 min-w-[44px] min-h-[44px] rounded-xl flex items-center justify-center text-sm font-bold ${
+                                                isDone
+                                                    ? allComplete
+                                                        ? 'completed bg-sys-success text-white shadow-[0_0_16px_rgba(16,185,129,0.5)]'
+                                                        : 'completed bg-sys-accent text-white shadow-[0_0_16px_rgba(59,130,246,0.5)]'
+                                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                            }`}
+                                            aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
+                                        >
+                                            {isDone ? <Check size={20} /> : i + 1}
+                                        </button>
+                                    );
+                                } else {
+                                    // Future sets shown as dots
+                                    return (
+                                        <div
+                                            key={`${exId}-dot-${i}`}
+                                            className="w-2 h-2 rounded-full bg-sys-onSurfaceVar/30"
+                                            aria-label={`Set ${i + 1} pending`}
+                                        />
+                                    );
+                                }
+                            })}
+
+                            {/* Progress indicator */}
+                            <span className="text-xs text-sys-onSurfaceVar font-semibold">
+                                ({completedSets}/{totalSets})
+                            </span>
 
                             {/* Add set button */}
                             <button

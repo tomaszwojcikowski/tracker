@@ -23,6 +23,13 @@ export interface ExerciseLogEntry {
     sets?: boolean[];
     weight?: string;
     rpe?: RPEData;
+    /** User's personal notes for this specific exercise in this workout session */
+    userNotes?: string;
+    /** 
+     * @deprecated Legacy field - use userNotes instead. 
+     * This field is maintained for backward compatibility with existing stored data.
+     * Will be removed in a future major version (v2.0.0+).
+     */
     notes?: string;
 }
 
@@ -59,6 +66,12 @@ export interface ExerciseDetailRequest {
     isSwapped?: boolean;
     /** Optional metadata for detail view */
     metadata?: ExerciseDetailMetadata;
+    /** Exercise ID for looking up current session notes */
+    exerciseId?: string;
+    /** Current user notes for this exercise in this session */
+    currentUserNotes?: string;
+    /** Callback to update user notes */
+    onUpdateUserNotes?: (exerciseId: string, notes: string) => void;
 }
 
 /**

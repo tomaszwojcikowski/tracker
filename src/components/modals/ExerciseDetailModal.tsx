@@ -5,7 +5,7 @@
  * Uses MD3 BottomSheet pattern for consistent mobile UX.
  */
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import {
     X,
     TrendingUp,
@@ -17,6 +17,9 @@ import {
     Timer,
     ClipboardList,
     FileText,
+    Edit3,
+    Save,
+    XCircle,
 } from 'lucide-react';
 import { getExerciseHistory, calculateExerciseStats } from '../../utils/exerciseHistory';
 import type { ExerciseHistoryEntry } from '../../utils/exerciseHistory';
@@ -42,6 +45,12 @@ export interface ExerciseDetailModalProps {
     isOpen: boolean;
     /** Supplemental metadata for exercise details */
     metadata?: ExerciseDetailMetadata;
+    /** Exercise ID for looking up current session notes */
+    exerciseId?: string;
+    /** Current user notes for this exercise in this session */
+    currentUserNotes?: string;
+    /** Callback to update user notes */
+    onUpdateUserNotes?: (exerciseId: string, notes: string) => void;
 }
 
 const extractRepsFromPrescription = (prescription?: string): string | null => {
@@ -217,11 +226,25 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
     onClose,
     isOpen,
     metadata,
+    exerciseId,
+    currentUserNotes,
+    onUpdateUserNotes,
 }) => {
     const lookupName = historyLookupName || exerciseName;
     const history = lookupName ? getExerciseHistory(lookupName) : [];
     const stats = calculateExerciseStats(lookupName);
     const canSwap = Boolean(onSwapExercise && alternatives?.length && originalName);
+    
+    // State for editing user notes
+    const [editingUserNotes, setEditingUserNotes] = useState(false);
+    const [userNotesValue, setUserNotesValue] = useState(currentUserNotes || '');
+    
+    // Sync user notes when modal opens or currentUserNotes changes
+    useEffect(() => {
+        setUserNotesValue(currentUserNotes || '');
+        setEditingUserNotes(false);
+    }, [currentUserNotes, isOpen]);
+    
     const restLabel = formatRestTime(metadata?.restTime);
     const loadLabel = formatLoadRangeLabel(metadata?.loadRange);
     const detailBadges = [
@@ -264,6 +287,18 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
         if (canSwap && originalName && alternatives) {
             onSwapExercise?.(originalName, alternatives);
         }
+    };
+    
+    const handleSaveUserNotes = (): void => {
+        if (exerciseId && onUpdateUserNotes) {
+            onUpdateUserNotes(exerciseId, userNotesValue);
+            setEditingUserNotes(false);
+        }
+    };
+    
+    const handleCancelEditUserNotes = (): void => {
+        setUserNotesValue(currentUserNotes || '');
+        setEditingUserNotes(false);
     };
 
     return (
@@ -369,6 +404,72 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                         <p className="text-sm leading-relaxed text-white/80 whitespace-pre-line">
                             {metadata.notes}
                         </p>
+                    </div>
+                )}
+
+                {/* User Notes Section - Only shown when onUpdateUserNotes is provided */}
+                {exerciseId && onUpdateUserNotes && (
+                    <div className="bg-sys-surfaceHigh rounded-xl p-4 border border-white/5 space-y-3">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2 text-white">
+                                <Edit3 size={16} className="text-sys-accent" />
+                                <h3 className="text-sm font-bold">My Notes</h3>
+                            </div>
+                            {!editingUserNotes && (
+                                <button
+                                    onClick={() => setEditingUserNotes(true)}
+                                    className="text-xs font-semibold text-sys-accent px-3 py-1 rounded-full bg-sys-accent/10 active:scale-95 transition-all"
+                                    aria-label="Edit notes"
+                                >
+                                    Edit
+                                </button>
+                            )}
+                        </div>
+                        
+                        {editingUserNotes ? (
+                            <div className="space-y-2">
+                                <textarea
+                                    value={userNotesValue}
+                                    onChange={(e) => setUserNotesValue(e.target.value)}
+                                    placeholder="Add your notes about this exercise..."
+                                    className="w-full min-h-[100px] bg-sys-surface rounded-lg p-3 text-sm text-white placeholder-white/40 border border-white/10 focus:border-sys-accent focus:outline-none resize-y"
+                                    autoFocus
+                                    aria-label="Exercise notes"
+                                    aria-describedby="notes-help-text"
+                                />
+                                <p id="notes-help-text" className="sr-only">
+                                    Enter your personal notes about this exercise. These notes are specific to this workout session.
+                                </p>
+                                <div className="flex gap-2 justify-end">
+                                    <button
+                                        onClick={handleCancelEditUserNotes}
+                                        className="px-4 py-2 rounded-lg bg-sys-surface text-white/70 text-sm font-semibold active:scale-95 transition-all flex items-center gap-1.5"
+                                    >
+                                        <XCircle size={14} />
+                                        Cancel
+                                    </button>
+                                    <button
+                                        onClick={handleSaveUserNotes}
+                                        className="px-4 py-2 rounded-lg bg-sys-accent text-white text-sm font-semibold active:scale-95 transition-all flex items-center gap-1.5"
+                                    >
+                                        <Save size={14} />
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <div>
+                                {userNotesValue ? (
+                                    <p className="text-sm leading-relaxed text-white/80 whitespace-pre-line">
+                                        {userNotesValue}
+                                    </p>
+                                ) : (
+                                    <p className="text-sm text-white/40 italic">
+                                        No notes yet. Click Edit to add your thoughts about this exercise.
+                                    </p>
+                                )}
+                            </div>
+                        )}
                     </div>
                 )}
 

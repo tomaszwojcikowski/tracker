@@ -1401,12 +1401,16 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 haptic.bump();
                                 setShowFinishConfirm(true);
                             }}
-                            className="h-10 min-h-[40px] px-6 rounded-xl bg-sys-surfaceHigh border border-white/10 text-white font-medium flex items-center justify-center gap-2 active:scale-95 transition-transform relative overflow-hidden"
+                            className={`h-10 min-h-[40px] px-6 rounded-xl font-medium flex items-center justify-center gap-2 active:scale-95 transition-all relative overflow-hidden ${
+                                workoutProgress.totalSets > 0 && workoutProgress.completedSets === workoutProgress.totalSets
+                                    ? 'bg-gradient-to-r from-sys-success to-sys-accent text-white shadow-lg shadow-sys-success/30 border-0'
+                                    : 'bg-sys-surfaceHigh border border-white/10 text-white'
+                            }`}
                         >
-                            {/* Progress bar background */}
-                            {workoutProgress.totalSets > 0 && (
+                            {/* Progress bar background for incomplete workouts */}
+                            {workoutProgress.totalSets > 0 && workoutProgress.completedSets < workoutProgress.totalSets && (
                                 <div
-                                    className="absolute inset-0 bg-sys-success/20 transition-all duration-500"
+                                    className="absolute inset-0 bg-gradient-to-r from-sys-success/20 to-sys-accent/20 transition-all duration-500"
                                     style={{ width: `${(workoutProgress.completedSets / workoutProgress.totalSets) * 100}%` }}
                                 />
                             )}
@@ -1414,7 +1418,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 <CheckCircle2 size={16} />
                                 <span>Finish</span>
                                 {workoutProgress.totalSets > 0 && (
-                                    <span className="text-sys-onSurfaceVar text-xs">
+                                    <span className={workoutProgress.completedSets === workoutProgress.totalSets ? 'text-white/90 text-xs' : 'text-sys-onSurfaceVar text-xs'}>
                                         ({workoutProgress.completedSets}/{workoutProgress.totalSets})
                                     </span>
                                 )}

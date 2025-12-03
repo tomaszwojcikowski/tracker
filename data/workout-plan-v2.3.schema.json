@@ -120,7 +120,7 @@
         },
         "category": {
           "type": ["string", "null"],
-          "enum": ["warmup", "cooldown", "mobility", "activation", "prehab", "rehab", null],
+          "enum": ["warmup", "cooldown", "mobility", "activation", "prehab", "rehab", "main", null],
           "description": "Category of routine for filtering and organization"
         },
         "estimatedDuration": {

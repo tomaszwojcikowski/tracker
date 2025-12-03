@@ -3616,8 +3616,7 @@
                     "notes": "Deload. 50% volume, 5s descent"
                   },
                   {
-                    "$routine": "superset-bss",
-                    "sets": 2
+                    "$routine": "superset-bss"
                   },
                   {
                     "exerciseName": "Weighted Hollow Rocks",

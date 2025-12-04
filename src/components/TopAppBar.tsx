@@ -42,9 +42,10 @@ export function TopAppBar({
   onNavigateToSettings,
   showActions = true,
 }: TopAppBarProps) {
-  // Get sync status for display (only if Firebase is configured)
+  // Get sync status for display (only check when actions should be shown and not in workout mode)
+  const shouldCheckSync = showActions && !workoutTimer;
   const { syncStatus, pendingChanges } = useOptimisticSync({ enabled: false });
-  const showSyncStatus = syncStatus !== 'idle' || pendingChanges;
+  const showSyncStatus = shouldCheckSync && (syncStatus !== 'idle' || pendingChanges);
 
   return (
     <header className="bg-sys-surface sticky top-0 z-40 safe-pt border-b border-sys-outlineVariant transition-colors duration-200">

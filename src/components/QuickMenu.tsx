@@ -110,7 +110,7 @@ export function QuickMenu({ onNavigateToSettings }: QuickMenuProps) {
                   </div>
                   <div className="text-body-sm text-sys-onSurfaceVariant space-y-1 ml-8">
                     <div>Version: 1.0.0</div>
-                    <div>Build: {new Date().toLocaleDateString()}</div>
+                    <div>Build: Dec 2025</div>
                   </div>
                 </div>
 

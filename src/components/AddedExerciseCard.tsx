@@ -105,14 +105,14 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                         <button
                             key={`${exId}-set-${i}`}
                             onClick={() => onToggleSet(exId, i, exercise.sets, exercise.rest ?? 90)}
-                            className={`set-button h-11 w-11 min-w-[44px] min-h-[44px] rounded-xl flex items-center justify-center text-sm font-bold ${
+                            className={`set-button h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
                                 isDone
-                                    ? 'completed bg-sys-accent text-white shadow-[0_0_16px_rgba(59,130,246,0.5)]'
+                                    ? 'completed bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
                                     : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                             }`}
                             aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                         >
-                            {isDone ? <Check size={20} /> : i + 1}
+                            {isDone ? <Check size={14} /> : i + 1}
                         </button>
                     ))}
                 </div>

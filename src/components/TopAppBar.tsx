@@ -1,11 +1,19 @@
 /**
  * TopAppBar Component
  *
- * A sticky header bar with optional back button, title, subtitle, and workout timer.
+ * Enhanced sticky header bar with:
+ * - Back button (optional)
+ * - Title and subtitle
+ * - Workout timer (in workout mode)
+ * - Quick menu for settings, theme, and app info
+ * - Sync status indicator (when Firebase is configured)
  */
 
 import { ArrowLeft } from 'lucide-react';
 import { WorkoutTimerDisplay } from './WorkoutTimerDisplay';
+import { QuickMenu } from './QuickMenu';
+import { SyncStatusIndicator } from './SyncStatusIndicator';
+import { useOptimisticSync } from '../hooks/useOptimisticSync';
 import { clsx } from 'clsx';
 
 export interface TopAppBarProps {
@@ -19,6 +27,10 @@ export interface TopAppBarProps {
     isRunning: boolean;
     onToggle: () => void;
   };
+  /** Callback to navigate to settings */
+  onNavigateToSettings?: () => void;
+  /** Whether to show the quick menu and sync status */
+  showActions?: boolean;
 }
 
 export function TopAppBar({
@@ -27,10 +39,17 @@ export function TopAppBar({
   onBack,
   showBack = false,
   workoutTimer,
+  onNavigateToSettings,
+  showActions = true,
 }: TopAppBarProps) {
+  // Get sync status for display (only if Firebase is configured)
+  const { syncStatus, pendingChanges } = useOptimisticSync({ enabled: false });
+  const showSyncStatus = syncStatus !== 'idle' || pendingChanges;
+
   return (
     <header className="bg-sys-surface sticky top-0 z-40 safe-pt border-b border-sys-outlineVariant transition-colors duration-200">
-      <div className="h-16 flex items-center px-4 gap-4">
+      <div className="h-16 flex items-center px-4 gap-3">
+        {/* Back Button */}
         {showBack ? (
           <button
             onClick={onBack}
@@ -41,6 +60,7 @@ export function TopAppBar({
           </button>
         ) : null}
 
+        {/* Title and Subtitle */}
         <div className={clsx("flex-1 min-w-0 flex flex-col justify-center", !showBack && "pl-2")}>
           <h1 className="text-title-lg text-sys-onSurface truncate">
             {title}
@@ -52,16 +72,31 @@ export function TopAppBar({
           )}
         </div>
 
-        {/* Workout Timer - shows on the right side when in workout mode */}
-        {workoutTimer && (
-          <div className="flex items-center">
-             <WorkoutTimerDisplay
-                elapsedSeconds={workoutTimer.elapsedSeconds}
-                isRunning={workoutTimer.isRunning}
-                onToggle={workoutTimer.onToggle}
-              />
-          </div>
-        )}
+        {/* Right side actions */}
+        <div className="flex items-center gap-2">
+          {/* Workout Timer - shows when in workout mode */}
+          {workoutTimer && (
+            <WorkoutTimerDisplay
+              elapsedSeconds={workoutTimer.elapsedSeconds}
+              isRunning={workoutTimer.isRunning}
+              onToggle={workoutTimer.onToggle}
+            />
+          )}
+
+          {/* Sync Status - shows when Firebase is configured and has activity */}
+          {showActions && !workoutTimer && showSyncStatus && (
+            <SyncStatusIndicator
+              status={syncStatus}
+              pendingChanges={pendingChanges}
+              compact
+            />
+          )}
+
+          {/* Quick Menu - shows when not in workout mode */}
+          {showActions && !workoutTimer && (
+            <QuickMenu onNavigateToSettings={onNavigateToSettings} />
+          )}
+        </div>
       </div>
     </header>
   );

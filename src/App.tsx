@@ -293,6 +293,7 @@ const App: React.FC = () => {
                     subtitle={getSubtitle()}
                     showBack={viewMode === 'workout' || viewMode === 'empty-workout'}
                     onBack={goBack}
+                    onNavigateToSettings={() => handleTabChange('profile')}
                     workoutTimer={(viewMode === 'workout' || viewMode === 'empty-workout') ? {
                         elapsedSeconds: workoutTimer.elapsedSeconds,
                         isRunning: workoutTimer.isRunning,

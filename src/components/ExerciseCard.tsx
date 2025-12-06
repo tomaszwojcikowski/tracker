@@ -202,6 +202,20 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     const showSupersetConnectorTop = isMiddleInSuperset || isLastInSuperset;
     const showSupersetConnectorBottom = isFirstInSuperset || isMiddleInSuperset;
 
+    // Determine background and border colors based on state and section
+    const containerClasses = useMemo(() => {
+        if (completedSets === totalSets && totalSets > 0) return 'border-sys-success/30 bg-sys-success/5';
+        if (isFirstIncomplete) return 'border-sys-accent/50 bg-sys-accent/10';
+        if (hasSupersetGroup) return 'border-amber-500/30 bg-amber-500/5';
+
+        switch (sectionType) {
+            case 'prep': return 'bg-warmup-500/5 border-warmup-500/10';
+            case 'main': return 'bg-main-500/5 border-main-500/10';
+            case 'cool': return 'bg-cooldown-500/5 border-cooldown-500/10';
+            default: return 'bg-sys-surface border-white/5';
+        }
+    }, [completedSets, totalSets, isFirstIncomplete, hasSupersetGroup, sectionType]);
+
     return (
         <div id={exId} className="relative scroll-mt-16">
             {/* Superset Connector Line */}
@@ -225,15 +239,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             )}
 
             <div
-                className={`bg-sys-surface rounded-2xl p-4 border relative z-10 overflow-hidden ${
-                    completedSets === totalSets
-                        ? 'border-sys-success/30 bg-sys-success/5'
-                        : isFirstIncomplete
-                            ? 'border-sys-accent/50 bg-sys-accent/10'
-                            : hasSupersetGroup
-                                ? 'border-amber-500/30 bg-amber-500/5'
-                                : 'border-white/5'
-                } ${hasSupersetGroup ? 'ml-4' : ''}`}
+                className={`rounded-2xl p-4 border relative z-10 overflow-hidden ${containerClasses} ${hasSupersetGroup ? 'ml-4' : ''}`}
             >
                 {/* Progress bar */}
                 {completedSets > 0 && (

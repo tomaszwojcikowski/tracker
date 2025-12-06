@@ -302,6 +302,19 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     const showSupersetConnectorTop = isMiddleInSuperset || isLastInSuperset;
     const showSupersetConnectorBottom = isFirstInSuperset || isMiddleInSuperset;
 
+    // Determine background and border colors based on state and section
+    const containerClasses = useMemo(() => {
+        if (isFirstIncomplete) return 'bg-sys-accent/10 border-sys-accent/30';
+        if (hasSupersetGroup) return 'bg-amber-500/5 border-amber-500/20';
+
+        switch (sectionType) {
+            case 'prep': return 'bg-warmup-500/5 border-warmup-500/10';
+            case 'main': return 'bg-main-500/5 border-main-500/10';
+            case 'cool': return 'bg-cooldown-500/5 border-cooldown-500/10';
+            default: return 'bg-sys-surface border-white/5';
+        }
+    }, [isFirstIncomplete, hasSupersetGroup, sectionType]);
+
     // ============================================================================
     // RENDER: COLLAPSED COMPLETE STATE
     // ============================================================================
@@ -384,13 +397,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                 </>
             )}
             <div
-                className={`rounded-xl border overflow-hidden transition-all ${
-                    isFirstIncomplete
-                        ? 'bg-sys-accent/10 border-sys-accent/30'
-                        : hasSupersetGroup
-                            ? 'bg-amber-500/5 border-amber-500/20'
-                            : 'bg-sys-surface border-white/5'
-                } ${hasSupersetGroup ? 'ml-3' : ''}`}
+                className={`rounded-xl border overflow-hidden transition-all ${containerClasses} ${hasSupersetGroup ? 'ml-3' : ''}`}
             >
             {/* Main Row - Always visible */}
             <div className="h-14 px-3 flex items-center gap-2">

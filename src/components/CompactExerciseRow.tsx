@@ -65,7 +65,7 @@ export interface CompactExerciseRowProps {
     /** Alternative exercises available for swapping */
     alternatives?: string[];
     /** Callback when set is toggled */
-    onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number, sectionType?: string) => void;
+    onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number, sectionType?: string, isEmom?: boolean) => void;
     /** Callback when weight changes */
     onWeightChange: (exId: string, weight: string) => void;
     /** Callback when add set is clicked */
@@ -245,9 +245,9 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
 
     const handleSetToggle = useCallback(
         (setIndex: number) => {
-            onToggleSet(exId, setIndex, defaultSets, restTime, sectionType);
+            onToggleSet(exId, setIndex, defaultSets, restTime, sectionType, isEmom);
         },
-        [exId, defaultSets, restTime, onToggleSet, sectionType]
+        [exId, defaultSets, restTime, onToggleSet, sectionType, isEmom]
     );
 
     const handleAddSet = useCallback(() => {

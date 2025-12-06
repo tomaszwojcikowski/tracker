@@ -137,7 +137,7 @@ export interface FocusViewProps {
     /** Get effective exercise name (with swaps) */
     getEffectiveExerciseName: (ex: WorkoutExercise) => string;
     /** Callbacks */
-    onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number, sectionType?: string) => void;
+    onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number, sectionType?: string, isEmom?: boolean) => void;
     onAddSet: (exId: string, defaultSets: number) => void;
     onCompleteAllSets: (exId: string, defaultSets: number) => void;
     onSaveLog: (id: string, field: keyof ExerciseLogEntry, value: ExerciseLogEntry[keyof ExerciseLogEntry]) => void;

@@ -49,7 +49,7 @@ export interface SupersetGroupProps {
     /** Section type for determining if rest button should show (hide for prep/cool sections) */
     sectionType?: string;
     /** Callback when a round is toggled for all exercises */
-    onToggleRound: (exerciseIds: string[], roundIndex: number, defaultSets: number, restTime?: number, sectionType?: string) => void;
+    onToggleRound: (exerciseIds: string[], roundIndex: number, defaultSets: number, restTime?: number, sectionType?: string, isEmom?: boolean) => void;
     /** Callback when weight changes for an exercise */
     onWeightChange: (exId: string, weight: string) => void;
     /** Callback to complete all rounds */
@@ -116,7 +116,8 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
     const handleToggleRound = useCallback((roundIndex: number) => {
         haptic.tick();
         const restTime = exercises[0]?.restTime;
-        onToggleRound(exerciseIds, roundIndex, totalRounds, restTime, sectionType);
+        const isEmom = exercises.some(ex => ex.isEmom);
+        onToggleRound(exerciseIds, roundIndex, totalRounds, restTime, sectionType, isEmom);
     }, [haptic, exerciseIds, totalRounds, exercises, onToggleRound, sectionType]);
 
     const handleCompleteAll = useCallback(() => {

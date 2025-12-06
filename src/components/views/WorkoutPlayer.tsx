@@ -496,7 +496,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         setIndex: number,
         defaultSets: number,
         restTime?: number,
-        sectionType?: string
+        sectionType?: string,
+        isEmom?: boolean
     ): void => {
         try {
             haptic.tick();
@@ -533,7 +534,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 // Only start rest timer between sets, not after completing the last set of an exercise.
                 // This prevents the timer from activating when moving to the next exercise.
                 // Timer should only run when there are still incomplete sets remaining.
-                if (typeof restTime === 'number' && restTime > 0) {
+                if (isEmom) {
+                    // For EMOM exercises, ensure the EMOM timer is running
+                    if (!emomTimer.active) {
+                        emomTimer.start();
+                    }
+                } else if (typeof restTime === 'number' && restTime > 0) {
                     // Check if rest timer should be disabled for this section (warmup/cooldown)
                     // sectionType 'prep' = Warm Up, 'cool' = Cooldown
                     const shouldDisableTimer = sectionType === 'prep' || sectionType === 'cool';
@@ -561,7 +567,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         roundIndex: number,
         defaultSets: number,
         restTime?: number,
-        sectionType?: string
+        sectionType?: string,
+        isEmom?: boolean
     ): void => {
         try {
             haptic.tick();
@@ -628,7 +635,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 setRpePrompt(null);
 
                 // Start rest timer if completing and there are incomplete sets remaining
-                if (typeof restTime === 'number' && restTime > 0 && hasIncompleteSetsAfter) {
+                if (isEmom) {
+                    // For EMOM supersets, ensure the EMOM timer is running
+                    if (!emomTimer.active) {
+                        emomTimer.start();
+                    }
+                } else if (typeof restTime === 'number' && restTime > 0 && hasIncompleteSetsAfter) {
                     // Check if rest timer should be disabled for this section (warmup/cooldown)
                     const shouldDisableTimer = sectionType === 'prep' || sectionType === 'cool';
 

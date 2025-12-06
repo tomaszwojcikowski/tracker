@@ -88,7 +88,7 @@ export interface ExerciseCardProps {
     sectionType?: string;
     /** Callbacks */
     onToggleCollapse: (exId: string) => void;
-    onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number, sectionType?: string) => void;
+    onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number, sectionType?: string, isEmom?: boolean) => void;
     onAddSet: (exId: string, defaultSets: number) => void;
     onCompleteAllSets: (exId: string, defaultSets: number) => void;
     onSaveWeight: (exId: string, weight: string) => void;
@@ -350,7 +350,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     return (
                                         <button
                                             key={`${exId}-set-${i}`}
-                                            onClick={() => onToggleSet(exId, i, defaultSets, restTime, sectionType)}
+                                            onClick={() => onToggleSet(exId, i, defaultSets, restTime, sectionType, isEmom)}
                                             className={`set-button h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
                                                 isDone
                                                     ? allComplete

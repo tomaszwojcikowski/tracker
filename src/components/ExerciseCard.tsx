@@ -209,9 +209,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
         if (hasSupersetGroup) return 'border-amber-500/30 bg-amber-500/5';
 
         switch (sectionType) {
-            case 'prep': return 'bg-warmup-500/5 border-warmup-500/10';
-            case 'main': return 'bg-main-500/5 border-main-500/10';
-            case 'cool': return 'bg-cooldown-500/5 border-cooldown-500/10';
+            case 'prep': return 'bg-warmup-500/10 border-warmup-500/20';
+            case 'main': return 'bg-main-500/10 border-main-500/20';
+            case 'cool': return 'bg-cooldown-500/10 border-cooldown-500/20';
             default: return 'bg-sys-surface border-white/5';
         }
     }, [completedSets, totalSets, isFirstIncomplete, hasSupersetGroup, sectionType]);

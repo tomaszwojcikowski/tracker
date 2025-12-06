@@ -158,10 +158,10 @@ export function findRecentPRs(
 
         for (const entry of history) {
             if (!entry.weight) continue;
-            const weight = typeof entry.weight === 'string' 
-                ? parseFloat(entry.weight) 
+            const weight = typeof entry.weight === 'string'
+                ? parseFloat(entry.weight)
                 : entry.weight;
-            
+
             if (weight > maxWeight) {
                 secondBest = maxWeight;
                 maxWeight = weight;
@@ -200,7 +200,7 @@ interface PRCardProps {
 }
 
 const PRCard: React.FC<PRCardProps> = ({ pr, onTap, delay }) => {
-    const improvement = pr.previousBest 
+    const improvement = pr.previousBest
         ? Math.round(((pr.weight - pr.previousBest) / pr.previousBest) * 100)
         : null;
 
@@ -254,14 +254,14 @@ const StreakBadge: React.FC<StreakBadgeProps> = ({ days, bestStreak }) => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             className={`flex items-center gap-2 px-3 py-2 rounded-xl border ${
-                isOnFire 
-                    ? 'bg-gradient-to-r from-orange-500/20 to-red-500/20 border-orange-500/30' 
+                isOnFire
+                    ? 'bg-gradient-to-r from-orange-500/20 to-red-500/20 border-orange-500/30'
                     : 'bg-sys-surfaceHigh border-white/5'
             }`}
         >
-            <Flame 
-                size={20} 
-                className={isOnFire ? 'text-orange-400 animate-pulse' : 'text-sys-onSurfaceVar'} 
+            <Flame
+                size={20}
+                className={isOnFire ? 'text-orange-400 animate-pulse' : 'text-sys-onSurfaceVar'}
             />
             <div>
                 <div className="text-lg font-bold text-white leading-none">{days}</div>
@@ -374,7 +374,7 @@ export const PRHighlights: React.FC<PRHighlightsProps> = ({
             {/* Stats Row: Streak + Workouts */}
             <div className="flex gap-3">
                 <StreakBadge days={streakDays} bestStreak={bestStreak} />
-                
+
                 {totalWorkouts > 0 && (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}

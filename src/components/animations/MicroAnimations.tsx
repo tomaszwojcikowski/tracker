@@ -160,7 +160,7 @@ export const PRCelebration: React.FC<PRCelebrationProps> = ({
             className="relative"
         >
             {children}
-            
+
             {/* Star particles */}
             <AnimatePresence>
                 {show && (

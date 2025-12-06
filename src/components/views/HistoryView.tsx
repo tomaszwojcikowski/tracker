@@ -418,7 +418,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
             getExerciseHistory,
             30 // Last 30 days
         );
-        
+
         return {
             recentPRs,
             streakDays: streakData.currentStreak,
@@ -520,7 +520,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                 compact={prHighlightsData.recentPRs.length > 3}
                             />
                         )}
-                        
+
                         <AnimatePresence initial={false}>
                             {history.map((entry, idx) => {
                                 const isExpanded = expandedEntries[idx];

@@ -1001,8 +1001,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 {!isEmptyWorkout && sectionProgressData.length > 0 && (
                     <WorkoutFlowIndicator
                         sections={sectionProgressData}
-                        overallProgress={workoutProgress.totalSets > 0 
-                            ? (workoutProgress.completedSets / workoutProgress.totalSets) * 100 
+                        overallProgress={workoutProgress.totalSets > 0
+                            ? (workoutProgress.completedSets / workoutProgress.totalSets) * 100
                             : 0}
                         collapsible={true}
                         initialCollapsed={false}

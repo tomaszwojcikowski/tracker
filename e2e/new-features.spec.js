@@ -109,7 +109,7 @@ test.describe('New Features', () => {
     // The modal shows exercise name in header and has a close button
     // Stats/history sections may be hidden if there's no data
     await expect(page.locator('h2:has-text("Pull-Up Ladders")')).toBeVisible();
-    
+
     // Check for close button to confirm modal is open
     const closeButton = page.locator('button[aria-label="Close exercise details"]');
     await expect(closeButton).toBeVisible();

@@ -24,7 +24,7 @@ import {
 import { RPESelector } from './RPESelector';
 import type { RPEValue } from '../types';
 import type { ExerciseDetailRequest, ExerciseLogEntry } from '../types/workout';
-import type { LoadRange } from '../workout-plan-utils';
+import type { LoadRange, TempoRange } from '../workout-plan-utils';
 import type { HapticFeedback } from '../hooks';
 
 export interface ExerciseCardProps {
@@ -54,6 +54,8 @@ export interface ExerciseCardProps {
     restTime?: number;
     /** Load range suggestion */
     loadRange?: LoadRange;
+    /** Tempo range (e.g., 3-1-1-0) */
+    tempoRange?: TempoRange;
     /** Alternative exercises available */
     alternatives?: string[];
     /** Current set completion array */
@@ -113,6 +115,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     ladderReps,
     restTime,
     loadRange,
+    tempoRange,
     alternatives,
     sets,
     defaultSets,
@@ -161,6 +164,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                 isUnilateral,
                 isAmrap,
                 loadRange,
+                tempoRange,
             },
         });
     };

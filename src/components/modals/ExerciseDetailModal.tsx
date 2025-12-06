@@ -20,6 +20,7 @@ import {
     Edit3,
     Save,
     XCircle,
+    Gauge,
 } from 'lucide-react';
 import { getExerciseHistory, calculateExerciseStats } from '../../utils/exerciseHistory';
 import type { ExerciseHistoryEntry } from '../../utils/exerciseHistory';
@@ -118,6 +119,21 @@ const formatLoadRangeLabel = (range?: ExerciseDetailMetadata['loadRange']): stri
         return `${range.min}%`;
     }
     return range.raw || null;
+};
+
+const formatTempoLabel = (tempo?: ExerciseDetailMetadata['tempoRange']): {
+    display: string;
+    phases: { label: string; value: string }[];
+} | null => {
+    if (!tempo) return null;
+    const display = `${tempo.eccentric}-${tempo.pauseBottom}-${tempo.concentric}-${tempo.pauseTop}`;
+    const phases = [
+        { label: 'Down', value: `${tempo.eccentric}s` },
+        { label: 'Hold', value: `${tempo.pauseBottom}s` },
+        { label: 'Up', value: `${tempo.concentric}s` },
+        { label: 'Top', value: `${tempo.pauseTop}s` },
+    ];
+    return { display, phases };
 };
 
 /**
@@ -234,19 +250,20 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
     const history = lookupName ? getExerciseHistory(lookupName) : [];
     const stats = calculateExerciseStats(lookupName);
     const canSwap = Boolean(onSwapExercise && alternatives?.length && originalName);
-    
+
     // State for editing user notes
     const [editingUserNotes, setEditingUserNotes] = useState(false);
     const [userNotesValue, setUserNotesValue] = useState(currentUserNotes || '');
-    
+
     // Sync user notes when modal opens or currentUserNotes changes
     useEffect(() => {
         setUserNotesValue(currentUserNotes || '');
         setEditingUserNotes(false);
     }, [currentUserNotes, isOpen]);
-    
+
     const restLabel = formatRestTime(metadata?.restTime);
     const loadLabel = formatLoadRangeLabel(metadata?.loadRange);
+    const tempoLabel = formatTempoLabel(metadata?.tempoRange);
     const detailBadges = [
         metadata?.isEmom
             ? {
@@ -268,7 +285,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
             : null,
     ].filter((chip): chip is { label: string; className: string } => Boolean(chip));
     const showMetadataCard = Boolean(
-        detailBadges.length || metadata?.prescription || restLabel || loadLabel
+        detailBadges.length || metadata?.prescription || restLabel || loadLabel || tempoLabel
     );
 
     // Prepare graph data (chronological)
@@ -288,14 +305,14 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
             onSwapExercise?.(originalName, alternatives);
         }
     };
-    
+
     const handleSaveUserNotes = (): void => {
         if (exerciseId && onUpdateUserNotes) {
             onUpdateUserNotes(exerciseId, userNotesValue);
             setEditingUserNotes(false);
         }
     };
-    
+
     const handleCancelEditUserNotes = (): void => {
         setUserNotesValue(currentUserNotes || '');
         setEditingUserNotes(false);
@@ -391,6 +408,23 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                     </div>
                                 </div>
                             )}
+                            {tempoLabel && (
+                                <div className="flex items-start gap-3">
+                                    <Gauge size={16} className="mt-0.5 text-sys-accent" />
+                                    <div>
+                                        <p className="text-xs uppercase tracking-wider text-white/60">Tempo</p>
+                                        <p className="font-semibold leading-tight font-mono">{tempoLabel.display}</p>
+                                        <div className="flex gap-3 mt-1.5">
+                                            {tempoLabel.phases.map((phase) => (
+                                                <div key={phase.label} className="text-center">
+                                                    <span className="text-[10px] text-white/40 uppercase tracking-wide">{phase.label}</span>
+                                                    <p className="text-xs font-medium text-white/70">{phase.value}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}
@@ -425,7 +459,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                 </button>
                             )}
                         </div>
-                        
+
                         {editingUserNotes ? (
                             <div className="space-y-2">
                                 <textarea

@@ -12,6 +12,7 @@ import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest } from '../types/workout';
+import type { TempoRange } from '../workout-plan-utils';
 
 // ============================================================================
 // TYPES
@@ -50,6 +51,8 @@ export interface CompactExerciseRowProps {
     isLadder?: boolean;
     /** Ladder rep values (e.g., [1, 2, 3]) */
     ladderReps?: number[];
+    /** Tempo range (e.g., 3-1-1-0) */
+    tempoRange?: TempoRange;
     /** Superset group ID (consecutive EMOM exercises share the same group ID) */
     supersetGroup?: number;
     /** Position within superset: 'first', 'middle', 'last', or 'only' */
@@ -93,6 +96,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     isAmrap = false,
     isLadder = false,
     ladderReps,
+    tempoRange,
     supersetGroup,
     supersetPosition,
     haptic,
@@ -281,6 +285,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                 isEmom,
                 isUnilateral,
                 isAmrap,
+                tempoRange,
             },
         });
     }, [
@@ -294,6 +299,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
         isBodyweight,
         isEmom,
         isUnilateral,
+        tempoRange,
     ]);
 
     // Only show complete-all button when there are 2+ sets and incomplete sets

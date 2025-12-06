@@ -5,7 +5,7 @@
  */
 
 import type { RPEValue, AddedExercise } from './index';
-import type { LoadRange } from '../workout-plan-utils';
+import type { LoadRange, TempoRange } from '../workout-plan-utils';
 
 // ============================================================================
 // SESSION DATA TYPES
@@ -55,6 +55,8 @@ export interface ExerciseDetailMetadata {
     isLadder?: boolean;
     /** Suggested load range */
     loadRange?: LoadRange | null;
+    /** Tempo for the exercise (eccentric-pauseBottom-concentric-pauseTop) */
+    tempoRange?: TempoRange | null;
 }
 
 export interface ExerciseDetailRequest {

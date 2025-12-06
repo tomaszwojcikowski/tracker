@@ -15,6 +15,10 @@ import { AddedExerciseCard } from '../AddedExerciseCard';
 import { ExerciseSelectorModal } from '../ExerciseSelectorModal';
 import { ExerciseCard } from '../ExerciseCard';
 import { FocusView } from '../FocusView';
+import { WorkoutSummary } from '../WorkoutSummary';
+import type { ExerciseSummaryItem } from '../WorkoutSummary';
+import { WorkoutFlowIndicator } from '../WorkoutFlowIndicator';
+import type { SectionProgress } from '../WorkoutFlowIndicator';
 import { safeGetJSON, safeSetJSON } from '../../utils/storage';
 import {
     useHaptic,
@@ -171,6 +175,11 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [exerciseDetail, setExerciseDetail] = useState<ExerciseDetailRequest | null>(null);
     const [workoutNotes, setWorkoutNotes] = useState('');
     const [showFinishConfirm, setShowFinishConfirm] = useState(false);
+    const [showSummary, setShowSummary] = useState(false);
+    const [summaryData, setSummaryData] = useState<{
+        durationSeconds: number;
+        exercises: ExerciseSummaryItem[];
+    } | null>(null);
     const [compactView, setCompactView] = useState(() =>
         safeGetJSON<boolean>('workout_compact_view', false) ?? false
     );
@@ -879,12 +888,24 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 console.error('Failed to sync workout to cloud:', syncError);
             }
 
-            onComplete();
+            // Show workout summary instead of immediately going back
+            setSummaryData({
+                durationSeconds: workoutDurationSeconds,
+                exercises: exerciseSummary,
+            });
+            setShowSummary(true);
         } catch (error) {
             console.error('Failed to complete workout:', error);
             alert('Failed to save workout completion. Please try again.');
         }
     };
+
+    // Handle closing the summary and returning to dashboard
+    const handleSummaryClose = useCallback(() => {
+        setShowSummary(false);
+        setSummaryData(null);
+        onComplete();
+    }, [onComplete]);
 
     // ============================================================================
     // COMPUTED VALUES
@@ -907,6 +928,34 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         // All exercises complete, return null
         return null;
     }, [workout.sections, logs]);
+
+    // Calculate section progress for WorkoutFlowIndicator
+    const sectionProgressData = useMemo((): SectionProgress[] => {
+        if (!workout.sections?.length) return [];
+
+        return workout.sections.map((section: WorkoutSection) => {
+            const totalExercises = section.exercises.length;
+            const completedExercises = section.exercises.filter((ex: WorkoutExercise) => {
+                const exId = getExerciseId(ex.name);
+                const defaultSets = ex.sets || 3;
+                const sets = getExerciseLogEntry(logs, exId).sets || new Array(defaultSets).fill(false);
+                return sets.length > 0 && sets.every((s) => s);
+            }).length;
+
+            // Check if this section has the first incomplete exercise
+            const hasFirstIncomplete = section.exercises.some((ex: WorkoutExercise) => {
+                const exId = getExerciseId(ex.name);
+                return exId === firstIncompleteExerciseId;
+            });
+
+            return {
+                name: section.name,
+                totalExercises,
+                completedExercises,
+                isActive: hasFirstIncomplete || (completedExercises > 0 && completedExercises < totalExercises),
+            };
+        });
+    }, [workout.sections, logs, firstIncompleteExerciseId]);
 
     // Use extracted collapse hook
     const exerciseCollapse = useExerciseCollapse({ firstIncompleteExerciseId });
@@ -948,6 +997,18 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             />
 
             <div {...swipeHandlers} className="px-4 pb-20 pt-4">
+                {/* Workout Flow Indicator - Shows section progress */}
+                {!isEmptyWorkout && sectionProgressData.length > 0 && (
+                    <WorkoutFlowIndicator
+                        sections={sectionProgressData}
+                        overallProgress={workoutProgress.totalSets > 0 
+                            ? (workoutProgress.completedSets / workoutProgress.totalSets) * 100 
+                            : 0}
+                        collapsible={true}
+                        initialCollapsed={false}
+                    />
+                )}
+
                 {/* Workout Notes */}
                 <div className="mb-4">
                     <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-1 block">
@@ -1567,6 +1628,19 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 )}
 
                 {/* Notes Modal */}
+
+                {/* Workout Summary Modal */}
+                <WorkoutSummary
+                    isOpen={showSummary}
+                    onClose={handleSummaryClose}
+                    title={workout.title || 'Workout'}
+                    durationSeconds={summaryData?.durationSeconds || 0}
+                    exercises={summaryData?.exercises || []}
+                    week={week}
+                    day={day}
+                    isEmptyWorkout={isEmptyWorkout}
+                    workoutNotes={workoutNotes || undefined}
+                />
             </div>
         </>
     );

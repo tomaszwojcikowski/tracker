@@ -144,3 +144,15 @@ export { Snackbar } from './Snackbar';
 // Focus view component
 export { FocusView } from './FocusView';
 export type { FocusViewProps, FocusItem } from './FocusView';
+
+// Workout summary component (P1 - Point 10)
+export { WorkoutSummary } from './WorkoutSummary';
+export type { WorkoutSummaryProps, ExerciseSummaryItem } from './WorkoutSummary';
+
+// Workout flow indicator component (P1 - Point 6)
+export { WorkoutFlowIndicator } from './WorkoutFlowIndicator';
+export type { WorkoutFlowIndicatorProps, SectionProgress } from './WorkoutFlowIndicator';
+
+// PR Highlights component (P1 - Point 8)
+export { PRHighlights, calculateStreak, findRecentPRs } from './PRHighlights';
+export type { PRHighlightsProps, PRRecord } from './PRHighlights';

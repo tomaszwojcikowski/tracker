@@ -256,6 +256,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                                     emomTimerActive={emomTimer.active}
                                     emomTimerInterval={emomTimer.interval}
                                     haptic={haptic}
+                                    hideCollapseButton={true}
                                     onToggleCollapse={() => {}}
                                     onToggleSet={onToggleSet}
                                     onAddSet={onAddSet}
@@ -316,6 +317,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                 emomTimerActive={emomTimer.active}
                 emomTimerInterval={emomTimer.interval}
                 haptic={haptic}
+                hideCollapseButton={true}
                 onToggleCollapse={() => {}}
                 onToggleSet={onToggleSet}
                 onAddSet={onAddSet}

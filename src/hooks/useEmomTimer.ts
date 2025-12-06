@@ -66,7 +66,7 @@ export function useEmomTimer({ haptic }: UseEmomTimerOptions): UseEmomTimerRetur
         safeGetJSON<number>(EMOM_INTERVAL_STORAGE_KEY, DEFAULT_EMOM_INTERVAL) ?? DEFAULT_EMOM_INTERVAL
     );
 
-    // EMOM timer effect
+    // EMOM timer effect with enhanced haptics
     useEffect(() => {
         if (active && seconds > 0) {
             const timerInterval = window.setInterval(() => {
@@ -85,10 +85,25 @@ export function useEmomTimer({ haptic }: UseEmomTimerOptions): UseEmomTimerRetur
             // Reset to interval and continue, increment round
             setSeconds(interval);
             setRound((r) => r + 1);
-            haptic.timer();
+            // Use enhanced timer complete haptic pattern
+            haptic.timerComplete();
             playBeepSound();
         }
     }, [active, seconds, interval, haptic]);
+
+    // Enhanced haptic feedback at key intervals for EMOM
+    useEffect(() => {
+        if (!active) return;
+
+        // EMOM warning at 10 seconds remaining - escalating pulse
+        if (seconds === 10) {
+            haptic.emomWarning();
+        }
+        // Countdown ticks for last 5 seconds
+        else if (seconds <= 5 && seconds > 0) {
+            haptic.countdown();
+        }
+    }, [active, seconds, haptic]);
 
     // Save interval preference when it changes
     useEffect(() => {

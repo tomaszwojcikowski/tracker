@@ -40,6 +40,14 @@ export interface HapticFeedback {
     error: () => void;
     /** Light swipe feedback - [5] */
     swipe: () => void;
+    /** 30 seconds remaining - double tap pattern */
+    timer30: () => void;
+    /** 10 seconds remaining - triple tap pattern */
+    timer10: () => void;
+    /** Timer complete - long + short-short-short pattern */
+    timerComplete: () => void;
+    /** EMOM interval warning - escalating pulse */
+    emomWarning: () => void;
 }
 
 /**
@@ -66,6 +74,12 @@ export const useHaptic = (): HapticFeedback => {
         countdown: () => trigger([15]),
         error: () => trigger([100, 50, 100]),
         swipe: () => trigger([5]),
+
+        // Timer-specific patterns (P2 - Point 7)
+        timer30: () => trigger([40, 80, 40]), // Double-tap at 30s
+        timer10: () => trigger([30, 60, 30, 60, 30]), // Triple-tap at 10s
+        timerComplete: () => trigger([150, 100, 40, 40, 40, 40, 40]), // Long + short-short-short
+        emomWarning: () => trigger([20, 40, 30, 40, 50, 40, 80]), // Escalating pulse
     };
 };
 

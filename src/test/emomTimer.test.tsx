@@ -446,12 +446,21 @@ describe('EMOM Timer Functionality', () => {
  * and haptic feedback.
  */
 
-// Mock the haptic interface
+// Mock the haptic interface with all required methods
 const createMockHaptic = () => ({
     tick: vi.fn(),
     bump: vi.fn(),
     success: vi.fn(),
     timer: vi.fn(),
+    complete: vi.fn(),
+    milestone: vi.fn(),
+    countdown: vi.fn(),
+    error: vi.fn(),
+    swipe: vi.fn(),
+    timer30: vi.fn(),
+    timer10: vi.fn(),
+    timerComplete: vi.fn(),
+    emomWarning: vi.fn(),
 });
 
 describe('useEmomTimer Hook', () => {

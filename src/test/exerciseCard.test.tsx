@@ -214,16 +214,27 @@ describe('ExerciseCard', () => {
         it('should show rest timer button when rest time is set', () => {
             render(<ExerciseCard {...defaultProps} restTime={90} />);
 
-            expect(screen.getByRole('button', { name: 'Start 90 second timer' })).toBeInTheDocument();
+            // 90s is a preset, so it should be shown as "1.5m"
+            expect(screen.getByRole('button', { name: 'Start 90 second rest timer' })).toBeInTheDocument();
         });
 
         it('should call onStartRestTimer when rest timer button is clicked', () => {
             render(<ExerciseCard {...defaultProps} restTime={90} />);
 
-            fireEvent.click(screen.getByRole('button', { name: 'Start 90 second timer' }));
+            fireEvent.click(screen.getByRole('button', { name: 'Start 90 second rest timer' }));
 
             expect(defaultProps.haptic.bump).toHaveBeenCalled();
             expect(defaultProps.onStartRestTimer).toHaveBeenCalledWith(90);
+        });
+
+        it('should show all rest timer presets', () => {
+            render(<ExerciseCard {...defaultProps} />);
+
+            // All presets should be shown (60, 90, 120, 180)
+            expect(screen.getByRole('button', { name: 'Start 60 second rest timer' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Start 90 second rest timer' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Start 120 second rest timer' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Start 180 second rest timer' })).toBeInTheDocument();
         });
     });
 
@@ -231,13 +242,13 @@ describe('ExerciseCard', () => {
         it('should show EMOM timer button when multiple sets exist', () => {
             render(<ExerciseCard {...defaultProps} />);
 
-            expect(screen.getByRole('button', { name: 'Start EMOM timer with 60 second interval' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Start EMOM timer with 60s interval' })).toBeInTheDocument();
         });
 
         it('should call onToggleEmomTimer when EMOM button is clicked', () => {
             render(<ExerciseCard {...defaultProps} />);
 
-            fireEvent.click(screen.getByRole('button', { name: 'Start EMOM timer with 60 second interval' }));
+            fireEvent.click(screen.getByRole('button', { name: 'Start EMOM timer with 60s interval' }));
 
             expect(defaultProps.haptic.bump).toHaveBeenCalled();
             expect(defaultProps.onToggleEmomTimer).toHaveBeenCalled();
@@ -246,8 +257,8 @@ describe('ExerciseCard', () => {
         it('should show active state when EMOM timer is active', () => {
             render(<ExerciseCard {...defaultProps} emomTimerActive={true} />);
 
-            const emomButton = screen.getByRole('button', { name: 'Start EMOM timer with 60 second interval' });
-            expect(emomButton).toHaveClass('bg-sys-accent');
+            const emomButton = screen.getByRole('button', { name: 'Stop EMOM timer with 60s interval' });
+            expect(emomButton).toHaveClass('bg-purple-500');
         });
     });
 

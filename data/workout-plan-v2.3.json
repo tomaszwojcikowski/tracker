@@ -406,6 +406,79 @@
         ]
       },
       {
+        "id": "warmup-day3",
+        "name": "Day 3 Warmup",
+        "description": "Posterior chain activation and hip mobility warmup for Day 3",
+        "category": "warmup",
+        "estimatedDuration": 10,
+        "targetAreas": [
+          "spine",
+          "core",
+          "glutes",
+          "hips",
+          "hamstrings"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Cat-Cow",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsMin": 10,
+            "repsMax": 15,
+            "loadUnit": "bodyweight",
+            "notes": "Focus on moving vertebrae by vertebrae"
+          },
+          {
+            "exerciseName": "Bird-Dog",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 10,
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Brace core, extend opposite arm/leg, hold 3s"
+          },
+          {
+            "exerciseName": "Glute Bridge",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 15,
+            "loadUnit": "bodyweight",
+            "notes": "Drive through heels, squeeze glutes hard at top, don't hyperextend back"
+          },
+          {
+            "exerciseName": "Banded Side-Steps",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 20,
+            "repsPerSide": true,
+            "loadUnit": "band",
+            "notes": "Band around knees or ankles, athletic stance, step side to side maintaining tension"
+          },
+          {
+            "exerciseName": "Banded Face Pulls",
+            "category": "warmup",
+            "sets": 2,
+            "repsType": "reps",
+            "repsValue": 15,
+            "loadUnit": "band",
+            "notes": "Pull band to forehead, external rotation"
+          },
+          {
+            "exerciseName": "Bodyweight Good Mornings",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 15,
+            "loadUnit": "bodyweight",
+            "notes": "Hands behind head, hinge hips back, slight knee bend, flat back. Feel hamstring stretch"
+          }
+        ]
+      },
+      {
         "id": "superset-bss",
         "name": "Bulgarian Split Squat EMOM Superset",
         "description": "Alternating EMOM for unilateral leg work",
@@ -1189,6 +1262,9 @@
                 "estimatedDuration": 40,
                 "exercises": [
                   {
+                    "$routine": "warmup-day3"
+                  },
+                  {
                     "$ref": "ex-rdl",
                     "loadMin": 85,
                     "loadMax": 85
@@ -1323,6 +1399,9 @@
                 "type": "strength",
                 "estimatedDuration": 40,
                 "exercises": [
+                  {
+                    "$routine": "warmup-day3"
+                  },
                   {
                     "$ref": "ex-rdl",
                     "loadMin": 85,
@@ -1465,6 +1544,9 @@
                 "type": "strength",
                 "estimatedDuration": 40,
                 "exercises": [
+                  {
+                    "$routine": "warmup-day3"
+                  },
                   {
                     "$ref": "ex-rdl",
                     "loadMin": 85,
@@ -1618,6 +1700,9 @@
                 "estimatedDuration": 25,
                 "exercises": [
                   {
+                    "$routine": "warmup-day3"
+                  },
+                  {
                     "$ref": "ex-rdl",
                     "sets": 2,
                     "repsValue": 6
@@ -1750,6 +1835,9 @@
                 "estimatedDuration": 45,
                 "exercises": [
                   {
+                    "$routine": "warmup-day3"
+                  },
+                  {
                     "$ref": "ex-rdl",
                     "repsValue": 10,
                     "loadMin": 60,
@@ -1855,7 +1943,6 @@
                     "sets": 3,
                     "supersetGroup": 1
                   },
-
                   {
                     "$routine": "cooldown-day1"
                   }
@@ -1890,6 +1977,9 @@
                 "type": "strength",
                 "estimatedDuration": 45,
                 "exercises": [
+                  {
+                    "$routine": "warmup-day3"
+                  },
                   {
                     "$ref": "ex-rdl",
                     "repsValue": 10,
@@ -2026,6 +2116,9 @@
                 "type": "strength",
                 "estimatedDuration": 45,
                 "exercises": [
+                  {
+                    "$routine": "warmup-day3"
+                  },
                   {
                     "$ref": "ex-rdl",
                     "repsValue": 10,
@@ -2172,6 +2265,9 @@
                 "estimatedDuration": 30,
                 "exercises": [
                   {
+                    "$routine": "warmup-day3"
+                  },
+                  {
                     "$ref": "ex-rdl",
                     "sets": 2,
                     "repsValue": 10,
@@ -2317,6 +2413,9 @@
                 "estimatedDuration": 35,
                 "exercises": [
                   {
+                    "$routine": "warmup-day3"
+                  },
+                  {
                     "$ref": "ex-single-leg-rdl",
                     "loadMin": 8,
                     "loadMax": 12
@@ -2443,6 +2542,9 @@
                 "estimatedDuration": 35,
                 "exercises": [
                   {
+                    "$routine": "warmup-day3"
+                  },
+                  {
                     "$ref": "ex-single-leg-rdl",
                     "loadMin": 8,
                     "loadMax": 12
@@ -2562,6 +2664,9 @@
                 "estimatedDuration": 35,
                 "exercises": [
                   {
+                    "$routine": "warmup-day3"
+                  },
+                  {
                     "$ref": "ex-single-leg-rdl",
                     "loadMin": 8,
                     "loadMax": 12
@@ -2634,7 +2739,7 @@
                 "name": "Cluster Pull-ups - CONNECTIVE TISSUE DELOAD",
                 "type": "strength",
                 "estimatedDuration": 65,
-                "description": "Weekly Pull Total Target: ~20 reps. Restrictions: NO Dead Hangs. NO Long Hollow Holds. NO Weighted Core. Straight-Arm Cap: 3 \u00d7 6s Tuck Holds Max",
+                "description": "Weekly Pull Total Target: ~20 reps. Restrictions: NO Dead Hangs. NO Long Hollow Holds. NO Weighted Core. Straight-Arm Cap: 3 × 6s Tuck Holds Max",
                 "exercises": [
                   {
                     "$routine": "warmup-rower-protocol"
@@ -2695,6 +2800,9 @@
                 "type": "strength",
                 "estimatedDuration": 25,
                 "exercises": [
+                  {
+                    "$routine": "warmup-day3"
+                  },
                   {
                     "$ref": "ex-goblet-squats",
                     "sets": 2,
@@ -2824,6 +2932,9 @@
                 "type": "strength",
                 "estimatedDuration": 40,
                 "exercises": [
+                  {
+                    "$routine": "warmup-day3"
+                  },
                   {
                     "$ref": "ex-rdl",
                     "loadMin": 85,
@@ -2961,6 +3072,9 @@
                 "type": "strength",
                 "estimatedDuration": 40,
                 "exercises": [
+                  {
+                    "$routine": "warmup-day3"
+                  },
                   {
                     "$ref": "ex-rdl",
                     "loadMin": 85,
@@ -3108,6 +3222,9 @@
                 "estimatedDuration": 40,
                 "exercises": [
                   {
+                    "$routine": "warmup-day3"
+                  },
+                  {
                     "$ref": "ex-rdl",
                     "loadMin": 85,
                     "loadMax": 85
@@ -3191,7 +3308,7 @@
                     "repsModifier": -4,
                     "loadUnit": "bodyweight",
                     "restSeconds": 120,
-                    "notes": "Deload. 2 \u00d7 AMRAP -4. RPE 6 MAX"
+                    "notes": "Deload. 2 × AMRAP -4. RPE 6 MAX"
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -3241,6 +3358,9 @@
                 "type": "strength",
                 "estimatedDuration": 25,
                 "exercises": [
+                  {
+                    "$routine": "warmup-day3"
+                  },
                   {
                     "$ref": "ex-rdl",
                     "sets": 2,
@@ -3383,6 +3503,9 @@
                 "estimatedDuration": 35,
                 "exercises": [
                   {
+                    "$routine": "warmup-day3"
+                  },
+                  {
                     "$ref": "ex-rdl",
                     "sets": 3,
                     "loadMin": 60,
@@ -3522,6 +3645,9 @@
                 "type": "strength",
                 "estimatedDuration": 30,
                 "exercises": [
+                  {
+                    "$routine": "warmup-day3"
+                  },
                   {
                     "$ref": "ex-rdl",
                     "sets": 3,
@@ -3668,6 +3794,9 @@
                 "type": "recovery",
                 "estimatedDuration": 20,
                 "exercises": [
+                  {
+                    "$routine": "warmup-day3"
+                  },
                   {
                     "$ref": "ex-rdl",
                     "sets": 2,
@@ -3830,6 +3959,9 @@
                 "estimatedDuration": 2,
                 "exercises": [
                   {
+                    "$routine": "warmup-day3"
+                  },
+                  {
                     "exerciseName": "Rest",
                     "category": "mobility",
                     "sets": 1,
@@ -3970,6 +4102,9 @@
                 "type": "strength",
                 "estimatedDuration": 35,
                 "exercises": [
+                  {
+                    "$routine": "warmup-day3"
+                  },
                   {
                     "$ref": "ex-rdl",
                     "sets": 3,

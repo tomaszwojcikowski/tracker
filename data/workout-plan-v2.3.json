@@ -1143,10 +1143,12 @@
                     "notes": "Volume baseline. Total: 24 reps (4 ladders x 6 reps)"
                   },
                   {
-                    "$ref": "ex-ring-rows"
+                    "$ref": "ex-ring-rows",
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-incline-pushups"
+                    "$ref": "ex-incline-pushups",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-hollow-rocks"
@@ -1277,10 +1279,12 @@
                     "notes": "Volume increase. Total: 30 reps (5 ladders x 6 reps)"
                   },
                   {
-                    "$ref": "ex-ring-rows"
+                    "$ref": "ex-ring-rows",
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-incline-pushups"
+                    "$ref": "ex-incline-pushups",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-hollow-rocks"
@@ -1417,10 +1421,12 @@
                     "notes": "Volume peak. Total: 30 reps (5 ladders x 6 reps)"
                   },
                   {
-                    "$ref": "ex-ring-rows"
+                    "$ref": "ex-ring-rows",
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-incline-pushups"
+                    "$ref": "ex-incline-pushups",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-hollow-rocks"
@@ -1560,12 +1566,14 @@
                   {
                     "$ref": "ex-ring-rows",
                     "sets": 2,
-                    "notes": "Deload"
+                    "notes": "Deload",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-incline-pushups",
                     "sets": 2,
-                    "notes": "Deload"
+                    "notes": "Deload",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-hollow-rocks",
@@ -1692,13 +1700,12 @@
                     "notes": "EMOM introduction. Total: 32 reps (8 minutes x 4 reps)"
                   },
                   {
-                    "$ref": "ex-feet-elevated-ring-rows"
+                    "$ref": "ex-feet-elevated-ring-rows",
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-parallette-pushups"
-                  },
-                  {
-                    "$ref": "ex-hollow-rocks"
+                    "$ref": "ex-parallette-pushups",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -1830,14 +1837,17 @@
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
-                    "repsValue": 12
+                    "repsValue": 10,
+                    "sets": 3,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-parallette-pushups"
+                    "$ref": "ex-parallette-pushups",
+                    "repsValue": 10,
+                    "sets": 3,
+                    "supersetGroup": 1
                   },
-                  {
-                    "$ref": "ex-hollow-rocks"
-                  },
+
                   {
                     "$routine": "cooldown-day1"
                   }
@@ -1966,13 +1976,13 @@
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
-                    "repsValue": 12
+                    "repsValue": 10,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-parallette-pushups"
-                  },
-                  {
-                    "$ref": "ex-hollow-rocks"
+                    "$ref": "ex-parallette-pushups",
+                    "supersetGroup": 1,
+                    "repsValue": 10
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -2107,15 +2117,13 @@
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
-                    "sets": 2
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-parallette-pushups",
-                    "sets": 2
-                  },
-                  {
-                    "$ref": "ex-hollow-rocks",
-                    "sets": 2
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -2251,10 +2259,16 @@
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
-                    "notes": "Neutral grip block"
+                    "notes": "Neutral grip block",
+                    "supersetGroup": 1,
+                    "sets": 3,
+                    "repsValue": 15
                   },
                   {
-                    "$ref": "ex-parallette-pushups"
+                    "$ref": "ex-parallette-pushups",
+                    "supersetGroup": 1,
+                    "sets": 3,
+                    "repsValue": 15
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -2371,10 +2385,16 @@
                     "notes": "Volume increase. Max 40 reps - reduce last set if needed. Total: ~38 reps"
                   },
                   {
-                    "$ref": "ex-feet-elevated-ring-rows"
+                    "$ref": "ex-feet-elevated-ring-rows",
+                    "repsValue": 15,
+                    "supersetGroup": 1,
+                    "sets": 3
                   },
                   {
-                    "$ref": "ex-parallette-pushups"
+                    "$ref": "ex-parallette-pushups",
+                    "supersetGroup": 1,
+                    "repsValue": 15,
+                    "sets": 3
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -2484,10 +2504,16 @@
                     "notes": "Do not exceed 40 reps total. Total: max 40 reps (5 clusters x 9 reps, reduce if needed)"
                   },
                   {
-                    "$ref": "ex-feet-elevated-ring-rows"
+                    "$ref": "ex-feet-elevated-ring-rows",
+                    "supersetGroup": 1,
+                    "sets": 3,
+                    "repsValue": 15
                   },
                   {
-                    "$ref": "ex-parallette-pushups"
+                    "$ref": "ex-incline-pushups",
+                    "supersetGroup": 1,
+                    "sets": 3,
+                    "repsValue": 15
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -2612,23 +2638,19 @@
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
                     "sets": 2,
-                    "notes": "Deload"
+                    "notes": "Deload",
+                    "supersetGroup": 1,
+                    "repsValue": 10
                   },
                   {
-                    "$ref": "ex-parallette-pushups",
+                    "$ref": "ex-incline-pushups",
                     "sets": 2,
-                    "notes": "Deload"
+                    "notes": "Deload",
+                    "supersetGroup": 1,
+                    "repsValue": 10
                   },
                   {
-                    "exerciseName": "Tuck Hold",
-                    "category": "skill",
-                    "sets": 3,
-                    "repsType": "time",
-                    "repsMax": 6,
-                    "repsUnit": "seconds",
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 90,
-                    "notes": "Straight-Arm Cap: 3 \u00d7 6s Max"
+                    "$routine": "cooldown-day1"
                   }
                 ]
               },
@@ -2743,10 +2765,16 @@
                     "notes": "AMRAP -2. Stop if total hits 30 reps"
                   },
                   {
-                    "$ref": "ex-feet-elevated-ring-rows"
+                    "$ref": "ex-feet-elevated-ring-rows",
+                    "supersetGroup": 1,
+                    "sets": 3,
+                    "repsValue": 15
                   },
                   {
-                    "$ref": "ex-parallette-pushups"
+                    "$ref": "ex-incline-pushups",
+                    "supersetGroup": 1,
+                    "sets": 3,
+                    "repsValue": 15
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -2874,10 +2902,16 @@
                     ]
                   },
                   {
-                    "$ref": "ex-feet-elevated-ring-rows"
+                    "$ref": "ex-feet-elevated-ring-rows",
+                    "supersetGroup": 1,
+                    "sets": 3,
+                    "repsValue": 15
                   },
                   {
-                    "$ref": "ex-parallette-pushups"
+                    "$ref": "ex-incline-pushups",
+                    "supersetGroup": 1,
+                    "sets": 3,
+                    "repsValue": 15
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -3014,10 +3048,16 @@
                     "notes": "2 sets sub-max (AMRAP -2)"
                   },
                   {
-                    "$ref": "ex-feet-elevated-ring-rows"
+                    "$ref": "ex-feet-elevated-ring-rows",
+                    "supersetGroup": 1,
+                    "sets": 3,
+                    "repsValue": 15
                   },
                   {
-                    "$ref": "ex-parallette-pushups"
+                    "$ref": "ex-incline-pushups",
+                    "supersetGroup": 1,
+                    "sets": 3,
+                    "repsValue": 10
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -3142,12 +3182,16 @@
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
                     "sets": 2,
-                    "notes": "Deload"
+                    "notes": "Deload",
+                    "repsValue": 10,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-parallette-pushups",
+                    "$ref": "ex-incline-pushups",
                     "sets": 2,
-                    "notes": "Deload"
+                    "notes": "Deload",
+                    "repsValue": 8,
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -3273,7 +3317,16 @@
                     ]
                   },
                   {
-                    "$ref": "ex-feet-on-floor-rows"
+                    "$ref": "ex-feet-on-floor-rows",
+                    "sets": 3,
+                    "repsValue": 12,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-incline-pushups",
+                    "sets": 3,
+                    "repsValue": 10,
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -3405,7 +3458,15 @@
                   },
                   {
                     "$ref": "ex-feet-on-floor-rows",
-                    "sets": 2
+                    "sets": 2,
+                    "repsValue": 10,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-incline-pushups",
+                    "sets": 2,
+                    "repsValue": 10,
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -3540,6 +3601,15 @@
                   {
                     "$ref": "ex-feet-on-floor-rows",
                     "sets": 2,
+                    "repsValue": 8,
+                    "supersetGroup": 1,
+                    "notes": "Deload"
+                  },
+                  {
+                    "$ref": "ex-incline-pushups",
+                    "sets": 2,
+                    "repsValue": 8,
+                    "supersetGroup": 1,
                     "notes": "Deload"
                   },
                   {

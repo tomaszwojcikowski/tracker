@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 /**
  * Custom React Hooks
@@ -53,34 +53,37 @@ export interface HapticFeedback {
 /**
  * Haptic feedback hook using the Vibration API
  * Provides different vibration patterns for UI interactions
+ * Returns a stable reference to prevent unnecessary re-renders
  */
 export const useHaptic = (): HapticFeedback => {
-    const trigger = (pattern: VibrationPattern = [10]): void => {
-        if (navigator.vibrate) {
-            navigator.vibrate(pattern);
-        }
-    };
+    return useMemo(() => {
+        const trigger = (pattern: VibrationPattern = [10]): void => {
+            if (navigator.vibrate) {
+                navigator.vibrate(pattern);
+            }
+        };
 
-    return {
-        // Basic patterns
-        tick: () => trigger([10]),
-        bump: () => trigger([30]),
-        success: () => trigger([50, 50, 50]),
-        timer: () => trigger([200, 100, 200]),
+        return {
+            // Basic patterns
+            tick: () => trigger([10]),
+            bump: () => trigger([30]),
+            success: () => trigger([50, 50, 50]),
+            timer: () => trigger([200, 100, 200]),
 
-        // Enhanced patterns (P2 - Point 11)
-        complete: () => trigger([10, 30, 10, 30, 50]),
-        milestone: () => trigger([50, 100, 50, 100, 150]),
-        countdown: () => trigger([15]),
-        error: () => trigger([100, 50, 100]),
-        swipe: () => trigger([5]),
+            // Enhanced patterns (P2 - Point 11)
+            complete: () => trigger([10, 30, 10, 30, 50]),
+            milestone: () => trigger([50, 100, 50, 100, 150]),
+            countdown: () => trigger([15]),
+            error: () => trigger([100, 50, 100]),
+            swipe: () => trigger([5]),
 
-        // Timer-specific patterns (P2 - Point 7)
-        timer30: () => trigger([40, 80, 40]), // Double-tap at 30s
-        timer10: () => trigger([30, 60, 30, 60, 30]), // Triple-tap at 10s
-        timerComplete: () => trigger([150, 100, 40, 40, 40, 40, 40]), // Long + short-short-short
-        emomWarning: () => trigger([20, 40, 30, 40, 50, 40, 80]), // Escalating pulse
-    };
+            // Timer-specific patterns (P2 - Point 7)
+            timer30: () => trigger([40, 80, 40]), // Double-tap at 30s
+            timer10: () => trigger([30, 60, 30, 60, 30]), // Triple-tap at 10s
+            timerComplete: () => trigger([150, 100, 40, 40, 40, 40, 40]), // Long + short-short-short
+            emomWarning: () => trigger([20, 40, 30, 40, 50, 40, 80]), // Escalating pulse
+        };
+    }, []);
 };
 
 // ============================================================================

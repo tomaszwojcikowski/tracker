@@ -98,6 +98,9 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
     const isComplete = completedRounds === totalRounds && totalRounds > 0;
     const hasIncompleteRounds = completedRounds < totalRounds;
 
+    // Check if this is actually an EMOM superset (at least one exercise has isEmom)
+    const isEmomSuperset = exercises.some(ex => ex.isEmom);
+
     // Get exercise IDs for callbacks
     const exerciseIds = useMemo(() => exercises.map(ex => ex.exId), [exercises]);
 
@@ -197,10 +200,12 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                         ))}
                     </div>
 
-                    <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-purple-500/20 text-purple-400 flex-shrink-0">
-                        <Zap size={8} strokeWidth={3} />
-                        EMOM
-                    </span>
+                    {isEmomSuperset && (
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-purple-500/20 text-purple-400 flex-shrink-0">
+                            <Zap size={8} strokeWidth={3} />
+                            EMOM
+                        </span>
+                    )}
 
                     <span className="text-xs text-sys-success font-semibold">
                         {completedRounds}/{totalRounds}
@@ -230,15 +235,21 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                     ? 'bg-sys-accent/10 border-sys-accent/30'
                     : 'bg-amber-500/5 border-amber-500/20'
             }`}>
-                {/* Header with EMOM badge and shared round counter */}
+                {/* Header with optional EMOM badge and shared round counter */}
                 <div className="px-3 py-2 flex items-center gap-2 border-b border-white/5">
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-tertiary/20 text-sys-tertiary">
-                        <Zap size={10} strokeWidth={3} />
-                        EMOM SUPERSET
-                    </span>
+                    {isEmomSuperset ? (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-tertiary/20 text-sys-tertiary">
+                            <Zap size={10} strokeWidth={3} />
+                            EMOM SUPERSET
+                        </span>
+                    ) : (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400">
+                            SUPERSET
+                        </span>
+                    )}
 
-                    {/* EMOM Timer Button */}
-                    {onToggleEmomTimer && (
+                    {/* EMOM Timer Button - only show for EMOM supersets */}
+                    {isEmomSuperset && onToggleEmomTimer && (
                         <button
                             type="button"
                             onClick={(e) => {

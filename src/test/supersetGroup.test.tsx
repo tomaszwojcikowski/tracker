@@ -48,6 +48,7 @@ describe('SupersetGroup', () => {
         weight: '16',
         isBodyweight: false,
         restTime: 60,
+        isEmom: true,
         isUnilateral: true,
       },
       {
@@ -60,6 +61,7 @@ describe('SupersetGroup', () => {
         weight: '16',
         isBodyweight: false,
         restTime: 60,
+        isEmom: true,
         isUnilateral: true,
       },
     ];
@@ -85,7 +87,7 @@ describe('SupersetGroup', () => {
       expect(elements).toHaveLength(2);
     });
 
-    it('should show EMOM SUPERSET badge', () => {
+    it('should show EMOM SUPERSET badge when exercises have isEmom flag', () => {
       render(
         <SupersetGroup
           exercises={mockExercises}
@@ -98,6 +100,47 @@ describe('SupersetGroup', () => {
 
       // The text is split because the icon renders as "Zap" before the text
       expect(screen.getByText(/EMOM SUPERSET/)).toBeInTheDocument();
+    });
+
+    it('should show plain SUPERSET badge when exercises do not have isEmom flag', () => {
+      const nonEmomExercises = [
+        {
+          exId: 'ring_rows',
+          name: 'Ring Rows',
+          prescription: '3 x 15',
+          sets: [false, false, false],
+          defaultSets: 3,
+          weight: '',
+          isBodyweight: true,
+          restTime: 60,
+          isEmom: false,
+        },
+        {
+          exId: 'incline_pushups',
+          name: 'Incline Push-Ups',
+          prescription: '3 x 10',
+          sets: [false, false, false],
+          defaultSets: 3,
+          weight: '',
+          isBodyweight: true,
+          restTime: 60,
+          isEmom: false,
+        },
+      ];
+
+      render(
+        <SupersetGroup
+          exercises={nonEmomExercises}
+          haptic={mockHaptic}
+          onToggleRound={vi.fn()}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+        />
+      );
+
+      // Should show plain SUPERSET badge, not EMOM SUPERSET
+      expect(screen.getByText('SUPERSET')).toBeInTheDocument();
+      expect(screen.queryByText(/EMOM SUPERSET/)).not.toBeInTheDocument();
     });
 
     it('should render shared round buttons', () => {

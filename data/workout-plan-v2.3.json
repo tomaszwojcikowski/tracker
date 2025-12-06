@@ -1618,6 +1618,11 @@
                 "estimatedDuration": 25,
                 "exercises": [
                   {
+                    "$ref": "ex-rdl",
+                    "sets": 2,
+                    "repsValue": 6
+                  },
+                  {
                     "$ref": "ex-goblet-squats",
                     "sets": 2,
                     "loadMin": 12,
@@ -3236,6 +3241,12 @@
                 "type": "strength",
                 "estimatedDuration": 25,
                 "exercises": [
+                  {
+                    "$ref": "ex-rdl",
+                    "sets": 2,
+                    "repsValue": 6,
+                    "notes": "Deload"
+                  },
                   {
                     "$ref": "ex-goblet-squats",
                     "sets": 2,

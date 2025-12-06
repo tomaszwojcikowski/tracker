@@ -6,7 +6,7 @@
  * When all complete, shows only the last completed button.
  */
 
-import React, { useRef } from 'react';
+import React, { useMemo, memo } from 'react';
 import { Check, CheckCheck } from 'lucide-react';
 
 // ============================================================================
@@ -34,7 +34,7 @@ export interface CompactSetButtonsProps {
 // COMPONENT
 // ============================================================================
 
-export const CompactSetButtons: React.FC<CompactSetButtonsProps> = ({
+const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
     exId,
     sets,
     completedSets,
@@ -43,16 +43,19 @@ export const CompactSetButtons: React.FC<CompactSetButtonsProps> = ({
     onToggleSet,
     onCompleteAllSets,
 }) => {
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    // Only show complete-all button when there are 2+ incomplete sets remaining
-    const incompleteSetsCount = sets.filter(s => !s).length;
-    const showCompleteAllButton = incompleteSetsCount >= 2;
+    // Memoize computed values to avoid recalculating on every render
+    const { showCompleteAllButton, firstIncompleteIndex } = useMemo(() => {
+        const incompleteCount = totalSets - completedSets;
+        const firstIncomplete = sets.findIndex(s => !s);
+        return {
+            showCompleteAllButton: incompleteCount >= 2,
+            firstIncompleteIndex: firstIncomplete,
+        };
+    }, [sets, completedSets, totalSets]);
 
     return (
         <div className="flex items-center gap-1 flex-shrink-0 overflow-hidden">
             <div
-                ref={containerRef}
                 className="flex items-center gap-1"
                 style={{
                     // Shift left to hide all but the last completed button
@@ -65,8 +68,7 @@ export const CompactSetButtons: React.FC<CompactSetButtonsProps> = ({
                 }}
             >
                 {sets.map((isDone, i) => {
-                    // Find first incomplete set
-                    const firstIncompleteIndex = sets.findIndex(s => !s);
+                    // Use memoized firstIncompleteIndex
                     const isNextIncomplete = i === firstIncompleteIndex;
 
                     // Show all completed sets and next incomplete as buttons
@@ -118,5 +120,8 @@ export const CompactSetButtons: React.FC<CompactSetButtonsProps> = ({
         </div>
     );
 };
+
+// Memoize component to prevent unnecessary re-renders when parent updates
+export const CompactSetButtons = memo(CompactSetButtonsInner);
 
 export default CompactSetButtons;

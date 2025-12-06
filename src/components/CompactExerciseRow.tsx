@@ -6,7 +6,7 @@
  * auto-fill from history, auto-collapse when complete.
  */
 
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo, memo } from 'react';
 import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2 } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
@@ -80,7 +80,7 @@ export interface CompactExerciseRowProps {
 // COMPONENT
 // ============================================================================
 
-export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
+const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     exId,
     name,
     displayName = name,
@@ -170,20 +170,25 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
         if (!element) return;
 
         const checkTextClipping = () => {
-            const { scrollWidth, clientWidth } = element;
-            // Text is clipped by more than 30% if visible portion is less than 70%
-            const visibleRatio = scrollWidth > 0 ? clientWidth / scrollWidth : 1;
-            setIsTextClipped(visibleRatio < 0.7);
+            try {
+                const { scrollWidth, clientWidth } = element;
+                // Text is clipped by more than 30% if visible portion is less than 70%
+                const visibleRatio = scrollWidth > 0 ? clientWidth / scrollWidth : 1;
+                setIsTextClipped(visibleRatio < 0.7);
+            } catch {
+                // Ignore errors during clipping detection
+            }
         };
 
         // Initial check after layout
         requestAnimationFrame(checkTextClipping);
 
-        // Use ResizeObserver instead of window resize for better performance
-        const resizeObserver = new ResizeObserver(checkTextClipping);
-        resizeObserver.observe(element);
-
-        return () => resizeObserver.disconnect();
+        // Use ResizeObserver if available (fallback: no dynamic detection)
+        if (typeof ResizeObserver !== 'undefined') {
+            const resizeObserver = new ResizeObserver(checkTextClipping);
+            resizeObserver.observe(element);
+            return () => resizeObserver.disconnect();
+        }
     }, []); // Empty deps - only run once on mount
 
     // Handlers
@@ -539,5 +544,9 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
         </div>
     );
 };
+
+// Memoize component to prevent unnecessary re-renders when parent state changes
+// Props comparison uses shallow equality - callbacks must be stable (useCallback)
+export const CompactExerciseRow = memo(CompactExerciseRowInner);
 
 export default CompactExerciseRow;

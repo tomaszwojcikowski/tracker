@@ -13,8 +13,91 @@ import { ProgramProvider } from './context/ProgramContext';
 // Initialize error reporting as early as possible
 initErrorReporting();
 
+// ============================================================================
+// VISUAL ERROR TOAST FOR MOBILE DEBUGGING
+// ============================================================================
+
+/**
+ * Shows a visual error toast on screen for mobile debugging
+ * This helps debug issues when console is not accessible
+ */
+function showErrorToast(message: string, details?: string): void {
+    // Create or reuse error container
+    let container = document.getElementById('error-toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'error-toast-container';
+        container.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99999;
+            pointer-events: none;
+        `;
+        document.body.appendChild(container);
+    }
+
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+        margin: 8px;
+        padding: 12px 16px;
+        background: rgba(220, 38, 38, 0.95);
+        border: 1px solid rgba(248, 113, 113, 0.5);
+        border-radius: 12px;
+        color: white;
+        font-family: system-ui, -apple-system, sans-serif;
+        font-size: 12px;
+        backdrop-filter: blur(8px);
+        pointer-events: auto;
+        animation: slideDown 0.3s ease-out;
+    `;
+
+    // Add animation style if not exists
+    if (!document.getElementById('error-toast-styles')) {
+        const style = document.createElement('style');
+        style.id = 'error-toast-styles';
+        style.textContent = `
+            @keyframes slideDown {
+                from { transform: translateY(-100%); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    toast.innerHTML = `
+        <div style="display: flex; align-items: flex-start; gap: 8px;">
+            <div style="flex-shrink: 0; margin-top: 2px;">⚠️</div>
+            <div style="flex: 1; min-width: 0;">
+                <div style="font-weight: 600; margin-bottom: 4px;">Error</div>
+                <div style="opacity: 0.9; word-break: break-word;">${message}</div>
+                ${details ? `<div style="opacity: 0.7; font-size: 10px; margin-top: 4px; word-break: break-all;">${details}</div>` : ''}
+            </div>
+            <button style="flex-shrink: 0; background: none; border: none; color: white; font-size: 18px; cursor: pointer; padding: 0; line-height: 1;" onclick="this.parentElement.parentElement.remove()">×</button>
+        </div>
+    `;
+
+    container.appendChild(toast);
+
+    // Auto-remove after 10 seconds
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-20px)';
+        toast.style.transition = 'all 0.3s ease-out';
+        setTimeout(() => toast.remove(), 300);
+    }, 10000);
+}
+
 // Set up global error handlers for uncaught errors
 window.addEventListener('error', (event: ErrorEvent) => {
+    const errorMessage = event.message || 'Unknown error';
+    const errorDetails = event.filename ? `${event.filename}:${event.lineno}:${event.colno}` : undefined;
+
+    // Show visual toast for mobile debugging
+    showErrorToast(errorMessage, errorDetails);
+
     captureError(event.error || new Error(event.message), 'fatal', {
         component: 'global',
         action: 'unhandledError',
@@ -29,6 +112,12 @@ window.addEventListener('error', (event: ErrorEvent) => {
 // Set up handler for unhandled promise rejections
 window.addEventListener('unhandledrejection', (event: PromiseRejectionEvent) => {
     const error = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
+    const errorMessage = error.message || 'Unhandled promise rejection';
+    const errorStack = error.stack?.split('\n')[1]?.trim();
+
+    // Show visual toast for mobile debugging
+    showErrorToast(errorMessage, errorStack);
+
     captureError(error, 'error', {
         component: 'global',
         action: 'unhandledRejection',

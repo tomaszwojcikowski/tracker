@@ -19,6 +19,70 @@ import { getExerciseLogEntry } from '../utils/workoutSession';
 import type { WorkoutSessionData } from '../types/workout';
 
 // ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
+
+/**
+ * Get section-based color class for progress dot
+ */
+function getSectionDotColor(sectionName?: string, sectionType?: string): string {
+    if (!sectionName && !sectionType) return 'bg-sys-surfaceHigh';
+
+    const nameLower = (sectionName || '').toLowerCase();
+
+    if (nameLower.includes('warm') || sectionType === 'prep') {
+        return 'bg-warmup-500';
+    }
+    if (nameLower.includes('skill')) {
+        return 'bg-skill-500';
+    }
+    if (nameLower.includes('main') || nameLower.includes('work') || sectionType === 'main') {
+        return 'bg-main-500';
+    }
+    if (nameLower.includes('accessory') || nameLower.includes('assistance')) {
+        return 'bg-accessory-500';
+    }
+    if (nameLower.includes('core') || nameLower.includes('ab')) {
+        return 'bg-core-500';
+    }
+    if (nameLower.includes('cool') || nameLower.includes('stretch') || sectionType === 'cool') {
+        return 'bg-cooldown-500';
+    }
+
+    return 'bg-sys-accent';
+}
+
+/**
+ * Get section-based text color class for labels
+ */
+function getSectionTextColor(sectionName?: string, sectionType?: string): string {
+    if (!sectionName && !sectionType) return 'text-sys-accent';
+
+    const nameLower = (sectionName || '').toLowerCase();
+
+    if (nameLower.includes('warm') || sectionType === 'prep') {
+        return 'text-warmup-400';
+    }
+    if (nameLower.includes('skill')) {
+        return 'text-skill-400';
+    }
+    if (nameLower.includes('main') || nameLower.includes('work') || sectionType === 'main') {
+        return 'text-main-400';
+    }
+    if (nameLower.includes('accessory') || nameLower.includes('assistance')) {
+        return 'text-accessory-400';
+    }
+    if (nameLower.includes('core') || nameLower.includes('ab')) {
+        return 'text-core-400';
+    }
+    if (nameLower.includes('cool') || nameLower.includes('stretch') || sectionType === 'cool') {
+        return 'text-cooldown-400';
+    }
+
+    return 'text-sys-accent';
+}
+
+// ============================================================================
 // TYPES
 // ============================================================================
 
@@ -30,6 +94,7 @@ export interface FocusItem {
         type: 'program' | 'added';
     }>;
     section?: string;
+    sectionType?: string;
     supersetGroup?: number;
 }
 
@@ -39,6 +104,7 @@ export interface FocusViewProps {
         type: 'program' | 'added';
         data: WorkoutExercise | AddedExercise;
         section?: string;
+        sectionType?: string;
         id: string;
     }>;
     /** Current focus index */
@@ -120,6 +186,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                     type: 'added',
                     exercises: [exercise],
                     section: undefined,
+                    sectionType: undefined,
                 });
             } else {
                 const workoutEx = exercise.data as WorkoutExercise;
@@ -142,6 +209,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                         type: 'superset',
                         exercises: supersetExercises,
                         section: exercise.section,
+                        sectionType: exercise.sectionType,
                         supersetGroup: workoutEx.supersetGroup,
                     });
                 } else {
@@ -150,6 +218,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                         type: 'single',
                         exercises: [exercise],
                         section: exercise.section,
+                        sectionType: exercise.sectionType,
                     });
                 }
             }
@@ -354,6 +423,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
     // Get current item info
     const currentItem = focusItems[focusIndex];
     const currentSection = currentItem?.section;
+    const currentSectionType = currentItem?.sectionType;
 
     // Calculate completion status for each focus item (for progress dots)
     const focusItemCompletionStatus = useMemo(() => {
@@ -397,26 +467,30 @@ export const FocusView: React.FC<FocusViewProps> = ({
                     <div className="flex flex-col items-center gap-1.5">
                         {/* Progress dots */}
                         <div className="flex items-center gap-1">
-                            {focusItemCompletionStatus.map((isComplete, idx) => (
-                                <div
-                                    key={idx}
-                                    className={`rounded-full transition-all duration-300 ${
-                                        idx === focusIndex
-                                            ? 'h-2.5 w-2.5 ring-2 ring-sys-accent ring-offset-1 ring-offset-sys-black'
-                                            : 'h-2 w-2'
-                                    } ${
-                                        isComplete
-                                            ? 'bg-emerald-400'
-                                            : idx === focusIndex
-                                                ? 'bg-sys-accent'
-                                                : 'bg-sys-surfaceHigh border border-white/20'
-                                    }`}
-                                />
-                            ))}
+                            {focusItemCompletionStatus.map((isComplete, idx) => {
+                                const item = focusItems[idx];
+                                const sectionColor = getSectionDotColor(item?.section, item?.sectionType);
+                                return (
+                                    <div
+                                        key={idx}
+                                        className={`rounded-full transition-all duration-300 ${
+                                            idx === focusIndex
+                                                ? 'h-2.5 w-2.5 ring-2 ring-white/50 ring-offset-1 ring-offset-sys-black'
+                                                : 'h-2 w-2'
+                                        } ${
+                                            isComplete
+                                                ? 'bg-emerald-400'
+                                                : idx === focusIndex
+                                                    ? sectionColor
+                                                    : `${sectionColor} opacity-40`
+                                        }`}
+                                    />
+                                );
+                            })}
                         </div>
                         {/* Section label */}
                         {currentSection && (
-                            <div className="text-xs text-sys-accent font-bold">
+                            <div className={`text-xs font-bold ${getSectionTextColor(currentSection, currentSectionType)}`}>
                                 {currentSection}
                             </div>
                         )}

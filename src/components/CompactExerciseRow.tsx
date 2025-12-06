@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo, memo } from 'react';
-import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2 } from 'lucide-react';
+import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2, Timer } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
 import { CompactSetButtons } from './CompactSetButtons';
@@ -74,6 +74,10 @@ export interface CompactExerciseRowProps {
     onCompleteAllSets: (exId: string, defaultSets: number) => void;
     /** Callback to show exercise details */
     onShowHistory?: (request: ExerciseDetailRequest) => void;
+    /** Callback to start rest timer */
+    onStartRestTimer?: (seconds: number) => void;
+    /** Section type for determining if rest button should show (hide for prep/cool sections) */
+    sectionType?: string;
 }
 
 // ============================================================================
@@ -108,6 +112,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     onAddSet,
     onCompleteAllSets,
     onShowHistory,
+    onStartRestTimer,
+    sectionType,
 }) => {
     // State - auto-expand the first incomplete exercise
     const [isExpanded, setIsExpanded] = useState(isFirstIncomplete);
@@ -536,6 +542,18 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             <Plus size={12} />
                             <span>Add Set</span>
                         </button>
+
+                        {/* Rest Timer Button - only for main section exercises */}
+                        {onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
+                            <button
+                                onClick={() => onStartRestTimer(restTime)}
+                                className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium"
+                                aria-label={`Start ${restTime}s rest timer`}
+                            >
+                                <Timer size={12} />
+                                <span>{restTime >= 60 ? `${Math.floor(restTime / 60)}m` : `${restTime}s`}</span>
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

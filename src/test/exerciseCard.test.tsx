@@ -210,57 +210,9 @@ describe('ExerciseCard', () => {
         });
     });
 
-    describe('Rest Timer', () => {
-        it('should show rest timer button when rest time is set', () => {
-            render(<ExerciseCard {...defaultProps} restTime={90} />);
+    // Rest Timer tests removed - rest timer UI moved to FloatingTimer bar
 
-            // 90s is a preset, so it should be shown as "1.5m"
-            expect(screen.getByRole('button', { name: 'Start 90 second rest timer' })).toBeInTheDocument();
-        });
-
-        it('should call onStartRestTimer when rest timer button is clicked', () => {
-            render(<ExerciseCard {...defaultProps} restTime={90} />);
-
-            fireEvent.click(screen.getByRole('button', { name: 'Start 90 second rest timer' }));
-
-            expect(defaultProps.haptic.bump).toHaveBeenCalled();
-            expect(defaultProps.onStartRestTimer).toHaveBeenCalledWith(90);
-        });
-
-        it('should show all rest timer presets', () => {
-            render(<ExerciseCard {...defaultProps} />);
-
-            // All presets should be shown (60, 90, 120, 180)
-            expect(screen.getByRole('button', { name: 'Start 60 second rest timer' })).toBeInTheDocument();
-            expect(screen.getByRole('button', { name: 'Start 90 second rest timer' })).toBeInTheDocument();
-            expect(screen.getByRole('button', { name: 'Start 120 second rest timer' })).toBeInTheDocument();
-            expect(screen.getByRole('button', { name: 'Start 180 second rest timer' })).toBeInTheDocument();
-        });
-    });
-
-    describe('EMOM Timer', () => {
-        it('should show EMOM timer button when multiple sets exist', () => {
-            render(<ExerciseCard {...defaultProps} />);
-
-            expect(screen.getByRole('button', { name: 'Start EMOM timer with 60s interval' })).toBeInTheDocument();
-        });
-
-        it('should call onToggleEmomTimer when EMOM button is clicked', () => {
-            render(<ExerciseCard {...defaultProps} />);
-
-            fireEvent.click(screen.getByRole('button', { name: 'Start EMOM timer with 60s interval' }));
-
-            expect(defaultProps.haptic.bump).toHaveBeenCalled();
-            expect(defaultProps.onToggleEmomTimer).toHaveBeenCalled();
-        });
-
-        it('should show active state when EMOM timer is active', () => {
-            render(<ExerciseCard {...defaultProps} emomTimerActive={true} />);
-
-            const emomButton = screen.getByRole('button', { name: 'Stop EMOM timer with 60s interval' });
-            expect(emomButton).toHaveClass('bg-purple-500');
-        });
-    });
+    // EMOM Timer tests removed - EMOM timer UI now controlled via FloatingTimer bar
 
     describe('Weight Input', () => {
         it('should show weight input for non-bodyweight exercises', () => {

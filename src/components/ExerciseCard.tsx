@@ -9,8 +9,6 @@ import React, { useMemo } from 'react';
 import {
     ChevronDown,
     ChevronUp,
-    Timer,
-    Repeat,
     Check,
     Plus,
     CheckCheck,
@@ -28,50 +26,6 @@ import type { RPEValue } from '../types';
 import type { ExerciseDetailRequest, ExerciseLogEntry } from '../types/workout';
 import type { LoadRange, TempoRange } from '../workout-plan-utils';
 import type { HapticFeedback } from '../hooks';
-
-// ============================================================================
-// SMART REST TIMER HELPERS
-// ============================================================================
-
-/**
- * Quick rest timer presets in seconds
- */
-const REST_PRESETS = [60, 90, 120, 180] as const;
-
-/**
- * Calculate suggested rest time based on weight and exercise characteristics
- * Heavier weights and compound movements need longer rest for recovery
- */
-function getSuggestedRestTime(
-    weight: string | undefined,
-    isBodyweight: boolean | undefined,
-    prescribedRest: number | undefined
-): number {
-    // If prescribed rest exists, use it as base
-    if (prescribedRest && prescribedRest > 0) {
-        return prescribedRest;
-    }
-
-    // Bodyweight exercises: shorter rest (60-90s)
-    if (isBodyweight) {
-        return 60;
-    }
-
-    // Weight-based suggestion
-    const weightNum = parseFloat(weight || '0');
-
-    if (weightNum === 0) {
-        return 90; // Default
-    } else if (weightNum < 20) {
-        return 60;  // Light weight: 60s
-    } else if (weightNum < 40) {
-        return 90;  // Moderate weight: 90s
-    } else if (weightNum < 60) {
-        return 120; // Heavy weight: 2 min
-    } else {
-        return 180; // Very heavy: 3 min
-    }
-}
 
 export interface ExerciseCardProps {
     /** Exercise ID */
@@ -174,8 +128,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     supersetGroup,
     supersetPosition,
     rpePrompt,
-    emomTimerActive,
-    emomTimerInterval,
     haptic,
     hideCollapseButton = false,
     onToggleCollapse,
@@ -184,10 +136,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     onCompleteAllSets,
     onSaveWeight,
     onSaveRPE,
-    onSaveNotes,
     onClearRPEPrompt,
-    onStartRestTimer,
-    onToggleEmomTimer,
     onShowHistory,
     onShowAlternatives,
 }) => {
@@ -211,11 +160,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
     // Check if current weight matches previous (for visual indicator)
     const isUsingPreviousWeight = previousWeight && exerciseLog.weight === previousWeight;
-
-    // Smart rest timer - suggest based on current weight
-    const suggestedRest = useMemo(() => {
-        return getSuggestedRestTime(exerciseLog.weight, isBodyweight, restTime);
-    }, [exerciseLog.weight, isBodyweight, restTime]);
 
     const handleUsePreviousWeight = (): void => {
         if (previousWeight) {
@@ -391,76 +335,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                 {/* Collapsed content */}
                 {!isCollapsed && (
                     <>
-                        {/* Smart Rest Timer - shows suggested + quick presets */}
-                        <div className="mb-3">
-                            <div className="flex items-center gap-1.5 mb-2">
-                                <Timer size={12} className="text-sys-onSurfaceVar" />
-                                <span className="text-[10px] text-sys-onSurfaceVar uppercase font-bold tracking-wide">Rest Timer</span>
-                                {exerciseLog.weight && !isBodyweight && (
-                                    <span className="text-[10px] text-sys-accent ml-auto">
-                                        Suggested: {suggestedRest}s
-                                    </span>
-                                )}
-                            </div>
-                            <div className="flex flex-wrap gap-1.5">
-                                {/* Prescribed rest time (if different from presets) */}
-                                {restTime && restTime > 0 && !REST_PRESETS.includes(restTime as typeof REST_PRESETS[number]) && (
-                                    <button
-                                        onClick={() => {
-                                            haptic.bump();
-                                            onStartRestTimer(restTime);
-                                        }}
-                                        className={`h-8 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1 transition-all active:scale-95 ${
-                                            suggestedRest === restTime
-                                                ? 'bg-sys-accent text-white ring-2 ring-sys-accent/30'
-                                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar hover:bg-sys-accent/20'
-                                        }`}
-                                        aria-label={`Start ${restTime} second rest timer`}
-                                    >
-                                        {restTime}s
-                                        {suggestedRest === restTime && <span className="text-[9px] opacity-75">✓</span>}
-                                    </button>
-                                )}
-                                {/* Quick preset buttons */}
-                                {REST_PRESETS.map((preset) => (
-                                    <button
-                                        key={preset}
-                                        onClick={() => {
-                                            haptic.bump();
-                                            onStartRestTimer(preset);
-                                        }}
-                                        className={`h-8 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1 transition-all active:scale-95 ${
-                                            suggestedRest === preset
-                                                ? 'bg-sys-accent text-white ring-2 ring-sys-accent/30'
-                                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar hover:bg-sys-accent/20'
-                                        }`}
-                                        aria-label={`Start ${preset} second rest timer`}
-                                    >
-                                        {preset >= 60 ? `${preset / 60}m` : `${preset}s`}
-                                        {suggestedRest === preset && <span className="text-[9px] opacity-75">✓</span>}
-                                    </button>
-                                ))}
-                                {/* EMOM Timer */}
-                                {totalSets > 1 && (
-                                    <button
-                                        onClick={() => {
-                                            haptic.bump();
-                                            onToggleEmomTimer();
-                                        }}
-                                        className={`h-8 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-95 ${
-                                            emomTimerActive
-                                                ? 'bg-purple-500 text-white ring-2 ring-purple-500/30'
-                                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar hover:bg-purple-500/20'
-                                        }`}
-                                        aria-label={`${emomTimerActive ? 'Stop' : 'Start'} EMOM timer with ${emomTimerInterval}s interval`}
-                                    >
-                                        <Repeat size={14} />
-                                        <span>EMOM {emomTimerInterval}s</span>
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-
                         {/* Set buttons - Progressive Reveal */}
                         <div className="flex flex-wrap gap-2 mb-3 items-center">
                             {sets.map((isDone, i) => {
@@ -511,6 +385,18 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             >
                                 <Plus size={14} />
                             </button>
+
+                            {/* Complete all button - small, next to add set */}
+                            {sets.filter((s) => !s).length > 1 && (
+                                <button
+                                    onClick={() => onCompleteAllSets(exId, defaultSets)}
+                                    className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-all"
+                                    aria-label="Complete all sets"
+                                    title="Complete all sets"
+                                >
+                                    <CheckCheck size={14} />
+                                </button>
+                            )}
                         </div>
 
                         {/* RPE Selector */}
@@ -525,20 +411,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 setNumber={rpePrompt.setIndex + 1}
                                 showAsPrompt
                             />
-                        )}
-
-                        {/* Complete all button */}
-                        {sets.filter((s) => !s).length > 1 && (
-                            <div className="flex gap-2 mb-3">
-                                <button
-                                    onClick={() => onCompleteAllSets(exId, defaultSets)}
-                                    className="flex-1 h-8 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-semibold flex items-center justify-center gap-1.5 active:bg-sys-accent/20 transition-colors"
-                                    aria-label="Complete all sets"
-                                >
-                                    <CheckCheck size={14} />
-                                    <span>Complete All</span>
-                                </button>
-                            </div>
                         )}
 
                         {/* Weight input for weighted exercises */}
@@ -618,24 +490,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 </div>
                             </div>
                         )}
-
-                        {/* Notes input */}
-                        <div className="pt-3 border-t border-white/5">
-                            <label
-                                htmlFor={`${exId}-notes`}
-                                className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-1 block"
-                            >
-                                Exercise Notes
-                            </label>
-                            <textarea
-                                id={`${exId}-notes`}
-                                value={exerciseLog.notes || ''}
-                                onChange={(e) => onSaveNotes(exId, e.target.value)}
-                                placeholder="Add notes about form, feeling, adjustments..."
-                                className="w-full h-20 px-3 py-2 bg-sys-surfaceHigh rounded-lg text-white text-sm outline-none focus:ring-2 focus:ring-sys-accent transition-all resize-none"
-                                enterKeyHint="done"
-                            />
-                        </div>
                     </>
                 )}
             </div>

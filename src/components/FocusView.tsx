@@ -354,9 +354,18 @@ export const FocusView: React.FC<FocusViewProps> = ({
     // Get current item info
     const currentItem = focusItems[focusIndex];
     const currentSection = currentItem?.section;
-    const itemLabel = currentItem?.type === 'superset'
-        ? `Superset ${focusIndex + 1}`
-        : `Exercise ${focusIndex + 1}`;
+
+    // Calculate completion status for each focus item (for progress dots)
+    const focusItemCompletionStatus = useMemo(() => {
+        return focusItems.map((item) => {
+            // Check if all exercises in this focus item are complete
+            return item.exercises.every((exercise) => {
+                const exerciseLog = getExerciseLogEntry(logs, exercise.id);
+                const sets = exerciseLog.sets || [];
+                return sets.length > 0 && sets.every((s) => s);
+            });
+        });
+    }, [focusItems, logs]);
 
     if (focusItems.length === 0) {
         return (
@@ -375,7 +384,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
     return (
         <div className="flex-1 flex flex-col min-h-[60vh] overflow-hidden">
             <div className="flex-1 flex flex-col">
-                {/* Navigation header */}
+                {/* Navigation header with progress dots */}
                 <div className="flex items-center justify-between mb-4">
                     <button
                         onClick={navigatePrev}
@@ -385,10 +394,27 @@ export const FocusView: React.FC<FocusViewProps> = ({
                     >
                         <ChevronLeft size={20} />
                     </button>
-                    <div className="text-center">
-                        <span className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider">
-                            {itemLabel} of {focusItems.length}
-                        </span>
+                    <div className="flex flex-col items-center gap-1.5">
+                        {/* Progress dots */}
+                        <div className="flex items-center gap-1">
+                            {focusItemCompletionStatus.map((isComplete, idx) => (
+                                <div
+                                    key={idx}
+                                    className={`rounded-full transition-all duration-300 ${
+                                        idx === focusIndex
+                                            ? 'h-2.5 w-2.5 ring-2 ring-sys-accent ring-offset-1 ring-offset-sys-black'
+                                            : 'h-2 w-2'
+                                    } ${
+                                        isComplete
+                                            ? 'bg-emerald-400'
+                                            : idx === focusIndex
+                                                ? 'bg-sys-accent'
+                                                : 'bg-sys-surfaceHigh border border-white/20'
+                                    }`}
+                                />
+                            ))}
+                        </div>
+                        {/* Section label */}
                         {currentSection && (
                             <div className="text-xs text-sys-accent font-bold">
                                 {currentSection}

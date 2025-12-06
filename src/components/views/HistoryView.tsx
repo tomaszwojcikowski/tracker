@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     BarChart2,
@@ -19,6 +19,7 @@ import {
 import { safeGetJSON } from '../../utils/storage';
 import { getGlobalHistoryKey } from '../../services/storageNamespace';
 import { PullToRefresh } from '../PullToRefresh';
+import { PRHighlights, calculateStreak, findRecentPRs } from '../PRHighlights';
 import { useHaptic, useScrollToTop } from '../../hooks';
 
 // Types for exercise stats display
@@ -409,6 +410,23 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
     // Scroll to top when view loads
     useScrollToTop();
 
+    // Calculate PR highlights data
+    const prHighlightsData = useMemo(() => {
+        const streakData = calculateStreak(history);
+        const recentPRs = findRecentPRs(
+            getAllExercisesWithHistory,
+            getExerciseHistory,
+            30 // Last 30 days
+        );
+
+        return {
+            recentPRs,
+            streakDays: streakData.currentStreak,
+            bestStreak: streakData.bestStreak,
+            totalWorkouts: history.length,
+        };
+    }, [history, getAllExercisesWithHistory, getExerciseHistory]);
+
     const loadHistory = async () => {
         const globalHistoryKey = getGlobalHistoryKey();
         const h = safeGetJSON<GlobalHistoryEntry[]>(globalHistoryKey, []);
@@ -491,6 +509,18 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                     />
                 ) : (
                     <div className="space-y-4">
+                        {/* PR Highlights Card - only show if there are PRs or streaks */}
+                        {(prHighlightsData.recentPRs.length > 0 || prHighlightsData.streakDays > 0) && (
+                            <PRHighlights
+                                recentPRs={prHighlightsData.recentPRs}
+                                streakDays={prHighlightsData.streakDays}
+                                totalWorkouts={prHighlightsData.totalWorkouts}
+                                bestStreak={prHighlightsData.bestStreak}
+                                periodLabel="Last 30 Days"
+                                compact={prHighlightsData.recentPRs.length > 3}
+                            />
+                        )}
+
                         <AnimatePresence initial={false}>
                             {history.map((entry, idx) => {
                                 const isExpanded = expandedEntries[idx];

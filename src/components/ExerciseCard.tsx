@@ -82,6 +82,8 @@ export interface ExerciseCardProps {
     emomTimerInterval: number;
     /** Haptic feedback interface */
     haptic: Pick<HapticFeedback, 'tick' | 'bump' | 'success'>;
+    /** Hide collapse button (for focus view) */
+    hideCollapseButton?: boolean;
     /** Callbacks */
     onToggleCollapse: (exId: string) => void;
     onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number) => void;
@@ -129,6 +131,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     emomTimerActive,
     emomTimerInterval,
     haptic,
+    hideCollapseButton = false,
     onToggleCollapse,
     onToggleSet,
     onAddSet,
@@ -295,17 +298,19 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                         <p className="text-xs text-sys-onSurfaceVar">{prescription}</p>
                     </div>
 
-                    {/* Collapse button */}
-                    <button
-                        onClick={() => {
-                            haptic.tick();
-                            onToggleCollapse(exId);
-                        }}
-                        className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
-                        aria-label={isCollapsed ? 'Expand exercise' : 'Collapse exercise'}
-                    >
-                        {isCollapsed ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
-                    </button>
+                    {/* Collapse button - hidden in focus view */}
+                    {!hideCollapseButton && (
+                        <button
+                            onClick={() => {
+                                haptic.tick();
+                                onToggleCollapse(exId);
+                            }}
+                            className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
+                            aria-label={isCollapsed ? 'Expand exercise' : 'Collapse exercise'}
+                        >
+                            {isCollapsed ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
+                        </button>
+                    )}
                 </div>
 
                 {/* Collapsed content */}

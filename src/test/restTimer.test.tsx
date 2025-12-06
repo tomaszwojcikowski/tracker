@@ -8,12 +8,21 @@ import { renderHook, act } from '@testing-library/react';
  * haptic feedback, and toast notifications.
  */
 
-// Mock the haptic interface
+// Mock the haptic interface with all required methods
 const createMockHaptic = () => ({
     tick: vi.fn(),
     bump: vi.fn(),
     success: vi.fn(),
     timer: vi.fn(),
+    complete: vi.fn(),
+    milestone: vi.fn(),
+    countdown: vi.fn(),
+    error: vi.fn(),
+    swipe: vi.fn(),
+    timer30: vi.fn(),
+    timer10: vi.fn(),
+    timerComplete: vi.fn(),
+    emomWarning: vi.fn(),
 });
 
 import { useRestTimer } from '../hooks/useRestTimer';
@@ -103,7 +112,7 @@ describe('useRestTimer', () => {
                 vi.advanceTimersByTime(1000);
             });
 
-            expect(mockHaptic.timer).toHaveBeenCalled();
+            expect(mockHaptic.timerComplete).toHaveBeenCalled();
         });
 
         it('should show toast on completion', () => {

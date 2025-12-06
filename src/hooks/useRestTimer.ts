@@ -45,7 +45,7 @@ export function useRestTimer({ haptic }: UseRestTimerOptions): UseRestTimerRetur
     const [active, setActive] = useState(false);
     const [showToast, setShowToast] = useState(false);
 
-    // Timer countdown effect
+    // Timer countdown effect with enhanced haptic patterns
     useEffect(() => {
         if (active && seconds > 0) {
             const interval = setInterval(() => setSeconds((s) => s - 1), 1000);
@@ -53,8 +53,27 @@ export function useRestTimer({ haptic }: UseRestTimerOptions): UseRestTimerRetur
         }
         if (seconds === 0 && active) {
             setActive(false);
-            haptic.timer();
+            // Use enhanced timer complete haptic pattern
+            haptic.timerComplete();
             setShowToast(true);
+        }
+    }, [active, seconds, haptic]);
+
+    // Enhanced haptic feedback at key intervals
+    useEffect(() => {
+        if (!active) return;
+
+        // 30 seconds remaining - double tap pattern
+        if (seconds === 30) {
+            haptic.timer30();
+        }
+        // 10 seconds remaining - triple tap pattern
+        else if (seconds === 10) {
+            haptic.timer10();
+        }
+        // Countdown ticks for last 5 seconds
+        else if (seconds <= 5 && seconds > 0) {
+            haptic.countdown();
         }
     }, [active, seconds, haptic]);
 

@@ -1559,6 +1559,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$ref": "ex-crow-stand"
+                  },
+                  {
                     "$ref": "ex-pull-up-ladders",
                     "sets": 3,
                     "notes": "Deload. Total: 18 reps (3 ladders x 6 reps). RPE 6 MAX"
@@ -2108,6 +2111,10 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$ref": "ex-tuck-planche",
+                    "notes": "Deload"
                   },
                   {
                     "$ref": "ex-pull-up-emom",
@@ -2722,7 +2729,9 @@
                     "notes": "Deload"
                   },
                   {
-                    "$routine": "superset-bss"
+                    "$ref": "ex-tuck-plank-holds",
+                    "sets": 3,
+                    "notes": "Straight-Arm Cap: 3 x 6s Tuck Holds Max"
                   },
                   {
                     "$routine": "cooldown-day5"

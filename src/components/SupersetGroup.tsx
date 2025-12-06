@@ -178,13 +178,10 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
     if (isComplete && !isExpanded) {
         return (
             <div className="relative">
-                {/* Superset indicator line */}
-                <div className="absolute left-1 top-0 bottom-0 w-0.5 bg-amber-500/80 rounded-full" />
-
                 <button
                     type="button"
                     onClick={handleToggleExpand}
-                    className="w-full ml-3 h-auto min-h-[36px] px-3 py-2 flex items-center gap-2 bg-sys-success/10 rounded-xl border border-sys-success/20 active:bg-sys-success/20 transition-colors"
+                    className="w-full h-auto min-h-[36px] px-3 py-2 flex items-center gap-2 bg-sys-success/10 rounded-xl border border-sys-success/20 active:bg-sys-success/20 transition-colors"
                     aria-label="Superset completed, tap to edit"
                 >
                     <div className="flex items-center justify-center h-5 w-5 rounded-full bg-sys-success text-white flex-shrink-0">
@@ -222,15 +219,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
 
     return (
         <div className="relative">
-            {/* Superset indicator line */}
-            <div className="absolute left-1 top-0 bottom-0 w-0.5 bg-amber-500/80 rounded-full" />
-
-            {/* Superset badge */}
-            <div className="absolute left-0 top-1 z-20">
-                <div className="h-2 w-2 rounded-full bg-amber-500" />
-            </div>
-
-            <div className={`ml-3 rounded-xl border overflow-hidden transition-all ${
+            <div className={`rounded-xl border overflow-hidden transition-all ${
                 isFirstIncomplete
                     ? 'bg-sys-accent/10 border-sys-accent/30'
                     : 'bg-amber-500/5 border-amber-500/20'

@@ -480,8 +480,8 @@
       },
       {
         "id": "superset-bss",
-        "name": "Bulgarian Split Squat EMOM Superset",
-        "description": "Alternating EMOM for unilateral leg work",
+        "name": "Bulgarian Split Squat EMOM",
+        "description": "2-minute EMOM: Min 1 BSS Left, Min 2 BSS Right",
         "category": "main",
         "estimatedDuration": 6,
         "targetAreas": [
@@ -500,6 +500,25 @@
       }
     ],
     "exerciseTemplates": [
+      {
+        "id": "ex-pull-ups",
+        "exerciseName": "Pull-Ups",
+        "category": "main",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 5,
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "cues": [
+          "Full ROM",
+          "Chin over bar",
+          "Controlled descent"
+        ],
+        "alternatives": [
+          "Lat Pulldowns",
+          "Assisted Pull-Ups"
+        ]
+      },
       {
         "id": "ex-pull-up-ladders",
         "exerciseName": "Pull-Up Ladders",
@@ -1318,7 +1337,8 @@
                     "$ref": "ex-weighted-hollow-rocks",
                     "loadMin": 0,
                     "loadMax": 0,
-                    "notes": "Bodyweight for Week 1"
+                    "supersetGroup": 1,
+                    "notes": "Min 3 of EMOM. Bodyweight for Week 1"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -1457,13 +1477,15 @@
                   {
                     "exerciseName": "Ground-Based Flutter Kicks",
                     "category": "core",
-                    "sets": 3,
+                    "sets": 1,
                     "repsType": "time",
                     "repsValue": 30,
                     "repsUnit": "seconds",
                     "loadUnit": "bodyweight",
+                    "isEmom": true,
+                    "supersetGroup": 1,
                     "restSeconds": 60,
-                    "notes": "Core Recovery"
+                    "notes": "Min 3 of EMOM. Core Recovery"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -1610,9 +1632,10 @@
                     "loadMin": 3,
                     "loadMax": 5,
                     "loadUnit": "kg",
-                    "restSeconds": 60,
-                    "notes": "Core Hard. Keep biceps by ears",
-                    "progressionNotes": "Start 1.25kg. Progress only with perfect form"
+                    "restSeconds": 0,
+                    "supersetGroup": 1,
+                    "isEmom": true,
+                    "notes": "3-min EMOM with BSS. Keep biceps by ears"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -1895,7 +1918,10 @@
                     "loadMin": 3,
                     "loadMax": 5,
                     "repsValue": 15,
-                    "notes": "EMOM circuit. 10 min cap"
+                    "restSeconds": 0,
+                    "supersetGroup": 1,
+                    "isEmom": true,
+                    "notes": "3-min EMOM with BSS"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -2035,7 +2061,10 @@
                   },
                   {
                     "$ref": "ex-dead-bugs",
-                    "notes": "Core Recovery. EMOM"
+                    "restSeconds": 0,
+                    "supersetGroup": 1,
+                    "isEmom": true,
+                    "notes": "3-min EMOM with BSS. Core Recovery"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -2181,8 +2210,10 @@
                     "loadMin": 3,
                     "loadMax": 5,
                     "loadUnit": "kg",
-                    "restSeconds": 60,
-                    "notes": "Core Hard. Keep biceps by ears"
+                    "restSeconds": 0,
+                    "supersetGroup": 1,
+                    "isEmom": true,
+                    "notes": "3-min EMOM with BSS. Keep biceps by ears"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -2457,7 +2488,11 @@
                     "$routine": "superset-bss"
                   },
                   {
-                    "$ref": "ex-weighted-hollow-hold"
+                    "$ref": "ex-weighted-hollow-hold",
+                    "restSeconds": 0,
+                    "supersetGroup": 1,
+                    "isEmom": true,
+                    "notes": "3-min EMOM with BSS"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -2584,7 +2619,10 @@
                   },
                   {
                     "$ref": "ex-dead-bugs",
-                    "notes": "Core Recovery"
+                    "restSeconds": 0,
+                    "supersetGroup": 1,
+                    "isEmom": true,
+                    "notes": "3-min EMOM with BSS. Core Recovery"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -2718,8 +2756,10 @@
                     "loadMin": 3,
                     "loadMax": 5,
                     "loadUnit": "kg",
-                    "restSeconds": 60,
-                    "notes": "Core Hard"
+                    "restSeconds": 0,
+                    "supersetGroup": 1,
+                    "isEmom": true,
+                    "notes": "3-min EMOM with BSS"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -2981,12 +3021,6 @@
                     "$ref": "ex-chest-supported-row"
                   },
                   {
-                    "$routine": "superset-bss"
-                  },
-                  {
-                    "$ref": "ex-side-planks"
-                  },
-                  {
                     "$routine": "cooldown-day5"
                   }
                 ]
@@ -3013,18 +3047,10 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "exerciseName": "Pull-ups AMRAP -1",
-                    "category": "main",
-                    "sets": 3,
+                    "$ref": "ex-pull-ups",
                     "repsType": "amrap",
                     "repsModifier": -1,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "notes": "AMRAP -1. Stop 1 rep before failure",
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Assisted Pull-Ups"
-                    ]
+                    "notes": "AMRAP -1. Stop 1 rep before failure"
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -3120,13 +3146,6 @@
                     "$ref": "ex-chest-supported-row"
                   },
                   {
-                    "$routine": "superset-bss"
-                  },
-                  {
-                    "$ref": "ex-dragon-flags-negatives",
-                    "notes": "Auto-Regulation: Dragon Flags ONLY if tendons feel excellent. Otherwise, use Weighted V-Ups"
-                  },
-                  {
                     "$routine": "cooldown-day5"
                   }
                 ]
@@ -3153,26 +3172,17 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "exerciseName": "Pull-ups AMRAP",
-                    "category": "main",
+                    "$ref": "ex-pull-ups",
                     "sets": 1,
                     "repsType": "max",
-                    "loadUnit": "bodyweight",
                     "restSeconds": 180,
-                    "notes": "1 set All-out AMRAP. Technical failure",
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Assisted Pull-Ups"
-                    ]
+                    "notes": "1 set All-out AMRAP. Technical failure"
                   },
                   {
-                    "exerciseName": "Pull-ups Sub-Max",
-                    "category": "main",
+                    "$ref": "ex-pull-ups",
                     "sets": 2,
                     "repsType": "amrap",
                     "repsModifier": -2,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
                     "notes": "2 sets sub-max (AMRAP -2)"
                   },
                   {
@@ -3268,9 +3278,6 @@
                     "$ref": "ex-chest-supported-row"
                   },
                   {
-                    "$routine": "superset-bss"
-                  },
-                  {
                     "$ref": "ex-side-planks",
                     "notes": "Core Recovery"
                   },
@@ -3301,13 +3308,10 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "exerciseName": "Pull-ups AMRAP -4",
-                    "category": "main",
+                    "$ref": "ex-pull-ups",
                     "sets": 2,
                     "repsType": "amrap",
                     "repsModifier": -4,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
                     "notes": "Deload. 2 × AMRAP -4. RPE 6 MAX"
                   },
                   {
@@ -3403,9 +3407,7 @@
                     "sets": 2,
                     "notes": "Deload"
                   },
-                  {
-                    "$routine": "superset-bss"
-                  },
+
                   {
                     "$routine": "cooldown-day5"
                   }
@@ -3443,18 +3445,10 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "exerciseName": "Pull-ups AMRAP -1",
-                    "category": "main",
-                    "sets": 3,
+                    "$ref": "ex-pull-ups",
                     "repsType": "amrap",
                     "repsModifier": -1,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "notes": "AMRAP -1. Taper volume",
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Assisted Pull-Ups"
-                    ]
+                    "notes": "AMRAP -1. Taper volume"
                   },
                   {
                     "$ref": "ex-feet-on-floor-rows",
@@ -3544,9 +3538,7 @@
                     "$ref": "ex-archer-negatives",
                     "notes": "Archer Tempo Rule: 5-6 second eccentric. NO pause at bottom"
                   },
-                  {
-                    "$routine": "superset-bss"
-                  },
+
                   {
                     "exerciseName": "Weighted V-Ups",
                     "category": "core",
@@ -3586,18 +3578,11 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "exerciseName": "Pull-ups AMRAP -2",
-                    "category": "main",
+                    "$ref": "ex-pull-ups",
                     "sets": 2,
                     "repsType": "amrap",
                     "repsModifier": -2,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "notes": "Volume reduced by 20%",
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Assisted Pull-Ups"
-                    ]
+                    "notes": "Volume reduced by 20%"
                   },
                   {
                     "$ref": "ex-feet-on-floor-rows",
@@ -3690,12 +3675,9 @@
                     "notes": "Peak volume. 5-6s eccentric"
                   },
                   {
-                    "$routine": "superset-bss"
-                  },
-                  {
                     "exerciseName": "Weighted V-Ups",
                     "category": "core",
-                    "sets": 3,
+                    "sets": 2,
                     "repsType": "reps",
                     "repsValue": 10,
                     "loadMin": 3,
@@ -3731,18 +3713,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "exerciseName": "Pull-ups",
-                    "category": "main",
+                    "$ref": "ex-pull-ups",
                     "sets": 2,
-                    "repsType": "reps",
-                    "repsValue": 5,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "notes": "50% volume. Very low intensity",
-                    "alternatives": [
-                      "Lat Pulldowns",
-                      "Assisted Pull-Ups"
-                    ]
+                    "notes": "50% volume. Very low intensity"
                   },
                   {
                     "$ref": "ex-feet-on-floor-rows",
@@ -3829,7 +3802,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$ref": "ex-archer-negatives",
+                    "$ref": "ex-pull-ups",
                     "sets": 2,
                     "repsValue": 2,
                     "notes": "Deload. 50% volume, 5s descent"
@@ -3898,22 +3871,18 @@
                     ]
                   },
                   {
-                    "exerciseName": "Pull-Ups",
+                    "$ref": "ex-pull-ups",
                     "category": "warmup",
                     "sets": 1,
-                    "repsType": "reps",
                     "repsValue": 3,
-                    "loadUnit": "bodyweight",
                     "restSeconds": 30,
                     "notes": "Warm-up @ 50%"
                   },
                   {
-                    "exerciseName": "Pull-Ups",
+                    "$ref": "ex-pull-ups",
                     "category": "warmup",
                     "sets": 1,
-                    "repsType": "reps",
                     "repsValue": 1,
-                    "loadUnit": "bodyweight",
                     "restSeconds": 30,
                     "notes": "Warm-up @ 75%"
                   },
@@ -3992,22 +3961,18 @@
                     "notes": "Warm-up. Battery conservation"
                   },
                   {
-                    "exerciseName": "Pull-Ups",
+                    "$ref": "ex-pull-ups",
                     "category": "warmup",
                     "sets": 1,
-                    "repsType": "reps",
                     "repsValue": 3,
-                    "loadUnit": "bodyweight",
                     "restSeconds": 30,
                     "notes": "Warm-up @ 50%"
                   },
                   {
-                    "exerciseName": "Pull-Ups",
+                    "$ref": "ex-pull-ups",
                     "category": "warmup",
                     "sets": 1,
-                    "repsType": "reps",
                     "repsValue": 1,
-                    "loadUnit": "bodyweight",
                     "restSeconds": 30,
                     "notes": "Warm-up @ 75%"
                   },
@@ -4152,19 +4117,9 @@
                     "notes": "60% Vol (Reload). Practice the groove, stop far from failure"
                   },
                   {
-                    "exerciseName": "Pull-Ups",
-                    "category": "main",
+                    "$ref": "ex-pull-ups",
                     "sets": 2,
-                    "repsType": "reps",
-                    "repsValue": 5,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
-                    "notes": "Reload. NO weighted pulls. Tempo 2-1-1. Perfect reps only",
-                    "cues": [
-                      "Full ROM",
-                      "Chin over bar",
-                      "Controlled descent"
-                    ]
+                    "notes": "Reload. NO weighted pulls. Tempo 2-1-1. Perfect reps only"
                   },
                   {
                     "$ref": "ex-dips",

@@ -50,13 +50,29 @@ type UpdateSWFunction = (reloadPage?: boolean) => Promise<void>;
 export function usePWA(): PWAState {
     const [needRefresh, setNeedRefresh] = useState<boolean>(false);
     const [offlineReady, setOfflineReady] = useState<boolean>(false);
-    const [isOnline, setIsOnline] = useState<boolean>(
-        typeof navigator !== 'undefined' ? navigator.onLine : true
-    );
+    // Always default to online to prevent false offline banners
+    // We'll update via event listeners if we go offline
+    const [isOnline, setIsOnline] = useState<boolean>(true);
     const [updateSW, setUpdateSW] = useState<UpdateSWFunction>(() => async () => {});
     const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null);
 
     useEffect(() => {
+        // Only set offline if navigator explicitly says we're offline
+        // AND we fail a network request (double-check)
+        // navigator.onLine can be unreliable on some browsers/OS combinations
+        if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+            // Double-check with a quick fetch to confirm offline status
+            fetch('/manifest.webmanifest', { method: 'HEAD', cache: 'no-store' })
+                .then(() => {
+                    // Fetch succeeded, we're actually online despite navigator.onLine
+                    setIsOnline(true);
+                })
+                .catch(() => {
+                    // Fetch failed, we're actually offline
+                    setIsOnline(false);
+                });
+        }
+
         // Register service worker with update callbacks
         const sw = registerSW({
             immediate: true, // Register immediately

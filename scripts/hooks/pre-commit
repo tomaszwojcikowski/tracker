@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# Pre-commit hook for workout data validation
+#
+# This hook validates workout plan JSON files before allowing a commit.
+# It prevents broken workout data from being committed to the repository.
+#
+# INSTALLATION:
+# Option 1: Copy manually
+#   cp scripts/hooks/pre-commit .git/hooks/pre-commit
+#   chmod +x .git/hooks/pre-commit
+#
+# Option 2: Create symlink
+#   ln -sf ../../scripts/hooks/pre-commit .git/hooks/pre-commit
+
+# Check if any workout data files are being committed
+WORKOUT_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '^data/workout-plan.*\.json$')
+
+if [ -z "$WORKOUT_FILES" ]; then
+  # No workout files being committed, skip validation
+  exit 0
+fi
+
+echo "🔍 Workout data files detected in commit:"
+echo "$WORKOUT_FILES"
+echo ""
+
+# Run the validation script
+node scripts/validate-workout-data.mjs
+
+# Exit with the same code as the validation script
+exit $?

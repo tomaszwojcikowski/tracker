@@ -22,6 +22,89 @@ import { WeeklyProgressRing } from '../progress';
 const MAX_EXERCISES_IN_SUMMARY = 3;
 
 /**
+ * Get color theme for a specific day
+ */
+function getDayTheme(day: number) {
+  switch (day) {
+    case 1:
+      return {
+        hero: {
+          gradient: 'from-blue-500 to-blue-600',
+          border: 'border-blue-500/30',
+          badge: 'bg-blue-500/20 border-blue-500/30 text-blue-400',
+          iconBg: 'bg-blue-500',
+          text: 'text-blue-400',
+        },
+        card: {
+          bg: 'bg-blue-500/5',
+          border: 'border-blue-500/10',
+          text: 'text-blue-400',
+        }
+      };
+    case 2:
+      return {
+        hero: {
+          gradient: 'from-purple-500 to-purple-600',
+          border: 'border-purple-500/30',
+          badge: 'bg-purple-500/20 border-purple-500/30 text-purple-400',
+          iconBg: 'bg-purple-500',
+          text: 'text-purple-400',
+        },
+        card: {
+          bg: 'bg-purple-500/5',
+          border: 'border-purple-500/10',
+          text: 'text-purple-400',
+        }
+      };
+    case 3:
+      return {
+        hero: {
+          gradient: 'from-teal-500 to-teal-600',
+          border: 'border-teal-500/30',
+          badge: 'bg-teal-500/20 border-teal-500/30 text-teal-400',
+          iconBg: 'bg-teal-500',
+          text: 'text-teal-400',
+        },
+        card: {
+          bg: 'bg-teal-500/5',
+          border: 'border-teal-500/10',
+          text: 'text-teal-400',
+        }
+      };
+    case 5:
+      return {
+        hero: {
+          gradient: 'from-orange-500 to-orange-600',
+          border: 'border-orange-500/30',
+          badge: 'bg-orange-500/20 border-orange-500/30 text-orange-400',
+          iconBg: 'bg-orange-500',
+          text: 'text-orange-400',
+        },
+        card: {
+          bg: 'bg-orange-500/5',
+          border: 'border-orange-500/10',
+          text: 'text-orange-400',
+        }
+      };
+    default:
+      return {
+        hero: {
+          gradient: 'from-sys-primary to-sys-primaryDim',
+          border: 'border-sys-primary/30',
+          badge: 'bg-sys-primary/20 border-sys-primary/30 text-sys-primary',
+          iconBg: 'bg-sys-primary',
+          text: 'text-sys-primary',
+        },
+        card: {
+          bg: 'bg-sys-surface',
+          border: 'border-white/5',
+          text: 'text-sys-onSurfaceVar',
+        }
+      };
+  }
+}
+
+/**
  * Get a summary of main and skill exercises for a day (excluding warmup/accessory)
  */
 function getExerciseSummary(week: number, day: number): string {
@@ -254,6 +337,7 @@ export function Dashboard({
             // But let's make the next available workout prominent.
 
             const isNextUp = day === nextWorkoutDay && !inProgressWorkout;
+            const theme = getDayTheme(day);
 
             if (isNextUp) {
                 return (
@@ -268,15 +352,15 @@ export function Dashboard({
                         aria-label={`Start Day ${day} workout`}
                     >
                         {/* Background with gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-sys-primary to-sys-primaryDim opacity-20 group-active:opacity-30 transition-opacity" />
-                        <div className="absolute inset-0 border-2 border-sys-primary/30 rounded-[32px]" />
+                        <div className={`absolute inset-0 bg-gradient-to-br ${theme.hero.gradient} opacity-20 group-active:opacity-30 transition-opacity`} />
+                        <div className={`absolute inset-0 border-2 ${theme.hero.border} rounded-[32px]`} />
 
                         <div className="relative z-10">
                             <div className="flex justify-between items-start mb-4">
-                                <div className="px-3 py-1 rounded-full bg-sys-primary/20 border border-sys-primary/30 text-sys-primary text-xs font-bold uppercase tracking-wider">
+                                <div className={`px-3 py-1 rounded-full ${theme.hero.badge} text-xs font-bold uppercase tracking-wider`}>
                                     Next Up
                                 </div>
-                                <div className="h-10 w-10 rounded-full bg-sys-primary text-sys-black flex items-center justify-center shadow-lg shadow-sys-primary/20">
+                                <div className={`h-10 w-10 rounded-full ${theme.hero.iconBg} text-sys-black flex items-center justify-center shadow-lg shadow-sys-primary/20`}>
                                     <Play size={20} fill="currentColor" />
                                 </div>
                             </div>
@@ -286,7 +370,7 @@ export function Dashboard({
                                 {getExerciseSummary(currentWeek, day)}
                             </p>
 
-                            <div className="flex items-center gap-2 text-sys-primary text-sm font-bold">
+                            <div className={`flex items-center gap-2 ${theme.hero.text} text-sm font-bold`}>
                                 <span>Start Workout</span>
                                 <ChevronRight size={16} />
                             </div>
@@ -308,7 +392,7 @@ export function Dashboard({
                     ? 'bg-sys-surface border border-sys-success/30'
                     : isInProgress
                     ? 'bg-sys-surface border border-sys-accent/30'
-                    : 'bg-sys-surface border border-white/5'
+                    : `${theme.card.bg} border ${theme.card.border}`
                 }`}
                 aria-label={`${done ? 'View completed' : isInProgress ? 'Resume' : hasPreviousData ? 'Continue' : 'Start'} Day ${day} workout`}
               >
@@ -316,7 +400,7 @@ export function Dashboard({
                   <div className="flex items-center gap-2 mb-1">
                     <span
                         className={`text-sm font-bold uppercase tracking-wider ${
-                        done ? 'text-sys-success' : isInProgress ? 'text-sys-accent' : 'text-sys-onSurfaceVar'
+                        done ? 'text-sys-success' : isInProgress ? 'text-sys-accent' : theme.card.text
                         }`}
                     >
                         Day {day}

@@ -155,7 +155,7 @@ describe('ExerciseCard', () => {
 
             fireEvent.click(screen.getByRole('button', { name: 'Set 1' }));
 
-            expect(defaultProps.onToggleSet).toHaveBeenCalledWith('bench_press', 0, 3, undefined);
+            expect(defaultProps.onToggleSet).toHaveBeenCalledWith('bench_press', 0, 3, undefined, undefined);
         });
 
         it('should call onToggleSet with rest time when provided', () => {
@@ -163,7 +163,7 @@ describe('ExerciseCard', () => {
 
             fireEvent.click(screen.getByRole('button', { name: 'Set 1' }));
 
-            expect(defaultProps.onToggleSet).toHaveBeenCalledWith('bench_press', 0, 3, 90);
+            expect(defaultProps.onToggleSet).toHaveBeenCalledWith('bench_press', 0, 3, 90, undefined);
         });
 
         it('should call onAddSet when add set button is clicked', () => {

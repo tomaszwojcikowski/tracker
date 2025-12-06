@@ -495,7 +495,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         exId: string,
         setIndex: number,
         defaultSets: number,
-        restTime?: number
+        restTime?: number,
+        sectionType?: string
     ): void => {
         try {
             haptic.tick();
@@ -533,12 +534,18 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 // This prevents the timer from activating when moving to the next exercise.
                 // Timer should only run when there are still incomplete sets remaining.
                 if (typeof restTime === 'number' && restTime > 0) {
-                    const totalSets = newSets.length;
-                    const completedSetsCount = newSets.filter(Boolean).length;
-                    const hasIncompleteSets = completedSetsCount < totalSets;
+                    // Check if rest timer should be disabled for this section (warmup/cooldown)
+                    // sectionType 'prep' = Warm Up, 'cool' = Cooldown
+                    const shouldDisableTimer = sectionType === 'prep' || sectionType === 'cool';
 
-                    if (hasIncompleteSets) {
-                        restTimer.start(restTime);
+                    if (!shouldDisableTimer) {
+                        const totalSets = newSets.length;
+                        const completedSetsCount = newSets.filter(Boolean).length;
+                        const hasIncompleteSets = completedSetsCount < totalSets;
+
+                        if (hasIncompleteSets) {
+                            restTimer.start(restTime);
+                        }
                     }
                 }
             }
@@ -553,7 +560,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         exerciseIds: string[],
         roundIndex: number,
         defaultSets: number,
-        restTime?: number
+        restTime?: number,
+        sectionType?: string
     ): void => {
         try {
             haptic.tick();
@@ -621,7 +629,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                 // Start rest timer if completing and there are incomplete sets remaining
                 if (typeof restTime === 'number' && restTime > 0 && hasIncompleteSetsAfter) {
-                    restTimer.start(restTime);
+                    // Check if rest timer should be disabled for this section (warmup/cooldown)
+                    const shouldDisableTimer = sectionType === 'prep' || sectionType === 'cool';
+
+                    if (!shouldDisableTimer) {
+                        restTimer.start(restTime);
+                    }
                 }
             } else if (anyWasCompleted) {
                 // Clear RPE prompt if uncompleting
@@ -1250,6 +1263,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         onCompleteAllRounds={completeAllSupersetSets}
                                                         onToggleEmomTimer={() => emomTimer.toggle()}
                                                         onShowHistory={handleShowExerciseDetail}
+                                                        sectionType={section.type}
                                                     />
                                                 );
                                                 return;
@@ -1348,6 +1362,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 onToggleEmomTimer={() => emomTimer.toggle()}
                                                 onShowHistory={handleShowExerciseDetail}
                                                 onShowAlternatives={(name, alts) => setShowAlternativesFor({ name, alternatives: alts })}
+                                                sectionType={section.type}
                                             />
                                         );
                                     });

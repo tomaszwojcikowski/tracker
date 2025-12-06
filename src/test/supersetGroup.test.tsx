@@ -231,7 +231,8 @@ describe('SupersetGroup', () => {
         ['bss_left', 'bss_right'],
         0,
         3,
-        60
+        60,
+        undefined
       );
     });
 
@@ -344,7 +345,8 @@ describe('SupersetGroup', () => {
         ['bss_left', 'bss_right'],
         1, // roundIndex for Round 2
         3, // defaultSets
-        60 // restTime from first exercise
+        60, // restTime from first exercise
+        undefined
       );
     });
 
@@ -373,7 +375,8 @@ describe('SupersetGroup', () => {
         ['bss_left', 'bss_right'],
         0, // roundIndex for Round 1
         3,
-        60
+        60,
+        undefined
       );
     });
 
@@ -498,7 +501,8 @@ describe('SupersetGroup', () => {
         ['bss_left', 'bss_right', 'step_ups'],
         0,
         3,
-        60
+        60,
+        undefined
       );
     });
   });

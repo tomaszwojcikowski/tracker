@@ -84,9 +84,11 @@ export interface ExerciseCardProps {
     haptic: Pick<HapticFeedback, 'tick' | 'bump' | 'success'>;
     /** Hide collapse button (for focus view) */
     hideCollapseButton?: boolean;
+    /** Section type for determining if rest button should show (hide for prep/cool sections) */
+    sectionType?: string;
     /** Callbacks */
     onToggleCollapse: (exId: string) => void;
-    onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number) => void;
+    onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number, sectionType?: string) => void;
     onAddSet: (exId: string, defaultSets: number) => void;
     onCompleteAllSets: (exId: string, defaultSets: number) => void;
     onSaveWeight: (exId: string, weight: string) => void;
@@ -130,6 +132,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     rpePrompt,
     haptic,
     hideCollapseButton = false,
+    sectionType,
     onToggleCollapse,
     onToggleSet,
     onAddSet,
@@ -347,7 +350,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     return (
                                         <button
                                             key={`${exId}-set-${i}`}
-                                            onClick={() => onToggleSet(exId, i, defaultSets, restTime)}
+                                            onClick={() => onToggleSet(exId, i, defaultSets, restTime, sectionType)}
                                             className={`set-button h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
                                                 isDone
                                                     ? allComplete

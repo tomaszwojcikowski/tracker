@@ -46,8 +46,10 @@ export interface SupersetGroupProps {
     emomTimerActive?: boolean;
     /** EMOM timer interval in seconds */
     emomTimerInterval?: number;
+    /** Section type for determining if rest button should show (hide for prep/cool sections) */
+    sectionType?: string;
     /** Callback when a round is toggled for all exercises */
-    onToggleRound: (exerciseIds: string[], roundIndex: number, defaultSets: number, restTime?: number) => void;
+    onToggleRound: (exerciseIds: string[], roundIndex: number, defaultSets: number, restTime?: number, sectionType?: string) => void;
     /** Callback when weight changes for an exercise */
     onWeightChange: (exId: string, weight: string) => void;
     /** Callback to complete all rounds */
@@ -73,6 +75,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
     onCompleteAllRounds,
     onToggleEmomTimer,
     onShowHistory,
+    sectionType,
 }) => {
     const [isExpanded, setIsExpanded] = useState(isFirstIncomplete);
     const [localWeights, setLocalWeights] = useState<Record<string, string>>(() => {
@@ -113,8 +116,8 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
     const handleToggleRound = useCallback((roundIndex: number) => {
         haptic.tick();
         const restTime = exercises[0]?.restTime;
-        onToggleRound(exerciseIds, roundIndex, totalRounds, restTime);
-    }, [haptic, exerciseIds, totalRounds, exercises, onToggleRound]);
+        onToggleRound(exerciseIds, roundIndex, totalRounds, restTime, sectionType);
+    }, [haptic, exerciseIds, totalRounds, exercises, onToggleRound, sectionType]);
 
     const handleCompleteAll = useCallback(() => {
         haptic.success();

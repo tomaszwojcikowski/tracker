@@ -92,6 +92,7 @@ export interface FocusItem {
         data: WorkoutExercise | AddedExercise;
         id: string;
         type: 'program' | 'added';
+        sectionType?: string;
     }>;
     section?: string;
     sectionType?: string;
@@ -136,7 +137,7 @@ export interface FocusViewProps {
     /** Get effective exercise name (with swaps) */
     getEffectiveExerciseName: (ex: WorkoutExercise) => string;
     /** Callbacks */
-    onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number) => void;
+    onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number, sectionType?: string) => void;
     onAddSet: (exId: string, defaultSets: number) => void;
     onCompleteAllSets: (exId: string, defaultSets: number) => void;
     onSaveLog: (id: string, field: keyof ExerciseLogEntry, value: ExerciseLogEntry[keyof ExerciseLogEntry]) => void;
@@ -338,6 +339,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                                     onToggleEmomTimer={emomTimer.toggle}
                                     onShowHistory={onShowHistory}
                                     onShowAlternatives={onShowAlternatives}
+                                    sectionType={exercise.sectionType}
                                 />
                             </div>
                         );
@@ -399,6 +401,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                 onToggleEmomTimer={emomTimer.toggle}
                 onShowHistory={onShowHistory}
                 onShowAlternatives={onShowAlternatives}
+                sectionType={exercise.sectionType}
             />
         );
     }, [

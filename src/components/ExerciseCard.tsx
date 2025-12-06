@@ -18,6 +18,7 @@ import {
     Link,
     Zap,
     ArrowRightLeft,
+    TrendingUp,
 } from 'lucide-react';
 import { RPESelector } from './RPESelector';
 import type { RPEValue } from '../types';
@@ -42,6 +43,8 @@ export interface ExerciseCardProps {
     isEmom?: boolean;
     /** Unilateral exercise flag */
     isUnilateral?: boolean;
+    /** AMRAP exercise flag */
+    isAmrap?: boolean;
     /** Rest time in seconds */
     restTime?: number;
     /** Load range suggestion */
@@ -100,6 +103,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     isBodyweight,
     isEmom,
     isUnilateral,
+    isAmrap,
     restTime,
     loadRange,
     alternatives,
@@ -148,6 +152,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                 isBodyweight,
                 isEmom,
                 isUnilateral,
+                isAmrap,
                 loadRange,
             },
         });
@@ -239,6 +244,14 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 </span>
                             )}
 
+                            {/* AMRAP Badge */}
+                            {isAmrap && (
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30">
+                                    <TrendingUp size={10} strokeWidth={3} />
+                                    AMRAP
+                                </span>
+                            )}
+
                             {/* Unilateral Badge */}
                             {isUnilateral && (
                                 <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
@@ -322,7 +335,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 const firstIncompleteIndex = sets.findIndex(s => !s);
                                 const isNextIncomplete = i === firstIncompleteIndex;
                                 const shouldShowAsButton = isDone || isNextIncomplete;
-                                
+
                                 if (shouldShowAsButton) {
                                     return (
                                         <button

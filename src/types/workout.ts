@@ -25,8 +25,8 @@ export interface ExerciseLogEntry {
     rpe?: RPEData;
     /** User's personal notes for this specific exercise in this workout session */
     userNotes?: string;
-    /** 
-     * @deprecated Legacy field - use userNotes instead. 
+    /**
+     * @deprecated Legacy field - use userNotes instead.
      * This field is maintained for backward compatibility with existing stored data.
      * Will be removed in a future major version (v2.0.0+).
      */
@@ -49,6 +49,8 @@ export interface ExerciseDetailMetadata {
     isEmom?: boolean;
     /** Whether the exercise is unilateral */
     isUnilateral?: boolean;
+    /** Whether the exercise is AMRAP (as many reps as possible) */
+    isAmrap?: boolean;
     /** Suggested load range */
     loadRange?: LoadRange | null;
 }

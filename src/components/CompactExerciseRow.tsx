@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap, Info } from 'lucide-react';
+import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap, Info, TrendingUp } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
 import type { HapticFeedback } from '../hooks';
@@ -44,6 +44,8 @@ export interface CompactExerciseRowProps {
     isEmom?: boolean;
     /** Whether this exercise is unilateral */
     isUnilateral?: boolean;
+    /** Whether this exercise is AMRAP (as many reps as possible) */
+    isAmrap?: boolean;
     /** Superset group ID (consecutive EMOM exercises share the same group ID) */
     supersetGroup?: number;
     /** Position within superset: 'first', 'middle', 'last', or 'only' */
@@ -84,6 +86,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     isFirstIncomplete = false,
     isEmom = false,
     isUnilateral = false,
+    isAmrap = false,
     supersetGroup,
     supersetPosition,
     haptic,
@@ -271,6 +274,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                 isBodyweight,
                 isEmom,
                 isUnilateral,
+                isAmrap,
             },
         });
     }, [
@@ -331,6 +335,11 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                             <Zap size={8} strokeWidth={3} />
                         </span>
                     )}
+                    {isAmrap && (
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-orange-500/20 text-orange-400 flex-shrink-0">
+                            <TrendingUp size={8} strokeWidth={3} />
+                        </span>
+                    )}
                     {isUnilateral && (
                         <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-blue-500/20 text-blue-400 flex-shrink-0">
                             <span className="text-[8px]">L/R</span>
@@ -389,6 +398,12 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                             <Zap size={8} strokeWidth={3} />
                         </span>
                     )}
+                    {/* AMRAP Badge */}
+                    {isAmrap && (
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-orange-500/20 text-orange-400 flex-shrink-0">
+                            <TrendingUp size={8} strokeWidth={3} />
+                        </span>
+                    )}
                     {/* Unilateral Badge */}
                     {isUnilateral && (
                         <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-blue-500/20 text-blue-400 flex-shrink-0">
@@ -430,7 +445,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                             const firstIncompleteIndex = sets.findIndex(s => !s);
                             const isNextIncomplete = i === firstIncompleteIndex;
                             const shouldShowAsButton = isDone || isNextIncomplete;
-                            
+
                             if (shouldShowAsButton) {
                                 return (
                                     <button

@@ -61,7 +61,7 @@ function getSectionColorClasses(sectionName: string, sectionType?: string): {
     iconBg: string;
 } {
     const nameLower = sectionName.toLowerCase();
-    
+
     // Match by common section names
     if (nameLower.includes('warm') || sectionType === 'prep') {
         return {
@@ -105,7 +105,7 @@ function getSectionColorClasses(sectionName: string, sectionType?: string): {
             iconBg: 'bg-cooldown-600/20'
         };
     }
-    
+
     // Default colors
     return {
         iconColor: 'text-sys-accent',
@@ -196,27 +196,27 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
     const handleUpdateUserNotes = useCallback((exerciseId: string, notes: string): void => {
         const currentEntry = logs.exercises?.[exerciseId] || {};
-        
+
         // Skip update if notes haven't changed
         if (currentEntry.userNotes === notes) {
             return;
         }
-        
+
         const updatedExercises = { ...logs.exercises };
         updatedExercises[exerciseId] = {
             ...currentEntry,
             userNotes: notes,
         };
-        
+
         const updatedLogs: WorkoutSessionData = {
             ...logs,
             exercises: updatedExercises,
             lastModified: new Date().toISOString(),
         };
-        
+
         setLogs(updatedLogs);
         safeSetJSON(sessionKey, updatedLogs);
-        
+
         // Trigger cloud sync if available
         syncService.scheduleSync();
     }, [logs, sessionKey]);
@@ -1079,6 +1079,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 isBodyweight={ex.isBodyweight}
                                                 isEmom={ex.isEmom}
                                                 isUnilateral={ex.isUnilateral}
+                                                isAmrap={ex.repsRange?.type === 'amrap'}
                                                 restTime={ex.rest}
                                                 loadRange={ex.loadRange}
                                                 alternatives={ex.alternatives}
@@ -1131,7 +1132,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         : 0;
 
                     const colors = getSectionColorClasses(section.name, section.type);
-                    
+
                     return (
                         <div key={sIdx} className="mb-5">
                             {/* Section Header - Compact mode: sticky, minimal */}
@@ -1265,6 +1266,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     isFirstIncomplete={isFirstIncomplete}
                                                     isEmom={ex.isEmom}
                                                     isUnilateral={ex.isUnilateral}
+                                                    isAmrap={ex.repsRange?.type === 'amrap'}
                                                     supersetGroup={ex.supersetGroup}
                                                     supersetPosition={ex.supersetPosition}
                                                     haptic={haptic}
@@ -1304,6 +1306,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 isBodyweight={ex.isBodyweight}
                                                 isEmom={ex.isEmom}
                                                 isUnilateral={ex.isUnilateral}
+                                                isAmrap={ex.repsRange?.type === 'amrap'}
                                                 restTime={ex.rest}
                                                 loadRange={ex.loadRange}
                                                 alternatives={ex.alternatives}
@@ -1520,8 +1523,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     metadata={exerciseDetail?.metadata}
                     exerciseId={exerciseDetail?.exerciseId}
                     currentUserNotes={
-                        exerciseDetail?.exerciseId 
-                            ? getExerciseLogEntry(logs, exerciseDetail.exerciseId).userNotes 
+                        exerciseDetail?.exerciseId
+                            ? getExerciseLogEntry(logs, exerciseDetail.exerciseId).userNotes
                             : undefined
                     }
                     onUpdateUserNotes={handleUpdateUserNotes}

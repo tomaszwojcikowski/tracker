@@ -5,7 +5,7 @@
  * Handles exercise display, set toggling, weight input, and collapse state.
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
     ChevronDown,
     ChevronUp,
@@ -20,7 +20,9 @@ import {
     ArrowRightLeft,
     TrendingUp,
     BarChart2,
+    History,
 } from 'lucide-react';
+import { getExerciseHistory } from '../utils/exerciseHistory';
 import { RPESelector } from './RPESelector';
 import type { RPEValue } from '../types';
 import type { ExerciseDetailRequest, ExerciseLogEntry } from '../types/workout';
@@ -148,6 +150,30 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     const completedSets = sets.filter((s) => s).length;
     const totalSets = sets.length;
     const allComplete = completedSets === totalSets && totalSets > 0;
+
+    // Smart defaults - get previous weight from history
+    const previousWeight = useMemo(() => {
+        if (isBodyweight) return null;
+        const history = getExerciseHistory(effectiveName);
+        if (history.length === 0) return null;
+
+        // Find most recent entry with a weight
+        const lastWithWeight = [...history]
+            .reverse()
+            .find((entry) => entry.weight && Number(entry.weight) > 0);
+
+        return lastWithWeight?.weight ? String(lastWithWeight.weight) : null;
+    }, [effectiveName, isBodyweight]);
+
+    // Check if current weight matches previous (for visual indicator)
+    const isUsingPreviousWeight = previousWeight && exerciseLog.weight === previousWeight;
+
+    const handleUsePreviousWeight = (): void => {
+        if (previousWeight) {
+            haptic.tick();
+            onSaveWeight(exId, previousWeight);
+        }
+    };
 
     const handleShowDetails = (): void => {
         haptic.tick();
@@ -442,14 +468,35 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     >
                                         Load (kg)
                                     </label>
-                                    {loadRange && loadRange.min > 0 && loadRange.unit === 'kg' && (
-                                        <span className="text-xs text-sys-accent font-medium">
-                                            Suggested: {loadRange.min === loadRange.max
-                                                ? `${loadRange.min}kg`
-                                                : `${loadRange.min}-${loadRange.max}kg`}
-                                            {loadRange.perHand ? ' per hand' : ''}
-                                        </span>
-                                    )}
+                                    <div className="flex items-center gap-2">
+                                        {/* Previous weight quick-fill button */}
+                                        {previousWeight && !exerciseLog.weight && (
+                                            <button
+                                                onClick={handleUsePreviousWeight}
+                                                className="flex items-center gap-1 text-xs text-sys-accent font-medium px-2 py-0.5 rounded-full bg-sys-accent/10 hover:bg-sys-accent/20 active:scale-95 transition-all"
+                                                aria-label={`Use previous weight of ${previousWeight}kg`}
+                                            >
+                                                <History size={10} />
+                                                <span>Use {previousWeight}kg</span>
+                                            </button>
+                                        )}
+                                        {/* Show indicator when using previous weight */}
+                                        {isUsingPreviousWeight && (
+                                            <span className="flex items-center gap-1 text-[10px] text-sys-onSurfaceVar">
+                                                <History size={10} />
+                                                <span>prev</span>
+                                            </span>
+                                        )}
+                                        {/* Load range suggestion */}
+                                        {loadRange && loadRange.min > 0 && loadRange.unit === 'kg' && (
+                                            <span className="text-xs text-sys-accent font-medium">
+                                                Suggested: {loadRange.min === loadRange.max
+                                                    ? `${loadRange.min}kg`
+                                                    : `${loadRange.min}-${loadRange.max}kg`}
+                                                {loadRange.perHand ? ' per hand' : ''}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
                                 <div className="relative flex items-center justify-center gap-2">
                                     <button

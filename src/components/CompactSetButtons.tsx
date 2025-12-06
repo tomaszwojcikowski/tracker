@@ -4,6 +4,8 @@
  * Progressive reveal set buttons for compact exercise rows.
  * Shows: half of last completed button + next incomplete + dots for future sets.
  * When all complete, shows only the last completed button.
+ *
+ * Gesture: Double-tap progress indicator (X/Y) to complete all remaining sets.
  */
 
 import React, { useMemo, memo } from 'react';
@@ -103,10 +105,30 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                     }
                 })}
             </div>
-            {/* Progress indicator */}
-            <span className="text-xs text-sys-onSurfaceVar font-semibold ml-1">
+            {/* Progress indicator - double-tap to complete all */}
+            <button
+                onClick={() => {
+                    // Double-tap detection inline for simplicity
+                    const now = Date.now();
+                    const lastTap = (window as unknown as { __setButtonLastTap?: number }).__setButtonLastTap || 0;
+                    if (now - lastTap < 300 && now - lastTap > 0 && !isComplete) {
+                        // Double tap - complete all
+                        onCompleteAllSets();
+                        (window as unknown as { __setButtonLastTap?: number }).__setButtonLastTap = 0;
+                    } else {
+                        (window as unknown as { __setButtonLastTap?: number }).__setButtonLastTap = now;
+                    }
+                }}
+                className={`text-xs font-semibold ml-1 px-1.5 py-0.5 rounded transition-colors ${
+                    isComplete
+                        ? 'text-sys-success'
+                        : 'text-sys-onSurfaceVar hover:text-white hover:bg-sys-surfaceHigh active:scale-95'
+                }`}
+                aria-label={`${completedSets} of ${totalSets} sets complete${!isComplete ? ', double-tap to complete all' : ''}`}
+                title={!isComplete ? 'Double-tap to complete all' : undefined}
+            >
                 ({completedSets}/{totalSets})
-            </span>
+            </button>
             {/* Complete All Sets Button - only show when there are 2+ incomplete sets remaining */}
             {showCompleteAllButton && (
                 <button

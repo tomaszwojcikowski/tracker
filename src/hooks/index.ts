@@ -170,6 +170,69 @@ export function useDebounce<T>(value: T, delay: number = DEBOUNCE_DELAY_MS): T {
     return debouncedValue;
 }
 
+// ============================================================================
+// DOUBLE TAP HOOK
+// ============================================================================
+
+/**
+ * Options for double tap detection
+ */
+export interface DoubleTapOptions {
+    /** Callback for single tap */
+    onSingleTap?: () => void;
+    /** Callback for double tap */
+    onDoubleTap?: () => void;
+    /** Maximum delay between taps in ms (default: 300) */
+    delay?: number;
+}
+
+/**
+ * Return type for useDoubleTap hook
+ */
+export interface DoubleTapHandlers {
+    onClick: () => void;
+}
+
+/**
+ * Hook for detecting double tap gestures
+ * Useful for quick actions like "complete all sets"
+ */
+export const useDoubleTap = ({
+    onSingleTap,
+    onDoubleTap,
+    delay = 300,
+}: DoubleTapOptions): DoubleTapHandlers => {
+    const lastTapRef = { current: 0 };
+    const timeoutRef = { current: null as ReturnType<typeof setTimeout> | null };
+
+    const onClick = (): void => {
+        const now = Date.now();
+        const timeSinceLastTap = now - lastTapRef.current;
+
+        if (timeSinceLastTap < delay && timeSinceLastTap > 0) {
+            // Double tap detected
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+                timeoutRef.current = null;
+            }
+            lastTapRef.current = 0;
+            onDoubleTap?.();
+        } else {
+            // First tap - wait for potential second tap
+            lastTapRef.current = now;
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+            timeoutRef.current = setTimeout(() => {
+                onSingleTap?.();
+                lastTapRef.current = 0;
+                timeoutRef.current = null;
+            }, delay);
+        }
+    };
+
+    return { onClick };
+};
 
 
 // Re-export optimistic sync hook and types

@@ -177,6 +177,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         safeGetJSON<'list' | 'focus'>('workout_view_mode', 'list') ?? 'list'
     );
     const [focusIndex, setFocusIndex] = useState(0);
+    // Animation direction for focus mode transitions: 'left' | 'right' | null
+    const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
     // RPE selector state: { exerciseId, setIndex } or null
     const [rpePrompt, setRpePrompt] = useState<{ exerciseId: string; setIndex: number } | null>(null);
 
@@ -258,14 +260,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         return exerciseSwaps[ex.name] || ex.name;
     }, [exerciseSwaps]);
 
-    // Swipe handlers for back navigation
-    const swipeHandlers = useSwipe({
-        onSwipeRight: () => {
-            haptic.tick();
-            onComplete();
-        },
-    });
-
     // Debounce exercise search
     const debouncedExerciseSearch = useDebounce(exerciseSearchTerm, DEBOUNCE_DELAY_MS);
 
@@ -336,6 +330,33 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         return exercises;
     }, [workout, addedExercises]);
 
+    // Swipe handlers - different behavior for focus mode vs list mode
+    const swipeHandlers = useSwipe({
+        onSwipeRight: () => {
+            if (viewMode === 'focus' && focusIndex > 0) {
+                haptic.swipe();
+                setSlideDirection('right');
+                setTimeout(() => {
+                    setFocusIndex(focusIndex - 1);
+                    setTimeout(() => setSlideDirection(null), 300);
+                }, 10);
+            } else if (viewMode === 'list') {
+                haptic.tick();
+                onComplete();
+            }
+        },
+        onSwipeLeft: () => {
+            if (viewMode === 'focus' && focusIndex < allExercises.length - 1) {
+                haptic.swipe();
+                setSlideDirection('left');
+                setTimeout(() => {
+                    setFocusIndex(focusIndex + 1);
+                    setTimeout(() => setSlideDirection(null), 300);
+                }, 10);
+            }
+        },
+    });
+
     // Ensure focusIndex is always within bounds of allExercises
     useEffect(() => {
         // If focusIndex is out of bounds, reset to last valid index or 0
@@ -349,13 +370,21 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     // Keyboard navigation for focus mode
     useKeyboardShortcut('ArrowLeft', () => {
         if (viewMode === 'focus' && focusIndex > 0) {
-            setFocusIndex(focusIndex - 1);
+            setSlideDirection('right');
+            setTimeout(() => {
+                setFocusIndex(focusIndex - 1);
+                setTimeout(() => setSlideDirection(null), 300);
+            }, 10);
         }
     }, { enabled: viewMode === 'focus' });
 
     useKeyboardShortcut('ArrowRight', () => {
         if (viewMode === 'focus' && focusIndex < allExercises.length - 1) {
-            setFocusIndex(focusIndex + 1);
+            setSlideDirection('left');
+            setTimeout(() => {
+                setFocusIndex(focusIndex + 1);
+                setTimeout(() => setSlideDirection(null), 300);
+            }, 10);
         }
     }, { enabled: viewMode === 'focus' });
 
@@ -997,14 +1026,18 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                 {/* Workout Sections */}
                 {viewMode === 'focus' ? (
-                    <div className="flex-1 flex flex-col min-h-[60vh]">
+                    <div className="flex-1 flex flex-col min-h-[60vh] overflow-hidden">
                         {allExercises.length > 0 && focusIndex >= 0 && focusIndex < allExercises.length ? (
                             <div className="flex-1 flex flex-col">
                                 <div className="flex items-center justify-between mb-4">
                                     <button
                                         onClick={() => {
                                             haptic.tick();
-                                            setFocusIndex(Math.max(0, focusIndex - 1));
+                                            setSlideDirection('right');
+                                            setTimeout(() => {
+                                                setFocusIndex(Math.max(0, focusIndex - 1));
+                                                setTimeout(() => setSlideDirection(null), 300);
+                                            }, 10);
                                         }}
                                         disabled={focusIndex === 0}
                                         className="h-10 w-10 rounded-full bg-sys-surfaceHigh text-white flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
@@ -1025,7 +1058,11 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                     <button
                                         onClick={() => {
                                             haptic.tick();
-                                            setFocusIndex(Math.min(allExercises.length - 1, focusIndex + 1));
+                                            setSlideDirection('left');
+                                            setTimeout(() => {
+                                                setFocusIndex(Math.min(allExercises.length - 1, focusIndex + 1));
+                                                setTimeout(() => setSlideDirection(null), 300);
+                                            }, 10);
                                         }}
                                         disabled={focusIndex === allExercises.length - 1}
                                         className="h-10 w-10 rounded-full bg-sys-surfaceHigh text-white flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
@@ -1035,28 +1072,38 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                     </button>
                                 </div>
 
-                                {(() => {
-                                    const item = allExercises[focusIndex];
+                                <div
+                                    key={focusIndex}
+                                    className={`flex-1 transition-all duration-300 ease-out ${
+                                        slideDirection === 'left'
+                                            ? 'animate-slide-in-right'
+                                            : slideDirection === 'right'
+                                                ? 'animate-slide-in-left'
+                                                : ''
+                                    }`}
+                                >
+                                    {(() => {
+                                        const item = allExercises[focusIndex];
 
-                                    if (item.type === 'added') {
-                                        const ex = item.data as AddedExercise;
-                                        const exId = item.id;
-                                        const defaultSets = ex.sets || 3;
-                                        const exerciseLog = getExerciseLogEntry(logs, exId);
-                                        const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
+                                        if (item.type === 'added') {
+                                            const ex = item.data as AddedExercise;
+                                            const exId = item.id;
+                                            const defaultSets = ex.sets || 3;
+                                            const exerciseLog = getExerciseLogEntry(logs, exId);
+                                            const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
 
-                                        return (
-                                            <AddedExerciseCard
-                                                key={ex.id}
-                                                exercise={ex}
-                                                sets={currentSetArray}
-                                                haptic={haptic}
-                                                onToggleSet={toggleSet}
-                                                onRemove={removeAddedExercise}
-                                                onStartRestTimer={restTimer.start}
-                                            />
-                                        );
-                                    }
+                                            return (
+                                                <AddedExerciseCard
+                                                    key={ex.id}
+                                                    exercise={ex}
+                                                    sets={currentSetArray}
+                                                    haptic={haptic}
+                                                    onToggleSet={toggleSet}
+                                                    onRemove={removeAddedExercise}
+                                                    onStartRestTimer={restTimer.start}
+                                                />
+                                            );
+                                        }
 
                                     const ex = item.data as WorkoutExercise;
                                     const exId = item.id;
@@ -1114,6 +1161,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         </div>
                                     );
                                 })()}
+                                </div>
                             </div>
                         ) : (
                             <div className="flex-1 flex items-center justify-center text-sys-onSurfaceVar">

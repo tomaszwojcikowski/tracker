@@ -62,6 +62,7 @@ export function Dashboard({
   onProgramChange,
 }: DashboardProps) {
   const [inProgressWorkout, setInProgressWorkout] = useState<InProgressWorkout | null>(null);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
   const haptic = useHaptic();
 
   // Get program context for program-aware features
@@ -79,13 +80,21 @@ export function Dashboard({
     onSwipeLeft: () => {
       if (currentWeek < maxWeeks) {
         haptic.swipe();
-        setCurrentWeek(currentWeek + 1);
+        setSlideDirection('left');
+        setTimeout(() => {
+          setCurrentWeek(currentWeek + 1);
+          setTimeout(() => setSlideDirection(null), 300);
+        }, 50);
       }
     },
     onSwipeRight: () => {
       if (currentWeek > 1) {
         haptic.swipe();
-        setCurrentWeek(currentWeek - 1);
+        setSlideDirection('right');
+        setTimeout(() => {
+          setCurrentWeek(currentWeek - 1);
+          setTimeout(() => setSlideDirection(null), 300);
+        }, 50);
       }
     },
   });
@@ -125,12 +134,23 @@ export function Dashboard({
     return hasWorkoutData(currentWeek, day);
   };
 
+  // Helper to change week with animation
+  const changeWeek = (newWeek: number) => {
+    if (newWeek === currentWeek || newWeek < 1 || newWeek > maxWeeks) return;
+    const direction = newWeek > currentWeek ? 'left' : 'right';
+    setSlideDirection(direction);
+    setTimeout(() => {
+      setCurrentWeek(newWeek);
+      setTimeout(() => setSlideDirection(null), 300);
+    }, 50);
+  };
+
   const handleResumeWorkout = () => {
     if (inProgressWorkout) {
       haptic.bump();
       // Navigate to the in-progress workout week first, then start it
       if (inProgressWorkout.week !== currentWeek) {
-        setCurrentWeek(inProgressWorkout.week);
+        changeWeek(inProgressWorkout.week);
       }
       onStartWorkout(inProgressWorkout.day);
     }
@@ -164,12 +184,17 @@ export function Dashboard({
           onProgramChange={onProgramChange}
         />
 
-        {/* Weekly Progress Ring */}
-        <WeeklyProgressRing
-            completedWorkouts={completedWorkouts}
-            totalWorkouts={totalWorkouts}
-            currentWeek={currentWeek}
-        />
+        {/* Animated week content container */}
+        <div
+          key={currentWeek}
+          className={slideDirection === 'left' ? 'animate-slide-in-left' : slideDirection === 'right' ? 'animate-slide-in-right' : ''}
+        >
+          {/* Weekly Progress Ring */}
+          <WeeklyProgressRing
+              completedWorkouts={completedWorkouts}
+              totalWorkouts={totalWorkouts}
+              currentWeek={currentWeek}
+          />
 
         {/* Resume Workout Banner */}
         {inProgressWorkout && (
@@ -360,10 +385,11 @@ export function Dashboard({
             </button>
           </div>
         )}
+        </div>{/* End animated week content container */}
 
         <div className="mt-10 flex justify-center items-center gap-2">
           <button
-            onClick={() => setCurrentWeek(Math.max(1, currentWeek - 1))}
+            onClick={() => changeWeek(currentWeek - 1)}
             className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
             disabled={currentWeek === 1}
             aria-label="Previous week"
@@ -378,7 +404,7 @@ export function Dashboard({
               return (
                 <button
                   key={i}
-                  onClick={() => setCurrentWeek(dotWeek)}
+                  onClick={() => changeWeek(dotWeek)}
                   className={`rounded-full transition-all ${
                     dotWeek === currentWeek
                       ? 'w-8 h-2 bg-white'
@@ -390,7 +416,7 @@ export function Dashboard({
             })}
           </div>
           <button
-            onClick={() => setCurrentWeek(Math.min(maxWeeks, currentWeek + 1))}
+            onClick={() => changeWeek(currentWeek + 1)}
             className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
             disabled={currentWeek === maxWeeks}
             aria-label="Next week"

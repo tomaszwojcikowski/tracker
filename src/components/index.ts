@@ -140,3 +140,7 @@ export type { BottomSheetProps } from './BottomSheet';
 
 // MD3 Snackbar component
 export { Snackbar } from './Snackbar';
+
+// Focus view component
+export { FocusView } from './FocusView';
+export type { FocusViewProps, FocusItem } from './FocusView';

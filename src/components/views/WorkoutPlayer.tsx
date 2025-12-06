@@ -14,6 +14,7 @@ import { ExerciseDetailModal } from '../modals';
 import { AddedExerciseCard } from '../AddedExerciseCard';
 import { ExerciseSelectorModal } from '../ExerciseSelectorModal';
 import { ExerciseCard } from '../ExerciseCard';
+import { FocusView } from '../FocusView';
 import { safeGetJSON, safeSetJSON } from '../../utils/storage';
 import {
     useHaptic,
@@ -26,7 +27,7 @@ import {
     useScrollToElement,
 } from '../../hooks';
 import {
-    Flame, Dumbbell, Snowflake, Activity, LayoutGrid, LayoutList, PlusCircle, X, CheckCircle2, Maximize2, ChevronLeft, ChevronRight
+    Flame, Dumbbell, Snowflake, Activity, LayoutGrid, LayoutList, PlusCircle, X, CheckCircle2, Maximize2
 } from 'lucide-react';
 import {
     DEBOUNCE_DELAY_MS,
@@ -330,6 +331,30 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         return exercises;
     }, [workout, addedExercises]);
 
+    // Calculate focus items count (groups supersets together)
+    const focusItemsCount = useMemo(() => {
+        const processedSupersets = new Set<number>();
+        let count = 0;
+
+        allExercises.forEach((exercise) => {
+            if (exercise.type === 'added') {
+                count++;
+            } else {
+                const workoutEx = exercise.data as WorkoutExercise;
+                if (workoutEx.supersetGroup !== undefined) {
+                    if (!processedSupersets.has(workoutEx.supersetGroup)) {
+                        processedSupersets.add(workoutEx.supersetGroup);
+                        count++;
+                    }
+                } else {
+                    count++;
+                }
+            }
+        });
+
+        return count;
+    }, [allExercises]);
+
     // Swipe handlers - different behavior for focus mode vs list mode
     const swipeHandlers = useSwipe({
         onSwipeRight: () => {
@@ -346,7 +371,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             }
         },
         onSwipeLeft: () => {
-            if (viewMode === 'focus' && focusIndex < allExercises.length - 1) {
+            if (viewMode === 'focus' && focusIndex < focusItemsCount - 1) {
                 haptic.swipe();
                 setSlideDirection('left');
                 setTimeout(() => {
@@ -357,15 +382,15 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         },
     });
 
-    // Ensure focusIndex is always within bounds of allExercises
+    // Ensure focusIndex is always within bounds of focusItems
     useEffect(() => {
         // If focusIndex is out of bounds, reset to last valid index or 0
-        if (focusIndex >= allExercises.length && allExercises.length > 0) {
-            setFocusIndex(allExercises.length - 1);
-        } else if (allExercises.length === 0) {
+        if (focusIndex >= focusItemsCount && focusItemsCount > 0) {
+            setFocusIndex(focusItemsCount - 1);
+        } else if (focusItemsCount === 0) {
             setFocusIndex(0);
         }
-    }, [allExercises.length, focusIndex]);
+    }, [focusItemsCount, focusIndex]);
 
     // Keyboard navigation for focus mode
     useKeyboardShortcut('ArrowLeft', () => {
@@ -379,7 +404,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     }, { enabled: viewMode === 'focus' });
 
     useKeyboardShortcut('ArrowRight', () => {
-        if (viewMode === 'focus' && focusIndex < allExercises.length - 1) {
+        if (viewMode === 'focus' && focusIndex < focusItemsCount - 1) {
             setSlideDirection('left');
             setTimeout(() => {
                 setFocusIndex(focusIndex + 1);
@@ -1026,149 +1051,35 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                 {/* Workout Sections */}
                 {viewMode === 'focus' ? (
-                    <div className="flex-1 flex flex-col min-h-[60vh] overflow-hidden">
-                        {allExercises.length > 0 && focusIndex >= 0 && focusIndex < allExercises.length ? (
-                            <div className="flex-1 flex flex-col">
-                                <div className="flex items-center justify-between mb-4">
-                                    <button
-                                        onClick={() => {
-                                            haptic.tick();
-                                            setSlideDirection('right');
-                                            setTimeout(() => {
-                                                setFocusIndex(Math.max(0, focusIndex - 1));
-                                                setTimeout(() => setSlideDirection(null), 300);
-                                            }, 10);
-                                        }}
-                                        disabled={focusIndex === 0}
-                                        className="h-10 w-10 rounded-full bg-sys-surfaceHigh text-white flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
-                                        aria-label="Previous exercise"
-                                    >
-                                        <ChevronLeft size={20} />
-                                    </button>
-                                    <div className="text-center">
-                                        <span className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider">
-                                            Exercise {focusIndex + 1} of {allExercises.length}
-                                        </span>
-                                        {focusIndex >= 0 && focusIndex < allExercises.length && allExercises[focusIndex].section && (
-                                            <div className="text-xs text-sys-accent font-bold">
-                                                {allExercises[focusIndex].section}
-                                            </div>
-                                        )}
-                                    </div>
-                                    <button
-                                        onClick={() => {
-                                            haptic.tick();
-                                            setSlideDirection('left');
-                                            setTimeout(() => {
-                                                setFocusIndex(Math.min(allExercises.length - 1, focusIndex + 1));
-                                                setTimeout(() => setSlideDirection(null), 300);
-                                            }, 10);
-                                        }}
-                                        disabled={focusIndex === allExercises.length - 1}
-                                        className="h-10 w-10 rounded-full bg-sys-surfaceHigh text-white flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
-                                        aria-label="Next exercise"
-                                    >
-                                        <ChevronRight size={20} />
-                                    </button>
-                                </div>
-
-                                <div
-                                    key={focusIndex}
-                                    className={`flex-1 transition-all duration-300 ease-out ${
-                                        slideDirection === 'left'
-                                            ? 'animate-slide-in-right'
-                                            : slideDirection === 'right'
-                                                ? 'animate-slide-in-left'
-                                                : ''
-                                    }`}
-                                >
-                                    {(() => {
-                                        const item = allExercises[focusIndex];
-
-                                        if (item.type === 'added') {
-                                            const ex = item.data as AddedExercise;
-                                            const exId = item.id;
-                                            const defaultSets = ex.sets || 3;
-                                            const exerciseLog = getExerciseLogEntry(logs, exId);
-                                            const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
-
-                                            return (
-                                                <AddedExerciseCard
-                                                    key={ex.id}
-                                                    exercise={ex}
-                                                    sets={currentSetArray}
-                                                    haptic={haptic}
-                                                    onToggleSet={toggleSet}
-                                                    onRemove={removeAddedExercise}
-                                                    onStartRestTimer={restTimer.start}
-                                                />
-                                            );
-                                        }
-
-                                    const ex = item.data as WorkoutExercise;
-                                    const exId = item.id;
-                                    const defaultSets = ex.sets || 3;
-                                    const exerciseLog = getExerciseLogEntry(logs, exId);
-                                    const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
-                                    const effectiveName = getEffectiveExerciseName(ex);
-                                    const hasHistory = getExerciseHistory(effectiveName).length > 0;
-                                    const isFirstIncomplete = exId === firstIncompleteExerciseId;
-
-                                    return (
-                                        <div className="flex-1">
-                                            <ExerciseCard
-                                                key={exId}
-                                                exId={exId}
-                                                name={ex.name}
-                                                effectiveName={effectiveName}
-                                                prescription={ex.prescription}
-                                                notes={ex.notes}
-                                                isBodyweight={ex.isBodyweight}
-                                                isEmom={ex.isEmom}
-                                                isUnilateral={ex.isUnilateral}
-                                                isAmrap={ex.repsRange?.type === 'amrap'}
-                                                isLadder={ex.repsRange?.type === 'ladder'}
-                                                ladderReps={ex.repsRange?.type === 'ladder' && Array.isArray(ex.repsRange?.value) ? ex.repsRange.value as number[] : undefined}
-                                                restTime={ex.rest}
-                                                loadRange={ex.loadRange}
-                                                tempoRange={ex.tempoRange}
-                                                alternatives={ex.alternatives}
-                                                sets={currentSetArray}
-                                                defaultSets={defaultSets}
-                                                exerciseLog={exerciseLog}
-                                                hasHistory={hasHistory}
-                                                isFirstIncomplete={isFirstIncomplete}
-                                                isCollapsed={false}
-                                                supersetGroup={ex.supersetGroup}
-                                                supersetPosition={ex.supersetPosition}
-                                                rpePrompt={rpePrompt}
-                                                emomTimerActive={emomTimer.active}
-                                                emomTimerInterval={emomTimer.interval}
-                                                haptic={haptic}
-                                                onToggleCollapse={() => {}}
-                                                onToggleSet={toggleSet}
-                                                onAddSet={addSet}
-                                                onCompleteAllSets={completeAllSets}
-                                                onSaveWeight={(id, weight) => saveLog(id, 'weight', weight)}
-                                                onSaveRPE={saveRPE}
-                                                onSaveNotes={(id, notes) => saveLog(id, 'notes', notes)}
-                                                onClearRPEPrompt={() => setRpePrompt(null)}
-                                                onStartRestTimer={(seconds) => restTimer.start(seconds)}
-                                                onToggleEmomTimer={() => emomTimer.toggle()}
-                                                onShowHistory={handleShowExerciseDetail}
-                                                onShowAlternatives={(name, alts) => setShowAlternativesFor({ name, alternatives: alts })}
-                                            />
-                                        </div>
-                                    );
-                                })()}
-                                </div>
-                            </div>
-                        ) : (
-                            <div className="flex-1 flex items-center justify-center text-sys-onSurfaceVar">
-                                No exercises found
-                            </div>
-                        )}
-                    </div>
+                    <FocusView
+                        allExercises={allExercises}
+                        focusIndex={focusIndex}
+                        setFocusIndex={setFocusIndex}
+                        slideDirection={slideDirection}
+                        setSlideDirection={setSlideDirection}
+                        logs={logs}
+                        firstIncompleteExerciseId={firstIncompleteExerciseId}
+                        rpePrompt={rpePrompt}
+                        emomTimer={{
+                            active: emomTimer.active,
+                            interval: emomTimer.interval,
+                            toggle: () => emomTimer.toggle(),
+                        }}
+                        restTimer={{
+                            start: restTimer.start,
+                        }}
+                        haptic={haptic}
+                        getEffectiveExerciseName={getEffectiveExerciseName}
+                        onToggleSet={toggleSet}
+                        onAddSet={addSet}
+                        onCompleteAllSets={completeAllSets}
+                        onSaveLog={saveLog}
+                        onSaveRPE={saveRPE}
+                        onClearRPEPrompt={() => setRpePrompt(null)}
+                        onShowHistory={handleShowExerciseDetail}
+                        onShowAlternatives={(name, alts) => setShowAlternativesFor({ name, alternatives: alts })}
+                        onRemoveAddedExercise={removeAddedExercise}
+                    />
                 ) : (
                     <>
                 {workout.sections.map((section: WorkoutSection, sIdx: number) => {

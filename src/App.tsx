@@ -266,7 +266,7 @@ const App: React.FC = () => {
         if (viewMode === 'empty-workout') return 'Custom Workout';
         if (viewMode === 'workout') return `Day ${activeDay}`;
         switch (activeTab) {
-            case 'train': return 'Dashboard';
+            case 'train': return `Week ${currentWeek}`;
             case 'library': return 'Exercise Library';
             case 'history': return 'History';
             case 'profile': return 'Settings';
@@ -277,7 +277,7 @@ const App: React.FC = () => {
     const getSubtitle = (): string => {
         if (viewMode === 'empty-workout') return 'Add exercises to get started';
         if (viewMode === 'workout') return `Week ${currentWeek}`;
-        if (activeTab === 'train') return 'OnePlus Strength';
+        if (activeTab === 'train') return '';
         return '';
     };
 

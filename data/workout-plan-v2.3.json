@@ -1197,6 +1197,78 @@
         "loadUnit": "bodyweight",
         "restSeconds": 120,
         "notes": "TEST. Quality over quantity"
+      },
+      {
+        "id": "ex-flutter-kicks",
+        "exerciseName": "Ground-Based Flutter Kicks",
+        "category": "core",
+        "sets": 1,
+        "repsType": "time",
+        "repsValue": 30,
+        "repsUnit": "seconds",
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "notes": "Core Recovery"
+      },
+      {
+        "id": "ex-weighted-v-ups",
+        "exerciseName": "Weighted V-Ups",
+        "category": "core",
+        "sets": 3,
+        "repsType": "reps",
+        "repsMin": 10,
+        "repsMax": 12,
+        "loadMin": 3,
+        "loadMax": 5,
+        "loadUnit": "kg",
+        "restSeconds": 60,
+        "notes": "Keep biceps by ears"
+      },
+      {
+        "id": "ex-neutral-grip-pull-ups",
+        "exerciseName": "Neutral Grip Pull-Ups",
+        "category": "main",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 5,
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "cues": [
+          "Full ROM",
+          "Neutral grip",
+          "Controlled descent"
+        ],
+        "alternatives": [
+          "Pull-Ups",
+          "Lat Pulldowns"
+        ]
+      },
+      {
+        "id": "ex-scapular-pull-ups",
+        "exerciseName": "Scapular Pull-Ups",
+        "category": "warmup",
+        "sets": 1,
+        "repsType": "reps",
+        "repsValue": 10,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "cues": [
+          "Straight arms",
+          "Depress scapula",
+          "Hold 3s"
+        ]
+      },
+      {
+        "id": "ex-rest",
+        "exerciseName": "Rest",
+        "category": "warmup",
+        "sets": 1,
+        "repsType": "time",
+        "repsValue": 240,
+        "repsUnit": "seconds",
+        "loadUnit": "bodyweight",
+        "restSeconds": 0,
+        "notes": "Battery Saver"
       }
     ],
     "phases": [
@@ -1335,6 +1407,7 @@
                   },
                   {
                     "$ref": "ex-weighted-hollow-rocks",
+                    "category": "main",
                     "loadMin": 0,
                     "loadMax": 0,
                     "supersetGroup": 1,
@@ -1475,17 +1548,11 @@
                     "$routine": "superset-bss"
                   },
                   {
-                    "exerciseName": "Ground-Based Flutter Kicks",
-                    "category": "core",
-                    "sets": 1,
-                    "repsType": "time",
-                    "repsValue": 30,
-                    "repsUnit": "seconds",
-                    "loadUnit": "bodyweight",
+                    "$ref": "ex-flutter-kicks",
                     "isEmom": true,
                     "supersetGroup": 1,
-                    "restSeconds": 60,
-                    "notes": "Min 3 of EMOM. Core Recovery"
+                    "notes": "Min 3 of EMOM. Core Recovery",
+                    "category": "main"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -1623,19 +1690,12 @@
                     "$routine": "superset-bss"
                   },
                   {
-                    "exerciseName": "Weighted V-Ups",
-                    "category": "core",
-                    "sets": 3,
-                    "repsType": "reps",
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "loadUnit": "kg",
+                    "$ref": "ex-weighted-v-ups",
                     "restSeconds": 0,
                     "supersetGroup": 1,
                     "isEmom": true,
-                    "notes": "3-min EMOM with BSS. Keep biceps by ears"
+                    "notes": "3-min EMOM with BSS. Keep biceps by ears",
+                    "category": "main"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -1768,9 +1828,7 @@
                     "sets": 2,
                     "notes": "Deload"
                   },
-                  {
-                    "$routine": "superset-bss"
-                  },
+
                   {
                     "$routine": "cooldown-day5"
                   }
@@ -1921,7 +1979,8 @@
                     "restSeconds": 0,
                     "supersetGroup": 1,
                     "isEmom": true,
-                    "notes": "3-min EMOM with BSS"
+                    "notes": "3-min EMOM with BSS",
+                    "category": "main"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -2064,7 +2123,8 @@
                     "restSeconds": 0,
                     "supersetGroup": 1,
                     "isEmom": true,
-                    "notes": "3-min EMOM with BSS. Core Recovery"
+                    "notes": "3-min EMOM with BSS. Core Recovery",
+                    "category": "main"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -2202,18 +2262,13 @@
                     "$routine": "superset-bss"
                   },
                   {
-                    "exerciseName": "Weighted V-Ups",
-                    "category": "core",
-                    "sets": 3,
-                    "repsType": "reps",
+                    "$ref": "ex-weighted-v-ups",
                     "repsValue": 12,
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "loadUnit": "kg",
                     "restSeconds": 0,
                     "supersetGroup": 1,
                     "isEmom": true,
-                    "notes": "3-min EMOM with BSS. Keep biceps by ears"
+                    "notes": "3-min EMOM with BSS. Keep biceps by ears",
+                    "category": "main"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -2353,9 +2408,6 @@
                     "notes": "Deload"
                   },
                   {
-                    "$routine": "superset-bss"
-                  },
-                  {
                     "$routine": "cooldown-day5"
                   }
                 ]
@@ -2492,7 +2544,8 @@
                     "restSeconds": 0,
                     "supersetGroup": 1,
                     "isEmom": true,
-                    "notes": "3-min EMOM with BSS"
+                    "notes": "3-min EMOM with BSS",
+                    "category": "main"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -2622,7 +2675,8 @@
                     "restSeconds": 0,
                     "supersetGroup": 1,
                     "isEmom": true,
-                    "notes": "3-min EMOM with BSS. Core Recovery"
+                    "notes": "3-min EMOM with BSS. Core Recovery",
+                    "category": "main"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -2748,18 +2802,13 @@
                     "$routine": "superset-bss"
                   },
                   {
-                    "exerciseName": "Weighted V-Ups",
-                    "category": "core",
-                    "sets": 3,
-                    "repsType": "reps",
+                    "$ref": "ex-weighted-v-ups",
                     "repsValue": 12,
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "loadUnit": "kg",
                     "restSeconds": 0,
                     "supersetGroup": 1,
                     "isEmom": true,
-                    "notes": "3-min EMOM with BSS"
+                    "notes": "3-min EMOM with BSS",
+                    "category": "main"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -2867,13 +2916,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "exerciseName": "Neutral Grip Pull-Ups",
-                    "category": "main",
+                    "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 2,
-                    "repsType": "reps",
                     "repsValue": 3,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 120,
                     "notes": "Unweighted or very light. Total: 6 reps"
                   },
                   {
@@ -3540,15 +3585,8 @@
                   },
 
                   {
-                    "exerciseName": "Weighted V-Ups",
-                    "category": "core",
-                    "sets": 3,
-                    "repsType": "reps",
+                    "$ref": "ex-weighted-v-ups",
                     "repsValue": 10,
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "loadUnit": "kg",
-                    "restSeconds": 60,
                     "notes": "Core Hard"
                   },
                   {
@@ -3675,15 +3713,9 @@
                     "notes": "Peak volume. 5-6s eccentric"
                   },
                   {
-                    "exerciseName": "Weighted V-Ups",
-                    "category": "core",
+                    "$ref": "ex-weighted-v-ups",
                     "sets": 2,
-                    "repsType": "reps",
                     "repsValue": 10,
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "loadUnit": "kg",
-                    "restSeconds": 60,
                     "notes": "Core Hard"
                   },
                   {
@@ -3811,16 +3843,14 @@
                     "$routine": "superset-bss"
                   },
                   {
-                    "exerciseName": "Weighted Hollow Rocks",
-                    "category": "core",
+                    "$ref": "ex-weighted-hollow-rocks",
                     "sets": 2,
-                    "repsType": "reps",
                     "repsValue": 12,
                     "loadMin": 2,
                     "loadMax": 3,
-                    "loadUnit": "kg",
                     "restSeconds": 120,
-                    "notes": "Deload weight"
+                    "notes": "Deload weight",
+                    "category": "main"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -3856,108 +3886,7 @@
                     "$routine": "warmup-rower-protocol"
                   },
                   {
-                    "exerciseName": "Scapular Pull-Ups",
-                    "category": "warmup",
-                    "sets": 1,
-                    "repsType": "reps",
-                    "repsValue": 10,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 30,
-                    "notes": "Warm-up. Battery conservation",
-                    "cues": [
-                      "Straight arms",
-                      "Depress scapula",
-                      "Hold 3s"
-                    ]
-                  },
-                  {
-                    "$ref": "ex-pull-ups",
-                    "category": "warmup",
-                    "sets": 1,
-                    "repsValue": 3,
-                    "restSeconds": 30,
-                    "notes": "Warm-up @ 50%"
-                  },
-                  {
-                    "$ref": "ex-pull-ups",
-                    "category": "warmup",
-                    "sets": 1,
-                    "repsValue": 1,
-                    "restSeconds": 30,
-                    "notes": "Warm-up @ 75%"
-                  },
-                  {
-                    "exerciseName": "Rest",
-                    "category": "warmup",
-                    "sets": 1,
-                    "repsType": "time",
-                    "repsValue": 240,
-                    "repsUnit": "seconds",
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0,
-                    "notes": "Battery Saver. 4 min rest"
-                  },
-                  {
-                    "$ref": "ex-max-pull-ups"
-                  },
-                  {
-                    "$ref": "ex-max-dips"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 2,
-                "name": "Mobility & Recovery",
-                "type": "mobility",
-                "estimatedDuration": 2,
-                "exercises": [
-                  {
-                    "exerciseName": "Rest",
-                    "category": "mobility",
-                    "sets": 1,
-                    "repsType": "none",
-                    "loadUnit": "bodyweight",
-                    "notes": "Recovery"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 3,
-                "name": "Lower Body",
-                "type": "mobility",
-                "estimatedDuration": 2,
-                "exercises": [
-                  {
-                    "$routine": "warmup-day3"
-                  },
-                  {
-                    "exerciseName": "Rest",
-                    "category": "mobility",
-                    "sets": 1,
-                    "repsType": "none",
-                    "loadUnit": "bodyweight",
-                    "notes": "Recovery"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 5,
-                "name": "Strength Test Day",
-                "type": "test",
-                "estimatedDuration": 31,
-                "description": "Battery Conservation Warm-up: same as Day 1",
-                "exercises": [
-                  {
-                    "$routine": "warmup-rower-protocol"
-                  },
-                  {
-                    "exerciseName": "Scapular Pull-Ups",
-                    "category": "warmup",
-                    "sets": 1,
-                    "repsType": "reps",
-                    "repsValue": 10,
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 30,
+                    "$ref": "ex-scapular-pull-ups",
                     "notes": "Warm-up. Battery conservation"
                   },
                   {
@@ -3977,14 +3906,80 @@
                     "notes": "Warm-up @ 75%"
                   },
                   {
-                    "exerciseName": "Rest",
+                    "$ref": "ex-rest",
+                    "notes": "Battery Saver. 4 min rest"
+                  },
+                  {
+                    "$ref": "ex-max-pull-ups"
+                  },
+                  {
+                    "$ref": "ex-max-dips"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Mobility & Recovery",
+                "type": "mobility",
+                "estimatedDuration": 2,
+                "exercises": [
+                  {
+                    "$ref": "ex-rest",
+                    "category": "mobility",
+                    "repsType": "none",
+                    "notes": "Recovery"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Lower Body",
+                "type": "mobility",
+                "estimatedDuration": 2,
+                "exercises": [
+                  {
+                    "$routine": "warmup-day3"
+                  },
+                  {
+                    "$ref": "ex-rest",
+                    "category": "mobility",
+                    "repsType": "none",
+                    "notes": "Recovery"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Strength Test Day",
+                "type": "test",
+                "estimatedDuration": 31,
+                "description": "Battery Conservation Warm-up: same as Day 1",
+                "exercises": [
+                  {
+                    "$routine": "warmup-rower-protocol"
+                  },
+                  {
+                    "$ref": "ex-scapular-pull-ups",
+                    "notes": "Warm-up. Battery conservation"
+                  },
+                  {
+                    "$ref": "ex-pull-ups",
                     "category": "warmup",
                     "sets": 1,
-                    "repsType": "time",
-                    "repsValue": 240,
-                    "repsUnit": "seconds",
-                    "loadUnit": "bodyweight",
-                    "restSeconds": 0,
+                    "repsValue": 3,
+                    "restSeconds": 30,
+                    "notes": "Warm-up @ 50%"
+                  },
+                  {
+                    "$ref": "ex-pull-ups",
+                    "category": "warmup",
+                    "sets": 1,
+                    "repsValue": 1,
+                    "restSeconds": 30,
+                    "notes": "Warm-up @ 75%"
+                  },
+                  {
+                    "$ref": "ex-rest",
                     "notes": "Battery Saver. 4 min rest"
                   },
                   {
@@ -4136,7 +4131,8 @@
                     "repsType": "time",
                     "repsValue": 20,
                     "repsUnit": "seconds",
-                    "notes": "EMOM. Bodyweight only for tissue reset"
+                    "notes": "EMOM. Bodyweight only for tissue reset",
+                    "category": "main"
                   },
                   {
                     "$routine": "cooldown-day5"

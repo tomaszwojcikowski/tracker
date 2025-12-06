@@ -55,12 +55,12 @@ export const CompactSetButtons: React.FC<CompactSetButtonsProps> = ({
                 ref={containerRef}
                 className="flex items-center gap-1"
                 style={{
-                    // Shift left to show only half of the previous completed button
-                    // Each button is 32px + 4px gap = 36px. Show half of last completed = shift by full buttons except 16px
+                    // Shift left to hide all but the last completed button
+                    // Each button is 32px + 4px gap = 36px
                     // When all complete, show only last button fully visible
                     marginLeft: isComplete
                         ? completedSets > 1 ? `-${(completedSets - 1) * 36}px` : 0
-                        : completedSets > 0 ? `-${completedSets * 36 - 16}px` : 0,
+                        : completedSets > 1 ? `-${(completedSets - 1) * 36}px` : 0,
                     transition: 'margin-left 150ms ease-out'
                 }}
             >

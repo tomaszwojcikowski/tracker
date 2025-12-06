@@ -115,7 +115,9 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const [localWeight, setLocalWeight] = useState(weight);
     const [isPrevWeight, setIsPrevWeight] = useState(false);
     const [userModified, setUserModified] = useState(false);
+    const [isTextClipped, setIsTextClipped] = useState(false);
     const weightInputRef = useRef<HTMLInputElement>(null);
+    const textRef = useRef<HTMLSpanElement>(null);
 
     // Computed values
     const completedSets = sets.filter(Boolean).length;
@@ -123,6 +125,9 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const isComplete = completedSets === totalSets && totalSets > 0;
 
     const historyLookupName = displayName;
+
+    // Get short name for display (moved up for use in clipping detection)
+    const shortDisplayName = useMemo(() => getShortExerciseName(historyLookupName), [historyLookupName]);
 
     // Auto-fill weight from history on mount
     useEffect(() => {
@@ -157,6 +162,29 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
             weightInputRef.current.select();
         }
     }, [isEditingWeight]);
+
+    // Detect if text is clipped by more than 30%
+    // Uses ResizeObserver for better performance (one observer per component, not global resize listener)
+    useEffect(() => {
+        const element = textRef.current;
+        if (!element) return;
+
+        const checkTextClipping = () => {
+            const { scrollWidth, clientWidth } = element;
+            // Text is clipped by more than 30% if visible portion is less than 70%
+            const visibleRatio = scrollWidth > 0 ? clientWidth / scrollWidth : 1;
+            setIsTextClipped(visibleRatio < 0.7);
+        };
+
+        // Initial check after layout
+        requestAnimationFrame(checkTextClipping);
+
+        // Use ResizeObserver instead of window resize for better performance
+        const resizeObserver = new ResizeObserver(checkTextClipping);
+        resizeObserver.observe(element);
+
+        return () => resizeObserver.disconnect();
+    }, []); // Empty deps - only run once on mount
 
     // Handlers
     const handleToggleExpand = useCallback(() => {
@@ -219,8 +247,6 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
         onCompleteAllSets(exId, defaultSets);
     }, [exId, defaultSets, onCompleteAllSets]);
 
-    // Get short name for display
-    const shortDisplayName = useMemo(() => getShortExerciseName(historyLookupName), [historyLookupName]);
     const handleShowDetails = useCallback((e: React.MouseEvent) => {
         e.stopPropagation();
         if (!onShowHistory) return;
@@ -387,7 +413,7 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                             <span className="text-[8px]">L/R</span>
                         </span>
                     )}
-                    <span className="text-sm font-semibold text-white truncate" title={historyLookupName}>
+                    <span ref={textRef} className="text-sm font-semibold text-white truncate" title={historyLookupName}>
                         {shortDisplayName}
                     </span>
                     {(prescription || !isBodyweight) && (
@@ -400,8 +426,8 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                     )}
                 </button>
 
-                {/* Display Details Button */}
-                {onShowHistory && (
+                {/* Display Details Button - hide when text is clipped >30% */}
+                {onShowHistory && !isTextClipped && (
                     <button
                         onClick={handleShowDetails}
                         className={`flex items-center gap-1.5 h-7 px-3 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar text-[10px] font-bold tracking-wide uppercase flex-shrink-0 active:scale-95 transition-all ${!hasHistory ? 'opacity-80' : ''}`}
@@ -431,6 +457,18 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
             >
                 <div className="px-3 pb-3 pt-0">
                     <div className="h-px bg-white/5 mb-2" />
+
+                    {/* Details Button - show when hidden from folded view */}
+                    {onShowHistory && isTextClipped && (
+                        <button
+                            onClick={handleShowDetails}
+                            className={`flex items-center gap-1.5 h-8 px-4 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-bold tracking-wide uppercase mb-2 active:scale-95 transition-all ${!hasHistory ? 'opacity-80' : ''}`}
+                            aria-label={`View details and history for ${historyLookupName}`}
+                        >
+                            <Info size={14} className="text-sys-onSurfaceVar" />
+                            <span>Details</span>
+                        </button>
+                    )}
 
                     {/* Prescription */}
                     {prescription && (

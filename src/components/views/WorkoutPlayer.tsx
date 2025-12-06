@@ -1080,6 +1080,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 isEmom={ex.isEmom}
                                                 isUnilateral={ex.isUnilateral}
                                                 isAmrap={ex.repsRange?.type === 'amrap'}
+                                                isLadder={ex.repsRange?.type === 'ladder'}
+                                                ladderReps={ex.repsRange?.type === 'ladder' && Array.isArray(ex.repsRange?.value) ? ex.repsRange.value as number[] : undefined}
                                                 restTime={ex.rest}
                                                 loadRange={ex.loadRange}
                                                 alternatives={ex.alternatives}
@@ -1267,6 +1269,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     isEmom={ex.isEmom}
                                                     isUnilateral={ex.isUnilateral}
                                                     isAmrap={ex.repsRange?.type === 'amrap'}
+                                                    isLadder={ex.repsRange?.type === 'ladder'}
+                                                    ladderReps={ex.repsRange?.type === 'ladder' && Array.isArray(ex.repsRange?.value) ? ex.repsRange.value as number[] : undefined}
                                                     supersetGroup={ex.supersetGroup}
                                                     supersetPosition={ex.supersetPosition}
                                                     haptic={haptic}
@@ -1307,6 +1311,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 isEmom={ex.isEmom}
                                                 isUnilateral={ex.isUnilateral}
                                                 isAmrap={ex.repsRange?.type === 'amrap'}
+                                                isLadder={ex.repsRange?.type === 'ladder'}
+                                                ladderReps={ex.repsRange?.type === 'ladder' && Array.isArray(ex.repsRange?.value) ? ex.repsRange.value as number[] : undefined}
                                                 restTime={ex.rest}
                                                 loadRange={ex.loadRange}
                                                 alternatives={ex.alternatives}

@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap, Info, TrendingUp } from 'lucide-react';
+import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap, Info, TrendingUp, BarChart2 } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
 import type { HapticFeedback } from '../hooks';
@@ -46,6 +46,10 @@ export interface CompactExerciseRowProps {
     isUnilateral?: boolean;
     /** Whether this exercise is AMRAP (as many reps as possible) */
     isAmrap?: boolean;
+    /** Whether this exercise uses ladder reps (e.g., 1-2-3) */
+    isLadder?: boolean;
+    /** Ladder rep values (e.g., [1, 2, 3]) */
+    ladderReps?: number[];
     /** Superset group ID (consecutive EMOM exercises share the same group ID) */
     supersetGroup?: number;
     /** Position within superset: 'first', 'middle', 'last', or 'only' */
@@ -87,6 +91,8 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     isEmom = false,
     isUnilateral = false,
     isAmrap = false,
+    isLadder = false,
+    ladderReps,
     supersetGroup,
     supersetPosition,
     haptic,
@@ -340,6 +346,12 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                             <TrendingUp size={8} strokeWidth={3} />
                         </span>
                     )}
+                    {isLadder && (
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-teal-500/20 text-teal-400 flex-shrink-0">
+                            <BarChart2 size={8} strokeWidth={3} />
+                            {ladderReps && <span className="text-[8px]">{ladderReps.join('-')}</span>}
+                        </span>
+                    )}
                     {isUnilateral && (
                         <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-blue-500/20 text-blue-400 flex-shrink-0">
                             <span className="text-[8px]">L/R</span>
@@ -402,6 +414,13 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                     {isAmrap && (
                         <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-orange-500/20 text-orange-400 flex-shrink-0">
                             <TrendingUp size={8} strokeWidth={3} />
+                        </span>
+                    )}
+                    {/* Ladder Badge */}
+                    {isLadder && (
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-teal-500/20 text-teal-400 flex-shrink-0">
+                            <BarChart2 size={8} strokeWidth={3} />
+                            {ladderReps && <span className="text-[8px]">{ladderReps.join('-')}</span>}
                         </span>
                     )}
                     {/* Unilateral Badge */}

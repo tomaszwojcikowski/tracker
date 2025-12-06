@@ -51,6 +51,8 @@ export interface ExerciseDetailMetadata {
     isUnilateral?: boolean;
     /** Whether the exercise is AMRAP (as many reps as possible) */
     isAmrap?: boolean;
+    /** Whether the exercise uses ladder reps (e.g., 1-2-3) */
+    isLadder?: boolean;
     /** Suggested load range */
     loadRange?: LoadRange | null;
 }

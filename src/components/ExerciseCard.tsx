@@ -19,6 +19,7 @@ import {
     Zap,
     ArrowRightLeft,
     TrendingUp,
+    BarChart2,
 } from 'lucide-react';
 import { RPESelector } from './RPESelector';
 import type { RPEValue } from '../types';
@@ -45,6 +46,10 @@ export interface ExerciseCardProps {
     isUnilateral?: boolean;
     /** AMRAP exercise flag */
     isAmrap?: boolean;
+    /** Ladder exercise flag (e.g., 1-2-3 reps) */
+    isLadder?: boolean;
+    /** Ladder rep values (e.g., [1, 2, 3]) */
+    ladderReps?: number[];
     /** Rest time in seconds */
     restTime?: number;
     /** Load range suggestion */
@@ -104,6 +109,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     isEmom,
     isUnilateral,
     isAmrap,
+    isLadder,
+    ladderReps,
     restTime,
     loadRange,
     alternatives,
@@ -249,6 +256,14 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30">
                                     <TrendingUp size={10} strokeWidth={3} />
                                     AMRAP
+                                </span>
+                            )}
+
+                            {/* Ladder Badge */}
+                            {isLadder && (
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-teal-500/20 text-teal-400 border border-teal-500/30">
+                                    <BarChart2 size={10} strokeWidth={3} />
+                                    {ladderReps ? ladderReps.join('-') : 'LADDER'}
                                 </span>
                             )}
 

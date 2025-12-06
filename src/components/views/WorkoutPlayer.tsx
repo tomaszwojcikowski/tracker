@@ -1133,8 +1133,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                     return (
                         <div key={sIdx} className="mb-5">
-                            {/* Section Header - Always sticky with completion dots */}
-                            <div className="sticky top-0 z-10 bg-sys-black/95 backdrop-blur-sm py-2 -mx-4 px-4 mb-2 border-b border-white/5">
+                            {/* Section Header - Always sticky below TopAppBar (h-16 + progress bar) */}
+                            <div className="sticky top-[68px] z-10 bg-sys-black/95 backdrop-blur-sm py-2 -mx-4 px-4 mb-2 border-b border-white/5">
                                 <div className="flex items-center gap-2">
                                     <div className={`rounded-md flex items-center justify-center ${colors.iconBg} h-6 w-6`}>
                                         {section.type === 'prep' ? (

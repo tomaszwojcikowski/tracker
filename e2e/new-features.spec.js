@@ -63,9 +63,9 @@ test.describe('New Features', () => {
     await focusToggle.click();
 
     // Should now be in Focus Mode
-    // Check for "Exercise X of Y" text
-    const progressText = page.locator('text=/Exercise \\d+ of \\d+/');
-    await expect(progressText).toBeVisible();
+    // Check for progress dots (new UI design)
+    const progressDots = page.locator('.flex.items-center.gap-1 > div.rounded-full').first();
+    await expect(progressDots).toBeVisible();
 
     // Check for Navigation Buttons
     const prevBtn = page.locator('button:has(svg.lucide-chevron-left)');
@@ -86,8 +86,9 @@ test.describe('New Features', () => {
     // Toggle back to List Mode
     await focusToggle.click();
 
-    // "Exercise X of Y" should be gone
-    await expect(progressText).not.toBeVisible();
+    // Navigation buttons (prev/next) should be gone (unique to Focus Mode)
+    await expect(prevBtn).not.toBeVisible();
+    await expect(nextBtn).not.toBeVisible();
   });
 
   test('should open Exercise History modal', async ({ page }) => {

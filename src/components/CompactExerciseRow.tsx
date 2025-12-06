@@ -7,9 +7,10 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Check, Minus, Plus, ChevronDown, CheckCheck, Zap, Info, TrendingUp, BarChart2 } from 'lucide-react';
+import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2 } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
+import { CompactSetButtons } from './CompactSetButtons';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest } from '../types/workout';
 import type { TempoRange } from '../workout-plan-utils';
@@ -115,7 +116,6 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const [isPrevWeight, setIsPrevWeight] = useState(false);
     const [userModified, setUserModified] = useState(false);
     const weightInputRef = useRef<HTMLInputElement>(null);
-    const setsContainerRef = useRef<HTMLDivElement>(null);
 
     // Computed values
     const completedSets = sets.filter(Boolean).length;
@@ -207,48 +207,6 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const handleSetToggle = useCallback(
         (setIndex: number) => {
             onToggleSet(exId, setIndex, defaultSets, restTime);
-
-            // Auto-scroll to next incomplete set after toggling
-            // We need to wait a frame for the state to update
-            requestAnimationFrame(() => {
-                if (!setsContainerRef.current) return;
-
-                // Find the next incomplete set (after the current one, or from beginning)
-                const buttons = setsContainerRef.current.querySelectorAll('button');
-                let nextIncompleteIndex = -1;
-
-                // First, look for incomplete sets after the current index
-                for (let i = setIndex + 1; i < buttons.length; i++) {
-                    const button = buttons[i];
-                    // Check if button is NOT marked as complete (doesn't have check icon)
-                    if (!button.querySelector('svg')) {
-                        nextIncompleteIndex = i;
-                        break;
-                    }
-                }
-
-                // If no incomplete found after, look from the beginning
-                if (nextIncompleteIndex === -1) {
-                    for (let i = 0; i < setIndex; i++) {
-                        const button = buttons[i];
-                        if (!button.querySelector('svg')) {
-                            nextIncompleteIndex = i;
-                            break;
-                        }
-                    }
-                }
-
-                // Scroll to the next incomplete set if found
-                if (nextIncompleteIndex !== -1 && buttons[nextIncompleteIndex]) {
-                    const buttonWidth = 32; // h-8 = 32px
-                    const gap = 4; // gap-1 = 4px
-                    const scrollPosition = nextIncompleteIndex * (buttonWidth + gap);
-                    setsContainerRef.current.scrollTo({
-                        left: scrollPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
         },
         [exId, defaultSets, restTime, onToggleSet]
     );
@@ -260,9 +218,6 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
     const handleCompleteAllSets = useCallback(() => {
         onCompleteAllSets(exId, defaultSets);
     }, [exId, defaultSets, onCompleteAllSets]);
-
-    // Memoize hasIncompleteSets - MUST be before any early returns to follow Rules of Hooks
-    const hasIncompleteSets = useMemo(() => sets.some((s) => !s), [sets]);
 
     // Get short name for display
     const shortDisplayName = useMemo(() => getShortExerciseName(historyLookupName), [historyLookupName]);
@@ -301,9 +256,6 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
         isUnilateral,
         tempoRange,
     ]);
-
-    // Only show complete-all button when there are 2+ sets and incomplete sets
-    const showCompleteAllButton = totalSets > 1 && hasIncompleteSets;
 
     // Superset indicator logic
     const hasSupersetGroup = supersetGroup !== undefined;
@@ -459,62 +411,16 @@ export const CompactExerciseRow: React.FC<CompactExerciseRowProps> = ({
                     </button>
                 )}
 
-                {/* Set Buttons - Progressive Reveal: Show completed + next incomplete + dots for future */}
-                <div className="flex items-center gap-1 flex-shrink-0">
-                    <div
-                        ref={setsContainerRef}
-                        className="flex items-center gap-1"
-                    >
-                        {sets.map((isDone, i) => {
-                            // Find first incomplete set
-                            const firstIncompleteIndex = sets.findIndex(s => !s);
-                            const isNextIncomplete = i === firstIncompleteIndex;
-                            const shouldShowAsButton = isDone || isNextIncomplete;
-
-                            if (shouldShowAsButton) {
-                                return (
-                                    <button
-                                        key={`${exId}-set-${i}`}
-                                        onClick={() => handleSetToggle(i)}
-                                        className={`h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
-                                            isDone
-                                                ? isComplete
-                                                    ? 'bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.4)]'
-                                                    : 'bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
-                                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                                        }`}
-                                        aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
-                                    >
-                                        {isDone ? <Check size={14} /> : i + 1}
-                                    </button>
-                                );
-                            } else {
-                                // Future sets shown as dots
-                                return (
-                                    <div
-                                        key={`${exId}-dot-${i}`}
-                                        className="w-2 h-2 rounded-full bg-sys-onSurfaceVar opacity-30"
-                                        aria-label={`Set ${i + 1} pending`}
-                                    />
-                                );
-                            }
-                        })}
-                    </div>
-                    {/* Progress indicator */}
-                    <span className="text-xs text-sys-onSurfaceVar font-semibold ml-1">
-                        ({completedSets}/{totalSets})
-                    </span>
-                    {/* Complete All Sets Button - only show when there are 2+ incomplete sets */}
-                    {showCompleteAllButton && (
-                        <button
-                            onClick={handleCompleteAllSets}
-                            className="h-8 w-8 rounded-lg bg-sys-success/20 text-sys-success flex items-center justify-center active:scale-90 transition-all ml-1"
-                            aria-label="Complete all sets"
-                        >
-                            <CheckCheck size={14} />
-                        </button>
-                    )}
-                </div>
+                {/* Set Buttons */}
+                <CompactSetButtons
+                    exId={exId}
+                    sets={sets}
+                    completedSets={completedSets}
+                    totalSets={totalSets}
+                    isComplete={isComplete}
+                    onToggleSet={handleSetToggle}
+                    onCompleteAllSets={handleCompleteAllSets}
+                />
             </div>
 
             {/* Expandable Section - Contains prescription, weight, and add set */}

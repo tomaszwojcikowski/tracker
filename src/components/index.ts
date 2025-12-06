@@ -96,6 +96,8 @@ export type { LoadingScreenProps, ErrorScreenProps } from './screens';
 // Compact view components
 export { CompactExerciseRow } from './CompactExerciseRow';
 export type { CompactExerciseRowProps } from './CompactExerciseRow';
+export { CompactSetButtons } from './CompactSetButtons';
+export type { CompactSetButtonsProps } from './CompactSetButtons';
 
 // Superset group component
 export { SupersetGroup } from './SupersetGroup';

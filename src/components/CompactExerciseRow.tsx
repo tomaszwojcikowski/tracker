@@ -335,7 +335,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                 )}
                 <button
                     onClick={handleToggleExpand}
-                    className={`w-full h-9 px-3 flex items-center gap-2 bg-sys-success/10 rounded-xl border border-sys-success/20 active:bg-sys-success/20 transition-colors ${hasSupersetGroup ? 'ml-3' : ''}`}
+                    className={`w-full h-9 px-3 flex items-center gap-2 bg-sys-success/5 rounded-xl border border-sys-success/10 active:bg-sys-success/20 transition-colors ${hasSupersetGroup ? 'ml-3' : ''}`}
                     aria-label={`${historyLookupName} - completed, tap to edit`}
                 >
                     <div className="flex items-center justify-center h-5 w-5 rounded-full bg-sys-success text-white flex-shrink-0">

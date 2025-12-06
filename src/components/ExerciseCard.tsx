@@ -204,7 +204,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
     // Determine background and border colors based on state and section
     const containerClasses = useMemo(() => {
-        if (completedSets === totalSets && totalSets > 0) return 'border-sys-success/30 bg-sys-success/5';
+        if (completedSets === totalSets && totalSets > 0) return 'border-sys-success/10 bg-sys-success/5';
         if (isFirstIncomplete) return 'border-sys-accent/50 bg-sys-accent/10';
         if (hasSupersetGroup) return 'border-amber-500/30 bg-amber-500/5';
 
@@ -314,7 +314,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 <span
                                     className={`text-xs font-bold px-2 py-0.5 rounded-full ${
                                         completedSets === totalSets
-                                            ? 'bg-sys-success/20 text-sys-success'
+                                            ? 'bg-sys-success/10 text-sys-success'
                                             : 'bg-sys-accent/10 text-sys-accent'
                                     }`}
                                 >
@@ -360,7 +360,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                             className={`set-button h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
                                                 isDone
                                                     ? allComplete
-                                                        ? 'completed bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.4)]'
+                                                        ? 'completed bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.2)]'
                                                         : 'completed bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
                                                     : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                             }`}

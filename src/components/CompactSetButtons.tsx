@@ -84,7 +84,7 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                                 className={`h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
                                     isDone
                                         ? isComplete
-                                            ? 'bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.4)]'
+                                            ? 'bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.2)]'
                                             : 'bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
                                         : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                 }`}

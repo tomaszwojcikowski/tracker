@@ -17,8 +17,6 @@ import { ExerciseCard } from '../ExerciseCard';
 import { FocusView } from '../FocusView';
 import { WorkoutSummary } from '../WorkoutSummary';
 import type { ExerciseSummaryItem } from '../WorkoutSummary';
-import { WorkoutFlowIndicator } from '../WorkoutFlowIndicator';
-import type { SectionProgress } from '../WorkoutFlowIndicator';
 import { safeGetJSON, safeSetJSON } from '../../utils/storage';
 import {
     useHaptic,
@@ -130,6 +128,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     exerciseLibrary,
     isEmptyWorkout = false,
     onWorkoutFinish,
+    onProgressChange,
 }) => {
     // For empty workouts, generate a unique session key based on timestamp
     // This allows multiple empty workouts to be tracked separately
@@ -308,6 +307,20 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
         return { completedSets, totalSets };
     }, [workout, logs, addedExercises]);
+
+    // Report workout progress changes to parent for TopAppBar progress bar
+    useEffect(() => {
+        if (onProgressChange) {
+            const progress = workoutProgress.totalSets > 0
+                ? (workoutProgress.completedSets / workoutProgress.totalSets) * 100
+                : 0;
+            onProgressChange({
+                progress,
+                completedSets: workoutProgress.completedSets,
+                totalSets: workoutProgress.totalSets,
+            });
+        }
+    }, [workoutProgress, onProgressChange]);
 
     // Flatten exercises for focus mode navigation
     const allExercises = useMemo(() => {
@@ -929,34 +942,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         return null;
     }, [workout.sections, logs]);
 
-    // Calculate section progress for WorkoutFlowIndicator
-    const sectionProgressData = useMemo((): SectionProgress[] => {
-        if (!workout.sections?.length) return [];
-
-        return workout.sections.map((section: WorkoutSection) => {
-            const totalExercises = section.exercises.length;
-            const completedExercises = section.exercises.filter((ex: WorkoutExercise) => {
-                const exId = getExerciseId(ex.name);
-                const defaultSets = ex.sets || 3;
-                const sets = getExerciseLogEntry(logs, exId).sets || new Array(defaultSets).fill(false);
-                return sets.length > 0 && sets.every((s) => s);
-            }).length;
-
-            // Check if this section has the first incomplete exercise
-            const hasFirstIncomplete = section.exercises.some((ex: WorkoutExercise) => {
-                const exId = getExerciseId(ex.name);
-                return exId === firstIncompleteExerciseId;
-            });
-
-            return {
-                name: section.name,
-                totalExercises,
-                completedExercises,
-                isActive: hasFirstIncomplete || (completedExercises > 0 && completedExercises < totalExercises),
-            };
-        });
-    }, [workout.sections, logs, firstIncompleteExerciseId]);
-
     // Use extracted collapse hook
     const exerciseCollapse = useExerciseCollapse({ firstIncompleteExerciseId });
 
@@ -997,18 +982,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             />
 
             <div {...swipeHandlers} className="px-4 pb-20 pt-4">
-                {/* Workout Flow Indicator - Shows section progress */}
-                {!isEmptyWorkout && sectionProgressData.length > 0 && (
-                    <WorkoutFlowIndicator
-                        sections={sectionProgressData}
-                        overallProgress={workoutProgress.totalSets > 0
-                            ? (workoutProgress.completedSets / workoutProgress.totalSets) * 100
-                            : 0}
-                        collapsible={true}
-                        initialCollapsed={false}
-                    />
-                )}
-
                 {/* Workout Notes */}
                 <div className="mb-4">
                     <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-1 block">
@@ -1145,51 +1118,59 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     <>
                 {workout.sections.map((section: WorkoutSection, sIdx: number) => {
                     const sectionExercises = section.exercises.length;
-                    const sectionCompletedExercises = section.exercises.filter((ex: WorkoutExercise) => {
+
+                    // Single pass: compute completion status for all exercises (used for dots AND count)
+                    const exerciseCompletionStatus = section.exercises.map((ex: WorkoutExercise) => {
                         const exId = getExerciseId(ex.name);
                         const sets = getExerciseLogEntry(logs, exId).sets || [];
                         return sets.length > 0 && sets.every((s) => s);
-                    }).length;
-                    const sectionProgress = sectionExercises > 0
-                        ? (sectionCompletedExercises / sectionExercises) * 100
-                        : 0;
+                    });
+
+                    // Derive completed count from the same data (no second iteration)
+                    const sectionCompletedExercises = exerciseCompletionStatus.filter(Boolean).length;
 
                     const colors = getSectionColorClasses(section.name, section.type);
 
                     return (
                         <div key={sIdx} className="mb-5">
-                            {/* Section Header - Compact mode: sticky, minimal */}
-                            <div className={`mb-2 ${compactView ? 'sticky top-0 z-10 bg-sys-black/95 backdrop-blur-sm py-1 -mx-4 px-4' : ''}`}>
-                                <div className="flex items-center gap-2 mb-1">
-                                    <div className={`rounded-md flex items-center justify-center ${colors.iconBg} ${compactView ? 'h-5 w-5' : 'h-6 w-6'}`}>
+                            {/* Section Header - Always sticky with completion dots */}
+                            <div className="sticky top-0 z-10 bg-sys-black/95 backdrop-blur-sm py-2 -mx-4 px-4 mb-2 border-b border-white/5">
+                                <div className="flex items-center gap-2">
+                                    <div className={`rounded-md flex items-center justify-center ${colors.iconBg} h-6 w-6`}>
                                         {section.type === 'prep' ? (
-                                            <Flame size={compactView ? 12 : 14} className={colors.iconColor} />
+                                            <Flame size={14} className={colors.iconColor} />
                                         ) : section.type === 'main' ? (
-                                            <Dumbbell size={compactView ? 12 : 14} className={colors.iconColor} />
+                                            <Dumbbell size={14} className={colors.iconColor} />
                                         ) : section.type === 'cool' ? (
-                                            <Snowflake size={compactView ? 12 : 14} className={colors.iconColor} />
+                                            <Snowflake size={14} className={colors.iconColor} />
                                         ) : (
-                                            <Activity size={compactView ? 12 : 14} className={colors.iconColor} />
+                                            <Activity size={14} className={colors.iconColor} />
                                         )}
                                     </div>
-                                    <span className={`font-bold text-white uppercase tracking-wide ${compactView ? 'text-xs' : 'text-sm'}`}>
+                                    <span className="font-bold text-white uppercase tracking-wide text-sm">
                                         {section.name}
                                     </span>
-                                    <div className={`h-[2px] flex-1 bg-gradient-to-r ${colors.gradientBar} rounded-full`}></div>
-                                    {sectionProgress > 0 && (
-                                        <span className="text-xs font-bold text-sys-onSurfaceVar">
-                                            {sectionCompletedExercises}/{sectionExercises}
-                                        </span>
-                                    )}
-                                </div>
-                                {!compactView && sectionProgress > 0 && (
-                                    <div className="h-1 bg-sys-surfaceHigh rounded-full overflow-hidden mx-1">
-                                        <div
-                                            className={`h-full bg-gradient-to-r ${colors.gradientBar.replace('/20', '')} transition-all duration-500`}
-                                            style={{ width: `${sectionProgress}%` }}
-                                        ></div>
+
+                                    {/* Completion Dots */}
+                                    <div className="flex items-center gap-1 ml-auto">
+                                        {exerciseCompletionStatus.map((isComplete, dotIdx) => (
+                                            <div
+                                                key={dotIdx}
+                                                className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                                                    isComplete
+                                                        ? 'bg-emerald-400 scale-110'
+                                                        : 'bg-sys-surfaceHigh border border-white/20'
+                                                }`}
+                                            />
+                                        ))}
+                                        {/* Counter for larger sections */}
+                                        {sectionExercises > 6 && (
+                                            <span className="text-xs font-medium text-sys-onSurfaceVar ml-1">
+                                                {sectionCompletedExercises}/{sectionExercises}
+                                            </span>
+                                        )}
                                     </div>
-                                )}
+                                </div>
                             </div>
 
                             {/* Exercises */}

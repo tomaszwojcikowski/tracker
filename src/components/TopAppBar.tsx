@@ -1,9 +1,11 @@
 /**
  * TopAppBar Component
  *
- * A sticky header bar with optional back button, title, subtitle, and workout timer.
+ * A sticky header bar with optional back button, title, subtitle, workout timer,
+ * and progress bar for workout progress tracking.
  */
 
+import { memo, useMemo } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { WorkoutTimerDisplay } from './WorkoutTimerDisplay';
 import { clsx } from 'clsx';
@@ -19,14 +21,44 @@ export interface TopAppBarProps {
     isRunning: boolean;
     onToggle: () => void;
   };
+  /** Progress bar props - when provided, shows progress bar at bottom of header */
+  progressBar?: {
+    progress: number; // 0-100
+    completedSets: number;
+    totalSets: number;
+  };
 }
 
-export function TopAppBar({
+// Memoized progress bar component to prevent unnecessary re-renders
+const ProgressBar = memo(function ProgressBar({ progress }: { progress: number }) {
+  // Round to nearest integer to reduce style recalculations
+  const roundedProgress = useMemo(() => Math.round(progress), [progress]);
+  const showShimmer = roundedProgress > 0 && roundedProgress < 100;
+
+  return (
+    <div className="h-1 bg-sys-surfaceHigh relative overflow-hidden">
+      <div
+        className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-500 ease-out"
+        style={{ width: `${roundedProgress}%` }}
+      />
+      {/* Subtle shimmer effect on active progress */}
+      {showShimmer && (
+        <div
+          className="absolute inset-y-0 left-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"
+          style={{ width: `${roundedProgress}%` }}
+        />
+      )}
+    </div>
+  );
+});
+
+export const TopAppBar = memo(function TopAppBar({
   title,
   subtitle,
   onBack,
   showBack = false,
   workoutTimer,
+  progressBar,
 }: TopAppBarProps) {
   return (
     <header className="bg-sys-surface sticky top-0 z-40 safe-pt border-b border-sys-outlineVariant transition-colors duration-200">
@@ -63,6 +95,9 @@ export function TopAppBar({
           </div>
         )}
       </div>
+
+      {/* Progress Bar - shows at bottom of header during workouts */}
+      {progressBar && <ProgressBar progress={progressBar.progress} />}
     </header>
   );
-}
+});

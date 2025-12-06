@@ -5,7 +5,7 @@
  * Migrated from App.jsx as part of TypeScript migration.
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import './main.css';
 import { NavigationBar } from './components/navigation';
@@ -38,7 +38,7 @@ import {
     getAllExercisesWithHistory,
 } from './utils/exerciseHistory';
 
-import type { Exercise } from './types';
+import type { Exercise, WorkoutProgressData } from './types';
 
 // ============================================================================
 // TYPES
@@ -102,6 +102,21 @@ const App: React.FC = () => {
 
     // Workout timer - only active when in workout mode
     const workoutTimer = useWorkoutTimer(currentWeek, activeDay, viewMode === 'workout');
+
+    // Workout progress state for TopAppBar progress bar
+    const [workoutProgress, setWorkoutProgress] = useState<WorkoutProgressData | null>(null);
+
+    // Handle workout progress updates from WorkoutPlayer
+    const handleProgressChange = useCallback((progress: WorkoutProgressData) => {
+        setWorkoutProgress(progress);
+    }, []);
+
+    // Clear workout progress when leaving workout mode
+    useEffect(() => {
+        if (viewMode !== 'workout' && viewMode !== 'empty-workout') {
+            setWorkoutProgress(null);
+        }
+    }, [viewMode]);
 
     // Initialize state from URL or localStorage on mount
     useEffect(() => {
@@ -298,6 +313,11 @@ const App: React.FC = () => {
                         isRunning: workoutTimer.isRunning,
                         onToggle: workoutTimer.toggle,
                     } : undefined}
+                    progressBar={workoutProgress && workoutProgress.totalSets > 0 ? {
+                        progress: workoutProgress.progress,
+                        completedSets: workoutProgress.completedSets,
+                        totalSets: workoutProgress.totalSets,
+                    } : undefined}
                 />
 
                 {!isInitialized ? (
@@ -324,6 +344,7 @@ const App: React.FC = () => {
                                     onComplete={goBack}
                                     exerciseLibrary={EXERCISE_LIBRARY}
                                     onWorkoutFinish={workoutTimer.stop}
+                                    onProgressChange={handleProgressChange}
                                 />
                             </motion.main>
                         ) : viewMode === 'empty-workout' ? (
@@ -343,6 +364,7 @@ const App: React.FC = () => {
                                     exerciseLibrary={EXERCISE_LIBRARY}
                                     isEmptyWorkout={true}
                                     onWorkoutFinish={workoutTimer.stop}
+                                    onProgressChange={handleProgressChange}
                                 />
                             </motion.main>
                         ) : (

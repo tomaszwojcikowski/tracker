@@ -358,6 +358,15 @@ export type ValidDay = 1 | 2 | 3 | 5;
 export type ValidTab = TabId;
 
 /**
+ * Workout progress data for UI display
+ */
+export interface WorkoutProgressData {
+  progress: number; // 0-100
+  completedSets: number;
+  totalSets: number;
+}
+
+/**
  * WorkoutPlayer component props
  */
 export interface WorkoutPlayerProps {
@@ -370,6 +379,8 @@ export interface WorkoutPlayerProps {
   isEmptyWorkout?: boolean;
   /** Callback when workout is finished, returns final duration in seconds */
   onWorkoutFinish?: () => number;
+  /** Callback when workout progress changes (for TopAppBar progress bar) */
+  onProgressChange?: (progress: WorkoutProgressData) => void;
 }
 
 /**
@@ -391,6 +402,18 @@ export interface TopAppBarProps {
   subtitle?: string;
   onBack?: () => void;
   showBack?: boolean;
+  /** Workout timer props - when provided, shows timer in the header */
+  workoutTimer?: {
+    elapsedSeconds: number;
+    isRunning: boolean;
+    onToggle: () => void;
+  };
+  /** Progress bar props - when provided, shows progress bar at bottom of header */
+  progressBar?: {
+    progress: number; // 0-100
+    completedSets: number;
+    totalSets: number;
+  };
 }
 
 /**

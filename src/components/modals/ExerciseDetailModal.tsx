@@ -507,55 +507,57 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                     </div>
                 )}
 
-                {/* Stats Grid */}
-                <div className="grid grid-cols-3 gap-3">
-                    <div className="bg-sys-surfaceHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-1 opacity-10">
-                            <Trophy size={32} />
+                {/* Stats Grid - Only show if there's meaningful data */}
+                {(stats.estimated1RM || stats.maxWeight || stats.maxSets !== null) && (
+                    <div className="grid grid-cols-3 gap-3">
+                        <div className="bg-sys-surfaceHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-1 opacity-10">
+                                <Trophy size={32} />
+                            </div>
+                            <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Est. 1RM</div>
+                            <div className="text-xl font-bold text-white">
+                                {stats.estimated1RM ? (
+                                    <span>{stats.estimated1RM}<span className="text-xs font-normal text-sys-onSurfaceVar ml-0.5">kg</span></span>
+                                ) : '-'}
+                            </div>
                         </div>
-                        <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Est. 1RM</div>
-                        <div className="text-xl font-bold text-white">
-                            {stats.estimated1RM ? (
-                                <span>{stats.estimated1RM}<span className="text-xs font-normal text-sys-onSurfaceVar ml-0.5">kg</span></span>
-                            ) : '-'}
+                        <div className="bg-sys-surfaceHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-1 opacity-10">
+                                <Dumbbell size={32} />
+                            </div>
+                            <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Max Weight</div>
+                            <div className="text-xl font-bold text-white">
+                                {stats.maxWeight ? (
+                                    <span>{stats.maxWeight}<span className="text-xs font-normal text-sys-onSurfaceVar ml-0.5">kg</span></span>
+                                ) : '-'}
+                            </div>
+                        </div>
+                        <div className="bg-sys-surfaceHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-1 opacity-10">
+                                <Activity size={32} />
+                            </div>
+                            <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Max Sets</div>
+                            <div className="text-xl font-bold text-white">
+                                {stats.maxSets !== null ? stats.maxSets : '-'}
+                            </div>
                         </div>
                     </div>
-                    <div className="bg-sys-surfaceHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-1 opacity-10">
-                            <Dumbbell size={32} />
-                        </div>
-                        <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Max Weight</div>
-                        <div className="text-xl font-bold text-white">
-                            {stats.maxWeight ? (
-                                <span>{stats.maxWeight}<span className="text-xs font-normal text-sys-onSurfaceVar ml-0.5">kg</span></span>
-                            ) : '-'}
-                        </div>
-                    </div>
-                    <div className="bg-sys-surfaceHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-1 opacity-10">
-                            <Activity size={32} />
-                        </div>
-                        <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Max Sets</div>
-                        <div className="text-xl font-bold text-white">
-                            {stats.maxSets !== null ? stats.maxSets : '-'}
-                        </div>
-                    </div>
-                </div>
+                )}
 
-                {/* Progress Graph */}
-                <WeightGraph data={graphData} />
+                {/* Progress Graph - Only show if there's weight data */}
+                {graphData.length > 0 && <WeightGraph data={graphData} />}
 
-                {/* History List */}
-                <div>
-                    <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                            <Calendar size={16} className="text-sys-accent" />
-                            Recent Sessions
-                        </h3>
-                        <span className="text-[10px] uppercase text-sys-onSurfaceVar font-semibold tracking-wider">Last 3</span>
-                    </div>
+                {/* History List - Only show if there's history */}
+                {recentHistory.length > 0 && (
+                    <div>
+                        <div className="flex items-center justify-between mb-3">
+                            <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                                <Calendar size={16} className="text-sys-accent" />
+                                Recent Sessions
+                            </h3>
+                            <span className="text-[10px] uppercase text-sys-onSurfaceVar font-semibold tracking-wider">Last 3</span>
+                        </div>
 
-                    {recentHistory.length > 0 ? (
                         <div className="space-y-3">
                             {recentHistory.map((entry, idx) => {
                                 const repsLabel = extractRepsFromPrescription(entry.prescription) ?? '—';
@@ -614,12 +616,8 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                 );
                             })}
                         </div>
-                    ) : (
-                        <div className="text-center py-8 text-sys-onSurfaceVar text-sm bg-sys-surfaceHigh rounded-xl border border-dashed border-white/10">
-                            No history yet. Complete this exercise to build your log.
-                        </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
         </BottomSheet>
     );

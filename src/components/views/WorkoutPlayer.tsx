@@ -328,6 +328,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             type: 'program' | 'added';
             data: WorkoutExercise | AddedExercise;
             section?: string;
+            sectionType?: string;
             id: string;
         }> = [];
 
@@ -337,6 +338,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     type: 'program',
                     data: ex,
                     section: section.name,
+                    sectionType: section.type,
                     id: getExerciseId(ex.name)
                 });
             });
@@ -1284,6 +1286,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     onAddSet={addSet}
                                                     onCompleteAllSets={completeAllSets}
                                                     onShowHistory={handleShowExerciseDetail}
+                                                    onStartRestTimer={restTimer.start}
+                                                    sectionType={section.type}
                                                 />
                                             );
                                         });

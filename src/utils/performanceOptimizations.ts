@@ -221,7 +221,7 @@ export function debounceLeading<T extends (...args: unknown[]) => void>(
     wait: number,
     leading = true
 ): (...args: Parameters<T>) => void {
-    let timeoutId: NodeJS.Timeout | null = null;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
     let hasInvoked = false;
 
     return (...args: Parameters<T>) => {

@@ -10,6 +10,7 @@ import React, { useMemo, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Zap } from 'lucide-react';
 import { ExerciseCard } from './ExerciseCard';
 import { AddedExerciseCard } from './AddedExerciseCard';
+import { useSwipeNavigation } from '../hooks';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest, ExerciseLogEntry } from '../types/workout';
 import type { AddedExercise, RPEValue } from '../types';
@@ -152,6 +153,12 @@ export interface FocusViewProps {
 // COMPONENT
 // ============================================================================
 
+// Animation timing constants
+// Small delay to ensure React applies animation classes to newly mounted elements
+const ANIMATION_START_DELAY_MS = 50;
+// Animation duration matching CSS animation timing
+const ANIMATION_DURATION_MS = 300;
+
 export const FocusView: React.FC<FocusViewProps> = ({
     allExercises,
     focusIndex,
@@ -228,24 +235,43 @@ export const FocusView: React.FC<FocusViewProps> = ({
         return items;
     }, [allExercises]);
 
+    /**
+     * Helper function to navigate with animation
+     * Sets slide direction, updates index after delay, then clears animation
+     */
+    const navigateWithAnimation = useCallback(
+        (direction: 'left' | 'right', newIndex: number) => {
+            haptic.swipe();
+            // Set direction first to prepare animation state
+            setSlideDirection(direction);
+            // Delay index update to ensure new element mounts with animation class
+            setTimeout(() => {
+                setFocusIndex(newIndex);
+                // Clear animation class after animation completes
+                setTimeout(() => setSlideDirection(null), ANIMATION_DURATION_MS);
+            }, ANIMATION_START_DELAY_MS);
+        },
+        [haptic, setFocusIndex, setSlideDirection]
+    );
+
     // Navigation handlers with animation
     const navigatePrev = useCallback(() => {
         if (focusIndex > 0) {
-            haptic.swipe();
-            setSlideDirection('right');
-            setFocusIndex(focusIndex - 1);
-            setTimeout(() => setSlideDirection(null), 300);
+            navigateWithAnimation('right', focusIndex - 1);
         }
-    }, [focusIndex, haptic, setFocusIndex, setSlideDirection]);
+    }, [focusIndex, navigateWithAnimation]);
 
     const navigateNext = useCallback(() => {
         if (focusIndex < focusItems.length - 1) {
-            haptic.swipe();
-            setSlideDirection('left');
-            setFocusIndex(focusIndex + 1);
-            setTimeout(() => setSlideDirection(null), 300);
+            navigateWithAnimation('left', focusIndex + 1);
         }
-    }, [focusIndex, focusItems.length, haptic, setFocusIndex, setSlideDirection]);
+    }, [focusIndex, focusItems.length, navigateWithAnimation]);
+
+    // Swipe navigation support
+    const { handlers: swipeHandlers } = useSwipeNavigation({
+        onSwipeLeft: navigateNext,
+        onSwipeRight: navigatePrev,
+    });
 
     // Render current focus item
     const renderFocusItem = useCallback((item: FocusItem) => {
@@ -505,14 +531,17 @@ export const FocusView: React.FC<FocusViewProps> = ({
                 </div>
 
                 {/* Content with swipe animation - positioned container */}
-                <div className="flex-1 relative overflow-hidden">
+                <div
+                    {...swipeHandlers}
+                    className="flex-1 relative overflow-hidden"
+                >
                     <div
                         key={focusIndex}
                         className={`absolute inset-0 overflow-y-auto ${
                             slideDirection === 'left'
-                                ? 'animate-slide-in-right'
+                                ? 'animate-slide-in-left'
                                 : slideDirection === 'right'
-                                    ? 'animate-slide-in-left'
+                                    ? 'animate-slide-in-right'
                                     : ''
                         }`}
                     >

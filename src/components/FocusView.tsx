@@ -539,9 +539,9 @@ export const FocusView: React.FC<FocusViewProps> = ({
                         key={focusIndex}
                         className={`absolute inset-0 overflow-y-auto ${
                             slideDirection === 'left'
-                                ? 'animate-slide-in-right'
+                                ? 'animate-slide-in-left'
                                 : slideDirection === 'right'
-                                    ? 'animate-slide-in-left'
+                                    ? 'animate-slide-in-right'
                                     : ''
                         }`}
                     >

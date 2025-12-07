@@ -83,17 +83,17 @@ function getLegacyWindowPhases(): PhaseMetadata[] | undefined {
 function getPhasesForProgram(programId?: string): PhaseMetadata[] | undefined {
   const registry = getProgramRegistry();
   const id = programId ?? registry.getActiveProgramId();
-  
+
   if (!id) {
     // Fall back to window.TRACKER_APP for backward compatibility
     return getLegacyWindowPhases();
   }
-  
+
   const programData = registry.getProgramData(id);
   if (programData?.metadata?.phases) {
     return programData.metadata.phases;
   }
-  
+
   // Fall back to window.TRACKER_APP for backward compatibility
   return getLegacyWindowPhases();
 }
@@ -105,7 +105,7 @@ function getPhasesForProgram(programId?: string): PhaseMetadata[] | undefined {
  */
 export function getBlockForWeek(week: number, programId?: string): ProgramBlock | undefined {
   const phases = getPhasesForProgram(programId);
-  
+
   if (phases) {
     const phase = phases.find(
       (p) => week >= p.startWeek && week <= p.endWeek
@@ -174,10 +174,10 @@ export function getWorkoutForDay(week: number, day: number, programId?: string):
     }
 
     // Determine if exercise is weighted based on loadRange
-    // If loadRange exists with kg unit and min > 0, it's a weighted exercise
+    // If loadRange exists with kg unit, it's a weighted exercise (even if min is 0)
     const loadRange = item.loadRange;
     const isWeighted =
-      loadRange && loadRange.unit === 'kg' && loadRange.min > 0;
+      loadRange && loadRange.unit === 'kg' && loadRange.min !== undefined;
 
     // Use isEmom from data if available, otherwise detect from text (fallback for legacy data)
     const isEmom = item.isEmom ?? detectEmomFromText(item.ex, item.n || '');

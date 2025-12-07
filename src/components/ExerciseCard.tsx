@@ -13,7 +13,6 @@ import {
     Plus,
     CheckCheck,
     Minus,
-    Link,
     Zap,
     ArrowRightLeft,
     TrendingUp,
@@ -199,10 +198,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     // Superset connector styling
     const hasSupersetGroup = supersetGroup !== undefined;
     const isFirstInSuperset = supersetPosition === 'first';
-    const isMiddleInSuperset = supersetPosition === 'middle';
-    const isLastInSuperset = supersetPosition === 'last';
-    const showSupersetConnectorTop = isMiddleInSuperset || isLastInSuperset;
-    const showSupersetConnectorBottom = isFirstInSuperset || isMiddleInSuperset;
 
     // Determine background and border colors based on state and section
     const containerClasses = useMemo(() => {
@@ -229,29 +224,18 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     }, [completedSets, totalSets, isFirstIncomplete, hasSupersetGroup, sectionType, hideCollapseButton]);
 
     return (
-        <div id={exId} className="relative scroll-mt-16">
-            {/* Superset Connector Line */}
-            {hasSupersetGroup && (
-                <>
-                    {showSupersetConnectorTop && (
-                        <div className="absolute left-2 top-0 w-0.5 h-3 bg-gradient-to-b from-amber-500/80 to-amber-500 z-20" />
-                    )}
-                    {showSupersetConnectorBottom && (
-                        <div className="absolute left-2 bottom-0 w-0.5 h-3 bg-gradient-to-t from-amber-500/80 to-amber-500 z-20" />
-                    )}
-                    {isFirstInSuperset && (
-                        <div className="absolute left-4 -top-2 z-20">
-                            <div className="flex items-center gap-1 bg-amber-500/90 text-amber-950 text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-lg">
-                                <Link size={8} strokeWidth={3} />
-                                <span>SUPERSET</span>
-                            </div>
-                        </div>
-                    )}
-                </>
+        <div id={exId} className={`relative scroll-mt-16 ${isFirstInSuperset ? 'mt-4' : ''}`}>
+            {/* Superset Badge */}
+            {isFirstInSuperset && (
+                <div className="absolute left-2 -top-2 z-20">
+                    <div className="flex items-center gap-1 bg-amber-500/90 text-amber-950 text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-lg">
+                        <span>SUPERSET</span>
+                    </div>
+                </div>
             )}
 
             <div
-                className={`rounded-2xl p-4 border relative z-10 overflow-hidden ${containerClasses} ${hasSupersetGroup ? 'ml-4' : ''}`}
+                className={`rounded-2xl p-4 border relative z-10 overflow-hidden ${containerClasses}`}
             >
                 {/* Progress bar */}
                 {completedSets > 0 && (

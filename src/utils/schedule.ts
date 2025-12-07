@@ -33,6 +33,7 @@ export interface RawScheduleItem {
     supersetGroup?: number; // Superset group ID
     restSeconds?: number; // Rest between sets in seconds
     alternatives?: string[]; // Array of alternative exercise names
+    exerciseOptions?: import('../workout-plan-utils').ExerciseOption[]; // Array of exercise options to choose from
 }
 
 /**
@@ -62,6 +63,7 @@ export interface WorkoutExercise {
     loadRange?: LoadRange;
     repsRange?: RepsRange;
     tempoRange?: TempoRange;
+    exerciseOptions?: import('../workout-plan-utils').ExerciseOption[];
 }
 
 /**

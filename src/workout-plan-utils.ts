@@ -174,6 +174,8 @@ export interface ScheduleEntry {
   restSeconds?: number;
   /** Array of alternative exercise names */
   alternatives?: string[];
+  /** Array of exercise options to choose from */
+  exerciseOptions?: ExerciseOption[];
 }
 
 /**
@@ -185,6 +187,51 @@ export type LoadUnit = 'kg' | 'band' | 'bodyweight' | 'percent';
  * Rep type for structured reps data
  */
 export type RepsType = 'reps' | 'time' | 'ladder' | 'amrap' | 'rm' | 'max' | 'effort' | 'submax' | 'none';
+
+/**
+ * Exercise option - a single variation of an exercise
+ * Used when an exercise has multiple implementation choices (e.g., barbell vs dumbbell squats)
+ */
+export interface ExerciseOption {
+  /** Name of this option (e.g., "Barbell", "Dumbbell", "Band") */
+  optionName: string;
+  /** Override exercise name for this option */
+  exerciseName?: string;
+  /** Description of when to use this option */
+  description?: string;
+  /** Override sets for this option */
+  sets?: number;
+  /** Override rest seconds for this option */
+  restSeconds?: number;
+  /** Override RPE for this option */
+  rpe?: number;
+  /** Override notes for this option */
+  notes?: string;
+  /** Override load minimum for this option */
+  loadMin?: number;
+  /** Override load maximum for this option */
+  loadMax?: number;
+  /** Override load unit for this option */
+  loadUnit?: LoadUnit;
+  /** Override per-hand flag for this option */
+  loadPerHand?: boolean;
+  /** Override reps type for this option */
+  repsType?: RepsType;
+  /** Override reps value for this option */
+  repsValue?: number | number[];
+  /** Override minimum reps for this option */
+  repsMin?: number;
+  /** Override maximum reps for this option */
+  repsMax?: number;
+  /** Override reps unit for this option */
+  repsUnit?: 'seconds' | 'minutes';
+  /** Override per-side flag for this option */
+  repsPerSide?: boolean;
+  /** Required equipment for this option */
+  equipment?: string[];
+  /** Variation descriptor (e.g., "Barbell Back Squat") */
+  variation?: string;
+}
 
 /**
  * V2.2.0 exercise template definition
@@ -203,6 +250,8 @@ export interface V2ExerciseTemplate {
   restSeconds?: number;
   rpe?: number;
   alternatives?: string[];
+  /** Array of exercise options to choose from */
+  exerciseOptions?: ExerciseOption[];
   progressionNotes?: string;
   cues?: string[];
   loadMin?: number;
@@ -239,6 +288,8 @@ export interface V2ExerciseRef {
   restSeconds?: number;
   rpe?: number;
   alternatives?: string[];
+  /** Override exercise options */
+  exerciseOptions?: ExerciseOption[];
   progressionNotes?: string;
   cues?: string[];
   loadMin?: number;
@@ -306,6 +357,8 @@ export interface V2Exercise {
   restSeconds?: number;
   /** Array of alternative exercise names or IDs */
   alternatives?: string[];
+  /** Array of exercise options to choose from */
+  exerciseOptions?: ExerciseOption[];
   /** Progression notes for this exercise */
   progressionNotes?: string;
   /** Coaching cues */
@@ -580,6 +633,7 @@ function resolveExerciseReference(
     restSeconds: exerciseOrRef.restSeconds ?? template.restSeconds,
     rpe: exerciseOrRef.rpe ?? template.rpe,
     alternatives: exerciseOrRef.alternatives ?? template.alternatives,
+    exerciseOptions: exerciseOrRef.exerciseOptions ?? template.exerciseOptions,
     progressionNotes: exerciseOrRef.progressionNotes ?? template.progressionNotes,
     loadMin: exerciseOrRef.loadMin ?? template.loadMin,
     loadMax: exerciseOrRef.loadMax ?? template.loadMax,
@@ -847,6 +901,8 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             // Rest and alternatives
             restSeconds: exercise.restSeconds,
             alternatives: exercise.alternatives,
+            // Exercise options
+            exerciseOptions: exercise.exerciseOptions,
           });
         });
       });

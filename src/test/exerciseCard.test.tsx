@@ -147,6 +147,62 @@ describe('ExerciseCard', () => {
 
             expect(screen.getByText('SUPERSET')).toBeInTheDocument();
         });
+
+        it('should display max 2 dots for exercises with many sets', () => {
+            // Test with 5 sets - should show: button for set 1, then 2 dots (sets 2 and 3)
+            // Sets 4 and 5 should not have dots
+            render(
+                <ExerciseCard
+                    {...defaultProps}
+                    sets={[false, false, false, false, false]}
+                    defaultSets={5}
+                    exerciseLog={{ sets: [false, false, false, false, false], weight: '', rpe: {} }}
+                />
+            );
+
+            // First incomplete set should be a button
+            expect(screen.getByRole('button', { name: 'Set 1' })).toBeInTheDocument();
+            
+            // Should show dots for sets 2 and 3 (max 2 dots)
+            expect(screen.getByLabelText('Set 2 pending')).toBeInTheDocument();
+            expect(screen.getByLabelText('Set 3 pending')).toBeInTheDocument();
+            
+            // Sets 4 and 5 should NOT have dots
+            expect(screen.queryByLabelText('Set 4 pending')).not.toBeInTheDocument();
+            expect(screen.queryByLabelText('Set 5 pending')).not.toBeInTheDocument();
+            
+            // Progress indicator should show all sets
+            expect(screen.getByText('(0/5)')).toBeInTheDocument();
+        });
+
+        it('should display max 2 dots after completing some sets', () => {
+            // Test with 6 sets, 2 completed - should show: 2 completed buttons, 1 next button, 2 dots
+            render(
+                <ExerciseCard
+                    {...defaultProps}
+                    sets={[true, true, false, false, false, false]}
+                    defaultSets={6}
+                    exerciseLog={{ sets: [true, true, false, false, false, false], weight: '', rpe: {} }}
+                />
+            );
+
+            // Completed sets should be buttons
+            expect(screen.getByRole('button', { name: 'Set 1 completed' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Set 2 completed' })).toBeInTheDocument();
+            
+            // Next incomplete set should be a button
+            expect(screen.getByRole('button', { name: 'Set 3' })).toBeInTheDocument();
+            
+            // Should show dots for sets 4 and 5 (max 2 dots)
+            expect(screen.getByLabelText('Set 4 pending')).toBeInTheDocument();
+            expect(screen.getByLabelText('Set 5 pending')).toBeInTheDocument();
+            
+            // Set 6 should NOT have a dot
+            expect(screen.queryByLabelText('Set 6 pending')).not.toBeInTheDocument();
+            
+            // Progress indicator should show all sets
+            expect(screen.getByText('2/6')).toBeInTheDocument();
+        });
     });
 
     describe('User Interactions', () => {

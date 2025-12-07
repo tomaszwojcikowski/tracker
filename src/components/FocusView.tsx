@@ -6,11 +6,10 @@
  * Supersets are displayed together with all exercises visible.
  */
 
-import React, { useMemo, useCallback, useRef } from 'react';
+import React, { useMemo, useCallback, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Zap } from 'lucide-react';
 import { ExerciseCard } from './ExerciseCard';
 import { AddedExerciseCard } from './AddedExerciseCard';
-import { useSwipeNavigation } from '../hooks';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest, ExerciseLogEntry } from '../types/workout';
 import type { AddedExercise, RPEValue } from '../types';
@@ -153,15 +152,12 @@ export interface FocusViewProps {
 // COMPONENT
 // ============================================================================
 
-// Animation duration matching CSS animation timing (300ms)
-const ANIMATION_DURATION_MS = 300;
-
 export const FocusView: React.FC<FocusViewProps> = ({
     allExercises,
     focusIndex,
     setFocusIndex,
-    slideDirection,
-    setSlideDirection,
+    slideDirection: _slideDirection, // Kept for API compatibility, native scroll handles animations
+    setSlideDirection: _setSlideDirection, // Kept for API compatibility
     logs,
     firstIncompleteExerciseId,
     rpePrompt,
@@ -232,57 +228,60 @@ export const FocusView: React.FC<FocusViewProps> = ({
         return items;
     }, [allExercises]);
 
-    // Track animation timeout to prevent memory leaks
-    const animationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    // Ref for the horizontal scroll container
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+    // Track if we're programmatically scrolling to prevent scroll event feedback loop
+    const isProgrammaticScroll = useRef(false);
 
-    /**
-     * Helper function to navigate with animation
-     * Direction indicates where new content comes FROM:
-     * - 'right': new content slides in from right (going to next)
-     * - 'left': new content slides in from left (going to previous)
-     */
-    const navigateWithAnimation = useCallback(
-        (direction: 'left' | 'right', newIndex: number) => {
-            // Clear any pending animation timeout
-            if (animationTimeoutRef.current) {
-                clearTimeout(animationTimeoutRef.current);
-            }
+    // Scroll to the current focus index when it changes (e.g., from button click)
+    useEffect(() => {
+        const container = scrollContainerRef.current;
+        if (!container) return;
+        
+        const targetScroll = focusIndex * container.clientWidth;
+        // Only scroll if we're not already at the right position
+        if (Math.abs(container.scrollLeft - targetScroll) > 10) {
+            isProgrammaticScroll.current = true;
+            container.scrollTo({ left: targetScroll, behavior: 'smooth' });
+            // Reset flag after scroll animation completes
+            setTimeout(() => {
+                isProgrammaticScroll.current = false;
+            }, 350);
+        }
+    }, [focusIndex]);
 
+    // Handle scroll end to update focus index based on scroll position
+    const handleScroll = useCallback(() => {
+        // Skip if this is a programmatic scroll
+        if (isProgrammaticScroll.current) return;
+        
+        const container = scrollContainerRef.current;
+        if (!container) return;
+        
+        const scrollLeft = container.scrollLeft;
+        const itemWidth = container.clientWidth;
+        const newIndex = Math.round(scrollLeft / itemWidth);
+        
+        if (newIndex !== focusIndex && newIndex >= 0 && newIndex < focusItems.length) {
             haptic.swipe();
-            // Set direction and update index together
-            // The animation class will be applied immediately to the new content
-            setSlideDirection(direction);
             setFocusIndex(newIndex);
+        }
+    }, [focusIndex, focusItems.length, haptic, setFocusIndex]);
 
-            // Clear animation class after animation completes
-            animationTimeoutRef.current = setTimeout(() => {
-                setSlideDirection(null);
-                animationTimeoutRef.current = null;
-            }, ANIMATION_DURATION_MS);
-        },
-        [haptic, setFocusIndex, setSlideDirection]
-    );
-
-    // Navigation handlers with animation
-    // Going to previous: new content comes from the LEFT
+    // Navigation handlers for buttons
     const navigatePrev = useCallback(() => {
         if (focusIndex > 0) {
-            navigateWithAnimation('left', focusIndex - 1);
+            haptic.swipe();
+            setFocusIndex(focusIndex - 1);
         }
-    }, [focusIndex, navigateWithAnimation]);
+    }, [focusIndex, haptic, setFocusIndex]);
 
-    // Going to next: new content comes from the RIGHT
     const navigateNext = useCallback(() => {
         if (focusIndex < focusItems.length - 1) {
-            navigateWithAnimation('right', focusIndex + 1);
+            haptic.swipe();
+            setFocusIndex(focusIndex + 1);
         }
-    }, [focusIndex, focusItems.length, navigateWithAnimation]);
-
-    // Swipe navigation support
-    const { handlers: swipeHandlers } = useSwipeNavigation({
-        onSwipeLeft: navigateNext,
-        onSwipeRight: navigatePrev,
-    });
+    }, [focusIndex, focusItems.length, haptic, setFocusIndex]);
 
     // Render current focus item
     const renderFocusItem = useCallback((item: FocusItem) => {
@@ -541,25 +540,21 @@ export const FocusView: React.FC<FocusViewProps> = ({
                     </button>
                 </div>
 
-                {/* Content with swipe animation - positioned container */}
+                {/* Horizontal scroll container with snap - native swipe support */}
                 <div
-                    onTouchStart={swipeHandlers.onTouchStart}
-                    onTouchMove={swipeHandlers.onTouchMove}
-                    onTouchEnd={swipeHandlers.onTouchEnd}
-                    className="flex-1 relative overflow-hidden touch-pan-y"
+                    ref={scrollContainerRef}
+                    onScroll={handleScroll}
+                    className="flex-1 flex overflow-x-auto snap-x snap-mandatory"
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
                 >
-                    <div
-                        key={focusIndex}
-                        className={`absolute inset-0 overflow-y-auto ${
-                            slideDirection === 'left'
-                                ? 'animate-slide-in-left'
-                                : slideDirection === 'right'
-                                    ? 'animate-slide-in-right'
-                                    : ''
-                        }`}
-                    >
-                        {currentItem && renderFocusItem(currentItem)}
-                    </div>
+                    {focusItems.map((item, idx) => (
+                        <div
+                            key={idx}
+                            className="flex-shrink-0 w-full snap-center overflow-y-auto px-1"
+                        >
+                            {renderFocusItem(item)}
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

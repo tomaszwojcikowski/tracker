@@ -19,12 +19,18 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/tracker/apple-touch-icon.png">
     <link rel="mask-icon" href="/tracker/masked-icon.svg" color="#ef4444">
     
-    <!-- Fonts -->
+    <!-- Fonts - optimized loading with display=swap for better performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="colors.css" as="style">
     <link rel="stylesheet" href="colors.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 </head>
 <body>
     <div id="root"></div>

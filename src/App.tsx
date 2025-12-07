@@ -5,16 +5,23 @@
  * Migrated from App.jsx as part of TypeScript migration.
  */
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import './main.css';
 import { NavigationBar } from './components/navigation';
 import { TopAppBar } from './components/TopAppBar';
 import { LoadingScreen, ErrorScreen } from './components/screens';
-import { Dashboard, HistoryView, SettingsView, ExerciseLibraryView, WorkoutPlayer } from './components/views';
 import { SkipLink } from './components/SkipLink';
 import { Onboarding, hasCompletedOnboarding } from './components/Onboarding';
 import { useWorkoutTimer, useTheme } from './hooks';
+
+// Lazy load heavy view components for code splitting
+// Import directly from files to get default exports for better tree-shaking
+const Dashboard = lazy(() => import('./components/views/Dashboard'));
+const HistoryView = lazy(() => import('./components/views/HistoryView'));
+const SettingsView = lazy(() => import('./components/views/SettingsView'));
+const ExerciseLibraryView = lazy(() => import('./components/views/ExerciseLibraryView'));
+const WorkoutPlayer = lazy(() => import('./components/views/WorkoutPlayer'));
 
 // Import from TypeScript utilities
 import {
@@ -338,14 +345,16 @@ const App: React.FC = () => {
                                 exit={{ opacity: 0, x: -20 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <WorkoutPlayer
-                                    week={currentWeek}
-                                    day={activeDay}
-                                    onComplete={goBack}
-                                    exerciseLibrary={EXERCISE_LIBRARY}
-                                    onWorkoutFinish={workoutTimer.stop}
-                                    onProgressChange={handleProgressChange}
-                                />
+                                <Suspense fallback={<LoadingScreen />}>
+                                    <WorkoutPlayer
+                                        week={currentWeek}
+                                        day={activeDay}
+                                        onComplete={goBack}
+                                        exerciseLibrary={EXERCISE_LIBRARY}
+                                        onWorkoutFinish={workoutTimer.stop}
+                                        onProgressChange={handleProgressChange}
+                                    />
+                                </Suspense>
                             </motion.main>
                         ) : viewMode === 'empty-workout' ? (
                             <motion.main
@@ -357,15 +366,17 @@ const App: React.FC = () => {
                                 exit={{ opacity: 0, x: -20 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <WorkoutPlayer
-                                    week={0}
-                                    day={0}
-                                    onComplete={goBack}
-                                    exerciseLibrary={EXERCISE_LIBRARY}
-                                    isEmptyWorkout={true}
-                                    onWorkoutFinish={workoutTimer.stop}
-                                    onProgressChange={handleProgressChange}
-                                />
+                                <Suspense fallback={<LoadingScreen />}>
+                                    <WorkoutPlayer
+                                        week={0}
+                                        day={0}
+                                        onComplete={goBack}
+                                        exerciseLibrary={EXERCISE_LIBRARY}
+                                        isEmptyWorkout={true}
+                                        onWorkoutFinish={workoutTimer.stop}
+                                        onProgressChange={handleProgressChange}
+                                    />
+                                </Suspense>
                             </motion.main>
                         ) : (
                             <React.Fragment key="tab-content">
@@ -378,35 +389,37 @@ const App: React.FC = () => {
                                     exit={{ opacity: 0, y: -10 }}
                                     transition={{ duration: 0.2 }}
                                 >
-                                    {activeTab === 'train' && (
-                                        <Dashboard
-                                            currentWeek={currentWeek}
-                                            setCurrentWeek={setCurrentWeek}
-                                            onStartWorkout={startWorkout}
-                                            onStartEmptyWorkout={startEmptyWorkout}
-                                            onProgramChange={handleProgramChange}
-                                        />
-                                    )}
-                                    {activeTab === 'library' && (
-                                        <ExerciseLibraryView
-                                            exerciseLibrary={EXERCISE_LIBRARY}
-                                            getAllExercisesWithHistory={getAllExercisesWithHistory}
-                                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                            calculateExerciseStats={calculateExerciseStats as any}
-                                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                            getExerciseHistory={getExerciseHistory as any}
-                                        />
-                                    )}
-                                    {activeTab === 'history' && (
-                                        <HistoryView
-                                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                            calculateExerciseStats={calculateExerciseStats as any}
-                                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                            getExerciseHistory={getExerciseHistory as any}
-                                            getAllExercisesWithHistory={getAllExercisesWithHistory}
-                                        />
-                                    )}
-                                    {activeTab === 'profile' && <SettingsView />}
+                                    <Suspense fallback={<LoadingScreen />}>
+                                        {activeTab === 'train' && (
+                                            <Dashboard
+                                                currentWeek={currentWeek}
+                                                setCurrentWeek={setCurrentWeek}
+                                                onStartWorkout={startWorkout}
+                                                onStartEmptyWorkout={startEmptyWorkout}
+                                                onProgramChange={handleProgramChange}
+                                            />
+                                        )}
+                                        {activeTab === 'library' && (
+                                            <ExerciseLibraryView
+                                                exerciseLibrary={EXERCISE_LIBRARY}
+                                                getAllExercisesWithHistory={getAllExercisesWithHistory}
+                                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                                calculateExerciseStats={calculateExerciseStats as any}
+                                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                                getExerciseHistory={getExerciseHistory as any}
+                                            />
+                                        )}
+                                        {activeTab === 'history' && (
+                                            <HistoryView
+                                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                                calculateExerciseStats={calculateExerciseStats as any}
+                                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                                getExerciseHistory={getExerciseHistory as any}
+                                                getAllExercisesWithHistory={getAllExercisesWithHistory}
+                                            />
+                                        )}
+                                        {activeTab === 'profile' && <SettingsView />}
+                                    </Suspense>
                                 </motion.div>
                                 <NavigationBar activeTab={activeTab} onTabChange={handleTabChange} />
                             </React.Fragment>

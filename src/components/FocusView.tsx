@@ -233,10 +233,8 @@ export const FocusView: React.FC<FocusViewProps> = ({
         if (focusIndex > 0) {
             haptic.swipe();
             setSlideDirection('right');
-            setTimeout(() => {
-                setFocusIndex(focusIndex - 1);
-                setTimeout(() => setSlideDirection(null), 300);
-            }, 10);
+            setFocusIndex(focusIndex - 1);
+            setTimeout(() => setSlideDirection(null), 300);
         }
     }, [focusIndex, haptic, setFocusIndex, setSlideDirection]);
 
@@ -244,10 +242,8 @@ export const FocusView: React.FC<FocusViewProps> = ({
         if (focusIndex < focusItems.length - 1) {
             haptic.swipe();
             setSlideDirection('left');
-            setTimeout(() => {
-                setFocusIndex(focusIndex + 1);
-                setTimeout(() => setSlideDirection(null), 300);
-            }, 10);
+            setFocusIndex(focusIndex + 1);
+            setTimeout(() => setSlideDirection(null), 300);
         }
     }, [focusIndex, focusItems.length, haptic, setFocusIndex, setSlideDirection]);
 
@@ -508,18 +504,20 @@ export const FocusView: React.FC<FocusViewProps> = ({
                     </button>
                 </div>
 
-                {/* Content with animation */}
-                <div
-                    key={focusIndex}
-                    className={`flex-1 overflow-y-auto transition-all duration-300 ease-out ${
-                        slideDirection === 'left'
-                            ? 'animate-slide-in-right'
-                            : slideDirection === 'right'
-                                ? 'animate-slide-in-left'
-                                : ''
-                    }`}
-                >
-                    {currentItem && renderFocusItem(currentItem)}
+                {/* Content with swipe animation - positioned container */}
+                <div className="flex-1 relative overflow-hidden">
+                    <div
+                        key={focusIndex}
+                        className={`absolute inset-0 overflow-y-auto ${
+                            slideDirection === 'left'
+                                ? 'animate-slide-in-right'
+                                : slideDirection === 'right'
+                                    ? 'animate-slide-in-left'
+                                    : ''
+                        }`}
+                    >
+                        {currentItem && renderFocusItem(currentItem)}
+                    </div>
                 </div>
             </div>
         </div>

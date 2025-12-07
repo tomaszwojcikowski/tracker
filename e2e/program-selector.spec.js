@@ -25,13 +25,13 @@ test.describe('Program Selector', () => {
 
     test('should show program name in the card', async ({ page }) => {
       // Should display the current program name
-      // Look for program-related text in the dashboard
-      const body = page.locator('body');
-      const content = await body.textContent();
-
-      // Should have program name or "No program selected"
-      const hasProgramInfo = /Current Program/i.test(content);
-      expect(hasProgramInfo).toBe(true);
+      // Wait for the "Current Program" text to be visible
+      const currentProgramText = page.locator('text=Current Program');
+      await expect(currentProgramText).toBeVisible();
+      
+      // Also verify the program name is visible
+      const programName = page.locator('text=/The 20-Week Integrated Strength Program/');
+      await expect(programName).toBeVisible();
     });
 
     test('should open program selector modal when card is clicked', async ({ page }) => {

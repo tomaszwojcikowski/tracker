@@ -6,7 +6,7 @@
  * Supersets are displayed together with all exercises visible.
  */
 
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Zap } from 'lucide-react';
 import { ExerciseCard } from './ExerciseCard';
 import { AddedExerciseCard } from './AddedExerciseCard';
@@ -153,10 +153,7 @@ export interface FocusViewProps {
 // COMPONENT
 // ============================================================================
 
-// Animation timing constants
-// Small delay to ensure React applies animation classes to newly mounted elements
-const ANIMATION_START_DELAY_MS = 50;
-// Animation duration matching CSS animation timing
+// Animation duration matching CSS animation timing (300ms)
 const ANIMATION_DURATION_MS = 300;
 
 export const FocusView: React.FC<FocusViewProps> = ({
@@ -235,35 +232,49 @@ export const FocusView: React.FC<FocusViewProps> = ({
         return items;
     }, [allExercises]);
 
+    // Track animation timeout to prevent memory leaks
+    const animationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
     /**
      * Helper function to navigate with animation
-     * Sets slide direction, updates index after delay, then clears animation
+     * Direction indicates where new content comes FROM:
+     * - 'right': new content slides in from right (going to next)
+     * - 'left': new content slides in from left (going to previous)
      */
     const navigateWithAnimation = useCallback(
         (direction: 'left' | 'right', newIndex: number) => {
+            // Clear any pending animation timeout
+            if (animationTimeoutRef.current) {
+                clearTimeout(animationTimeoutRef.current);
+            }
+
             haptic.swipe();
-            // Set direction first to prepare animation state
+            // Set direction and update index together
+            // The animation class will be applied immediately to the new content
             setSlideDirection(direction);
-            // Delay index update to ensure new element mounts with animation class
-            setTimeout(() => {
-                setFocusIndex(newIndex);
-                // Clear animation class after animation completes
-                setTimeout(() => setSlideDirection(null), ANIMATION_DURATION_MS);
-            }, ANIMATION_START_DELAY_MS);
+            setFocusIndex(newIndex);
+
+            // Clear animation class after animation completes
+            animationTimeoutRef.current = setTimeout(() => {
+                setSlideDirection(null);
+                animationTimeoutRef.current = null;
+            }, ANIMATION_DURATION_MS);
         },
         [haptic, setFocusIndex, setSlideDirection]
     );
 
     // Navigation handlers with animation
+    // Going to previous: new content comes from the LEFT
     const navigatePrev = useCallback(() => {
         if (focusIndex > 0) {
-            navigateWithAnimation('right', focusIndex - 1);
+            navigateWithAnimation('left', focusIndex - 1);
         }
     }, [focusIndex, navigateWithAnimation]);
 
+    // Going to next: new content comes from the RIGHT
     const navigateNext = useCallback(() => {
         if (focusIndex < focusItems.length - 1) {
-            navigateWithAnimation('left', focusIndex + 1);
+            navigateWithAnimation('right', focusIndex + 1);
         }
     }, [focusIndex, focusItems.length, navigateWithAnimation]);
 
@@ -532,8 +543,10 @@ export const FocusView: React.FC<FocusViewProps> = ({
 
                 {/* Content with swipe animation - positioned container */}
                 <div
-                    {...swipeHandlers}
-                    className="flex-1 relative overflow-hidden"
+                    onTouchStart={swipeHandlers.onTouchStart}
+                    onTouchMove={swipeHandlers.onTouchMove}
+                    onTouchEnd={swipeHandlers.onTouchEnd}
+                    className="flex-1 relative overflow-hidden touch-pan-y"
                 >
                     <div
                         key={focusIndex}

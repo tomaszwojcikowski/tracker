@@ -94,14 +94,19 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                             </button>
                         );
                     } else {
-                        // Future sets shown as dots
-                        return (
-                            <div
-                                key={`${exId}-dot-${i}`}
-                                className="w-2 h-2 rounded-full bg-sys-onSurfaceVar opacity-30"
-                                aria-label={`Set ${i + 1} pending`}
-                            />
-                        );
+                        // Future sets shown as dots (max 2 dots)
+                        // Count how many dots we've already shown
+                        const dotsBeforeThis = sets.slice(0, i).filter((s, idx) => !s && idx !== firstIncompleteIndex).length;
+                        if (dotsBeforeThis < 2) {
+                            return (
+                                <div
+                                    key={`${exId}-dot-${i}`}
+                                    className="w-2 h-2 rounded-full bg-sys-onSurfaceVar opacity-30"
+                                    aria-label={`Set ${i + 1} pending`}
+                                />
+                            );
+                        }
+                        return null;
                     }
                 })}
             </div>

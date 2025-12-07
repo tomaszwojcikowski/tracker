@@ -44,7 +44,8 @@ test.describe('New Features', () => {
     await page.waitForTimeout(1000); // Wait for dashboard to load
 
     // Start Day 1 Workout - aria-label can be Start/Resume/Continue depending on state
-    const startButton = page.locator('button[aria-label*="Day 1 workout"]');
+    // Use .first() because all weeks are rendered in horizontal scroll
+    const startButton = page.locator('button[aria-label*="Day 1 workout"]').first();
     await expect(startButton).toBeVisible();
     await startButton.click();
 

@@ -379,8 +379,8 @@ describe('ExerciseCard', () => {
                 <ExerciseCard {...defaultProps} isFirstIncomplete={true} />
             );
 
-            // Should have accent border when first incomplete
-            const card = container.querySelector('.border-sys-accent\\/50');
+            // Should have accent ring when first incomplete
+            const card = container.querySelector('.ring-sys-accent\\/50');
             expect(card).toBeInTheDocument();
         });
 

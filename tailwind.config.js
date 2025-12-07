@@ -64,36 +64,36 @@ export default {
           scrim: 'var(--color-scrim)',
           shadow: 'var(--color-shadow)',
         },
-        // Workout section colors
+        // Workout section colors (using rgb values for opacity support)
         warmup: {
-          500: 'var(--color-warmup-500)',
-          600: 'var(--color-warmup-600)',
-          700: 'var(--color-warmup-700)',
+          500: 'rgb(251 146 60 / <alpha-value>)',
+          600: 'rgb(249 115 22 / <alpha-value>)',
+          700: 'rgb(234 88 12 / <alpha-value>)',
         },
         skill: {
-          500: 'var(--color-skill-500)',
-          600: 'var(--color-skill-600)',
-          700: 'var(--color-skill-700)',
+          500: 'rgb(167 139 250 / <alpha-value>)',
+          600: 'rgb(139 92 246 / <alpha-value>)',
+          700: 'rgb(124 58 237 / <alpha-value>)',
         },
         main: {
-          500: 'var(--color-main-500)',
-          600: 'var(--color-main-600)',
-          700: 'var(--color-main-700)',
+          500: 'rgb(52 211 153 / <alpha-value>)',
+          600: 'rgb(16 185 129 / <alpha-value>)',
+          700: 'rgb(5 150 105 / <alpha-value>)',
         },
         accessory: {
-          500: 'var(--color-accessory-500)',
-          600: 'var(--color-accessory-600)',
-          700: 'var(--color-accessory-700)',
+          500: 'rgb(96 165 250 / <alpha-value>)',
+          600: 'rgb(59 130 246 / <alpha-value>)',
+          700: 'rgb(37 99 235 / <alpha-value>)',
         },
         core: {
-          500: 'var(--color-core-500)',
-          600: 'var(--color-core-600)',
-          700: 'var(--color-core-700)',
+          500: 'rgb(251 191 36 / <alpha-value>)',
+          600: 'rgb(245 158 11 / <alpha-value>)',
+          700: 'rgb(217 119 6 / <alpha-value>)',
         },
         cooldown: {
-          500: 'var(--color-cooldown-500)',
-          600: 'var(--color-cooldown-600)',
-          700: 'var(--color-cooldown-700)',
+          500: 'rgb(45 212 191 / <alpha-value>)',
+          600: 'rgb(20 184 166 / <alpha-value>)',
+          700: 'rgb(13 148 136 / <alpha-value>)',
         },
         // Error palette for direct access
         error: {

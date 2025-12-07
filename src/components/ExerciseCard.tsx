@@ -19,6 +19,7 @@ import {
     TrendingUp,
     BarChart2,
     History,
+    Timer,
 } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { RPESelector } from './RPESelector';
@@ -140,6 +141,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     onSaveWeight,
     onSaveRPE,
     onClearRPEPrompt,
+    onStartRestTimer,
     onShowHistory,
     onShowAlternatives,
 }) => {
@@ -205,16 +207,26 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     // Determine background and border colors based on state and section
     const containerClasses = useMemo(() => {
         if (completedSets === totalSets && totalSets > 0) return 'border-sys-success/10 bg-sys-success/5';
-        if (isFirstIncomplete) return 'border-sys-accent/50 bg-sys-accent/10';
         if (hasSupersetGroup) return 'border-amber-500/30 bg-amber-500/5';
 
+        // Section-based colors (applied even when isFirstIncomplete)
+        let sectionColors = '';
         switch (sectionType) {
-            case 'prep': return 'bg-warmup-500/10 border-warmup-500/20';
-            case 'main': return 'bg-main-500/10 border-main-500/20';
-            case 'cool': return 'bg-cooldown-500/10 border-cooldown-500/20';
-            default: return 'bg-sys-surface border-white/5';
+            case 'prep': sectionColors = 'bg-warmup-500/10 border-warmup-500/20'; break;
+            case 'skill': sectionColors = 'bg-skill-500/10 border-skill-500/20'; break;
+            case 'main': sectionColors = 'bg-main-500/10 border-main-500/20'; break;
+            case 'access': sectionColors = 'bg-accessory-500/10 border-accessory-500/20'; break;
+            case 'cool': sectionColors = 'bg-cooldown-500/10 border-cooldown-500/20'; break;
+            default: sectionColors = 'bg-sys-surface border-white/5';
         }
-    }, [completedSets, totalSets, isFirstIncomplete, hasSupersetGroup, sectionType]);
+
+        // First incomplete gets accent ring on top of section color (only when not in focus view)
+        if (isFirstIncomplete && !hideCollapseButton) {
+            return `${sectionColors} ring-2 ring-sys-accent/50`;
+        }
+
+        return sectionColors;
+    }, [completedSets, totalSets, isFirstIncomplete, hasSupersetGroup, sectionType, hideCollapseButton]);
 
     return (
         <div id={exId} className="relative scroll-mt-16">
@@ -404,6 +416,18 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     title="Complete all sets"
                                 >
                                     <CheckCheck size={14} />
+                                </button>
+                            )}
+
+                            {/* Rest Timer Button - show for main/access sections */}
+                            {restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
+                                <button
+                                    onClick={() => onStartRestTimer(restTime)}
+                                    className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium"
+                                    aria-label={`Start ${restTime}s rest timer`}
+                                >
+                                    <Timer size={14} />
+                                    <span>{restTime >= 60 ? `${Math.floor(restTime / 60)}m` : `${restTime}s`}</span>
                                 </button>
                             )}
                         </div>

@@ -304,15 +304,25 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
 
     // Determine background and border colors based on state and section
     const containerClasses = useMemo(() => {
-        if (isFirstIncomplete) return 'bg-sys-accent/10 border-sys-accent/30';
         if (hasSupersetGroup) return 'bg-amber-500/5 border-amber-500/20';
 
+        // Section-based colors
+        let sectionColors = '';
         switch (sectionType) {
-            case 'prep': return 'bg-warmup-500/10 border-warmup-500/20';
-            case 'main': return 'bg-main-500/10 border-main-500/20';
-            case 'cool': return 'bg-cooldown-500/10 border-cooldown-500/20';
-            default: return 'bg-sys-surface border-white/5';
+            case 'prep': sectionColors = 'bg-warmup-500/10 border-warmup-500/20'; break;
+            case 'skill': sectionColors = 'bg-skill-500/10 border-skill-500/20'; break;
+            case 'main': sectionColors = 'bg-main-500/10 border-main-500/20'; break;
+            case 'access': sectionColors = 'bg-accessory-500/10 border-accessory-500/20'; break;
+            case 'cool': sectionColors = 'bg-cooldown-500/10 border-cooldown-500/20'; break;
+            default: sectionColors = 'bg-sys-surface border-white/5';
         }
+
+        // First incomplete gets accent ring on top of section color
+        if (isFirstIncomplete) {
+            return `${sectionColors} ring-2 ring-sys-accent/50`;
+        }
+
+        return sectionColors;
     }, [isFirstIncomplete, hasSupersetGroup, sectionType]);
 
     // ============================================================================

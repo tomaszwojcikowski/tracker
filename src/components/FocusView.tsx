@@ -233,18 +233,28 @@ export const FocusView: React.FC<FocusViewProps> = ({
     const navigatePrev = useCallback(() => {
         if (focusIndex > 0) {
             haptic.swipe();
+            // Set direction first, then update index after a brief delay
+            // This ensures the animation class is applied to the new element
             setSlideDirection('right');
-            setFocusIndex(focusIndex - 1);
-            setTimeout(() => setSlideDirection(null), 300);
+            setTimeout(() => {
+                setFocusIndex(focusIndex - 1);
+                // Clear animation after it completes
+                setTimeout(() => setSlideDirection(null), 300);
+            }, 50);
         }
     }, [focusIndex, haptic, setFocusIndex, setSlideDirection]);
 
     const navigateNext = useCallback(() => {
         if (focusIndex < focusItems.length - 1) {
             haptic.swipe();
+            // Set direction first, then update index after a brief delay
+            // This ensures the animation class is applied to the new element
             setSlideDirection('left');
-            setFocusIndex(focusIndex + 1);
-            setTimeout(() => setSlideDirection(null), 300);
+            setTimeout(() => {
+                setFocusIndex(focusIndex + 1);
+                // Clear animation after it completes
+                setTimeout(() => setSlideDirection(null), 300);
+            }, 50);
         }
     }, [focusIndex, focusItems.length, haptic, setFocusIndex, setSlideDirection]);
 

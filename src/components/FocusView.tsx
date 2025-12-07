@@ -237,7 +237,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
     useEffect(() => {
         const container = scrollContainerRef.current;
         if (!container) return;
-        
+
         const targetScroll = focusIndex * container.clientWidth;
         // Only scroll if we're not already at the right position
         if (Math.abs(container.scrollLeft - targetScroll) > 10) {
@@ -254,14 +254,14 @@ export const FocusView: React.FC<FocusViewProps> = ({
     const handleScroll = useCallback(() => {
         // Skip if this is a programmatic scroll
         if (isProgrammaticScroll.current) return;
-        
+
         const container = scrollContainerRef.current;
         if (!container) return;
-        
+
         const scrollLeft = container.scrollLeft;
         const itemWidth = container.clientWidth;
         const newIndex = Math.round(scrollLeft / itemWidth);
-        
+
         if (newIndex !== focusIndex && newIndex >= 0 && newIndex < focusItems.length) {
             haptic.swipe();
             setFocusIndex(newIndex);

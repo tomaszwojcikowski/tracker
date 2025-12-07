@@ -5,12 +5,11 @@
  * Uses program-scoped storage keys for data isolation between programs.
  */
 
-import { useState, useEffect } from 'react';
-import { useHaptic, useSwipeNavigation, useScrollToElement } from '../../hooks';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useHaptic, useScrollToElement } from '../../hooks';
 import { PlayCircle, Check, Play, ChevronRight, ChevronLeft, Plus, Trophy } from 'lucide-react';
 import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, hasWorkoutData, type InProgressWorkout } from '../../utils/storage';
 import { formatRelativeTime } from '../../utils/time';
-import { SwipeIndicator } from '../SwipeIndicator';
 import { getBlockForWeek } from '../../data/programData';
 import { getCompleteSchedule } from '../../utils/schedule';
 import { getSessionKey } from '../../services/storageNamespace';
@@ -145,7 +144,6 @@ export function Dashboard({
   onProgramChange,
 }: DashboardProps) {
   const [inProgressWorkout, setInProgressWorkout] = useState<InProgressWorkout | null>(null);
-  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
   const haptic = useHaptic();
 
   // Get program context for program-aware features
@@ -154,33 +152,52 @@ export function Dashboard({
   // Calculate max weeks based on current program
   const maxWeeks = metadata?.durationWeeks ?? currentProgram?.durationWeeks ?? 21;
 
-  // Enhanced swipe navigation with visual feedback
-  const {
-    swipeDirection,
-    swipeProgress,
-    handlers: swipeHandlers,
-  } = useSwipeNavigation({
-    onSwipeLeft: () => {
-      if (currentWeek < maxWeeks) {
-        haptic.swipe();
-        setSlideDirection('left');
-        setTimeout(() => {
-          setCurrentWeek(currentWeek + 1);
-          setTimeout(() => setSlideDirection(null), 300);
-        }, 50);
-      }
-    },
-    onSwipeRight: () => {
-      if (currentWeek > 1) {
-        haptic.swipe();
-        setSlideDirection('right');
-        setTimeout(() => {
-          setCurrentWeek(currentWeek - 1);
-          setTimeout(() => setSlideDirection(null), 300);
-        }, 50);
-      }
-    },
-  });
+  // Ref for the horizontal scroll container
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  // Track if we're programmatically scrolling to prevent scroll event feedback loop
+  const isProgrammaticScroll = useRef(false);
+
+  // Scroll to the current week when it changes (e.g., from button click or dot navigation)
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const targetScroll = (currentWeek - 1) * container.clientWidth;
+    // Only scroll if we're not already at the right position
+    if (Math.abs(container.scrollLeft - targetScroll) > 10) {
+      isProgrammaticScroll.current = true;
+      container.scrollTo({ left: targetScroll, behavior: 'smooth' });
+      // Reset flag after scroll animation completes
+      setTimeout(() => {
+        isProgrammaticScroll.current = false;
+      }, 350);
+    }
+  }, [currentWeek]);
+
+  // Handle scroll end to update week based on scroll position
+  const handleScroll = useCallback(() => {
+    // Skip if this is a programmatic scroll
+    if (isProgrammaticScroll.current) return;
+
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const scrollLeft = container.scrollLeft;
+    const itemWidth = container.clientWidth;
+    const newWeek = Math.round(scrollLeft / itemWidth) + 1;
+
+    if (newWeek !== currentWeek && newWeek >= 1 && newWeek <= maxWeeks) {
+      haptic.swipe();
+      setCurrentWeek(newWeek);
+    }
+  }, [currentWeek, maxWeeks, haptic, setCurrentWeek]);
+
+  // Navigation handlers for buttons
+  const changeWeek = useCallback((newWeek: number) => {
+    if (newWeek === currentWeek || newWeek < 1 || newWeek > maxWeeks) return;
+    haptic.swipe();
+    setCurrentWeek(newWeek);
+  }, [currentWeek, maxWeeks, haptic, setCurrentWeek]);
 
   // Check for in-progress workouts on mount and when week changes
   useEffect(() => {
@@ -217,21 +234,137 @@ export function Dashboard({
     return hasWorkoutData(currentWeek, day);
   };
 
-  // Helper to change week with animation
-  const changeWeek = (newWeek: number) => {
-    if (newWeek === currentWeek || newWeek < 1 || newWeek > maxWeeks) return;
-    const direction = newWeek > currentWeek ? 'left' : 'right';
-    setSlideDirection(direction);
-    setTimeout(() => {
-      setCurrentWeek(newWeek);
-      setTimeout(() => setSlideDirection(null), 300);
-    }, 50);
-  };
+  const days = [1, 2, 3, 5];
+
+  // Find the next workout to do (first incomplete day)
+  // If all completed, show the last one or none as "next"
+  const nextWorkoutDay = days.find(day => !isCompleted(day));
+
+  return (
+    <div className="flex-1 flex flex-col overflow-hidden">
+      {/* Program Selector - fixed at top */}
+      <div className="px-5 pt-6">
+        <ProgramSelector
+          variant="card"
+          className="mb-6"
+          onProgramChange={onProgramChange}
+        />
+      </div>
+
+      {/* Horizontal scroll container for weeks - native swipe support */}
+      <div
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+        className="flex-1 flex overflow-x-auto snap-x snap-mandatory"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
+      >
+        {Array.from({ length: maxWeeks }, (_, i) => i + 1).map((week) => (
+          <WeekContent
+            key={week}
+            week={week}
+            currentWeek={currentWeek}
+            maxWeeks={maxWeeks}
+            inProgressWorkout={inProgressWorkout}
+            days={days}
+            nextWorkoutDay={nextWorkoutDay}
+            isCompleted={isCompleted}
+            getDayProgress={getDayProgress}
+            hasExistingData={hasExistingData}
+            getExerciseSummary={getExerciseSummary}
+            changeWeek={changeWeek}
+            onStartWorkout={onStartWorkout}
+            onStartEmptyWorkout={onStartEmptyWorkout}
+            haptic={haptic}
+          />
+        ))}
+      </div>
+
+      {/* Week navigation dots - fixed at bottom */}
+      <div className="py-4 flex justify-center items-center gap-2">
+        <button
+          onClick={() => changeWeek(currentWeek - 1)}
+          className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
+          disabled={currentWeek === 1}
+          aria-label="Previous week"
+        >
+          <ChevronLeft />
+        </button>
+        <div className="flex gap-2 px-4">
+          {[...Array(5)].map((_, i) => {
+            const dotWeek = currentWeek - 2 + i;
+            if (dotWeek < 1 || dotWeek > maxWeeks)
+              return <div key={i} className="w-2 h-2" />;
+            return (
+              <button
+                key={i}
+                onClick={() => changeWeek(dotWeek)}
+                className={`rounded-full transition-all ${
+                  dotWeek === currentWeek
+                    ? 'w-8 h-2 bg-white'
+                    : 'w-2 h-2 bg-white/30 hover:bg-white/50'
+                }`}
+                aria-label={`Week ${dotWeek}`}
+              />
+            );
+          })}
+        </div>
+        <button
+          onClick={() => changeWeek(currentWeek + 1)}
+          className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
+          disabled={currentWeek === maxWeeks}
+          aria-label="Next week"
+        >
+          <ChevronRight />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// WEEK CONTENT COMPONENT
+// ============================================================================
+
+interface WeekContentProps {
+  week: number;
+  currentWeek: number;
+  maxWeeks: number;
+  inProgressWorkout: InProgressWorkout | null;
+  days: number[];
+  nextWorkoutDay: number | undefined;
+  isCompleted: (day: number) => boolean;
+  getDayProgress: (day: number) => { completedSets: number; totalSets: number; completedExercises: number; totalExercises: number; progress: number } | null;
+  hasExistingData: (day: number) => boolean;
+  getExerciseSummary: (week: number, day: number) => string;
+  changeWeek: (week: number) => void;
+  onStartWorkout: (day: number) => void;
+  onStartEmptyWorkout?: () => void;
+  haptic: ReturnType<typeof useHaptic>;
+}
+
+function WeekContent({
+  week,
+  currentWeek,
+  maxWeeks: _maxWeeks,
+  inProgressWorkout,
+  days,
+  nextWorkoutDay,
+  isCompleted,
+  getDayProgress,
+  hasExistingData,
+  getExerciseSummary,
+  changeWeek,
+  onStartWorkout,
+  onStartEmptyWorkout,
+  haptic,
+}: WeekContentProps) {
+  const currentBlock = getBlockForWeek(week) || { name: 'Unknown' };
+  const completedWorkouts = days.filter(day => isCompleted(day)).length;
+  const totalWorkouts = days.length;
 
   const handleResumeWorkout = () => {
     if (inProgressWorkout) {
       haptic.bump();
-      // Navigate to the in-progress workout week first, then start it
       if (inProgressWorkout.week !== currentWeek) {
         changeWeek(inProgressWorkout.week);
       }
@@ -239,81 +372,52 @@ export function Dashboard({
     }
   };
 
-  const currentBlock = getBlockForWeek(currentWeek) || { name: 'Unknown' };
-  const days = [1, 2, 3, 5];
-  const completedWorkouts = days.filter(day => isCompleted(day)).length;
-  const totalWorkouts = days.length;
-
-  // Find the next workout to do (first incomplete day)
-  // If all completed, show the last one or none as "next"
-  const nextWorkoutDay = days.find(day => !isCompleted(day));
-
   return (
-    <>
-      <SwipeIndicator
-        direction={swipeDirection}
-        progress={swipeProgress}
-        leftLabel={currentWeek < maxWeeks ? `Week ${currentWeek + 1}` : null}
-        rightLabel={currentWeek > 1 ? `Week ${currentWeek - 1}` : null}
+    <div
+      className="flex-shrink-0 w-full snap-center overflow-y-auto px-5 pb-20"
+    >
+      {/* Weekly Progress Ring */}
+      <WeeklyProgressRing
+        completedWorkouts={completedWorkouts}
+        totalWorkouts={totalWorkouts}
+        currentWeek={week}
       />
-      <div
-        {...swipeHandlers}
-        className="flex-1 overflow-y-auto px-5 pb-20 pt-6"
-      >
-        {/* Program Selector Card */}
-        <ProgramSelector
-          variant="card"
-          className="mb-6"
-          onProgramChange={onProgramChange}
-        />
 
-        {/* Animated week content container */}
-        <div
-          key={currentWeek}
-          className={slideDirection === 'left' ? 'animate-slide-in-left' : slideDirection === 'right' ? 'animate-slide-in-right' : ''}
+      {/* Resume Workout Banner */}
+      {inProgressWorkout && inProgressWorkout.week === week && (
+        <button
+          onClick={handleResumeWorkout}
+          className="w-full mb-6 p-5 rounded-3xl bg-gradient-to-r from-sys-accent/20 to-sys-accent/10 border-2 border-sys-accent/30 active:scale-[0.98] transition-all"
         >
-          {/* Weekly Progress Ring */}
-          <WeeklyProgressRing
-              completedWorkouts={completedWorkouts}
-              totalWorkouts={totalWorkouts}
-              currentWeek={currentWeek}
-          />
-
-        {/* Resume Workout Banner */}
-        {inProgressWorkout && (
-          <button
-            onClick={handleResumeWorkout}
-            className="w-full mb-6 p-5 rounded-3xl bg-gradient-to-r from-sys-accent/20 to-sys-accent/10 border-2 border-sys-accent/30 active:scale-[0.98] transition-all"
-          >
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-4">
-                <div className="h-12 w-12 rounded-2xl bg-sys-accent/20 flex items-center justify-center">
-                  <PlayCircle className="text-sys-accent" width={24} />
-                </div>
-                <div className="text-left">
-                  <h3 className="text-base font-bold text-white mb-1">
-                    Resume Workout
-                  </h3>
-                  <p className="text-xs text-sys-onSurfaceVar">
-                    Week {inProgressWorkout.week}, Day {inProgressWorkout.day} • {formatRelativeTime(inProgressWorkout.lastModified.toISOString()) ?? 'recently'}
-                  </p>
-                </div>
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-4">
+              <div className="h-12 w-12 rounded-2xl bg-sys-accent/20 flex items-center justify-center">
+                <PlayCircle className="text-sys-accent" width={24} />
               </div>
-              <div className="flex flex-col items-end gap-1">
-                <span className="text-lg font-bold text-sys-accent">
-                  {inProgressWorkout.progress}%
-                </span>
+              <div className="text-left">
+                <h3 className="text-base font-bold text-white mb-1">
+                  Resume Workout
+                </h3>
+                <p className="text-xs text-sys-onSurfaceVar">
+                  Week {inProgressWorkout.week}, Day {inProgressWorkout.day} • {formatRelativeTime(inProgressWorkout.lastModified.toISOString()) ?? 'recently'}
+                </p>
               </div>
             </div>
-            {/* Progress bar */}
-            <div className="w-full bg-black/30 h-2 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-sys-accent transition-all duration-300 rounded-full"
-                style={{ width: `${inProgressWorkout.progress}%` }}
-              ></div>
+            <div className="flex flex-col items-end gap-1">
+              <span className="text-lg font-bold text-sys-accent">
+                {inProgressWorkout.progress}%
+              </span>
             </div>
-          </button>
-        )}
+          </div>
+          {/* Progress bar */}
+          <div className="w-full bg-black/30 h-2 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-sys-accent transition-all duration-300 rounded-full"
+              style={{ width: `${inProgressWorkout.progress}%` }}
+            ></div>
+          </div>
+        </button>
+      )}
 
         <div className="flex justify-between items-end mb-4 px-1">
           <h3 className="text-xl font-bold text-white">Workouts</h3>
@@ -367,7 +471,7 @@ export function Dashboard({
 
                             <h3 className="text-3xl font-bold text-white mb-2">Day {day}</h3>
                             <p className="text-sys-onSurfaceVar text-sm line-clamp-2 mb-4">
-                                {getExerciseSummary(currentWeek, day)}
+                                {getExerciseSummary(week, day)}
                             </p>
 
                             <div className={`flex items-center gap-2 ${theme.hero.text} text-sm font-bold`}>
@@ -422,7 +526,7 @@ export function Dashboard({
                       ? `${dayProgress?.completedSets}/${dayProgress?.totalSets} sets • ${dayProgress?.progress}%`
                       : hasPreviousData
                       ? 'Has previous data'
-                      : getExerciseSummary(currentWeek, day)}
+                      : getExerciseSummary(week, day)}
                   </span>
                 </div>
 
@@ -469,47 +573,7 @@ export function Dashboard({
             </button>
           </div>
         )}
-        </div>{/* End animated week content container */}
-
-        <div className="mt-10 flex justify-center items-center gap-2">
-          <button
-            onClick={() => changeWeek(currentWeek - 1)}
-            className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
-            disabled={currentWeek === 1}
-            aria-label="Previous week"
-          >
-            <ChevronLeft />
-          </button>
-          <div className="flex gap-2 px-4">
-            {[...Array(5)].map((_, i) => {
-              const dotWeek = currentWeek - 2 + i;
-              if (dotWeek < 1 || dotWeek > maxWeeks)
-                return <div key={i} className="w-2 h-2" />;
-              return (
-                <button
-                  key={i}
-                  onClick={() => changeWeek(dotWeek)}
-                  className={`rounded-full transition-all ${
-                    dotWeek === currentWeek
-                      ? 'w-8 h-2 bg-white'
-                      : 'w-2 h-2 bg-white/30 hover:bg-white/50'
-                  }`}
-                  aria-label={`Week ${dotWeek}`}
-                />
-              );
-            })}
-          </div>
-          <button
-            onClick={() => changeWeek(currentWeek + 1)}
-            className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
-            disabled={currentWeek === maxWeeks}
-            aria-label="Next week"
-          >
-            <ChevronRight />
-          </button>
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
 

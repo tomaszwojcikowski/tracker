@@ -23,6 +23,8 @@ Visit `http://localhost:5173/` to start tracking your workouts!
 
 > **Optional (Firebase Cloud Sync)**: Create a `.env.local` file with your Firebase credentials before running the dev server. See [FIREBASE_SETUP.md](FIREBASE_SETUP.md) for the full variable list and setup flow.
 
+> **📊 New: User Feedback & Feature Roadmap**: We've compiled comprehensive feedback from 5 diverse user personas with actionable improvement suggestions and a phased implementation roadmap. See [docs/README_USER_FEEDBACK.md](docs/README_USER_FEEDBACK.md) for the complete research or jump directly to [QUICK_WINS.md](docs/QUICK_WINS.md) for high-priority features.
+
 ## Deployment
 
 This repository includes a GitHub Actions workflow that automatically builds and deploys the application to GitHub Pages on every push to the `main` branch. See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions and configuration options.

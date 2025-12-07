@@ -78,6 +78,8 @@ export interface CompactExerciseRowProps {
     onStartRestTimer?: (seconds: number) => void;
     /** Section type for determining if rest button should show (hide for prep/cool sections) */
     sectionType?: string;
+    /** Rest timer active state */
+    restTimerActive?: boolean;
 }
 
 // ============================================================================
@@ -114,6 +116,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     onShowHistory,
     onStartRestTimer,
     sectionType,
+    restTimerActive = false,
 }) => {
     // State - auto-expand the first incomplete exercise
     const [isExpanded, setIsExpanded] = useState(isFirstIncomplete);
@@ -523,7 +526,11 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         {onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
                             <button
                                 onClick={() => onStartRestTimer(restTime)}
-                                className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium"
+                                className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                    restTimerActive
+                                        ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
+                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                }`}
                                 aria-label={`Start ${restTime}s rest timer`}
                             >
                                 <Timer size={12} />

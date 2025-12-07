@@ -20,6 +20,8 @@ export interface AddedExerciseCardProps {
     sets: boolean[];
     /** Haptic feedback interface */
     haptic: Pick<HapticFeedback, 'tick' | 'bump'>;
+    /** Rest timer active state */
+    restTimerActive?: boolean;
     /** Callbacks */
     onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number) => void;
     onRemove: (exerciseId: string) => void;
@@ -37,6 +39,7 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
     onToggleSet,
     onRemove,
     onStartRestTimer,
+    restTimerActive = false,
 }) => {
     const exId = `added_${exercise.id}`;
     const completedSets = sets.filter((s) => s).length;
@@ -90,7 +93,11 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                                 haptic.bump();
                                 onStartRestTimer(exercise.rest ?? 90);
                             }}
-                            className="h-7 px-2.5 rounded-md bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-medium flex items-center gap-1 active:bg-sys-accent/20 transition-colors"
+                            className={`h-7 px-2.5 rounded-md text-xs font-medium flex items-center gap-1 transition-colors ${
+                                restTimerActive
+                                    ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50 active:bg-sys-accent/80'
+                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar active:bg-sys-accent/20'
+                            }`}
                             aria-label={`Start ${exercise.rest} second timer`}
                         >
                             <Timer size={12} />

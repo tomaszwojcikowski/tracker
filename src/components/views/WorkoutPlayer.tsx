@@ -1314,6 +1314,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     onShowHistory={handleShowExerciseDetail}
                                                     onStartRestTimer={restTimer.start}
                                                     sectionType={section.type}
+                                                    restTimerActive={restTimer.active}
                                                 />
                                             );
                                         });
@@ -1375,6 +1376,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 onShowHistory={handleShowExerciseDetail}
                                                 onShowAlternatives={(name, alts) => setShowAlternativesFor({ name, alternatives: alts })}
                                                 sectionType={section.type}
+                                                restTimerActive={restTimer.active}
                                             />
                                         );
                                     });
@@ -1412,6 +1414,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         onToggleSet={toggleSet}
                                         onRemove={removeAddedExercise}
                                         onStartRestTimer={restTimer.start}
+                                        restTimerActive={restTimer.active}
                                     />
                                 );
                             })}

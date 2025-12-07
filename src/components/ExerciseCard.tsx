@@ -342,44 +342,47 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                     <>
                         {/* Set buttons - Progressive Reveal */}
                         <div className="flex flex-wrap gap-2 mb-3 items-center">
-                            {sets.map((isDone, i) => {
-                                // Find first incomplete set
-                                const firstIncompleteIndex = sets.findIndex(s => !s);
-                                const isNextIncomplete = i === firstIncompleteIndex;
-                                const shouldShowAsButton = isDone || isNextIncomplete;
-
-                                if (shouldShowAsButton) {
-                                    return (
-                                        <button
-                                            key={`${exId}-set-${i}`}
-                                            onClick={() => onToggleSet(exId, i, defaultSets, restTime, sectionType, isEmom)}
-                                            className={`set-button h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
-                                                isDone
-                                                    ? allComplete
-                                                        ? 'completed bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.2)]'
-                                                        : 'completed bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
-                                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                                            }`}
-                                            aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
-                                        >
-                                            {isDone ? <Check size={14} /> : i + 1}
-                                        </button>
-                                    );
-                                }
-                                return null;
-                            }).filter(Boolean)}
-
-                            {/* Future sets shown as dots (max 2 dots) */}
                             {(() => {
+                                // Find first incomplete set once
                                 const firstIncompleteIndex = sets.findIndex(s => !s);
-                                if (firstIncompleteIndex === -1) return null;
-                                return sets.slice(firstIncompleteIndex + 1).slice(0, 2).map((_, i) => (
-                                    <div
-                                        key={`${exId}-dot-${firstIncompleteIndex + 1 + i}`}
-                                        className="w-2 h-2 rounded-full bg-sys-onSurfaceVar opacity-30"
-                                        aria-label={`Set ${firstIncompleteIndex + 2 + i} pending`}
-                                    />
-                                ));
+                                
+                                return (
+                                    <>
+                                        {sets.map((isDone, i) => {
+                                            const isNextIncomplete = i === firstIncompleteIndex;
+                                            const shouldShowAsButton = isDone || isNextIncomplete;
+
+                                            if (shouldShowAsButton) {
+                                                return (
+                                                    <button
+                                                        key={`${exId}-set-${i}`}
+                                                        onClick={() => onToggleSet(exId, i, defaultSets, restTime, sectionType, isEmom)}
+                                                        className={`set-button h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
+                                                            isDone
+                                                                ? allComplete
+                                                                    ? 'completed bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.2)]'
+                                                                    : 'completed bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
+                                                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                                        }`}
+                                                        aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
+                                                    >
+                                                        {isDone ? <Check size={14} /> : i + 1}
+                                                    </button>
+                                                );
+                                            }
+                                            return null;
+                                        }).filter(Boolean)}
+
+                                        {/* Future sets shown as dots (max 2 dots) */}
+                                        {firstIncompleteIndex !== -1 && sets.slice(firstIncompleteIndex + 1).slice(0, 2).map((_, i) => (
+                                            <div
+                                                key={`${exId}-dot-${firstIncompleteIndex + 1 + i}`}
+                                                className="w-2 h-2 rounded-full bg-sys-onSurfaceVar opacity-30"
+                                                aria-label={`Set ${firstIncompleteIndex + 2 + i} pending`}
+                                            />
+                                        ))}
+                                    </>
+                                );
                             })()}
 
                             {/* Progress indicator */}

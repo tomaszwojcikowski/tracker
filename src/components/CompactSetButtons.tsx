@@ -97,7 +97,7 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                     return null;
                 }).filter(Boolean)}
                 {/* Future sets shown as dots (max 2 dots) */}
-                {sets.slice(firstIncompleteIndex + 1).slice(0, 2).map((_, i) => (
+                {firstIncompleteIndex !== -1 && sets.slice(firstIncompleteIndex + 1).slice(0, 2).map((_, i) => (
                     <div
                         key={`${exId}-dot-${firstIncompleteIndex + 1 + i}`}
                         className="w-2 h-2 rounded-full bg-sys-onSurfaceVar opacity-30"

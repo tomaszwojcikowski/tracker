@@ -80,6 +80,8 @@ export interface ExerciseCardProps {
     emomTimerActive: boolean;
     /** EMOM timer interval */
     emomTimerInterval: number;
+    /** Rest timer active state */
+    restTimerActive?: boolean;
     /** Haptic feedback interface */
     haptic: Pick<HapticFeedback, 'tick' | 'bump' | 'success'>;
     /** Hide collapse button (for focus view) */
@@ -133,6 +135,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     haptic,
     hideCollapseButton = false,
     sectionType,
+    restTimerActive = false,
     onToggleCollapse,
     onToggleSet,
     onAddSet,
@@ -407,7 +410,11 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             {restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
                                 <button
                                     onClick={() => onStartRestTimer(restTime)}
-                                    className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium"
+                                    className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                        restTimerActive
+                                            ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
+                                            : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                    }`}
                                     aria-label={`Start ${restTime}s rest timer`}
                                 >
                                     <Timer size={14} />

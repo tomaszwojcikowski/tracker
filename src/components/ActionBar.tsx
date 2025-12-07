@@ -53,6 +53,12 @@ export function ActionBar({
     safeGetJSON<boolean>('rest_timer_sound', true) ?? true
   );
 
+  // Track whether rest timer just became active (for slide-up animation)
+  const [restTimerJustActivated, setRestTimerJustActivated] = useState(false);
+  const [emomTimerJustActivated, setEmomTimerJustActivated] = useState(false);
+  const [prevRestTimerActive, setPrevRestTimerActive] = useState(false);
+  const [prevEmomTimerActive, setPrevEmomTimerActive] = useState(false);
+
   // Track total time when timer starts
   const [totalTime, setTotalTime] = useState(timerState.totalTime ?? timerState.time);
 
@@ -73,6 +79,39 @@ export function ActionBar({
       setTotalTime(timerState.totalTime);
     }
   }, [timerState.totalTime]);
+
+  // Track when rest timer transitions from inactive to active (for slide-up animation)
+  useEffect(() => {
+    const isRestActive = timerState.time > 0;
+    
+    // Only trigger animation on transition from false to true
+    if (isRestActive && !prevRestTimerActive) {
+      setRestTimerJustActivated(true);
+      // Reset the flag after animation completes (300ms based on tailwind config)
+      const timer = setTimeout(() => setRestTimerJustActivated(false), 300);
+      setPrevRestTimerActive(true);
+      return () => clearTimeout(timer);
+    } else if (!isRestActive && prevRestTimerActive) {
+      setPrevRestTimerActive(false);
+      setRestTimerJustActivated(false);
+    }
+  }, [timerState.time, prevRestTimerActive]);
+
+  // Track when EMOM timer transitions from inactive to active (for slide-up animation)
+  useEffect(() => {
+    const isEmomActive = emomState?.active ?? false;
+    
+    // Only trigger animation on transition from false to true
+    if (isEmomActive && !prevEmomTimerActive) {
+      setEmomTimerJustActivated(true);
+      const timer = setTimeout(() => setEmomTimerJustActivated(false), 300);
+      setPrevEmomTimerActive(true);
+      return () => clearTimeout(timer);
+    } else if (!isEmomActive && prevEmomTimerActive) {
+      setPrevEmomTimerActive(false);
+      setEmomTimerJustActivated(false);
+    }
+  }, [emomState?.active, prevEmomTimerActive]);
 
   const toggleSound = useCallback(() => {
     setSoundEnabled(prev => {
@@ -177,7 +216,7 @@ export function ActionBar({
       {/* EMOM Timer Display */}
       {emomState?.active && setEmomActive && setEmomSeconds && setEmomInterval && (
         <div className="px-4 pt-3 pb-2">
-          <div className="glass-panel px-5 py-4 rounded-2xl shadow-lg animate-slide-up">
+          <div className={`glass-panel px-5 py-4 rounded-2xl shadow-lg ${emomTimerJustActivated ? 'animate-slide-up' : ''}`}>
             <div className="flex items-center gap-3 mb-3">
               {/* Expand button */}
               <button
@@ -257,7 +296,7 @@ export function ActionBar({
       {/* Rest Timer Display */}
       {timerState.time > 0 && (
         <div className="px-4 pt-3 pb-3">
-          <div className="glass-panel px-5 py-4 rounded-2xl flex items-center gap-4 shadow-lg animate-slide-up">
+          <div className={`glass-panel px-5 py-4 rounded-2xl flex items-center gap-4 shadow-lg ${restTimerJustActivated ? 'animate-slide-up' : ''}`}>
             <button
               onClick={handleExpandRest}
               className="h-10 w-10 min-w-[40px] rounded-full bg-white/10 hover:bg-white/20 text-sys-accent flex items-center justify-center active:scale-90 transition-all"

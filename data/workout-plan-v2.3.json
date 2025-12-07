@@ -722,6 +722,65 @@
         ]
       },
       {
+        "id": "ex-lower-body-compound",
+        "exerciseName": "Lower Body Compound (Choose One)",
+        "category": "main",
+        "sets": 4,
+        "repsType": "reps",
+        "repsMin": 8,
+        "repsMax": 12,
+        "restSeconds": 180,
+        "notes": "Choose based on available equipment and comfort",
+        "exerciseOptions": [
+          {
+            "optionName": "Barbell Back Squat",
+            "description": "Classic strength builder, requires rack and barbell",
+            "loadUnit": "kg",
+            "loadMin": 60,
+            "loadMax": 100,
+            "equipment": ["barbell", "rack"],
+            "variation": "Barbell Back Squat",
+            "notes": "Focus on depth and control. Keep chest up."
+          },
+          {
+            "optionName": "Goblet Squat (Heavy)",
+            "description": "Easier on back, good for mobility work",
+            "sets": 4,
+            "loadUnit": "kg",
+            "loadMin": 24,
+            "loadMax": 40,
+            "equipment": ["dumbbell", "kettlebell"],
+            "variation": "Goblet Squat",
+            "notes": "Hold weight close to chest. Focus on upright torso."
+          },
+          {
+            "optionName": "Bulgarian Split Squat",
+            "description": "Unilateral focus, improves balance and addresses imbalances",
+            "sets": 3,
+            "repsPerSide": true,
+            "loadUnit": "kg",
+            "loadMin": 12,
+            "loadMax": 24,
+            "loadPerHand": true,
+            "equipment": ["dumbbells", "bench"],
+            "variation": "Bulgarian Split Squat",
+            "notes": "Rear foot elevated. Control the descent. Each side separately."
+          },
+          {
+            "optionName": "Bodyweight Squats (High Volume)",
+            "description": "No equipment needed, focus on endurance and form",
+            "sets": 5,
+            "repsMin": 15,
+            "repsMax": 20,
+            "loadUnit": "bodyweight",
+            "restSeconds": 90,
+            "equipment": [],
+            "variation": "Bodyweight Squat",
+            "notes": "Perfect for travel or home workouts. Focus on tempo."
+          }
+        ]
+      },
+      {
         "id": "ex-face-pulls",
         "exerciseName": "Face Pulls",
         "category": "accessory",

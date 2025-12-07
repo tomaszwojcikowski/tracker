@@ -80,6 +80,77 @@ Version 2.3.0 introduces **routine templates** for reusable exercise sequences l
 | v2.1.0 | Day templates (`$ref` for days) | ~41% smaller |
 | v2.0.0 | Structured format | Baseline |
 
+## Exercise Options (v2.3.0+)
+
+Version 2.3.0 also introduces **exercise options** for defining multiple variations of an exercise that users can choose from during their workout:
+
+### Use Cases
+
+- **Equipment variations**: Squats with barbell, dumbbells, or bands
+- **Rep scheme variations**: High reps (3x15) vs. strength focus (5x5)
+- **Stance variations**: Conventional deadlift vs. sumo deadlift
+- **Unilateral vs. bilateral**: Lunges vs. split squats vs. Bulgarian split squats
+
+### Quick Example
+
+```json
+{
+  "exerciseName": "Lower Body Compound",
+  "category": "main",
+  "sets": 4,
+  "repsMin": 8,
+  "repsMax": 12,
+  "restSeconds": 180,
+  "exerciseOptions": [
+    {
+      "optionName": "Barbell Back Squat",
+      "description": "Classic strength builder, requires rack",
+      "loadUnit": "kg",
+      "loadMin": 60,
+      "loadMax": 100,
+      "equipment": ["barbell", "rack"],
+      "variation": "Barbell Back Squat"
+    },
+    {
+      "optionName": "Goblet Squat",
+      "description": "Easier on back, good for mobility",
+      "loadUnit": "kg",
+      "loadMin": 20,
+      "loadMax": 40,
+      "loadPerHand": false,
+      "equipment": ["dumbbell"],
+      "variation": "Goblet Squat"
+    },
+    {
+      "optionName": "Split Squat",
+      "description": "Unilateral focus, better balance",
+      "sets": 3,
+      "repsPerSide": true,
+      "loadUnit": "kg",
+      "loadMin": 10,
+      "loadMax": 25,
+      "loadPerHand": true,
+      "equipment": ["dumbbells"],
+      "variation": "Dumbbell Split Squat"
+    }
+  ]
+}
+```
+
+### How It Works
+
+1. **Base Properties**: Define default properties at the exercise level (name, sets, reps, rest, etc.)
+2. **Option Overrides**: Each option can override any property (sets, reps, load, equipment, etc.)
+3. **User Selection**: User selects one option before starting the exercise
+4. **Persistence**: Selection is saved per session and can be changed between workouts
+
+### Benefits
+
+- **Flexibility**: Adapt workouts based on available equipment
+- **Progression**: Choose difficulty level based on current capacity
+- **Variety**: Prevent boredom with multiple exercise variations
+- **Personalization**: Select options that match individual preferences
+
 ## What's New in v2.2.0
 
 Version 2.2.0 introduces **exercise templates** for reusable exercise definitions:

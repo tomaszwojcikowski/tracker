@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { RPESelector } from './RPESelector';
+import { ExerciseOptionsBadge } from './ExerciseOptionsBadge';
 import type { RPEValue } from '../types';
 import type { ExerciseDetailRequest, ExerciseLogEntry } from '../types/workout';
 import type { LoadRange, TempoRange } from '../workout-plan-utils';
@@ -58,6 +59,10 @@ export interface ExerciseCardProps {
     tempoRange?: TempoRange;
     /** Alternative exercises available */
     alternatives?: string[];
+    /** Exercise options available for this exercise */
+    exerciseOptions?: import('../workout-plan-utils').ExerciseOption[];
+    /** Currently selected exercise option */
+    selectedOption?: string;
     /** Current set completion array */
     sets: boolean[];
     /** Default number of sets */
@@ -101,6 +106,7 @@ export interface ExerciseCardProps {
     onToggleEmomTimer: () => void;
     onShowHistory: (request: ExerciseDetailRequest) => void;
     onShowAlternatives: (name: string, alternatives: string[]) => void;
+    onShowOptions?: (exerciseId: string, exerciseName: string, options: import('../workout-plan-utils').ExerciseOption[]) => void;
 }
 
 // ============================================================================
@@ -123,6 +129,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     loadRange,
     tempoRange,
     alternatives,
+    exerciseOptions,
+    selectedOption,
     sets,
     defaultSets,
     exerciseLog,
@@ -146,6 +154,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     onStartRestTimer,
     onShowHistory,
     onShowAlternatives,
+    onShowOptions,
 }) => {
     const completedSets = sets.filter((s) => s).length;
     const totalSets = sets.length;
@@ -307,6 +316,20 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     <ArrowRightLeft size={10} strokeWidth={3} />
                                     PER SIDE
                                 </span>
+                            )}
+
+                            {/* Exercise Options Badge */}
+                            {exerciseOptions && exerciseOptions.length > 0 && (
+                                <ExerciseOptionsBadge
+                                    optionCount={exerciseOptions.length}
+                                    hasSelection={!!selectedOption}
+                                    onClick={() => {
+                                        haptic.bump();
+                                        if (onShowOptions) {
+                                            onShowOptions(exId, effectiveName, exerciseOptions);
+                                        }
+                                    }}
+                                />
                             )}
 
                             {completedSets > 0 && (

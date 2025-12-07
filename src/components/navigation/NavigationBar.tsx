@@ -26,7 +26,7 @@ export interface NavigationBarProps {
  * - Icon above label layout
  * - Haptic feedback
  */
-export const NavigationBar: React.FC<NavigationBarProps> = ({ activeTab, onTabChange }) => {
+export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeTab, onTabChange }) => {
     const haptic = useHaptic();
     const isDesktop = useMediaQuery('(min-width: 800px)');
 
@@ -138,6 +138,8 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ activeTab, onTabCh
             </div>
         </nav>
     );
-};
+});
+
+NavigationBar.displayName = 'NavigationBar';
 
 export default NavigationBar;

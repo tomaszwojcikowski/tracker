@@ -301,3 +301,7 @@ export type {
     SnackbarProviderProps,
 } from './useSnackbar';
 export { useMediaQuery } from './useMediaQuery';
+
+// Re-export optimized scroll hook
+export { useOptimizedScroll } from './useOptimizedScroll';
+export type { UseOptimizedScrollOptions, UseOptimizedScrollReturn } from './useOptimizedScroll';

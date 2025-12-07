@@ -39,4 +39,5 @@ export {
   getAddedExerciseId,
 } from './workoutSession';
 
-
+// Performance optimization utilities
+export * from './performanceOptimizations';

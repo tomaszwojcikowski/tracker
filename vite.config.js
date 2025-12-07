@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import wasm from 'vite-plugin-wasm'
+import topLevelAwait from 'vite-plugin-top-level-await'
 import { readFileSync } from 'fs'
 
 // Read version from package.json for reliable build-time injection
@@ -13,6 +15,8 @@ export default defineConfig({
   },
   base: '/tracker/',
   plugins: [
+    wasm(),
+    topLevelAwait(),
     react(),
     VitePWA({
       // Use injectManifest mode for custom service worker with error handling
@@ -69,8 +73,24 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: 'index.html'
+      },
+      output: {
+        manualChunks: {
+          // Vendor chunk for large dependencies
+          'vendor-firebase': ['firebase/app', 'firebase/auth', 'firebase/database', '@firebase/database'],
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-framer': ['framer-motion'],
+          'vendor-ui': ['lucide-react', 'clsx', 'tailwind-merge'],
+          // Separate chunk for Automerge CRDT library
+          'vendor-automerge': ['@automerge/automerge'],
+          // Sentry and Material utilities in separate chunks
+          'vendor-monitoring': ['@sentry/react'],
+          'vendor-material': ['@material/material-color-utilities'],
+        }
       }
     },
-    copyPublicDir: true
+    copyPublicDir: true,
+    // Increase chunk size warning limit since we're code-splitting
+    chunkSizeWarningLimit: 600
   }
 })

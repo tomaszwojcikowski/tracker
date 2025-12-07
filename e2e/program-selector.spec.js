@@ -24,14 +24,14 @@ test.describe('Program Selector', () => {
     });
 
     test('should show program name in the card', async ({ page }) => {
-      // Should display the current program name
-      // Look for program-related text in the dashboard
-      const body = page.locator('body');
-      const content = await body.textContent();
-
-      // Should have program name or "No program selected"
-      const hasProgramInfo = /Current Program/i.test(content);
-      expect(hasProgramInfo).toBe(true);
+      // The program card button should contain program information
+      const programCard = page.locator('button:has-text("Current Program")');
+      await expect(programCard).toBeVisible();
+      
+      // Verify the card has substantive content beyond just the "Current Program" label
+      // Should contain program name and metadata like duration (e.g., "21 weeks")
+      await expect(programCard).toContainText('Current Program');
+      await expect(programCard).toContainText(/\d+\s+weeks?/i); // Should have duration info like "21 weeks"
     });
 
     test('should open program selector modal when card is clicked', async ({ page }) => {
@@ -95,9 +95,7 @@ test.describe('Program Selector', () => {
       await expect(modal).toBeVisible();
 
       // Check for program cards or empty state message
-      const content = await modal.textContent();
-      const hasPrograms = /weeks|Active|Import Program/i.test(content);
-      expect(hasPrograms).toBe(true);
+      await expect(modal).toContainText(/weeks|Active|Import Program/i);
     });
 
     test('should show program details in modal', async ({ page }) => {
@@ -108,11 +106,9 @@ test.describe('Program Selector', () => {
 
       // Modal should contain program details
       const modal = page.locator('[class*="rounded-t-3xl"]');
-      const content = await modal.textContent();
-
+      
       // Should have duration info (weeks) or empty state
-      const hasDetails = /weeks|No programs available/i.test(content);
-      expect(hasDetails).toBe(true);
+      await expect(modal).toContainText(/weeks|No programs available/i);
     });
 
     test('should show Add New Program button', async ({ page }) => {
@@ -151,12 +147,9 @@ test.describe('Program Selector', () => {
       await page.waitForTimeout(300);
 
       // Should display program selector with available programs
+      // Check for program-related content (duration, difficulty, or section label)
       const body = page.locator('body');
-      const content = await body.textContent();
-
-      // Should have program content (sample programs or installed programs)
-      const hasProgramContent = /weeks|Beginner|Intermediate|Available Programs/i.test(content);
-      expect(hasProgramContent).toBe(true);
+      await expect(body).toContainText(/weeks|Beginner|Intermediate|Available Programs/i);
     });
   });
 });
@@ -198,12 +191,10 @@ test.describe('URL Routing with Program ID', () => {
     await page.goto('/?program=strength-program&view=workout&week=5&day=1');
     await page.waitForTimeout(1000);
 
-    // Should load the workout view
+    // Should load the workout view with exercises
+    // Look for workout-specific elements (exercise cards, set tracking, etc.)
     const body = page.locator('body');
-    const content = await body.textContent();
-
-    // Should have workout content
-    expect(content.length).toBeGreaterThan(50);
+    await expect(body).toContainText(/Sets|Exercise|Workout/i);
   });
 
   test('should persist program ID to localStorage', async ({ page }) => {
@@ -286,11 +277,9 @@ test.describe('Program-Aware Week Navigation', () => {
   test('should display week progress on dashboard', async ({ page }) => {
     // Dashboard should show week progress
     const body = page.locator('body');
-    const content = await body.textContent();
-
+    
     // Should have week indicator
-    const hasWeekIndicator = /W\d+|Week \d+/i.test(content);
-    expect(hasWeekIndicator).toBe(true);
+    await expect(body).toContainText(/W\d+|Week \d+/i);
   });
 
   test('should have week navigation controls', async ({ page }) => {
@@ -429,12 +418,9 @@ test.describe('Settings Programs Tab', () => {
     await page.waitForTimeout(300);
 
     // Should show sample programs section
-    const content = await page.locator('body').textContent();
-
     // Check for sample program names
-    const hasSamplePrograms =
-      /Beginner Bodyweight|Pull-Up Builder|Strength Fundamentals|Mobility|Flexibility/i.test(content);
-    expect(hasSamplePrograms).toBe(true);
+    const body = page.locator('body');
+    await expect(body).toContainText(/Beginner Bodyweight|Pull-Up Builder|Strength Fundamentals|Mobility|Flexibility/i);
   });
 
   test('should show "Available Programs" label when there are uninstalled programs', async ({ page }) => {
@@ -455,9 +441,8 @@ test.describe('Settings Programs Tab', () => {
     await page.waitForTimeout(300);
 
     // Should show duration for programs (e.g., "4 weeks", "6 weeks", "8 weeks")
-    const content = await page.locator('body').textContent();
-    const hasDuration = /\d+ weeks/i.test(content);
-    expect(hasDuration).toBe(true);
+    const body = page.locator('body');
+    await expect(body).toContainText(/\d+ weeks/i);
   });
 
   test('should show difficulty level badges for sample programs', async ({ page }) => {
@@ -467,9 +452,8 @@ test.describe('Settings Programs Tab', () => {
     await page.waitForTimeout(300);
 
     // Should show difficulty badges
-    const content = await page.locator('body').textContent();
-    const hasLevelBadges = /Beginner|Intermediate|Advanced/i.test(content);
-    expect(hasLevelBadges).toBe(true);
+    const body = page.locator('body');
+    await expect(body).toContainText(/Beginner|Intermediate|Advanced/i);
   });
 
   test('should import and activate a sample program when clicked', async ({ page }) => {

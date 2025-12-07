@@ -93,7 +93,7 @@ export function useWhyDidYouUpdate(
     name: string,
     props: Record<string, unknown>
 ): void {
-    const previousProps = React.useRef<Record<string, unknown>>();
+    const previousProps = React.useRef<Record<string, unknown> | undefined>(undefined);
 
     React.useEffect(() => {
         if (previousProps.current && import.meta.env.DEV) {
@@ -226,7 +226,7 @@ interface VirtualItemProps extends PropsWithChildren {
 }
 
 export const VirtualItem: React.FC<VirtualItemProps> = memo(({ 
-    index, 
+    index: _index, 
     isVisible = true, 
     children 
 }) => {
@@ -249,11 +249,11 @@ interface DebouncedRenderProps<P> extends PropsWithChildren {
     componentProps: P;
 }
 
-export function DebouncedRender<P>({
+export function DebouncedRender<P extends object>({
     delay = 300,
     component: Component,
     componentProps,
-}: DebouncedRenderProps<P>): JSX.Element | null {
+}: DebouncedRenderProps<P>): React.ReactElement | null {
     const [debouncedProps, setDebouncedProps] = React.useState<P>(componentProps);
 
     React.useEffect(() => {
@@ -264,7 +264,7 @@ export function DebouncedRender<P>({
         return () => clearTimeout(handler);
     }, [componentProps, delay]);
 
-    return <Component {...debouncedProps} />;
+    return <Component {...(debouncedProps as P)} />;
 }
 
 /**

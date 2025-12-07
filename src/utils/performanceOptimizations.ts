@@ -202,7 +202,7 @@ export function measurePerformance(
  * Batch DOM updates using requestAnimationFrame
  * Collects multiple updates and applies them in a single frame
  */
-export function batchDOMUpdates<T>(
+export function batchDOMUpdates(
     updates: Array<() => void>
 ): Promise<void> {
     return new Promise((resolve) => {

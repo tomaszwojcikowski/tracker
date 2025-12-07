@@ -365,22 +365,22 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                             {isDone ? <Check size={14} /> : i + 1}
                                         </button>
                                     );
-                                } else {
-                                    // Future sets shown as dots (max 2 dots)
-                                    // Count how many dots we've already shown
-                                    const dotsBeforeThis = sets.slice(0, i).filter((s, idx) => !s && idx !== firstIncompleteIndex).length;
-                                    if (dotsBeforeThis < 2) {
-                                        return (
-                                            <div
-                                                key={`${exId}-dot-${i}`}
-                                                className="w-2 h-2 rounded-full bg-sys-onSurfaceVar opacity-30"
-                                                aria-label={`Set ${i + 1} pending`}
-                                            />
-                                        );
-                                    }
-                                    return null;
                                 }
-                            })}
+                                return null;
+                            }).filter(Boolean)}
+
+                            {/* Future sets shown as dots (max 2 dots) */}
+                            {(() => {
+                                const firstIncompleteIndex = sets.findIndex(s => !s);
+                                if (firstIncompleteIndex === -1) return null;
+                                return sets.slice(firstIncompleteIndex + 1).slice(0, 2).map((_, i) => (
+                                    <div
+                                        key={`${exId}-dot-${firstIncompleteIndex + 1 + i}`}
+                                        className="w-2 h-2 rounded-full bg-sys-onSurfaceVar opacity-30"
+                                        aria-label={`Set ${firstIncompleteIndex + 2 + i} pending`}
+                                    />
+                                ));
+                            })()}
 
                             {/* Progress indicator */}
                             <span className="text-xs text-sys-onSurfaceVar font-semibold">

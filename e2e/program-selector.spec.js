@@ -24,21 +24,14 @@ test.describe('Program Selector', () => {
     });
 
     test('should show program name in the card', async ({ page }) => {
-      // Should display the current program name
-      // Wait for the "Current Program" label to be visible
-      const currentProgramText = page.locator('text=Current Program');
-      await expect(currentProgramText).toBeVisible();
-      
-      // Verify a program name is displayed (any non-empty text after the label)
       // The program card button should contain program information
       const programCard = page.locator('button:has-text("Current Program")');
       await expect(programCard).toBeVisible();
       
       // Verify the card has substantive content beyond just the "Current Program" label
       // Should contain program name and metadata like duration (e.g., "21 weeks")
-      const cardText = await programCard.textContent();
-      expect(cardText).toContain('Current Program');
-      expect(cardText).toMatch(/\d+\s+weeks?/i); // Should have duration info like "21 weeks"
+      await expect(programCard).toContainText('Current Program');
+      await expect(programCard).toContainText(/\d+\s+weeks?/i); // Should have duration info like "21 weeks"
     });
 
     test('should open program selector modal when card is clicked', async ({ page }) => {

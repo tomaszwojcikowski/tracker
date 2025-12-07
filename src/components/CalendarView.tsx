@@ -56,21 +56,39 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ history, onDayClick 
         return start;
     }, [firstDayOfMonth]);
 
+    // Group history by date for quick lookup - memoized to avoid recalculation
+    const historyByDate = useMemo(() => {
+        const grouped = new Map<string, GlobalHistoryEntry[]>();
+        history.forEach(entry => {
+            const dateKey = new Date(entry.date).toISOString().split('T')[0];
+            if (!grouped.has(dateKey)) {
+                grouped.set(dateKey, []);
+            }
+            grouped.get(dateKey)!.push(entry);
+        });
+        return grouped;
+    }, [history]);
+
+    // Pre-compute completion status for workouts - memoized
+    const workoutCompletionStatus = useMemo(() => {
+        const status = new Map<string, boolean>();
+        historyByDate.forEach((workouts, dateKey) => {
+            const isComplete = workouts.every(workout => {
+                if (!workout.exercises || workout.exercises.length === 0) return false;
+                const totalSets = workout.exercises.reduce((sum, ex) => sum + ex.totalSets, 0);
+                const completedSets = workout.exercises.reduce((sum, ex) => sum + ex.completedSets, 0);
+                return totalSets > 0 && completedSets === totalSets;
+            });
+            status.set(dateKey, isComplete);
+        });
+        return status;
+    }, [historyByDate]);
+
     // Build calendar data
     const calendarDays = useMemo<DayData[]>(() => {
         const days: DayData[] = [];
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-
-        // Group history by date for quick lookup
-        const historyByDate = new Map<string, GlobalHistoryEntry[]>();
-        history.forEach(entry => {
-            const dateKey = new Date(entry.date).toISOString().split('T')[0];
-            if (!historyByDate.has(dateKey)) {
-                historyByDate.set(dateKey, []);
-            }
-            historyByDate.get(dateKey)!.push(entry);
-        });
 
         // Generate 42 days (6 weeks) for calendar grid
         const current = new Date(startDate);
@@ -78,14 +96,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ history, onDayClick 
             const dateString = current.toISOString().split('T')[0];
             const workouts = historyByDate.get(dateString) || [];
             const hasWorkout = workouts.length > 0;
-            
-            // Check if all workouts are complete
-            const isComplete = hasWorkout && workouts.every(workout => {
-                if (!workout.exercises || workout.exercises.length === 0) return false;
-                const totalSets = workout.exercises.reduce((sum, ex) => sum + ex.totalSets, 0);
-                const completedSets = workout.exercises.reduce((sum, ex) => sum + ex.completedSets, 0);
-                return totalSets > 0 && completedSets === totalSets;
-            });
+            const isComplete = hasWorkout && (workoutCompletionStatus.get(dateString) || false);
 
             days.push({
                 date: new Date(current),
@@ -101,7 +112,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ history, onDayClick 
         }
 
         return days;
-    }, [startDate, currentDate, history]);
+    }, [startDate, currentDate, historyByDate, workoutCompletionStatus]);
 
     const handlePreviousMonth = () => {
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));

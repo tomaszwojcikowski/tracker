@@ -404,7 +404,6 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
     getAllExercisesWithHistory,
 }) => {
     const [history, setHistory] = useState<GlobalHistoryEntry[]>([]);
-    const [expandedEntries, setExpandedEntries] = useState<Record<number, boolean>>({});
     const [selectedDayWorkouts, setSelectedDayWorkouts] = useState<GlobalHistoryEntry[] | null>(null);
     const [viewMode, setViewMode] = useState<'calendar' | 'stats'>('calendar');
     const haptic = useHaptic();
@@ -463,11 +462,6 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
         await new Promise(resolve => setTimeout(resolve, 500));
         await loadHistory();
         haptic.success();
-    };
-
-    const toggleExpanded = (idx: number) => {
-        haptic.tick();
-        setExpandedEntries(prev => ({ ...prev, [idx]: !prev[idx] }));
     };
 
     const handleDayClick = (_date: string, workouts: GlobalHistoryEntry[]) => {
@@ -676,185 +670,6 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                     </motion.div>
                                 </motion.div>
                             )}
-                        </AnimatePresence>
-
-                        {/* Keep old timeline list below calendar for scrolling (hidden by default) */}
-                        <AnimatePresence initial={false}>
-                            {false && history.map((entry, idx) => {
-                                const isExpanded = expandedEntries[idx];
-                                const hasExercises = entry.exercises && entry.exercises.length > 0;
-
-                                // Calculate summary stats for collapsed view
-                                const totalSets = hasExercises
-                                    ? entry.exercises!.reduce((sum, ex) => sum + (ex.totalSets || 0), 0)
-                                    : 0;
-                                const completedSets = hasExercises
-                                    ? entry.exercises!.reduce((sum, ex) => sum + (ex.completedSets || 0), 0)
-                                    : 0;
-                                const exerciseCount = hasExercises ? entry.exercises!.length : 0;
-                                const completionPercent = totalSets > 0 ? Math.round((completedSets / totalSets) * 100) : 0;
-                                const isFullyComplete = completedSets === totalSets && totalSets > 0;
-
-                                return (
-                                    <motion.div
-                                        key={`${entry.date}-${idx}`}
-                                        layout
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.3, delay: idx * 0.05 }}
-                                        className="stagger-item bg-sys-surface border border-white/5 rounded-3xl overflow-hidden"
-                                    >
-                                        <motion.button
-                                            layout="position"
-                                            onClick={() => toggleExpanded(idx)}
-                                            className="w-full p-5 flex items-center gap-4 active:bg-sys-surfaceHigh transition-colors"
-                                            aria-expanded={isExpanded}
-                                            whileTap={{ scale: 0.98 }}
-                                        >
-                                            {/* Week Badge - Custom style for empty workouts */}
-                                            {entry.isEmptyWorkout || (entry.week === 0 && entry.day === 0) ? (
-                                                <div className="relative h-14 w-14 min-w-[56px] rounded-2xl bg-gradient-to-br from-sys-success/20 to-sys-success/5 border border-sys-success/30 flex flex-col items-center justify-center" aria-hidden="true">
-                                                    <Plus size={24} className="text-sys-success" />
-                                                </div>
-                                            ) : (
-                                                <div className="relative h-14 w-14 min-w-[56px] rounded-2xl bg-gradient-to-br from-sys-accent/20 to-sys-accent/5 border border-sys-accent/30 flex flex-col items-center justify-center" aria-hidden="true">
-                                                    <span className="text-[10px] font-semibold text-sys-accent uppercase tracking-wider">Week</span>
-                                                    <span className="text-lg font-bold text-sys-accent leading-none">{entry.week}</span>
-                                                </div>
-                                            )}
-
-                                            {/* Content */}
-                                            <div className="flex-1 min-w-0 text-left">
-                                                <div className="flex items-center gap-2 mb-1">
-                                                    <h3 className="text-base font-bold text-white truncate">
-                                                        {entry.isEmptyWorkout || (entry.week === 0 && entry.day === 0) ? 'Custom Workout' : `Day ${entry.day}`}
-                                                    </h3>
-                                                    {isFullyComplete && (
-                                                        <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-sys-success/20 text-sys-success text-[10px] font-bold uppercase">
-                                                            <Check size={10} />
-                                                            Complete
-                                                        </span>
-                                                    )}
-                                                </div>
-                                                <p className="text-sm text-sys-onSurfaceVar">
-                                                    {new Date(entry.date).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
-                                                </p>
-                                                {/* Summary stats in collapsed view */}
-                                                {hasExercises && !isExpanded && (
-                                                    <motion.div
-                                                        initial={{ opacity: 0 }}
-                                                        animate={{ opacity: 1 }}
-                                                        className="flex items-center gap-3 mt-2"
-                                                    >
-                                                        <span className="text-xs text-sys-onSurfaceVar">
-                                                            {exerciseCount} exercise{exerciseCount !== 1 ? 's' : ''}
-                                                        </span>
-                                                        <span className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-sys-onSurfaceVar font-medium">
-                                                            {completedSets}/{totalSets} sets
-                                                        </span>
-                                                        {completionPercent === 100 && (
-                                                            <span className="text-xs text-sys-success font-semibold">100%</span>
-                                                        )}
-                                                    </motion.div>
-                                                )}
-                                            </div>
-
-                                            {/* Expand/Collapse Indicator */}
-                                            <motion.div
-                                                animate={{ rotate: isExpanded ? 180 : 0 }}
-                                                className={`h-10 w-10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${isExpanded ? 'bg-sys-accent text-white' : 'bg-white/10 text-sys-onSurfaceVar'}`}
-                                            >
-                                                <ChevronDown size={18} />
-                                            </motion.div>
-                                        </motion.button>
-
-                                        <AnimatePresence>
-                                            {isExpanded && (
-                                                <motion.div
-                                                    initial={{ height: 0, opacity: 0 }}
-                                                    animate={{ height: 'auto', opacity: 1 }}
-                                                    exit={{ height: 0, opacity: 0 }}
-                                                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                                                >
-                                                    <div className="px-5 pb-5 border-t border-white/5">
-                                                        {/* Workout Notes */}
-                                                        {entry.workoutNotes && (
-                                                            <div className="mt-4 mb-4">
-                                                                <div className="bg-gradient-to-br from-sys-accent/10 to-transparent rounded-2xl p-4 border border-sys-accent/20">
-                                                                    <div className="flex items-center gap-2 mb-2">
-                                                                        <MessageSquare size={14} className="text-sys-accent" />
-                                                                        <h4 className="text-xs font-bold text-sys-accent uppercase tracking-wider">Notes</h4>
-                                                                    </div>
-                                                                    <p className="text-sm text-white leading-relaxed whitespace-pre-wrap">{entry.workoutNotes}</p>
-                                                                </div>
-                                                            </div>
-                                                        )}
-
-                                                        {/* Exercise Details */}
-                                                        {hasExercises && (
-                                                            <div className={entry.workoutNotes ? '' : 'mt-4'}>
-                                                                <div className="flex items-center gap-2 mb-3">
-                                                                    <Dumbbell size={14} className="text-sys-onSurfaceVar" />
-                                                                    <h4 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider">Exercises</h4>
-                                                                    <span className="text-xs text-sys-onSurfaceVar/50">({exerciseCount})</span>
-                                                                </div>
-                                                                <div className="space-y-3">
-                                                                    {entry.exercises!.map((ex, exIdx) => {
-                                                                        const exComplete = ex.completedSets === ex.totalSets;
-                                                                        return (
-                                                                            <div key={exIdx} className={`bg-sys-surfaceHigh rounded-2xl p-4 border ${exComplete ? 'border-sys-success/20' : 'border-white/5'}`}>
-                                                                                <div className="flex items-start justify-between gap-3 mb-2">
-                                                                                    <div className="flex-1 min-w-0">
-                                                                                        <h5 className="text-sm font-bold text-white truncate">{ex.name}</h5>
-                                                                                        <p className="text-xs text-sys-onSurfaceVar mt-0.5">{ex.prescription}</p>
-                                                                                    </div>
-                                                                                    <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold ${
-                                                                                        exComplete
-                                                                                            ? 'bg-sys-success/20 text-sys-success'
-                                                                                            : 'bg-sys-accent/15 text-sys-accent'
-                                                                                    }`}>
-                                                                                        {exComplete && <Check size={12} />}
-                                                                                        <span>{ex.completedSets}/{ex.totalSets}</span>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                {/* Weight & RPE */}
-                                                                                <div className="flex items-center gap-3 flex-wrap">
-                                                                                    {ex.weight && (
-                                                                                        <span className="text-xs px-2 py-1 rounded-lg bg-white/5 text-white font-medium">
-                                                                                            {ex.weight} kg
-                                                                                        </span>
-                                                                                    )}
-                                                                                    {ex.rpe && Object.keys(ex.rpe).length > 0 && (
-                                                                                        <div className="flex items-center gap-1.5">
-                                                                                            <span className="text-[10px] text-sys-onSurfaceVar uppercase tracking-wider">RPE</span>
-                                                                                            {Object.entries(ex.rpe).map(([setIdx, rpe]) => (
-                                                                                                <span key={setIdx} className="text-xs w-6 h-6 flex items-center justify-center rounded-md bg-sys-accent/15 text-sys-accent font-semibold">
-                                                                                                    {rpe}
-                                                                                                </span>
-                                                                                            ))}
-                                                                                        </div>
-                                                                                    )}
-                                                                                </div>
-                                                                            </div>
-                                                                        );
-                                                                    })}
-                                                                </div>
-                                                            </div>
-                                                        )}
-
-                                                        {!hasExercises && !entry.workoutNotes && (
-                                                            <p className="text-sm text-sys-onSurfaceVar text-center py-6 mt-4">
-                                                                No detailed information available
-                                                            </p>
-                                                        )}
-                                                    </div>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
-                                    </motion.div>
-                                );
-                            })}
                         </AnimatePresence>
                     </div>
                 )}

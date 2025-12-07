@@ -4,7 +4,7 @@
  * Types shared between WorkoutPlayer, CompactExerciseRow, and SupersetGroup components.
  */
 
-import type { RPEValue, AddedExercise } from './index';
+import type { RPEValue, AddedExercise, ExerciseOption } from './index';
 import type { LoadRange, TempoRange } from '../workout-plan-utils';
 
 // ============================================================================
@@ -78,6 +78,10 @@ export interface ExerciseDetailRequest {
     currentUserNotes?: string;
     /** Callback to update user notes */
     onUpdateUserNotes?: (exerciseId: string, notes: string) => void;
+    /** Available exercise options */
+    exerciseOptions?: ExerciseOption[];
+    /** Currently selected option name */
+    selectedOption?: string;
 }
 
 /**
@@ -95,6 +99,8 @@ export interface WorkoutSessionData {
     durationSeconds?: number;
     /** Exercise log entries keyed by exercise ID */
     exercises?: Record<string, ExerciseLogEntry>;
+    /** Selected exercise options keyed by exercise ID */
+    exerciseOptions?: Record<string, string>;
 }
 
 // ============================================================================

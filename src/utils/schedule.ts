@@ -6,7 +6,7 @@
  */
 
 import type { WeekNumber, TrainingDay } from '../types';
-import type { LoadRange, RepsRange, TempoRange } from '../workout-plan-utils';
+import type { LoadRange, RepsRange, TempoRange, ExerciseOption } from '../workout-plan-utils';
 import { DEFAULT_PROGRAM_ID } from '../services/programRegistry';
 
 // ============================================================================
@@ -33,6 +33,7 @@ export interface RawScheduleItem {
     supersetGroup?: number; // Superset group ID
     restSeconds?: number; // Rest between sets in seconds
     alternatives?: string[]; // Array of alternative exercise names
+    exerciseOptions?: ExerciseOption[]; // Array of exercise options to choose from
 }
 
 /**
@@ -62,6 +63,7 @@ export interface WorkoutExercise {
     loadRange?: LoadRange;
     repsRange?: RepsRange;
     tempoRange?: TempoRange;
+    exerciseOptions?: ExerciseOption[];
 }
 
 /**

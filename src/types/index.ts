@@ -5,6 +5,8 @@
  * used throughout the application.
  */
 
+import type { LoadUnit as WorkoutPlanLoadUnit, RepsType as WorkoutPlanRepsType } from '../workout-plan-utils';
+
 // ============================================================================
 // EXERCISE TYPES
 // ============================================================================
@@ -108,6 +110,51 @@ export type WeekDay = 1 | 2 | 3 | 4 | 5;
 export type WeekNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21;
 
 /**
+ * Exercise option - a single variation of an exercise
+ * Used when an exercise has multiple implementation choices (e.g., barbell vs dumbbell squats)
+ */
+export interface ExerciseOption {
+  /** Name of this option (e.g., "Barbell", "Dumbbell", "Band") */
+  optionName: string;
+  /** Override exercise name for this option */
+  exerciseName?: string;
+  /** Description of when to use this option */
+  description?: string;
+  /** Override sets for this option */
+  sets?: number;
+  /** Override rest seconds for this option */
+  restSeconds?: number;
+  /** Override RPE for this option */
+  rpe?: number;
+  /** Override notes for this option */
+  notes?: string;
+  /** Override load minimum for this option */
+  loadMin?: number;
+  /** Override load maximum for this option */
+  loadMax?: number;
+  /** Override load unit for this option */
+  loadUnit?: WorkoutPlanLoadUnit;
+  /** Override per-hand flag for this option */
+  loadPerHand?: boolean;
+  /** Override reps type for this option */
+  repsType?: WorkoutPlanRepsType;
+  /** Override reps value for this option */
+  repsValue?: number | number[];
+  /** Override minimum reps for this option */
+  repsMin?: number;
+  /** Override maximum reps for this option */
+  repsMax?: number;
+  /** Override reps unit for this option */
+  repsUnit?: 'seconds' | 'minutes';
+  /** Override per-side flag for this option */
+  repsPerSide?: boolean;
+  /** Required equipment for this option */
+  equipment?: string[];
+  /** Variation descriptor (e.g., "Barbell Back Squat") */
+  variation?: string;
+}
+
+/**
  * Exercise prescription within a workout
  */
 export interface ExercisePrescription {
@@ -119,6 +166,8 @@ export interface ExercisePrescription {
   restSeconds?: number;
   tempo?: string;
   rpe?: number;
+  /** Available exercise options (e.g., barbell vs dumbbell variations) */
+  exerciseOptions?: ExerciseOption[];
 }
 
 /**

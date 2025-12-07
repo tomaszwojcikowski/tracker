@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/tomaszwojcikowski/tracker/workout-plan-v2.3.schema.json",
   "title": "Workout Plan v2.3.0",
-  "description": "Schema for the Tracker application workout plan format v2.3.0 with routine templates. Routine templates allow defining reusable sequences of exercises (like warmups and cooldowns) that can be inserted into any workout day, reducing duplication and ensuring consistency.",
+  "description": "Schema for the Tracker application workout plan format v2.3.0 with routine templates and exercise options. Routine templates allow defining reusable sequences of exercises (like warmups and cooldowns) that can be inserted into any workout day. Exercise options allow defining multiple variations of an exercise that the user can choose from (e.g., squats with barbell vs dumbbells, different rep schemes).",
   "type": "object",
   "required": ["formatVersion", "plan"],
   "properties": {
@@ -203,6 +203,12 @@
           "type": "array",
           "items": { "type": "string" },
           "description": "Array of alternative exercise names or IDs"
+        },
+        "exerciseOptions": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/exerciseOption" },
+          "minItems": 2,
+          "description": "Array of exercise options to choose from"
         },
         "progressionNotes": {
           "type": ["string", "null"],
@@ -547,6 +553,12 @@
           "items": { "type": "string" },
           "description": "Override alternatives"
         },
+        "exerciseOptions": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/exerciseOption" },
+          "minItems": 2,
+          "description": "Override exercise options"
+        },
         "progressionNotes": {
           "type": ["string", "null"],
           "description": "Override progression notes"
@@ -647,6 +659,106 @@
       },
       "additionalProperties": false
     },
+    "exerciseOption": {
+      "type": "object",
+      "required": ["optionName"],
+      "description": "A single exercise option/variation with specific parameters. At least one of the parameter fields should be different from other options to provide meaningful choice.",
+      "properties": {
+        "optionName": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Name of this option (e.g., 'Barbell', 'Dumbbell', 'Band', 'High Reps', 'Strength Focus')"
+        },
+        "exerciseName": {
+          "type": ["string", "null"],
+          "description": "Override exercise name for this option (if different from parent)"
+        },
+        "description": {
+          "type": ["string", "null"],
+          "description": "Description of this option's characteristics or when to choose it"
+        },
+        "sets": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "Override number of sets for this option"
+        },
+        "restSeconds": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Override rest between sets for this option"
+        },
+        "rpe": {
+          "type": ["number", "null"],
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Override target RPE for this option"
+        },
+        "notes": {
+          "type": ["string", "null"],
+          "description": "Override training notes for this option"
+        },
+        "loadMin": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "description": "Override minimum weight for this option"
+        },
+        "loadMax": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "description": "Override maximum weight for this option"
+        },
+        "loadUnit": {
+          "type": ["string", "null"],
+          "enum": ["kg", "lb", "band", "bodyweight", "percent", null],
+          "description": "Override load unit for this option"
+        },
+        "loadPerHand": {
+          "type": ["boolean", "null"],
+          "description": "Override per-hand flag for this option"
+        },
+        "repsType": {
+          "type": ["string", "null"],
+          "enum": ["reps", "time", "ladder", "amrap", "rm", "max", "effort", "submax", "none", null],
+          "description": "Override reps type for this option"
+        },
+        "repsValue": {
+          "oneOf": [
+            { "type": "integer", "minimum": 0 },
+            { "type": "array", "items": { "type": "integer", "minimum": 1 } },
+            { "type": "null" }
+          ],
+          "description": "Override reps value for this option"
+        },
+        "repsMin": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Override minimum reps for this option"
+        },
+        "repsMax": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Override maximum reps for this option"
+        },
+        "repsUnit": {
+          "type": ["string", "null"],
+          "enum": ["seconds", "minutes", null],
+          "description": "Override reps unit for this option"
+        },
+        "repsPerSide": {
+          "type": ["boolean", "null"],
+          "description": "Override per-side flag for this option"
+        },
+        "equipment": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Required equipment for this option (e.g., ['barbell', 'rack'], ['dumbbells'], ['band'])"
+        },
+        "variation": {
+          "type": ["string", "null"],
+          "description": "Variation descriptor (e.g., 'Barbell Back Squat', 'Goblet Squat', 'Split Squat')"
+        }
+      }
+    },
     "exercise": {
       "type": "object",
       "required": ["exerciseName", "sets"],
@@ -688,7 +800,13 @@
         "alternatives": {
           "type": "array",
           "items": { "type": "string" },
-          "description": "Array of alternative exercise names or IDs"
+          "description": "Array of alternative exercise names or IDs (legacy simple swap mechanism)"
+        },
+        "exerciseOptions": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/exerciseOption" },
+          "minItems": 2,
+          "description": "Array of exercise options to choose from. When present, user must select one option before starting the exercise. Each option can have different load, sets, reps, or equipment. The base exercise properties serve as defaults that can be overridden by each option."
         },
         "progressionNotes": {
           "type": ["string", "null"],

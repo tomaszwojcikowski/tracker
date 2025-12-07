@@ -10,6 +10,7 @@ import React, { useMemo, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Zap } from 'lucide-react';
 import { ExerciseCard } from './ExerciseCard';
 import { AddedExerciseCard } from './AddedExerciseCard';
+import { useSwipeNavigation } from '../hooks';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest, ExerciseLogEntry } from '../types/workout';
 import type { AddedExercise, RPEValue } from '../types';
@@ -246,6 +247,12 @@ export const FocusView: React.FC<FocusViewProps> = ({
             setTimeout(() => setSlideDirection(null), 300);
         }
     }, [focusIndex, focusItems.length, haptic, setFocusIndex, setSlideDirection]);
+
+    // Swipe navigation support
+    const { handlers: swipeHandlers } = useSwipeNavigation({
+        onSwipeLeft: navigateNext,
+        onSwipeRight: navigatePrev,
+    });
 
     // Render current focus item
     const renderFocusItem = useCallback((item: FocusItem) => {
@@ -505,7 +512,10 @@ export const FocusView: React.FC<FocusViewProps> = ({
                 </div>
 
                 {/* Content with swipe animation - positioned container */}
-                <div className="flex-1 relative overflow-hidden">
+                <div
+                    {...swipeHandlers}
+                    className="flex-1 relative overflow-hidden"
+                >
                     <div
                         key={focusIndex}
                         className={`absolute inset-0 overflow-y-auto ${

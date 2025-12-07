@@ -34,9 +34,11 @@ test.describe('Program Selector', () => {
       const programCard = page.locator('button:has-text("Current Program")');
       await expect(programCard).toBeVisible();
       
-      // Verify the card has substantive content (more than just the label)
+      // Verify the card has substantive content beyond just the "Current Program" label
+      // Should contain program name and metadata like duration (e.g., "21 weeks")
       const cardText = await programCard.textContent();
-      expect(cardText.length).toBeGreaterThan(20); // Should have program name, duration, etc.
+      expect(cardText).toContain('Current Program');
+      expect(cardText).toMatch(/\d+\s+weeks?/i); // Should have duration info like "21 weeks"
     });
 
     test('should open program selector modal when card is clicked', async ({ page }) => {

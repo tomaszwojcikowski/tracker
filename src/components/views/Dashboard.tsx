@@ -279,8 +279,8 @@ export function Dashboard({
         ))}
       </div>
 
-      {/* Week navigation dots - fixed at bottom */}
-      <div className="py-4 flex justify-center items-center gap-2">
+      {/* Week navigation dots - above bottom nav */}
+      <div className="py-4 pb-24 flex justify-center items-center gap-2">
         <button
           onClick={() => changeWeek(currentWeek - 1)}
           className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"

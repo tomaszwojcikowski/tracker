@@ -153,6 +153,12 @@ export interface FocusViewProps {
 // COMPONENT
 // ============================================================================
 
+// Animation timing constants
+// Small delay to ensure React applies animation classes to newly mounted elements
+const ANIMATION_START_DELAY_MS = 50;
+// Animation duration matching CSS animation timing
+const ANIMATION_DURATION_MS = 300;
+
 export const FocusView: React.FC<FocusViewProps> = ({
     allExercises,
     focusIndex,
@@ -229,34 +235,37 @@ export const FocusView: React.FC<FocusViewProps> = ({
         return items;
     }, [allExercises]);
 
+    /**
+     * Helper function to navigate with animation
+     * Sets slide direction, updates index after delay, then clears animation
+     */
+    const navigateWithAnimation = useCallback(
+        (direction: 'left' | 'right', newIndex: number) => {
+            haptic.swipe();
+            // Set direction first to prepare animation state
+            setSlideDirection(direction);
+            // Delay index update to ensure new element mounts with animation class
+            setTimeout(() => {
+                setFocusIndex(newIndex);
+                // Clear animation class after animation completes
+                setTimeout(() => setSlideDirection(null), ANIMATION_DURATION_MS);
+            }, ANIMATION_START_DELAY_MS);
+        },
+        [haptic, setFocusIndex, setSlideDirection]
+    );
+
     // Navigation handlers with animation
     const navigatePrev = useCallback(() => {
         if (focusIndex > 0) {
-            haptic.swipe();
-            // Set direction first, then update index after a brief delay
-            // This ensures the animation class is applied to the new element
-            setSlideDirection('right');
-            setTimeout(() => {
-                setFocusIndex(focusIndex - 1);
-                // Clear animation after it completes
-                setTimeout(() => setSlideDirection(null), 300);
-            }, 50);
+            navigateWithAnimation('right', focusIndex - 1);
         }
-    }, [focusIndex, haptic, setFocusIndex, setSlideDirection]);
+    }, [focusIndex, navigateWithAnimation]);
 
     const navigateNext = useCallback(() => {
         if (focusIndex < focusItems.length - 1) {
-            haptic.swipe();
-            // Set direction first, then update index after a brief delay
-            // This ensures the animation class is applied to the new element
-            setSlideDirection('left');
-            setTimeout(() => {
-                setFocusIndex(focusIndex + 1);
-                // Clear animation after it completes
-                setTimeout(() => setSlideDirection(null), 300);
-            }, 50);
+            navigateWithAnimation('left', focusIndex + 1);
         }
-    }, [focusIndex, focusItems.length, haptic, setFocusIndex, setSlideDirection]);
+    }, [focusIndex, focusItems.length, navigateWithAnimation]);
 
     // Swipe navigation support
     const { handlers: swipeHandlers } = useSwipeNavigation({

@@ -16,12 +16,12 @@ import { Onboarding, hasCompletedOnboarding } from './components/Onboarding';
 import { useWorkoutTimer, useTheme } from './hooks';
 
 // Lazy load heavy view components for code splitting
-// Import directly from files to get default exports for better tree-shaking
-const Dashboard = lazy(() => import('./components/views/Dashboard'));
-const HistoryView = lazy(() => import('./components/views/HistoryView'));
-const SettingsView = lazy(() => import('./components/views/SettingsView'));
-const ExerciseLibraryView = lazy(() => import('./components/views/ExerciseLibraryView'));
-const WorkoutPlayer = lazy(() => import('./components/views/WorkoutPlayer'));
+// Import named exports and re-export as default for lazy loading
+const Dashboard = lazy(() => import('./components/views/Dashboard').then(module => ({ default: module.Dashboard })));
+const HistoryView = lazy(() => import('./components/views/HistoryView').then(module => ({ default: module.HistoryView })));
+const SettingsView = lazy(() => import('./components/views/SettingsView').then(module => ({ default: module.SettingsView })));
+const ExerciseLibraryView = lazy(() => import('./components/views/ExerciseLibraryView').then(module => ({ default: module.ExerciseLibraryView })));
+const WorkoutPlayer = lazy(() => import('./components/views/WorkoutPlayer').then(module => ({ default: module.WorkoutPlayer })));
 
 // Import from TypeScript utilities
 import {

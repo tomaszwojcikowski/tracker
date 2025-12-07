@@ -45,7 +45,7 @@ export type AnimationPreset = keyof typeof animationPresets;
  * Generate CSS classes for animations
  */
 export function getAnimationClasses(
-    preset: AnimationPreset,
+    _preset: AnimationPreset,
     duration: number = 300
 ): {
     initial: string;

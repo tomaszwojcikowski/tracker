@@ -121,7 +121,6 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     const [localWeight, setLocalWeight] = useState(weight);
     const [isPrevWeight, setIsPrevWeight] = useState(false);
     const [userModified, setUserModified] = useState(false);
-    const [isTextClipped, setIsTextClipped] = useState(false);
     const weightInputRef = useRef<HTMLInputElement>(null);
     const textRef = useRef<HTMLSpanElement>(null);
 
@@ -168,34 +167,6 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
             weightInputRef.current.select();
         }
     }, [isEditingWeight]);
-
-    // Detect if text is clipped by more than 30%
-    // Uses ResizeObserver for better performance (one observer per component, not global resize listener)
-    useEffect(() => {
-        const element = textRef.current;
-        if (!element) return;
-
-        const checkTextClipping = () => {
-            try {
-                const { scrollWidth, clientWidth } = element;
-                // Text is clipped by more than 30% if visible portion is less than 70%
-                const visibleRatio = scrollWidth > 0 ? clientWidth / scrollWidth : 1;
-                setIsTextClipped(visibleRatio < 0.7);
-            } catch {
-                // Ignore errors during clipping detection
-            }
-        };
-
-        // Initial check after layout
-        requestAnimationFrame(checkTextClipping);
-
-        // Use ResizeObserver if available (fallback: no dynamic detection)
-        if (typeof ResizeObserver !== 'undefined') {
-            const resizeObserver = new ResizeObserver(checkTextClipping);
-            resizeObserver.observe(element);
-            return () => resizeObserver.disconnect();
-        }
-    }, []); // Empty deps - only run once on mount
 
     // Handlers
     const handleToggleExpand = useCallback(() => {
@@ -441,21 +412,21 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             <span className="text-[8px]">L/R</span>
                         </span>
                     )}
-                    <span ref={textRef} className="text-sm font-semibold text-white truncate" title={historyLookupName}>
+                    <span ref={textRef} className="text-sm font-semibold text-white truncate min-w-0" title={historyLookupName}>
                         {shortDisplayName}
                     </span>
                     {(prescription || !isBodyweight) && (
                         <ChevronDown
                             size={14}
-                            className={`text-sys-onSurfaceVar flex-shrink-0 transition-transform ${
+                            className={`text-sys-onSurfaceVar transition-transform ${
                                 isExpanded ? 'rotate-180' : ''
                             }`}
                         />
                     )}
                 </button>
 
-                {/* Display Details Button - hide when text is clipped >30% */}
-                {onShowHistory && !isTextClipped && (
+                {/* Display Details Button - always show to prevent layout shift */}
+                {onShowHistory && (
                     <button
                         onClick={handleShowDetails}
                         className={`flex items-center gap-1.5 h-7 px-3 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar text-[10px] font-bold tracking-wide uppercase flex-shrink-0 active:scale-95 transition-all ${!hasHistory ? 'opacity-80' : ''}`}
@@ -485,18 +456,6 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
             >
                 <div className="px-3 pb-3 pt-0">
                     <div className="h-px bg-white/5 mb-2" />
-
-                    {/* Details Button - show when hidden from folded view */}
-                    {onShowHistory && isTextClipped && (
-                        <button
-                            onClick={handleShowDetails}
-                            className={`flex items-center gap-1.5 h-8 px-4 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-bold tracking-wide uppercase mb-2 active:scale-95 transition-all ${!hasHistory ? 'opacity-80' : ''}`}
-                            aria-label={`View details and history for ${historyLookupName}`}
-                        >
-                            <Info size={14} className="text-sys-onSurfaceVar" />
-                            <span>Details</span>
-                        </button>
-                    )}
 
                     {/* Prescription */}
                     {prescription && (

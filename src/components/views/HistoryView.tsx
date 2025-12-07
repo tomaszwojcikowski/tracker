@@ -21,6 +21,7 @@ import { getGlobalHistoryKey } from '../../services/storageNamespace';
 import { PullToRefresh } from '../PullToRefresh';
 import { PRHighlights, calculateStreak, findRecentPRs } from '../PRHighlights';
 import { useHaptic, useScrollToTop } from '../../hooks';
+import { CalendarView } from '../CalendarView';
 
 // Types for exercise stats display
 interface ExerciseStatData {
@@ -404,7 +405,8 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
 }) => {
     const [history, setHistory] = useState<GlobalHistoryEntry[]>([]);
     const [expandedEntries, setExpandedEntries] = useState<Record<number, boolean>>({});
-    const [viewMode, setViewMode] = useState<'timeline' | 'stats'>('timeline');
+    const [selectedDayWorkouts, setSelectedDayWorkouts] = useState<GlobalHistoryEntry[] | null>(null);
+    const [viewMode, setViewMode] = useState<'calendar' | 'stats'>('calendar');
     const haptic = useHaptic();
 
     // Scroll to top when view loads
@@ -468,6 +470,16 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
         setExpandedEntries(prev => ({ ...prev, [idx]: !prev[idx] }));
     };
 
+    const handleDayClick = (_date: string, workouts: GlobalHistoryEntry[]) => {
+        haptic.tick();
+        setSelectedDayWorkouts(workouts);
+    };
+
+    const handleCloseDayDetail = () => {
+        haptic.tick();
+        setSelectedDayWorkouts(null);
+    };
+
     return (
         <PullToRefresh onRefresh={handlePullRefresh} className="h-full">
             <div className="px-5 pb-20 pt-6">
@@ -477,11 +489,11 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                     <div className="flex items-center gap-2">
                         <div className="flex flex-1 bg-sys-surfaceHigh rounded-2xl p-1 border border-white/5">
                             <button
-                                onClick={() => { haptic.tick(); setViewMode('timeline'); }}
-                                className={`flex-1 flex items-center justify-center gap-1.5 min-h-[44px] px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${viewMode === 'timeline' ? 'bg-sys-accent text-white shadow-lg shadow-sys-accent/25' : 'text-sys-onSurfaceVar hover:text-white'}`}
+                                onClick={() => { haptic.tick(); setViewMode('calendar'); setSelectedDayWorkouts(null); }}
+                                className={`flex-1 flex items-center justify-center gap-1.5 min-h-[44px] px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${viewMode === 'calendar' ? 'bg-sys-accent text-white shadow-lg shadow-sys-accent/25' : 'text-sys-onSurfaceVar hover:text-white'}`}
                             >
                                 <CalendarDays size={16} />
-                                <span>Timeline</span>
+                                <span>Calendar</span>
                             </button>
                             <button
                                 onClick={() => { haptic.tick(); setViewMode('stats'); }}
@@ -521,8 +533,154 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                             />
                         )}
 
+                        {/* Calendar View */}
+                        <CalendarView history={history} onDayClick={handleDayClick} />
+
+                        {/* Selected Day Details Modal */}
+                        <AnimatePresence>
+                            {selectedDayWorkouts && selectedDayWorkouts.length > 0 && (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4"
+                                    onClick={handleCloseDayDetail}
+                                >
+                                    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+                                    <motion.div
+                                        initial={{ y: 100, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        exit={{ y: 100, opacity: 0 }}
+                                        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                                        className="relative w-full max-w-lg max-h-[80vh] overflow-y-auto bg-sys-surface border border-white/10 rounded-3xl shadow-2xl"
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <div className="sticky top-0 bg-sys-surface border-b border-white/5 p-5 flex items-center justify-between z-10">
+                                            <div>
+                                                <h3 className="text-lg font-bold text-white">
+                                                    {new Date(selectedDayWorkouts[0].date).toLocaleDateString('en-US', { 
+                                                        weekday: 'long', 
+                                                        month: 'long', 
+                                                        day: 'numeric' 
+                                                    })}
+                                                </h3>
+                                                <p className="text-sm text-sys-onSurfaceVar">
+                                                    {selectedDayWorkouts.length} workout{selectedDayWorkouts.length !== 1 ? 's' : ''}
+                                                </p>
+                                            </div>
+                                            <button
+                                                onClick={handleCloseDayDetail}
+                                                className="h-10 w-10 rounded-xl bg-sys-surfaceHigh hover:bg-sys-accent/20 transition-colors flex items-center justify-center"
+                                            >
+                                                <ChevronDown size={20} className="text-sys-onSurface" />
+                                            </button>
+                                        </div>
+                                        <div className="p-5 space-y-4">
+                                            {selectedDayWorkouts.map((entry, idx) => {
+                                                const hasExercises = entry.exercises && entry.exercises.length > 0;
+                                                const totalSets = hasExercises
+                                                    ? entry.exercises!.reduce((sum, ex) => sum + (ex.totalSets || 0), 0)
+                                                    : 0;
+                                                const completedSets = hasExercises
+                                                    ? entry.exercises!.reduce((sum, ex) => sum + (ex.completedSets || 0), 0)
+                                                    : 0;
+                                                const exerciseCount = hasExercises ? entry.exercises!.length : 0;
+                                                const isFullyComplete = completedSets === totalSets && totalSets > 0;
+
+                                                return (
+                                                    <div key={idx} className="bg-sys-surfaceHigh rounded-2xl p-4 border border-white/5">
+                                                        <div className="flex items-center gap-3 mb-3">
+                                                            {entry.isEmptyWorkout || (entry.week === 0 && entry.day === 0) ? (
+                                                                <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-sys-success/20 to-sys-success/5 border border-sys-success/30 flex items-center justify-center">
+                                                                    <Plus size={20} className="text-sys-success" />
+                                                                </div>
+                                                            ) : (
+                                                                <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-sys-accent/20 to-sys-accent/5 border border-sys-accent/30 flex flex-col items-center justify-center">
+                                                                    <span className="text-[8px] font-semibold text-sys-accent uppercase">W</span>
+                                                                    <span className="text-sm font-bold text-sys-accent leading-none">{entry.week}</span>
+                                                                </div>
+                                                            )}
+                                                            <div className="flex-1">
+                                                                <div className="flex items-center gap-2">
+                                                                    <h4 className="text-sm font-bold text-white">
+                                                                        {entry.isEmptyWorkout || (entry.week === 0 && entry.day === 0) ? 'Custom Workout' : `Day ${entry.day}`}
+                                                                    </h4>
+                                                                    {isFullyComplete && (
+                                                                        <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-sys-success/20 text-sys-success text-[10px] font-bold">
+                                                                            <Check size={10} />
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+                                                                {hasExercises && (
+                                                                    <p className="text-xs text-sys-onSurfaceVar mt-0.5">
+                                                                        {exerciseCount} exercise{exerciseCount !== 1 ? 's' : ''} • {completedSets}/{totalSets} sets
+                                                                    </p>
+                                                                )}
+                                                            </div>
+                                                        </div>
+
+                                                        {entry.workoutNotes && (
+                                                            <div className="mb-3 p-3 bg-sys-accent/10 rounded-xl border border-sys-accent/20">
+                                                                <div className="flex items-center gap-1.5 mb-1">
+                                                                    <MessageSquare size={12} className="text-sys-accent" />
+                                                                    <span className="text-[10px] font-bold text-sys-accent uppercase">Notes</span>
+                                                                </div>
+                                                                <p className="text-xs text-white leading-relaxed whitespace-pre-wrap">{entry.workoutNotes}</p>
+                                                            </div>
+                                                        )}
+
+                                                        {hasExercises && (
+                                                            <div className="space-y-2">
+                                                                {entry.exercises!.map((ex, exIdx) => {
+                                                                    const exComplete = ex.completedSets === ex.totalSets;
+                                                                    return (
+                                                                        <div key={exIdx} className={`bg-sys-surface rounded-xl p-3 border ${exComplete ? 'border-sys-success/20' : 'border-white/5'}`}>
+                                                                            <div className="flex items-start justify-between gap-2 mb-1">
+                                                                                <div className="flex-1 min-w-0">
+                                                                                    <h5 className="text-xs font-bold text-white truncate">{ex.name}</h5>
+                                                                                    <p className="text-[10px] text-sys-onSurfaceVar">{ex.prescription}</p>
+                                                                                </div>
+                                                                                <div className={`flex items-center gap-1 px-2 py-0.5 rounded-lg text-[10px] font-bold ${
+                                                                                    exComplete ? 'bg-sys-success/20 text-sys-success' : 'bg-sys-accent/15 text-sys-accent'
+                                                                                }`}>
+                                                                                    {exComplete && <Check size={10} />}
+                                                                                    <span>{ex.completedSets}/{ex.totalSets}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="flex items-center gap-2 flex-wrap">
+                                                                                {ex.weight && (
+                                                                                    <span className="text-[10px] px-2 py-0.5 rounded-lg bg-white/5 text-white font-medium">
+                                                                                        {ex.weight} kg
+                                                                                    </span>
+                                                                                )}
+                                                                                {ex.rpe && Object.keys(ex.rpe).length > 0 && (
+                                                                                    <div className="flex items-center gap-1">
+                                                                                        <span className="text-[9px] text-sys-onSurfaceVar uppercase">RPE</span>
+                                                                                        {Object.entries(ex.rpe).map(([setIdx, rpe]) => (
+                                                                                            <span key={setIdx} className="text-[10px] w-5 h-5 flex items-center justify-center rounded-md bg-sys-accent/15 text-sys-accent font-semibold">
+                                                                                                {rpe}
+                                                                                            </span>
+                                                                                        ))}
+                                                                                    </div>
+                                                                                )}
+                                                                            </div>
+                                                                        </div>
+                                                                    );
+                                                                })}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
+                        {/* Keep old timeline list below calendar for scrolling (hidden by default) */}
                         <AnimatePresence initial={false}>
-                            {history.map((entry, idx) => {
+                            {false && history.map((entry, idx) => {
                                 const isExpanded = expandedEntries[idx];
                                 const hasExercises = entry.exercises && entry.exercises.length > 0;
 

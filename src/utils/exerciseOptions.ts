@@ -7,10 +7,32 @@
 import type { ExerciseOption } from '../workout-plan-utils';
 
 /**
+ * Base exercise properties that can be overridden by options
+ */
+interface BaseExerciseProperties {
+    name?: string;
+    sets?: number;
+    restSeconds?: number;
+    rpe?: number;
+    notes?: string;
+    loadMin?: number;
+    loadMax?: number;
+    loadUnit?: string;
+    loadPerHand?: boolean;
+    repsType?: string;
+    repsValue?: number | number[];
+    repsMin?: number;
+    repsMax?: number;
+    repsUnit?: string;
+    repsPerSide?: boolean;
+    [key: string]: unknown; // Allow additional properties
+}
+
+/**
  * Apply an exercise option to base exercise properties
  * Returns the effective properties after applying the option's overrides
  */
-export function applyExerciseOption<T extends Record<string, any>>(
+export function applyExerciseOption<T extends BaseExerciseProperties>(
     baseExercise: T,
     option: ExerciseOption
 ): T {

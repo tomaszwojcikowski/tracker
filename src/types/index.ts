@@ -5,6 +5,8 @@
  * used throughout the application.
  */
 
+import type { LoadUnit as WorkoutPlanLoadUnit, RepsType as WorkoutPlanRepsType } from '../workout-plan-utils';
+
 // ============================================================================
 // EXERCISE TYPES
 // ============================================================================
@@ -131,11 +133,11 @@ export interface ExerciseOption {
   /** Override load maximum for this option */
   loadMax?: number;
   /** Override load unit for this option */
-  loadUnit?: 'kg' | 'lb' | 'band' | 'bodyweight' | 'percent';
+  loadUnit?: WorkoutPlanLoadUnit;
   /** Override per-hand flag for this option */
   loadPerHand?: boolean;
   /** Override reps type for this option */
-  repsType?: 'reps' | 'time' | 'ladder' | 'amrap' | 'rm' | 'max' | 'effort' | 'submax' | 'none';
+  repsType?: WorkoutPlanRepsType;
   /** Override reps value for this option */
   repsValue?: number | number[];
   /** Override minimum reps for this option */

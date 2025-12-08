@@ -56,6 +56,17 @@ import { getSessionKey, getNamespacedKey, getGlobalHistoryKey } from '../../serv
 import { syncService } from '../../services/SyncService';
 import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../../types';
 import type { WorkoutSessionData, ExerciseLogEntry, MuscleFilter, RPEData, ExerciseDetailRequest } from '../../types/workout';
+import type { ExerciseOption } from '../../workout-plan-utils';
+import {
+    getExerciseTypeFlags,
+    getExerciseMetadata,
+    createTimerProps,
+    createRPEProps,
+    type ExerciseOptionsProps,
+    type TimerProps,
+    type RPEProps,
+    type SaveCallbacks,
+} from '../../utils/exerciseProps';
 
 // ============================================================================
 // HELPER FUNCTIONS
@@ -202,11 +213,33 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [exerciseSwaps, setExerciseSwaps] = useState<Record<string, string>>({});
     // Currently showing alternatives picker for which exercise
     const [showAlternativesFor, setShowAlternativesFor] = useState<{ name: string; alternatives: string[] } | null>(null);
-    
+
     // Exercise options: maps exercise ID to selected option name
     const [selectedExerciseOptions, setSelectedExerciseOptions] = useState<Record<string, string>>({});
     // Currently showing options modal for which exercise
     const [showOptionsFor, setShowOptionsFor] = useState<{ exerciseId: string; exerciseName: string; options: import('../../workout-plan-utils').ExerciseOption[] } | null>(null);
+
+    // Unified handler for showing exercise options modal - used across all view modes
+    const handleShowOptions = useCallback((exerciseId: string, exerciseName: string, options: ExerciseOption[]) => {
+        setShowOptionsFor({ exerciseId, exerciseName, options });
+    }, []);
+
+    // Unified handler for showing alternatives picker - used across all view modes
+    const handleShowAlternatives = useCallback((name: string, alternatives: string[]) => {
+        setShowAlternativesFor({ name, alternatives });
+    }, []);
+
+    // Helper to get exercise options props for a given exercise
+    const getExerciseOptionsProps = useCallback((exId: string, ex: WorkoutExercise): ExerciseOptionsProps => ({
+        exerciseOptions: ex.exerciseOptions,
+        selectedOption: selectedExerciseOptions[exId],
+        onShowOptions: handleShowOptions,
+    }), [selectedExerciseOptions, handleShowOptions]);
+
+    // Unified handler for clearing RPE prompt - used across all view modes
+    const handleClearRPEPrompt = useCallback(() => {
+        setRpePrompt(null);
+    }, []);
 
     const handleShowExerciseDetail = useCallback((request: ExerciseDetailRequest) => {
         setExerciseDetail(request);
@@ -456,11 +489,11 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             setLogs(parsedLogs);
             setAddedExercises(normalizeAddedExercises(parsedLogs.addedExercises));
             setWorkoutNotes(typeof parsedLogs.workoutNotes === 'string' ? parsedLogs.workoutNotes : '');
-            
+
             // Load or initialize exercise options
             const loadedOptions = parsedLogs.exerciseOptions || {};
             const initializedOptions: Record<string, string> = { ...loadedOptions };
-            
+
             // Initialize defaults for exercises that have options but no selection
             if (!isEmptyWorkout && workout?.sections) {
                 workout.sections.forEach(section => {
@@ -476,7 +509,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     });
                 });
             }
-            
+
             setSelectedExerciseOptions(initializedOptions);
         } else {
             setLogs({});
@@ -529,7 +562,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             ...prev,
             [exerciseId]: optionName,
         }));
-        
+
         // Persist to session storage
         const updatedLogs: WorkoutSessionData = {
             ...logs,
@@ -541,25 +574,25 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         };
         persistLogs(updatedLogs);
     }, [haptic, logs, persistLogs]);
-    
+
     // Get effective exercise with selected option applied
     const getExerciseWithOption = useCallback((ex: WorkoutExercise): WorkoutExercise => {
         if (!ex.exerciseOptions || ex.exerciseOptions.length === 0) {
             return ex;
         }
-        
+
         const exId = getExerciseId(ex.name);
         const selectedOption = selectedExerciseOptions[exId];
-        
+
         if (!selectedOption) {
             return ex;
         }
-        
+
         const option = ex.exerciseOptions.find(opt => opt.optionName === selectedOption);
         if (!option) {
             return ex;
         }
-        
+
         // Apply option overrides to exercise by spreading properties
         const baseProps = ex as unknown as Record<string, unknown>;
         return applyExerciseOption(baseProps, option) as unknown as WorkoutExercise;
@@ -1029,6 +1062,25 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     // COMPUTED VALUES
     // ============================================================================
 
+    // Consolidated timer props - used across all exercise card variants
+    const timerProps: TimerProps = useMemo(() => createTimerProps(
+        { active: emomTimer.active, interval: emomTimer.interval, toggle: emomTimer.toggle },
+        { start: restTimer.start, active: restTimer.active }
+    ), [emomTimer.active, emomTimer.interval, emomTimer.toggle, restTimer.start, restTimer.active]);
+
+    // Consolidated RPE props - used across all exercise card variants
+    const rpeProps: RPEProps = useMemo(() => createRPEProps(
+        rpePrompt,
+        saveRPE,
+        handleClearRPEPrompt
+    ), [rpePrompt, saveRPE, handleClearRPEPrompt]);
+
+    // Consolidated save callbacks - used across all exercise card variants
+    const saveCallbacks: SaveCallbacks = useMemo(() => ({
+        onSaveWeight: (id: string, weight: string) => saveLog(id, 'weight', weight),
+        onSaveNotes: (id: string, notes: string) => saveLog(id, 'notes', notes),
+    }), [saveLog]);
+
     // Find the first incomplete exercise (the one that should be auto-expanded)
     const firstIncompleteExerciseId = useMemo(() => {
         for (const section of workout.sections) {
@@ -1248,6 +1300,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         onShowHistory={handleShowExerciseDetail}
                         onShowAlternatives={(name, alts) => setShowAlternativesFor({ name, alternatives: alts })}
                         onRemoveAddedExercise={removeAddedExercise}
+                        selectedExerciseOptions={selectedExerciseOptions}
+                        onShowOptions={handleShowOptions}
                     />
                 ) : (
                     <>
@@ -1398,36 +1452,21 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     exId={exId}
                                                     name={ex.name}
                                                     displayName={effectiveName}
-                                                    prescription={exerciseWithOptions.prescription}
-                                                    notes={exerciseWithOptions.notes}
+                                                    {...getExerciseMetadata(exerciseWithOptions)}
                                                     sets={currentSetArray}
                                                     defaultSets={defaultSets}
                                                     weight={exerciseLog.weight || ''}
-                                                    isBodyweight={exerciseWithOptions.isBodyweight}
-                                                    restTime={exerciseWithOptions.rest}
                                                     isFirstIncomplete={isFirstIncomplete}
-                                                    isEmom={exerciseWithOptions.isEmom}
-                                                    isUnilateral={exerciseWithOptions.isUnilateral}
-                                                    isAmrap={exerciseWithOptions.repsRange?.type === 'amrap'}
-                                                    isLadder={exerciseWithOptions.repsRange?.type === 'ladder'}
-                                                    ladderReps={exerciseWithOptions.repsRange?.type === 'ladder' && Array.isArray(exerciseWithOptions.repsRange?.value) ? exerciseWithOptions.repsRange.value as number[] : undefined}
-                                                    tempoRange={exerciseWithOptions.tempoRange}
-                                                    supersetGroup={exerciseWithOptions.supersetGroup}
-                                                    supersetPosition={exerciseWithOptions.supersetPosition}
+                                                    {...getExerciseTypeFlags(exerciseWithOptions)}
                                                     haptic={haptic}
                                                     hasHistory={hasHistory}
-                                                    alternatives={ex.alternatives}
-                                                    exerciseOptions={ex.exerciseOptions}
-                                                    selectedOption={selectedExerciseOptions[exId]}
+                                                    {...getExerciseOptionsProps(exId, ex)}
                                                     onToggleSet={toggleSet}
                                                     onWeightChange={handleWeightChange}
                                                     onAddSet={addSet}
                                                     onCompleteAllSets={completeAllSets}
                                                     onShowHistory={handleShowExerciseDetail}
                                                     onStartRestTimer={restTimer.start}
-                                                    onShowOptions={(exerciseId, exerciseName, options) => {
-                                                        setShowOptionsFor({ exerciseId, exerciseName, options });
-                                                    }}
                                                     sectionType={section.type}
                                                     restTimerActive={restTimer.active}
                                                 />
@@ -1456,49 +1495,26 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 exId={exId}
                                                 name={ex.name}
                                                 effectiveName={effectiveName}
-                                                prescription={exerciseWithOptions.prescription}
-                                                notes={exerciseWithOptions.notes}
-                                                isBodyweight={exerciseWithOptions.isBodyweight}
-                                                isEmom={exerciseWithOptions.isEmom}
-                                                isUnilateral={exerciseWithOptions.isUnilateral}
-                                                isAmrap={exerciseWithOptions.repsRange?.type === 'amrap'}
-                                                isLadder={exerciseWithOptions.repsRange?.type === 'ladder'}
-                                                ladderReps={exerciseWithOptions.repsRange?.type === 'ladder' && Array.isArray(exerciseWithOptions.repsRange?.value) ? exerciseWithOptions.repsRange.value as number[] : undefined}
-                                                restTime={exerciseWithOptions.rest}
-                                                loadRange={exerciseWithOptions.loadRange}
-                                                tempoRange={exerciseWithOptions.tempoRange}
-                                                alternatives={ex.alternatives}
-                                                exerciseOptions={ex.exerciseOptions}
-                                                selectedOption={selectedExerciseOptions[exId]}
+                                                {...getExerciseMetadata(exerciseWithOptions)}
+                                                {...getExerciseTypeFlags(exerciseWithOptions)}
+                                                {...getExerciseOptionsProps(exId, ex)}
                                                 sets={currentSetArray}
                                                 defaultSets={defaultSets}
                                                 exerciseLog={exerciseLog}
                                                 hasHistory={hasHistory}
                                                 isFirstIncomplete={isFirstIncomplete}
                                                 isCollapsed={isCollapsed}
-                                                supersetGroup={ex.supersetGroup}
-                                                supersetPosition={ex.supersetPosition}
-                                                rpePrompt={rpePrompt}
-                                                emomTimerActive={emomTimer.active}
-                                                emomTimerInterval={emomTimer.interval}
+                                                {...rpeProps}
+                                                {...timerProps}
                                                 haptic={haptic}
                                                 onToggleCollapse={(id) => exerciseCollapse.toggle(id)}
                                                 onToggleSet={toggleSet}
                                                 onAddSet={addSet}
                                                 onCompleteAllSets={completeAllSets}
-                                                onSaveWeight={(id, weight) => saveLog(id, 'weight', weight)}
-                                                onSaveRPE={saveRPE}
-                                                onSaveNotes={(id, notes) => saveLog(id, 'notes', notes)}
-                                                onClearRPEPrompt={() => setRpePrompt(null)}
-                                                onStartRestTimer={(seconds) => restTimer.start(seconds)}
-                                                onToggleEmomTimer={() => emomTimer.toggle()}
+                                                {...saveCallbacks}
                                                 onShowHistory={handleShowExerciseDetail}
-                                                onShowAlternatives={(name, alts) => setShowAlternativesFor({ name, alternatives: alts })}
-                                                onShowOptions={(exerciseId, exerciseName, options) => {
-                                                    setShowOptionsFor({ exerciseId, exerciseName, options });
-                                                }}
+                                                onShowAlternatives={handleShowAlternatives}
                                                 sectionType={section.type}
-                                                restTimerActive={restTimer.active}
                                             />
                                         );
                                     });

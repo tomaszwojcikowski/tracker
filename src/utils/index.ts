@@ -39,5 +39,27 @@ export {
   getAddedExerciseId,
 } from './workoutSession';
 
+// Exercise prop helpers for view components
+export {
+  getExerciseTypeFlags,
+  getExerciseMetadata,
+  getExerciseRanges,
+  getSupersetProps,
+  createExerciseOptionsProps,
+  createTimerProps,
+  createRPEProps,
+  createSaveCallbacks,
+  type ExerciseOptionsProps,
+  type ExerciseTypeFlags,
+  type ExerciseMetadataProps,
+  type ExerciseRangeProps,
+  type SupersetProps,
+  type TimerProps,
+  type RPEProps,
+  type SetActionCallbacks,
+  type SaveCallbacks,
+  type NavigationCallbacks,
+} from './exerciseProps';
+
 // Performance optimization utilities
 export * from './performanceOptimizations';

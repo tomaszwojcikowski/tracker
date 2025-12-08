@@ -16,6 +16,7 @@ import type { AddedExercise, RPEValue } from '../types';
 import type { WorkoutExercise } from '../data/programData';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getExerciseLogEntry } from '../utils/workoutSession';
+import { getExerciseTypeFlags, getExerciseMetadata, createTimerProps, createRPEProps, type TimerProps, type RPEProps, type SaveCallbacks } from '../utils/exerciseProps';
 import type { WorkoutSessionData } from '../types/workout';
 
 // ============================================================================
@@ -146,6 +147,10 @@ export interface FocusViewProps {
     onShowHistory: (request: ExerciseDetailRequest) => void;
     onShowAlternatives: (name: string, alternatives: string[]) => void;
     onRemoveAddedExercise: (id: string) => void;
+    /** Selected exercise options by exercise ID */
+    selectedExerciseOptions?: Record<string, string>;
+    /** Callback when exercise options button is clicked */
+    onShowOptions?: (exerciseId: string, exerciseName: string, options: import('../workout-plan-utils').ExerciseOption[]) => void;
 }
 
 // ============================================================================
@@ -174,6 +179,8 @@ export const FocusView: React.FC<FocusViewProps> = ({
     onShowHistory,
     onShowAlternatives,
     onRemoveAddedExercise,
+    selectedExerciseOptions = {},
+    onShowOptions,
 }) => {
     // Group exercises into focus items (singles, supersets, added)
     const focusItems = useMemo(() => {
@@ -285,6 +292,17 @@ export const FocusView: React.FC<FocusViewProps> = ({
 
     // Render current focus item
     const renderFocusItem = useCallback((item: FocusItem) => {
+        // Create consolidated props for all ExerciseCards in this render
+        const timerProps: TimerProps = createTimerProps(
+            { active: emomTimer.active, interval: emomTimer.interval, toggle: emomTimer.toggle },
+            { start: restTimer.start }
+        );
+        const rpeProps: RPEProps = createRPEProps(rpePrompt, onSaveRPE, onClearRPEPrompt);
+        const saveCallbacks: SaveCallbacks = {
+            onSaveWeight: (id, weight) => onSaveLog(id, 'weight', weight),
+            onSaveNotes: (id, notes) => onSaveLog(id, 'notes', notes),
+        };
+
         if (item.type === 'added') {
             const exercise = item.exercises[0];
             const ex = exercise.data as AddedExercise;
@@ -334,44 +352,29 @@ export const FocusView: React.FC<FocusViewProps> = ({
                                     exId={exId}
                                     name={ex.name}
                                     effectiveName={effectiveName}
-                                    prescription={ex.prescription}
-                                    notes={ex.notes}
-                                    isBodyweight={ex.isBodyweight}
-                                    isEmom={ex.isEmom}
-                                    isUnilateral={ex.isUnilateral}
-                                    isAmrap={ex.repsRange?.type === 'amrap'}
-                                    isLadder={ex.repsRange?.type === 'ladder'}
-                                    ladderReps={ex.repsRange?.type === 'ladder' && Array.isArray(ex.repsRange?.value) ? ex.repsRange.value as number[] : undefined}
-                                    restTime={ex.rest}
-                                    loadRange={ex.loadRange}
-                                    tempoRange={ex.tempoRange}
-                                    alternatives={ex.alternatives}
+                                    {...getExerciseMetadata(ex)}
+                                    {...getExerciseTypeFlags(ex)}
                                     sets={currentSetArray}
                                     defaultSets={defaultSets}
                                     exerciseLog={exerciseLog}
                                     hasHistory={hasHistory}
                                     isFirstIncomplete={isFirstIncomplete}
                                     isCollapsed={false}
-                                    supersetGroup={ex.supersetGroup}
-                                    supersetPosition={ex.supersetPosition}
-                                    rpePrompt={rpePrompt}
-                                    emomTimerActive={emomTimer.active}
-                                    emomTimerInterval={emomTimer.interval}
+                                    {...rpeProps}
+                                    {...timerProps}
                                     haptic={haptic}
                                     hideCollapseButton={true}
                                     onToggleCollapse={() => {}}
                                     onToggleSet={onToggleSet}
                                     onAddSet={onAddSet}
                                     onCompleteAllSets={onCompleteAllSets}
-                                    onSaveWeight={(id, weight) => onSaveLog(id, 'weight', weight)}
-                                    onSaveRPE={onSaveRPE}
-                                    onSaveNotes={(id, notes) => onSaveLog(id, 'notes', notes)}
-                                    onClearRPEPrompt={onClearRPEPrompt}
-                                    onStartRestTimer={restTimer.start}
-                                    onToggleEmomTimer={emomTimer.toggle}
+                                    {...saveCallbacks}
                                     onShowHistory={onShowHistory}
                                     onShowAlternatives={onShowAlternatives}
                                     sectionType={exercise.sectionType}
+                                    exerciseOptions={ex.exerciseOptions}
+                                    selectedOption={selectedExerciseOptions[exId]}
+                                    onShowOptions={onShowOptions}
                                 />
                             </div>
                         );
@@ -396,44 +399,29 @@ export const FocusView: React.FC<FocusViewProps> = ({
                 exId={exId}
                 name={ex.name}
                 effectiveName={effectiveName}
-                prescription={ex.prescription}
-                notes={ex.notes}
-                isBodyweight={ex.isBodyweight}
-                isEmom={ex.isEmom}
-                isUnilateral={ex.isUnilateral}
-                isAmrap={ex.repsRange?.type === 'amrap'}
-                isLadder={ex.repsRange?.type === 'ladder'}
-                ladderReps={ex.repsRange?.type === 'ladder' && Array.isArray(ex.repsRange?.value) ? ex.repsRange.value as number[] : undefined}
-                restTime={ex.rest}
-                loadRange={ex.loadRange}
-                tempoRange={ex.tempoRange}
-                alternatives={ex.alternatives}
+                {...getExerciseMetadata(ex)}
+                {...getExerciseTypeFlags(ex)}
                 sets={currentSetArray}
                 defaultSets={defaultSets}
                 exerciseLog={exerciseLog}
                 hasHistory={hasHistory}
                 isFirstIncomplete={isFirstIncomplete}
                 isCollapsed={false}
-                supersetGroup={ex.supersetGroup}
-                supersetPosition={ex.supersetPosition}
-                rpePrompt={rpePrompt}
-                emomTimerActive={emomTimer.active}
-                emomTimerInterval={emomTimer.interval}
+                {...rpeProps}
+                {...timerProps}
                 haptic={haptic}
                 hideCollapseButton={true}
                 onToggleCollapse={() => {}}
                 onToggleSet={onToggleSet}
                 onAddSet={onAddSet}
                 onCompleteAllSets={onCompleteAllSets}
-                onSaveWeight={(id, weight) => onSaveLog(id, 'weight', weight)}
-                onSaveRPE={onSaveRPE}
-                onSaveNotes={(id, notes) => onSaveLog(id, 'notes', notes)}
-                onClearRPEPrompt={onClearRPEPrompt}
-                onStartRestTimer={restTimer.start}
-                onToggleEmomTimer={emomTimer.toggle}
+                {...saveCallbacks}
                 onShowHistory={onShowHistory}
                 onShowAlternatives={onShowAlternatives}
                 sectionType={exercise.sectionType}
+                exerciseOptions={ex.exerciseOptions}
+                selectedOption={selectedExerciseOptions[exId]}
+                onShowOptions={onShowOptions}
             />
         );
     }, [
@@ -453,6 +441,8 @@ export const FocusView: React.FC<FocusViewProps> = ({
         onShowHistory,
         onShowAlternatives,
         onRemoveAddedExercise,
+        selectedExerciseOptions,
+        onShowOptions,
     ]);
 
     // Get current item info

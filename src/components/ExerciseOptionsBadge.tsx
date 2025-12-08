@@ -13,7 +13,7 @@ export interface ExerciseOptionsBadgeProps {
     /** Whether an option has been selected */
     hasSelection: boolean;
     /** Click handler */
-    onClick?: () => void;
+    onClick?: (e?: React.MouseEvent) => void;
 }
 
 /**

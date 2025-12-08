@@ -12,6 +12,7 @@ import type { SupersetExercise } from '../SupersetGroup';
 import { GestureHint } from '../GestureHint';
 import { BottomSheet } from '../BottomSheet';
 import { ExerciseDetailModal } from '../modals';
+import { ExerciseOptionsModal } from '../modals/ExerciseOptionsModal';
 import { AddedExerciseCard } from '../AddedExerciseCard';
 import { ExerciseSelectorModal } from '../ExerciseSelectorModal';
 import { ExerciseCard } from '../ExerciseCard';
@@ -47,6 +48,10 @@ import {
     normalizeAddedExercises,
     getExerciseId,
 } from '../../utils/workoutSession';
+import {
+    applyExerciseOption,
+    getDefaultExerciseOption,
+} from '../../utils/exerciseOptions';
 import { getSessionKey, getNamespacedKey, getGlobalHistoryKey } from '../../services/storageNamespace';
 import { syncService } from '../../services/SyncService';
 import type { WorkoutPlayerProps, AddedExercise, Exercise, RPEValue } from '../../types';
@@ -197,6 +202,11 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [exerciseSwaps, setExerciseSwaps] = useState<Record<string, string>>({});
     // Currently showing alternatives picker for which exercise
     const [showAlternativesFor, setShowAlternativesFor] = useState<{ name: string; alternatives: string[] } | null>(null);
+    
+    // Exercise options: maps exercise ID to selected option name
+    const [selectedExerciseOptions, setSelectedExerciseOptions] = useState<Record<string, string>>({});
+    // Currently showing options modal for which exercise
+    const [showOptionsFor, setShowOptionsFor] = useState<{ exerciseId: string; exerciseName: string; options: import('../../workout-plan-utils').ExerciseOption[] } | null>(null);
 
     const handleShowExerciseDetail = useCallback((request: ExerciseDetailRequest) => {
         setExerciseDetail(request);
@@ -446,12 +456,35 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             setLogs(parsedLogs);
             setAddedExercises(normalizeAddedExercises(parsedLogs.addedExercises));
             setWorkoutNotes(typeof parsedLogs.workoutNotes === 'string' ? parsedLogs.workoutNotes : '');
+            
+            // Load or initialize exercise options
+            const loadedOptions = parsedLogs.exerciseOptions || {};
+            const initializedOptions: Record<string, string> = { ...loadedOptions };
+            
+            // Initialize defaults for exercises that have options but no selection
+            if (!isEmptyWorkout && workout?.sections) {
+                workout.sections.forEach(section => {
+                    section.exercises.forEach(ex => {
+                        const exId = getExerciseId(ex.name);
+                        if (ex.exerciseOptions && ex.exerciseOptions.length > 0 && !initializedOptions[exId]) {
+                            // Set default option (first option)
+                            const defaultOption = getDefaultExerciseOption(ex.exerciseOptions);
+                            if (defaultOption) {
+                                initializedOptions[exId] = defaultOption;
+                            }
+                        }
+                    });
+                });
+            }
+            
+            setSelectedExerciseOptions(initializedOptions);
         } else {
             setLogs({});
             setAddedExercises([]);
             setWorkoutNotes('');
+            setSelectedExerciseOptions({});
         }
-    }, [sessionKey]);
+    }, [sessionKey, workout, isEmptyWorkout]);
 
     // ============================================================================
     // PERSISTENCE FUNCTIONS
@@ -488,6 +521,49 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         };
         persistLogs(updatedLogs);
     }, [logs, persistLogs]);
+
+    // Handle selecting an exercise option
+    const handleSelectExerciseOption = useCallback((exerciseId: string, optionName: string) => {
+        haptic.bump();
+        setSelectedExerciseOptions((prev) => ({
+            ...prev,
+            [exerciseId]: optionName,
+        }));
+        
+        // Persist to session storage
+        const updatedLogs: WorkoutSessionData = {
+            ...logs,
+            exerciseOptions: {
+                ...(logs.exerciseOptions || {}),
+                [exerciseId]: optionName,
+            },
+            lastModified: new Date().toISOString(),
+        };
+        persistLogs(updatedLogs);
+    }, [haptic, logs, persistLogs]);
+    
+    // Get effective exercise with selected option applied
+    const getExerciseWithOption = useCallback((ex: WorkoutExercise): WorkoutExercise => {
+        if (!ex.exerciseOptions || ex.exerciseOptions.length === 0) {
+            return ex;
+        }
+        
+        const exId = getExerciseId(ex.name);
+        const selectedOption = selectedExerciseOptions[exId];
+        
+        if (!selectedOption) {
+            return ex;
+        }
+        
+        const option = ex.exerciseOptions.find(opt => opt.optionName === selectedOption);
+        if (!option) {
+            return ex;
+        }
+        
+        // Apply option overrides to exercise by spreading properties
+        const baseProps = ex as unknown as Record<string, unknown>;
+        return applyExerciseOption(baseProps, option) as unknown as WorkoutExercise;
+    }, [selectedExerciseOptions]);
 
     // ============================================================================
     // SET TOGGLE & RPE
@@ -1241,11 +1317,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         const elements: React.ReactNode[] = [];
 
                                         section.exercises.forEach((ex: WorkoutExercise, eIdx: number) => {
-                                            const defaultSets = ex.sets || 3;
+                                            // Apply exercise options if selected
+                                            const exerciseWithOptions = getExerciseWithOption(ex);
+                                            const defaultSets = exerciseWithOptions.sets || 3;
                                             const exId = getExerciseId(ex.name);
                                             const exerciseLog = getExerciseLogEntry(logs, exId);
                                             const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
-                                            const effectiveName = getEffectiveExerciseName(ex);
+                                            const effectiveName = getEffectiveExerciseName(exerciseWithOptions);
                                             const hasHistory = getExerciseHistory(effectiveName).length > 0;
                                             const isFirstIncomplete = exId === firstIncompleteExerciseId;
 
@@ -1320,31 +1398,36 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     exId={exId}
                                                     name={ex.name}
                                                     displayName={effectiveName}
-                                                    prescription={ex.prescription}
-                                                    notes={ex.notes}
+                                                    prescription={exerciseWithOptions.prescription}
+                                                    notes={exerciseWithOptions.notes}
                                                     sets={currentSetArray}
                                                     defaultSets={defaultSets}
                                                     weight={exerciseLog.weight || ''}
-                                                    isBodyweight={ex.isBodyweight}
-                                                    restTime={ex.rest}
+                                                    isBodyweight={exerciseWithOptions.isBodyweight}
+                                                    restTime={exerciseWithOptions.rest}
                                                     isFirstIncomplete={isFirstIncomplete}
-                                                    isEmom={ex.isEmom}
-                                                    isUnilateral={ex.isUnilateral}
-                                                    isAmrap={ex.repsRange?.type === 'amrap'}
-                                                    isLadder={ex.repsRange?.type === 'ladder'}
-                                                    ladderReps={ex.repsRange?.type === 'ladder' && Array.isArray(ex.repsRange?.value) ? ex.repsRange.value as number[] : undefined}
-                                                    tempoRange={ex.tempoRange}
-                                                    supersetGroup={ex.supersetGroup}
-                                                    supersetPosition={ex.supersetPosition}
+                                                    isEmom={exerciseWithOptions.isEmom}
+                                                    isUnilateral={exerciseWithOptions.isUnilateral}
+                                                    isAmrap={exerciseWithOptions.repsRange?.type === 'amrap'}
+                                                    isLadder={exerciseWithOptions.repsRange?.type === 'ladder'}
+                                                    ladderReps={exerciseWithOptions.repsRange?.type === 'ladder' && Array.isArray(exerciseWithOptions.repsRange?.value) ? exerciseWithOptions.repsRange.value as number[] : undefined}
+                                                    tempoRange={exerciseWithOptions.tempoRange}
+                                                    supersetGroup={exerciseWithOptions.supersetGroup}
+                                                    supersetPosition={exerciseWithOptions.supersetPosition}
                                                     haptic={haptic}
                                                     hasHistory={hasHistory}
                                                     alternatives={ex.alternatives}
+                                                    exerciseOptions={ex.exerciseOptions}
+                                                    selectedOption={selectedExerciseOptions[exId]}
                                                     onToggleSet={toggleSet}
                                                     onWeightChange={handleWeightChange}
                                                     onAddSet={addSet}
                                                     onCompleteAllSets={completeAllSets}
                                                     onShowHistory={handleShowExerciseDetail}
                                                     onStartRestTimer={restTimer.start}
+                                                    onShowOptions={(exerciseId, exerciseName, options) => {
+                                                        setShowOptionsFor({ exerciseId, exerciseName, options });
+                                                    }}
                                                     sectionType={section.type}
                                                     restTimerActive={restTimer.active}
                                                 />
@@ -1356,11 +1439,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                                     // Card view - render exercises normally
                                     return section.exercises.map((ex: WorkoutExercise, eIdx: number) => {
-                                        const defaultSets = ex.sets || 3;
+                                        // Apply exercise options if selected
+                                        const exerciseWithOptions = getExerciseWithOption(ex);
+                                        const defaultSets = exerciseWithOptions.sets || 3;
                                         const exId = getExerciseId(ex.name);
                                         const exerciseLog = getExerciseLogEntry(logs, exId);
                                         const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
-                                        const effectiveName = getEffectiveExerciseName(ex);
+                                        const effectiveName = getEffectiveExerciseName(exerciseWithOptions);
                                         const hasHistory = getExerciseHistory(effectiveName).length > 0;
                                         const isCollapsed = exerciseCollapse.isCollapsed(exId);
                                         const isFirstIncomplete = exId === firstIncompleteExerciseId;
@@ -1371,18 +1456,20 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 exId={exId}
                                                 name={ex.name}
                                                 effectiveName={effectiveName}
-                                                prescription={ex.prescription}
-                                                notes={ex.notes}
-                                                isBodyweight={ex.isBodyweight}
-                                                isEmom={ex.isEmom}
-                                                isUnilateral={ex.isUnilateral}
-                                                isAmrap={ex.repsRange?.type === 'amrap'}
-                                                isLadder={ex.repsRange?.type === 'ladder'}
-                                                ladderReps={ex.repsRange?.type === 'ladder' && Array.isArray(ex.repsRange?.value) ? ex.repsRange.value as number[] : undefined}
-                                                restTime={ex.rest}
-                                                loadRange={ex.loadRange}
-                                                tempoRange={ex.tempoRange}
+                                                prescription={exerciseWithOptions.prescription}
+                                                notes={exerciseWithOptions.notes}
+                                                isBodyweight={exerciseWithOptions.isBodyweight}
+                                                isEmom={exerciseWithOptions.isEmom}
+                                                isUnilateral={exerciseWithOptions.isUnilateral}
+                                                isAmrap={exerciseWithOptions.repsRange?.type === 'amrap'}
+                                                isLadder={exerciseWithOptions.repsRange?.type === 'ladder'}
+                                                ladderReps={exerciseWithOptions.repsRange?.type === 'ladder' && Array.isArray(exerciseWithOptions.repsRange?.value) ? exerciseWithOptions.repsRange.value as number[] : undefined}
+                                                restTime={exerciseWithOptions.rest}
+                                                loadRange={exerciseWithOptions.loadRange}
+                                                tempoRange={exerciseWithOptions.tempoRange}
                                                 alternatives={ex.alternatives}
+                                                exerciseOptions={ex.exerciseOptions}
+                                                selectedOption={selectedExerciseOptions[exId]}
                                                 sets={currentSetArray}
                                                 defaultSets={defaultSets}
                                                 exerciseLog={exerciseLog}
@@ -1407,6 +1494,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 onToggleEmomTimer={() => emomTimer.toggle()}
                                                 onShowHistory={handleShowExerciseDetail}
                                                 onShowAlternatives={(name, alts) => setShowAlternativesFor({ name, alternatives: alts })}
+                                                onShowOptions={(exerciseId, exerciseName, options) => {
+                                                    setShowOptionsFor({ exerciseId, exerciseName, options });
+                                                }}
                                                 sectionType={section.type}
                                                 restTimerActive={restTimer.active}
                                             />
@@ -1672,6 +1762,23 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             </div>
                         </div>
                     </div>
+                )}
+
+                {/* Exercise Options Modal */}
+                {showOptionsFor && (
+                    <ExerciseOptionsModal
+                        isOpen={true}
+                        onClose={() => {
+                            haptic.tick();
+                            setShowOptionsFor(null);
+                        }}
+                        exerciseName={showOptionsFor.exerciseName}
+                        options={showOptionsFor.options}
+                        selectedOption={selectedExerciseOptions[showOptionsFor.exerciseId]}
+                        onSelectOption={(optionName) => {
+                            handleSelectExerciseOption(showOptionsFor.exerciseId, optionName);
+                        }}
+                    />
                 )}
 
                 {/* Notes Modal */}

@@ -7,7 +7,7 @@
 
 import { getCompleteSchedule } from '../utils/schedule';
 import { getProgramRegistry } from '../services/programRegistry';
-import type { LoadRange, RepsRange, TempoRange, PhaseMetadata } from '../workout-plan-utils';
+import type { LoadRange, RepsRange, TempoRange, PhaseMetadata, ExerciseOption } from '../workout-plan-utils';
 
 /**
  * Program block definition
@@ -46,6 +46,8 @@ export interface WorkoutExercise {
   supersetPosition?: 'first' | 'middle' | 'last' | 'only';
   /** Array of alternative exercise names */
   alternatives?: string[];
+  /** Exercise options for this exercise (variations with different parameters) */
+  exerciseOptions?: ExerciseOption[];
 }
 
 /**

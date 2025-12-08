@@ -11,6 +11,7 @@ import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2, Time
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
 import { CompactSetButtons } from './CompactSetButtons';
+import { ExerciseOptionsBadge } from './ExerciseOptionsBadge';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest } from '../types/workout';
 import type { TempoRange } from '../workout-plan-utils';
@@ -64,6 +65,10 @@ export interface CompactExerciseRowProps {
     hasHistory?: boolean;
     /** Alternative exercises available for swapping */
     alternatives?: string[];
+    /** Exercise options available for this exercise */
+    exerciseOptions?: import('../workout-plan-utils').ExerciseOption[];
+    /** Currently selected exercise option */
+    selectedOption?: string;
     /** Callback when set is toggled */
     onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number, sectionType?: string, isEmom?: boolean) => void;
     /** Callback when weight changes */
@@ -76,6 +81,8 @@ export interface CompactExerciseRowProps {
     onShowHistory?: (request: ExerciseDetailRequest) => void;
     /** Callback to start rest timer */
     onStartRestTimer?: (seconds: number) => void;
+    /** Callback when exercise options button is clicked */
+    onShowOptions?: (exerciseId: string, exerciseName: string, options: import('../workout-plan-utils').ExerciseOption[]) => void;
     /** Section type for determining if rest button should show (hide for prep/cool sections) */
     sectionType?: string;
     /** Rest timer active state */
@@ -109,12 +116,15 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     haptic,
     hasHistory = false,
     alternatives,
+    exerciseOptions,
+    selectedOption,
     onToggleSet,
     onWeightChange,
     onAddSet,
     onCompleteAllSets,
     onShowHistory,
     onStartRestTimer,
+    onShowOptions,
     sectionType,
     restTimerActive = false,
 }) => {
@@ -348,6 +358,19 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-blue-500/20 text-blue-400 flex-shrink-0">
                             <span className="text-[8px]">L/R</span>
                         </span>
+                    )}
+                    {exerciseOptions && exerciseOptions.length > 0 && (
+                        <ExerciseOptionsBadge
+                            optionCount={exerciseOptions.length}
+                            hasSelection={!!selectedOption}
+                            onClick={(e) => {
+                                e?.stopPropagation();
+                                haptic.bump();
+                                if (onShowOptions) {
+                                    onShowOptions(exId, displayName, exerciseOptions);
+                                }
+                            }}
+                        />
                     )}
                     <span className="text-xs text-sys-success font-semibold">
                         {completedSets}/{totalSets}

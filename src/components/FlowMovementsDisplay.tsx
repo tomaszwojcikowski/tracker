@@ -2,11 +2,12 @@
  * Flow Movements Display Component
  *
  * Displays the sequence of movements for a selected flow exercise.
- * Compact inline view for the workout player.
+ * Always shows all movements - no truncation.
+ * Includes smooth animations when flow selection changes.
  */
 
-import React, { useState } from 'react';
-import { Activity, ChevronDown, ChevronUp } from 'lucide-react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Activity, Settings2 } from 'lucide-react';
 import type { ExerciseOption } from '../workout-plan-utils';
 
 export interface FlowMovementsDisplayProps {
@@ -16,17 +17,23 @@ export interface FlowMovementsDisplayProps {
     options: ExerciseOption[];
     /** Currently selected option name */
     selectedOptionName: string | undefined;
+    /** Callback when choose button is clicked */
+    onChooseFlow?: () => void;
 }
 
 /**
  * Inline display of flow movements for a selected flow option
+ * Always shows all movements with smooth animation on change
  */
 export const FlowMovementsDisplay: React.FC<FlowMovementsDisplayProps> = ({
     selectedOption,
     options,
     selectedOptionName,
+    onChooseFlow,
 }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isAnimating, setIsAnimating] = useState(false);
+    const [displayedOption, setDisplayedOption] = useState(selectedOptionName);
+    const prevOptionRef = useRef(selectedOptionName);
 
     // Find the option with flow movements
     const optionWithMovements = selectedOption?.flowMovements
@@ -35,78 +42,141 @@ export const FlowMovementsDisplay: React.FC<FlowMovementsDisplayProps> = ({
 
     const movements = optionWithMovements?.flowMovements;
 
+    // Handle animation when option changes
+    useEffect(() => {
+        if (prevOptionRef.current !== selectedOptionName && selectedOptionName) {
+            // Start exit animation
+            setIsAnimating(true);
+
+            // After exit animation, update displayed option and start enter animation
+            const timer = setTimeout(() => {
+                setDisplayedOption(selectedOptionName);
+                // Small delay to ensure DOM updates before enter animation
+                requestAnimationFrame(() => {
+                    setIsAnimating(false);
+                });
+            }, 150);
+
+            prevOptionRef.current = selectedOptionName;
+            return () => clearTimeout(timer);
+        }
+    }, [selectedOptionName]);
+
     if (!movements || movements.length === 0) {
         return null;
     }
 
-    const previewCount = 4;
-    const previewMovements = movements.slice(0, previewCount);
-    const hasMore = movements.length > previewCount;
-
     return (
-        <div className="mt-2 p-2 rounded-lg bg-sys-surface/50 border border-white/5">
-            {/* Header */}
-            <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="flex items-center gap-2 w-full text-left"
-            >
-                <Activity size={14} className="text-sys-accent flex-shrink-0" />
-                <span className="text-xs font-medium text-sys-accent">
-                    {optionWithMovements?.optionName || 'Flow Sequence'}
-                </span>
-                <span className="text-xs text-sys-onSurfaceVar">
-                    ({movements.length} movements)
-                </span>
-                {hasMore && (
-                    <span className="ml-auto text-sys-onSurfaceVar">
-                        {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+        <div
+            className={`
+                mt-2 p-3 rounded-lg bg-sys-surface/50 border border-white/5
+                transition-all duration-300 ease-out
+                ${isAnimating ? 'opacity-0 scale-95 -translate-y-1' : 'opacity-100 scale-100 translate-y-0'}
+            `}
+        >
+            {/* Header with flow name and choose button */}
+            <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                    <Activity
+                        size={14}
+                        className={`text-sys-accent flex-shrink-0 transition-transform duration-300 ${isAnimating ? 'rotate-180' : 'rotate-0'}`}
+                    />
+                    <span className="text-xs font-medium text-sys-accent">
+                        {optionWithMovements?.optionName || 'Flow Sequence'}
                     </span>
+                    <span className="text-xs text-sys-onSurfaceVar">
+                        ({movements.length} movements)
+                    </span>
+                </div>
+                {onChooseFlow && (
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onChooseFlow();
+                        }}
+                        className="flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium
+                                   bg-sys-accent/20 text-sys-accent border border-sys-accent/30
+                                   hover:bg-sys-accent/30 active:scale-95 transition-all"
+                    >
+                        <Settings2 size={10} />
+                        <span>Change</span>
+                    </button>
                 )}
-            </button>
+            </div>
 
-            {/* Movements */}
-            <div className="mt-2 flex flex-wrap gap-1">
-                {(isExpanded ? movements : previewMovements).map((movement, index) => (
-                    <React.Fragment key={index}>
-                        <span className="inline-flex items-center gap-1 text-xs text-sys-onSurfaceVar">
-                            <span className="w-4 h-4 flex items-center justify-center rounded-full bg-sys-accent/20 text-sys-accent text-[10px] font-bold">
-                                {index + 1}
-                            </span>
-                            <span>{movement}</span>
+            {/* Full movements list with staggered animation */}
+            <div className="space-y-1">
+                {movements.map((movement, index) => (
+                    <div
+                        key={`${displayedOption}-${index}`}
+                        className={`
+                            flex items-center gap-2
+                            transition-all duration-300 ease-out
+                            ${isAnimating
+                                ? 'opacity-0 translate-x-2'
+                                : 'opacity-100 translate-x-0'
+                            }
+                        `}
+                        style={{
+                            transitionDelay: isAnimating ? '0ms' : `${index * 30}ms`
+                        }}
+                    >
+                        <span className="w-5 h-5 flex items-center justify-center rounded-full bg-sys-accent/20 text-sys-accent text-[10px] font-bold flex-shrink-0">
+                            {index + 1}
                         </span>
-                        {index < (isExpanded ? movements.length : previewMovements.length) - 1 && (
-                            <span className="text-sys-onSurfaceVar/40 mx-0.5">→</span>
+                        <span className="text-xs text-sys-onSurfaceVar">{movement}</span>
+                        {index < movements.length - 1 && (
+                            <span className="text-sys-onSurfaceVar/40 text-xs">→</span>
                         )}
-                    </React.Fragment>
+                    </div>
                 ))}
-                {!isExpanded && hasMore && (
-                    <span className="text-xs text-sys-onSurfaceVar/60 italic">
-                        +{movements.length - previewCount} more...
-                    </span>
-                )}
             </div>
         </div>
     );
 };
 
 /**
- * Compact badge version for showing flow is selected
+ * Compact badge version for showing flow is selected - with choose button and animation
  */
 export const FlowBadge: React.FC<{
     movementCount: number;
     flowName: string;
     onClick?: () => void;
 }> = ({ movementCount, flowName, onClick }) => {
+    const [isAnimating, setIsAnimating] = useState(false);
+    const prevNameRef = useRef(flowName);
+
+    // Animate when flow name changes
+    useEffect(() => {
+        if (prevNameRef.current !== flowName) {
+            setIsAnimating(true);
+            const timer = setTimeout(() => setIsAnimating(false), 300);
+            prevNameRef.current = flowName;
+            return () => clearTimeout(timer);
+        }
+    }, [flowName]);
+
     return (
         <button
             onClick={onClick}
-            className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium
-                       bg-sys-accent/20 text-sys-accent border border-sys-accent/30
-                       hover:bg-sys-accent/30 transition-all duration-200"
-            title={`${flowName} - ${movementCount} movements`}
+            className={`
+                inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium
+                bg-sys-accent/20 text-sys-accent border border-sys-accent/30
+                hover:bg-sys-accent/30 transition-all duration-200
+                ${isAnimating ? 'animate-pulse scale-105' : ''}
+            `}
+            title={`${flowName} - ${movementCount} movements. Tap to change.`}
         >
-            <Activity size={12} />
-            <span className="max-w-[120px] truncate">{flowName}</span>
+            <Activity size={12} className={isAnimating ? 'animate-spin' : ''} />
+            <span
+                className={`
+                    max-w-[100px] truncate transition-all duration-300
+                    ${isAnimating ? 'opacity-0 translate-y-1' : 'opacity-100 translate-y-0'}
+                `}
+            >
+                {flowName}
+            </span>
+            <Settings2 size={10} className="opacity-60" />
         </button>
     );
 };

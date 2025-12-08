@@ -23,6 +23,7 @@ import {
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { RPESelector } from './RPESelector';
 import { ExerciseOptionsBadge } from './ExerciseOptionsBadge';
+import { FlowMovementsDisplay, FlowBadge } from './FlowMovementsDisplay';
 import type { RPEValue } from '../types';
 import type { ExerciseDetailRequest, ExerciseLogEntry } from '../types/workout';
 import type { LoadRange, TempoRange } from '../workout-plan-utils';
@@ -318,8 +319,22 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 </span>
                             )}
 
-                            {/* Exercise Options Badge */}
-                            {exerciseOptions && exerciseOptions.length > 0 && (
+                            {/* Flow Badge - show when flow is selected */}
+                            {exerciseOptions && exerciseOptions.length > 0 && selectedOption && exerciseOptions.some(opt => opt.flowMovements?.length) && (
+                                <FlowBadge
+                                    movementCount={exerciseOptions.find(opt => opt.optionName === selectedOption)?.flowMovements?.length || 0}
+                                    flowName={selectedOption}
+                                    onClick={() => {
+                                        haptic.bump();
+                                        if (onShowOptions) {
+                                            onShowOptions(exId, effectiveName, exerciseOptions);
+                                        }
+                                    }}
+                                />
+                            )}
+
+                            {/* Exercise Options Badge - show for non-flow options or when no flow selected */}
+                            {exerciseOptions && exerciseOptions.length > 0 && !(selectedOption && exerciseOptions.some(opt => opt.flowMovements?.length)) && (
                                 <ExerciseOptionsBadge
                                     optionCount={exerciseOptions.length}
                                     hasSelection={!!selectedOption}
@@ -371,7 +386,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             {(() => {
                                 // Find first incomplete set once
                                 const firstIncompleteIndex = sets.findIndex(s => !s);
-                                
+
                                 return (
                                     <>
                                         {sets.map((isDone, i) => {
@@ -465,6 +480,19 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 onSkip={() => onClearRPEPrompt()}
                                 setNumber={rpePrompt.setIndex + 1}
                                 showAsPrompt
+                            />
+                        )}
+
+                        {/* Flow Movements Display - for focus view card */}
+                        {exerciseOptions && selectedOption && exerciseOptions.some(opt => opt.flowMovements?.length) && (
+                            <FlowMovementsDisplay
+                                selectedOption={exerciseOptions.find(opt => opt.optionName === selectedOption)}
+                                options={exerciseOptions}
+                                selectedOptionName={selectedOption}
+                                onChooseFlow={onShowOptions ? () => {
+                                    haptic.bump();
+                                    onShowOptions(exId, effectiveName, exerciseOptions);
+                                } : undefined}
                             />
                         )}
 

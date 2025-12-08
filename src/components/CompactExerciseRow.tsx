@@ -12,7 +12,7 @@ import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
 import { CompactSetButtons } from './CompactSetButtons';
 import { ExerciseOptionsBadge } from './ExerciseOptionsBadge';
-import { FlowMovementsDisplay } from './FlowMovementsDisplay';
+import { FlowMovementsDisplay, FlowBadge } from './FlowMovementsDisplay';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest } from '../types/workout';
 import type { TempoRange } from '../workout-plan-utils';
@@ -360,7 +360,21 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             <span className="text-[8px]">L/R</span>
                         </span>
                     )}
-                    {exerciseOptions && exerciseOptions.length > 0 && (
+                    {/* Flow Badge - show when flow is selected */}
+                    {exerciseOptions && exerciseOptions.length > 0 && selectedOption && exerciseOptions.some(opt => opt.flowMovements?.length) && (
+                        <FlowBadge
+                            movementCount={exerciseOptions.find(opt => opt.optionName === selectedOption)?.flowMovements?.length || 0}
+                            flowName={selectedOption}
+                            onClick={() => {
+                                haptic.bump();
+                                if (onShowOptions) {
+                                    onShowOptions(exId, displayName, exerciseOptions);
+                                }
+                            }}
+                        />
+                    )}
+                    {/* Exercise Options Badge - show for non-flow options or when no flow selected */}
+                    {exerciseOptions && exerciseOptions.length > 0 && !(selectedOption && exerciseOptions.some(opt => opt.flowMovements?.length)) && (
                         <ExerciseOptionsBadge
                             optionCount={exerciseOptions.length}
                             hasSelection={!!selectedOption}
@@ -495,6 +509,10 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             selectedOption={exerciseOptions.find(opt => opt.optionName === selectedOption)}
                             options={exerciseOptions}
                             selectedOptionName={selectedOption}
+                            onChooseFlow={onShowOptions ? () => {
+                                haptic.bump();
+                                onShowOptions(exId, displayName, exerciseOptions);
+                            } : undefined}
                         />
                     )}
 

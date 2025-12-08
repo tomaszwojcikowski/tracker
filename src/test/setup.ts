@@ -45,6 +45,7 @@ vi.mock('lucide-react', () => ({
   Palette: () => 'Palette',
   History: () => 'History',
   Settings: () => 'Settings',
+  Settings2: () => 'Settings2',
   Zap: () => 'Zap',
   Activity: () => 'Activity',
 }));

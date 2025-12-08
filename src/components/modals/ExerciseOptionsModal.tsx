@@ -5,8 +5,8 @@
  * Supports flow exercises with sequences of movements (v2.4+).
  */
 
-import React, { useState } from 'react';
-import { Check, Info, ChevronDown, ChevronUp, Activity } from 'lucide-react';
+import React from 'react';
+import { Check, Info, Activity } from 'lucide-react';
 import { BottomSheet } from '../BottomSheet';
 import type { ExerciseOption } from '../../workout-plan-utils';
 import { getExerciseOptionSummary } from '../../utils/exerciseOptions';
@@ -29,40 +29,26 @@ export interface ExerciseOptionsModalProps {
 }
 
 /**
- * Component to display flow movements sequence
+ * Component to display flow movements sequence - always shows all movements
  */
-const FlowMovementsDisplay: React.FC<{
+const FlowMovementsList: React.FC<{
     movements: string[];
-    isExpanded: boolean;
-    onToggle: () => void;
-}> = ({ movements, isExpanded, onToggle }) => {
-    // Show first 3 movements in collapsed state
-    const previewMovements = movements.slice(0, 3);
-    const hasMore = movements.length > 3;
-
+}> = ({ movements }) => {
     return (
-        <div className="mt-2">
-            <button
-                type="button"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    onToggle();
-                }}
-                className="flex items-center gap-1.5 text-xs text-sys-accent hover:text-sys-accent/80 transition-colors"
-            >
-                <Activity size={12} />
-                <span>{movements.length} movements</span>
-                {hasMore && (
-                    isExpanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />
-                )}
-            </button>
+        <div className="mt-3 pt-3 border-t border-white/10">
+            <div className="flex items-center gap-1.5 mb-2">
+                <Activity size={12} className="text-sys-accent" />
+                <span className="text-xs font-medium text-sys-accent">
+                    {movements.length} movements
+                </span>
+            </div>
 
-            {/* Movements list */}
-            <div className="mt-2 text-left">
-                {(isExpanded ? movements : previewMovements).map((movement, index) => (
+            {/* Full movements list - always visible */}
+            <div className="space-y-1.5">
+                {movements.map((movement, index) => (
                     <div
                         key={index}
-                        className="flex items-start gap-2 py-1"
+                        className="flex items-start gap-2"
                     >
                         <span className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full bg-sys-accent/20 text-sys-accent text-[10px] font-bold">
                             {index + 1}
@@ -72,12 +58,6 @@ const FlowMovementsDisplay: React.FC<{
                         </span>
                     </div>
                 ))}
-                {!isExpanded && hasMore && (
-                    <div className="flex items-center gap-2 py-1 text-xs text-sys-onSurfaceVar/60 italic">
-                        <span className="w-5" />
-                        +{movements.length - 3} more...
-                    </div>
-                )}
             </div>
         </div>
     );
@@ -95,15 +75,9 @@ export const ExerciseOptionsModal: React.FC<ExerciseOptionsModalProps> = ({
     onSelectOption,
     isFlow = false,
 }) => {
-    const [expandedOption, setExpandedOption] = useState<string | null>(null);
-
     const handleSelectOption = (optionName: string): void => {
         onSelectOption(optionName);
         onClose();
-    };
-
-    const toggleExpanded = (optionName: string): void => {
-        setExpandedOption(prev => prev === optionName ? null : optionName);
     };
 
     // Check if any option has flow movements
@@ -134,7 +108,6 @@ export const ExerciseOptionsModal: React.FC<ExerciseOptionsModalProps> = ({
                         const isSelected = option.optionName === selectedOption;
                         const summary = getExerciseOptionSummary(option);
                         const hasFlowMovements = option.flowMovements && option.flowMovements.length > 0;
-                        const isExpanded = expandedOption === option.optionName;
 
                         return (
                             <button
@@ -176,12 +149,10 @@ export const ExerciseOptionsModal: React.FC<ExerciseOptionsModalProps> = ({
                                     </div>
                                 )}
 
-                                {/* Flow movements display */}
+                                {/* Flow movements display - always show all movements */}
                                 {hasFlowMovements && (
-                                    <FlowMovementsDisplay
+                                    <FlowMovementsList
                                         movements={option.flowMovements!}
-                                        isExpanded={isExpanded}
-                                        onToggle={() => toggleExpanded(option.optionName)}
                                     />
                                 )}
 

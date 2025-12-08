@@ -5,7 +5,7 @@
  * movement sequences for mobility exercises.
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 
@@ -259,7 +259,7 @@ describe('Flow Exercise Feature', () => {
       expect(screen.getByText(/5.*movements/)).toBeInTheDocument();
     });
 
-    it('should expand to show all movements when clicked', () => {
+    it('should always show all movements (no expand/collapse)', () => {
       render(
         <FlowMovementsDisplay
           options={mockFlowOptions}
@@ -268,11 +268,7 @@ describe('Flow Exercise Feature', () => {
         />
       );
 
-      // Click to expand
-      const button = screen.getByRole('button');
-      fireEvent.click(button);
-
-      // Should show all movements
+      // All movements should be visible immediately - no click needed
       expect(screen.getByText('Deep Squat')).toBeInTheDocument();
       expect(screen.getByText('Spiderman Lunge')).toBeInTheDocument();
       expect(screen.getByText('Downward Dog')).toBeInTheDocument();
@@ -280,7 +276,7 @@ describe('Flow Exercise Feature', () => {
       expect(screen.getByText('Stand')).toBeInTheDocument();
     });
 
-    it('should collapse when clicked again', () => {
+    it('should show flow name and movement count in header', () => {
       render(
         <FlowMovementsDisplay
           options={mockFlowOptions}
@@ -289,16 +285,7 @@ describe('Flow Exercise Feature', () => {
         />
       );
 
-      const button = screen.getByRole('button');
-
-      // Expand
-      fireEvent.click(button);
-      expect(screen.getByText('Deep Squat')).toBeInTheDocument();
-
-      // Collapse
-      fireEvent.click(button);
-
-      // The header should still be visible with the count
+      // The header should be visible with the flow name and count
       expect(screen.getByText('Flow 1 - Squat/Lunge')).toBeInTheDocument();
       expect(screen.getByText(/5.*movements/)).toBeInTheDocument();
     });
@@ -312,14 +299,28 @@ describe('Flow Exercise Feature', () => {
         />
       );
 
-      // Expand to see movements
-      const button = screen.getByRole('button');
-      fireEvent.click(button);
-
-      // Check for numbered steps (1, 2, 3, etc.)
+      // Movements are always visible - check for numbered steps (1, 2, 3, etc.)
       expect(screen.getByText('1')).toBeInTheDocument();
       expect(screen.getByText('2')).toBeInTheDocument();
       expect(screen.getByText('3')).toBeInTheDocument();
+    });
+
+    it('should render Change button when onChooseFlow is provided', () => {
+      const mockOnChooseFlow = vi.fn();
+      render(
+        <FlowMovementsDisplay
+          options={mockFlowOptions}
+          selectedOptionName="Flow 1 - Squat/Lunge"
+          selectedOption={mockFlowOptions[0]}
+          onChooseFlow={mockOnChooseFlow}
+        />
+      );
+
+      const changeButton = screen.getByRole('button', { name: /change/i });
+      expect(changeButton).toBeInTheDocument();
+
+      fireEvent.click(changeButton);
+      expect(mockOnChooseFlow).toHaveBeenCalled();
     });
   });
 

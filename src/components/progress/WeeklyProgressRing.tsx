@@ -17,7 +17,7 @@ export const WeeklyProgressRing: React.FC<WeeklyProgressRingProps> = ({
     const strokeDashoffset = circumference - progress * circumference;
 
     return (
-        <div className="flex items-center gap-4 bg-sys-surface rounded-3xl p-4 border border-white/5 mb-6">
+        <div className="flex items-center gap-4 bg-sys-surface rounded-2xl p-4 border border-white/5 mb-6">
             <div className="relative w-20 h-20 flex items-center justify-center shrink-0">
                 {/* Background Ring */}
                 <svg className="w-full h-full transform -rotate-90">

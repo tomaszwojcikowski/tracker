@@ -86,7 +86,7 @@ export interface ThemeSelectorProps {
  */
 export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ theme, setTheme, themes }) => {
     return (
-        <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
+        <div className="bg-sys-surface rounded-2xl border border-white/5 p-6 mb-4">
             <div className="flex items-center gap-3 mb-4">
                 <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-sys-primary/20 to-sys-accent/20 flex items-center justify-center">
                     <Palette size={24} className="text-sys-primary" />

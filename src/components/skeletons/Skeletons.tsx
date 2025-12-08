@@ -4,7 +4,7 @@ import React from 'react';
  * ExerciseCardSkeleton - Loading placeholder for exercise cards
  */
 export const ExerciseCardSkeleton: React.FC = () => (
-    <div className="bg-sys-surface rounded-3xl p-5 border border-white/5 animate-pulse">
+    <div className="bg-sys-surface rounded-2xl p-5 border border-white/5 animate-pulse">
         <div className="flex items-center gap-4 mb-4">
             <div className="h-12 w-12 rounded-xl bg-sys-surfaceHigh" />
             <div className="flex-1">
@@ -24,7 +24,7 @@ export const ExerciseCardSkeleton: React.FC = () => (
  * HistoryEntrySkeleton - Loading placeholder for history timeline entries
  */
 export const HistoryEntrySkeleton: React.FC = () => (
-    <div className="bg-sys-surface rounded-3xl p-5 border border-white/5 animate-pulse">
+    <div className="bg-sys-surface rounded-2xl p-5 border border-white/5 animate-pulse">
         <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
                 <div className="h-5 bg-sys-surfaceHigh rounded w-1/3 mb-2" />

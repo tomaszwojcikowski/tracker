@@ -130,7 +130,7 @@ export const VolumeStatsCard: React.FC<VolumeStatsCardProps> = ({
     const maxWeekly = Math.max(...weeklyBreakdown.map(w => w.volume), 1);
 
     return (
-        <div className={`bg-sys-surface rounded-3xl border border-white/5 p-5 ${className}`}>
+        <div className={`bg-sys-surface rounded-2xl border border-white/5 p-5 ${className}`}>
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-base font-bold text-white">Volume Stats</h3>
                 <VolumeTrendBadge trend={trend} />

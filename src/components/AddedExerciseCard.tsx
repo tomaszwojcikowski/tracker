@@ -78,7 +78,7 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                     </div>
                     <button
                         onClick={() => onRemove(exercise.id)}
-                        className="h-8 w-8 min-w-[32px] rounded-lg bg-red-500/10 text-red-500 flex items-center justify-center active:scale-90 transition-all"
+                        className="btn-icon h-8 w-8 min-w-[32px] bg-red-500/10 text-red-500"
                         aria-label="Remove exercise"
                     >
                         <X size={18} />
@@ -93,10 +93,9 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                                 haptic.bump();
                                 onStartRestTimer(exercise.rest ?? 90);
                             }}
-                            className={`h-7 px-2.5 rounded-md text-xs font-medium flex items-center gap-1 transition-colors ${
-                                restTimerActive
-                                    ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50 active:bg-sys-accent/80'
-                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar active:bg-sys-accent/20'
+                            className={`btn-md3 h-7 px-2.5 min-h-0 rounded-lg text-xs font-medium flex items-center gap-1 ${restTimerActive
+                                ? 'btn-filled ring-2 ring-sys-accent/50'
+                                : 'btn-tonal'
                             }`}
                             aria-label={`Start ${exercise.rest} second timer`}
                         >

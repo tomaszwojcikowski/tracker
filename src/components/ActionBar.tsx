@@ -221,7 +221,7 @@ export function ActionBar({
               {/* Expand button */}
               <button
                 onClick={handleExpandEmom}
-                className="h-8 w-8 rounded-full bg-violet-500/20 hover:bg-violet-500/30 text-violet-300 flex items-center justify-center active:scale-90 transition-all"
+                className="btn-icon h-8 w-8 bg-violet-500/20 hover:bg-violet-500/30 text-violet-300"
                 aria-label="Expand EMOM timer to fullscreen"
               >
                 <Maximize2 size={16} />
@@ -244,7 +244,7 @@ export function ActionBar({
                   setEmomActive(false);
                   setEmomSeconds(0);
                 }}
-                className="ml-auto h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
+                className="btn-icon ml-auto h-8 w-8 bg-white/10 hover:bg-white/20 text-white"
                 aria-label="Stop EMOM timer"
               >
                 <X size={20} />
@@ -269,7 +269,7 @@ export function ActionBar({
                     haptic.bump();
                     setEmomInterval((i: number) => Math.max(10, i - 5));
                   }}
-                  className="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
+                  className="btn-icon h-10 w-10 bg-white/10 hover:bg-white/20 text-white"
                   aria-label="Decrease interval by 5 seconds"
                 >
                   <Minus size={20} />
@@ -282,7 +282,7 @@ export function ActionBar({
                     haptic.bump();
                     setEmomInterval((i: number) => Math.min(180, i + 5));
                   }}
-                  className="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
+                  className="btn-icon h-10 w-10 bg-white/10 hover:bg-white/20 text-white"
                   aria-label="Increase interval by 5 seconds"
                 >
                   <Plus size={20} />
@@ -299,7 +299,7 @@ export function ActionBar({
           <div className={`glass-panel px-5 py-4 rounded-2xl flex items-center gap-4 shadow-lg ${restTimerJustActivated ? 'animate-slide-up' : ''}`}>
             <button
               onClick={handleExpandRest}
-              className="h-10 w-10 min-w-[40px] rounded-full bg-white/10 hover:bg-white/20 text-sys-accent flex items-center justify-center active:scale-90 transition-all"
+              className="btn-icon h-10 w-10 min-w-[40px] bg-white/10 hover:bg-white/20 text-sys-accent"
               aria-label="Expand timer to fullscreen"
             >
               <Maximize2 size={20} />
@@ -316,7 +316,7 @@ export function ActionBar({
                 setTimerActive(false);
                 setTimerSeconds(0);
               }}
-              className="h-10 w-10 min-w-[40px] rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center active:scale-90 transition-all"
+              className="btn-icon h-10 w-10 min-w-[40px] bg-white/10 hover:bg-white/20 text-white"
               aria-label="Cancel timer"
             >
               <X size={20} />
@@ -326,7 +326,7 @@ export function ActionBar({
                 haptic.bump();
                 setTimerSeconds((s: number) => s + 30);
               }}
-              className="text-sys-accent font-bold text-base px-3 py-2 min-h-[44px]"
+              className="btn-md3 btn-text text-sys-accent font-bold text-base min-h-[44px]"
             >
               +30s
             </button>

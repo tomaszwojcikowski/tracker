@@ -283,7 +283,7 @@ export function Dashboard({
       <div className="py-4 pb-24 flex justify-center items-center gap-2">
         <button
           onClick={() => changeWeek(currentWeek - 1)}
-          className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
+          className="btn-icon h-8 w-8 bg-sys-surfaceHigh text-white disabled:opacity-30"
           disabled={currentWeek === 1}
           aria-label="Previous week"
         >
@@ -310,7 +310,7 @@ export function Dashboard({
         </div>
         <button
           onClick={() => changeWeek(currentWeek + 1)}
-          className="h-8 w-8 rounded-lg bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all disabled:opacity-30"
+          className="btn-icon h-8 w-8 bg-sys-surfaceHigh text-white disabled:opacity-30"
           disabled={currentWeek === maxWeeks}
           aria-label="Next week"
         >
@@ -387,7 +387,7 @@ function WeekContent({
       {inProgressWorkout && inProgressWorkout.week === week && (
         <button
           onClick={handleResumeWorkout}
-          className="w-full mb-6 p-5 rounded-3xl bg-gradient-to-r from-sys-accent/20 to-sys-accent/10 border-2 border-sys-accent/30 active:scale-[0.98] transition-all"
+          className="w-full mb-6 p-5 rounded-2xl bg-gradient-to-r from-sys-accent/20 to-sys-accent/10 border-2 border-sys-accent/30 active:scale-[0.98] transition-all"
         >
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-4">
@@ -491,7 +491,7 @@ function WeekContent({
                   haptic.tick();
                   onStartWorkout(day);
                 }}
-                className={`relative min-h-[72px] rounded-3xl px-6 py-5 flex items-center justify-between transition-all active:scale-[0.97] scroll-mt-16 ${
+                className={`relative min-h-[72px] rounded-2xl px-6 py-5 flex items-center justify-between transition-all active:scale-[0.97] scroll-mt-16 ${
                   done
                     ? 'bg-sys-surface border border-sys-success/30'
                     : isInProgress
@@ -560,7 +560,7 @@ function WeekContent({
                 haptic.bump();
                 onStartEmptyWorkout();
               }}
-              className="w-full min-h-[56px] rounded-3xl px-6 py-4 flex items-center justify-center gap-3 transition-all active:scale-[0.97] bg-sys-surface border border-dashed border-white/20 hover:border-sys-accent/40"
+              className="w-full min-h-[56px] rounded-2xl px-6 py-4 flex items-center justify-center gap-3 transition-all active:scale-[0.97] bg-sys-surface border border-dashed border-white/20 hover:border-sys-accent/40"
               aria-label="Start an empty workout"
             >
               <div className="h-10 w-10 min-w-[40px] rounded-2xl bg-sys-surfaceHigh flex items-center justify-center">

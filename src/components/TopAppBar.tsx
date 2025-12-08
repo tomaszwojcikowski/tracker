@@ -1,8 +1,8 @@
 /**
  * TopAppBar Component
  *
- * A sticky header bar with optional back button, title, subtitle, workout timer,
- * and progress bar for workout progress tracking.
+ * A modern sticky header bar with optional back button, title, subtitle, workout timer,
+ * and progress bar for workout progress tracking. Follows MD3 design principles.
  */
 
 import { memo, useMemo } from 'react';
@@ -36,15 +36,15 @@ const ProgressBar = memo(function ProgressBar({ progress }: { progress: number }
   const showShimmer = roundedProgress > 0 && roundedProgress < 100;
 
   return (
-    <div className="h-1 bg-sys-surfaceHigh relative overflow-hidden">
+    <div className="h-0.5 bg-sys-surfaceHigh relative overflow-hidden">
       <div
-        className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-500 ease-out"
+        className="absolute inset-y-0 left-0 bg-gradient-to-r from-sys-accent to-sys-primary transition-all duration-500 ease-out"
         style={{ width: `${roundedProgress}%` }}
       />
       {/* Subtle shimmer effect on active progress */}
       {showShimmer && (
         <div
-          className="absolute inset-y-0 left-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"
+          className="absolute inset-y-0 left-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"
           style={{ width: `${roundedProgress}%` }}
         />
       )}
@@ -61,24 +61,24 @@ export const TopAppBar = memo(function TopAppBar({
   progressBar,
 }: TopAppBarProps) {
   return (
-    <header className="bg-sys-surface sticky top-0 z-40 safe-pt border-b border-sys-outlineVariant transition-colors duration-200">
-      <div className="h-16 flex items-center px-4 gap-4">
+    <header className="bg-sys-black/95 backdrop-blur-md sticky top-0 z-40 safe-pt transition-colors duration-200">
+      <div className="h-14 flex items-center px-4 gap-3">
         {showBack ? (
           <button
             onClick={onBack}
-            className="h-12 w-12 -ml-2 text-sys-onSurface rounded-full hover:bg-sys-surfaceVariant/30 active:bg-sys-surfaceVariant/50 transition-colors flex items-center justify-center"
+            className="btn-icon h-10 w-10 -ml-1 text-sys-onSurfaceVar hover:text-white"
             aria-label="Go back"
           >
-            <ArrowLeft size={24} />
+            <ArrowLeft size={22} />
           </button>
         ) : null}
 
-        <div className={clsx("flex-1 min-w-0 flex flex-col justify-center", !showBack && "pl-2")}>
-          <h1 className="text-title-lg text-sys-onSurface truncate">
+        <div className={clsx("flex-1 min-w-0 flex flex-col justify-center", !showBack && "pl-1")}>
+          <h1 className="text-lg font-semibold text-white tracking-tight truncate">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-title-sm text-sys-onSurfaceVariant mt-0.5 truncate">
+            <p className="text-xs text-sys-onSurfaceVar truncate -mt-0.5">
               {subtitle}
             </p>
           )}

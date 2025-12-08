@@ -22,7 +22,7 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
     onClearError
 }) => {
     return (
-        <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
+        <div className="bg-sys-surface rounded-2xl border border-white/5 p-6 mb-4">
             <div className="flex items-center gap-3 mb-4">
                 <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
                     <Cloud size={24} className="text-sys-accent" />

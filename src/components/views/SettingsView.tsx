@@ -261,17 +261,17 @@ export const SettingsView: React.FC = () => {
 
     return (
         <div className="px-5 pb-20 pt-6">
-            {/* Tab Navigation - improved touch targets */}
-            <div className="flex gap-2 mb-6 p-1.5 bg-sys-surface rounded-2xl border border-white/5">
+            {/* Tab Navigation - MD3 segmented button style */}
+            <div className="flex gap-1 mb-6 p-1 bg-sys-surface rounded-2xl border border-white/5">
                 <button
                     onClick={() => {
                         haptic.tick();
                         setActiveTab('general');
                     }}
-                    className={`flex-1 flex items-center justify-center gap-2 min-h-[44px] py-3 px-4 rounded-xl font-medium text-sm transition-all ${
+                    className={`btn-md3 flex-1 flex items-center justify-center gap-2 min-h-[44px] rounded-xl font-medium text-sm ${
                         activeTab === 'general'
-                            ? 'bg-sys-accent text-white'
-                            : 'text-sys-onSurfaceVar hover:text-white'
+                            ? 'btn-filled'
+                            : 'btn-text text-sys-onSurfaceVar'
                     }`}
                 >
                     <Settings size={18} />
@@ -282,10 +282,10 @@ export const SettingsView: React.FC = () => {
                         haptic.tick();
                         setActiveTab('programs');
                     }}
-                    className={`flex-1 flex items-center justify-center gap-2 min-h-[44px] py-3 px-4 rounded-xl font-medium text-sm transition-all ${
+                    className={`btn-md3 flex-1 flex items-center justify-center gap-2 min-h-[44px] rounded-xl font-medium text-sm ${
                         activeTab === 'programs'
-                            ? 'bg-sys-accent text-white'
-                            : 'text-sys-onSurfaceVar hover:text-white'
+                            ? 'btn-filled'
+                            : 'btn-text text-sys-onSurfaceVar'
                     }`}
                 >
                     <Dumbbell size={18} />
@@ -320,7 +320,7 @@ export const SettingsView: React.FC = () => {
 
                             {/* Sync Controls - Only shown when logged in */}
                             {firebaseUser && (
-                                <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
+                                <div className="bg-sys-surface rounded-2xl border border-white/5 p-6 mb-4">
                                     {/* Status message - always visible when there's a message */}
                                     {firebaseMessage && (
                                         <div className={`mb-4 p-3 rounded-xl text-sm font-medium ${
@@ -364,7 +364,7 @@ export const SettingsView: React.FC = () => {
                     )}
 
                     {/* Build Info Section */}
-                    <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-4">
+                    <div className="bg-sys-surface rounded-2xl border border-white/5 p-6 mb-4">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
                                 <Info size={24} className="text-sys-accent" />

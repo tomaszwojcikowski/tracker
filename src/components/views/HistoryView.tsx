@@ -197,7 +197,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
 
     if (exerciseStats.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
+            <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-white/5 px-6">
                 <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
                     <BarChart2 size={40} className="text-sys-onSurfaceVar" />
                 </div>
@@ -217,7 +217,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
     return (
         <div className="space-y-5">
             {/* Summary Stats Banner */}
-            <div className="bg-gradient-to-br from-sys-accent/20 via-sys-surface to-sys-surfaceHigh rounded-3xl p-5 border border-sys-accent/20">
+            <div className="bg-gradient-to-br from-sys-accent/20 via-sys-surface to-sys-surfaceHigh rounded-2xl p-5 border border-sys-accent/20">
                 <div className="flex items-center gap-3 mb-4">
                     <div className="h-10 w-10 rounded-xl bg-sys-accent/30 flex items-center justify-center" aria-hidden="true">
                         <TrendingUp size={20} className="text-sys-accent" />
@@ -252,7 +252,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3, delay: idx * 0.05 }}
-                            className="bg-sys-surface border border-white/5 rounded-3xl overflow-hidden"
+                            className="bg-sys-surface border border-white/5 rounded-2xl overflow-hidden"
                         >
                             <motion.button
                                 layout="position"
@@ -484,14 +484,14 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                         <div className="flex flex-1 bg-sys-surfaceHigh rounded-2xl p-1 border border-white/5">
                             <button
                                 onClick={() => { haptic.tick(); setViewMode('calendar'); setSelectedDayWorkouts(null); }}
-                                className={`flex-1 flex items-center justify-center gap-1.5 min-h-[44px] px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${viewMode === 'calendar' ? 'bg-sys-accent text-white shadow-lg shadow-sys-accent/25' : 'text-sys-onSurfaceVar hover:text-white'}`}
+                                className={`btn-md3 flex-1 flex items-center justify-center gap-1.5 min-h-[44px] px-3 rounded-xl text-sm font-semibold ${viewMode === 'calendar' ? 'btn-filled shadow-lg shadow-sys-accent/25' : 'btn-text text-sys-onSurfaceVar'}`}
                             >
                                 <CalendarDays size={16} />
                                 <span>Calendar</span>
                             </button>
                             <button
                                 onClick={() => { haptic.tick(); setViewMode('stats'); }}
-                                className={`flex-1 flex items-center justify-center gap-1.5 min-h-[44px] px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${viewMode === 'stats' ? 'bg-sys-accent text-white shadow-lg shadow-sys-accent/25' : 'text-sys-onSurfaceVar hover:text-white'}`}
+                                className={`btn-md3 flex-1 flex items-center justify-center gap-1.5 min-h-[44px] px-3 rounded-xl text-sm font-semibold ${viewMode === 'stats' ? 'btn-filled shadow-lg shadow-sys-accent/25' : 'btn-text text-sys-onSurfaceVar'}`}
                             >
                                 <BarChart3 size={16} />
                                 <span>Stats</span>
@@ -500,7 +500,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                     </div>
                 </div>
                 {history.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
+                    <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-white/5 px-6">
                         <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
                             <History size={40} className="text-sys-onSurfaceVar" />
                         </div>
@@ -546,7 +546,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                         animate={{ y: 0, opacity: 1 }}
                                         exit={{ y: 100, opacity: 0 }}
                                         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                                        className="relative w-full max-w-lg max-h-[80vh] overflow-y-auto bg-sys-surface border border-white/10 rounded-3xl shadow-2xl"
+                                        className="relative w-full max-w-lg max-h-[80vh] overflow-y-auto bg-sys-surface border border-white/10 rounded-2xl shadow-2xl"
                                         onClick={(e) => e.stopPropagation()}
                                     >
                                         <div className="sticky top-0 bg-sys-surface border-b border-white/5 p-5 flex items-center justify-between z-10">

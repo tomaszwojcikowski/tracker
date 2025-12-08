@@ -170,7 +170,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ history, onDayClick 
             </div>
 
             {/* Calendar Grid */}
-            <div className="bg-sys-surface rounded-3xl p-4 border border-white/5">
+            <div className="bg-sys-surface rounded-2xl p-4 border border-white/5">
                 {/* Week Day Headers */}
                 <div className="grid grid-cols-7 gap-1 mb-2">
                     {weekDays.map(day => (

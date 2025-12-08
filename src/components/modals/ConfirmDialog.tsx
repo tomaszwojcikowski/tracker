@@ -68,7 +68,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
             onKeyDown={handleKeyDown}
         >
             <div
-                className="bg-sys-surface rounded-3xl p-6 w-full max-w-md border border-white/10"
+                className="bg-sys-surface rounded-2xl p-6 w-full max-w-md border border-white/10"
                 role="document"
             >
                 <h3

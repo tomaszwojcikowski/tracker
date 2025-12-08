@@ -60,7 +60,7 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
             <div className="flex items-center gap-4 mb-6">
                 <button
                     onClick={onBack}
-                    className="h-10 w-10 rounded-xl bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
+                    className="btn-icon h-10 w-10 bg-sys-surfaceHigh text-white"
                     aria-label="Go back"
                 >
                     <ArrowLeft size={20} />
@@ -69,7 +69,7 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
             </div>
 
             {/* Exercise Info */}
-            <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-6">
+            <div className="bg-sys-surface rounded-2xl border border-white/5 p-6 mb-6">
                 <div className="mb-4">
                     <h3 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-2">Primary Muscles</h3>
                     <p className="text-base text-white">{exercise.primaryMuscles.join(', ')}</p>
@@ -93,7 +93,7 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
             {/* Stats */}
             {history.length > 0 ? (
                 <>
-                    <div className="bg-sys-surface rounded-3xl border border-white/5 p-6 mb-6">
+                    <div className="bg-sys-surface rounded-2xl border border-white/5 p-6 mb-6">
                         <h3 className="text-lg font-bold text-white mb-4">Statistics</h3>
 
                         <div className="grid grid-cols-2 gap-4 mb-4">
@@ -142,7 +142,7 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
                     </div>
 
                     {/* History */}
-                    <div className="bg-sys-surface rounded-3xl border border-white/5 p-6">
+                    <div className="bg-sys-surface rounded-2xl border border-white/5 p-6">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-lg font-bold text-white">History</h3>
                             {history.length > 5 && (
@@ -193,7 +193,7 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
                     </div>
                 </>
             ) : (
-                <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
+                <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-white/5 px-6">
                     <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
                         <BarChart2 size={40} className="text-sys-onSurfaceVar" />
                     </div>
@@ -326,7 +326,7 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
 
             {/* Exercise List */}
             {exercisesToShow.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-3xl border border-white/5 px-6">
+                <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-white/5 px-6">
                     <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
                         <Search size={40} className="text-sys-onSurfaceVar" />
                     </div>

@@ -156,6 +156,8 @@ export function Dashboard({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   // Track if we're programmatically scrolling to prevent scroll event feedback loop
   const isProgrammaticScroll = useRef(false);
+  // Track if this is the initial mount to use instant scroll
+  const isInitialMount = useRef(true);
 
   // Scroll to the current week when it changes (e.g., from button click or dot navigation)
   useEffect(() => {
@@ -166,10 +168,13 @@ export function Dashboard({
     // Only scroll if we're not already at the right position
     if (Math.abs(container.scrollLeft - targetScroll) > 10) {
       isProgrammaticScroll.current = true;
-      container.scrollTo({ left: targetScroll, behavior: 'smooth' });
+      // Use instant scroll on initial mount, smooth scroll for user navigation
+      const behavior = isInitialMount.current ? 'auto' : 'smooth';
+      container.scrollTo({ left: targetScroll, behavior });
       // Reset flag after scroll animation completes
       setTimeout(() => {
         isProgrammaticScroll.current = false;
+        isInitialMount.current = false;
       }, 350);
     }
   }, [currentWeek]);

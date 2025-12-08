@@ -15,6 +15,8 @@ export interface UseScrollToElementOptions {
     behavior?: ScrollBehavior;
     /** Whether to enable the scroll effect (default: true) */
     enabled?: boolean;
+    /** Offset in pixels to account for sticky headers (default: 0) */
+    offset?: number;
 }
 
 /**
@@ -27,6 +29,7 @@ export function useScrollToElement({
     delay = 100,
     behavior = 'smooth',
     enabled = true,
+    offset = 0,
 }: UseScrollToElementOptions = {}): void {
     // Track if this is the initial mount
     const hasScrolled = useRef(false);
@@ -39,7 +42,16 @@ export function useScrollToElement({
                 // Scroll to specific element
                 const element = document.getElementById(elementId);
                 if (element) {
-                    element.scrollIntoView({ behavior, block: 'start' });
+                    if (offset !== 0) {
+                        // When offset is provided, manually calculate scroll position
+                        const elementRect = element.getBoundingClientRect();
+                        const absoluteElementTop = elementRect.top + window.scrollY;
+                        const targetScrollPosition = absoluteElementTop - offset;
+                        window.scrollTo({ top: targetScrollPosition, behavior });
+                    } else {
+                        // Use native scrollIntoView when no offset
+                        element.scrollIntoView({ behavior, block: 'start' });
+                    }
                     hasScrolled.current = true;
                 }
             } else {
@@ -50,7 +62,7 @@ export function useScrollToElement({
         }, delay);
 
         return () => clearTimeout(scrollTimeout);
-    }, [elementId, delay, behavior, enabled]);
+    }, [elementId, delay, behavior, enabled, offset]);
 }
 
 /**

@@ -1107,10 +1107,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const exerciseCollapse = useExerciseCollapse({ firstIncompleteExerciseId });
 
     // Scroll to first incomplete exercise when workout view loads (only in list view)
+    // Account for TopAppBar (68px) + section header (42px) so exercise is visible below both
     useScrollToElement({
         elementId: firstIncompleteExerciseId,
         delay: 150,
         enabled: viewMode === 'list',
+        offset: 110, // TopAppBar + section header height
     });
 
     const filteredExercises = useMemo(() => {
@@ -1327,7 +1329,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     return (
                         <div key={sIdx} className="mb-5">
                             {/* Section Header - Always sticky below TopAppBar (h-16 + progress bar) */}
-                            <div className="sticky top-[68px] z-20 bg-sys-black/95 backdrop-blur-sm py-2 -mx-4 px-4 mb-2 border-b border-white/5">
+                            <div className="sticky top-[68px] z-20 bg-sys-black/95 backdrop-blur-sm py-2 -mx-4 px-4 border-b border-white/5">
                                 <div className="flex items-center gap-2">
                                     <div className={`rounded-md flex items-center justify-center ${colors.iconBg} h-6 w-6`}>
                                         {section.type === 'prep' ? (
@@ -1367,7 +1369,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             </div>
 
                             {/* Exercises */}
-                            <div className={compactView ? 'space-y-1' : 'space-y-3'}>
+                            <div className={compactView ? 'space-y-1 mt-2' : 'space-y-3 mt-2'}>
                                 {(() => {
                                     // For compact view, group superset exercises together
                                     if (compactView) {

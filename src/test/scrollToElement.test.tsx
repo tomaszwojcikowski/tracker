@@ -102,6 +102,52 @@ describe('useScrollToElement', () => {
         // Should still be 1
         expect(scrollToMock).toHaveBeenCalledTimes(1);
     });
+
+    it('should use offset when provided', () => {
+        // Create mock element
+        const mockElement = document.createElement('div');
+        mockElement.id = 'test-element-with-offset';
+        
+        // Mock getBoundingClientRect
+        mockElement.getBoundingClientRect = vi.fn(() => ({
+            top: 200,
+            left: 0,
+            right: 0,
+            bottom: 250,
+            width: 100,
+            height: 50,
+            x: 0,
+            y: 200,
+            toJSON: () => ({})
+        })) as any;
+        
+        document.body.appendChild(mockElement);
+        
+        // Mock window.scrollY
+        Object.defineProperty(window, 'scrollY', {
+            value: 0,
+            writable: true,
+            configurable: true
+        });
+
+        renderHook(() => useScrollToElement({ 
+            elementId: 'test-element-with-offset',
+            offset: 110 // TopAppBar + section header
+        }));
+
+        // Advance timers to trigger scroll
+        vi.advanceTimersByTime(150);
+
+        // Should scroll to element position minus offset
+        // Element top (200) + scrollY (0) - offset (110) = 90
+        expect(scrollToMock).toHaveBeenCalledWith({
+            top: 90,
+            behavior: 'smooth',
+        });
+
+        // Cleanup
+        document.body.removeChild(mockElement);
+    });
 });
 
 describe('useScrollToTop', () => {

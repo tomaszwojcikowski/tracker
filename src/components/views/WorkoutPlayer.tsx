@@ -10,6 +10,7 @@ import { CompactExerciseRow } from '../CompactExerciseRow';
 import { SupersetGroup } from '../SupersetGroup';
 import type { SupersetExercise } from '../SupersetGroup';
 import { GestureHint } from '../GestureHint';
+import { BottomSheet } from '../BottomSheet';
 import { ExerciseDetailModal } from '../modals';
 import { AddedExerciseCard } from '../AddedExerciseCard';
 import { ExerciseSelectorModal } from '../ExerciseSelectorModal';
@@ -29,7 +30,7 @@ import {
     useScrollToElement,
 } from '../../hooks';
 import {
-    Flame, Dumbbell, Snowflake, Activity, LayoutGrid, LayoutList, PlusCircle, X, CheckCircle2, Maximize2
+    Flame, Dumbbell, Snowflake, Activity, LayoutGrid, LayoutList, PlusCircle, X, CheckCircle2, Maximize2, StickyNote
 } from 'lucide-react';
 import {
     DEBOUNCE_DELAY_MS,
@@ -173,6 +174,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [selectedMuscleFilter, setSelectedMuscleFilter] = useState<MuscleFilter>('all');
     const [exerciseDetail, setExerciseDetail] = useState<ExerciseDetailRequest | null>(null);
     const [workoutNotes, setWorkoutNotes] = useState('');
+    const [showNotesModal, setShowNotesModal] = useState(false);
     const [showFinishConfirm, setShowFinishConfirm] = useState(false);
     const [showSummary, setShowSummary] = useState(false);
     const [summaryData, setSummaryData] = useState<{
@@ -1009,29 +1011,59 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             />
 
             <div {...swipeHandlers} className="px-4 pb-20 pt-4">
-                {/* Workout Notes */}
-                <div className="mb-4">
-                    <label className="text-xs text-sys-onSurfaceVar uppercase font-bold mb-1 block">
-                        Workout Notes
-                    </label>
-                    <textarea
-                        value={workoutNotes}
-                        onChange={(e) => {
-                            setWorkoutNotes(e.target.value);
-                            const updatedLogs: WorkoutSessionData = {
-                                ...logs,
-                                workoutNotes: e.target.value,
-                                lastModified: new Date().toISOString(),
-                            };
-                            persistLogs(updatedLogs);
-                        }}
-                        placeholder="How are you feeling? Any notes for this workout..."
-                        className="w-full h-14 px-3 py-2 bg-sys-surface rounded-xl text-white text-sm placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent resize-none border border-white/5"
-                    />
-                </div>
+                {/* Notes Modal */}
+                <BottomSheet
+                    isOpen={showNotesModal}
+                    onClose={() => setShowNotesModal(false)}
+                    ariaLabel="Workout Notes"
+                    maxHeight={60}
+                >
+                    <div className="px-6 pt-2 pb-6 safe-pb">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="h-10 w-10 rounded-xl bg-sys-accent/20 flex items-center justify-center">
+                                <StickyNote size={20} className="text-sys-accent" />
+                            </div>
+                            <h3 className="text-xl font-bold text-white">Workout Notes</h3>
+                        </div>
+                        <textarea
+                            value={workoutNotes}
+                            onChange={(e) => {
+                                setWorkoutNotes(e.target.value);
+                                const updatedLogs: WorkoutSessionData = {
+                                    ...logs,
+                                    workoutNotes: e.target.value,
+                                    lastModified: new Date().toISOString(),
+                                };
+                                persistLogs(updatedLogs);
+                            }}
+                            placeholder="How are you feeling? Any notes for this workout..."
+                            className="w-full h-32 px-4 py-3 bg-sys-surfaceHigh rounded-xl text-white text-base placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent resize-none border border-white/5"
+                            autoFocus
+                        />
+                        <p className="text-xs text-sys-onSurfaceVar mt-2">Notes are saved automatically</p>
+                    </div>
+                </BottomSheet>
 
-                {/* View Mode Toggle */}
-                <div className="flex justify-end mb-4">
+                {/* View Controls Row */}
+                <div className="flex justify-between items-center mb-4">
+                    {/* Notes Button */}
+                    <button
+                        onClick={() => {
+                            haptic.tick();
+                            setShowNotesModal(true);
+                        }}
+                        className={`btn-icon h-10 w-10 relative ${
+                            workoutNotes.trim() ? 'bg-sys-accent/20 text-sys-accent' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                        }`}
+                        aria-label="Open workout notes"
+                    >
+                        <StickyNote size={18} />
+                        {workoutNotes.trim() && (
+                            <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 bg-sys-accent rounded-full" />
+                        )}
+                    </button>
+
+                    {/* View Mode Toggle */}
                     <div className="flex items-center bg-sys-surfaceHigh rounded-lg p-1 border border-white/5">
                         <button
                             onClick={() => {

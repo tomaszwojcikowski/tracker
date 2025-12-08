@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f87171"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="32" height="32" rx="7" fill="url(#bgGrad)"/>
+
+  <!-- Simplified dumbbell icon for favicon -->
+  <g transform="translate(16, 14)">
+    <!-- Center bar -->
+    <rect x="-7" y="-1.5" width="14" height="3" rx="1.5" fill="#3f3f46"/>
+
+    <!-- Left weight -->
+    <rect x="-11" y="-5" width="3" height="10" rx="1" fill="url(#accent)"/>
+
+    <!-- Right weight -->
+    <rect x="8" y="-5" width="3" height="10" rx="1" fill="url(#accent)"/>
+  </g>
+
+  <!-- Progress bar -->
+  <rect x="5" y="25" width="22" height="2" rx="1" fill="#27272a"/>
+  <rect x="5" y="25" width="15" height="2" rx="1" fill="url(#accent)"/>
+</svg>

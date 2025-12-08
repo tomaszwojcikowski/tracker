@@ -26,7 +26,7 @@ export default defineConfig({
       srcDir: 'src',
       filename: 'sw.ts',
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      includeAssets: ['favicon.svg', 'favicon.ico', 'apple-touch-icon.png', 'apple-touch-icon.svg', 'masked-icon.svg'],
       manifest: {
         name: 'OnePlus 12 Pro Tracker',
         short_name: 'Tracker',
@@ -39,6 +39,16 @@ export default defineConfig({
         start_url: '/tracker/',
         categories: ['fitness', 'health', 'sports'],
         icons: [
+          {
+            src: 'pwa-192x192.svg',
+            sizes: '192x192',
+            type: 'image/svg+xml'
+          },
+          {
+            src: 'pwa-512x512.svg',
+            sizes: '512x512',
+            type: 'image/svg+xml'
+          },
           {
             src: 'pwa-192x192.png',
             sizes: '192x192',

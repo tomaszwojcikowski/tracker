@@ -133,12 +133,12 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
                 isOpen={showPresets && !restTimer.active}
                 onClose={handleClosePresets}
                 ariaLabel="Quick Timer"
-                maxHeight={50}
-                showHandle={false}
+                maxHeight={70}
+                showHandle={true}
                 className="border-t border-white/10"
             >
                 {/* Header */}
-                <div className="p-6 border-b border-white/10">
+                <div className="px-6 pt-2 pb-4 border-b border-white/10">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="h-10 w-10 rounded-xl bg-sys-accent/20 flex items-center justify-center">
@@ -157,7 +157,7 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
                 </div>
 
                 {/* Content */}
-                <div className="p-6 space-y-6">
+                <div className="px-6 py-5 space-y-5 safe-pb">
                     {/* Preset Buttons */}
                     <div>
                         <p className="text-sm text-sys-onSurfaceVar mb-3">Quick select</p>

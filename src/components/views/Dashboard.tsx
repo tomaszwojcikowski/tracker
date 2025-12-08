@@ -425,7 +425,7 @@ function WeekContent({
       )}
 
         <div className="flex justify-between items-end mb-4 px-1">
-          <h3 className="text-xl font-bold text-white">Workouts</h3>
+          <h3 className="text-lg font-bold text-white">Workouts</h3>
           <span className="text-sm text-sys-accent font-medium">
             {currentBlock.name}
           </span>
@@ -474,7 +474,7 @@ function WeekContent({
                                 </div>
                             </div>
 
-                            <h3 className="text-3xl font-bold text-white mb-2">Day {day}</h3>
+                            <h3 className="text-lg font-bold text-white mb-2">Day {day}</h3>
                             <p className="text-sys-onSurfaceVar text-sm line-clamp-2 mb-4">
                                 {getExerciseSummary(week, day)}
                             </p>

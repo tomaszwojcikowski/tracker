@@ -329,8 +329,8 @@ export const Calendar: React.FC<IconProps> = (props) => (
 export const History: React.FC<IconProps> = (props) => (
   <IconBase {...defaultProps} {...props}>
     <path d="M3 3v5h5" />
-    <path d="M3 8a9 9 0 1 0 2.36-4.95" />
-    <path d="M12 7v5l3 3" />
+    <path d="M3.51 9a9 9 0 1 0 2.13-5.36L3 6" />
+    <path d="M12 8v4l2 2" />
   </IconBase>
 );
 

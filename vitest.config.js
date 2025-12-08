@@ -15,12 +15,31 @@ export default defineConfig({
     setupFiles: './src/test/setup.ts',
     exclude: ['node_modules', 'e2e'],
     coverage: {
-      reporter: ['text', 'json', 'html'],
+      provider: 'v8',
+      reporter: ['text', 'text-summary', 'json', 'html', 'lcov'],
+      reportsDirectory: './coverage',
       exclude: [
         'node_modules/',
         'src/test/',
         'e2e/',
+        '**/*.d.ts',
+        '**/*.test.{ts,tsx}',
+        '**/*.spec.{ts,tsx}',
+        '**/index.ts', // barrel files
+        'src/main.tsx',
+        'src/vite-env.d.ts',
+        'scripts/',
+        'docs/',
+        'data/',
+        'public/',
       ],
+      // Report thresholds - warns if coverage drops below these
+      thresholds: {
+        statements: 50,
+        branches: 45,
+        functions: 50,
+        lines: 50,
+      },
     },
   },
 });

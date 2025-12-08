@@ -162,7 +162,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
   const handleReset = useCallback(() => {
     // Only reset if there's time to add back and totalSeconds is valid
     if (totalSeconds <= 0) return;
-    
+
     const diff = totalSeconds - seconds;
     if (diff > 0) {
       haptic.bump();
@@ -213,11 +213,11 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div 
+        <div
           className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl transition-all duration-1000 ${blobColors.blob1}`}
           style={{ animation: 'pulse 4s ease-in-out infinite' }}
         />
-        <div 
+        <div
           className={`absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-3xl transition-all duration-1000 ${blobColors.blob2}`}
           style={{ animation: 'pulse 5s ease-in-out infinite reverse' }}
         />
@@ -235,8 +235,8 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
 
         {/* Mode indicator badge */}
         <div className={`flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md border ${
-          isEmom 
-            ? 'bg-violet-500/20 border-violet-400/30 text-violet-200' 
+          isEmom
+            ? 'bg-violet-500/20 border-violet-400/30 text-violet-200'
             : 'bg-sky-500/20 border-sky-400/30 text-sky-200'
         }`}>
           {isEmom ? <Repeat size={16} /> : <Timer size={16} />}
@@ -292,7 +292,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
                 </feMerge>
               </filter>
             </defs>
-            
+
             {/* Background circle */}
             <circle
               cx="160"
@@ -302,7 +302,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
               strokeWidth="10"
               fill="none"
             />
-            
+
             {/* Progress circle */}
             <circle
               cx="160"
@@ -330,7 +330,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
                 <span className="text-white text-3xl font-bold tabular-nums">{round}</span>
               </div>
             )}
-            
+
             {/* Main time display */}
             <span
               className={`font-mono font-black tracking-tight transition-all duration-300 leading-none ${
@@ -343,7 +343,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
             >
               {isComplete ? '✓' : timeString}
             </span>
-            
+
             {/* Subtitle */}
             {!isComplete && (
               <div className="flex flex-col items-center mt-3">
@@ -437,14 +437,12 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
 
       {/* Bottom hint text */}
       <p className="absolute bottom-0 left-0 right-0 text-center text-white/40 text-sm pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-        {isComplete 
-          ? '✨ Rest complete - Time for your next set!' 
-          : isEmom 
+        {isComplete
+          ? '✨ Rest complete - Time for your next set!'
+          : isEmom
           ? 'Press ESC to minimize • +/- to adjust interval'
           : 'Press ESC to minimize • +/- to adjust time'}
       </p>
     </div>
   );
 };
-
-export default FullscreenTimer;

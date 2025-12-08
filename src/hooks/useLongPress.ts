@@ -119,5 +119,3 @@ export const useLongPress = (
         onClick: handleClick,
     };
 };
-
-export default useLongPress;

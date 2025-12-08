@@ -6,9 +6,6 @@
 
 // Set limits
 export const MAX_SETS = 20;
-export const MAX_WEIGHT_KG = 999;
-export const WEIGHT_INCREMENT_KG = 2.5;
-export const WEIGHT_STEP = 0.5;
 
 // Timing
 export const FETCH_TIMEOUT_MS = 10000;
@@ -51,55 +48,10 @@ export const DEFAULT_DAY: WorkoutDay = 1;
 export const DEFAULT_TAB: TabName = 'train';
 
 /**
- * Storage key names for localStorage
- * 
- * Note: Keys listed here are the base keys. For program-scoped data,
- * use the storageNamespace service to get namespaced keys.
- * 
- * Namespaced keys (program-specific data):
- * - EXERCISE_HISTORY, GLOBAL_HISTORY, and session keys are scoped per program
- * 
- * Global keys (shared across programs):
- * - APP_STATE, FIREBASE_*, EMOM_INTERVAL, TRACKER_WEEK
- */
-export interface StorageKeysMap {
-  APP_STATE: string;
-  EXERCISE_HISTORY: string;
-  GLOBAL_HISTORY: string;
-  FIREBASE_SYNC_ENABLED: string;
-  FIREBASE_LAST_SYNC: string;
-  EMOM_INTERVAL: string;
-  TRACKER_WEEK: string;
-  /** Storage migration status key */
-  MIGRATION_STATUS: string;
-  /** Program registry key */
-  PROGRAM_REGISTRY: string;
-  /** Active program key */
-  ACTIVE_PROGRAM: string;
-}
-
-// Storage keys
-export const STORAGE_KEYS: StorageKeysMap = {
-  APP_STATE: 'tracker_app_state',
-  EXERCISE_HISTORY: 'exercise_history',
-  GLOBAL_HISTORY: 'global_history',
-  FIREBASE_SYNC_ENABLED: 'firebase_sync_enabled',
-  FIREBASE_LAST_SYNC: 'firebase_last_sync_time',
-  EMOM_INTERVAL: 'emom_interval',
-  TRACKER_WEEK: 'tracker_week',
-  MIGRATION_STATUS: 'tracker_storage_migration_v1',
-  PROGRAM_REGISTRY: 'tracker_program_registry',
-  ACTIVE_PROGRAM: 'tracker_active_program',
-};
-
-// Training blocks removed - now loaded from window.TRACKER_APP.workoutPlanMetadata.phases at runtime
-// See src/data/programData.ts getBlockForWeek() for implementation
-
-/**
  * Short names for long exercise names to improve compact row display
  * Used when the full name would overflow the available space
  */
-export const EXERCISE_SHORT_NAMES: Record<string, string> = {
+const EXERCISE_SHORT_NAMES: Record<string, string> = {
   'Bulgarian Split Squat': 'BSS',
   'Bulgarian Split Squat (Left)': 'BSS (L)',
   'Bulgarian Split Squat (Right)': 'BSS (R)',

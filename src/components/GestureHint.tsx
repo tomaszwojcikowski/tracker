@@ -159,5 +159,3 @@ export const useGestureHint = (storageKey: string): {
 
     return { shouldShow, markAsShown, reset };
 };
-
-export default GestureHint;

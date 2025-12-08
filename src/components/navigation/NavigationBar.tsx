@@ -141,5 +141,3 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeT
 });
 
 NavigationBar.displayName = 'NavigationBar';
-
-export default NavigationBar;

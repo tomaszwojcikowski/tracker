@@ -154,5 +154,3 @@ export const RPEBadge: React.FC<RPEBadgeProps> = ({ value, compact = false }) =>
         </span>
     );
 };
-
-export default RPESelector;

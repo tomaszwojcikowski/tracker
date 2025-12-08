@@ -550,5 +550,3 @@ export const FocusView: React.FC<FocusViewProps> = ({
         </div>
     );
 };
-
-export default FocusView;

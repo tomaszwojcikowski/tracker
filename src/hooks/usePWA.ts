@@ -177,5 +177,3 @@ export function usePWA(): PWAState {
         dismissOfflineReady,
     };
 }
-
-export default usePWA;

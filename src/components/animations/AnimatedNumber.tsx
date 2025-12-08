@@ -123,5 +123,3 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
 
     return <span className={className}>{formatter(displayValue)}</span>;
 };
-
-export default AnimatedNumber;

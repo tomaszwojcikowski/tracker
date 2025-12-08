@@ -395,5 +395,3 @@ export const PRHighlights: React.FC<PRHighlightsProps> = ({
         </div>
     );
 };
-
-export default PRHighlights;

@@ -306,5 +306,3 @@ export function useOptimisticSync(
         retrySync,
     };
 }
-
-export default useOptimisticSync;

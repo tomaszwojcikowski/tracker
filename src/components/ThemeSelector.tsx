@@ -110,5 +110,3 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ theme, setTheme, t
         </div>
     );
 };
-
-export default ThemeSelector;

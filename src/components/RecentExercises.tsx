@@ -102,5 +102,3 @@ export const RecentExercisesList: React.FC<RecentExercisesListProps> = ({
         </div>
     );
 };
-
-export default RecentExercisesList;

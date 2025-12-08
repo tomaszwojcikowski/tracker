@@ -83,7 +83,7 @@ export function ActionBar({
   // Track when rest timer transitions from inactive to active (for slide-up animation)
   useEffect(() => {
     const isRestActive = timerState.time > 0;
-    
+
     // Only trigger animation on transition from false to true
     if (isRestActive && !prevRestTimerActive) {
       setRestTimerJustActivated(true);
@@ -100,7 +100,7 @@ export function ActionBar({
   // Track when EMOM timer transitions from inactive to active (for slide-up animation)
   useEffect(() => {
     const isEmomActive = emomState?.active ?? false;
-    
+
     // Only trigger animation on transition from false to true
     if (isEmomActive && !prevEmomTimerActive) {
       setEmomTimerJustActivated(true);

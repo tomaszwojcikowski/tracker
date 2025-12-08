@@ -1,9 +1,9 @@
 /**
  * Custom SVG Icon System
- * 
+ *
  * Replaces Lucide icons with custom-designed SVG icons that match
  * the app's visual language: modern, rounded, cohesive.
- * 
+ *
  * All icons use currentColor for fill/stroke, making them themeable.
  * Standard size is 24x24 with 2px stroke width.
  */

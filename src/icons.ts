@@ -16,7 +16,7 @@ export {
   ChevronRight,
   ChevronUp,
   ChevronDown,
-  
+
   // Actions
   X,
   Plus,
@@ -33,14 +33,14 @@ export {
   Minimize2,
   Repeat,
   LogOut,
-  
+
   // Media
   Play,
   PlayCircle,
   Pause,
   Volume2,
   VolumeX,
-  
+
   // Fitness
   Dumbbell,
   Activity,
@@ -49,14 +49,14 @@ export {
   Target,
   TrendingUp,
   BarChart2,
-  
+
   // Time
   Timer,
   Clock,
   Calendar,
   CalendarIcon,
   History,
-  
+
   // UI
   Settings,
   Settings2,
@@ -67,7 +67,7 @@ export {
   Hand,
   Loader2,
   Palette,
-  
+
   // Type
   type LucideIcon,
   type IconProps,

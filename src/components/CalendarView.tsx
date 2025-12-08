@@ -1,6 +1,6 @@
 /**
  * CalendarView Component
- * 
+ *
  * Displays workout history in a monthly calendar format.
  * Shows workout completion status for each day with visual indicators.
  */
@@ -184,7 +184,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ history, onDayClick 
                 <div className="grid grid-cols-7 gap-1">
                     {calendarDays.map((dayData, index) => {
                         const dayNumber = dayData.date.getDate();
-                        
+
                         return (
                             <motion.button
                                 key={index}

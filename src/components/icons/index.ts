@@ -1,6 +1,6 @@
 /**
  * Custom Icon Library
- * 
+ *
  * This module provides custom SVG icons that replace lucide-react.
  * Icons are designed to match the app's visual language.
  */
@@ -15,7 +15,7 @@ export {
   ChevronRight,
   ChevronUp,
   ChevronDown,
-  
+
   // Actions
   X,
   Plus,
@@ -51,7 +51,7 @@ export {
   Save,
   XCircle,
   Gauge,
-  
+
   // Media
   Play,
   PlayCircle,
@@ -60,7 +60,7 @@ export {
   VolumeX,
   Eye,
   EyeOff,
-  
+
   // Fitness
   Dumbbell,
   Activity,
@@ -73,14 +73,14 @@ export {
   ChartLine,
   Flame,
   Award,
-  
+
   // Time
   Timer,
   Clock,
   Calendar,
   CalendarDays,
   History,
-  
+
   // UI
   Settings,
   Settings2,
@@ -105,7 +105,7 @@ export {
   MessageSquare,
   MessageCircle,
   FileText,
-  
+
   // Type
   type LucideIcon,
   type IconProps,

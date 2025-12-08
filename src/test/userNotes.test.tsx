@@ -61,13 +61,13 @@ describe('User Notes - ExerciseDetailModal', () => {
     describe('User notes section visibility', () => {
         it('should not show user notes section when onUpdateUserNotes is not provided', () => {
             render(<ExerciseDetailModal {...defaultProps} />);
-            
+
             expect(screen.queryByText('My Notes')).not.toBeInTheDocument();
         });
 
         it('should show user notes section when exerciseId and onUpdateUserNotes are provided', () => {
             const onUpdateUserNotes = vi.fn();
-            
+
             render(
                 <ExerciseDetailModal
                     {...defaultProps}
@@ -75,13 +75,13 @@ describe('User Notes - ExerciseDetailModal', () => {
                     onUpdateUserNotes={onUpdateUserNotes}
                 />
             );
-            
+
             expect(screen.getByText('My Notes')).toBeInTheDocument();
         });
 
         it('should show coaching notes separately from user notes', () => {
             const onUpdateUserNotes = vi.fn();
-            
+
             render(
                 <ExerciseDetailModal
                     {...defaultProps}
@@ -90,7 +90,7 @@ describe('User Notes - ExerciseDetailModal', () => {
                     onUpdateUserNotes={onUpdateUserNotes}
                 />
             );
-            
+
             expect(screen.getByText('Coaching Notes')).toBeInTheDocument();
             expect(screen.getByText('Focus on full range of motion')).toBeInTheDocument();
             expect(screen.getByText('My Notes')).toBeInTheDocument();
@@ -100,7 +100,7 @@ describe('User Notes - ExerciseDetailModal', () => {
     describe('User notes editing', () => {
         it('should show placeholder when no user notes exist', () => {
             const onUpdateUserNotes = vi.fn();
-            
+
             render(
                 <ExerciseDetailModal
                     {...defaultProps}
@@ -108,14 +108,14 @@ describe('User Notes - ExerciseDetailModal', () => {
                     onUpdateUserNotes={onUpdateUserNotes}
                 />
             );
-            
+
             expect(screen.getByText(/No notes yet/i)).toBeInTheDocument();
         });
 
         it('should display existing user notes', () => {
             const onUpdateUserNotes = vi.fn();
             const userNotes = 'Great form today, felt strong';
-            
+
             render(
                 <ExerciseDetailModal
                     {...defaultProps}
@@ -124,13 +124,13 @@ describe('User Notes - ExerciseDetailModal', () => {
                     onUpdateUserNotes={onUpdateUserNotes}
                 />
             );
-            
+
             expect(screen.getByText(userNotes)).toBeInTheDocument();
         });
 
         it('should enter edit mode when Edit button is clicked', () => {
             const onUpdateUserNotes = vi.fn();
-            
+
             render(
                 <ExerciseDetailModal
                     {...defaultProps}
@@ -138,10 +138,10 @@ describe('User Notes - ExerciseDetailModal', () => {
                     onUpdateUserNotes={onUpdateUserNotes}
                 />
             );
-            
+
             const editButton = screen.getByRole('button', { name: /edit notes/i });
             fireEvent.click(editButton);
-            
+
             expect(screen.getByPlaceholderText(/Add your notes/i)).toBeInTheDocument();
             expect(screen.getByRole('button', { name: /save/i })).toBeInTheDocument();
             expect(screen.getByRole('button', { name: /cancel/i })).toBeInTheDocument();
@@ -149,7 +149,7 @@ describe('User Notes - ExerciseDetailModal', () => {
 
         it('should allow typing in the textarea', () => {
             const onUpdateUserNotes = vi.fn();
-            
+
             render(
                 <ExerciseDetailModal
                     {...defaultProps}
@@ -157,13 +157,13 @@ describe('User Notes - ExerciseDetailModal', () => {
                     onUpdateUserNotes={onUpdateUserNotes}
                 />
             );
-            
+
             const editButton = screen.getByRole('button', { name: /edit notes/i });
             fireEvent.click(editButton);
-            
+
             const textarea = screen.getByPlaceholderText(/Add your notes/i);
             fireEvent.change(textarea, { target: { value: 'New notes here' } });
-            
+
             expect(textarea).toHaveValue('New notes here');
         });
 
@@ -171,7 +171,7 @@ describe('User Notes - ExerciseDetailModal', () => {
             const onUpdateUserNotes = vi.fn();
             const exerciseId = 'pull_ups';
             const newNotes = 'Felt stronger today';
-            
+
             render(
                 <ExerciseDetailModal
                     {...defaultProps}
@@ -179,25 +179,25 @@ describe('User Notes - ExerciseDetailModal', () => {
                     onUpdateUserNotes={onUpdateUserNotes}
                 />
             );
-            
+
             // Enter edit mode
             const editButton = screen.getByRole('button', { name: /edit notes/i });
             fireEvent.click(editButton);
-            
+
             // Type notes
             const textarea = screen.getByPlaceholderText(/Add your notes/i);
             fireEvent.change(textarea, { target: { value: newNotes } });
-            
+
             // Save
             const saveButton = screen.getByRole('button', { name: /save/i });
             fireEvent.click(saveButton);
-            
+
             expect(onUpdateUserNotes).toHaveBeenCalledWith(exerciseId, newNotes);
         });
 
         it('should exit edit mode after saving', () => {
             const onUpdateUserNotes = vi.fn();
-            
+
             render(
                 <ExerciseDetailModal
                     {...defaultProps}
@@ -205,17 +205,17 @@ describe('User Notes - ExerciseDetailModal', () => {
                     onUpdateUserNotes={onUpdateUserNotes}
                 />
             );
-            
+
             // Enter edit mode
             const editButton = screen.getByRole('button', { name: /edit notes/i });
             fireEvent.click(editButton);
-            
+
             // Type and save
             const textarea = screen.getByPlaceholderText(/Add your notes/i);
             fireEvent.change(textarea, { target: { value: 'Test notes' } });
             const saveButton = screen.getByRole('button', { name: /save/i });
             fireEvent.click(saveButton);
-            
+
             // Should exit edit mode
             expect(screen.queryByPlaceholderText(/Add your notes/i)).not.toBeInTheDocument();
         });
@@ -223,7 +223,7 @@ describe('User Notes - ExerciseDetailModal', () => {
         it('should cancel editing and restore original notes when Cancel is clicked', () => {
             const onUpdateUserNotes = vi.fn();
             const originalNotes = 'Original notes';
-            
+
             render(
                 <ExerciseDetailModal
                     {...defaultProps}
@@ -232,22 +232,22 @@ describe('User Notes - ExerciseDetailModal', () => {
                     onUpdateUserNotes={onUpdateUserNotes}
                 />
             );
-            
+
             // Enter edit mode
             const editButton = screen.getByRole('button', { name: /edit notes/i });
             fireEvent.click(editButton);
-            
+
             // Change notes
             const textarea = screen.getByPlaceholderText(/Add your notes/i);
             fireEvent.change(textarea, { target: { value: 'Changed notes' } });
-            
+
             // Cancel
             const cancelButton = screen.getByRole('button', { name: /cancel/i });
             fireEvent.click(cancelButton);
-            
+
             // Should not call onUpdateUserNotes
             expect(onUpdateUserNotes).not.toHaveBeenCalled();
-            
+
             // Should show original notes
             expect(screen.getByText(originalNotes)).toBeInTheDocument();
         });
@@ -256,7 +256,7 @@ describe('User Notes - ExerciseDetailModal', () => {
             const onUpdateUserNotes = vi.fn();
             const initialNotes = 'Initial notes';
             const updatedNotes = 'Updated notes';
-            
+
             const { rerender } = render(
                 <ExerciseDetailModal
                     {...defaultProps}
@@ -266,9 +266,9 @@ describe('User Notes - ExerciseDetailModal', () => {
                     isOpen={true}
                 />
             );
-            
+
             expect(screen.getByText(initialNotes)).toBeInTheDocument();
-            
+
             // Rerender with updated notes
             rerender(
                 <ExerciseDetailModal
@@ -279,7 +279,7 @@ describe('User Notes - ExerciseDetailModal', () => {
                     isOpen={true}
                 />
             );
-            
+
             expect(screen.getByText(updatedNotes)).toBeInTheDocument();
         });
     });
@@ -289,7 +289,7 @@ describe('User Notes - ExerciseDetailModal', () => {
             const exerciseId = 'pull_ups';
             const sessionKey = 'session_w1d1';
             const newNotes = 'Strong workout today';
-            
+
             // Mock localStorage with initial session data
             const initialSession = {
                 week: 1,
@@ -302,28 +302,28 @@ describe('User Notes - ExerciseDetailModal', () => {
                 },
                 lastModified: new Date().toISOString(),
             };
-            
+
             localStorage.setItem(sessionKey, JSON.stringify(initialSession));
-            
+
             const handleUpdateUserNotes = (exId: string, notes: string) => {
                 const session = JSON.parse(localStorage.getItem(sessionKey) || '{}');
                 const exercises = session.exercises || {};
                 const currentEntry = exercises[exId] || {};
-                
+
                 exercises[exId] = {
                     ...currentEntry,
                     userNotes: notes,
                 };
-                
+
                 session.exercises = exercises;
                 session.lastModified = new Date().toISOString();
-                
+
                 localStorage.setItem(sessionKey, JSON.stringify(session));
             };
-            
+
             // Simulate updating notes
             handleUpdateUserNotes(exerciseId, newNotes);
-            
+
             // Verify storage
             const updatedSession = JSON.parse(localStorage.getItem(sessionKey) || '{}');
             expect(updatedSession.exercises[exerciseId].userNotes).toBe(newNotes);
@@ -342,7 +342,7 @@ describe('User Notes - WorkoutPlayer Integration', () => {
             const exerciseName = 'Pull-Ups';
             const exerciseId = 'pull_ups';
             const userNotes = 'Felt great today';
-            
+
             // Mock session data with user notes
             const sessionData = {
                 week: 1,
@@ -355,17 +355,17 @@ describe('User Notes - WorkoutPlayer Integration', () => {
                     },
                 },
             };
-            
+
             // Simulate updateExerciseHistory
             const exerciseHistory: Record<string, any[]> = {};
-            
+
             const updateExerciseHistory = (name: string, entry: any) => {
                 if (!exerciseHistory[name]) {
                     exerciseHistory[name] = [];
                 }
                 exerciseHistory[name].push(entry);
             };
-            
+
             // Simulate completing workout
             const exLog = sessionData.exercises[exerciseId];
             updateExerciseHistory(exerciseName, {
@@ -379,7 +379,7 @@ describe('User Notes - WorkoutPlayer Integration', () => {
                 isBodyweight: false,
                 notes: exLog.userNotes || exLog.notes,
             });
-            
+
             // Verify history includes user notes
             expect(exerciseHistory[exerciseName]).toHaveLength(1);
             expect(exerciseHistory[exerciseName][0].notes).toBe(userNotes);
@@ -390,7 +390,7 @@ describe('User Notes - WorkoutPlayer Integration', () => {
             const exerciseId = 'push_ups';
             const userNotes = 'New user notes';
             const legacyNotes = 'Old legacy notes';
-            
+
             // Mock session data with both fields
             const sessionData = {
                 week: 1,
@@ -404,16 +404,16 @@ describe('User Notes - WorkoutPlayer Integration', () => {
                     },
                 },
             };
-            
+
             const exerciseHistory: Record<string, any[]> = {};
-            
+
             const updateExerciseHistory = (name: string, entry: any) => {
                 if (!exerciseHistory[name]) {
                     exerciseHistory[name] = [];
                 }
                 exerciseHistory[name].push(entry);
             };
-            
+
             const exLog = sessionData.exercises[exerciseId];
             updateExerciseHistory(exerciseName, {
                 date: '2024-01-15',
@@ -425,7 +425,7 @@ describe('User Notes - WorkoutPlayer Integration', () => {
                 prescription: '3x8 reps',
                 notes: exLog.userNotes || exLog.notes,
             });
-            
+
             // Should prefer userNotes
             expect(exerciseHistory[exerciseName][0].notes).toBe(userNotes);
         });

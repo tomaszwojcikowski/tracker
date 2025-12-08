@@ -80,7 +80,7 @@ export default defineConfig({
           'vendor-firebase': ['firebase/app', 'firebase/auth', 'firebase/database', '@firebase/database'],
           'vendor-react': ['react', 'react-dom'],
           'vendor-framer': ['framer-motion'],
-          'vendor-ui': ['lucide-react', 'clsx', 'tailwind-merge'],
+          'vendor-ui': ['lucide-react', 'clsx'],
           // Separate chunk for Automerge CRDT library
           'vendor-automerge': ['@automerge/automerge'],
           // Sentry and Material utilities in separate chunks

@@ -396,5 +396,3 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
         </AnimatePresence>
     );
 };
-
-export default WorkoutSummary;

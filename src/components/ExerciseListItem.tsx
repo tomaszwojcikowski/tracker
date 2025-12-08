@@ -160,5 +160,3 @@ export const ExerciseListItem: React.FC<ExerciseListItemProps> = ({
         </div>
     );
 };
-
-export default ExerciseListItem;

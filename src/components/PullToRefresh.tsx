@@ -64,5 +64,3 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({ onRefresh, childre
         </div>
     );
 };
-
-export default PullToRefresh;

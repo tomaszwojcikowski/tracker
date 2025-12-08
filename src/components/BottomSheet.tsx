@@ -193,5 +193,3 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         </div>
     );
 };
-
-export default BottomSheet;

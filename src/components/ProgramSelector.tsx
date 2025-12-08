@@ -659,5 +659,3 @@ function SampleProgramCard({ sample, onImport }: SampleProgramCardProps): React.
     </button>
   );
 }
-
-export default ProgramSelector;

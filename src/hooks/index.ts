@@ -170,138 +170,27 @@ export function useDebounce<T>(value: T, delay: number = DEBOUNCE_DELAY_MS): T {
     return debouncedValue;
 }
 
-// ============================================================================
-// DOUBLE TAP HOOK
-// ============================================================================
 
-/**
- * Options for double tap detection
- */
-export interface DoubleTapOptions {
-    /** Callback for single tap */
-    onSingleTap?: () => void;
-    /** Callback for double tap */
-    onDoubleTap?: () => void;
-    /** Maximum delay between taps in ms (default: 300) */
-    delay?: number;
-}
-
-/**
- * Return type for useDoubleTap hook
- */
-export interface DoubleTapHandlers {
-    onClick: () => void;
-}
-
-/**
- * Hook for detecting double tap gestures
- * Useful for quick actions like "complete all sets"
- */
-export const useDoubleTap = ({
-    onSingleTap,
-    onDoubleTap,
-    delay = 300,
-}: DoubleTapOptions): DoubleTapHandlers => {
-    const lastTapRef = { current: 0 };
-    const timeoutRef = { current: null as ReturnType<typeof setTimeout> | null };
-
-    const onClick = (): void => {
-        const now = Date.now();
-        const timeSinceLastTap = now - lastTapRef.current;
-
-        if (timeSinceLastTap < delay && timeSinceLastTap > 0) {
-            // Double tap detected
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-                timeoutRef.current = null;
-            }
-            lastTapRef.current = 0;
-            onDoubleTap?.();
-        } else {
-            // First tap - wait for potential second tap
-            lastTapRef.current = now;
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
-            timeoutRef.current = setTimeout(() => {
-                onSingleTap?.();
-                lastTapRef.current = 0;
-                timeoutRef.current = null;
-            }, delay);
-        }
-    };
-
-    return { onClick };
-};
-
-
-// Re-export optimistic sync hook and types
-export { useOptimisticSync, SyncStatus } from './useOptimisticSync';
-
-// Re-export accessibility hooks
-export {
-    useFocusTrap,
-    useAriaAnnounce,
-    useReducedMotion,
-    useKeyboardShortcut,
-} from './useAccessibility';
-
-// Re-export PWA hook
-export { usePWA } from './usePWA';
-
-// Re-export long-press hook
-export { useLongPress } from './useLongPress';
-
-// Re-export pull-to-refresh hook
-export { usePullToRefresh } from './usePullToRefresh';
-
-// Re-export swipe navigation hook
-export { useSwipeNavigation } from './useSwipeNavigation';
+// Re-export accessibility hooks (only keyboard shortcuts are used via index)
+export { useKeyboardShortcut } from './useAccessibility';
 
 // Re-export theme hook
-export { useTheme, THEMES } from './useTheme';
+export { useTheme } from './useTheme';
 
 // Re-export workout timer hook
-export { useWorkoutTimer, formatTimerTime, MAX_TIMER_SECONDS } from './useWorkoutTimer';
+export { useWorkoutTimer } from './useWorkoutTimer';
 
-// Re-export workout session hooks (extracted from WorkoutPlayer)
-export { useWorkoutSession } from './useWorkoutSession';
+// Re-export rest timer (used via index)
 export { useRestTimer } from './useRestTimer';
+
+// Re-export emom timer (used via index)
 export { useEmomTimer } from './useEmomTimer';
+
+// Re-export exercise collapse hook (used via index)
 export { useExerciseCollapse } from './useExerciseCollapse';
 
 // Re-export scroll hooks
 export { useScrollToElement, useScrollToTop } from './useScrollToElement';
 
-// Type exports
-export type { OptimisticSyncOptions, OptimisticSyncReturn } from './useOptimisticSync';
-export type { FocusTrapOptions, KeyboardShortcutOptions, AriaPoliteness, KeyboardModifiers } from './useAccessibility';
-export type { PWAState } from './usePWA';
-export type { ThemeId, ThemeInfo } from './useTheme';
-export type { LongPressOptions, LongPressHandlers } from './useLongPress';
-export type { PullToRefreshOptions, PullToRefreshHandlers, PullToRefreshReturn } from './usePullToRefresh';
-export type { SwipeNavigationOptions, SwipeNavigationHandlers, SwipeNavigationReturn, SwipeDirection } from './useSwipeNavigation';
-export type { WorkoutTimerState, WorkoutTimerReturn } from './useWorkoutTimer';
-export type { UseWorkoutSessionOptions, UseWorkoutSessionReturn } from './useWorkoutSession';
-export type { UseRestTimerOptions, UseRestTimerReturn } from './useRestTimer';
-export type { UseEmomTimerOptions, UseEmomTimerReturn } from './useEmomTimer';
-export type { UseExerciseCollapseOptions, UseExerciseCollapseReturn } from './useExerciseCollapse';
-export type { UseScrollToElementOptions } from './useScrollToElement';
-
-// Re-export snackbar hook and provider
-export {
-    useSnackbar,
-    SnackbarProvider,
-} from './useSnackbar';
-export type {
-    SnackbarVariant,
-    SnackbarAction,
-    SnackbarMessage,
-    SnackbarContextValue,
-    SnackbarProviderProps,
-} from './useSnackbar';
+// Re-export media query hook
 export { useMediaQuery } from './useMediaQuery';
-
-// Re-export optimized scroll hook
-export { useOptimizedScroll } from './useOptimizedScroll';
-export type { UseOptimizedScrollOptions, UseOptimizedScrollReturn } from './useOptimizedScroll';

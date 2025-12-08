@@ -601,5 +601,3 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
 // Memoize component to prevent unnecessary re-renders when parent state changes
 // Props comparison uses shallow equality - callbacks must be stable (useCallback)
 export const CompactExerciseRow = memo(CompactExerciseRowInner);
-
-export default CompactExerciseRow;

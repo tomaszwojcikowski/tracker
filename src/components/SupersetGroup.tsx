@@ -363,5 +363,3 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
         </div>
     );
 };
-
-export default SupersetGroup;

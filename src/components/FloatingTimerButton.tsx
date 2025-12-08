@@ -242,5 +242,3 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
         </>
     );
 };
-
-export default FloatingTimerButton;

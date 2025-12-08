@@ -55,5 +55,3 @@ export const WorkoutTimerDisplay: React.FC<WorkoutTimerDisplayProps> = ({
     </button>
   );
 };
-
-export default WorkoutTimerDisplay;

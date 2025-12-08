@@ -145,5 +145,3 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
 
 // Memoize component to prevent unnecessary re-renders when parent updates
 export const CompactSetButtons = memo(CompactSetButtonsInner);
-
-export default CompactSetButtons;

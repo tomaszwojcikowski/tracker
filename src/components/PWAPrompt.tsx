@@ -112,5 +112,3 @@ export function OfflineBanner({ isOnline }: OfflineBannerProps): React.ReactElem
     </div>
   );
 }
-
-export default UpdatePrompt;

@@ -119,5 +119,3 @@ export function useTheme() {
         themes: THEMES,
     };
 }
-
-export default useTheme;

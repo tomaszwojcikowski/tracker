@@ -9,10 +9,10 @@ export interface SkipLinkProps {
 
 /**
  * SkipLink - Accessibility component for keyboard navigation
- * 
+ *
  * Allows keyboard users to skip directly to the main content,
  * bypassing navigation elements. Hidden by default, visible on focus.
- * 
+ *
  * @example
  * <SkipLink targetId="main-content" label="Skip to content" />
  * <nav>...</nav>
@@ -44,5 +44,3 @@ export const SkipLink: React.FC<SkipLinkProps> = ({
         </a>
     );
 };
-
-export default SkipLink;

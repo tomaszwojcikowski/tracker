@@ -12,3 +12,4 @@ playwright-report/
 public/workout-plan-v2.3.json
 public/exercises.json
 public/colors.css
+coverage/

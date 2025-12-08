@@ -32,7 +32,7 @@ import {
 } from '../../hooks';
 import {
     Flame, Dumbbell, Snowflake, Activity, LayoutGrid, LayoutList, PlusCircle, X, CheckCircle2, Maximize2, StickyNote
-} from 'lucide-react';
+} from '../icons';
 import {
     DEBOUNCE_DELAY_MS,
     MAX_SETS,

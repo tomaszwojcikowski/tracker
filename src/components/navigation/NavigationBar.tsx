@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { motion, LayoutGroup } from 'framer-motion';
-import { Dumbbell, BookOpen, History, Settings, LucideIcon } from 'lucide-react';
+import { Dumbbell, BookOpen, History, Settings, type LucideIcon } from '../icons';
 import { useHaptic, useMediaQuery } from '../../hooks';
 import type { TabId } from '../../types';
 import { clsx } from 'clsx';

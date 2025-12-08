@@ -6,7 +6,7 @@
  */
 
 import { memo, useMemo } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from './icons';
 import { WorkoutTimerDisplay } from './WorkoutTimerDisplay';
 import { clsx } from 'clsx';
 

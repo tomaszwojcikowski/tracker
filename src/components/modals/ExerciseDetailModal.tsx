@@ -21,7 +21,7 @@ import {
     Save,
     XCircle,
     Gauge,
-} from 'lucide-react';
+} from '../icons';
 import { getExerciseHistory, calculateExerciseStats } from '../../utils/exerciseHistory';
 import type { ExerciseHistoryEntry } from '../../utils/exerciseHistory';
 import type { ExerciseDetailMetadata } from '../../types/workout';

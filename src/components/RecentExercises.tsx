@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Clock, Plus } from 'lucide-react';
+import { Clock, Plus } from './icons';
 import { safeGetJSON, safeSetJSON } from '../utils/storage';
 import type { Exercise } from '../types';
 

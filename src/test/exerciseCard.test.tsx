@@ -19,8 +19,8 @@ vi.mock('../components/RPESelector', () => ({
     ),
 }));
 
-// Mock lucide-react icons
-vi.mock('lucide-react', () => ({
+// Mock custom icons module
+vi.mock('../components/icons', () => ({
     ChevronDown: () => <span data-testid="icon-chevron-down">▼</span>,
     ChevronUp: () => <span data-testid="icon-chevron-up">▲</span>,
     Timer: () => <span data-testid="icon-timer">⏱</span>,
@@ -162,15 +162,15 @@ describe('ExerciseCard', () => {
 
             // First incomplete set should be a button
             expect(screen.getByRole('button', { name: 'Set 1' })).toBeInTheDocument();
-            
+
             // Should show dots for sets 2 and 3 (max 2 dots)
             expect(screen.getByLabelText('Set 2 pending')).toBeInTheDocument();
             expect(screen.getByLabelText('Set 3 pending')).toBeInTheDocument();
-            
+
             // Sets 4 and 5 should NOT have dots
             expect(screen.queryByLabelText('Set 4 pending')).not.toBeInTheDocument();
             expect(screen.queryByLabelText('Set 5 pending')).not.toBeInTheDocument();
-            
+
             // Progress indicator should show all sets
             expect(screen.getByText('(0/5)')).toBeInTheDocument();
         });
@@ -189,17 +189,17 @@ describe('ExerciseCard', () => {
             // Completed sets should be buttons
             expect(screen.getByRole('button', { name: 'Set 1 completed' })).toBeInTheDocument();
             expect(screen.getByRole('button', { name: 'Set 2 completed' })).toBeInTheDocument();
-            
+
             // Next incomplete set should be a button
             expect(screen.getByRole('button', { name: 'Set 3' })).toBeInTheDocument();
-            
+
             // Should show dots for sets 4 and 5 (max 2 dots)
             expect(screen.getByLabelText('Set 4 pending')).toBeInTheDocument();
             expect(screen.getByLabelText('Set 5 pending')).toBeInTheDocument();
-            
+
             // Set 6 should NOT have a dot
             expect(screen.queryByLabelText('Set 6 pending')).not.toBeInTheDocument();
-            
+
             // Progress indicator should show all sets
             expect(screen.getByText('2/6')).toBeInTheDocument();
         });

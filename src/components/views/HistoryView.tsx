@@ -15,7 +15,7 @@ import {
     Plus,
     Check,
     MessageSquare
-} from 'lucide-react';
+} from '../icons';
 import { safeGetJSON } from '../../utils/storage';
 import { getGlobalHistoryKey } from '../../services/storageNamespace';
 import { PullToRefresh } from '../PullToRefresh';
@@ -552,10 +552,10 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                         <div className="sticky top-0 bg-sys-surface border-b border-white/5 p-5 flex items-center justify-between z-10">
                                             <div>
                                                 <h3 className="text-lg font-bold text-white">
-                                                    {new Date(selectedDayWorkouts[0].date).toLocaleDateString('en-US', { 
-                                                        weekday: 'long', 
-                                                        month: 'long', 
-                                                        day: 'numeric' 
+                                                    {new Date(selectedDayWorkouts[0].date).toLocaleDateString('en-US', {
+                                                        weekday: 'long',
+                                                        month: 'long',
+                                                        day: 'numeric'
                                                     })}
                                                 </h3>
                                                 <p className="text-sm text-sys-onSurfaceVar">

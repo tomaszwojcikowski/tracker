@@ -6,7 +6,7 @@
  */
 
 import React, { useState } from 'react';
-import { ChevronUp } from 'lucide-react';
+import { ChevronUp } from './icons';
 import type { Exercise } from '../types';
 import type { HapticFeedback } from '../hooks';
 

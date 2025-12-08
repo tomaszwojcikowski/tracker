@@ -9,7 +9,7 @@
  */
 
 import React, { useMemo, memo } from 'react';
-import { Check, CheckCheck } from 'lucide-react';
+import { Check, CheckCheck } from './icons';
 
 // ============================================================================
 // TYPES

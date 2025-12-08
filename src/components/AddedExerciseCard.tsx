@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { Check, X, Timer } from 'lucide-react';
+import { Check, X, Timer } from './icons';
 import type { AddedExercise } from '../types';
 import type { HapticFeedback } from '../hooks';
 

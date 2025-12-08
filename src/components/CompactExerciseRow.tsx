@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo, memo } from 'react';
-import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2, Timer } from 'lucide-react';
+import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2, Timer } from './icons';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
 import { CompactSetButtons } from './CompactSetButtons';

@@ -1,13 +1,13 @@
 /**
  * CalendarView Component
- * 
+ *
  * Displays workout history in a monthly calendar format.
  * Shows workout completion status for each day with visual indicators.
  */
 
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Check, Dumbbell } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Check, Dumbbell } from './icons';
 
 interface GlobalHistoryEntry {
     date: string;
@@ -184,7 +184,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ history, onDayClick 
                 <div className="grid grid-cols-7 gap-1">
                     {calendarDays.map((dayData, index) => {
                         const dayNumber = dayData.date.getDate();
-                        
+
                         return (
                             <motion.button
                                 key={index}

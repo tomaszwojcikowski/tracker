@@ -8,8 +8,8 @@ import '@testing-library/jest-dom';
  * Tests the AddedExerciseCard component for custom/added exercises.
  */
 
-// Mock lucide-react icons
-vi.mock('lucide-react', () => ({
+// Mock custom icons module
+vi.mock('../components/icons', () => ({
     Check: () => <span data-testid="icon-check">✓</span>,
     X: () => <span data-testid="icon-x">✕</span>,
     Timer: () => <span data-testid="icon-timer">⏱</span>,

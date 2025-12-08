@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Play, Pause, Timer } from 'lucide-react';
+import { Play, Pause, Timer } from './icons';
 import { formatTimerTime } from '../hooks/useWorkoutTimer';
 import type { WorkoutTimerDisplayProps } from '../types';
 import { clsx } from 'clsx';

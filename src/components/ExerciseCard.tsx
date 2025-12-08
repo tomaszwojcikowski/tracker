@@ -19,7 +19,7 @@ import {
     BarChart2,
     History,
     Timer,
-} from 'lucide-react';
+} from './icons';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { RPESelector } from './RPESelector';
 import { ExerciseOptionsBadge } from './ExerciseOptionsBadge';

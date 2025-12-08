@@ -7,7 +7,7 @@
  */
 
 import React, { useEffect, useState, useRef } from 'react';
-import { Activity, Settings2 } from 'lucide-react';
+import { Activity, Settings2 } from './icons';
 import type { ExerciseOption } from '../workout-plan-utils';
 
 export interface FlowMovementsDisplayProps {

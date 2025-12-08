@@ -19,6 +19,8 @@ export interface FlowMovementsDisplayProps {
     selectedOptionName: string | undefined;
     /** Callback when choose button is clicked */
     onChooseFlow?: () => void;
+    /** Show the drag handle at top (for compact view) */
+    showHandle?: boolean;
 }
 
 /**
@@ -30,7 +32,12 @@ export const FlowMovementsDisplay: React.FC<FlowMovementsDisplayProps> = ({
     options,
     selectedOptionName,
     onChooseFlow,
+    showHandle = false,
 }) => {
+    // Count how many flow options exist (for showing "1 of N")
+    const flowOptionsCount = options.filter(opt => opt.flowMovements && opt.flowMovements.length > 0).length;
+    const currentFlowIndex = options.filter(opt => opt.flowMovements && opt.flowMovements.length > 0)
+        .findIndex(opt => opt.optionName === selectedOptionName) + 1;
     const [isAnimating, setIsAnimating] = useState(false);
     const [displayedOption, setDisplayedOption] = useState(selectedOptionName);
     const prevOptionRef = useRef(selectedOptionName);
@@ -74,6 +81,20 @@ export const FlowMovementsDisplay: React.FC<FlowMovementsDisplayProps> = ({
                 ${isAnimating ? 'opacity-0 scale-95 -translate-y-1' : 'opacity-100 scale-100 translate-y-0'}
             `}
         >
+            {/* Handle indicator at top for drag/tap affordance */}
+            {showHandle && onChooseFlow && (
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onChooseFlow();
+                    }}
+                    className="w-full flex flex-col items-center mb-2 -mt-1 group"
+                >
+                    <div className="w-8 h-1 rounded-full bg-white/20 group-hover:bg-white/40 group-active:bg-sys-accent/60 transition-colors" />
+                    <span className="text-[10px] text-sys-onSurfaceVar/60 mt-0.5">tap to change flow</span>
+                </button>
+            )}
+
             {/* Header with flow name and choose button */}
             <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
@@ -85,10 +106,15 @@ export const FlowMovementsDisplay: React.FC<FlowMovementsDisplayProps> = ({
                         {optionWithMovements?.optionName || 'Flow Sequence'}
                     </span>
                     <span className="text-xs text-sys-onSurfaceVar">
-                        ({movements.length} movements)
+                        ({movements.length} moves)
                     </span>
+                    {flowOptionsCount > 1 && (
+                        <span className="text-[10px] text-sys-onSurfaceVar/60 px-1.5 py-0.5 rounded bg-white/5">
+                            {currentFlowIndex} of {flowOptionsCount}
+                        </span>
+                    )}
                 </div>
-                {onChooseFlow && (
+                {onChooseFlow && !showHandle && (
                     <button
                         onClick={(e) => {
                             e.stopPropagation();

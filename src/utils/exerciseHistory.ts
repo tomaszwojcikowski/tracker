@@ -22,6 +22,7 @@ export interface ExerciseHistoryEntry {
   totalSets?: number;
   isBodyweight?: boolean;
   notes?: string;
+  selectedOption?: string; // Selected exercise option (e.g., flow name)
 }
 
 /**

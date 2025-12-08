@@ -256,7 +256,7 @@ describe('Flow Exercise Feature', () => {
 
       // Should show the flow name and movement count in the header
       expect(screen.getByText('Flow 1 - Squat/Lunge')).toBeInTheDocument();
-      expect(screen.getByText(/5.*movements/)).toBeInTheDocument();
+      expect(screen.getByText(/5.*moves/)).toBeInTheDocument();
     });
 
     it('should always show all movements (no expand/collapse)', () => {
@@ -287,7 +287,7 @@ describe('Flow Exercise Feature', () => {
 
       // The header should be visible with the flow name and count
       expect(screen.getByText('Flow 1 - Squat/Lunge')).toBeInTheDocument();
-      expect(screen.getByText(/5.*movements/)).toBeInTheDocument();
+      expect(screen.getByText(/5.*moves/)).toBeInTheDocument();
     });
 
     it('should display movements with numbered steps', () => {

@@ -220,6 +220,7 @@ export interface ExerciseHistoryEntry {
   weight?: string | number;
   rpe?: RPEData;
   notes?: string;
+  selectedOption?: string; // Selected exercise option (e.g., flow name)
 }
 
 /**

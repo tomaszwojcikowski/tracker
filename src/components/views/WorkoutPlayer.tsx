@@ -926,6 +926,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
             // Process scheduled exercises (only for non-empty workouts)
             if (!isEmptyWorkout) {
+                // Get the exercise options from the logs
+                const savedExerciseOptions = updatedLogs.exerciseOptions || {};
+
                 workout.sections.forEach((section: WorkoutSection) => {
                     section.exercises.forEach((ex: WorkoutExercise) => {
                         const exId = getExerciseId(ex.name);
@@ -955,6 +958,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 prescription: ex.prescription,
                                 isBodyweight: ex.isBodyweight,
                                 notes: exLog.userNotes || exLog.notes,
+                                selectedOption: savedExerciseOptions[exId],
                             });
                         }
                     });

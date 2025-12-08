@@ -492,7 +492,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
             {/* Expandable Section - Contains prescription, weight, and add set */}
             <div
                 className={`overflow-hidden transition-all duration-150 ease-out ${
-                    isExpanded ? 'max-h-72' : 'max-h-0'
+                    isExpanded ? 'max-h-[500px]' : 'max-h-0'
                 }`}
             >
                 <div className="px-3 pb-3 pt-0">
@@ -509,6 +509,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             selectedOption={exerciseOptions.find(opt => opt.optionName === selectedOption)}
                             options={exerciseOptions}
                             selectedOptionName={selectedOption}
+                            showHandle={true}
                             onChooseFlow={onShowOptions ? () => {
                                 haptic.bump();
                                 onShowOptions(exId, displayName, exerciseOptions);

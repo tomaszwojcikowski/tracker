@@ -201,7 +201,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                 <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
                     <BarChart2 size={40} className="text-sys-onSurfaceVar" />
                 </div>
-                <h3 className="text-lg font-semibold text-white mb-2">No Exercise Data</h3>
+                <h3 className="text-lg font-bold text-white mb-2">No Exercise Data</h3>
                 <p className="text-sm text-sys-onSurfaceVar text-center max-w-[250px]">Complete workouts to see exercise statistics</p>
             </div>
         );
@@ -504,7 +504,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                         <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
                             <History size={40} className="text-sys-onSurfaceVar" />
                         </div>
-                        <h3 className="text-lg font-semibold text-white mb-2">No Workouts Yet</h3>
+                        <h3 className="text-lg font-bold text-white mb-2">No Workouts Yet</h3>
                         <p className="text-sm text-sys-onSurfaceVar text-center max-w-[250px]">Complete your first workout to see it here. Pull down to refresh.</p>
                     </div>
                 ) : viewMode === 'stats' ? (
@@ -596,7 +596,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                                             )}
                                                             <div className="flex-1">
                                                                 <div className="flex items-center gap-2">
-                                                                    <h4 className="text-sm font-bold text-white">
+                                                                    <h4 className="text-sm font-semibold text-white">
                                                                         {entry.isEmptyWorkout || (entry.week === 0 && entry.day === 0) ? 'Custom Workout' : `Day ${entry.day}`}
                                                                     </h4>
                                                                     {isFullyComplete && (

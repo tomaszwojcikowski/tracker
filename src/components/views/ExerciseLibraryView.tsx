@@ -125,7 +125,7 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
                         {/* Max Weight by Set Count */}
                         {stats.maxWeightBySets && Object.keys(stats.maxWeightBySets).length > 0 && (
                             <div>
-                                <h4 className="text-sm font-bold text-white mb-3">Max Weight by Sets</h4>
+                                <h4 className="text-sm font-semibold text-white mb-3">Max Weight by Sets</h4>
                                 <div className="grid grid-cols-3 gap-2">
                                     {Object.entries(stats.maxWeightBySets)
                                         .sort(([a], [b]) => +a - +b)
@@ -197,7 +197,7 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
                     <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
                         <BarChart2 size={40} className="text-sys-onSurfaceVar" />
                     </div>
-                    <h3 className="text-lg font-semibold text-white mb-2">No History Yet</h3>
+                    <h3 className="text-lg font-bold text-white mb-2">No History Yet</h3>
                     <p className="text-sm text-sys-onSurfaceVar text-center max-w-[250px]">
                         Complete workouts with this exercise to see your progress
                     </p>
@@ -330,7 +330,7 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
                     <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
                         <Search size={40} className="text-sys-onSurfaceVar" />
                     </div>
-                    <h3 className="text-lg font-semibold text-white mb-2">No Exercises Found</h3>
+                    <h3 className="text-lg font-bold text-white mb-2">No Exercises Found</h3>
                     <p className="text-sm text-sys-onSurfaceVar text-center">Try adjusting your filters</p>
                 </div>
             ) : (
@@ -348,7 +348,7 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
                                 <div className="flex items-start justify-between gap-3">
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <h4 className="text-base font-semibold text-white truncate">{exercise.name}</h4>
+                                            <h4 className="text-sm font-semibold text-white truncate">{exercise.name}</h4>
                                             {isTracked && stats && (
                                                 <span className="text-xs px-2 py-0.5 bg-sys-success/20 rounded-full text-sys-success font-bold flex-shrink-0">
                                                     {stats.totalWorkouts}

@@ -53,8 +53,8 @@ tracker/
 │       ├── *.test.jsx        # 12+ test files, 210+ specs
 ├── data/                 # Data files (JSON)
 │   ├── exercises.json    # Exercise library data (50+ exercises) - edit this file, NOT public/
-│   ├── workout-plan-v2.3.json  # Current workout program (v2.3 format)
-│   └── *.schema.json     # JSON schemas for validation
+│   ├── workout-plan-v2.4.json  # Current workout program (v2.4 format with flow exercises)
+│   └── *.schema.json     # JSON schemas for validation (v2.2, v2.3, v2.4)
 ├── docs/                 # Documentation
 │   ├── DEPLOYMENT.md     # GitHub Pages deployment
 │   ├── FIREBASE_SETUP.md # Firebase configuration
@@ -98,7 +98,8 @@ tracker/
 
 **Critical Functions to Understand**:
 - `safeGetJSON`, `safeSetJSON`, `safeRemove` - localStorage utilities with error handling
-- `buildCompleteSchedule` - Populates the schedule from raw data (v2 data is self-contained)
+- `buildCompleteSchedule` (schedule.ts) - Stores schedule data in memory for a program
+- `getWorkoutForDay` (programData.ts) - Retrieves workout data with all exercise details
 - `toggleSet` - Handles set completion with RPE data management
 - `updateExerciseHistory` - Tracks workout performance
 - `calculateExerciseStats` - Computes statistics and 1RM estimates
@@ -124,6 +125,7 @@ tracker/
 - Volume calculations — `volume.test.jsx`
 - PWA hooks — `pwa.test.jsx`
 - Workout plan utilities — `workoutPlanUtils.test.jsx`
+- Flow exercise feature — `flowExercise.test.tsx`
 - Shared config/mocks — `src/test/setup.js`
 
 **E2E Test Categories** (Playwright):
@@ -441,6 +443,10 @@ The codebase is actively migrating to TypeScript. Legacy JavaScript files are be
 - `volume.ts` - Volume tracking calculations
 - `exerciseHistory.ts` - Exercise history management
 - `automergeSync.ts` - CRDT-based conflict-free data merging
+- `schedule.ts` - Schedule data store (multi-program support)
+
+**Fully Typed Data Modules** (in `src/data/`):
+- `programData.ts` - Workout retrieval with full `WorkoutExercise` type
 
 **Fully Typed Hooks** (in `src/hooks/`):
 - `index.ts` - Hook exports with full type definitions
@@ -509,7 +515,7 @@ export function useMyHook(): MyHookReturn {
 14. **CRDT Sync**: Prefer `useAutomergeSync` for new sync features; it provides conflict-free merging
 15. **Modular Architecture**: Place new code in appropriate directories (components/, hooks/, utils/)
 16. **Run Typecheck**: Always run `npm run typecheck` before committing TypeScript changes
-17. **JSON Data Files**: Edit JSON files in `data/` folder (`data/workout-plan-v2.3.json`, `data/exercises.json`) only. Do NOT manually copy to `public/` — the build step handles this automatically.
+17. **JSON Data Files**: Edit JSON files in `data/` folder (`data/workout-plan-v2.4.json`, `data/exercises.json`) only. Do NOT manually copy to `public/` — the build step handles this automatically.
 18. **E2E Tests Required**: Always run `npm run test:e2e` after changes to UI components. E2E tests verify real user interactions and must pass before completing any task.
 
 ### Testing Workflow (MANDATORY)

@@ -31,7 +31,7 @@ interface ProgramRegistry {
   registerProgram(manifest: ProgramManifest): void;
   importProgram(planJson: WorkoutPlanJson): Promise<ProgramManifest>;
   unregisterProgram(programId: string): boolean;
-  
+
   // Program data management
   setProgramData(programId: string, data: ProgramData): void;
   getProgramData(programId: string): ProgramData | null;
@@ -48,7 +48,7 @@ interface ProgramRegistry {
 
 ### 2. Schedule Utilities (`src/utils/schedule.ts`)
 
-Schedule utilities have been parameterized to support multiple programs:
+Schedule utilities provide a low-level data store for schedule data, parameterized for multi-program support:
 
 ```typescript
 // Set active program for schedule access
@@ -70,15 +70,28 @@ clearAllSchedules(): void;
 - Uses a `Map<string, ProgramScheduleData>` to store schedules by program ID
 - Each program has its own isolated schedule data
 - Default program ID used when no programId is specified
+- Exports `RawScheduleItem` type used throughout the codebase
+
+**Note:** `schedule.ts` is a data store only. Workout retrieval is handled by `programData.ts`.
 
 ### 3. Program Data Module (`src/data/programData.ts`)
 
-Workout retrieval functions accept optional program ID:
+The **single source of truth** for workout retrieval and exercise type definitions:
 
 ```typescript
+// Workout retrieval (accepts optional programId)
 getBlockForWeek(week: number, programId?: string): ProgramBlock | undefined;
 getWorkoutForDay(week: number, day: number, programId?: string): DayWorkout;
+
+// Backward compatibility export
+export const PROGRAM_DATA = { getWorkout: getWorkoutForDay };
 ```
+
+**Key Types Exported:**
+- `WorkoutExercise` - Full exercise interface with all fields (EMOM, superset, alternatives, exerciseOptions, isFlow, etc.)
+- `WorkoutSection` - Section grouping with type and exercises
+- `DayWorkout` - Complete workout for a day
+- `ProgramBlock` - Block metadata
 
 **Data Resolution Priority:**
 1. Check program registry for program data
@@ -178,15 +191,15 @@ import { useProgram } from '@/context';
 
 function ProgramSwitcher() {
   const { availablePrograms, switchProgram, currentProgramId, isLoading } = useProgram();
-  
+
   const handleSwitch = async (programId: string) => {
     await switchProgram(programId);
     // Schedule utilities are automatically updated
   };
-  
+
   return (
-    <select 
-      value={currentProgramId ?? ''} 
+    <select
+      value={currentProgramId ?? ''}
       onChange={(e) => handleSwitch(e.target.value)}
       disabled={isLoading}
     >
@@ -207,7 +220,7 @@ import { useCurrentProgramId } from '@/context';
 function WorkoutView({ week, day }) {
   const programId = useCurrentProgramId();
   const workout = getWorkoutForDay(week, day, programId);
-  
+
   return <WorkoutDisplay workout={workout} />;
 }
 ```
@@ -221,20 +234,20 @@ import { setRawSchedule, buildCompleteSchedule } from '@/utils/schedule';
 
 async function importProgram(jsonData: WorkoutPlanJson) {
   const registry = getProgramRegistry();
-  
+
   // Import creates manifest and registers program
   const manifest = await registry.importProgram(jsonData);
-  
+
   // Load and process the data
   const { schedule, metadata } = loadWorkoutPlan(jsonData);
-  
+
   // Store in registry
   registry.setProgramData(manifest.id, { schedule, metadata });
-  
+
   // Sync with schedule utilities
   setRawSchedule(schedule, manifest.id);
   buildCompleteSchedule(manifest.id);
-  
+
   // Optionally switch to the new program
   registry.setActiveProgram(manifest.id);
 }
@@ -251,12 +264,17 @@ src/
 │   ├── programRegistry.ts    # Program registry service
 │   └── index.ts              # Service exports
 ├── data/
-│   ├── programData.ts        # Workout data retrieval (parameterized)
+│   ├── programData.ts        # Workout retrieval + WorkoutExercise types (single source of truth)
 │   └── index.ts              # Data exports
 ├── utils/
-│   └── schedule.ts           # Schedule utilities (multi-program)
+│   └── schedule.ts           # Schedule data store (RawScheduleItem type + multi-program storage)
 └── workout-plan-utils.ts     # Plan loading and conversion
 ```
+
+**Architecture Layers:**
+1. `schedule.ts` - Low-level data store (holds `RawScheduleItem[]` per program)
+2. `programData.ts` - Business logic layer (transforms raw items into rich `WorkoutExercise` objects)
+3. `ProgramContext.tsx` - React layer (provides hooks for components)
 
 ## Testing
 

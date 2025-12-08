@@ -123,8 +123,8 @@ describe('useScrollToElement', () => {
         
         document.body.appendChild(mockElement);
         
-        // Mock window.pageYOffset
-        Object.defineProperty(window, 'pageYOffset', {
+        // Mock window.scrollY
+        Object.defineProperty(window, 'scrollY', {
             value: 0,
             writable: true,
             configurable: true
@@ -139,7 +139,7 @@ describe('useScrollToElement', () => {
         vi.advanceTimersByTime(150);
 
         // Should scroll to element position minus offset
-        // Element top (200) + pageYOffset (0) - offset (110) = 90
+        // Element top (200) + scrollY (0) - offset (110) = 90
         expect(scrollToMock).toHaveBeenCalledWith({
             top: 90,
             behavior: 'smooth',

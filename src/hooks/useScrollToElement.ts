@@ -45,7 +45,7 @@ export function useScrollToElement({
                     if (offset !== 0) {
                         // When offset is provided, manually calculate scroll position
                         const elementRect = element.getBoundingClientRect();
-                        const absoluteElementTop = elementRect.top + window.pageYOffset;
+                        const absoluteElementTop = elementRect.top + window.scrollY;
                         const targetScrollPosition = absoluteElementTop - offset;
                         window.scrollTo({ top: targetScrollPosition, behavior });
                     } else {

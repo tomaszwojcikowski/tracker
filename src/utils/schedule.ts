@@ -5,7 +5,6 @@
  * Supports multiple programs by storing schedules in a Map keyed by program ID.
  */
 
-import type { WeekNumber, TrainingDay } from '../types';
 import type { LoadRange, RepsRange, TempoRange, ExerciseOption } from '../workout-plan-utils';
 import { DEFAULT_PROGRAM_ID } from '../services/programRegistry';
 
@@ -35,46 +34,6 @@ export interface RawScheduleItem {
     alternatives?: string[]; // Array of alternative exercise names
     exerciseOptions?: ExerciseOption[]; // Array of exercise options to choose from
     isFlow?: boolean;   // Whether this is a mobility flow exercise (v2.4+)
-}
-
-/**
- * Section types in a workout
- */
-export type SectionType = 'prep' | 'skill' | 'main' | 'access' | 'cool';
-
-/**
- * Workout section with exercises
- */
-export interface WorkoutSection {
-    title: string;
-    exercises: WorkoutExercise[];
-}
-
-/**
- * Exercise in a workout
- */
-export interface WorkoutExercise {
-    id: string;
-    name: string;
-    sets: number;
-    reps: string;
-    notes: string;
-    rest?: number;
-    load?: string;
-    loadRange?: LoadRange;
-    repsRange?: RepsRange;
-    tempoRange?: TempoRange;
-    exerciseOptions?: ExerciseOption[];
-    /** Whether this is a mobility flow exercise (v2.4+) */
-    isFlow?: boolean;
-}
-
-/**
- * Complete workout for a day
- */
-export interface Workout {
-    title: string;
-    sections: WorkoutSection[];
 }
 
 /**
@@ -190,87 +149,4 @@ export function clearScheduleForProgram(programId: string): void {
  */
 export function clearAllSchedules(): void {
     SCHEDULE_BY_PROGRAM.clear();
-}
-
-// ============================================================================
-// WORKOUT RETRIEVAL
-// ============================================================================
-
-/**
- * Section name mapping
- */
-const SECTION_MAP: Record<SectionType, string> = {
-    prep: 'Warm Up',
-    skill: 'Skill',
-    main: 'Main Work',
-    access: 'Accessory',
-    cool: 'Cool Down',
-};
-
-/**
- * Map note text to section type
- */
-function getSectionType(note: string): SectionType {
-    const noteLower = note.toLowerCase();
-    if (noteLower.includes('warm') || noteLower.includes('prep')) return 'prep';
-    if (noteLower.includes('skill')) return 'skill';
-    if (noteLower.includes('cool')) return 'cool';
-    if (noteLower.includes('access') || noteLower.includes('supplemental')) return 'access';
-    return 'main';
-}
-
-/**
- * Get workout data for a specific week and day
- * @param week - Week number
- * @param day - Day number (1, 2, 3, or 5)
- * @param programId - Optional program ID (defaults to current active program)
- */
-export function getWorkout(week: WeekNumber, day: TrainingDay, programId?: string): Workout | null {
-    const completeSchedule = getCompleteSchedule(programId);
-    const dayExercises = completeSchedule.filter(i => i.w === week && i.d === day);
-
-    if (dayExercises.length === 0) {
-        return null;
-    }
-
-    const sections: Record<SectionType, WorkoutExercise[]> = {
-        prep: [],
-        skill: [],
-        main: [],
-        access: [],
-        cool: [],
-    };
-
-    dayExercises.forEach(item => {
-        const sectionType = getSectionType(item.n ?? '');
-        const exercise: WorkoutExercise = {
-            id: `${item.ex.toLowerCase().replace(/[^a-z0-9]+/g, '_')}_${week}_${day}`,
-            name: item.ex,
-            sets: item.s,
-            reps: item.r,
-            notes: item.n ?? '',
-            load: item.load,
-            loadRange: item.loadRange,
-            repsRange: item.repsRange,
-            tempoRange: item.tempoRange,
-            exerciseOptions: item.exerciseOptions,
-            isFlow: item.isFlow,
-        };
-        sections[sectionType].push(exercise);
-    });
-
-    const finalSections: WorkoutSection[] = [];
-    (Object.keys(SECTION_MAP) as SectionType[]).forEach(key => {
-        if (sections[key].length > 0) {
-            finalSections.push({
-                title: SECTION_MAP[key],
-                exercises: sections[key],
-            });
-        }
-    });
-
-    return {
-        title: `Week ${week} Day ${day}`,
-        sections: finalSections,
-    };
 }

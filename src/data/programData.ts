@@ -5,7 +5,7 @@
  * All functions operate in the context of a program ID for multi-program support.
  */
 
-import { getCompleteSchedule } from '../utils/schedule';
+import { getCompleteSchedule, type RawScheduleItem } from '../utils/schedule';
 import { getProgramRegistry } from '../services/programRegistry';
 import type { LoadRange, RepsRange, TempoRange, PhaseMetadata, ExerciseOption } from '../workout-plan-utils';
 
@@ -50,6 +50,33 @@ export interface WorkoutExercise {
   exerciseOptions?: ExerciseOption[];
   /** Whether this is a mobility flow exercise (v2.4+) */
   isFlow?: boolean;
+}
+
+/**
+ * Optional exercise fields that are passed through from schedule items.
+ * When adding new optional fields to WorkoutExercise, add them here to ensure
+ * they are automatically propagated from the schedule data.
+ */
+type OptionalExerciseFields = Pick<
+  WorkoutExercise,
+  'load' | 'loadRange' | 'repsRange' | 'tempoRange' | 'alternatives' | 'exerciseOptions' | 'isFlow'
+>;
+
+/**
+ * Extract optional exercise fields from a raw schedule item.
+ * This centralizes field extraction to avoid manual field mapping.
+ * When adding new optional fields, update OptionalExerciseFields type and this function.
+ */
+function extractOptionalExerciseFields(item: RawScheduleItem): OptionalExerciseFields {
+  return {
+    load: item.load || undefined,
+    loadRange: item.loadRange || undefined,
+    repsRange: item.repsRange || undefined,
+    tempoRange: item.tempoRange || undefined,
+    alternatives: item.alternatives,
+    exerciseOptions: item.exerciseOptions,
+    isFlow: item.isFlow,
+  };
 }
 
 /**
@@ -196,20 +223,12 @@ export function getWorkoutForDay(week: number, day: number, programId?: string):
       sets: item.s,
       rest: restTime,
       isBodyweight: !isWeighted,
-      load: item.load || undefined,
-      loadRange: loadRange || undefined,
-      repsRange: item.repsRange || undefined,
-      tempoRange: item.tempoRange || undefined,
       isEmom,
       isUnilateral: item.isUnilateral,
       // Use supersetGroup from data directly if available
       supersetGroup: item.supersetGroup,
-      // Pass through alternatives
-      alternatives: item.alternatives,
-      // Pass through exercise options (v2.4+)
-      exerciseOptions: item.exerciseOptions,
-      // Pass through flow flag (v2.4+)
-      isFlow: item.isFlow,
+      // Spread optional fields (load, loadRange, repsRange, tempoRange, alternatives, exerciseOptions, isFlow)
+      ...extractOptionalExerciseFields(item),
     });
   });
 

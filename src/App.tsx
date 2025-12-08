@@ -13,6 +13,7 @@ import { TopAppBar } from './components/TopAppBar';
 import { LoadingScreen, ErrorScreen } from './components/screens';
 import { SkipLink } from './components/SkipLink';
 import { Onboarding, hasCompletedOnboarding } from './components/Onboarding';
+import { FloatingTimerButton } from './components/FloatingTimerButton';
 import { useWorkoutTimer, useTheme } from './hooks';
 
 // Lazy load heavy view components for code splitting
@@ -355,6 +356,7 @@ const App: React.FC = () => {
                                         onProgressChange={handleProgressChange}
                                     />
                                 </Suspense>
+                                <FloatingTimerButton />
                             </motion.main>
                         ) : viewMode === 'empty-workout' ? (
                             <motion.main
@@ -377,6 +379,7 @@ const App: React.FC = () => {
                                         onProgressChange={handleProgressChange}
                                     />
                                 </Suspense>
+                                <FloatingTimerButton />
                             </motion.main>
                         ) : (
                             <React.Fragment key="tab-content">

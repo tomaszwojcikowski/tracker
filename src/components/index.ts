@@ -65,12 +65,14 @@ export type { WorkoutProgressProps, WeightChangeIndicatorProps, TimerRingProps, 
 // UX enhancement components (P3)
 export { PullToRefresh } from './PullToRefresh';
 export { FloatingTimer } from './FloatingTimer';
+export { FloatingTimerButton } from './FloatingTimerButton';
 export { FullscreenRestTimer } from './FullscreenRestTimer';
 export { FullscreenTimer } from './FullscreenTimer';
 export { SwipeIndicator } from './SwipeIndicator';
 export { WorkoutTimerDisplay } from './WorkoutTimerDisplay';
 export type { PullToRefreshProps } from './PullToRefresh';
 export type { FloatingTimerProps } from './FloatingTimer';
+export type { FloatingTimerButtonProps } from './FloatingTimerButton';
 export type { FullscreenRestTimerProps } from './FullscreenRestTimer';
 export type { FullscreenTimerProps, TimerMode } from './FullscreenTimer';
 export type { SwipeIndicatorProps } from './SwipeIndicator';

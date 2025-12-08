@@ -49,23 +49,6 @@ export interface ExerciseMetadataProps {
 }
 
 /**
- * Exercise range props - load, tempo, rest ranges
- */
-export interface ExerciseRangeProps {
-    restTime?: number;
-    loadRange?: LoadRange;
-    tempoRange?: TempoRange;
-}
-
-/**
- * Superset-related props
- */
-export interface SupersetProps {
-    supersetGroup?: number;
-    supersetPosition?: 'first' | 'middle' | 'last' | 'only';
-}
-
-/**
  * Timer-related props passed to exercise cards
  */
 export interface TimerProps {
@@ -118,27 +101,6 @@ export function getExerciseMetadata(ex: WorkoutExercise): ExerciseMetadataProps 
         loadRange: ex.loadRange ?? undefined,
         tempoRange: ex.tempoRange ?? undefined,
         alternatives: ex.alternatives,
-        supersetGroup: ex.supersetGroup,
-        supersetPosition: ex.supersetPosition,
-    };
-}
-
-/**
- * Extract exercise range props (rest, load, tempo).
- */
-export function getExerciseRanges(ex: WorkoutExercise): ExerciseRangeProps {
-    return {
-        restTime: ex.rest,
-        loadRange: ex.loadRange ?? undefined,
-        tempoRange: ex.tempoRange ?? undefined,
-    };
-}
-
-/**
- * Extract superset-related props.
- */
-export function getSupersetProps(ex: WorkoutExercise): SupersetProps {
-    return {
         supersetGroup: ex.supersetGroup,
         supersetPosition: ex.supersetPosition,
     };

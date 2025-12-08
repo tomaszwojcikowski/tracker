@@ -43,8 +43,6 @@ export {
 export {
   getExerciseTypeFlags,
   getExerciseMetadata,
-  getExerciseRanges,
-  getSupersetProps,
   createExerciseOptionsProps,
   createTimerProps,
   createRPEProps,
@@ -52,8 +50,6 @@ export {
   type ExerciseOptionsProps,
   type ExerciseTypeFlags,
   type ExerciseMetadataProps,
-  type ExerciseRangeProps,
-  type SupersetProps,
   type TimerProps,
   type RPEProps,
   type SetActionCallbacks,

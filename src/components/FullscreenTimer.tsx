@@ -10,7 +10,7 @@
  */
 
 import React, { useEffect, useRef, useCallback } from 'react';
-import { X, Minimize2, Volume2, VolumeX, Plus, Minus, RotateCcw, Timer, Repeat } from 'lucide-react';
+import { X, Minimize2, Volume2, VolumeX, Plus, Minus, RotateCcw, Timer, Repeat } from './icons';
 import { playTickSound, playBeepSound } from '../utils/audio';
 import { useHaptic } from '../hooks';
 

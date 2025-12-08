@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useCallback, useRef } from 'react';
-import { Timer, X, Plus, Minus } from 'lucide-react';
+import { Timer, X, Plus, Minus } from './icons';
 import { useHaptic, useRestTimer } from '../hooks';
 import { FullscreenTimer } from './FullscreenTimer';
 import { BottomSheet } from './BottomSheet';

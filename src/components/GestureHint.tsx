@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Hand } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Hand } from './icons';
 import { safeGetJSON, safeSetJSON } from '../utils/storage';
 
 export interface GestureHintProps {

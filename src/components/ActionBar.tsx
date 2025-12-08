@@ -8,7 +8,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { useHaptic } from '../hooks';
-import { X, Minus, Plus, Maximize2, Repeat } from 'lucide-react';
+import { X, Minus, Plus, Maximize2, Repeat } from './icons';
 import { FullscreenTimer } from './FullscreenTimer';
 import { safeGetJSON, safeSetJSON } from '../utils/storage';
 

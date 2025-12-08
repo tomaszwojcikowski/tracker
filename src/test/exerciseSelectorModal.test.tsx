@@ -8,8 +8,8 @@ import '@testing-library/jest-dom';
  * Tests the exercise selector modal for adding exercises to workouts.
  */
 
-// Mock lucide-react
-vi.mock('lucide-react', () => ({
+// Mock custom icons module
+vi.mock('../components/icons', () => ({
     X: () => <span data-testid="icon-x">✕</span>,
     Search: () => <span data-testid="icon-search">🔍</span>,
     Plus: () => <span data-testid="icon-plus">+</span>,

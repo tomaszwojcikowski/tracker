@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useCallback } from 'react';
-import { ChevronRight, Check, Clock, Target, Dumbbell, X, Plus, Loader2 } from 'lucide-react';
+import { ChevronRight, Check, Clock, Target, Dumbbell, X, Plus, Loader2 } from './icons';
 import { useProgram } from '../context/ProgramContext';
 import { useHaptic } from '../hooks';
 import type { ProgramManifest } from '../services/programRegistry';

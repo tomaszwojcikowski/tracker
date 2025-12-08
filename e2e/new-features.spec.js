@@ -68,9 +68,9 @@ test.describe('New Features', () => {
     const progressDots = page.locator('.flex.items-center.gap-1 > div.rounded-full').first();
     await expect(progressDots).toBeVisible();
 
-    // Check for Navigation Buttons
-    const prevBtn = page.locator('button:has(svg.lucide-chevron-left)');
-    const nextBtn = page.locator('button:has(svg.lucide-chevron-right)');
+    // Check for Navigation Buttons (using aria-label for better accessibility testing)
+    const prevBtn = page.locator('button[aria-label="Previous"]');
+    const nextBtn = page.locator('button[aria-label="Next"]');
 
     await expect(prevBtn).toBeVisible();
     await expect(nextBtn).toBeVisible();

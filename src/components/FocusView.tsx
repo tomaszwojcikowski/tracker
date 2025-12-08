@@ -7,7 +7,7 @@
  */
 
 import React, { useMemo, useCallback, useRef, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Zap } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Zap } from './icons';
 import { ExerciseCard } from './ExerciseCard';
 import { AddedExerciseCard } from './AddedExerciseCard';
 import type { HapticFeedback } from '../hooks';

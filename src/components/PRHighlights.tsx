@@ -14,7 +14,7 @@ import {
     TrendingUp,
     Award,
     ChevronRight,
-} from 'lucide-react';
+} from './icons';
 import { useHaptic } from '../hooks';
 
 // ============================================================================

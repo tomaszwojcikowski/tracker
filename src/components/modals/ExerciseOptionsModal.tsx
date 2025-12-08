@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Check, Info, Activity } from 'lucide-react';
+import { Check, Info, Activity } from '../icons';
 import { BottomSheet } from '../BottomSheet';
 import type { ExerciseOption } from '../../workout-plan-utils';
 import { getExerciseOptionSummary } from '../../utils/exerciseOptions';

@@ -7,7 +7,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useHaptic, useScrollToElement } from '../../hooks';
-import { PlayCircle, Check, Play, ChevronRight, ChevronLeft, Plus, Trophy } from 'lucide-react';
+import { PlayCircle, Check, Play, ChevronRight, ChevronLeft, Plus, Trophy } from '../icons';
 import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, hasWorkoutData, type InProgressWorkout } from '../../utils/storage';
 import { formatRelativeTime } from '../../utils/time';
 import { getBlockForWeek } from '../../data/programData';

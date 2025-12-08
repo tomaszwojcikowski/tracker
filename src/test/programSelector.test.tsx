@@ -7,12 +7,10 @@ import { ProgramSelector } from '../components/ProgramSelector';
  * Tests program list display, selection, and modal functionality
  */
 
-// Mock lucide-react icons
-vi.mock('lucide-react', async (importOriginal) => {
-  const actual = await importOriginal();
-  const MockIcon = ({ children, ...props }) => <span {...props}>{children || 'icon'}</span>;
+// Mock custom icons module
+vi.mock('../components/icons', () => {
+  const MockIcon = ({ children, ...props }: { children?: React.ReactNode }) => <span {...props}>{children || 'icon'}</span>;
   return {
-    ...actual,
     ChevronRight: MockIcon,
     Check: MockIcon,
     Clock: MockIcon,
@@ -20,6 +18,8 @@ vi.mock('lucide-react', async (importOriginal) => {
     Dumbbell: MockIcon,
     X: MockIcon,
     Download: MockIcon,
+    Plus: MockIcon,
+    Loader2: MockIcon,
   };
 });
 

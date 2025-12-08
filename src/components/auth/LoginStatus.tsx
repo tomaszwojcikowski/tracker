@@ -1,6 +1,6 @@
 import React from 'react';
 import { User } from 'firebase/auth';
-import { Cloud, AlertCircle, X, CheckCircle, Clock, LogOut } from 'lucide-react';
+import { Cloud, AlertCircle, X, CheckCircle, Clock, LogOut } from '../icons';
 import { formatRelativeTime } from '../../utils/time';
 import * as FirebaseService from '../../firebase-service';
 

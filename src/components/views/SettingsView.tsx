@@ -5,7 +5,7 @@ import { useTheme } from '../../hooks/useTheme';
 import { useHaptic, useScrollToTop } from '../../hooks';
 import { useAuth } from '../../hooks/useAuth';
 import { LoginStatus } from '../auth/LoginStatus';
-import { RefreshCw, Info, Dumbbell, Settings } from 'lucide-react';
+import { RefreshCw, Info, Dumbbell, Settings } from '../icons';
 import { captureError, isErrorReportingEnabled } from '../../utils/errorReporting';
 import { syncService } from '../../services/SyncService';
 import {

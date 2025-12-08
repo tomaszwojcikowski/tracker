@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { X } from 'lucide-react';
+import { X } from './icons';
 import { ExerciseListItem } from './ExerciseListItem';
 import { RecentExercisesList, addRecentExercise } from './RecentExercises';
 import { BottomSheet } from './BottomSheet';

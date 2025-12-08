@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { Settings2 } from 'lucide-react';
+import { Settings2 } from './icons';
 
 export interface ExerciseOptionsBadgeProps {
     /** Number of available options */

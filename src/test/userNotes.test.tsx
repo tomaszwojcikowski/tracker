@@ -3,8 +3,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ExerciseDetailModal } from '../components/modals/ExerciseDetailModal';
 import type { ExerciseDetailMetadata } from '../types/workout';
 
-// Mock lucide-react icons
-vi.mock('lucide-react', () => ({
+// Mock custom icons module
+vi.mock('../components/icons', () => ({
     X: () => <span data-testid="icon-x">✕</span>,
     TrendingUp: () => <span data-testid="icon-trending-up">📈</span>,
     Calendar: () => <span data-testid="icon-calendar">📅</span>,

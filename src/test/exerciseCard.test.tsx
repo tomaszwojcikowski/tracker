@@ -19,8 +19,8 @@ vi.mock('../components/RPESelector', () => ({
     ),
 }));
 
-// Mock lucide-react icons
-vi.mock('lucide-react', () => ({
+// Mock custom icons module
+vi.mock('../components/icons', () => ({
     ChevronDown: () => <span data-testid="icon-chevron-down">▼</span>,
     ChevronUp: () => <span data-testid="icon-chevron-up">▲</span>,
     Timer: () => <span data-testid="icon-timer">⏱</span>,

@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import { X } from 'lucide-react';
+import { X } from './icons';
 import type { RPEValue } from '../types';
 
 export interface RPESelectorProps {

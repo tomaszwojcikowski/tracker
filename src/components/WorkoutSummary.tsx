@@ -18,7 +18,7 @@ import {
     Zap,
     Award,
     CheckCircle2,
-} from 'lucide-react';
+} from './icons';
 import { useHaptic } from '../hooks';
 
 // ============================================================================

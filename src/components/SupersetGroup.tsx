@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useCallback, useMemo } from 'react';
-import { Check, Zap, ChevronDown, CheckCheck, Minus, Plus, Repeat, History } from 'lucide-react';
+import { Check, Zap, ChevronDown, CheckCheck, Minus, Plus, Repeat, History } from './icons';
 import { getShortExerciseName } from '../constants';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest } from '../types/workout';

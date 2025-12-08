@@ -15,7 +15,7 @@ import {
     Plus,
     Check,
     MessageSquare
-} from 'lucide-react';
+} from '../icons';
 import { safeGetJSON } from '../../utils/storage';
 import { getGlobalHistoryKey } from '../../services/storageNamespace';
 import { PullToRefresh } from '../PullToRefresh';

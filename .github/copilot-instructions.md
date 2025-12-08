@@ -510,6 +510,15 @@ export function useMyHook(): MyHookReturn {
 15. **Modular Architecture**: Place new code in appropriate directories (components/, hooks/, utils/)
 16. **Run Typecheck**: Always run `npm run typecheck` before committing TypeScript changes
 17. **JSON Data Files**: Edit JSON files in `data/` folder (`data/workout-plan-v2.3.json`, `data/exercises.json`) only. Do NOT manually copy to `public/` — the build step handles this automatically.
+18. **E2E Tests Required**: Always run `npm run test:e2e` after changes to UI components. E2E tests verify real user interactions and must pass before completing any task.
+
+### Testing Workflow (MANDATORY)
+
+After making changes, run tests in this order:
+1. `npm run typecheck` - Verify TypeScript types
+2. `npm test` - Run unit tests
+3. `npm run test:e2e` - Run E2E tests (requires dev server; start with `npm run dev` first if needed)
+4. `npm run build` - Verify production build
 
 ## Agent Interaction Examples
 
@@ -531,7 +540,7 @@ export function useMyHook(): MyHookReturn {
 // 2. Write a failing test that reproduces the bug
 // 3. Fix the bug minimally
 // 4. Verify the test now passes
-// 5. Run full test suite
+// 5. Run full test suite (unit + e2e)
 // 6. Check production build
 ```
 

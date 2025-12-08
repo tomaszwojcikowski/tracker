@@ -27,7 +27,7 @@ test.describe('Program Selector', () => {
       // The program card button should contain program information
       const programCard = page.locator('button:has-text("Current Program")');
       await expect(programCard).toBeVisible();
-      
+
       // Verify the card has substantive content beyond just the "Current Program" label
       // Should contain program name and metadata like duration (e.g., "21 weeks")
       await expect(programCard).toContainText('Current Program');
@@ -106,7 +106,7 @@ test.describe('Program Selector', () => {
 
       // Modal should contain program details
       const modal = page.locator('[class*="rounded-t-3xl"]');
-      
+
       // Should have duration info (weeks) or empty state
       await expect(modal).toContainText(/weeks|No programs available/i);
     });
@@ -277,7 +277,7 @@ test.describe('Program-Aware Week Navigation', () => {
   test('should display week progress on dashboard', async ({ page }) => {
     // Dashboard should show week progress
     const body = page.locator('body');
-    
+
     // Should have week indicator
     await expect(body).toContainText(/W\d+|Week \d+/i);
   });
@@ -407,8 +407,8 @@ test.describe('Settings Programs Tab', () => {
     await programsTab.click();
     await page.waitForTimeout(300);
 
-    // Programs tab should be active (has accent background)
-    await expect(programsTab).toHaveClass(/bg-sys-accent/);
+    // Programs tab should be active (has btn-filled class for MD3 styling)
+    await expect(programsTab).toHaveClass(/btn-filled/);
   });
 
   test('should show available sample programs in Programs tab', async ({ page }) => {

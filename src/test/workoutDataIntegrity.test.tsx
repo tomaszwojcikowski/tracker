@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import workoutData from '../../data/workout-plan-v2.3.json';
+import workoutData from '../../data/workout-plan-v2.4.json';
 import { loadWorkoutPlan, convertV2ToInternal } from '../workout-plan-utils';
 
 describe('Workout Data Integrity', () => {

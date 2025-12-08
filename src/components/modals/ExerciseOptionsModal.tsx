@@ -1,11 +1,12 @@
 /**
  * Exercise Options Modal
  *
- * Modal for selecting exercise options/variations with different parameters
+ * Modal for selecting exercise options/variations with different parameters.
+ * Supports flow exercises with sequences of movements (v2.4+).
  */
 
-import React from 'react';
-import { Check, Info } from 'lucide-react';
+import React, { useState } from 'react';
+import { Check, Info, ChevronDown, ChevronUp, Activity } from 'lucide-react';
 import { BottomSheet } from '../BottomSheet';
 import type { ExerciseOption } from '../../workout-plan-utils';
 import { getExerciseOptionSummary } from '../../utils/exerciseOptions';
@@ -23,7 +24,64 @@ export interface ExerciseOptionsModalProps {
     selectedOption?: string;
     /** Callback when option is selected */
     onSelectOption: (optionName: string) => void;
+    /** Whether this is a flow exercise */
+    isFlow?: boolean;
 }
+
+/**
+ * Component to display flow movements sequence
+ */
+const FlowMovementsDisplay: React.FC<{
+    movements: string[];
+    isExpanded: boolean;
+    onToggle: () => void;
+}> = ({ movements, isExpanded, onToggle }) => {
+    // Show first 3 movements in collapsed state
+    const previewMovements = movements.slice(0, 3);
+    const hasMore = movements.length > 3;
+
+    return (
+        <div className="mt-2">
+            <button
+                type="button"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    onToggle();
+                }}
+                className="flex items-center gap-1.5 text-xs text-sys-accent hover:text-sys-accent/80 transition-colors"
+            >
+                <Activity size={12} />
+                <span>{movements.length} movements</span>
+                {hasMore && (
+                    isExpanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />
+                )}
+            </button>
+
+            {/* Movements list */}
+            <div className="mt-2 text-left">
+                {(isExpanded ? movements : previewMovements).map((movement, index) => (
+                    <div
+                        key={index}
+                        className="flex items-start gap-2 py-1"
+                    >
+                        <span className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full bg-sys-accent/20 text-sys-accent text-[10px] font-bold">
+                            {index + 1}
+                        </span>
+                        <span className="text-xs text-sys-onSurfaceVar leading-5">
+                            {movement}
+                        </span>
+                    </div>
+                ))}
+                {!isExpanded && hasMore && (
+                    <div className="flex items-center gap-2 py-1 text-xs text-sys-onSurfaceVar/60 italic">
+                        <span className="w-5" />
+                        +{movements.length - 3} more...
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
 
 /**
  * Modal for selecting exercise options
@@ -35,33 +93,48 @@ export const ExerciseOptionsModal: React.FC<ExerciseOptionsModalProps> = ({
     options,
     selectedOption,
     onSelectOption,
+    isFlow = false,
 }) => {
+    const [expandedOption, setExpandedOption] = useState<string | null>(null);
+
     const handleSelectOption = (optionName: string): void => {
         onSelectOption(optionName);
         onClose();
     };
 
+    const toggleExpanded = (optionName: string): void => {
+        setExpandedOption(prev => prev === optionName ? null : optionName);
+    };
+
+    // Check if any option has flow movements
+    const hasFlowOptions = options.some(opt => opt.flowMovements && opt.flowMovements.length > 0);
+
     return (
         <BottomSheet
             isOpen={isOpen}
             onClose={onClose}
-            ariaLabel="Choose Exercise Variation"
-            maxHeight={80}
+            ariaLabel={isFlow || hasFlowOptions ? "Choose Flow" : "Choose Exercise Variation"}
+            maxHeight={85}
         >
             <div className="flex flex-col gap-4 pb-4">
                 {/* Header with exercise name */}
                 <div className="px-4">
                     <h3 className="text-lg font-bold text-white">{exerciseName}</h3>
                     <p className="text-sm text-sys-onSurfaceVar mt-1">
-                        Select the variation that matches your equipment and goals
+                        {isFlow || hasFlowOptions
+                            ? "Choose a flow that matches your goals and how your body feels today"
+                            : "Select the variation that matches your equipment and goals"
+                        }
                     </p>
                 </div>
 
                 {/* Options list */}
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto">
                     {options.map((option) => {
                         const isSelected = option.optionName === selectedOption;
                         const summary = getExerciseOptionSummary(option);
+                        const hasFlowMovements = option.flowMovements && option.flowMovements.length > 0;
+                        const isExpanded = expandedOption === option.optionName;
 
                         return (
                             <button
@@ -80,14 +153,14 @@ export const ExerciseOptionsModal: React.FC<ExerciseOptionsModalProps> = ({
                                 {/* Header with option name and checkmark */}
                                 <div className="flex items-center justify-between">
                                     <h4
-                                        className={`text-base font-bold ${
+                                        className={`text-base font-bold text-left ${
                                             isSelected ? 'text-sys-accent' : 'text-white'
                                         }`}
                                     >
                                         {option.optionName}
                                     </h4>
                                     {isSelected && (
-                                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-sys-accent">
+                                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-sys-accent flex-shrink-0">
                                             <Check size={16} className="text-black" />
                                         </div>
                                     )}
@@ -103,8 +176,17 @@ export const ExerciseOptionsModal: React.FC<ExerciseOptionsModalProps> = ({
                                     </div>
                                 )}
 
-                                {/* Summary */}
-                                {summary && (
+                                {/* Flow movements display */}
+                                {hasFlowMovements && (
+                                    <FlowMovementsDisplay
+                                        movements={option.flowMovements!}
+                                        isExpanded={isExpanded}
+                                        onToggle={() => toggleExpanded(option.optionName)}
+                                    />
+                                )}
+
+                                {/* Summary (for non-flow options) */}
+                                {summary && !hasFlowMovements && (
                                     <div className="flex items-center gap-2">
                                         <span className="text-sm text-sys-onSurfaceVar font-mono">
                                             {summary}
@@ -128,7 +210,7 @@ export const ExerciseOptionsModal: React.FC<ExerciseOptionsModalProps> = ({
 
                                 {/* Variation name if different from option name */}
                                 {option.variation && option.variation !== option.optionName && (
-                                    <p className="text-xs text-sys-onSurfaceVar italic">
+                                    <p className="text-xs text-sys-onSurfaceVar italic text-left">
                                         → {option.variation}
                                     </p>
                                 )}

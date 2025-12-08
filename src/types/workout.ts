@@ -53,6 +53,8 @@ export interface ExerciseDetailMetadata {
     isAmrap?: boolean;
     /** Whether the exercise uses ladder reps (e.g., 1-2-3) */
     isLadder?: boolean;
+    /** Whether this is a mobility flow exercise (v2.4+) */
+    isFlow?: boolean;
     /** Suggested load range */
     loadRange?: LoadRange | null;
     /** Tempo for the exercise (eccentric-pauseBottom-concentric-pauseTop) */

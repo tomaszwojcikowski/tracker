@@ -26,6 +26,7 @@ vi.mock('lucide-react', () => ({
   CheckCheck: () => 'CheckCheck',
   ChevronRight: () => 'ChevronRight',
   ChevronDown: () => 'ChevronDown',
+  ChevronUp: () => 'ChevronUp',
   ChevronLeft: () => 'ChevronLeft',
   Plus: () => 'Plus',
   Minus: () => 'Minus',
@@ -45,4 +46,5 @@ vi.mock('lucide-react', () => ({
   History: () => 'History',
   Settings: () => 'Settings',
   Zap: () => 'Zap',
+  Activity: () => 'Activity',
 }));

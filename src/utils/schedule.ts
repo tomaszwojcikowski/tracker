@@ -34,6 +34,7 @@ export interface RawScheduleItem {
     restSeconds?: number; // Rest between sets in seconds
     alternatives?: string[]; // Array of alternative exercise names
     exerciseOptions?: ExerciseOption[]; // Array of exercise options to choose from
+    isFlow?: boolean;   // Whether this is a mobility flow exercise (v2.4+)
 }
 
 /**
@@ -64,6 +65,8 @@ export interface WorkoutExercise {
     repsRange?: RepsRange;
     tempoRange?: TempoRange;
     exerciseOptions?: ExerciseOption[];
+    /** Whether this is a mobility flow exercise (v2.4+) */
+    isFlow?: boolean;
 }
 
 /**
@@ -164,7 +167,7 @@ export function getCompleteSchedule(programId?: string): RawScheduleItem[] {
  * The workout plan data is now self-contained in the V2 JSON format,
  * so no additional processing or auto-generation of warmups/cooldowns is needed.
  * This function creates a copy of the raw schedule data for use by the rest of the application.
- * 
+ *
  * @param programId - Optional program ID (defaults to current active program)
  */
 export function buildCompleteSchedule(programId?: string): void {
@@ -250,6 +253,8 @@ export function getWorkout(week: WeekNumber, day: TrainingDay, programId?: strin
             loadRange: item.loadRange,
             repsRange: item.repsRange,
             tempoRange: item.tempoRange,
+            exerciseOptions: item.exerciseOptions,
+            isFlow: item.isFlow,
         };
         sections[sectionType].push(exercise);
     });

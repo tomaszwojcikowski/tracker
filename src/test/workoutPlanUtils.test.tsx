@@ -186,7 +186,7 @@ describe('Workout Plan Utilities', () => {
     });
 
     it('should throw error for invalid v2 format', () => {
-      expect(() => convertV2ToInternal({})).toThrow('Invalid v2.0.0/v2.1.0/v2.2.0/v2.3.0 workout plan format');
+      expect(() => convertV2ToInternal({})).toThrow('Invalid v2.0.0/v2.1.0/v2.2.0/v2.3.0/v2.4.0 workout plan format');
       expect(() => convertV2ToInternal({ formatVersion: '2.0.0' })).toThrow();
     });
 

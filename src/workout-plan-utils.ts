@@ -98,7 +98,7 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
 /**
  * Format version string
  */
-export type FormatVersion = '2.0.0' | '2.1.0' | '2.2.0' | '2.3.0';
+export type FormatVersion = '2.0.0' | '2.1.0' | '2.2.0' | '2.3.0' | '2.4.0';
 
 /**
  * Structured reps data for internal use
@@ -176,6 +176,8 @@ export interface ScheduleEntry {
   alternatives?: string[];
   /** Array of exercise options to choose from */
   exerciseOptions?: ExerciseOption[];
+  /** Whether this is a flow exercise (v2.4+) */
+  isFlow?: boolean;
 }
 
 /**
@@ -186,7 +188,7 @@ export type LoadUnit = 'kg' | 'band' | 'bodyweight' | 'percent';
 /**
  * Rep type for structured reps data
  */
-export type RepsType = 'reps' | 'time' | 'ladder' | 'amrap' | 'rm' | 'max' | 'effort' | 'submax' | 'none';
+export type RepsType = 'reps' | 'time' | 'ladder' | 'amrap' | 'rm' | 'max' | 'effort' | 'submax' | 'none' | 'flow';
 
 /**
  * Exercise option - a single variation of an exercise
@@ -231,6 +233,8 @@ export interface ExerciseOption {
   equipment?: string[];
   /** Variation descriptor (e.g., "Barbell Back Squat") */
   variation?: string;
+  /** Sequence of movements for flow exercises (v2.4+) */
+  flowMovements?: string[];
 }
 
 /**
@@ -272,11 +276,9 @@ export interface V2ExerciseTemplate {
   isEmom?: boolean;
   isUnilateral?: boolean;
   supersetGroup?: number;
+  /** Whether this is a mobility flow exercise (v2.4+) */
+  isFlow?: boolean;
 }
-
-/**
- * V2.2.0 exercise reference - references an exercise template with optional overrides
- */
 export interface V2ExerciseRef {
   /** Reference to an exercise template ID */
   $ref: string;
@@ -310,6 +312,8 @@ export interface V2ExerciseRef {
   isEmom?: boolean;
   isUnilateral?: boolean;
   supersetGroup?: number;
+  /** Whether this is a mobility flow exercise (v2.4+) */
+  isFlow?: boolean;
 }
 
 /**
@@ -415,6 +419,8 @@ export interface V2Exercise {
   isUnilateral?: boolean;
   /** Superset group ID. Exercises with the same supersetGroup value are performed together */
   supersetGroup?: number;
+  /** Whether this is a mobility flow exercise (v2.4+) */
+  isFlow?: boolean;
 }
 
 /**
@@ -494,10 +500,10 @@ export interface V2Plan {
 }
 
 /**
- * V2.0.0/V2.1.0/V2.2.0/V2.3.0 format root structure
+ * V2.0.0/V2.1.0/V2.2.0/V2.3.0/V2.4.0 format root structure
  */
 export interface V2WorkoutPlan {
-  formatVersion: '2.0.0' | '2.1.0' | '2.2.0' | '2.3.0';
+  formatVersion: '2.0.0' | '2.1.0' | '2.2.0' | '2.3.0' | '2.4.0';
   plan: V2Plan;
 }
 
@@ -565,14 +571,14 @@ export interface PlanSummary {
 // ============================================================================
 
 /**
- * Validate v2.0.0, v2.1.0, or v2.2.0 format
+ * Validate v2.0.0, v2.1.0, v2.2.0, v2.3.0, or v2.4.0 format
  */
 function validateV2Format(data: unknown): data is V2WorkoutPlan {
   if (!data || typeof data !== 'object') return false;
 
   const obj = data as Record<string, unknown>;
-  // Support 2.0.0, 2.1.0, 2.2.0, and 2.3.0
-  const validVersions = ['2.0.0', '2.1.0', '2.2.0', '2.3.0'];
+  // Support 2.0.0, 2.1.0, 2.2.0, 2.3.0, and 2.4.0
+  const validVersions = ['2.0.0', '2.1.0', '2.2.0', '2.3.0', '2.4.0'];
   if (!obj.formatVersion || !validVersions.includes(obj.formatVersion as string) || !obj.plan) return false;
 
   const plan = obj.plan as Record<string, unknown>;
@@ -653,6 +659,7 @@ function resolveExerciseReference(
     isEmom: exerciseOrRef.isEmom ?? template.isEmom,
     isUnilateral: exerciseOrRef.isUnilateral ?? template.isUnilateral,
     supersetGroup: exerciseOrRef.supersetGroup ?? template.supersetGroup,
+    isFlow: exerciseOrRef.isFlow ?? template.isFlow,
   };
 
   // Add cues if present
@@ -748,15 +755,15 @@ function resolveDayReference(
 }
 
 /**
- * Convert v2.0.0/v2.1.0/v2.2.0/v2.3.0 structured format to internal schedule format
+ * Convert v2.0.0/v2.1.0/v2.2.0/v2.3.0/v2.4.0 structured format to internal schedule format
  * (Compatible with existing buildCompleteSchedule function)
- * @param v2Data - v2.0.0, v2.1.0, v2.2.0, or v2.3.0 format data
+ * @param v2Data - v2.0.0, v2.1.0, v2.2.0, v2.3.0, or v2.4.0 format data
  * @returns Internal schedule format (flat array for compatibility)
  * @throws Error if format is invalid
  */
 export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
   if (!validateV2Format(v2Data)) {
-    throw new Error('Invalid v2.0.0/v2.1.0/v2.2.0/v2.3.0 workout plan format');
+    throw new Error('Invalid v2.0.0/v2.1.0/v2.2.0/v2.3.0/v2.4.0 workout plan format');
   }
 
   const internalFormat: ScheduleEntry[] = [];
@@ -903,6 +910,8 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             alternatives: exercise.alternatives,
             // Exercise options
             exerciseOptions: exercise.exerciseOptions,
+            // Flow exercises (v2.4+)
+            isFlow: exercise.isFlow,
           });
         });
       });
@@ -1168,8 +1177,8 @@ export function getPhaseForWeek(
 }
 
 /**
- * Get exercise details from v2.0.0/v2.1.0/v2.2.0/v2.3.0 format
- * @param v2Data - v2.0.0, v2.1.0, v2.2.0, or v2.3.0 format data
+ * Get exercise details from v2.0.0/v2.1.0/v2.2.0/v2.3.0/v2.4.0 format
+ * @param v2Data - v2.0.0, v2.1.0, v2.2.0, v2.3.0, or v2.4.0 format data
  * @param weekNumber - Week number
  * @param dayNumber - Day number
  * @returns Array of exercise objects with full details, or null if not found

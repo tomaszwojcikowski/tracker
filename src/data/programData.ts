@@ -48,6 +48,8 @@ export interface WorkoutExercise {
   alternatives?: string[];
   /** Exercise options for this exercise (variations with different parameters) */
   exerciseOptions?: ExerciseOption[];
+  /** Whether this is a mobility flow exercise (v2.4+) */
+  isFlow?: boolean;
 }
 
 /**
@@ -204,6 +206,10 @@ export function getWorkoutForDay(week: number, day: number, programId?: string):
       supersetGroup: item.supersetGroup,
       // Pass through alternatives
       alternatives: item.alternatives,
+      // Pass through exercise options (v2.4+)
+      exerciseOptions: item.exerciseOptions,
+      // Pass through flow flag (v2.4+)
+      isFlow: item.isFlow,
     });
   });
 

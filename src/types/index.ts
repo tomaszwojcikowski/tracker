@@ -152,6 +152,8 @@ export interface ExerciseOption {
   equipment?: string[];
   /** Variation descriptor (e.g., "Barbell Back Squat") */
   variation?: string;
+  /** Sequence of movements for flow exercises (v2.4+) */
+  flowMovements?: string[];
 }
 
 /**

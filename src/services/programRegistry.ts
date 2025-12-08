@@ -3,7 +3,7 @@
  *
  * Manages multiple workout programs, allowing the tracker app to support
  * different workout programs instead of just a single hardcoded program.
- * 
+ *
  * This service handles:
  * - Program manifest storage (metadata about programs)
  * - Program data storage (schedule, metadata from loaded plans)
@@ -241,19 +241,19 @@ class ProgramRegistryImpl implements ProgramRegistry {
 
   registerProgram(manifest: ProgramManifest): void {
     this.programs.set(manifest.id, manifest);
-    
+
     // If this is the first program, set it as active
     if (this.programs.size === 1 && !this.activeProgramId) {
       this.activeProgramId = manifest.id;
     }
-    
+
     this.updateActiveFlags();
     this.saveToStorage();
   }
 
   async importProgram(planJson: WorkoutPlanJson): Promise<ProgramManifest> {
     const plan = planJson.plan;
-    
+
     // Validate required fields with specific error messages
     const missingFields: string[] = [];
     if (!plan.id) missingFields.push('id');
@@ -262,7 +262,7 @@ class ProgramRegistryImpl implements ProgramRegistry {
     if (typeof plan.durationWeeks !== 'number' || plan.durationWeeks <= 0) {
       missingFields.push('durationWeeks (must be > 0)');
     }
-    
+
     if (missingFields.length > 0) {
       throw new Error(`Invalid workout plan: missing or invalid fields: ${missingFields.join(', ')}`);
     }
@@ -338,7 +338,7 @@ class ProgramRegistryImpl implements ProgramRegistry {
  */
 export function extractManifestFromPlan(planJson: WorkoutPlanJson): ProgramManifest {
   const plan = planJson.plan;
-  
+
   return {
     id: plan.id,
     name: plan.name,
@@ -361,11 +361,11 @@ export function extractManifestFromPlan(planJson: WorkoutPlanJson): ProgramManif
 export function initializeDefaultProgram(defaultPlanJson: WorkoutPlanJson): void {
   const registry = getProgramRegistry();
   const programs = registry.getAvailablePrograms();
-  
+
   // If registry is empty, register the default program
   if (programs.length === 0) {
     const manifest = extractManifestFromPlan(defaultPlanJson);
-    manifest.dataPath = '/workout-plan-v2.3.json';
+    manifest.dataPath = '/workout-plan-v2.4.json';
     registry.registerProgram(manifest);
     registry.setActiveProgram(manifest.id);
   }

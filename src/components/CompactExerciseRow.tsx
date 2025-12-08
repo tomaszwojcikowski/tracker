@@ -12,6 +12,7 @@ import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
 import { CompactSetButtons } from './CompactSetButtons';
 import { ExerciseOptionsBadge } from './ExerciseOptionsBadge';
+import { FlowMovementsDisplay } from './FlowMovementsDisplay';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest } from '../types/workout';
 import type { TempoRange } from '../workout-plan-utils';
@@ -477,7 +478,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
             {/* Expandable Section - Contains prescription, weight, and add set */}
             <div
                 className={`overflow-hidden transition-all duration-150 ease-out ${
-                    isExpanded ? 'max-h-48' : 'max-h-0'
+                    isExpanded ? 'max-h-72' : 'max-h-0'
                 }`}
             >
                 <div className="px-3 pb-3 pt-0">
@@ -486,6 +487,15 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                     {/* Prescription */}
                     {prescription && (
                         <p className="text-xs text-sys-onSurfaceVar mb-2">{prescription}</p>
+                    )}
+
+                    {/* Flow Movements Display (for flow exercises with selected option) */}
+                    {exerciseOptions && selectedOption && (
+                        <FlowMovementsDisplay
+                            selectedOption={exerciseOptions.find(opt => opt.optionName === selectedOption)}
+                            options={exerciseOptions}
+                            selectedOptionName={selectedOption}
+                        />
                     )}
 
                     {/* Weight Stepper and Add Set Row */}

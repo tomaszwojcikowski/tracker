@@ -88,6 +88,12 @@ export interface CompactExerciseRowProps {
     sectionType?: string;
     /** Rest timer active state */
     restTimerActive?: boolean;
+    /** EMOM timer active state */
+    emomTimerActive?: boolean;
+    /** EMOM timer interval in seconds */
+    emomTimerInterval?: number;
+    /** Callback to toggle EMOM timer */
+    onToggleEmomTimer?: () => void;
 }
 
 // ============================================================================
@@ -128,6 +134,9 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     onShowOptions,
     sectionType,
     restTimerActive = false,
+    emomTimerActive = false,
+    emomTimerInterval = 60,
+    onToggleEmomTimer,
 }) => {
     // State - auto-expand the first incomplete exercise
     const [isExpanded, setIsExpanded] = useState(isFirstIncomplete);
@@ -574,8 +583,24 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             <span>Add Set</span>
                         </button>
 
-                        {/* Rest Timer Button - only for main section exercises */}
-                        {onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
+                        {/* EMOM Timer Button - for EMOM exercises */}
+                        {isEmom && onToggleEmomTimer && sectionType === 'main' && (
+                            <button
+                                onClick={onToggleEmomTimer}
+                                className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                    emomTimerActive
+                                        ? 'bg-purple-500 text-white ring-2 ring-purple-500/50'
+                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                }`}
+                                aria-label={emomTimerActive ? 'Stop EMOM timer' : `Start ${emomTimerInterval}s EMOM timer`}
+                            >
+                                <Zap size={12} />
+                                <span>{emomTimerInterval >= 60 ? `${Math.floor(emomTimerInterval / 60)}m` : `${emomTimerInterval}s`}</span>
+                            </button>
+                        )}
+
+                        {/* Rest Timer Button - only for main section non-EMOM exercises */}
+                        {!isEmom && onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
                             <button
                                 onClick={() => onStartRestTimer(restTime)}
                                 className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${

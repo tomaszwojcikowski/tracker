@@ -1475,6 +1475,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     onStartRestTimer={restTimer.start}
                                                     sectionType={section.type}
                                                     restTimerActive={restTimer.active}
+                                                    emomTimerActive={emomTimer.active}
+                                                    emomTimerInterval={emomTimer.interval}
+                                                    onToggleEmomTimer={emomTimer.toggle}
                                                 />
                                             );
                                         });

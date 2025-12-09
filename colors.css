@@ -61,31 +61,31 @@
   --color-warmup-600: #f97316;
   --color-warmup-700: #ea580c;
   --color-warmup-glow: rgba(251, 146, 60, 0.3);
-  
+
   /* Skill Practice - Purple */
   --color-skill-500: #a78bfa;
   --color-skill-600: #8b5cf6;
   --color-skill-700: #7c3aed;
   --color-skill-glow: rgba(167, 139, 250, 0.3);
-  
+
   /* Main Work - Vibrant Green */
   --color-main-500: #34d399;
   --color-main-600: #10b981;
   --color-main-700: #059669;
   --color-main-glow: rgba(52, 211, 153, 0.3);
-  
+
   /* Accessory - Blue */
   --color-accessory-500: #60a5fa;
   --color-accessory-600: #3b82f6;
   --color-accessory-700: #2563eb;
   --color-accessory-glow: rgba(96, 165, 250, 0.3);
-  
+
   /* Core - Yellow/Gold */
   --color-core-500: #fbbf24;
   --color-core-600: #f59e0b;
   --color-core-700: #d97706;
   --color-core-glow: rgba(251, 191, 36, 0.3);
-  
+
   /* Cool-down - Teal */
   --color-cooldown-500: #2dd4bf;
   --color-cooldown-600: #14b8a6;
@@ -96,11 +96,11 @@
   /* Completed state */
   --color-completed-500: #22c55e;
   --color-completed-glow: rgba(34, 197, 94, 0.4);
-  
+
   /* In Progress state */
   --color-progress-500: #3b82f6;
   --color-progress-glow: rgba(59, 130, 246, 0.4);
-  
+
   /* Pending/Locked state */
   --color-pending-500: #6b7280;
   --color-pending-glow: rgba(107, 114, 128, 0.2);
@@ -200,7 +200,7 @@
   --gradient-dark: linear-gradient(180deg, #000000 0%, #0f0f0f 100%);
   --gradient-accent: linear-gradient(135deg, #0ea5e9 0%, #d946ef 100%);
   --gradient-primary-vertical: linear-gradient(to bottom, #38bdf8, #0284c7);
-  
+
   /* Workout Section Gradients */
   --gradient-warmup: linear-gradient(135deg, #fb923c 0%, #f59e0b 100%);
   --gradient-skill: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
@@ -223,7 +223,7 @@
 
   /* Surface Variants (MD3) - improved contrast for accessibility */
   --color-surface-variant: #2a2a2a;
-  --color-on-surface-variant: #b8b8b8;
+  --color-on-surface-variant: #d1d1d1;
   --color-outline: #525252;
   --color-outline-variant: #404040;
 
@@ -288,7 +288,7 @@
 
   /* Surface Variants (MD3) */
   --color-surface-variant: #1e1640;
-  --color-on-surface-variant: #94a3b8;
+  --color-on-surface-variant: #b8c4d4;
   --color-outline: #475569;
   --color-outline-variant: #334155;
 
@@ -299,7 +299,7 @@
   --gradient-dark: linear-gradient(180deg, #030014 0%, #0c0a1a 100%);
   --gradient-accent: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #ec4899 100%);
   --gradient-primary-vertical: linear-gradient(to bottom, #a78bfa, #7c3aed);
-  
+
   /* Workout Section Gradients */
   --gradient-warmup: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
   --gradient-skill: linear-gradient(135deg, #c084fc 0%, #a78bfa 100%);
@@ -382,7 +382,7 @@
 
   /* Surface Variants (MD3) */
   --color-surface-variant: #162d42;
-  --color-on-surface-variant: #94a3b8;
+  --color-on-surface-variant: #b8c4d4;
   --color-outline: #475569;
   --color-outline-variant: #334155;
 
@@ -393,7 +393,7 @@
   --gradient-dark: linear-gradient(180deg, #020a18 0%, #0a1628 100%);
   --gradient-accent: linear-gradient(135deg, #0891b2 0%, #14b8a6 50%, #0ea5e9 100%);
   --gradient-primary-vertical: linear-gradient(to bottom, #22d3ee, #0e7490);
-  
+
   /* Workout Section Gradients */
   --gradient-warmup: linear-gradient(135deg, #fb923c 0%, #fbbf24 100%);
   --gradient-skill: linear-gradient(135deg, #60a5fa 0%, #0891b2 100%);
@@ -463,7 +463,7 @@
 
   /* Surface Variants (MD3) */
   --color-surface-variant: #331a1a;
-  --color-on-surface-variant: #a8a29e;
+  --color-on-surface-variant: #c9c4bf;
   --color-outline: #57534e;
   --color-outline-variant: #44403c;
 
@@ -474,7 +474,7 @@
   --gradient-dark: linear-gradient(180deg, #0c0505 0%, #1a0a0a 100%);
   --gradient-accent: linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%);
   --gradient-primary-vertical: linear-gradient(to bottom, #fb923c, #ea580c);
-  
+
   /* Workout Section Gradients */
   --gradient-warmup: linear-gradient(135deg, #fb923c 0%, #fbbf24 100%);
   --gradient-skill: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
@@ -555,7 +555,7 @@
   --gradient-dark: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
   --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
   --gradient-primary-vertical: linear-gradient(to bottom, #60a5fa, #2563eb);
-  
+
   /* Workout Section Gradients */
   --gradient-warmup: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
   --gradient-skill: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);

@@ -18,6 +18,33 @@ body {
     min-height: 100%;
     min-height: 100dvh;
 }
+
+/* ============================================================================
+   SOLAR ICON SYSTEM - Duotone Contrast Enhancement
+   ============================================================================ */
+
+/*
+ * Solar Bold Duotone icons use opacity="0.5" for secondary elements.
+ * This can cause contrast issues on dark backgrounds.
+ * We boost the opacity to 0.7 for better visibility while maintaining
+ * the duotone aesthetic.
+ */
+svg path[opacity="0.5"],
+svg [opacity="0.5"] {
+    opacity: 0.7 !important;
+}
+
+/* Navigation icons - ensure high contrast for usability */
+nav svg {
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.1));
+}
+
+/* Active state icons - full opacity for emphasis */
+nav .bg-sys-secondaryContainer svg path[opacity],
+nav .bg-sys-secondaryContainer svg [opacity] {
+    opacity: 0.85 !important;
+}
+
 ::-webkit-scrollbar { display: none; }
 .safe-pb { padding-bottom: env(safe-area-inset-bottom, 24px); }
 .safe-pt { padding-top: env(safe-area-inset-top, 24px); }

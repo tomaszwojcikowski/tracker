@@ -35,6 +35,7 @@ export default {
           surfaceVariant: 'var(--color-surface-variant)',
           onSurface: 'var(--color-neutral-50)',
           onSurfaceVar: 'var(--color-on-surface-variant)',
+          onSurfaceVariant: 'var(--color-on-surface-variant)',
           primary: 'var(--color-primary-500)',
           primaryDim: 'var(--color-neutral-600)',
           accent: 'var(--color-primary-600)',
@@ -42,6 +43,7 @@ export default {
           success: 'var(--color-success-500)',
           outline: 'var(--color-outline)',
           outlineVar: 'var(--color-outline-variant)',
+          outlineVariant: 'var(--color-outline-variant)',
 
           // MD3 Extended Roles
           primaryContainer: 'var(--color-primary-container)',

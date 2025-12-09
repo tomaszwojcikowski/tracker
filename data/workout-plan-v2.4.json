@@ -898,14 +898,14 @@
             ]
           },
           {
-            "optionName": "Flow 5 - Freestyle",
-            "description": "Combine movements from other flows. Focus on tight areas, move continuously, link breath.",
+            "optionName": "Flow 5 - Yoga Flow",
+            "description": "Flowing yoga sequence with sun salutations and standing poses for mobility and mindfulness.",
             "flowMovements": [
-              "Choose your own movements",
-              "Focus on tight areas",
-              "Move continuously",
-              "Link your breath",
-              "Explore the movements"
+              "Sun salutation A - 3 rounds",
+              "Downward dog to upward dog - 5 reps",
+              "Warrior I to Warrior II flow - 3 each side",
+              "Triangle pose holds - 30 sec each side",
+              "Forward fold with hamstring stretch - 1 min"
             ]
           },
           {

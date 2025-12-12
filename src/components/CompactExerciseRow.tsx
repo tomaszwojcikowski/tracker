@@ -18,6 +18,26 @@ import type { ExerciseDetailRequest } from '../types/workout';
 import type { TempoRange } from '../workout-plan-utils';
 
 // ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
+
+/**
+ * Extract rep count from prescription text
+ * Examples: "3x8 reps" -> "8", "3 x 10-12 reps" -> "10-12", "5x5" -> "5"
+ */
+function extractReps(prescription?: string): string | null {
+    if (!prescription) return null;
+    
+    // Try to match "x [number] reps" or "x [range] reps"
+    const repsMatch = 
+        prescription.match(/x\s*(\d+(?:-\d+)?)\s*reps?/i) ||
+        prescription.match(/x\s*(\d+(?:-\d+)?)/i) ||
+        prescription.match(/^(\d+(?:-\d+)?)\s*reps?/i);
+    
+    return repsMatch ? repsMatch[1] : null;
+}
+
+// ============================================================================
 // TYPES
 // ============================================================================
 
@@ -463,8 +483,18 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         </span>
                     )}
                     <span ref={textRef} className="text-sm font-semibold text-white truncate min-w-0" title={historyLookupName}>
-                        {shortDisplayName}
+                        {/* Active row shows full name, others show short name */}
+                        {isFirstIncomplete ? historyLookupName : shortDisplayName}
                     </span>
+                    {/* Show rep count for active exercise */}
+                    {isFirstIncomplete && prescription && (() => {
+                        const reps = extractReps(prescription);
+                        return reps ? (
+                            <span className="text-xs text-sys-onSurfaceVar font-medium flex-shrink-0">
+                                {reps} reps
+                            </span>
+                        ) : null;
+                    })()}
                     {(prescription || !isBodyweight) && (
                         <ChevronDown
                             size={14}
@@ -474,6 +504,22 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         />
                     )}
                 </button>
+
+                {/* Rest Timer Button - show on active row for main section non-EMOM exercises */}
+                {isFirstIncomplete && !isEmom && onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
+                    <button
+                        onClick={() => onStartRestTimer(restTime)}
+                        className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium flex-shrink-0 ${
+                            restTimerActive
+                                ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
+                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                        }`}
+                        aria-label={`Start ${restTime}s rest timer`}
+                    >
+                        <Timer size={12} />
+                        <span>{restTime >= 60 ? `${Math.floor(restTime / 60)}m` : `${restTime}s`}</span>
+                    </button>
+                )}
 
                 {/* Display Details Button - always show to prevent layout shift */}
                 {onShowHistory && (

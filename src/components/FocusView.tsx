@@ -133,6 +133,11 @@ export interface FocusViewProps {
     restTimer: {
         start: (seconds: number) => void;
     };
+    /** Density timer */
+    densityTimer?: {
+        active: boolean;
+        toggle: (minutes: number) => void;
+    };
     /** Haptic feedback */
     haptic: HapticFeedback;
     /** Get effective exercise name (with swaps) */
@@ -171,6 +176,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
     rpePrompt,
     emomTimer,
     restTimer,
+    densityTimer,
     haptic,
     getEffectiveExerciseName,
     onToggleSet,
@@ -300,7 +306,8 @@ export const FocusView: React.FC<FocusViewProps> = ({
         // Create consolidated props for all ExerciseCards in this render
         const timerProps: TimerProps = createTimerProps(
             { active: emomTimer.active, interval: emomTimer.interval, toggle: emomTimer.toggle },
-            { start: restTimer.start }
+            { start: restTimer.start },
+            densityTimer ? { active: densityTimer.active, toggle: densityTimer.toggle } : undefined
         );
         const rpeProps: RPEProps = createRPEProps(rpePrompt, onSaveRPE, onClearRPEPrompt);
         const saveCallbacks: SaveCallbacks = {
@@ -440,6 +447,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
         rpePrompt,
         emomTimer,
         restTimer,
+        densityTimer,
         getEffectiveExerciseName,
         onToggleSet,
         onAddSet,
@@ -467,6 +475,15 @@ export const FocusView: React.FC<FocusViewProps> = ({
             // Check if all exercises in this focus item are complete
             return item.exercises.every((exercise) => {
                 const exerciseLog = getExerciseLogEntry(logs, exercise.id);
+
+                if (exercise.type === 'program') {
+                    const ex = exercise.data as WorkoutExercise;
+                    const flags = getExerciseTypeFlags(ex);
+                    if (flags.isDensity) {
+                        return !!exerciseLog.densityComplete;
+                    }
+                }
+
                 const sets = exerciseLog.sets || [];
                 return sets.length > 0 && sets.every((s) => s);
             });

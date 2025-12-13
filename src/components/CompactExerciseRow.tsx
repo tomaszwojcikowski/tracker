@@ -28,14 +28,20 @@ import type { TempoRange } from '../workout-plan-utils';
  */
 function extractReps(prescription?: string): string | null {
     if (!prescription) return null;
-    
+
     // Try to match "x [number] reps" or "x [range] reps"
-    const repsMatch = 
+    const repsMatch =
         prescription.match(/x\s*(\d+(?:-\d+)?)\s*reps?/i) ||
         prescription.match(/x\s*(\d+(?:-\d+)?)/i) ||
         prescription.match(/^(\d+(?:-\d+)?)\s*reps?/i);
-    
+
     return repsMatch ? repsMatch[1] : null;
+}
+
+function stripSingleSetPrefixForDensity(prescription?: string, isDensity?: boolean): string | undefined {
+    if (!prescription) return prescription;
+    if (!isDensity) return prescription;
+    return prescription.replace(/^\s*1\s*[x×]\s*/i, '');
 }
 
 // ============================================================================
@@ -199,6 +205,11 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     const completedSets = sets.filter(Boolean).length;
     const totalSets = sets.length;
     const isComplete = completedSets === totalSets && totalSets > 0;
+
+    const displayPrescription = useMemo(
+        () => stripSingleSetPrefixForDensity(prescription, isDensity),
+        [prescription, isDensity]
+    );
 
     const historyLookupName = displayName;
 
@@ -449,9 +460,11 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             }}
                         />
                     )}
-                    <span className="text-xs text-sys-success font-semibold">
-                        {completedSets}/{totalSets}
-                    </span>
+                    {!isDensity && (
+                        <span className="text-xs text-sys-success font-semibold">
+                            {completedSets}/{totalSets}
+                        </span>
+                    )}
                     <ChevronDown size={14} className="text-sys-onSurfaceVar flex-shrink-0" />
                 </button>
             </div>
@@ -548,7 +561,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                 </button>
 
                 {/* Density Timer Button - show on active row for density exercises */}
-                {isFirstIncomplete && isDensity && onToggleDensityTimer && sectionType === 'main' && densityTimeMinutes && (
+                {isDensity && onToggleDensityTimer && sectionType === 'main' && densityTimeMinutes && (
                     <button
                         onClick={onToggleDensityTimer}
                         className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium flex-shrink-0 ${
@@ -591,15 +604,17 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                 )}
 
                 {/* Set Buttons */}
-                <CompactSetButtons
-                    exId={exId}
-                    sets={sets}
-                    completedSets={completedSets}
-                    totalSets={totalSets}
-                    isComplete={isComplete}
-                    onToggleSet={handleSetToggle}
-                    onCompleteAllSets={handleCompleteAllSets}
-                />
+                {!isDensity && (
+                    <CompactSetButtons
+                        exId={exId}
+                        sets={sets}
+                        completedSets={completedSets}
+                        totalSets={totalSets}
+                        isComplete={isComplete}
+                        onToggleSet={handleSetToggle}
+                        onCompleteAllSets={handleCompleteAllSets}
+                    />
+                )}
             </div>
 
             {/* Expandable Section - Contains prescription, weight, and add set */}
@@ -612,8 +627,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                     <div className="h-px bg-white/5 mb-2" />
 
                     {/* Prescription */}
-                    {prescription && (
-                        <p className="text-xs text-sys-onSurfaceVar mb-2">{prescription}</p>
+                    {displayPrescription && (
+                        <p className="text-xs text-sys-onSurfaceVar mb-2">{displayPrescription}</p>
                     )}
 
                     {/* Flow Movements Display (for flow exercises with selected option) */}
@@ -693,14 +708,16 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         )}
 
                         {/* Add Set Button */}
-                        <button
-                            onClick={handleAddSet}
-                            className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center gap-1.5 border border-dashed border-white/20 active:scale-95 transition-all text-xs font-medium"
-                            aria-label="Add set"
-                        >
-                            <Plus size={12} />
-                            <span>Add Set</span>
-                        </button>
+                        {!isDensity && (
+                            <button
+                                onClick={handleAddSet}
+                                className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center gap-1.5 border border-dashed border-white/20 active:scale-95 transition-all text-xs font-medium"
+                                aria-label="Add set"
+                            >
+                                <Plus size={12} />
+                                <span>Add Set</span>
+                            </button>
+                        )}
 
                         {/* Density Timer Button - for density exercises */}
                         {isDensity && onToggleDensityTimer && sectionType === 'main' && densityTimeMinutes && (

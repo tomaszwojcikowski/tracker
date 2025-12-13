@@ -330,12 +330,20 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 for (const ex of section.exercises) {
                     const exId = getExerciseId(ex.name);
                     const exerciseLog = getExerciseLogEntry(logs, exId);
-                    const sets = exerciseLog.sets || [];
-                    const defaultSets = ex.sets || 3;
-                    const exerciseTotalSets = sets.length > 0 ? sets.length : defaultSets;
-                    const exerciseCompletedSets = sets.filter((s) => s).length;
-                    totalSets += exerciseTotalSets;
-                    completedSets += exerciseCompletedSets;
+                    const flags = getExerciseTypeFlags(ex);
+
+                    if (flags.isDensity) {
+                        // Density is tracked via densityComplete and is always a single "set".
+                        totalSets += 1;
+                        completedSets += exerciseLog.densityComplete ? 1 : 0;
+                    } else {
+                        const sets = exerciseLog.sets || [];
+                        const defaultSets = ex.sets || 3;
+                        const exerciseTotalSets = sets.length > 0 ? sets.length : defaultSets;
+                        const exerciseCompletedSets = sets.filter((s) => s).length;
+                        totalSets += exerciseTotalSets;
+                        completedSets += exerciseCompletedSets;
+                    }
                 }
             }
         }
@@ -1102,8 +1110,19 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         for (const section of workout.sections) {
             for (const ex of section.exercises) {
                 const exId = getExerciseId(ex.name);
-                const defaultSets = ex.sets || 3;
-                const sets = getExerciseLogEntry(logs, exId).sets || new Array(defaultSets).fill(false);
+                const exerciseWithOptions = getExerciseWithOption(ex);
+                const flags = getExerciseTypeFlags(exerciseWithOptions);
+                const entry = getExerciseLogEntry(logs, exId);
+
+                if (flags.isDensity) {
+                    if (!entry.densityComplete) {
+                        return exId;
+                    }
+                    continue;
+                }
+
+                const defaultSets = exerciseWithOptions.sets || 3;
+                const sets = entry.sets || new Array(defaultSets).fill(false);
                 const completedSets = sets.filter((s) => s).length;
                 const totalSets = sets.length;
                 if (completedSets < totalSets) {
@@ -1113,7 +1132,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         }
         // All exercises complete, return null
         return null;
-    }, [workout.sections, logs]);
+    }, [workout.sections, logs, getExerciseWithOption]);
 
     // Use extracted collapse hook
     const exerciseCollapse = useExerciseCollapse({ firstIncompleteExerciseId });
@@ -1307,6 +1326,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         restTimer={{
                             start: restTimer.start,
                         }}
+                        densityTimer={{
+                            active: densityTimer.active,
+                            toggle: densityTimer.toggle,
+                        }}
                         haptic={haptic}
                         getEffectiveExerciseName={getEffectiveExerciseName}
                         onToggleSet={toggleSet}
@@ -1331,7 +1354,14 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     // Single pass: compute completion status for all exercises (used for dots AND count)
                     const exerciseCompletionStatus = section.exercises.map((ex: WorkoutExercise) => {
                         const exId = getExerciseId(ex.name);
-                        const sets = getExerciseLogEntry(logs, exId).sets || [];
+                        const entry = getExerciseLogEntry(logs, exId);
+                        const flags = getExerciseTypeFlags(ex);
+
+                        if (flags.isDensity) {
+                            return !!entry.densityComplete;
+                        }
+
+                        const sets = entry.sets || [];
                         return sets.length > 0 && sets.every((s) => s);
                     });
 
@@ -1393,10 +1423,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         section.exercises.forEach((ex: WorkoutExercise, eIdx: number) => {
                                             // Apply exercise options if selected
                                             const exerciseWithOptions = getExerciseWithOption(ex);
-                                            const defaultSets = exerciseWithOptions.sets || 3;
                                             const exId = getExerciseId(ex.name);
                                             const exerciseLog = getExerciseLogEntry(logs, exId);
-                                            const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
+                                            const flags = getExerciseTypeFlags(exerciseWithOptions);
+                                            const defaultSets = flags.isDensity ? 1 : (exerciseWithOptions.sets || 3);
+                                            const currentSetArray = flags.isDensity
+                                                ? [!!exerciseLog.densityComplete]
+                                                : (exerciseLog.sets || new Array(defaultSets).fill(false));
                                             const effectiveName = getEffectiveExerciseName(exerciseWithOptions);
                                             const hasHistory = getExerciseHistory(effectiveName).length > 0;
                                             const isFirstIncomplete = exId === firstIncompleteExerciseId;
@@ -1513,10 +1546,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                     return section.exercises.map((ex: WorkoutExercise, eIdx: number) => {
                                         // Apply exercise options if selected
                                         const exerciseWithOptions = getExerciseWithOption(ex);
-                                        const defaultSets = exerciseWithOptions.sets || 3;
                                         const exId = getExerciseId(ex.name);
                                         const exerciseLog = getExerciseLogEntry(logs, exId);
-                                        const currentSetArray = exerciseLog.sets || new Array(defaultSets).fill(false);
+                                        const flags = getExerciseTypeFlags(exerciseWithOptions);
+                                        const defaultSets = flags.isDensity ? 1 : (exerciseWithOptions.sets || 3);
+                                        const currentSetArray = flags.isDensity
+                                            ? [!!exerciseLog.densityComplete]
+                                            : (exerciseLog.sets || new Array(defaultSets).fill(false));
                                         const effectiveName = getEffectiveExerciseName(exerciseWithOptions);
                                         const hasHistory = getExerciseHistory(effectiveName).length > 0;
                                         const isCollapsed = exerciseCollapse.isCollapsed(exId);

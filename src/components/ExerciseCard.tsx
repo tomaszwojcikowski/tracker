@@ -96,6 +96,8 @@ export interface ExerciseCardProps {
     emomTimerInterval: number;
     /** Rest timer active state */
     restTimerActive?: boolean;
+    /** Density timer active state */
+    densityTimerActive?: boolean;
     /** Haptic feedback interface */
     haptic: Pick<HapticFeedback, 'tick' | 'bump' | 'success'>;
     /** Hide collapse button (for focus view) */
@@ -113,6 +115,8 @@ export interface ExerciseCardProps {
     onClearRPEPrompt: () => void;
     onStartRestTimer: (seconds: number) => void;
     onToggleEmomTimer: () => void;
+    /** Toggle density timer for this exercise (expects minutes) */
+    onToggleDensityTimer?: (timeMinutes: number) => void;
     onShowHistory: (request: ExerciseDetailRequest) => void;
     onShowAlternatives: (name: string, alternatives: string[]) => void;
     onShowOptions?: (exerciseId: string, exerciseName: string, options: import('../workout-plan-utils').ExerciseOption[]) => void;
@@ -159,6 +163,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     hideCollapseButton = false,
     sectionType,
     restTimerActive = false,
+    densityTimerActive = false,
     onToggleCollapse,
     onToggleSet,
     onAddSet,
@@ -167,6 +172,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     onSaveRPE,
     onClearRPEPrompt,
     onStartRestTimer,
+    onToggleDensityTimer,
     onShowHistory,
     onShowAlternatives,
     onShowOptions,
@@ -176,6 +182,12 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     const completedSets = sets.filter((s) => s).length;
     const totalSets = sets.length;
     const allComplete = completedSets === totalSets && totalSets > 0;
+
+    const displayPrescription = useMemo(() => {
+        if (!isDensity) return prescription;
+        // Density exercises are always a single set; avoid showing a leading "1x".
+        return prescription.replace(/^\s*1\s*[x×]\s*/i, '');
+    }, [prescription, isDensity]);
 
     // Smart defaults - get previous weight from history
     const previousWeight = useMemo(() => {
@@ -376,7 +388,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 />
                             )}
 
-                            {completedSets > 0 && (
+                            {completedSets > 0 && !isDensity && (
                                 <span
                                     className={`text-xs font-bold px-2 py-0.5 rounded-full ${
                                         completedSets === totalSets
@@ -389,7 +401,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             )}
 
                         </div>
-                        <p className="text-xs text-sys-onSurfaceVar">{prescription}</p>
+                        <p className="text-xs text-sys-onSurfaceVar">{displayPrescription}</p>
                     </div>
 
                     {/* Collapse button - hidden in focus view */}
@@ -412,15 +424,35 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                     <>
                         {/* Density Rep Controls - for density exercises */}
                         {isDensity && densityRepsTotal && onUpdateDensityRepChunks && onMarkDensityComplete ? (
-                            <DensityRepControls
-                                targetReps={densityRepsTotal}
-                                repChunks={exerciseLog.densityRepChunks || []}
-                                isComplete={exerciseLog.densityComplete || false}
-                                isFirstIncomplete={isFirstIncomplete}
-                                haptic={haptic}
-                                onUpdateRepChunks={(chunks) => onUpdateDensityRepChunks(exId, chunks)}
-                                onMarkComplete={(complete) => onMarkDensityComplete(exId, complete)}
-                            />
+                            <>
+                                {densityTimeMinutes && onToggleDensityTimer && (
+                                    <div className="flex items-center mb-2">
+                                        <div className="flex-1" />
+                                        <button
+                                            onClick={() => onToggleDensityTimer(densityTimeMinutes)}
+                                            className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                                densityTimerActive
+                                                    ? 'bg-cyan-500 text-white ring-2 ring-cyan-500/50'
+                                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                            }`}
+                                            aria-label={densityTimerActive ? 'Stop density timer' : `Start ${densityTimeMinutes}m density timer`}
+                                        >
+                                            <Gauge size={14} />
+                                            <span>{densityTimeMinutes}m</span>
+                                        </button>
+                                    </div>
+                                )}
+
+                                <DensityRepControls
+                                    targetReps={densityRepsTotal}
+                                    repChunks={exerciseLog.densityRepChunks || []}
+                                    isComplete={exerciseLog.densityComplete || false}
+                                    isFirstIncomplete={isFirstIncomplete}
+                                    haptic={haptic}
+                                    onUpdateRepChunks={(chunks) => onUpdateDensityRepChunks(exId, chunks)}
+                                    onMarkComplete={(complete) => onMarkDensityComplete(exId, complete)}
+                                />
+                            </>
                         ) : (
                             <>
                                 {/* Set buttons and Weight input row - Progressive Reveal (non-density exercises) */}
@@ -473,82 +505,84 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 ({completedSets}/{totalSets})
                             </span>
 
-                            {/* Add set button */}
-                            <button
-                                onClick={() => onAddSet(exId, defaultSets)}
-                                className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center text-xs font-bold border-2 border-dashed border-white/20 active:scale-95 transition-all"
-                                aria-label="Add set"
-                            >
-                                <Plus size={14} />
-                            </button>
-
-                            {/* Complete all button - small, next to add set */}
-                            {sets.filter((s) => !s).length > 1 && (
+                            <div className="ml-auto flex items-center gap-2">
+                                {/* Add set button */}
                                 <button
-                                    onClick={() => onCompleteAllSets(exId, defaultSets)}
-                                    className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-all"
-                                    aria-label="Complete all sets"
-                                    title="Complete all sets"
+                                    onClick={() => onAddSet(exId, defaultSets)}
+                                    className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center text-xs font-bold border-2 border-dashed border-white/20 active:scale-95 transition-all"
+                                    aria-label="Add set"
                                 >
-                                    <CheckCheck size={14} />
+                                    <Plus size={14} />
                                 </button>
-                            )}
 
-                            {/* Rest Timer Button - show for main/access sections */}
-                            {restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
-                                <button
-                                    onClick={() => onStartRestTimer(restTime)}
-                                    className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
-                                        restTimerActive
-                                            ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
-                                            : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                                    }`}
-                                    aria-label={`Start ${restTime}s rest timer`}
-                                >
-                                    <Timer size={14} />
-                                    <span>{restTime >= 60 ? `${Math.floor(restTime / 60)}m` : `${restTime}s`}</span>
-                                </button>
-                            )}
+                                {/* Complete all button - aligned right */}
+                                {sets.filter((s) => !s).length > 1 && (
+                                    <button
+                                        onClick={() => onCompleteAllSets(exId, defaultSets)}
+                                        className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-all"
+                                        aria-label="Complete all sets"
+                                        title="Complete all sets"
+                                    >
+                                        <CheckCheck size={14} />
+                                    </button>
+                                )}
 
-                            {/* Weight input - inline with set buttons for weighted exercises */}
-                            {!isBodyweight && (
-                                <div className="flex items-center gap-2 ml-auto">
+                                {/* Rest Timer Button - show for main/access sections */}
+                                {restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
                                     <button
-                                        onClick={() => {
-                                            haptic.tick();
-                                            const current = parseFloat(exerciseLog.weight || '0');
-                                            onSaveWeight(exId, Math.max(0, current - 2.5).toString());
-                                        }}
-                                        className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
-                                        aria-label="Decrease weight by 2.5kg"
+                                        onClick={() => onStartRestTimer(restTime)}
+                                        className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                            restTimerActive
+                                                ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
+                                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                        }`}
+                                        aria-label={`Start ${restTime}s rest timer`}
                                     >
-                                        <Minus size={14} />
+                                        <Timer size={14} />
+                                        <span>{restTime >= 60 ? `${Math.floor(restTime / 60)}m` : `${restTime}s`}</span>
                                     </button>
-                                    <input
-                                        id={`${exId}-weight`}
-                                        type="number"
-                                        inputMode="decimal"
-                                        pattern="[0-9]*"
-                                        enterKeyHint="done"
-                                        value={exerciseLog.weight || ''}
-                                        onChange={(e) => onSaveWeight(exId, e.target.value)}
-                                        placeholder={loadRange && loadRange.unit === 'kg' && loadRange.min > 0 ? String(loadRange.min) : '0'}
-                                        className="w-20 h-10 px-1 bg-sys-surfaceHigh rounded-lg text-white text-center text-xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                                        aria-label="Weight in kg"
-                                    />
-                                    <button
-                                        onClick={() => {
-                                            haptic.tick();
-                                            const current = parseFloat(exerciseLog.weight || '0');
-                                            onSaveWeight(exId, (current + 2.5).toString());
-                                        }}
-                                        className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
-                                        aria-label="Increase weight by 2.5kg"
-                                    >
-                                        <Plus size={14} />
-                                    </button>
-                                </div>
-                            )}
+                                )}
+
+                                {/* Weight input - inline with set buttons for weighted exercises */}
+                                {!isBodyweight && (
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            onClick={() => {
+                                                haptic.tick();
+                                                const current = parseFloat(exerciseLog.weight || '0');
+                                                onSaveWeight(exId, Math.max(0, current - 2.5).toString());
+                                            }}
+                                            className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
+                                            aria-label="Decrease weight by 2.5kg"
+                                        >
+                                            <Minus size={14} />
+                                        </button>
+                                        <input
+                                            id={`${exId}-weight`}
+                                            type="number"
+                                            inputMode="decimal"
+                                            pattern="[0-9]*"
+                                            enterKeyHint="done"
+                                            value={exerciseLog.weight || ''}
+                                            onChange={(e) => onSaveWeight(exId, e.target.value)}
+                                            placeholder={loadRange && loadRange.unit === 'kg' && loadRange.min > 0 ? String(loadRange.min) : '0'}
+                                            className="w-20 h-10 px-1 bg-sys-surfaceHigh rounded-lg text-white text-center text-xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                            aria-label="Weight in kg"
+                                        />
+                                        <button
+                                            onClick={() => {
+                                                haptic.tick();
+                                                const current = parseFloat(exerciseLog.weight || '0');
+                                                onSaveWeight(exId, (current + 2.5).toString());
+                                            }}
+                                            className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
+                                            aria-label="Increase weight by 2.5kg"
+                                        >
+                                            <Plus size={14} />
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
                         </div>
 
                         {/* Previous weight and load range hints - only for weighted exercises */}

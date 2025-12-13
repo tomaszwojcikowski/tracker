@@ -136,8 +136,8 @@ export const DensityRepControls = ({
                             handleAddChunk();
                         }
                     }}
-                    placeholder="Custom"
-                    className="flex-1 h-7 px-2.5 bg-sys-surfaceHigh rounded-lg text-white text-sm font-medium outline-none focus:ring-2 focus:ring-cyan-500 transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    aria-label="Custom rep count"
+                    className="h-7 w-10 min-w-[40px] px-0 bg-sys-surfaceHigh rounded-lg text-white text-sm font-medium text-center outline-none focus:ring-2 focus:ring-cyan-500 transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
                 <button
                     onClick={handleAddChunk}

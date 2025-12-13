@@ -229,6 +229,7 @@ export function ActionBar({
   }, [setDensityActive, setDensitySeconds]);
 
   const handleAddDensityTime = useCallback((timeDelta: number) => {
+    // timeDelta may be negative when subtracting time from fullscreen controls
     setDensitySeconds?.((s: number) => Math.max(0, s + timeDelta));
     setDensityTotalSeconds(prev => Math.max(0, prev + timeDelta));
   }, [setDensitySeconds]);

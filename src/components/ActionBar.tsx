@@ -27,6 +27,12 @@ export interface EmomState {
   round?: number;
 }
 
+export interface DensityState {
+  active: boolean;
+  seconds: number;
+  timeMinutes: number;
+}
+
 export interface ActionBarProps {
   timerState: TimerState;
   setTimerActive: (active: boolean) => void;
@@ -35,6 +41,9 @@ export interface ActionBarProps {
   setEmomActive?: (active: boolean) => void;
   setEmomSeconds?: (seconds: number | ((s: number) => number)) => void;
   setEmomInterval?: (interval: number | ((i: number) => number)) => void;
+  densityState?: DensityState;
+  setDensityActive?: (active: boolean) => void;
+  setDensitySeconds?: (seconds: number | ((s: number) => number)) => void;
 }
 
 export function ActionBar({
@@ -45,10 +54,14 @@ export function ActionBar({
   setEmomActive,
   setEmomSeconds,
   setEmomInterval,
+  densityState,
+  setDensityActive,
+  setDensitySeconds,
 }: ActionBarProps) {
   const haptic = useHaptic();
   const [isRestFullscreen, setIsRestFullscreen] = useState(false);
   const [isEmomFullscreen, setIsEmomFullscreen] = useState(false);
+  const [isDensityFullscreen, setIsDensityFullscreen] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(() =>
     safeGetJSON<boolean>('rest_timer_sound', true) ?? true
   );
@@ -56,8 +69,10 @@ export function ActionBar({
   // Track whether rest timer just became active (for slide-up animation)
   const [restTimerJustActivated, setRestTimerJustActivated] = useState(false);
   const [emomTimerJustActivated, setEmomTimerJustActivated] = useState(false);
+  const [densityTimerJustActivated, setDensityTimerJustActivated] = useState(false);
   const [prevRestTimerActive, setPrevRestTimerActive] = useState(false);
   const [prevEmomTimerActive, setPrevEmomTimerActive] = useState(false);
+  const [prevDensityTimerActive, setPrevDensityTimerActive] = useState(false);
 
   // Track total time when timer starts
   const [totalTime, setTotalTime] = useState(timerState.totalTime ?? timerState.time);
@@ -112,6 +127,22 @@ export function ActionBar({
       setEmomTimerJustActivated(false);
     }
   }, [emomState?.active, prevEmomTimerActive]);
+
+  // Track when density timer transitions from inactive to active (for slide-up animation)
+  useEffect(() => {
+    const isDensityActive = densityState?.active ?? false;
+
+    // Only trigger animation on transition from false to true
+    if (isDensityActive && !prevDensityTimerActive) {
+      setDensityTimerJustActivated(true);
+      const timer = setTimeout(() => setDensityTimerJustActivated(false), 300);
+      setPrevDensityTimerActive(true);
+      return () => clearTimeout(timer);
+    } else if (!isDensityActive && prevDensityTimerActive) {
+      setPrevDensityTimerActive(false);
+      setDensityTimerJustActivated(false);
+    }
+  }, [densityState?.active, prevDensityTimerActive]);
 
   const toggleSound = useCallback(() => {
     setSoundEnabled(prev => {

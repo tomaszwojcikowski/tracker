@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo, memo } from 'react';
-import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2, Timer } from './icons';
+import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2, Timer, Gauge } from './icons';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
 import { CompactSetButtons } from './CompactSetButtons';
@@ -74,6 +74,12 @@ export interface CompactExerciseRowProps {
     isLadder?: boolean;
     /** Ladder rep values (e.g., [1, 2, 3]) */
     ladderReps?: number[];
+    /** Whether this is a density exercise (v2.5+) */
+    isDensity?: boolean;
+    /** Total time in minutes for density exercises (v2.5+) */
+    densityTimeMinutes?: number;
+    /** Total reps target for density exercises (v2.5+) */
+    densityRepsTotal?: number;
     /** Tempo range (e.g., 3-1-1-0) */
     tempoRange?: TempoRange;
     /** Superset group ID (consecutive EMOM exercises share the same group ID) */
@@ -114,6 +120,10 @@ export interface CompactExerciseRowProps {
     emomTimerInterval?: number;
     /** Callback to toggle EMOM timer */
     onToggleEmomTimer?: () => void;
+    /** Density timer active state */
+    densityTimerActive?: boolean;
+    /** Callback to toggle density timer */
+    onToggleDensityTimer?: () => void;
 }
 
 // ============================================================================
@@ -137,6 +147,9 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     isAmrap = false,
     isLadder = false,
     ladderReps,
+    isDensity = false,
+    densityTimeMinutes,
+    densityRepsTotal,
     tempoRange,
     supersetGroup,
     supersetPosition,
@@ -157,6 +170,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     emomTimerActive = false,
     emomTimerInterval = 60,
     onToggleEmomTimer,
+    densityTimerActive = false,
+    onToggleDensityTimer,
 }) => {
     // State - auto-expand the first incomplete exercise
     const [isExpanded, setIsExpanded] = useState(isFirstIncomplete);
@@ -373,6 +388,11 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             <Zap size={8} strokeWidth={3} />
                         </span>
                     )}
+                    {isDensity && (
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 flex-shrink-0">
+                            <Gauge size={8} strokeWidth={3} />
+                        </span>
+                    )}
                     {isAmrap && (
                         <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-orange-500/20 text-orange-400 flex-shrink-0">
                             <TrendingUp size={8} strokeWidth={3} />
@@ -463,6 +483,15 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             <Zap size={8} strokeWidth={3} />
                         </span>
                     )}
+                    {/* Density Badge */}
+                    {isDensity && (
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 flex-shrink-0">
+                            <Gauge size={8} strokeWidth={3} />
+                            {densityRepsTotal && densityTimeMinutes && (
+                                <span className="text-[8px]">{densityRepsTotal}/{densityTimeMinutes}m</span>
+                            )}
+                        </span>
+                    )}
                     {/* AMRAP Badge */}
                     {isAmrap && (
                         <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-orange-500/20 text-orange-400 flex-shrink-0">
@@ -505,8 +534,24 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                     )}
                 </button>
 
-                {/* Rest Timer Button - show on active row for main section non-EMOM exercises */}
-                {isFirstIncomplete && !isEmom && onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
+                {/* Density Timer Button - show on active row for density exercises */}
+                {isFirstIncomplete && isDensity && onToggleDensityTimer && sectionType === 'main' && densityTimeMinutes && (
+                    <button
+                        onClick={onToggleDensityTimer}
+                        className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium flex-shrink-0 ${
+                            densityTimerActive
+                                ? 'bg-cyan-500 text-white ring-2 ring-cyan-500/50'
+                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                        }`}
+                        aria-label={densityTimerActive ? 'Stop density timer' : `Start ${densityTimeMinutes}m density timer`}
+                    >
+                        <Gauge size={12} />
+                        <span>{densityTimeMinutes}m</span>
+                    </button>
+                )}
+
+                {/* Rest Timer Button - show on active row for main section non-EMOM, non-density exercises */}
+                {isFirstIncomplete && !isEmom && !isDensity && onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
                     <button
                         onClick={() => onStartRestTimer(restTime)}
                         className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium flex-shrink-0 ${
@@ -629,6 +674,22 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             <span>Add Set</span>
                         </button>
 
+                        {/* Density Timer Button - for density exercises */}
+                        {isDensity && onToggleDensityTimer && sectionType === 'main' && densityTimeMinutes && (
+                            <button
+                                onClick={onToggleDensityTimer}
+                                className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                    densityTimerActive
+                                        ? 'bg-cyan-500 text-white ring-2 ring-cyan-500/50'
+                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                }`}
+                                aria-label={densityTimerActive ? 'Stop density timer' : `Start ${densityTimeMinutes}m density timer`}
+                            >
+                                <Gauge size={12} />
+                                <span>{densityTimeMinutes}m</span>
+                            </button>
+                        )}
+
                         {/* EMOM Timer Button - for EMOM exercises */}
                         {isEmom && onToggleEmomTimer && sectionType === 'main' && (
                             <button
@@ -645,8 +706,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             </button>
                         )}
 
-                        {/* Rest Timer Button - only for main section non-EMOM exercises */}
-                        {!isEmom && onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
+                        {/* Rest Timer Button - only for main section non-EMOM, non-density exercises */}
+                        {!isEmom && !isDensity && onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
                             <button
                                 onClick={() => onStartRestTimer(restTime)}
                                 className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${

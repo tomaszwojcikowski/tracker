@@ -424,7 +424,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                         ) : (
                             <>
                                 {/* Set buttons and Weight input row - Progressive Reveal (non-density exercises) */}
-                                <div className="flex flex-wrap gap-2 mb-3 items-center justify-between">
+                                <div className="flex flex-wrap gap-2 mb-3 items-center justify-start">
                             {(() => {
                                 // Find first incomplete set once
                                 const firstIncompleteIndex = sets.findIndex(s => !s);

@@ -55,6 +55,7 @@ vi.mock('../components/icons', () => ({
   Trophy: mockIcon,
   ArrowRightLeft: mockIcon,
   Timer: mockIcon,
+  Maximize2: mockIcon,
   ClipboardList: mockIcon,
   FileText: mockIcon,
   Edit3: mockIcon,

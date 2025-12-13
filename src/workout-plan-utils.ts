@@ -934,6 +934,9 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             exerciseOptions: exercise.exerciseOptions,
             // Flow exercises (v2.4+)
             isFlow: exercise.isFlow,
+            // Density exercises (v2.5+)
+            densityTimeMinutes: exercise.densityTimeMinutes,
+            densityRepsTotal: exercise.densityRepsTotal,
           });
         });
       });

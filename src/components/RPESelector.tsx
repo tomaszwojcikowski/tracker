@@ -110,7 +110,7 @@ export const RPESelector: React.FC<RPESelectorProps> = ({
                             onClick={() => !disabled && onChange(option.value)}
                             disabled={disabled}
                             className={`
-                                ${compact ? 'h-7 w-7 text-xs' : 'h-8 w-9 text-sm'}
+                                ${compact ? 'h-7 w-7 text-xs min-w-[28px]' : 'h-8 w-9 text-sm'}
                                 rounded-lg font-bold transition-all
                                 flex items-center justify-center
                                 ${disabled ? 'opacity-50 cursor-not-allowed' : 'active:scale-90'}

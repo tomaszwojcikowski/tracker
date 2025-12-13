@@ -423,8 +423,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             />
                         ) : (
                             <>
-                                {/* Set buttons - Progressive Reveal (non-density exercises) */}
-                                <div className="flex flex-wrap gap-2 mb-3 items-center">
+                                {/* Set buttons and Weight input row - Progressive Reveal (non-density exercises) */}
+                                <div className="flex flex-wrap gap-2 mb-3 items-center justify-start">
                             {(() => {
                                 // Find first incomplete set once
                                 const firstIncompleteIndex = sets.findIndex(s => !s);
@@ -509,22 +509,97 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     <span>{restTime >= 60 ? `${Math.floor(restTime / 60)}m` : `${restTime}s`}</span>
                                 </button>
                             )}
+
+                            {/* Weight input - inline with set buttons for weighted exercises */}
+                            {!isBodyweight && (
+                                <div className="flex items-center gap-2 ml-auto">
+                                    <button
+                                        onClick={() => {
+                                            haptic.tick();
+                                            const current = parseFloat(exerciseLog.weight || '0');
+                                            onSaveWeight(exId, Math.max(0, current - 2.5).toString());
+                                        }}
+                                        className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
+                                        aria-label="Decrease weight by 2.5kg"
+                                    >
+                                        <Minus size={14} />
+                                    </button>
+                                    <input
+                                        id={`${exId}-weight`}
+                                        type="number"
+                                        inputMode="decimal"
+                                        pattern="[0-9]*"
+                                        enterKeyHint="done"
+                                        value={exerciseLog.weight || ''}
+                                        onChange={(e) => onSaveWeight(exId, e.target.value)}
+                                        placeholder={loadRange && loadRange.unit === 'kg' && loadRange.min > 0 ? String(loadRange.min) : '0'}
+                                        className="w-20 h-10 px-1 bg-sys-surfaceHigh rounded-lg text-white text-center text-xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                        aria-label="Weight in kg"
+                                    />
+                                    <button
+                                        onClick={() => {
+                                            haptic.tick();
+                                            const current = parseFloat(exerciseLog.weight || '0');
+                                            onSaveWeight(exId, (current + 2.5).toString());
+                                        }}
+                                        className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
+                                        aria-label="Increase weight by 2.5kg"
+                                    >
+                                        <Plus size={14} />
+                                    </button>
+                                </div>
+                            )}
                         </div>
+
+                        {/* Previous weight and load range hints - only for weighted exercises */}
+                        {!isBodyweight && (previousWeight || loadRange) && (
+                            <div className="flex items-center justify-end gap-2 mb-2 -mt-1">
+                                {/* Previous weight quick-fill button */}
+                                {previousWeight && !exerciseLog.weight && (
+                                    <button
+                                        onClick={handleUsePreviousWeight}
+                                        className="flex items-center gap-1 text-xs text-sys-accent font-medium px-2 py-0.5 rounded-full bg-sys-accent/10 hover:bg-sys-accent/20 active:scale-95 transition-all"
+                                        aria-label={`Use previous weight of ${previousWeight}kg`}
+                                    >
+                                        <History size={10} />
+                                        <span>Use {previousWeight}kg</span>
+                                    </button>
+                                )}
+                                {/* Show indicator when using previous weight */}
+                                {isUsingPreviousWeight && (
+                                    <span className="flex items-center gap-1 text-[10px] text-sys-onSurfaceVar">
+                                        <History size={10} />
+                                        <span>prev</span>
+                                    </span>
+                                )}
+                                {/* Load range suggestion */}
+                                {loadRange && loadRange.min > 0 && loadRange.unit === 'kg' && (
+                                    <span className="text-xs text-sys-accent font-medium">
+                                        Suggested: {loadRange.min === loadRange.max
+                                            ? `${loadRange.min}kg`
+                                            : `${loadRange.min}-${loadRange.max}kg`}
+                                        {loadRange.perHand ? ' per hand' : ''}
+                                    </span>
+                                )}
+                            </div>
+                        )}
                             </>
                         )}
 
-                        {/* RPE Selector */}
+                        {/* RPE Selector - more compact */}
                         {rpePrompt?.exerciseId === exId && (
-                            <RPESelector
-                                value={exerciseLog.rpe?.[rpePrompt.setIndex]}
-                                onChange={(rpe: RPEValue) => {
-                                    onSaveRPE(exId, rpePrompt.setIndex, rpe);
-                                    onClearRPEPrompt();
-                                }}
-                                onSkip={() => onClearRPEPrompt()}
-                                setNumber={rpePrompt.setIndex + 1}
-                                showAsPrompt
-                            />
+                            <div className="mb-2">
+                                <RPESelector
+                                    value={exerciseLog.rpe?.[rpePrompt.setIndex]}
+                                    onChange={(rpe: RPEValue) => {
+                                        onSaveRPE(exId, rpePrompt.setIndex, rpe);
+                                        onClearRPEPrompt();
+                                    }}
+                                    onSkip={() => onClearRPEPrompt()}
+                                    setNumber={rpePrompt.setIndex + 1}
+                                    compact
+                                />
+                            </div>
                         )}
 
                         {/* Flow Movements Display - for focus view card */}
@@ -538,84 +613,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     onShowOptions(exId, effectiveName, exerciseOptions);
                                 } : undefined}
                             />
-                        )}
-
-                        {/* Weight input for weighted exercises */}
-                        {!isBodyweight && (
-                            <div className="pt-3 border-t border-white/5">
-                                <div className="flex items-center justify-between mb-1">
-                                    <label
-                                        htmlFor={`${exId}-weight`}
-                                        className="text-xs text-sys-onSurfaceVar uppercase font-bold"
-                                    >
-                                        Load (kg)
-                                    </label>
-                                    <div className="flex items-center gap-2">
-                                        {/* Previous weight quick-fill button */}
-                                        {previousWeight && !exerciseLog.weight && (
-                                            <button
-                                                onClick={handleUsePreviousWeight}
-                                                className="flex items-center gap-1 text-xs text-sys-accent font-medium px-2 py-0.5 rounded-full bg-sys-accent/10 hover:bg-sys-accent/20 active:scale-95 transition-all"
-                                                aria-label={`Use previous weight of ${previousWeight}kg`}
-                                            >
-                                                <History size={10} />
-                                                <span>Use {previousWeight}kg</span>
-                                            </button>
-                                        )}
-                                        {/* Show indicator when using previous weight */}
-                                        {isUsingPreviousWeight && (
-                                            <span className="flex items-center gap-1 text-[10px] text-sys-onSurfaceVar">
-                                                <History size={10} />
-                                                <span>prev</span>
-                                            </span>
-                                        )}
-                                        {/* Load range suggestion */}
-                                        {loadRange && loadRange.min > 0 && loadRange.unit === 'kg' && (
-                                            <span className="text-xs text-sys-accent font-medium">
-                                                Suggested: {loadRange.min === loadRange.max
-                                                    ? `${loadRange.min}kg`
-                                                    : `${loadRange.min}-${loadRange.max}kg`}
-                                                {loadRange.perHand ? ' per hand' : ''}
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className="relative flex items-center justify-center gap-2">
-                                    <button
-                                        onClick={() => {
-                                            haptic.tick();
-                                            const current = parseFloat(exerciseLog.weight || '0');
-                                            onSaveWeight(exId, Math.max(0, current - 2.5).toString());
-                                        }}
-                                        className="h-10 w-10 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
-                                        aria-label="Decrease weight by 2.5kg"
-                                    >
-                                        <Minus size={16} />
-                                    </button>
-                                    <input
-                                        id={`${exId}-weight`}
-                                        type="number"
-                                        inputMode="decimal"
-                                        pattern="[0-9]*"
-                                        enterKeyHint="done"
-                                        value={exerciseLog.weight || ''}
-                                        onChange={(e) => onSaveWeight(exId, e.target.value)}
-                                        placeholder={loadRange && loadRange.unit === 'kg' && loadRange.min > 0 ? String(loadRange.min) : '0'}
-                                        className="w-20 h-10 px-2 bg-sys-surfaceHigh rounded-lg text-white text-center text-xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                                    />
-                                    <button
-                                        onClick={() => {
-                                            haptic.tick();
-                                            const current = parseFloat(exerciseLog.weight || '0');
-                                            onSaveWeight(exId, (current + 2.5).toString());
-                                        }}
-                                        className="h-10 w-10 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
-                                        aria-label="Increase weight by 2.5kg"
-                                    >
-                                        <Plus size={16} />
-                                    </button>
-                                </div>
-                            </div>
                         )}
                     </>
                 )}

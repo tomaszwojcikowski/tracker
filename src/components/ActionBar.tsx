@@ -55,13 +55,13 @@ export function ActionBar({
   setEmomSeconds,
   setEmomInterval,
   densityState,
-  setDensityActive,
-  setDensitySeconds,
+  setDensityActive: _setDensityActive,
+  setDensitySeconds: _setDensitySeconds,
 }: ActionBarProps) {
   const haptic = useHaptic();
   const [isRestFullscreen, setIsRestFullscreen] = useState(false);
   const [isEmomFullscreen, setIsEmomFullscreen] = useState(false);
-  const [isDensityFullscreen, setIsDensityFullscreen] = useState(false);
+  const [_isDensityFullscreen, _setIsDensityFullscreen] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(() =>
     safeGetJSON<boolean>('rest_timer_sound', true) ?? true
   );
@@ -69,7 +69,7 @@ export function ActionBar({
   // Track whether rest timer just became active (for slide-up animation)
   const [restTimerJustActivated, setRestTimerJustActivated] = useState(false);
   const [emomTimerJustActivated, setEmomTimerJustActivated] = useState(false);
-  const [densityTimerJustActivated, setDensityTimerJustActivated] = useState(false);
+  const [_densityTimerJustActivated, _setDensityTimerJustActivated] = useState(false);
   const [prevRestTimerActive, setPrevRestTimerActive] = useState(false);
   const [prevEmomTimerActive, setPrevEmomTimerActive] = useState(false);
   const [prevDensityTimerActive, setPrevDensityTimerActive] = useState(false);
@@ -134,13 +134,13 @@ export function ActionBar({
 
     // Only trigger animation on transition from false to true
     if (isDensityActive && !prevDensityTimerActive) {
-      setDensityTimerJustActivated(true);
-      const timer = setTimeout(() => setDensityTimerJustActivated(false), 300);
+      _setDensityTimerJustActivated(true);
+      const timer = setTimeout(() => _setDensityTimerJustActivated(false), 300);
       setPrevDensityTimerActive(true);
       return () => clearTimeout(timer);
     } else if (!isDensityActive && prevDensityTimerActive) {
       setPrevDensityTimerActive(false);
-      setDensityTimerJustActivated(false);
+      _setDensityTimerJustActivated(false);
     }
   }, [densityState?.active, prevDensityTimerActive]);
 

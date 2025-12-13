@@ -75,7 +75,7 @@ describe('DensityRepControls', () => {
 
             expect(screen.getByText('30 / 30 reps')).toBeInTheDocument();
             expect(screen.getByText('100%')).toBeInTheDocument();
-            expect(screen.getByText('All Reps Done!')).toBeInTheDocument();
+            expect(screen.getByText('Mark Complete')).toBeInTheDocument();
         });
 
         it('should show completed state when marked complete', () => {
@@ -291,7 +291,7 @@ describe('DensityRepControls', () => {
             expect(mockHaptic.tick).toHaveBeenCalled();
         });
 
-        it('should show empty state when no chunks', () => {
+        it('should not show chunk list when no chunks', () => {
             render(
                 <DensityRepControls
                     targetReps={30}
@@ -303,7 +303,8 @@ describe('DensityRepControls', () => {
                 />
             );
 
-            expect(screen.getByText(/No chunks yet/i)).toBeInTheDocument();
+            // Chunks are only visible when repChunks.length > 0
+            expect(screen.queryByRole('button', { name: /Remove \d+ reps/i })).not.toBeInTheDocument();
         });
     });
 
@@ -377,48 +378,6 @@ describe('DensityRepControls', () => {
             await waitFor(() => {
                 expect(mockMarkComplete).toHaveBeenCalledWith(true);
             });
-        });
-    });
-
-    describe('Expandable Chunks Section', () => {
-        it('should start expanded', () => {
-            render(
-                <DensityRepControls
-                    targetReps={30}
-                    repChunks={[5]}
-                    isComplete={false}
-                    haptic={mockHaptic}
-                    onUpdateRepChunks={mockUpdateRepChunks}
-                    onMarkComplete={mockMarkComplete}
-                />
-            );
-
-            // Quick add buttons should be visible
-            expect(screen.getByText('+1')).toBeInTheDocument();
-        });
-
-        it('should toggle when header clicked', () => {
-            render(
-                <DensityRepControls
-                    targetReps={30}
-                    repChunks={[5]}
-                    isComplete={false}
-                    haptic={mockHaptic}
-                    onUpdateRepChunks={mockUpdateRepChunks}
-                    onMarkComplete={mockMarkComplete}
-                />
-            );
-
-            const header = screen.getByLabelText(/rep chunks/i);
-            
-            // Collapse
-            fireEvent.click(header);
-            expect(mockHaptic.tick).toHaveBeenCalled();
-            expect(screen.queryByText('+1')).not.toBeInTheDocument();
-
-            // Expand again
-            fireEvent.click(header);
-            expect(screen.getByText('+1')).toBeInTheDocument();
         });
     });
 });

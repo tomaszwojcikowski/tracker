@@ -7,7 +7,7 @@
  */
 
 import { useState, useCallback, useEffect } from 'react';
-import { Plus, Minus, Check, ChevronDown, ChevronUp } from './icons';
+import { Plus, Minus, Check } from './icons';
 import type { HapticFeedback } from '../hooks';
 
 export interface DensityRepControlsProps {
@@ -36,7 +36,6 @@ export const DensityRepControls = ({
     onUpdateRepChunks,
     onMarkComplete,
 }: DensityRepControlsProps) => {
-    const [isExpanded, setIsExpanded] = useState(true);
     const [chunkInput, setChunkInput] = useState('');
 
     // Calculate total reps from chunks
@@ -76,21 +75,21 @@ export const DensityRepControls = ({
     }, [repChunks, haptic, onUpdateRepChunks]);
 
     return (
-        <div className="space-y-3">
-            {/* Progress Bar */}
+        <div className="space-y-2.5">
+            {/* Progress Bar - More compact with glow */}
             <div className="relative">
                 <div className="h-2 bg-sys-surfaceHigh rounded-full overflow-hidden">
                     <div
                         className={`h-full transition-all duration-300 ${
                             allRepsComplete
-                                ? 'bg-sys-success'
-                                : 'bg-cyan-500'
+                                ? 'bg-sys-success shadow-[0_0_8px_rgba(16,185,129,0.4)]'
+                                : 'bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.4)]'
                         }`}
                         style={{ width: `${progressPercent}%` }}
                     />
                 </div>
-                <div className="flex justify-between items-center mt-1">
-                    <span className="text-xs text-sys-onSurfaceVar font-medium">
+                <div className="flex justify-between items-center mt-0.5">
+                    <span className="text-xs text-sys-onSurfaceVar font-semibold">
                         {totalReps} / {targetReps} reps
                     </span>
                     <span className={`text-xs font-bold ${
@@ -101,128 +100,112 @@ export const DensityRepControls = ({
                 </div>
             </div>
 
-            {/* Mark Complete Button */}
+            {/* Quick Add Buttons - Prominent position */}
+            <div className="flex gap-2">
+                <button
+                    onClick={() => handleQuickAdd(1)}
+                    className="flex-1 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-bold active:scale-95 active:bg-cyan-500/20 transition-all"
+                    aria-label="Add 1 rep"
+                >
+                    +1
+                </button>
+                <button
+                    onClick={() => handleQuickAdd(3)}
+                    className="flex-1 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-bold active:scale-95 active:bg-cyan-500/20 transition-all"
+                    aria-label="Add 3 reps"
+                >
+                    +3
+                </button>
+                <button
+                    onClick={() => handleQuickAdd(5)}
+                    className="flex-1 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-bold active:scale-95 active:bg-cyan-500/20 transition-all"
+                    aria-label="Add 5 reps"
+                >
+                    +5
+                </button>
+            </div>
+
+            {/* Custom Amount Input - More compact */}
+            <div className="flex gap-2">
+                <input
+                    type="number"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    enterKeyHint="done"
+                    value={chunkInput}
+                    onChange={(e) => setChunkInput(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            handleAddChunk();
+                        }
+                    }}
+                    placeholder="Custom"
+                    className="flex-1 h-8 px-3 bg-sys-surfaceHigh rounded-lg text-white text-sm font-medium outline-none focus:ring-2 focus:ring-cyan-500 transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
+                <button
+                    onClick={handleAddChunk}
+                    disabled={!chunkInput || parseInt(chunkInput, 10) <= 0}
+                    className="h-8 px-3 rounded-lg bg-cyan-500 text-white font-medium flex items-center justify-center gap-1 active:scale-95 transition-all disabled:opacity-40 disabled:pointer-events-none shadow-[0_0_8px_rgba(6,182,212,0.3)]"
+                    aria-label="Add custom rep count"
+                >
+                    <Plus size={14} />
+                    Add
+                </button>
+            </div>
+
+            {/* Rep Chunk List - Always visible when chunks exist */}
+            {repChunks.length > 0 && (
+                <div className="flex flex-wrap gap-1.5">
+                    {repChunks.map((chunk, index) => (
+                        <div
+                            key={index}
+                            className="flex items-center gap-1 bg-cyan-500/10 border border-cyan-500/30 rounded-lg px-2 py-1 shadow-[0_0_4px_rgba(6,182,212,0.2)]"
+                        >
+                            <span className="text-sm font-bold text-cyan-400">
+                                {chunk}
+                            </span>
+                            <button
+                                onClick={() => handleRemoveChunk(index)}
+                                className="h-4 w-4 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center active:scale-90 transition-all"
+                                aria-label={`Remove ${chunk} reps`}
+                            >
+                                <Minus size={10} className="text-white" />
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {/* Mark Complete Button - Matches "Complete All Sets" style */}
             <button
                 onClick={handleToggleComplete}
-                className={`w-full h-10 rounded-lg flex items-center justify-center gap-2 font-medium text-sm transition-all active:scale-[0.98] ${
+                className={`w-full h-8 rounded-lg flex items-center justify-center gap-1.5 font-medium text-sm transition-all active:scale-[0.98] ${
                     isComplete
-                        ? 'bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.3)]'
+                        ? 'bg-sys-success text-white shadow-[0_0_12px_rgba(16,185,129,0.4)]'
                         : allRepsComplete
-                        ? 'bg-cyan-500 text-white'
-                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar border border-white/10'
+                        ? 'bg-cyan-500 text-white shadow-[0_0_8px_rgba(6,182,212,0.3)]'
+                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                 }`}
                 aria-label={isComplete ? 'Mark as incomplete' : 'Mark as complete'}
             >
-                {isComplete && <Check size={18} />}
-                {isComplete ? 'Completed' : allRepsComplete ? 'All Reps Done!' : 'Mark Complete'}
-            </button>
-
-            {/* Rep Chunks Section - Collapsible */}
-            <div className="border border-white/5 rounded-lg overflow-hidden">
-                <button
-                    onClick={() => {
-                        haptic.tick();
-                        setIsExpanded(!isExpanded);
-                    }}
-                    className="w-full flex items-center justify-between px-3 py-2 bg-sys-surfaceHigh text-sys-onSurfaceVar active:bg-white/5 transition-colors"
-                    aria-label={isExpanded ? 'Collapse rep chunks' : 'Expand rep chunks'}
-                >
-                    <span className="text-xs font-bold uppercase">Rep Chunks ({repChunks.length})</span>
-                    {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                </button>
-
-                {isExpanded && (
-                    <div className="p-3 space-y-3">
-                        {/* Quick Add Buttons */}
-                        <div className="flex gap-2">
-                            <button
-                                onClick={() => handleQuickAdd(1)}
-                                className="flex-1 h-8 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar text-sm font-medium active:scale-95 transition-all"
-                                aria-label="Add 1 rep"
-                            >
-                                +1
-                            </button>
-                            <button
-                                onClick={() => handleQuickAdd(3)}
-                                className="flex-1 h-8 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar text-sm font-medium active:scale-95 transition-all"
-                                aria-label="Add 3 reps"
-                            >
-                                +3
-                            </button>
-                            <button
-                                onClick={() => handleQuickAdd(5)}
-                                className="flex-1 h-8 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar text-sm font-medium active:scale-95 transition-all"
-                                aria-label="Add 5 reps"
-                            >
-                                +5
-                            </button>
-                        </div>
-
-                        {/* Custom Amount Input */}
-                        <div className="flex gap-2">
-                            <input
-                                type="number"
-                                inputMode="numeric"
-                                pattern="[0-9]*"
-                                enterKeyHint="done"
-                                value={chunkInput}
-                                onChange={(e) => setChunkInput(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {
-                                        e.preventDefault();
-                                        handleAddChunk();
-                                    }
-                                }}
-                                placeholder="Custom"
-                                className="flex-1 h-10 px-3 bg-sys-surfaceHigh rounded-lg text-white text-sm font-medium outline-none focus:ring-2 focus:ring-cyan-500 transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                            />
-                            <button
-                                onClick={handleAddChunk}
-                                disabled={!chunkInput || parseInt(chunkInput, 10) <= 0}
-                                className="h-10 px-4 rounded-lg bg-cyan-500 text-white font-medium flex items-center justify-center gap-1.5 active:scale-95 transition-all disabled:opacity-40 disabled:pointer-events-none"
-                                aria-label="Add custom rep count"
-                            >
-                                <Plus size={16} />
-                                Add
-                            </button>
-                        </div>
-
-                        {/* Rep Chunk List */}
-                        {repChunks.length > 0 && (
-                            <div className="space-y-2">
-                                <div className="text-[10px] text-sys-onSurfaceVar uppercase font-bold">
-                                    Chunks
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                    {repChunks.map((chunk, index) => (
-                                        <div
-                                            key={index}
-                                            className="flex items-center gap-1 bg-cyan-500/10 border border-cyan-500/30 rounded-lg px-2 py-1"
-                                        >
-                                            <span className="text-sm font-bold text-cyan-400">
-                                                {chunk}
-                                            </span>
-                                            <button
-                                                onClick={() => handleRemoveChunk(index)}
-                                                className="h-5 w-5 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center active:scale-90 transition-all"
-                                                aria-label={`Remove ${chunk} reps`}
-                                            >
-                                                <Minus size={12} className="text-white" />
-                                            </button>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {repChunks.length === 0 && (
-                            <div className="text-xs text-sys-onSurfaceVar text-center py-2">
-                                No chunks yet. Add reps as you complete them.
-                            </div>
-                        )}
-                    </div>
+                {isComplete ? (
+                    <>
+                        <Check size={14} />
+                        <span>Completed</span>
+                    </>
+                ) : allRepsComplete ? (
+                    <>
+                        <Check size={14} />
+                        <span>Mark Complete</span>
+                    </>
+                ) : (
+                    <>
+                        <Check size={14} />
+                        <span>Mark Complete</span>
+                    </>
                 )}
-            </div>
+            </button>
         </div>
     );
 };

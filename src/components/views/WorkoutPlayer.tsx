@@ -1320,6 +1320,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         onRemoveAddedExercise={removeAddedExercise}
                         selectedExerciseOptions={selectedExerciseOptions}
                         onShowOptions={handleShowOptions}
+                        onUpdateDensityRepChunks={updateDensityRepChunks}
+                        onMarkDensityComplete={markDensityComplete}
                     />
                 ) : (
                     <>

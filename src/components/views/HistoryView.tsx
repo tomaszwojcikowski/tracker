@@ -533,7 +533,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                 ) : (
                     <div className="space-y-4">
                         {/* Quick Filter Chips */}
-                        <div className="flex gap-2 overflow-x-auto hide-scrollbar -mx-5 px-5">
+                        <div className="flex gap-2 overflow-x-auto hide-scrollbar">
                             <button
                                 onClick={() => { haptic.tick(); setTimeFilter('week'); }}
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${

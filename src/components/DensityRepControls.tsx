@@ -6,7 +6,7 @@
  * Users can add rep chunks, see their progress, and mark as complete.
  */
 
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Plus, Minus, Check, ChevronDown, ChevronUp } from './icons';
 import type { HapticFeedback } from '../hooks';
 
@@ -27,15 +27,15 @@ export interface DensityRepControlsProps {
     onMarkComplete: (complete: boolean) => void;
 }
 
-export const DensityRepControls: React.FC<DensityRepControlsProps> = ({
+export const DensityRepControls = ({
     targetReps,
     repChunks,
     isComplete,
-    isFirstIncomplete = false,
+    isFirstIncomplete: _isFirstIncomplete = false,
     haptic,
     onUpdateRepChunks,
     onMarkComplete,
-}) => {
+}: DensityRepControlsProps) => {
     const [isExpanded, setIsExpanded] = useState(true);
     const [chunkInput, setChunkInput] = useState('');
 
@@ -45,7 +45,7 @@ export const DensityRepControls: React.FC<DensityRepControlsProps> = ({
     const allRepsComplete = totalReps >= targetReps;
 
     // Auto-mark complete if all reps are done
-    React.useEffect(() => {
+    useEffect(() => {
         if (allRepsComplete && !isComplete) {
             onMarkComplete(true);
         }

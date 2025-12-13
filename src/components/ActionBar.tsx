@@ -27,6 +27,12 @@ export interface EmomState {
   round?: number;
 }
 
+export interface DensityState {
+  active: boolean;
+  seconds: number;
+  timeMinutes: number;
+}
+
 export interface ActionBarProps {
   timerState: TimerState;
   setTimerActive: (active: boolean) => void;
@@ -35,6 +41,9 @@ export interface ActionBarProps {
   setEmomActive?: (active: boolean) => void;
   setEmomSeconds?: (seconds: number | ((s: number) => number)) => void;
   setEmomInterval?: (interval: number | ((i: number) => number)) => void;
+  densityState?: DensityState;
+  setDensityActive?: (active: boolean) => void;
+  setDensitySeconds?: (seconds: number | ((s: number) => number)) => void;
 }
 
 export function ActionBar({
@@ -45,10 +54,14 @@ export function ActionBar({
   setEmomActive,
   setEmomSeconds,
   setEmomInterval,
+  densityState,
+  setDensityActive,
+  setDensitySeconds,
 }: ActionBarProps) {
   const haptic = useHaptic();
   const [isRestFullscreen, setIsRestFullscreen] = useState(false);
   const [isEmomFullscreen, setIsEmomFullscreen] = useState(false);
+  const [isDensityFullscreen, setIsDensityFullscreen] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(() =>
     safeGetJSON<boolean>('rest_timer_sound', true) ?? true
   );
@@ -56,8 +69,10 @@ export function ActionBar({
   // Track whether rest timer just became active (for slide-up animation)
   const [restTimerJustActivated, setRestTimerJustActivated] = useState(false);
   const [emomTimerJustActivated, setEmomTimerJustActivated] = useState(false);
+  const [densityTimerJustActivated, setDensityTimerJustActivated] = useState(false);
   const [prevRestTimerActive, setPrevRestTimerActive] = useState(false);
   const [prevEmomTimerActive, setPrevEmomTimerActive] = useState(false);
+  const [prevDensityTimerActive, setPrevDensityTimerActive] = useState(false);
 
   // Track total time when timer starts
   const [totalTime, setTotalTime] = useState(timerState.totalTime ?? timerState.time);
@@ -112,6 +127,22 @@ export function ActionBar({
       setEmomTimerJustActivated(false);
     }
   }, [emomState?.active, prevEmomTimerActive]);
+
+  // Track when density timer transitions from inactive to active (for slide-up animation)
+  useEffect(() => {
+    const isDensityActive = densityState?.active ?? false;
+
+    // Only trigger animation on transition from false to true
+    if (isDensityActive && !prevDensityTimerActive) {
+      setDensityTimerJustActivated(true);
+      const timer = setTimeout(() => setDensityTimerJustActivated(false), 300);
+      setPrevDensityTimerActive(true);
+      return () => clearTimeout(timer);
+    } else if (!isDensityActive && prevDensityTimerActive) {
+      setPrevDensityTimerActive(false);
+      setDensityTimerJustActivated(false);
+    }
+  }, [densityState?.active, prevDensityTimerActive]);
 
   const toggleSound = useCallback(() => {
     setSoundEnabled(prev => {
@@ -170,8 +201,25 @@ export function ActionBar({
     });
   }, [setEmomInterval]);
 
+  // Density timer handlers
+  const handleExpandDensity = useCallback(() => {
+    haptic.tick();
+    setIsDensityFullscreen(true);
+  }, [haptic]);
+
+  const handleMinimizeDensity = useCallback(() => {
+    haptic.tick();
+    setIsDensityFullscreen(false);
+  }, [haptic]);
+
+  const handleStopDensity = useCallback(() => {
+    setDensityActive?.(false);
+    setDensitySeconds?.(0);
+    setIsDensityFullscreen(false);
+  }, [setDensityActive, setDensitySeconds]);
+
   // Only show the action bar if there's an active timer
-  const hasActiveTimer = timerState.time > 0 || emomState?.active;
+  const hasActiveTimer = timerState.time > 0 || emomState?.active || densityState?.active;
 
   // Render fullscreen REST timer if expanded
   if (isRestFullscreen && timerState.time > 0) {
@@ -201,6 +249,22 @@ export function ActionBar({
         onAddTime={() => {}} // EMOM doesn't use add time
         onMinimize={handleMinimizeEmom}
         onAdjustInterval={handleAdjustEmomInterval}
+        soundEnabled={soundEnabled}
+        onToggleSound={toggleSound}
+      />
+    );
+  }
+
+  // Render fullscreen density timer if expanded
+  if (isDensityFullscreen && densityState?.active) {
+    return (
+      <FullscreenTimer
+        mode="density"
+        seconds={densityState.seconds}
+        totalSeconds={densityState.timeMinutes * 60}
+        onStop={handleStopDensity}
+        onAddTime={() => {}} // Density doesn't use add time
+        onMinimize={handleMinimizeDensity}
         soundEnabled={soundEnabled}
         onToggleSound={toggleSound}
       />
@@ -288,6 +352,56 @@ export function ActionBar({
                   <Plus size={20} />
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Density Timer Display */}
+      {densityState?.active && setDensityActive && setDensitySeconds && (
+        <div className="px-4 pt-3 pb-2">
+          <div className={`glass-panel px-5 py-4 rounded-2xl shadow-lg ${densityTimerJustActivated ? 'animate-slide-up' : ''}`}>
+            <div className="flex items-center gap-3 mb-3">
+              {/* Expand button */}
+              <button
+                onClick={handleExpandDensity}
+                className="btn-icon h-8 w-8 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300"
+                aria-label="Expand density timer to fullscreen"
+              >
+                <Maximize2 size={16} />
+              </button>
+              <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+                Density
+              </span>
+              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-cyan-500/20">
+                <span className="text-xs font-bold text-cyan-300">
+                  {densityState.timeMinutes}m
+                </span>
+              </div>
+              <button
+                onClick={() => {
+                  haptic.bump();
+                  setDensityActive(false);
+                  setDensitySeconds(0);
+                }}
+                className="btn-icon ml-auto h-8 w-8 bg-white/10 hover:bg-white/20 text-white"
+                aria-label="Stop density timer"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            <div className="flex items-center gap-4">
+              <span
+                className={`text-3xl font-mono font-bold min-w-[90px] transition-colors ${
+                  densityState.seconds <= 10
+                    ? 'text-sys-error animate-pulse'
+                    : 'text-white'
+                }`}
+              >
+                {Math.floor(densityState.seconds / 60)}:
+                {densityState.seconds % 60 < 10 ? '0' : ''}
+                {densityState.seconds % 60}
+              </span>
             </div>
           </div>
         </div>

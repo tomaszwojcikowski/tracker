@@ -26,6 +26,7 @@ import {
     useDebounce,
     useRestTimer,
     useEmomTimer,
+    useDensityTimer,
     useExerciseCollapse,
     useKeyboardShortcut,
     useScrollToElement,
@@ -282,6 +283,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     // Use extracted timer hooks
     const restTimer = useRestTimer({ haptic });
     const emomTimer = useEmomTimer({ haptic });
+    const densityTimer = useDensityTimer({ haptic });
 
     // Toggle compact view and persist preference
     const toggleCompactView = useCallback(() => {
@@ -1069,8 +1071,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     // Consolidated timer props - used across all exercise card variants
     const timerProps: TimerProps = useMemo(() => createTimerProps(
         { active: emomTimer.active, interval: emomTimer.interval, toggle: emomTimer.toggle },
-        { start: restTimer.start, active: restTimer.active }
-    ), [emomTimer.active, emomTimer.interval, emomTimer.toggle, restTimer.start, restTimer.active]);
+        { start: restTimer.start, active: restTimer.active },
+        { active: densityTimer.active, toggle: densityTimer.toggle }
+    ), [emomTimer.active, emomTimer.interval, emomTimer.toggle, restTimer.start, restTimer.active, densityTimer.active, densityTimer.toggle]);
 
     // Consolidated RPE props - used across all exercise card variants
     const rpeProps: RPEProps = useMemo(() => createRPEProps(
@@ -1478,6 +1481,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     emomTimerActive={emomTimer.active}
                                                     emomTimerInterval={emomTimer.interval}
                                                     onToggleEmomTimer={emomTimer.toggle}
+                                                    densityTimerActive={densityTimer.active}
+                                                    onToggleDensityTimer={() => {
+                                                        if (exerciseWithOptions.densityTimeMinutes) {
+                                                            densityTimer.toggle(exerciseWithOptions.densityTimeMinutes);
+                                                        }
+                                                    }}
                                                 />
                                             );
                                         });
@@ -1630,6 +1639,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     setEmomActive={emomTimer.setActive}
                     setEmomSeconds={emomTimer.setSeconds}
                     setEmomInterval={emomTimer.setIntervalState}
+                    densityState={{ active: densityTimer.active, seconds: densityTimer.seconds, timeMinutes: densityTimer.timeMinutes }}
+                    setDensityActive={densityTimer.setActive}
+                    setDensitySeconds={densityTimer.setSeconds}
                 />
 
                 {/* Timer Toast */}

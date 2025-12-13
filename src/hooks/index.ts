@@ -185,6 +185,11 @@ export { useRestTimer } from './useRestTimer';
 
 // Re-export emom timer (used via index)
 export { useEmomTimer } from './useEmomTimer';
+export type { UseEmomTimerOptions, UseEmomTimerReturn } from './useEmomTimer';
+
+// Re-export density timer (used via index) (v2.5+)
+export { useDensityTimer } from './useDensityTimer';
+export type { UseDensityTimerOptions, UseDensityTimerReturn } from './useDensityTimer';
 
 // Re-export exercise collapse hook (used via index)
 export { useExerciseCollapse } from './useExerciseCollapse';

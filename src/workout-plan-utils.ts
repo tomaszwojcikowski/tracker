@@ -178,6 +178,10 @@ export interface ScheduleEntry {
   exerciseOptions?: ExerciseOption[];
   /** Whether this is a flow exercise (v2.4+) */
   isFlow?: boolean;
+  /** Total time in minutes for density exercises (v2.5+) */
+  densityTimeMinutes?: number;
+  /** Total reps target for density exercises (v2.5+) */
+  densityRepsTotal?: number;
 }
 
 /**
@@ -188,7 +192,7 @@ export type LoadUnit = 'kg' | 'band' | 'bodyweight' | 'percent';
 /**
  * Rep type for structured reps data
  */
-export type RepsType = 'reps' | 'time' | 'ladder' | 'amrap' | 'rm' | 'max' | 'effort' | 'submax' | 'none' | 'flow';
+export type RepsType = 'reps' | 'time' | 'ladder' | 'amrap' | 'rm' | 'max' | 'effort' | 'submax' | 'none' | 'flow' | 'density';
 
 /**
  * Exercise option - a single variation of an exercise
@@ -235,6 +239,10 @@ export interface ExerciseOption {
   variation?: string;
   /** Sequence of movements for flow exercises (v2.4+) */
   flowMovements?: string[];
+  /** Override density time for this option (v2.5+) */
+  densityTimeMinutes?: number;
+  /** Override density reps target for this option (v2.5+) */
+  densityRepsTotal?: number;
 }
 
 /**
@@ -278,6 +286,10 @@ export interface V2ExerciseTemplate {
   supersetGroup?: number;
   /** Whether this is a mobility flow exercise (v2.4+) */
   isFlow?: boolean;
+  /** Total time in minutes for density exercises (v2.5+) */
+  densityTimeMinutes?: number;
+  /** Total reps target for density exercises (v2.5+) */
+  densityRepsTotal?: number;
 }
 export interface V2ExerciseRef {
   /** Reference to an exercise template ID */
@@ -314,6 +326,10 @@ export interface V2ExerciseRef {
   supersetGroup?: number;
   /** Whether this is a mobility flow exercise (v2.4+) */
   isFlow?: boolean;
+  /** Total time in minutes for density exercises (v2.5+) */
+  densityTimeMinutes?: number;
+  /** Total reps target for density exercises (v2.5+) */
+  densityRepsTotal?: number;
 }
 
 /**
@@ -421,6 +437,10 @@ export interface V2Exercise {
   supersetGroup?: number;
   /** Whether this is a mobility flow exercise (v2.4+) */
   isFlow?: boolean;
+  /** Total time in minutes for density exercises (v2.5+) */
+  densityTimeMinutes?: number;
+  /** Total reps target for density exercises (v2.5+) */
+  densityRepsTotal?: number;
 }
 
 /**
@@ -500,10 +520,10 @@ export interface V2Plan {
 }
 
 /**
- * V2.0.0/V2.1.0/V2.2.0/V2.3.0/V2.4.0 format root structure
+ * V2.0.0/V2.1.0/V2.2.0/V2.3.0/V2.4.0/V2.5.0 format root structure
  */
 export interface V2WorkoutPlan {
-  formatVersion: '2.0.0' | '2.1.0' | '2.2.0' | '2.3.0' | '2.4.0';
+  formatVersion: '2.0.0' | '2.1.0' | '2.2.0' | '2.3.0' | '2.4.0' | '2.5.0';
   plan: V2Plan;
 }
 
@@ -577,8 +597,8 @@ function validateV2Format(data: unknown): data is V2WorkoutPlan {
   if (!data || typeof data !== 'object') return false;
 
   const obj = data as Record<string, unknown>;
-  // Support 2.0.0, 2.1.0, 2.2.0, 2.3.0, and 2.4.0
-  const validVersions = ['2.0.0', '2.1.0', '2.2.0', '2.3.0', '2.4.0'];
+  // Support 2.0.0, 2.1.0, 2.2.0, 2.3.0, 2.4.0, and 2.5.0
+  const validVersions = ['2.0.0', '2.1.0', '2.2.0', '2.3.0', '2.4.0', '2.5.0'];
   if (!obj.formatVersion || !validVersions.includes(obj.formatVersion as string) || !obj.plan) return false;
 
   const plan = obj.plan as Record<string, unknown>;
@@ -660,6 +680,8 @@ function resolveExerciseReference(
     isUnilateral: exerciseOrRef.isUnilateral ?? template.isUnilateral,
     supersetGroup: exerciseOrRef.supersetGroup ?? template.supersetGroup,
     isFlow: exerciseOrRef.isFlow ?? template.isFlow,
+    densityTimeMinutes: exerciseOrRef.densityTimeMinutes ?? template.densityTimeMinutes,
+    densityRepsTotal: exerciseOrRef.densityRepsTotal ?? template.densityRepsTotal,
   };
 
   // Add cues if present

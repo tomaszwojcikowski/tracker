@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "prebuild": "cp data/workout-plan-v2.4.json data/exercises.json colors.css public/",
-    "predev": "cp data/workout-plan-v2.4.json data/exercises.json colors.css public/",
+    "prebuild": "cp data/workout-plan-v2.5.json data/exercises.json colors.css public/",
+    "predev": "cp data/workout-plan-v2.5.json data/exercises.json colors.css public/",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",

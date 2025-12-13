@@ -34,6 +34,8 @@ export interface RawScheduleItem {
     alternatives?: string[]; // Array of alternative exercise names
     exerciseOptions?: ExerciseOption[]; // Array of exercise options to choose from
     isFlow?: boolean;   // Whether this is a mobility flow exercise (v2.4+)
+    densityTimeMinutes?: number; // Total time in minutes for density exercises (v2.5+)
+    densityRepsTotal?: number;   // Total reps target for density exercises (v2.5+)
 }
 
 /**

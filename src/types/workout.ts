@@ -55,6 +55,12 @@ export interface ExerciseDetailMetadata {
     isLadder?: boolean;
     /** Whether this is a mobility flow exercise (v2.4+) */
     isFlow?: boolean;
+    /** Whether this is a density exercise (v2.5+) */
+    isDensity?: boolean;
+    /** Total time in minutes for density exercises (v2.5+) */
+    densityTimeMinutes?: number;
+    /** Total reps target for density exercises (v2.5+) */
+    densityRepsTotal?: number;
     /** Suggested load range */
     loadRange?: LoadRange | null;
     /** Tempo for the exercise (eccentric-pauseBottom-concentric-pauseTop) */

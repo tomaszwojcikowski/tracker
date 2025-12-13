@@ -32,6 +32,9 @@ export interface ExerciseTypeFlags {
     isAmrap: boolean;
     isLadder: boolean;
     ladderReps?: number[];
+    isDensity: boolean;
+    densityTimeMinutes?: number;
+    densityRepsTotal?: number;
 }
 
 /**
@@ -86,6 +89,9 @@ export function getExerciseTypeFlags(ex: WorkoutExercise): ExerciseTypeFlags {
         ladderReps: ex.repsRange?.type === 'ladder' && Array.isArray(ex.repsRange?.value)
             ? ex.repsRange.value as number[]
             : undefined,
+        isDensity: ex.repsRange?.type === 'density',
+        densityTimeMinutes: ex.densityTimeMinutes,
+        densityRepsTotal: ex.densityRepsTotal,
     };
 }
 

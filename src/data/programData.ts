@@ -50,6 +50,10 @@ export interface WorkoutExercise {
   exerciseOptions?: ExerciseOption[];
   /** Whether this is a mobility flow exercise (v2.4+) */
   isFlow?: boolean;
+  /** Total time in minutes for density exercises (v2.5+) */
+  densityTimeMinutes?: number;
+  /** Total reps target for density exercises (v2.5+) */
+  densityRepsTotal?: number;
 }
 
 /**
@@ -59,7 +63,7 @@ export interface WorkoutExercise {
  */
 type OptionalExerciseFields = Pick<
   WorkoutExercise,
-  'load' | 'loadRange' | 'repsRange' | 'tempoRange' | 'alternatives' | 'exerciseOptions' | 'isFlow'
+  'load' | 'loadRange' | 'repsRange' | 'tempoRange' | 'alternatives' | 'exerciseOptions' | 'isFlow' | 'densityTimeMinutes' | 'densityRepsTotal'
 >;
 
 /**
@@ -76,6 +80,8 @@ function extractOptionalExerciseFields(item: RawScheduleItem): OptionalExerciseF
     alternatives: item.alternatives,
     exerciseOptions: item.exerciseOptions,
     isFlow: item.isFlow,
+    densityTimeMinutes: item.densityTimeMinutes,
+    densityRepsTotal: item.densityRepsTotal,
   };
 }
 

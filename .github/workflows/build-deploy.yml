@@ -32,8 +32,10 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Initialize CI environment
+        run: |
+          npm ci
+          chmod +x scripts/ci-init.sh
 
       - name: Run TypeScript type check
         run: npm run typecheck
@@ -51,8 +53,10 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Initialize CI environment
+        run: |
+          npm ci
+          chmod +x scripts/ci-init.sh
 
       - name: Run unit tests with coverage
         run: npm run test:coverage
@@ -87,11 +91,10 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+      - name: Initialize CI environment
+        run: |
+          chmod +x scripts/ci-init.sh
+          ./scripts/ci-init.sh
 
       - name: Run E2E tests
         run: npm run test:e2e
@@ -118,8 +121,10 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Initialize CI environment
+        run: |
+          npm ci
+          chmod +x scripts/ci-init.sh
 
       - name: Build project
         run: npm run build

@@ -13,6 +13,7 @@ import { getShortExerciseName } from '../constants';
 import { CompactSetButtons } from './CompactSetButtons';
 import { ExerciseOptionsBadge } from './ExerciseOptionsBadge';
 import { FlowMovementsDisplay, FlowBadge } from './FlowMovementsDisplay';
+import { DensityRepControls } from './DensityRepControls';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest } from '../types/workout';
 import type { TempoRange } from '../workout-plan-utils';
@@ -124,6 +125,14 @@ export interface CompactExerciseRowProps {
     densityTimerActive?: boolean;
     /** Callback to toggle density timer */
     onToggleDensityTimer?: () => void;
+    /** Density rep chunks (v2.5+) */
+    densityRepChunks?: number[];
+    /** Density complete flag (v2.5+) */
+    densityComplete?: boolean;
+    /** Callback to update density rep chunks */
+    onUpdateDensityRepChunks?: (exId: string, chunks: number[]) => void;
+    /** Callback to mark density as complete */
+    onMarkDensityComplete?: (exId: string, complete: boolean) => void;
 }
 
 // ============================================================================
@@ -172,6 +181,10 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     onToggleEmomTimer,
     densityTimerActive = false,
     onToggleDensityTimer,
+    densityRepChunks = [],
+    densityComplete = false,
+    onUpdateDensityRepChunks,
+    onMarkDensityComplete,
 }) => {
     // State - auto-expand the first incomplete exercise
     const [isExpanded, setIsExpanded] = useState(isFirstIncomplete);
@@ -615,6 +628,21 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                 onShowOptions(exId, displayName, exerciseOptions);
                             } : undefined}
                         />
+                    )}
+
+                    {/* Density Rep Controls - for density exercises */}
+                    {isDensity && densityRepsTotal && onUpdateDensityRepChunks && onMarkDensityComplete && (
+                        <div className="mb-3">
+                            <DensityRepControls
+                                targetReps={densityRepsTotal}
+                                repChunks={densityRepChunks}
+                                isComplete={densityComplete}
+                                isFirstIncomplete={isFirstIncomplete}
+                                haptic={haptic}
+                                onUpdateRepChunks={(chunks) => onUpdateDensityRepChunks(exId, chunks)}
+                                onMarkComplete={(complete) => onMarkDensityComplete(exId, complete)}
+                            />
+                        </div>
                     )}
 
                     {/* Weight Stepper and Add Set Row */}

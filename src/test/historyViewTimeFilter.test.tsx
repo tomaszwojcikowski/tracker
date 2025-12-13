@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 
 /**
  * Unit Tests for HistoryView Time Filter Functionality
@@ -29,7 +29,12 @@ import { describe, it, expect, beforeEach } from 'vitest';
  */
 
 describe('HistoryView Time Filter', () => {
-    // Type definition for test history entries
+    /**
+     * Simplified type for testing the filter logic.
+     * The actual GlobalHistoryEntry interface has additional fields (exercises, etc.)
+     * but the filtering logic only uses the 'date' field, so we use a minimal interface
+     * to keep tests focused and simple.
+     */
     interface TestHistoryEntry {
         date: string;
         week: number;

@@ -100,13 +100,7 @@ export function ActionBar({
 
   useEffect(() => {
     setDensityTotalSeconds((densityState?.timeMinutes ?? 0) * 60);
-  }, [densityState?.timeMinutes]);
-
-  useEffect(() => {
-    if (!densityState?.active) {
-      setDensityTotalSeconds((densityState?.timeMinutes ?? 0) * 60);
-    }
-  }, [densityState?.active, densityState?.timeMinutes]);
+  }, [densityState?.timeMinutes, densityState?.active]);
 
   // Track when rest timer transitions from inactive to active (for slide-up animation)
   useEffect(() => {
@@ -234,6 +228,7 @@ export function ActionBar({
   const handleAddDensityTime = useCallback((amount: number) => {
     setDensitySeconds?.((s: number) => Math.max(0, s + amount));
     if (amount > 0) {
+      // Only increase total time when extending the timer to keep progress accurate
       setDensityTotalSeconds(prev => Math.max(0, prev + amount));
     }
   }, [setDensitySeconds]);

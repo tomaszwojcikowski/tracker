@@ -147,6 +147,9 @@ export interface FocusViewProps {
     onShowHistory: (request: ExerciseDetailRequest) => void;
     onShowAlternatives: (name: string, alternatives: string[]) => void;
     onRemoveAddedExercise: (id: string) => void;
+    /** Density exercise callbacks for rep tracking and completion */
+    onUpdateDensityRepChunks?: (exId: string, chunks: number[]) => void;
+    onMarkDensityComplete?: (exId: string, complete: boolean) => void;
     /** Selected exercise options by exercise ID */
     selectedExerciseOptions?: Record<string, string>;
     /** Callback when exercise options button is clicked */
@@ -179,6 +182,8 @@ export const FocusView: React.FC<FocusViewProps> = ({
     onShowHistory,
     onShowAlternatives,
     onRemoveAddedExercise,
+    onUpdateDensityRepChunks,
+    onMarkDensityComplete,
     selectedExerciseOptions = {},
     onShowOptions,
 }) => {
@@ -375,6 +380,8 @@ export const FocusView: React.FC<FocusViewProps> = ({
                                     exerciseOptions={ex.exerciseOptions}
                                     selectedOption={selectedExerciseOptions[exId]}
                                     onShowOptions={onShowOptions}
+                                    onUpdateDensityRepChunks={onUpdateDensityRepChunks}
+                                    onMarkDensityComplete={onMarkDensityComplete}
                                 />
                             </div>
                         );
@@ -422,6 +429,8 @@ export const FocusView: React.FC<FocusViewProps> = ({
                 exerciseOptions={ex.exerciseOptions}
                 selectedOption={selectedExerciseOptions[exId]}
                 onShowOptions={onShowOptions}
+                onUpdateDensityRepChunks={onUpdateDensityRepChunks}
+                onMarkDensityComplete={onMarkDensityComplete}
             />
         );
     }, [
@@ -443,6 +452,8 @@ export const FocusView: React.FC<FocusViewProps> = ({
         onRemoveAddedExercise,
         selectedExerciseOptions,
         onShowOptions,
+        onUpdateDensityRepChunks,
+        onMarkDensityComplete,
     ]);
 
     // Get current item info

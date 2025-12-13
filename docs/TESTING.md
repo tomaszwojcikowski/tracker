@@ -282,3 +282,151 @@ No new user-facing features were added. The refactor maintains existing function
 1. URL query parameters (highest priority)
 2. localStorage saved state
 3. Default values (lowest priority)
+
+---
+
+# Automated Testing Requirements
+
+## Overview
+All code changes MUST pass both unit tests and E2E tests before committing. This ensures code quality and prevents regressions.
+
+## Pre-Commit Testing Workflow
+
+### Required Tests
+Before committing any code changes, run all tests in this order:
+
+```bash
+# 1. Install dependencies (if needed)
+npm install
+
+# 2. Run TypeScript type checking
+npm run typecheck
+
+# 3. Run all unit tests
+npm test
+
+# 4. Run all E2E tests
+npm run test:e2e
+
+# 5. Build verification (optional but recommended)
+npm run build
+```
+
+### Test Suites
+
+#### 1. Unit Tests (Vitest)
+**Command**: `npm test`
+
+**Coverage**: 60 test files, 1244+ tests
+- Component tests (React Testing Library)
+- Utility function tests
+- Hook tests
+- State management tests
+- Data model tests
+
+**Key test files**:
+- `densityRepControls.test.tsx` - Density exercise controls (18 tests)
+- `exerciseHistory.test.jsx` - Exercise history tracking
+- `storageUtils.test.jsx` - localStorage utilities
+- `scheduleUtils.test.jsx` - Schedule building
+- `toggleSet.test.jsx` - Set completion logic
+- `firebaseSync.test.jsx` - Cloud sync
+- `automergeSync.test.tsx` - CRDT sync
+- And 53 more test files...
+
+**Expected output**:
+```
+✓ Test Files  60 passed (60)
+  Tests  1244 passed | 4 skipped (1248)
+```
+
+#### 2. E2E Tests (Playwright)
+**Command**: `npm run test:e2e`
+
+**Coverage**: 86 end-to-end tests
+- Navigation flows
+- Workout tracking
+- PWA functionality
+- Program selection
+- Deep linking
+- Mobile responsiveness
+
+**Test files**:
+- `e2e/navigation.spec.js`
+- `e2e/workout.spec.js`
+- `e2e/pwa.spec.js`
+- `e2e/program-selector.spec.js`
+- `e2e/new-features.spec.js`
+
+**Expected output**:
+```
+Running 86 tests using 4 workers
+86 passed (53.6s)
+```
+
+**First-time setup**:
+If Playwright browsers aren't installed:
+```bash
+npx playwright install chromium
+```
+
+#### 3. Type Checking
+**Command**: `npm run typecheck`
+
+Verifies TypeScript type safety across the codebase.
+
+### When Tests Fail
+
+#### Unit Test Failures
+1. Read the error message carefully - it shows which test failed and why
+2. Check if your changes broke existing functionality
+3. Update tests if the behavior change was intentional
+4. Fix the code if the test caught a real bug
+
+Example: When updating DensityRepControls to change text from `"15 / 30 reps"` to `"15/30"`, update test assertions:
+```diff
+- expect(screen.getByText('15 / 30 reps')).toBeInTheDocument();
++ expect(screen.getByText('15/30')).toBeInTheDocument();
+```
+
+#### E2E Test Failures
+1. Check if the UI change broke user workflows
+2. Review Playwright trace files (shown in error output)
+3. Run failing test in headed mode for debugging:
+```bash
+npx playwright test --headed --grep "test name"
+```
+
+### CI/CD Integration
+All tests run automatically on:
+- Pull request creation
+- Pull request updates
+- Merge to main branch
+
+The PR cannot be merged until all tests pass.
+
+### Test-Driven Development
+For new features:
+1. Write tests first (or alongside implementation)
+2. Ensure tests fail initially (red)
+3. Implement feature
+4. Ensure tests pass (green)
+5. Refactor if needed
+6. Run full test suite before committing
+
+### Performance
+- Unit tests: ~28-30 seconds
+- E2E tests: ~50-60 seconds
+- Total pre-commit testing: ~1.5-2 minutes
+
+### Tips
+- Run specific test file: `npm test -- densityRepControls`
+- Run tests in watch mode: `npm run test:watch`
+- Run E2E tests in UI mode: `npm run test:e2e:ui`
+- Check test coverage: Tests are comprehensive but not tracked by coverage tools currently
+
+## Summary
+✅ **Always run both `npm test` and `npm run test:e2e` before committing**
+✅ All 1244+ unit tests must pass
+✅ All 86 E2E tests must pass
+✅ TypeScript must compile without errors

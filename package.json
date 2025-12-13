@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "prebuild": "cp data/workout-plan-v2.5.json data/exercises.json colors.css public/",
-    "predev": "cp data/workout-plan-v2.5.json data/exercises.json colors.css public/",
+    "prebuild": "node scripts/copy-static-assets.mjs",
+    "predev": "node scripts/copy-static-assets.mjs",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
@@ -19,7 +19,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "validate:workout": "node scripts/validate-workout-data.mjs",
-    "prepare": "cp scripts/hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit"
+    "prepare": "node scripts/install-git-hooks.mjs"
   },
   "dependencies": {
     "@automerge/automerge": "^3.2.0",

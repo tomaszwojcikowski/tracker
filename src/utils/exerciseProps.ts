@@ -60,6 +60,8 @@ export interface TimerProps {
     onToggleEmomTimer: () => void;
     onStartRestTimer: (seconds: number) => void;
     restTimerActive?: boolean;
+    densityTimerActive?: boolean;
+    onToggleDensityTimer?: (timeMinutes: number) => void;
 }
 
 /**
@@ -131,11 +133,12 @@ export function createExerciseOptionsProps(
 
 /**
  * Create timer props from timer hook states.
- * Used to pass emom and rest timer state/callbacks together.
+ * Used to pass emom, density, and rest timer state/callbacks together.
  */
 export function createTimerProps(
     emomTimer: { active: boolean; interval: number; toggle: () => void },
-    restTimer: { start: (seconds: number) => void; active?: boolean }
+    restTimer: { start: (seconds: number) => void; active?: boolean },
+    densityTimer?: { active: boolean; toggle: (minutes: number) => void }
 ): TimerProps {
     return {
         emomTimerActive: emomTimer.active,
@@ -143,6 +146,8 @@ export function createTimerProps(
         onToggleEmomTimer: emomTimer.toggle,
         onStartRestTimer: restTimer.start,
         restTimerActive: restTimer.active,
+        densityTimerActive: densityTimer?.active,
+        onToggleDensityTimer: densityTimer?.toggle,
     };
 }
 

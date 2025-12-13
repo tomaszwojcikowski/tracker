@@ -1,9 +1,31 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 
 /**
- * Tests for HistoryView time filter functionality
- * Tests the filtering logic for week, month, and all time filters
- * Addresses edge cases with timezone handling
+ * Unit Tests for HistoryView Time Filter Functionality
+ * 
+ * These tests verify the time filtering logic (week, month, all time) added to HistoryView.
+ * Unit tests are the most appropriate way to test this filtering logic because:
+ * 
+ * 1. **Date calculations** - The filtering relies on date math (7 days, 30 days) that needs
+ *    precise testing with boundary conditions, which is much easier to do in unit tests
+ *    than E2E tests.
+ * 
+ * 2. **Timezone handling** - Edge cases around timezone handling and millisecond precision
+ *    are critical and best verified through focused unit tests.
+ * 
+ * 3. **Deterministic testing** - Unit tests can precisely control time values to test
+ *    exact boundary conditions (e.g., exactly 7 days vs. 7 days + 1ms).
+ * 
+ * 4. **Fast feedback** - These tests run in milliseconds vs. minutes for E2E tests.
+ * 
+ * Coverage: 16 test cases covering:
+ * - Basic filtering (all, week, month)
+ * - Boundary conditions (exactly at 7/30 days, just past boundaries)
+ * - Timezone and date precision
+ * - Empty arrays and edge cases
+ * - Multiple entries across time ranges
+ * 
+ * Reference: HistoryView.tsx lines 416-429 (filtering logic)
  */
 
 describe('HistoryView Time Filter', () => {

@@ -76,6 +76,9 @@ export function ActionBar({
 
   // Track total time when timer starts
   const [totalTime, setTotalTime] = useState(timerState.totalTime ?? timerState.time);
+  const [densityTotalSeconds, setDensityTotalSeconds] = useState(
+    (densityState?.timeMinutes ?? 0) * 60
+  );
 
   // Update total time when timer starts fresh (time increases or resets to new value)
   useEffect(() => {
@@ -94,6 +97,16 @@ export function ActionBar({
       setTotalTime(timerState.totalTime);
     }
   }, [timerState.totalTime]);
+
+  useEffect(() => {
+    setDensityTotalSeconds((densityState?.timeMinutes ?? 0) * 60);
+  }, [densityState?.timeMinutes]);
+
+  useEffect(() => {
+    if (!densityState?.active) {
+      setDensityTotalSeconds((densityState?.timeMinutes ?? 0) * 60);
+    }
+  }, [densityState?.active, densityState?.timeMinutes]);
 
   // Track when rest timer transitions from inactive to active (for slide-up animation)
   useEffect(() => {
@@ -218,6 +231,13 @@ export function ActionBar({
     setIsDensityFullscreen(false);
   }, [setDensityActive, setDensitySeconds]);
 
+  const handleAddDensityTime = useCallback((amount: number) => {
+    setDensitySeconds?.((s: number) => Math.max(0, s + amount));
+    if (amount > 0) {
+      setDensityTotalSeconds(prev => Math.max(0, prev + amount));
+    }
+  }, [setDensitySeconds]);
+
   // Only show the action bar if there's an active timer
   const hasActiveTimer = timerState.time > 0 || emomState?.active || densityState?.active;
 
@@ -261,9 +281,9 @@ export function ActionBar({
       <FullscreenTimer
         mode="density"
         seconds={densityState.seconds}
-        totalSeconds={densityState.timeMinutes * 60}
+        totalSeconds={densityTotalSeconds || densityState.timeMinutes * 60}
         onStop={handleStopDensity}
-        onAddTime={() => {}} // Density doesn't use add time
+        onAddTime={handleAddDensityTime}
         onMinimize={handleMinimizeDensity}
         soundEnabled={soundEnabled}
         onToggleSound={toggleSound}
@@ -402,6 +422,16 @@ export function ActionBar({
                 {densityState.seconds % 60 < 10 ? '0' : ''}
                 {densityState.seconds % 60}
               </span>
+              <button
+                onClick={() => {
+                  haptic.bump();
+                  handleAddDensityTime(30);
+                }}
+                className="btn-md3 btn-text text-cyan-300 font-bold text-base min-h-[44px] ml-auto"
+                aria-label="Add 30 seconds to density timer"
+              >
+                +30s
+              </button>
             </div>
           </div>
         </div>

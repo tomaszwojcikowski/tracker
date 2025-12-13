@@ -225,12 +225,9 @@ export function ActionBar({
     setIsDensityFullscreen(false);
   }, [setDensityActive, setDensitySeconds]);
 
-  const handleAddDensityTime = useCallback((amount: number) => {
-    setDensitySeconds?.((s: number) => Math.max(0, s + amount));
-    if (amount > 0) {
-      // Only increase total time when extending the timer to keep progress accurate
-      setDensityTotalSeconds(prev => Math.max(0, prev + amount));
-    }
+  const handleAddDensityTime = useCallback((timeDelta: number) => {
+    setDensitySeconds?.((s: number) => Math.max(0, s + timeDelta));
+    setDensityTotalSeconds(prev => Math.max(0, prev + timeDelta));
   }, [setDensitySeconds]);
 
   // Only show the action bar if there's an active timer

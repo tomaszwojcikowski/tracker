@@ -11,6 +11,10 @@ test.describe('History View Time Filter', () => {
     await page.addInitScript(() => {
       localStorage.setItem('tracker_onboarding_completed', 'true');
 
+      // Ensure seeded history matches the active default program
+      // (the app's default program id comes from the bundled workout plan)
+      localStorage.setItem('tracker_active_program', 'integrated-strength-v26-9');
+
       // Seed global history with entries across different time periods
       const today = new Date();
       const globalHistory = [
@@ -75,7 +79,7 @@ test.describe('History View Time Filter', () => {
 
       // Set both legacy and namespaced keys for global history
       localStorage.setItem('tracker_global_history', JSON.stringify(globalHistory));
-      localStorage.setItem('p:oneplus-12-pro-tracker-v1:global_history', JSON.stringify(globalHistory));
+      localStorage.setItem('p:integrated-strength-v26-9:global_history', JSON.stringify(globalHistory));
     });
 
     await page.goto('/');

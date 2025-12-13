@@ -1,5 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const webServerCommand =
+  process.platform === 'win32'
+    ? 'set NODE_OPTIONS=&& set VSCODE_INSPECTOR_OPTIONS=&& node scripts/start-vite-no-autoattach.mjs'
+    : 'NODE_OPTIONS= VSCODE_INSPECTOR_OPTIONS= node scripts/start-vite-no-autoattach.mjs';
+
 /**
  * Playwright configuration for E2E testing
  * @see https://playwright.dev/docs/test-configuration
@@ -55,7 +60,7 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npm run dev',
+    command: webServerCommand,
     url: 'http://localhost:5173/tracker/',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000, // 2 minutes to start the dev server

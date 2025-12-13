@@ -5,7 +5,7 @@
 set -e
 
 echo "📦 Installing dependencies..."
-npm install
+npm ci
 
 echo "🎭 Installing Playwright browsers..."
 npx playwright install --with-deps chromium

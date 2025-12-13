@@ -100,33 +100,29 @@ export const DensityRepControls = ({
                 </div>
             </div>
 
-            {/* Quick Add Buttons - Ultra compact */}
+            {/* All Controls - Single line */}
             <div className="flex gap-1.5">
                 <button
                     onClick={() => handleQuickAdd(1)}
-                    className="flex-1 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-bold active:scale-95 active:bg-cyan-500/20 transition-all"
+                    className="h-7 px-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-bold active:scale-95 active:bg-cyan-500/20 transition-all"
                     aria-label="Add 1 rep"
                 >
                     +1
                 </button>
                 <button
                     onClick={() => handleQuickAdd(3)}
-                    className="flex-1 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-bold active:scale-95 active:bg-cyan-500/20 transition-all"
+                    className="h-7 px-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-bold active:scale-95 active:bg-cyan-500/20 transition-all"
                     aria-label="Add 3 reps"
                 >
                     +3
                 </button>
                 <button
                     onClick={() => handleQuickAdd(5)}
-                    className="flex-1 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-bold active:scale-95 active:bg-cyan-500/20 transition-all"
+                    className="h-7 px-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-bold active:scale-95 active:bg-cyan-500/20 transition-all"
                     aria-label="Add 5 reps"
                 >
                     +5
                 </button>
-            </div>
-
-            {/* Custom Amount Input - Ultra compact */}
-            <div className="flex gap-1.5">
                 <input
                     type="number"
                     inputMode="numeric"
@@ -146,11 +142,10 @@ export const DensityRepControls = ({
                 <button
                     onClick={handleAddChunk}
                     disabled={!chunkInput || parseInt(chunkInput, 10) <= 0}
-                    className="h-7 px-2.5 rounded-lg bg-cyan-500 text-white text-sm font-medium flex items-center justify-center gap-1 active:scale-95 transition-all disabled:opacity-40 disabled:pointer-events-none shadow-[0_0_8px_rgba(6,182,212,0.3)]"
+                    className="h-7 w-7 rounded-lg bg-cyan-500 text-white text-sm font-medium flex items-center justify-center active:scale-95 transition-all disabled:opacity-40 disabled:pointer-events-none shadow-[0_0_8px_rgba(6,182,212,0.3)]"
                     aria-label="Add custom rep count"
                 >
                     <Plus size={13} />
-                    Add
                 </button>
             </div>
 
@@ -177,10 +172,10 @@ export const DensityRepControls = ({
                 </div>
             )}
 
-            {/* Mark Complete Button - Ultra compact */}
+            {/* Mark Complete Button - Icon only */}
             <button
                 onClick={handleToggleComplete}
-                className={`w-full h-7 rounded-lg flex items-center justify-center gap-1 font-medium text-sm transition-all active:scale-[0.98] ${
+                className={`w-full h-7 rounded-lg flex items-center justify-center font-medium text-sm transition-all active:scale-[0.98] ${
                     isComplete
                         ? 'bg-sys-success text-white shadow-[0_0_12px_rgba(16,185,129,0.4)]'
                         : allRepsComplete
@@ -189,8 +184,7 @@ export const DensityRepControls = ({
                 }`}
                 aria-label={isComplete ? 'Mark as incomplete' : 'Mark as complete'}
             >
-                <Check size={13} />
-                <span>{isComplete ? 'Completed' : 'Mark Complete'}</span>
+                <Check size={16} />
             </button>
         </div>
     );

@@ -390,14 +390,36 @@ describe('useDensityTimer', () => {
                 result.current.start(1);
             });
 
-            // Advance to 1 second
+            // Advance to 2 seconds remaining
+            act(() => {
+                vi.advanceTimersByTime(58000);
+            });
+
+            vi.clearAllMocks();
+
+            // Advance to 1 second remaining
+            act(() => {
+                vi.advanceTimersByTime(1000);
+            });
+
+            expect(playTickSound).toHaveBeenCalled();
+        });
+
+        it('should play beep sound when timer completes', () => {
+            const { result } = renderHook(() => useDensityTimer({ haptic: mockHaptic }));
+
+            act(() => {
+                result.current.start(1);
+            });
+
+            // Advance to 1 second remaining
             act(() => {
                 vi.advanceTimersByTime(59000);
             });
 
             vi.clearAllMocks();
 
-            // Advance to 0 seconds
+            // Advance final second to completion (0 seconds)
             act(() => {
                 vi.advanceTimersByTime(1000);
             });

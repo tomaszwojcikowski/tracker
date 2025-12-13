@@ -42,7 +42,7 @@ describe('DensityRepControls', () => {
 
             expect(screen.getByText('0/30')).toBeInTheDocument();
             expect(screen.getByText('0%')).toBeInTheDocument();
-            expect(screen.getByText('Mark Complete')).toBeInTheDocument();
+            expect(screen.getByLabelText('Mark as complete')).toBeInTheDocument();
         });
 
         it('should calculate total reps from chunks', () => {
@@ -75,7 +75,7 @@ describe('DensityRepControls', () => {
 
             expect(screen.getByText('30/30')).toBeInTheDocument();
             expect(screen.getByText('100%')).toBeInTheDocument();
-            expect(screen.getByText('Mark Complete')).toBeInTheDocument();
+            expect(screen.getByLabelText('Mark as complete')).toBeInTheDocument();
         });
 
         it('should show completed state when marked complete', () => {
@@ -321,7 +321,7 @@ describe('DensityRepControls', () => {
                 />
             );
 
-            const button = screen.getByText('Mark Complete');
+            const button = screen.getByLabelText('Mark as complete');
             fireEvent.click(button);
 
             expect(mockMarkComplete).toHaveBeenCalledWith(true);

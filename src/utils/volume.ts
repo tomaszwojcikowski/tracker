@@ -290,5 +290,5 @@ export const formatVolume = (volume: number): string => {
   if (volume >= 10000) {
     return `${(volume / 1000).toFixed(1)}k kg`;
   }
-  return `${volume.toLocaleString()} kg`;
+  return `${volume.toLocaleString('en-US')} kg`;
 };

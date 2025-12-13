@@ -6,7 +6,7 @@ import prettier from 'eslint-config-prettier';
 export default [
   js.configs.recommended,
   {
-    files: ['src/**/*.{js,jsx}'],
+    files: ['src/**/*.{js,jsx,ts,tsx}'],
     ignores: ['src/test/**'],
     plugins: {
       react,
@@ -55,16 +55,16 @@ export default [
       'react/jsx-no-undef': 'error',
       'react/jsx-key': 'warn',
       'react/no-unescaped-entities': 'warn',
-      
+
       // React Hooks rules
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
-      
+
       // General JavaScript rules
-      'no-unused-vars': ['warn', { 
+      'no-unused-vars': ['warn', {
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_',
-        ignoreRestSiblings: true 
+        ignoreRestSiblings: true
       }],
       'no-console': ['warn', { allow: ['warn', 'error', 'log'] }],
       'prefer-const': 'warn',

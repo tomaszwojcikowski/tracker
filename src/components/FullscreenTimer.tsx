@@ -397,6 +397,27 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
                   <Plus size={24} />
                 </button>
               </>
+            ) : isDensity ? (
+              // Density controls: adjust remaining time
+              <>
+                <button
+                  onClick={() => handleAddTime(-30)}
+                  disabled={seconds <= 30}
+                  className="h-14 w-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all shadow-lg"
+                  aria-label="Reduce density timer by 30 seconds"
+                >
+                  <Minus size={24} />
+                </button>
+
+                <button
+                  onClick={() => handleAddTime(30)}
+                  className="h-14 px-6 rounded-2xl bg-white/15 backdrop-blur-md border border-white/25 hover:bg-white/25 text-white font-bold text-lg flex items-center justify-center gap-2 active:scale-95 transition-all shadow-lg"
+                  aria-label="Add 30 seconds to density timer"
+                >
+                  <Plus size={20} />
+                  <span>30s</span>
+                </button>
+              </>
             ) : (
               // REST controls: Add/subtract time
               <>

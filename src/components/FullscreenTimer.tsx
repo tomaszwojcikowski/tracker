@@ -10,7 +10,7 @@
  */
 
 import React, { useEffect, useRef, useCallback } from 'react';
-import { X, Minimize2, Volume2, VolumeX, Plus, Minus, RotateCcw, Timer, Repeat } from './icons';
+import { X, Minimize2, Volume2, VolumeX, Plus, Minus, RotateCcw, Timer, Repeat, Gauge } from './icons';
 import { playTickSound, playBeepSound } from '../utils/audio';
 import { useHaptic } from '../hooks';
 
@@ -18,7 +18,7 @@ import { useHaptic } from '../hooks';
 // TYPES
 // ============================================================================
 
-export type TimerMode = 'rest' | 'emom';
+export type TimerMode = 'rest' | 'emom' | 'density';
 
 export interface FullscreenTimerProps {
   /** Timer mode: 'rest' for countdown or 'emom' for repeating intervals */
@@ -66,6 +66,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
   const haptic = useHaptic();
   const lastTickRef = useRef<number>(-1);
   const isEmom = mode === 'emom';
+  const isDensity = mode === 'density';
 
   // Format time for display
   const minutes = Math.floor(seconds / 60);
@@ -80,14 +81,15 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
   const isWarning = seconds <= 30 && seconds > 10;
   const isComplete = seconds === 0 && !isEmom; // EMOM never "completes", it restarts
 
-  // Play sounds at specific intervals (only for REST mode; EMOM handles its own sounds)
+  // Play sounds at specific intervals (only for REST and DENSITY modes; EMOM handles its own sounds)
   useEffect(() => {
     if (isEmom) return; // EMOM hook handles its own sounds
     if (!soundEnabled || seconds === lastTickRef.current) return;
     lastTickRef.current = seconds;
 
-    // Play tick sounds in the last 5 seconds
-    if (seconds <= 5 && seconds >= 1) {
+    // Play tick sounds in the last 5 seconds (REST) or last 10 seconds (DENSITY)
+    const tickThreshold = isDensity ? 10 : 5;
+    if (seconds <= tickThreshold && seconds >= 1) {
       playTickSound();
       haptic.tick();
     }
@@ -102,7 +104,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
       // Auto-minimize after a short delay when timer ends
       setTimeout(() => onMinimize(), 1500);
     }
-  }, [seconds, soundEnabled, haptic, onMinimize, isEmom]);
+  }, [seconds, soundEnabled, haptic, onMinimize, isEmom, isDensity]);
 
   // Keyboard handler for accessibility
   useEffect(() => {
@@ -181,6 +183,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
     if (isUrgent) return { from: '#ef4444', to: '#f87171' }; // Red
     if (isWarning) return { from: '#f59e0b', to: '#fbbf24' }; // Amber
     if (isEmom) return { from: '#8b5cf6', to: '#a78bfa' }; // Purple for EMOM
+    if (isDensity) return { from: '#06b6d4', to: '#22d3ee' }; // Cyan for DENSITY
     return { from: '#0ea5e9', to: '#38bdf8' }; // Sky blue for REST
   };
   const gradientColors = getGradientColors();
@@ -191,6 +194,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
     if (isUrgent) return 'bg-gradient-to-br from-red-900 via-red-800 to-rose-900';
     if (isWarning) return 'bg-gradient-to-br from-amber-900 via-orange-800 to-yellow-900';
     if (isEmom) return 'bg-gradient-to-br from-violet-950 via-purple-900 to-indigo-950';
+    if (isDensity) return 'bg-gradient-to-br from-cyan-950 via-cyan-900 to-teal-950';
     return 'bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900';
   };
 
@@ -200,6 +204,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
     if (isUrgent) return { blob1: 'bg-red-500/30', blob2: 'bg-rose-500/25' };
     if (isWarning) return { blob1: 'bg-amber-500/30', blob2: 'bg-orange-500/25' };
     if (isEmom) return { blob1: 'bg-violet-500/25', blob2: 'bg-purple-500/20' };
+    if (isDensity) return { blob1: 'bg-cyan-500/25', blob2: 'bg-teal-500/20' };
     return { blob1: 'bg-sky-500/20', blob2: 'bg-cyan-500/15' };
   };
   const blobColors = getBlobColors();
@@ -208,7 +213,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
     <div
       className={`fixed inset-0 z-[100] flex flex-col items-center justify-center transition-all duration-500 ${getBackgroundClass()}`}
       role="dialog"
-      aria-label={isEmom ? 'EMOM timer' : 'Rest timer'}
+      aria-label={isEmom ? 'EMOM timer' : isDensity ? 'Density timer' : 'Rest timer'}
       aria-live="polite"
     >
       {/* Animated background elements */}
@@ -237,11 +242,13 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
         <div className={`flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md border ${
           isEmom
             ? 'bg-violet-500/20 border-violet-400/30 text-violet-200'
+            : isDensity
+            ? 'bg-cyan-500/20 border-cyan-400/30 text-cyan-200'
             : 'bg-sky-500/20 border-sky-400/30 text-sky-200'
         }`}>
-          {isEmom ? <Repeat size={16} /> : <Timer size={16} />}
+          {isEmom ? <Repeat size={16} /> : isDensity ? <Gauge size={16} /> : <Timer size={16} />}
           <span className="text-sm font-semibold uppercase tracking-wider">
-            {isEmom ? 'EMOM' : 'Rest'}
+            {isEmom ? 'EMOM' : isDensity ? 'Density' : 'Rest'}
           </span>
         </div>
 

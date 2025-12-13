@@ -201,8 +201,25 @@ export function ActionBar({
     });
   }, [setEmomInterval]);
 
+  // Density timer handlers
+  const handleExpandDensity = useCallback(() => {
+    haptic.tick();
+    setIsDensityFullscreen(true);
+  }, [haptic]);
+
+  const handleMinimizeDensity = useCallback(() => {
+    haptic.tick();
+    setIsDensityFullscreen(false);
+  }, [haptic]);
+
+  const handleStopDensity = useCallback(() => {
+    setDensityActive?.(false);
+    setDensitySeconds?.(0);
+    setIsDensityFullscreen(false);
+  }, [setDensityActive, setDensitySeconds]);
+
   // Only show the action bar if there's an active timer
-  const hasActiveTimer = timerState.time > 0 || emomState?.active;
+  const hasActiveTimer = timerState.time > 0 || emomState?.active || densityState?.active;
 
   // Render fullscreen REST timer if expanded
   if (isRestFullscreen && timerState.time > 0) {
@@ -232,6 +249,22 @@ export function ActionBar({
         onAddTime={() => {}} // EMOM doesn't use add time
         onMinimize={handleMinimizeEmom}
         onAdjustInterval={handleAdjustEmomInterval}
+        soundEnabled={soundEnabled}
+        onToggleSound={toggleSound}
+      />
+    );
+  }
+
+  // Render fullscreen density timer if expanded
+  if (isDensityFullscreen && densityState?.active) {
+    return (
+      <FullscreenTimer
+        mode="density"
+        seconds={densityState.seconds}
+        totalSeconds={densityState.timeMinutes * 60}
+        onStop={handleStopDensity}
+        onAddTime={() => {}} // Density doesn't use add time
+        onMinimize={handleMinimizeDensity}
         soundEnabled={soundEnabled}
         onToggleSound={toggleSound}
       />
@@ -319,6 +352,56 @@ export function ActionBar({
                   <Plus size={20} />
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Density Timer Display */}
+      {densityState?.active && setDensityActive && setDensitySeconds && (
+        <div className="px-4 pt-3 pb-2">
+          <div className={`glass-panel px-5 py-4 rounded-2xl shadow-lg ${densityTimerJustActivated ? 'animate-slide-up' : ''}`}>
+            <div className="flex items-center gap-3 mb-3">
+              {/* Expand button */}
+              <button
+                onClick={handleExpandDensity}
+                className="btn-icon h-8 w-8 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300"
+                aria-label="Expand density timer to fullscreen"
+              >
+                <Maximize2 size={16} />
+              </button>
+              <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+                Density
+              </span>
+              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-cyan-500/20">
+                <span className="text-xs font-bold text-cyan-300">
+                  {densityState.timeMinutes}m
+                </span>
+              </div>
+              <button
+                onClick={() => {
+                  haptic.bump();
+                  setDensityActive(false);
+                  setDensitySeconds(0);
+                }}
+                className="btn-icon ml-auto h-8 w-8 bg-white/10 hover:bg-white/20 text-white"
+                aria-label="Stop density timer"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            <div className="flex items-center gap-4">
+              <span
+                className={`text-3xl font-mono font-bold min-w-[90px] transition-colors ${
+                  densityState.seconds <= 10
+                    ? 'text-sys-error animate-pulse'
+                    : 'text-white'
+                }`}
+              >
+                {Math.floor(densityState.seconds / 60)}:
+                {densityState.seconds % 60 < 10 ? '0' : ''}
+                {densityState.seconds % 60}
+              </span>
             </div>
           </div>
         </div>

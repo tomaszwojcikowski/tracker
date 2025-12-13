@@ -520,10 +520,10 @@ export interface V2Plan {
 }
 
 /**
- * V2.0.0/V2.1.0/V2.2.0/V2.3.0/V2.4.0 format root structure
+ * V2.0.0/V2.1.0/V2.2.0/V2.3.0/V2.4.0/V2.5.0 format root structure
  */
 export interface V2WorkoutPlan {
-  formatVersion: '2.0.0' | '2.1.0' | '2.2.0' | '2.3.0' | '2.4.0';
+  formatVersion: '2.0.0' | '2.1.0' | '2.2.0' | '2.3.0' | '2.4.0' | '2.5.0';
   plan: V2Plan;
 }
 
@@ -597,8 +597,8 @@ function validateV2Format(data: unknown): data is V2WorkoutPlan {
   if (!data || typeof data !== 'object') return false;
 
   const obj = data as Record<string, unknown>;
-  // Support 2.0.0, 2.1.0, 2.2.0, 2.3.0, and 2.4.0
-  const validVersions = ['2.0.0', '2.1.0', '2.2.0', '2.3.0', '2.4.0'];
+  // Support 2.0.0, 2.1.0, 2.2.0, 2.3.0, 2.4.0, and 2.5.0
+  const validVersions = ['2.0.0', '2.1.0', '2.2.0', '2.3.0', '2.4.0', '2.5.0'];
   if (!obj.formatVersion || !validVersions.includes(obj.formatVersion as string) || !obj.plan) return false;
 
   const plan = obj.plan as Record<string, unknown>;

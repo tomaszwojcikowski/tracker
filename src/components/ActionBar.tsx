@@ -103,7 +103,7 @@ export function ActionBar({
 
   useEffect(() => {
     setDensityTotalSeconds(getDensityBaseSeconds(densityState));
-  }, [densityState?.timeMinutes, densityState?.active]);
+  }, [densityState?.timeMinutes]);
 
   // Track when rest timer transitions from inactive to active (for slide-up animation)
   useEffect(() => {
@@ -276,7 +276,7 @@ export function ActionBar({
       <FullscreenTimer
         mode="density"
         seconds={densityState.seconds}
-        totalSeconds={densityTotalSeconds || getDensityBaseSeconds(densityState)}
+        totalSeconds={densityTotalSeconds}
         onStop={handleStopDensity}
         onAddTime={handleAddDensityTime}
         onMinimize={handleMinimizeDensity}

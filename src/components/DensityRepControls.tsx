@@ -189,22 +189,8 @@ export const DensityRepControls = ({
                 }`}
                 aria-label={isComplete ? 'Mark as incomplete' : 'Mark as complete'}
             >
-                {isComplete ? (
-                    <>
-                        <Check size={14} />
-                        <span>Completed</span>
-                    </>
-                ) : allRepsComplete ? (
-                    <>
-                        <Check size={14} />
-                        <span>Mark Complete</span>
-                    </>
-                ) : (
-                    <>
-                        <Check size={14} />
-                        <span>Mark Complete</span>
-                    </>
-                )}
+                <Check size={14} />
+                <span>{isComplete ? 'Completed' : 'Mark Complete'}</span>
             </button>
         </div>
     );

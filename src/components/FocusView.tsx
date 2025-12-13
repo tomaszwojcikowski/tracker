@@ -147,7 +147,7 @@ export interface FocusViewProps {
     onShowHistory: (request: ExerciseDetailRequest) => void;
     onShowAlternatives: (name: string, alternatives: string[]) => void;
     onRemoveAddedExercise: (id: string) => void;
-    /** Density exercise callbacks (v2.5+) */
+    /** Density exercise callbacks for rep tracking and completion */
     onUpdateDensityRepChunks?: (exId: string, chunks: number[]) => void;
     onMarkDensityComplete?: (exId: string, complete: boolean) => void;
     /** Selected exercise options by exercise ID */

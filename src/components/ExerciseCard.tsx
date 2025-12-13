@@ -533,7 +533,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                         value={exerciseLog.weight || ''}
                                         onChange={(e) => onSaveWeight(exId, e.target.value)}
                                         placeholder={loadRange && loadRange.unit === 'kg' && loadRange.min > 0 ? String(loadRange.min) : '0'}
-                                        className="w-16 h-8 px-1 bg-sys-surfaceHigh rounded-lg text-white text-center text-base font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                        className="w-20 h-10 px-1 bg-sys-surfaceHigh rounded-lg text-white text-center text-xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                         aria-label="Weight in kg"
                                     />
                                     <button

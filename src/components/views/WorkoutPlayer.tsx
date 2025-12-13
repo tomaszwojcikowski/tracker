@@ -557,6 +557,15 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         persistLogs(updatedLogs);
     }, [logs, persistLogs]);
 
+    // Density exercise callbacks (v2.5+)
+    const updateDensityRepChunks = useCallback((id: string, chunks: number[]): void => {
+        saveLog(id, 'densityRepChunks', chunks);
+    }, [saveLog]);
+
+    const markDensityComplete = useCallback((id: string, complete: boolean): void => {
+        saveLog(id, 'densityComplete', complete);
+    }, [saveLog]);
+
     // Handle selecting an exercise option
     const handleSelectExerciseOption = useCallback((exerciseId: string, optionName: string) => {
         haptic.bump();
@@ -1487,6 +1496,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                             densityTimer.toggle(exerciseWithOptions.densityTimeMinutes);
                                                         }
                                                     }}
+                                                    densityRepChunks={exerciseLog.densityRepChunks || []}
+                                                    densityComplete={exerciseLog.densityComplete || false}
+                                                    onUpdateDensityRepChunks={updateDensityRepChunks}
+                                                    onMarkDensityComplete={markDensityComplete}
                                                 />
                                             );
                                         });
@@ -1532,6 +1545,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 {...saveCallbacks}
                                                 onShowHistory={handleShowExerciseDetail}
                                                 onShowAlternatives={handleShowAlternatives}
+                                                onUpdateDensityRepChunks={updateDensityRepChunks}
+                                                onMarkDensityComplete={markDensityComplete}
                                                 sectionType={section.type}
                                             />
                                         );

@@ -19,11 +19,13 @@ import {
     BarChart2,
     History,
     Timer,
+    Gauge,
 } from './icons';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { RPESelector } from './RPESelector';
 import { ExerciseOptionsBadge } from './ExerciseOptionsBadge';
 import { FlowMovementsDisplay, FlowBadge } from './FlowMovementsDisplay';
+import { DensityRepControls } from './DensityRepControls';
 import type { RPEValue } from '../types';
 import type { ExerciseDetailRequest, ExerciseLogEntry } from '../types/workout';
 import type { LoadRange, TempoRange } from '../workout-plan-utils';
@@ -52,6 +54,12 @@ export interface ExerciseCardProps {
     isLadder?: boolean;
     /** Ladder rep values (e.g., [1, 2, 3]) */
     ladderReps?: number[];
+    /** Density exercise flag (v2.5+) */
+    isDensity?: boolean;
+    /** Total time in minutes for density exercises (v2.5+) */
+    densityTimeMinutes?: number;
+    /** Total reps target for density exercises (v2.5+) */
+    densityRepsTotal?: number;
     /** Rest time in seconds */
     restTime?: number;
     /** Load range suggestion */
@@ -108,6 +116,9 @@ export interface ExerciseCardProps {
     onShowHistory: (request: ExerciseDetailRequest) => void;
     onShowAlternatives: (name: string, alternatives: string[]) => void;
     onShowOptions?: (exerciseId: string, exerciseName: string, options: import('../workout-plan-utils').ExerciseOption[]) => void;
+    /** Density exercise callbacks (v2.5+) */
+    onUpdateDensityRepChunks?: (exId: string, chunks: number[]) => void;
+    onMarkDensityComplete?: (exId: string, complete: boolean) => void;
 }
 
 // ============================================================================
@@ -126,6 +137,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     isAmrap,
     isLadder,
     ladderReps,
+    isDensity,
+    densityTimeMinutes,
+    densityRepsTotal,
     restTime,
     loadRange,
     tempoRange,
@@ -156,6 +170,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     onShowHistory,
     onShowAlternatives,
     onShowOptions,
+    onUpdateDensityRepChunks,
+    onMarkDensityComplete,
 }) => {
     const completedSets = sets.filter((s) => s).length;
     const totalSets = sets.length;
@@ -202,6 +218,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                 isEmom,
                 isUnilateral,
                 isAmrap,
+                isDensity,
+                densityTimeMinutes,
+                densityRepsTotal,
                 loadRange,
                 tempoRange,
             },
@@ -295,6 +314,16 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 </span>
                             )}
 
+                            {/* Density Badge */}
+                            {isDensity && (
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+                                    <Gauge size={10} strokeWidth={3} />
+                                    {densityRepsTotal && densityTimeMinutes && (
+                                        <span>{densityRepsTotal}/{densityTimeMinutes}m</span>
+                                    )}
+                                </span>
+                            )}
+
                             {/* AMRAP Badge */}
                             {isAmrap && (
                                 <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30">
@@ -381,8 +410,21 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                 {/* Collapsed content */}
                 {!isCollapsed && (
                     <>
-                        {/* Set buttons - Progressive Reveal */}
-                        <div className="flex flex-wrap gap-2 mb-3 items-center">
+                        {/* Density Rep Controls - for density exercises */}
+                        {isDensity && densityRepsTotal && onUpdateDensityRepChunks && onMarkDensityComplete ? (
+                            <DensityRepControls
+                                targetReps={densityRepsTotal}
+                                repChunks={exerciseLog.densityRepChunks || []}
+                                isComplete={exerciseLog.densityComplete || false}
+                                isFirstIncomplete={isFirstIncomplete}
+                                haptic={haptic}
+                                onUpdateRepChunks={(chunks) => onUpdateDensityRepChunks(exId, chunks)}
+                                onMarkComplete={(complete) => onMarkDensityComplete(exId, complete)}
+                            />
+                        ) : (
+                            <>
+                                {/* Set buttons - Progressive Reveal (non-density exercises) */}
+                                <div className="flex flex-wrap gap-2 mb-3 items-center">
                             {(() => {
                                 // Find first incomplete set once
                                 const firstIncompleteIndex = sets.findIndex(s => !s);
@@ -468,6 +510,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 </button>
                             )}
                         </div>
+                            </>
+                        )}
 
                         {/* RPE Selector */}
                         {rpePrompt?.exerciseId === exId && (

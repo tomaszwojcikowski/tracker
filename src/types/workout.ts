@@ -31,6 +31,10 @@ export interface ExerciseLogEntry {
      * Will be removed in a future major version (v2.0.0+).
      */
     notes?: string;
+    /** Rep chunks for density exercises (v2.5+) - array of rep counts (e.g., [5, 3, 4] = 12 total) */
+    densityRepChunks?: number[];
+    /** Whether the density exercise is marked as complete (v2.5+) */
+    densityComplete?: boolean;
 }
 
 /**

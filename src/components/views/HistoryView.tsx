@@ -406,14 +406,31 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
     const [history, setHistory] = useState<GlobalHistoryEntry[]>([]);
     const [selectedDayWorkouts, setSelectedDayWorkouts] = useState<GlobalHistoryEntry[] | null>(null);
     const [viewMode, setViewMode] = useState<'calendar' | 'stats'>('calendar');
+    const [timeFilter, setTimeFilter] = useState<'week' | 'month' | 'all'>('all');
     const haptic = useHaptic();
 
     // Scroll to top when view loads
     useScrollToTop();
 
+    // Filter history based on time filter
+    const filteredHistory = useMemo(() => {
+        if (timeFilter === 'all') return history;
+
+        const now = new Date();
+        const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+        return history.filter(entry => {
+            const entryDate = new Date(entry.date);
+            if (timeFilter === 'week') return entryDate >= weekAgo;
+            if (timeFilter === 'month') return entryDate >= monthAgo;
+            return true;
+        });
+    }, [history, timeFilter]);
+
     // Calculate PR highlights data
     const prHighlightsData = useMemo(() => {
-        const streakData = calculateStreak(history);
+        const streakData = calculateStreak(filteredHistory);
         const recentPRs = findRecentPRs(
             getAllExercisesWithHistory,
             getExerciseHistory,
@@ -424,9 +441,9 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
             recentPRs,
             streakDays: streakData.currentStreak,
             bestStreak: streakData.bestStreak,
-            totalWorkouts: history.length,
+            totalWorkouts: filteredHistory.length,
         };
-    }, [history, getAllExercisesWithHistory, getExerciseHistory]);
+    }, [filteredHistory, getAllExercisesWithHistory, getExerciseHistory]);
 
     const loadHistory = async () => {
         const globalHistoryKey = getGlobalHistoryKey();
@@ -515,6 +532,46 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                     />
                 ) : (
                     <div className="space-y-4">
+                        {/* Quick Filter Chips */}
+                        <div className="flex gap-2 overflow-x-auto hide-scrollbar -mx-5 px-5">
+                            <button
+                                onClick={() => { haptic.tick(); setTimeFilter('week'); }}
+                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
+                                    timeFilter === 'week'
+                                        ? 'bg-sys-accent text-sys-black'
+                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                }`}
+                                aria-pressed={timeFilter === 'week'}
+                            >
+                                <Clock size={14} className="inline mr-1" />
+                                This Week
+                            </button>
+                            <button
+                                onClick={() => { haptic.tick(); setTimeFilter('month'); }}
+                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
+                                    timeFilter === 'month'
+                                        ? 'bg-sys-accent text-sys-black'
+                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                }`}
+                                aria-pressed={timeFilter === 'month'}
+                            >
+                                <Calendar size={14} className="inline mr-1" />
+                                This Month
+                            </button>
+                            <button
+                                onClick={() => { haptic.tick(); setTimeFilter('all'); }}
+                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
+                                    timeFilter === 'all'
+                                        ? 'bg-sys-accent text-sys-black'
+                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                }`}
+                                aria-pressed={timeFilter === 'all'}
+                            >
+                                <CalendarDays size={14} className="inline mr-1" />
+                                All Time
+                            </button>
+                        </div>
+
                         {/* PR Highlights Card - only show if there are PRs or streaks */}
                         {(prHighlightsData.recentPRs.length > 0 || prHighlightsData.streakDays > 0) && (
                             <PRHighlights
@@ -528,7 +585,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                         )}
 
                         {/* Calendar View */}
-                        <CalendarView history={history} onDayClick={handleDayClick} />
+                        <CalendarView history={filteredHistory} onDayClick={handleDayClick} />
 
                         {/* Selected Day Details Modal */}
                         <AnimatePresence>

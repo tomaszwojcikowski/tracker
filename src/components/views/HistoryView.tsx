@@ -16,12 +16,20 @@ import {
     Check,
     MessageSquare
 } from '../icons';
-import { safeGetJSON } from '../../utils/storage';
+import { safeGetJSON, safeSetJSON } from '../../utils/storage';
 import { getGlobalHistoryKey } from '../../services/storageNamespace';
 import { PullToRefresh } from '../PullToRefresh';
 import { PRHighlights, calculateStreak, findRecentPRs } from '../PRHighlights';
 import { useHaptic, useScrollToTop } from '../../hooks';
 import { CalendarView } from '../CalendarView';
+
+// Storage key for HistoryView preferences
+const HISTORY_VIEW_PREFERENCES_KEY = 'tracker_history_view_preferences';
+
+// Types for HistoryView preferences
+interface HistoryViewPreferences {
+    timeFilter: 'week' | 'month' | 'all';
+}
 
 // Types for exercise stats display
 interface ExerciseStatData {
@@ -406,11 +414,23 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
     const [history, setHistory] = useState<GlobalHistoryEntry[]>([]);
     const [selectedDayWorkouts, setSelectedDayWorkouts] = useState<GlobalHistoryEntry[] | null>(null);
     const [viewMode, setViewMode] = useState<'calendar' | 'stats'>('calendar');
-    const [timeFilter, setTimeFilter] = useState<'week' | 'month' | 'all'>('all');
+    
+    // Load time filter from localStorage, defaulting to 'all'
+    const [timeFilter, setTimeFilter] = useState<'week' | 'month' | 'all'>(() => {
+        const preferences = safeGetJSON<HistoryViewPreferences>(HISTORY_VIEW_PREFERENCES_KEY, { timeFilter: 'all' });
+        return preferences.timeFilter || 'all';
+    });
+    
     const haptic = useHaptic();
 
     // Scroll to top when view loads
     useScrollToTop();
+    
+    // Persist time filter to localStorage when it changes
+    useEffect(() => {
+        const preferences: HistoryViewPreferences = { timeFilter };
+        safeSetJSON(HISTORY_VIEW_PREFERENCES_KEY, preferences);
+    }, [timeFilter]);
 
     // Filter history based on time filter
     const filteredHistory = useMemo(() => {

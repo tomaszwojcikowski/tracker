@@ -46,6 +46,9 @@ export interface ActionBarProps {
   setDensitySeconds?: (seconds: number | ((s: number) => number)) => void;
 }
 
+const getDensityBaseSeconds = (state?: DensityState): number =>
+  (state?.timeMinutes ?? 0) * 60;
+
 export function ActionBar({
   timerState,
   setTimerActive,
@@ -76,8 +79,8 @@ export function ActionBar({
 
   // Track total time when timer starts
   const [totalTime, setTotalTime] = useState(timerState.totalTime ?? timerState.time);
-  const [densityTotalSeconds, setDensityTotalSeconds] = useState(
-    (densityState?.timeMinutes ?? 0) * 60
+  const [densityTotalSeconds, setDensityTotalSeconds] = useState(() =>
+    getDensityBaseSeconds(densityState)
   );
 
   // Update total time when timer starts fresh (time increases or resets to new value)
@@ -99,7 +102,7 @@ export function ActionBar({
   }, [timerState.totalTime]);
 
   useEffect(() => {
-    setDensityTotalSeconds((densityState?.timeMinutes ?? 0) * 60);
+    setDensityTotalSeconds(getDensityBaseSeconds(densityState));
   }, [densityState?.timeMinutes, densityState?.active]);
 
   // Track when rest timer transitions from inactive to active (for slide-up animation)
@@ -273,7 +276,7 @@ export function ActionBar({
       <FullscreenTimer
         mode="density"
         seconds={densityState.seconds}
-        totalSeconds={densityTotalSeconds || densityState.timeMinutes * 60}
+        totalSeconds={densityTotalSeconds || getDensityBaseSeconds(densityState)}
         onStop={handleStopDensity}
         onAddTime={handleAddDensityTime}
         onMinimize={handleMinimizeDensity}

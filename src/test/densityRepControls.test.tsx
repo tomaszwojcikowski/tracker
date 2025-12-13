@@ -40,7 +40,7 @@ describe('DensityRepControls', () => {
                 />
             );
 
-            expect(screen.getByText('0 / 30 reps')).toBeInTheDocument();
+            expect(screen.getByText('0/30')).toBeInTheDocument();
             expect(screen.getByText('0%')).toBeInTheDocument();
             expect(screen.getByText('Mark Complete')).toBeInTheDocument();
         });
@@ -57,7 +57,7 @@ describe('DensityRepControls', () => {
                 />
             );
 
-            expect(screen.getByText('12 / 30 reps')).toBeInTheDocument();
+            expect(screen.getByText('12/30')).toBeInTheDocument();
             expect(screen.getByText('40%')).toBeInTheDocument();
         });
 
@@ -73,7 +73,7 @@ describe('DensityRepControls', () => {
                 />
             );
 
-            expect(screen.getByText('30 / 30 reps')).toBeInTheDocument();
+            expect(screen.getByText('30/30')).toBeInTheDocument();
             expect(screen.getByText('100%')).toBeInTheDocument();
             expect(screen.getByText('Mark Complete')).toBeInTheDocument();
         });
@@ -107,7 +107,7 @@ describe('DensityRepControls', () => {
                 />
             );
 
-            expect(screen.getByText('25 / 50 reps')).toBeInTheDocument();
+            expect(screen.getByText('25/50')).toBeInTheDocument();
             expect(screen.getByText('50%')).toBeInTheDocument();
         });
 
@@ -124,7 +124,7 @@ describe('DensityRepControls', () => {
             );
 
             // 25 reps out of 20 = 125%, but should cap at 100%
-            expect(screen.getByText('25 / 20 reps')).toBeInTheDocument();
+            expect(screen.getByText('25/20')).toBeInTheDocument();
             expect(screen.getByText('100%')).toBeInTheDocument();
         });
     });

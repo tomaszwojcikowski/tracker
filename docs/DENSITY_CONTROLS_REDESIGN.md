@@ -164,6 +164,43 @@ Potential improvements for future iterations:
 4. Rep chunk history/patterns
 5. Voice input for hands-free tracking
 
+## Testing
+
+### Test Requirements
+All code changes must pass both unit and E2E tests before commit:
+
+```bash
+# 1. Run unit tests
+npm test
+
+# 2. Run E2E tests
+npm run test:e2e
+
+# 3. Run TypeScript type checking
+npm run typecheck
+```
+
+### Test Coverage
+
+**Unit Tests** - `src/test/densityRepControls.test.tsx`:
+- ✅ 18/18 tests passing
+- Coverage includes:
+  - Initial state rendering
+  - Progress bar calculations
+  - Quick-add button functionality
+  - Custom amount input
+  - Rep chunk display and removal
+  - Mark complete functionality
+
+**E2E Tests**:
+- ✅ 86/86 tests passing
+- No regressions detected in overall application
+
+### Updated Test Assertions
+Tests were updated to match the ultra-dense design changes:
+- Progress text format changed from `"15 / 30 reps"` to `"15/30"` (more compact)
+- All assertions updated to reflect new text rendering
+
 ## Conclusion
 
 The density controls redesign successfully achieves all requirements:

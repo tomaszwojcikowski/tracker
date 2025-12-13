@@ -455,8 +455,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             </>
                         ) : (
                             <>
-                                {/* Set buttons and Weight input row - Progressive Reveal (non-density exercises) */}
-                                <div className="flex flex-wrap gap-2 mb-3 items-center justify-start">
+                                {/* Set buttons and actions row (non-density exercises) */}
+                                <div className="flex gap-2 mb-3 items-center">
+                                    <div className="flex flex-wrap gap-2 items-center min-w-0 flex-1">
                             {(() => {
                                 // Find first incomplete set once
                                 const firstIncompleteIndex = sets.findIndex(s => !s);
@@ -504,8 +505,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             <span className="text-xs text-sys-onSurfaceVar font-semibold">
                                 ({completedSets}/{totalSets})
                             </span>
+                                    </div>
 
-                            <div className="ml-auto flex items-center gap-2">
+                                    <div className="ml-auto flex items-center gap-2 shrink-0">
                                 {/* Add set button */}
                                 <button
                                     onClick={() => onAddSet(exId, defaultSets)}
@@ -582,8 +584,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                         </button>
                                     </div>
                                 )}
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
 
                         {/* Previous weight and load range hints - only for weighted exercises */}
                         {!isBodyweight && (previousWeight || loadRange) && (

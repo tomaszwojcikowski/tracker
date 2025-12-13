@@ -127,7 +127,7 @@ test.describe('History View Time Filter', () => {
     // Days with workouts show either a checkmark or dumbbell icon
     const workoutIndicators = page.locator('.bg-sys-success\\/20, .bg-sys-accent\\/20');
     const count = await workoutIndicators.count();
-    
+
     // Should have some indicators for recent workouts
     expect(count).toBeGreaterThan(0);
   });
@@ -210,7 +210,7 @@ test.describe('History View Time Filter', () => {
   test('should provide haptic feedback when clicking filter chips', async ({ page }) => {
     // This test verifies that clicking chips doesn't cause errors
     // (Actual haptic feedback requires device support)
-    
+
     // Navigate to History tab
     await page.locator('button[aria-label="History"]').click();
     await page.waitForTimeout(500);

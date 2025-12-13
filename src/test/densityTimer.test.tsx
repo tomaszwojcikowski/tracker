@@ -10,11 +10,14 @@ import { renderHook, act } from '@testing-library/react';
  * number of reps within a time limit (e.g., 30 reps in 10 minutes).
  */
 
-// Mock audio functions
+// Mock audio functions - must be before imports
 vi.mock('../utils/audio', () => ({
     playTickSound: vi.fn(),
     playBeepSound: vi.fn(),
 }));
+
+import { useDensityTimer } from '../hooks/useDensityTimer';
+import { playTickSound, playBeepSound } from '../utils/audio';
 
 // Mock the haptic interface with all required methods
 const createMockHaptic = () => ({
@@ -32,9 +35,6 @@ const createMockHaptic = () => ({
     timerComplete: vi.fn(),
     emomWarning: vi.fn(),
 });
-
-import { useDensityTimer } from '../hooks/useDensityTimer';
-import { playTickSound, playBeepSound } from '../utils/audio';
 
 describe('useDensityTimer', () => {
     let mockHaptic;

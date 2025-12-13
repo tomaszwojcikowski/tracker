@@ -389,7 +389,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             )}
 
                         </div>
-                        <p className="text-xs text-sys-onSurface font-medium">{prescription}</p>
+                        <p className="text-xs text-sys-onSurfaceVar">{prescription}</p>
                     </div>
 
                     {/* Collapse button - hidden in focus view */}

@@ -32,6 +32,12 @@ export default defineConfig({
 
     /* Take screenshot on failure */
     screenshot: 'only-on-failure',
+
+    /* Action timeout - prevent individual actions from hanging indefinitely */
+    actionTimeout: 10 * 1000, // 10 seconds for any single action
+
+    /* Navigation timeout - prevent page loads from hanging */
+    navigationTimeout: 15 * 1000, // 15 seconds for page navigation
   },
 
   /* Configure projects for major browsers */
@@ -52,14 +58,17 @@ export default defineConfig({
     command: 'npm run dev',
     url: 'http://localhost:5173/tracker/',
     reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
+    timeout: 120 * 1000, // 2 minutes to start the dev server
   },
 
-  /* Test timeout */
+  /* Test timeout - set to 30s to prevent tests from hanging */
   timeout: 30 * 1000,
 
-  /* Expect timeout */
+  /* Expect timeout - reduced to 5s for faster failure feedback */
   expect: {
     timeout: 5 * 1000,
   },
+
+  /* Global timeout for entire test run - prevent indefinite hanging */
+  globalTimeout: process.env.CI ? 10 * 60 * 1000 : 15 * 60 * 1000, // 10 min on CI, 15 min locally
 });

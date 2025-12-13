@@ -96,7 +96,7 @@ test.describe('History View Time Filter', () => {
     await expect(monthChip).toBeVisible();
     await expect(allTimeChip).toBeVisible();
 
-    // "All Time" should be selected by default (has accent background)
+    // "All Time" should be selected by default (aria-pressed="true")
     await expect(allTimeChip).toHaveAttribute('aria-pressed', 'true');
   });
 

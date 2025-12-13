@@ -29,8 +29,18 @@ import { describe, it, expect, beforeEach } from 'vitest';
  */
 
 describe('HistoryView Time Filter', () => {
+    // Type definition for test history entries
+    interface TestHistoryEntry {
+        date: string;
+        week: number;
+        day: number;
+        sets: number;
+        weight: number;
+        prescription: string;
+    }
+
     // Mock history entries for testing
-    const createHistoryEntry = (daysAgo: number) => ({
+    const createHistoryEntry = (daysAgo: number): TestHistoryEntry => ({
         date: new Date(Date.now() - daysAgo * 24 * 60 * 60 * 1000).toISOString(),
         week: 1,
         day: 1,
@@ -39,8 +49,17 @@ describe('HistoryView Time Filter', () => {
         prescription: '3x8 reps',
     });
 
-    // Simulate the filtering logic from HistoryView.tsx
-    const filterHistory = (history: any[], timeFilter: 'week' | 'month' | 'all') => {
+    /**
+     * This function replicates the filtering logic from HistoryView.tsx (lines 416-429).
+     * We test the algorithm directly rather than the component because:
+     * 1. The logic is inline in the component (useMemo)
+     * 2. Unit testing the algorithm provides better coverage than component integration tests
+     * 3. Date calculations need precise boundary testing which is easier in isolation
+     */
+    const filterHistory = (
+        history: TestHistoryEntry[],
+        timeFilter: 'week' | 'month' | 'all'
+    ): TestHistoryEntry[] => {
         if (timeFilter === 'all') return history;
 
         const now = new Date();
@@ -106,7 +125,7 @@ describe('HistoryView Time Filter', () => {
         });
 
         it('should handle empty history array', () => {
-            const history: any[] = [];
+            const history: TestHistoryEntry[] = [];
             
             expect(filterHistory(history, 'all')).toHaveLength(0);
             expect(filterHistory(history, 'week')).toHaveLength(0);

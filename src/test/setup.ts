@@ -40,6 +40,7 @@ vi.mock('../components/icons', () => ({
   X: mockIcon,
   Cloud: mockIcon,
   Play: mockIcon,
+  Pause: mockIcon,
   PlayCircle: mockIcon,
   RefreshCw: mockIcon,
   Info: mockIcon,

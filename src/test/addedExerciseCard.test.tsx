@@ -13,6 +13,8 @@ vi.mock('../components/icons', () => ({
     Check: () => <span data-testid="icon-check">✓</span>,
     X: () => <span data-testid="icon-x">✕</span>,
     Timer: () => <span data-testid="icon-timer">⏱</span>,
+    Plus: () => <span data-testid="icon-plus">+</span>,
+    Settings: () => <span data-testid="icon-settings">⚙</span>,
 }));
 
 import { AddedExerciseCard } from '../components/AddedExerciseCard';
@@ -54,7 +56,8 @@ describe('AddedExerciseCard', () => {
         it('should render exercise details with weight', () => {
             render(<AddedExerciseCard {...defaultProps} />);
 
-            expect(screen.getByText('3 sets @ 10kg')).toBeInTheDocument();
+            expect(screen.getByText('3 sets')).toBeInTheDocument();
+            expect(screen.getByText('@ 10kg')).toBeInTheDocument();
         });
 
         it('should render exercise details without weight', () => {

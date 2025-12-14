@@ -8,7 +8,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { useHaptic } from '../hooks';
-import { X, Minus, Plus, Maximize2, Repeat } from './icons';
+import { X, Minus, Plus, Maximize2, Repeat, Play, Pause } from './icons';
 import { FullscreenTimer } from './FullscreenTimer';
 import { safeGetJSON, safeSetJSON } from '../utils/storage';
 
@@ -472,6 +472,16 @@ export function ActionBar({
               {timerState.time % 60}
             </span>
             <div className="h-6 w-[1px] bg-white/20"></div>
+            <button
+              onClick={() => {
+                haptic.bump();
+                setTimerActive(!timerState.active);
+              }}
+              className="btn-icon h-10 w-10 min-w-[40px] bg-white/10 hover:bg-white/20 text-white"
+              aria-label={timerState.active ? 'Pause timer' : 'Resume timer'}
+            >
+              {timerState.active ? <Pause size={20} /> : <Play size={20} />}
+            </button>
             <button
               onClick={() => {
                 haptic.bump();

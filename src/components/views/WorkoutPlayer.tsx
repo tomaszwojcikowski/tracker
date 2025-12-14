@@ -913,6 +913,30 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         persistLogs(updatedLogs);
     };
 
+    const updateAddedExerciseWeight = (exerciseId: string, weight: string): void => {
+        const updatedAddedExercises = addedExercises.map((ex) =>
+            ex.id === exerciseId ? { ...ex, weight } : ex
+        );
+        setAddedExercises(updatedAddedExercises);
+
+        const updatedLogs: WorkoutSessionData = {
+            ...logs,
+            addedExercises: updatedAddedExercises,
+            lastModified: new Date().toISOString(),
+        };
+        persistLogs(updatedLogs);
+    };
+
+    const addSetToExercise = (exerciseId: string): void => {
+        const exId = `added_${exerciseId}`;
+        const currentEntry = getExerciseLogEntry(logs, exId);
+        const currentSets = currentEntry.sets || [];
+        
+        // Add a new uncompleted set
+        const newSets = [...currentSets, false];
+        saveLog(exId, 'sets', newSets);
+    };
+
     // ============================================================================
     // FINISH WORKOUT
     // ============================================================================
@@ -1671,6 +1695,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         onRemove={removeAddedExercise}
                                         onStartRestTimer={restTimer.start}
                                         restTimerActive={restTimer.active}
+                                        onUpdateWeight={updateAddedExerciseWeight}
+                                        onAddSet={addSetToExercise}
                                     />
                                 );
                             })}

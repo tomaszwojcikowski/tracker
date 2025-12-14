@@ -108,8 +108,8 @@ const App: React.FC = () => {
     // Track the initial history length to know if we can go back
     const initialHistoryLength = useRef<number>(window.history.length);
 
-    // Workout timer - only active when in workout mode
-    const workoutTimer = useWorkoutTimer(currentWeek, activeDay, viewMode === 'workout');
+    // Workout timer - only active when in workout mode or empty-workout mode
+    const workoutTimer = useWorkoutTimer(currentWeek, activeDay, viewMode === 'workout' || viewMode === 'empty-workout');
 
     // Workout progress state for TopAppBar progress bar
     const [workoutProgress, setWorkoutProgress] = useState<WorkoutProgressData | null>(null);
@@ -233,6 +233,9 @@ const App: React.FC = () => {
     };
 
     const startEmptyWorkout = (): void => {
+        // Reset the workout timer when starting a custom workout
+        workoutTimer.reset();
+        
         setViewMode('empty-workout');
 
         // Push new entry to history for empty workout

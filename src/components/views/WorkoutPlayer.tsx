@@ -932,6 +932,11 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         const currentEntry = getExerciseLogEntry(logs, exId);
         const currentSets = currentEntry.sets || [];
         
+        // Don't add more than 10 sets (consistent with AddedExerciseCard UI limit)
+        if (currentSets.length >= 10) {
+            return;
+        }
+        
         // Add a new uncompleted set
         const newSets = [...currentSets, false];
         saveLog(exId, 'sets', newSets);

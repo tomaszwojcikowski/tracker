@@ -126,6 +126,8 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                                             <input
                                                 type="number"
                                                 inputMode="decimal"
+                                                min="0"
+                                                step="0.5"
                                                 value={weightInput}
                                                 onChange={(e) => setWeightInput(e.target.value)}
                                                 placeholder="kg"

@@ -19,6 +19,13 @@ function getAudioContextConstructor(): typeof AudioContext | undefined {
   return window.AudioContext || extWindow.webkitAudioContext;
 }
 
+function warnAudio(...args: unknown[]): void {
+  // Avoid noisy logs in unit tests and production builds.
+  if (import.meta.env.MODE === 'test' || !import.meta.env.DEV) return;
+  // eslint-disable-next-line no-console
+  console.warn(...args);
+}
+
 /**
  * Play a tick sound for countdown
  */
@@ -26,7 +33,6 @@ export const playTickSound = (): void => {
   try {
     const AudioContextConstructor = getAudioContextConstructor();
     if (!AudioContextConstructor) {
-      console.warn('AudioContext not supported');
       return;
     }
 
@@ -49,7 +55,7 @@ export const playTickSound = (): void => {
     oscillator.start(audioContext.currentTime);
     oscillator.stop(audioContext.currentTime + 0.1);
   } catch (error) {
-    console.warn('Failed to play tick sound:', error);
+    warnAudio('Failed to play tick sound:', error);
   }
 };
 
@@ -60,7 +66,6 @@ export const playBeepSound = (): void => {
   try {
     const AudioContextConstructor = getAudioContextConstructor();
     if (!AudioContextConstructor) {
-      console.warn('AudioContext not supported');
       return;
     }
 
@@ -83,6 +88,6 @@ export const playBeepSound = (): void => {
     oscillator.start(audioContext.currentTime);
     oscillator.stop(audioContext.currentTime + 0.2);
   } catch (error) {
-    console.warn('Failed to play beep sound:', error);
+    warnAudio('Failed to play beep sound:', error);
   }
 };

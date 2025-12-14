@@ -9,9 +9,43 @@ import type { TabId } from '../types';
 // Mock framer-motion
 vi.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: React.PropsWithChildren<React.HTMLAttributes<HTMLDivElement>>) => (
-      <div {...props}>{children}</div>
-    ),
+    div: ({
+      children,
+      layoutId,
+      layout,
+      initial,
+      animate,
+      exit,
+      transition,
+      variants,
+      whileHover,
+      whileTap,
+      whileInView,
+      viewport,
+      drag,
+      dragConstraints,
+      dragElastic,
+      dragMomentum,
+      ...props
+    }: React.PropsWithChildren<
+      React.ComponentProps<'div'> & {
+        layoutId?: unknown;
+        layout?: unknown;
+        initial?: unknown;
+        animate?: unknown;
+        exit?: unknown;
+        transition?: unknown;
+        variants?: unknown;
+        whileHover?: unknown;
+        whileTap?: unknown;
+        whileInView?: unknown;
+        viewport?: unknown;
+        drag?: unknown;
+        dragConstraints?: unknown;
+        dragElastic?: unknown;
+        dragMomentum?: unknown;
+      }
+    >) => <div {...props}>{children}</div>,
   },
   LayoutGroup: ({ children }: React.PropsWithChildren) => <>{children}</>,
 }));

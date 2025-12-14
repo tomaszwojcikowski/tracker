@@ -35,14 +35,18 @@ import {
 describe('Error Reporting Service', () => {
     const originalEnv = { ...import.meta.env };
 
+    let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+
     beforeEach(() => {
         vi.clearAllMocks();
+        consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
         // Reset the env for each test
         vi.stubEnv('VITE_SENTRY_DSN', '');
     });
 
     afterEach(() => {
         vi.unstubAllEnvs();
+        consoleLogSpy.mockRestore();
     });
 
     describe('isErrorReportingEnabled', () => {

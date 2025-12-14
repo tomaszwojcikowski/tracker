@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
 /**
  * Tests for storage migration utility
@@ -9,8 +9,16 @@ describe('Storage Migration', () => {
   // Test storage mock
   let testStorage = {};
 
+  let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+  let consoleWarnSpy: ReturnType<typeof vi.spyOn>;
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+
   // Mock localStorage
   beforeEach(() => {
+    consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
     testStorage = {};
     localStorage.clear();
     localStorage.setItem.mockClear();
@@ -51,6 +59,12 @@ describe('Storage Migration', () => {
     localStorage.removeItem.mockImplementation((key) => {
       delete testStorage[key];
     });
+  });
+
+  afterEach(() => {
+    consoleLogSpy.mockRestore();
+    consoleWarnSpy.mockRestore();
+    consoleErrorSpy.mockRestore();
   });
 
   // Helper to set up localStorage.length and key()
@@ -136,7 +150,7 @@ describe('Storage Migration', () => {
       // Add legacy data
       const legacySessionData = { completed: true, lastModified: '2024-01-15' };
       const legacyHistory = { 'Pull-Ups': [{ date: '2024-01-15', sets: 3 }] };
-      
+
       testStorage['session_w1d1'] = JSON.stringify(legacySessionData);
       testStorage['exercise_history'] = JSON.stringify(legacyHistory);
       setupLocalStorageMock();
@@ -283,7 +297,7 @@ describe('Storage Migration', () => {
       const { cleanupLegacyKeys } = await import(
         '../services/storageMigration'
       );
-      
+
       // Suppress console.warn during test
       const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
@@ -291,7 +305,7 @@ describe('Storage Migration', () => {
 
       expect(removedCount).toBe(0);
       expect(testStorage['session_w1d1']).toBeDefined();
-      
+
       warnSpy.mockRestore();
     });
   });

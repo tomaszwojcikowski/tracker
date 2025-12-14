@@ -278,10 +278,13 @@ describe('Feature Integrity Tests', () => {
 
     describe('Firebase Service Still Exports', () => {
         it('firebase service exports required functions', async () => {
+            const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
             const firebase = await import('../firebase-service');
 
             // Core exports should exist (may be null if not initialized)
             expect('FirebaseService' in firebase || 'initializeFirebase' in firebase).toBe(true);
+
+            consoleWarnSpy.mockRestore();
         });
     });
 

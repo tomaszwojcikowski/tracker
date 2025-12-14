@@ -17,13 +17,17 @@ vi.mock('../utils/firebaseSync', () => ({
 }));
 
 describe('SyncService', () => {
+    let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+
     beforeEach(() => {
         vi.clearAllMocks();
         vi.useFakeTimers();
+        consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
     });
 
     afterEach(() => {
         vi.useRealTimers();
+        consoleLogSpy.mockRestore();
     });
 
     it('should be a singleton', () => {

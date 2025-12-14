@@ -34,25 +34,33 @@ describe('EMOM Timer Functionality', () => {
             })
         };
 
-        // Mock AudioContext for sound tests
-        global.AudioContext = vi.fn().mockImplementation(() => ({
-            createOscillator: vi.fn(() => ({
-                connect: vi.fn(),
-                start: vi.fn(),
-                stop: vi.fn(),
-                frequency: { value: 0 },
-                type: 'sine'
-            })),
-            createGain: vi.fn(() => ({
-                connect: vi.fn(),
-                gain: {
-                    setValueAtTime: vi.fn(),
-                    exponentialRampToValueAtTime: vi.fn()
-                }
-            })),
-            destination: {},
-            currentTime: 0
-        }));
+        // Mock AudioContext for sound tests (must be constructable)
+        class MockAudioContext {
+            destination = {};
+            currentTime = 0;
+
+            createOscillator() {
+                return {
+                    connect: vi.fn(),
+                    start: vi.fn(),
+                    stop: vi.fn(),
+                    frequency: { value: 0 },
+                    type: 'sine',
+                };
+            }
+
+            createGain() {
+                return {
+                    connect: vi.fn(),
+                    gain: {
+                        setValueAtTime: vi.fn(),
+                        exponentialRampToValueAtTime: vi.fn(),
+                    },
+                };
+            }
+        }
+
+        global.AudioContext = MockAudioContext as any;
     });
 
     afterEach(() => {
@@ -281,7 +289,7 @@ describe('EMOM Timer Functionality', () => {
             expect(global.AudioContext).toBeDefined();
 
             // Verify mock returns the expected structure
-            const mockInstance = global.AudioContext();
+            const mockInstance = new (global.AudioContext as any)();
             expect(mockInstance.createOscillator).toBeDefined();
             expect(mockInstance.createGain).toBeDefined();
             expect(mockInstance.destination).toBeDefined();
@@ -485,25 +493,33 @@ describe('useEmomTimer Hook', () => {
             })
         };
 
-        // Mock AudioContext
-        global.AudioContext = vi.fn().mockImplementation(() => ({
-            createOscillator: vi.fn(() => ({
-                connect: vi.fn(),
-                start: vi.fn(),
-                stop: vi.fn(),
-                frequency: { value: 0 },
-                type: 'sine'
-            })),
-            createGain: vi.fn(() => ({
-                connect: vi.fn(),
-                gain: {
-                    setValueAtTime: vi.fn(),
-                    exponentialRampToValueAtTime: vi.fn()
-                }
-            })),
-            destination: {},
-            currentTime: 0
-        }));
+        // Mock AudioContext (must be constructable)
+        class MockAudioContext {
+            destination = {};
+            currentTime = 0;
+
+            createOscillator() {
+                return {
+                    connect: vi.fn(),
+                    start: vi.fn(),
+                    stop: vi.fn(),
+                    frequency: { value: 0 },
+                    type: 'sine',
+                };
+            }
+
+            createGain() {
+                return {
+                    connect: vi.fn(),
+                    gain: {
+                        setValueAtTime: vi.fn(),
+                        exponentialRampToValueAtTime: vi.fn(),
+                    },
+                };
+            }
+        }
+
+        global.AudioContext = MockAudioContext as any;
     });
 
     afterEach(() => {

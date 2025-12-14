@@ -1,10 +1,10 @@
 /**
  * Firebase Sync Tests
- * 
+ *
  * Tests for timestamp-based merging of workout data from Firebase
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
 // Mock localStorage
 const localStorageMock = (() => {
@@ -44,9 +44,9 @@ const safeSetJSON = (key, value) => {
 // The mergeCloudData function implementation
 const mergeCloudData = (cloudData) => {
     if (!cloudData) return;
-    
+
     console.log('Merging cloud data with local data');
-    
+
     // Merge settings (always use cloud settings)
     if (cloudData.gemini_api_key) {
         localStorage.setItem('gemini_api_key', cloudData.gemini_api_key);
@@ -54,47 +54,47 @@ const mergeCloudData = (cloudData) => {
     if (cloudData.gemini_auto_sync) {
         localStorage.setItem('gemini_auto_sync', cloudData.gemini_auto_sync);
     }
-    
+
     // Merge exercise history (always use cloud history)
     if (cloudData.exercise_history) {
         safeSetJSON('exercise_history', cloudData.exercise_history);
     }
-    
+
     // Merge workout sessions based on timestamps
     if (cloudData.sessions) {
         Object.keys(cloudData.sessions).forEach(key => {
             const cloudSession = cloudData.sessions[key];
             const localSession = safeGetJSON(key, null);
-            
+
             // If no local session exists, use cloud data
             if (!localSession) {
                 console.log(`No local session for ${key}, using cloud data`);
                 safeSetJSON(key, cloudSession);
                 return;
             }
-            
+
             // Compare timestamps to determine which version is newer
             const cloudTimestamp = cloudSession.lastModified;
             const localTimestamp = localSession.lastModified;
-            
+
             // If either timestamp is missing, use cloud data (backward compatibility)
             if (!cloudTimestamp || !localTimestamp) {
                 console.log(`Missing timestamp for ${key}, using cloud data (cloud: ${cloudTimestamp || 'none'}, local: ${localTimestamp || 'none'})`);
                 safeSetJSON(key, cloudSession);
                 return;
             }
-            
+
             // Compare timestamps and keep the newer version
             const cloudDate = new Date(cloudTimestamp);
             const localDate = new Date(localTimestamp);
-            
+
             // Check for invalid dates (NaN) - if either is invalid, use cloud data
             if (isNaN(cloudDate.getTime()) || isNaN(localDate.getTime())) {
                 console.log(`Invalid timestamp detected for ${key}, using cloud data (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
                 safeSetJSON(key, cloudSession);
                 return;
             }
-            
+
             if (cloudDate > localDate) {
                 // Cloud data is newer, use it
                 console.log(`Using cloud data for ${key} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
@@ -105,13 +105,26 @@ const mergeCloudData = (cloudData) => {
             }
         });
     }
-    
+
     console.log('Cloud data merged successfully');
 };
 
 describe('Firebase Sync - Timestamp-based merging', () => {
+    let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+    let consoleWarnSpy: ReturnType<typeof vi.spyOn>;
+    let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+
     beforeEach(() => {
+        consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+        consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+        consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
         localStorage.clear();
+    });
+
+    afterEach(() => {
+        consoleLogSpy.mockRestore();
+        consoleWarnSpy.mockRestore();
+        consoleErrorSpy.mockRestore();
     });
 
     describe('mergeCloudData - workout sessions', () => {
@@ -185,7 +198,7 @@ describe('Firebase Sync - Timestamp-based merging', () => {
 
         it('should keep local data when timestamps are equal', () => {
             const timestamp = '2024-01-15T10:00:00.000Z';
-            
+
             // Setup: local data
             const localSession = {
                 'exercise_1': { sets: [true, true, true], weight: 60 },
@@ -264,7 +277,7 @@ describe('Firebase Sync - Timestamp-based merging', () => {
                 'exercise_1': { sets: [true], weight: 40 },
                 lastModified: '2024-01-15T11:00:00.000Z' // Newer locally
             });
-            
+
             safeSetJSON('session_w1d2', {
                 'exercise_2': { sets: [true], weight: 30 },
                 lastModified: '2024-01-15T09:00:00.000Z' // Older locally
@@ -289,7 +302,7 @@ describe('Firebase Sync - Timestamp-based merging', () => {
             // w1d1 should keep local (local is newer)
             const session1 = safeGetJSON('session_w1d1');
             expect(session1['exercise_1'].weight).toBe(40);
-            
+
             // w1d2 should use cloud (cloud is newer)
             const session2 = safeGetJSON('session_w1d2');
             expect(session2['exercise_2'].weight).toBe(35);
@@ -423,7 +436,7 @@ describe('Firebase Sync - Timestamp-based merging', () => {
             }
 
             const mergedSessions = {};
-            
+
             // Copy cloud sessions first
             if (cloudData.sessions) {
                 Object.entries(cloudData.sessions).forEach(([key, session]) => {
@@ -435,13 +448,13 @@ describe('Firebase Sync - Timestamp-based merging', () => {
             if (localData.sessions) {
                 Object.entries(localData.sessions).forEach(([key, localSession]) => {
                     const cloudSession = mergedSessions[key];
-                    
+
                     if (!cloudSession) {
                         mergedSessions[key] = localSession;
                     } else if (localSession.lastModified && cloudSession.lastModified) {
                         const localTime = new Date(localSession.lastModified).getTime();
                         const cloudTime = new Date(cloudSession.lastModified).getTime();
-                        
+
                         if (localTime > cloudTime) {
                             mergedSessions[key] = localSession;
                         }
@@ -453,7 +466,7 @@ describe('Firebase Sync - Timestamp-based merging', () => {
 
             // Merge exercise history
             const mergedHistory = { ...(cloudData.exerciseHistory || {}) };
-            
+
             if (localData.exercise_history) {
                 Object.entries(localData.exercise_history).forEach(([exerciseId, entries]) => {
                     if (!mergedHistory[exerciseId]) {

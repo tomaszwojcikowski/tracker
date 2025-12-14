@@ -23,12 +23,12 @@ describe('useOptimisticSync', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.useFakeTimers();
-    
+
     // Reset Firebase mocks to default values
     FirebaseService.isFirebaseInitialized.mockReturnValue(true);
     FirebaseService.getCurrentUser.mockReturnValue({ uid: 'test-user' });
     FirebaseService.saveToCloud.mockResolvedValue();
-    
+
     // Mock navigator.onLine
     Object.defineProperty(navigator, 'onLine', {
       value: true,
@@ -159,6 +159,16 @@ describe('useOptimisticSync', () => {
   });
 
   describe('Error handling', () => {
+    let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+
+    beforeEach(() => {
+      consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      consoleErrorSpy.mockRestore();
+    });
+
     it('should set error status on sync failure', async () => {
       FirebaseService.saveToCloud.mockRejectedValueOnce(new Error('Network error'));
 

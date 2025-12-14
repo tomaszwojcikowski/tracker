@@ -13,12 +13,26 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { X, Minimize2, Volume2, VolumeX, Plus, Minus, RotateCcw, Timer, Repeat, Gauge } from './icons';
 import { playTickSound, playBeepSound } from '../utils/audio';
 import { useHaptic } from '../hooks';
+import { DensityRepControls } from './DensityRepControls';
 
 // ============================================================================
 // TYPES
 // ============================================================================
 
 export type TimerMode = 'rest' | 'emom' | 'density';
+
+export interface FullscreenDensityRepControls {
+  /** Total target reps for this density exercise */
+  targetReps: number;
+  /** Current rep chunks */
+  repChunks: number[];
+  /** Whether marked as complete */
+  isComplete: boolean;
+  /** Callback to update rep chunks */
+  onUpdateRepChunks: (chunks: number[]) => void;
+  /** Callback to mark as complete */
+  onMarkComplete: (complete: boolean) => void;
+}
 
 export interface FullscreenTimerProps {
   /** Timer mode: 'rest' for countdown or 'emom' for repeating intervals */
@@ -45,6 +59,9 @@ export interface FullscreenTimerProps {
   soundEnabled?: boolean;
   /** Callback to toggle sound */
   onToggleSound?: () => void;
+
+  /** Density rep controls (density mode only) */
+  densityRepControls?: FullscreenDensityRepControls;
 }
 
 // ============================================================================
@@ -68,6 +85,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
   onTogglePause,
   soundEnabled = true,
   onToggleSound,
+  densityRepControls,
 }) => {
   const haptic = useHaptic();
   const lastTickRef = useRef<number>(-1);
@@ -401,6 +419,20 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
             )}
           </div>
         </button>
+
+        {/* Density rep controls (optional) */}
+        {isDensity && densityRepControls && (
+          <div className="mt-6 w-full max-w-md px-4">
+            <DensityRepControls
+              targetReps={densityRepControls.targetReps}
+              repChunks={densityRepControls.repChunks}
+              isComplete={densityRepControls.isComplete}
+              haptic={{ tick: haptic.tick, bump: haptic.bump, success: haptic.success }}
+              onUpdateRepChunks={densityRepControls.onUpdateRepChunks}
+              onMarkComplete={densityRepControls.onMarkComplete}
+            />
+          </div>
+        )}
 
         {/* Controls */}
         {!isComplete && (

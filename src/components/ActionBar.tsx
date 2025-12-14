@@ -12,6 +12,14 @@ import { X, Minus, Plus, Maximize2, Repeat } from './icons';
 import { FullscreenTimer } from './FullscreenTimer';
 import { safeGetJSON, safeSetJSON } from '../utils/storage';
 
+export interface DensityRepControlsState {
+  targetReps: number;
+  repChunks: number[];
+  isComplete: boolean;
+  onUpdateRepChunks: (chunks: number[]) => void;
+  onMarkComplete: (complete: boolean) => void;
+}
+
 export interface TimerState {
   time: number;
   active: boolean;
@@ -44,6 +52,9 @@ export interface ActionBarProps {
   densityState?: DensityState;
   setDensityActive?: (active: boolean) => void;
   setDensitySeconds?: (seconds: number | ((s: number) => number)) => void;
+
+  /** Optional density rep controls to show inside fullscreen density timer */
+  densityRepControls?: DensityRepControlsState;
 }
 
 const getDensityBaseSeconds = (state?: DensityState): number =>
@@ -60,6 +71,7 @@ export function ActionBar({
   densityState,
   setDensityActive,
   setDensitySeconds,
+  densityRepControls,
 }: ActionBarProps) {
   const haptic = useHaptic();
   const [isRestFullscreen, setIsRestFullscreen] = useState(false);
@@ -292,6 +304,7 @@ export function ActionBar({
         onTogglePause={setDensityActive ? () => setDensityActive(!densityState.active) : undefined}
         soundEnabled={soundEnabled}
         onToggleSound={toggleSound}
+        densityRepControls={densityRepControls}
       />
     );
   }

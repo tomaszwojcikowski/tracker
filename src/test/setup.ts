@@ -56,6 +56,7 @@ vi.mock('../components/icons', () => ({
   ArrowRightLeft: mockIcon,
   Timer: mockIcon,
   Maximize2: mockIcon,
+  Minimize2: mockIcon,
   ClipboardList: mockIcon,
   FileText: mockIcon,
   Edit3: mockIcon,
@@ -64,4 +65,5 @@ vi.mock('../components/icons', () => ({
   BarChart2: mockIcon,
   Repeat: mockIcon,
   Link: mockIcon,
+  RotateCcw: mockIcon,
 }));

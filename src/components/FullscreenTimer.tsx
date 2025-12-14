@@ -37,6 +37,10 @@ export interface FullscreenTimerProps {
   onMinimize: () => void;
   /** Callback to adjust interval (EMOM mode only) */
   onAdjustInterval?: (amount: number) => void;
+  /** Whether the timer is currently paused (optional; enables pause UI) */
+  isPaused?: boolean;
+  /** Toggle pause/resume (optional). When provided, tapping the timer ring will toggle pause. */
+  onTogglePause?: () => void;
   /** Whether sound is enabled */
   soundEnabled?: boolean;
   /** Callback to toggle sound */
@@ -60,6 +64,8 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
   onAddTime,
   onMinimize,
   onAdjustInterval,
+  isPaused = false,
+  onTogglePause,
   soundEnabled = true,
   onToggleSound,
 }) => {
@@ -80,6 +86,14 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
   const isUrgent = seconds <= 10 && seconds > 0;
   const isWarning = seconds <= 30 && seconds > 10;
   const isComplete = seconds === 0 && !isEmom; // EMOM never "completes", it restarts
+
+  const canTogglePause = !!onTogglePause && !isComplete;
+
+  const handleTogglePause = useCallback(() => {
+    if (!canTogglePause) return;
+    haptic.tick();
+    onTogglePause?.();
+  }, [canTogglePause, haptic, onTogglePause]);
 
   // Play sounds at specific intervals (only for REST and DENSITY modes; EMOM handles its own sounds)
   useEffect(() => {
@@ -278,7 +292,27 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
       {/* Main timer display */}
       <div className="relative flex flex-col items-center">
         {/* Progress ring */}
-        <div className="relative">
+        <button
+          type="button"
+          onClick={handleTogglePause}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              e.stopPropagation();
+              handleTogglePause();
+            }
+          }}
+          className={`relative p-0 bg-transparent border-0 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 transition-transform ${
+            canTogglePause ? 'cursor-pointer active:scale-[0.99]' : 'cursor-default'
+          }`}
+          aria-label={
+            canTogglePause
+              ? (isPaused ? 'Resume timer' : 'Pause timer')
+              : (isEmom ? 'EMOM timer' : isDensity ? 'Density timer' : 'Rest timer')
+          }
+          aria-pressed={canTogglePause ? isPaused : undefined}
+          disabled={!canTogglePause}
+        >
           <svg
             className="transform -rotate-90 drop-shadow-2xl"
             width="300"
@@ -366,7 +400,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
               </div>
             )}
           </div>
-        </div>
+        </button>
 
         {/* Controls */}
         {!isComplete && (

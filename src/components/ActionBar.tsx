@@ -234,8 +234,11 @@ export function ActionBar({
     setDensityTotalSeconds(prev => Math.max(0, prev + timeDelta));
   }, [setDensitySeconds]);
 
-  // Only show the action bar if there's an active timer
-  const hasActiveTimer = timerState.time > 0 || emomState?.active || densityState?.active;
+  // Only show the action bar if there's an active or paused timer
+  const hasActiveTimer =
+    timerState.time > 0 ||
+    (emomState ? (emomState.active || emomState.seconds > 0) : false) ||
+    (densityState ? (densityState.active || densityState.seconds > 0) : false);
 
   // Render fullscreen REST timer if expanded
   if (isRestFullscreen && timerState.time > 0) {
@@ -247,6 +250,8 @@ export function ActionBar({
         onStop={handleStopRest}
         onAddTime={handleAddTime}
         onMinimize={handleMinimizeRest}
+        isPaused={!timerState.active}
+        onTogglePause={() => setTimerActive(!timerState.active)}
         soundEnabled={soundEnabled}
         onToggleSound={toggleSound}
       />
@@ -254,7 +259,7 @@ export function ActionBar({
   }
 
   // Render fullscreen EMOM timer if expanded
-  if (isEmomFullscreen && emomState?.active) {
+  if (isEmomFullscreen && emomState && (emomState.active || emomState.seconds > 0)) {
     return (
       <FullscreenTimer
         mode="emom"
@@ -265,6 +270,8 @@ export function ActionBar({
         onAddTime={() => {}} // EMOM doesn't use add time
         onMinimize={handleMinimizeEmom}
         onAdjustInterval={handleAdjustEmomInterval}
+        isPaused={!emomState.active}
+        onTogglePause={setEmomActive ? () => setEmomActive(!emomState.active) : undefined}
         soundEnabled={soundEnabled}
         onToggleSound={toggleSound}
       />
@@ -272,7 +279,7 @@ export function ActionBar({
   }
 
   // Render fullscreen density timer if expanded
-  if (isDensityFullscreen && densityState?.active) {
+  if (isDensityFullscreen && densityState && (densityState.active || densityState.seconds > 0)) {
     return (
       <FullscreenTimer
         mode="density"
@@ -281,6 +288,8 @@ export function ActionBar({
         onStop={handleStopDensity}
         onAddTime={handleAddDensityTime}
         onMinimize={handleMinimizeDensity}
+        isPaused={!densityState.active}
+        onTogglePause={setDensityActive ? () => setDensityActive(!densityState.active) : undefined}
         soundEnabled={soundEnabled}
         onToggleSound={toggleSound}
       />
@@ -294,7 +303,7 @@ export function ActionBar({
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-sys-black border-t border-white/10 z-50 safe-pb">
       {/* EMOM Timer Display */}
-      {emomState?.active && setEmomActive && setEmomSeconds && setEmomInterval && (
+      {emomState && (emomState.active || emomState.seconds > 0) && setEmomActive && setEmomSeconds && setEmomInterval && (
         <div className="px-4 pt-3 pb-2">
           <div className={`glass-panel px-5 py-4 rounded-2xl shadow-lg ${emomTimerJustActivated ? 'animate-slide-up' : ''}`}>
             <div className="flex items-center gap-3 mb-3">
@@ -374,7 +383,7 @@ export function ActionBar({
       )}
 
       {/* Density Timer Display */}
-      {densityState?.active && setDensityActive && setDensitySeconds && (
+      {densityState && (densityState.active || densityState.seconds > 0) && setDensityActive && setDensitySeconds && (
         <div className="px-4 pt-3 pb-2">
           <div className={`glass-panel px-5 py-4 rounded-2xl shadow-lg ${densityTimerJustActivated ? 'animate-slide-up' : ''}`}>
             <div className="flex items-center gap-3 mb-3">

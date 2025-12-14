@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
 /**
  * Tests for HistoryView time filter logic
@@ -42,9 +42,11 @@ describe('HistoryView Time Filter', () => {
   let now: Date;
 
   beforeEach(() => {
-    // Use current date for testing (filter logic is based on current time)
-    now = new Date();
-    
+    // Freeze time so boundary comparisons are deterministic.
+    vi.useFakeTimers();
+    now = new Date('2024-01-31T12:00:00.000Z');
+    vi.setSystemTime(now);
+
     // Mock history with various dates
     mockHistory = [
       // Today
@@ -68,7 +70,7 @@ describe('HistoryView Time Filter', () => {
         day: 3,
         title: '6 Days Ago'
       },
-      // Exactly 7 days ago (boundary - should NOT be in week filter)
+      // Exactly 7 days ago (boundary - should be included with >=)
       {
         date: new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString(),
         week: 2,
@@ -89,7 +91,7 @@ describe('HistoryView Time Filter', () => {
         day: 1,
         title: '29 Days Ago'
       },
-      // Exactly 30 days ago (boundary - should NOT be in month filter)
+      // Exactly 30 days ago (boundary - should be included with >=)
       {
         date: new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString(),
         week: 3,
@@ -113,16 +115,20 @@ describe('HistoryView Time Filter', () => {
     ];
   });
 
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   describe('Week Filter', () => {
     it('should return entries from the last 7 days (inclusive)', () => {
       const filtered = filterHistoryByTime(mockHistory, 'week');
-      
-      // Should include at least recent entries, accounting for millisecond timing differences
-      expect(filtered.length).toBeGreaterThanOrEqual(3);
-      expect(filtered.length).toBeLessThanOrEqual(4); // Could include "Exactly 7 Days Ago" depending on timing
+
+      // With frozen time, the boundary entry is deterministic.
+      expect(filtered).toHaveLength(4);
       expect(filtered.map(e => e.title)).toContain('Today Workout');
       expect(filtered.map(e => e.title)).toContain('3 Days Ago');
       expect(filtered.map(e => e.title)).toContain('6 Days Ago');
+      expect(filtered.map(e => e.title)).toContain('Exactly 7 Days Ago');
     });
 
     it('should use >= comparison (includes entries at boundary)', () => {
@@ -136,7 +142,7 @@ describe('HistoryView Time Filter', () => {
           title: 'Within week'
         }
       ];
-      
+
       // Re-create filter with same timestamp to ensure consistency
       const testFilter = (history: GlobalHistoryEntry[], filter: 'week' | 'month' | 'all') => {
         if (filter === 'all') return history;
@@ -149,7 +155,7 @@ describe('HistoryView Time Filter', () => {
           return true;
         });
       };
-      
+
       const filtered = testFilter(testHistory, 'week');
       expect(filtered).toHaveLength(1);
       expect(filtered[0].title).toBe('Within week');
@@ -193,29 +199,28 @@ describe('HistoryView Time Filter', () => {
   describe('Month Filter', () => {
     it('should return entries from the last 30 days (inclusive of exactly 30 days)', () => {
       const filtered = filterHistoryByTime(mockHistory, 'month');
-      
-      // Should include: Today, 3 days, 6 days, 7 days, 10 days, 29 days - that's 6 entries
-      // Note: Entry "Exactly 30 Days Ago" may or may not be included depending on millisecond timing
-      expect(filtered.length).toBeGreaterThanOrEqual(6);
-      expect(filtered.length).toBeLessThanOrEqual(7);
+
+      // With frozen time, the boundary entry is deterministic.
+      expect(filtered).toHaveLength(7);
       expect(filtered.map(e => e.title)).toContain('Today Workout');
       expect(filtered.map(e => e.title)).toContain('3 Days Ago');
       expect(filtered.map(e => e.title)).toContain('6 Days Ago');
       expect(filtered.map(e => e.title)).toContain('Exactly 7 Days Ago');
       expect(filtered.map(e => e.title)).toContain('10 Days Ago');
       expect(filtered.map(e => e.title)).toContain('29 Days Ago');
+      expect(filtered.map(e => e.title)).toContain('Exactly 30 Days Ago');
     });
 
     it('should include entries exactly 30 days old (boundary with >=)', () => {
       const filtered = filterHistoryByTime(mockHistory, 'month');
-      
+
       const has30DaysAgo = filtered.some(entry => entry.title === 'Exactly 30 Days Ago');
       expect(has30DaysAgo).toBe(true);
     });
 
     it('should exclude entries older than 30 days', () => {
       const filtered = filterHistoryByTime(mockHistory, 'month');
-      
+
       const has45DaysAgo = filtered.some(entry => entry.title === '45 Days Ago');
       const has90DaysAgo = filtered.some(entry => entry.title === '90 Days Ago');
       expect(has45DaysAgo).toBe(false);
@@ -240,7 +245,7 @@ describe('HistoryView Time Filter', () => {
   describe('All Time Filter', () => {
     it('should return all entries when filter is "all"', () => {
       const filtered = filterHistoryByTime(mockHistory, 'all');
-      
+
       expect(filtered).toHaveLength(mockHistory.length);
       expect(filtered).toEqual(mockHistory);
     });
@@ -248,7 +253,7 @@ describe('HistoryView Time Filter', () => {
     it('should return the same reference when filter is "all"', () => {
       const original = [...mockHistory];
       const filtered = filterHistoryByTime(mockHistory, 'all');
-      
+
       // When filter is 'all', it returns the original array reference (optimization)
       expect(filtered).toBe(mockHistory);
       expect(mockHistory).toEqual(original); // Original unchanged
@@ -258,7 +263,7 @@ describe('HistoryView Time Filter', () => {
   describe('Edge Cases', () => {
     it('should handle empty history array', () => {
       const emptyHistory: GlobalHistoryEntry[] = [];
-      
+
       expect(filterHistoryByTime(emptyHistory, 'week')).toHaveLength(0);
       expect(filterHistoryByTime(emptyHistory, 'month')).toHaveLength(0);
       expect(filterHistoryByTime(emptyHistory, 'all')).toHaveLength(0);
@@ -434,9 +439,10 @@ describe('HistoryView Time Filter', () => {
       const filtered = filterHistoryByTime(largeHistory, 'month');
       const end = performance.now();
 
-      expect(filtered.length).toBeLessThanOrEqual(30);
+      // Inclusive "last 30 days" can include 31 entries (days 0..30).
+      expect(filtered.length).toBeLessThanOrEqual(31);
       // Should complete quickly (generous timeout for CI environments)
-      expect(end - start).toBeLessThan(500); 
+      expect(end - start).toBeLessThan(500);
     });
   });
 
@@ -456,7 +462,7 @@ describe('HistoryView Time Filter', () => {
       ];
 
       const filtered = filterHistoryByTime(detailedHistory, 'week');
-      
+
       expect(filtered).toHaveLength(1);
       expect(filtered[0]).toEqual(detailedHistory[0]);
       expect(filtered[0].exercises).toBeDefined();
@@ -487,7 +493,7 @@ describe('HistoryView Time Filter', () => {
       ];
 
       const filtered = filterHistoryByTime(orderedHistory, 'week');
-      
+
       expect(filtered[0].title).toBe('First');
       expect(filtered[1].title).toBe('Second');
       expect(filtered[2].title).toBe('Third');

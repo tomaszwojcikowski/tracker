@@ -60,14 +60,14 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
     // Handle FAB click
     const handleFabClick = useCallback(() => {
         haptic.tick();
-        if (restTimer.active) {
-            // If timer is running, expand to fullscreen
+        if (restTimer.seconds > 0) {
+            // If timer exists (running or paused), expand to fullscreen
             setShowFullscreen(true);
         } else {
             // If no timer, show preset selection
             setShowPresets(prev => !prev);
         }
-    }, [haptic, restTimer.active]);
+    }, [haptic, restTimer.seconds]);
 
     // Handle closing presets
     const handleClosePresets = useCallback(() => {
@@ -83,6 +83,8 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
     const handleStopTimer = useCallback(() => {
         haptic.bump();
         restTimer.stop();
+        restTimer.setSeconds(0);
+        totalSecondsRef.current = 0;
         setShowFullscreen(false);
     }, [haptic, restTimer]);
 
@@ -115,7 +117,7 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
     return (
         <>
             {/* Fullscreen Timer Modal */}
-            {showFullscreen && restTimer.active && (
+            {showFullscreen && restTimer.seconds > 0 && (
                 <FullscreenTimer
                     mode="rest"
                     seconds={restTimer.seconds}
@@ -123,6 +125,8 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
                     onStop={handleStopTimer}
                     onAddTime={handleAddTime}
                     onMinimize={handleMinimize}
+                    isPaused={!restTimer.active}
+                    onTogglePause={() => restTimer.setActive(prev => !prev)}
                     soundEnabled={soundEnabled}
                     onToggleSound={toggleSound}
                 />

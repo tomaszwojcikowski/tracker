@@ -373,6 +373,30 @@
         ]
       },
       {
+        "id": "day2-anti-rotation-trio",
+        "name": "Day 2 Anti-Rotation Trio",
+        "description": "Internal rotations + mobility flow + Pallof press",
+        "category": "prehab",
+        "estimatedDuration": 6,
+        "targetAreas": [
+          "shoulders",
+          "core",
+          "anti-rotation"
+        ],
+        "exercises": [
+          {
+            "$ref": "ex-band-internal-rotations"
+          },
+          {
+            "$ref": "ex-mobility-flow"
+          },
+          {
+            "$ref": "ex-pallof-press"
+          }
+        ]
+      },
+
+      {
         "id": "day2-recovery-flow",
         "name": "Day 2 Recovery Flow",
         "description": "System Reset cooldown for recovery day",
@@ -825,7 +849,10 @@
         "repsPerSide": true,
         "loadUnit": "band",
         "restSeconds": 60,
-        "notes": "Shoulder Balance"
+        "notes": "Shoulder Balance",
+        "alternatives": [
+          "Light Supinated Pulldown"
+        ]
       },
       {
         "id": "ex-mobility-flow",
@@ -1512,14 +1539,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations",
-                    "notes": "Shoulder Balance"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -1653,13 +1673,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -1794,13 +1808,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -1943,13 +1951,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2076,13 +2078,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2224,13 +2220,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2367,13 +2357,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2512,13 +2496,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2657,13 +2635,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2791,13 +2763,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2917,13 +2883,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3051,13 +3011,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3179,13 +3133,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3305,13 +3253,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3438,13 +3380,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3569,13 +3505,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3702,13 +3632,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3828,13 +3752,7 @@
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$routine": "day2-recovery-flow"

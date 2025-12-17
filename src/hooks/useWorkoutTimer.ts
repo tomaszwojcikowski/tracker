@@ -4,10 +4,14 @@
  * Manages workout timer state with start, pause, resume, and stop functionality.
  * The timer counts up from 0 with a maximum of 3 hours (10,800 seconds).
  * Timer state is persisted to localStorage for resuming workouts.
+ * Timer state is also synced to WorkoutSessionData for cloud sync.
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { safeGetJSON, safeSetJSON } from '../utils/storage';
+import { getSessionKey } from '../services/storageNamespace';
+import { syncService } from '../services/SyncService';
+import type { WorkoutSessionData } from '../types/workout';
 
 // Maximum timer duration: 3 hours in seconds
 export const MAX_TIMER_SECONDS = 3 * 60 * 60; // 10,800 seconds
@@ -89,12 +93,27 @@ export function useWorkoutTimer(
   const storageKey = getTimerStorageKey(week, day);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Helper to load saved timer state from localStorage
+  // Helper to load saved timer state from localStorage or session data
   const loadSavedState = (): WorkoutTimerState | null => {
+    // First try the dedicated timer storage key
     const saved = safeGetJSON<WorkoutTimerState>(storageKey);
     if (saved && saved.week === week && saved.day === day) {
       return saved;
     }
+    
+    // Fallback to session data (for cloud-synced timer state)
+    const sessionKey = getSessionKey(week, day);
+    const sessionData = safeGetJSON<WorkoutSessionData>(sessionKey);
+    if (sessionData?.timerState) {
+      return {
+        elapsedSeconds: sessionData.timerState.elapsedSeconds,
+        isRunning: sessionData.timerState.isRunning,
+        startedAt: sessionData.timerState.startedAt,
+        week,
+        day,
+      };
+    }
+    
     return null;
   };
 
@@ -142,6 +161,23 @@ export function useWorkoutTimer(
         day,
       };
       safeSetJSON(storageKey, state);
+      
+      // Also save timer state to session data for cloud sync
+      const sessionKey = getSessionKey(week, day);
+      const sessionData = safeGetJSON<WorkoutSessionData>(sessionKey, {});
+      const updatedSessionData: WorkoutSessionData = {
+        ...sessionData,
+        timerState: {
+          elapsedSeconds: elapsed,
+          isRunning: running,
+          startedAt: started,
+        },
+        lastModified: new Date().toISOString(),
+      };
+      safeSetJSON(sessionKey, updatedSessionData);
+      
+      // Trigger cloud sync (debounced)
+      syncService.scheduleSync();
     },
     [storageKey, week, day]
   );

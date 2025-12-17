@@ -70,6 +70,25 @@ const mergeCloudData = (cloudData) => {
             if (!localSession) {
                 console.log(`No local session for ${key}, using cloud data`);
                 safeSetJSON(key, cloudSession);
+                
+                // Also update the dedicated timer storage if timer state is present
+                if (cloudSession.timerState) {
+                    const match = key.match(/^session_w(\d+)d(\d+)$/);
+                    if (match) {
+                        const week = parseInt(match[1], 10);
+                        const day = parseInt(match[2], 10);
+                        const timerKey = `workout_timer_w${week}d${day}`;
+                        const timerState = {
+                            elapsedSeconds: cloudSession.timerState.elapsedSeconds,
+                            isRunning: cloudSession.timerState.isRunning,
+                            startedAt: cloudSession.timerState.startedAt,
+                            week,
+                            day,
+                        };
+                        safeSetJSON(timerKey, timerState);
+                        console.log(`Synced timer state for ${timerKey} from cloud`);
+                    }
+                }
                 return;
             }
 
@@ -81,6 +100,25 @@ const mergeCloudData = (cloudData) => {
             if (!cloudTimestamp || !localTimestamp) {
                 console.log(`Missing timestamp for ${key}, using cloud data (cloud: ${cloudTimestamp || 'none'}, local: ${localTimestamp || 'none'})`);
                 safeSetJSON(key, cloudSession);
+                
+                // Also update the dedicated timer storage if timer state is present
+                if (cloudSession.timerState) {
+                    const match = key.match(/^session_w(\d+)d(\d+)$/);
+                    if (match) {
+                        const week = parseInt(match[1], 10);
+                        const day = parseInt(match[2], 10);
+                        const timerKey = `workout_timer_w${week}d${day}`;
+                        const timerState = {
+                            elapsedSeconds: cloudSession.timerState.elapsedSeconds,
+                            isRunning: cloudSession.timerState.isRunning,
+                            startedAt: cloudSession.timerState.startedAt,
+                            week,
+                            day,
+                        };
+                        safeSetJSON(timerKey, timerState);
+                        console.log(`Synced timer state for ${timerKey} from cloud`);
+                    }
+                }
                 return;
             }
 
@@ -92,6 +130,25 @@ const mergeCloudData = (cloudData) => {
             if (isNaN(cloudDate.getTime()) || isNaN(localDate.getTime())) {
                 console.log(`Invalid timestamp detected for ${key}, using cloud data (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
                 safeSetJSON(key, cloudSession);
+                
+                // Also update the dedicated timer storage if timer state is present
+                if (cloudSession.timerState) {
+                    const match = key.match(/^session_w(\d+)d(\d+)$/);
+                    if (match) {
+                        const week = parseInt(match[1], 10);
+                        const day = parseInt(match[2], 10);
+                        const timerKey = `workout_timer_w${week}d${day}`;
+                        const timerState = {
+                            elapsedSeconds: cloudSession.timerState.elapsedSeconds,
+                            isRunning: cloudSession.timerState.isRunning,
+                            startedAt: cloudSession.timerState.startedAt,
+                            week,
+                            day,
+                        };
+                        safeSetJSON(timerKey, timerState);
+                        console.log(`Synced timer state for ${timerKey} from cloud`);
+                    }
+                }
                 return;
             }
 
@@ -99,6 +156,25 @@ const mergeCloudData = (cloudData) => {
                 // Cloud data is newer, use it
                 console.log(`Using cloud data for ${key} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
                 safeSetJSON(key, cloudSession);
+                
+                // Also update the dedicated timer storage if timer state is present
+                if (cloudSession.timerState) {
+                    const match = key.match(/^session_w(\d+)d(\d+)$/);
+                    if (match) {
+                        const week = parseInt(match[1], 10);
+                        const day = parseInt(match[2], 10);
+                        const timerKey = `workout_timer_w${week}d${day}`;
+                        const timerState = {
+                            elapsedSeconds: cloudSession.timerState.elapsedSeconds,
+                            isRunning: cloudSession.timerState.isRunning,
+                            startedAt: cloudSession.timerState.startedAt,
+                            week,
+                            day,
+                        };
+                        safeSetJSON(timerKey, timerState);
+                        console.log(`Synced timer state for ${timerKey} from cloud`);
+                    }
+                }
             } else {
                 // Local data is newer or equal, keep it
                 console.log(`Keeping local data for ${key} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`);
@@ -709,6 +785,155 @@ describe('Firebase Sync - Timestamp-based merging', () => {
             const merged = mergeGlobalHistory(localHistory, cloudHistory);
             // Different dates, so both should be included
             expect(merged).toHaveLength(2);
+        });
+    });
+
+    describe('mergeCloudData - timer state sync', () => {
+        it('should sync timer state to dedicated timer storage when cloud session is newer', () => {
+            // Setup: local session with older timestamp
+            const localSession = {
+                'exercise_1': { sets: [true, false], weight: 40 },
+                lastModified: '2024-01-15T09:00:00.000Z',
+                timerState: {
+                    elapsedSeconds: 100,
+                    isRunning: false,
+                    startedAt: null,
+                },
+            };
+            safeSetJSON('session_w1d1', localSession);
+
+            // Cloud data with newer timestamp and different timer state
+            const cloudData = {
+                sessions: {
+                    'session_w1d1': {
+                        'exercise_1': { sets: [true, true], weight: 50 },
+                        lastModified: '2024-01-15T10:00:00.000Z',
+                        timerState: {
+                            elapsedSeconds: 250,
+                            isRunning: true,
+                            startedAt: Date.now(),
+                        },
+                    },
+                },
+            };
+
+            mergeCloudData(cloudData);
+
+            // Check session data was updated
+            const mergedSession = safeGetJSON('session_w1d1');
+            expect(mergedSession.timerState.elapsedSeconds).toBe(250);
+            expect(mergedSession.timerState.isRunning).toBe(true);
+
+            // Check dedicated timer storage was also updated
+            const timerData = safeGetJSON('workout_timer_w1d1');
+            expect(timerData).toBeDefined();
+            expect(timerData.elapsedSeconds).toBe(250);
+            expect(timerData.isRunning).toBe(true);
+            expect(timerData.week).toBe(1);
+            expect(timerData.day).toBe(1);
+        });
+
+        it('should sync timer state when no local session exists', () => {
+            const cloudData = {
+                sessions: {
+                    'session_w2d3': {
+                        'exercise_1': { sets: [true, true], weight: 50 },
+                        lastModified: '2024-01-15T10:00:00.000Z',
+                        timerState: {
+                            elapsedSeconds: 180,
+                            isRunning: false,
+                            startedAt: null,
+                        },
+                    },
+                },
+            };
+
+            mergeCloudData(cloudData);
+
+            // Check session data was created
+            const session = safeGetJSON('session_w2d3');
+            expect(session.timerState.elapsedSeconds).toBe(180);
+
+            // Check dedicated timer storage was created
+            const timerData = safeGetJSON('workout_timer_w2d3');
+            expect(timerData).toBeDefined();
+            expect(timerData.elapsedSeconds).toBe(180);
+            expect(timerData.isRunning).toBe(false);
+            expect(timerData.week).toBe(2);
+            expect(timerData.day).toBe(3);
+        });
+
+        it('should not sync timer state when local session is newer', () => {
+            // Setup: local session with newer timestamp
+            const localSession = {
+                'exercise_1': { sets: [true, true], weight: 60 },
+                lastModified: '2024-01-15T11:00:00.000Z',
+                timerState: {
+                    elapsedSeconds: 300,
+                    isRunning: true,
+                    startedAt: Date.now(),
+                },
+            };
+            safeSetJSON('session_w1d1', localSession);
+
+            // Set initial timer storage
+            safeSetJSON('workout_timer_w1d1', {
+                elapsedSeconds: 300,
+                isRunning: true,
+                startedAt: Date.now(),
+                week: 1,
+                day: 1,
+            });
+
+            // Cloud data with older timestamp
+            const cloudData = {
+                sessions: {
+                    'session_w1d1': {
+                        'exercise_1': { sets: [true, false], weight: 40 },
+                        lastModified: '2024-01-15T10:00:00.000Z',
+                        timerState: {
+                            elapsedSeconds: 100,
+                            isRunning: false,
+                            startedAt: null,
+                        },
+                    },
+                },
+            };
+
+            mergeCloudData(cloudData);
+
+            // Check session data was NOT updated (local is newer)
+            const mergedSession = safeGetJSON('session_w1d1');
+            expect(mergedSession.timerState.elapsedSeconds).toBe(300);
+            expect(mergedSession.timerState.isRunning).toBe(true);
+
+            // Check timer storage was NOT updated
+            const timerData = safeGetJSON('workout_timer_w1d1');
+            expect(timerData.elapsedSeconds).toBe(300);
+            expect(timerData.isRunning).toBe(true);
+        });
+
+        it('should handle sessions without timer state gracefully', () => {
+            const cloudData = {
+                sessions: {
+                    'session_w1d2': {
+                        'exercise_1': { sets: [true, true], weight: 50 },
+                        lastModified: '2024-01-15T10:00:00.000Z',
+                        // No timerState field
+                    },
+                },
+            };
+
+            mergeCloudData(cloudData);
+
+            // Check session was merged
+            const session = safeGetJSON('session_w1d2');
+            expect(session).toBeDefined();
+            expect(session['exercise_1'].weight).toBe(50);
+
+            // Timer storage should not be created
+            const timerData = safeGetJSON('workout_timer_w1d2');
+            expect(timerData).toBeNull();
         });
     });
 });

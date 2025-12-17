@@ -113,6 +113,15 @@ export interface WorkoutSessionData {
     exercises?: Record<string, ExerciseLogEntry>;
     /** Selected exercise options keyed by exercise ID */
     exerciseOptions?: Record<string, string>;
+    /** Active timer state for in-progress workouts (synced to cloud) */
+    timerState?: {
+        /** Elapsed time in seconds */
+        elapsedSeconds: number;
+        /** Whether timer is currently running */
+        isRunning: boolean;
+        /** Timestamp when timer was started or resumed (for accurate time tracking) */
+        startedAt: number | null;
+    };
 }
 
 // ============================================================================

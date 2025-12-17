@@ -7,6 +7,19 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useWorkoutTimer, formatTimerTime, MAX_TIMER_SECONDS } from '../hooks/useWorkoutTimer';
+import type { WorkoutSessionData } from '../types/workout';
+
+// Mock the sync service
+vi.mock('../services/SyncService', () => ({
+  syncService: {
+    scheduleSync: vi.fn(),
+  },
+}));
+
+// Mock the storage namespace service
+vi.mock('../services/storageNamespace', () => ({
+  getSessionKey: (week: number, day: number) => `program_default_session_w${week}d${day}`,
+}));
 
 // Mock localStorage
 const createMockLocalStorage = () => {
@@ -175,8 +188,13 @@ describe('useWorkoutTimer', () => {
       
       expect(mockLocalStorage.setItem).toHaveBeenCalled();
       const calls = mockLocalStorage.setItem.mock.calls;
-      const lastCall = calls[calls.length - 1];
-      const savedData = JSON.parse(lastCall[1] || '{}');
+      
+      // Find the timer storage key (workout_timer_w1d1)
+      const timerCalls = calls.filter((call) => call[0] === 'workout_timer_w1d1');
+      expect(timerCalls.length).toBeGreaterThan(0);
+      
+      const lastTimerCall = timerCalls[timerCalls.length - 1];
+      const savedData = JSON.parse(lastTimerCall[1] || '{}');
       expect(savedData.elapsedSeconds).toBe(5);
       expect(savedData.isRunning).toBe(true);
       expect(savedData.week).toBe(1);
@@ -192,6 +210,72 @@ describe('useWorkoutTimer', () => {
       
       expect(keys).toContain('workout_timer_w1d1');
       expect(keys).toContain('workout_timer_w2d3');
+    });
+
+    it('should save timer state to session data for cloud sync', () => {
+      const { result } = renderHook(() => useWorkoutTimer(1, 1, true));
+      
+      act(() => {
+        vi.advanceTimersByTime(5000);
+      });
+      
+      // Check that session data was updated with timer state
+      const sessionCalls = mockLocalStorage.setItem.mock.calls.filter(
+        (call) => call[0] === 'program_default_session_w1d1'
+      );
+      expect(sessionCalls.length).toBeGreaterThan(0);
+      
+      const lastSessionCall = sessionCalls[sessionCalls.length - 1];
+      const sessionData = JSON.parse(lastSessionCall[1] || '{}') as WorkoutSessionData;
+      
+      expect(sessionData.timerState).toBeDefined();
+      expect(sessionData.timerState?.elapsedSeconds).toBe(5);
+      expect(sessionData.timerState?.isRunning).toBe(true);
+      expect(sessionData.lastModified).toBeDefined();
+    });
+
+    it('should load timer state from session data if dedicated timer key is missing', () => {
+      // Pre-populate session data with timer state
+      const sessionData: WorkoutSessionData = {
+        timerState: {
+          elapsedSeconds: 120,
+          isRunning: false,
+          startedAt: null,
+        },
+      };
+      mockLocalStorage.setItem('program_default_session_w2d2', JSON.stringify(sessionData));
+      
+      const { result } = renderHook(() => useWorkoutTimer(2, 2, false));
+      
+      expect(result.current.elapsedSeconds).toBe(120);
+      expect(result.current.isRunning).toBe(false);
+    });
+
+    it('should prioritize dedicated timer storage over session data', () => {
+      // Pre-populate both storage locations with different values
+      const timerState = {
+        elapsedSeconds: 100,
+        isRunning: true,
+        startedAt: Date.now(),
+        week: 3,
+        day: 1,
+      };
+      mockLocalStorage.setItem('workout_timer_w3d1', JSON.stringify(timerState));
+      
+      const sessionData: WorkoutSessionData = {
+        timerState: {
+          elapsedSeconds: 50,
+          isRunning: false,
+          startedAt: null,
+        },
+      };
+      mockLocalStorage.setItem('program_default_session_w3d1', JSON.stringify(sessionData));
+      
+      const { result } = renderHook(() => useWorkoutTimer(3, 1, false));
+      
+      // Should use the dedicated timer storage
+      expect(result.current.elapsedSeconds).toBe(100);
+      expect(result.current.isRunning).toBe(true);
     });
   });
 

@@ -251,20 +251,7 @@ export function mergeCloudData(cloudData: CloudData | null | undefined): void {
             if (!localSession) {
                 console.log(`No local session for ${namespacedKey}, using cloud data`);
                 safeSetJSON(namespacedKey, cloudSession);
-                
-                // Also update the dedicated timer storage if timer state is present
-                if ((cloudSession as any).timerState) {
-                    const timerKey = `workout_timer_w${week}d${day}`;
-                    const timerState = {
-                        elapsedSeconds: (cloudSession as any).timerState.elapsedSeconds,
-                        isRunning: (cloudSession as any).timerState.isRunning,
-                        startedAt: (cloudSession as any).timerState.startedAt,
-                        week,
-                        day,
-                    };
-                    safeSetJSON(timerKey, timerState);
-                    console.log(`Synced timer state for ${timerKey} from cloud`);
-                }
+                syncTimerStateFromCloud(cloudSession, week, day);
                 return;
             }
 
@@ -278,20 +265,7 @@ export function mergeCloudData(cloudData: CloudData | null | undefined): void {
                     `Missing timestamp for ${namespacedKey}, using cloud data (cloud: ${cloudTimestamp || 'none'}, local: ${localTimestamp || 'none'})`
                 );
                 safeSetJSON(namespacedKey, cloudSession);
-                
-                // Also update the dedicated timer storage if timer state is present
-                if ((cloudSession as any).timerState) {
-                    const timerKey = `workout_timer_w${week}d${day}`;
-                    const timerState = {
-                        elapsedSeconds: (cloudSession as any).timerState.elapsedSeconds,
-                        isRunning: (cloudSession as any).timerState.isRunning,
-                        startedAt: (cloudSession as any).timerState.startedAt,
-                        week,
-                        day,
-                    };
-                    safeSetJSON(timerKey, timerState);
-                    console.log(`Synced timer state for ${timerKey} from cloud`);
-                }
+                syncTimerStateFromCloud(cloudSession, week, day);
                 return;
             }
 
@@ -305,20 +279,7 @@ export function mergeCloudData(cloudData: CloudData | null | undefined): void {
                     `Invalid timestamp detected for ${namespacedKey}, using cloud data (cloud: ${cloudTimestamp}, local: ${localTimestamp})`
                 );
                 safeSetJSON(namespacedKey, cloudSession);
-                
-                // Also update the dedicated timer storage if timer state is present
-                if ((cloudSession as any).timerState) {
-                    const timerKey = `workout_timer_w${week}d${day}`;
-                    const timerState = {
-                        elapsedSeconds: (cloudSession as any).timerState.elapsedSeconds,
-                        isRunning: (cloudSession as any).timerState.isRunning,
-                        startedAt: (cloudSession as any).timerState.startedAt,
-                        week,
-                        day,
-                    };
-                    safeSetJSON(timerKey, timerState);
-                    console.log(`Synced timer state for ${timerKey} from cloud`);
-                }
+                syncTimerStateFromCloud(cloudSession, week, day);
                 return;
             }
 
@@ -328,20 +289,7 @@ export function mergeCloudData(cloudData: CloudData | null | undefined): void {
                     `Using cloud data for ${namespacedKey} (cloud: ${cloudTimestamp}, local: ${localTimestamp})`
                 );
                 safeSetJSON(namespacedKey, cloudSession);
-                
-                // Also update the dedicated timer storage if timer state is present
-                if ((cloudSession as any).timerState) {
-                    const timerKey = `workout_timer_w${week}d${day}`;
-                    const timerState = {
-                        elapsedSeconds: (cloudSession as any).timerState.elapsedSeconds,
-                        isRunning: (cloudSession as any).timerState.isRunning,
-                        startedAt: (cloudSession as any).timerState.startedAt,
-                        week,
-                        day,
-                    };
-                    safeSetJSON(timerKey, timerState);
-                    console.log(`Synced timer state for ${timerKey} from cloud`);
-                }
+                syncTimerStateFromCloud(cloudSession, week, day);
             } else {
                 // Local data is newer or equal, keep it
                 console.log(
@@ -352,6 +300,27 @@ export function mergeCloudData(cloudData: CloudData | null | undefined): void {
     }
 
     console.log('Cloud data merged successfully');
+}
+
+/**
+ * Helper function to sync timer state from cloud session to dedicated timer storage
+ * @param cloudSession - Cloud session data with potential timer state
+ * @param week - Week number
+ * @param day - Day number
+ */
+function syncTimerStateFromCloud(cloudSession: SessionData, week: number, day: number): void {
+    if (cloudSession.timerState) {
+        const timerKey = `workout_timer_w${week}d${day}`;
+        const timerState = {
+            elapsedSeconds: cloudSession.timerState.elapsedSeconds,
+            isRunning: cloudSession.timerState.isRunning,
+            startedAt: cloudSession.timerState.startedAt,
+            week,
+            day,
+        };
+        safeSetJSON(timerKey, timerState);
+        console.log(`Synced timer state for ${timerKey} from cloud`);
+    }
 }
 
 // ============================================================================

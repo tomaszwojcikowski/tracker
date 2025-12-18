@@ -60,6 +60,10 @@ export interface ExerciseCardProps {
     densityTimeMinutes?: number;
     /** Total reps target for density exercises (v2.5+) */
     densityRepsTotal?: number;
+    /** Flow exercise flag (v2.4+) */
+    isFlow?: boolean;
+    /** Total time in minutes for flow exercises (v2.4+) */
+    flowTimeMinutes?: number;
     /** Rest time in seconds */
     restTime?: number;
     /** Load range suggestion */
@@ -98,6 +102,8 @@ export interface ExerciseCardProps {
     restTimerActive?: boolean;
     /** Density timer active state */
     densityTimerActive?: boolean;
+    /** Flow timer active state */
+    flowTimerActive?: boolean;
     /** Haptic feedback interface */
     haptic: Pick<HapticFeedback, 'tick' | 'bump' | 'success'>;
     /** Hide collapse button (for focus view) */
@@ -117,6 +123,8 @@ export interface ExerciseCardProps {
     onToggleEmomTimer: () => void;
     /** Toggle density timer for this exercise (expects minutes) */
     onToggleDensityTimer?: (timeMinutes: number) => void;
+    /** Toggle flow timer for this exercise (expects minutes) */
+    onToggleFlowTimer?: (timeMinutes: number) => void;
     onShowHistory: (request: ExerciseDetailRequest) => void;
     onShowAlternatives: (name: string, alternatives: string[]) => void;
     onShowOptions?: (exerciseId: string, exerciseName: string, options: import('../workout-plan-utils').ExerciseOption[]) => void;
@@ -144,6 +152,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     isDensity,
     densityTimeMinutes,
     densityRepsTotal,
+    isFlow,
+    flowTimeMinutes,
     restTime,
     loadRange,
     tempoRange,
@@ -164,6 +174,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     sectionType,
     restTimerActive = false,
     densityTimerActive = false,
+    flowTimerActive = false,
     onToggleCollapse,
     onToggleSet,
     onAddSet,
@@ -173,6 +184,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     onClearRPEPrompt,
     onStartRestTimer,
     onToggleDensityTimer,
+    onToggleFlowTimer,
     onShowHistory,
     onShowAlternatives,
     onShowOptions,
@@ -230,6 +242,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                 isEmom,
                 isUnilateral,
                 isAmrap,
+                isFlow,
                 isDensity,
                 densityTimeMinutes,
                 densityRepsTotal,
@@ -422,6 +435,25 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                 {/* Collapsed content */}
                 {!isCollapsed && (
                     <>
+                        {/* Flow Exercise Timer - for flow exercises */}
+                        {isFlow && flowTimeMinutes && onToggleFlowTimer ? (
+                            <div className="flex items-center mb-2">
+                                <div className="flex-1" />
+                                <button
+                                    onClick={() => onToggleFlowTimer(flowTimeMinutes)}
+                                    className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                        flowTimerActive
+                                            ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
+                                            : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                    }`}
+                                    aria-label={flowTimerActive ? 'Stop flow timer' : `Start ${flowTimeMinutes}m flow timer`}
+                                >
+                                    <Timer size={14} />
+                                    <span>{flowTimeMinutes}m</span>
+                                </button>
+                            </div>
+                        ) : null}
+
                         {/* Density Rep Controls - for density exercises */}
                         {isDensity && densityRepsTotal && onUpdateDensityRepChunks && onMarkDensityComplete ? (
                             <>
@@ -453,9 +485,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     onMarkComplete={(complete) => onMarkDensityComplete(exId, complete)}
                                 />
                             </>
-                        ) : (
+                        ) : !isFlow ? (
                             <>
-                                {/* Set buttons and actions row (non-density exercises) */}
+                                {/* Set buttons and actions row (non-density, non-flow exercises) */}
                                 <div className="flex gap-2 mb-3 items-center">
                                     <div className="flex flex-wrap gap-2 items-center min-w-0 flex-1">
                             {(() => {
@@ -620,7 +652,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             </div>
                         )}
                             </>
-                        )}
+                        ) : null}
 
                         {/* RPE Selector - more compact */}
                         {rpePrompt?.exerciseId === exId && (

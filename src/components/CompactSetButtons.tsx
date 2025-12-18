@@ -81,16 +81,16 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                             <button
                                 key={`${exId}-set-${i}`}
                                 onClick={() => onToggleSet(i)}
-                                className={`h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
+                                className={`h-10 w-10 min-w-[40px] rounded-lg flex items-center justify-center text-sm font-bold transition-all active:scale-90 ${
                                     isDone
                                         ? isComplete
                                             ? 'bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.2)]'
                                             : 'bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
-                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                        : 'bg-sys-accent/20 text-sys-accent border border-sys-accent/30'
                                 }`}
                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                             >
-                                {isDone ? <Check size={14} /> : i + 1}
+                                {isDone ? <Check size={16} /> : i + 1}
                             </button>
                         );
                     }
@@ -133,10 +133,10 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
             {showCompleteAllButton && (
                 <button
                     onClick={onCompleteAllSets}
-                    className="h-8 w-8 rounded-lg bg-sys-success/20 text-sys-success flex items-center justify-center active:scale-90 transition-all ml-1"
+                    className="h-10 w-10 rounded-lg bg-sys-success/20 text-sys-success flex items-center justify-center active:scale-90 transition-all ml-1"
                     aria-label="Complete all sets"
                 >
-                    <CheckCheck size={14} />
+                    <CheckCheck size={16} />
                 </button>
             )}
         </div>

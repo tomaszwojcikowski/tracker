@@ -193,14 +193,14 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                         <button
                             key={`${exId}-set-${i}`}
                             onClick={() => onToggleSet(exId, i, exercise.sets, exercise.rest ?? 90)}
-                            className={`set-button h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
+                            className={`set-button h-10 w-10 min-w-[40px] rounded-lg flex items-center justify-center text-sm font-bold transition-all active:scale-90 ${
                                 isDone
                                     ? 'completed bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
-                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                    : 'bg-sys-accent/20 text-sys-accent border border-sys-accent/30'
                             }`}
                             aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                         >
-                            {isDone ? <Check size={14} /> : i + 1}
+                            {isDone ? <Check size={16} /> : i + 1}
                         </button>
                     ))}
                     {/* Add Set button */}
@@ -210,10 +210,10 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                                 haptic.bump();
                                 onAddSet(exercise.id);
                             }}
-                            className="h-8 w-8 min-w-[32px] rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 bg-sys-surfaceHigh/50 text-sys-accent border border-dashed border-sys-accent/30 hover:bg-sys-surfaceHigh"
+                            className="h-10 w-10 min-w-[40px] rounded-lg flex items-center justify-center text-sm font-bold transition-all active:scale-90 bg-sys-surfaceHigh/50 text-sys-accent border border-dashed border-sys-accent/30 hover:bg-sys-surfaceHigh"
                             aria-label="Add another set"
                         >
-                            <Plus size={14} />
+                            <Plus size={16} />
                         </button>
                     )}
                 </div>

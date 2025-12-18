@@ -591,7 +591,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                 {/* Flow Timer Button - show on active row for flow exercises */}
                 {isFlow && onToggleFlowTimer && flowTimeMinutes && (
                     <button
-                        onClick={() => onToggleFlowTimer(flowTimeMinutes)}
+                        onClick={onToggleFlowTimer}
                         className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium flex-shrink-0 ${
                             flowTimerActive
                                 ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
@@ -766,7 +766,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         {/* Flow Timer Button - for flow exercises */}
                         {isFlow && onToggleFlowTimer && flowTimeMinutes && (
                             <button
-                                onClick={() => onToggleFlowTimer(flowTimeMinutes)}
+                                onClick={onToggleFlowTimer}
                                 className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
                                     flowTimerActive
                                         ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'

@@ -284,9 +284,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const restTimer = useRestTimer({ haptic });
     const emomTimer = useEmomTimer({ haptic });
     const densityTimer = useDensityTimer({ haptic });
+    const flowTimer = useDensityTimer({ haptic }); // Reuse density timer for flow exercises
 
     // Track which density exercise the current density timer is associated with
     const [activeDensityExerciseId, setActiveDensityExerciseId] = useState<string | null>(null);
+    
+    // Track which flow exercise the current flow timer is associated with (for future use)
+    const [_activeFlowExerciseId, setActiveFlowExerciseId] = useState<string | null>(null);
 
     // Clear association when the density timer fully stops/completes
     useEffect(() => {
@@ -294,6 +298,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             setActiveDensityExerciseId(null);
         }
     }, [densityTimer.active, densityTimer.seconds]);
+    
+    // Clear association when the flow timer fully stops/completes
+    useEffect(() => {
+        if (!flowTimer.active && flowTimer.seconds === 0) {
+            setActiveFlowExerciseId(null);
+        }
+    }, [flowTimer.active, flowTimer.seconds]);
 
     // Toggle compact view and persist preference
     const toggleCompactView = useCallback(() => {
@@ -1160,8 +1171,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const timerProps: TimerProps = useMemo(() => createTimerProps(
         { active: emomTimer.active, interval: emomTimer.interval, toggle: emomTimer.toggle },
         { start: restTimer.start, active: restTimer.active },
-        { active: densityTimer.active, toggle: densityTimer.toggle }
-    ), [emomTimer.active, emomTimer.interval, emomTimer.toggle, restTimer.start, restTimer.active, densityTimer.active, densityTimer.toggle]);
+        { active: densityTimer.active, toggle: densityTimer.toggle },
+        { active: flowTimer.active, toggle: flowTimer.toggle }
+    ), [emomTimer.active, emomTimer.interval, emomTimer.toggle, restTimer.start, restTimer.active, densityTimer.active, densityTimer.toggle, flowTimer.active, flowTimer.toggle]);
 
     // Consolidated RPE props - used across all exercise card variants
     const rpeProps: RPEProps = useMemo(() => createRPEProps(
@@ -1401,6 +1413,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             active: densityTimer.active,
                             toggle: densityTimer.toggle,
                         }}
+                        flowTimer={{
+                            active: flowTimer.active,
+                            toggle: flowTimer.toggle,
+                        }}
                         haptic={haptic}
                         getEffectiveExerciseName={getEffectiveExerciseName}
                         onToggleSet={toggleSet}
@@ -1603,6 +1619,14 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                             densityTimer.toggle(exerciseWithOptions.densityTimeMinutes);
                                                         }
                                                     }}
+                                                    flowTimerActive={flowTimer.active}
+                                                    onToggleFlowTimer={() => {
+                                                        const flags = getExerciseTypeFlags(exerciseWithOptions);
+                                                        if (flags.flowTimeMinutes) {
+                                                            setActiveFlowExerciseId(exId);
+                                                            flowTimer.toggle(flags.flowTimeMinutes);
+                                                        }
+                                                    }}
                                                     densityRepChunks={exerciseLog.densityRepChunks || []}
                                                     densityComplete={exerciseLog.densityComplete || false}
                                                     onUpdateDensityRepChunks={updateDensityRepChunks}
@@ -1650,6 +1674,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 onToggleDensityTimer={(timeMinutes) => {
                                                     setActiveDensityExerciseId(exId);
                                                     densityTimer.toggle(timeMinutes);
+                                                }}
+                                                onToggleFlowTimer={(timeMinutes) => {
+                                                    setActiveFlowExerciseId(exId);
+                                                    flowTimer.toggle(timeMinutes);
                                                 }}
                                                 haptic={haptic}
                                                 onToggleCollapse={(id) => exerciseCollapse.toggle(id)}

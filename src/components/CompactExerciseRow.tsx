@@ -87,6 +87,10 @@ export interface CompactExerciseRowProps {
     densityTimeMinutes?: number;
     /** Total reps target for density exercises (v2.5+) */
     densityRepsTotal?: number;
+    /** Whether this is a flow exercise (v2.4+) */
+    isFlow?: boolean;
+    /** Total time in minutes for flow exercises (v2.4+) */
+    flowTimeMinutes?: number;
     /** Tempo range (e.g., 3-1-1-0) */
     tempoRange?: TempoRange;
     /** Superset group ID (consecutive EMOM exercises share the same group ID) */
@@ -131,6 +135,10 @@ export interface CompactExerciseRowProps {
     densityTimerActive?: boolean;
     /** Callback to toggle density timer */
     onToggleDensityTimer?: () => void;
+    /** Flow timer active state */
+    flowTimerActive?: boolean;
+    /** Callback to toggle flow timer */
+    onToggleFlowTimer?: () => void;
     /** Density rep chunks (v2.5+) */
     densityRepChunks?: number[];
     /** Density complete flag (v2.5+) */
@@ -165,6 +173,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     isDensity = false,
     densityTimeMinutes,
     densityRepsTotal,
+    isFlow = false,
+    flowTimeMinutes,
     tempoRange,
     supersetGroup,
     supersetPosition,
@@ -187,6 +197,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     onToggleEmomTimer,
     densityTimerActive = false,
     onToggleDensityTimer,
+    flowTimerActive = false,
+    onToggleFlowTimer,
     densityRepChunks = [],
     densityComplete = false,
     onUpdateDensityRepChunks,
@@ -576,8 +588,24 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                     </button>
                 )}
 
-                {/* Rest Timer Button - show on active row for main section non-EMOM, non-density exercises */}
-                {isFirstIncomplete && !isEmom && !isDensity && onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
+                {/* Flow Timer Button - show on active row for flow exercises */}
+                {isFlow && onToggleFlowTimer && flowTimeMinutes && (
+                    <button
+                        onClick={onToggleFlowTimer}
+                        className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium flex-shrink-0 ${
+                            flowTimerActive
+                                ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
+                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                        }`}
+                        aria-label={flowTimerActive ? 'Stop flow timer' : `Start ${flowTimeMinutes}m flow timer`}
+                    >
+                        <Timer size={12} />
+                        <span>{flowTimeMinutes}m</span>
+                    </button>
+                )}
+
+                {/* Rest Timer Button - show on active row for main section non-EMOM, non-density, non-flow exercises */}
+                {isFirstIncomplete && !isEmom && !isDensity && !isFlow && onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
                     <button
                         onClick={() => onStartRestTimer(restTime)}
                         className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium flex-shrink-0 ${
@@ -603,8 +631,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                     </button>
                 )}
 
-                {/* Set Buttons */}
-                {!isDensity && (
+                {/* Set Buttons - only for non-density, non-flow exercises */}
+                {!isDensity && !isFlow && (
                     <CompactSetButtons
                         exId={exId}
                         sets={sets}
@@ -707,8 +735,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             </div>
                         )}
 
-                        {/* Add Set Button */}
-                        {!isDensity && (
+                        {/* Add Set Button - only for non-density, non-flow exercises */}
+                        {!isDensity && !isFlow && (
                             <button
                                 onClick={handleAddSet}
                                 className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center gap-1.5 border border-dashed border-white/20 active:scale-95 transition-all text-xs font-medium"
@@ -732,6 +760,22 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             >
                                 <Gauge size={12} />
                                 <span>{densityTimeMinutes}m</span>
+                            </button>
+                        )}
+
+                        {/* Flow Timer Button - for flow exercises */}
+                        {isFlow && onToggleFlowTimer && flowTimeMinutes && (
+                            <button
+                                onClick={onToggleFlowTimer}
+                                className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                    flowTimerActive
+                                        ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
+                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                }`}
+                                aria-label={flowTimerActive ? 'Stop flow timer' : `Start ${flowTimeMinutes}m flow timer`}
+                            >
+                                <Timer size={12} />
+                                <span>{flowTimeMinutes}m</span>
                             </button>
                         )}
 

@@ -138,6 +138,11 @@ export interface FocusViewProps {
         active: boolean;
         toggle: (minutes: number) => void;
     };
+    /** Flow timer */
+    flowTimer?: {
+        active: boolean;
+        toggle: (minutes: number) => void;
+    };
     /** Haptic feedback */
     haptic: HapticFeedback;
     /** Get effective exercise name (with swaps) */
@@ -177,6 +182,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
     emomTimer,
     restTimer,
     densityTimer,
+    flowTimer,
     haptic,
     getEffectiveExerciseName,
     onToggleSet,
@@ -307,7 +313,8 @@ export const FocusView: React.FC<FocusViewProps> = ({
         const timerProps: TimerProps = createTimerProps(
             { active: emomTimer.active, interval: emomTimer.interval, toggle: emomTimer.toggle },
             { start: restTimer.start },
-            densityTimer ? { active: densityTimer.active, toggle: densityTimer.toggle } : undefined
+            densityTimer ? { active: densityTimer.active, toggle: densityTimer.toggle } : undefined,
+            flowTimer ? { active: flowTimer.active, toggle: flowTimer.toggle } : undefined
         );
         const rpeProps: RPEProps = createRPEProps(rpePrompt, onSaveRPE, onClearRPEPrompt);
         const saveCallbacks: SaveCallbacks = {
@@ -448,6 +455,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
         emomTimer,
         restTimer,
         densityTimer,
+        flowTimer,
         getEffectiveExerciseName,
         onToggleSet,
         onAddSet,

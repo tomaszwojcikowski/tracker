@@ -35,6 +35,8 @@ export interface ExerciseTypeFlags {
     isDensity: boolean;
     densityTimeMinutes?: number;
     densityRepsTotal?: number;
+    isFlow?: boolean;
+    flowTimeMinutes?: number;
 }
 
 /**
@@ -62,6 +64,8 @@ export interface TimerProps {
     restTimerActive?: boolean;
     densityTimerActive?: boolean;
     onToggleDensityTimer?: (timeMinutes: number) => void;
+    flowTimerActive?: boolean;
+    onToggleFlowTimer?: (timeMinutes: number) => void;
 }
 
 /**
@@ -82,6 +86,12 @@ export interface RPEProps {
  * Consolidates the repeated pattern of extracting isAmrap, isLadder, ladderReps.
  */
 export function getExerciseTypeFlags(ex: WorkoutExercise): ExerciseTypeFlags {
+    // Calculate flow time in minutes from repsRange if flow exercise
+    let flowTimeMinutes: number | undefined;
+    if (ex.isFlow && ex.repsRange?.type === 'time' && typeof ex.repsRange.value === 'number') {
+        flowTimeMinutes = ex.repsRange.value / 60; // Convert seconds to minutes
+    }
+
     return {
         isBodyweight: ex.isBodyweight,
         isEmom: ex.isEmom,
@@ -94,6 +104,8 @@ export function getExerciseTypeFlags(ex: WorkoutExercise): ExerciseTypeFlags {
         isDensity: ex.repsRange?.type === 'density',
         densityTimeMinutes: ex.densityTimeMinutes,
         densityRepsTotal: ex.densityRepsTotal,
+        isFlow: ex.isFlow,
+        flowTimeMinutes,
     };
 }
 
@@ -133,12 +145,13 @@ export function createExerciseOptionsProps(
 
 /**
  * Create timer props from timer hook states.
- * Used to pass emom, density, and rest timer state/callbacks together.
+ * Used to pass emom, density, flow, and rest timer state/callbacks together.
  */
 export function createTimerProps(
     emomTimer: { active: boolean; interval: number; toggle: () => void },
     restTimer: { start: (seconds: number) => void; active?: boolean },
-    densityTimer?: { active: boolean; toggle: (minutes: number) => void }
+    densityTimer?: { active: boolean; toggle: (minutes: number) => void },
+    flowTimer?: { active: boolean; toggle: (minutes: number) => void }
 ): TimerProps {
     return {
         emomTimerActive: emomTimer.active,
@@ -148,6 +161,8 @@ export function createTimerProps(
         restTimerActive: restTimer.active,
         densityTimerActive: densityTimer?.active,
         onToggleDensityTimer: densityTimer?.toggle,
+        flowTimerActive: flowTimer?.active,
+        onToggleFlowTimer: flowTimer?.toggle,
     };
 }
 

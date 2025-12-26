@@ -172,6 +172,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     haptic,
     hideCollapseButton = false,
     sectionType,
+    emomTimerActive = false,
+    emomTimerInterval = 60,
     restTimerActive = false,
     densityTimerActive = false,
     flowTimerActive = false,
@@ -183,6 +185,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     onSaveRPE,
     onClearRPEPrompt,
     onStartRestTimer,
+    onToggleEmomTimer,
     onToggleDensityTimer,
     onToggleFlowTimer,
     onShowHistory,
@@ -454,6 +457,25 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             </div>
                         ) : null}
 
+                        {/* EMOM Timer - for EMOM exercises */}
+                        {isEmom && sectionType === 'main' ? (
+                            <div className="flex items-center mb-2">
+                                <div className="flex-1" />
+                                <button
+                                    onClick={onToggleEmomTimer}
+                                    className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                        emomTimerActive
+                                            ? 'bg-purple-500 text-white ring-2 ring-purple-500/50'
+                                            : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                    }`}
+                                    aria-label={emomTimerActive ? 'Stop EMOM timer' : `Start ${emomTimerInterval}s EMOM timer`}
+                                >
+                                    <Zap size={14} />
+                                    <span>{emomTimerInterval >= 60 ? `${Math.floor(emomTimerInterval / 60)}m` : `${emomTimerInterval}s`}</span>
+                                </button>
+                            </div>
+                        ) : null}
+
                         {/* Density Rep Controls - for density exercises */}
                         {isDensity && densityRepsTotal && onUpdateDensityRepChunks && onMarkDensityComplete ? (
                             <>
@@ -561,8 +583,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     </button>
                                 )}
 
-                                {/* Rest Timer Button - show for main/access sections */}
-                                {restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
+                                {/* Rest Timer Button - show for main/access sections, excluding EMOM/density/flow */}
+                                {!isEmom && !isDensity && !isFlow && restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
                                     <button
                                         onClick={() => onStartRestTimer(restTime)}
                                         className={`h-10 px-4 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-sm font-semibold ${

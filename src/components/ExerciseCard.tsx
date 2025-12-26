@@ -458,7 +458,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                         ) : null}
 
                         {/* EMOM Timer - for EMOM exercises */}
-                        {isEmom && onToggleEmomTimer && sectionType === 'main' ? (
+                        {isEmom && sectionType === 'main' ? (
                             <div className="flex items-center mb-2">
                                 <div className="flex-1" />
                                 <button

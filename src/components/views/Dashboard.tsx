@@ -388,45 +388,45 @@ function WeekContent({
         currentWeek={week}
       />
 
-      {/* Resume Workout Banner */}
+      {/* Resume Workout Banner - MD3 Elevated Card */}
       {inProgressWorkout && inProgressWorkout.week === week && (
         <button
           onClick={handleResumeWorkout}
-          className="w-full mb-6 p-5 rounded-2xl bg-gradient-to-r from-sys-accent/20 to-sys-accent/10 border-2 border-sys-accent/30 active:scale-[0.98] transition-all"
+          className="w-full mb-6 p-6 rounded-2xl card-elevated bg-gradient-to-br from-sys-primaryContainer/30 to-sys-primaryContainer/10 border border-sys-primary/20 active:scale-[0.98] transition-all"
         >
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-2xl bg-sys-accent/20 flex items-center justify-center">
-                <PlayCircle className="text-sys-accent" width={24} />
+              <div className="h-12 w-12 rounded-2xl bg-sys-primaryContainer flex items-center justify-center">
+                <PlayCircle className="text-sys-onPrimaryContainer" width={24} />
               </div>
               <div className="text-left">
-                <h3 className="text-base font-bold text-white mb-1">
+                <h3 className="text-title-md text-sys-onSurface mb-1">
                   Resume Workout
                 </h3>
-                <p className="text-xs text-sys-onSurfaceVar">
+                <p className="text-body-sm text-sys-onSurfaceVar">
                   Week {inProgressWorkout.week}, Day {inProgressWorkout.day} • {formatRelativeTime(inProgressWorkout.lastModified.toISOString()) ?? 'recently'}
                 </p>
               </div>
             </div>
             <div className="flex flex-col items-end gap-1">
-              <span className="text-lg font-bold text-sys-accent">
+              <span className="text-title-lg text-sys-primary font-medium">
                 {inProgressWorkout.progress}%
               </span>
             </div>
           </div>
-          {/* Progress bar */}
-          <div className="w-full bg-black/30 h-2 rounded-full overflow-hidden">
+          {/* Progress bar - MD3 style */}
+          <div className="w-full bg-sys-surfaceVariant h-1.5 rounded-full overflow-hidden">
             <div
-              className="h-full bg-sys-accent transition-all duration-300 rounded-full"
+              className="h-full bg-sys-primary transition-all duration-300 rounded-full shadow-sm"
               style={{ width: `${inProgressWorkout.progress}%` }}
             ></div>
           </div>
         </button>
       )}
 
-        <div className="flex justify-between items-end mb-4 px-1">
-          <h3 className="text-lg font-bold text-white">Workouts</h3>
-          <span className="text-sm text-sys-accent font-medium">
+        <div className="flex justify-between items-end mb-5 px-1">
+          <h3 className="text-title-lg text-sys-onSurface">Workouts</h3>
+          <span className="text-label-md text-sys-primary font-medium uppercase tracking-wide">
             {currentBlock.name}
           </span>
         </div>
@@ -557,7 +557,7 @@ function WeekContent({
           })}
         </div>
 
-        {/* Start Empty Workout Button */}
+        {/* Start Empty Workout Button - MD3 Outlined Button Style */}
         {onStartEmptyWorkout && (
           <div className="mt-6">
             <button
@@ -565,15 +565,15 @@ function WeekContent({
                 haptic.bump();
                 onStartEmptyWorkout();
               }}
-              className="w-full min-h-[56px] rounded-2xl px-6 py-4 flex items-center justify-center gap-3 transition-all active:scale-[0.97] bg-sys-surface border border-dashed border-white/20 hover:border-sys-accent/40"
+              className="w-full min-h-[64px] rounded-lg px-5 py-4 flex items-center justify-center gap-4 transition-all active:scale-[0.98] card-outlined hover:bg-sys-surfaceVariant/20"
               aria-label="Start an empty workout"
             >
-              <div className="h-10 w-10 min-w-[40px] rounded-2xl bg-sys-surfaceHigh flex items-center justify-center">
-                <Plus className="text-sys-accent" size={20} />
+              <div className="h-10 w-10 min-w-[40px] rounded-full bg-sys-primaryContainer flex items-center justify-center">
+                <Plus className="text-sys-onPrimaryContainer" size={20} />
               </div>
               <div className="flex flex-col items-start text-left">
-                <span className="text-sm font-bold text-white">Start Custom Workout</span>
-                <span className="text-xs text-sys-onSurfaceVar">Add your own exercises</span>
+                <span className="text-label-lg text-sys-onSurface">Start Custom Workout</span>
+                <span className="text-body-sm text-sys-onSurfaceVar">Add your own exercises</span>
               </div>
             </button>
           </div>

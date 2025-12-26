@@ -312,7 +312,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 className={`text-left cursor-pointer active:opacity-70 transition-opacity ${!hasHistory ? 'opacity-90' : ''}`}
                                 aria-label={`View details and history for ${effectiveName}`}
                             >
-                                <h3 className="text-base font-semibold text-white leading-tight">
+                                <h3 className="text-lg font-bold text-white leading-tight">
                                     {effectiveName}
                                 </h3>
                             </button>
@@ -414,7 +414,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             )}
 
                         </div>
-                        <p className="text-xs text-sys-onSurfaceVar">{displayPrescription}</p>
+                        <p className="text-sm font-semibold text-sys-onSurfaceVar mt-1">{displayPrescription}</p>
                     </div>
 
                     {/* Collapse button - hidden in focus view */}
@@ -505,16 +505,16 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                                     <button
                                                         key={`${exId}-set-${i}`}
                                                         onClick={() => onToggleSet(exId, i, defaultSets, restTime, sectionType, isEmom)}
-                                                        className={`set-button h-10 w-10 min-w-[40px] rounded-lg flex items-center justify-center text-sm font-bold transition-all active:scale-90 ${
+                                                        className={`set-button h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
                                                             isDone
                                                                 ? allComplete
                                                                     ? 'completed bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.2)]'
                                                                     : 'completed bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
-                                                                : 'bg-sys-accent/20 text-sys-accent border border-sys-accent/30'
+                                                                : 'bg-sys-accent/20 text-sys-accent border-2 border-sys-accent/40'
                                                         }`}
                                                         aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                     >
-                                                        {isDone ? <Check size={16} /> : i + 1}
+                                                        {isDone ? <Check size={18} /> : i + 1}
                                                     </button>
                                                 );
                                             }
@@ -534,7 +534,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             })()}
 
                             {/* Progress indicator */}
-                            <span className="text-xs text-sys-onSurfaceVar font-semibold">
+                            <span className="text-sm text-sys-onSurfaceVar font-bold">
                                 ({completedSets}/{totalSets})
                             </span>
                                     </div>
@@ -543,21 +543,21 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 {/* Add set button */}
                                 <button
                                     onClick={() => onAddSet(exId, defaultSets)}
-                                    className="h-10 w-10 min-w-[40px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center text-sm font-bold border-2 border-dashed border-white/20 active:scale-95 transition-all"
+                                    className="h-12 w-12 min-w-[48px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center text-sm font-bold border-2 border-dashed border-white/20 active:scale-95 transition-all"
                                     aria-label="Add set"
                                 >
-                                    <Plus size={16} />
+                                    <Plus size={18} />
                                 </button>
 
                                 {/* Complete all button - aligned right */}
                                 {sets.filter((s) => !s).length > 1 && (
                                     <button
                                         onClick={() => onCompleteAllSets(exId, defaultSets)}
-                                        className="h-10 w-10 min-w-[40px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-all"
+                                        className="h-12 w-12 min-w-[48px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-all"
                                         aria-label="Complete all sets"
                                         title="Complete all sets"
                                     >
-                                        <CheckCheck size={16} />
+                                        <CheckCheck size={18} />
                                     </button>
                                 )}
 
@@ -565,14 +565,14 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 {restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
                                     <button
                                         onClick={() => onStartRestTimer(restTime)}
-                                        className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                        className={`h-10 px-4 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-sm font-semibold ${
                                             restTimerActive
                                                 ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
                                                 : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                         }`}
                                         aria-label={`Start ${restTime}s rest timer`}
                                     >
-                                        <Timer size={14} />
+                                        <Timer size={16} />
                                         <span>{restTime >= 60 ? `${Math.floor(restTime / 60)}m` : `${restTime}s`}</span>
                                     </button>
                                 )}
@@ -586,10 +586,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                                 const current = parseFloat(exerciseLog.weight || '0');
                                                 onSaveWeight(exId, Math.max(0, current - 2.5).toString());
                                             }}
-                                            className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
+                                            className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
                                             aria-label="Decrease weight by 2.5kg"
                                         >
-                                            <Minus size={14} />
+                                            <Minus size={16} />
                                         </button>
                                         <input
                                             id={`${exId}-weight`}
@@ -600,7 +600,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                             value={exerciseLog.weight || ''}
                                             onChange={(e) => onSaveWeight(exId, e.target.value)}
                                             placeholder={loadRange && loadRange.unit === 'kg' && loadRange.min > 0 ? String(loadRange.min) : '0'}
-                                            className="w-20 h-10 px-1 bg-sys-surfaceHigh rounded-lg text-white text-center text-xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                            className="w-24 h-12 px-2 bg-sys-surfaceHigh rounded-xl text-white text-center text-2xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                             aria-label="Weight in kg"
                                         />
                                         <button
@@ -609,10 +609,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                                 const current = parseFloat(exerciseLog.weight || '0');
                                                 onSaveWeight(exId, (current + 2.5).toString());
                                             }}
-                                            className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
+                                            className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
                                             aria-label="Increase weight by 2.5kg"
                                         >
-                                            <Plus size={14} />
+                                            <Plus size={16} />
                                         </button>
                                     </div>
                                 )}

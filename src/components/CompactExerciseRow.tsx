@@ -795,8 +795,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             </button>
                         )}
 
-                        {/* Rest Timer Button - only for main section non-EMOM, non-density exercises */}
-                        {!isEmom && !isDensity && onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
+                        {/* Rest Timer Button - only for main section non-EMOM, non-density, non-flow exercises */}
+                        {!isEmom && !isDensity && !isFlow && onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
                             <button
                                 onClick={() => onStartRestTimer(restTime)}
                                 className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${

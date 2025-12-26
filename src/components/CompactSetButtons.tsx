@@ -61,11 +61,11 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                 className="flex items-center gap-1"
                 style={{
                     // Shift left to hide all but the last completed button
-                    // Each button is 32px + 4px gap = 36px
+                    // Each button is 44px + 4px gap = 48px
                     // When all complete, show only last button fully visible
                     marginLeft: isComplete
-                        ? completedSets > 1 ? `-${(completedSets - 1) * 36}px` : 0
-                        : completedSets > 1 ? `-${(completedSets - 1) * 36}px` : 0,
+                        ? completedSets > 1 ? `-${(completedSets - 1) * 48}px` : 0
+                        : completedSets > 1 ? `-${(completedSets - 1) * 48}px` : 0,
                     transition: 'margin-left 150ms ease-out'
                 }}
             >
@@ -81,16 +81,16 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                             <button
                                 key={`${exId}-set-${i}`}
                                 onClick={() => onToggleSet(i)}
-                                className={`h-10 w-10 min-w-[40px] rounded-lg flex items-center justify-center text-sm font-bold transition-all active:scale-90 ${
+                                className={`h-11 w-11 min-w-[44px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
                                     isDone
                                         ? isComplete
                                             ? 'bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.2)]'
                                             : 'bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
-                                        : 'bg-sys-accent/20 text-sys-accent border border-sys-accent/30'
+                                        : 'bg-sys-accent/20 text-sys-accent border-2 border-sys-accent/40'
                                 }`}
                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                             >
-                                {isDone ? <Check size={16} /> : i + 1}
+                                {isDone ? <Check size={18} /> : i + 1}
                             </button>
                         );
                     }
@@ -119,7 +119,7 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                         (window as unknown as { __setButtonLastTap?: number }).__setButtonLastTap = now;
                     }
                 }}
-                className={`text-xs font-semibold ml-1 px-1.5 py-0.5 rounded transition-colors ${
+                className={`text-sm font-bold ml-1 px-2 py-1 rounded transition-colors ${
                     isComplete
                         ? 'text-sys-success'
                         : 'text-sys-onSurfaceVar hover:text-white hover:bg-sys-surfaceHigh active:scale-95'
@@ -133,10 +133,10 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
             {showCompleteAllButton && (
                 <button
                     onClick={onCompleteAllSets}
-                    className="h-10 w-10 rounded-lg bg-sys-success/20 text-sys-success flex items-center justify-center active:scale-90 transition-all ml-1"
+                    className="h-11 w-11 min-w-[44px] rounded-xl bg-sys-success/20 text-sys-success flex items-center justify-center active:scale-90 transition-all ml-1"
                     aria-label="Complete all sets"
                 >
-                    <CheckCheck size={16} />
+                    <CheckCheck size={18} />
                 </button>
             )}
         </div>

@@ -509,7 +509,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                 className={`rounded-xl border overflow-hidden transition-all ${containerClasses} ${hasSupersetGroup ? 'ml-3' : ''}`}
             >
             {/* Main Row - Always visible */}
-            <div className="h-14 px-3 flex items-center gap-2">
+            <div className="h-16 px-3 flex items-center gap-2">
                 {/* Exercise Name - Tap to expand prescription */}
                 <button
                     onClick={handleToggleExpand}
@@ -549,7 +549,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             <span className="text-[8px]">L/R</span>
                         </span>
                     )}
-                    <span ref={textRef} className="text-sm font-semibold text-white truncate min-w-0" title={historyLookupName}>
+                    <span ref={textRef} className="text-base font-bold text-white truncate min-w-0" title={historyLookupName}>
                         {/* Active row shows full name, others show short name */}
                         {isFirstIncomplete ? historyLookupName : shortDisplayName}
                     </span>
@@ -557,7 +557,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                     {isFirstIncomplete && prescription && (() => {
                         const reps = extractReps(prescription);
                         return reps ? (
-                            <span className="text-xs text-sys-onSurfaceVar font-medium flex-shrink-0">
+                            <span className="text-sm text-sys-onSurfaceVar font-semibold flex-shrink-0">
                                 {reps} reps
                             </span>
                         ) : null;

@@ -3,18 +3,19 @@
 @import "tailwindcss";
 
 html {
-    background-color: var(--color-black);
+    background-color: var(--color-background);
     min-height: 100%;
     min-height: 100dvh;
 }
 
 body {
-    background: var(--gradient-dark);
-    color: var(--color-neutral-50);
+    background: var(--color-background);
+    color: var(--color-on-background);
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior-y: none;
     min-height: 100%;
     min-height: 100dvh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
 /* ============================================================================
@@ -56,20 +57,20 @@ nav .bg-sys-secondaryContainer svg [opacity] {
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
-/* Modern Glassmorphism with gradient backdrop */
+/* Modern Material Design 3 Surface with elevation */
 .glass-panel {
-    background: linear-gradient(135deg, rgba(15, 15, 15, 0.8), rgba(26, 26, 26, 0.6));
+    background: linear-gradient(var(--surface-tint-2), var(--surface-tint-2)), var(--color-surface-dark);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: var(--shadow-glass);
+    border-top: 1px solid var(--color-outline-variant);
+    box-shadow: var(--elevation-2);
 }
 
 /* Light theme overrides */
 :root.theme-light .glass-panel {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.9));
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background: linear-gradient(var(--surface-tint-2), var(--surface-tint-2)), var(--color-surface-elevated);
+    border-top: 1px solid var(--color-outline-variant);
+    border-bottom: 1px solid var(--color-outline);
 }
 
 :root.theme-light .card-modern {
@@ -153,11 +154,61 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     box-shadow: var(--shadow-success);
 }
 
-/* Modern card styles */
+/* Modern Material Design 3 card styles */
 .card-modern {
-    background: linear-gradient(135deg, var(--color-surface-dark) 0%, var(--color-surface-elevated) 100%);
-    box-shadow: var(--shadow-lg);
-    border-radius: var(--radius-3xl);
+    background: linear-gradient(var(--surface-tint-1), var(--surface-tint-1)), var(--color-surface-dark);
+    box-shadow: var(--elevation-1);
+    border-radius: 16px; /* MD3 medium container */
+    border: 1px solid var(--color-outline-variant);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-modern:hover {
+    background: linear-gradient(var(--surface-tint-2), var(--surface-tint-2)), var(--color-surface-dark);
+    box-shadow: var(--elevation-2);
+    border-color: var(--color-outline);
+}
+
+/* MD3 Filled Card - for emphasized content */
+.card-filled {
+    background: var(--color-surface-variant);
+    color: var(--color-on-surface-variant);
+    box-shadow: var(--elevation-0);
+    border-radius: 16px;
+    border: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-filled:hover {
+    box-shadow: var(--elevation-1);
+}
+
+/* MD3 Elevated Card - for floating content */
+.card-elevated {
+    background: linear-gradient(var(--surface-tint-1), var(--surface-tint-1)), var(--color-surface-elevated);
+    box-shadow: var(--elevation-1);
+    border-radius: 16px;
+    border: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-elevated:hover {
+    background: linear-gradient(var(--surface-tint-2), var(--surface-tint-2)), var(--color-surface-elevated);
+    box-shadow: var(--elevation-3);
+}
+
+/* MD3 Outlined Card - for subtle separation */
+.card-outlined {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 16px;
+    border: 1px solid var(--color-outline);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-outlined:hover {
+    border-color: var(--color-outline-variant);
+    background: linear-gradient(var(--surface-tint-1), var(--surface-tint-1)), transparent;
 }
 
 /* Accent glow effect */

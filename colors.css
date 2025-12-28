@@ -140,7 +140,7 @@
   --color-inverse-primary: var(--color-primary-400);
   --color-scrim: #000000;
   --color-shadow: #000000;
-  
+
   /* ===== MD3 ELEVATION LEVELS ===== */
   --elevation-0: none;
   --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
@@ -582,7 +582,7 @@
 :root.theme-light {
   /* Override glass panel for light mode */
   --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
-  
+
   /* Mockup design tokens for light theme */
   --m-bg: #faf9fc;
   --m-fg: #1f1530;

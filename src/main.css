@@ -1879,6 +1879,182 @@ input:focus-visible {
     }
 }
 
+/* ============================================================================
+   MOCKUP UTILITY CLASSES
+   Apply mockup design directly to components
+   ============================================================================ */
+
+/* Mockup card styling - light theme cards */
+.mockup-card {
+    background: var(--m-surface, #ffffff);
+    border: 1px solid var(--m-outline, #e2e8f0);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: var(--m-shadow-sm);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mockup-card:hover {
+    box-shadow: var(--m-shadow);
+    transform: translateY(-2px);
+}
+
+/* Mockup section header */
+.mockup-section-header {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--m-muted, #64748b);
+    margin-bottom: 16px;
+}
+
+/* Mockup program card */
+.mockup-program-card {
+    background: var(--m-surface, #ffffff);
+    border: 1px solid var(--m-outline, #e2e8f0);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: var(--m-shadow-sm);
+}
+
+/* Mockup day card */
+.mockup-day-card {
+    background: var(--m-surface, #ffffff);
+    border: 1px solid var(--m-outline, #e2e8f0);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--m-shadow-xs);
+    transition: all 0.2s ease;
+}
+
+.mockup-day-card:hover {
+    box-shadow: var(--m-shadow-sm);
+}
+
+/* Mockup button - gradient primary */
+.mockup-btn-primary {
+    background: linear-gradient(135deg, var(--m-primary) 0%, var(--m-primary-strong) 100%);
+    color: white;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.mockup-btn-primary:hover {
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    transform: translateY(-1px);
+}
+
+.mockup-btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* Mockup button - tonal */
+.mockup-btn-tonal {
+    background: var(--m-surface-2, #f5f2ff);
+    color: var(--m-primary, #7c3aed);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: 1px solid var(--m-outline, #ddd6ff);
+    box-shadow: var(--m-shadow-xs);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.mockup-btn-tonal:hover {
+    background: var(--m-surface-3, #ede9ff);
+    box-shadow: var(--m-shadow-sm);
+}
+
+.mockup-btn-tonal:active {
+    transform: scale(0.98);
+}
+
+/* Mockup button - outlined */
+.mockup-btn-outlined {
+    background: transparent;
+    color: var(--m-fg, #1f1530);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: 1px solid var(--m-outline, #e2e8f0);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.mockup-btn-outlined:hover {
+    background: var(--m-surface-2, #f5f2ff);
+    border-color: var(--m-outline-strong, #b9a8d8);
+}
+
+.mockup-btn-outlined:active {
+    transform: scale(0.98);
+}
+
+/* Mockup text colors */
+.mockup-text-primary {
+    color: var(--m-fg, #1f1530);
+}
+
+.mockup-text-muted {
+    color: var(--m-muted, #6b5b85);
+}
+
+.mockup-text-accent {
+    color: var(--m-primary, #7c3aed);
+}
+
+/* Mockup background colors */
+.mockup-bg {
+    background-color: var(--m-bg, #faf9fc);
+}
+
+.mockup-bg-surface {
+    background-color: var(--m-surface, #ffffff);
+}
+
+.mockup-bg-surface-2 {
+    background-color: var(--m-surface-2, #f5f2ff);
+}
+
+.mockup-bg-surface-3 {
+    background-color: var(--m-surface-3, #ede9ff);
+}
+
+/* Mockup borders */
+.mockup-border {
+    border-color: var(--m-outline, #ddd6ff);
+}
+
+.mockup-border-strong {
+    border-color: var(--m-outline-strong, #b9a8d8);
+}
+
+/* Force light theme on body for mockup parity */
+:root {
+    --color-background: #faf9fc;
+    --color-on-background: #1f1530;
+    --color-surface: #ffffff;
+    --color-on-surface: #1f1530;
+}
+
+/* Apply mockup styles globally */
+body {
+    background-color: var(--m-bg, #faf9fc);
+    color: var(--m-fg, #1f1530);
+}
+
 /* Performance-optimized animations */
 @keyframes fadeInOptimized {
     from {

@@ -320,7 +320,7 @@ const App: React.FC = () => {
                     onTabChange={handleTabChange}
                 />
             )}
-            <div className="min-h-screen min-h-[100dvh] bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative app-container">
+            <div className="min-h-screen min-h-[100dvh] mockup-bg mockup-text-primary font-sans flex flex-col max-w-md mx-auto relative app-container">
                 <SkipLink targetId="main-content" />
                 <TopAppBar
                     title={getTitle()}

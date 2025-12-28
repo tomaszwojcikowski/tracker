@@ -1605,6 +1605,280 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     }
 }
 
+/* ============================================================================
+   PHASE 4: COMPLETE DESIGN SYSTEM
+   Typography enhancements, letter-spacing, and theme refinements
+   ============================================================================ */
+
+/* Enhanced Typography System - Bold Emphasis (800-900 weights) */
+.font-extra-bold {
+    font-weight: 800;
+}
+
+.font-black {
+    font-weight: 900;
+}
+
+/* Typography refinements for key UI elements */
+h1, .text-display {
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+h2, .text-title-lg {
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+h3, .text-title-md {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.text-headline {
+    font-weight: 900;
+    letter-spacing: -0.05em;
+}
+
+.text-emphasis {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+/* Button typography enhancements */
+button, .btn {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.btn-primary, .btn-gradient-primary-mockup {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+/* Card title emphasis */
+.card-title, .day-card h3, .day-card h4 {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+/* Stats and numbers emphasis */
+.stat-value, .progress-value, .set-count {
+    font-weight: 900;
+    letter-spacing: -0.03em;
+}
+
+/* Label uppercase with wide tracking */
+.label-uppercase {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+/* Enhanced Light Theme Color System */
+:root.theme-light {
+    /* Update primary to mockup violet/purple */
+    --color-primary-400: #a78bfa;
+    --color-primary-500: #8b5cf6;
+    --color-primary-600: #7c3aed;
+    --color-primary-700: #6d28d9;
+    --color-primary-800: #5b21b6;
+    
+    /* Enhanced contrast for light theme */
+    --color-on-background: #1f1530;
+    --color-on-surface: #1f1530;
+    --color-on-surface-variant: #6b5b85;
+    
+    /* Refined surface colors */
+    --color-background: #faf9fc;
+    --color-surface: #ffffff;
+    --color-surface-elevated: #ffffff;
+    --color-surface-elevated-high: #f5f2ff;
+    --color-surface-variant: #ede9ff;
+    
+    /* Outline refinements */
+    --color-outline: #ddd6ff;
+    --color-outline-variant: #b9a8d8;
+    
+    /* Enhanced gradients for light theme */
+    --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    
+    /* Shadow refinements */
+    --shadow-primary: 0 4px 12px rgba(124, 58, 237, 0.15);
+    --shadow-elevated: 0 8px 24px rgba(31, 21, 48, 0.12);
+}
+
+/* Enhanced Dark Theme Contrast */
+:root {
+    /* Ensure proper contrast in dark theme */
+    --color-on-background: #f4f4f5;
+    --color-on-surface: #e4e4e7;
+}
+
+/* Typography Scale with Mockup Values */
+.text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    letter-spacing: 0.01em;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0;
+}
+
+.text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: 0;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    letter-spacing: -0.01em;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    letter-spacing: -0.02em;
+}
+
+.text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    letter-spacing: -0.03em;
+}
+
+.text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    letter-spacing: -0.04em;
+}
+
+/* Component-specific typography refinements */
+.program-card-title {
+    font-weight: 800;
+    font-size: 1.125rem;
+    letter-spacing: -0.02em;
+    line-height: 1.5;
+}
+
+.week-indicator {
+    font-weight: 900;
+    font-size: 2.5rem;
+    letter-spacing: -0.05em;
+}
+
+.workout-section-header {
+    font-weight: 800;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.exercise-name {
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+}
+
+.set-number {
+    font-weight: 800;
+    font-size: 0.875rem;
+}
+
+/* Enhanced button styles with Phase 4 typography */
+.btn-gradient-primary-mockup,
+.btn-tonal-mockup {
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+/* Status pill typography */
+.status-pill {
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+}
+
+/* Week pill typography */
+.week-pill {
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: -0.01em;
+}
+
+.week-pill.active {
+    font-weight: 800;
+}
+
+/* Navigation typography */
+.side-rail-nav-item {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.side-rail-nav-item.active {
+    font-weight: 800;
+}
+
+/* Improved readability for body text */
+p, .body-text {
+    line-height: 1.6;
+    letter-spacing: 0;
+}
+
+/* Enhanced focus states for accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+:root.theme-light button:focus-visible,
+:root.theme-light a:focus-visible,
+:root.theme-light input:focus-visible {
+    outline-color: #7c3aed;
+}
+
+/* Enhanced card styling with Phase 4 refinements */
+.enhanced-card {
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--m-shadow-sm);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.enhanced-card:hover {
+    box-shadow: var(--m-shadow);
+    transform: translateY(-2px);
+}
+
+:root.theme-light .enhanced-card {
+    background: #ffffff;
+    border-color: #ddd6ff;
+}
+
+/* Performance: Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
 /* Performance-optimized animations */
 @keyframes fadeInOptimized {
     from {

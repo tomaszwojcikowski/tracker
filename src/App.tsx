@@ -9,6 +9,7 @@ import React, { useState, useEffect, useRef, useCallback, lazy, Suspense } from 
 import { AnimatePresence, motion } from 'framer-motion';
 import './main.css';
 import { NavigationBar } from './components/navigation';
+import { SideRail } from './components/SideRail';
 import { TopAppBar } from './components/TopAppBar';
 import { LoadingScreen, ErrorScreen } from './components/screens';
 import { SkipLink } from './components/SkipLink';
@@ -312,7 +313,14 @@ const App: React.FC = () => {
             {showOnboarding && (
                 <Onboarding onComplete={() => setShowOnboarding(false)} />
             )}
-            <div className="min-h-screen min-h-[100dvh] bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative">
+            {/* Desktop Side Rail (Phase 3) - Hidden on mobile, visible on desktop >= 900px */}
+            {viewMode === 'tab' && (
+                <SideRail
+                    activeTab={activeTab}
+                    onTabChange={handleTabChange}
+                />
+            )}
+            <div className="min-h-screen min-h-[100dvh] bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative app-container">
                 <SkipLink targetId="main-content" />
                 <TopAppBar
                     title={getTitle()}

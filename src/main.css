@@ -1388,6 +1388,223 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     contain: strict;
 }
 
+/* ============================================================================
+   PHASE 3: ADVANCED FEATURES
+   Confetti animations, enhanced glassmorphism, and desktop layouts
+   ============================================================================ */
+
+/* Confetti Animation - Celebratory bounce on set completion */
+@keyframes confetti-bounce {
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.15) rotate(2deg);
+    }
+    50% {
+        transform: scale(1.1) rotate(-2deg);
+    }
+    75% {
+        transform: scale(1.15) rotate(1deg);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes confetti-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+}
+
+/* Apply confetti to completed set buttons */
+.set-button.completed {
+    animation: confetti-bounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+               confetti-pulse 0.6s ease-out;
+    will-change: transform;
+}
+
+/* Enhanced Glassmorphism for top bar */
+.glass-topbar {
+    background: color-mix(in srgb, var(--color-surface-elevated) 85%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--color-outline-variant);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Light theme glassmorphism */
+:root.theme-light .glass-topbar {
+    background: color-mix(in srgb, var(--m-surface) 85%, transparent);
+    border-bottom: 1px solid var(--m-outline);
+    box-shadow: 0 2px 12px rgba(31, 21, 48, 0.08);
+}
+
+/* Enhanced card glassmorphism */
+.glass-card {
+    background: color-mix(in srgb, var(--color-surface-elevated) 90%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--color-outline-variant);
+}
+
+:root.theme-light .glass-card {
+    background: color-mix(in srgb, var(--m-surface) 90%, transparent);
+    border: 1px solid var(--m-outline);
+}
+
+/* Advanced Shadow System */
+.shadow-layered {
+    box-shadow: 
+        0 1px 2px rgba(0, 0, 0, 0.05),
+        0 4px 8px rgba(0, 0, 0, 0.08),
+        0 8px 16px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-elevated {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+:root.theme-light .shadow-layered {
+    box-shadow: 
+        0 1px 2px rgba(31, 21, 48, 0.05),
+        0 4px 8px rgba(31, 21, 48, 0.08),
+        0 8px 16px rgba(31, 21, 48, 0.06);
+}
+
+:root.theme-light .shadow-elevated {
+    box-shadow: 0 8px 24px rgba(31, 21, 48, 0.12);
+}
+
+/* Brand mark with gradient */
+.brand-mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--m-primary) 0%, var(--m-primary-strong) 100%);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-mark:active {
+    transform: scale(0.9);
+}
+
+:root.theme-light .brand-mark {
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+}
+
+/* Desktop Side Rail Navigation (hidden on mobile, visible on desktop) */
+.side-rail {
+    display: none;
+}
+
+@media (min-width: 900px) {
+    /* Desktop: side rail + content layout */
+    .side-rail {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px;
+        height: 100vh;
+        border-right: 1px solid var(--color-outline-variant);
+        background: color-mix(in srgb, var(--color-surface-elevated) 95%, var(--color-background));
+        padding: 24px 16px;
+        box-shadow: 4px 0 12px rgba(0, 0, 0, 0.03);
+        overflow-y: auto;
+        z-index: 100;
+    }
+
+    :root.theme-light .side-rail {
+        background: color-mix(in srgb, var(--m-surface) 95%, var(--m-bg));
+        border-right: 1px solid var(--m-outline);
+        box-shadow: 4px 0 12px rgba(31, 21, 48, 0.03);
+    }
+
+    /* Adjust main content for side rail */
+    .app-container {
+        margin-left: 260px;
+    }
+
+    /* Hide bottom navigation on desktop */
+    .bottom-navigation {
+        display: none !important;
+    }
+
+    /* Side rail header */
+    .side-rail-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 20px;
+        border: 1px solid var(--color-outline-variant);
+        background: linear-gradient(145deg, var(--color-surface-elevated), var(--color-surface-variant));
+        box-shadow: var(--m-shadow-sm);
+        margin-bottom: 24px;
+    }
+
+    :root.theme-light .side-rail-header {
+        border: 1px solid var(--m-outline);
+        background: linear-gradient(145deg, var(--m-surface), var(--m-surface-2));
+    }
+
+    /* Side rail navigation items */
+    .side-rail-nav {
+        display: grid;
+        gap: 8px;
+    }
+
+    .side-rail-nav-item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 16px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        background: transparent;
+        color: var(--color-on-surface-variant);
+        font-size: 15px;
+        font-weight: 600;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        border: none;
+        text-align: left;
+        width: 100%;
+    }
+
+    .side-rail-nav-item:hover {
+        background: var(--color-surface-variant);
+        color: var(--color-on-surface);
+    }
+
+    .side-rail-nav-item.active {
+        background: linear-gradient(135deg, var(--m-primary) 0%, var(--m-primary-strong) 100%);
+        color: white;
+        font-weight: 700;
+        box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
+    }
+
+    :root.theme-light .side-rail-nav-item.active {
+        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    }
+
+    .side-rail-nav-item:active {
+        transform: scale(0.98);
+    }
+}
+
 /* Performance-optimized animations */
 @keyframes fadeInOptimized {
     from {

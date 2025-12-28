@@ -140,6 +140,14 @@
   --color-inverse-primary: var(--color-primary-400);
   --color-scrim: #000000;
   --color-shadow: #000000;
+  
+  /* ===== MD3 ELEVATION LEVELS ===== */
+  --elevation-0: none;
+  --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --elevation-2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --elevation-4: 0 6px 10px 4px rgba(0, 0, 0, 0.15), 0 2px 3px rgba(0, 0, 0, 0.3);
+  --elevation-5: 0 8px 12px 6px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* ============================================================================
@@ -570,10 +578,36 @@
   --shadow-success: 0 10px 40px -5px rgba(34, 197, 94, 0.2);
 }
 
-/* Light theme specific overrides for text colors */
+/* Light theme specific overrides for text colors and MD3 roles */
 :root.theme-light {
   /* Override glass panel for light mode */
   --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+
+  /* MD3 Color Roles - Overrides for Light Theme */
+  --color-on-background: #18181b; /* Dark text on light background */
+  --color-on-surface: #18181b; /* Dark text on light surfaces */
+  --color-on-surface-variant: #64748b; /* Muted dark text */
+  
+  /* Primary container - light background with dark text */
+  --color-primary-container: #dbeafe; /* Light blue background */
+  --color-on-primary-container: #1e3a8a; /* Dark blue text */
+  
+  /* Secondary container - light background with dark text */
+  --color-secondary-container: #d1fae5; /* Light emerald background */
+  --color-on-secondary-container: #064e3b; /* Dark emerald text */
+  
+  /* Tertiary container */
+  --color-tertiary-container: #fef3c7; /* Light amber background */
+  --color-on-tertiary-container: #78350f; /* Dark amber text */
+  
+  /* Error container */
+  --color-error-container: #fee2e2; /* Light red background */
+  --color-on-error-container: #7f1d1d; /* Dark red text */
+  
+  /* Inverse colors for elements that should be dark in light mode */
+  --color-inverse-surface: #18181b; /* Dark surface */
+  --color-inverse-on-surface: #fafafa; /* Light text on dark surface */
+  --color-inverse-primary: #60a5fa; /* Lighter blue for dark backgrounds */
 }
 
 /* ============================================================================

@@ -28,29 +28,29 @@ export const WorkoutTimerDisplay: React.FC<WorkoutTimerDisplayProps> = ({
     <button
       onClick={onToggle}
       className={clsx(
-        "flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all active:scale-95",
+        "flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all active:scale-95 chip-mockup",
         isRunning
-          ? "bg-sys-primaryContainer text-sys-onPrimaryContainer border-transparent"
-          : "bg-sys-surfaceVariant/30 text-sys-onSurfaceVariant border-sys-outlineVariant"
+          ? "mockup-bg-surface-3 mockup-text-accent border-transparent shadow-md"
+          : "mockup-bg-surface-2 mockup-text-muted mockup-border"
       )}
       aria-label={isRunning ? 'Pause workout timer' : 'Resume workout timer'}
       title={isRunning ? 'Tap to pause' : 'Tap to resume'}
     >
       {isRunning ? (
-        <Timer size={16} className="text-sys-onPrimaryContainer" />
+        <Timer size={16} className="mockup-text-accent" />
       ) : (
-        <Pause size={16} className="text-sys-onSurfaceVariant" />
+        <Pause size={16} className="mockup-text-muted" />
       )}
       <span
         className={clsx(
-          "font-mono text-label-lg font-medium min-w-[48px] text-left",
-          isRunning ? "text-sys-onPrimaryContainer" : "text-sys-onSurfaceVariant"
+          "font-mono text-label-lg font-bold min-w-[48px] text-left timer-display-mockup",
+          isRunning ? "mockup-text-accent" : "mockup-text-muted"
         )}
       >
         {formattedTime}
       </span>
       {!isRunning && (
-        <Play size={14} className="text-sys-primary" />
+        <Play size={14} className="mockup-text-accent" />
       )}
     </button>
   );

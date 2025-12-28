@@ -5,8 +5,6 @@
  * Part of Phase 2 mockup implementation.
  */
 
-import React from 'react';
-
 interface StatusPillProps {
   status: 'completed' | 'up-next' | 'not-started';
   className?: string;

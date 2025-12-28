@@ -8,9 +8,8 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useHaptic, useScrollToElement } from '../../hooks';
-import { PlayCircle, Check, Play, ChevronRight, ChevronLeft, Plus, Trophy, Clock, Target } from '../icons';
-import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, hasWorkoutData, type InProgressWorkout } from '../../utils/storage';
-import { formatRelativeTime } from '../../utils/time';
+import { Play, ChevronRight, ChevronLeft, Plus, Clock } from '../icons';
+import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, type InProgressWorkout } from '../../utils/storage';
 import { getBlockForWeek } from '../../data/programData';
 import { getCompleteSchedule } from '../../utils/schedule';
 import { getSessionKey } from '../../services/storageNamespace';
@@ -239,10 +238,6 @@ export function Dashboard({
     return getWorkoutProgress(currentWeek, day);
   };
 
-  const hasExistingData = (day: number): boolean => {
-    return hasWorkoutData(currentWeek, day);
-  };
-
   const days = [1, 2, 3, 5];
 
   // Find the next workout to do (first incomplete day)
@@ -278,7 +273,6 @@ export function Dashboard({
             nextWorkoutDay={nextWorkoutDay}
             isCompleted={isCompleted}
             getDayProgress={getDayProgress}
-            hasExistingData={hasExistingData}
             getExerciseSummary={getExerciseSummary}
             changeWeek={changeWeek}
             onStartWorkout={onStartWorkout}
@@ -343,7 +337,6 @@ interface WeekContentProps {
   nextWorkoutDay: number | undefined;
   isCompleted: (day: number) => boolean;
   getDayProgress: (day: number) => { completedSets: number; totalSets: number; completedExercises: number; totalExercises: number; progress: number } | null;
-  hasExistingData: (day: number) => boolean;
   getExerciseSummary: (week: number, day: number) => string;
   changeWeek: (week: number) => void;
   onStartWorkout: (day: number) => void;
@@ -360,7 +353,6 @@ function WeekContent({
   nextWorkoutDay,
   isCompleted,
   getDayProgress,
-  hasExistingData,
   getExerciseSummary,
   changeWeek,
   onStartWorkout,
@@ -424,7 +416,7 @@ function WeekContent({
             const done = isCompleted(day);
             const dayProgress = getDayProgress(day);
             const isInProgress = !done && dayProgress !== null;
-            const hasPreviousData = !done && !isInProgress && hasExistingData(day);
+            void isInProgress;
 
             // Determine if this is the "Hero" card (next up)
             // It's the hero if it's the next workout day, OR if it's in progress

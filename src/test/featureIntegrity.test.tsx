@@ -207,10 +207,6 @@ describe('Feature Integrity Tests', () => {
         it('icons module exports required icons', async () => {
             const icons = await import('../icons');
 
-            // Icons used by ThemeSelector
-            expect(icons.Check).toBeDefined();
-            expect(icons.Palette).toBeDefined();
-
             // Icons used by Onboarding
             expect(icons.Dumbbell).toBeDefined();
             expect(icons.Calendar).toBeDefined();
@@ -342,7 +338,7 @@ describe('Feature Integrity Tests', () => {
             expect(useTheme).toBeDefined();
             expect(THEMES).toBeDefined();
             expect(Array.isArray(THEMES)).toBe(true);
-            expect(THEMES.length).toBeGreaterThan(0);
+            expect(THEMES.length).toBe(1);
         });
     });
 

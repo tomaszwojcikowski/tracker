@@ -83,12 +83,12 @@ test.describe('History View Time Filter', () => {
     });
 
     await page.goto('/');
-    await page.waitForSelector('button[aria-label="History"]', { timeout: 15000 });
+    await page.waitForSelector('button[aria-label="History"]:visible', { timeout: 15000 });
   });
 
   test('should display all filter chips on History view', async ({ page }) => {
     // Navigate to History tab
-    await page.locator('button[aria-label="History"]').click();
+    await page.locator('button[aria-label="History"]:visible').click();
     await page.waitForTimeout(500);
 
     // Check that all three filter chips are visible
@@ -106,7 +106,7 @@ test.describe('History View Time Filter', () => {
 
   test('should filter history by week when clicking "This Week" chip', async ({ page }) => {
     // Navigate to History tab
-    await page.locator('button[aria-label="History"]').click();
+    await page.locator('button[aria-label="History"]:visible').click();
     await page.waitForTimeout(500);
 
     // Click "This Week" filter
@@ -134,7 +134,7 @@ test.describe('History View Time Filter', () => {
 
   test('should filter history by month when clicking "This Month" chip', async ({ page }) => {
     // Navigate to History tab
-    await page.locator('button[aria-label="History"]').click();
+    await page.locator('button[aria-label="History"]:visible').click();
     await page.waitForTimeout(500);
 
     // Click "This Month" filter
@@ -159,7 +159,7 @@ test.describe('History View Time Filter', () => {
 
   test('should show all history when clicking "All Time" chip', async ({ page }) => {
     // Navigate to History tab
-    await page.locator('button[aria-label="History"]').click();
+    await page.locator('button[aria-label="History"]:visible').click();
     await page.waitForTimeout(500);
 
     // Click "This Week" to filter first
@@ -183,7 +183,7 @@ test.describe('History View Time Filter', () => {
 
   test('should persist filter selection when switching between tabs', async ({ page }) => {
     // Navigate to History tab
-    await page.locator('button[aria-label="History"]').click();
+    await page.locator('button[aria-label="History"]:visible').click();
     await page.waitForTimeout(500);
 
     // Click "This Week" filter
@@ -195,11 +195,11 @@ test.describe('History View Time Filter', () => {
     await expect(weekChip).toHaveAttribute('aria-pressed', 'true');
 
     // Switch to Train tab
-    await page.locator('button[aria-label="Train"]').click();
+    await page.locator('button[aria-label="Train"]:visible').click();
     await page.waitForTimeout(500);
 
     // Switch back to History tab
-    await page.locator('button[aria-label="History"]').click();
+    await page.locator('button[aria-label="History"]:visible').click();
     await page.waitForTimeout(500);
 
     // Verify "This Week" is still selected
@@ -212,7 +212,7 @@ test.describe('History View Time Filter', () => {
     // (Actual haptic feedback requires device support)
 
     // Navigate to History tab
-    await page.locator('button[aria-label="History"]').click();
+    await page.locator('button[aria-label="History"]:visible').click();
     await page.waitForTimeout(500);
 
     // Click each chip and verify no errors
@@ -241,7 +241,7 @@ test.describe('History View Time Filter', () => {
 
   test('should toggle between Calendar and Stats views while maintaining filter', async ({ page }) => {
     // Navigate to History tab
-    await page.locator('button[aria-label="History"]').click();
+    await page.locator('button[aria-label="History"]:visible').click();
     await page.waitForTimeout(500);
 
     // Apply "This Week" filter
@@ -265,7 +265,7 @@ test.describe('History View Time Filter', () => {
 
   test('should display filter chips with proper accessibility attributes', async ({ page }) => {
     // Navigate to History tab
-    await page.locator('button[aria-label="History"]').click();
+    await page.locator('button[aria-label="History"]:visible').click();
     await page.waitForTimeout(500);
 
     // Check that filter chips have proper ARIA attributes

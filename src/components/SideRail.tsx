@@ -5,7 +5,6 @@
  * Displays on screens >= 900px width, replaces bottom navigation.
  */
 
-import React from 'react';
 import { Dumbbell, BookOpen, History, Settings } from '../icons';
 
 interface SideRailProps {
@@ -47,7 +46,7 @@ export function SideRail({ activeTab, onTabChange, programName }: SideRailProps)
         <button
           onClick={() => onTabChange('library')}
           className={`side-rail-nav-item ${activeTab === 'library' ? 'active' : ''}`}
-          aria-label="Exercise Library"
+          aria-label="Library"
           aria-current={activeTab === 'library' ? 'page' : undefined}
         >
           <BookOpen className="w-6 h-6" />

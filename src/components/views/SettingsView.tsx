@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import * as FirebaseService from '../../firebase-service';
-import { ThemeSelector } from '../ThemeSelector';
-import { useTheme } from '../../hooks/useTheme';
 import { useHaptic, useScrollToTop } from '../../hooks';
 import { useAuth } from '../../hooks/useAuth';
 import { LoginStatus } from '../auth/LoginStatus';
@@ -159,9 +157,6 @@ export const SettingsView: React.FC = () => {
     const [firebaseMessage, setFirebaseMessage] = useState('');
     const [isSyncing, setIsSyncing] = useState(false);
 
-    // Theme state
-    const { currentTheme, setTheme, themes } = useTheme();
-
     const haptic = useHaptic();
 
     // Scroll to top when view loads
@@ -296,16 +291,6 @@ export const SettingsView: React.FC = () => {
             {/* General Tab Content */}
             {activeTab === 'general' && (
                 <>
-                    {/* Theme Selection */}
-                    <ThemeSelector
-                        theme={currentTheme}
-                        setTheme={(newTheme: string) => {
-                            haptic.bump();
-                            setTheme(newTheme as Parameters<typeof setTheme>[0]);
-                        }}
-                        themes={themes}
-                    />
-
                     {/* Firebase Sync Section - Only shown if Firebase is configured at build time */}
                     {FirebaseService.isFirebaseInitialized() && (
                         <>

@@ -236,7 +236,7 @@ const App: React.FC = () => {
     const startEmptyWorkout = (): void => {
         // Reset the workout timer when starting a custom workout
         workoutTimer.reset();
-        
+
         setViewMode('empty-workout');
 
         // Push new entry to history for empty workout
@@ -316,7 +316,7 @@ const App: React.FC = () => {
             {/* Desktop Side Rail (Phase 3) - Hidden on mobile, visible on desktop >= 900px */}
             {viewMode === 'tab' && (
                 <SideRail
-                    activeTab={activeTab}
+                    activeTab={activeTab as 'train' | 'library' | 'history' | 'profile'}
                     onTabChange={handleTabChange}
                 />
             )}

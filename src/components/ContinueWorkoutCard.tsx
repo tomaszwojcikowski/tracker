@@ -5,7 +5,6 @@
  * Part of Phase 2 mockup implementation.
  */
 
-import React from 'react';
 import { PlayCircle } from './icons';
 import { formatRelativeTime } from '../utils/time';
 import type { InProgressWorkout } from '../utils/storage';
@@ -16,11 +15,10 @@ interface ContinueWorkoutCardProps {
 }
 
 export function ContinueWorkoutCard({ workout, onResume }: ContinueWorkoutCardProps) {
-  const { week, day, timestamp, completedSets = [], totalSets } = workout;
-  
-  const completedCount = completedSets.filter(Boolean).length;
-  const progress = totalSets > 0 ? `${completedCount} / ${totalSets} sets` : 'In progress';
-  const timeAgo = timestamp ? formatRelativeTime(timestamp) : 'Recently';
+  const { week, day, lastModified, completedSets, totalSets } = workout;
+
+  const progress = totalSets > 0 ? `${completedSets} / ${totalSets} sets` : 'In progress';
+  const timeAgo = lastModified ? (formatRelativeTime(lastModified.toISOString()) || 'Recently') : 'Recently';
 
   return (
     <section className="continue-card" aria-label="Continue workout">

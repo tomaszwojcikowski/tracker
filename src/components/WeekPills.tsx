@@ -5,8 +5,6 @@
  * Part of Phase 2 mockup implementation.
  */
 
-import React from 'react';
-
 interface WeekPillsProps {
   currentWeek: number;
   totalWeeks: number;

@@ -518,15 +518,6 @@ export interface SwipeIndicatorProps {
 }
 
 /**
- * ThemeSelector component props
- */
-export interface ThemeSelectorProps {
-  theme: string;
-  setTheme: (theme: string) => void;
-  themes: Array<{ id: string; name: string; colors: Record<string, string> }>;
-}
-
-/**
  * PullToRefresh component props
  */
 export interface PullToRefreshProps {

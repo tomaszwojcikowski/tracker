@@ -582,6 +582,19 @@
 :root.theme-light {
   /* Override glass panel for light mode */
   --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+  
+  /* Mockup design tokens for light theme */
+  --m-bg: #faf9fc;
+  --m-fg: #1f1530;
+  --m-muted: #6b5b85;
+  --m-surface: #ffffff;
+  --m-surface-2: #f5f2ff;
+  --m-surface-3: #ede9ff;
+  --m-outline: #ddd6ff;
+  --m-outline-strong: #b9a8d8;
+  --m-shadow-xs: 0 1px 2px rgba(31,21,48,0.05);
+  --m-shadow-sm: 0 2px 4px rgba(31,21,48,0.08);
+  --m-shadow: 0 4px 12px rgba(31,21,48,0.1);
 }
 
 /* ============================================================================
@@ -630,4 +643,30 @@
   /* Error state layers */
   --state-error-hover: rgba(239, 68, 68, 0.08);
   --state-error-pressed: rgba(239, 68, 68, 0.12);
+
+  /* ===== MOCKUP DESIGN TOKENS (VIBRANT MODERN UI) ===== */
+  /* Mockup-specific variables for enhanced visual design */
+  --m-bg: var(--color-background);
+  --m-fg: var(--color-on-background);
+  --m-muted: var(--color-on-surface-variant);
+  --m-surface: var(--color-surface-elevated);
+  --m-surface-2: var(--color-surface-variant);
+  --m-surface-3: var(--color-surface-elevated-high);
+  --m-outline: var(--color-outline);
+  --m-outline-strong: var(--color-outline-variant);
+  --m-primary: var(--color-primary-600);
+  --m-primary-strong: var(--color-primary-700);
+  --m-primary-light: var(--color-primary-400);
+  --m-secondary: var(--color-warning-500);
+  --m-success: var(--color-success-600);
+  --m-warning: var(--color-warning-500);
+  --m-error: var(--color-error-500);
+  --m-touch: 48px;
+  --m-radius: 12px;
+  --m-radius-sm: 8px;
+  --m-radius-lg: 16px;
+  --m-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --m-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --m-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --m-border: 1px;
 }

@@ -960,6 +960,44 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     outline-offset: 2px;
 }
 
+/* Gradient Primary Button - Mockup Style */
+.btn-gradient-primary-mockup {
+    border: none;
+    background: linear-gradient(135deg, var(--m-primary) 0%, var(--m-primary-strong) 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-gradient-primary-mockup:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--m-primary-light) 0%, var(--m-primary) 100%);
+    box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn-gradient-primary-mockup:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
+}
+
+.btn-gradient-primary-mockup:focus-visible {
+    outline: 2px solid var(--m-primary-light);
+    outline-offset: 2px;
+}
+
+/* Light theme gradient primary */
+:root.theme-light .btn-gradient-primary-mockup {
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+}
+
+:root.theme-light .btn-gradient-primary-mockup:hover:not(:disabled) {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3);
+}
+
 /* Outlined Button - Border with transparent background */
 .btn-outlined {
     background: transparent;
@@ -998,6 +1036,35 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 .btn-tonal:focus-visible {
     outline: 2px solid var(--color-primary-300);
     outline-offset: 2px;
+}
+
+/* Tonal Button - Mockup Style */
+.btn-tonal-mockup {
+    border: none;
+    background: var(--m-surface-2);
+    color: var(--m-primary);
+    font-weight: 600;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-tonal-mockup:hover:not(:disabled) {
+    background: var(--m-surface-3);
+    transform: translateY(-1px);
+    box-shadow: var(--m-shadow-xs);
+}
+
+.btn-tonal-mockup:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Light theme tonal */
+:root.theme-light .btn-tonal-mockup {
+    background: #f3e8ff;
+    color: #6d28d9;
+}
+
+:root.theme-light .btn-tonal-mockup:hover:not(:disabled) {
+    background: #ede9fe;
 }
 
 /* Text Button - No container */
@@ -1399,4 +1466,231 @@ img {
 .prevent-layout-shift {
     content-visibility: auto;
     contain-intrinsic-size: auto 500px;
+}
+
+/* ============================================================================
+   MOCKUP DESIGN - PHASE 2 COMPONENTS
+   Status pills, week selector pills, and enhanced UI elements
+   ============================================================================ */
+
+/* Status Pills - For day cards */
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: capitalize;
+}
+
+.status-pill-completed {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--color-success-600);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.status-pill-up-next {
+    background: rgba(124, 58, 237, 0.1);
+    color: var(--m-primary);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.status-pill-not-started {
+    background: rgba(107, 114, 128, 0.1);
+    color: var(--color-neutral-500);
+    border: 1px solid rgba(107, 114, 128, 0.2);
+}
+
+/* Light theme overrides */
+:root.theme-light .status-pill-completed {
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+}
+
+:root.theme-light .status-pill-up-next {
+    background: rgba(124, 58, 237, 0.1);
+    color: #7c3aed;
+}
+
+:root.theme-light .status-pill-not-started {
+    background: rgba(107, 114, 128, 0.08);
+    color: #64748b;
+}
+
+/* Week Selector Pills */
+.week-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: 1px solid var(--m-outline);
+    background: var(--m-surface);
+    color: var(--m-muted);
+}
+
+.week-pill:hover {
+    background: var(--m-surface-2);
+    border-color: var(--m-outline-strong);
+    transform: translateY(-1px);
+}
+
+.week-pill:active {
+    transform: translateY(0) scale(0.96);
+}
+
+.week-pill.active {
+    background: linear-gradient(135deg, var(--m-primary) 0%, var(--m-primary-strong) 100%);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
+}
+
+/* Light theme week pills */
+:root.theme-light .week-pill {
+    border-color: #ddd6ff;
+    background: #ffffff;
+    color: #6b5b85;
+}
+
+:root.theme-light .week-pill:hover {
+    background: #f5f2ff;
+    border-color: #b9a8d8;
+}
+
+:root.theme-light .week-pill.active {
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    color: white;
+}
+
+/* Continue Card Styles */
+.continue-card {
+    border: 1px solid var(--m-outline);
+    border-radius: var(--m-radius);
+    padding: 20px;
+    background: var(--m-surface);
+    box-shadow: var(--m-shadow-sm);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.continue-card:hover {
+    box-shadow: var(--m-shadow);
+    border-color: var(--m-outline-strong);
+    transform: translateY(-1px);
+}
+
+/* Light theme continue card */
+:root.theme-light .continue-card {
+    background: #ffffff;
+    border-color: #ddd6ff;
+}
+
+:root.theme-light .continue-card:hover {
+    border-color: #b9a8d8;
+}
+
+/* Day Card Enhancements */
+.day-card-enhanced {
+    border: 1px solid var(--m-outline);
+    border-radius: var(--m-radius);
+    padding: 16px;
+    background: var(--m-surface);
+    box-shadow: var(--m-shadow-xs);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.day-card-enhanced:hover {
+    box-shadow: var(--m-shadow-sm);
+    border-color: var(--m-outline-strong);
+}
+
+/* Light theme day cards */
+:root.theme-light .day-card-enhanced {
+    background: #ffffff;
+    border-color: #ddd6ff;
+}
+
+/* Metadata row for day cards */
+.day-metadata {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--m-muted);
+}
+
+.day-metadata-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.day-metadata-label {
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.day-metadata-value {
+    font-weight: 700;
+}
+
+/* Stats summary card */
+.stats-card {
+    border: 1px solid var(--m-outline);
+    border-radius: var(--m-radius);
+    padding: 16px;
+    background: var(--m-surface);
+    box-shadow: var(--m-shadow-xs);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.stats-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--m-surface-2);
+    color: var(--m-primary);
+}
+
+.stats-card-value {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--m-fg);
+    letter-spacing: -0.02em;
+}
+
+.stats-card-label {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--m-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Light theme stats cards */
+:root.theme-light .stats-card {
+    background: #ffffff;
+    border-color: #ddd6ff;
+}
+
+:root.theme-light .stats-card-icon {
+    background: #f5f2ff;
+    color: #7c3aed;
 }

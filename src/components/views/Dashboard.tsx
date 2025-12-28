@@ -3,11 +3,12 @@
  *
  * Main training dashboard showing current week, progress, and daily workouts.
  * Uses program-scoped storage keys for data isolation between programs.
+ * Phase 2 Mockup: Enhanced with status pills, week selector pills, and continue card.
  */
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useHaptic, useScrollToElement } from '../../hooks';
-import { PlayCircle, Check, Play, ChevronRight, ChevronLeft, Plus, Trophy } from '../icons';
+import { PlayCircle, Check, Play, ChevronRight, ChevronLeft, Plus, Trophy, Clock, Target } from '../icons';
 import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, hasWorkoutData, type InProgressWorkout } from '../../utils/storage';
 import { formatRelativeTime } from '../../utils/time';
 import { getBlockForWeek } from '../../data/programData';
@@ -16,6 +17,9 @@ import { getSessionKey } from '../../services/storageNamespace';
 import { ProgramSelector } from '../ProgramSelector';
 import { useProgram } from '../../context/ProgramContext';
 import { WeeklyProgressRing } from '../progress';
+import { StatusPill } from '../StatusPill';
+import { WeekPills } from '../WeekPills';
+import { ContinueWorkoutCard } from '../ContinueWorkoutCard';
 
 /** Maximum number of exercises to show in the summary */
 const MAX_EXERCISES_IN_SUMMARY = 3;
@@ -388,40 +392,24 @@ function WeekContent({
         currentWeek={week}
       />
 
-      {/* Resume Workout Banner - MD3 Elevated Card */}
+      {/* Week Selector Pills - Phase 2 Mockup Feature */}
+      <div className="mb-6">
+        <WeekPills
+          currentWeek={currentWeek}
+          totalWeeks={21}
+          onWeekSelect={changeWeek}
+          visibleWeeks={4}
+        />
+      </div>
+
+      {/* Continue Workout Card - Phase 2 Mockup Feature */}
       {inProgressWorkout && inProgressWorkout.week === week && (
-        <button
-          onClick={handleResumeWorkout}
-          className="w-full mb-6 p-6 rounded-2xl card-elevated bg-gradient-to-br from-sys-primaryContainer/30 to-sys-primaryContainer/10 border border-sys-primary/20 active:scale-[0.98] transition-all"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-2xl bg-sys-primaryContainer flex items-center justify-center">
-                <PlayCircle className="text-sys-onPrimaryContainer" width={24} />
-              </div>
-              <div className="text-left">
-                <h3 className="text-title-md text-sys-onSurface mb-1">
-                  Resume Workout
-                </h3>
-                <p className="text-body-sm text-sys-onSurfaceVar">
-                  Week {inProgressWorkout.week}, Day {inProgressWorkout.day} • {formatRelativeTime(inProgressWorkout.lastModified.toISOString()) ?? 'recently'}
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-col items-end gap-1">
-              <span className="text-title-lg text-sys-primary font-medium">
-                {inProgressWorkout.progress}%
-              </span>
-            </div>
-          </div>
-          {/* Progress bar - MD3 style */}
-          <div className="w-full bg-sys-surfaceVariant h-1.5 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-sys-primary transition-all duration-300 rounded-full shadow-sm"
-              style={{ width: `${inProgressWorkout.progress}%` }}
-            ></div>
-          </div>
-        </button>
+        <div className="mb-6">
+          <ContinueWorkoutCard
+            workout={inProgressWorkout}
+            onResume={handleResumeWorkout}
+          />
+        </div>
       )}
 
         <div className="flex justify-between items-end mb-5 px-1">
@@ -489,70 +477,72 @@ function WeekContent({
             }
 
             return (
-              <button
+              <div
                 key={day}
                 id={`day-card-${day}`}
-                onClick={() => {
-                  haptic.tick();
-                  onStartWorkout(day);
-                }}
-                className={`relative min-h-[72px] rounded-2xl px-6 py-5 flex items-center justify-between transition-all active:scale-[0.97] scroll-mt-16 ${
-                  done
-                    ? 'bg-sys-surface border border-sys-success/30'
-                    : isInProgress
-                    ? 'bg-sys-surface border border-sys-accent/30'
-                    : `${theme.card.bg} border ${theme.card.border}`
-                }`}
-                aria-label={`${done ? 'View completed' : isInProgress ? 'Resume' : hasPreviousData ? 'Continue' : 'Start'} Day ${day} workout`}
+                className="day-card-enhanced"
               >
-                <div className="flex flex-col items-start">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span
-                        className={`text-sm font-bold uppercase tracking-wider ${
-                        done ? 'text-sys-success' : isInProgress ? 'text-sys-accent' : theme.card.text
-                        }`}
-                    >
-                        Day {day}
-                    </span>
-                    {done && <Check size={14} className="text-sys-success" />}
+                {/* Day header with status pill */}
+                <div className="flex items-center justify-between mb-3">
+                  <div>
+                    <h4 className="text-title-md font-bold text-sys-onSurface mb-1">
+                      Day {day}
+                    </h4>
+                    <p className="text-body-sm text-sys-onSurfaceVar line-clamp-1">
+                      {getExerciseSummary(week, day)}
+                    </p>
                   </div>
-                  <span
-                    className={`text-xs text-left line-clamp-1 ${
-                      done
-                        ? 'text-sys-success/70'
-                        : isInProgress
-                        ? 'text-sys-accent/70'
-                        : 'text-sys-onSurfaceVar/70'
-                    }`}
-                  >
-                    {done
-                      ? 'Completed'
-                      : isInProgress
-                      ? `${dayProgress?.completedSets}/${dayProgress?.totalSets} sets • ${dayProgress?.progress}%`
-                      : hasPreviousData
-                      ? 'Has previous data'
-                      : getExerciseSummary(week, day)}
-                  </span>
+                  <StatusPill
+                    status={done ? 'completed' : isInProgress ? 'up-next' : 'not-started'}
+                  />
                 </div>
 
-                <div
-                  className={`h-10 w-10 min-w-[40px] rounded-full flex items-center justify-center ${
-                    done
-                      ? 'bg-sys-success/10 text-sys-success'
-                      : isInProgress
-                      ? 'bg-sys-accent/10 text-sys-accent'
-                      : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                  }`}
-                >
-                  {done ? (
-                    <Trophy size={18} />
-                  ) : isInProgress ? (
-                    <Play size={18} />
-                  ) : (
-                    <ChevronRight size={18} />
+                {/* Metadata row - Phase 2 Mockup Feature */}
+                {(done || dayProgress) && (
+                  <div className="day-metadata mb-4">
+                    {dayProgress && (
+                      <div className="day-metadata-item">
+                        <span className="day-metadata-label">Sets</span>
+                        <span className="day-metadata-value">
+                          {dayProgress.completedSets} / {dayProgress.totalSets}
+                        </span>
+                      </div>
+                    )}
+                    {done && dayProgress && (
+                      <div className="day-metadata-item">
+                        <Clock className="w-3 h-3" />
+                        <span className="day-metadata-value">48m</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Action buttons */}
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      haptic.tick();
+                      onStartWorkout(day);
+                    }}
+                    className={`btn-md3 flex-1 ${
+                      isInProgress
+                        ? 'btn-gradient-primary-mockup'
+                        : 'btn-filled'
+                    } flex items-center justify-center gap-2`}
+                    aria-label={`${done ? 'View' : isInProgress ? 'Resume' : 'Start'} Day ${day} workout`}
+                  >
+                    {done ? 'Details' : isInProgress ? 'Resume' : 'Start'}
+                  </button>
+                  {!done && !isInProgress && (
+                    <button
+                      className="btn-md3 btn-outlined px-4"
+                      aria-label={`Preview Day ${day} workout`}
+                    >
+                      Preview
+                    </button>
                   )}
                 </div>
-              </button>
+              </div>
             );
           })}
         </div>

@@ -2055,6 +2055,38 @@ body {
     color: var(--m-fg, #1f1530);
 }
 
+/* Mockup status pills */
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border: 1px solid var(--m-outline);
+    transition: all 0.2s ease;
+}
+
+.status-pill-completed {
+    background: color-mix(in srgb, var(--m-success) 12%, var(--m-surface));
+    color: var(--m-success);
+    border-color: var(--m-success);
+}
+
+.status-pill-up-next {
+    background: color-mix(in srgb, var(--m-primary) 12%, var(--m-surface));
+    color: var(--m-primary);
+    border-color: var(--m-primary);
+}
+
+.status-pill-not-started {
+    background: var(--m-surface-2);
+    color: var(--m-muted);
+    border-color: var(--m-outline);
+}
+
 /* Performance-optimized animations */
 @keyframes fadeInOptimized {
     from {
@@ -2196,8 +2228,8 @@ img {
     min-width: 44px;
     height: 44px;
     padding: 0 16px;
-    border-radius: 12px;
-    font-size: 14px;
+    border-radius: 14px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: -0.02em;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2336,28 +2368,237 @@ img {
     color: var(--m-primary);
 }
 
-.stats-card-value {
-    font-size: 20px;
-    font-weight: 900;
-    color: var(--m-fg);
-    letter-spacing: -0.02em;
+.stats-card-content {
+    flex: 1;
 }
 
 .stats-card-label {
-    font-size: 11px;
-    font-weight: 800;
+    font-size: 12px;
+    font-weight: 600;
     color: var(--m-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
-/* Light theme stats cards */
-:root.theme-light .stats-card {
-    background: #ffffff;
-    border-color: #ddd6ff;
+.stats-card-value {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--m-fg);
+    letter-spacing: -0.03em;
 }
 
-:root.theme-light .stats-card-icon {
-    background: #f5f2ff;
-    color: #7c3aed;
+/* Glass topbar for mockup */
+.glass-topbar {
+    background: color-mix(in srgb, var(--m-surface) 85%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--m-outline);
+    box-shadow: var(--m-shadow-xs);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced card elevation for mockup */
+.card-mockup {
+    background: var(--m-surface);
+    border: 1px solid var(--m-outline);
+    border-radius: var(--m-radius-lg);
+    box-shadow: var(--m-shadow-xs);
+    padding: 16px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-mockup:hover {
+    box-shadow: var(--m-shadow-sm);
+    border-color: var(--m-outline-strong);
+    transform: translateY(-1px);
+}
+
+.card-mockup:active {
+    transform: translateY(0) scale(0.995);
+}
+
+/* Mockup exercise card */
+.exercise-card-mockup {
+    background: var(--m-surface);
+    border: 1px solid var(--m-outline);
+    border-radius: var(--m-radius);
+    padding: 14px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.exercise-card-mockup:hover {
+    border-color: var(--m-outline-strong);
+}
+
+/* Exercise name with strong emphasis */
+.exercise-name-mockup {
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--m-fg);
+}
+
+/* Exercise metadata */
+.exercise-meta-mockup {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--m-muted);
+}
+
+/* Set grid for mockup */
+.set-grid-mockup {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+}
+
+/* Set button mockup style */
+.set-btn-mockup {
+    height: 48px;
+    min-width: 48px;
+    border-radius: 14px;
+    border: 1px solid var(--m-outline);
+    background: var(--m-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--m-shadow-xs);
+}
+
+.set-btn-mockup:hover {
+    transform: scale(1.05);
+    border-color: var(--m-primary-light);
+    background: var(--m-surface-2);
+    box-shadow: var(--m-shadow-sm);
+}
+
+.set-btn-mockup:active {
+    transform: scale(0.9);
+    background: var(--m-surface-3);
+}
+
+.set-btn-mockup.completed {
+    border-color: var(--m-success);
+    background: color-mix(in srgb, var(--m-success) 12%, var(--m-surface));
+    color: var(--m-success);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+}
+
+/* Navigation enhancements for mockup */
+.nav-item-mockup {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 16px;
+    border: 1px solid transparent;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--m-muted);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item-mockup:hover {
+    background: var(--m-surface-2);
+    border-color: var(--m-outline);
+}
+
+.nav-item-mockup:active {
+    transform: scale(0.98);
+    background: var(--m-surface-3);
+}
+
+.nav-item-mockup.active {
+    background: color-mix(in srgb, var(--m-primary) 10%, var(--m-surface));
+    border-color: var(--m-primary);
+    color: var(--m-primary);
+}
+
+/* Chip components mockup */
+.chip-mockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 12px;
+    background: var(--m-surface-2);
+    border: 1px solid var(--m-outline);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--m-fg);
+    transition: all 0.2s ease;
+}
+
+.chip-mockup:active {
+    transform: scale(0.95);
+    filter: brightness(0.95);
+}
+
+/* Timer display mockup */
+.timer-display-mockup {
+    font-size: 18px;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    color: var(--m-primary);
+}
+
+/* Mockup section header */
+.section-header-mockup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 14px 8px;
+    border-top: 1px solid var(--m-outline);
+}
+
+.section-header-mockup:first-child {
+    border-top: none;
+}
+
+.section-tag-mockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 1px solid var(--m-outline);
+    background: var(--m-surface-2);
+    box-shadow: var(--m-shadow-xs);
+}
+
+/* Enhance button focus states for accessibility */
+button:focus-visible,
+.btn-md3:focus-visible,
+.mockup-btn-primary:focus-visible,
+.mockup-btn-tonal:focus-visible {
+    outline: 2px solid var(--m-primary);
+    outline-offset: 2px;
+}
+
+/* Smooth theme transitions - applied to interactive elements */
+button,
+.btn-md3,
+.card-mockup,
+.mockup-card,
+.status-pill,
+.week-pill,
+.chip-mockup,
+.nav-item-mockup {
+    transition-property: background-color, border-color, color, transform, box-shadow;
+    transition-duration: 150ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Prevent transition on page load */
+.preload * {
+    transition: none !important;
 }

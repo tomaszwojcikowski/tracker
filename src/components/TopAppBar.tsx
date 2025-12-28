@@ -77,11 +77,11 @@ export const TopAppBar = memo(function TopAppBar({
         ) : null}
 
         <div className={clsx("flex-1 min-w-0 flex flex-col justify-center", !showBack && "pl-1")}>
-          <h1 className="text-lg font-semibold mockup-text-primary tracking-tight truncate">
+          <h1 className="text-lg font-extrabold mockup-text-primary tracking-tight truncate">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-xs mockup-text-muted truncate -mt-0.5">
+            <p className="text-xs mockup-text-muted truncate -mt-0.5 font-semibold">
               {subtitle}
             </p>
           )}

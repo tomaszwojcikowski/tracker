@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" class="theme-classic">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5, user-scalable=yes" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+    <title>Tracker Mockups – Full Screen Timer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200" rel="stylesheet" />
+    <link rel="stylesheet" href="../colors.css" />
+    <link rel="stylesheet" href="./mockup.css" />
+  </head>
+  <body>
+    <div class="m-timer-layout">
+      <!-- Background Progress Ring (CSS Conic Gradient) -->
+      <div class="m-timer-bg-ring"></div>
+
+      <header class="m-timer-header">
+        <a href="./focus.html" class="m-btn ghost icon-only" aria-label="Minimize timer">
+          <span class="material-symbols-rounded">expand_more</span>
+        </a>
+        <div class="m-timer-mode-badge">
+          <span class="material-symbols-rounded" style="font-size: 16px;">timer</span>
+          <span>Rest Timer</span>
+        </div>
+        <button class="m-btn ghost icon-only" aria-label="Timer settings">
+          <span class="material-symbols-rounded">settings</span>
+        </button>
+      </header>
+
+      <main class="m-timer-main">
+        <div class="m-timer-display">
+          <div class="m-timer-huge">01:24</div>
+          <div class="m-timer-subtext">Next: Chest-Supported Row</div>
+        </div>
+
+        <!-- Contextual Info for EMOM/Density -->
+        <div class="m-timer-context m-hidden">
+          <div class="m-timer-stat">
+            <div class="label">Round</div>
+            <div class="val">3/10</div>
+          </div>
+          <div class="m-timer-stat">
+            <div class="label">Work</div>
+            <div class="val">45s</div>
+          </div>
+        </div>
+
+        <!-- Flow List (Hidden by default) -->
+        <div class="m-timer-flow-list m-hidden">
+          <div class="m-timer-flow-item">
+            <div class="num">1</div>
+            <div class="name">Push-ups</div>
+            <div class="time">45s</div>
+          </div>
+          <div class="m-timer-flow-item active">
+            <div class="num">2</div>
+            <div class="name">Pull-ups</div>
+            <div class="time">45s</div>
+          </div>
+          <div class="m-timer-flow-item">
+            <div class="num">3</div>
+            <div class="name">Squats</div>
+            <div class="time">45s</div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="m-timer-controls">
+        <button class="m-timer-btn secondary" aria-label="Add time">
+          <span class="material-symbols-rounded">remove</span>
+          <span>10s</span>
+        </button>
+
+        <button class="m-timer-btn primary large" aria-label="Pause/Resume">
+          <span class="material-symbols-rounded" style="font-size: 32px;">pause</span>
+        </button>
+
+        <button class="m-timer-btn secondary" aria-label="Add time">
+          <span class="material-symbols-rounded">add</span>
+          <span>30s</span>
+        </button>
+
+        <button class="m-timer-btn text" style="grid-column: 1 / -1; margin-top: 10px;">
+          Skip Timer
+        </button>
+      </footer>
+    </div>
+  </body>
+</html>

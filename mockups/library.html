@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en" class="theme-classic">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5, user-scalable=yes" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+    <title>Tracker Mockups – Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200" rel="stylesheet" />
+    <link rel="stylesheet" href="../colors.css" />
+    <link rel="stylesheet" href="./mockup.css" />
+  </head>
+  <body>
+    <div class="m-shell">
+      <aside class="m-rail" aria-label="Primary">
+        <div class="m-rail-header">
+          <div class="m-brand-mark" aria-hidden="true"></div>
+          <div class="m-rail-title">
+            <strong>Tracker</strong>
+            <span class="m-muted">Exercise library</span>
+          </div>
+        </div>
+
+        <nav class="m-nav" aria-label="Main navigation">
+          <a href="./index.html">
+            <div class="m-nav-ico" aria-hidden="true"><span class="material-symbols-rounded">fitness_center</span></div>
+            <div>
+              <div style="font-weight:800; letter-spacing:-0.02em;">Train</div>
+              <div class="m-nav-meta">Week overview</div>
+            </div>
+            <div class="m-muted" aria-hidden="true">›</div>
+          </a>
+          <a href="./library.html" aria-current="page">
+            <div class="m-nav-ico" aria-hidden="true"><span class="material-symbols-rounded">menu_book</span></div>
+            <div>
+              <div style="font-weight:800; letter-spacing:-0.02em;">Library</div>
+              <div class="m-nav-meta">Exercises & stats</div>
+            </div>
+            <div class="m-muted" aria-hidden="true">›</div>
+          </a>
+          <a href="./history.html">
+            <div class="m-nav-ico" aria-hidden="true"><span class="material-symbols-rounded">history</span></div>
+            <div>
+              <div style="font-weight:800; letter-spacing:-0.02em;">History</div>
+              <div class="m-nav-meta">Timeline & calendar</div>
+            </div>
+            <div class="m-muted" aria-hidden="true">›</div>
+          </a>
+          <a href="./settings.html">
+            <div class="m-nav-ico" aria-hidden="true"><span class="material-symbols-rounded">settings</span></div>
+            <div>
+              <div style="font-weight:800; letter-spacing:-0.02em;">Settings</div>
+              <div class="m-nav-meta">Theme & sync</div>
+            </div>
+            <div class="m-muted" aria-hidden="true">›</div>
+          </a>
+        </nav>
+      </aside>
+
+      <header class="m-topbar" role="banner">
+        <div class="m-topbar-inner">
+          <div class="m-brand">
+            <div class="m-brand-mark" aria-hidden="true"></div>
+            <div class="m-titleblock">
+              <div class="m-title">Exercise Library</div>
+              <div class="m-subtitle">Search, filter, and review performance</div>
+            </div>
+          </div>
+
+          <div></div>
+
+          <div class="m-actions">
+            <a class="m-btn" href="./workout.html">Add to workout</a>
+          </div>
+        </div>
+      </header>
+
+      <main class="m-main" role="main">
+        <div class="m-grid" style="margin-bottom: 20px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
+            <div class="m-card" style="padding: 16px; display: flex; align-items: center; gap: 12px;">
+              <div class="m-nav-ico" style="background: var(--m-surface-2); color: var(--m-primary);"><span class="material-symbols-rounded">fitness_center</span></div>
+              <div>
+                <div style="font-size: 20px; font-weight: 900; color: var(--m-fg);">124</div>
+                <div style="font-size: 11px; font-weight: 800; color: var(--m-muted); text-transform: uppercase;">Exercises</div>
+              </div>
+            </div>
+            <div class="m-card" style="padding: 16px; display: flex; align-items: center; gap: 12px;">
+              <div class="m-nav-ico" style="background: var(--m-surface-2); color: var(--m-secondary);"><span class="material-symbols-rounded">trending_up</span></div>
+              <div>
+                <div style="font-size: 20px; font-weight: 900; color: var(--m-fg);">18</div>
+                <div style="font-size: 11px; font-weight: 800; color: var(--m-muted); text-transform: uppercase;">PRs this month</div>
+              </div>
+            </div>
+            <div class="m-card" style="padding: 16px; display: flex; align-items: center; gap: 12px;">
+              <div class="m-nav-ico" style="background: var(--m-surface-2); color: var(--m-success);"><span class="material-symbols-rounded">calendar_today</span></div>
+              <div>
+                <div style="font-size: 20px; font-weight: 900; color: var(--m-fg);">4.2</div>
+                <div style="font-size: 11px; font-weight: 800; color: var(--m-muted); text-transform: uppercase;">Avg/Week</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="m-split">
+          <section class="m-card" aria-label="Browse">
+            <div class="m-card-header">
+              <div>
+                <div class="m-card-title">Browse</div>
+                <div class="m-card-subtitle">Filters mirror the in-app experience (name, muscle, category, tracked)</div>
+              </div>
+              <button class="m-btn" type="button">Clear</button>
+            </div>
+
+            <div class="m-card-inner">
+              <div class="m-row">
+                <div class="m-field">
+                  <div class="m-label">Search</div>
+                  <input class="m-input" placeholder="Squat, bench, lats…" aria-label="Search exercises" />
+                </div>
+                <div class="m-field">
+                  <div class="m-label">Category</div>
+                  <div class="m-pillrow" aria-label="Category filter">
+                    <span class="m-pill active">All</span>
+                    <span class="m-pill">Push</span>
+                    <span class="m-pill">Pull</span>
+                    <span class="m-pill">Legs</span>
+                    <span class="m-pill">Core</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="m-spacer"></div>
+
+              <div class="m-pillrow" aria-label="Tracked filter">
+                <span class="m-pill active">All exercises</span>
+                <span class="m-pill">Tracked only</span>
+              </div>
+
+              <div class="m-spacer"></div>
+
+              <div class="m-grid" style="gap:10px;">
+                <a class="m-panel" href="#ex-bench" aria-label="Bench Press">
+                  <div class="m-panel-inner" style="display:grid; grid-template-columns: 1fr auto; gap:12px; align-items:center;">
+                    <div>
+                      <div style="font-weight:900; letter-spacing:-0.02em;">Bench Press</div>
+                      <div class="m-muted" style="font-size:12px; margin-top:4px;">Primary: chest • Equipment: bar</div>
+                    </div>
+                    <span class="m-pill" style="border-color: color-mix(in srgb, var(--m-primary) 35%, var(--m-border));">Tracked</span>
+                  </div>
+                </a>
+
+                <a class="m-panel" href="#ex-squat" aria-label="Back Squat">
+                  <div class="m-panel-inner" style="display:grid; grid-template-columns: 1fr auto; gap:12px; align-items:center;">
+                    <div>
+                      <div style="font-weight:900; letter-spacing:-0.02em;">Back Squat</div>
+                      <div class="m-muted" style="font-size:12px; margin-top:4px;">Primary: quads • Equipment: bar</div>
+                    </div>
+                    <span class="m-pill" style="border-color: color-mix(in srgb, var(--m-primary) 35%, var(--m-border));">Tracked</span>
+                  </div>
+                </a>
+
+                <a class="m-panel" href="#ex-pullups" aria-label="Pull-Ups">
+                  <div class="m-panel-inner" style="display:grid; grid-template-columns: 1fr auto; gap:12px; align-items:center;">
+                    <div>
+                      <div style="font-weight:900; letter-spacing:-0.02em;">Pull-Ups</div>
+                      <div class="m-muted" style="font-size:12px; margin-top:4px;">Primary: lats • Equipment: bar</div>
+                    </div>
+                    <span class="m-pill">Bodyweight</span>
+                  </div>
+                </a>
+
+                <a class="m-panel" href="#ex-row" aria-label="Chest-Supported Row">
+                  <div class="m-panel-inner" style="display:grid; grid-template-columns: 1fr auto; gap:12px; align-items:center;">
+                    <div>
+                      <div style="font-weight:900; letter-spacing:-0.02em;">Chest-Supported Row</div>
+                      <div class="m-muted" style="font-size:12px; margin-top:4px;">Primary: upper back • Equipment: machine</div>
+                    </div>
+                    <span class="m-pill">Machine</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <aside class="m-grid" aria-label="Details" style="align-content:start;">
+            <section class="m-card" aria-label="Instructions">
+              <div class="m-card-header">
+                <div>
+                  <div class="m-card-title">Details</div>
+                  <div class="m-card-subtitle">Select an exercise to view muscles, equipment, stats, and history</div>
+                </div>
+              </div>
+              <div class="m-card-inner">
+                <div class="m-muted" style="font-size:12px;">No JS: selection uses URL fragments and :target.</div>
+              </div>
+            </section>
+
+            <section id="ex-bench" class="m-target m-card" aria-label="Bench Press details">
+              <div class="m-card-header">
+                <div>
+                  <div class="m-card-title">Bench Press</div>
+                  <div class="m-card-subtitle">Push • Barbell</div>
+                </div>
+                <a class="m-btn" href="#" aria-label="Close">Close</a>
+              </div>
+              <div class="m-card-inner">
+                <div class="m-kv">
+                  <div class="k">Primary</div>
+                  <div class="v m-right">Chest</div>
+                  <div class="k">Secondary</div>
+                  <div class="v m-right">Triceps, shoulders</div>
+                  <div class="k">Equipment</div>
+                  <div class="v m-right">Bar</div>
+                </div>
+                <div class="m-spacer"></div>
+                <div class="m-panel">
+                  <div class="m-panel-inner">
+                    <div style="font-weight:900; letter-spacing:-0.02em;">Statistics</div>
+                    <div class="m-spacer"></div>
+                    <div class="m-kv">
+                      <div class="k">Total workouts</div>
+                      <div class="v m-right">14</div>
+                      <div class="k">Max weight</div>
+                      <div class="v m-right">95 kg</div>
+                      <div class="k">Est. 1RM</div>
+                      <div class="v m-right">112 kg</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="m-spacer"></div>
+                <div class="m-panel">
+                  <div class="m-panel-inner">
+                    <div style="font-weight:900; letter-spacing:-0.02em;">Recent sessions</div>
+                    <div class="m-spacer"></div>
+                    <div class="m-grid" style="gap:10px;">
+                      <div class="m-panel">
+                        <div class="m-panel-inner">
+                          <div style="display:flex; justify-content:space-between; gap:10px;">
+                            <div>
+                              <div style="font-weight:800;">Dec 19, 2025</div>
+                              <div class="m-muted" style="font-size:12px;">Week 6 • Day 2</div>
+                            </div>
+                            <div class="m-right">
+                              <div style="font-weight:900;">5 sets</div>
+                              <div style="font-weight:800; color: var(--m-primary);">82.5 kg</div>
+                            </div>
+                          </div>
+                          <div class="m-muted" style="font-size:12px; margin-top:8px;">RPE: 8 / 8.5 / 9</div>
+                        </div>
+                      </div>
+                      <div class="m-panel">
+                        <div class="m-panel-inner">
+                          <div style="display:flex; justify-content:space-between; gap:10px;">
+                            <div>
+                              <div style="font-weight:800;">Dec 12, 2025</div>
+                              <div class="m-muted" style="font-size:12px;">Week 5 • Day 2</div>
+                            </div>
+                            <div class="m-right">
+                              <div style="font-weight:900;">5 sets</div>
+                              <div style="font-weight:800; color: var(--m-primary);">80 kg</div>
+                            </div>
+                          </div>
+                          <div class="m-muted" style="font-size:12px; margin-top:8px;">Note: pause rep on last set</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="m-spacer"></div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <a class="m-btn primary" href="./workout.html">Add to workout</a>
+                  <a class="m-btn" href="./history.html">Open history</a>
+                </div>
+              </div>
+            </section>
+
+            <section id="ex-squat" class="m-target m-card" aria-label="Back Squat details">
+              <div class="m-card-header">
+                <div>
+                  <div class="m-card-title">Back Squat</div>
+                  <div class="m-card-subtitle">Legs • Barbell</div>
+                </div>
+                <a class="m-btn" href="#" aria-label="Close">Close</a>
+              </div>
+              <div class="m-card-inner">
+                <div class="m-kv">
+                  <div class="k">Primary</div>
+                  <div class="v m-right">Quads</div>
+                  <div class="k">Secondary</div>
+                  <div class="v m-right">Glutes, core</div>
+                  <div class="k">Equipment</div>
+                  <div class="v m-right">Bar</div>
+                </div>
+                <div class="m-spacer"></div>
+                <div class="m-muted" style="font-size:12px;">(Additional stats & history would appear here, same structure as Bench Press.)</div>
+              </div>
+            </section>
+
+            <section id="ex-pullups" class="m-target m-card" aria-label="Pull-Ups details">
+              <div class="m-card-header">
+                <div>
+                  <div class="m-card-title">Pull-Ups</div>
+                  <div class="m-card-subtitle">Pull • Bodyweight</div>
+                </div>
+                <a class="m-btn" href="#" aria-label="Close">Close</a>
+              </div>
+              <div class="m-card-inner">
+                <div class="m-muted" style="font-size:12px;">Bodyweight exercises still show reps/sets trends and PRs in the real app.</div>
+              </div>
+            </section>
+
+            <section id="ex-row" class="m-target m-card" aria-label="Chest-Supported Row details">
+              <div class="m-card-header">
+                <div>
+                  <div class="m-card-title">Chest-Supported Row</div>
+                  <div class="m-card-subtitle">Pull • Machine</div>
+                </div>
+                <a class="m-btn" href="#" aria-label="Close">Close</a>
+              </div>
+              <div class="m-card-inner">
+                <div class="m-muted" style="font-size:12px;">Shows max weight by set count + recent progress graph in the app.</div>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </main>
+
+      <nav class="m-bottomnav" aria-label="Bottom navigation">
+        <div class="m-bottomnav-inner">
+          <a class="m-tab" href="./index.html">
+            <div class="m-tab-ico" aria-hidden="true"><span class="material-symbols-rounded">fitness_center</span></div>
+            <div>Train</div>
+          </a>
+          <a class="m-tab" href="./library.html" aria-current="page">
+            <div class="m-tab-ico" aria-hidden="true"><span class="material-symbols-rounded">menu_book</span></div>
+            <div>Library</div>
+          </a>
+          <a class="m-tab" href="./history.html">
+            <div class="m-tab-ico" aria-hidden="true"><span class="material-symbols-rounded">history</span></div>
+            <div>History</div>
+          </a>
+          <a class="m-tab" href="./settings.html">
+            <div class="m-tab-ico" aria-hidden="true"><span class="material-symbols-rounded">settings</span></div>
+            <div>Settings</div>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </body>
+</html>

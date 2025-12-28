@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en" class="theme-classic">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5, user-scalable=yes" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+    <title>Tracker Mockups – Settings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200" rel="stylesheet" />
+    <link rel="stylesheet" href="../colors.css" />
+    <link rel="stylesheet" href="./mockup.css" />
+  </head>
+  <body>
+    <div class="m-shell">
+      <aside class="m-rail" aria-label="Primary">
+        <div class="m-rail-header">
+          <div class="m-brand-mark" aria-hidden="true"></div>
+          <div class="m-rail-title">
+            <strong>Tracker</strong>
+            <span class="m-muted">Preferences & sync</span>
+          </div>
+        </div>
+
+        <nav class="m-nav" aria-label="Main navigation">
+          <a href="./index.html">
+            <div class="m-nav-ico" aria-hidden="true"><span class="material-symbols-rounded">fitness_center</span></div>
+            <div>
+              <div style="font-weight:800; letter-spacing:-0.02em;">Train</div>
+              <div class="m-nav-meta">Week overview</div>
+            </div>
+            <div class="m-muted" aria-hidden="true">›</div>
+          </a>
+          <a href="./library.html">
+            <div class="m-nav-ico" aria-hidden="true"><span class="material-symbols-rounded">menu_book</span></div>
+            <div>
+              <div style="font-weight:800; letter-spacing:-0.02em;">Library</div>
+              <div class="m-nav-meta">Exercises & stats</div>
+            </div>
+            <div class="m-muted" aria-hidden="true">›</div>
+          </a>
+          <a href="./history.html">
+            <div class="m-nav-ico" aria-hidden="true"><span class="material-symbols-rounded">history</span></div>
+            <div>
+              <div style="font-weight:800; letter-spacing:-0.02em;">History</div>
+              <div class="m-nav-meta">Timeline & calendar</div>
+            </div>
+            <div class="m-muted" aria-hidden="true">›</div>
+          </a>
+          <a href="./settings.html" aria-current="page">
+            <div class="m-nav-ico" aria-hidden="true"><span class="material-symbols-rounded">settings</span></div>
+            <div>
+              <div style="font-weight:800; letter-spacing:-0.02em;">Settings</div>
+              <div class="m-nav-meta">Theme & sync</div>
+            </div>
+            <div class="m-muted" aria-hidden="true">›</div>
+          </a>
+        </nav>
+      </aside>
+
+      <header class="m-topbar" role="banner">
+        <div class="m-topbar-inner">
+          <div class="m-brand">
+            <div class="m-brand-mark" aria-hidden="true"></div>
+            <div class="m-titleblock">
+              <div class="m-title">Settings</div>
+              <div class="m-subtitle">Theme, cloud sync, and program management</div>
+            </div>
+          </div>
+
+          <div></div>
+
+          <div class="m-actions">
+            <div class="m-chip" aria-label="Account">
+              <span class="m-chip-dot" aria-hidden="true" style="background: var(--m-secondary);"></span>
+              <span>Signed in</span>
+            </div>
+            <button class="m-btn" type="button">Log out</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="m-main" role="main">
+        <div class="m-grid">
+          <section class="m-card" aria-label="Tabs">
+            <div class="m-card-header">
+              <div>
+                <div class="m-card-title">Settings areas</div>
+                <div class="m-card-subtitle">Mirrors the in-app General / Programs segmentation</div>
+              </div>
+              <div class="m-pillrow" aria-label="Settings tabs">
+                <span class="m-pill active">General</span>
+                <span class="m-pill">Programs</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="m-card" aria-label="Workout Experience">
+            <div class="m-card-header">
+              <div>
+                <div class="m-card-title">Workout Experience</div>
+                <div class="m-card-subtitle">Customize how you track your sessions</div>
+              </div>
+            </div>
+            <div class="m-card-inner">
+              <div class="m-grid" style="gap:12px;">
+                <label class="m-panel" style="cursor:pointer;">
+                  <div class="m-panel-inner" style="display:grid; grid-template-columns: 1fr auto; gap:12px; align-items:center;">
+                    <div>
+                      <div style="font-weight:900; letter-spacing:-0.02em;">Focus Mode</div>
+                      <div class="m-muted" style="font-size:12px; margin-top:4px;">Immersive, distraction-free workout player</div>
+                    </div>
+                    <div class="m-chip" style="background: var(--m-primary); color: white; border: none;">New</div>
+                  </div>
+                </label>
+
+                <label class="m-panel" style="cursor:pointer;">
+                  <div class="m-panel-inner" style="display:grid; grid-template-columns: 1fr auto; gap:12px; align-items:center;">
+                    <div>
+                      <div style="font-weight:900; letter-spacing:-0.02em;">Auto-Timer</div>
+                      <div class="m-muted" style="font-size:12px; margin-top:4px;">Start rest timer automatically after each set</div>
+                    </div>
+                    <input type="checkbox" checked aria-label="Auto-timer" />
+                  </div>
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <section class="m-card" aria-label="Theme">
+            <div class="m-card-header">
+              <div>
+                <div class="m-card-title">Theme</div>
+                <div class="m-card-subtitle">Uses existing theme classes and color tokens</div>
+              </div>
+              <button class="m-btn" type="button">Apply</button>
+            </div>
+            <div class="m-card-inner">
+              <div class="m-grid" style="gap:10px;">
+                <label class="m-panel" style="cursor:pointer;">
+                  <div class="m-panel-inner" style="display:grid; grid-template-columns: auto 1fr; gap:12px; align-items:center;">
+                    <input type="radio" name="theme" checked aria-label="Classic theme" />
+                    <div>
+                      <div style="font-weight:900; letter-spacing:-0.02em;">Classic Dark</div>
+                      <div class="m-muted" style="font-size:12px; margin-top:4px;">High contrast, minimal glow</div>
+                    </div>
+                  </div>
+                </label>
+
+                <label class="m-panel" style="cursor:pointer;">
+                  <div class="m-panel-inner" style="display:grid; grid-template-columns: auto 1fr; gap:12px; align-items:center;">
+                    <input type="radio" name="theme" aria-label="Modern theme" />
+                    <div>
+                      <div style="font-weight:900; letter-spacing:-0.02em;">Modern Neon</div>
+                      <div class="m-muted" style="font-size:12px; margin-top:4px;">Violet/cyan accents</div>
+                    </div>
+                  </div>
+                </label>
+
+                <label class="m-panel" style="cursor:pointer;">
+                  <div class="m-panel-inner" style="display:grid; grid-template-columns: auto 1fr; gap:12px; align-items:center;">
+                    <input type="radio" name="theme" aria-label="Ocean theme" />
+                    <div>
+                      <div style="font-weight:900; letter-spacing:-0.02em;">Deep Ocean</div>
+                      <div class="m-muted" style="font-size:12px; margin-top:4px;">Calm teal palette</div>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <section class="m-card" aria-label="Cloud sync">
+            <div class="m-card-header">
+              <div>
+                <div class="m-card-title">Cloud sync (Firebase)</div>
+                <div class="m-card-subtitle">Optional; works offline-first and syncs when enabled</div>
+              </div>
+              <button class="m-btn" type="button">Sync now</button>
+            </div>
+            <div class="m-card-inner">
+              <div class="m-row">
+                <div class="m-panel">
+                  <div class="m-panel-inner">
+                    <div style="font-weight:900; letter-spacing:-0.02em;">Status</div>
+                    <div class="m-spacer"></div>
+                    <div class="m-kv">
+                      <div class="k">Account</div>
+                      <div class="v m-right">user@example.com</div>
+                      <div class="k">Auto-sync</div>
+                      <div class="v m-right">Enabled</div>
+                      <div class="k">Last sync</div>
+                      <div class="v m-right">2 min ago</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="m-panel">
+                  <div class="m-panel-inner">
+                    <div style="font-weight:900; letter-spacing:-0.02em;">Controls</div>
+                    <div class="m-spacer"></div>
+                    <div class="m-pillrow">
+                      <span class="m-pill active">Auto</span>
+                      <span class="m-pill">Manual</span>
+                      <span class="m-pill">Offline queue</span>
+                    </div>
+                    <div class="m-spacer"></div>
+                    <div class="m-muted" style="font-size:12px;">Errors and merge conflicts are handled by timestamp/CRDT logic in the real app.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="m-spacer"></div>
+
+              <div class="m-panel">
+                <div class="m-panel-inner">
+                  <div style="font-weight:900; letter-spacing:-0.02em;">Recent sync message</div>
+                  <div class="m-spacer"></div>
+                  <div class="m-pill" style="border-color: color-mix(in srgb, var(--m-success) 55%, var(--m-border)); background: color-mix(in srgb, var(--m-success) 16%, var(--m-surface-2));">
+                    ✓ Data synced successfully
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="m-card" aria-label="Program management">
+            <div class="m-card-header">
+              <div>
+                <div class="m-card-title">Programs</div>
+                <div class="m-card-subtitle">Import/export, reset progress, archive and restore</div>
+              </div>
+              <a class="m-btn" href="./index.html">Go to Train</a>
+            </div>
+            <div class="m-card-inner">
+              <div class="m-row">
+                <div class="m-panel">
+                  <div class="m-panel-inner">
+                    <div style="font-weight:900; letter-spacing:-0.02em;">Active program</div>
+                    <div class="m-spacer"></div>
+                    <div class="m-input" aria-label="Program">Integrated Strength (v2.6.9)</div>
+                    <div class="m-spacer"></div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                      <button class="m-btn" type="button">Export program</button>
+                      <button class="m-btn" type="button">Import JSON</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="m-panel">
+                  <div class="m-panel-inner">
+                    <div style="font-weight:900; letter-spacing:-0.02em;">Progress tools</div>
+                    <div class="m-spacer"></div>
+                    <div class="m-grid" style="gap:10px;">
+                      <button class="m-btn" type="button">Archive progress</button>
+                      <button class="m-btn" type="button">Restore archive</button>
+                      <button class="m-btn" type="button" style="border-color: color-mix(in srgb, var(--m-warning) 55%, var(--m-border));">Reset progress</button>
+                    </div>
+                    <div class="m-spacer"></div>
+                    <div class="m-muted" style="font-size:12px;">Reset preserves archived data in the real app.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <nav class="m-bottomnav" aria-label="Bottom navigation">
+        <div class="m-bottomnav-inner">
+          <a class="m-tab" href="./index.html">
+            <div class="m-tab-ico" aria-hidden="true"><span class="material-symbols-rounded">fitness_center</span></div>
+            <div>Train</div>
+          </a>
+          <a class="m-tab" href="./library.html">
+            <div class="m-tab-ico" aria-hidden="true"><span class="material-symbols-rounded">menu_book</span></div>
+            <div>Library</div>
+          </a>
+          <a class="m-tab" href="./history.html">
+            <div class="m-tab-ico" aria-hidden="true"><span class="material-symbols-rounded">history</span></div>
+            <div>History</div>
+          </a>
+          <a class="m-tab" href="./settings.html" aria-current="page">
+            <div class="m-tab-ico" aria-hidden="true"><span class="material-symbols-rounded">settings</span></div>
+            <div>Settings</div>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </body>
+</html>

@@ -61,12 +61,12 @@ export const TopAppBar = memo(function TopAppBar({
   progressBar,
 }: TopAppBarProps) {
   return (
-    <header className="bg-sys-black/95 backdrop-blur-md sticky top-0 z-40 safe-pt transition-colors duration-200">
+    <header className="glass-topbar sticky top-0 z-40 safe-pt transition-colors duration-200">
       <div className="h-14 flex items-center px-4 gap-3">
         {showBack ? (
           <button
             onClick={onBack}
-            className="btn-icon h-10 w-10 -ml-1 text-sys-onSurfaceVar hover:text-white"
+            className="btn-icon h-10 w-10 -ml-1 mockup-text-muted hover:mockup-text-primary"
             aria-label="Go back"
           >
             <ArrowLeft size={22} />
@@ -74,11 +74,11 @@ export const TopAppBar = memo(function TopAppBar({
         ) : null}
 
         <div className={clsx("flex-1 min-w-0 flex flex-col justify-center", !showBack && "pl-1")}>
-          <h1 className="text-lg font-semibold text-white tracking-tight truncate">
+          <h1 className="text-lg font-semibold mockup-text-primary tracking-tight truncate">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-xs text-sys-onSurfaceVar truncate -mt-0.5">
+            <p className="text-xs mockup-text-muted truncate -mt-0.5">
               {subtitle}
             </p>
           )}

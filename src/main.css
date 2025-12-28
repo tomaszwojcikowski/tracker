@@ -96,6 +96,15 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
+/* Override text-white to use dark text in light theme for proper contrast */
+:root.theme-light .text-white {
+    color: #18181b !important; /* Dark zinc-900 for proper contrast */
+}
+
+:root.theme-light .hover\:text-white:hover {
+    color: #18181b !important;
+}
+
 /* Smooth CSS Grid transitions for exercise card collapse/expand */
 .exercise-content {
     display: grid;

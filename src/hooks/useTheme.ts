@@ -18,6 +18,7 @@ export interface ThemeInfo {
     };
 }
 
+// Only light theme is available
 export const THEMES: ThemeInfo[] = [
     {
         id: 'light',
@@ -48,6 +49,7 @@ export function useTheme() {
         }
     }, []);
 
+    // Simplified return - setTheme is now a no-op since theme is fixed
     return {
         currentTheme: 'light' as const,
         // Intentionally a no-op; theme switching is removed.

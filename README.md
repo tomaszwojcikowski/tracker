@@ -66,21 +66,25 @@ The production build outputs to the `dist/` directory and includes:
 
 - `dist/index.html` - Optimized HTML entry point
 - `dist/assets/` - Bundled JS and CSS files
-- `dist/workout-plan-v2.1.json` - Workout plan data
+- `dist/workout-plan-v2.5.json` - Workout plan data (current version)
 - `dist/exercises.json` - Exercise library data
 - `dist/colors.css` - CSS custom properties
 
 ### Technology Stack
 
 - **React 18** - UI framework
+- **TypeScript** - Type-safe JavaScript (fully migrated from JavaScript)
 - **Tailwind CSS 3** - Utility-first CSS framework
 - **Vite 5** - Build tool and dev server
 - **Vitest** - Unit testing framework
+- **Playwright** - End-to-end testing
 - **Testing Library** - React component testing
 - **Lucide Icons** - Icon library
 - **Firebase** - Cloud sync and Google authentication
 - **Automerge** - CRDT-based conflict-free data synchronization
 - **Google Gemini AI** - Optional AI coaching integration
+- **Sentry** - Optional error tracking and monitoring
+- **Workbox** - Service worker for PWA capabilities
 
 ### Testing
 
@@ -93,16 +97,40 @@ npm run test:watch
 
 # Run tests with UI
 npm run test:ui
+
+# Run E2E tests (Playwright)
+npm run test:e2e
+
+# Run E2E tests with UI
+npm run test:e2e:ui
+
+# Run TypeScript type checking
+npm run typecheck
 ```
 
-The test suite includes 100+ comprehensive Vitest specs covering:
-- **Storage Utilities** (`storageUtils.test.jsx`): LocalStorage operations with error handling
-- **Schedule Building** (`scheduleUtils.test.jsx`): Schedule data loading and processing
-- **Exercise History & Stats** (`exerciseHistory.test.jsx`): Workout timelines, stats, and 1RM calculations
-- **URL Routing & Deep Links** (`urlRouting.test.jsx`): State management, URL parsing, navigation behavior
-- **Set Toggle Logic** (`toggleSet.test.jsx`): Workout progress tracking and RPE data management
-- **Firebase Timestamp Merge** (`firebaseSync.test.jsx`): Cloud/local conflict resolution using `lastModified`
-- **Browser History Regression** (`backNavigation.test.jsx`): Ensures forward/back buttons stay in sync with state
+The test suite includes 300+ comprehensive Vitest specs and E2E tests covering:
+- **Storage Utilities** (`storageUtils.test.tsx`): LocalStorage operations with error handling
+- **Schedule Building** (`scheduleUtils.test.tsx`): Schedule data loading and processing
+- **Exercise History & Stats** (`exerciseHistory.test.tsx`, `exerciseHistoryComprehensive.test.tsx`): Workout timelines, stats, and 1RM calculations
+- **URL Routing & Deep Links** (`urlRouting.test.tsx`): State management, URL parsing, navigation behavior
+- **Set Toggle Logic** (`toggleSet.test.tsx`): Workout progress tracking and RPE data management
+- **Firebase Timestamp Merge** (`firebaseSync.test.tsx`): Cloud/local conflict resolution using `lastModified`
+- **Automerge CRDT Sync** (`automergeSync.test.tsx`): Conflict-free data synchronization
+- **Browser History Regression** (`backNavigation.test.tsx`): Ensures forward/back buttons stay in sync with state
+- **Optimistic Sync Hook** (`optimisticSync.test.tsx`): Background cloud sync with debouncing
+- **EMOM Timer Logic** (`emomTimer.test.tsx`, `densityTimer.test.tsx`): Timer functionality for special exercise types
+- **Volume Calculations** (`volume.test.tsx`): Training volume tracking
+- **PWA Hooks** (`pwa.test.tsx`): Progressive Web App functionality
+- **Workout Plan Utilities** (`workoutPlanUtils.test.tsx`): Workout plan parsing and validation
+- **Flow Exercise Feature** (`flowExercise.test.tsx`): Flow exercise sequences
+- **Focus Mode** (`focusMode.test.tsx`): Single-exercise focus view
+- **Exercise Options** (`exerciseOptions.test.tsx`, `exerciseOptionsModal.test.tsx`): Exercise customization
+- **Density Controls** (`densityRepControls.test.tsx`): Density exercise rep tracking
+- **Error Handling** (`errorBoundary.test.tsx`, `errorReporting.test.tsx`): Error boundaries and reporting
+- **Accessibility** (`accessibility.test.tsx`): Keyboard navigation and screen reader support
+- **UI Components** (`exerciseCard.test.tsx`, `addedExerciseCard.test.tsx`, `exerciseCollapse.test.tsx`): Component behavior
+- **Feature Integrity** (`featureIntegrity.test.tsx`): Cross-feature integration testing
+- **Shared config/mocks** — `src/test/setup.js`
 
 For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 
@@ -114,17 +142,24 @@ For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 - **Workout Notes**: Add free-text notes to document your workout sessions, training observations, and form cues
 - **Rest Timer**: Built-in countdown timer with notifications to optimize rest periods between sets
 - **EMOM Timer**: Every Minute On the Minute timer for EMOM exercises with adjustable intervals (10-180s) and audio cues
+- **Density Exercises**: Complete target reps within a time limit (e.g., 30 reps in 10 minutes) with rep chunk tracking
+- **Flow Exercises**: Multi-movement sequences (e.g., "flow of 5 movements x 3 rounds") with visual progress tracking
 - **Dynamic Exercise Addition**: Add custom exercises from the library during your workout
 - **Auto-generated Protocols**: Automatic warmup and cooldown routines for weeks 2-21 based on workout type
 - **Session Persistence**: Your workout progress is automatically saved and survives page reloads
+- **Focus Mode**: Distraction-free single-exercise view with swipe navigation for immersive workouts
+- **Superset Support**: Group exercises together and execute them as supersets with visual organization
+- **Exercise Options**: Customize exercise variations on the fly during workouts
 
 ### 📊 Exercise History & Analytics
 - **Comprehensive History View**: Timeline of all completed workouts with expandable details
 - **Exercise Statistics**: Track total workouts, max sets, max weight, and estimated 1RM for each exercise
 - **Progress Graphs**: Visual weight progression charts showing your strength gains over time
-- **Personal Records**: Automatically calculated and tracked for all exercises
+- **Personal Records**: Automatically calculated and tracked for all exercises with PR highlights
 - **Per-Exercise Details**: Detailed history showing weight, sets, reps, and RPE for each session
 - **1RM Estimation**: Brzycki formula used to estimate one-rep max from your working sets
+- **Time-Based Filtering**: Filter workout history by week, month, or all time
+- **Calendar View**: Visual calendar representation of your training schedule and completed workouts
 
 ### 🤖 AI-Powered Coaching (Optional)
 - **Google Gemini Integration**: Connect with Gemini AI for personalized workout feedback
@@ -150,10 +185,14 @@ For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 
 ### 📱 Progressive Web App
 - **Mobile-First Design**: Optimized touch targets and responsive layout for phone use
-- **Offline Support**: LocalStorage-based persistence works without internet connection
+- **Offline Support**: Service worker with Workbox caches app shell and API responses for offline use
 - **Fast Performance**: Built with Vite for optimal load times and bundle size
-- **Haptic Feedback**: Physical vibration feedback for set completions and timer alerts
-- **Installable**: Can be added to home screen as a standalone app
+- **Haptic Feedback**: Physical vibration feedback for set completions and timer alerts with customizable patterns
+- **Installable**: Can be added to home screen as a standalone app with native install prompts
+- **Auto-Update**: Automatic detection and prompts for new app versions
+- **Background Sync**: Queued changes sync when connection restored
+- **Pull-to-Refresh**: Swipe down to refresh content and check for updates
+- **Gesture Support**: Intuitive swipe gestures for navigation and actions
 
 ### ☁️ Cloud Sync & Authentication (Firebase)
 - **Google Sign-In**: Secure authentication with your Google account
@@ -184,10 +223,15 @@ For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 
 ### ⚡ User Experience
 - **Fast Interactions**: Debounced search inputs and optimized rendering
-- **Keyboard Shortcuts**: Escape key to dismiss toasts and modals
+- **Keyboard Shortcuts**: Escape key to dismiss toasts and modals, comprehensive keyboard navigation
 - **Visual Progress**: Mini progress bars and completion percentages throughout
 - **Toast Notifications**: Non-blocking notifications for sync status and timer completion
-- **Error Handling**: Graceful degradation with helpful error messages
+- **Error Handling**: Graceful degradation with helpful error messages and error boundary protection
+- **Onboarding**: First-time user experience with guided setup and feature introduction
+- **Theme Support**: Light and dark mode with system preference detection
+- **Accessibility**: ARIA labels, keyboard navigation, and screen reader support
+- **Animations**: Smooth transitions and micro-interactions for enhanced feel
+- **Compact Mode**: Dense UI option for viewing more content at once
 
 ## Configuration
 
@@ -271,26 +315,31 @@ The tracker supports two workout plan formats:
 - File: `full-schedule.json`
 - Used for backward compatibility
 
-### Format v2.1.0 (Current)
-- Comprehensive structured format with full metadata and programRules
-- File: `workout-plan-v2.1.json`
+### Format v2.5.0 (Current)
+- Comprehensive structured format with full metadata and program rules
+- File: `workout-plan-v2.5.json`
 - Features:
   - Plan metadata (name, description, author, goals)
-  - Phase/mesocycle structure (6 training phases)
+  - Phase/mesocycle structure (multiple training phases/blocks)
   - Enhanced exercise specifications (tempo, rest, RPE, load)
+  - Support for density exercises (rep targets within time limits)
+  - Support for flow exercises (multi-movement sequences)
+  - Support for supersets and exercise grouping
   - Full field names (no abbreviations)
   - Better organization and extensibility
 
 ### Migration
 
-The app automatically detects and supports both formats. To migrate an existing v1.0.0 plan to v2.0.0:
+The app automatically detects and supports multiple formats (v2.2, v2.3, v2.4, v2.5). To migrate an existing plan:
 
 ```bash
-node migrate-workout-plan.js
+node scripts/migrate-workout-plan-v2-2-to-v2-3.mjs
+node scripts/migrate-workout-plan-v2-3-to-v2-4.mjs
+node scripts/migrate-workout-plan-v2-4-to-v2-5.mjs
 ```
 
-This generates:
-- `workout-plan-v2.1.json` - Converted plan in new format
+These generate:
+- `workout-plan-v2.x.json` - Converted plan in new format
 - `migration-report.json` - Detailed migration report
 
 For complete format specification, see [WORKOUT_PLAN_FORMAT.md](WORKOUT_PLAN_FORMAT.md)

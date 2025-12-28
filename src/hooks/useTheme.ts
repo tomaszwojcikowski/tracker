@@ -1,13 +1,16 @@
 import { useEffect } from 'react';
 
+/**
+ * Theme switching has been removed.
+ * The app always renders using the new light theme (mockup design system).
+ */
 export type ThemeId = 'light';
 
 export interface ThemeInfo {
     id: ThemeId;
     name: string;
     description: string;
-    sourceColor: string; // Hex color to generate theme from
-    isDark: boolean;
+    isDark: false;
     preview: {
         primary: string;
         accent: string;
@@ -20,42 +23,39 @@ export const THEMES: ThemeInfo[] = [
     {
         id: 'light',
         name: 'Light Mode',
-        description: 'Clean and bright interface',
-        sourceColor: '#3b82f6',
+        description: 'Vibrant light theme (mockup design system)',
         isDark: false,
         preview: {
-            primary: '#3b82f6',
-            accent: '#10b981',
-            surface: '#ffffff',
+            primary: '#7c3aed',
+            accent: '#6d28d9',
+            surface: '#faf9fc',
         },
     },
 ];
 
-/**
- * useTheme hook - simplified to only support light theme
- * Theme switching has been removed, the app now uses a fixed light theme
- */
 export function useTheme() {
-    // Always use light theme
-    const currentTheme: ThemeId = 'light';
-
-    // Apply light theme on mount
     useEffect(() => {
-        // Set theme class on root element
-        document.documentElement.classList.remove('theme-classic', 'theme-modern', 'theme-ocean', 'theme-sunset');
-        document.documentElement.classList.add('theme-light');
+        const root = document.documentElement;
 
-        // Update meta theme-color for light theme
+        // Hard-force light theme.
+        root.classList.remove('theme-classic', 'theme-modern', 'theme-ocean', 'theme-sunset');
+        root.classList.add('theme-light');
+
+        // Keep browser chrome aligned with the theme.
         const metaThemeColor = document.querySelector('meta[name="theme-color"]');
         if (metaThemeColor) {
-            metaThemeColor.setAttribute('content', '#ffffff');
+            const bg = getComputedStyle(root).getPropertyValue('--color-background').trim() || '#faf9fc';
+            metaThemeColor.setAttribute('content', bg);
         }
     }, []);
 
     // Simplified return - setTheme is now a no-op since theme is fixed
     return {
-        currentTheme,
-        setTheme: () => {}, // No-op function for backward compatibility
+        currentTheme: 'light' as const,
+        // Intentionally a no-op; theme switching is removed.
+        setTheme: (_theme: ThemeId) => {
+            // no-op
+        },
         themes: THEMES,
     };
 }

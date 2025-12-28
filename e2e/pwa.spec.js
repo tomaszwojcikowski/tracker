@@ -15,8 +15,8 @@ test.describe('PWA Features', () => {
 
   test('should have a valid manifest', async ({ page }) => {
     await page.goto('/');
-    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
-    
+    await page.waitForSelector('button[aria-label="Train"]:visible', { timeout: 15000 });
+
     // Check for manifest link in head
     const manifest = page.locator('link[rel="manifest"]');
     // Manifest might not exist yet, this is an aspirational test
@@ -24,8 +24,8 @@ test.describe('PWA Features', () => {
 
   test('should load and display content', async ({ page }) => {
     await page.goto('/');
-    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
-    
+    await page.waitForSelector('button[aria-label="Train"]:visible', { timeout: 15000 });
+
     // App should be functional
     const hasContent = await page.locator('body').evaluate(el => el.textContent.length > 100);
     expect(hasContent).toBe(true);
@@ -34,14 +34,14 @@ test.describe('PWA Features', () => {
   test('should be responsive on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('/');
-    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
+    await page.waitForSelector('button[aria-label="Train"]:visible', { timeout: 15000 });
 
     // Should still show content
     const hasContent = await page.locator('body').evaluate(el => el.textContent.length > 100);
     expect(hasContent).toBe(true);
 
     // Navigation should still be visible
-    const trainButton = page.locator('button[aria-label="Train"]');
+    const trainButton = page.locator('button[aria-label="Train"]:visible');
     await expect(trainButton).toBeVisible();
 
     // No horizontal scroll

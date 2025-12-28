@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { motion, LayoutGroup } from 'framer-motion';
 import { Dumbbell, BookOpen, History, Settings, type LucideIcon } from '../icons';
-import { useHaptic, useMediaQuery } from '../../hooks';
+import { useHaptic } from '../../hooks';
 import type { TabId } from '../../types';
 import { clsx } from 'clsx';
 
@@ -28,7 +28,6 @@ export interface NavigationBarProps {
  */
 export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeTab, onTabChange }) => {
     const haptic = useHaptic();
-    const isDesktop = useMediaQuery('(min-width: 800px)');
 
     const navItems: NavItem[] = [
         { id: 'train', icon: Dumbbell, label: 'Train' },
@@ -45,52 +44,9 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeT
         [haptic, onTabChange]
     );
 
-    if (isDesktop) {
-        return (
-            <nav
-                className="fixed left-0 top-0 bottom-0 w-20 bg-sys-surface border-r border-sys-outlineVariant z-50 flex flex-col items-center py-8 gap-8"
-                role="navigation"
-                aria-label="Main navigation"
-            >
-                {/* Logo or Top Action */}
-                <div className="w-12 h-12 rounded-xl bg-sys-primaryContainer text-sys-onPrimaryContainer flex items-center justify-center mb-4 shadow-sm">
-                    <Dumbbell size={24} />
-                </div>
-
-                <div className="flex flex-col gap-4 w-full px-2">
-                    {navItems.map((item) => {
-                        const isActive = activeTab === item.id;
-                        return (
-                            <button
-                                key={item.id}
-                                onClick={() => handleTabClick(item.id)}
-                                className="group relative flex flex-col items-center gap-1 p-2 rounded-xl transition-colors hover:bg-sys-surfaceVariant/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-sys-primary"
-                                aria-label={item.label}
-                                aria-current={isActive ? 'page' : undefined}
-                            >
-                                <div className={clsx(
-                                    "relative flex items-center justify-center w-14 h-8 rounded-2xl transition-all duration-300",
-                                    isActive ? "bg-sys-secondaryContainer text-sys-onSecondaryContainer" : "text-sys-onSurfaceVariant group-hover:text-sys-onSurface"
-                                )}>
-                                    <item.icon size={24} />
-                                </div>
-                                <span className={clsx(
-                                    "text-xs font-medium transition-colors",
-                                    isActive ? "text-sys-onSurface" : "text-sys-onSurfaceVariant"
-                                )}>
-                                    {item.label}
-                                </span>
-                            </button>
-                        );
-                    })}
-                </div>
-            </nav>
-        );
-    }
-
     return (
         <nav
-            className="fixed bottom-0 left-0 right-0 bg-sys-surface border-t border-sys-outlineVariant z-50 safe-pb surface-elevation-2 min-h-[80px]"
+            className="bottom-navigation fixed bottom-0 left-0 right-0 mockup-bg-surface border-t mockup-border z-50 safe-pb surface-elevation-2 min-h-[80px]"
             role="navigation"
             aria-label="Main navigation"
         >
@@ -110,7 +66,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeT
                                     {isActive && (
                                         <motion.div
                                             layoutId="nav-pill"
-                                            className="absolute inset-0 bg-sys-secondaryContainer rounded-2xl"
+                                            className="absolute inset-0 mockup-bg-surface-3 rounded-2xl"
                                             initial={false}
                                             transition={{ type: "spring", stiffness: 500, damping: 30 }}
                                         />
@@ -119,14 +75,14 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeT
                                         size={24}
                                         className={clsx(
                                             "relative z-10 transition-colors duration-200",
-                                            isActive ? "text-sys-onSecondaryContainer" : "text-sys-onSurfaceVariant"
+                                            isActive ? "mockup-text-accent" : "mockup-text-muted"
                                         )}
                                     />
                                 </div>
                                 <span
                                     className={clsx(
                                         "text-xs font-medium transition-colors duration-200",
-                                        isActive ? "text-sys-onSurface" : "text-sys-onSurfaceVariant"
+                                        isActive ? "mockup-text-primary" : "mockup-text-muted"
                                     )}
                                 >
                                     {item.label}

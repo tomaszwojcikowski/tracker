@@ -36,10 +36,13 @@ const ProgressBar = memo(function ProgressBar({ progress }: { progress: number }
   const showShimmer = roundedProgress > 0 && roundedProgress < 100;
 
   return (
-    <div className="h-0.5 bg-sys-surfaceHigh relative overflow-hidden">
+    <div className="h-0.5 mockup-bg-surface-2 relative overflow-hidden">
       <div
-        className="absolute inset-y-0 left-0 bg-gradient-to-r from-sys-accent to-sys-primary transition-all duration-500 ease-out"
-        style={{ width: `${roundedProgress}%` }}
+        className="absolute inset-y-0 left-0 transition-all duration-500 ease-out"
+        style={{
+          width: `${roundedProgress}%`,
+          background: 'linear-gradient(90deg, var(--m-primary) 0%, var(--m-primary-strong) 100%)',
+        }}
       />
       {/* Subtle shimmer effect on active progress */}
       {showShimmer && (
@@ -61,12 +64,12 @@ export const TopAppBar = memo(function TopAppBar({
   progressBar,
 }: TopAppBarProps) {
   return (
-    <header className="bg-sys-black/95 backdrop-blur-md sticky top-0 z-40 safe-pt transition-colors duration-200">
+    <header className="glass-topbar sticky top-0 z-40 safe-pt transition-colors duration-200">
       <div className="h-14 flex items-center px-4 gap-3">
         {showBack ? (
           <button
             onClick={onBack}
-            className="btn-icon h-10 w-10 -ml-1 text-sys-onSurfaceVar hover:text-white"
+            className="btn-icon h-10 w-10 -ml-1 mockup-text-muted hover:mockup-text-primary"
             aria-label="Go back"
           >
             <ArrowLeft size={22} />
@@ -74,11 +77,11 @@ export const TopAppBar = memo(function TopAppBar({
         ) : null}
 
         <div className={clsx("flex-1 min-w-0 flex flex-col justify-center", !showBack && "pl-1")}>
-          <h1 className="text-lg font-semibold text-white tracking-tight truncate">
+          <h1 className="text-lg font-semibold mockup-text-primary tracking-tight truncate">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-xs text-sys-onSurfaceVar truncate -mt-0.5">
+            <p className="text-xs mockup-text-muted truncate -mt-0.5">
               {subtitle}
             </p>
           )}

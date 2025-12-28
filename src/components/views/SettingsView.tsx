@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import * as FirebaseService from '../../firebase-service';
-import { useTheme } from '../../hooks/useTheme';
 import { useHaptic, useScrollToTop } from '../../hooks';
 import { useAuth } from '../../hooks/useAuth';
 import { LoginStatus } from '../auth/LoginStatus';
@@ -157,9 +156,6 @@ export const SettingsView: React.FC = () => {
     const [firebaseSyncEnabled, setFirebaseSyncEnabled] = useState(true); // Default enabled
     const [firebaseMessage, setFirebaseMessage] = useState('');
     const [isSyncing, setIsSyncing] = useState(false);
-
-    // Initialize theme (now fixed to light theme)
-    useTheme();
 
     const haptic = useHaptic();
 

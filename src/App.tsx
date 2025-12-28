@@ -9,6 +9,7 @@ import React, { useState, useEffect, useRef, useCallback, lazy, Suspense } from 
 import { AnimatePresence, motion } from 'framer-motion';
 import './main.css';
 import { NavigationBar } from './components/navigation';
+import { SideRail } from './components/SideRail';
 import { TopAppBar } from './components/TopAppBar';
 import { LoadingScreen, ErrorScreen } from './components/screens';
 import { SkipLink } from './components/SkipLink';
@@ -235,7 +236,7 @@ const App: React.FC = () => {
     const startEmptyWorkout = (): void => {
         // Reset the workout timer when starting a custom workout
         workoutTimer.reset();
-        
+
         setViewMode('empty-workout');
 
         // Push new entry to history for empty workout
@@ -312,7 +313,14 @@ const App: React.FC = () => {
             {showOnboarding && (
                 <Onboarding onComplete={() => setShowOnboarding(false)} />
             )}
-            <div className="min-h-screen min-h-[100dvh] bg-sys-black text-white font-sans flex flex-col max-w-md mx-auto relative">
+            {/* Desktop Side Rail (Phase 3) - Hidden on mobile, visible on desktop >= 900px */}
+            {viewMode === 'tab' && (
+                <SideRail
+                    activeTab={activeTab as 'train' | 'library' | 'history' | 'profile'}
+                    onTabChange={handleTabChange}
+                />
+            )}
+            <div className="min-h-screen min-h-[100dvh] mockup-bg mockup-text-primary font-sans flex flex-col max-w-md mx-auto relative app-container">
                 <SkipLink targetId="main-content" />
                 <TopAppBar
                     title={getTitle()}

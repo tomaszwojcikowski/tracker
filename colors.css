@@ -502,18 +502,18 @@
    ============================================================================ */
 
 :root.theme-light {
-  /* Primary Colors - Blue */
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
-  --color-primary-950: #172554;
+  /* Primary Colors - Violet/Purple (Mockup palette) */
+  --color-primary-50: #faf5ff;
+  --color-primary-100: #f3e8ff;
+  --color-primary-200: #e9d5ff;
+  --color-primary-300: #d8b4fe;
+  --color-primary-400: #c084fc;
+  --color-primary-500: #a855f7;
+  --color-primary-600: #7c3aed;
+  --color-primary-700: #6d28d9;
+  --color-primary-800: #5b21b6;
+  --color-primary-900: #4c1d95;
+  --color-primary-950: #2e1065;
 
   /* Secondary Colors - Emerald */
   --color-secondary-50: #ecfdf5;
@@ -582,32 +582,19 @@
 :root.theme-light {
   /* Override glass panel for light mode */
   --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
-
-  /* MD3 Color Roles - Overrides for Light Theme */
-  --color-on-background: #18181b; /* Dark text on light background */
-  --color-on-surface: #18181b; /* Dark text on light surfaces */
-  --color-on-surface-variant: #64748b; /* Muted dark text */
   
-  /* Primary container - light background with dark text */
-  --color-primary-container: #dbeafe; /* Light blue background */
-  --color-on-primary-container: #1e3a8a; /* Dark blue text */
-  
-  /* Secondary container - light background with dark text */
-  --color-secondary-container: #d1fae5; /* Light emerald background */
-  --color-on-secondary-container: #064e3b; /* Dark emerald text */
-  
-  /* Tertiary container */
-  --color-tertiary-container: #fef3c7; /* Light amber background */
-  --color-on-tertiary-container: #78350f; /* Dark amber text */
-  
-  /* Error container */
-  --color-error-container: #fee2e2; /* Light red background */
-  --color-on-error-container: #7f1d1d; /* Dark red text */
-  
-  /* Inverse colors for elements that should be dark in light mode */
-  --color-inverse-surface: #18181b; /* Dark surface */
-  --color-inverse-on-surface: #fafafa; /* Light text on dark surface */
-  --color-inverse-primary: #60a5fa; /* Lighter blue for dark backgrounds */
+  /* Mockup design tokens for light theme */
+  --m-bg: #faf9fc;
+  --m-fg: #1f1530;
+  --m-muted: #6b5b85;
+  --m-surface: #ffffff;
+  --m-surface-2: #f5f2ff;
+  --m-surface-3: #ede9ff;
+  --m-outline: #ddd6ff;
+  --m-outline-strong: #b9a8d8;
+  --m-shadow-xs: 0 1px 2px rgba(31,21,48,0.05);
+  --m-shadow-sm: 0 2px 4px rgba(31,21,48,0.08);
+  --m-shadow: 0 4px 12px rgba(31,21,48,0.1);
 }
 
 /* ============================================================================
@@ -656,4 +643,30 @@
   /* Error state layers */
   --state-error-hover: rgba(239, 68, 68, 0.08);
   --state-error-pressed: rgba(239, 68, 68, 0.12);
+
+  /* ===== MOCKUP DESIGN TOKENS (VIBRANT MODERN UI) ===== */
+  /* Mockup-specific variables for enhanced visual design */
+  --m-bg: var(--color-background);
+  --m-fg: var(--color-on-background);
+  --m-muted: var(--color-on-surface-variant);
+  --m-surface: var(--color-surface-elevated);
+  --m-surface-2: var(--color-surface-variant);
+  --m-surface-3: var(--color-surface-elevated-high);
+  --m-outline: var(--color-outline);
+  --m-outline-strong: var(--color-outline-variant);
+  --m-primary: var(--color-primary-600);
+  --m-primary-strong: var(--color-primary-700);
+  --m-primary-light: var(--color-primary-400);
+  --m-secondary: var(--color-warning-500);
+  --m-success: var(--color-success-600);
+  --m-warning: var(--color-warning-500);
+  --m-error: var(--color-error-500);
+  --m-touch: 48px;
+  --m-radius: 12px;
+  --m-radius-sm: 8px;
+  --m-radius-lg: 16px;
+  --m-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --m-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --m-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --m-border: 1px;
 }

@@ -39,8 +39,8 @@ test.describe('New Features', () => {
     });
 
     await page.goto('/');
-    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
-    await page.locator('button[aria-label="Train"]').click();
+    await page.waitForSelector('button[aria-label="Train"]:visible', { timeout: 15000 });
+    await page.locator('button[aria-label="Train"]:visible').click();
     await page.waitForTimeout(1000); // Wait for dashboard to load
 
     // Start Day 1 Workout - aria-label can be Start/Resume/Continue depending on state

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" class="theme-classic">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5, user-scalable=yes" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+    <title>Tracker Mockups – Focus Mode</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200" rel="stylesheet" />
+    <link rel="stylesheet" href="../colors.css" />
+    <link rel="stylesheet" href="./mockup.css" />
+  </head>
+  <body>
+    <div class="m-focus-layout">
+      <header class="m-focus-header">
+        <a href="./workout.html" class="m-btn ghost" aria-label="Exit focus mode">
+          <span class="material-symbols-rounded">close</span>
+        </a>
+        <div style="text-align: center;">
+          <div class="m-focus-title">Bench Press</div>
+          <div class="m-focus-subtitle">Main Work • Exercise 3 of 6</div>
+        </div>
+        <button class="m-btn ghost" aria-label="Exercise details">
+          <span class="material-symbols-rounded">info</span>
+        </button>
+      </header>
+
+      <main class="m-focus-content">
+        <div class="m-focus-timer-card" onclick="window.location.href='./timer.html'" style="cursor: pointer;">
+          <div class="m-focus-timer-label">Rest Timer</div>
+          <div class="m-focus-timer-val">01:24</div>
+          <div style="display:flex; gap:12px; margin-top:8px; z-index: 1;" onclick="event.stopPropagation()">
+            <button class="m-btn" style="border-radius:12px;">-15s</button>
+            <button class="m-btn" style="border-radius:12px;">+15s</button>
+            <button class="m-btn primary" style="border-radius:12px;">Skip</button>
+          </div>
+          <div class="m-focus-timer-progress"></div>
+        </div>
+
+        <div class="m-focus-next-preview">
+          <div>
+            <div class="m-focus-next-label">Next Up</div>
+            <div class="m-focus-next-val">Chest-Supported Row</div>
+          </div>
+          <span class="material-symbols-rounded m-focus-next-icon">skip_next</span>
+        </div>
+
+        <div class="m-focus-stats">
+          <div class="m-focus-stat-item">
+            <div class="m-focus-stat-val">82.5 kg</div>
+            <div class="m-focus-stat-label">Weight</div>
+          </div>
+          <div class="m-focus-stat-item">
+            <div class="m-focus-stat-val">5</div>
+            <div class="m-focus-stat-label">Target Reps</div>
+          </div>
+          <div class="m-focus-stat-item">
+            <div class="m-focus-stat-val">8.5</div>
+            <div class="m-focus-stat-label">Last RPE</div>
+          </div>
+        </div>
+
+        <div class="m-focus-exercise-card">
+          <div class="m-focus-set-row">
+            <div class="m-focus-set-info">
+              <div class="m-focus-set-num">Set 1</div>
+              <div class="m-focus-set-meta">82.5 kg × 5 reps</div>
+            </div>
+            <span class="material-symbols-rounded" style="color: var(--m-success);">check_circle</span>
+          </div>
+          <div class="m-focus-set-row">
+            <div class="m-focus-set-info">
+              <div class="m-focus-set-num">Set 2</div>
+              <div class="m-focus-set-meta">82.5 kg × 5 reps</div>
+            </div>
+            <span class="material-symbols-rounded" style="color: var(--m-success);">check_circle</span>
+          </div>
+          <div class="m-focus-set-row active">
+            <div class="m-focus-set-info">
+              <div class="m-focus-set-num" style="color: var(--m-primary);">Set 3 (Current)</div>
+              <div class="m-focus-set-meta">Target: 5 reps @ RPE 8.5</div>
+            </div>
+            <div class="m-chip" style="background: var(--m-primary); color: white; border: none;">Active</div>
+          </div>
+          <div class="m-focus-set-row">
+            <div class="m-focus-set-info">
+              <div class="m-focus-set-num">Set 4</div>
+              <div class="m-focus-set-meta">Upcoming</div>
+            </div>
+          </div>
+          <div class="m-focus-set-row">
+            <div class="m-focus-set-info">
+              <div class="m-focus-set-num">Set 5</div>
+              <div class="m-focus-set-meta">Upcoming</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="m-card" style="padding:16px;">
+          <div class="m-label">Set Notes</div>
+          <input class="m-input" placeholder="How did this set feel?" />
+        </div>
+      </main>
+
+      <footer class="m-focus-controls">
+        <button class="m-focus-btn-large secondary">
+          <span class="material-symbols-rounded">edit</span>
+          Adjust
+        </button>
+        <button class="m-focus-btn-large primary">
+          <span class="material-symbols-rounded">done_all</span>
+          Complete
+        </button>
+      </footer>
+    </div>
+  </body>
+</html>

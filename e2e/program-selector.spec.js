@@ -13,7 +13,7 @@ test.describe('Program Selector', () => {
     });
     await page.goto('/');
     // Wait for app to load
-    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
+    await page.waitForSelector('button[aria-label="Train"]:visible', { timeout: 15000 });
   });
 
   test.describe('Dashboard Program Card', () => {
@@ -58,8 +58,8 @@ test.describe('Program Selector', () => {
       await expect(modalTitle).toBeVisible();
 
       // Click on the backdrop (outside the modal content)
-      // Use a position that avoids the Navigation Rail (80px wide) on desktop
-      await page.locator('.bg-black\\/60').click({ position: { x: 200, y: 100 } });
+      // Use a position that avoids the Desktop Side Rail (260px wide) on desktop
+      await page.locator('.bg-black\\/60').click({ position: { x: 320, y: 100 } });
       await page.waitForTimeout(300);
 
       // Modal should be closed
@@ -126,7 +126,7 @@ test.describe('Program Selector', () => {
   test.describe('Settings Program Management', () => {
     test('should display Programs tab in settings', async ({ page }) => {
       // Navigate to Settings tab
-      const settingsTab = page.locator('button[aria-label="Settings"]');
+      const settingsTab = page.locator('button[aria-label="Settings"]:visible');
       await settingsTab.click();
       await page.waitForTimeout(500);
 
@@ -137,7 +137,7 @@ test.describe('Program Selector', () => {
 
     test('should show program list when Programs tab is clicked', async ({ page }) => {
       // Navigate to Settings tab
-      const settingsTab = page.locator('button[aria-label="Settings"]');
+      const settingsTab = page.locator('button[aria-label="Settings"]:visible');
       await settingsTab.click();
       await page.waitForTimeout(500);
 
@@ -164,20 +164,20 @@ test.describe('URL Routing with Program ID', () => {
   test('should load app with program ID in URL', async ({ page }) => {
     // Navigate with program parameter
     await page.goto('/?program=test-program&tab=train');
-    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
+    await page.waitForSelector('button[aria-label="Train"]:visible', { timeout: 15000 });
 
     // App should load successfully
-    const trainButton = page.locator('button[aria-label="Train"]');
+    const trainButton = page.locator('button[aria-label="Train"]:visible');
     await expect(trainButton).toBeVisible();
   });
 
   test('should preserve program ID in URL when navigating', async ({ page }) => {
     // Start with program in URL
     await page.goto('/?program=my-program&tab=train');
-    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
+    await page.waitForSelector('button[aria-label="Train"]:visible', { timeout: 15000 });
 
     // Navigate to Library
-    const libraryTab = page.locator('button[aria-label="Library"]');
+    const libraryTab = page.locator('button[aria-label="Library"]:visible');
     await libraryTab.click();
     await page.waitForTimeout(500);
 
@@ -200,7 +200,7 @@ test.describe('URL Routing with Program ID', () => {
   test('should persist program ID to localStorage', async ({ page }) => {
     // Navigate with program
     await page.goto('/?program=saved-program&tab=train');
-    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
+    await page.waitForSelector('button[aria-label="Train"]:visible', { timeout: 15000 });
     await page.waitForTimeout(500);
 
     // Check localStorage
@@ -226,7 +226,7 @@ test.describe('URL Routing with Program ID', () => {
     });
 
     await page.goto('/');
-    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
+    await page.waitForSelector('button[aria-label="Train"]:visible', { timeout: 15000 });
     await page.waitForTimeout(500);
 
     // Check that program ID was restored
@@ -252,7 +252,7 @@ test.describe('URL Routing with Program ID', () => {
 
     // Navigate with different program in URL
     await page.goto('/?program=new-program&tab=train');
-    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
+    await page.waitForSelector('button[aria-label="Train"]:visible', { timeout: 15000 });
     await page.waitForTimeout(500);
 
     // URL program should take precedence
@@ -271,7 +271,7 @@ test.describe('Program-Aware Week Navigation', () => {
       localStorage.setItem('tracker_onboarding_completed', 'true');
     });
     await page.goto('/');
-    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
+    await page.waitForSelector('button[aria-label="Train"]:visible', { timeout: 15000 });
   });
 
   test('should display week progress on dashboard', async ({ page }) => {
@@ -329,7 +329,7 @@ test.describe('Program-Aware Week Navigation', () => {
   test('should disable previous week button on week 1', async ({ page }) => {
     // Navigate to week 1 via URL
     await page.goto('/?tab=train&week=1');
-    await page.waitForSelector('button[aria-label="Train"]', { timeout: 15000 });
+    await page.waitForSelector('button[aria-label="Train"]:visible', { timeout: 15000 });
 
     // Previous week button should be disabled
     const prevButton = page.locator('button[aria-label="Previous week"]');
@@ -359,11 +359,11 @@ test.describe('Deep Linking with Program Context', () => {
   test('should restore full state from deep link', async ({ page }) => {
     // Navigate with deep link
     await page.goto('/?program=deep-link-program&tab=history&week=5');
-    await page.waitForSelector('button[aria-label="History"]', { timeout: 15000 });
+    await page.waitForSelector('button[aria-label="History"]:visible', { timeout: 15000 });
     await page.waitForTimeout(500);
 
     // History tab should be active
-    const historyTab = page.locator('button[aria-label="History"]');
+    const historyTab = page.locator('button[aria-label="History"]:visible');
     await expect(historyTab).toHaveAttribute('aria-current', 'page');
 
     // Program ID should be saved
@@ -384,10 +384,10 @@ test.describe('Settings Programs Tab', () => {
       localStorage.setItem('tracker_onboarding_completed', 'true');
     });
     await page.goto('/');
-    await page.waitForSelector('button[aria-label="Settings"]', { timeout: 15000 });
+    await page.waitForSelector('button[aria-label="Settings"]:visible', { timeout: 15000 });
 
     // Navigate to Settings
-    const settingsTab = page.locator('button[aria-label="Settings"]');
+    const settingsTab = page.locator('button[aria-label="Settings"]:visible');
     await settingsTab.click();
     await page.waitForTimeout(500);
   });
@@ -490,10 +490,10 @@ test.describe('Settings Programs Tab', () => {
 
       // Reload the page
       await page.reload();
-      await page.waitForSelector('button[aria-label="Settings"]', { timeout: 15000 });
+      await page.waitForSelector('button[aria-label="Settings"]:visible', { timeout: 15000 });
 
       // Navigate back to Settings > Programs
-      await page.locator('button[aria-label="Settings"]').click();
+      await page.locator('button[aria-label="Settings"]:visible').click();
       await page.waitForTimeout(300);
       await page.locator('button:has-text("Programs")').click();
       await page.waitForTimeout(300);

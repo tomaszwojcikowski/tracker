@@ -7,64 +7,130 @@ This document describes the capabilities of AI agents that can interact with the
 **Repository**: tomaszwojcikowski/tracker
 **Type**: Progressive Web Application (PWA) with offline support
 **Framework**: React 18 + Vite 5
-**Language**: TypeScript (all new code) + JavaScript (legacy, being migrated)
+**Language**: TypeScript (fully migrated - all new code MUST be TypeScript)
 **Testing**: Vitest + Testing Library + Playwright (E2E)
 **Styling**: Tailwind CSS 3
 **Cloud Sync**: Firebase Auth + Realtime Database (optional)
 **PWA**: Workbox service worker with offline caching
+**Error Tracking**: Sentry (optional)
 
 ## Codebase Structure
 
 ```
 tracker/
 ├── src/
-│   ├── App.jsx               # Main application component (~4k lines)
-│   ├── main.jsx              # Application entry point
+│   ├── App.tsx               # Main application component (TypeScript)
+│   ├── main.tsx              # Application entry point
 │   ├── main.css              # Global styles
-│   ├── constants.js/.ts      # App constants and configuration
-│   ├── firebase-service.js   # Firebase auth + realtime sync layer
-│   ├── icons.js              # Tree-shaken Lucide icon imports
-│   ├── workout-plan-utils.js # Workout plan parsing utilities
+│   ├── constants.ts          # App constants and configuration
+│   ├── firebase-service.ts   # Firebase auth + realtime sync layer
+│   ├── icons.ts              # Tree-shaken Lucide icon imports
+│   ├── workout-plan-utils.ts # Workout plan parsing utilities
+│   ├── sw.ts                 # Service worker for PWA
+│   ├── vite-env.d.ts         # Vite environment type definitions
 │   ├── types/                # TypeScript type definitions
 │   │   └── index.ts          # Core types (Exercise, WorkoutSet, AppState, etc.)
-│   ├── components/           # Reusable UI components
-│   │   ├── PWAPrompt.jsx     # PWA install prompt
-│   │   ├── PWAWrapper.jsx    # PWA lifecycle wrapper
-│   │   ├── SyncStatusIndicator.jsx  # Cloud sync status display
-│   │   └── VolumeCard.jsx    # Volume tracking display
+│   ├── components/           # Reusable UI components (TypeScript)
+│   │   ├── ActionBar.tsx     # Bottom action bar with exercise controls
+│   │   ├── AddedExerciseCard.tsx  # Card for user-added exercises
+│   │   ├── BottomSheet.tsx   # Modal bottom sheet component
+│   │   ├── CalendarView.tsx  # Calendar visualization
+│   │   ├── CompactExerciseRow.tsx  # Compact exercise display
+│   │   ├── CompactSetButtons.tsx   # Dense set control buttons
+│   │   ├── ContinueWorkoutCard.tsx # Resume incomplete workout
+│   │   ├── DensityRepControls.tsx  # Density exercise rep tracking
+│   │   ├── ErrorBoundary.tsx # Error boundary with fallback UI
+│   │   ├── ExerciseCard.tsx  # Main exercise display component
+│   │   ├── ExerciseListItem.tsx    # Library list item
+│   │   ├── ExerciseOptionsBadge.tsx # Exercise variation badge
+│   │   ├── ExerciseSelectorModal.tsx # Exercise picker modal
+│   │   ├── FloatingTimerButton.tsx # Floating timer FAB
+│   │   ├── FlowMovementsDisplay.tsx # Flow exercise movements
+│   │   ├── FocusView.tsx     # Single-exercise focus mode
+│   │   ├── FullscreenTimer.tsx     # Fullscreen timer overlay
+│   │   ├── GestureHint.tsx   # Swipe gesture hints
+│   │   ├── Onboarding.tsx    # First-time user onboarding
+│   │   ├── PRHighlights.tsx  # Personal record highlights
+│   │   ├── PWAPrompt.tsx     # PWA install prompt
+│   │   ├── PWAWrapper.tsx    # PWA lifecycle wrapper
+│   │   ├── ProgramSelector.tsx     # Program selection UI
+│   │   ├── PullToRefresh.tsx # Pull-to-refresh gesture
+│   │   ├── RPESelector.tsx   # RPE selection component
+│   │   ├── RecentExercises.tsx     # Recently used exercises
+│   │   ├── SideRail.tsx      # Desktop sidebar navigation
+│   │   ├── SkipLink.tsx      # Accessibility skip link
+│   │   ├── StatusPill.tsx    # Status indicator pill
+│   │   ├── SupersetGroup.tsx # Superset exercise grouping
+│   │   ├── SyncStatusIndicator.tsx # Cloud sync status display
+│   │   ├── TopAppBar.tsx     # Top navigation bar
+│   │   ├── VolumeCard.tsx    # Volume tracking display
+│   │   ├── WeekPills.tsx     # Week selection pills
+│   │   ├── WorkoutSummary.tsx      # Post-workout summary
+│   │   ├── WorkoutTimerDisplay.tsx # Timer display component
+│   │   ├── animations/       # Animation components
+│   │   ├── auth/             # Authentication components
+│   │   └── icons/            # Custom icon components
 │   ├── hooks/                # Custom React hooks (TypeScript)
 │   │   ├── index.ts          # Hook exports with full type definitions
-│   │   ├── useAutomergeSync.ts   # CRDT-based sync with Automerge
-│   │   ├── useOptimisticSync.ts  # Background cloud sync with debouncing
+│   │   ├── useAccessibility.ts     # Focus trap, keyboard shortcuts
+│   │   ├── useAuth.ts        # Authentication hook
+│   │   ├── useAutomergeSync.ts     # CRDT-based sync with Automerge
+│   │   ├── useDensityTimer.ts      # Density exercise timer
+│   │   ├── useEmomTimer.ts   # EMOM timer hook
+│   │   ├── useExerciseCollapse.ts  # Exercise collapse state
+│   │   ├── useLongPress.ts   # Long press gesture detection
+│   │   ├── useMediaQuery.ts  # Responsive media queries
+│   │   ├── useOptimisticSync.ts    # Background cloud sync with debouncing
 │   │   ├── usePWA.ts         # PWA install/update hooks
-│   │   ├── useAccessibility.ts   # Focus trap, keyboard shortcuts
-│   │   └── useTheme.ts       # Theme management hook
-│   ├── utils/                # Utility functions (JS + TS)
-│   │   ├── index.js/.ts      # Centralized exports
-│   │   ├── storage.js/.ts    # localStorage utilities
-│   │   ├── time.js/.ts       # Time formatting
-│   │   ├── audio.js/.ts      # Web Audio API sounds
-│   │   ├── volume.js/.ts     # Volume tracking calculations
-│   │   ├── exerciseHistory.js/.ts  # Exercise history management
+│   │   ├── usePullToRefresh.ts     # Pull-to-refresh hook
+│   │   ├── useRestTimer.ts   # Rest timer hook
+│   │   ├── useScrollToElement.ts   # Scroll utilities
+│   │   ├── useTheme.ts       # Theme management hook
+│   │   └── useWorkoutTimer.ts      # Workout timer hook
+│   ├── utils/                # Utility functions (TypeScript)
+│   │   ├── index.ts          # Centralized exports
+│   │   ├── storage.ts        # localStorage utilities
+│   │   ├── time.ts           # Time formatting
+│   │   ├── audio.ts          # Web Audio API sounds
+│   │   ├── volume.ts         # Volume tracking calculations
+│   │   ├── exerciseHistory.ts      # Exercise history management
 │   │   ├── automergeSync.ts  # CRDT-based conflict-free merging
-│   │   └── sanitize.js/.ts   # DOMPurify HTML sanitization
+│   │   ├── sanitize.ts       # DOMPurify HTML sanitization
+│   │   ├── schedule.ts       # Schedule data store (multi-program support)
+│   │   ├── workoutSession.ts # Workout session management
+│   │   └── exerciseProps.ts  # Exercise property utilities
+│   ├── context/              # React context providers
+│   ├── services/             # Service layer (API, analytics, etc.)
+│   ├── data/                 # Data files and utilities
+│   │   ├── programData.ts    # Workout retrieval with full WorkoutExercise type
+│   │   └── exercises.ts      # Exercise library utilities
 │   └── test/                 # Unit tests (Vitest + Testing Library)
 │       ├── setup.js
-│       ├── *.test.jsx        # 12+ test files, 210+ specs
+│       ├── __mocks__/        # Test mocks
+│       ├── *.test.tsx        # 60+ test files, 300+ specs
 ├── data/                 # Data files (JSON)
 │   ├── exercises.json    # Exercise library data (50+ exercises) - edit this file, NOT public/
-│   ├── workout-plan-v2.4.json  # Current workout program (v2.4 format with flow exercises)
-│   └── *.schema.json     # JSON schemas for validation (v2.2, v2.3, v2.4)
+│   ├── workout-plan-v2.5.json  # Current workout program (v2.5 format)
+│   ├── workout-plan-v2.4.json  # Previous version (v2.4 format with flow exercises)
+│   ├── workout-plan-v2.3.json  # Previous version (v2.3 format)
+│   ├── *.schema.json     # JSON schemas for validation (v2.2, v2.3, v2.4, v2.5)
+│   ├── integrated-strength-*.json  # Sample program files
+│   └── *.md              # Data documentation
 ├── docs/                 # Documentation
 │   ├── DEPLOYMENT.md     # GitHub Pages deployment
 │   ├── FIREBASE_SETUP.md # Firebase configuration
+│   ├── FIREBASE_DEPLOYMENT.md  # Firebase CI/CD setup
+│   ├── ERROR_REPORTING_SETUP.md # Sentry setup guide
 │   ├── PROGRAM_ARCHITECTURE.md
 │   ├── STORAGE_NAMESPACE.md
 │   ├── TESTING.md        # Manual testing scenarios
-│   └── WORKOUT_PLAN_*.md # Workout plan documentation
+│   ├── WORKOUT_PLAN_*.md # Workout plan documentation
+│   └── *.md              # Additional documentation
 ├── scripts/              # Migration and utility scripts
 │   ├── migrate-*.mjs     # Workout plan migration scripts
-│   └── normalize-*.js    # Data normalization scripts
+│   ├── normalize-*.js    # Data normalization scripts
+│   ├── copy-static-assets.mjs  # Asset copying for build
+│   └── validate-workout-data.mjs  # Data validation script
 ├── e2e/                  # End-to-end tests (Playwright)
 │   ├── navigation.spec.js
 │   ├── workout.spec.js
@@ -83,50 +149,49 @@ tracker/
 
 ### 1. Code Understanding
 
-**Main Application File**: `src/App.jsx` is organized into 11 logical sections:
-1. Global State & Data Structures
-2. LocalStorage Utilities
-3. Schedule Utilities
-4. Custom Hooks
-5. Application Constants & Program Data
-6. UI Components
-7. Gemini Integration Utilities
-8. Exercise History & Stats Utilities
-9. Main Application Components
-10. URL & State Management Utilities
-11. Application Initialization
+**Main Application File**: `src/App.tsx` is organized into modular sections with TypeScript types
 
 **Critical Functions to Understand**:
-- `safeGetJSON`, `safeSetJSON`, `safeRemove` - localStorage utilities with error handling
+- `safeGetJSON`, `safeSetJSON`, `safeRemove` (storage.ts) - localStorage utilities with error handling
 - `buildCompleteSchedule` (schedule.ts) - Stores schedule data in memory for a program
 - `getWorkoutForDay` (programData.ts) - Retrieves workout data with all exercise details
 - `toggleSet` - Handles set completion with RPE data management
-- `updateExerciseHistory` - Tracks workout performance
+- `updateExerciseHistory` (exerciseHistory.ts) - Tracks workout performance
 - `calculateExerciseStats` - Computes statistics and 1RM estimates
 - `getUrlParams`, `updateUrl`, `saveAppState`, `loadAppState` - State management
 - `mergeCloudData` - Timestamp-aware merging of workouts/settings pulled from Firebase
-- `initializeFirebase`, `initSync`, `handleLogin`, `handleLogout`, `saveToCloud` (in `src/firebase-service.js`) - Auth lifecycle + realtime sync harness
+- `initializeFirebase`, `initSync`, `handleLogin`, `handleLogout`, `saveToCloud` (firebase-service.ts) - Auth lifecycle + realtime sync harness
 
 ### 2. Testing
 
-**Test Suite**: 210+ Vitest specs + Playwright E2E tests covering UI logic, storage, routing, cloud sync, and user flows
+**Test Suite**: 300+ Vitest specs + Playwright E2E tests covering UI logic, storage, routing, cloud sync, and user flows
 
-**Unit Test Categories / Files**:
-- Storage utilities — `storageUtils.test.jsx`
-- Schedule building — `scheduleUtils.test.jsx`
-- Exercise history + stats — `exerciseHistory.test.jsx`
-- URL routing & deep links — `urlRouting.test.jsx`
-- Set toggle logic + RPE — `toggleSet.test.jsx`
-- Firebase timestamp merge + settings sync — `firebaseSync.test.jsx`
-- Automerge CRDT sync — `automergeSync.test.jsx`
-- Browser history regressions — `backNavigation.test.jsx`
-- Optimistic sync hook — `optimisticSync.test.jsx`
-- EMOM timer logic — `emomTimer.test.jsx`
-- Volume calculations — `volume.test.jsx`
-- PWA hooks — `pwa.test.jsx`
-- Workout plan utilities — `workoutPlanUtils.test.jsx`
+**Unit Test Categories / Files** (all TypeScript `.tsx`):
+- Storage utilities — `storageUtils.test.tsx`
+- Schedule building — `scheduleUtils.test.tsx`
+- Exercise history + stats — `exerciseHistory.test.tsx`, `exerciseHistoryComprehensive.test.tsx`
+- URL routing & deep links — `urlRouting.test.tsx`
+- Set toggle logic + RPE — `toggleSet.test.tsx`
+- Firebase timestamp merge + settings sync — `firebaseSync.test.tsx`
+- Automerge CRDT sync — `automergeSync.test.tsx`
+- Browser history regressions — `backNavigation.test.tsx`
+- Optimistic sync hook — `optimisticSync.test.tsx`
+- EMOM timer logic — `emomTimer.test.tsx`, `densityTimer.test.tsx`
+- Volume calculations — `volume.test.tsx`
+- PWA hooks — `pwa.test.tsx`
+- Workout plan utilities — `workoutPlanUtils.test.tsx`
 - Flow exercise feature — `flowExercise.test.tsx`
-- Shared config/mocks — `src/test/setup.js`
+- Focus mode — `focusMode.test.tsx`
+- Exercise options — `exerciseOptions.test.tsx`, `exerciseSelectorModal.test.tsx`
+- Density controls — `densityRepControls.test.tsx`, `fullscreenDensityRepControls.test.tsx`
+- Error handling — `errorBoundary.test.tsx`, `errorReporting.test.tsx`
+- Accessibility — `accessibility.test.tsx`
+- UI components — `exerciseCard.test.tsx`, `addedExerciseCard.test.tsx`, `exerciseCollapse.test.tsx`, `actionBarDensity.test.tsx`, `animatedNumber.test.tsx`, etc.
+- Feature integrity — `featureIntegrity.test.tsx`
+- History filtering — `historyTimeFilter.test.tsx`, `historyViewTimeFilter.test.tsx`
+- Haptic patterns — `hapticPatterns.test.tsx`
+- Timer features — `fullscreenTimerPause.test.tsx`
+- Shared config/mocks — `src/test/setup.js`, `src/test/__mocks__/`
 
 **E2E Test Categories** (Playwright):
 - Navigation flows — `e2e/navigation.spec.js`
@@ -158,9 +223,11 @@ npm run dev          # Start dev server (localhost:5173)
 npm run build        # Production build (includes PWA service worker)
 npm run preview      # Preview production build
 npm run typecheck    # Run TypeScript type checking
-npm run lint         # Run ESLint
+npm run lint         # Run ESLint (TypeScript check)
 npm run lint:fix     # Fix ESLint issues
 npm run format       # Format with Prettier
+npm run format:check # Check formatting
+npm run validate:workout  # Validate workout data JSON files
 ```
 
 **Firebase Environment** (`.env` or `.env.local` - never commit secrets):
@@ -187,7 +254,13 @@ VITE_FIREBASE_APP_ID="..."
 - Weight and RPE (6-10 scale) logging
 - Workout notes (free-text)
 - Rest timer with notifications
+- EMOM timer for time-based exercises
+- Density exercises with rep chunk tracking
+- Flow exercises with multi-movement sequences
 - Auto-save to localStorage
+- Focus mode for single-exercise view
+- Superset grouping and execution
+- Exercise options and variations
 
 #### Exercise History & Analytics
 - Timeline view of completed workouts
@@ -195,6 +268,9 @@ VITE_FIREBASE_APP_ID="..."
 - 1RM estimation using Brzycki formula
 - Progress graphs with visual weight trends
 - Per-exercise detailed history
+- Time-based filtering (week, month, all-time)
+- Calendar view of training schedule
+- PR (Personal Record) highlights and tracking
 
 #### Cloud Sync & Authentication
 - Optional Google Sign-In via Firebase Auth (popup flow)
@@ -220,6 +296,9 @@ VITE_FIREBASE_APP_ID="..."
 - **Update Detection**: Automatic update prompts when new version available
 - **Background Sync**: Queued changes sync when connection restored
 - **usePWA Hook**: `canInstall`, `isInstalled`, `needsUpdate`, `updateAvailable` states
+- **Pull-to-Refresh**: Swipe down to refresh and check for updates
+- **Gesture Support**: Swipe gestures for navigation and actions
+- **Haptic Feedback**: Customizable vibration patterns for different actions
 
 #### AI Integration (Optional)
 - Google Gemini API integration
@@ -234,13 +313,20 @@ VITE_FIREBASE_APP_ID="..."
 - localStorage persistence
 - State validation and error handling
 
+#### Error Tracking & Monitoring (Optional)
+- Sentry integration for error reporting
+- Automatic capture of unhandled errors
+- Error boundary fallback UI
+- Custom error events for debugging
+- See [ERROR_REPORTING_SETUP.md](ERROR_REPORTING_SETUP.md) for setup
+
 ### 5. Code Modification Guidelines
 
 **When Adding Features**:
 1. Follow the modular architecture (components/, hooks/, utils/)
 2. **MANDATORY**: Write all new code in TypeScript (`.ts`/`.tsx` extension)
-3. Add corresponding tests in `src/test/` (tests can remain `.jsx` for now)
-4. Use existing utilities from `src/utils/` (import from `.ts` versions)
+3. Add corresponding tests in `src/test/` (as `.tsx` files)
+4. Use existing utilities from `src/utils/` (all TypeScript)
 5. Define proper types in `src/types/index.ts` for new data structures
 6. Maintain error handling patterns with typed error handling
 7. Update README.md if user-facing
@@ -304,7 +390,7 @@ VITE_FIREBASE_APP_ID="..."
 #### Task: Add a new test
 ```bash
 # Create test file
-touch src/test/newFeature.test.jsx
+touch src/test/newFeature.test.tsx
 
 # Import vitest and setup
 import { describe, it, expect, beforeEach, vi } from 'vitest';
@@ -337,8 +423,13 @@ npm test && npm run build
 
 #### Task: Convert a JavaScript file to TypeScript
 ```bash
+# Note: The codebase is now fully TypeScript
+# All files have been converted
+# All new code MUST be written in TypeScript (.ts/.tsx)
+
+# If you find a remaining .js/.jsx file:
 # 1. Create TypeScript version
-cp src/utils/myFile.js src/utils/myFile.ts
+cp src/file.jsx src/file.tsx
 
 # 2. Add type annotations, fix any type errors
 # 3. Update imports in consuming files
@@ -348,8 +439,8 @@ npm run typecheck
 # 5. Run tests to ensure behavior is unchanged
 npm test
 
-# 6. Delete old .js file once migration complete
-rm src/utils/myFile.js
+# 6. Delete old .js/.jsx file once migration complete
+rm src/file.jsx
 ```
 
 #### Task: Debug localStorage issues
@@ -409,31 +500,33 @@ npm run build
 - **DEPLOYMENT.md** - GitHub Pages pipeline
 - **FIREBASE_SETUP.md** - Local/project Firebase configuration
 - **FIREBASE_DEPLOYMENT.md** - Firebase secrets + CI guidance
+- **ERROR_REPORTING_SETUP.md** - Sentry setup and configuration
 - **WORKOUT_PLAN_FORMAT.md** - Workout plan JSON schema
 - **WORKOUT_PLAN_USAGE.md** - How to use workout plans
 - **copilot-instructions.md** (this file) - Agent capabilities and guidelines
 
 ### 11. TypeScript Migration Policy
 
-> **⚠️ MANDATORY: All new code MUST be written in TypeScript.**
+> **✅ COMPLETE: The codebase is fully migrated to TypeScript.**
 
-The codebase is actively migrating to TypeScript. Legacy JavaScript files are being converted incrementally.
+All code has been successfully migrated to TypeScript. The migration is complete.
 
 **Configuration** (`tsconfig.json`):
-- Strict mode enabled for all new code
-- `allowJs: true` for backward compatibility during migration
+- Strict mode enabled for all code
 - Path aliases: `@/*` → `src/*`
+- Full type checking across the entire codebase
 
 **Migration Status**:
 
 | Directory | Status | Notes |
 |-----------|--------|-------|
-| `src/utils/` | ✅ Complete | All utilities have `.ts` versions |
-| `src/hooks/` | ✅ Complete | All hooks migrated to TypeScript |
+| `src/utils/` | ✅ Complete | All utilities are TypeScript |
+| `src/hooks/` | ✅ Complete | All hooks are TypeScript |
 | `src/types/` | ✅ Complete | Core type definitions |
-| `src/components/` | 🔄 In Progress | Migrate to `.tsx` as touched |
-| `src/App.jsx` | 📋 Planned | Large file, incremental extraction |
-| `src/test/` | ⏳ Optional | Tests can remain `.jsx` |
+| `src/components/` | ✅ Complete | All components are TypeScript |
+| `src/App.tsx` | ✅ Complete | Main app is TypeScript |
+| `src/test/` | ✅ Complete | All tests are TypeScript |
+| `src/` | ✅ Complete | All source files are TypeScript |
 
 **Fully Typed Modules** (in `src/utils/`):
 - `storage.ts` - Generic typed localStorage wrappers
@@ -444,9 +537,12 @@ The codebase is actively migrating to TypeScript. Legacy JavaScript files are be
 - `exerciseHistory.ts` - Exercise history management
 - `automergeSync.ts` - CRDT-based conflict-free data merging
 - `schedule.ts` - Schedule data store (multi-program support)
+- `workoutSession.ts` - Workout session management
+- `exerciseProps.ts` - Exercise property utilities
 
 **Fully Typed Data Modules** (in `src/data/`):
 - `programData.ts` - Workout retrieval with full `WorkoutExercise` type
+- `exercises.ts` - Exercise library utilities
 
 **Fully Typed Hooks** (in `src/hooks/`):
 - `index.ts` - Hook exports with full type definitions
@@ -455,13 +551,23 @@ The codebase is actively migrating to TypeScript. Legacy JavaScript files are be
 - `usePWA.ts` - PWA lifecycle with typed state
 - `useAccessibility.ts` - Focus trap, keyboard shortcuts
 - `useTheme.ts` - Theme management with typed themes
+- `useAuth.ts` - Authentication hook
+- `useDensityTimer.ts` - Density exercise timer
+- `useEmomTimer.ts` - EMOM timer hook
+- `useExerciseCollapse.ts` - Exercise collapse state
+- `useLongPress.ts` - Long press gesture detection
+- `useMediaQuery.ts` - Responsive media queries
+- `usePullToRefresh.ts` - Pull-to-refresh hook
+- `useRestTimer.ts` - Rest timer hook
+- `useScrollToElement.ts` - Scroll utilities
+- `useWorkoutTimer.ts` - Workout timer hook
 
 **Core Types** (`src/types/index.ts`):
 ```typescript
 // Key interfaces available:
 Exercise, WorkoutSet, ExerciseSession, DaySession,
 WorkoutProgress, ExerciseHistoryEntry, AppState, UserProfile,
-SessionKey, CloudData
+SessionKey, CloudData, WorkoutExercise, and many more
 ```
 
 **Automerge Types** (`src/utils/automergeSync.ts`):
@@ -490,18 +596,17 @@ export function useMyHook(): MyHookReturn {
 }
 ```
 
-**Converting Existing Files**:
-1. Create `.ts`/`.tsx` version alongside `.js`/`.jsx`
-2. Add proper type annotations
-3. Update imports to use new typed version
-4. Delete old `.js`/`.jsx` file once all consumers migrated
-5. Run `npm run typecheck` to verify
+**All New Code Requirements**:
+1. MUST use TypeScript (`.ts`/`.tsx`)
+2. MUST define proper types (no `any` unless absolutely necessary)
+3. MUST add type definitions to `src/types/index.ts` for shared types
+4. MUST run `npm run typecheck` before committing
 
 ## Best Practices for AI Agents
 
 1. **Read First**: Always examine existing code patterns before implementing changes
 2. **Test Everything**: Write tests for new functionality, run all tests before completing
-3. **TypeScript Mandatory**: All new code MUST be TypeScript (`.ts`/`.tsx`). No exceptions.
+3. **TypeScript Mandatory**: All new code MUST be TypeScript (`.ts`/`.tsx`). No exceptions. The migration is complete.
 4. **Type Definitions**: Add new interfaces/types to `src/types/index.ts`
 5. **Error Handling**: Use typed error handling with proper error types
 6. **Documentation**: Update README.md for user-facing changes, use TSDoc for code
@@ -515,8 +620,10 @@ export function useMyHook(): MyHookReturn {
 14. **CRDT Sync**: Prefer `useAutomergeSync` for new sync features; it provides conflict-free merging
 15. **Modular Architecture**: Place new code in appropriate directories (components/, hooks/, utils/)
 16. **Run Typecheck**: Always run `npm run typecheck` before committing TypeScript changes
-17. **JSON Data Files**: Edit JSON files in `data/` folder (`data/workout-plan-v2.4.json`, `data/exercises.json`) only. Do NOT manually copy to `public/` — the build step handles this automatically.
+17. **JSON Data Files**: Edit JSON files in `data/` folder (`data/workout-plan-v2.5.json`, `data/exercises.json`) only. Do NOT manually copy to `public/` — the build step handles this automatically.
 18. **E2E Tests Required**: Always run `npm run test:e2e` after changes to UI components. E2E tests verify real user interactions and must pass before completing any task.
+19. **Error Tracking**: Consider Sentry integration for production error monitoring
+20. **Accessibility**: Ensure keyboard navigation and ARIA labels for new UI components
 
 ### Testing Workflow (MANDATORY)
 

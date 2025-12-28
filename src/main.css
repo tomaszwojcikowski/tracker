@@ -2584,18 +2584,16 @@ button:focus-visible,
     outline-offset: 2px;
 }
 
-/* Prevent flash of unstyled content */
-html:not(.theme-light) {
-    visibility: hidden;
-}
-
-html.theme-light {
-    visibility: visible;
-}
-
-/* Smooth theme transitions */
-* {
-    transition-property: background-color, border-color, color, fill, stroke;
+/* Smooth theme transitions - applied to interactive elements */
+button,
+.btn-md3,
+.card-mockup,
+.mockup-card,
+.status-pill,
+.week-pill,
+.chip-mockup,
+.nav-item-mockup {
+    transition-property: background-color, border-color, color, transform, box-shadow;
     transition-duration: 150ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }

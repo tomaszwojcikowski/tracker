@@ -2604,35 +2604,3 @@ html.theme-light {
 .preload * {
     transition: none !important;
 }
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--m-surface-2);
-    color: var(--m-primary);
-}
-
-.stats-card-value {
-    font-size: 20px;
-    font-weight: 900;
-    color: var(--m-fg);
-    letter-spacing: -0.02em;
-}
-
-.stats-card-label {
-    font-size: 11px;
-    font-weight: 800;
-    color: var(--m-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-/* Light theme stats cards */
-:root.theme-light .stats-card {
-    background: #ffffff;
-    border-color: #ddd6ff;
-}
-
-:root.theme-light .stats-card-icon {
-    background: #f5f2ff;
-    color: #7c3aed;
-}

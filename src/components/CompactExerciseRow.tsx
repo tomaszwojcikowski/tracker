@@ -139,6 +139,8 @@ export interface CompactExerciseRowProps {
     flowTimerActive?: boolean;
     /** Callback to toggle flow timer */
     onToggleFlowTimer?: () => void;
+    /** Time-based exercise duration in seconds */
+    timeSeconds?: number;
     /** Density rep chunks (v2.5+) */
     densityRepChunks?: number[];
     /** Density complete flag (v2.5+) */
@@ -175,6 +177,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     densityRepsTotal,
     isFlow = false,
     flowTimeMinutes,
+    timeSeconds,
     tempoRange,
     supersetGroup,
     supersetPosition,
@@ -604,8 +607,24 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                     </button>
                 )}
 
-                {/* Rest Timer Button - show on active row for main section non-EMOM, non-density, non-flow exercises */}
-                {isFirstIncomplete && !isEmom && !isDensity && !isFlow && onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
+                {/* Time-based Exercise Timer - show on active row for warmup/cooldown exercises with time */}
+                {!isFlow && !isEmom && !isDensity && timeSeconds && timeSeconds > 0 && onStartRestTimer && (
+                    <button
+                        onClick={() => onStartRestTimer(timeSeconds)}
+                        className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium flex-shrink-0 ${
+                            restTimerActive
+                                ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
+                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                        }`}
+                        aria-label={restTimerActive ? 'Stop timer' : `Start ${timeSeconds >= 60 ? Math.floor(timeSeconds / 60) + 'm' : timeSeconds + 's'} timer`}
+                    >
+                        <Timer size={12} />
+                        <span>{timeSeconds >= 60 ? `${Math.floor(timeSeconds / 60)}m` : `${timeSeconds}s`}</span>
+                    </button>
+                )}
+
+                {/* Rest Timer Button - show on active row for main section non-EMOM, non-density, non-flow, non-time-based exercises */}
+                {isFirstIncomplete && !isEmom && !isDensity && !isFlow && !timeSeconds && onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
                     <button
                         onClick={() => onStartRestTimer(restTime)}
                         className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium flex-shrink-0 ${
@@ -779,6 +798,22 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             </button>
                         )}
 
+                        {/* Time-based Exercise Timer - for warmup/cooldown exercises with time */}
+                        {!isFlow && !isEmom && !isDensity && timeSeconds && timeSeconds > 0 && onStartRestTimer && (
+                            <button
+                                onClick={() => onStartRestTimer(timeSeconds)}
+                                className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                    restTimerActive
+                                        ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
+                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                }`}
+                                aria-label={restTimerActive ? 'Stop timer' : `Start ${timeSeconds >= 60 ? Math.floor(timeSeconds / 60) + 'm' : timeSeconds + 's'} timer`}
+                            >
+                                <Timer size={12} />
+                                <span>{timeSeconds >= 60 ? `${Math.floor(timeSeconds / 60)}m` : `${timeSeconds}s`}</span>
+                            </button>
+                        )}
+
                         {/* EMOM Timer Button - for EMOM exercises */}
                         {isEmom && onToggleEmomTimer && sectionType === 'main' && (
                             <button
@@ -795,8 +830,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             </button>
                         )}
 
-                        {/* Rest Timer Button - only for main section non-EMOM, non-density, non-flow exercises */}
-                        {!isEmom && !isDensity && !isFlow && onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
+                        {/* Rest Timer Button - for main section non-EMOM, non-density, non-flow, non-time-based exercises */}
+                        {!isEmom && !isDensity && !isFlow && !timeSeconds && onStartRestTimer && sectionType === 'main' && restTime && restTime > 0 && (
                             <button
                                 onClick={() => onStartRestTimer(restTime)}
                                 className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${

@@ -328,12 +328,12 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
             {/* Header */}
             <div className="flex items-center justify-between px-5 pb-4 border-b border-white/5 gap-3">
                 <div className="min-w-0">
-                    <h2 id="exercise-modal-title" className="text-xl font-bold text-white truncate">
+                    <h2 id="exercise-modal-title" className="text-xl font-bold text-white/90 truncate">
                         {exerciseName}
                     </h2>
                     {isSwapped && originalName && (
                         <p className="text-[11px] text-sys-onSurfaceVar mt-0.5 truncate">
-                            Swapped from <span className="text-white font-medium">{originalName}</span>
+                            Swapped from <span className="text-white/80 font-medium">{originalName}</span>
                         </p>
                     )}
                     <p className="text-xs text-sys-onSurfaceVar mt-1">
@@ -364,7 +364,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
             <div className="p-5 space-y-6 overflow-y-auto pb-safe">
                 {showMetadataCard && (
                     <div className="bg-sys-surfaceHigh rounded-xl p-4 border border-white/5 space-y-4">
-                        <div className="flex items-center gap-2 text-white">
+                        <div className="flex items-center gap-2 text-white/90">
                             <ClipboardList size={16} className="text-sys-accent" />
                             <h3 className="text-sm font-bold">Exercise Details</h3>
                         </div>
@@ -380,7 +380,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                 ))}
                             </div>
                         )}
-                        <div className="space-y-3 text-sm text-white">
+                        <div className="space-y-3 text-sm text-white/85">
                             {metadata?.prescription && (
                                 <div className="flex items-start gap-3">
                                     <Dumbbell size={16} className="mt-0.5 text-sys-accent" />
@@ -431,7 +431,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
 
                 {metadata?.notes && (
                     <div className="bg-sys-surfaceHigh rounded-xl p-4 border border-white/5 space-y-3">
-                        <div className="flex items-center gap-2 text-white">
+                        <div className="flex items-center gap-2 text-white/90">
                             <FileText size={16} className="text-sys-accent" />
                             <h3 className="text-sm font-bold">Coaching Notes</h3>
                         </div>
@@ -445,7 +445,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                 {exerciseId && onUpdateUserNotes && (
                     <div className="bg-sys-surfaceHigh rounded-xl p-4 border border-white/5 space-y-3">
                         <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2 text-white">
+                            <div className="flex items-center gap-2 text-white/90">
                                 <Edit3 size={16} className="text-sys-accent" />
                                 <h3 className="text-sm font-bold">My Notes</h3>
                             </div>
@@ -515,7 +515,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                 <Trophy size={32} />
                             </div>
                             <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Est. 1RM</div>
-                            <div className="text-xl font-bold text-white">
+                            <div className="text-xl font-bold text-white/90">
                                 {stats.estimated1RM ? (
                                     <span>{stats.estimated1RM}<span className="text-xs font-normal text-sys-onSurfaceVar ml-0.5">kg</span></span>
                                 ) : '-'}
@@ -526,7 +526,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                 <Dumbbell size={32} />
                             </div>
                             <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Max Weight</div>
-                            <div className="text-xl font-bold text-white">
+                            <div className="text-xl font-bold text-white/90">
                                 {stats.maxWeight ? (
                                     <span>{stats.maxWeight}<span className="text-xs font-normal text-sys-onSurfaceVar ml-0.5">kg</span></span>
                                 ) : '-'}
@@ -537,7 +537,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                 <Activity size={32} />
                             </div>
                             <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Max Sets</div>
-                            <div className="text-xl font-bold text-white">
+                            <div className="text-xl font-bold text-white/90">
                                 {stats.maxSets !== null ? stats.maxSets : '-'}
                             </div>
                         </div>
@@ -551,7 +551,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                 {recentHistory.length > 0 && (
                     <div>
                         <div className="flex items-center justify-between mb-3">
-                            <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                            <h3 className="text-sm font-bold text-white/90 flex items-center gap-2">
                                 <Calendar size={16} className="text-sys-accent" />
                                 Recent Sessions
                             </h3>
@@ -574,7 +574,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                     <div key={`${entry.date}-${idx}`} className="bg-sys-surfaceHigh rounded-xl p-4 border border-white/5">
                                         <div className="flex items-center justify-between mb-3">
                                             <div>
-                                                <div className="text-sm font-semibold text-white">{formattedDate}</div>
+                                                <div className="text-sm font-semibold text-white/85">{formattedDate}</div>
                                                 <div className="text-[11px] text-sys-onSurfaceVar">
                                                     Week {entry.week} • Day {entry.day}
                                                 </div>
@@ -588,15 +588,15 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                         <div className="grid grid-cols-3 gap-2 text-center">
                                             <div>
                                                 <div className="text-[10px] uppercase text-sys-onSurfaceVar tracking-wide">Sets</div>
-                                                <div className="text-white font-semibold text-sm">{setsLabel}</div>
+                                                <div className="text-white/85 font-semibold text-sm">{setsLabel}</div>
                                             </div>
                                             <div>
                                                 <div className="text-[10px] uppercase text-sys-onSurfaceVar tracking-wide">Reps</div>
-                                                <div className="text-white font-semibold text-sm">{repsLabel}</div>
+                                                <div className="text-white/85 font-semibold text-sm">{repsLabel}</div>
                                             </div>
                                             <div>
                                                 <div className="text-[10px] uppercase text-sys-onSurfaceVar tracking-wide">Weight</div>
-                                                <div className="text-white font-semibold text-sm">{weightLabel}</div>
+                                                <div className="text-white/85 font-semibold text-sm">{weightLabel}</div>
                                             </div>
                                         </div>
                                         {entry.prescription && (

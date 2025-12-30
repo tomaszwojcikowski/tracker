@@ -288,7 +288,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
     // Track which density exercise the current density timer is associated with
     const [activeDensityExerciseId, setActiveDensityExerciseId] = useState<string | null>(null);
-    
+
     // Track which flow exercise the current flow timer is associated with (for future use)
     const [_activeFlowExerciseId, setActiveFlowExerciseId] = useState<string | null>(null);
 
@@ -298,7 +298,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             setActiveDensityExerciseId(null);
         }
     }, [densityTimer.active, densityTimer.seconds]);
-    
+
     // Clear association when the flow timer fully stops/completes
     useEffect(() => {
         if (!flowTimer.active && flowTimer.seconds === 0) {
@@ -942,12 +942,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         const exId = `added_${exerciseId}`;
         const currentEntry = getExerciseLogEntry(logs, exId);
         const currentSets = currentEntry.sets || [];
-        
+
         // Don't add more than 10 sets (consistent with AddedExerciseCard UI limit)
         if (currentSets.length >= 10) {
             return;
         }
-        
+
         // Add a new uncompleted set
         const newSets = [...currentSets, false];
         saveLog(exId, 'sets', newSets);
@@ -1305,7 +1305,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         }`}
                         aria-label="Open workout notes"
                     >
-                        <StickyNote size={18} />
+                        <StickyNote size={22} />
                         {workoutNotes.trim() && (
                             <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 bg-sys-accent rounded-full" />
                         )}
@@ -1329,7 +1329,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             aria-label="Card view"
                             aria-pressed={viewMode === 'list' && !compactView}
                         >
-                            <LayoutGrid size={16} />
+                            <LayoutGrid size={20} />
                         </button>
                         <button
                             onClick={() => {
@@ -1346,7 +1346,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             aria-label="Compact list view"
                             aria-pressed={viewMode === 'list' && compactView}
                         >
-                            <LayoutList size={16} />
+                            <LayoutList size={20} />
                         </button>
                         <div className="w-[1px] h-4 bg-white/10 mx-1" />
                         <button
@@ -1360,7 +1360,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             aria-label="Focus mode"
                             aria-pressed={viewMode === 'focus'}
                         >
-                            <Maximize2 size={16} />
+                            <Maximize2 size={20} />
                         </button>
                     </div>
                 </div>
@@ -1383,7 +1383,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 }}
                                 className="h-12 px-6 rounded-xl text-white font-semibold active:scale-95 transition-transform btn-gradient-primary flex items-center gap-2"
                             >
-                                <PlusCircle size={18} />
+                                <PlusCircle size={22} />
                                 <span>Add First Exercise</span>
                             </button>
                         </div>
@@ -1703,8 +1703,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 {addedExercises.length > 0 && (
                     <div className="mb-5">
                         <div className="flex items-center gap-2 mb-2">
-                            <div className="h-6 w-6 rounded-md flex items-center justify-center bg-sys-surfaceHigh">
-                                <PlusCircle size={14} className="text-sys-success" />
+                            <div className="h-7 w-7 rounded-md flex items-center justify-center bg-sys-surfaceHigh">
+                                <PlusCircle size={18} className="text-sys-success" />
                             </div>
                             <span className="text-sm font-bold text-white uppercase tracking-wide">
                                 {isEmptyWorkout ? 'Exercises' : 'Added Exercises'}
@@ -1749,7 +1749,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             }}
                             className="w-full h-10 px-4 rounded-lg bg-sys-success/10 border border-sys-success/30 text-sys-success text-sm font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform"
                         >
-                            <PlusCircle size={18} />
+                            <PlusCircle size={22} />
                             <span>Add Exercise</span>
                         </button>
                     </div>
@@ -1777,7 +1777,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 />
                             )}
                             <span className="relative z-10 text-sm flex items-center gap-2">
-                                <CheckCircle2 size={16} />
+                                <CheckCircle2 size={20} />
                                 <span>Finish</span>
                                 {workoutProgress.totalSets > 0 && (
                                     <span className={workoutProgress.completedSets === workoutProgress.totalSets ? 'text-white/90 text-xs' : 'text-sys-onSurfaceVar text-xs'}>

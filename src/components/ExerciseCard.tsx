@@ -125,6 +125,8 @@ export interface ExerciseCardProps {
     onToggleDensityTimer?: (timeMinutes: number) => void;
     /** Toggle flow timer for this exercise (expects minutes) */
     onToggleFlowTimer?: (timeMinutes: number) => void;
+    /** Time-based exercise duration in seconds */
+    timeSeconds?: number;
     onShowHistory: (request: ExerciseDetailRequest) => void;
     onShowAlternatives: (name: string, alternatives: string[]) => void;
     onShowOptions?: (exerciseId: string, exerciseName: string, options: import('../workout-plan-utils').ExerciseOption[]) => void;
@@ -188,6 +190,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     onToggleEmomTimer,
     onToggleDensityTimer,
     onToggleFlowTimer,
+    timeSeconds,
     onShowHistory,
     onShowAlternatives,
     onShowOptions,
@@ -457,6 +460,25 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             </div>
                         ) : null}
 
+                        {/* Time-based Exercise Timer - for warmup/cooldown exercises with time */}
+                        {!isFlow && !isEmom && !isDensity && timeSeconds && timeSeconds > 0 && onStartRestTimer ? (
+                            <div className="flex items-center mb-2">
+                                <div className="flex-1" />
+                                <button
+                                    onClick={() => onStartRestTimer(timeSeconds)}
+                                    className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                        restTimerActive
+                                            ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
+                                            : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                    }`}
+                                    aria-label={restTimerActive ? 'Stop timer' : `Start ${timeSeconds >= 60 ? Math.floor(timeSeconds / 60) + 'm' : timeSeconds + 's'} timer`}
+                                >
+                                    <Timer size={14} />
+                                    <span>{timeSeconds >= 60 ? `${Math.floor(timeSeconds / 60)}m` : `${timeSeconds}s`}</span>
+                                </button>
+                            </div>
+                        ) : null}
+
                         {/* EMOM Timer - for EMOM exercises */}
                         {isEmom && sectionType === 'main' ? (
                             <div className="flex items-center mb-2">
@@ -583,8 +605,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     </button>
                                 )}
 
-                                {/* Rest Timer Button - show for main/access sections, excluding EMOM/density/flow */}
-                                {!isEmom && !isDensity && !isFlow && restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
+                                {/* Rest Timer Button - show for main/access sections, excluding EMOM/density/flow/time-based */}
+                                {!isEmom && !isDensity && !isFlow && !timeSeconds && restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
                                     <button
                                         onClick={() => onStartRestTimer(restTime)}
                                         className={`h-10 px-4 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-sm font-semibold ${

@@ -36,8 +36,9 @@ export interface ExerciseTypeFlags {
     densityTimeMinutes?: number;
     densityRepsTotal?: number;
     isFlow?: boolean;
-    flowTimeMinutes?: number;
-}
+    flowTimeMinutes?: number;    isTimeBased?: boolean;
+    timeSeconds?: number;
+    timeMinutes?: number;}
 
 /**
  * Common exercise metadata props (prescription, notes, ranges, etc.)
@@ -92,6 +93,14 @@ export function getExerciseTypeFlags(ex: WorkoutExercise): ExerciseTypeFlags {
         flowTimeMinutes = ex.repsRange.value / 60; // Convert seconds to minutes
     }
 
+    // Calculate time-based exercise duration for warmup/cooldown exercises
+    let timeSeconds: number | undefined;
+    let timeMinutes: number | undefined;
+    if (ex.repsRange?.type === 'time' && typeof ex.repsRange.value === 'number') {
+        timeSeconds = ex.repsRange.value;
+        timeMinutes = timeSeconds / 60;
+    }
+
     return {
         isBodyweight: ex.isBodyweight,
         isEmom: ex.isEmom,
@@ -106,6 +115,9 @@ export function getExerciseTypeFlags(ex: WorkoutExercise): ExerciseTypeFlags {
         densityRepsTotal: ex.densityRepsTotal,
         isFlow: ex.isFlow,
         flowTimeMinutes,
+        isTimeBased: ex.repsRange?.type === 'time',
+        timeSeconds,
+        timeMinutes,
     };
 }
 

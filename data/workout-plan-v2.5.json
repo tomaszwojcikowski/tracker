@@ -335,7 +335,7 @@
         "name": "Ankle Mobility Circuit",
         "description": "Essential for Day 2 and supporting Goblet Squats",
         "category": "mobility",
-        "estimatedDuration": 7,
+        "estimatedDuration": 8,
         "targetAreas": [
           "ankles",
           "tibialis",
@@ -347,10 +347,12 @@
             "category": "mobility",
             "sets": 1,
             "repsType": "time",
-            "repsValue": 120,
+            "repsMin": 120,
+            "repsMax": 180,
             "repsUnit": "seconds",
             "repsPerSide": true,
-            "loadUnit": "bodyweight"
+            "loadUnit": "bodyweight",
+            "notes": "2-3 minutes per side"
           },
           {
             "exerciseName": "Tibialis Wall Raises",
@@ -366,29 +368,31 @@
             "category": "mobility",
             "sets": 2,
             "repsType": "time",
-            "repsValue": 30,
+            "repsMin": 30,
+            "repsMax": 45,
             "repsUnit": "seconds",
-            "loadUnit": "bodyweight"
+            "loadUnit": "bodyweight",
+            "notes": "Supported as needed"
           }
         ]
       },
       {
         "id": "day2-anti-rotation-trio",
-        "name": "Day 2 Anti-Rotation Trio",
-        "description": "Internal rotations + mobility flow + Pallof press",
+        "name": "Day 2 Hip + Core Block",
+        "description": "90/90 transitions + Standing Hip CARs + Pallof press",
         "category": "prehab",
-        "estimatedDuration": 6,
+        "estimatedDuration": 8,
         "targetAreas": [
-          "shoulders",
+          "hips",
           "core",
           "anti-rotation"
         ],
         "exercises": [
           {
-            "$ref": "ex-band-internal-rotations"
+            "$ref": "ex-90-90-transitions"
           },
           {
-            "$ref": "ex-mobility-flow"
+            "$ref": "ex-standing-hip-cars"
           },
           {
             "$ref": "ex-pallof-press"
@@ -399,14 +403,17 @@
       {
         "id": "day2-recovery-flow",
         "name": "Day 2 Recovery Flow",
-        "description": "System Reset cooldown for recovery day",
+        "description": "System Reset cooldown for recovery day (thoracic + breathing)",
         "category": "cooldown",
-        "estimatedDuration": 5,
+        "estimatedDuration": 7,
         "targetAreas": [
           "breathing",
           "recovery"
         ],
         "exercises": [
+          {
+            "$ref": "ex-open-book-rotations"
+          },
           {
             "exerciseName": "Child's Pose",
             "category": "cooldown",
@@ -853,6 +860,107 @@
         "alternatives": [
           "Light Supinated Pulldown"
         ]
+      },
+      {
+        "id": "ex-90-90-transitions",
+        "exerciseName": "90/90 Transitions",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 8,
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "notes": "Controlled rotation, no collapse of front knee"
+      },
+      {
+        "id": "ex-standing-hip-cars",
+        "exerciseName": "Standing Hip CARs",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 5,
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "notes": "Slow controlled articular rotations; hold balance or use support"
+      },
+      {
+        "id": "ex-open-book-rotations",
+        "exerciseName": "Open-Book Rotations",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 8,
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "notes": "Thoracic rotation; knees stacked"
+      },
+      {
+        "id": "ex-side-plank-recovery",
+        "exerciseName": "Side Plank (Recovery)",
+        "category": "core",
+        "sets": 2,
+        "repsType": "time",
+        "repsMin": 30,
+        "repsMax": 40,
+        "repsUnit": "seconds",
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "notes": "Knee-down option allowed"
+      },
+      {
+        "id": "ex-half-side-plank",
+        "exerciseName": "Half Side Plank",
+        "category": "core",
+        "sets": 2,
+        "repsType": "time",
+        "repsMin": 25,
+        "repsMax": 30,
+        "repsUnit": "seconds",
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "notes": "Knee-down variation"
+      },
+      {
+        "id": "ex-standing-calf-iso",
+        "exerciseName": "Standing Calf ISO Hold (Mid-Range)",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "time",
+        "repsValue": 30,
+        "repsUnit": "seconds",
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "notes": "Mid-range position; focus on tendon stiffness"
+      },
+      {
+        "id": "ex-cossack-squat-shallow",
+        "exerciseName": "Cossack Squat (Shallow Range)",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 6,
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "notes": "Slow, controlled; stay in shallow range"
+      },
+      {
+        "id": "ex-marching-dead-bug",
+        "exerciseName": "Marching Dead Bug",
+        "category": "core",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 8,
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "notes": "Low-tension option"
       },
       {
         "id": "ex-mobility-flow",
@@ -1533,13 +1641,17 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 32,
+                "notes": "Standard Day 2 template: no hanging or grip loading",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -1667,13 +1779,17 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 32,
+                "notes": "Use standard template; swap Side Plank for Half Side Plank (25-30s/side)",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-half-side-plank"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -1802,13 +1918,20 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 34,
+                "notes": "Standard template + Standing Calf ISO Hold (2x30s/side)",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-standing-calf-iso"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -1945,13 +2068,19 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 28,
+                "notes": "Deload version: ~70% volume; reduce holds by 10-15s; omit Standing Hip CARs if joints feel fatigued",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery",
+                    "repsMin": 20,
+                    "repsMax": 30
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2072,13 +2201,20 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 34,
+                "notes": "Standard template + Cossack Squat (Shallow) 2x6/side for adductor support",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-cossack-squat-shallow"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2214,13 +2350,20 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 34,
+                "notes": "Repeat Week 5 structure: standard template + Cossack Squat (Shallow) 2x6/side",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-cossack-squat-shallow"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2351,13 +2494,17 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 32,
+                "notes": "Fatigue management: run template without Cossacks; extend Child's Pose to 3 minutes",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2490,13 +2637,19 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 28,
+                "notes": "Deload: 60-70% volume, no add-ons",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery",
+                    "repsMin": 20,
+                    "repsMax": 30
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2629,13 +2782,17 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 32,
+                "notes": "Standard template (no grip isometrics)",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2757,13 +2914,20 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 32,
+                "notes": "Isometric recovery focus: Side Plank 25-30s, prioritize smooth breathing",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery",
+                    "sets": 2,
+                    "repsMin": 25,
+                    "repsMax": 30
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2877,13 +3041,17 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 32,
+                "notes": "Standard template; include Standing Hip CARs (2x5/side)",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3005,7 +3173,8 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 24,
+                "notes": "Connective tissue deload: 50-60% volume, no long holds, skip Side Planks",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -3127,13 +3296,21 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 34,
+                "notes": "Standard template; optional Marching Dead Bug 2x8/side if tissues feel excellent",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery"
+                  },
+                  {
+                    "$ref": "ex-marching-dead-bug",
+                    "notes": "Optional"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3247,13 +3424,21 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 34,
+                "notes": "Standard template; optional Marching Dead Bug 2x8/side — remove if elbows/hips feel taxed",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery"
+                  },
+                  {
+                    "$ref": "ex-marching-dead-bug",
+                    "notes": "Optional; skip if taxed"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3374,13 +3559,19 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 32,
+                "notes": "Peak stress week: standard template with Side Planks shortened to 25-30s",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery",
+                    "repsMin": 25,
+                    "repsMax": 30
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3499,13 +3690,19 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 26,
+                "notes": "Deload: ~60% volume; extend breathing to 4-5 minutes",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery",
+                    "repsMin": 20,
+                    "repsMax": 30
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3627,12 +3824,18 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 30,
+                "notes": "~80% volume, breath-led; standard template with no extra load",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery",
+                    "repsMin": 25,
+                    "repsMax": 30
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3746,13 +3949,19 @@
                 "dayNumber": 2,
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 28,
+                "notes": "~70% volume taper; Side Plank 20-25s",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
                     "$routine": "day2-anti-rotation-trio"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery",
+                    "repsMin": 20,
+                    "repsMax": 25
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3867,23 +4076,13 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Mobility & Recovery",
+                "name": "Mobility & Recovery - FULL DELOAD",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 18,
+                "notes": "Full deload: light mobility only, no Pallof/core load",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
-                  },
-                  {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
-                  },
-                  {
-                    "$ref": "ex-pallof-press",
-                    "sets": 2,
-                    "notes": "Reduced"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -4016,32 +4215,27 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Mobility & Recovery",
+                "name": "Mobility & Recovery - Passive",
                 "type": "mobility",
-                "estimatedDuration": 2,
+                "estimatedDuration": 8,
+                "notes": "Passive recovery: optional light mobility only; keep joints warm, no core/stability",
                 "exercises": [
                   {
-                    "$ref": "ex-rest",
-                    "category": "mobility",
-                    "repsType": "none",
-                    "notes": "Recovery"
+                    "$routine": "day2-recovery-flow",
+                    "notes": "Optional; stop early if any fatigue"
                   }
                 ]
               },
               {
                 "dayNumber": 3,
-                "name": "Lower Body",
+                "name": "Lower Body - Passive Recovery",
                 "type": "mobility",
-                "estimatedDuration": 2,
+                "estimatedDuration": 8,
+                "notes": "Passive recovery: light mobility only; no core/stability",
                 "exercises": [
                   {
-                    "$routine": "warmup-day3"
-                  },
-                  {
-                    "$ref": "ex-rest",
-                    "category": "mobility",
-                    "repsType": "none",
-                    "notes": "Recovery"
+                    "$routine": "day2-recovery-flow",
+                    "notes": "Optional; keep it easy"
                   }
                 ]
               },

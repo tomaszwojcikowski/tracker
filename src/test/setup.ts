@@ -24,7 +24,9 @@ const localStorageMock = {
 const mockIcon = () => 'MockIcon';
 vi.mock('../components/icons', () => ({
   Check: mockIcon,
+  CheckCircle: mockIcon,
   CheckCheck: mockIcon,
+  AlertCircle: mockIcon,
   ChevronRight: mockIcon,
   ChevronDown: mockIcon,
   ChevronUp: mockIcon,
@@ -70,4 +72,5 @@ vi.mock('../components/icons', () => ({
   Repeat: mockIcon,
   Link: mockIcon,
   RotateCcw: mockIcon,
+  LogOut: mockIcon,
 }));

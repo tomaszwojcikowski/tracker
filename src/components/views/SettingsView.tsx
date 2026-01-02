@@ -11,7 +11,8 @@ import { getActiveProgramId } from '../../services/storageNamespace';
 import {
     getAllLocalData,
     mergeCloudData,
-    FIREBASE_SYNC_ENABLED_KEY,
+    isSyncEnabled,
+    setSyncEnabled,
     type SessionData,
     type GlobalHistoryEntry
 } from '../../utils/firebaseSync';
@@ -166,7 +167,7 @@ export const SettingsView: React.FC = () => {
 
     useEffect(() => {
         // Load Firebase sync setting
-        const savedSyncEnabled = localStorage.getItem(FIREBASE_SYNC_ENABLED_KEY) !== 'false'; // Default true
+        const savedSyncEnabled = isSyncEnabled();
         setFirebaseSyncEnabled(savedSyncEnabled);
 
         // Setup Firebase sync listener (Firebase is auto-initialized from env vars)
@@ -185,7 +186,8 @@ export const SettingsView: React.FC = () => {
                 (user: User | null, initialCloudData: CloudData | null) => {
                     // Note: user state is handled by useAuth, but we need this for sync logic
 
-                    if (user && savedSyncEnabled) {
+                    // Re-check current setting at the time of auth change (avoid stale closure)
+                    if (user && isSyncEnabled()) {
                         setIsSyncing(true);
 
                         // STEP 1: Merge initial cloud data into local storage first
@@ -235,6 +237,13 @@ export const SettingsView: React.FC = () => {
 
     const handleManualSync = async () => {
         haptic.bump();
+
+        if (!isSyncEnabled()) {
+            setFirebaseMessage('✗ Sync is disabled. Enable Automatic Sync to use cloud sync.');
+            setTimeout(() => setFirebaseMessage(''), 5000);
+            return;
+        }
+
         setIsSyncing(true);
         try {
             await syncService.syncNow();
@@ -253,7 +262,7 @@ export const SettingsView: React.FC = () => {
         haptic.tick();
         const newValue = !firebaseSyncEnabled;
         setFirebaseSyncEnabled(newValue);
-        localStorage.setItem(FIREBASE_SYNC_ENABLED_KEY, newValue.toString());
+        setSyncEnabled(newValue);
     };
 
     const handleResetProgress = () => {

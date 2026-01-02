@@ -205,12 +205,12 @@ export function mergeCloudData(cloudData: CloudData | null | undefined): void {
     if (cloudData.global_history && Array.isArray(cloudData.global_history)) {
         const globalHistoryStorageKey = getGlobalHistoryKey();
         const localGlobalHistory = safeGetJSON<GlobalHistoryEntry[]>(globalHistoryStorageKey, []);
-        
+
         // Create a Set of existing entry keys (date + week + day) for quick lookup
         const existingEntryKeys = new Set(
             localGlobalHistory.map(entry => `${entry.date}-${entry.week}-${entry.day}`)
         );
-        
+
         // Add cloud entries that don't exist locally
         const mergedHistory = [...localGlobalHistory];
         cloudData.global_history.forEach(cloudEntry => {
@@ -219,10 +219,10 @@ export function mergeCloudData(cloudData: CloudData | null | undefined): void {
                 mergedHistory.push(cloudEntry);
             }
         });
-        
+
         // Sort by date (newest first would be consistent with how history is displayed)
         mergedHistory.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-        
+
         safeSetJSON(globalHistoryStorageKey, mergedHistory);
         console.log(`Merged global history: ${localGlobalHistory.length} local + ${cloudData.global_history.length} cloud = ${mergedHistory.length} total`);
     }
@@ -233,7 +233,7 @@ export function mergeCloudData(cloudData: CloudData | null | undefined): void {
         Object.keys(cloudData.sessions).forEach(keyString => {
             const baseKey = keyString as SessionKey;
             const cloudSession = cloudData.sessions![baseKey];
-            
+
             // Parse week and day from base key
             const match = baseKey.match(/^session_w(\d+)d(\d+)$/);
             if (!match) {
@@ -242,7 +242,7 @@ export function mergeCloudData(cloudData: CloudData | null | undefined): void {
             }
             const week = parseInt(match[1], 10);
             const day = parseInt(match[2], 10);
-            
+
             // Get the namespaced key for the current program
             const namespacedKey = getSessionKey(week, day);
             const localSession = safeGetJSON<SessionData | null>(namespacedKey, null);
@@ -331,7 +331,9 @@ function syncTimerStateFromCloud(cloudSession: SessionData, week: number, day: n
  * Check if Firebase sync is enabled
  */
 export function isSyncEnabled(): boolean {
-    return safeGetJSON<boolean>(FIREBASE_SYNC_ENABLED_KEY, false);
+    // Default to enabled to match Settings UI and expected sync behavior.
+    // The stored value is a JSON boolean ("true"/"false"), compatible with safeGetJSON.
+    return safeGetJSON<boolean>(FIREBASE_SYNC_ENABLED_KEY, true);
 }
 
 /**
@@ -347,7 +349,7 @@ export function setSyncEnabled(enabled: boolean): void {
  * @example
  * // Instead of:
  * const key = getBaseSessionKey(1, 1); // 'session_w1d1'
- * 
+ *
  * // Use for namespaced storage:
  * import { getSessionKey } from '../services/storageNamespace';
  * const key = getSessionKey(1, 1); // 'p:program-id:session_w1d1'

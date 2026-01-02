@@ -8,8 +8,8 @@
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { safeGetJSON, safeSetJSON } from '../utils/storage';
-import { getSessionKey } from '../services/storageNamespace';
+import { safeGetJSON, safeRemove, safeSetJSON } from '../utils/storage';
+import { getNamespacedKey, getSessionKey } from '../services/storageNamespace';
 import { syncService } from '../services/SyncService';
 import type { WorkoutSessionData } from '../types/workout';
 
@@ -57,8 +57,26 @@ export interface WorkoutTimerReturn {
 /**
  * Get localStorage key for timer state
  */
-function getTimerStorageKey(week: number, day: number): string {
+function getLegacyTimerStorageKey(week: number, day: number): string {
   return `workout_timer_w${week}d${day}`;
+}
+
+function getTimerStorageKey(week: number, day: number): string {
+  return getNamespacedKey(getLegacyTimerStorageKey(week, day));
+}
+
+interface WorkoutTimerKeys {
+  timerStorageKey: string;
+  legacyTimerStorageKey: string;
+  sessionKey: string;
+}
+
+function getTimerKeys(week: number, day: number): WorkoutTimerKeys {
+  return {
+    timerStorageKey: getTimerStorageKey(week, day),
+    legacyTimerStorageKey: getLegacyTimerStorageKey(week, day),
+    sessionKey: getSessionKey(week, day),
+  };
 }
 
 /**
@@ -90,20 +108,28 @@ export function useWorkoutTimer(
   day: number,
   autoStart: boolean = true
 ): WorkoutTimerReturn {
-  const storageKey = getTimerStorageKey(week, day);
+  const keysRef = useRef<WorkoutTimerKeys>(getTimerKeys(week, day));
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Helper to load saved timer state from localStorage or session data
-  const loadSavedState = (): WorkoutTimerState | null => {
-    // First try the dedicated timer storage key
-    const saved = safeGetJSON<WorkoutTimerState>(storageKey);
+  const loadSavedState = useCallback((keys: WorkoutTimerKeys): WorkoutTimerState | null => {
+    // First try the dedicated, program-scoped timer storage key
+    const saved = safeGetJSON<WorkoutTimerState>(keys.timerStorageKey);
     if (saved && saved.week === week && saved.day === day) {
       return saved;
     }
-    
+
+    // Backward compatibility: fall back to legacy (non-namespaced) key
+    const legacySaved = safeGetJSON<WorkoutTimerState>(keys.legacyTimerStorageKey);
+    if (legacySaved && legacySaved.week === week && legacySaved.day === day) {
+      // Best-effort migration to namespaced key
+      safeSetJSON(keys.timerStorageKey, legacySaved);
+      safeRemove(keys.legacyTimerStorageKey);
+      return legacySaved;
+    }
+
     // Fallback to session data (for cloud-synced timer state)
-    const sessionKey = getSessionKey(week, day);
-    const sessionData = safeGetJSON<WorkoutSessionData>(sessionKey);
+    const sessionData = safeGetJSON<WorkoutSessionData>(keys.sessionKey);
     if (sessionData?.timerState) {
       return {
         elapsedSeconds: sessionData.timerState.elapsedSeconds,
@@ -113,13 +139,13 @@ export function useWorkoutTimer(
         day,
       };
     }
-    
+
     return null;
-  };
+  }, [day, week]);
 
   // Load initial state from localStorage
   const [elapsedSeconds, setElapsedSeconds] = useState<number>(() => {
-    const saved = loadSavedState();
+    const saved = loadSavedState(keysRef.current);
     if (saved) {
       // If timer was running when we left, calculate elapsed time
       if (saved.isRunning && saved.startedAt) {
@@ -132,7 +158,7 @@ export function useWorkoutTimer(
   });
 
   const [isRunning, setIsRunning] = useState<boolean>(() => {
-    const saved = loadSavedState();
+    const saved = loadSavedState(keysRef.current);
     if (saved) {
       return saved.isRunning;
     }
@@ -141,7 +167,7 @@ export function useWorkoutTimer(
 
   const [startedAt, setStartedAt] = useState<number | null>(() => {
     if (autoStart) {
-      const saved = loadSavedState();
+      const saved = loadSavedState(keysRef.current);
       if (saved && saved.isRunning) {
         return saved.startedAt;
       }
@@ -153,45 +179,86 @@ export function useWorkoutTimer(
   // Persist state to localStorage
   const persistState = useCallback(
     (elapsed: number, running: boolean, started: number | null) => {
+      const keys = keysRef.current;
       const state: WorkoutTimerState = {
         elapsedSeconds: elapsed,
         isRunning: running,
-        startedAt: started,
+        // When running, store a fresh timestamp so reloads only add missing time
+        startedAt: running ? Date.now() : started,
         week,
         day,
       };
-      safeSetJSON(storageKey, state);
-      
+      safeSetJSON(keys.timerStorageKey, state);
+
       // Also save timer state to session data for cloud sync
-      const sessionKey = getSessionKey(week, day);
-      const sessionData = safeGetJSON<WorkoutSessionData>(sessionKey, {});
+      const sessionData = safeGetJSON<WorkoutSessionData>(keys.sessionKey, {});
       const updatedSessionData: WorkoutSessionData = {
         ...sessionData,
         timerState: {
           elapsedSeconds: elapsed,
           isRunning: running,
-          startedAt: started,
+          startedAt: running ? Date.now() : started,
         },
         lastModified: new Date().toISOString(),
       };
-      safeSetJSON(sessionKey, updatedSessionData);
-      
+      safeSetJSON(keys.sessionKey, updatedSessionData);
+
       // Trigger cloud sync (debounced)
       syncService.scheduleSync();
     },
-    [storageKey, week, day]
+    [day, week]
   );
 
-  // Auto-start timer when autoStart becomes true (e.g., entering workout mode)
-  // We intentionally only depend on autoStart to avoid re-triggering when isRunning/elapsedSeconds change
+  // Keep timer scoped to workout mode: start when entering, pause when leaving.
+  // We intentionally only depend on autoStart to avoid re-triggering when isRunning/elapsedSeconds change.
   useEffect(() => {
-    if (autoStart && !isRunning && elapsedSeconds < MAX_TIMER_SECONDS) {
-      const now = Date.now();
-      setIsRunning(true);
-      setStartedAt(now);
+    if (autoStart) {
+      if (!isRunning && elapsedSeconds < MAX_TIMER_SECONDS) {
+        const now = Date.now();
+        setIsRunning(true);
+        setStartedAt(now);
+      }
+      return;
+    }
+
+    if (isRunning) {
+      setIsRunning(false);
+      setStartedAt(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoStart]);
+
+  // Reload timer state when switching to a different week/day.
+  useEffect(() => {
+    // Stop any existing interval immediately; the next effect run will re-create if needed.
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
+    const nextKeys = getTimerKeys(week, day);
+    keysRef.current = nextKeys;
+
+    const saved = loadSavedState(nextKeys);
+    const nextElapsed = (() => {
+      if (!saved) return 0;
+      if (saved.isRunning && saved.startedAt) {
+        const additionalSeconds = Math.floor((Date.now() - saved.startedAt) / 1000);
+        return Math.min(saved.elapsedSeconds + additionalSeconds, MAX_TIMER_SECONDS);
+      }
+      return saved.elapsedSeconds;
+    })();
+
+    setElapsedSeconds(nextElapsed);
+
+    if (autoStart) {
+      setIsRunning(saved?.isRunning ?? true);
+      setStartedAt(saved?.isRunning ? saved.startedAt : Date.now());
+    } else {
+      setIsRunning(false);
+      setStartedAt(null);
+    }
+  }, [week, day, autoStart, loadSavedState]);
 
   // Timer tick effect
   useEffect(() => {

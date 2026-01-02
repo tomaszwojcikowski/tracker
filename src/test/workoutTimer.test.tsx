@@ -19,6 +19,7 @@ vi.mock('../services/SyncService', () => ({
 // Mock the storage namespace service
 vi.mock('../services/storageNamespace', () => ({
   getSessionKey: (week: number, day: number) => `program_default_session_w${week}d${day}`,
+  getNamespacedKey: (key: string) => `p:program_default:${key}`,
 }));
 
 // Mock localStorage
@@ -80,32 +81,32 @@ describe('useWorkoutTimer', () => {
   describe('timer controls', () => {
     it('should start the timer when start() is called', () => {
       const { result } = renderHook(() => useWorkoutTimer(1, 1, false));
-      
+
       act(() => {
         result.current.start();
       });
-      
+
       expect(result.current.isRunning).toBe(true);
     });
 
     it('should pause the timer when pause() is called', () => {
       const { result } = renderHook(() => useWorkoutTimer(1, 1, true));
-      
+
       act(() => {
         result.current.pause();
       });
-      
+
       expect(result.current.isRunning).toBe(false);
     });
 
     it('should toggle between running and paused', () => {
       const { result } = renderHook(() => useWorkoutTimer(1, 1, false));
-      
+
       act(() => {
         result.current.toggle();
       });
       expect(result.current.isRunning).toBe(true);
-      
+
       act(() => {
         result.current.toggle();
       });
@@ -114,31 +115,31 @@ describe('useWorkoutTimer', () => {
 
     it('should return elapsed seconds when stop() is called', () => {
       const { result } = renderHook(() => useWorkoutTimer(1, 1, true));
-      
+
       act(() => {
         vi.advanceTimersByTime(5000); // 5 seconds
       });
-      
+
       let finalDuration;
       act(() => {
         finalDuration = result.current.stop();
       });
-      
+
       expect(finalDuration).toBe(5);
       expect(result.current.isRunning).toBe(false);
     });
 
     it('should reset the timer when reset() is called', () => {
       const { result } = renderHook(() => useWorkoutTimer(1, 1, true));
-      
+
       act(() => {
         vi.advanceTimersByTime(5000);
       });
-      
+
       act(() => {
         result.current.reset();
       });
-      
+
       expect(result.current.elapsedSeconds).toBe(0);
       expect(result.current.isRunning).toBe(false);
     });
@@ -147,32 +148,32 @@ describe('useWorkoutTimer', () => {
   describe('timer counting', () => {
     it('should increment elapsed seconds when running', () => {
       const { result } = renderHook(() => useWorkoutTimer(1, 1, true));
-      
+
       act(() => {
         vi.advanceTimersByTime(3000); // 3 seconds
       });
-      
+
       expect(result.current.elapsedSeconds).toBe(3);
     });
 
     it('should not increment when paused', () => {
       const { result } = renderHook(() => useWorkoutTimer(1, 1, false));
-      
+
       act(() => {
         vi.advanceTimersByTime(3000);
       });
-      
+
       expect(result.current.elapsedSeconds).toBe(0);
     });
 
     it('should stop at MAX_TIMER_SECONDS (3 hours)', () => {
       const { result } = renderHook(() => useWorkoutTimer(1, 1, true));
-      
+
       // Advance beyond 3 hours
       act(() => {
         vi.advanceTimersByTime((MAX_TIMER_SECONDS + 100) * 1000);
       });
-      
+
       expect(result.current.elapsedSeconds).toBe(MAX_TIMER_SECONDS);
       expect(result.current.isRunning).toBe(false);
     });
@@ -181,18 +182,18 @@ describe('useWorkoutTimer', () => {
   describe('persistence', () => {
     it('should persist state to localStorage', () => {
       const { result } = renderHook(() => useWorkoutTimer(1, 1, true));
-      
+
       act(() => {
         vi.advanceTimersByTime(5000);
       });
-      
+
       expect(mockLocalStorage.setItem).toHaveBeenCalled();
       const calls = mockLocalStorage.setItem.mock.calls;
-      
-      // Find the timer storage key (workout_timer_w1d1)
-      const timerCalls = calls.filter((call) => call[0] === 'workout_timer_w1d1');
+
+      // Find the timer storage key (namespaced)
+      const timerCalls = calls.filter((call) => call[0] === 'p:program_default:workout_timer_w1d1');
       expect(timerCalls.length).toBeGreaterThan(0);
-      
+
       const lastTimerCall = timerCalls[timerCalls.length - 1];
       const savedData = JSON.parse(lastTimerCall[1] || '{}');
       expect(savedData.elapsedSeconds).toBe(5);
@@ -204,30 +205,30 @@ describe('useWorkoutTimer', () => {
     it('should use different storage keys for different week/day combinations', () => {
       renderHook(() => useWorkoutTimer(1, 1, false));
       renderHook(() => useWorkoutTimer(2, 3, false));
-      
+
       const calls = mockLocalStorage.setItem.mock.calls;
       const keys = calls.map((call) => call[0]);
-      
-      expect(keys).toContain('workout_timer_w1d1');
-      expect(keys).toContain('workout_timer_w2d3');
+
+      expect(keys).toContain('p:program_default:workout_timer_w1d1');
+      expect(keys).toContain('p:program_default:workout_timer_w2d3');
     });
 
     it('should save timer state to session data for cloud sync', () => {
       const { result } = renderHook(() => useWorkoutTimer(1, 1, true));
-      
+
       act(() => {
         vi.advanceTimersByTime(5000);
       });
-      
+
       // Check that session data was updated with timer state
       const sessionCalls = mockLocalStorage.setItem.mock.calls.filter(
         (call) => call[0] === 'program_default_session_w1d1'
       );
       expect(sessionCalls.length).toBeGreaterThan(0);
-      
+
       const lastSessionCall = sessionCalls[sessionCalls.length - 1];
       const sessionData = JSON.parse(lastSessionCall[1] || '{}') as WorkoutSessionData;
-      
+
       expect(sessionData.timerState).toBeDefined();
       expect(sessionData.timerState?.elapsedSeconds).toBe(5);
       expect(sessionData.timerState?.isRunning).toBe(true);
@@ -244,9 +245,9 @@ describe('useWorkoutTimer', () => {
         },
       };
       mockLocalStorage.setItem('program_default_session_w2d2', JSON.stringify(sessionData));
-      
+
       const { result } = renderHook(() => useWorkoutTimer(2, 2, false));
-      
+
       expect(result.current.elapsedSeconds).toBe(120);
       expect(result.current.isRunning).toBe(false);
     });
@@ -260,8 +261,8 @@ describe('useWorkoutTimer', () => {
         week: 3,
         day: 1,
       };
-      mockLocalStorage.setItem('workout_timer_w3d1', JSON.stringify(timerState));
-      
+      mockLocalStorage.setItem('p:program_default:workout_timer_w3d1', JSON.stringify(timerState));
+
       const sessionData: WorkoutSessionData = {
         timerState: {
           elapsedSeconds: 50,
@@ -270,23 +271,69 @@ describe('useWorkoutTimer', () => {
         },
       };
       mockLocalStorage.setItem('program_default_session_w3d1', JSON.stringify(sessionData));
-      
+
       const { result } = renderHook(() => useWorkoutTimer(3, 1, false));
-      
+
       // Should use the dedicated timer storage
       expect(result.current.elapsedSeconds).toBe(100);
+      // Not in workout view (autoStart=false) => should be paused
+      expect(result.current.isRunning).toBe(false);
+    });
+
+    it('should fall back to legacy timer key if namespaced key is missing', () => {
+      const legacyTimerState = {
+        elapsedSeconds: 42,
+        isRunning: false,
+        startedAt: null,
+        week: 4,
+        day: 2,
+      };
+      mockLocalStorage.setItem('workout_timer_w4d2', JSON.stringify(legacyTimerState));
+
+      const { result } = renderHook(() => useWorkoutTimer(4, 2, false));
+
+      expect(result.current.elapsedSeconds).toBe(42);
+      expect(result.current.isRunning).toBe(false);
+
+      // Best-effort migration should write the namespaced key
+      expect(mockLocalStorage.setItem).toHaveBeenCalledWith(
+        'p:program_default:workout_timer_w4d2',
+        expect.any(String)
+      );
+    });
+  });
+
+  describe('workout mode lifecycle', () => {
+    it('should pause the timer when leaving workout view (autoStart toggles true -> false)', () => {
+      const { result, rerender } = renderHook(
+        ({ autoStart }) => useWorkoutTimer(1, 1, autoStart),
+        { initialProps: { autoStart: true } }
+      );
+
+      act(() => {
+        vi.advanceTimersByTime(3000);
+      });
+      expect(result.current.elapsedSeconds).toBe(3);
       expect(result.current.isRunning).toBe(true);
+
+      rerender({ autoStart: false });
+      expect(result.current.isRunning).toBe(false);
+
+      act(() => {
+        vi.advanceTimersByTime(3000);
+      });
+      expect(result.current.elapsedSeconds).toBe(3);
     });
   });
 
   describe('formatted time', () => {
     it('should format correctly under an hour', () => {
       const { result } = renderHook(() => useWorkoutTimer(1, 1, true));
-      
+
       act(() => {
         vi.advanceTimersByTime(125000); // 2 minutes 5 seconds
       });
-      
+
       expect(result.current.formattedTime).toBe('02:05');
     });
   });

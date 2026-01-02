@@ -3,9 +3,11 @@ import * as FirebaseService from '../../firebase-service';
 import { useHaptic, useScrollToTop } from '../../hooks';
 import { useAuth } from '../../hooks/useAuth';
 import { LoginStatus } from '../auth/LoginStatus';
-import { RefreshCw, Info, Dumbbell, Settings } from '../icons';
+import { RefreshCw, Info, Dumbbell, Settings, RotateCcw } from '../icons';
 import { captureError, isErrorReportingEnabled } from '../../utils/errorReporting';
 import { syncService } from '../../services/SyncService';
+import { resetProgramProgress } from '../../utils/programImportExport';
+import { getActiveProgramId } from '../../services/storageNamespace';
 import {
     getAllLocalData,
     mergeCloudData,
@@ -254,6 +256,13 @@ export const SettingsView: React.FC = () => {
         localStorage.setItem(FIREBASE_SYNC_ENABLED_KEY, newValue.toString());
     };
 
+    const handleResetProgress = () => {
+        haptic.bump();
+        const programId = getActiveProgramId();
+        resetProgramProgress(programId);
+        syncService.scheduleSync();
+    };
+
     return (
         <div className="px-5 pb-20 pt-6">
             {/* Tab Navigation - MD3 segmented button style */}
@@ -405,6 +414,20 @@ export const SettingsView: React.FC = () => {
                         Choose from available workout programs or import new ones. Your progress is saved separately for each program.
                     </p>
                     <ProgramSelector variant="full" />
+
+                    <div className="bg-sys-surface rounded-2xl border border-white/5 p-6">
+                        <h3 className="text-lg font-bold text-white mb-1">Reset Progress</h3>
+                        <p className="text-xs text-sys-onSurfaceVar mb-4">
+                            Clears workout sessions and history for the active program.
+                        </p>
+                        <button
+                            onClick={handleResetProgress}
+                            className="w-full h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 transition-transform border border-white/5 active:scale-95"
+                        >
+                            <RotateCcw size={18} />
+                            <span>Reset Progress</span>
+                        </button>
+                    </div>
                 </div>
             )}
         </div>

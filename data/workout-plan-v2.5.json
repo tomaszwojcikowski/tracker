@@ -753,6 +753,26 @@
         ]
       },
       {
+        "id": "ex-cyclist-squats",
+        "exerciseName": "Cyclist Squats (Heels-Elevated)",
+        "category": "main",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 10,
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "tempoEccentric": 2,
+        "tempoPauseBottom": 1,
+        "tempoConcentric": 1,
+        "tempoPauseTop": 0,
+        "notes": "Heels elevated. Knee-friendly squat pattern. Tempo 2-1-1-0",
+        "cues": [
+          "Knees track toes",
+          "Stay tall",
+          "Control bottom position"
+        ]
+      },
+      {
         "id": "ex-lower-body-compound",
         "exerciseName": "Lower Body Compound (Choose One)",
         "category": "main",
@@ -1623,6 +1643,7 @@
                   },
                   {
                     "$ref": "ex-ring-rows",
+                    "repsValue": 10,
                     "supersetGroup": 1
                   },
                   {
@@ -1630,7 +1651,9 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-hollow-rocks"
+                    "$ref": "ex-hollow-rocks",
+                    "repsMin": 20,
+                    "repsMax": 25
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -1642,7 +1665,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "notes": "Standard Day 2 template: no hanging or grip loading",
+                "description": "Standard Day 2 template: no hanging or grip loading",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -1673,13 +1696,16 @@
                     "loadMax": 85
                   },
                   {
-                    "$ref": "ex-weighted-glute-bridge",
-                    "loadMin": 40,
-                    "loadMax": 60
+                    "$ref": "ex-goblet-squats",
+                    "sets": 3,
+                    "repsValue": 10,
+                    "notes": "Knee-friendly squat mechanics"
                   },
                   {
-                    "$ref": "ex-goblet-squats",
-                    "notes": "Light/Technical focus"
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 3,
+                    "repsMin": 10,
+                    "repsMax": 12
                   },
                   {
                     "$ref": "ex-face-pulls"
@@ -1707,23 +1733,20 @@
                   },
                   {
                     "$ref": "ex-weighted-pull-ups",
-                    "loadMin": 8,
+                    "repsMin": 3,
+                    "repsMax": 5,
+                    "loadMin": 10,
                     "loadMax": 10,
-                    "notes": "Total: 15 reps (3x5)"
+                    "notes": "Start @ +10kg. Double progression"
                   },
                   {
-                    "$ref": "ex-dips"
+                    "$ref": "ex-dips",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "notes": "Bodyweight. Tempo 2-1-1-0"
                   },
                   {
                     "$routine": "superset-bss"
-                  },
-                  {
-                    "$ref": "ex-weighted-hollow-rocks",
-                    "category": "main",
-                    "loadMin": 0,
-                    "loadMax": 0,
-                    "supersetGroup": 1,
-                    "notes": "Min 3 of EMOM. Bodyweight for Week 1"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -1761,6 +1784,7 @@
                   },
                   {
                     "$ref": "ex-ring-rows",
+                    "repsValue": 10,
                     "supersetGroup": 1
                   },
                   {
@@ -1768,7 +1792,9 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-hollow-rocks"
+                    "$ref": "ex-hollow-rocks",
+                    "repsMin": 20,
+                    "repsMax": 25
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -1780,7 +1806,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "notes": "Use standard template; swap Side Plank for Half Side Plank (25-30s/side)",
+                "description": "Use standard template; swap Side Plank for Half Side Plank (25-30s/side)",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -1811,14 +1837,15 @@
                     "loadMax": 85
                   },
                   {
-                    "$ref": "ex-weighted-glute-bridge",
-                    "loadMin": 40,
-                    "loadMax": 60
+                    "$ref": "ex-cyclist-squats",
+                    "sets": 3,
+                    "repsValue": 10
                   },
                   {
-                    "$ref": "ex-goblet-squats",
-                    "repsValue": 12,
-                    "notes": "Moderate Weight"
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 3,
+                    "repsMin": 10,
+                    "repsMax": 12
                   },
                   {
                     "$ref": "ex-face-pulls"
@@ -1847,22 +1874,23 @@
                   {
                     "$ref": "ex-weighted-pull-ups",
                     "sets": 2,
-                    "loadMin": 9,
-                    "loadMax": 11,
-                    "notes": "Total: 10 reps (2x5). +1-2kg from Week 1"
+                    "repsValue": 4,
+                    "loadMin": 10,
+                    "loadMax": 12.5,
+                    "notes": "Total: 8 reps (2x4)"
                   },
                   {
-                    "$ref": "ex-dips"
+                    "$ref": "ex-dips",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "notes": "Bodyweight. Tempo 2-1-1-0"
                   },
                   {
                     "$routine": "superset-bss"
                   },
                   {
-                    "$ref": "ex-flutter-kicks",
-                    "isEmom": true,
-                    "supersetGroup": 1,
-                    "notes": "Min 3 of EMOM. Core Recovery",
-                    "category": "main"
+                    "$ref": "ex-dead-bugs",
+                    "notes": "Core (anti-extension)"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -1900,6 +1928,7 @@
                   },
                   {
                     "$ref": "ex-ring-rows",
+                    "repsValue": 10,
                     "supersetGroup": 1
                   },
                   {
@@ -1907,7 +1936,9 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-hollow-rocks"
+                    "$ref": "ex-hollow-rocks",
+                    "repsMin": 20,
+                    "repsMax": 25
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -1919,7 +1950,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "notes": "Standard template + Standing Calf ISO Hold (2x30s/side)",
+                "description": "Standard template + Standing Calf ISO Hold (2x30s/side)",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -1948,23 +1979,29 @@
                     "$routine": "warmup-day3"
                   },
                   {
-                    "$ref": "ex-rdl",
-                    "loadMin": 85,
-                    "loadMax": 85
-                  },
-                  {
-                    "$ref": "ex-weighted-glute-bridge",
-                    "loadMin": 40,
-                    "loadMax": 60
+                    "$ref": "ex-single-leg-rdl",
+                    "sets": 3,
+                    "repsValue": 8,
+                    "repsPerSide": true,
+                    "loadMin": 8,
+                    "loadMax": 12
                   },
                   {
                     "$ref": "ex-goblet-squats",
-                    "loadMin": 24,
-                    "loadMax": 32,
-                    "notes": "Heavier"
+                    "sets": 3,
+                    "repsValue": 8,
+                    "notes": "Slightly heavier"
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 3,
+                    "repsMin": 10,
+                    "repsMax": 12
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "sets": 3,
+                    "repsValue": 15
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -1990,23 +2027,24 @@
                   {
                     "$ref": "ex-weighted-pull-ups",
                     "sets": 2,
-                    "loadMin": 10,
-                    "loadMax": 12,
-                    "notes": "Total: 10 reps (2x5). +2kg from Week 1"
+                    "repsValue": 5,
+                    "loadMin": 12.5,
+                    "loadMax": 12.5,
+                    "notes": "Only if 2x4 felt clean"
                   },
                   {
-                    "$ref": "ex-dips"
+                    "$ref": "ex-dips",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "notes": "Bodyweight. Tempo 2-1-1-0"
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 2,
+                    "repsValue": 12
                   },
                   {
                     "$routine": "superset-bss"
-                  },
-                  {
-                    "$ref": "ex-weighted-v-ups",
-                    "restSeconds": 0,
-                    "supersetGroup": 1,
-                    "isEmom": true,
-                    "notes": "3-min EMOM with BSS. Keep biceps by ears",
-                    "category": "main"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -2045,6 +2083,7 @@
                   {
                     "$ref": "ex-ring-rows",
                     "sets": 2,
+                    "repsValue": 10,
                     "notes": "Deload",
                     "supersetGroup": 1
                   },
@@ -2055,9 +2094,8 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-hollow-rocks",
-                    "sets": 2,
-                    "notes": "Deload"
+                    "$ref": "ex-side-plank-recovery",
+                    "notes": "Deload replacement for Hollow Rocks"
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -2069,7 +2107,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 28,
-                "notes": "Deload version: ~70% volume; reduce holds by 10-15s; omit Standing Hip CARs if joints feel fatigued",
+                "description": "Deload version: ~70% volume; reduce holds by 10-15s; omit Standing Hip CARs if joints feel fatigued",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -2202,7 +2240,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "notes": "Standard template + Cossack Squat (Shallow) 2x6/side for adductor support",
+                "description": "Standard template + Cossack Squat (Shallow) 2x6/side for adductor support",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -2351,7 +2389,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "notes": "Repeat Week 5 structure: standard template + Cossack Squat (Shallow) 2x6/side",
+                "description": "Repeat Week 5 structure: standard template + Cossack Squat (Shallow) 2x6/side",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -2495,7 +2533,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "notes": "Fatigue management: run template without Cossacks; extend Child's Pose to 3 minutes",
+                "description": "Fatigue management: run template without Cossacks; extend Child's Pose to 3 minutes",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -2638,7 +2676,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 28,
-                "notes": "Deload: 60-70% volume, no add-ons",
+                "description": "Deload: 60-70% volume, no add-ons",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -2783,7 +2821,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "notes": "Standard template (no grip isometrics)",
+                "description": "Standard template (no grip isometrics)",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -2915,7 +2953,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "notes": "Isometric recovery focus: Side Plank 25-30s, prioritize smooth breathing",
+                "description": "Isometric recovery focus: Side Plank 25-30s, prioritize smooth breathing",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -3042,7 +3080,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "notes": "Standard template; include Standing Hip CARs (2x5/side)",
+                "description": "Standard template; include Standing Hip CARs (2x5/side)",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -3174,7 +3212,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 24,
-                "notes": "Connective tissue deload: 50-60% volume, no long holds, skip Side Planks",
+                "description": "Connective tissue deload: 50-60% volume, no long holds, skip Side Planks",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -3297,7 +3335,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "notes": "Standard template; optional Marching Dead Bug 2x8/side if tissues feel excellent",
+                "description": "Standard template; optional Marching Dead Bug 2x8/side if tissues feel excellent",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -3425,7 +3463,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "notes": "Standard template; optional Marching Dead Bug 2x8/side — remove if elbows/hips feel taxed",
+                "description": "Standard template; optional Marching Dead Bug 2x8/side — remove if elbows/hips feel taxed",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -3560,7 +3598,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "notes": "Peak stress week: standard template with Side Planks shortened to 25-30s",
+                "description": "Peak stress week: standard template with Side Planks shortened to 25-30s",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -3691,7 +3729,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 26,
-                "notes": "Deload: ~60% volume; extend breathing to 4-5 minutes",
+                "description": "Deload: ~60% volume; extend breathing to 4-5 minutes",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -3824,7 +3862,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 30,
-                "notes": "~80% volume, breath-led; standard template with no extra load",
+                "description": "~80% volume, breath-led; standard template with no extra load",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -3950,7 +3988,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 28,
-                "notes": "~70% volume taper; Side Plank 20-25s",
+                "description": "~70% volume taper; Side Plank 20-25s",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -4079,7 +4117,7 @@
                 "name": "Mobility & Recovery - FULL DELOAD",
                 "type": "mobility",
                 "estimatedDuration": 18,
-                "notes": "Full deload: light mobility only, no Pallof/core load",
+                "description": "Full deload: light mobility only, no Pallof/core load",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -4218,11 +4256,10 @@
                 "name": "Mobility & Recovery - Passive",
                 "type": "mobility",
                 "estimatedDuration": 8,
-                "notes": "Passive recovery: optional light mobility only; keep joints warm, no core/stability",
+                "description": "Passive recovery: optional light mobility only; keep joints warm, no core/stability",
                 "exercises": [
                   {
-                    "$routine": "day2-recovery-flow",
-                    "notes": "Optional; stop early if any fatigue"
+                    "$routine": "day2-recovery-flow"
                   }
                 ]
               },
@@ -4231,11 +4268,10 @@
                 "name": "Lower Body - Passive Recovery",
                 "type": "mobility",
                 "estimatedDuration": 8,
-                "notes": "Passive recovery: light mobility only; no core/stability",
+                "description": "Passive recovery: light mobility only; no core/stability",
                 "exercises": [
                   {
-                    "$routine": "day2-recovery-flow",
-                    "notes": "Optional; keep it easy"
+                    "$routine": "day2-recovery-flow"
                   }
                 ]
               },

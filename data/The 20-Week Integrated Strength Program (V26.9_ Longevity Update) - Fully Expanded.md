@@ -15,6 +15,21 @@
 * 3 x 5 Scapular Pull-ups with 3s ISO-HOLD at top (No bouncy reps)
 * 20–30s Passive Bar Hang
 
+## **Program Rules (Reference)**
+
+* **Weekly Pull Volume Cap:** 36–40 total pull-up reps/week.
+* **Early Warning System:** If any trigger occurs, reduce volume by ~30% for the week.
+  * Elbow tightness > 24 hours
+  * Sharp pain during Ring Rows or PPPU
+  * Grip fatigue lasting into Day 3
+  * Shoulder pinch/impingement on Dips or HSPU
+* **Rep Before Load (Double Progression):** Add weight only after hitting the top rep range for all sets with perfect form.
+* **Standard Tempo:** 2-1-1-0 unless specified.
+* **Day 5 Accessory Cap:** 10-minute hard cap.
+* **Dip Governor:** If shoulder pinch occurs during weighted dips, switch to Straight Bar Dips or Weighted Bench Dips.
+* **Grip Saver:** Day 5 core work is ground-based (no hanging core) to reduce medial epicondylitis risk.
+* **Neutral Grip Tracking (Block 3):** Use the same neutral grip implement for the entire block.
+
 **Ankle Mobility Circuit (Perform on Day 2\)**
 
 * Knee-to-Wall Mobilization: 2 mins/side
@@ -44,9 +59,9 @@
 **The Workout**
 
 * **A1: Pull-Up Ladders:** 4 sets of (1, 2, 3 reps) – Total 24 reps.
-* **B1: Ring Rows:** 3 sets of 15 reps (Tempo 2-1-1-0).
+* **B1: Ring Rows:** 3 sets of 10 reps (Tempo 2-1-1-0).
 * **B2: Incline Push-Ups:** 3 sets of 10 reps (Tempo 2-1-1-0).
-* **C1: Hollow Rocks:** 3 sets of 25 seconds.
+* **C1: Hollow Rocks:** 3 sets of 20–25 seconds.
 
 **Cool Down (Volume Reset)**
 
@@ -86,8 +101,8 @@
 **The Workout**
 
 * **A1: Romanian Deadlift (RDL):** 4 sets of 8 reps @ \~85kg.
-* **B1: Weighted Glute Bridge:** 3 sets of 10–12 reps.
-* **B2: Goblet Squats:** 3 sets of 10 reps (Light/Technical focus).
+* **B1: Goblet Squats:** 3 sets of 10 reps (Knee-friendly squat mechanics).
+* **B2: Chest-Supported Row:** 3 sets of 10–12 reps.
 * **C1: Face Pulls:** 3 sets of 15–20 reps.
 
 **Cool Down (Post-Hinge)**
@@ -110,14 +125,12 @@
 
 **Part 1: Primary Lifts**
 
-* **A1: Weighted Pull-Ups:** 3 sets of 5 reps @ 8–10kg. (Use Double Progression).
-* **B1: Dips:** 3 sets of 10 reps (Bodyweight).
+* **A1: Weighted Pull-Ups:** 3 sets of 3–5 reps @ \+10kg. (Use Double Progression).
+* **B1: Dips:** 3 sets of 6–8 reps (Bodyweight, Tempo 2-1-1-0).
 
 **Part 2: Accessories (10-Minute Hard Cap)**
 
-* **Minute 1:** Bulgarian Split Squat (Left Leg) – 8 reps.
-* **Minute 2:** Bulgarian Split Squat (Right Leg) – 8 reps.
-* **Minute 3:** Weighted Hollow Rocks / V-Ups – 12–15 reps.
+* **Bulgarian Split Squat EMOM:** 2-minute EMOM — Minute 1 Left Leg, Minute 2 Right Leg (Run 3 rounds = 6 minutes).
 
 **Cool Down (Anterior Chain Openers)**
 
@@ -140,9 +153,9 @@
 **The Workout**
 
 * **A1: Pull-Up Ladders:** 5 sets of (1, 2, 3 reps) – Total 30 reps.
-* **B1: Ring Rows:** 3 sets of 15 reps (Tempo 2-1-1-0).
+* **B1: Ring Rows:** 3 sets of 10 reps (Tempo 2-1-1-0).
 * **B2: Incline Push-Ups:** 3 sets of 10 reps (Tempo 2-1-1-0).
-* **C1: Hollow Rocks:** 3 sets of 25 seconds.
+* **C1: Hollow Rocks:** 3 sets of 20–25 seconds.
 
 **Cool Down (Volume Reset)**
 
@@ -162,8 +175,8 @@
 **The Workout**
 
 * **A1: Romanian Deadlift (RDL):** 4 sets of 8 reps @ \~85kg.
-* **B1: Weighted Glute Bridge:** 3 sets of 10–12 reps.
-* **B2: Goblet Squats:** 3 sets of 12 reps (**Moderate Weight**).
+* **B1: Cyclist Squats (Heels-Elevated):** 3 sets of 10 reps.
+* **B2: Chest-Supported Row:** 3 sets of 10–12 reps.
 * **C1: Face Pulls:** 3 sets of 15–20 reps.
 
 **Cool Down (Post-Hinge)**
@@ -182,14 +195,13 @@
 
 **Part 1: Primary Lifts**
 
-* **A1: Weighted Pull-Ups:** 2 sets of 5 reps @ \+1–2kg. (Total 10 reps).
-* **B1: Dips:** 3 sets of 10 reps (Bodyweight).
+* **A1: Weighted Pull-Ups:** 2 sets of 4 reps @ \+10–12.5kg. (Total 8 reps).
+* **B1: Dips:** 3 sets of 6–8 reps (Bodyweight, Tempo 2-1-1-0).
 
 **Part 2: Accessories (10-Minute Hard Cap)**
 
-* **Minute 1:** Bulgarian Split Squat (Left Leg) – 8 reps.
-* **Minute 2:** Bulgarian Split Squat (Right Leg) – 8 reps.
-* **Minute 3:** Ground-Based Flutter Kicks – 3 sets of 30s (**Recovery Focus**).
+* **Bulgarian Split Squat EMOM:** 2-minute EMOM — Minute 1 Left Leg, Minute 2 Right Leg (Run 3 rounds = 6 minutes).
+* **Dead Bugs:** 2–3 sets (Core / anti-extension).
 
 **Cool Down (Anterior Chain Openers)**
 
@@ -212,9 +224,9 @@
 **The Workout**
 
 * **A1: Pull-Up Ladders:** 5 sets of (1, 2, 3 reps) – Total 30 reps.
-* **B1: Ring Rows:** 3 sets of 15 reps.
+* **B1: Ring Rows:** 3 sets of 10 reps.
 * **B2: Incline Push-Ups:** 3 sets of 10 reps.
-* **C1: Hollow Rocks:** 3 sets of 25 seconds.
+* **C1: Hollow Rocks:** 3 sets of 20–25 seconds.
 
 **Cool Down (Volume Reset)**
 
@@ -233,10 +245,10 @@
 
 **The Workout**
 
-* **A1: Romanian Deadlift (RDL):** 4 sets of 8 reps.
-* **B1: Weighted Glute Bridge:** 3 sets of 10–12 reps.
-* **B2: Goblet Squats:** 3 sets of 10 reps (**Heavier Weight**).
-* **C1: Face Pulls:** 3 sets of 15–20 reps.
+* **A1: Single-Leg Romanian Deadlift:** 3 sets of 8 reps per side.
+* **B1: Goblet Squats:** 3 sets of 8 reps (Slightly heavier).
+* **B2: Chest-Supported Row:** 3 sets of 10–12 reps.
+* **C1: Face Pulls:** 3 sets of 15 reps.
 
 **Cool Down (Post-Hinge)**
 
@@ -254,14 +266,13 @@
 
 **Part 1: Primary Lifts**
 
-* **A1: Weighted Pull-Ups:** 2 sets of 5 reps @ \+2kg. (Total 10 reps).
-* **B1: Dips:** 3 sets of 10 reps.
+* **A1: Weighted Pull-Ups:** 2 sets of 5 reps @ \+12.5kg (Only if Week 2 felt clean).
+* **B1: Dips:** 3 sets of 6–8 reps (Bodyweight, Tempo 2-1-1-0).
 
 **Part 2: Accessories (10-Minute Hard Cap)**
 
-* **Minute 1:** Bulgarian Split Squat (Left Leg) – 8 reps.
-* **Minute 2:** Bulgarian Split Squat (Right Leg) – 8 reps.
-* **Minute 3:** Weighted V-Ups – 12 reps (**Hard**).
+* **Chest-Supported Row:** 2 sets of 12 reps.
+* **Bulgarian Split Squat EMOM:** 2-minute EMOM — Minute 1 Left Leg, Minute 2 Right Leg (Run 3 rounds = 6 minutes).
 
 **Cool Down (Anterior Chain Openers)**
 
@@ -286,7 +297,7 @@
 * **A1: Pull-Up Ladders:** 3 sets of (1, 2, 3 reps).
 * **B1: Ring Rows:** 2 sets of 10 reps (Easy).
 * **B2: Incline Push-Ups:** 2 sets of 8 reps (Easy).
-* **C1: Hollow Rocks:** 2 sets of 15 seconds.
+* **C1: Side Plank:** 2 sets (Recovery replacement for Hollow Rocks).
 
 **Cool Down (Volume Reset)**
 
@@ -305,10 +316,8 @@
 
 **The Workout**
 
-* **A1: RDL:** 3 sets of 6 reps (Light weight).
-* **B1: Weighted Glute Bridge:** 2 sets of 10 reps.
-* **B2: Goblet Squats:** 2 sets of 10 reps (**Deload Weight**).
-* **C1: Face Pulls:** 2 sets of 15 reps.
+* **A1: RDL:** 2 sets of 6 reps (Light weight).
+* **B1: Goblet Squats:** 2 sets of 10 reps (**Deload Weight**).
 
 **Cool Down (Post-Hinge)**
 
@@ -326,7 +335,7 @@
 **Part 1: Primary Lifts**
 
 * **A1: Weighted Pull-Ups:** 2 sets of 3 reps (**50% load / Easy**).
-* **B1: Dips:** 2 sets of 5 reps.
+* **B1: Dips:** 2 sets (Easy).
 
 **Part 2: Accessories**
 
@@ -356,9 +365,9 @@
 
 **The Workout**
 
-* **A1: Pull-Up EMOM:** 8 Minutes x 4 reps per minute (32 reps total).
-* **B1: Feet-Elevated Ring Rows:** 3 sets of 10 reps (Tempo 2-1-1-0).
-* **B2: Parallette Push-Ups:** 3 sets of 10 reps.
+* **A1: Pull-Up Density:** 32 total reps in 8 minutes (stay crisp; no grinders).
+* **B1: Feet-Elevated Ring Rows:** 3 sets (Tempo 2-1-1-0).
+* **B2: Parallette Push-Ups:** 3 sets.
 
 **Cool Down (Volume Reset)**
 
@@ -399,7 +408,7 @@
 **Part 1: Primary Lifts**
 
 * **A1: Weighted Pull-Ups:** 2 sets of 4 reps @ 10kg (8 reps total).
-* **B1: Weighted Dips:** 3 sets of 5 reps.
+* **B1: Weighted Dips:** 3 sets (load ~5–10kg).
 
 **Part 2: Accessories (10-Minute Hard Cap)**
 
@@ -468,14 +477,14 @@
 
 **Part 1: Primary Lifts**
 
-* **A1: Weighted Pull-Ups:** 1 set of 4 reps (**Heavy single set**).
-* **B1: Weighted Dips:** 3 sets of 5 reps.
+* **A1: Weighted Pull-Ups:** 1 set of 4 reps (**Heavy single set** @ ~5–10kg).
+* **B1: Weighted Dips:** 3 sets of 8 reps.
 
 **Part 2: Accessories (10-Minute Hard Cap)**
 
 * **Minute 1:** Bulgarian Split Squat (Left Leg) – 8 reps.
 * **Minute 2:** Bulgarian Split Squat (Right Leg) – 8 reps.
-* **Minute 3:** Dead Bugs – 3 sets of 12 reps/side (**Recovery**).
+* **Minute 3:** Dead Bugs – easy pace (share the 3-min EMOM with BSS).
 
 **Cool Down (Anterior Chain Openers)**
 
@@ -497,7 +506,7 @@
 
 **The Workout**
 
-* **A1: Pull-Up EMOM:** 10 Minutes x 3 reps per minute (30 reps total).
+* **A1: Pull-Up Density:** 30 total reps in 10 minutes (intensity peak).
 * **B1: Feet-Elevated Ring Rows:** 3 sets of 10 reps.
 * **B2: Parallette Push-Ups:** 3 sets of 10 reps.
 
@@ -546,7 +555,7 @@
 
 * **Minute 1:** Bulgarian Split Squat (Left Leg) – 8 reps.
 * **Minute 2:** Bulgarian Split Squat (Right Leg) – 8 reps.
-* **Minute 3:** Weighted V-Ups – 3 sets of 12 reps (**Hard**).
+* **Minute 3:** Weighted V-Ups – 3 sets of 12 reps (run as EMOM with the BSS pair).
 
 **Cool Down (Anterior Chain Openers)**
 
@@ -568,7 +577,7 @@
 
 **The Workout**
 
-* **A1: Pull-Up EMOM:** 6 Minutes x 3 reps per minute.
+* **A1: Pull-Up Density:** 18 total reps in 6 minutes (RPE 6 max).
 * **B1: Feet-Elevated Ring Rows:** 2 sets of 8 reps.
 * **B2: Parallette Push-Ups:** 2 sets of 8 reps.
 
@@ -640,8 +649,8 @@
 **The Workout**
 
 * **A1: Cluster Pull-ups:** 4 sets of (3 reps, Rest 20s, 3 reps, Rest 20s, 3 reps).
-* **B1: Ring Rows:** 3 sets of 15 reps.
-* **B2: Incline Push-Ups:** 3 sets of 10 reps.
+* **B1: Feet-Elevated Ring Rows:** 3 sets of 15 reps.
+* **B2: Parallette Push-Ups:** 3 sets of 15 reps.
 
 **Cool Down (Volume Reset)**
 
@@ -659,8 +668,7 @@
 **The Workout**
 
 * **A1: Single Leg RDL:** 3 sets of 10 reps per side.
-* **B1: Weighted Glute Bridge:** 3 sets of 12 reps.
-* **B2: Goblet Squats:** 3 sets of 10 reps.
+* **B1: Goblet Squats:** 3 sets of 10 reps.
 * **C1: Face Pulls:** 3 sets of 20 reps.
 
 **Cool Down (Post-Hinge)**
@@ -680,7 +688,7 @@
 
 * **A1: Neutral Grip (Parallel) Pull-ups (Weighted):** 2 sets of 3 reps.
 * **B1: Pseudo Planche Push-Ups (PPPU):** 3 sets of 5–8 reps.
-* **C1: Weighted Hollow Hold:** 3 sets of 45 seconds (**Hard**).
+* **C1: Weighted Hollow Hold (with BSS EMOM):** 3-minute EMOM shared with BSS; hold for quality each minute.
 
 **Cool Down (Anterior Chain Openers)**
 
@@ -702,8 +710,8 @@
 **The Workout**
 
 * **A1: Cluster Pull-ups:** 4 sets of (4 reps, Rest 20s, 3 reps, Rest 20s, 3 reps).
-* **B1: Ring Rows:** 3 sets of 15 reps.
-* **B2: Incline Push-Ups:** 3 sets of 10 reps.
+* **B1: Feet-Elevated Ring Rows:** 3 sets of 15 reps.
+* **B2: Parallette Push-Ups:** 3 sets of 15 reps.
 
 **Cool Down (Volume Reset)**
 
@@ -722,8 +730,7 @@
 **The Workout**
 
 * **A1: Single Leg RDL:** 3 sets of 10 reps per side.
-* **B1: Weighted Glute Bridge:** 3 sets of 12 reps.
-* **B2: Goblet Squats:** 3 sets of 10 reps.
+* **B1: Goblet Squats:** 3 sets of 10 reps.
 * **C1: Face Pulls:** 3 sets of 20 reps.
 
 **Cool Down (Post-Hinge)**
@@ -743,7 +750,7 @@
 
 * **A1: Ring Support Holds OR Active Hang (Neutral):** 3 sets of 30 seconds.
 * **B1: Chest Supported Row:** 2 sets of 12 reps.
-* **Core:** Dead Bugs – 3 sets of 12 reps/side (**Recovery**).
+* **Core (EMOM with BSS):** Dead Bugs – easy pace (3-min EMOM shared with BSS).
 
 **Cool Down (Anterior Chain Openers)**
 
@@ -765,8 +772,8 @@
 **The Workout**
 
 * **A1: Cluster Pull-ups:** 5 sets of (3 reps, Rest 20s, 3 reps, Rest 20s, 3 reps).
-* **B1: Ring Rows:** 3 sets of 15 reps.
-* **B2: Incline Push-Ups:** 3 sets of 10 reps.
+* **B1: Feet-Elevated Ring Rows:** 3 sets of 15 reps (stay strict on elevation).
+* **B2: Incline Push-Ups:** 3 sets of 15 reps.
 
 **Cool Down (Volume Reset)**
 
@@ -784,9 +791,8 @@
 
 **The Workout**
 
-* **A1: Single Leg RDL:** 3 sets of 10 reps per side.
-* **B1: Weighted Glute Bridge:** 3 sets of 12 reps.
-* **B2: Goblet Squats:** 3 sets of 10 reps.
+* **A1: Single Leg RDL:** 3 sets of 10 reps per side (@ ~8–12kg).
+* **B1: Goblet Squats:** 3 sets of 10 reps.
 * **C1: Face Pulls:** 3 sets of 20 reps.
 
 **Cool Down (Post-Hinge)**
@@ -806,7 +812,7 @@
 
 * **A1: Neutral Grip Pull-ups (Weighted):** 2 sets of 4 reps (**Heavy**).
 * **B1: PPPU:** 3 sets of 5–8 reps.
-* **Core:** Weighted V-Ups – 3 sets of 12 reps (**Hard**).
+* **Core:** Bulgarian Split Squats + Weighted V-Ups – 3-minute EMOM (alternate BSS left, BSS right, V-Ups).
 
 **Cool Down (Anterior Chain Openers)**
 
@@ -828,8 +834,8 @@
 **The Workout**
 
 * **A1: Cluster Pull-ups:** 3 sets of (3 reps, 3 reps, 3 reps).
-* **B1: Ring Rows:** 2 sets of 10 reps (Easy).
-* **B2: Incline Push-Ups:** 2 sets of 8 reps.
+* **B1: Feet-Elevated Ring Rows:** 2 sets of 10 reps (Easy).
+* **B2: Incline Push-Ups:** 2 sets of 10 reps (Easy).
 
 **Cool Down (Reduced)**
 
@@ -845,10 +851,7 @@
 
 **The Workout**
 
-* **A1: Single Leg RDL:** 2 sets of 8 reps per side (Light).
-* **B1: Weighted Glute Bridge:** 2 sets of 10 reps.
-* **B2: Goblet Squats:** 2 sets of 8 reps.
-* **C1: Face Pulls:** 2 sets of 15 reps.
+* **A1: Goblet Squats:** 2 sets of 8 reps (Light, Deload).
 
 **Cool Down (Post-Hinge)**
 
@@ -867,7 +870,7 @@
 
 * **A1: Neutral Grip Pull-ups:** 2 sets of 3 reps (Unweighted or very light).
 * **B1: PPPU:** 2 sets of 5 reps (Easy).
-* **Core:** Tuck Holds – 3 sets of 6 seconds MAX.
+* **Core:** Tuck Planche Holds – 3 sets of 6 seconds max (Straight-Arm Cap, no hangs this day).
 
 **Cool Down (Anterior Chain Openers)**
 
@@ -893,8 +896,8 @@
 **The Workout**
 
 * **A1: Pull-ups:** 3 sets of (AMRAP minus 2 reps).
-* **B1: Ring Rows:** 3 sets of 15 reps.
-* **B2: Incline Push-Ups:** 3 sets of 10 reps.
+* **B1: Feet-Elevated Ring Rows:** 3 sets of 15 reps.
+* **B2: Incline Push-Ups:** 3 sets of 15 reps.
 
 **Cool Down (Volume Reset)**
 
@@ -912,9 +915,8 @@
 
 **The Workout**
 
-* **A1: RDL:** 4 sets of 8 reps.
-* **B1: Weighted Glute Bridge:** 3 sets of 12 reps.
-* **B2: Goblet Squats:** 3 sets of 10 reps.
+* **A1: RDL:** 4 sets of 8 reps (@ ~85kg).
+* **B1: Goblet Squats:** 3 sets of 10 reps.
 * **C1: Face Pulls:** 3 sets of 20 reps.
 
 **Cool Down (Post-Hinge)**
@@ -932,8 +934,8 @@
 
 **The Workout**
 
-* **A1: Weighted Pull-ups:** 2 sets of 4 reps @ 14kg. (Double Progression).
-* **B1: Weighted Dips:** 4 sets of 5 reps.
+* **A1: Weighted Pull-ups:** 2 sets of 4 reps @ 14kg (Double Progression).
+* **B1: Weighted Dips:** 3–4 sets (load ~5–10kg).
 * **C1: Chest Supported Row:** 2 sets of 12 reps (Tempo 2-1-1-0).
 * **Core:** Side Planks – 3 sets of 45s per side (**Recovery**).
 
@@ -957,7 +959,7 @@
 **The Workout**
 
 * **A1: Pull-ups:** 3 sets of (AMRAP minus 1 rep).
-* **B1: Ring Rows:** 3 sets of 15 reps.
+* **B1: Feet-Elevated Ring Rows:** 3 sets of 15 reps.
 * **B2: Incline Push-Ups:** 3 sets of 10 reps.
 
 **Cool Down (Volume Reset)**
@@ -977,8 +979,7 @@
 **The Workout**
 
 * **A1: RDL:** 4 sets of 8 reps.
-* **B1: Weighted Glute Bridge:** 3 sets of 12 reps.
-* **B2: Goblet Squats:** 3 sets of 10 reps.
+* **B1: Goblet Squats:** 3 sets of 10 reps.
 * **C1: Face Pulls:** 3 sets of 20 reps.
 
 **Cool Down (Post-Hinge)**
@@ -996,12 +997,10 @@
 
 **The Workout**
 
-* **A1: Weighted Pull-ups:** Work up to 16kg for sets of 4 reps (if earned).
-* **B1: Weighted Dips:** 4 sets of 5 reps.
+* **A1: Weighted Pull-ups:** 1 set of 4 reps @ 16kg (Work up to 16kg if earned).
+* **B1: Weighted Dips:** 3–4 sets (load ~5–10kg).
 * **C1: Chest Supported Row:** 2 sets of 12 reps.
-* **Core (Auto-Regulation):**
-  * *If tendons feel excellent:* Dragon Flag Negatives – 3 sets of 5\.
-  * *Otherwise:* Weighted V-Ups – 3 sets of 8–10 reps.
+* **Core:** Optional only if fresh (no required core this week).
 
 **Cool Down (Anterior Chain Openers)**
 
@@ -1026,7 +1025,7 @@
   * Set 1: All-out AMRAP.
   * Set 2: Sub-max effort (leave 2 in reserve).
   * Set 3: Sub-max effort (leave 2 in reserve).
-* **B1: Ring Rows:** 3 sets of 15 reps.
+* **B1: Feet-Elevated Ring Rows:** 3 sets of 15 reps.
 * **B2: Incline Push-Ups:** 3 sets of 10 reps.
 
 **Cool Down (Volume Reset)**
@@ -1066,7 +1065,7 @@
 **The Workout**
 
 * **A1: Weighted Pull-ups:** Work up to 17.5kg (PR Attempt).
-* **B1: Weighted Dips:** 4 sets of 5 reps.
+* **B1: Weighted Dips:** 3–4 sets (load ~5–10kg).
 * **C1: Chest Supported Row:** 2 sets of 12 reps.
 * **Core:** Side Planks – 3 sets of 45s per side (**Recovery**).
 
@@ -1110,8 +1109,7 @@
 **The Workout**
 
 * **A1: RDL:** 3 sets of 6 reps (Light).
-* **B1: Weighted Glute Bridge:** 2 sets of 10 reps.
-* **B2: Goblet Squats:** 2 sets of 10 reps (Light).
+* **B1: Goblet Squats:** 2 sets of 10 reps (Light).
 * **C1: Face Pulls:** 2 sets of 15 reps.
 
 **Cool Down (Post-Hinge)**
@@ -1130,9 +1128,8 @@
 **The Workout**
 
 * **A1: Weighted Pull-ups:** 2 sets of 3 reps (Easy).
-* **B1: Weighted Dips:** 2 sets of 5 reps (Easy).
-* **C1: Chest Supported Row:** 2 sets of 10 reps (Easy).
-* **Core:** Skip.
+* **B1: Weighted Dips:** 2 sets (Easy).
+* **Accessories:** Skip rows/core to keep it light.
 
 **Cool Down (Anterior Chain Openers)**
 

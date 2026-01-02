@@ -331,6 +331,67 @@
         ]
       },
       {
+        "id": "warmup-power-clean",
+        "name": "Power Clean Warm-Up Progression",
+        "description": "Progressive activation for Power Clean Day 3 work. Bar only \u2192 40-50% \u2192 working sets.",
+        "category": "warmup",
+        "estimatedDuration": 10,
+        "targetAreas": [
+          "hips",
+          "shoulders",
+          "wrists",
+          "ankles",
+          "cns"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Muscle Clean Pull (Bar Only)",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 5,
+            "loadUnit": "barbell",
+            "loadWeight": 0,
+            "notes": "Bar only. Movement rehearsal. Focus on hip extension",
+            "restSeconds": 30
+          },
+          {
+            "exerciseName": "Hang High Pull (Bar Only)",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 5,
+            "loadUnit": "barbell",
+            "loadWeight": 0,
+            "notes": "Bar only. Vertical bar path, high elbows",
+            "restSeconds": 30
+          },
+          {
+            "exerciseName": "Hang Power Clean + Front Rack Pause (Bar Only)",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 5,
+            "loadUnit": "barbell",
+            "loadWeight": 0,
+            "notes": "Bar only. Catch position rehearsal",
+            "restSeconds": 30
+          },
+          {
+            "exerciseName": "Hang Power Clean (40-50% working weight)",
+            "category": "warmup",
+            "sets": 3,
+            "repsType": "reps",
+            "repsValue": 3,
+            "loadUnit": "kg",
+            "loadMin": 20,
+            "loadMax": 30,
+            "notes": "Movement-specific rehearsal. Controlled catches. No missed reps.",
+            "restSeconds": 45
+          }
+        ]
+      },
+      {
         "id": "mobility-ankle-circuit",
         "name": "Ankle Mobility Circuit",
         "description": "Essential for Day 2 and supporting Goblet Squats",
@@ -399,7 +460,6 @@
           }
         ]
       },
-
       {
         "id": "day2-recovery-flow",
         "name": "Day 2 Recovery Flow",
@@ -1604,6 +1664,99 @@
         "loadUnit": "bodyweight",
         "restSeconds": 0,
         "notes": "Battery Saver"
+      },
+      {
+        "id": "ex-hang-power-clean",
+        "exerciseName": "Hang Power Clean",
+        "category": "main",
+        "sets": 4,
+        "repsType": "reps",
+        "repsValue": 3,
+        "loadUnit": "kg",
+        "loadMin": 52,
+        "loadMax": 60,
+        "restSeconds": 120,
+        "notes": "Blocks 1-2: 60-70% of 87kg working top = 52-60kg. Smooth pulls, vertical bar path, fast turnover. No grinding.",
+        "cues": [
+          "Bar stays close to thighs",
+          "Finish extension before pulling under",
+          "Quiet feet, controlled catch",
+          "RPE 6-7 only"
+        ],
+        "progressionNotes": "Add 2.5kg only when all reps are crisp"
+      },
+      {
+        "id": "ex-power-clean-5x2",
+        "exerciseName": "Power Clean - 5\u00d72 (Block 3)",
+        "category": "main",
+        "sets": 5,
+        "repsType": "reps",
+        "repsValue": 2,
+        "loadUnit": "kg",
+        "loadMin": 60,
+        "loadMax": 65,
+        "restSeconds": 150,
+        "notes": "Block 3: 70-75% of 87kg = 60-65kg. Fast bar speed, stable rack position, no early arm pull. Skip if elbows irritated.",
+        "cues": [
+          "Fast bar speed",
+          "Stable rack position",
+          "No early arm pull"
+        ]
+      },
+      {
+        "id": "ex-power-clean-cluster",
+        "exerciseName": "Power Clean - Cluster 3\u00d7(2-2) (Block 4)",
+        "category": "main",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 2,
+        "loadUnit": "kg",
+        "loadMin": 65,
+        "loadMax": 70,
+        "restSeconds": 15,
+        "notes": "Block 4: 75-80% of 87kg = 65-70kg. Cluster: 2 reps, 15-20s rest, 2 reps. Full recovery between sets (120s). Zero missed reps.",
+        "cues": [
+          "Quality over quantity",
+          "Neural intent",
+          "No star-fish catches"
+        ],
+        "progressionNotes": "Do not increase load if any reps are sloppy"
+      },
+      {
+        "id": "ex-hang-high-pull",
+        "exerciseName": "Hang High Pull",
+        "category": "main",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 5,
+        "loadUnit": "kg",
+        "loadMin": 50,
+        "loadMax": 65,
+        "restSeconds": 120,
+        "notes": "Alternative to Power Clean on high-stress weeks. Develops explosive hip extension and lat timing without receiving impact.",
+        "cues": [
+          "Vertical bar path",
+          "High elbows",
+          "Fast hip drive"
+        ]
+      },
+      {
+        "id": "ex-clean-pull",
+        "exerciseName": "Clean Pull",
+        "category": "main",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 5,
+        "loadUnit": "kg",
+        "loadMin": 70,
+        "loadMax": 85,
+        "restSeconds": 120,
+        "notes": "For technique deloads or substitute weeks. Builds pulling strength without catching intensity. Can use slightly heavier load (100-105% clean power).",
+        "cues": [
+          "Smooth acceleration",
+          "Complete extension",
+          "No hips forward early"
+        ]
       }
     ],
     "phases": [
@@ -1685,10 +1838,17 @@
                 "dayNumber": 3,
                 "name": "Posterior Chain + Knee Health",
                 "type": "strength",
-                "estimatedDuration": 40,
+                "estimatedDuration": 50,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Block 1: 4x3 @ 52-60kg. Smooth pulls, vertical bar path, no grinding. RPE 6-7"
                   },
                   {
                     "$ref": "ex-rdl",
@@ -1826,10 +1986,17 @@
                 "dayNumber": 3,
                 "name": "Posterior Chain + Knee Health",
                 "type": "strength",
-                "estimatedDuration": 40,
+                "estimatedDuration": 50,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Block 1: 4x3 @ 52-60kg. Smooth pulls, vertical bar path, no grinding. RPE 6-7"
                   },
                   {
                     "$ref": "ex-rdl",
@@ -1973,10 +2140,17 @@
                 "dayNumber": 3,
                 "name": "Posterior Chain + Knee Health",
                 "type": "strength",
-                "estimatedDuration": 40,
+                "estimatedDuration": 50,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Block 1: 4x3 @ 52-60kg. Technique focus. Add 2.5kg only when all reps smooth"
                   },
                   {
                     "$ref": "ex-single-leg-rdl",
@@ -2129,10 +2303,21 @@
                 "dayNumber": 3,
                 "name": "Posterior Chain + Knee Health - DELOAD",
                 "type": "strength",
-                "estimatedDuration": 25,
+                "estimatedDuration": 35,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "sets": 3,
+                    "repsValue": 3,
+                    "loadMin": 40,
+                    "loadMax": 50,
+                    "notes": "Deload week: light technique singles. RPE 5 max"
                   },
                   {
                     "$ref": "ex-rdl",
@@ -2263,10 +2448,21 @@
                 "dayNumber": 3,
                 "name": "Posterior Chain (Hamstring Focus)",
                 "type": "strength",
-                "estimatedDuration": 45,
+                "estimatedDuration": 65,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Block 2: 4x3 @ 52-60kg. Fast turnover, quiet feet, controlled catches"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Block 2: 4x3 @ 52-60kg. Fast turnover, quiet feet, controlled catches"
                   },
                   {
                     "$ref": "ex-rdl",
@@ -2412,10 +2608,21 @@
                 "dayNumber": 3,
                 "name": "Posterior Chain (Hamstring Focus)",
                 "type": "strength",
-                "estimatedDuration": 45,
+                "estimatedDuration": 65,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Block 2: 4x3 @ 52-60kg. Progression: add 2.5kg when all reps smooth"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Block 2: 4x3 @ 52-60kg. Progression: add 2.5kg when all reps smooth"
                   },
                   {
                     "$ref": "ex-rdl",
@@ -2553,10 +2760,21 @@
                 "dayNumber": 3,
                 "name": "Posterior Chain (Hamstring Focus)",
                 "type": "strength",
-                "estimatedDuration": 45,
+                "estimatedDuration": 65,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Block 2: 4x3 @ 52-60kg. Quality over quantity"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Block 2: 4x3 @ 52-60kg. Quality over quantity"
                   },
                   {
                     "$ref": "ex-rdl",
@@ -2698,10 +2916,29 @@
                 "dayNumber": 3,
                 "name": "Posterior Chain - DELOAD",
                 "type": "strength",
-                "estimatedDuration": 30,
+                "estimatedDuration": 50,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Deload week: light technique doubles. No grinding",
+                    "sets": 3,
+                    "repsValue": 2,
+                    "loadMin": 40,
+                    "loadMax": 50
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Deload week: light technique doubles. No grinding",
+                    "sets": 3,
+                    "repsValue": 2,
+                    "loadMin": 40,
+                    "loadMax": 50
                   },
                   {
                     "$ref": "ex-rdl",
@@ -2841,10 +3078,21 @@
                 "dayNumber": 3,
                 "name": "Lower Body - Unilateral",
                 "type": "strength",
-                "estimatedDuration": 35,
+                "estimatedDuration": 55,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-power-clean-5x2",
+                    "notes": "Block 3: 5x2 @ 60-65kg. Fast bar speed, stable rack, no early arm pull. Skip if elbows irritated"
+                  },
+                  {
+                    "$ref": "ex-power-clean-5x2",
+                    "notes": "Block 3: 5x2 @ 60-65kg. Fast bar speed, stable rack, no early arm pull. Skip if elbows irritated"
                   },
                   {
                     "$ref": "ex-single-leg-rdl",
@@ -2976,10 +3224,21 @@
                 "dayNumber": 3,
                 "name": "Lower Body - Unilateral",
                 "type": "strength",
-                "estimatedDuration": 35,
+                "estimatedDuration": 55,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-power-clean-5x2",
+                    "notes": "Block 3: 5x2 @ 60-65kg. Neutral-grip block: use same implement throughout"
+                  },
+                  {
+                    "$ref": "ex-power-clean-5x2",
+                    "notes": "Block 3: 5x2 @ 60-65kg. Neutral-grip block: use same implement throughout"
                   },
                   {
                     "$ref": "ex-single-leg-rdl",
@@ -3100,10 +3359,21 @@
                 "dayNumber": 3,
                 "name": "Lower Body - Unilateral",
                 "type": "strength",
-                "estimatedDuration": 35,
+                "estimatedDuration": 55,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-power-clean-5x2",
+                    "notes": "Block 3: 5x2 @ 60-65kg. Return to neutral grip intensity. Monitor elbow load"
+                  },
+                  {
+                    "$ref": "ex-power-clean-5x2",
+                    "notes": "Block 3: 5x2 @ 60-65kg. Return to neutral grip intensity. Monitor elbow load"
                   },
                   {
                     "$ref": "ex-single-leg-rdl",
@@ -3175,7 +3445,7 @@
                 "name": "Cluster Pull-ups - CONNECTIVE TISSUE DELOAD",
                 "type": "strength",
                 "estimatedDuration": 65,
-                "description": "Weekly Pull Total Target: ~20 reps. Restrictions: NO Dead Hangs. NO Long Hollow Holds. NO Weighted Core. Straight-Arm Cap: 3 × 6s Tuck Holds Max",
+                "description": "Weekly Pull Total Target: ~20 reps. Restrictions: NO Dead Hangs. NO Long Hollow Holds. NO Weighted Core. Straight-Arm Cap: 3 \u00d7 6s Tuck Holds Max",
                 "exercises": [
                   {
                     "$routine": "warmup-rower-protocol"
@@ -3229,10 +3499,29 @@
                 "dayNumber": 3,
                 "name": "Lower Body - DELOAD",
                 "type": "strength",
-                "estimatedDuration": 25,
+                "estimatedDuration": 45,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Connective tissue deload: light technique, RPE 4-5 max",
+                    "sets": 2,
+                    "repsValue": 2,
+                    "loadMin": 30,
+                    "loadMax": 40
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Connective tissue deload: light technique, RPE 4-5 max",
+                    "sets": 2,
+                    "repsValue": 2,
+                    "loadMin": 30,
+                    "loadMax": 40
                   },
                   {
                     "$ref": "ex-goblet-squats",
@@ -3359,10 +3648,21 @@
                 "dayNumber": 3,
                 "name": "Lower Body",
                 "type": "strength",
-                "estimatedDuration": 40,
+                "estimatedDuration": 60,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-power-clean-cluster",
+                    "notes": "Block 4: 3x(2-2) cluster @ 65-70kg. Quality exposures, zero missed reps"
+                  },
+                  {
+                    "$ref": "ex-power-clean-cluster",
+                    "notes": "Block 4: 3x(2-2) cluster @ 65-70kg. Quality exposures, zero missed reps"
                   },
                   {
                     "$ref": "ex-rdl",
@@ -3463,7 +3763,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "description": "Standard template; optional Marching Dead Bug 2x8/side — remove if elbows/hips feel taxed",
+                "description": "Standard template; optional Marching Dead Bug 2x8/side \u2014 remove if elbows/hips feel taxed",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -3487,10 +3787,21 @@
                 "dayNumber": 3,
                 "name": "Lower Body",
                 "type": "strength",
-                "estimatedDuration": 40,
+                "estimatedDuration": 60,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-power-clean-cluster",
+                    "notes": "Block 4: 3x(2-2) cluster @ 65-70kg. Neural intent, no star-fish catches"
+                  },
+                  {
+                    "$ref": "ex-power-clean-cluster",
+                    "notes": "Block 4: 3x(2-2) cluster @ 65-70kg. Neural intent, no star-fish catches"
                   },
                   {
                     "$ref": "ex-rdl",
@@ -3620,10 +3931,21 @@
                 "dayNumber": 3,
                 "name": "Lower Body",
                 "type": "strength",
-                "estimatedDuration": 40,
+                "estimatedDuration": 60,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-power-clean-cluster",
+                    "notes": "Block 4 Peak: 3x(2-2) cluster @ 65-70kg. All-out effort week"
+                  },
+                  {
+                    "$ref": "ex-power-clean-cluster",
+                    "notes": "Block 4 Peak: 3x(2-2) cluster @ 65-70kg. All-out effort week"
                   },
                   {
                     "$ref": "ex-rdl",
@@ -3703,7 +4025,7 @@
                     "sets": 2,
                     "repsType": "amrap",
                     "repsModifier": -4,
-                    "notes": "Deload. 2 × AMRAP -4. RPE 6 MAX"
+                    "notes": "Deload. 2 \u00d7 AMRAP -4. RPE 6 MAX"
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -3751,10 +4073,25 @@
                 "dayNumber": 3,
                 "name": "Lower Body - DELOAD",
                 "type": "strength",
-                "estimatedDuration": 25,
+                "estimatedDuration": 45,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-clean-pull",
+                    "notes": "Week 16 Deload: clean pulls @ 100-105% power clean. Technique focus",
+                    "loadMin": 70,
+                    "loadMax": 85
+                  },
+                  {
+                    "$ref": "ex-clean-pull",
+                    "notes": "Week 16 Deload: clean pulls @ 100-105% power clean. Technique focus",
+                    "loadMin": 70,
+                    "loadMax": 85
                   },
                   {
                     "$ref": "ex-rdl",
@@ -3884,10 +4221,29 @@
                 "dayNumber": 3,
                 "name": "Lower Body - Taper",
                 "type": "strength",
-                "estimatedDuration": 35,
+                "estimatedDuration": 55,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Taper: light technique doubles, RPE 5 max",
+                    "sets": 3,
+                    "repsValue": 2,
+                    "loadMin": 35,
+                    "loadMax": 45
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Taper: light technique doubles, RPE 5 max",
+                    "sets": 3,
+                    "repsValue": 2,
+                    "loadMin": 35,
+                    "loadMax": 45
                   },
                   {
                     "$ref": "ex-rdl",
@@ -4010,10 +4366,29 @@
                 "dayNumber": 3,
                 "name": "Lower Body - Taper",
                 "type": "strength",
-                "estimatedDuration": 30,
+                "estimatedDuration": 50,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Taper week: minimal power work",
+                    "sets": 2,
+                    "repsValue": 2,
+                    "loadMin": 30,
+                    "loadMax": 40
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Taper week: minimal power work",
+                    "sets": 2,
+                    "repsValue": 2,
+                    "loadMin": 30,
+                    "loadMax": 40
                   },
                   {
                     "$ref": "ex-rdl",
@@ -4131,10 +4506,29 @@
                 "dayNumber": 3,
                 "name": "Lower Body - FULL DELOAD",
                 "type": "recovery",
-                "estimatedDuration": 20,
+                "estimatedDuration": 40,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Final week: light singles, RPE 4 max",
+                    "sets": 2,
+                    "repsValue": 1,
+                    "loadMin": 40,
+                    "loadMax": 50
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "notes": "Final week: light singles, RPE 4 max",
+                    "sets": 2,
+                    "repsValue": 1,
+                    "loadMin": 40,
+                    "loadMax": 50
                   },
                   {
                     "$ref": "ex-rdl",
@@ -4267,11 +4661,30 @@
                 "dayNumber": 3,
                 "name": "Lower Body - Passive Recovery",
                 "type": "mobility",
-                "estimatedDuration": 8,
+                "estimatedDuration": 28,
                 "description": "Passive recovery: light mobility only; no core/stability",
                 "exercises": [
                   {
                     "$routine": "day2-recovery-flow"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-high-pull",
+                    "notes": "Week 20: high-pulls only, no catching impact",
+                    "sets": 2,
+                    "repsValue": 3,
+                    "loadMin": 40,
+                    "loadMax": 55
+                  },
+                  {
+                    "$ref": "ex-hang-high-pull",
+                    "notes": "Week 20: high-pulls only, no catching impact",
+                    "sets": 2,
+                    "repsValue": 3,
+                    "loadMin": 40,
+                    "loadMax": 55
                   }
                 ]
               },
@@ -4387,10 +4800,29 @@
                 "dayNumber": 3,
                 "name": "Lower Body",
                 "type": "strength",
-                "estimatedDuration": 35,
+                "estimatedDuration": 55,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-high-pull",
+                    "notes": "Final week: light high-pulls, recovery emphasis",
+                    "sets": 2,
+                    "repsValue": 3,
+                    "loadMin": 40,
+                    "loadMax": 55
+                  },
+                  {
+                    "$ref": "ex-hang-high-pull",
+                    "notes": "Final week: light high-pulls, recovery emphasis",
+                    "sets": 2,
+                    "repsValue": 3,
+                    "loadMin": 40,
+                    "loadMax": 55
                   },
                   {
                     "$ref": "ex-rdl",

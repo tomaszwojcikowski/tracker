@@ -30,6 +30,63 @@
 * **Grip Saver:** Day 5 core work is ground-based (no hanging core) to reduce medial epicondylitis risk.
 * **Neutral Grip Tracking (Block 3):** Use the same neutral grip implement for the entire block.
 
+## **Power Clean Integration (Day 3 - New)**
+
+Power Cleans are integrated on Day 3 (Posterior Chain Day) to develop explosive hip extension, lat-posterior chain timing, and dynamic pulling power without hypertrophy fatigue. **Current working top single = 87 kg.**
+
+### **Blocks 1–2 (Weeks 1–8): Technique + Speed Emphasis**
+
+* **Prescription:** 4 sets × 3 reps @ **52–60 kg** (60–70% of 87 kg)
+* **Goal:** Smooth pulls, vertical bar path, fast turnover, no grinding
+* **RPE:** 6–7 max (never grind for reps)
+* **Progression:** Add 2.5 kg **only** when all reps are crisp and perfect form maintained
+* **Week 4 & 8 (Deload):** Reduce to 3 × 3 @ 40–50 kg, light technique focus
+
+### **Block 3 (Weeks 9–12): Power + Consistency**
+
+* **Prescription:** 5 sets × 2 reps @ **60–65 kg** (70–75% of 87 kg)
+* **Goal:** Fast bar speed, stable rack position, no early arm pull
+* **Critical Rule:** If elbows feel irritated → skip cleans that week; substitute with Clean Pulls or High Pulls
+* **Week 12 (Deload):** Reduce to 2 × 2 @ 30–40 kg, unweighted or very light
+
+### **Block 4 (Weeks 13–16): Strength-Speed (Not Maxing)**
+
+* **Prescription:** Cluster doubles: **3 × (2-2)** @ **65–70 kg** (75–80% of 87 kg)
+  * 15–20s rest between each rep within the cluster
+  * Full 2–3 minute recovery between sets
+* **Goal:** Quality exposures with neural intent, zero missed reps, stable catches
+* **Week 16 (Deload):** Switch to **Clean Pulls** @ 70–85 kg (build pulling strength without catching impact)
+
+### **Block 5 (Weeks 17–21): Taper**
+
+* **Weeks 17–19:** Light Hang Power Cleans
+  * Week 17: 3 × 2 @ 35–45 kg, RPE 5 max
+  * Week 18: 2 × 2 @ 30–40 kg (minimal power work)
+  * Week 19: 2 × 1 @ 40–50 kg (light singles, RPE 4)
+* **Weeks 20–21:** Hang High Pulls only (2 × 3 @ 40–55 kg) — no catching impact
+
+### **Power Clean Warm-Up (Before Day 3 work)**
+
+1. Bar only: 5 Muscle Clean Pulls
+2. Bar only: 5 Hang High Pulls
+3. Bar only: 5 Hang Power Clean + Front Rack Pause
+4. 3 × 3 @ 40–50% (20–30 kg) — movement rehearsal
+5. Progress to working sets (no jumps > 5 kg between sets)
+
+### **Injury Prevention Guardrails**
+
+Immediately reduce or skip cleans if you notice:
+
+* Elbow traction soreness post-session
+* Wrist compression in rack position
+* Medial knee irritation on receiving
+* Grip fatigue affecting pull-up quality
+
+**Substitutions on high-stress weeks:**
+
+* Week A (scheduled cleans) → Week B (High Pulls + Clean Pulls instead)
+* Or reduce cleans to light technique singles (RPE 4–5)
+
 **Ankle Mobility Circuit (Perform on Day 2\)**
 
 * Knee-to-Wall Mobilization: 2 mins/side
@@ -170,11 +227,17 @@
 * Swap Side Plank for **Half-Side Plank — 2 × 25–30s/side**.
 * All other elements stay identical to the template.
 
-### **Day 3: Posterior Chain \+ Knee Health**
+### **Day 3: Posterior Chain + Knee Health**
+
+**Power Cleans (Block 1: 4 × 3 @ 52–60 kg)**
+
+* Perform after Day 3 warm-up
+* Technique focus: vertical bar path, fast turnover
+* **RPE 6–7 only.** Add 2.5kg only when all reps smooth.
 
 **The Workout**
 
-* **A1: Romanian Deadlift (RDL):** 4 sets of 8 reps @ \~85kg.
+* **A1: Romanian Deadlift (RDL):** 4 sets of 8 reps @ ~85kg.
 * **B1: Cyclist Squats (Heels-Elevated):** 3 sets of 10 reps.
 * **B2: Chest-Supported Row:** 3 sets of 10–12 reps.
 * **C1: Face Pulls:** 3 sets of 15–20 reps.
@@ -242,6 +305,12 @@
 * Everything else remains as templated.
 
 ### **Day 3: Posterior Chain \+ Knee Health**
+
+**Power Cleans (Block 1: 4 × 3 @ 52–60 kg)**
+
+* Perform after Day 3 warm-up
+* Technique focus: vertical bar path, fast turnover
+* **RPE 6–7 only.** Add 2.5kg only when all reps smooth.
 
 **The Workout**
 
@@ -384,6 +453,11 @@
 
 ### **Day 3: Posterior Chain (Hamstring Focus)**
 
+**Power Cleans (Block 2: 4 × 3 @ 52–60 kg)**
+
+* Fast turnover, quiet feet, controlled catches
+* **RPE 6–7.** Progression: add 2.5kg when all reps smooth
+
 **The Workout**
 
 * **A1: Romanian Deadlift (RDL):** 4 sets of 10 reps.
@@ -454,11 +528,21 @@
 
 ### **Day 3: Posterior Chain**
 
+**Daily Prep**
+
+* **Ankle Mobility:** Knee-to-Wall Mobilization 2 min/side, Tibialis Raises 3 × 15–20 reps
+* **Power Clean Warm-Up:** (See Global Protocols section)
+  * Bar only: 5 Muscle Clean Pulls, 5 Hang High Pulls, 5 Hang Power Clean + Rack Pause
+  * 3 × 3 @ 40–50kg (movement rehearsal)
+
 **The Workout**
 
-* **A1: RDL:** 4 sets of 10 reps.
-* **B1: Rower Leg Curls:** 3 sets of 10 reps.
-* **B2: Goblet Squats:** 3 sets of 10 reps.
+* **A1: Hang Power Cleans:** 4 sets of 3 reps @ **52–60 kg** (Block 1 Tech Focus).
+  * Smooth pulls, vertical bar path, fast turnover. **RPE 6–7.** No grinding.
+  * Add 2.5kg only when all reps are crisp.
+* **B1: RDL:** 4 sets of 10 reps.
+* **B2: Rower Leg Curls:** 3 sets of 10 reps.
+* **B3: Goblet Squats:** 3 sets of 10 reps.
 * **C1: Back Extensions:** 3 sets of 12 reps.
 
 **Cool Down (Post-Hinge)**
@@ -524,6 +608,12 @@
 * Keep all other template elements unchanged.
 
 ### **Day 3: Posterior Chain**
+
+**Power Cleans (Block 1: 4 × 3 @ 52–60 kg)**
+
+* Perform after Day 3 warm-up
+* Smooth pulls, vertical bar path, no grinding
+* **RPE 6–7 only.** Add 2.5kg only when all reps smooth.
 
 **The Workout**
 
@@ -595,6 +685,11 @@
 
 ### **Day 3: Posterior Chain (Deload)**
 
+**Power Cleans (Deload: 3 × 3 @ 40–50 kg)**
+
+* Light technique focus, no grinding
+* **RPE 5 max**
+
 **The Workout**
 
 * **A1: RDL:** 3 sets of 8 reps (Light).
@@ -663,7 +758,12 @@
 
 * Run the revised standard Day 2 template (unchanged).
 
-### **Day 3: Posterior Chain**
+### **Day 3: Posterior Chain + Lower Body Power**
+
+**Power Cleans (Block 2: 4 × 3 @ 52–60 kg)**
+
+* Quality over quantity, smooth technique
+* **RPE 6–7.** Stop at first sign of sloppy catches
 
 **The Workout**
 
@@ -727,6 +827,12 @@
 
 ### **Day 3: Posterior Chain**
 
+**Power Cleans (Block 3: 5 × 2 @ 60–65 kg)**
+
+* Fast bar speed, stable rack position, no early arm pull
+* **Critical Rule:** If elbows feel irritated → skip cleans; substitute with Clean Pulls or High Pulls
+* **RPE 6–7.** Zero missed reps.
+
 **The Workout**
 
 * **A1: Single Leg RDL:** 3 sets of 10 reps per side.
@@ -789,6 +895,12 @@
 
 ### **Day 3: Posterior Chain**
 
+**Power Cleans (Block 3: 5 × 2 @ 60–65 kg)**
+
+* Fast bar speed, stable rack position, no early arm pull
+* **Critical Rule:** If elbows feel irritated → skip cleans; substitute with Clean Pulls or High Pulls
+* **RPE 6–7.** Zero missed reps.
+
 **The Workout**
 
 * **A1: Single Leg RDL:** 3 sets of 10 reps per side (@ ~8–12kg).
@@ -848,6 +960,11 @@
 * No long holds, no deep ranges; **skip Side Planks** this week.
 
 ### **Day 3: Posterior Chain (Deload)**
+
+**Power Cleans (Block 3 Deload: 2 × 2 @ 30–40 kg)**
+
+* Light technique doubles, unweighted bar or very light
+* **RPE 5 max.** No grinding. No missed reps.
 
 **The Workout**
 
@@ -913,6 +1030,12 @@
 
 ### **Day 3: Posterior Chain**
 
+**Power Cleans (Block 4: 3 × (2-2) Cluster @ 65–70 kg)**
+
+* Cluster format: 2 reps, 15–20s rest, 2 reps, full 2–3 min recovery between sets
+* Quality exposures with neural intent
+* **RPE 7–8.** Zero missed reps. Stop when catches aren't crisp.
+
 **The Workout**
 
 * **A1: RDL:** 4 sets of 8 reps (@ ~85kg).
@@ -975,6 +1098,12 @@
 * **Remove the Dead Bug** if elbows or hips feel taxed.
 
 ### **Day 3: Posterior Chain**
+
+**Power Cleans (Block 4: 3 × (2-2) Cluster @ 65–70 kg)**
+
+* Cluster format: 2 reps, 15–20s rest, 2 reps, full 2–3 min recovery between sets
+* Quality over volume, maintain bar speed
+* **RPE 7–8.** Zero missed reps.
 
 **The Workout**
 
@@ -1042,6 +1171,12 @@
 
 ### **Day 3: Posterior Chain**
 
+**Power Cleans (Block 4: 3 × (2-2) Cluster @ 65–70 kg)**
+
+* Cluster format: 2 reps, 15–20s rest, 2 reps, full 2–3 min recovery between sets
+* This is the final heavy week — quality only
+* **RPE 7–8.** Zero missed reps. Stop if form breaks.
+
 **The Workout**
 
 * **A1: RDL:** 4 sets of 8 reps.
@@ -1105,6 +1240,12 @@
 * Extend the breathing block to **4–5 minutes**.
 
 ### **Day 3: Posterior Chain**
+
+**Power Cleans (Block 4 Deload: Clean Pulls @ 70–85 kg)**
+
+* Pull only, no catching — build pulling strength
+* 3 sets of 3 reps, full power, controlled lower
+* **RPE 6–7.** Focus on bar path and acceleration
 
 **The Workout**
 
@@ -1172,6 +1313,11 @@
 
 ### **Day 3: Posterior Chain**
 
+**Power Cleans (Block 5 - Week 17: 3 × 2 @ 35–45 kg Light Hang Power Cleans)**
+
+* Light technical work, controlled catches, no grinding
+* **RPE 5 max.** Stop if fatigue appears.
+
 **The Workout**
 
 * **A1: RDL:** 4 sets of 8 reps.
@@ -1235,6 +1381,11 @@
 
 ### **Day 3: Posterior Chain**
 
+**Power Cleans (Block 5 - Week 18: 2 × 2 @ 30–40 kg Minimal Power Work)**
+
+* Very light double, movement rehearsal only
+* **RPE 4–5.** No grinding, no fatigue.
+
 **The Workout**
 
 * **A1: RDL:** 3 sets of 6 reps.
@@ -1297,6 +1448,11 @@
 * Focus on breathing plus gentle hips/ankles work.
 
 ### **Day 3: Posterior Chain (Deload)**
+
+**Power Cleans (Block 5 - Week 19: 2 × 1 @ 40–50 kg Light Singles)**
+
+* Light singles, comfortable weight, no grind
+* **RPE 4 max.** Smooth and easy.
 
 **The Workout**
 

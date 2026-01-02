@@ -527,6 +527,10 @@ function WeekContent({
                   </button>
                   {!done && !isInProgress && (
                     <button
+                      onClick={() => {
+                        haptic.tick();
+                        onStartWorkout(day);
+                      }}
                       className="btn-md3 btn-outlined px-4"
                       aria-label={`Preview Day ${day} workout`}
                     >

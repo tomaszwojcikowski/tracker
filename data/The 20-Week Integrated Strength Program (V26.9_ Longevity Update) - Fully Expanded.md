@@ -475,6 +475,7 @@ Immediately reduce or skip cleans if you notice:
 * **B1: Rower Leg Curls:** 3 sets of 10 reps (Replaces Sliders).
 * **B2: Goblet Squats:** 3 sets of 10 reps.
 * **C1: Back Extensions:** 3 sets of 12 reps.
+* **D1: Weighted Glute Bridge:** 2 sets of 12 reps @ 20–30kg (Introduction).
 
 **Cool Down (Post-Hinge)**
 
@@ -555,6 +556,7 @@ Immediately reduce or skip cleans if you notice:
 * **B2: Rower Leg Curls:** 3 sets of 10 reps.
 * **B3: Goblet Squats:** 3 sets of 10 reps.
 * **C1: Back Extensions:** 3 sets of 12 reps.
+* **D1: Weighted Glute Bridge:** 3 sets of 12 reps @ 20–30kg (Peak volume).
 
 **Cool Down (Post-Hinge)**
 
@@ -771,10 +773,11 @@ Immediately reduce or skip cleans if you notice:
 
 ### **Day 3: Posterior Chain + Lower Body Power**
 
-**Power Cleans (Block 2: 4 × 3 @ 52–60 kg)**
+**Power Cleans (Block 3: 5 × 2 @ 60–65 kg)**
 
-* Quality over quantity, smooth technique
-* **RPE 6–7.** Stop at first sign of sloppy catches
+* Fast bar speed, stable rack position, no early arm pull
+* **Critical Rule:** If elbows feel irritated → skip cleans; substitute with Clean Pulls or High Pulls
+* **RPE 6–7.** Zero missed reps.
 
 **The Workout**
 
@@ -1471,8 +1474,6 @@ Immediately reduce or skip cleans if you notice:
 
 * **A1: RDL:** 2 sets of 6 reps (Very Light).
 * **B1: Goblet Squats:** 2 sets of 8 reps (Very Light).
-* **C1: Face Pulls:** 2 sets of 15 reps.
-* **B2: Goblet Squats:** 2 sets of 8 reps (Very Light).
 * **C1: Face Pulls:** 2 sets of 15 reps.
 
 **Cool Down (Post-Hinge)**

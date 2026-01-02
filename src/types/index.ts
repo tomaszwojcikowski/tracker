@@ -253,12 +253,12 @@ export interface SessionData {
 /**
  * Navigation tabs
  */
-export type TabId = 'train' | 'library' | 'history' | 'coach' | 'profile';
+export type TabId = 'train' | 'library' | 'history' | 'profile';
 
 /**
  * View modes
  */
-export type ViewMode = 'tab' | 'workout';
+export type ViewMode = 'tab' | 'workout' | 'empty-workout';
 
 /**
  * Application state stored in URL/localStorage

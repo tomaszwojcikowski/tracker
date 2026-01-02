@@ -61,4 +61,35 @@ test.describe('Navigation', () => {
     // Should be back on Train (or URL should change)
     // Note: depends on how the app handles URL state
   });
+
+  test('back from workout stays inside app', async ({ page }) => {
+    // Start Day 1 workout
+    await page.getByRole('button', { name: /start day 1 workout/i }).click();
+    await page.waitForTimeout(500);
+
+    // Click back
+    await page.getByRole('button', { name: /go back/i }).click();
+    await page.waitForTimeout(500);
+
+    // Should be on Train tab and URL should not be a foreign history entry
+    const trainTab = page.locator('button[aria-label="Train"]:visible');
+    await expect(trainTab).toHaveAttribute('aria-current', 'page');
+    expect(page.url()).not.toContain('view=workout');
+  });
+
+  test('custom workout persists on reload', async ({ page }) => {
+    // Start a custom (empty) workout
+    await page.getByRole('button', { name: /start custom workout/i }).click();
+    await page.waitForTimeout(500);
+
+    // Verify custom workout view
+    await expect(page.getByText(/custom workout/i)).toBeVisible();
+    expect(page.url()).toContain('view=empty-workout');
+
+    // Reload and ensure we stay in custom workout
+    await page.reload();
+    await page.waitForTimeout(500);
+    await expect(page.getByText(/custom workout/i)).toBeVisible();
+    expect(page.url()).toContain('view=empty-workout');
+  });
 });

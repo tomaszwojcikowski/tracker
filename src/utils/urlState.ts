@@ -141,6 +141,8 @@ export function buildUrl(state: AppState): string {
         params.set('view', 'workout');
         params.set('week', String(state.currentWeek));
         params.set('day', String(state.activeDay));
+    } else if (state.viewMode === 'empty-workout') {
+        params.set('view', 'empty-workout');
     } else {
         params.set('tab', state.activeTab);
         // Only include week in URL if it's not the default
@@ -257,6 +259,8 @@ export function initializeAppState(): AppState {
         state.viewMode = 'workout';
         state.currentWeek = urlParams.week;
         state.activeDay = urlParams.day;
+    } else if (urlParams.view === 'empty-workout') {
+        state.viewMode = 'empty-workout';
     } else if (urlParams.tab) {
         state.viewMode = 'tab';
         state.activeTab = urlParams.tab;

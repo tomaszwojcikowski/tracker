@@ -5,7 +5,7 @@
  * Migrated from App.jsx as part of TypeScript migration.
  */
 
-import React, { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import './main.css';
 import { NavigationBar } from './components/navigation';
@@ -16,6 +16,7 @@ import { SkipLink } from './components/SkipLink';
 import { Onboarding, hasCompletedOnboarding } from './components/Onboarding';
 import { FloatingTimerButton } from './components/FloatingTimerButton';
 import { useWorkoutTimer, useTheme } from './hooks';
+import { useProgram } from './context/ProgramContext';
 
 // Lazy load heavy view components for code splitting
 // Import named exports and re-export as default for lazy loading
@@ -54,7 +55,7 @@ import type { Exercise, WorkoutProgressData } from './types';
 // ============================================================================
 
 type ViewMode = 'tab' | 'workout' | 'empty-workout';
-type TabId = 'train' | 'library' | 'history' | 'coach' | 'profile';
+type TabId = 'train' | 'library' | 'history' | 'profile';
 type ValidDay = 1 | 2 | 3 | 5;
 
 interface AppStateLocal {
@@ -101,13 +102,10 @@ const App: React.FC = () => {
     const [viewMode, setViewMode] = useState<ViewMode>('tab');
     const [currentWeek, setCurrentWeek] = useState<number>(1);
     const [activeDay, setActiveDay] = useState<ValidDay>(1);
-    const [programId, setProgramId] = useState<string | undefined>(undefined);
+    const { currentProgramId, switchProgram, isLoading: programLoading } = useProgram();
     const [isInitialized, setIsInitialized] = useState<boolean>(false);
     // Initialize onboarding state directly to avoid flash of content
     const [showOnboarding, setShowOnboarding] = useState<boolean>(() => !hasCompletedOnboarding());
-
-    // Track the initial history length to know if we can go back
-    const initialHistoryLength = useRef<number>(window.history.length);
 
     // Workout timer - only active when in workout mode or empty-workout mode
     const workoutTimer = useWorkoutTimer(currentWeek, activeDay, viewMode === 'workout' || viewMode === 'empty-workout');
@@ -129,46 +127,57 @@ const App: React.FC = () => {
 
     // Initialize state from URL or localStorage on mount
     useEffect(() => {
-        const urlParams = getUrlParams();
-        const savedState = loadAppState();
+        let cancelled = false;
+        const initialize = async () => {
+            const urlParams = getUrlParams();
+            const savedState = loadAppState();
 
-        // Priority: URL params > saved state > defaults
-        if (urlParams.view === 'workout' && urlParams.week !== null && urlParams.day !== null) {
-            // Load from URL - workout view
-            setViewMode('workout');
-            setCurrentWeek(urlParams.week);
-            setActiveDay(urlParams.day as ValidDay);
-        } else if (urlParams.tab && VALID_TABS.includes(urlParams.tab)) {
-            // Load from URL - tab view (validate tab name)
-            setViewMode('tab');
-            setActiveTab(urlParams.tab as TabId);
-            if (urlParams.week !== null) {
+            // Priority: URL params > saved state > defaults
+            if (urlParams.view === 'workout' && urlParams.week !== null && urlParams.day !== null) {
+                setViewMode('workout');
                 setCurrentWeek(urlParams.week);
+                setActiveDay(urlParams.day as ValidDay);
+            } else if (urlParams.view === 'empty-workout') {
+                setViewMode('empty-workout');
+            } else if (urlParams.tab && VALID_TABS.includes(urlParams.tab)) {
+                setViewMode('tab');
+                setActiveTab(urlParams.tab as TabId);
+                if (urlParams.week !== null) {
+                    setCurrentWeek(urlParams.week);
+                }
+            } else if (savedState) {
+                setViewMode(savedState.viewMode as ViewMode);
+                setActiveTab(savedState.activeTab as TabId);
+                setCurrentWeek(savedState.currentWeek);
+                setActiveDay(savedState.activeDay as ValidDay);
             }
-        } else if (savedState) {
-            // Load from saved state
-            setViewMode(savedState.viewMode as ViewMode);
-            setActiveTab(savedState.activeTab as TabId);
-            setCurrentWeek(savedState.currentWeek);
-            setActiveDay(savedState.activeDay as ValidDay);
-        }
 
-        // Load program ID from URL or saved state
-        if (urlParams.programId) {
-            setProgramId(urlParams.programId);
-        } else if (savedState?.programId) {
-            setProgramId(savedState.programId);
-        }
-        // Use defaults if nothing else matches - already set
+            const desiredProgramId = urlParams.programId ?? savedState?.programId;
+            if (desiredProgramId && desiredProgramId !== currentProgramId) {
+                try {
+                    await switchProgram(desiredProgramId);
+                } catch (error) {
+                    console.error('Failed to switch program from URL/state:', error);
+                }
+            }
 
-        setIsInitialized(true);
-    }, []);
+            if (!cancelled) {
+                setIsInitialized(true);
+            }
+        };
+
+        void initialize();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [currentProgramId, switchProgram]);
 
     // Update URL and save state whenever it changes
     useEffect(() => {
         if (!isInitialized) return;
 
-        const state: AppStateLocal = { viewMode, activeTab, currentWeek, activeDay, programId };
+        const state: AppStateLocal = { viewMode, activeTab, currentWeek, activeDay, programId: currentProgramId };
 
         // Save to localStorage (always sync localStorage)
         saveAppState(state as Parameters<typeof saveAppState>[0]);
@@ -180,7 +189,7 @@ const App: React.FC = () => {
         // pushState is called explicitly in navigation functions
         const newUrl = updateUrl(state);
         window.history.replaceState(state, '', newUrl);
-    }, [viewMode, activeTab, currentWeek, activeDay, programId, isInitialized]);
+    }, [viewMode, activeTab, currentWeek, activeDay, currentProgramId, isInitialized]);
 
     // Handle browser back/forward button
     useEffect(() => {
@@ -192,6 +201,9 @@ const App: React.FC = () => {
                 if (state.activeTab !== undefined) setActiveTab(state.activeTab);
                 if (state.currentWeek !== undefined) setCurrentWeek(state.currentWeek);
                 if (state.activeDay !== undefined) setActiveDay(state.activeDay);
+                if (state.programId && state.programId !== currentProgramId) {
+                    void switchProgram(state.programId);
+                }
             } else {
                 // No state in history (e.g., initial page load), parse from URL
                 const urlParams = getUrlParams();
@@ -221,54 +233,43 @@ const App: React.FC = () => {
         return () => {
             window.removeEventListener('popstate', handlePopState);
         };
-    }, []);
+    }, [currentProgramId, switchProgram]);
 
     const startWorkout = (day: number): void => {
         setActiveDay(day as ValidDay);
         setViewMode('workout');
 
         // Push new entry to history
-        const state: AppStateLocal = { viewMode: 'workout', activeTab, currentWeek, activeDay: day as ValidDay, programId };
+        const state: AppStateLocal = { viewMode: 'workout', activeTab, currentWeek, activeDay: day as ValidDay, programId: currentProgramId };
         const newUrl = updateUrl(state);
         window.history.pushState(state, '', newUrl);
     };
 
     const startEmptyWorkout = (): void => {
-        // Reset the workout timer when starting a custom workout
         workoutTimer.reset();
 
         setViewMode('empty-workout');
 
-        // Push new entry to history for empty workout
-        const state: AppStateLocal = { viewMode: 'empty-workout', activeTab, currentWeek, activeDay, programId };
-        const newUrl = buildUrl({ ...state, viewMode: 'tab', activeTab: 'train' } as Parameters<typeof buildUrl>[0]) + '&emptyWorkout=true';
+        const state: AppStateLocal = { viewMode: 'empty-workout', activeTab, currentWeek, activeDay, programId: currentProgramId };
+        const newUrl = buildUrl(state as Parameters<typeof buildUrl>[0]);
         window.history.pushState(state, '', newUrl);
     };
 
     const goBack = (): void => {
-        // Check if there's history to go back to
-        const hasHistory = window.history.length > initialHistoryLength.current;
+        // Always return to main tab without leaving the app/origin
+        setViewMode('tab');
+        setActiveTab('train');
 
-        if (hasHistory) {
-            // Go back in browser history
-            window.history.back();
-        } else {
-            // No history available (e.g., direct URL access), fallback to main view
-            setViewMode('tab');
-            setActiveTab('train');
-
-            // Update URL to reflect the main view
-            const state: AppStateLocal = { viewMode: 'tab', activeTab: 'train', currentWeek, activeDay, programId };
-            const newUrl = updateUrl(state);
-            window.history.replaceState(state, '', newUrl);
-        }
+        const state: AppStateLocal = { viewMode: 'tab', activeTab: 'train', currentWeek, activeDay, programId: currentProgramId };
+        const newUrl = updateUrl(state);
+        window.history.replaceState(state, '', newUrl);
     };
 
     const handleTabChange = (newTab: TabId): void => {
         setActiveTab(newTab);
 
         // Push new entry to history for tab changes
-        const state: AppStateLocal = { viewMode: 'tab', activeTab: newTab, currentWeek, activeDay, programId };
+        const state: AppStateLocal = { viewMode: 'tab', activeTab: newTab, currentWeek, activeDay, programId: currentProgramId };
         const newUrl = updateUrl(state);
         window.history.pushState(state, '', newUrl);
     };
@@ -278,10 +279,10 @@ const App: React.FC = () => {
      * Updates URL with new program ID
      */
     const handleProgramChange = (newProgramId: string): void => {
-        setProgramId(newProgramId);
-
         // Reset week to 1 when switching programs
         setCurrentWeek(1);
+
+        void switchProgram(newProgramId);
 
         // Update URL with new program
         const state: AppStateLocal = { viewMode, activeTab, currentWeek: 1, activeDay, programId: newProgramId };
@@ -339,7 +340,7 @@ const App: React.FC = () => {
                     } : undefined}
                 />
 
-                {!isInitialized ? (
+                {!isInitialized || programLoading ? (
                     <div className="flex-1 flex items-center justify-center">
                         <div className="text-center">
                             <div className="text-lg text-sys-onSurfaceVar">Loading...</div>

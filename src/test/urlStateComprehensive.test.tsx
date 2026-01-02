@@ -83,13 +83,13 @@ describe('URL State Comprehensive Tests', () => {
       expect(VALID_TABS).toContain('train');
       expect(VALID_TABS).toContain('library');
       expect(VALID_TABS).toContain('history');
-      expect(VALID_TABS).toContain('coach');
       expect(VALID_TABS).toContain('profile');
     });
 
     it('should export valid view modes', () => {
       expect(VALID_VIEW_MODES).toContain('tab');
       expect(VALID_VIEW_MODES).toContain('workout');
+      expect(VALID_VIEW_MODES).toContain('empty-workout');
     });
   });
 
@@ -143,14 +143,14 @@ describe('URL State Comprehensive Tests', () => {
 
       window.location.search = '?view=workout';
       expect(getUrlParams().view).toBe('workout');
+
+      window.location.search = '?view=empty-workout';
+      expect(getUrlParams().view).toBe('empty-workout');
     });
 
     it('should validate tab name', () => {
       window.location.search = '?tab=invalid';
       expect(getUrlParams().tab).toBeNull();
-
-      window.location.search = '?tab=coach';
-      expect(getUrlParams().tab).toBe('coach');
     });
 
     it('should parse program ID', () => {
@@ -469,11 +469,11 @@ describe('URL State Comprehensive Tests', () => {
         currentWeek: 1,
         activeDay: 1,
       }));
-      window.location.search = '?tab=coach';
+      window.location.search = '?tab=library';
 
       const state = initializeAppState();
 
-      expect(state.activeTab).toBe('coach');
+      expect(state.activeTab).toBe('library');
     });
 
     it('should prioritize URL program ID over saved state', () => {
@@ -532,7 +532,6 @@ describe('URL State Comprehensive Tests', () => {
         expect(isValidTab('train')).toBe(true);
         expect(isValidTab('library')).toBe(true);
         expect(isValidTab('history')).toBe(true);
-        expect(isValidTab('coach')).toBe(true);
         expect(isValidTab('profile')).toBe(true);
       });
 
@@ -547,6 +546,7 @@ describe('URL State Comprehensive Tests', () => {
       it('should return true for valid view modes', () => {
         expect(isValidViewMode('tab')).toBe(true);
         expect(isValidViewMode('workout')).toBe(true);
+        expect(isValidViewMode('empty-workout')).toBe(true);
       });
 
       it('should return false for invalid view modes', () => {

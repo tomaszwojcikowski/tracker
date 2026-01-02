@@ -9,8 +9,8 @@ describe('URL Routing & State Management', () => {
   const DEFAULT_WEEK = 1;
   const DEFAULT_DAY = 1;
   const VALID_DAYS = [1, 2, 3, 5]; // Day 4 is rest day
-  const VALID_TABS = ['train', 'library', 'history', 'coach', 'profile'];
-  const VALID_VIEW_MODES = ['tab', 'workout'];
+  const VALID_TABS = ['train', 'library', 'history', 'profile'];
+  const VALID_VIEW_MODES = ['tab', 'workout', 'empty-workout'];
 
   beforeEach(() => {
     // Reset window.location mock
@@ -52,6 +52,8 @@ describe('URL Routing & State Management', () => {
       params.set('view', 'workout');
       params.set('week', state.currentWeek);
       params.set('day', state.activeDay);
+    } else if (state.viewMode === 'empty-workout') {
+      params.set('view', 'empty-workout');
     } else {
       params.set('tab', state.activeTab);
       if (state.currentWeek && state.currentWeek !== DEFAULT_WEEK) {
@@ -153,6 +155,14 @@ describe('URL Routing & State Management', () => {
       expect(params.view).toBe(null);
     });
 
+    it('should parse empty-workout view mode', () => {
+      window.location.search = '?view=empty-workout';
+
+      const params = getUrlParams();
+
+      expect(params.view).toBe('empty-workout');
+    });
+
     it('should validate week range (1-21)', () => {
       window.location.search = '?view=workout&week=0&day=1';
       let params = getUrlParams();
@@ -242,6 +252,19 @@ describe('URL Routing & State Management', () => {
       const url = updateUrl(state);
 
       expect(url).toBe('?tab=history');
+    });
+
+    it('should generate empty-workout view URL', () => {
+      const state = {
+        viewMode: 'empty-workout',
+        activeTab: 'train',
+        currentWeek: 1,
+        activeDay: 1,
+      };
+
+      const url = updateUrl(state);
+
+      expect(url).toBe('?view=empty-workout');
     });
 
     it('should generate URLs for all valid tabs', () => {

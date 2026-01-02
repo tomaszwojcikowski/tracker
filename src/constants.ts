@@ -19,12 +19,12 @@ export const MS_PER_DAY = 24 * 60 * 60 * 1000;
 /**
  * Valid tab names in the application
  */
-export type TabName = 'train' | 'library' | 'history' | 'coach' | 'profile';
+export type TabName = 'train' | 'library' | 'history' | 'profile';
 
 /**
  * Valid view modes
  */
-export type ViewMode = 'tab' | 'workout';
+export type ViewMode = 'tab' | 'workout' | 'empty-workout';
 
 /**
  * Valid workout days (Day 4 is rest)
@@ -36,11 +36,10 @@ export const VALID_TABS: TabName[] = [
   'train',
   'library',
   'history',
-  'coach',
   'profile',
 ];
 export const VALID_DAYS: WorkoutDay[] = [1, 2, 3, 5]; // Day 4 is rest
-export const VALID_VIEW_MODES: ViewMode[] = ['tab', 'workout'];
+export const VALID_VIEW_MODES: ViewMode[] = ['tab', 'workout', 'empty-workout'];
 
 // Defaults
 export const DEFAULT_WEEK = 1;

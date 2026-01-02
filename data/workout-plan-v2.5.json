@@ -2461,10 +2461,6 @@
                     "notes": "Block 2: 4x3 @ 52-60kg. Fast turnover, quiet feet, controlled catches"
                   },
                   {
-                    "$ref": "ex-hang-power-clean",
-                    "notes": "Block 2: 4x3 @ 52-60kg. Fast turnover, quiet feet, controlled catches"
-                  },
-                  {
                     "$ref": "ex-rdl",
                     "repsValue": 10,
                     "loadMin": 60,
@@ -2621,10 +2617,6 @@
                     "notes": "Block 2: 4x3 @ 52-60kg. Progression: add 2.5kg when all reps smooth"
                   },
                   {
-                    "$ref": "ex-hang-power-clean",
-                    "notes": "Block 2: 4x3 @ 52-60kg. Progression: add 2.5kg when all reps smooth"
-                  },
-                  {
                     "$ref": "ex-rdl",
                     "repsValue": 10,
                     "loadMin": 60,
@@ -2767,10 +2759,6 @@
                   },
                   {
                     "$routine": "warmup-power-clean"
-                  },
-                  {
-                    "$ref": "ex-hang-power-clean",
-                    "notes": "Block 2: 4x3 @ 52-60kg. Quality over quantity"
                   },
                   {
                     "$ref": "ex-hang-power-clean",
@@ -2933,14 +2921,6 @@
                     "loadMax": 50
                   },
                   {
-                    "$ref": "ex-hang-power-clean",
-                    "notes": "Deload week: light technique doubles. No grinding",
-                    "sets": 3,
-                    "repsValue": 2,
-                    "loadMin": 40,
-                    "loadMax": 50
-                  },
-                  {
                     "$ref": "ex-rdl",
                     "sets": 2,
                     "repsValue": 10,
@@ -3091,10 +3071,6 @@
                     "notes": "Block 3: 5x2 @ 60-65kg. Fast bar speed, stable rack, no early arm pull. Skip if elbows irritated"
                   },
                   {
-                    "$ref": "ex-power-clean-5x2",
-                    "notes": "Block 3: 5x2 @ 60-65kg. Fast bar speed, stable rack, no early arm pull. Skip if elbows irritated"
-                  },
-                  {
                     "$ref": "ex-single-leg-rdl",
                     "loadMin": 8,
                     "loadMax": 12
@@ -3237,10 +3213,6 @@
                     "notes": "Block 3: 5x2 @ 60-65kg. Neutral-grip block: use same implement throughout"
                   },
                   {
-                    "$ref": "ex-power-clean-5x2",
-                    "notes": "Block 3: 5x2 @ 60-65kg. Neutral-grip block: use same implement throughout"
-                  },
-                  {
                     "$ref": "ex-single-leg-rdl",
                     "loadMin": 8,
                     "loadMax": 12
@@ -3366,10 +3338,6 @@
                   },
                   {
                     "$routine": "warmup-power-clean"
-                  },
-                  {
-                    "$ref": "ex-power-clean-5x2",
-                    "notes": "Block 3: 5x2 @ 60-65kg. Return to neutral grip intensity. Monitor elbow load"
                   },
                   {
                     "$ref": "ex-power-clean-5x2",
@@ -3506,14 +3474,6 @@
                   },
                   {
                     "$routine": "warmup-power-clean"
-                  },
-                  {
-                    "$ref": "ex-hang-power-clean",
-                    "notes": "Connective tissue deload: light technique, RPE 4-5 max",
-                    "sets": 2,
-                    "repsValue": 2,
-                    "loadMin": 30,
-                    "loadMax": 40
                   },
                   {
                     "$ref": "ex-hang-power-clean",
@@ -3661,10 +3621,6 @@
                     "notes": "Block 4: 3x(2-2) cluster @ 65-70kg. Quality exposures, zero missed reps"
                   },
                   {
-                    "$ref": "ex-power-clean-cluster",
-                    "notes": "Block 4: 3x(2-2) cluster @ 65-70kg. Quality exposures, zero missed reps"
-                  },
-                  {
                     "$ref": "ex-rdl",
                     "loadMin": 85,
                     "loadMax": 85
@@ -3794,10 +3750,6 @@
                   },
                   {
                     "$routine": "warmup-power-clean"
-                  },
-                  {
-                    "$ref": "ex-power-clean-cluster",
-                    "notes": "Block 4: 3x(2-2) cluster @ 65-70kg. Neural intent, no star-fish catches"
                   },
                   {
                     "$ref": "ex-power-clean-cluster",
@@ -3944,10 +3896,6 @@
                     "notes": "Block 4 Peak: 3x(2-2) cluster @ 65-70kg. All-out effort week"
                   },
                   {
-                    "$ref": "ex-power-clean-cluster",
-                    "notes": "Block 4 Peak: 3x(2-2) cluster @ 65-70kg. All-out effort week"
-                  },
-                  {
                     "$ref": "ex-rdl",
                     "loadMin": 85,
                     "loadMax": 85
@@ -4080,12 +4028,6 @@
                   },
                   {
                     "$routine": "warmup-power-clean"
-                  },
-                  {
-                    "$ref": "ex-clean-pull",
-                    "notes": "Week 16 Deload: clean pulls @ 100-105% power clean. Technique focus",
-                    "loadMin": 70,
-                    "loadMax": 85
                   },
                   {
                     "$ref": "ex-clean-pull",
@@ -4238,14 +4180,6 @@
                     "loadMax": 45
                   },
                   {
-                    "$ref": "ex-hang-power-clean",
-                    "notes": "Taper: light technique doubles, RPE 5 max",
-                    "sets": 3,
-                    "repsValue": 2,
-                    "loadMin": 35,
-                    "loadMax": 45
-                  },
-                  {
                     "$ref": "ex-rdl",
                     "sets": 3,
                     "loadMin": 60,
@@ -4383,14 +4317,6 @@
                     "loadMax": 40
                   },
                   {
-                    "$ref": "ex-hang-power-clean",
-                    "notes": "Taper week: minimal power work",
-                    "sets": 2,
-                    "repsValue": 2,
-                    "loadMin": 30,
-                    "loadMax": 40
-                  },
-                  {
                     "$ref": "ex-rdl",
                     "sets": 3,
                     "loadMin": 60,
@@ -4513,14 +4439,6 @@
                   },
                   {
                     "$routine": "warmup-power-clean"
-                  },
-                  {
-                    "$ref": "ex-hang-power-clean",
-                    "notes": "Final week: light singles, RPE 4 max",
-                    "sets": 2,
-                    "repsValue": 1,
-                    "loadMin": 40,
-                    "loadMax": 50
                   },
                   {
                     "$ref": "ex-hang-power-clean",
@@ -4677,14 +4595,6 @@
                     "repsValue": 3,
                     "loadMin": 40,
                     "loadMax": 55
-                  },
-                  {
-                    "$ref": "ex-hang-high-pull",
-                    "notes": "Week 20: high-pulls only, no catching impact",
-                    "sets": 2,
-                    "repsValue": 3,
-                    "loadMin": 40,
-                    "loadMax": 55
                   }
                 ]
               },
@@ -4807,14 +4717,6 @@
                   },
                   {
                     "$routine": "warmup-power-clean"
-                  },
-                  {
-                    "$ref": "ex-hang-high-pull",
-                    "notes": "Final week: light high-pulls, recovery emphasis",
-                    "sets": 2,
-                    "repsValue": 3,
-                    "loadMin": 40,
-                    "loadMax": 55
                   },
                   {
                     "$ref": "ex-hang-high-pull",

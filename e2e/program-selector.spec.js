@@ -470,7 +470,9 @@ test.describe('Settings Programs Tab', () => {
       await page.waitForTimeout(1000);
 
       // After import, the program should show "Active" badge
-      const activeIndicator = page.locator('text=Active');
+      const activeIndicator = page
+        .getByRole('option', { name: /2-Week Mobility/i })
+        .locator('text=Active');
       await expect(activeIndicator).toBeVisible({ timeout: 5000 });
     }
   });
@@ -499,7 +501,9 @@ test.describe('Settings Programs Tab', () => {
       await page.waitForTimeout(300);
 
       // The imported program should show as Active
-      const activeIndicator = page.locator('text=Active');
+      const activeIndicator = page
+        .getByRole('option', { name: /2-Week Mobility/i })
+        .locator('text=Active');
       await expect(activeIndicator).toBeVisible();
     }
   });

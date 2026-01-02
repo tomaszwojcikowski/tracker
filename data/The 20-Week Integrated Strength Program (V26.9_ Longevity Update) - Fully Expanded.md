@@ -15,6 +15,21 @@
 * 3 x 5 Scapular Pull-ups with 3s ISO-HOLD at top (No bouncy reps)
 * 20–30s Passive Bar Hang
 
+**Straight-Arm Band Pulldown Progression (Perform after Tendon Prep on Day 1 & Day 5)**
+
+**Progression Schedule (4-week cycle, repeat with band upgrade or load increase):**
+* **Week 1 (+ W5, W9, W13, W17):** 3×12 @ easy band, RPE 6
+* **Week 2 (+ W6, W10, W14, W18):** 3×15 @ same band, RPE 6–7
+* **Week 3 (+ W7, W11, W15, W19):** 4×12 @ same band, RPE 7
+* **Week 4 (+ W8, W12, W16, W20):** 2–3×12 (deload), RPE 5–6
+
+**Setup & Execution:**
+* Neutral/shoulder-width grip on band, slight hip hinge, ribs down
+* Tempo: 2-1-2-1 (down–pause–up–pause)
+* Lead with lats/scaps; finish with scapular depression
+* Stop well before elbow irritation; if elbows complain, drop 20–30% volume that week
+* If elbows feel sore post-session, substitute with light chest-supported rows for that week
+
 ## **Program Rules (Reference)**
 
 * **Weekly Pull Volume Cap:** 36–40 total pull-up reps/week.
@@ -111,6 +126,7 @@ Immediately reduce or skip cleans if you notice:
   * 15 Band External Rotations (per side)
   * 3 x 5 Scapular Pull-ups (3s Hold)
   * 20–30s Passive Bar Hang
+* **Straight-Arm Band Pulldowns:** 3×12 @ easy band, RPE 6 (See Global Protocols for progression schedule).
 * **Skill Practice (Crow Stand):** 3 sets of 10–20 seconds.
 
 **The Workout**
@@ -184,6 +200,7 @@ Immediately reduce or skip cleans if you notice:
   * 15 Band External Rotations (per side)
   * 3 x 5 Scapular Pull-ups (3s Hold)
   * 20–30s Passive Bar Hang
+* **Straight-Arm Band Pulldowns:** 3×12 @ easy band, RPE 6 (See Global Protocols for progression schedule).
 * **Skill Practice (HSPU Volume):** 3 sets of 3 reps.
 
 **Part 1: Primary Lifts**
@@ -211,6 +228,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×15 @ same band, RPE 6–7 (See Global Protocols for progression schedule).
 * **Skill Practice (Crow Stand):** 3 sets of 10–20 seconds.
 
 **The Workout**
@@ -260,6 +278,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×15 @ same band, RPE 6–7 (See Global Protocols for progression schedule).
 * **Skill Practice (HSPU Volume):** 3 sets of 3 reps.
 
 **Part 1: Primary Lifts**
@@ -288,6 +307,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 4×12 @ same band, RPE 7 (See Global Protocols for progression schedule).
 * **Skill Practice (Crow Stand):** 3 sets of 10–20 seconds.
 
 **The Workout**
@@ -337,6 +357,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 4×12 @ same band, RPE 7 (See Global Protocols for progression schedule).
 * **Skill Practice (HSPU Volume):** 3 sets of 3 reps.
 
 **Part 1: Primary Lifts**
@@ -365,6 +386,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 2–3×12 (deload), RPE 5–6 (See Global Protocols for progression schedule).
 * **Skill Practice:** Crow Stand – 2 sets of 10s (Easy).
 
 **The Workout**
@@ -411,6 +433,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 2–3×12 (deload), RPE 5–6 (See Global Protocols for progression schedule).
 
 **Part 1: Primary Lifts**
 
@@ -441,6 +464,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×12 @ easy band, RPE 6 (See Global Protocols for progression schedule).
 * **Skill Practice (Tuck Planche):** 3 sets of 6–8s Hold.
 
 **The Workout**
@@ -489,6 +513,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×12 @ easy band, RPE 6 (See Global Protocols for progression schedule).
 * **Skill Practice:** PPPU Lean – 3 sets of practice.
 
 **Part 1: Primary Lifts**
@@ -518,6 +543,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×15 @ same band, RPE 6–7 (See Global Protocols for progression schedule).
 * **Skill Practice:** Tuck Planche – 3 sets of 6–8s.
 
 **The Workout**
@@ -570,6 +596,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×15 @ same band, RPE 6–7 (See Global Protocols for progression schedule).
 * **Skill Practice:** PPPU Lean.
 
 **Part 1: Primary Lifts**
@@ -599,6 +626,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 4×12 @ same band, RPE 7 (See Global Protocols for progression schedule).
 * **Skill Practice:** Tuck Planche – 3 sets of 6–8s.
 
 **The Workout**
@@ -647,6 +675,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 4×12 @ same band, RPE 7 (See Global Protocols for progression schedule).
 * **Skill Practice:** PPPU Lean.
 
 **Part 1: Primary Lifts**
@@ -676,6 +705,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 2–3×12 (deload), RPE 5–6 (See Global Protocols for progression schedule).
 * **Skill Practice:** Tuck Planche (Easy practice).
 
 **The Workout**
@@ -722,6 +752,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 2–3×12 (deload), RPE 5–6 (See Global Protocols for progression schedule).
 
 **Part 1: Primary Lifts**
 
@@ -752,6 +783,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×12 @ easy band, RPE 6 (See Global Protocols for progression schedule).
 * **Skill Practice:** None listed (Focus on Cluster setup).
 
 **The Workout**
@@ -797,6 +829,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×12 @ easy band, RPE 6 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -820,6 +853,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×15 @ same band, RPE 6–7 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -865,10 +899,11 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×15 @ same band, RPE 6–7 (See Global Protocols for progression schedule).
 
 **The Workout**
 
-* **A1: Ring Support Holds OR Active Hang (Neutral):** 3 sets of 30 seconds.
+* **A1: Ring Support Holds (slight RTO) OR Active Hang (Neutral):** 3 sets of 30 seconds.
 * **B1: Chest Supported Row:** 2 sets of 12 reps.
 * **Core (EMOM with BSS):** Dead Bugs – easy pace (3-min EMOM shared with BSS).
 
@@ -888,6 +923,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 4×12 @ same band, RPE 7 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -933,6 +969,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 4×12 @ same band, RPE 7 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -956,6 +993,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, **5s Hang (Reduced)**.
+* **Straight-Arm Band Pulldowns:** 2–3×12 (deload), RPE 5–6 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -1025,6 +1063,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×12 @ easy band, RPE 6 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -1070,6 +1109,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×12 @ easy band, RPE 6 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -1094,6 +1134,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×15 @ same band, RPE 6–7 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -1139,6 +1180,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×15 @ same band, RPE 6–7 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -1163,6 +1205,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 4×12 @ same band, RPE 7 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -1212,6 +1255,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 4×12 @ same band, RPE 7 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -1236,6 +1280,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 2–3×12 (deload), RPE 5–6 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -1281,6 +1326,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 2–3×12 (deload), RPE 5–6 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -1308,6 +1354,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×12 @ easy band, RPE 6 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -1353,6 +1400,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×12 @ easy band, RPE 6 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -1376,6 +1424,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×15 @ same band, RPE 6–7 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -1421,6 +1470,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 3×15 @ same band, RPE 6–7 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -1444,6 +1494,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 2–3×12 (deload), RPE 5–6 (See Global Protocols for progression schedule).
 
 **The Workout**
 
@@ -1488,6 +1539,7 @@ Immediately reduce or skip cleans if you notice:
 
 * **Rower Protocol:** Minute 1–2 Easy, Minute 3–4 Moderate, Minute 5 (3 x 10s Sprints).
 * **Tendon Prep:** 20 Band Pull-Aparts, 15 Ext Rotations/side, 3x5 Scap Pull-ups, 30s Hang.
+* **Straight-Arm Band Pulldowns:** 2–3×12 (deload), RPE 5–6 (See Global Protocols for progression schedule).
 
 **The Workout**
 

@@ -60,6 +60,18 @@
           "20-30s Passive Bar Hang"
         ]
       },
+      "straightArmPulldownProgression": {
+        "description": "Lat and scapular activation on Day 1 & Day 5 warm-ups",
+        "appliesTo": "All weeks",
+        "cycle": "4-week progression (W1: 3x12 RPE6, W2: 3x15 RPE6-7, W3: 4x12 RPE7, W4: Deload 2-3x12 RPE5-6)",
+        "notes": "Stop before elbow irritation; substitute with chest-supported rows if needed"
+      },
+      "rtoRingSupportHolds": {
+        "description": "Moderate RTO ring support holds for shoulder stability",
+        "appliesTo": "Week 10 Day 5",
+        "prescription": "2 sets x 10-20s, slight turnout, RPE 6",
+        "notes": "Integrated into existing Ring Support Hold exercises; switch to parallel holds if anterior pinch occurs"
+      },
       "repBeforeLoadRule": {
         "description": "Double Progression: Add weight only when hitting top rep range for all sets with perfect form"
       },
@@ -178,6 +190,97 @@
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
             "restSeconds": 0
+          }
+        ]
+      },
+      {
+        "id": "warmup-straight-arm-pulldowns",
+        "name": "Straight-Arm Band Pulldowns",
+        "description": "Lat and scapular activation with band pulldowns. 4-week progression cycle.",
+        "category": "warmup",
+        "estimatedDuration": 3,
+        "targetAreas": [
+          "lats",
+          "scapula",
+          "shoulders"
+        ],
+        "progressionCycle": {
+          "weeks": 4,
+          "week1": {
+            "sets": 3,
+            "reps": 12,
+            "load": "easy band",
+            "rpe": 6
+          },
+          "week2": {
+            "sets": 3,
+            "reps": 15,
+            "load": "same band",
+            "rpe": "6-7"
+          },
+          "week3": {
+            "sets": 4,
+            "reps": 12,
+            "load": "same band",
+            "rpe": 7
+          },
+          "week4": {
+            "sets": 2,
+            "reps": 12,
+            "load": "same band (deload)",
+            "rpe": "5-6"
+          }
+        },
+        "exercises": [
+          {
+            "exerciseName": "Straight-Arm Band Pulldown",
+            "category": "warmup",
+            "sets": 3,
+            "repsType": "reps",
+            "repsValue": 12,
+            "loadUnit": "band",
+            "tempo": "2-1-2-1",
+            "restSeconds": 45,
+            "cues": [
+              "Neutral/shoulder-width grip",
+              "Slight hip hinge, ribs down",
+              "Lead with lats/scaps",
+              "Finish with scapular depression"
+            ],
+            "notes": "Avoid elbow irritation; stop well before pain. If sore, substitute with chest-supported rows."
+          }
+        ]
+      },
+      {
+        "id": "warmup-rto-ring-support",
+        "name": "RTO Ring Support Holds",
+        "description": "Ring turn-out (RTO) support hold for shoulder stability and posterior chain activation.",
+        "category": "warmup",
+        "estimatedDuration": 2,
+        "targetAreas": [
+          "shoulders",
+          "scapula",
+          "chest",
+          "core"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Ring Support Holds (RTO)",
+            "category": "warmup",
+            "sets": 2,
+            "repsType": "time",
+            "repsMin": 10,
+            "repsMax": 20,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "restSeconds": 60,
+            "cues": [
+              "Rings low; straight arms, ribs down",
+              "Turn rings out slightly (10-30°)",
+              "Hold scapular depression",
+              "Avoid shrugging; smooth, no shaking"
+            ],
+            "notes": "If anterior shoulder pinch → switch to parallel support holds (no turnout). Skill/tendon work only."
           }
         ]
       },
@@ -1788,6 +1891,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-crow-stand"
                   },
                   {
@@ -1889,6 +1995,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-hspu-volume"
                   },
                   {
@@ -1933,6 +2042,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-crow-stand"
@@ -2036,6 +2148,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-hspu-volume"
                   },
                   {
@@ -2084,6 +2199,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-crow-stand"
@@ -2196,6 +2314,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-hspu-volume"
                   },
                   {
@@ -2245,6 +2366,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-crow-stand"
@@ -2350,6 +2474,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-weighted-pull-ups",
                     "sets": 2,
                     "repsValue": 3,
@@ -2397,6 +2524,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-tuck-planche"
@@ -2494,6 +2624,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-pppu-lean"
                   },
                   {
@@ -2549,6 +2682,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-tuck-planche"
@@ -2650,6 +2786,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-pppu-lean"
                   },
                   {
@@ -2702,6 +2841,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-tuck-planche"
@@ -2798,6 +2940,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-pppu-lean"
                   },
                   {
@@ -2851,6 +2996,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-tuck-planche",
@@ -2962,6 +3110,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-weighted-pull-ups",
                     "sets": 2,
                     "repsValue": 3,
@@ -3009,6 +3160,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-cluster-pull-ups-neutral",
@@ -3100,6 +3254,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-neutral-grip-weighted-pull-ups",
                     "loadMin": 5,
                     "loadMax": 10,
@@ -3144,6 +3301,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-cluster-pull-ups-neutral",
@@ -3242,7 +3402,15 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$ref": "ex-ring-support-holds"
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
+                    "$routine": "warmup-rto-ring-support"
+                  },
+                  {
+                    "$ref": "ex-ring-support-holds",
+                    "exerciseName": "Ring Support Holds (slight RTO)",
+                    "notes": "OR Active Hang (Neutral)"
                   },
                   {
                     "$ref": "ex-chest-supported-row"
@@ -3283,6 +3451,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-cluster-pull-ups-neutral",
@@ -3373,6 +3544,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-neutral-grip-weighted-pull-ups",
                     "sets": 2,
                     "repsValue": 4,
@@ -3420,6 +3594,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-cluster-pull-ups-neutral",
@@ -3507,6 +3684,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 2,
                     "repsValue": 3,
@@ -3557,6 +3737,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-pull-ups-amrap-minus",
@@ -3650,6 +3833,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-weighted-pull-ups",
                     "sets": 2,
                     "repsValue": 4,
@@ -3690,6 +3876,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-pull-ups",
@@ -3785,6 +3974,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-weighted-pull-ups",
                     "repsValue": 4,
                     "loadMin": 16,
@@ -3824,6 +4016,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-pull-ups",
@@ -3925,6 +4120,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-weighted-pull-ups",
                     "loadMin": 17.5,
                     "loadMax": 17.5,
@@ -3967,6 +4165,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-pull-ups",
@@ -4065,6 +4266,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-weighted-pull-ups",
                     "sets": 2,
                     "repsValue": 3,
@@ -4112,6 +4316,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-pull-ups",
@@ -4215,6 +4422,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-archer-negatives",
                     "notes": "Archer Tempo Rule: 5-6 second eccentric. NO pause at bottom"
                   },
@@ -4248,6 +4458,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-pull-ups",
@@ -4352,6 +4565,9 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
                     "$ref": "ex-archer-negatives",
                     "sets": 5,
                     "repsValue": 3,
@@ -4388,6 +4604,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-pull-ups",
@@ -4478,6 +4697,9 @@
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
                     "$ref": "ex-pull-ups",

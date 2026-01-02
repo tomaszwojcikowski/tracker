@@ -133,6 +133,18 @@
           "items": { "type": "string" },
           "description": "Body areas or movement patterns this routine targets (e.g., ['shoulders', 'upper-back', 'pulling'])"
         },
+        "progressionCycle": {
+          "type": ["object", "null"],
+          "description": "Optional progression cycle metadata for routines with repeating week-based progressions (e.g., a 4-week cycle)",
+          "properties": {
+            "weeks": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Length of the progression cycle in weeks"
+            }
+          },
+          "additionalProperties": true
+        },
         "exercises": {
           "type": "array",
           "minItems": 1,

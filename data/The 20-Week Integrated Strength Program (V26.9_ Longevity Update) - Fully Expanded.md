@@ -155,6 +155,12 @@ Immediately reduce or skip cleans if you notice:
 
 ### **Day 3: Posterior Chain \+ Knee Health**
 
+**Power Cleans (Block 1: 4 × 3 @ 52–60 kg)**
+
+* Perform after Day 3 warm-up
+* Technique focus: vertical bar path, fast turnover
+* **RPE 6–7 only.** Add 2.5kg only when all reps smooth.
+
 **The Workout**
 
 * **A1: Romanian Deadlift (RDL):** 4 sets of 8 reps @ \~85kg.
@@ -382,6 +388,11 @@ Immediately reduce or skip cleans if you notice:
 * Omit **Hip CARs** if the joints feel fatigued.
 
 ### **Day 3: Posterior Chain (Deload)**
+
+**Power Cleans (Deload: 3 × 3 @ 40–50 kg)**
+
+* Light technique focus, no grinding
+* **RPE 5 max**
 
 **The Workout**
 
@@ -968,7 +979,9 @@ Immediately reduce or skip cleans if you notice:
 
 **The Workout**
 
-* **A1: Goblet Squats:** 2 sets of 8 reps (Light, Deload).
+* **A1: RDL:** 2 sets of 6 reps (Very light).
+* **B1: Goblet Squats:** 2 sets of 8 reps (Light, Deload).
+* **C1: Face Pulls:** 2 sets of 12 reps.
 
 **Cool Down (Post-Hinge)**
 
@@ -1457,6 +1470,8 @@ Immediately reduce or skip cleans if you notice:
 **The Workout**
 
 * **A1: RDL:** 2 sets of 6 reps (Very Light).
+* **B1: Goblet Squats:** 2 sets of 8 reps (Very Light).
+* **C1: Face Pulls:** 2 sets of 15 reps.
 * **B2: Goblet Squats:** 2 sets of 8 reps (Very Light).
 * **C1: Face Pulls:** 2 sets of 15 reps.
 

@@ -1188,4 +1188,4 @@
 
 ---
 
-*Document generated from workout-plan-v2.3.json*
+*Document generated from legacy workout-plan-v2.3.json (removed); current plan lives in workout-plan-v2.5.json*

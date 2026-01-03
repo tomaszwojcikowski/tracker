@@ -177,12 +177,6 @@ Promise.all([
             const result = loadWorkoutPlan(scheduleData);
             schedule = result.schedule;
             metadata = result.metadata;
-            console.log(`Loaded workout plan: "${metadata.name}" (format v${metadata.version})`);
-            console.log(`  Duration: ${metadata.durationWeeks} weeks`);
-            if (metadata.phases && metadata.phases.length > 0) {
-                console.log(`  Phases: ${metadata.phases.length}`);
-                console.log(`  Goals: ${(metadata.goals || []).join(', ')}`);
-            }
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
             throw new Error(`Invalid workout plan format: ${errorMessage}`);
@@ -213,7 +207,6 @@ Promise.all([
         // Build the complete schedule with standard warmups/cooldowns
         buildCompleteSchedule();
 
-        console.log(`Loaded ${schedule.length} schedule items and ${exercisesData.length} exercises`);
 
         // Store metadata in a namespaced global for potential future use
         // This allows components to access plan metadata without prop drilling
@@ -229,9 +222,13 @@ Promise.all([
         initializeDefaultProgram(scheduleData);
 
         // Store program data in registry for access by other modules
+        // ONLY if the loaded plan matches the active program ID
         const registry = getProgramRegistry();
+
+        // DEBUG: Log registry state after initialization
+
         const activeProgram = registry.getActiveProgram();
-        if (activeProgram) {
+        if (activeProgram && activeProgram.id === metadata.id) {
             registry.setProgramData(activeProgram.id, {
                 schedule: schedule,
                 metadata: metadata,
@@ -244,7 +241,6 @@ Promise.all([
         if (migrationResult) {
             const status = getMigrationStatus();
             if (status && status.keysMigrated > 0) {
-                console.log(`Storage migration completed: ${status.keysMigrated} keys migrated to program-scoped namespace`);
             }
         } else {
             console.warn('Storage migration failed - some data may not be isolated per program');
@@ -254,7 +250,7 @@ Promise.all([
         root.render(
             <React.Suspense fallback={<LoadingScreen />}>
                 <ErrorBoundary>
-                    <ProgramProvider initialProgramData={scheduleData}>
+                    <ProgramProvider>
                         <PWAApp>
                             <App />
                         </PWAApp>

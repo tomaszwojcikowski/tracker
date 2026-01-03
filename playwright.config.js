@@ -25,7 +25,7 @@ export default defineConfig({
   workers: process.env.CI ? 4 : undefined,
 
   /* Reporter to use */
-  reporter: process.env.CI ? 'github' : 'html',
+  reporter: process.env.CI ? 'github' : [['html', { open: 'never' }]],
 
   /* Shared settings for all the projects below */
   use: {

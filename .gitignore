@@ -9,7 +9,6 @@ test-results/
 playwright-report/
 
 # Copied during build (source files in data/ and root)
-public/workout-plan-v2.3.json
 public/exercises.json
 public/colors.css
 coverage/

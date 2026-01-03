@@ -455,9 +455,9 @@ export async function importProgram(
       metadata: loadedPlan.metadata,
     });
 
-    // Set as active if requested
+    // Set as active if requested (force to respect user choice on import)
     if (setActive) {
-      registry.setActiveProgram(manifest.id);
+      registry.setActiveProgram(manifest.id, { force: true });
     }
 
     return {

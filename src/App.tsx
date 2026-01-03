@@ -5,7 +5,7 @@
  * Migrated from App.jsx as part of TypeScript migration.
  */
 
-import React, { useState, useEffect, useCallback, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useCallback, useRef, lazy, Suspense } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import './main.css';
 import { NavigationBar } from './components/navigation';
@@ -103,6 +103,10 @@ const App: React.FC = () => {
     const [currentWeek, setCurrentWeek] = useState<number>(1);
     const [activeDay, setActiveDay] = useState<ValidDay>(1);
     const { currentProgramId, switchProgram, isLoading: programLoading } = useProgram();
+    // Keep track of the *requested* programId (URL/localStorage context), even if the program
+    // isn't installed/loaded yet. This enables stable URL routing and persistence.
+    const [requestedProgramId, setRequestedProgramId] = useState<string | undefined>(undefined);
+    const prevProgramIdRef = useRef<string | null>(null);
     const [isInitialized, setIsInitialized] = useState<boolean>(false);
     // Initialize onboarding state directly to avoid flash of content
     const [showOnboarding, setShowOnboarding] = useState<boolean>(() => !hasCompletedOnboarding());
@@ -127,6 +131,8 @@ const App: React.FC = () => {
 
     // Initialize state from URL or localStorage on mount
     useEffect(() => {
+        if (isInitialized) return;
+
         let cancelled = false;
         const initialize = async () => {
             const urlParams = getUrlParams();
@@ -153,12 +159,12 @@ const App: React.FC = () => {
             }
 
             const desiredProgramId = urlParams.programId ?? savedState?.programId;
-            if (desiredProgramId && desiredProgramId !== currentProgramId) {
-                try {
-                    await switchProgram(desiredProgramId);
-                } catch (error) {
-                    console.error('Failed to switch program from URL/state:', error);
-                }
+            setRequestedProgramId(desiredProgramId ?? undefined);
+
+            // Only the URL explicitly controls program switching on initialization.
+            // The ProgramRegistry already persists the active program for normal reloads.
+            if (urlParams.programId && urlParams.programId !== currentProgramId) {
+                await switchProgram(urlParams.programId);
             }
 
             if (!cancelled) {
@@ -171,13 +177,30 @@ const App: React.FC = () => {
         return () => {
             cancelled = true;
         };
-    }, [currentProgramId, switchProgram]);
+    }, [currentProgramId, isInitialized, switchProgram]);
+
+    // Keep URL/localStorage programId aligned with real program switches (e.g. via Settings),
+    // but avoid overwriting an explicit URL/localStorage programId that couldn't be loaded.
+    useEffect(() => {
+        const prevProgramId = prevProgramIdRef.current;
+        prevProgramIdRef.current = currentProgramId;
+
+        if (!isInitialized) return;
+        if (!currentProgramId) return;
+
+        // If we're following along with the active program (no explicit request, or we were
+        // previously aligned), keep the requestedProgramId in sync.
+        if (requestedProgramId === undefined || requestedProgramId === prevProgramId) {
+            setRequestedProgramId(currentProgramId);
+        }
+    }, [currentProgramId, isInitialized, requestedProgramId]);
 
     // Update URL and save state whenever it changes
     useEffect(() => {
         if (!isInitialized) return;
 
-        const state: AppStateLocal = { viewMode, activeTab, currentWeek, activeDay, programId: currentProgramId };
+        const effectiveProgramId = requestedProgramId ?? (currentProgramId ?? undefined);
+        const state: AppStateLocal = { viewMode, activeTab, currentWeek, activeDay, programId: effectiveProgramId };
 
         // Save to localStorage (always sync localStorage)
         saveAppState(state as Parameters<typeof saveAppState>[0]);
@@ -201,8 +224,13 @@ const App: React.FC = () => {
                 if (state.activeTab !== undefined) setActiveTab(state.activeTab);
                 if (state.currentWeek !== undefined) setCurrentWeek(state.currentWeek);
                 if (state.activeDay !== undefined) setActiveDay(state.activeDay);
-                if (state.programId && state.programId !== currentProgramId) {
-                    void switchProgram(state.programId);
+                if (state.programId) {
+                    setRequestedProgramId(state.programId);
+                    if (state.programId !== currentProgramId) {
+                        void switchProgram(state.programId).catch((error) => {
+                            console.warn('Failed to switch program from history state:', error);
+                        });
+                    }
                 }
             } else {
                 // No state in history (e.g., initial page load), parse from URL
@@ -225,6 +253,15 @@ const App: React.FC = () => {
                         setCurrentWeek(urlParams.week);
                     }
                 }
+
+                if (urlParams.programId) {
+                    setRequestedProgramId(urlParams.programId);
+                    if (urlParams.programId !== currentProgramId) {
+                        void switchProgram(urlParams.programId).catch((error) => {
+                            console.warn('Failed to switch program from URL popstate:', error);
+                        });
+                    }
+                }
             }
         };
 
@@ -240,7 +277,8 @@ const App: React.FC = () => {
         setViewMode('workout');
 
         // Push new entry to history
-        const state: AppStateLocal = { viewMode: 'workout', activeTab, currentWeek, activeDay: day as ValidDay, programId: currentProgramId };
+        const effectiveProgramId = requestedProgramId ?? (currentProgramId ?? undefined);
+        const state: AppStateLocal = { viewMode: 'workout', activeTab, currentWeek, activeDay: day as ValidDay, programId: effectiveProgramId };
         const newUrl = updateUrl(state);
         window.history.pushState(state, '', newUrl);
     };
@@ -250,7 +288,8 @@ const App: React.FC = () => {
 
         setViewMode('empty-workout');
 
-        const state: AppStateLocal = { viewMode: 'empty-workout', activeTab, currentWeek, activeDay, programId: currentProgramId };
+        const effectiveProgramId = requestedProgramId ?? (currentProgramId ?? undefined);
+        const state: AppStateLocal = { viewMode: 'empty-workout', activeTab, currentWeek, activeDay, programId: effectiveProgramId };
         const newUrl = buildUrl(state as Parameters<typeof buildUrl>[0]);
         window.history.pushState(state, '', newUrl);
     };
@@ -260,7 +299,8 @@ const App: React.FC = () => {
         setViewMode('tab');
         setActiveTab('train');
 
-        const state: AppStateLocal = { viewMode: 'tab', activeTab: 'train', currentWeek, activeDay, programId: currentProgramId };
+        const effectiveProgramId = requestedProgramId ?? (currentProgramId ?? undefined);
+        const state: AppStateLocal = { viewMode: 'tab', activeTab: 'train', currentWeek, activeDay, programId: effectiveProgramId };
         const newUrl = updateUrl(state);
         window.history.replaceState(state, '', newUrl);
     };
@@ -269,7 +309,8 @@ const App: React.FC = () => {
         setActiveTab(newTab);
 
         // Push new entry to history for tab changes
-        const state: AppStateLocal = { viewMode: 'tab', activeTab: newTab, currentWeek, activeDay, programId: currentProgramId };
+        const effectiveProgramId = requestedProgramId ?? (currentProgramId ?? undefined);
+        const state: AppStateLocal = { viewMode: 'tab', activeTab: newTab, currentWeek, activeDay, programId: effectiveProgramId };
         const newUrl = updateUrl(state);
         window.history.pushState(state, '', newUrl);
     };
@@ -282,7 +323,11 @@ const App: React.FC = () => {
         // Reset week to 1 when switching programs
         setCurrentWeek(1);
 
-        void switchProgram(newProgramId);
+        setRequestedProgramId(newProgramId);
+
+        void switchProgram(newProgramId).catch((error) => {
+            console.warn('Failed to switch program from UI:', error);
+        });
 
         // Update URL with new program
         const state: AppStateLocal = { viewMode, activeTab, currentWeek: 1, activeDay, programId: newProgramId };

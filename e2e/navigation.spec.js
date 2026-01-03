@@ -64,7 +64,7 @@ test.describe('Navigation', () => {
 
   test('back from workout stays inside app', async ({ page }) => {
     // Start Day 1 workout
-    await page.getByRole('button', { name: /start day 1 workout/i }).click();
+    await page.locator('button[aria-label="Start Day 1 workout"]:visible').first().click();
     await page.waitForTimeout(500);
 
     // Click back
@@ -79,17 +79,17 @@ test.describe('Navigation', () => {
 
   test('custom workout persists on reload', async ({ page }) => {
     // Start a custom (empty) workout
-    await page.getByRole('button', { name: /start custom workout/i }).click();
+    await page.locator('button[aria-label="Start an empty workout"]:visible').first().click();
     await page.waitForTimeout(500);
 
     // Verify custom workout view
-    await expect(page.getByText(/custom workout/i)).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Custom Workout' })).toBeVisible();
     expect(page.url()).toContain('view=empty-workout');
 
     // Reload and ensure we stay in custom workout
     await page.reload();
     await page.waitForTimeout(500);
-    await expect(page.getByText(/custom workout/i)).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Custom Workout' })).toBeVisible();
     expect(page.url()).toContain('view=empty-workout');
   });
 });

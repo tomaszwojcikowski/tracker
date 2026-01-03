@@ -469,11 +469,9 @@ test.describe('Settings Programs Tab', () => {
       await sampleProgram.click();
       await page.waitForTimeout(1000);
 
-      // After import, the program should show "Active" badge
-      const activeIndicator = page
-        .getByRole('option', { name: /2-Week Mobility/i })
-        .locator('text=Active');
-      await expect(activeIndicator).toBeVisible({ timeout: 5000 });
+      // After import, the installed program card should be selected (active)
+      const activeProgramCard = page.locator('button[role="option"]:has-text("2-Week Mobility")').first();
+      await expect(activeProgramCard).toHaveAttribute('aria-selected', 'true', { timeout: 10000 });
     }
   });
 
@@ -488,11 +486,46 @@ test.describe('Settings Programs Tab', () => {
 
     if (await sampleProgram.isVisible()) {
       await sampleProgram.click();
-      await page.waitForTimeout(1000);
+      // Wait until the program is actually active before reloading
+      const activeProgramCardBeforeReload = page.locator('button[role="option"]:has-text("2-Week Mobility")').first();
+      await expect(activeProgramCardBeforeReload).toHaveAttribute('aria-selected', 'true', { timeout: 10000 });
+
+      // Verify active program ID is persisted before reload
+      const activeProgramIdBeforeReload = await page.evaluate(() => {
+        const raw = localStorage.getItem('tracker_active_program');
+        return raw ? JSON.parse(raw) : null;
+      });
+      expect(activeProgramIdBeforeReload).toBe('mobility-flexibility-2week');
+
+      // DEBUG: Check programs registry before reload
+      const registryBeforeReload = await page.evaluate(() => {
+        const raw = localStorage.getItem('tracker_program_registry');
+        return raw ? JSON.parse(raw) : null;
+      });
+      // Verify the imported program is in the registry
+      const mobilityProgramBeforeReload = registryBeforeReload?.find(p => p.id === 'mobility-flexibility-2week');
+      expect(mobilityProgramBeforeReload).toBeTruthy();
 
       // Reload the page
       await page.reload();
       await page.waitForSelector('button[aria-label="Settings"]:visible', { timeout: 15000 });
+
+      // DEBUG: Check programs registry after reload - BEFORE app initializes fully
+      const registryAfterReload = await page.evaluate(() => {
+        const raw = localStorage.getItem('tracker_program_registry');
+        return raw ? JSON.parse(raw) : null;
+      });
+      // Verify the imported program is still in the registry after reload
+      const mobilityProgramAfterReload = registryAfterReload?.find(p => p.id === 'mobility-flexibility-2week');
+      expect(mobilityProgramAfterReload).toBeTruthy();
+
+      // Verify active program ID remains persisted after reload
+      const activeProgramIdAfterReload = await page.evaluate(() => {
+        const raw = localStorage.getItem('tracker_active_program');
+        return raw ? JSON.parse(raw) : null;
+      });
+
+      expect(activeProgramIdAfterReload).toBe('mobility-flexibility-2week');
 
       // Navigate back to Settings > Programs
       await page.locator('button[aria-label="Settings"]:visible').click();
@@ -500,11 +533,9 @@ test.describe('Settings Programs Tab', () => {
       await page.locator('button:has-text("Programs")').click();
       await page.waitForTimeout(300);
 
-      // The imported program should show as Active
-      const activeIndicator = page
-        .getByRole('option', { name: /2-Week Mobility/i })
-        .locator('text=Active');
-      await expect(activeIndicator).toBeVisible();
+      // The imported program should still be selected (active)
+      const activeProgramCard = page.locator('button[role="option"]:has-text("2-Week Mobility")').first();
+      await expect(activeProgramCard).toHaveAttribute('aria-selected', 'true', { timeout: 10000 });
     }
   });
 });

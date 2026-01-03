@@ -11,8 +11,56 @@
  * - Program switching
  */
 
-import { safeGetJSON, safeSetJSON } from '../utils/storage';
+// NOTE: We inline safe localStorage wrappers here to avoid circular dependencies
+// with storage.ts -> storageNamespace.ts -> programRegistry.ts
+
 import type { WorkoutPlanMetadata, InternalSchedule } from '../workout-plan-utils';
+
+// ============================================================================
+// INLINE STORAGE UTILITIES (to avoid circular dependency)
+// ============================================================================
+
+/**
+ * Safely get and parse JSON from localStorage (inlined to avoid circular dep)
+ */
+function registrySafeGetJSON<T>(key: string, defaultValue: T): T;
+function registrySafeGetJSON<T>(key: string): T | null;
+function registrySafeGetJSON<T>(key: string, defaultValue?: T): T | null {
+  try {
+    const item = localStorage.getItem(key);
+    if (item === null) return defaultValue ?? null;
+    return JSON.parse(item) as T;
+  } catch (error) {
+    console.warn(`Failed to parse JSON for key "${key}":`, error);
+    return defaultValue ?? null;
+  }
+}
+
+/**
+ * Safely stringify and save JSON to localStorage (inlined to avoid circular dep)
+ */
+function registrySafeSetJSON<T>(key: string, value: T): boolean {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch (error) {
+    console.error(`Failed to save JSON for key "${key}":`, error);
+    return false;
+  }
+}
+
+/**
+ * Safely remove item from localStorage (inlined to avoid circular dep)
+ */
+function registrySafeRemove(key: string): boolean {
+  try {
+    localStorage.removeItem(key);
+    return true;
+  } catch (error) {
+    console.error(`Failed to remove key "${key}":`, error);
+    return false;
+  }
+}
 
 // ============================================================================
 // TYPES
@@ -76,7 +124,7 @@ export interface ProgramRegistry {
   /** Get the active program ID */
   getActiveProgramId(): string | null;
   /** Set the active program by ID */
-  setActiveProgram(programId: string): void;
+  setActiveProgram(programId: string, options?: { force?: boolean }): void;
   /** Get a program by its ID */
   getProgramById(programId: string): ProgramManifest | undefined;
   /** Register a new program */
@@ -125,8 +173,14 @@ const REGISTRY_STORAGE_KEY = 'tracker_program_registry';
 /** localStorage key for the active program ID */
 const ACTIVE_PROGRAM_STORAGE_KEY = 'tracker_active_program';
 
+/** localStorage key for the locked active program ID (protects user-chosen program from overrides) */
+const LOCKED_ACTIVE_PROGRAM_STORAGE_KEY = 'tracker_locked_active_program';
+
+/** localStorage key prefix for persisted program data (schedule + metadata) */
+const PROGRAM_DATA_STORAGE_PREFIX = 'tracker_program_data:';
+
 /** Default program ID (the built-in program) */
-export const DEFAULT_PROGRAM_ID = 'oneplus-12-pro-tracker-v1';
+export const DEFAULT_PROGRAM_ID = 'integrated-strength-v26-9';
 
 // ============================================================================
 // SINGLETON REGISTRY INSTANCE
@@ -162,12 +216,22 @@ class ProgramRegistryImpl implements ProgramRegistry {
   private programs: Map<string, ProgramManifest>;
   private programData: Map<string, ProgramData>;
   private activeProgramId: string | null;
+  private lockedActiveProgramId: string | null;
+  private readonly instanceId: number;
+  private static nextInstanceId = 1;
 
   constructor() {
+    this.instanceId = ProgramRegistryImpl.nextInstanceId++;
     this.programs = new Map();
     this.programData = new Map();
     this.activeProgramId = null;
+    this.lockedActiveProgramId = null;
     this.loadFromStorage();
+  }
+
+  // Add method to get instance ID for debugging
+  getInstanceId(): number {
+    return this.instanceId;
   }
 
   /**
@@ -175,7 +239,7 @@ class ProgramRegistryImpl implements ProgramRegistry {
    */
   private loadFromStorage(): void {
     // Load programs
-    const storedPrograms = safeGetJSON<StoredProgramManifest[]>(REGISTRY_STORAGE_KEY, []);
+    const storedPrograms = registrySafeGetJSON<StoredProgramManifest[]>(REGISTRY_STORAGE_KEY, []);
     for (const stored of storedPrograms) {
       const manifest: ProgramManifest = {
         ...stored,
@@ -185,7 +249,21 @@ class ProgramRegistryImpl implements ProgramRegistry {
     }
 
     // Load active program ID
-    this.activeProgramId = safeGetJSON<string | null>(ACTIVE_PROGRAM_STORAGE_KEY, null);
+    this.activeProgramId = registrySafeGetJSON<string | null>(ACTIVE_PROGRAM_STORAGE_KEY, null);
+    this.lockedActiveProgramId = registrySafeGetJSON<string | null>(LOCKED_ACTIVE_PROGRAM_STORAGE_KEY, null);
+
+    // If we have an active program but no locked value (legacy state), lock it to preserve user choice
+    if (this.activeProgramId && !this.lockedActiveProgramId) {
+      this.lockedActiveProgramId = this.activeProgramId;
+    }
+
+    // Load persisted program data for each known program
+    for (const programId of this.programs.keys()) {
+      const storedData = registrySafeGetJSON<ProgramData | null>(`${PROGRAM_DATA_STORAGE_PREFIX}${programId}`, null);
+      if (storedData) {
+        this.programData.set(programId, storedData);
+      }
+    }
   }
 
   /**
@@ -198,8 +276,9 @@ class ProgramRegistryImpl implements ProgramRegistry {
         installedAt: manifest.installedAt.toISOString(),
       })
     );
-    safeSetJSON(REGISTRY_STORAGE_KEY, storedPrograms);
-    safeSetJSON(ACTIVE_PROGRAM_STORAGE_KEY, this.activeProgramId);
+    registrySafeSetJSON(REGISTRY_STORAGE_KEY, storedPrograms);
+    registrySafeSetJSON(ACTIVE_PROGRAM_STORAGE_KEY, this.activeProgramId);
+    registrySafeSetJSON(LOCKED_ACTIVE_PROGRAM_STORAGE_KEY, this.lockedActiveProgramId);
   }
 
   /**
@@ -226,11 +305,25 @@ class ProgramRegistryImpl implements ProgramRegistry {
     return this.activeProgramId;
   }
 
-  setActiveProgram(programId: string): void {
+  setActiveProgram(programId: string, options?: { force?: boolean }): void {
     if (!this.programs.has(programId)) {
       throw new Error(`Program with ID "${programId}" not found in registry`);
     }
+    const force = options?.force ?? false;
+
+    // Prevent silent overrides of a user-locked active program unless explicitly forced
+    if (this.lockedActiveProgramId && this.lockedActiveProgramId !== programId && !force) {
+      console.warn('[ProgramRegistry] setActiveProgram ignored due to locked active program', {
+        instanceId: this.instanceId,
+        programId,
+        lockedActiveProgramId: this.lockedActiveProgramId,
+      });
+      return;
+    }
     this.activeProgramId = programId;
+    if (force) {
+      this.lockedActiveProgramId = programId;
+    }
     this.updateActiveFlags();
     this.saveToStorage();
   }
@@ -245,6 +338,7 @@ class ProgramRegistryImpl implements ProgramRegistry {
     // If this is the first program, set it as active
     if (this.programs.size === 1 && !this.activeProgramId) {
       this.activeProgramId = manifest.id;
+      this.lockedActiveProgramId = manifest.id;
     }
 
     this.updateActiveFlags();
@@ -304,6 +398,7 @@ class ProgramRegistryImpl implements ProgramRegistry {
     this.programs.delete(programId);
     // Also remove program data
     this.programData.delete(programId);
+    registrySafeRemove(`${PROGRAM_DATA_STORAGE_PREFIX}${programId}`);
     this.updateActiveFlags();
     this.saveToStorage();
     return true;
@@ -311,6 +406,7 @@ class ProgramRegistryImpl implements ProgramRegistry {
 
   setProgramData(programId: string, data: ProgramData): void {
     this.programData.set(programId, data);
+    registrySafeSetJSON(`${PROGRAM_DATA_STORAGE_PREFIX}${programId}`, data);
   }
 
   getProgramData(programId: string): ProgramData | null {
@@ -365,8 +461,8 @@ export function initializeDefaultProgram(defaultPlanJson: WorkoutPlanJson): void
   // If registry is empty, register the default program
   if (programs.length === 0) {
     const manifest = extractManifestFromPlan(defaultPlanJson);
-    manifest.dataPath = '/workout-plan-v2.4.json';
+    manifest.dataPath = '/workout-plan-v2.5.json';
     registry.registerProgram(manifest);
-    registry.setActiveProgram(manifest.id);
+    registry.setActiveProgram(manifest.id, { force: true });
   }
 }

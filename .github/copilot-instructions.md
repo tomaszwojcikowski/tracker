@@ -111,8 +111,6 @@ tracker/
 ├── data/                 # Data files (JSON)
 │   ├── exercises.json    # Exercise library data (50+ exercises) - edit this file, NOT public/
 │   ├── workout-plan-v2.5.json  # Current workout program (v2.5 format)
-│   ├── workout-plan-v2.4.json  # Previous version (v2.4 format with flow exercises)
-│   ├── workout-plan-v2.3.json  # Previous version (v2.3 format)
 │   ├── *.schema.json     # JSON schemas for validation (v2.2, v2.3, v2.4, v2.5)
 │   ├── integrated-strength-*.json  # Sample program files
 │   └── *.md              # Data documentation

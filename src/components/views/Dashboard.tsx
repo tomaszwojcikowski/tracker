@@ -8,10 +8,10 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useHaptic, useScrollToElement } from '../../hooks';
-import { Play, ChevronRight, ChevronLeft, Plus, Clock } from '../icons';
+import { Play, ChevronRight, ChevronLeft, Plus, Clock, X } from '../icons';
 import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, type InProgressWorkout } from '../../utils/storage';
 import { getBlockForWeek } from '../../data/programData';
-import { getCompleteSchedule } from '../../utils/schedule';
+import { getCompleteSchedule, type RawScheduleItem } from '../../utils/schedule';
 import { getSessionKey } from '../../services/storageNamespace';
 import { ProgramSelector } from '../ProgramSelector';
 import { useProgram } from '../../context/ProgramContext';
@@ -19,6 +19,7 @@ import { WeeklyProgressRing } from '../progress';
 import { StatusPill } from '../StatusPill';
 import { WeekPills } from '../WeekPills';
 import { ContinueWorkoutCard } from '../ContinueWorkoutCard';
+import { BottomSheet } from '../BottomSheet';
 
 /** Maximum number of exercises to show in the summary */
 const MAX_EXERCISES_IN_SUMMARY = 3;
@@ -128,6 +129,18 @@ function getExerciseSummary(week: number, day: number): string {
   }
 
   return mainExercises.join(', ');
+}
+
+function getDayExercises(week: number, day: number): RawScheduleItem[] {
+  const schedule = getCompleteSchedule();
+  return schedule.filter((item) => item.w === week && item.d === day);
+}
+
+function formatScheduleItem(item: RawScheduleItem): string {
+  // Keep this intentionally simple and stable for UI.
+  const setsReps = item.s && item.r ? `${item.s}×${item.r}` : '';
+  const load = item.load ? ` @ ${item.load}` : '';
+  return `${item.ex}${setsReps ? ` — ${setsReps}` : ''}${load}`;
 }
 
 export interface DashboardProps {
@@ -359,6 +372,8 @@ function WeekContent({
   onStartEmptyWorkout,
   haptic,
 }: WeekContentProps) {
+  const [previewDay, setPreviewDay] = useState<number | null>(null);
+
   const currentBlock = getBlockForWeek(week) || { name: 'Unknown' };
   const completedWorkouts = days.filter(day => isCompleted(day)).length;
   const totalWorkouts = days.length;
@@ -377,6 +392,71 @@ function WeekContent({
     <div
       className="flex-shrink-0 w-full snap-center overflow-y-auto px-5 pb-20"
     >
+      <BottomSheet
+        isOpen={previewDay !== null}
+        onClose={() => setPreviewDay(null)}
+        ariaLabel={previewDay !== null ? `Preview Day ${previewDay} workout` : 'Preview workout'}
+        maxHeight={85}
+        showHandle={false}
+        className="border-t border-white/10"
+      >
+        <div className="p-6 border-b border-white/10">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-bold text-white">
+              {previewDay !== null ? `Day ${previewDay} Preview` : 'Preview'}
+            </h3>
+            <button
+              onClick={() => {
+                haptic.tick();
+                setPreviewDay(null);
+              }}
+              className="btn-icon bg-sys-surfaceHigh"
+              aria-label="Close preview"
+            >
+              <X size={20} />
+            </button>
+          </div>
+          {previewDay !== null && (
+            <div className="mt-2 text-sm text-sys-onSurfaceVar">
+              Week {week}
+            </div>
+          )}
+        </div>
+
+        <div className="p-4 pb-8">
+          {previewDay === null ? null : (
+            (() => {
+              const items = getDayExercises(week, previewDay);
+              if (items.length === 0) {
+                return <div className="text-sys-onSurfaceVar">Rest day</div>;
+              }
+
+              return (
+                <div className="space-y-2">
+                  {items.map((item, idx) => (
+                    <div
+                      // Raw schedule items do not have stable IDs; index is acceptable for read-only preview.
+                      key={`${previewDay}-${idx}-${item.ex}`}
+                      className="p-3 rounded-xl bg-sys-surface border border-white/5"
+                    >
+                      <div className="text-sm text-white font-medium">
+                        {formatScheduleItem(item)}
+                      </div>
+                      {(item.category || item.n) && (
+                        <div className="mt-1 text-xs text-sys-onSurfaceVar">
+                          {item.category ?? 'work'}
+                          {item.n ? ` • ${item.n}` : ''}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              );
+            })()
+          )}
+        </div>
+      </BottomSheet>
+
       {/* Weekly Progress Ring */}
       <WeeklyProgressRing
         completedWorkouts={completedWorkouts}
@@ -529,7 +609,7 @@ function WeekContent({
                     <button
                       onClick={() => {
                         haptic.tick();
-                        onStartWorkout(day);
+                        setPreviewDay(day);
                       }}
                       className="btn-md3 btn-outlined px-4"
                       aria-label={`Preview Day ${day} workout`}

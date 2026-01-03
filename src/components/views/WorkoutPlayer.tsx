@@ -39,6 +39,7 @@ import {
     MAX_SETS,
 } from '../../constants';
 import { PROGRAM_DATA, type WorkoutExercise, type WorkoutSection } from '../../data/programData';
+import { useProgram } from '../../context/ProgramContext';
 import {
     updateExerciseHistory,
     getExerciseHistory,
@@ -148,6 +149,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     onWorkoutFinish,
     onProgressChange,
 }) => {
+    // Get the current program ID from the program context
+    const { currentProgramId } = useProgram();
+
     // For empty workouts, generate a unique session key based on timestamp
     // This allows multiple empty workouts to be tracked separately
     // Empty workout keys are also namespaced per program
@@ -180,8 +184,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             // Return an empty workout structure for custom workouts
             return { title: 'Custom Workout', sections: [] };
         }
-        return PROGRAM_DATA.getWorkout(week, day);
-    }, [week, day, isEmptyWorkout]);
+        // Pass the current program ID to ensure we load the correct program's workout
+        return PROGRAM_DATA.getWorkout(week, day, currentProgramId ?? undefined);
+    }, [week, day, isEmptyWorkout, currentProgramId]);
 
     // State
     const [logs, setLogs] = useState<WorkoutSessionData>({});

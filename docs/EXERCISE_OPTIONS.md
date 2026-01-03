@@ -425,4 +425,4 @@ When adding exercise options to your workout plan:
 
 - [Workout Plan Format Specification](WORKOUT_PLAN_FORMAT.md)
 - [JSON Schema](../data/workout-plan-v2.3.schema.json)
-- [Example Workout Plan](../data/workout-plan-v2.3.json) - See `ex-lower-body-compound` for a complete example
+- [Example Workout Plan](../data/workout-plan-v2.5.json) - Current plan data with exercise options

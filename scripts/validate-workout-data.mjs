@@ -17,7 +17,6 @@ const rootDir = join(__dirname, '..');
 
 // Files to validate
 const WORKOUT_FILES = [
-  'data/workout-plan-v2.3.json',
   'data/workout-plan-v2.5.json',
 ];
 

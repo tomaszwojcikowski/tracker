@@ -527,7 +527,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                     </button>
                     <div className="flex flex-col items-center gap-1.5">
                         {/* Progress dots */}
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1" aria-label="Focus progress">
                             {focusItemCompletionStatus.map((isComplete, idx) => {
                                 const item = focusItems[idx];
                                 const sectionColor = getSectionDotColor(item?.section, item?.sectionType);

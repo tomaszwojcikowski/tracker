@@ -23,8 +23,8 @@ This is significantly more powerful than the existing "alternatives" feature, wh
 The following components have been fully implemented, tested, and documented:
 
 #### 1. Schema & Data Model
-- **workout-plan-v2.3.schema.json**: Added `exerciseOption` definition with 20+ properties
-- **workout-plan-v2.3.json**: Added example exercise (`ex-lower-body-compound`) with 4 real-world options
+- **workout-plan-v2.3.schema.json**: Added `exerciseOption` definition with 20+ properties (retained for compatibility and sample programs)
+- **workout-plan-v2.5.json**: Current workout plan with exercise options applied; legacy v2.3 example file removed
 - JSON schema validation: Fully functional and tested
 
 #### 2. Type System
@@ -114,7 +114,7 @@ The following work remains to complete the feature:
 ### Schema & Data (4 files)
 ```
 data/workout-plan-v2.3.schema.json  (+130 lines) - Schema definition
-data/workout-plan-v2.3.json         (+68 lines)  - Example data
+data/workout-plan-v2.5.json         (+68 lines)  - Current plan data
 docs/WORKOUT_PLAN_FORMAT.md         (+75 lines)  - Format docs
 docs/EXERCISE_OPTIONS.md            (+428 lines) - Feature guide
 ```
@@ -196,10 +196,10 @@ src/components/ExerciseOptionsBadge.tsx        (+46 lines)  - Visual indicator
 ### Code Usage
 
 ```typescript
-import { 
-  applyExerciseOption, 
+import {
+  applyExerciseOption,
   getExerciseDisplayName,
-  validateExerciseOption 
+  validateExerciseOption
 } from '@/utils/exerciseOptions';
 
 // Apply option overrides to base exercise
@@ -337,5 +337,5 @@ The remaining UI integration work is straightforward and estimated at 2-3 hours.
 - **Feature Documentation**: [docs/EXERCISE_OPTIONS.md](docs/EXERCISE_OPTIONS.md)
 - **Format Specification**: [docs/WORKOUT_PLAN_FORMAT.md](docs/WORKOUT_PLAN_FORMAT.md)
 - **JSON Schema**: [data/workout-plan-v2.3.schema.json](data/workout-plan-v2.3.schema.json)
-- **Example Data**: [data/workout-plan-v2.3.json](data/workout-plan-v2.3.json) (search for `ex-lower-body-compound`)
+- **Current Plan Data**: [data/workout-plan-v2.5.json](data/workout-plan-v2.5.json) (exercise options supported)
 - **Test Suite**: [src/test/exerciseOptions.test.tsx](src/test/exerciseOptions.test.tsx)

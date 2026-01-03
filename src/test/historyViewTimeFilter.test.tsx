@@ -1,30 +1,30 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 
 /**
  * Unit Tests for HistoryView Time Filter Functionality
- * 
+ *
  * These tests verify the time filtering logic (week, month, all time) added to HistoryView.
  * Unit tests are the most appropriate way to test this filtering logic because:
- * 
+ *
  * 1. **Date calculations** - The filtering relies on date math (7 days, 30 days) that needs
  *    precise testing with boundary conditions, which is much easier to do in unit tests
  *    than E2E tests.
- * 
+ *
  * 2. **Timezone handling** - Edge cases around timezone handling and millisecond precision
  *    are critical and best verified through focused unit tests.
- * 
+ *
  * 3. **Deterministic testing** - Unit tests can precisely control time values to test
  *    exact boundary conditions (e.g., exactly 7 days vs. 7 days + 1ms).
- * 
+ *
  * 4. **Fast feedback** - These tests run in milliseconds vs. minutes for E2E tests.
- * 
+ *
  * Coverage: 16 test cases covering:
  * - Basic filtering (all, week, month)
  * - Boundary conditions (exactly at 7/30 days, just past boundaries)
  * - Timezone and date precision
  * - Empty arrays and edge cases
  * - Multiple entries across time ranges
- * 
+ *
  * Reference: HistoryView.tsx lines 416-429 (filtering logic)
  */
 
@@ -131,7 +131,7 @@ describe('HistoryView Time Filter', () => {
 
         it('should handle empty history array', () => {
             const history: TestHistoryEntry[] = [];
-            
+
             expect(filterHistory(history, 'all')).toHaveLength(0);
             expect(filterHistory(history, 'week')).toHaveLength(0);
             expect(filterHistory(history, 'month')).toHaveLength(0);
@@ -139,7 +139,7 @@ describe('HistoryView Time Filter', () => {
 
         it('should handle single entry', () => {
             const history = [createHistoryEntry(0)];
-            
+
             expect(filterHistory(history, 'all')).toHaveLength(1);
             expect(filterHistory(history, 'week')).toHaveLength(1);
             expect(filterHistory(history, 'month')).toHaveLength(1);
@@ -148,9 +148,12 @@ describe('HistoryView Time Filter', () => {
 
     describe('Edge cases and timezone handling', () => {
         it('should handle entries exactly at the 7-day boundary', () => {
-            const now = new Date();
+            const now = new Date('2025-01-15T12:00:00.000Z');
+            vi.useFakeTimers();
+            vi.setSystemTime(now);
+
             const exactlySevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-            
+
             const history = [
                 { ...createHistoryEntry(0), date: exactlySevenDaysAgo.toISOString() },
             ];
@@ -158,12 +161,17 @@ describe('HistoryView Time Filter', () => {
             const filtered = filterHistory(history, 'week');
             // Entry at exactly 7 days should be included (>= comparison)
             expect(filtered).toHaveLength(1);
+
+            vi.useRealTimers();
         });
 
         it('should handle entries exactly at the 30-day boundary', () => {
-            const now = new Date();
+            const now = new Date('2025-01-15T12:00:00.000Z');
+            vi.useFakeTimers();
+            vi.setSystemTime(now);
+
             const exactlyThirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-            
+
             const history = [
                 { ...createHistoryEntry(0), date: exactlyThirtyDaysAgo.toISOString() },
             ];
@@ -171,12 +179,17 @@ describe('HistoryView Time Filter', () => {
             const filtered = filterHistory(history, 'month');
             // Entry at exactly 30 days should be included (>= comparison)
             expect(filtered).toHaveLength(1);
+
+            vi.useRealTimers();
         });
 
         it('should handle entries just past the 7-day boundary', () => {
-            const now = new Date();
+            const now = new Date('2025-01-15T12:00:00.000Z');
+            vi.useFakeTimers();
+            vi.setSystemTime(now);
+
             const slightlyPastSevenDays = new Date(now.getTime() - (7 * 24 * 60 * 60 * 1000 + 1000));
-            
+
             const history = [
                 { ...createHistoryEntry(0), date: slightlyPastSevenDays.toISOString() },
             ];
@@ -184,12 +197,17 @@ describe('HistoryView Time Filter', () => {
             const filtered = filterHistory(history, 'week');
             // Entry just past 7 days should be excluded
             expect(filtered).toHaveLength(0);
+
+            vi.useRealTimers();
         });
 
         it('should handle entries just past the 30-day boundary', () => {
-            const now = new Date();
+            const now = new Date('2025-01-15T12:00:00.000Z');
+            vi.useFakeTimers();
+            vi.setSystemTime(now);
+
             const slightlyPastThirtyDays = new Date(now.getTime() - (30 * 24 * 60 * 60 * 1000 + 1000));
-            
+
             const history = [
                 { ...createHistoryEntry(0), date: slightlyPastThirtyDays.toISOString() },
             ];
@@ -197,6 +215,8 @@ describe('HistoryView Time Filter', () => {
             const filtered = filterHistory(history, 'month');
             // Entry just past 30 days should be excluded
             expect(filtered).toHaveLength(0);
+
+            vi.useRealTimers();
         });
 
         it('should handle entries with different time zones (ISO format)', () => {
@@ -303,7 +323,7 @@ describe('HistoryView Time Filter', () => {
         it('should handle dates with millisecond components', () => {
             const now = new Date();
             const dateWithMillis = new Date(now.getTime() - 3 * 24 * 60 * 60 * 1000 - 500);
-            
+
             const history = [
                 { ...createHistoryEntry(0), date: dateWithMillis.toISOString() },
             ];

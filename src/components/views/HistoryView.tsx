@@ -414,18 +414,18 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
     const [history, setHistory] = useState<GlobalHistoryEntry[]>([]);
     const [selectedDayWorkouts, setSelectedDayWorkouts] = useState<GlobalHistoryEntry[] | null>(null);
     const [viewMode, setViewMode] = useState<'calendar' | 'stats'>('calendar');
-    
+
     // Load time filter from localStorage, defaulting to 'all'
     const [timeFilter, setTimeFilter] = useState<'week' | 'month' | 'all'>(() => {
         const preferences = safeGetJSON<HistoryViewPreferences>(HISTORY_VIEW_PREFERENCES_KEY, { timeFilter: 'all' });
         return preferences.timeFilter || 'all';
     });
-    
+
     const haptic = useHaptic();
 
     // Scroll to top when view loads
     useScrollToTop();
-    
+
     // Persist time filter to localStorage when it changes
     useEffect(() => {
         const preferences: HistoryViewPreferences = { timeFilter };
@@ -518,19 +518,19 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                 <div className="flex flex-col gap-4 mb-6">
                     {/* Segmented Control - full width on mobile */}
                     <div className="flex items-center gap-2">
-                        <div className="flex flex-1 bg-sys-surfaceHigh rounded-2xl p-1 border border-white/5">
+                        <div className="segmented-button-container">
                             <button
                                 onClick={() => { haptic.tick(); setViewMode('calendar'); setSelectedDayWorkouts(null); }}
-                                className={`btn-md3 flex-1 flex items-center justify-center gap-1.5 min-h-[44px] px-3 rounded-xl text-sm font-semibold ${viewMode === 'calendar' ? 'btn-filled shadow-lg shadow-sys-accent/25' : 'btn-text text-sys-onSurfaceVar'}`}
+                                className={`segmented-button ${viewMode === 'calendar' ? 'active' : ''}`}
                             >
-                                <CalendarDays size={16} />
+                                <CalendarDays size={18} />
                                 <span>Calendar</span>
                             </button>
                             <button
                                 onClick={() => { haptic.tick(); setViewMode('stats'); }}
-                                className={`btn-md3 flex-1 flex items-center justify-center gap-1.5 min-h-[44px] px-3 rounded-xl text-sm font-semibold ${viewMode === 'stats' ? 'btn-filled shadow-lg shadow-sys-accent/25' : 'btn-text text-sys-onSurfaceVar'}`}
+                                className={`segmented-button ${viewMode === 'stats' ? 'active' : ''}`}
                             >
-                                <BarChart3 size={16} />
+                                <BarChart3 size={18} />
                                 <span>Stats</span>
                             </button>
                         </div>
@@ -553,42 +553,30 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                 ) : (
                     <div className="space-y-4">
                         {/* Quick Filter Chips */}
-                        <div className="flex gap-2 overflow-x-auto hide-scrollbar">
+                        <div className="chip-container overflow-x-auto hide-scrollbar pb-1">
                             <button
                                 onClick={() => { haptic.tick(); setTimeFilter('week'); }}
-                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
-                                    timeFilter === 'week'
-                                        ? 'bg-sys-accent text-sys-black'
-                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                                }`}
+                                className={`chip whitespace-nowrap ${timeFilter === 'week' ? 'active' : ''}`}
                                 aria-pressed={timeFilter === 'week'}
                             >
-                                <Clock size={14} className="inline mr-1" />
-                                This Week
+                                <Clock size={14} />
+                                <span>This Week</span>
                             </button>
                             <button
                                 onClick={() => { haptic.tick(); setTimeFilter('month'); }}
-                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
-                                    timeFilter === 'month'
-                                        ? 'bg-sys-accent text-sys-black'
-                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                                }`}
+                                className={`chip whitespace-nowrap ${timeFilter === 'month' ? 'active' : ''}`}
                                 aria-pressed={timeFilter === 'month'}
                             >
-                                <Calendar size={14} className="inline mr-1" />
-                                This Month
+                                <Calendar size={14} />
+                                <span>This Month</span>
                             </button>
                             <button
                                 onClick={() => { haptic.tick(); setTimeFilter('all'); }}
-                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
-                                    timeFilter === 'all'
-                                        ? 'bg-sys-accent text-sys-black'
-                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                                }`}
+                                className={`chip whitespace-nowrap ${timeFilter === 'all' ? 'active' : ''}`}
                                 aria-pressed={timeFilter === 'all'}
                             >
-                                <CalendarDays size={14} className="inline mr-1" />
-                                All Time
+                                <CalendarDays size={14} />
+                                <span>All Time</span>
                             </button>
                         </div>
 

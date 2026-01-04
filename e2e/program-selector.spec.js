@@ -407,8 +407,8 @@ test.describe('Settings Programs Tab', () => {
     await programsTab.click();
     await page.waitForTimeout(300);
 
-    // Programs tab should be active (has btn-filled class for MD3 styling)
-    await expect(programsTab).toHaveClass(/btn-filled/);
+    // Programs tab should be active (has active class for MD3 styling)
+    await expect(programsTab).toHaveClass(/active/);
   });
 
   test('should show available sample programs in Programs tab', async ({ page }) => {

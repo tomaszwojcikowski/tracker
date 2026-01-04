@@ -299,17 +299,13 @@ export const SettingsView: React.FC = () => {
             )}
 
             {/* Tab Navigation - MD3 segmented button style */}
-            <div className="flex gap-1 mb-6 p-1 bg-sys-surface rounded-2xl border border-white/5">
+            <div className="segmented-button-container mb-6">
                 <button
                     onClick={() => {
                         haptic.tick();
                         setActiveTab('general');
                     }}
-                    className={`btn-md3 flex-1 flex items-center justify-center gap-2 min-h-[44px] rounded-xl font-medium text-sm ${
-                        activeTab === 'general'
-                            ? 'btn-filled'
-                            : 'btn-text text-sys-onSurfaceVar'
-                    }`}
+                    className={`segmented-button ${activeTab === 'general' ? 'active' : ''}`}
                 >
                     <Settings size={18} />
                     General
@@ -319,11 +315,7 @@ export const SettingsView: React.FC = () => {
                         haptic.tick();
                         setActiveTab('programs');
                     }}
-                    className={`btn-md3 flex-1 flex items-center justify-center gap-2 min-h-[44px] rounded-xl font-medium text-sm ${
-                        activeTab === 'programs'
-                            ? 'btn-filled'
-                            : 'btn-text text-sys-onSurfaceVar'
-                    }`}
+                    className={`segmented-button ${activeTab === 'programs' ? 'active' : ''}`}
                 >
                     <Dumbbell size={18} />
                     Programs

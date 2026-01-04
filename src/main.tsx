@@ -1,13 +1,14 @@
 /// <reference types="vite/client" />
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { App, buildCompleteSchedule, fetchWithTimeout, FETCH_TIMEOUT_MS, setRAW_SCHEDULE, setEXERCISE_LIBRARY } from './App.tsx';
+import { App, fetchWithTimeout, FETCH_TIMEOUT_MS, setRAW_SCHEDULE, setEXERCISE_LIBRARY } from './App.tsx';
 import { loadWorkoutPlan, WorkoutPlanMetadata } from './workout-plan-utils';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { LoadingScreen, ErrorScreen } from './components/screens';
 import { initErrorReporting, captureError } from './utils/errorReporting';
 import { autoMigrate, getMigrationStatus } from './services/storageMigration';
-import { initializeDefaultProgram, getProgramRegistry } from './services/programRegistry';
+import { initializeDefaultProgram, getProgramRegistry, DEFAULT_PROGRAM_ID } from './services/programRegistry';
+import { setRawSchedule, buildCompleteSchedule } from './utils/schedule';
 import { ProgramProvider } from './context/ProgramContext';
 
 // Initialize error reporting as early as possible
@@ -204,10 +205,6 @@ Promise.all([
         setRAW_SCHEDULE(schedule);
         setEXERCISE_LIBRARY(exercisesData);
 
-        // Build the complete schedule with standard warmups/cooldowns
-        buildCompleteSchedule();
-
-
         // Store metadata in a namespaced global for potential future use
         // This allows components to access plan metadata without prop drilling
         if (typeof window !== 'undefined') {
@@ -222,18 +219,17 @@ Promise.all([
         initializeDefaultProgram(scheduleData);
 
         // Store program data in registry for access by other modules
-        // ONLY if the loaded plan matches the active program ID
         const registry = getProgramRegistry();
 
-        // DEBUG: Log registry state after initialization
-
-        const activeProgram = registry.getActiveProgram();
-        if (activeProgram && activeProgram.id === metadata.id) {
-            registry.setProgramData(activeProgram.id, {
-                schedule: schedule,
-                metadata: metadata,
-            });
-        }
+        // The schedule we just loaded belongs to the program described by `metadata.id`.
+        // Do not bind it to an arbitrary active program ID (which may reference a different program).
+        const loadedProgramId = metadata.id ?? DEFAULT_PROGRAM_ID;
+        setRawSchedule(schedule, loadedProgramId);
+        buildCompleteSchedule(loadedProgramId);
+        registry.setProgramData(loadedProgramId, {
+            schedule: schedule,
+            metadata: metadata,
+        });
 
         // Run storage migration if needed (migrates legacy keys to program-scoped keys)
         // This is safe to call on every app start - it's a no-op if already migrated

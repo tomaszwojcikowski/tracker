@@ -246,10 +246,12 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
 
         if (program) {
           let data: WorkoutPlan;
+          let shouldSyncProgramData = false;
 
           // If we already have program data matching the active program, use it
           if (initialProgramData && initialProgramData.plan.id === program.id) {
             data = initialProgramData;
+            shouldSyncProgramData = true;
           } else {
             // Check if program data is already stored in registry
             const storedData = registry.getProgramData(program.id);
@@ -268,15 +270,17 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
             } else if (program.dataPath) {
               // Otherwise load it from the data path
               data = await loadProgramData(program.dataPath);
+
+              // We loaded the full plan JSON, so we should parse + sync it.
+              shouldSyncProgramData = true;
             } else {
               throw new Error('Program data is not available');
             }
           }
 
-          // Sync program data with schedule utilities if we loaded from initial or dataPath
-          if (initialProgramData && initialProgramData.plan.id === program.id) {
-            syncProgramData(program.id, data);
-          } else if (program.dataPath) {
+          // Only sync when we have full plan JSON.
+          // If we used stored schedule + minimal plan, syncing would overwrite schedule with an empty one.
+          if (shouldSyncProgramData) {
             syncProgramData(program.id, data);
           }
 

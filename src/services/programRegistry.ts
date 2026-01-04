@@ -458,11 +458,26 @@ export function initializeDefaultProgram(defaultPlanJson: WorkoutPlanJson): void
   const registry = getProgramRegistry();
   const programs = registry.getAvailablePrograms();
 
-  // If registry is empty, register the default program
+  // Ensure the built-in program exists and has a correct BASE_URL-aware dataPath.
+  // This avoids 404s on GitHub Pages (e.g. BASE_URL="/tracker/") when ProgramContext needs to fetch.
+  const base = import.meta.env.BASE_URL || '/';
+  const dataPath = `${base}workout-plan-v2.5.json`;
+  const manifest = extractManifestFromPlan(defaultPlanJson);
+  manifest.dataPath = dataPath;
+
+  const existing = registry.getProgramById(manifest.id);
   if (programs.length === 0) {
-    const manifest = extractManifestFromPlan(defaultPlanJson);
-    manifest.dataPath = '/workout-plan-v2.5.json';
+    // First run: register and force-activate the built-in program.
     registry.registerProgram(manifest);
     registry.setActiveProgram(manifest.id, { force: true });
+    return;
+  }
+
+  // If the registry already has programs, do NOT register a new default program.
+  // Only ensure the existing default program (if present) has the correct dataPath.
+  if (existing && existing.dataPath !== dataPath) {
+    existing.dataPath = dataPath;
+    // Persist the change via the existing save path.
+    registry.registerProgram(existing);
   }
 }

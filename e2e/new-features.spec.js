@@ -64,7 +64,9 @@ test.describe('New Features', () => {
     });
 
     // Go directly to the workout view for Week 1 Day 1
-    await page.goto('/?view=workout&week=1&day=1&program=integrated-strength-v26-9');
+    // IMPORTANT: Use a relative URL so Playwright respects baseURL (/tracker/)
+    // Using an absolute path (starting with "/") would drop the base path and break data loading.
+    await page.goto('./?view=workout&week=1&day=1&program=integrated-strength-v26-9');
 
     // Wait for workout player to load - look for the workout title in h1
     // App.tsx getTitle() returns "Day 1" for workout view on Day 1

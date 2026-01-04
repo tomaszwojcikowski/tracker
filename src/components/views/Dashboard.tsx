@@ -374,7 +374,7 @@ function WeekContent({
 }: WeekContentProps) {
   const [previewDay, setPreviewDay] = useState<number | null>(null);
 
-  const currentBlock = getBlockForWeek(week) || { name: 'Unknown' };
+  const currentBlock = getBlockForWeek(week) || { name: `Week ${week}`, id: week, weeks: [week] };
   const completedWorkouts = days.filter(day => isCompleted(day)).length;
   const totalWorkouts = days.length;
 

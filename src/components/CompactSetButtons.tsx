@@ -61,11 +61,11 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                 className="flex items-center gap-1"
                 style={{
                     // Shift left to hide all but the last completed button
-                    // Each button is 44px + 4px gap = 48px
+                    // Each button is 48px + 4px gap = 52px
                     // When all complete, show only last button fully visible
                     marginLeft: isComplete
-                        ? completedSets > 1 ? `-${(completedSets - 1) * 48}px` : 0
-                        : completedSets > 1 ? `-${(completedSets - 1) * 48}px` : 0,
+                        ? completedSets > 1 ? `-${(completedSets - 1) * 52}px` : 0
+                        : completedSets > 1 ? `-${(completedSets - 1) * 52}px` : 0,
                     transition: 'margin-left 150ms ease-out'
                 }}
             >
@@ -81,7 +81,7 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                             <button
                                 key={`${exId}-set-${i}`}
                                 onClick={() => onToggleSet(i)}
-                                className={`h-11 w-11 min-w-[44px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
+                                className={`h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
                                     isDone
                                         ? isComplete
                                             ? 'bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.2)]'

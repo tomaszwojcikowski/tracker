@@ -60,10 +60,10 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
             <div className="flex items-center gap-4 mb-6">
                 <button
                     onClick={onBack}
-                    className="btn-icon h-10 w-10 bg-sys-surfaceHigh text-white"
+                    className="btn-icon h-12 w-12 bg-sys-surfaceHigh text-white"
                     aria-label="Go back"
                 >
-                    <ArrowLeft size={20} />
+                    <ArrowLeft size={24} />
                 </button>
                 <h2 className="text-2xl font-bold text-white flex-1">{exercise.name}</h2>
             </div>

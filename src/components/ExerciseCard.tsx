@@ -430,10 +430,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 haptic.tick();
                                 onToggleCollapse(exId);
                             }}
-                            className="h-8 w-8 min-w-[32px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
+                            className="h-12 w-12 min-w-[48px] rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
                             aria-label={isCollapsed ? 'Expand exercise' : 'Collapse exercise'}
                         >
-                            {isCollapsed ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
+                            {isCollapsed ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
                         </button>
                     )}
                 </div>
@@ -447,14 +447,14 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 <div className="flex-1" />
                                 <button
                                     onClick={() => onToggleFlowTimer(flowTimeMinutes)}
-                                    className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                    className={`h-12 px-4 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-sm font-medium ${
                                         flowTimerActive
                                             ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
                                             : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                     }`}
                                     aria-label={flowTimerActive ? 'Stop flow timer' : `Start ${flowTimeMinutes}m flow timer`}
                                 >
-                                    <Timer size={14} />
+                                    <Timer size={18} />
                                     <span>{flowTimeMinutes}m</span>
                                 </button>
                             </div>
@@ -466,14 +466,14 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 <div className="flex-1" />
                                 <button
                                     onClick={() => onStartRestTimer(timeSeconds)}
-                                    className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                    className={`h-12 px-4 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-sm font-medium ${
                                         restTimerActive
                                             ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
                                             : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                     }`}
                                     aria-label={restTimerActive ? 'Stop timer' : `Start ${timeSeconds >= 60 ? Math.floor(timeSeconds / 60) + 'm' : timeSeconds + 's'} timer`}
                                 >
-                                    <Timer size={14} />
+                                    <Timer size={18} />
                                     <span>{timeSeconds >= 60 ? `${Math.floor(timeSeconds / 60)}m` : `${timeSeconds}s`}</span>
                                 </button>
                             </div>
@@ -485,14 +485,14 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 <div className="flex-1" />
                                 <button
                                     onClick={onToggleEmomTimer}
-                                    className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                    className={`h-12 px-4 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-sm font-medium ${
                                         emomTimerActive
                                             ? 'bg-purple-500 text-white ring-2 ring-purple-500/50'
                                             : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                     }`}
                                     aria-label={emomTimerActive ? 'Stop EMOM timer' : `Start ${emomTimerInterval}s EMOM timer`}
                                 >
-                                    <Zap size={14} />
+                                    <Zap size={18} />
                                     <span>{emomTimerInterval >= 60 ? `${Math.floor(emomTimerInterval / 60)}m` : `${emomTimerInterval}s`}</span>
                                 </button>
                             </div>
@@ -506,14 +506,14 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                         <div className="flex-1" />
                                         <button
                                             onClick={() => onToggleDensityTimer(densityTimeMinutes)}
-                                            className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
+                                            className={`h-12 px-4 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-sm font-medium ${
                                                 densityTimerActive
                                                     ? 'bg-cyan-500 text-white ring-2 ring-cyan-500/50'
                                                     : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                             }`}
                                             aria-label={densityTimerActive ? 'Stop density timer' : `Start ${densityTimeMinutes}m density timer`}
                                         >
-                                            <Gauge size={14} />
+                                            <Gauge size={18} />
                                             <span>{densityTimeMinutes}m</span>
                                         </button>
                                     </div>

@@ -69,10 +69,10 @@ export const TopAppBar = memo(function TopAppBar({
         {showBack ? (
           <button
             onClick={onBack}
-            className="btn-icon h-10 w-10 -ml-1 mockup-text-muted hover:mockup-text-primary"
+            className="btn-icon h-12 w-12 -ml-1 mockup-text-muted hover:mockup-text-primary"
             aria-label="Go back"
           >
-            <ArrowLeft size={22} />
+            <ArrowLeft size={24} />
           </button>
         ) : null}
 

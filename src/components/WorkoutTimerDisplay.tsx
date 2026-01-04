@@ -25,7 +25,7 @@ export const WorkoutTimerDisplay: React.FC<WorkoutTimerDisplayProps> = ({
   const formattedTime = formatTimerTime(elapsedSeconds);
 
   // Base classes for the timer button
-  const baseClasses = "flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all active:scale-95 chip-mockup";
+  const baseClasses = "flex items-center gap-2 px-4 h-12 rounded-full border transition-all active:scale-95 chip-mockup";
   const runningClasses = "mockup-bg-surface-3 mockup-text-accent border-transparent shadow-md";
   const pausedClasses = "mockup-bg-surface-2 mockup-text-muted mockup-border";
 

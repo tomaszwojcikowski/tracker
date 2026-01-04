@@ -160,10 +160,10 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                     </div>
                     <button
                         onClick={() => onRemove(exercise.id)}
-                        className="btn-icon h-8 w-8 min-w-[32px] bg-red-500/10 text-red-500"
+                        className="btn-icon h-12 w-12 min-w-[48px] bg-red-500/10 text-red-500"
                         aria-label="Remove exercise"
                     >
-                        <X size={18} />
+                        <X size={24} />
                     </button>
                 </div>
 

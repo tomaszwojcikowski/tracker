@@ -152,10 +152,10 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
                         </div>
                         <button
                             onClick={handleClosePresets}
-                            className="btn-icon bg-sys-surfaceHigh"
+                            className="btn-icon h-12 w-12 bg-sys-surfaceHigh"
                             aria-label="Close"
                         >
-                            <X size={20} />
+                            <X size={24} />
                         </button>
                     </div>
                 </div>

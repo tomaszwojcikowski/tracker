@@ -299,11 +299,11 @@ export function Dashboard({
       <div className="py-4 pb-24 flex justify-center items-center gap-2">
         <button
           onClick={() => changeWeek(currentWeek - 1)}
-          className="btn-icon h-8 w-8 bg-sys-surfaceHigh text-white disabled:opacity-30"
+          className="btn-icon h-12 w-12 bg-sys-surfaceHigh text-white disabled:opacity-30"
           disabled={currentWeek === 1}
           aria-label="Previous week"
         >
-          <ChevronLeft />
+          <ChevronLeft size={24} />
         </button>
         <div className="flex gap-2 px-4">
           {[...Array(5)].map((_, i) => {
@@ -326,11 +326,11 @@ export function Dashboard({
         </div>
         <button
           onClick={() => changeWeek(currentWeek + 1)}
-          className="btn-icon h-8 w-8 bg-sys-surfaceHigh text-white disabled:opacity-30"
+          className="btn-icon h-12 w-12 bg-sys-surfaceHigh text-white disabled:opacity-30"
           disabled={currentWeek === maxWeeks}
           aria-label="Next week"
         >
-          <ChevronRight />
+          <ChevronRight size={24} />
         </button>
       </div>
     </div>
@@ -410,10 +410,10 @@ function WeekContent({
                 haptic.tick();
                 setPreviewDay(null);
               }}
-              className="btn-icon bg-sys-surfaceHigh"
+              className="btn-icon h-12 w-12 bg-sys-surfaceHigh"
               aria-label="Close preview"
             >
-              <X size={20} />
+              <X size={24} />
             </button>
           </div>
           {previewDay !== null && (

@@ -86,10 +86,10 @@ export const ExerciseSelectorModal: React.FC<ExerciseSelectorModalProps> = ({
                     <h3 className="text-xl font-bold text-white">Add Exercise</h3>
                     <button
                         onClick={handleClose}
-                        className="btn-icon bg-sys-surfaceHigh"
+                        className="btn-icon h-12 w-12 bg-sys-surfaceHigh"
                         aria-label="Close"
                     >
-                        <X size={20} />
+                        <X size={24} />
                     </button>
                 </div>
 

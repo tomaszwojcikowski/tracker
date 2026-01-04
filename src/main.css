@@ -18,6 +18,115 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
+/* ============================================================================
+   MATERIAL DESIGN 3 TYPOGRAPHY SCALE
+   Standardized type styles for consistent visual hierarchy
+   ============================================================================ */
+
+/* Display - 57/64 (extra large headlines) */
+.text-display-large {
+    font-size: 57px;
+    font-weight: 400;
+    line-height: 64px;
+    letter-spacing: -0.25px;
+}
+
+.text-display-medium {
+    font-size: 45px;
+    font-weight: 400;
+    line-height: 52px;
+}
+
+.text-display-small {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 44px;
+}
+
+/* Headline - 32/40 to 24/32 */
+.text-headline-large {
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 40px;
+}
+
+.text-headline-medium {
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 36px;
+}
+
+.text-headline-small {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+}
+
+/* Title - 22/28 to 14/20 */
+.text-title-large {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 28px;
+}
+
+.text-title-medium {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+}
+
+.text-title-small {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+}
+
+/* Body - 16/24 to 12/16 */
+.text-body-large {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+}
+
+.text-body-medium {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+}
+
+.text-body-small {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+}
+
+/* Label - 14/20 to 11/16 */
+.text-label-large {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+}
+
+.text-label-medium {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+}
+
+.text-label-small {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+}
+
 ::-webkit-scrollbar { display: none; }
 .safe-pb { padding-bottom: env(safe-area-inset-bottom, 24px); }
 .safe-pt { padding-top: env(safe-area-inset-top, 24px); }
@@ -1344,18 +1453,119 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     width: 18px;
     height: 18px;
     flex-shrink: 0;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Filter Chip variant */
+/* Icon animation on selection */
+.chip.active .chip-icon {
+    animation: chipIconScale 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes chipIconScale {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Filter Chip variant - enhanced */
 .chip-filter {
     border-radius: var(--radius-sm);
+    background: var(--color-surface);
 }
 
-/* Assist Chip variant */
+.chip-filter:hover:not(.active) {
+    background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface));
+    border-color: var(--color-primary);
+}
+
+.chip-filter.active,
+.chip-filter[aria-selected="true"] {
+    background: var(--color-primary-container);
+    color: var(--color-on-primary-container);
+    border-color: var(--color-primary);
+}
+
+/* Assist Chip variant - enhanced */
 .chip-assist {
     border-radius: var(--radius-sm);
-    background: var(--color-surface-variant);
+    background: var(--color-surface-container-low);
+    border: 1px solid var(--color-outline);
+    color: var(--color-on-surface);
+}
+
+.chip-assist:hover {
+    background: var(--color-surface-container);
+    border-color: var(--color-outline-variant);
+}
+
+.chip-assist:active {
+    background: var(--color-surface-container-high);
+    border-color: var(--color-outline);
+}
+
+/* Input Chip variant */
+.chip-input {
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-container-high);
+    border: 1px solid var(--color-outline-variant);
+}
+
+.chip-input:hover {
+    border-color: var(--color-outline);
+    background: color-mix(in srgb, var(--color-on-surface) 4%, var(--color-surface-container-high));
+}
+
+.chip-input:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+    border-color: transparent;
+}
+
+/* Suggestion Chip variant */
+.chip-suggestion {
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-container-low);
+    border: 1px solid var(--color-outline-variant);
+    color: var(--color-on-surface);
+}
+
+.chip-suggestion:hover {
+    background: var(--color-surface-container);
+    border-color: var(--color-outline);
+    box-shadow: var(--elevation-1);
+}
+
+.chip-suggestion:active {
+    transform: scale(0.97);
+}
+
+/* Badge style chip */
+.chip-badge {
+    padding: 4px 8px;
+    height: auto;
+    min-height: auto;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 14px;
+    border-radius: var(--radius-full);
+    background: var(--color-error);
+    color: var(--color-on-error);
     border: none;
+}
+
+.chip-badge.info {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+}
+
+.chip-badge.success {
+    background: var(--color-secondary);
+    color: var(--color-on-secondary);
+}
+
+.chip-badge.warning {
+    background: var(--color-tertiary);
+    color: var(--color-on-tertiary);
 }
 
 /* Light theme tonal */
@@ -1504,6 +1714,131 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 
 .state-layer:focus-visible::after {
     background: var(--state-focus);
+    opacity: 1;
+}
+
+/* ============================================================================
+   ENHANCED STATE LAYER VARIANTS
+   Role-specific state overlays for primary, secondary, tertiary, and error
+   ============================================================================ */
+
+/* Primary state layers */
+.state-layer-primary {
+    position: relative;
+}
+
+.state-layer-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.state-layer-primary:hover::after {
+    background: var(--state-primary-hover);
+    opacity: 1;
+}
+
+.state-layer-primary:active::after {
+    background: var(--state-primary-pressed);
+    opacity: 1;
+}
+
+.state-layer-primary:focus-visible::after {
+    background: var(--state-primary-focus);
+    opacity: 1;
+}
+
+/* Secondary state layers */
+.state-layer-secondary {
+    position: relative;
+}
+
+.state-layer-secondary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.state-layer-secondary:hover::after {
+    background: var(--state-secondary-hover, rgba(5, 150, 105, 0.08));
+    opacity: 1;
+}
+
+.state-layer-secondary:active::after {
+    background: var(--state-secondary-pressed, rgba(5, 150, 105, 0.12));
+    opacity: 1;
+}
+
+.state-layer-secondary:focus-visible::after {
+    background: var(--state-secondary-focus, rgba(5, 150, 105, 0.12));
+    opacity: 1;
+}
+
+/* Tertiary state layers */
+.state-layer-tertiary {
+    position: relative;
+}
+
+.state-layer-tertiary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.state-layer-tertiary:hover::after {
+    background: var(--state-tertiary-hover, rgba(236, 72, 153, 0.08));
+    opacity: 1;
+}
+
+.state-layer-tertiary:active::after {
+    background: var(--state-tertiary-pressed, rgba(236, 72, 153, 0.12));
+    opacity: 1;
+}
+
+.state-layer-tertiary:focus-visible::after {
+    background: var(--state-tertiary-focus, rgba(236, 72, 153, 0.12));
+    opacity: 1;
+}
+
+/* Error state layers */
+.state-layer-error {
+    position: relative;
+}
+
+.state-layer-error::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.state-layer-error:hover::after {
+    background: var(--state-error-hover, rgba(244, 63, 94, 0.08));
+    opacity: 1;
+}
+
+.state-layer-error:active::after {
+    background: var(--state-error-pressed, rgba(244, 63, 94, 0.12));
+    opacity: 1;
+}
+
+.state-layer-error:focus-visible::after {
+    background: var(--state-error-focus, rgba(244, 63, 94, 0.12));
     opacity: 1;
 }
 

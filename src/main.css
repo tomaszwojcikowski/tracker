@@ -18,32 +18,6 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
-/* ============================================================================
-   SOLAR ICON SYSTEM - Duotone Contrast Enhancement
-   ============================================================================ */
-
-/*
- * Solar Bold Duotone icons use opacity="0.5" for secondary elements.
- * This can cause contrast issues on dark backgrounds.
- * We boost the opacity to 0.7 for better visibility while maintaining
- * the duotone aesthetic.
- */
-svg path[opacity="0.5"],
-svg [opacity="0.5"] {
-    opacity: 0.7 !important;
-}
-
-/* Navigation icons - ensure high contrast for usability */
-nav svg {
-    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.1));
-}
-
-/* Active state icons - full opacity for emphasis */
-nav .bg-sys-secondaryContainer svg path[opacity],
-nav .bg-sys-secondaryContainer svg [opacity] {
-    opacity: 0.85 !important;
-}
-
 ::-webkit-scrollbar { display: none; }
 .safe-pb { padding-bottom: env(safe-area-inset-bottom, 24px); }
 .safe-pt { padding-top: env(safe-area-inset-top, 24px); }
@@ -167,7 +141,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 .card-modern {
     background: linear-gradient(var(--surface-tint-1), var(--surface-tint-1)), var(--color-surface-dark);
     box-shadow: var(--elevation-1);
-    border-radius: 16px; /* MD3 medium container */
+    border-radius: var(--radius-lg); /* MD3 medium container */
     border: 1px solid var(--color-outline-variant);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -183,7 +157,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     background: var(--color-surface-variant);
     color: var(--color-on-surface-variant);
     box-shadow: var(--elevation-0);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     border: none;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -196,7 +170,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 .card-elevated {
     background: linear-gradient(var(--surface-tint-1), var(--surface-tint-1)), var(--color-surface-elevated);
     box-shadow: var(--elevation-1);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     border: none;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -210,7 +184,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 .card-outlined {
     background: transparent;
     box-shadow: none;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     border: 1px solid var(--color-outline);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -926,9 +900,9 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     align-items: center;
     justify-content: center;
     gap: 8px;
-    min-height: 40px;
+    min-height: 48px;
     padding: 0 24px;
-    border-radius: 20px;
+    border-radius: var(--radius-xl);
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.1px;
@@ -938,8 +912,18 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     cursor: pointer;
     overflow: hidden;
     transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-                background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.1s ease;
     -webkit-tap-highlight-color: transparent;
+}
+
+.btn-md3:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+}
+
+.btn-md3:active:not(:disabled) {
+    transform: scale(0.98);
 }
 
 .btn-md3:disabled {
@@ -1101,7 +1085,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     width: 56px;
     height: 56px;
     padding: 0;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     background: var(--color-primary-500);
     color: white;
     box-shadow: var(--elevation-3);
@@ -1121,7 +1105,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 .btn-fab-small {
     width: 40px;
     height: 40px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
 }
 
 /* Extended FAB */
@@ -1129,7 +1113,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     width: auto;
     height: 56px;
     padding: 0 20px;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     gap: 12px;
 }
 
@@ -1138,7 +1122,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     width: 40px;
     height: 40px;
     padding: 0;
-    border-radius: 20px;
+    border-radius: var(--radius-xl);
     background: transparent;
     color: var(--color-neutral-50);
 }
@@ -1249,7 +1233,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 
 /* Chips and badges - full radius */
 .radius-pill {
-    border-radius: 9999px;
+    border-radius: var(--radius-full);
 }
 
 /* ============================================================================
@@ -1468,7 +1452,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 
 /* Advanced Shadow System */
 .shadow-layered {
-    box-shadow: 
+    box-shadow:
         0 1px 2px rgba(0, 0, 0, 0.05),
         0 4px 8px rgba(0, 0, 0, 0.08),
         0 8px 16px rgba(0, 0, 0, 0.06);
@@ -1479,7 +1463,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 }
 
 :root.theme-light .shadow-layered {
-    box-shadow: 
+    box-shadow:
         0 1px 2px rgba(31, 21, 48, 0.05),
         0 4px 8px rgba(31, 21, 48, 0.08),
         0 8px 16px rgba(31, 21, 48, 0.06);
@@ -1493,7 +1477,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 .brand-mark {
     width: 40px;
     height: 40px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     background: linear-gradient(135deg, var(--m-primary) 0%, var(--m-primary-strong) 100%);
     box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1557,7 +1541,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
         align-items: center;
         gap: 12px;
         padding: 12px;
-        border-radius: 20px;
+        border-radius: var(--radius-xl);
         border: 1px solid var(--color-outline-variant);
         background: linear-gradient(145deg, var(--color-surface-elevated), var(--color-surface-variant));
         box-shadow: var(--m-shadow-sm);
@@ -1581,7 +1565,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
         align-items: center;
         gap: 16px;
         padding: 14px 16px;
-        border-radius: 12px;
+        border-radius: var(--radius-md);
         background: transparent;
         color: var(--color-on-surface-variant);
         font-size: 15px;
@@ -1693,27 +1677,27 @@ button, .btn {
     --color-primary-600: #7c3aed;
     --color-primary-700: #6d28d9;
     --color-primary-800: #5b21b6;
-    
+
     /* Enhanced contrast for light theme */
     --color-on-background: #1f1530;
     --color-on-surface: #1f1530;
     --color-on-surface-variant: #6b5b85;
-    
+
     /* Refined surface colors */
     --color-background: #faf9fc;
     --color-surface: #ffffff;
     --color-surface-elevated: #ffffff;
     --color-surface-elevated-high: #f5f2ff;
     --color-surface-variant: #ede9ff;
-    
+
     /* Outline refinements */
     --color-outline: #ddd6ff;
     --color-outline-variant: #b9a8d8;
-    
+
     /* Enhanced gradients for light theme */
     --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
     --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-    
+
     /* Shadow refinements */
     --shadow-primary: 0 4px 12px rgba(124, 58, 237, 0.15);
     --shadow-elevated: 0 8px 24px rgba(31, 21, 48, 0.12);
@@ -1848,7 +1832,7 @@ a:focus-visible,
 input:focus-visible {
     outline: 2px solid var(--color-primary-600);
     outline-offset: 2px;
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
 }
 
 :root.theme-light button:focus-visible,
@@ -1861,7 +1845,7 @@ input:focus-visible {
 .enhanced-card {
     background: var(--color-surface-elevated);
     border: 1px solid var(--color-outline-variant);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: 20px;
     box-shadow: var(--m-shadow-sm);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1897,7 +1881,7 @@ input:focus-visible {
 .mockup-card {
     background: var(--m-surface, #ffffff);
     border: 1px solid var(--m-outline, #e2e8f0);
-    border-radius: 20px;
+    border-radius: var(--radius-xl);
     padding: 24px;
     box-shadow: var(--m-shadow-sm);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1922,7 +1906,7 @@ input:focus-visible {
 .mockup-program-card {
     background: var(--m-surface, #ffffff);
     border: 1px solid var(--m-outline, #e2e8f0);
-    border-radius: 20px;
+    border-radius: var(--radius-xl);
     padding: 20px;
     box-shadow: var(--m-shadow-sm);
 }
@@ -1931,7 +1915,7 @@ input:focus-visible {
 .mockup-day-card {
     background: var(--m-surface, #ffffff);
     border: 1px solid var(--m-outline, #e2e8f0);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: 20px;
     box-shadow: var(--m-shadow-xs);
     transition: all 0.2s ease;
@@ -1949,7 +1933,7 @@ input:focus-visible {
     font-size: 15px;
     letter-spacing: -0.01em;
     padding: 12px 24px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     border: none;
     box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
     transition: all 0.2s ease;
@@ -1973,7 +1957,7 @@ input:focus-visible {
     font-size: 15px;
     letter-spacing: -0.01em;
     padding: 12px 24px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     border: 1px solid var(--m-outline, #ddd6ff);
     box-shadow: var(--m-shadow-xs);
     transition: all 0.2s ease;
@@ -1996,7 +1980,7 @@ input:focus-visible {
     font-weight: 700;
     font-size: 15px;
     padding: 12px 24px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     border: 1px solid var(--m-outline, #e2e8f0);
     transition: all 0.2s ease;
     cursor: pointer;
@@ -2070,7 +2054,7 @@ body {
     align-items: center;
     gap: 6px;
     padding: 6px 12px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.02em;
@@ -2187,7 +2171,7 @@ img {
     align-items: center;
     gap: 6px;
     padding: 6px 12px;
-    border-radius: 9999px;
+    border-radius: var(--radius-full);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: -0.01em;
@@ -2237,7 +2221,7 @@ img {
     min-width: 44px;
     height: 44px;
     padding: 0 16px;
-    border-radius: 14px;
+    border-radius: var(--radius-md);
     font-size: 13px;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -2369,7 +2353,7 @@ img {
 .stats-card-icon {
     width: 48px;
     height: 48px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2465,7 +2449,7 @@ img {
 .set-btn-mockup {
     height: 48px;
     min-width: 48px;
-    border-radius: 14px;
+    border-radius: var(--radius-md);
     border: 1px solid var(--m-outline);
     background: var(--m-surface);
     display: flex;
@@ -2503,7 +2487,7 @@ img {
     align-items: center;
     gap: 12px;
     padding: 12px 16px;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     border: 1px solid transparent;
     font-weight: 700;
     font-size: 14px;
@@ -2533,7 +2517,7 @@ img {
     align-items: center;
     gap: 8px;
     padding: 6px 12px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     background: var(--m-surface-2);
     border: 1px solid var(--m-outline);
     font-size: 13px;
@@ -2574,7 +2558,7 @@ img {
     align-items: center;
     gap: 8px;
     padding: 6px 12px;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.05em;

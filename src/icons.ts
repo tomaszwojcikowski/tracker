@@ -1,12 +1,8 @@
 /**
- * Custom SVG Icon System
+ * Icon System
  *
- * This file re-exports custom SVG icons that replace lucide-react.
- * Icons are designed to match the app's visual language with:
- * - Consistent 24x24 viewBox
- * - 2px stroke width
- * - currentColor for theming
- * - Rounded corners and modern aesthetic
+ * This file re-exports icons from the component library.
+ * We use lucide-react for standard, clean icons.
  */
 
 export {

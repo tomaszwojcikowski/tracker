@@ -1,8 +1,7 @@
 /**
- * Custom Icon Library
+ * Icon Library
  *
- * This module provides custom SVG icons that replace lucide-react.
- * Icons are designed to match the app's visual language.
+ * This module exports icons from lucide-react, adapted for the app's visual language.
  */
 
 export {

@@ -3,7 +3,7 @@ import * as FirebaseService from '../../firebase-service';
 import { useHaptic, useScrollToTop } from '../../hooks';
 import { useAuth } from '../../hooks/useAuth';
 import { LoginStatus } from '../auth/LoginStatus';
-import { RefreshCw, Info, Dumbbell, Settings, RotateCcw } from '../icons';
+import { RefreshCw, Info, Dumbbell, Settings, RotateCcw, CheckCircle2, X } from '../icons';
 import { captureError, isErrorReportingEnabled } from '../../utils/errorReporting';
 import { syncService } from '../../services/SyncService';
 import { resetProgramProgress } from '../../utils/programImportExport';
@@ -158,6 +158,7 @@ export const SettingsView: React.FC = () => {
 
     const [firebaseSyncEnabled, setFirebaseSyncEnabled] = useState(true); // Default enabled
     const [firebaseMessage, setFirebaseMessage] = useState('');
+    const [settingsToastMessage, setSettingsToastMessage] = useState('');
     const [isSyncing, setIsSyncing] = useState(false);
 
     const haptic = useHaptic();
@@ -270,10 +271,33 @@ export const SettingsView: React.FC = () => {
         const programId = getActiveProgramId();
         resetProgramProgress(programId);
         syncService.scheduleSync();
+
+        setSettingsToastMessage('Progress data cleared');
+        setTimeout(() => setSettingsToastMessage(''), 3000);
     };
 
     return (
         <div className="px-5 pb-20 pt-6">
+            {/* Lightweight toast for non-Firebase settings actions */}
+            {settingsToastMessage && (
+                <div className="fixed top-20 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
+                    <div className="bg-sys-success px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-md w-full border border-white/10">
+                        <CheckCircle2 size={24} className="text-white flex-shrink-0" />
+                        <span className="text-white font-bold text-base flex-1">{settingsToastMessage}</span>
+                        <button
+                            onClick={() => {
+                                haptic.tick();
+                                setSettingsToastMessage('');
+                            }}
+                            className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
+                            aria-label="Close notification"
+                        >
+                            <X size={18} />
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {/* Tab Navigation - MD3 segmented button style */}
             <div className="flex gap-1 mb-6 p-1 bg-sys-surface rounded-2xl border border-white/5">
                 <button
@@ -425,7 +449,7 @@ export const SettingsView: React.FC = () => {
                     <ProgramSelector variant="full" />
 
                     <div className="bg-sys-surface rounded-2xl border border-white/5 p-6">
-                        <h3 className="text-lg font-bold text-white mb-1">Reset Progress</h3>
+                        <h3 className="text-lg font-bold text-white mb-1">Clear your progress data</h3>
                         <p className="text-xs text-sys-onSurfaceVar mb-4">
                             Clears workout sessions and history for the active program.
                         </p>
@@ -434,7 +458,7 @@ export const SettingsView: React.FC = () => {
                             className="w-full h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 transition-transform border border-white/5 active:scale-95"
                         >
                             <RotateCcw size={18} />
-                            <span>Reset Progress</span>
+                            <span>Clear your progress data</span>
                         </button>
                     </div>
                 </div>

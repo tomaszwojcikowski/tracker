@@ -58,7 +58,7 @@ vi.mock('../components/ProgramSelector', () => ({
   ProgramSelector: () => <div>ProgramSelector</div>,
 }));
 
-describe('SettingsView - reset progress', () => {
+describe('SettingsView - clear progress data', () => {
   beforeEach(() => {
     vi.clearAllMocks();
 
@@ -67,14 +67,14 @@ describe('SettingsView - reset progress', () => {
     (globalThis as unknown as { __BUILD_DATE__: string }).__BUILD_DATE__ = new Date().toISOString();
   });
 
-  it('should call resetProgramProgress for the active program when clicking Reset Progress', () => {
+  it('should call resetProgramProgress for the active program when clicking Clear your progress data', () => {
     render(<SettingsView />);
 
     // Switch to Programs tab
     fireEvent.click(screen.getByRole('button', { name: /programs/i }));
 
-    // Click reset progress
-    fireEvent.click(screen.getByRole('button', { name: /reset progress/i }));
+    // Click clear progress data
+    fireEvent.click(screen.getByRole('button', { name: /clear your progress data/i }));
 
     expect(mocks.resetProgramProgress).toHaveBeenCalledWith('program-1');
     expect(mocks.scheduleSync).toHaveBeenCalled();

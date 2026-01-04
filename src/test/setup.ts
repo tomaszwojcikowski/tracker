@@ -25,6 +25,7 @@ const mockIcon = () => 'MockIcon';
 vi.mock('../components/icons', () => ({
   Check: mockIcon,
   CheckCircle: mockIcon,
+  CheckCircle2: mockIcon,
   CheckCheck: mockIcon,
   AlertCircle: mockIcon,
   ChevronRight: mockIcon,

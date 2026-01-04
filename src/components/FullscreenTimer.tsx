@@ -218,11 +218,10 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex flex-col bg-sys-surface/95 backdrop-blur-2xl"
+      className="fixed inset-0 z-[100] flex flex-col backdrop-blur-2xl fullscreen-timer-container"
       role="dialog"
       aria-label={isEmom ? 'EMOM timer' : isDensity ? 'Density timer' : 'Rest timer'}
       aria-live="polite"
-      style={{ WebkitBackdropFilter: 'blur(40px)' }}
     >
       {/* Subtle background ring for visual progress indication */}
       <div

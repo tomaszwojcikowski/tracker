@@ -314,7 +314,9 @@ export function ActionBar({
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-sys-surface/95 backdrop-blur-md border-t border-sys-outlineVariant shadow-elevation-4" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+    <div
+      className="fixed bottom-0 left-0 right-0 z-50 backdrop-blur-md border-t border-sys-outlineVariant shadow-elevation-4 action-bar-container safe-pb"
+    >
       {/* EMOM Timer Display */}
       {emomState && (emomState.active || emomState.seconds > 0) && setEmomActive && setEmomSeconds && setEmomInterval && (
         <div className="px-4 pt-3 pb-2">

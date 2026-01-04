@@ -317,7 +317,7 @@ function ProgramSelectorModal({
       aria-labelledby="program-selector-title"
     >
       <div
-        className="w-full max-w-md bg-sys-surfaceContainerHigh rounded-t-3xl max-h-[85vh] flex flex-col animate-slide-up"
+        className="w-full max-w-md modal-dialog rounded-t-3xl max-h-[85vh] flex flex-col animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

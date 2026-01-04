@@ -167,7 +167,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
                 aria-label={ariaLabel}
                 aria-labelledby={ariaLabelledBy}
                 tabIndex={-1}
-                className={`relative w-full max-w-lg bg-sys-surface border border-b-0 border-sys-outlineVariant rounded-t-[28px] flex flex-col overflow-hidden animate-slide-up shadow-elevation-3 ${className}`}
+                className={`relative w-full max-w-lg modal-bottom-sheet border border-b-0 border-sys-outlineVariant rounded-t-[28px] flex flex-col overflow-hidden animate-slide-up shadow-elevation-3 ${className}`}
                 style={sheetStyle}
                 onClick={(e) => e.stopPropagation()}
             >

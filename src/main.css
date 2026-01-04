@@ -1843,6 +1843,44 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 }
 
 /* ============================================================================
+   MATERIAL DESIGN 3 MODAL & OVERLAY BACKGROUNDS
+   Ensure all modal, dialog, and overlay containers have proper backgrounds
+   ============================================================================ */
+
+/* Modal and Dialog backgrounds - opaque with proper surface colors */
+.modal-dialog {
+    background: var(--color-surface-container-high);
+}
+
+.modal-bottom-sheet {
+    background: var(--color-surface);
+}
+
+.modal-onboarding {
+    background: var(--color-black);
+}
+
+/* Glass effect overlays - semi-transparent surfaces with blur */
+.modal-glass {
+    background: var(--color-surface) / 0.95;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.modal-glass-light {
+    background: var(--color-surface) / 0.7;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Explicit background fixes for fixed/absolute positioned elements */
+/* These ensure that bg-sys-* classes render opaque colors */
+.fixed[class*="bg-sys-"],
+.absolute[class*="bg-sys-"] {
+    background-attachment: fixed;
+}
+
+/* ============================================================================
    MATERIAL DESIGN 3 BORDER RADIUS STANDARDIZATION
    Consistent corner radius system:
    - Extra Small (4dp): Small components, chips
@@ -1986,6 +2024,93 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 
 .contain-strict {
     contain: strict;
+}
+
+/* ============================================================================
+   MATERIAL DESIGN 3 BOTTOM NAVIGATION BAR
+   Mobile navigation bar with proper opaque background and elevation
+   ============================================================================ */
+
+.bottom-navigation {
+    background-color: var(--color-surface) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Light theme - ensure proper background */
+:root.theme-light .bottom-navigation {
+    background-color: var(--color-surface) !important;
+}
+
+/* OLED theme - ensure proper background */
+:root.theme-oled .bottom-navigation {
+    background-color: var(--color-surface) !important;
+}
+
+/* ============================================================================
+   ACTION BAR STYLING
+   Timer display bar with proper opaque background and glass effect
+   ============================================================================ */
+
+.action-bar-container {
+    background-color: var(--color-surface);
+}
+
+:root.theme-light .action-bar-container {
+    background-color: var(--color-surface);
+}
+
+:root.theme-amoled .action-bar-container {
+    background-color: var(--color-surface);
+}
+
+:root.theme-oled .action-bar-container {
+    background-color: var(--color-surface);
+}
+
+/* ============================================================================
+   FULLSCREEN TIMER STYLING
+   Fullscreen timer overlay with glass morphism effect
+   ============================================================================ */
+
+.fullscreen-timer-container {
+    background-color: var(--color-surface);
+    -webkit-backdrop-filter: blur(40px);
+    backdrop-filter: blur(40px);
+}
+
+:root.theme-light .fullscreen-timer-container {
+    background-color: var(--color-surface);
+}
+
+:root.theme-amoled .fullscreen-timer-container {
+    background-color: var(--color-surface);
+}
+
+:root.theme-oled .fullscreen-timer-container {
+    background-color: var(--color-surface);
+}
+
+/* ============================================================================
+   WORKOUT SUMMARY STYLING
+   Workout summary overlay with glass morphism effect
+   ============================================================================ */
+
+.workout-summary-container {
+    background-color: var(--color-surface);
+}
+
+:root.theme-light .workout-summary-container {
+    background-color: var(--color-surface);
+}
+
+:root.theme-amoled .workout-summary-container {
+    background-color: var(--color-surface);
+}
+
+:root.theme-oled .workout-summary-container {
+    background-color: #000000;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.95));
 }
 
 /* ============================================================================
@@ -2141,68 +2266,77 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     .bottom-navigation {
         display: none !important;
     }
+}
 
-    /* Side rail header */
-    .side-rail-header {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 12px;
-        border-radius: var(--radius-xl);
-        border: 1px solid var(--color-outline-variant);
-        background: var(--color-surface-container);
-        box-shadow: var(--elevation-1);
-        margin-bottom: 24px;
+/* Mobile Bottom Navigation Bar - Explicit Background */
+@media (max-width: 1024px) {
+    .bottom-navigation {
+        background-color: var(--color-surface) !important;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
     }
+}
 
-    :root.theme-light .side-rail-header {
-        border: 1px solid var(--color-outline-variant);
-        background: var(--color-surface-container);
-    }
+/* Side rail header */
+.side-rail-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-outline-variant);
+    background: var(--color-surface-container);
+    box-shadow: var(--elevation-1);
+    margin-bottom: 24px;
+}
 
-    /* Side rail navigation items */
-    .side-rail-nav {
-        display: grid;
-        gap: 8px;
-    }
+:root.theme-light .side-rail-header {
+    border: 1px solid var(--color-outline-variant);
+    background: var(--color-surface-container);
+}
 
-    .side-rail-nav-item {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        align-items: center;
-        gap: 16px;
-        padding: 14px 16px;
-        border-radius: var(--radius-md);
-        background: transparent;
-        color: var(--color-on-surface-variant);
-        font-size: 15px;
-        font-weight: 600;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        cursor: pointer;
-        border: none;
-        text-align: left;
-        width: 100%;
-    }
+/* Side rail navigation items */
+.side-rail-nav {
+    display: grid;
+    gap: 8px;
+}
 
-    .side-rail-nav-item:hover {
-        background: var(--color-surface-variant);
-        color: var(--color-on-surface);
-    }
+.side-rail-nav-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--color-on-surface-variant);
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: none;
+    text-align: left;
+    width: 100%;
+}
 
-    .side-rail-nav-item.active {
-        background: var(--color-primary);
-        color: var(--color-on-primary);
-        font-weight: 700;
-        box-shadow: var(--elevation-1);
-    }
+.side-rail-nav-item:hover {
+    background: var(--color-surface-variant);
+    color: var(--color-on-surface);
+}
 
-    :root.theme-light .side-rail-nav-item.active {
-        background: var(--color-primary);
-    }
+.side-rail-nav-item.active {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-weight: 700;
+    box-shadow: var(--elevation-1);
+}
 
-    .side-rail-nav-item:active {
-        transform: scale(0.98);
-    }
+:root.theme-light .side-rail-nav-item.active {
+    background: var(--color-primary);
+}
+
+.side-rail-nav-item:active {
+    transform: scale(0.98);
 }
 
 /* ============================================================================

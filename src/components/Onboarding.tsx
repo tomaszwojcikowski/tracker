@@ -105,7 +105,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
 
     return (
         <div
-            className="fixed inset-0 bg-sys-black z-[60] flex flex-col safe-pt safe-pb"
+            className="fixed inset-0 modal-onboarding z-[60] flex flex-col safe-pt safe-pb"
             role="dialog"
             aria-modal="true"
             aria-labelledby="onboarding-title"

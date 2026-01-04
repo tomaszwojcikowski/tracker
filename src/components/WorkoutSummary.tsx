@@ -200,7 +200,7 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 bg-sys-surface/95 backdrop-blur-md overflow-y-auto"
+                className="fixed inset-0 z-50 backdrop-blur-md overflow-y-auto workout-summary-container"
             >
                 <div className="min-h-full flex flex-col p-5 safe-pt safe-pb">
                     {/* Header with celebration */}

@@ -29,13 +29,13 @@ export function ContinueWorkoutCard({ workout, onResume }: ContinueWorkoutCardPr
               Continue
             </h3>
           </div>
-          <p className="text-body-sm text-sys-onSurfaceVar">
+          <p className="text-body-sm text-sys-onSurfaceVariant">
             Resume your in-progress session without losing data
           </p>
         </div>
         <button
           onClick={onResume}
-          className="btn-md3 btn-gradient-primary-mockup flex items-center gap-2 shrink-0"
+          className="h-12 px-6 rounded-xl bg-sys-primary text-sys-onPrimary font-bold flex items-center gap-2 shrink-0 shadow-elevation-1 hover:shadow-elevation-2 active:scale-95 transition-all"
           aria-label="Resume workout"
         >
           <PlayCircle className="w-5 h-5" />
@@ -45,7 +45,7 @@ export function ContinueWorkoutCard({ workout, onResume }: ContinueWorkoutCardPr
 
       <div className="grid grid-cols-2 gap-4 pt-4 border-t border-sys-outlineVariant">
         <div>
-          <div className="text-label-sm text-sys-onSurfaceVar mb-1">
+          <div className="text-label-sm text-sys-onSurfaceVariant mb-1">
             Last activity
           </div>
           <div className="text-body-md font-semibold text-sys-onSurface">
@@ -53,7 +53,7 @@ export function ContinueWorkoutCard({ workout, onResume }: ContinueWorkoutCardPr
           </div>
         </div>
         <div>
-          <div className="text-label-sm text-sys-onSurfaceVar mb-1">
+          <div className="text-label-sm text-sys-onSurfaceVariant mb-1">
             Workout
           </div>
           <div className="text-body-md font-semibold text-sys-onSurface">
@@ -61,7 +61,7 @@ export function ContinueWorkoutCard({ workout, onResume }: ContinueWorkoutCardPr
           </div>
         </div>
         <div className="col-span-2">
-          <div className="text-label-sm text-sys-onSurfaceVar mb-1">
+          <div className="text-label-sm text-sys-onSurfaceVariant mb-1">
             Progress
           </div>
           <div className="text-body-md font-semibold text-sys-onSurface">

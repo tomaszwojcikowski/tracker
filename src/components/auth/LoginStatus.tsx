@@ -22,20 +22,20 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
     onClearError
 }) => {
     return (
-        <div className="bg-sys-surface rounded-2xl border border-white/5 p-6 mb-4">
+        <div className="bg-sys-surface rounded-2xl border border-sys-outlineVariant p-6 mb-4">
             <div className="flex items-center gap-3 mb-4">
-                <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
-                    <Cloud size={24} className="text-sys-accent" />
+                <div className="h-12 w-12 rounded-xl bg-sys-primary/10 flex items-center justify-center">
+                    <Cloud size={24} className="text-sys-primary" />
                 </div>
                 <div>
-                    <h3 className="text-lg font-bold text-white">Cloud Sync</h3>
+                    <h3 className="text-lg font-bold text-sys-onSurface">Cloud Sync</h3>
                     <p className="text-xs text-sys-onSurfaceVar">Sync data across devices with Google Auth</p>
                 </div>
             </div>
 
             {/* Error Message */}
             {error && (
-                <div className="mb-4 p-3 rounded-xl bg-red-500/20 text-red-400 text-sm font-medium flex items-start gap-2">
+                <div className="mb-4 p-3 rounded-xl bg-sys-error/20 text-sys-error text-sm font-medium flex items-start gap-2">
                     <AlertCircle size={16} className="mt-0.5 shrink-0" />
                     <div className="flex-1">
                         <p>{error}</p>
@@ -48,7 +48,7 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
                     </div>
                     <button
                         onClick={onClearError}
-                        className="p-1 hover:bg-white/10 rounded-full transition-colors"
+                        className="p-1 hover:bg-sys-onSurface/10 rounded-full transition-colors"
                         aria-label="Dismiss error"
                     >
                         <X size={14} />
@@ -58,8 +58,8 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
 
             {/* Loading State */}
             {loading && !user && (
-                <div className="mb-4 p-4 bg-sys-surfaceHigh rounded-xl flex items-center gap-3">
-                    <div className="animate-spin h-5 w-5 border-2 border-sys-accent border-t-transparent rounded-full"></div>
+                <div className="mb-4 p-4 bg-sys-surfaceContainerHigh rounded-xl flex items-center gap-3">
+                    <div className="animate-spin h-5 w-5 border-2 border-sys-primary border-t-transparent rounded-full"></div>
                     <span className="text-sm text-sys-onSurfaceVar">Signing in...</span>
                 </div>
             )}
@@ -67,17 +67,17 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
             {/* Logged In State */}
             {user ? (
                 <>
-                    <div className="mb-4 p-4 bg-sys-surfaceHigh rounded-xl">
+                    <div className="mb-4 p-4 bg-sys-surfaceContainerHigh rounded-xl">
                         <div className="flex items-center gap-3 mb-2">
                             {user.photoURL ? (
                                 <img src={user.photoURL} alt="Profile" className="w-10 h-10 rounded-full" />
                             ) : (
-                                <div className="w-10 h-10 rounded-full bg-sys-accent/20 flex items-center justify-center text-sys-accent font-bold">
+                                <div className="w-10 h-10 rounded-full bg-sys-primary/20 flex items-center justify-center text-sys-primary font-bold">
                                     {user.displayName?.charAt(0) || user.email?.charAt(0) || 'U'}
                                 </div>
                             )}
                             <div>
-                                <div className="text-sm font-semibold text-white">{user.displayName || 'User'}</div>
+                                <div className="text-sm font-semibold text-sys-onSurface">{user.displayName || 'User'}</div>
                                 <div className="text-xs text-sys-onSurfaceVar">{user.email}</div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
                     <button
                         onClick={onLogout}
                         disabled={loading}
-                        className="w-full py-3 px-4 bg-sys-surfaceHigh hover:bg-white/10 text-sys-error rounded-xl text-sm font-medium transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                        className="w-full py-3 px-4 bg-sys-surfaceContainerHigh hover:bg-sys-onSurface/10 text-sys-error rounded-xl text-sm font-medium transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                     >
                         {loading ? (
                             <div className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full"></div>
@@ -118,7 +118,7 @@ export const LoginStatus: React.FC<LoginStatusProps> = ({
                 !loading && (
                     <button
                         onClick={onLogin}
-                        className="w-full py-3 px-4 bg-white text-black hover:bg-gray-200 rounded-xl text-sm font-bold transition-colors flex items-center justify-center gap-2"
+                        className="w-full py-3 px-4 bg-sys-onSurface text-sys-surface hover:opacity-90 rounded-xl text-sm font-bold transition-colors flex items-center justify-center gap-2"
                     >
                         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
                         Sign in with Google

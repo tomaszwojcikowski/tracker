@@ -17,22 +17,22 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
     {
         title: 'Welcome to Tracker',
         description: 'Your personal workout companion for progressive strength training.',
-        icon: <Dumbbell size={48} className="text-sys-accent" />,
+        icon: <Dumbbell size={48} className="text-sys-primary" />,
     },
     {
         title: '21-Week Program',
         description: 'Follow a structured training plan with 4 workout days per week. Track sets, weight, and RPE.',
-        icon: <Calendar size={48} className="text-sys-accent" />,
+        icon: <Calendar size={48} className="text-sys-primary" />,
     },
     {
         title: 'Track Your Progress',
         description: 'View detailed exercise history, personal records, and estimated 1RM calculations.',
-        icon: <TrendingUp size={48} className="text-sys-accent" />,
+        icon: <TrendingUp size={48} className="text-sys-primary" />,
     },
     {
         title: 'Sync Across Devices',
         description: 'Sign in with Google to backup your data and access it anywhere. Optional but recommended.',
-        icon: <Cloud size={48} className="text-sys-accent" />,
+        icon: <Cloud size={48} className="text-sys-primary" />,
     },
 ];
 
@@ -114,7 +114,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
             <div className="flex justify-end p-4">
                 <button
                     onClick={handleSkip}
-                    className="flex items-center gap-1 text-sm text-sys-onSurfaceVar hover:text-white transition-colors px-3 py-2 rounded-lg"
+                    className="flex items-center gap-1 text-sm text-sys-onSurfaceVar hover:text-sys-onSurface transition-colors px-3 py-2 rounded-lg"
                     aria-label="Skip onboarding"
                 >
                     Skip
@@ -137,7 +137,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
                 <div className="animate-fade-in" key={`text-${currentStep}`}>
                     <h2
                         id="onboarding-title"
-                        className="text-2xl font-bold text-white mb-4"
+                        className="text-2xl font-bold text-sys-onSurface mb-4"
                     >
                         {step.title}
                     </h2>
@@ -155,8 +155,8 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
                         onClick={() => handleDotClick(index)}
                         className={`h-2 rounded-full transition-all duration-300 ${
                             index === currentStep
-                                ? 'w-8 bg-sys-accent'
-                                : 'w-2 bg-sys-surfaceHigh hover:bg-sys-onSurfaceVar'
+                                ? 'w-8 bg-sys-primary'
+                                : 'w-2 bg-sys-surfaceContainerHigh hover:bg-sys-onSurfaceVariant'
                         }`}
                         aria-current={index === currentStep ? 'step' : undefined}
                         aria-label={`Go to step ${index + 1} of ${totalSteps}${index === currentStep ? ' (current)' : ''}`}
@@ -168,7 +168,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
             <div className="px-6 pb-6">
                 <button
                     onClick={handleNext}
-                    className="w-full h-14 rounded-2xl bg-gradient-to-r from-sys-accent to-sys-primary text-white font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform shadow-lg"
+                    className="w-full h-14 rounded-2xl bg-gradient-to-r from-sys-primary to-sys-primary text-sys-onPrimary font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform shadow-lg"
                     aria-label={isLastStep ? 'Get Started' : 'Next step'}
                 >
                     {isLastStep ? 'Get Started' : 'Next'}

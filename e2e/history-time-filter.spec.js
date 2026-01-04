@@ -125,7 +125,8 @@ test.describe('History View Time Filter', () => {
 
     // Verify the filter is working by checking visual indicators
     // Days with workouts show either a checkmark or dumbbell icon
-    const workoutIndicators = page.locator('.bg-sys-success\\/20, .bg-sys-accent\\/20');
+    // Include small success badges (bg-sys-success/20) in the selector for completed workouts
+    const workoutIndicators = page.locator(".bg-sys-successContainer, .bg-sys-primaryContainer, [class*='bg-sys-success/20']");
     const count = await workoutIndicators.count();
 
     // Should have some indicators for recent workouts
@@ -152,7 +153,7 @@ test.describe('History View Time Filter', () => {
     await expect(allTimeChip).toHaveAttribute('aria-pressed', 'false');
 
     // Verify the filter is working
-    const workoutIndicators = page.locator('.bg-sys-success\\/20, .bg-sys-accent\\/20');
+    const workoutIndicators = page.locator(".bg-sys-successContainer, .bg-sys-primaryContainer, [class*='bg-sys-success/20']");
     const count = await workoutIndicators.count();
     expect(count).toBeGreaterThan(0);
   });
@@ -176,7 +177,7 @@ test.describe('History View Time Filter', () => {
     await expect(allTimeChip).toHaveAttribute('aria-pressed', 'true');
 
     // Verify we can see workout indicators (showing all history)
-    const workoutIndicators = page.locator('.bg-sys-success\\/20, .bg-sys-accent\\/20');
+    const workoutIndicators = page.locator(".bg-sys-successContainer, .bg-sys-primaryContainer, [class*='bg-sys-success/20']");
     const count = await workoutIndicators.count();
     expect(count).toBeGreaterThan(0);
   });

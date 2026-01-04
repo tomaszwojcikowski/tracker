@@ -84,9 +84,9 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                                 className={`h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
                                     isDone
                                         ? isComplete
-                                            ? 'bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.2)]'
-                                            : 'bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
-                                        : 'bg-sys-accent/20 text-sys-accent border-2 border-sys-accent/40'
+                                            ? 'bg-sys-success text-sys-onSuccess shadow-elevation-1'
+                                            : 'bg-sys-primary text-sys-onPrimary shadow-elevation-1'
+                                        : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVariant border-2 border-sys-outlineVariant'
                                 }`}
                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                             >
@@ -122,7 +122,7 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                 className={`text-sm font-bold ml-1 px-2 py-1 rounded transition-colors ${
                     isComplete
                         ? 'text-sys-success'
-                        : 'text-sys-onSurfaceVar hover:text-white hover:bg-sys-surfaceHigh active:scale-95'
+                        : 'text-sys-onSurfaceVar hover:text-sys-onSurface hover:bg-sys-surfaceContainerHigh active:scale-95'
                 }`}
                 aria-label={`${completedSets} of ${totalSets} sets complete${!isComplete ? ', double-tap to complete all' : ''}`}
                 title={!isComplete ? 'Double-tap to complete all' : undefined}

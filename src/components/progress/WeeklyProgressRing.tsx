@@ -17,7 +17,7 @@ export const WeeklyProgressRing: React.FC<WeeklyProgressRingProps> = ({
     const strokeDashoffset = circumference - progress * circumference;
 
     return (
-        <div className="flex items-center gap-4 bg-sys-surface rounded-2xl p-4 border border-white/5 mb-6">
+        <div className="flex items-center gap-4 bg-sys-surface rounded-2xl p-4 border border-sys-outlineVariant mb-6">
             <div className="relative w-20 h-20 flex items-center justify-center shrink-0">
                 {/* Background Ring */}
                 <svg className="w-full h-full transform -rotate-90">
@@ -28,7 +28,7 @@ export const WeeklyProgressRing: React.FC<WeeklyProgressRingProps> = ({
                         stroke="currentColor"
                         strokeWidth="6"
                         fill="transparent"
-                        className="text-sys-surfaceHigh"
+                        className="text-sys-surfaceContainerHigh"
                     />
                     {/* Progress Ring */}
                     <circle
@@ -41,18 +41,18 @@ export const WeeklyProgressRing: React.FC<WeeklyProgressRingProps> = ({
                         strokeDasharray={circumference}
                         strokeDashoffset={strokeDashoffset}
                         strokeLinecap="round"
-                        className="text-sys-accent transition-all duration-1000 ease-out"
+                        className="text-sys-primary transition-all duration-1000 ease-out"
                     />
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-xl font-bold text-white leading-none">
+                    <span className="text-xl font-bold text-sys-onSurface leading-none">
                         {Math.round(progress * 100)}%
                     </span>
                 </div>
             </div>
-            
+
             <div className="flex-1">
-                <h3 className="text-lg font-bold text-white mb-1">Week {currentWeek}</h3>
+                <h3 className="text-lg font-bold text-sys-onSurface mb-1">Week {currentWeek}</h3>
                 <p className="text-sm text-sys-onSurfaceVar mb-2">
                     {completedWorkouts} of {totalWorkouts} workouts completed
                 </p>
@@ -62,7 +62,7 @@ export const WeeklyProgressRing: React.FC<WeeklyProgressRingProps> = ({
                             key={i}
                             data-testid={`workout-indicator-${i}`}
                             className={`h-1.5 flex-1 rounded-full ${
-                                i < completedWorkouts ? 'bg-sys-accent' : 'bg-sys-surfaceHigh'
+                                i < completedWorkouts ? 'bg-sys-primary' : 'bg-sys-surfaceContainerHigh'
                             }`}
                         />
                     ))}

@@ -275,12 +275,12 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             case 'main': sectionColors = 'bg-main-500/10 border-main-500/20'; break;
             case 'access': sectionColors = 'bg-accessory-500/10 border-accessory-500/20'; break;
             case 'cool': sectionColors = 'bg-cooldown-500/10 border-cooldown-500/20'; break;
-            default: sectionColors = 'bg-sys-surface border-white/5';
+            default: sectionColors = 'bg-sys-surfaceContainerLow border-sys-outlineVariant';
         }
 
         // First incomplete gets accent ring on top of section color (only when not in focus view)
         if (isFirstIncomplete && !hideCollapseButton) {
-            return `${sectionColors} ring-2 ring-sys-accent/50`;
+            return `${sectionColors} ring-2 ring-sys-primary/50`;
         }
 
         return sectionColors;
@@ -318,7 +318,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 className={`text-left cursor-pointer active:opacity-70 transition-opacity ${!hasHistory ? 'opacity-90' : ''}`}
                                 aria-label={`View details and history for ${effectiveName}`}
                             >
-                                <h3 className="text-lg font-bold text-white leading-tight">
+                                <h3 className="text-lg font-bold text-sys-onSurface leading-tight">
                                     {effectiveName}
                                 </h3>
                             </button>
@@ -357,7 +357,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* AMRAP Badge */}
                             {isAmrap && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-secondaryContainer text-sys-onSecondaryContainer border border-sys-secondary/30">
                                     <TrendingUp size={10} strokeWidth={3} />
                                     AMRAP
                                 </span>
@@ -365,7 +365,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* Ladder Badge */}
                             {isLadder && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-teal-500/20 text-teal-400 border border-teal-500/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer border border-sys-tertiary/30">
                                     <BarChart2 size={10} strokeWidth={3} />
                                     {ladderReps ? ladderReps.join('-') : 'LADDER'}
                                 </span>
@@ -373,7 +373,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* Unilateral Badge */}
                             {isUnilateral && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-primaryContainer text-sys-onPrimaryContainer border border-sys-primary/30">
                                     <ArrowRightLeft size={10} strokeWidth={3} />
                                     PER SIDE
                                 </span>
@@ -411,8 +411,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 <span
                                     className={`text-xs font-bold px-2 py-0.5 rounded-full ${
                                         completedSets === totalSets
-                                            ? 'bg-sys-success/10 text-sys-success'
-                                            : 'bg-sys-accent/10 text-sys-accent'
+                                            ? 'bg-sys-successContainer text-sys-onSuccessContainer'
+                                            : 'bg-sys-primaryContainer text-sys-onPrimaryContainer'
                                     }`}
                                 >
                                     {completedSets}/{totalSets}
@@ -449,7 +449,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     onClick={() => onToggleFlowTimer(flowTimeMinutes)}
                                     className={`h-12 px-4 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-sm font-medium ${
                                         flowTimerActive
-                                            ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
+                                            ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
                                             : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                     }`}
                                     aria-label={flowTimerActive ? 'Stop flow timer' : `Start ${flowTimeMinutes}m flow timer`}
@@ -468,7 +468,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     onClick={() => onStartRestTimer(timeSeconds)}
                                     className={`h-12 px-4 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-sm font-medium ${
                                         restTimerActive
-                                            ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
+                                            ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
                                             : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                     }`}
                                     aria-label={restTimerActive ? 'Stop timer' : `Start ${timeSeconds >= 60 ? Math.floor(timeSeconds / 60) + 'm' : timeSeconds + 's'} timer`}
@@ -487,7 +487,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     onClick={onToggleEmomTimer}
                                     className={`h-12 px-4 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-sm font-medium ${
                                         emomTimerActive
-                                            ? 'bg-purple-500 text-white ring-2 ring-purple-500/50'
+                                            ? 'bg-sys-tertiary text-sys-onTertiary ring-2 ring-sys-tertiary/50'
                                             : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                     }`}
                                     aria-label={emomTimerActive ? 'Stop EMOM timer' : `Start ${emomTimerInterval}s EMOM timer`}
@@ -508,7 +508,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                             onClick={() => onToggleDensityTimer(densityTimeMinutes)}
                                             className={`h-12 px-4 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-sm font-medium ${
                                                 densityTimerActive
-                                                    ? 'bg-cyan-500 text-white ring-2 ring-cyan-500/50'
+                                                    ? 'bg-sys-secondary text-sys-onSecondary ring-2 ring-sys-secondary/50'
                                                     : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                             }`}
                                             aria-label={densityTimerActive ? 'Stop density timer' : `Start ${densityTimeMinutes}m density timer`}
@@ -552,9 +552,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                                         className={`set-button h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
                                                             isDone
                                                                 ? allComplete
-                                                                    ? 'completed bg-sys-success text-white shadow-[0_0_8px_rgba(16,185,129,0.2)]'
-                                                                    : 'completed bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
-                                                                : 'bg-sys-accent/20 text-sys-accent border-2 border-sys-accent/40'
+                                                                    ? 'completed bg-sys-success text-sys-onSuccess shadow-elevation-1'
+                                                                    : 'completed bg-sys-primary text-sys-onPrimary shadow-elevation-1'
+                                                                : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVariant border-2 border-sys-outlineVariant'
                                                         }`}
                                                         aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                     >
@@ -587,7 +587,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 {/* Add set button */}
                                 <button
                                     onClick={() => onAddSet(exId, defaultSets)}
-                                    className="h-12 w-12 min-w-[48px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center text-sm font-bold border-2 border-dashed border-white/20 active:scale-95 transition-all"
+                                    className="h-12 w-12 min-w-[48px] rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurfaceVar flex items-center justify-center text-sm font-bold border-2 border-dashed border-sys-outlineVariant active:scale-95 transition-all"
                                     aria-label="Add set"
                                 >
                                     <Plus size={18} />
@@ -597,7 +597,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 {sets.filter((s) => !s).length > 1 && (
                                     <button
                                         onClick={() => onCompleteAllSets(exId, defaultSets)}
-                                        className="h-12 w-12 min-w-[48px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-all"
+                                        className="h-12 w-12 min-w-[48px] rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-all"
                                         aria-label="Complete all sets"
                                         title="Complete all sets"
                                     >
@@ -611,7 +611,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                         onClick={() => onStartRestTimer(restTime)}
                                         className={`h-10 px-4 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-sm font-semibold ${
                                             restTimerActive
-                                                ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
+                                                ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
                                                 : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                         }`}
                                         aria-label={`Start ${restTime}s rest timer`}
@@ -630,7 +630,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                                 const current = parseFloat(exerciseLog.weight || '0');
                                                 onSaveWeight(exId, Math.max(0, current - 2.5).toString());
                                             }}
-                                            className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
+                                            className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
                                             aria-label="Decrease weight by 2.5kg"
                                         >
                                             <Minus size={16} />
@@ -644,7 +644,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                             value={exerciseLog.weight || ''}
                                             onChange={(e) => onSaveWeight(exId, e.target.value)}
                                             placeholder={loadRange && loadRange.unit === 'kg' && loadRange.min > 0 ? String(loadRange.min) : '0'}
-                                            className="w-24 h-12 px-2 bg-sys-surfaceHigh rounded-xl text-white text-center text-2xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-accent transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                            className="w-24 h-12 px-2 bg-sys-surfaceContainerHigh rounded-xl text-sys-onSurface text-center text-2xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-primary transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                             aria-label="Weight in kg"
                                         />
                                         <button
@@ -653,7 +653,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                                 const current = parseFloat(exerciseLog.weight || '0');
                                                 onSaveWeight(exId, (current + 2.5).toString());
                                             }}
-                                            className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
+                                            className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
                                             aria-label="Increase weight by 2.5kg"
                                         >
                                             <Plus size={16} />
@@ -670,7 +670,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 {previousWeight && !exerciseLog.weight && (
                                     <button
                                         onClick={handleUsePreviousWeight}
-                                        className="flex items-center gap-1 text-xs text-sys-accent font-medium px-2 py-0.5 rounded-full bg-sys-accent/10 hover:bg-sys-accent/20 active:scale-95 transition-all"
+                                        className="flex items-center gap-1 text-xs text-sys-onPrimaryContainer font-medium px-2 py-0.5 rounded-full bg-sys-primaryContainer hover:bg-sys-primaryContainer/80 active:scale-95 transition-all"
                                         aria-label={`Use previous weight of ${previousWeight}kg`}
                                     >
                                         <History size={10} />
@@ -686,7 +686,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 )}
                                 {/* Load range suggestion */}
                                 {loadRange && loadRange.min > 0 && loadRange.unit === 'kg' && (
-                                    <span className="text-xs text-sys-accent font-medium">
+                                    <span className="text-xs text-sys-primary font-medium">
                                         Suggested: {loadRange.min === loadRange.max
                                             ? `${loadRange.min}kg`
                                             : `${loadRange.min}-${loadRange.max}kg`}

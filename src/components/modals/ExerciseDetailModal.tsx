@@ -214,10 +214,10 @@ const WeightGraph: React.FC<{ data: Array<{ weight: number; date: string }> }> =
     }
 
     return (
-        <div className="bg-sys-surfaceHigh rounded-xl p-4">
+        <div className="bg-sys-surfaceContainerHigh rounded-xl p-4 border border-sys-outlineVariant">
             <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <TrendingUp size={16} className="text-sys-accent" />
+                <h3 className="text-sm font-bold text-sys-onSurface flex items-center gap-2">
+                    <TrendingUp size={16} className="text-sys-primary" />
                     Progress
                 </h3>
                 <span className="text-xs text-sys-onSurfaceVar">
@@ -326,14 +326,14 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
             maxHeight={85}
         >
             {/* Header */}
-            <div className="flex items-center justify-between px-5 pb-4 border-b border-white/5 gap-3">
+            <div className="flex items-center justify-between px-5 pb-4 border-b border-sys-outlineVariant gap-3">
                 <div className="min-w-0">
-                    <h2 id="exercise-modal-title" className="text-xl font-bold text-white/90 truncate">
+                    <h2 id="exercise-modal-title" className="text-xl font-bold text-sys-onSurface truncate">
                         {exerciseName}
                     </h2>
                     {isSwapped && originalName && (
                         <p className="text-[11px] text-sys-onSurfaceVar mt-0.5 truncate">
-                            Swapped from <span className="text-white/80 font-medium">{originalName}</span>
+                            Swapped from <span className="text-sys-onSurface/80 font-medium">{originalName}</span>
                         </p>
                     )}
                     <p className="text-xs text-sys-onSurfaceVar mt-1">
@@ -344,7 +344,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                     {canSwap && (
                         <button
                             onClick={handleSwapClick}
-                            className="h-8 px-3 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar text-xs font-semibold flex items-center gap-1.5 active:scale-95 transition-all border border-white/10"
+                            className="h-8 px-3 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurfaceVar text-xs font-semibold flex items-center gap-1.5 active:scale-95 transition-all border border-sys-outlineVariant"
                             aria-label="Swap exercise"
                         >
                             <ArrowRightLeft size={14} />
@@ -353,7 +353,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                     )}
                     <button
                         onClick={onClose}
-                        className="h-8 w-8 rounded-full bg-sys-surfaceHigh flex items-center justify-center text-sys-onSurfaceVar active:scale-90 transition-all"
+                        className="h-8 w-8 rounded-full bg-sys-surfaceContainerHigh flex items-center justify-center text-sys-onSurfaceVar active:scale-90 transition-all"
                         aria-label="Close exercise details"
                     >
                         <X size={18} />
@@ -363,9 +363,9 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
 
             <div className="p-5 space-y-6 overflow-y-auto pb-safe">
                 {showMetadataCard && (
-                    <div className="bg-sys-surfaceHigh rounded-xl p-4 border border-white/5 space-y-4">
-                        <div className="flex items-center gap-2 text-white/90">
-                            <ClipboardList size={16} className="text-sys-accent" />
+                    <div className="bg-sys-surfaceContainerHigh rounded-xl p-4 border border-sys-outlineVariant space-y-4">
+                        <div className="flex items-center gap-2 text-sys-onSurface">
+                            <ClipboardList size={16} className="text-sys-primary" />
                             <h3 className="text-sm font-bold">Exercise Details</h3>
                         </div>
                         {detailBadges.length > 0 && (
@@ -380,45 +380,45 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                 ))}
                             </div>
                         )}
-                        <div className="space-y-3 text-sm text-white/85">
+                        <div className="space-y-3 text-sm text-sys-onSurfaceVar">
                             {metadata?.prescription && (
                                 <div className="flex items-start gap-3">
-                                    <Dumbbell size={16} className="mt-0.5 text-sys-accent" />
+                                    <Dumbbell size={16} className="mt-0.5 text-sys-primary" />
                                     <div>
-                                        <p className="text-xs uppercase tracking-wider text-white/60">Prescription</p>
-                                        <p className="font-semibold leading-tight">{metadata.prescription}</p>
+                                        <p className="text-xs uppercase tracking-wider opacity-60">Prescription</p>
+                                        <p className="font-semibold leading-tight text-sys-onSurface">{metadata.prescription}</p>
                                     </div>
                                 </div>
                             )}
                             {restLabel && (
                                 <div className="flex items-start gap-3">
-                                    <Timer size={16} className="mt-0.5 text-sys-accent" />
+                                    <Timer size={16} className="mt-0.5 text-sys-primary" />
                                     <div>
-                                        <p className="text-xs uppercase tracking-wider text-white/60">Rest Between Sets</p>
-                                        <p className="font-semibold leading-tight">{restLabel}</p>
+                                        <p className="text-xs uppercase tracking-wider opacity-60">Rest Between Sets</p>
+                                        <p className="font-semibold leading-tight text-sys-onSurface">{restLabel}</p>
                                     </div>
                                 </div>
                             )}
                             {loadLabel && (
                                 <div className="flex items-start gap-3">
-                                    <ArrowRightLeft size={16} className="mt-0.5 text-sys-accent" />
+                                    <ArrowRightLeft size={16} className="mt-0.5 text-sys-primary" />
                                     <div>
-                                        <p className="text-xs uppercase tracking-wider text-white/60">Suggested Load</p>
-                                        <p className="font-semibold leading-tight">{loadLabel}</p>
+                                        <p className="text-xs uppercase tracking-wider opacity-60">Suggested Load</p>
+                                        <p className="font-semibold leading-tight text-sys-onSurface">{loadLabel}</p>
                                     </div>
                                 </div>
                             )}
                             {tempoLabel && (
                                 <div className="flex items-start gap-3">
-                                    <Gauge size={16} className="mt-0.5 text-sys-accent" />
+                                    <Gauge size={16} className="mt-0.5 text-sys-primary" />
                                     <div>
-                                        <p className="text-xs uppercase tracking-wider text-white/60">Tempo</p>
-                                        <p className="font-semibold leading-tight font-mono">{tempoLabel.display}</p>
+                                        <p className="text-xs uppercase tracking-wider opacity-60">Tempo</p>
+                                        <p className="font-semibold leading-tight font-mono text-sys-onSurface">{tempoLabel.display}</p>
                                         <div className="flex gap-3 mt-1.5">
                                             {tempoLabel.phases.map((phase) => (
                                                 <div key={phase.label} className="text-center">
-                                                    <span className="text-[10px] text-white/40 uppercase tracking-wide">{phase.label}</span>
-                                                    <p className="text-xs font-medium text-white/70">{phase.value}</p>
+                                                    <span className="text-[10px] opacity-40 uppercase tracking-wide">{phase.label}</span>
+                                                    <p className="text-xs font-medium opacity-70">{phase.value}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -430,12 +430,12 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                 )}
 
                 {metadata?.notes && (
-                    <div className="bg-sys-surfaceHigh rounded-xl p-4 border border-white/5 space-y-3">
-                        <div className="flex items-center gap-2 text-white/90">
-                            <FileText size={16} className="text-sys-accent" />
+                    <div className="bg-sys-surfaceContainerHigh rounded-xl p-4 border border-sys-outlineVariant space-y-3">
+                        <div className="flex items-center gap-2 text-sys-onSurface">
+                            <FileText size={16} className="text-sys-primary" />
                             <h3 className="text-sm font-bold">Coaching Notes</h3>
                         </div>
-                        <p className="text-sm leading-relaxed text-white/80 whitespace-pre-line">
+                        <p className="text-sm leading-relaxed text-sys-onSurfaceVar whitespace-pre-line">
                             {metadata.notes}
                         </p>
                     </div>
@@ -443,16 +443,16 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
 
                 {/* User Notes Section - Only shown when onUpdateUserNotes is provided */}
                 {exerciseId && onUpdateUserNotes && (
-                    <div className="bg-sys-surfaceHigh rounded-xl p-4 border border-white/5 space-y-3">
+                    <div className="bg-sys-surfaceContainerHigh rounded-xl p-4 border border-sys-outlineVariant space-y-3">
                         <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2 text-white/90">
-                                <Edit3 size={16} className="text-sys-accent" />
+                            <div className="flex items-center gap-2 text-sys-onSurface">
+                                <Edit3 size={16} className="text-sys-primary" />
                                 <h3 className="text-sm font-bold">My Notes</h3>
                             </div>
                             {!editingUserNotes && (
                                 <button
                                     onClick={() => setEditingUserNotes(true)}
-                                    className="text-xs font-semibold text-sys-accent px-3 py-1 rounded-full bg-sys-accent/10 active:scale-95 transition-all"
+                                    className="text-xs font-semibold text-sys-primary px-3 py-1 rounded-full bg-sys-primary/10 active:scale-95 transition-all"
                                     aria-label="Edit notes"
                                 >
                                     Edit
@@ -466,7 +466,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                     value={userNotesValue}
                                     onChange={(e) => setUserNotesValue(e.target.value)}
                                     placeholder="Add your notes about this exercise..."
-                                    className="w-full min-h-[100px] bg-sys-surface rounded-lg p-3 text-sm text-white placeholder-white/40 border border-white/10 focus:border-sys-accent focus:outline-none resize-y"
+                                    className="w-full min-h-[100px] bg-sys-surface rounded-lg p-3 text-sm text-sys-onSurface placeholder:text-sys-onSurfaceVar/40 border border-sys-outlineVariant focus:border-sys-primary focus:outline-none resize-y"
                                     autoFocus
                                     aria-label="Exercise notes"
                                     aria-describedby="notes-help-text"
@@ -477,14 +477,14 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                 <div className="flex gap-2 justify-end">
                                     <button
                                         onClick={handleCancelEditUserNotes}
-                                        className="px-4 py-2 rounded-lg bg-sys-surface text-white/70 text-sm font-semibold active:scale-95 transition-all flex items-center gap-1.5"
+                                        className="px-4 py-2 rounded-lg bg-sys-surface text-sys-onSurfaceVar text-sm font-semibold active:scale-95 transition-all flex items-center gap-1.5"
                                     >
                                         <XCircle size={14} />
                                         Cancel
                                     </button>
                                     <button
                                         onClick={handleSaveUserNotes}
-                                        className="px-4 py-2 rounded-lg bg-sys-accent text-white text-sm font-semibold active:scale-95 transition-all flex items-center gap-1.5"
+                                        className="px-4 py-2 rounded-lg bg-sys-primary text-sys-onPrimary text-sm font-semibold active:scale-95 transition-all flex items-center gap-1.5"
                                     >
                                         <Save size={14} />
                                         Save
@@ -494,11 +494,11 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                         ) : (
                             <div>
                                 {userNotesValue ? (
-                                    <p className="text-sm leading-relaxed text-white/80 whitespace-pre-line">
+                                    <p className="text-sm leading-relaxed text-sys-onSurfaceVar whitespace-pre-line">
                                         {userNotesValue}
                                     </p>
                                 ) : (
-                                    <p className="text-sm text-white/40 italic">
+                                    <p className="text-sm text-sys-onSurfaceVar/40 italic">
                                         No notes yet. Click Edit to add your thoughts about this exercise.
                                     </p>
                                 )}
@@ -510,34 +510,34 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                 {/* Stats Grid - Only show if there's meaningful data */}
                 {(stats.estimated1RM || stats.maxWeight || stats.maxSets !== null) && (
                     <div className="grid grid-cols-3 gap-3">
-                        <div className="bg-sys-surfaceHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                        <div className="bg-sys-surfaceContainerHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
                             <div className="absolute top-0 right-0 p-1 opacity-10">
                                 <Trophy size={32} />
                             </div>
                             <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Est. 1RM</div>
-                            <div className="text-xl font-bold text-white/90">
+                            <div className="text-xl font-bold text-sys-onSurface">
                                 {stats.estimated1RM ? (
                                     <span>{stats.estimated1RM}<span className="text-xs font-normal text-sys-onSurfaceVar ml-0.5">kg</span></span>
                                 ) : '-'}
                             </div>
                         </div>
-                        <div className="bg-sys-surfaceHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                        <div className="bg-sys-surfaceContainerHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
                             <div className="absolute top-0 right-0 p-1 opacity-10">
                                 <Dumbbell size={32} />
                             </div>
                             <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Max Weight</div>
-                            <div className="text-xl font-bold text-white/90">
+                            <div className="text-xl font-bold text-sys-onSurface">
                                 {stats.maxWeight ? (
                                     <span>{stats.maxWeight}<span className="text-xs font-normal text-sys-onSurfaceVar ml-0.5">kg</span></span>
                                 ) : '-'}
                             </div>
                         </div>
-                        <div className="bg-sys-surfaceHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                        <div className="bg-sys-surfaceContainerHigh rounded-xl p-3 flex flex-col items-center justify-center text-center relative overflow-hidden">
                             <div className="absolute top-0 right-0 p-1 opacity-10">
                                 <Activity size={32} />
                             </div>
                             <div className="text-[10px] uppercase tracking-wider text-sys-onSurfaceVar mb-1 font-bold">Max Sets</div>
-                            <div className="text-xl font-bold text-white/90">
+                            <div className="text-xl font-bold text-sys-onSurface">
                                 {stats.maxSets !== null ? stats.maxSets : '-'}
                             </div>
                         </div>
@@ -551,8 +551,8 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                 {recentHistory.length > 0 && (
                     <div>
                         <div className="flex items-center justify-between mb-3">
-                            <h3 className="text-sm font-bold text-white/90 flex items-center gap-2">
-                                <Calendar size={16} className="text-sys-accent" />
+                            <h3 className="text-sm font-bold text-sys-onSurface flex items-center gap-2">
+                                <Calendar size={16} className="text-sys-primary" />
                                 Recent Sessions
                             </h3>
                             <span className="text-[10px] uppercase text-sys-onSurfaceVar font-semibold tracking-wider">Last 3</span>
@@ -571,16 +571,16 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                 });
 
                                 return (
-                                    <div key={`${entry.date}-${idx}`} className="bg-sys-surfaceHigh rounded-xl p-4 border border-white/5">
+                                    <div key={`${entry.date}-${idx}`} className="bg-sys-surfaceContainerHigh rounded-xl p-4 border border-sys-outlineVariant">
                                         <div className="flex items-center justify-between mb-3">
                                             <div>
-                                                <div className="text-sm font-semibold text-white/85">{formattedDate}</div>
+                                                <div className="text-sm font-semibold text-sys-onSurface">{formattedDate}</div>
                                                 <div className="text-[11px] text-sys-onSurfaceVar">
                                                     Week {entry.week} • Day {entry.day}
                                                 </div>
                                             </div>
                                             {isPr && (
-                                                <div className="h-6 px-2 rounded-full bg-sys-accent/20 text-sys-accent text-[10px] font-bold flex items-center border border-sys-accent/30">
+                                                <div className="h-6 px-2 rounded-full bg-sys-primary/20 text-sys-primary text-[10px] font-bold flex items-center border border-sys-primary/30">
                                                     PR
                                                 </div>
                                             )}
@@ -588,15 +588,15 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                         <div className="grid grid-cols-3 gap-2 text-center">
                                             <div>
                                                 <div className="text-[10px] uppercase text-sys-onSurfaceVar tracking-wide">Sets</div>
-                                                <div className="text-white/85 font-semibold text-sm">{setsLabel}</div>
+                                                <div className="text-sys-onSurface font-semibold text-sm">{setsLabel}</div>
                                             </div>
                                             <div>
                                                 <div className="text-[10px] uppercase text-sys-onSurfaceVar tracking-wide">Reps</div>
-                                                <div className="text-white/85 font-semibold text-sm">{repsLabel}</div>
+                                                <div className="text-sys-onSurface font-semibold text-sm">{repsLabel}</div>
                                             </div>
                                             <div>
                                                 <div className="text-[10px] uppercase text-sys-onSurfaceVar tracking-wide">Weight</div>
-                                                <div className="text-white/85 font-semibold text-sm">{weightLabel}</div>
+                                                <div className="text-sys-onSurface font-semibold text-sm">{weightLabel}</div>
                                             </div>
                                         </div>
                                         {entry.prescription && (
@@ -605,10 +605,10 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                                             </p>
                                         )}
                                         {entry.notes && (
-                                            <div className="mt-3 pt-3 border-t border-white/5">
+                                            <div className="mt-3 pt-3 border-t border-sys-outlineVariant">
                                                 <div className="flex items-start gap-2">
-                                                    <FileText size={12} className="mt-0.5 text-sys-accent flex-shrink-0" />
-                                                    <p className="text-[11px] text-white/80 leading-relaxed">{entry.notes}</p>
+                                                    <FileText size={12} className="mt-0.5 text-sys-primary flex-shrink-0" />
+                                                    <p className="text-[11px] text-sys-onSurfaceVar leading-relaxed">{entry.notes}</p>
                                                 </div>
                                             </div>
                                         )}

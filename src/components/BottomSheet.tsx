@@ -167,7 +167,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
                 aria-label={ariaLabel}
                 aria-labelledby={ariaLabelledBy}
                 tabIndex={-1}
-                className={`relative w-full max-w-lg mockup-bg-surface border border-b-0 mockup-border rounded-t-[28px] flex flex-col overflow-hidden animate-slide-up surface-elevation-3 ${className}`}
+                className={`relative w-full max-w-lg bg-sys-surface border border-b-0 border-sys-outlineVariant rounded-t-[28px] flex flex-col overflow-hidden animate-slide-up shadow-elevation-3 ${className}`}
                 style={sheetStyle}
                 onClick={(e) => e.stopPropagation()}
             >
@@ -181,7 +181,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
                         onMouseDown={handleMouseDown}
                     >
                         {/* MD3 Drag Handle: 32dp width, 4dp height */}
-                        <div className="w-8 h-1 rounded-full mockup-bg-surface-3" />
+                        <div className="w-8 h-1 rounded-full bg-sys-surfaceContainerHigh" />
                     </div>
                 )}
 

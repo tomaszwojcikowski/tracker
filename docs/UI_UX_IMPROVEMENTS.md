@@ -495,7 +495,7 @@ const WorkoutProgress = ({ exercises, completedSets, totalSets }) => (
     </div>
     <div className="h-2 bg-sys-surfaceHigh rounded-full overflow-hidden">
       <div
-        className="h-full bg-gradient-to-r from-sys-accent to-sys-success transition-all duration-500 rounded-full"
+        className="h-full bg-gradient-to-r from-sys-primary to-sys-success transition-all duration-500 rounded-full"
         style={{ width: `${(completedSets/totalSets)*100}%` }}
       />
     </div>

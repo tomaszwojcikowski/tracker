@@ -87,52 +87,52 @@ function getSectionColorClasses(sectionName: string, sectionType?: string): {
     // Match by common section names
     if (nameLower.includes('warm') || sectionType === 'prep') {
         return {
-            iconColor: 'icon-warmup',
+            iconColor: 'text-warmup-500',
             gradientBar: 'from-warmup-500/20 to-transparent',
-            iconBg: 'bg-warmup-600/20'
+            iconBg: 'bg-warmup-500/20'
         };
     }
     if (nameLower.includes('skill')) {
         return {
-            iconColor: 'icon-skill',
+            iconColor: 'text-skill-500',
             gradientBar: 'from-skill-500/20 to-transparent',
-            iconBg: 'bg-skill-600/20'
+            iconBg: 'bg-skill-500/20'
         };
     }
     if (nameLower.includes('main') || nameLower.includes('work') || sectionType === 'main') {
         return {
-            iconColor: 'icon-main',
+            iconColor: 'text-main-500',
             gradientBar: 'from-main-500/20 to-transparent',
-            iconBg: 'bg-main-600/20'
+            iconBg: 'bg-main-500/20'
         };
     }
     if (nameLower.includes('accessory') || nameLower.includes('assistance')) {
         return {
-            iconColor: 'icon-accessory',
+            iconColor: 'text-accessory-500',
             gradientBar: 'from-accessory-500/20 to-transparent',
-            iconBg: 'bg-accessory-600/20'
+            iconBg: 'bg-accessory-500/20'
         };
     }
     if (nameLower.includes('core') || nameLower.includes('ab')) {
         return {
-            iconColor: 'icon-core',
+            iconColor: 'text-core-500',
             gradientBar: 'from-core-500/20 to-transparent',
-            iconBg: 'bg-core-600/20'
+            iconBg: 'bg-core-500/20'
         };
     }
     if (nameLower.includes('cool') || nameLower.includes('stretch') || sectionType === 'cool') {
         return {
-            iconColor: 'icon-cooldown',
+            iconColor: 'text-cooldown-500',
             gradientBar: 'from-cooldown-500/20 to-transparent',
-            iconBg: 'bg-cooldown-600/20'
+            iconBg: 'bg-cooldown-500/20'
         };
     }
 
     // Default colors
     return {
-        iconColor: 'text-sys-accent',
-        gradientBar: 'from-sys-accent/20 to-transparent',
-        iconBg: 'bg-sys-surfaceHigh'
+        iconColor: 'text-sys-primary',
+        gradientBar: 'from-sys-primary/20 to-transparent',
+        iconBg: 'bg-sys-primaryContainer/20'
     };
 }
 
@@ -1273,10 +1273,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 >
                     <div className="px-6 pt-2 pb-6 safe-pb">
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="h-10 w-10 rounded-xl bg-sys-accent/20 flex items-center justify-center">
-                                <StickyNote size={20} className="text-sys-accent" />
+                            <div className="h-10 w-10 rounded-xl bg-sys-primary/20 flex items-center justify-center">
+                                <StickyNote size={20} className="text-sys-primary" />
                             </div>
-                            <h3 className="text-lg font-bold text-white">Workout Notes</h3>
+                            <h3 className="text-lg font-bold text-sys-onSurface">Workout Notes</h3>
                         </div>
                         <textarea
                             value={workoutNotes}
@@ -1290,7 +1290,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 persistLogs(updatedLogs);
                             }}
                             placeholder="How are you feeling? Any notes for this workout..."
-                            className="w-full h-32 px-4 py-3 bg-sys-surfaceHigh rounded-xl text-white text-base placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent resize-none border border-white/5"
+                            className="w-full h-32 px-4 py-3 bg-sys-surfaceContainerHigh rounded-xl text-sys-onSurface text-base placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-primary resize-none border border-sys-outlineVariant"
                             autoFocus
                         />
                         <p className="text-xs text-sys-onSurfaceVar mt-2">Notes are saved automatically</p>
@@ -1306,18 +1306,18 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             setShowNotesModal(true);
                         }}
                         className={`btn-icon h-10 w-10 relative ${
-                            workoutNotes.trim() ? 'bg-sys-accent/20 text-sys-accent' : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                            workoutNotes.trim() ? 'bg-sys-primary/20 text-sys-primary' : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar'
                         }`}
                         aria-label="Open workout notes"
                     >
                         <StickyNote size={22} />
                         {workoutNotes.trim() && (
-                            <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 bg-sys-accent rounded-full" />
+                            <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 bg-sys-primary rounded-full" />
                         )}
                     </button>
 
                     {/* View Mode Toggle */}
-                    <div className="flex items-center bg-sys-surfaceHigh rounded-lg p-1 border border-white/5">
+                    <div className="flex items-center bg-sys-surfaceContainerHigh rounded-lg p-1 border border-sys-outlineVariant">
                         <button
                             onClick={() => {
                                 if (viewMode === 'focus') {
@@ -1329,7 +1329,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 }
                             }}
                             className={`h-8 w-8 rounded-md flex items-center justify-center transition-all ${
-                                viewMode === 'list' && !compactView ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
+                                viewMode === 'list' && !compactView ? 'bg-sys-primary text-sys-onPrimary' : 'text-sys-onSurfaceVar'
                             }`}
                             aria-label="Card view"
                             aria-pressed={viewMode === 'list' && !compactView}
@@ -1346,21 +1346,21 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 }
                             }}
                             className={`h-8 w-8 rounded-md flex items-center justify-center transition-all ${
-                                viewMode === 'list' && compactView ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
+                                viewMode === 'list' && compactView ? 'bg-sys-primary text-sys-onPrimary' : 'text-sys-onSurfaceVar'
                             }`}
                             aria-label="Compact list view"
                             aria-pressed={viewMode === 'list' && compactView}
                         >
                             <LayoutList size={20} />
                         </button>
-                        <div className="w-[1px] h-4 bg-white/10 mx-1" />
+                        <div className="w-[1px] h-4 bg-sys-outlineVariant mx-1" />
                         <button
                             onClick={() => {
                                 haptic.tick();
                                 handleViewModeChange(viewMode === 'focus' ? 'list' : 'focus');
                             }}
                             className={`h-8 w-8 rounded-md flex items-center justify-center transition-all ${
-                                viewMode === 'focus' ? 'bg-sys-accent text-white' : 'text-sys-onSurfaceVar'
+                                viewMode === 'focus' ? 'bg-sys-primary text-sys-onPrimary' : 'text-sys-onSurfaceVar'
                             }`}
                             aria-label="Focus mode"
                             aria-pressed={viewMode === 'focus'}
@@ -1372,12 +1372,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                 {/* Empty Workout Prompt */}
                 {isEmptyWorkout && addedExercises.length === 0 && !logs.completed && (
-                    <div className="mb-6 p-6 rounded-2xl bg-gradient-to-br from-sys-accent/10 via-sys-surface to-sys-surfaceHigh border-2 border-dashed border-sys-accent/30">
+                    <div className="mb-6 p-6 rounded-2xl bg-gradient-to-br from-sys-primary/10 via-sys-surface to-sys-surfaceContainerHigh border-2 border-dashed border-sys-primary/30">
                         <div className="flex flex-col items-center text-center">
-                            <div className="h-16 w-16 rounded-2xl bg-sys-accent/20 flex items-center justify-center mb-4">
-                                <PlusCircle size={32} className="text-sys-accent" />
+                            <div className="h-16 w-16 rounded-2xl bg-sys-primary/20 flex items-center justify-center mb-4">
+                                <PlusCircle size={32} className="text-sys-primary" />
                             </div>
-                            <h3 className="text-lg font-bold text-white mb-2">Build Your Workout</h3>
+                            <h3 className="text-lg font-bold text-sys-onSurface mb-2">Build Your Workout</h3>
                             <p className="text-sm text-sys-onSurfaceVar mb-4 max-w-[280px]">
                                 Add exercises from the library to create your custom workout session.
                             </p>
@@ -1386,7 +1386,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                     haptic.bump();
                                     setShowExerciseSelector(true);
                                 }}
-                                className="h-12 px-6 rounded-xl text-white font-semibold active:scale-95 transition-transform btn-gradient-primary flex items-center gap-2"
+                                className="btn-filled h-12 px-6 rounded-xl font-semibold active:scale-95 transition-transform flex items-center gap-2"
                             >
                                 <PlusCircle size={22} />
                                 <span>Add First Exercise</span>
@@ -1465,7 +1465,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     return (
                         <div key={sIdx} className="mb-5">
                             {/* Section Header - Always sticky below TopAppBar (h-16 + progress bar) */}
-                            <div className="sticky top-[68px] z-20 bg-sys-black/95 backdrop-blur-sm py-2 -mx-4 px-4 border-b border-white/5">
+                            <div className="sticky top-[68px] z-20 bg-sys-surface/95 backdrop-blur-sm py-2 -mx-4 px-4 border-b border-sys-outlineVariant">
                                 <div className="flex items-center gap-2">
                                     <div className={`rounded-md flex items-center justify-center ${colors.iconBg} h-6 w-6`}>
                                         {section.type === 'prep' ? (
@@ -1478,7 +1478,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                             <Activity size={14} className={colors.iconColor} />
                                         )}
                                     </div>
-                                    <span className="font-bold text-white uppercase tracking-wide text-sm">
+                                    <span className="font-bold text-sys-onSurface uppercase tracking-wide text-sm">
                                         {section.name}
                                     </span>
 
@@ -1489,8 +1489,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 key={dotIdx}
                                                 className={`h-2 w-2 rounded-full transition-all duration-300 ${
                                                     isComplete
-                                                        ? 'bg-emerald-400 scale-110'
-                                                        : 'bg-sys-surfaceHigh border border-white/20'
+                                                        ? 'bg-sys-success scale-110'
+                                                        : 'bg-sys-surfaceContainerHigh border border-sys-outlineVariant'
                                                 }`}
                                             />
                                         ))}
@@ -1708,13 +1708,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 {addedExercises.length > 0 && (
                     <div className="mb-5">
                         <div className="flex items-center gap-2 mb-2">
-                            <div className="h-7 w-7 rounded-md flex items-center justify-center bg-sys-surfaceHigh">
+                            <div className="h-7 w-7 rounded-md flex items-center justify-center bg-sys-surfaceContainerHigh">
                                 <PlusCircle size={18} className="text-sys-success" />
                             </div>
-                            <span className="text-sm font-bold text-white uppercase tracking-wide">
+                            <span className="text-sm font-bold text-sys-onSurface uppercase tracking-wide">
                                 {isEmptyWorkout ? 'Exercises' : 'Added Exercises'}
                             </span>
-                            <div className="h-[2px] flex-1 bg-gradient-to-r from-white/20 to-transparent rounded-full"></div>
+                            <div className="h-[2px] flex-1 bg-gradient-to-r from-sys-outlineVariant to-transparent rounded-full"></div>
                         </div>
 
                         <div className="space-y-3">
@@ -1770,14 +1770,14 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             }}
                             className={`h-10 min-h-[40px] px-6 rounded-xl font-medium flex items-center justify-center gap-2 active:scale-95 transition-all relative overflow-hidden ${
                                 workoutProgress.totalSets > 0 && workoutProgress.completedSets === workoutProgress.totalSets
-                                    ? 'bg-gradient-to-r from-sys-success to-sys-accent text-white shadow-lg shadow-sys-success/30 border-0'
-                                    : 'bg-sys-surfaceHigh border border-white/10 text-white'
+                                    ? 'bg-sys-success text-sys-onSuccess shadow-lg shadow-sys-success/30 border-0'
+                                    : 'bg-sys-surfaceContainerHigh border border-sys-outlineVariant text-sys-onSurface'
                             }`}
                         >
                             {/* Progress bar background for incomplete workouts */}
                             {workoutProgress.totalSets > 0 && workoutProgress.completedSets < workoutProgress.totalSets && (
                                 <div
-                                    className="absolute inset-0 bg-gradient-to-r from-sys-success/20 to-sys-accent/20 transition-all duration-500"
+                                    className="absolute inset-0 bg-sys-success/20 transition-all duration-500"
                                     style={{ width: `${(workoutProgress.completedSets / workoutProgress.totalSets) * 100}%` }}
                                 />
                             )}
@@ -1785,7 +1785,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 <CheckCircle2 size={20} />
                                 <span>Finish</span>
                                 {workoutProgress.totalSets > 0 && (
-                                    <span className={workoutProgress.completedSets === workoutProgress.totalSets ? 'text-white/90 text-xs' : 'text-sys-onSurfaceVar text-xs'}>
+                                    <span className={workoutProgress.completedSets === workoutProgress.totalSets ? 'text-sys-onSuccess/90 text-xs' : 'text-sys-onSurfaceVar text-xs'}>
                                         ({workoutProgress.completedSets}/{workoutProgress.totalSets})
                                     </span>
                                 )}
@@ -1812,15 +1812,15 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 {/* Timer Toast */}
                 {restTimer.showToast && (
                     <div className="fixed top-20 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
-                        <div className="bg-sys-accent px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-md w-full border border-white/10">
-                            <CheckCircle2 size={24} className="text-white flex-shrink-0" />
-                            <span className="text-white font-bold text-base flex-1">Rest Complete!</span>
+                        <div className="bg-sys-primary px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-md w-full border border-sys-outlineVariant">
+                            <CheckCircle2 size={24} className="text-sys-onPrimary flex-shrink-0" />
+                            <span className="text-sys-onPrimary font-bold text-base flex-1">Rest Complete!</span>
                             <button
                                 onClick={() => {
                                     haptic.tick();
                                     restTimer.dismissToast();
                                 }}
-                                className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
+                                className="h-8 w-8 min-w-[32px] rounded-full hover:bg-sys-onPrimary/10 text-sys-onPrimary flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
                                 aria-label="Close notification"
                             >
                                 <X size={18} />
@@ -1832,8 +1832,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 {/* Finish Confirmation Dialog */}
                 {showFinishConfirm && (
                     <div className="fixed inset-0 z-50 flex items-end justify-center p-4 bg-black/60 backdrop-blur-sm animate-slide-up safe-pb">
-                        <div className="bg-sys-surface rounded-2xl p-6 w-full max-w-md border border-white/10">
-                            <h3 className="text-lg font-bold text-white mb-2">Finish Workout?</h3>
+                        <div className="bg-sys-surface rounded-2xl p-6 w-full max-w-md border border-sys-outlineVariant">
+                            <h3 className="text-lg font-bold text-sys-onSurface mb-2">Finish Workout?</h3>
                             <p className="text-sys-onSurfaceVar mb-6">
                                 Your progress will be saved and logged to history.
                             </p>
@@ -1843,7 +1843,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         haptic.tick();
                                         setShowFinishConfirm(false);
                                     }}
-                                    className="flex-1 h-14 rounded-xl bg-sys-surfaceHigh text-white font-semibold active:scale-95 transition-transform hover-lift"
+                                    className="btn-tonal flex-1 h-14 rounded-xl font-semibold active:scale-95 transition-transform"
                                 >
                                     Cancel
                                 </button>
@@ -1853,7 +1853,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         setShowFinishConfirm(false);
                                         handleFinish();
                                     }}
-                                    className="flex-1 h-14 rounded-xl text-white font-semibold active:scale-95 transition-transform btn-gradient-success"
+                                    className="flex-1 h-14 rounded-xl bg-sys-success text-sys-onSuccess font-semibold active:scale-95 transition-transform shadow-elevation-1"
                                 >
                                     Finish
                                 </button>
@@ -1911,19 +1911,19 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             onClick={(e) => e.stopPropagation()}
                         >
                             <div className="flex items-center justify-between mb-4">
-                                <h3 className="text-lg font-bold text-white">Swap Exercise</h3>
+                                <h3 className="text-lg font-bold text-sys-onSurface">Swap Exercise</h3>
                                 <button
                                     onClick={() => {
                                         haptic.tick();
                                         setShowAlternativesFor(null);
                                     }}
-                                    className="h-8 w-8 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center"
+                                    className="h-8 w-8 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurfaceVar flex items-center justify-center"
                                 >
                                     <X size={18} />
                                 </button>
                             </div>
                             <p className="text-sm text-sys-onSurfaceVar mb-4">
-                                Choose an alternative for <span className="text-white font-medium">{showAlternativesFor.name}</span>
+                                Choose an alternative for <span className="text-sys-onSurface font-medium">{showAlternativesFor.name}</span>
                             </p>
                             <div className="space-y-2">
                                 {/* Option to use original */}
@@ -1940,8 +1940,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                     }}
                                     className={`w-full text-left p-3 rounded-xl border transition-all ${
                                         !exerciseSwaps[showAlternativesFor.name]
-                                            ? 'bg-sys-accent/10 border-sys-accent/30 text-white'
-                                            : 'bg-sys-surfaceHigh border-white/5 text-sys-onSurfaceVar'
+                                            ? 'bg-sys-primary/10 border-sys-primary/30 text-sys-onSurface'
+                                            : 'bg-sys-surfaceContainerHigh border-sys-outlineVariant text-sys-onSurfaceVar'
                                     }`}
                                 >
                                     <span className="font-medium">{showAlternativesFor.name}</span>
@@ -1954,8 +1954,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         onClick={() => handleSwapExercise(showAlternativesFor.name, alt)}
                                         className={`w-full text-left p-3 rounded-xl border transition-all ${
                                             exerciseSwaps[showAlternativesFor.name] === alt
-                                                ? 'bg-sys-accent/10 border-sys-accent/30 text-white'
-                                                : 'bg-sys-surfaceHigh border-white/5 text-sys-onSurfaceVar'
+                                                ? 'bg-sys-primary/10 border-sys-primary/30 text-sys-onSurface'
+                                                : 'bg-sys-surfaceContainerHigh border-sys-outlineVariant text-sys-onSurfaceVar'
                                         }`}
                                     >
                                         <span className="font-medium">{alt}</span>

@@ -29,15 +29,15 @@ export function WeekPills({
 
   return (
     <div className="flex gap-3 items-center">
-      <div className="text-label-md font-bold text-sys-onSurfaceVar uppercase tracking-wider">
+      <div className="text-label-md font-bold text-sys-onSurfaceVariant uppercase tracking-wider">
         Week
       </div>
-      <div className="chip-container">
+      <div className="flex gap-2 items-center overflow-x-auto hide-scrollbar py-1">
         {weeks.map((week) => (
           <button
             key={week}
             onClick={() => onWeekSelect(week)}
-            className={`chip ${week === currentWeek ? 'active' : ''}`}
+            className={`week-pill ${week === currentWeek ? 'active' : ''}`}
             aria-label={`Week ${week}`}
             aria-current={week === currentWeek ? 'true' : undefined}
           >

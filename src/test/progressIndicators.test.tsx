@@ -332,13 +332,13 @@ describe('WeeklyProgressRing', () => {
             <WeeklyProgressRing completedWorkouts={2} totalWorkouts={4} currentWeek={1} />
         );
 
-        // First 2 should be completed (bg-sys-accent)
-        expect(screen.getByTestId('workout-indicator-0')).toHaveClass('bg-sys-accent');
-        expect(screen.getByTestId('workout-indicator-1')).toHaveClass('bg-sys-accent');
-        
-        // Last 2 should be incomplete (bg-sys-surfaceHigh)
-        expect(screen.getByTestId('workout-indicator-2')).toHaveClass('bg-sys-surfaceHigh');
-        expect(screen.getByTestId('workout-indicator-3')).toHaveClass('bg-sys-surfaceHigh');
+        // First 2 should be completed (bg-sys-primary)
+        expect(screen.getByTestId('workout-indicator-0')).toHaveClass('bg-sys-primary');
+        expect(screen.getByTestId('workout-indicator-1')).toHaveClass('bg-sys-primary');
+
+        // Last 2 should be incomplete (bg-sys-surfaceContainerHigh)
+        expect(screen.getByTestId('workout-indicator-2')).toHaveClass('bg-sys-surfaceContainerHigh');
+        expect(screen.getByTestId('workout-indicator-3')).toHaveClass('bg-sys-surfaceContainerHigh');
     });
 
     it('should render all indicators as completed when all workouts are done', () => {
@@ -347,7 +347,7 @@ describe('WeeklyProgressRing', () => {
         );
 
         for (let i = 0; i < 4; i++) {
-            expect(screen.getByTestId(`workout-indicator-${i}`)).toHaveClass('bg-sys-accent');
+            expect(screen.getByTestId(`workout-indicator-${i}`)).toHaveClass('bg-sys-primary');
         }
     });
 
@@ -357,7 +357,7 @@ describe('WeeklyProgressRing', () => {
         );
 
         for (let i = 0; i < 4; i++) {
-            expect(screen.getByTestId(`workout-indicator-${i}`)).toHaveClass('bg-sys-surfaceHigh');
+            expect(screen.getByTestId(`workout-indicator-${i}`)).toHaveClass('bg-sys-surfaceContainerHigh');
         }
     });
 

@@ -218,7 +218,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex flex-col bg-black/60 backdrop-blur-2xl"
+      className="fixed inset-0 z-[100] flex flex-col bg-sys-surface/95 backdrop-blur-2xl"
       role="dialog"
       aria-label={isEmom ? 'EMOM timer' : isDensity ? 'Density timer' : 'Rest timer'}
       aria-live="polite"
@@ -233,8 +233,8 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
           height: '120vw',
           maxHeight: '600px',
           borderRadius: '50%',
-          background: `conic-gradient(rgb(var(--color-primary-500) / 0.15) 0% ${progress}%, transparent ${progress}% 100%)`,
-          opacity: 0.6,
+          background: `conic-gradient(var(--color-primary) 0% ${progress}%, transparent ${progress}% 100%)`,
+          opacity: 0.1,
         }}
       />
 
@@ -242,16 +242,16 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
       <header className="relative z-10 flex items-center justify-between px-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-5">
         <button
           onClick={handleMinimize}
-          className="h-10 w-10 rounded-full bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
+          className="h-12 w-12 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center active:scale-90 transition-all shadow-sm"
           aria-label="Minimize timer"
         >
-          <ChevronDown size={24} />
+          <ChevronDown size={28} />
         </button>
 
         {/* Timer mode badge */}
-        <div className="px-4 py-2 rounded-full bg-sys-surfaceHigh flex items-center gap-2 border border-white/10">
-          <Timer size={20} className="text-sys-accent" />
-          <span className="text-white text-sm font-bold uppercase tracking-wider">
+        <div className="px-4 py-2 rounded-full bg-sys-surfaceContainerHigh flex items-center gap-2 border border-sys-outlineVariant shadow-sm">
+          <Timer size={20} className="text-sys-primary" />
+          <span className="text-sys-onSurface text-sm font-bold uppercase tracking-wider">
             {isEmom ? 'EMOM' : isDensity ? 'Density' : 'Rest Timer'}
           </span>
         </div>
@@ -259,10 +259,10 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
         {/* Sound toggle */}
         <button
           onClick={handleToggleSound}
-          className="h-10 w-10 rounded-full bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
+          className="h-12 w-12 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center active:scale-90 transition-all shadow-sm"
           aria-label={soundEnabled ? 'Disable sound' : 'Enable sound'}
         >
-          {soundEnabled ? <Volume2 size={24} /> : <VolumeX size={24} />}
+          {soundEnabled ? <Volume2 size={28} /> : <VolumeX size={28} />}
         </button>
       </header>
 
@@ -272,8 +272,8 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
           {/* Round counter for EMOM - positioned above time */}
           {isEmom && round > 0 && (
             <div className="flex items-center gap-3">
-              <span className="text-white/50 text-lg font-bold uppercase tracking-wider">Round</span>
-              <span className="text-white text-4xl font-black tabular-nums">{round}</span>
+              <span className="text-sys-onSurface/50 text-lg font-bold uppercase tracking-wider">Round</span>
+              <span className="text-sys-onSurface text-4xl font-black tabular-nums">{round}</span>
             </div>
           )}
 
@@ -286,8 +286,8 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
               isComplete
                 ? 'text-sys-success text-8xl drop-shadow-2xl'
                 : isUrgent
-                ? 'text-white text-8xl md:text-9xl animate-pulse drop-shadow-2xl'
-                : 'text-white text-8xl md:text-9xl drop-shadow-lg'
+                ? 'text-sys-error text-8xl md:text-9xl animate-pulse drop-shadow-2xl'
+                : 'text-sys-onSurface text-8xl md:text-9xl drop-shadow-lg'
             } ${canTogglePause ? 'cursor-pointer active:scale-95' : 'cursor-default'}`}
             aria-label={canTogglePause ? (isPaused ? 'Resume timer' : 'Pause timer') : 'Timer display'}
           >
@@ -296,15 +296,15 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
 
           {/* Subtitle */}
           {!isComplete && (
-            <p className="text-white/60 text-base font-semibold">
+            <p className="text-sys-onSurfaceVariant text-base font-semibold">
               {isEmom ? `${totalSeconds}s intervals` : `${Math.round(progress)}% remaining`}
             </p>
           )}
 
           {/* Pause indicator */}
           {isPaused && !isComplete && (
-            <div className="mt-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
-              <span className="text-white text-sm font-bold uppercase tracking-wider">Paused</span>
+            <div className="mt-2 px-4 py-2 rounded-full bg-sys-surfaceContainerHigh backdrop-blur-md border border-sys-outlineVariant">
+              <span className="text-sys-onSurface text-sm font-bold uppercase tracking-wider">Paused</span>
             </div>
           )}
         </div>
@@ -334,7 +334,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
                 <button
                   onClick={() => handleAdjustInterval(-5)}
                   disabled={totalSeconds <= 10}
-                  className="h-18 w-18 rounded-3xl bg-sys-surfaceHigh hover:bg-sys-surface disabled:opacity-30 disabled:hover:bg-sys-surfaceHigh text-white flex flex-col items-center justify-center gap-1 active:scale-90 transition-all"
+                  className="h-18 w-18 rounded-3xl bg-sys-surfaceContainerHigh hover:bg-sys-surfaceContainerHighest disabled:opacity-30 text-sys-onSurface flex flex-col items-center justify-center gap-1 active:scale-90 transition-all"
                   aria-label="Decrease interval by 5 seconds"
                 >
                   <Minus size={24} />
@@ -344,7 +344,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
                 <button
                   onClick={() => handleAdjustInterval(5)}
                   disabled={totalSeconds >= 180}
-                  className="h-24 w-24 rounded-full bg-gradient-to-br from-sys-accent to-sys-accent/80 hover:from-sys-accent/90 hover:to-sys-accent/70 disabled:opacity-30 text-white flex items-center justify-center active:scale-95 transition-all shadow-xl shadow-sys-accent/30"
+                  className="h-24 w-24 rounded-full bg-sys-primary text-sys-onPrimary hover:opacity-90 disabled:opacity-30 flex items-center justify-center active:scale-95 transition-all shadow-xl shadow-sys-primary/30"
                   aria-label="Increase interval by 5 seconds"
                 >
                   <Plus size={32} />
@@ -356,7 +356,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
                 <button
                   onClick={() => handleAddTime(-30)}
                   disabled={seconds <= 30}
-                  className="h-18 w-18 rounded-3xl bg-sys-surfaceHigh hover:bg-sys-surface disabled:opacity-30 disabled:hover:bg-sys-surfaceHigh text-white flex flex-col items-center justify-center gap-1 active:scale-90 transition-all"
+                  className="h-18 w-18 rounded-3xl bg-sys-surfaceContainerHigh hover:bg-sys-surfaceContainerHighest disabled:opacity-30 text-sys-onSurface flex flex-col items-center justify-center gap-1 active:scale-90 transition-all"
                   aria-label="Reduce density timer by 30 seconds"
                 >
                   <Minus size={24} />
@@ -365,7 +365,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
 
                 <button
                   onClick={() => handleAddTime(30)}
-                  className="h-24 w-24 rounded-full bg-gradient-to-br from-sys-accent to-sys-accent/80 hover:from-sys-accent/90 hover:to-sys-accent/70 text-white flex items-center justify-center active:scale-95 transition-all shadow-xl shadow-sys-accent/30"
+                  className="h-24 w-24 rounded-full bg-sys-primary text-sys-onPrimary hover:opacity-90 flex items-center justify-center active:scale-95 transition-all shadow-xl shadow-sys-primary/30"
                   aria-label="Add 30 seconds to density timer"
                 >
                   <Plus size={32} />
@@ -373,7 +373,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
 
                 <button
                   onClick={handleStop}
-                  className="h-18 w-18 rounded-3xl bg-sys-surfaceHigh hover:bg-sys-surface text-white flex items-center justify-center active:scale-90 transition-all"
+                  className="h-18 w-18 rounded-3xl bg-sys-surfaceContainerHigh hover:bg-sys-surfaceContainerHighest text-sys-onSurface flex items-center justify-center active:scale-90 transition-all"
                   aria-label="Stop timer"
                 >
                   <X size={24} />
@@ -385,7 +385,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
                 <button
                   onClick={() => handleAddTime(-30)}
                   disabled={seconds <= 30}
-                  className="h-18 w-18 rounded-3xl bg-sys-surfaceHigh hover:bg-sys-surface disabled:opacity-30 disabled:hover:bg-sys-surfaceHigh text-white flex flex-col items-center justify-center gap-1 active:scale-90 transition-all"
+                  className="h-18 w-18 rounded-3xl bg-sys-surfaceContainerHigh hover:bg-sys-surfaceContainerHighest disabled:opacity-30 text-sys-onSurface flex flex-col items-center justify-center gap-1 active:scale-90 transition-all"
                   aria-label="Subtract 30 seconds"
                 >
                   <Minus size={24} />
@@ -394,7 +394,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
 
                 <button
                   onClick={() => handleAddTime(30)}
-                  className="h-24 w-24 rounded-full bg-gradient-to-br from-sys-accent to-sys-accent/80 hover:from-sys-accent/90 hover:to-sys-accent/70 text-white flex items-center justify-center active:scale-95 transition-all shadow-xl shadow-sys-accent/30"
+                  className="h-24 w-24 rounded-full bg-sys-primary text-sys-onPrimary hover:opacity-90 flex items-center justify-center active:scale-95 transition-all shadow-xl shadow-sys-primary/30"
                   aria-label="Add 30 seconds"
                 >
                   <Plus size={32} />
@@ -403,7 +403,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
                 <button
                   onClick={handleReset}
                   disabled={seconds === totalSeconds || totalSeconds <= 0}
-                  className="h-18 w-18 rounded-3xl bg-sys-surfaceHigh hover:bg-sys-surface disabled:opacity-30 disabled:hover:bg-sys-surfaceHigh text-white flex items-center justify-center active:scale-90 transition-all"
+                  className="h-18 w-18 rounded-3xl bg-sys-surfaceContainerHigh hover:bg-sys-surfaceContainerHighest disabled:opacity-30 text-sys-onSurface flex items-center justify-center active:scale-90 transition-all"
                   aria-label="Reset timer"
                 >
                   <RotateCcw size={24} />
@@ -417,7 +417,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
         {isComplete && (
           <button
             onClick={handleStop}
-            className="w-full max-w-md mx-auto h-14 rounded-2xl bg-sys-accent text-white font-bold text-lg active:scale-95 transition-all shadow-xl flex items-center justify-center gap-2"
+            className="w-full max-w-md mx-auto h-14 rounded-2xl bg-sys-primary text-sys-onPrimary font-bold text-lg active:scale-95 transition-all shadow-xl flex items-center justify-center gap-2"
             aria-label="Continue workout"
           >
             Continue Workout
@@ -425,7 +425,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
         )}
 
         {/* Bottom hint text */}
-        <p className="text-center text-white/40 text-sm mt-6">
+        <p className="text-center text-sys-onSurfaceVariant/60 text-sm mt-6">
           {isComplete
             ? '✨ Rest complete - Time for your next set!'
             : isEmom

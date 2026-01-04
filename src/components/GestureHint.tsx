@@ -76,7 +76,7 @@ export const GestureHint: React.FC<GestureHintProps> = ({
 
     return (
         <div
-            className={`fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm transition-opacity duration-200 ${
+            className={`fixed inset-0 z-50 flex items-center justify-center bg-sys-scrim/70 backdrop-blur-sm transition-opacity duration-200 ${
                 isAnimating ? 'opacity-100' : 'opacity-0'
             }`}
             onClick={handleDismiss}
@@ -122,7 +122,7 @@ export const GestureHint: React.FC<GestureHintProps> = ({
                 </div>
 
                 {/* Message */}
-                <p className="text-white text-center text-lg font-medium max-w-xs">
+                <p className="text-sys-onPrimary text-center text-lg font-medium max-w-xs">
                     {message || defaultMessage}
                 </p>
 

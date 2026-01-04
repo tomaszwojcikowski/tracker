@@ -453,8 +453,8 @@
             "sets": 1,
             "repsType": "reps",
             "repsValue": 5,
-            "loadUnit": "barbell",
-            "loadWeight": 0,
+            "loadUnit": "kg",
+            "loadWeight": 20,
             "notes": "Bar only. Movement rehearsal. Focus on hip extension",
             "restSeconds": 30
           },
@@ -464,8 +464,8 @@
             "sets": 1,
             "repsType": "reps",
             "repsValue": 5,
-            "loadUnit": "barbell",
-            "loadWeight": 0,
+            "loadUnit": "kg",
+            "loadWeight": 20,
             "notes": "Bar only. Vertical bar path, high elbows",
             "restSeconds": 30
           },
@@ -475,8 +475,8 @@
             "sets": 1,
             "repsType": "reps",
             "repsValue": 5,
-            "loadUnit": "barbell",
-            "loadWeight": 0,
+            "loadUnit": "kg",
+            "loadWeight": 20,
             "notes": "Bar only. Catch position rehearsal",
             "restSeconds": 30
           },
@@ -651,15 +651,6 @@
             "repsPerSide": true,
             "loadUnit": "band",
             "notes": "Band around knees or ankles, athletic stance, step side to side maintaining tension"
-          },
-          {
-            "exerciseName": "Banded Face Pulls",
-            "category": "warmup",
-            "sets": 2,
-            "repsType": "reps",
-            "repsValue": 15,
-            "loadUnit": "band",
-            "notes": "Pull band to forehead, external rotation"
           },
           {
             "exerciseName": "Bodyweight Good Mornings",

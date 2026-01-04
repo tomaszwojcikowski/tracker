@@ -3,14 +3,14 @@
 @import "tailwindcss";
 
 html {
-    background-color: var(--color-background);
+    background-color: var(--color-surface);
     min-height: 100%;
     min-height: 100dvh;
 }
 
 body {
-    background: var(--color-background);
-    color: var(--color-on-background);
+    background: var(--color-surface);
+    color: var(--color-on-surface);
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior-y: none;
     min-height: 100%;
@@ -33,7 +33,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 
 /* Modern Material Design 3 Surface with elevation */
 .glass-panel {
-    background: linear-gradient(var(--surface-tint-2), var(--surface-tint-2)), var(--color-surface-dark);
+    background: var(--color-surface-container-high);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-top: 1px solid var(--color-outline-variant);
@@ -42,14 +42,13 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 
 /* Light theme overrides */
 :root.theme-light .glass-panel {
-    background: linear-gradient(var(--surface-tint-2), var(--surface-tint-2)), var(--color-surface-elevated);
+    background: var(--color-surface-container-high);
     border-top: 1px solid var(--color-outline-variant);
-    border-bottom: 1px solid var(--color-outline);
 }
 
 :root.theme-light .card-modern {
-    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: var(--color-surface-container-low);
+    border: 1px solid var(--color-outline-variant);
 }
 
 :root.theme-light .bg-sys-surface {
@@ -95,13 +94,13 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     overflow: hidden;
 }
 
-/* Modern progress bar with gradient */
+/* Modern progress bar */
 .progress-bar {
     position: absolute;
     bottom: 0;
     left: 0;
     height: 3px;
-    background: var(--gradient-success);
+    background: var(--color-success);
     box-shadow: var(--shadow-success);
     transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 0 0 var(--radius-3xl) var(--radius-3xl);
@@ -121,25 +120,9 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     box-shadow: var(--shadow-primary);
 }
 
-/* Modern gradient buttons */
-.btn-gradient-primary {
-    background: var(--gradient-primary);
-    box-shadow: var(--shadow-primary);
-}
-
-.btn-gradient-secondary {
-    background: var(--gradient-secondary);
-    box-shadow: var(--shadow-secondary);
-}
-
-.btn-gradient-success {
-    background: var(--gradient-success);
-    box-shadow: var(--shadow-success);
-}
-
 /* Modern Material Design 3 card styles */
 .card-modern {
-    background: linear-gradient(var(--surface-tint-1), var(--surface-tint-1)), var(--color-surface-dark);
+    background: var(--color-surface-container-low);
     box-shadow: var(--elevation-1);
     border-radius: var(--radius-lg); /* MD3 medium container */
     border: 1px solid var(--color-outline-variant);
@@ -147,15 +130,15 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 }
 
 .card-modern:hover {
-    background: linear-gradient(var(--surface-tint-2), var(--surface-tint-2)), var(--color-surface-dark);
+    background: var(--color-surface-container);
     box-shadow: var(--elevation-2);
     border-color: var(--color-outline);
 }
 
 /* MD3 Filled Card - for emphasized content */
 .card-filled {
-    background: var(--color-surface-variant);
-    color: var(--color-on-surface-variant);
+    background: var(--color-surface-container-highest);
+    color: var(--color-on-surface);
     box-shadow: var(--elevation-0);
     border-radius: var(--radius-lg);
     border: none;
@@ -163,12 +146,13 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 }
 
 .card-filled:hover {
+    background: var(--color-surface-container-high);
     box-shadow: var(--elevation-1);
 }
 
 /* MD3 Elevated Card - for floating content */
 .card-elevated {
-    background: linear-gradient(var(--surface-tint-1), var(--surface-tint-1)), var(--color-surface-elevated);
+    background: var(--color-surface-container-low);
     box-shadow: var(--elevation-1);
     border-radius: var(--radius-lg);
     border: none;
@@ -176,13 +160,13 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 }
 
 .card-elevated:hover {
-    background: linear-gradient(var(--surface-tint-2), var(--surface-tint-2)), var(--color-surface-elevated);
-    box-shadow: var(--elevation-3);
+    background: var(--color-surface-container);
+    box-shadow: var(--elevation-2);
 }
 
 /* MD3 Outlined Card - for subtle separation */
 .card-outlined {
-    background: transparent;
+    background: var(--color-surface);
     box-shadow: none;
     border-radius: var(--radius-lg);
     border: 1px solid var(--color-outline);
@@ -190,8 +174,8 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 }
 
 .card-outlined:hover {
+    background: var(--color-surface-container-lowest);
     border-color: var(--color-outline-variant);
-    background: linear-gradient(var(--surface-tint-1), var(--surface-tint-1)), transparent;
 }
 
 /* Accent glow effect */
@@ -214,15 +198,15 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     opacity: var(--opacity-dimmed);
 }
 
-/* Progress bar fill with gradient */
+/* Progress bar fill */
 .progress-bar-fill {
-    background: var(--gradient-primary);
+    background: var(--color-primary);
     box-shadow: var(--shadow-primary);
 }
 
-/* Vertical gradient for connecting lines */
+/* Vertical line for connecting elements */
 .gradient-vertical-primary {
-    background: var(--gradient-primary-vertical);
+    background: var(--color-primary);
 }
 
 /* Tab content transition animations */
@@ -819,7 +803,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     left: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
     transform: translateY(-50%) translateX(-100%);
     opacity: 0;
     transition: opacity 0.2s;
@@ -918,7 +902,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 }
 
 .btn-md3:focus-visible {
-    outline: 2px solid var(--color-primary-500);
+    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
 
@@ -933,62 +917,24 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 
 /* Filled Button - Primary container color */
 .btn-filled {
-    background: var(--color-primary-500);
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
     box-shadow: var(--elevation-1);
 }
 
 .btn-filled:hover:not(:disabled) {
     box-shadow: var(--elevation-2);
-    background: linear-gradient(var(--state-hover), var(--state-hover)), var(--color-primary-500);
+    background: linear-gradient(var(--state-hover), var(--state-hover)), var(--color-primary);
 }
 
 .btn-filled:active:not(:disabled) {
     box-shadow: var(--elevation-1);
-    background: linear-gradient(var(--state-pressed), var(--state-pressed)), var(--color-primary-500);
+    background: linear-gradient(var(--state-pressed), var(--state-pressed)), var(--color-primary);
 }
 
 .btn-filled:focus-visible {
-    outline: 2px solid var(--color-primary-300);
+    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
-}
-
-/* Gradient Primary Button - Mockup Style */
-.btn-gradient-primary-mockup {
-    border: none;
-    background: linear-gradient(135deg, var(--m-primary) 0%, var(--m-primary-strong) 100%);
-    color: white;
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-gradient-primary-mockup:hover:not(:disabled) {
-    background: linear-gradient(135deg, var(--m-primary-light) 0%, var(--m-primary) 100%);
-    box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3);
-    transform: translateY(-1px);
-}
-
-.btn-gradient-primary-mockup:active:not(:disabled) {
-    transform: translateY(0) scale(0.98);
-    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
-}
-
-.btn-gradient-primary-mockup:focus-visible {
-    outline: 2px solid var(--m-primary-light);
-    outline-offset: 2px;
-}
-
-/* Light theme gradient primary */
-:root.theme-light .btn-gradient-primary-mockup {
-    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
-}
-
-:root.theme-light .btn-gradient-primary-mockup:hover:not(:disabled) {
-    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-    box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3);
 }
 
 /* Outlined Button - Border with transparent background */
@@ -1013,37 +959,38 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 
 /* Tonal Button - Secondary container color */
 .btn-tonal {
-    background: var(--color-primary-900);
-    color: var(--color-primary-300);
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
 }
 
 .btn-tonal:hover:not(:disabled) {
-    background: linear-gradient(var(--state-hover), var(--state-hover)), var(--color-primary-900);
+    background: linear-gradient(var(--state-hover), var(--state-hover)), var(--color-secondary-container);
     box-shadow: var(--elevation-1);
 }
 
 .btn-tonal:active:not(:disabled) {
-    background: linear-gradient(var(--state-pressed), var(--state-pressed)), var(--color-primary-900);
+    background: linear-gradient(var(--state-pressed), var(--state-pressed)), var(--color-secondary-container);
 }
 
 .btn-tonal:focus-visible {
-    outline: 2px solid var(--color-primary-300);
+    outline: 2px solid var(--color-secondary);
     outline-offset: 2px;
 }
 
 /* Tonal Button - Mockup Style */
 .btn-tonal-mockup {
     border: none;
-    background: var(--m-surface-2);
-    color: var(--m-primary);
+    background: var(--color-primary-container);
+    color: var(--color-on-primary-container);
     font-weight: 600;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-tonal-mockup:hover:not(:disabled) {
-    background: var(--m-surface-3);
+    background: var(--color-primary-container);
+    opacity: 0.9;
     transform: translateY(-1px);
-    box-shadow: var(--m-shadow-xs);
+    box-shadow: var(--elevation-1);
 }
 
 .btn-tonal-mockup:active:not(:disabled) {
@@ -1160,7 +1107,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 /* Text Button - No container */
 .btn-text {
     background: transparent;
-    color: var(--color-primary-500);
+    color: var(--color-primary);
     padding: 0 12px;
 }
 
@@ -1173,7 +1120,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 }
 
 .btn-text:focus-visible {
-    outline: 2px solid var(--color-primary-300);
+    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
 
@@ -1183,19 +1130,19 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     height: 56px;
     padding: 0;
     border-radius: var(--radius-lg);
-    background: var(--color-primary-500);
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
     box-shadow: var(--elevation-3);
 }
 
 .btn-fab:hover:not(:disabled) {
     box-shadow: var(--elevation-4);
-    background: linear-gradient(var(--state-hover), var(--state-hover)), var(--color-primary-500);
+    background: linear-gradient(var(--state-hover), var(--state-hover)), var(--color-primary);
 }
 
 .btn-fab:active:not(:disabled) {
     box-shadow: var(--elevation-3);
-    background: linear-gradient(var(--state-pressed), var(--state-pressed)), var(--color-primary-500);
+    background: linear-gradient(var(--state-pressed), var(--state-pressed)), var(--color-primary);
 }
 
 /* Small FAB */
@@ -1221,7 +1168,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     padding: 0;
     border-radius: var(--radius-xl);
     background: transparent;
-    color: var(--color-neutral-50);
+    color: var(--color-on-surface);
 }
 
 .btn-icon:hover:not(:disabled) {
@@ -1331,42 +1278,6 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 /* Chips and badges - full radius */
 .radius-pill {
     border-radius: var(--radius-full);
-}
-
-/* ============================================================================
-   WORKOUT SECTION COLOR UTILITIES
-   Gradient backgrounds and glows for different workout sections
-   ============================================================================ */
-
-/* Workout section headers with gradients */
-.section-warmup {
-    background: var(--gradient-warmup);
-    box-shadow: 0 4px 12px var(--color-warmup-glow);
-}
-
-.section-skill {
-    background: var(--gradient-skill);
-    box-shadow: 0 4px 12px var(--color-skill-glow);
-}
-
-.section-main {
-    background: var(--gradient-main);
-    box-shadow: 0 4px 12px var(--color-main-glow);
-}
-
-.section-accessory {
-    background: var(--gradient-accessory);
-    box-shadow: 0 4px 12px var(--color-accessory-glow);
-}
-
-.section-core {
-    background: var(--gradient-core);
-    box-shadow: 0 4px 12px var(--color-core-glow);
-}
-
-.section-cooldown {
-    background: var(--gradient-cooldown);
-    box-shadow: 0 4px 12px var(--color-cooldown-glow);
 }
 
 /* Icon tints for section headers */
@@ -1520,31 +1431,31 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 
 /* Enhanced Glassmorphism for top bar */
 .glass-topbar {
-    background: color-mix(in srgb, var(--color-surface-elevated) 85%, transparent);
+    background: color-mix(in srgb, var(--color-surface-container-low) 85%, transparent);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--color-outline-variant);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--elevation-1);
 }
 
 /* Light theme glassmorphism */
 :root.theme-light .glass-topbar {
-    background: color-mix(in srgb, var(--m-surface) 85%, transparent);
-    border-bottom: 1px solid var(--m-outline);
-    box-shadow: 0 2px 12px rgba(31, 21, 48, 0.08);
+    background: color-mix(in srgb, var(--color-surface-container-low) 85%, transparent);
+    border-bottom: 1px solid var(--color-outline-variant);
+    box-shadow: var(--elevation-1);
 }
 
 /* Enhanced card glassmorphism */
 .glass-card {
-    background: color-mix(in srgb, var(--color-surface-elevated) 90%, transparent);
+    background: color-mix(in srgb, var(--color-surface-container-low) 90%, transparent);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--color-outline-variant);
 }
 
 :root.theme-light .glass-card {
-    background: color-mix(in srgb, var(--m-surface) 90%, transparent);
-    border: 1px solid var(--m-outline);
+    background: color-mix(in srgb, var(--color-surface-container-low) 90%, transparent);
+    border: 1px solid var(--color-outline-variant);
 }
 
 /* Advanced Shadow System */
@@ -1575,9 +1486,9 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     width: 40px;
     height: 40px;
     border-radius: var(--radius-md);
-    background: linear-gradient(135deg, var(--m-primary) 0%, var(--m-primary-strong) 100%);
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--color-primary);
+    box-shadow: var(--elevation-2);
+    border: 1px solid var(--color-outline-variant);
     flex-shrink: 0;
     transition: transform 0.2s ease;
     display: flex;
@@ -1590,7 +1501,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 }
 
 :root.theme-light .brand-mark {
-    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    background: var(--color-primary);
     box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
 }
 
@@ -1609,7 +1520,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
         width: 260px;
         height: 100vh;
         border-right: 1px solid var(--color-outline-variant);
-        background: color-mix(in srgb, var(--color-surface-elevated) 95%, var(--color-background));
+        background: var(--color-surface-container-low);
         padding: 24px 16px;
         box-shadow: 4px 0 12px rgba(0, 0, 0, 0.03);
         overflow-y: auto;
@@ -1617,8 +1528,8 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     }
 
     :root.theme-light .side-rail {
-        background: color-mix(in srgb, var(--m-surface) 95%, var(--m-bg));
-        border-right: 1px solid var(--m-outline);
+        background: var(--color-surface-container-low);
+        border-right: 1px solid var(--color-outline-variant);
         box-shadow: 4px 0 12px rgba(31, 21, 48, 0.03);
     }
 
@@ -1640,14 +1551,14 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
         padding: 12px;
         border-radius: var(--radius-xl);
         border: 1px solid var(--color-outline-variant);
-        background: linear-gradient(145deg, var(--color-surface-elevated), var(--color-surface-variant));
-        box-shadow: var(--m-shadow-sm);
+        background: var(--color-surface-container);
+        box-shadow: var(--elevation-1);
         margin-bottom: 24px;
     }
 
     :root.theme-light .side-rail-header {
-        border: 1px solid var(--m-outline);
-        background: linear-gradient(145deg, var(--m-surface), var(--m-surface-2));
+        border: 1px solid var(--color-outline-variant);
+        background: var(--color-surface-container);
     }
 
     /* Side rail navigation items */
@@ -1680,14 +1591,14 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     }
 
     .side-rail-nav-item.active {
-        background: linear-gradient(135deg, var(--m-primary) 0%, var(--m-primary-strong) 100%);
-        color: white;
+        background: var(--color-primary);
+        color: var(--color-on-primary);
         font-weight: 700;
-        box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
+        box-shadow: var(--elevation-1);
     }
 
     :root.theme-light .side-rail-nav-item.active {
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: var(--color-primary);
     }
 
     .side-rail-nav-item:active {
@@ -1741,7 +1652,7 @@ button, .btn {
     letter-spacing: -0.01em;
 }
 
-.btn-primary, .btn-gradient-primary-mockup {
+.btn-primary {
     font-weight: 800;
     letter-spacing: -0.02em;
 }
@@ -1768,36 +1679,10 @@ button, .btn {
 
 /* Enhanced Light Theme Color System */
 :root.theme-light {
-    /* Update primary to mockup violet/purple */
-    --color-primary-400: #a78bfa;
-    --color-primary-500: #8b5cf6;
-    --color-primary-600: #7c3aed;
-    --color-primary-700: #6d28d9;
-    --color-primary-800: #5b21b6;
-
-    /* Enhanced contrast for light theme */
-    --color-on-background: #1f1530;
-    --color-on-surface: #1f1530;
-    --color-on-surface-variant: #6b5b85;
-
-    /* Refined surface colors */
-    --color-background: #faf9fc;
-    --color-surface: #ffffff;
-    --color-surface-elevated: #ffffff;
-    --color-surface-elevated-high: #f5f2ff;
-    --color-surface-variant: #ede9ff;
-
-    /* Outline refinements */
-    --color-outline: #ddd6ff;
-    --color-outline-variant: #b9a8d8;
-
-    /* Enhanced gradients for light theme */
-    --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-    --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-
     /* Shadow refinements */
     --shadow-primary: 0 4px 12px rgba(124, 58, 237, 0.15);
     --shadow-elevated: 0 8px 24px rgba(31, 21, 48, 0.12);
+    --shadow-glass: 0 8px 32px 0 rgba(31, 21, 48, 0.08);
 }
 
 /* Enhanced Dark Theme Contrast */
@@ -1882,13 +1767,6 @@ button, .btn {
     font-size: 0.875rem;
 }
 
-/* Enhanced button styles with Phase 4 typography */
-.btn-gradient-primary-mockup,
-.btn-tonal-mockup {
-    font-weight: 800;
-    letter-spacing: -0.01em;
-}
-
 /* Status pill typography */
 .status-pill {
     font-weight: 700;
@@ -1940,22 +1818,22 @@ input:focus-visible {
 
 /* Enhanced card styling with Phase 4 refinements */
 .enhanced-card {
-    background: var(--color-surface-elevated);
+    background: var(--color-surface-container-low);
     border: 1px solid var(--color-outline-variant);
     border-radius: var(--radius-lg);
     padding: 20px;
-    box-shadow: var(--m-shadow-sm);
+    box-shadow: var(--elevation-1);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .enhanced-card:hover {
-    box-shadow: var(--m-shadow);
+    box-shadow: var(--elevation-2);
     transform: translateY(-2px);
 }
 
 :root.theme-light .enhanced-card {
-    background: #ffffff;
-    border-color: #ddd6ff;
+    background: var(--color-surface-container-low);
+    border-color: var(--color-outline-variant);
 }
 
 /* Performance: Reduced motion for accessibility */
@@ -1974,207 +1852,37 @@ input:focus-visible {
    Apply mockup design directly to components
    ============================================================================ */
 
-/* Mockup card styling - light theme cards */
-.mockup-card {
-    background: var(--m-surface, #ffffff);
-    border: 1px solid var(--m-outline, #e2e8f0);
-    border-radius: var(--radius-xl);
-    padding: 24px;
-    box-shadow: var(--m-shadow-sm);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.mockup-card:hover {
-    box-shadow: var(--m-shadow);
-    transform: translateY(-2px);
-}
-
-/* Mockup section header */
-.mockup-section-header {
-    font-size: 0.875rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--m-muted, #64748b);
-    margin-bottom: 16px;
-}
-
-/* Mockup program card */
-.mockup-program-card {
-    background: var(--m-surface, #ffffff);
-    border: 1px solid var(--m-outline, #e2e8f0);
-    border-radius: var(--radius-xl);
-    padding: 20px;
-    box-shadow: var(--m-shadow-sm);
-}
-
-/* Mockup day card */
-.mockup-day-card {
-    background: var(--m-surface, #ffffff);
-    border: 1px solid var(--m-outline, #e2e8f0);
-    border-radius: var(--radius-lg);
-    padding: 20px;
-    box-shadow: var(--m-shadow-xs);
-    transition: all 0.2s ease;
-}
-
-.mockup-day-card:hover {
-    box-shadow: var(--m-shadow-sm);
-}
-
-/* Mockup button - gradient primary */
-.mockup-btn-primary {
-    background: linear-gradient(135deg, var(--m-primary) 0%, var(--m-primary-strong) 100%);
-    color: white;
-    font-weight: 800;
-    font-size: 15px;
-    letter-spacing: -0.01em;
-    padding: 12px 24px;
-    border-radius: var(--radius-md);
-    border: none;
-    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-
-.mockup-btn-primary:hover {
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
-    transform: translateY(-1px);
-}
-
-.mockup-btn-primary:active {
-    transform: scale(0.98);
-}
-
-/* Mockup button - tonal */
-.mockup-btn-tonal {
-    background: var(--m-surface-2, #f5f2ff);
-    color: var(--m-primary, #7c3aed);
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: -0.01em;
-    padding: 12px 24px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--m-outline, #ddd6ff);
-    box-shadow: var(--m-shadow-xs);
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-
-.mockup-btn-tonal:hover {
-    background: var(--m-surface-3, #ede9ff);
-    box-shadow: var(--m-shadow-sm);
-}
-
-.mockup-btn-tonal:active {
-    transform: scale(0.98);
-}
-
-/* Mockup button - outlined */
-.mockup-btn-outlined {
-    background: transparent;
-    color: var(--m-fg, #1f1530);
-    font-weight: 700;
-    font-size: 15px;
-    padding: 12px 24px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--m-outline, #e2e8f0);
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-
-.mockup-btn-outlined:hover {
-    background: var(--m-surface-2, #f5f2ff);
-    border-color: var(--m-outline-strong, #b9a8d8);
-}
-
-.mockup-btn-outlined:active {
-    transform: scale(0.98);
-}
-
-/* Mockup text colors */
-.mockup-text-primary {
-    color: var(--m-fg, #1f1530);
-}
-
-.mockup-text-muted {
-    color: var(--m-muted, #6b5b85);
-}
-
-.mockup-text-accent {
-    color: var(--m-primary, #7c3aed);
-}
-
-/* Mockup background colors */
-.mockup-bg {
-    background-color: var(--m-bg, #faf9fc);
-}
-
-.mockup-bg-surface {
-    background-color: var(--m-surface, #ffffff);
-}
-
-.mockup-bg-surface-2 {
-    background-color: var(--m-surface-2, #f5f2ff);
-}
-
-.mockup-bg-surface-3 {
-    background-color: var(--m-surface-3, #ede9ff);
-}
-
-/* Mockup borders */
-.mockup-border {
-    border-color: var(--m-outline, #ddd6ff);
-}
-
-.mockup-border-strong {
-    border-color: var(--m-outline-strong, #b9a8d8);
-}
-
-/* Force light theme on body for mockup parity */
-:root {
-    --color-background: #faf9fc;
-    --color-on-background: #1f1530;
-    --color-surface: #ffffff;
-    --color-on-surface: #1f1530;
-}
-
-/* Apply mockup styles globally */
-body {
-    background-color: var(--m-bg, #faf9fc);
-    color: var(--m-fg, #1f1530);
-}
+/* Performance-optimized animations */
 
 /* Mockup status pills */
 .status-pill {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 12px;
-    border-radius: var(--radius-md);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    border: 1px solid var(--m-outline);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border: 1px solid transparent;
     transition: all 0.2s ease;
+    text-transform: uppercase;
 }
 
 .status-pill-completed {
-    background: color-mix(in srgb, var(--m-success) 12%, var(--m-surface));
-    color: var(--m-success);
-    border-color: var(--m-success);
+    background: var(--color-success-container);
+    color: var(--color-on-success-container);
 }
 
 .status-pill-up-next {
-    background: color-mix(in srgb, var(--m-primary) 12%, var(--m-surface));
-    color: var(--m-primary);
-    border-color: var(--m-primary);
+    background: var(--color-primary-container);
+    color: var(--color-on-primary-container);
 }
 
 .status-pill-not-started {
-    background: var(--m-surface-2);
-    color: var(--m-muted);
-    border-color: var(--m-outline);
+    background: var(--color-surface-container-high);
+    color: var(--color-on-surface-variant);
+    border-color: var(--color-outline-variant);
 }
 
 /* Performance-optimized animations */
@@ -2262,54 +1970,6 @@ img {
    Status pills, week selector pills, and enhanced UI elements
    ============================================================================ */
 
-/* Status Pills - For day cards */
-.status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: var(--radius-full);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    text-transform: capitalize;
-}
-
-.status-pill-completed {
-    background: rgba(16, 185, 129, 0.1);
-    color: var(--color-success-600);
-    border: 1px solid rgba(16, 185, 129, 0.2);
-}
-
-.status-pill-up-next {
-    background: rgba(124, 58, 237, 0.1);
-    color: var(--m-primary);
-    border: 1px solid rgba(124, 58, 237, 0.2);
-}
-
-.status-pill-not-started {
-    background: rgba(107, 114, 128, 0.1);
-    color: var(--color-neutral-500);
-    border: 1px solid rgba(107, 114, 128, 0.2);
-}
-
-/* Light theme overrides */
-:root.theme-light .status-pill-completed {
-    background: rgba(16, 185, 129, 0.1);
-    color: #059669;
-}
-
-:root.theme-light .status-pill-up-next {
-    background: rgba(124, 58, 237, 0.1);
-    color: #7c3aed;
-}
-
-:root.theme-light .status-pill-not-started {
-    background: rgba(107, 114, 128, 0.08);
-    color: #64748b;
-}
-
 /* Week Selector Pills */
 .week-pill {
     display: inline-flex;
@@ -2324,14 +1984,14 @@ img {
     letter-spacing: -0.02em;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-    border: 1px solid var(--m-outline);
-    background: var(--m-surface);
-    color: var(--m-muted);
+    border: 1px solid var(--color-outline-variant);
+    background: var(--color-surface-container-low);
+    color: var(--color-on-surface-variant);
 }
 
 .week-pill:hover {
-    background: var(--m-surface-2);
-    border-color: var(--m-outline-strong);
+    background: var(--color-surface-container);
+    border-color: var(--color-outline);
     transform: translateY(-1px);
 }
 
@@ -2340,74 +2000,61 @@ img {
 }
 
 .week-pill.active {
-    background: linear-gradient(135deg, var(--m-primary) 0%, var(--m-primary-strong) 100%);
+    background: var(--color-primary);
     border-color: transparent;
-    color: white;
-    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
+    color: var(--color-on-primary);
+    box-shadow: var(--elevation-1);
 }
 
-/* Light theme week pills */
-:root.theme-light .week-pill {
-    border-color: #ddd6ff;
-    background: #ffffff;
-    color: #6b5b85;
-}
-
-:root.theme-light .week-pill:hover {
-    background: #f5f2ff;
-    border-color: #b9a8d8;
-}
-
+/* Remove light theme specific overrides as they now use semantic tokens */
+:root.theme-light .week-pill,
+:root.theme-light .week-pill:hover,
 :root.theme-light .week-pill.active {
-    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-    color: white;
+    /* Inherit from base */
 }
 
 /* Continue Card Styles */
 .continue-card {
-    border: 1px solid var(--m-outline);
-    border-radius: var(--m-radius);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
     padding: 20px;
-    background: var(--m-surface);
-    box-shadow: var(--m-shadow-sm);
+    background: var(--color-surface-container-low);
+    box-shadow: var(--elevation-1);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .continue-card:hover {
-    box-shadow: var(--m-shadow);
-    border-color: var(--m-outline-strong);
+    box-shadow: var(--elevation-2);
+    border-color: var(--color-outline);
     transform: translateY(-1px);
 }
 
-/* Light theme continue card */
-:root.theme-light .continue-card {
-    background: #ffffff;
-    border-color: #ddd6ff;
-}
-
+/* Remove light theme specific overrides as they now use semantic tokens */
+:root.theme-light .continue-card,
 :root.theme-light .continue-card:hover {
-    border-color: #b9a8d8;
+    background: var(--color-surface-container-low);
+    border-color: var(--color-outline-variant);
 }
 
 /* Day Card Enhancements */
 .day-card-enhanced {
-    border: 1px solid var(--m-outline);
-    border-radius: var(--m-radius);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
     padding: 16px;
-    background: var(--m-surface);
-    box-shadow: var(--m-shadow-xs);
+    background: var(--color-surface-container-low);
+    box-shadow: var(--elevation-1);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .day-card-enhanced:hover {
-    box-shadow: var(--m-shadow-sm);
-    border-color: var(--m-outline-strong);
+    box-shadow: var(--elevation-2);
+    border-color: var(--color-outline);
 }
 
 /* Light theme day cards */
 :root.theme-light .day-card-enhanced {
-    background: #ffffff;
-    border-color: #ddd6ff;
+    background: var(--color-surface-container-low);
+    border-color: var(--color-outline-variant);
 }
 
 /* Metadata row for day cards */
@@ -2416,7 +2063,7 @@ img {
     gap: 16px;
     font-size: 12px;
     font-weight: 600;
-    color: var(--m-muted);
+    color: var(--color-on-surface-variant);
 }
 
 .day-metadata-item {
@@ -2437,11 +2084,11 @@ img {
 
 /* Stats summary card */
 .stats-card {
-    border: 1px solid var(--m-outline);
-    border-radius: var(--m-radius);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
     padding: 16px;
-    background: var(--m-surface);
-    box-shadow: var(--m-shadow-xs);
+    background: var(--color-surface-container-low);
+    box-shadow: var(--elevation-1);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -2454,8 +2101,8 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--m-surface-2);
-    color: var(--m-primary);
+    background: var(--color-surface-container);
+    color: var(--color-primary);
 }
 
 .stats-card-content {
@@ -2465,7 +2112,7 @@ img {
 .stats-card-label {
     font-size: 12px;
     font-weight: 600;
-    color: var(--m-muted);
+    color: var(--color-on-surface-variant);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -2473,33 +2120,33 @@ img {
 .stats-card-value {
     font-size: 24px;
     font-weight: 900;
-    color: var(--m-fg);
+    color: var(--color-on-surface);
     letter-spacing: -0.03em;
 }
 
 /* Glass topbar for mockup */
 .glass-topbar {
-    background: color-mix(in srgb, var(--m-surface) 85%, transparent);
+    background: color-mix(in srgb, var(--color-surface-container-low) 85%, transparent);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--m-outline);
-    box-shadow: var(--m-shadow-xs);
+    border-bottom: 1px solid var(--color-outline-variant);
+    box-shadow: var(--elevation-1);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Enhanced card elevation for mockup */
 .card-mockup {
-    background: var(--m-surface);
-    border: 1px solid var(--m-outline);
-    border-radius: var(--m-radius-lg);
-    box-shadow: var(--m-shadow-xs);
+    background: var(--color-surface-container-low);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--elevation-1);
     padding: 16px;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card-mockup:hover {
-    box-shadow: var(--m-shadow-sm);
-    border-color: var(--m-outline-strong);
+    box-shadow: var(--elevation-2);
+    border-color: var(--color-outline);
     transform: translateY(-1px);
 }
 
@@ -2509,15 +2156,15 @@ img {
 
 /* Mockup exercise card */
 .exercise-card-mockup {
-    background: var(--m-surface);
-    border: 1px solid var(--m-outline);
-    border-radius: var(--m-radius);
+    background: var(--color-surface-container-low);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
     padding: 14px;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .exercise-card-mockup:hover {
-    border-color: var(--m-outline-strong);
+    border-color: var(--color-outline);
 }
 
 /* Exercise name with strong emphasis */
@@ -2525,164 +2172,28 @@ img {
     font-size: 17px;
     font-weight: 900;
     letter-spacing: -0.04em;
-    color: var(--m-fg);
+    color: var(--color-on-surface);
 }
 
 /* Exercise metadata */
 .exercise-meta-mockup {
     font-size: 13px;
     font-weight: 600;
-    color: var(--m-muted);
-}
-
-/* Set grid for mockup */
-.set-grid-mockup {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 8px;
-}
-
-/* Set button mockup style */
-.set-btn-mockup {
-    height: 48px;
-    min-width: 48px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--m-outline);
-    background: var(--m-surface);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 15px;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: var(--m-shadow-xs);
-}
-
-.set-btn-mockup:hover {
-    transform: scale(1.05);
-    border-color: var(--m-primary-light);
-    background: var(--m-surface-2);
-    box-shadow: var(--m-shadow-sm);
-}
-
-.set-btn-mockup:active {
-    transform: scale(0.9);
-    background: var(--m-surface-3);
-}
-
-.set-btn-mockup.completed {
-    border-color: var(--m-success);
-    background: color-mix(in srgb, var(--m-success) 12%, var(--m-surface));
-    color: var(--m-success);
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
-}
-
-/* Navigation enhancements for mockup */
-.nav-item-mockup {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
-    border-radius: var(--radius-lg);
-    border: 1px solid transparent;
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--m-muted);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.nav-item-mockup:hover {
-    background: var(--m-surface-2);
-    border-color: var(--m-outline);
-}
-
-.nav-item-mockup:active {
-    transform: scale(0.98);
-    background: var(--m-surface-3);
-}
-
-.nav-item-mockup.active {
-    background: color-mix(in srgb, var(--m-primary) 10%, var(--m-surface));
-    border-color: var(--m-primary);
-    color: var(--m-primary);
-}
-
-/* Chip components mockup */
-.chip-mockup {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
-    border-radius: var(--radius-md);
-    background: var(--m-surface-2);
-    border: 1px solid var(--m-outline);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--m-fg);
-    transition: all 0.2s ease;
-}
-
-.chip-mockup:active {
-    transform: scale(0.95);
-    filter: brightness(0.95);
-}
-
-/* Timer display mockup */
-.timer-display-mockup {
-    font-size: 18px;
-    font-weight: 900;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: -0.03em;
-    color: var(--m-primary);
-}
-
-/* Mockup section header */
-.section-header-mockup {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 14px 8px;
-    border-top: 1px solid var(--m-outline);
-}
-
-.section-header-mockup:first-child {
-    border-top: none;
-}
-
-.section-tag-mockup {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
-    border-radius: var(--radius-sm);
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    border: 1px solid var(--m-outline);
-    background: var(--m-surface-2);
-    box-shadow: var(--m-shadow-xs);
+    color: var(--color-on-surface-variant);
 }
 
 /* Enhance button focus states for accessibility */
 button:focus-visible,
-.btn-md3:focus-visible,
-.mockup-btn-primary:focus-visible,
-.mockup-btn-tonal:focus-visible {
-    outline: 2px solid var(--m-primary);
+.btn-md3:focus-visible {
+    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
 
 /* Smooth theme transitions - applied to interactive elements */
 button,
 .btn-md3,
-.card-mockup,
-.mockup-card,
 .status-pill,
-.week-pill,
-.chip-mockup,
-.nav-item-mockup {
+.week-pill {
     transition-property: background-color, border-color, color, transform, box-shadow;
     transition-duration: 150ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);

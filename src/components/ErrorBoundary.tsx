@@ -186,7 +186,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                     </div>
 
                     {/* Error message */}
-                    <h1 className="text-2xl font-bold text-white mb-2 text-center">
+                    <h1 className="text-2xl font-bold text-sys-onSurface mb-2 text-center">
                         Something went wrong
                     </h1>
                     <p className="text-sys-onSurfaceVar text-center mb-6 max-w-sm">
@@ -197,10 +197,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                     {/* Error details (collapsed) */}
                     {(error || rawErrorDisplay) && (
                         <details className="mb-6 w-full max-w-sm">
-                            <summary className="text-xs text-sys-onSurfaceVar cursor-pointer hover:text-white transition-colors">
+                            <summary className="text-xs text-sys-onSurfaceVar cursor-pointer hover:text-sys-onSurface transition-colors">
                                 Show error details
                             </summary>
-                            <pre className="mt-2 p-3 bg-sys-surface rounded-xl text-xs text-sys-error overflow-auto max-h-32 border border-white/5">
+                            <pre className="mt-2 p-3 bg-sys-surface rounded-xl text-xs text-sys-error overflow-auto max-h-32 border border-sys-outlineVariant">
                                 {error?.message || error?.toString() || rawErrorDisplay}
                             </pre>
                         </details>
@@ -210,7 +210,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                     <div className="flex flex-col gap-3 w-full max-w-sm">
                         <button
                             onClick={this.handleRefresh}
-                            className="w-full h-14 rounded-xl bg-sys-accent text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                            className="w-full h-14 rounded-xl bg-sys-primary text-sys-onPrimary font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-sys-primary"
                             disabled={isRecovering}
                         >
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -221,7 +221,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
                         <button
                             onClick={this.handleRecover}
-                            className="w-full h-14 rounded-xl bg-sys-surfaceHigh text-white font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform border border-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-sys-accent disabled:opacity-50"
+                            className="w-full h-14 rounded-xl bg-sys-surfaceHigh text-sys-onSurface font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform border border-sys-outlineVariant focus:outline-none focus-visible:ring-2 focus-visible:ring-sys-primary disabled:opacity-50"
                             disabled={isRecovering}
                         >
                             {isRecovering ? (

@@ -314,28 +314,28 @@ export function ActionBar({
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 safe-pb glass-panel">
+    <div className="fixed bottom-0 left-0 right-0 z-50 safe-pb bg-sys-surfaceContainer border-t border-sys-outlineVariant shadow-elevation-4">
       {/* EMOM Timer Display */}
       {emomState && (emomState.active || emomState.seconds > 0) && setEmomActive && setEmomSeconds && setEmomInterval && (
         <div className="px-4 pt-3 pb-2">
-          <div className={`glass-panel px-5 py-4 rounded-2xl shadow-lg ${emomTimerJustActivated ? 'animate-slide-up' : ''}`}>
+          <div className={`bg-sys-surfaceContainerHigh px-5 py-4 rounded-2xl shadow-elevation-2 ${emomTimerJustActivated ? 'animate-slide-up' : ''}`}>
             <div className="flex items-center gap-3 mb-3">
               {/* Expand button */}
               <button
                 onClick={handleExpandEmom}
-                className="btn-icon h-12 w-12 bg-violet-500/20 hover:bg-violet-500/30 text-violet-300"
+                className="btn-icon h-12 w-12 bg-sys-primaryContainer text-sys-onPrimaryContainer hover:brightness-110"
                 aria-label="Expand EMOM timer to fullscreen"
               >
                 <Maximize2 size={20} />
               </button>
-              <span className="text-xs font-semibold text-violet-400 uppercase tracking-wider">
+              <span className="text-xs font-semibold text-sys-primary uppercase tracking-wider">
                 EMOM
               </span>
               {/* Round counter */}
               {emomState.round !== undefined && emomState.round > 0 && (
-                <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-violet-500/20">
-                  <Repeat size={12} className="text-violet-300" />
-                  <span className="text-xs font-bold text-violet-300">
+                <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-sys-primaryContainer">
+                  <Repeat size={12} className="text-sys-onPrimaryContainer" />
+                  <span className="text-xs font-bold text-sys-onPrimaryContainer">
                     Round {emomState.round}
                   </span>
                 </div>
@@ -346,7 +346,7 @@ export function ActionBar({
                   setEmomActive(false);
                   setEmomSeconds(0);
                 }}
-                className="btn-icon ml-auto h-12 w-12 bg-white/10 hover:bg-white/20 mockup-text-primary"
+                className="btn-icon ml-auto h-12 w-12 bg-sys-surfaceContainerHighest text-sys-onSurface hover:bg-sys-surfaceContainerHighest/80"
                 aria-label="Stop EMOM timer"
               >
                 <X size={24} />
@@ -357,26 +357,26 @@ export function ActionBar({
                 className={`text-3xl font-mono font-bold min-w-[90px] transition-colors ${
                   emomState.seconds <= 5
                     ? 'text-sys-error animate-pulse'
-                    : 'mockup-text-primary'
+                    : 'text-sys-onSurface'
                 }`}
               >
                 {Math.floor(emomState.seconds / 60)}:
                 {emomState.seconds % 60 < 10 ? '0' : ''}
                 {emomState.seconds % 60}
               </span>
-              <div className="h-6 w-[1px] bg-white/20"></div>
+              <div className="h-6 w-[1px] bg-sys-outlineVariant"></div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => {
                     haptic.bump();
                     setEmomInterval((i: number) => Math.max(10, i - 5));
                   }}
-                  className="btn-icon h-12 w-12 bg-white/10 hover:bg-white/20 mockup-text-primary"
+                  className="btn-icon h-12 w-12 bg-sys-surfaceContainerHighest text-sys-onSurface hover:bg-sys-surfaceContainerHighest/80"
                   aria-label="Decrease interval by 5 seconds"
                 >
                   <Minus size={24} />
                 </button>
-                <span className="text-sm mockup-text-muted font-semibold min-w-[40px] text-center">
+                <span className="text-sm text-sys-onSurfaceVar font-semibold min-w-[40px] text-center">
                   {emomState.interval}s
                 </span>
                 <button
@@ -384,7 +384,7 @@ export function ActionBar({
                     haptic.bump();
                     setEmomInterval((i: number) => Math.min(180, i + 5));
                   }}
-                  className="btn-icon h-12 w-12 bg-white/10 hover:bg-white/20 mockup-text-primary"
+                  className="btn-icon h-12 w-12 bg-sys-surfaceContainerHighest text-sys-onSurface hover:bg-sys-surfaceContainerHighest/80"
                   aria-label="Increase interval by 5 seconds"
                 >
                   <Plus size={24} />
@@ -398,21 +398,21 @@ export function ActionBar({
       {/* Density Timer Display */}
       {densityState && (densityState.active || densityState.seconds > 0) && setDensityActive && setDensitySeconds && (
         <div className="px-4 pt-3 pb-2">
-          <div className={`glass-panel px-5 py-4 rounded-2xl shadow-lg ${densityTimerJustActivated ? 'animate-slide-up' : ''}`}>
+          <div className={`bg-sys-surfaceContainerHigh px-5 py-4 rounded-2xl shadow-elevation-2 ${densityTimerJustActivated ? 'animate-slide-up' : ''}`}>
             <div className="flex items-center gap-3 mb-3">
               {/* Expand button */}
               <button
                 onClick={handleExpandDensity}
-                className="btn-icon h-12 w-12 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300"
+                className="btn-icon h-12 w-12 bg-sys-tertiaryContainer text-sys-onTertiaryContainer hover:brightness-110"
                 aria-label="Expand density timer to fullscreen"
               >
                 <Gauge size={20} />
               </button>
-              <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+              <span className="text-xs font-semibold text-sys-tertiary uppercase tracking-wider">
                 Density
               </span>
-              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-cyan-500/20">
-                <span className="text-xs font-bold text-cyan-300">
+              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-sys-tertiaryContainer">
+                <span className="text-xs font-bold text-sys-onTertiaryContainer">
                   {densityState.timeMinutes}m
                 </span>
               </div>
@@ -422,7 +422,7 @@ export function ActionBar({
                   setDensityActive(false);
                   setDensitySeconds(0);
                 }}
-                className="btn-icon ml-auto h-12 w-12 bg-white/10 hover:bg-white/20 mockup-text-primary"
+                className="btn-icon ml-auto h-12 w-12 bg-sys-surfaceContainerHighest text-sys-onSurface hover:bg-sys-surfaceContainerHighest/80"
                 aria-label="Stop density timer"
               >
                 <X size={24} />
@@ -433,7 +433,7 @@ export function ActionBar({
                 className={`text-3xl font-mono font-bold min-w-[90px] transition-colors ${
                   densityState.seconds <= 10
                     ? 'text-sys-error animate-pulse'
-                    : 'mockup-text-primary'
+                    : 'text-sys-onSurface'
                 }`}
               >
                 {Math.floor(densityState.seconds / 60)}:
@@ -445,7 +445,7 @@ export function ActionBar({
                   haptic.bump();
                   handleAddDensityTime(30);
                 }}
-                className="btn-md3 btn-text text-cyan-300 font-bold text-base min-h-[48px] ml-auto"
+                className="btn-md3 btn-text text-sys-tertiary font-bold text-base min-h-[48px] ml-auto"
                 aria-label="Add 30 seconds to density timer"
               >
                 +30s
@@ -458,26 +458,26 @@ export function ActionBar({
       {/* Rest Timer Display */}
       {timerState.time > 0 && (
         <div className="px-4 pt-3 pb-3">
-          <div className={`glass-panel px-5 py-4 rounded-2xl flex items-center gap-4 shadow-lg ${restTimerJustActivated ? 'animate-slide-up' : ''}`}>
+          <div className={`bg-sys-surfaceContainerHigh px-5 py-4 rounded-2xl flex items-center gap-4 shadow-elevation-2 ${restTimerJustActivated ? 'animate-slide-up' : ''}`}>
             <button
               onClick={handleExpandRest}
-              className="btn-icon h-12 w-12 min-w-[48px] bg-white/10 hover:bg-white/20 mockup-text-accent"
+              className="btn-icon h-12 w-12 min-w-[48px] bg-sys-secondaryContainer text-sys-onSecondaryContainer hover:brightness-110"
               aria-label="Expand timer to fullscreen"
             >
               <Maximize2 size={24} />
             </button>
-            <span className="text-2xl font-mono font-bold mockup-text-primary min-w-[80px]">
+            <span className="text-2xl font-mono font-bold text-sys-onSurface min-w-[80px]">
               {Math.floor(timerState.time / 60)}:
               {timerState.time % 60 < 10 ? '0' : ''}
               {timerState.time % 60}
             </span>
-            <div className="h-6 w-[1px] bg-white/20"></div>
+            <div className="h-6 w-[1px] bg-sys-outlineVariant"></div>
             <button
               onClick={() => {
                 haptic.bump();
                 setTimerActive(!timerState.active);
               }}
-              className="btn-icon h-12 w-12 min-w-[48px] bg-white/10 hover:bg-white/20 mockup-text-primary"
+              className="btn-icon h-12 w-12 min-w-[48px] bg-sys-surfaceContainerHighest text-sys-onSurface hover:bg-sys-surfaceContainerHighest/80"
               aria-label={timerState.active ? 'Pause timer' : 'Resume timer'}
             >
               {timerState.active ? <Pause size={24} /> : <Play size={24} />}
@@ -488,7 +488,7 @@ export function ActionBar({
                 setTimerActive(false);
                 setTimerSeconds(0);
               }}
-              className="btn-icon h-12 w-12 min-w-[48px] bg-white/10 hover:bg-white/20 mockup-text-primary"
+              className="btn-icon h-12 w-12 min-w-[48px] bg-sys-surfaceContainerHighest text-sys-onSurface hover:bg-sys-surfaceContainerHighest/80"
               aria-label="Cancel timer"
             >
               <X size={24} />
@@ -498,7 +498,7 @@ export function ActionBar({
                 haptic.bump();
                 setTimerSeconds((s: number) => s + 30);
               }}
-              className="btn-md3 btn-text mockup-text-accent font-bold text-base min-h-[48px]"
+              className="btn-md3 btn-text text-sys-secondary font-bold text-base min-h-[48px]"
             >
               +30s
             </button>

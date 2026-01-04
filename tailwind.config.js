@@ -35,41 +35,52 @@ export default {
       colors: {
         sys: {
           black: 'var(--color-black)',
-          surface: 'var(--color-surface-dark)',
-          surfaceHigh: 'var(--color-surface-elevated)',
+          surface: 'var(--color-surface)',
+          onSurface: 'var(--color-on-surface)',
           surfaceVariant: 'var(--color-surface-variant)',
-          onSurface: 'var(--color-neutral-50)',
-          onSurfaceVar: 'var(--color-on-surface-variant)',
           onSurfaceVariant: 'var(--color-on-surface-variant)',
-          primary: 'var(--color-primary-500)',
-          primaryDim: 'var(--color-neutral-600)',
-          accent: 'var(--color-primary-600)',
-          tertiary: 'var(--color-tertiary-500)',
-          success: 'var(--color-success-500)',
-          outline: 'var(--color-outline)',
-          outlineVar: 'var(--color-outline-variant)',
-          outlineVariant: 'var(--color-outline-variant)',
-
-          // MD3 Extended Roles
+          surfaceContainerLowest: 'var(--color-surface-container-lowest)',
+          surfaceContainerLow: 'var(--color-surface-container-low)',
+          surfaceContainer: 'var(--color-surface-container)',
+          surfaceContainerHigh: 'var(--color-surface-container-high)',
+          surfaceContainerHighest: 'var(--color-surface-container-highest)',
+          surfaceTint: 'var(--color-surface-tint)',
+          primary: 'var(--color-primary)',
+          onPrimary: 'var(--color-on-primary)',
           primaryContainer: 'var(--color-primary-container)',
           onPrimaryContainer: 'var(--color-on-primary-container)',
           secondary: 'var(--color-secondary)',
           onSecondary: 'var(--color-on-secondary)',
           secondaryContainer: 'var(--color-secondary-container)',
           onSecondaryContainer: 'var(--color-on-secondary-container)',
+          tertiary: 'var(--color-tertiary)',
+          onTertiary: 'var(--color-on-tertiary)',
           tertiaryContainer: 'var(--color-tertiary-container)',
           onTertiaryContainer: 'var(--color-on-tertiary-container)',
           error: 'var(--color-error)',
           onError: 'var(--color-on-error)',
           errorContainer: 'var(--color-error-container)',
           onErrorContainer: 'var(--color-on-error-container)',
-          background: 'var(--color-background)',
-          onBackground: 'var(--color-on-background)',
+          success: 'var(--color-success)',
+          onSuccess: 'var(--color-on-success)',
+          successContainer: 'var(--color-success-container)',
+          onSuccessContainer: 'var(--color-on-success-container)',
+          outline: 'var(--color-outline)',
+          outlineVariant: 'var(--color-outline-variant)',
           inverseSurface: 'var(--color-inverse-surface)',
           inverseOnSurface: 'var(--color-inverse-on-surface)',
           inversePrimary: 'var(--color-inverse-primary)',
           scrim: 'var(--color-scrim)',
           shadow: 'var(--color-shadow)',
+
+          // Legacy aliases for compatibility
+          surfaceHigh: 'var(--color-surface-container-high)',
+          onSurfaceVar: 'var(--color-on-surface-variant)',
+          accent: 'var(--color-primary)',
+          success: 'var(--color-success)',
+          outlineVar: 'var(--color-outline-variant)',
+          background: 'var(--color-surface)',
+          onBackground: 'var(--color-on-surface)',
         },
         // Workout section colors (using rgb values for opacity support)
         warmup: {
@@ -159,7 +170,7 @@ export default {
         'none': '0',
         'xs': '4px',    // Extra small
         'sm': '8px',    // Small
-        'md': '12px',   // Medium  
+        'md': '12px',   // Medium
         'lg': '16px',   // Large
         'xl': '20px',   // Extra large
         '2xl': '24px',  // 2X large

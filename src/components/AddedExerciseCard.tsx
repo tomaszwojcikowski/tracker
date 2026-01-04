@@ -73,22 +73,22 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
             <div
                 className={`bg-sys-surface rounded-2xl p-4 border relative z-10 overflow-hidden ${
                     completedSets === totalSets
-                        ? 'border-sys-success/30 bg-sys-success/5'
-                        : 'border-white/5'
+                        ? 'border-sys-successContainer bg-sys-successContainer/10'
+                        : 'border-sys-outlineVariant'
                 }`}
             >
                 <div className="flex justify-between items-start mb-3">
                     <div className="flex-1 pr-2">
                         <div className="flex items-center gap-2">
-                            <h3 className="text-base font-semibold text-white leading-tight">
+                            <h3 className="text-base font-semibold text-sys-onSurface leading-tight">
                                 {exercise.name}
                             </h3>
                             {completedSets > 0 && (
                                 <span
                                     className={`text-xs font-bold px-2 py-0.5 rounded-full ${
                                         completedSets === totalSets
-                                            ? 'bg-sys-success/20 text-sys-success'
-                                            : 'bg-sys-accent/10 text-sys-accent'
+                                            ? 'bg-sys-successContainer text-sys-onSuccessContainer'
+                                            : 'bg-sys-primaryContainer text-sys-onPrimaryContainer'
                                     }`}
                                 >
                                     {completedSets}/{totalSets}
@@ -107,7 +107,7 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                                                 haptic.tick();
                                                 setIsEditingWeight(true);
                                             }}
-                                            className="flex items-center gap-1 text-xs text-sys-accent hover:text-sys-accent/80 transition-colors"
+                                            className="flex items-center gap-1 text-xs text-sys-primary hover:text-sys-primary/80 transition-colors"
                                         >
                                             {exercise.weight ? (
                                                 <>
@@ -131,7 +131,7 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                                                 value={weightInput}
                                                 onChange={(e) => setWeightInput(e.target.value)}
                                                 placeholder="kg"
-                                                className="w-16 h-6 px-2 bg-sys-surfaceHigh rounded text-white text-xs font-mono outline-none focus:ring-1 focus:ring-sys-accent"
+                                                className="w-16 h-6 px-2 bg-sys-surfaceContainerLow rounded text-sys-onSurface text-xs font-mono outline-none focus:ring-1 focus:ring-sys-primary"
                                                 autoFocus
                                                 onKeyDown={(e) => {
                                                     if (e.key === 'Enter') handleWeightSave();
@@ -140,14 +140,14 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                                             />
                                             <button
                                                 onClick={handleWeightSave}
-                                                className="h-6 w-6 rounded bg-sys-success/20 text-sys-success flex items-center justify-center"
+                                                className="h-6 w-6 rounded bg-sys-successContainer text-sys-onSuccessContainer flex items-center justify-center"
                                                 aria-label="Save weight"
                                             >
                                                 <Check size={12} />
                                             </button>
                                             <button
                                                 onClick={handleWeightCancel}
-                                                className="h-6 w-6 rounded bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center"
+                                                className="h-6 w-6 rounded bg-sys-surfaceContainerLow text-sys-onSurfaceVar flex items-center justify-center"
                                                 aria-label="Cancel"
                                             >
                                                 <X size={12} />
@@ -160,7 +160,7 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                     </div>
                     <button
                         onClick={() => onRemove(exercise.id)}
-                        className="btn-icon h-12 w-12 min-w-[48px] bg-red-500/10 text-red-500"
+                        className="btn-icon h-12 w-12 min-w-[48px] bg-sys-errorContainer text-sys-onErrorContainer"
                         aria-label="Remove exercise"
                     >
                         <X size={24} />
@@ -176,7 +176,7 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                                 onStartRestTimer(exercise.rest ?? 90);
                             }}
                             className={`btn-md3 h-7 px-2.5 min-h-0 rounded-lg text-xs font-medium flex items-center gap-1 ${restTimerActive
-                                ? 'btn-filled ring-2 ring-sys-accent/50'
+                                ? 'btn-filled ring-2 ring-sys-primary/50'
                                 : 'btn-tonal'
                             }`}
                             aria-label={`Start ${exercise.rest} second timer`}
@@ -195,8 +195,8 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                             onClick={() => onToggleSet(exId, i, exercise.sets, exercise.rest ?? 90)}
                             className={`set-button h-10 w-10 min-w-[40px] rounded-lg flex items-center justify-center text-sm font-bold transition-all active:scale-90 ${
                                 isDone
-                                    ? 'completed bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
-                                    : 'bg-sys-accent/20 text-sys-accent border border-sys-accent/30'
+                                    ? 'completed bg-sys-primary text-sys-onPrimary shadow-md'
+                                    : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar border border-sys-outlineVariant'
                             }`}
                             aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                         >
@@ -210,7 +210,7 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                                 haptic.bump();
                                 onAddSet(exercise.id);
                             }}
-                            className="h-10 w-10 min-w-[40px] rounded-lg flex items-center justify-center text-sm font-bold transition-all active:scale-90 bg-sys-surfaceHigh/50 text-sys-accent border border-dashed border-sys-accent/30 hover:bg-sys-surfaceHigh"
+                            className="h-10 w-10 min-w-[40px] rounded-lg flex items-center justify-center text-sm font-bold transition-all active:scale-90 bg-sys-surfaceContainerLow text-sys-primary border border-dashed border-sys-outlineVariant hover:bg-sys-surfaceContainerHigh"
                             aria-label="Add another set"
                         >
                             <Plus size={16} />

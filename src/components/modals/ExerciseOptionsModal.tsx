@@ -93,7 +93,7 @@ export const ExerciseOptionsModal: React.FC<ExerciseOptionsModalProps> = ({
             <div className="flex flex-col gap-4 pb-4">
                 {/* Header with exercise name */}
                 <div className="px-4">
-                    <h3 className="text-lg font-bold text-white">{exerciseName}</h3>
+                    <h3 className="text-lg font-bold text-sys-onSurface">{exerciseName}</h3>
                     <p className="text-sm text-sys-onSurfaceVar mt-1">
                         {isFlow || hasFlowOptions
                             ? "Choose a flow that matches your goals and how your body feels today"
@@ -118,8 +118,8 @@ export const ExerciseOptionsModal: React.FC<ExerciseOptionsModalProps> = ({
                                     rounded-xl transition-all duration-200
                                     ${
                                         isSelected
-                                            ? 'bg-sys-accent/20 border-2 border-sys-accent'
-                                            : 'bg-sys-surfaceHigh border-2 border-transparent hover:border-sys-accent/50'
+                                            ? 'bg-sys-primary/20 border-2 border-sys-primary'
+                                            : 'bg-sys-surfaceContainerHigh border-2 border-transparent hover:border-sys-primary/50'
                                     }
                                 `}
                             >
@@ -127,14 +127,14 @@ export const ExerciseOptionsModal: React.FC<ExerciseOptionsModalProps> = ({
                                 <div className="flex items-center justify-between">
                                     <h4
                                         className={`text-base font-bold text-left ${
-                                            isSelected ? 'text-sys-accent' : 'text-white'
+                                            isSelected ? 'text-sys-primary' : 'text-sys-onSurface'
                                         }`}
                                     >
                                         {option.optionName}
                                     </h4>
                                     {isSelected && (
-                                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-sys-accent flex-shrink-0">
-                                            <Check size={16} className="text-black" />
+                                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-sys-primary flex-shrink-0">
+                                            <Check size={16} className="text-sys-onPrimary" />
                                         </div>
                                     )}
                                 </div>
@@ -171,7 +171,7 @@ export const ExerciseOptionsModal: React.FC<ExerciseOptionsModalProps> = ({
                                         {option.equipment.map((equip) => (
                                             <span
                                                 key={equip}
-                                                className="px-2 py-0.5 text-xs rounded-md bg-sys-surface text-sys-onSurfaceVar border border-white/10"
+                                                className="px-2 py-0.5 text-xs rounded-md bg-sys-surface text-sys-onSurfaceVar border border-sys-outlineVariant"
                                             >
                                                 {equip}
                                             </span>
@@ -194,7 +194,7 @@ export const ExerciseOptionsModal: React.FC<ExerciseOptionsModalProps> = ({
                 <div className="px-4 pt-2">
                     <button
                         onClick={onClose}
-                        className="w-full py-3 px-4 rounded-xl bg-sys-surfaceHigh text-white font-medium hover:bg-sys-surface transition-colors"
+                        className="w-full py-3 px-4 rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurface font-medium hover:bg-sys-surfaceContainerHighest transition-colors"
                     >
                         Cancel
                     </button>

@@ -32,8 +32,8 @@ export const ExerciseOptionsBadge: React.FC<ExerciseOptionsBadgeProps> = ({
                 transition-all duration-200
                 ${
                     hasSelection
-                        ? 'bg-sys-accent/20 text-sys-accent border border-sys-accent/30'
-                        : 'bg-amber-500/20 text-amber-200 border border-amber-500/30 animate-pulse'
+                        ? 'bg-sys-primaryContainer text-sys-onPrimaryContainer border border-sys-primary/30'
+                        : 'bg-sys-tertiaryContainer text-sys-onTertiaryContainer border border-sys-tertiary/30 animate-pulse'
                 }
                 hover:scale-105 active:scale-95
             `}

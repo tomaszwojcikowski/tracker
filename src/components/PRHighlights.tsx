@@ -210,19 +210,19 @@ const PRCard: React.FC<PRCardProps> = ({ pr, onTap, delay }) => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay }}
             onClick={onTap}
-            className="flex items-center gap-3 p-3 bg-gradient-to-r from-yellow-500/15 to-transparent rounded-xl border border-yellow-500/30 w-full text-left active:scale-98 transition-transform"
+            className="flex items-center gap-3 p-3 bg-sys-tertiaryContainer/30 rounded-xl border border-sys-tertiary/30 w-full text-left active:scale-98 transition-transform"
         >
-            <div className="h-10 w-10 rounded-xl bg-yellow-500/20 flex items-center justify-center flex-shrink-0">
-                <Trophy size={20} className="text-yellow-400" />
+            <div className="h-10 w-10 rounded-xl bg-sys-tertiaryContainer flex items-center justify-center flex-shrink-0">
+                <Trophy size={20} className="text-sys-tertiary" />
             </div>
             <div className="flex-1 min-w-0">
-                <div className="font-semibold text-white text-sm truncate">{pr.exerciseName}</div>
-                <div className="text-xs text-yellow-400/80">
+                <div className="font-semibold text-sys-onSurface text-sm truncate">{pr.exerciseName}</div>
+                <div className="text-xs text-sys-onSurfaceVariant">
                     {new Date(pr.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                 </div>
             </div>
             <div className="text-right flex-shrink-0">
-                <div className="text-lg font-bold text-yellow-400">{pr.weight}kg</div>
+                <div className="text-lg font-bold text-sys-tertiary">{pr.weight}kg</div>
                 {improvement !== null && improvement > 0 && (
                     <div className="text-xs text-sys-success flex items-center justify-end gap-0.5">
                         <TrendingUp size={10} />
@@ -255,22 +255,22 @@ const StreakBadge: React.FC<StreakBadgeProps> = ({ days, bestStreak }) => {
             animate={{ opacity: 1, scale: 1 }}
             className={`flex items-center gap-2 px-3 py-2 rounded-xl border ${
                 isOnFire
-                    ? 'bg-gradient-to-r from-orange-500/20 to-red-500/20 border-orange-500/30'
-                    : 'bg-sys-surfaceHigh border-white/5'
+                    ? 'bg-sys-secondaryContainer border-sys-secondary/30'
+                    : 'bg-sys-surfaceContainerHigh border-sys-outlineVariant'
             }`}
         >
             <Flame
                 size={20}
-                className={isOnFire ? 'text-orange-400 animate-pulse' : 'text-sys-onSurfaceVar'}
+                className={isOnFire ? 'text-sys-secondary animate-pulse' : 'text-sys-onSurfaceVariant'}
             />
             <div>
-                <div className="text-lg font-bold text-white leading-none">{days}</div>
-                <div className="text-[10px] text-sys-onSurfaceVar uppercase tracking-wide">
+                <div className="text-lg font-bold text-sys-onSurface leading-none">{days}</div>
+                <div className="text-[10px] text-sys-onSurfaceVariant uppercase tracking-wide">
                     day streak
                 </div>
             </div>
             {isNewRecord && (
-                <div className="ml-1 px-1.5 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 text-[9px] font-bold uppercase">
+                <div className="ml-1 px-1.5 py-0.5 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer text-[9px] font-bold uppercase">
                     Best!
                 </div>
             )}
@@ -316,28 +316,28 @@ export const PRHighlights: React.FC<PRHighlightsProps> = ({
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-gradient-to-br from-yellow-500/10 via-sys-surface to-sys-surfaceHigh rounded-2xl border border-yellow-500/20 overflow-hidden"
+                    className="bg-sys-surfaceContainerHigh rounded-2xl border border-sys-tertiary/20 overflow-hidden"
                 >
                     <button
                         onClick={handleToggle}
                         className="w-full flex items-center justify-between p-4"
                     >
                         <div className="flex items-center gap-3">
-                            <div className="h-10 w-10 rounded-xl bg-yellow-500/20 flex items-center justify-center">
-                                <Star size={20} className="text-yellow-400" />
+                            <div className="h-10 w-10 rounded-xl bg-sys-tertiaryContainer flex items-center justify-center">
+                                <Star size={20} className="text-sys-tertiary" />
                             </div>
                             <div className="text-left">
-                                <h3 className="text-base font-bold text-white">
+                                <h3 className="text-base font-bold text-sys-onSurface">
                                     {recentPRs.length} New PR{recentPRs.length !== 1 ? 's' : ''}! 🎉
                                 </h3>
-                                <p className="text-xs text-sys-onSurfaceVar">{periodLabel}</p>
+                                <p className="text-xs text-sys-onSurfaceVariant">{periodLabel}</p>
                             </div>
                         </div>
                         <motion.div
                             animate={{ rotate: expanded ? 90 : 0 }}
-                            className="h-8 w-8 rounded-full bg-yellow-500/20 flex items-center justify-center"
+                            className="h-8 w-8 rounded-full bg-sys-tertiaryContainer flex items-center justify-center"
                         >
-                            <ChevronRight size={16} className="text-yellow-400" />
+                            <ChevronRight size={16} className="text-sys-tertiary" />
                         </motion.div>
                     </button>
 
@@ -361,7 +361,7 @@ export const PRHighlights: React.FC<PRHighlightsProps> = ({
                                     ))}
                                 </div>
                                 {recentPRs.length > 5 && (
-                                    <p className="text-xs text-sys-onSurfaceVar text-center mt-3">
+                                    <p className="text-xs text-sys-onSurfaceVariant text-center mt-3">
                                         +{recentPRs.length - 5} more PRs
                                     </p>
                                 )}
@@ -380,12 +380,12 @@ export const PRHighlights: React.FC<PRHighlightsProps> = ({
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.1 }}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl bg-sys-surfaceHigh border border-white/5"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl bg-sys-surfaceContainerHigh border border-sys-outlineVariant"
                     >
-                        <Award size={20} className="text-sys-accent" />
+                        <Award size={20} className="text-sys-primary" />
                         <div>
-                            <div className="text-lg font-bold text-white leading-none">{totalWorkouts}</div>
-                            <div className="text-[10px] text-sys-onSurfaceVar uppercase tracking-wide">
+                            <div className="text-lg font-bold text-sys-onSurface leading-none">{totalWorkouts}</div>
+                            <div className="text-[10px] text-sys-onSurfaceVariant uppercase tracking-wide">
                                 workouts
                             </div>
                         </div>

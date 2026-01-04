@@ -76,7 +76,7 @@ export const FlowMovementsDisplay: React.FC<FlowMovementsDisplayProps> = ({
     return (
         <div
             className={`
-                mt-2 p-3 rounded-lg bg-sys-surface/50 border border-white/5
+                mt-2 p-3 rounded-lg bg-sys-surfaceContainerLow border border-sys-outlineVariant
                 transition-all duration-300 ease-out
                 ${isAnimating ? 'opacity-0 scale-95 -translate-y-1' : 'opacity-100 scale-100 translate-y-0'}
             `}
@@ -90,7 +90,7 @@ export const FlowMovementsDisplay: React.FC<FlowMovementsDisplayProps> = ({
                     }}
                     className="w-full flex flex-col items-center mb-2 -mt-1 group"
                 >
-                    <div className="w-8 h-1 rounded-full bg-white/20 group-hover:bg-white/40 group-active:bg-sys-accent/60 transition-colors" />
+                    <div className="w-8 h-1 rounded-full bg-sys-onSurfaceVariant/20 group-hover:bg-sys-onSurfaceVariant/40 group-active:bg-sys-primary/60 transition-colors" />
                     <span className="text-[10px] text-sys-onSurfaceVar/60 mt-0.5">tap to change flow</span>
                 </button>
             )}
@@ -109,7 +109,7 @@ export const FlowMovementsDisplay: React.FC<FlowMovementsDisplayProps> = ({
                         ({movements.length} moves)
                     </span>
                     {flowOptionsCount > 1 && (
-                        <span className="text-[10px] text-sys-onSurfaceVar/60 px-1.5 py-0.5 rounded bg-white/5">
+                        <span className="text-[10px] text-sys-onSurfaceVar/60 px-1.5 py-0.5 rounded bg-sys-surfaceContainerHigh">
                             {currentFlowIndex} of {flowOptionsCount}
                         </span>
                     )}
@@ -147,7 +147,7 @@ export const FlowMovementsDisplay: React.FC<FlowMovementsDisplayProps> = ({
                             transitionDelay: isAnimating ? '0ms' : `${index * 30}ms`
                         }}
                     >
-                        <span className="w-5 h-5 flex items-center justify-center rounded-full bg-sys-accent/20 text-sys-accent text-[10px] font-bold flex-shrink-0">
+                        <span className="w-5 h-5 flex items-center justify-center rounded-full bg-sys-primaryContainer text-sys-onPrimaryContainer text-[10px] font-bold flex-shrink-0">
                             {index + 1}
                         </span>
                         <span className="text-xs text-sys-onSurfaceVar">{movement}</span>
@@ -187,8 +187,8 @@ export const FlowBadge: React.FC<{
             onClick={onClick}
             className={`
                 inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium
-                bg-sys-accent/20 text-sys-accent border border-sys-accent/30
-                hover:bg-sys-accent/30 transition-all duration-200
+                bg-sys-primaryContainer text-sys-onPrimaryContainer border border-sys-primary/30
+                hover:bg-sys-primaryContainer/80 transition-all duration-200
                 ${isAnimating ? 'animate-pulse scale-105' : ''}
             `}
             title={`${flowName} - ${movementCount} movements. Tap to change.`}

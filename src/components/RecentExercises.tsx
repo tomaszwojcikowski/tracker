@@ -82,8 +82,8 @@ export const RecentExercisesList: React.FC<RecentExercisesListProps> = ({
     return (
         <div className="mb-4">
             <div className="flex items-center gap-2 mb-2 px-1">
-                <Clock size={14} className="text-sys-onSurfaceVar" />
-                <span className="text-xs font-semibold text-sys-onSurfaceVar uppercase tracking-wider">
+                <Clock size={14} className="text-sys-onSurfaceVariant" />
+                <span className="text-xs font-semibold text-sys-onSurfaceVariant uppercase tracking-wider">
                     Recently Used
                 </span>
             </div>
@@ -92,10 +92,10 @@ export const RecentExercisesList: React.FC<RecentExercisesListProps> = ({
                     <button
                         key={exercise.id}
                         onClick={() => onSelect(exercise)}
-                        className="flex items-center gap-2 h-9 px-3 bg-sys-surfaceHigh rounded-xl text-sm text-white font-medium border border-white/5 active:scale-95 transition-all hover:bg-sys-accent/10 hover:border-sys-accent/30"
+                        className="flex items-center gap-2 h-9 px-3 bg-sys-surfaceContainer rounded-xl text-sm text-sys-onSurface font-medium border border-sys-outlineVariant active:scale-95 transition-all hover:bg-sys-primaryContainer hover:border-sys-primary/30"
                     >
                         <span className="truncate max-w-[140px]">{exercise.name}</span>
-                        <Plus size={14} className="text-sys-accent flex-shrink-0" />
+                        <Plus size={14} className="text-sys-primary flex-shrink-0" />
                     </button>
                 ))}
             </div>

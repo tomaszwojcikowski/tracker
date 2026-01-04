@@ -39,7 +39,7 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({ onRefresh, childre
             >
                 <div
                     className={`flex items-center justify-center h-10 w-10 rounded-full transition-all ${
-                        canRefresh ? 'bg-sys-accent' : 'bg-sys-surfaceHigh'
+                        canRefresh ? 'bg-sys-primary' : 'bg-sys-surfaceContainerLow'
                     } ${isRefreshing ? 'animate-spin' : ''}`}
                     style={{
                         transform: `rotate(${progress * 360}deg)`,
@@ -47,7 +47,7 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({ onRefresh, childre
                 >
                     <RefreshCw
                         size={20}
-                        className={canRefresh ? 'text-white' : 'text-sys-onSurfaceVar'}
+                        className={canRefresh ? 'text-sys-onPrimary' : 'text-sys-onSurfaceVar'}
                     />
                 </div>
             </div>

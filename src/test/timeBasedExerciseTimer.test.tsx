@@ -286,7 +286,7 @@ describe('Time-Based Exercise Timer', () => {
             );
 
             const timerButton = screen.getByRole('button', { name: /Stop timer/i });
-            expect(timerButton).toHaveClass('bg-sys-accent', 'text-white');
+            expect(timerButton).toHaveClass('bg-sys-primary', 'text-sys-onPrimary');
         });
     });
 
@@ -492,7 +492,7 @@ describe('Time-Based Exercise Timer', () => {
             );
 
             const flowTimerButton = screen.getByRole('button', { name: /Stop flow timer/i });
-            expect(flowTimerButton).toHaveClass('bg-sys-accent', 'text-white');
+            expect(flowTimerButton).toHaveClass('bg-sys-primary', 'text-sys-onPrimary');
         });
     });
 

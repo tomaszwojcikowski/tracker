@@ -382,7 +382,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
             case 'main': sectionColors = 'bg-main-500/10 border-main-500/20'; break;
             case 'access': sectionColors = 'bg-accessory-500/10 border-accessory-500/20'; break;
             case 'cool': sectionColors = 'bg-cooldown-500/10 border-cooldown-500/20'; break;
-            default: sectionColors = 'bg-sys-surface border-white/5';
+            default: sectionColors = 'bg-sys-surface border-sys-outlineVariant';
         }
 
         // First incomplete gets accent ring on top of section color
@@ -404,47 +404,47 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                 {hasSupersetGroup && (
                     <>
                         {showSupersetConnectorTop && (
-                            <div className="absolute left-1 top-0 w-0.5 h-2 bg-amber-500/80 z-20" />
+                            <div className="absolute left-1 top-0 w-0.5 h-2 bg-sys-secondary z-20" />
                         )}
                         {showSupersetConnectorBottom && (
-                            <div className="absolute left-1 bottom-0 w-0.5 h-2 bg-amber-500/80 z-20" />
+                            <div className="absolute left-1 bottom-0 w-0.5 h-2 bg-sys-secondary z-20" />
                         )}
                     </>
                 )}
                 <button
                     onClick={handleToggleExpand}
-                    className={`w-full h-9 px-3 flex items-center gap-2 bg-sys-success/5 rounded-xl border border-sys-success/10 active:bg-sys-success/20 transition-colors ${hasSupersetGroup ? 'ml-3' : ''}`}
+                    className={`w-full h-9 px-3 flex items-center gap-2 bg-sys-successContainer/10 rounded-xl border border-sys-success/10 active:bg-sys-successContainer/30 transition-colors ${hasSupersetGroup ? 'ml-3' : ''}`}
                     aria-label={`${historyLookupName} - completed, tap to edit`}
                 >
-                    <div className="flex items-center justify-center h-5 w-5 rounded-full bg-sys-success text-white flex-shrink-0">
+                    <div className="flex items-center justify-center h-5 w-5 rounded-full bg-sys-success text-sys-onSuccess flex-shrink-0">
                         <Check size={12} strokeWidth={3} />
                     </div>
-                    <span className="flex-1 text-sm font-medium text-white truncate text-left" title={historyLookupName}>
+                    <span className="flex-1 text-sm font-medium text-sys-onSurface truncate text-left" title={historyLookupName}>
                         {shortDisplayName}
                     </span>
                     {isEmom && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-purple-500/20 text-purple-400 flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer flex-shrink-0">
                             <Zap size={8} strokeWidth={3} />
                         </span>
                     )}
                     {isDensity && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-primaryContainer text-sys-onPrimaryContainer flex-shrink-0">
                             <Gauge size={8} strokeWidth={3} />
                         </span>
                     )}
                     {isAmrap && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-orange-500/20 text-orange-400 flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-errorContainer text-sys-onErrorContainer flex-shrink-0">
                             <TrendingUp size={8} strokeWidth={3} />
                         </span>
                     )}
                     {isLadder && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-teal-500/20 text-teal-400 flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-successContainer text-sys-onSuccessContainer flex-shrink-0">
                             <BarChart2 size={8} strokeWidth={3} />
                             {ladderReps && <span className="text-[8px]">{ladderReps.join('-')}</span>}
                         </span>
                     )}
                     {isUnilateral && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-blue-500/20 text-blue-400 flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-secondaryContainer text-sys-onSecondaryContainer flex-shrink-0">
                             <span className="text-[8px]">L/R</span>
                         </span>
                     )}
@@ -496,14 +496,14 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
             {hasSupersetGroup && (
                 <>
                     {showSupersetConnectorTop && (
-                        <div className="absolute left-1 top-0 w-0.5 h-2 bg-amber-500/80 z-20" />
+                        <div className="absolute left-1 top-0 w-0.5 h-2 bg-sys-secondary z-20" />
                     )}
                     {showSupersetConnectorBottom && (
-                        <div className="absolute left-1 bottom-0 w-0.5 h-2 bg-amber-500/80 z-20" />
+                        <div className="absolute left-1 bottom-0 w-0.5 h-2 bg-sys-secondary z-20" />
                     )}
                     {isFirstInSuperset && (
                         <div className="absolute left-0.5 top-1 z-20" aria-label="Superset exercise">
-                            <div className="h-1.5 w-1.5 rounded-full bg-amber-500" title="Superset" role="img" aria-hidden="true" />
+                            <div className="h-1.5 w-1.5 rounded-full bg-sys-secondary" title="Superset" role="img" aria-hidden="true" />
                         </div>
                     )}
                 </>
@@ -520,13 +520,13 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                 >
                     {/* EMOM Badge (inline with name for compact view) */}
                     {isEmom && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-purple-500/20 text-purple-400 flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer flex-shrink-0">
                             <Zap size={8} strokeWidth={3} />
                         </span>
                     )}
                     {/* Density Badge */}
                     {isDensity && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-primaryContainer text-sys-onPrimaryContainer flex-shrink-0">
                             <Gauge size={8} strokeWidth={3} />
                             {densityRepsTotal && densityTimeMinutes && (
                                 <span className="text-[8px]">{densityRepsTotal}/{densityTimeMinutes}m</span>
@@ -535,24 +535,24 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                     )}
                     {/* AMRAP Badge */}
                     {isAmrap && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-orange-500/20 text-orange-400 flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-errorContainer text-sys-onErrorContainer flex-shrink-0">
                             <TrendingUp size={8} strokeWidth={3} />
                         </span>
                     )}
                     {/* Ladder Badge */}
                     {isLadder && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-teal-500/20 text-teal-400 flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-successContainer text-sys-onSuccessContainer flex-shrink-0">
                             <BarChart2 size={8} strokeWidth={3} />
                             {ladderReps && <span className="text-[8px]">{ladderReps.join('-')}</span>}
                         </span>
                     )}
                     {/* Unilateral Badge */}
                     {isUnilateral && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-blue-500/20 text-blue-400 flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-secondaryContainer text-sys-onSecondaryContainer flex-shrink-0">
                             <span className="text-[8px]">L/R</span>
                         </span>
                     )}
-                    <span ref={textRef} className="text-base font-bold text-white truncate min-w-0" title={historyLookupName}>
+                    <span ref={textRef} className="text-base font-bold text-sys-onSurface truncate min-w-0" title={historyLookupName}>
                         {/* Active row shows full name, others show short name */}
                         {isFirstIncomplete ? historyLookupName : shortDisplayName}
                     </span>
@@ -581,8 +581,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         onClick={onToggleDensityTimer}
                         className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium flex-shrink-0 ${
                             densityTimerActive
-                                ? 'bg-cyan-500 text-white ring-2 ring-cyan-500/50'
-                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                ? 'bg-sys-tertiary text-sys-onTertiary ring-2 ring-sys-tertiary/50'
+                                : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar'
                         }`}
                         aria-label={densityTimerActive ? 'Stop density timer' : `Start ${densityTimeMinutes}m density timer`}
                     >
@@ -597,8 +597,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         onClick={onToggleFlowTimer}
                         className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium flex-shrink-0 ${
                             flowTimerActive
-                                ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
-                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
+                                : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar'
                         }`}
                         aria-label={flowTimerActive ? 'Stop flow timer' : `Start ${flowTimeMinutes}m flow timer`}
                     >
@@ -613,8 +613,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         onClick={() => onStartRestTimer(timeSeconds)}
                         className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium flex-shrink-0 ${
                             restTimerActive
-                                ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
-                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
+                                : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar'
                         }`}
                         aria-label={restTimerActive ? 'Stop timer' : `Start ${timeSeconds >= 60 ? Math.floor(timeSeconds / 60) + 'm' : timeSeconds + 's'} timer`}
                     >
@@ -629,8 +629,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         onClick={() => onStartRestTimer(restTime)}
                         className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium flex-shrink-0 ${
                             restTimerActive
-                                ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
-                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
+                                : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar'
                         }`}
                         aria-label={`Start ${restTime}s rest timer`}
                     >
@@ -643,7 +643,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                 {onShowHistory && (
                     <button
                         onClick={handleShowDetails}
-                        className={`flex items-center gap-1.5 h-7 px-3 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar text-[10px] font-bold tracking-wide uppercase flex-shrink-0 active:scale-95 transition-all ${!hasHistory ? 'opacity-80' : ''}`}
+                        className={`flex items-center gap-1.5 h-7 px-3 rounded-full bg-sys-surfaceContainerLow text-sys-onSurfaceVar text-[10px] font-bold tracking-wide uppercase flex-shrink-0 active:scale-95 transition-all ${!hasHistory ? 'opacity-80' : ''}`}
                         aria-label={`View details and history for ${historyLookupName}`}
                     >
                         <Info size={12} className="text-sys-onSurfaceVar" />
@@ -671,7 +671,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                 }`}
             >
                 <div className="px-3 pb-3 pt-0">
-                    <div className="h-px bg-white/5 mb-2" />
+                    <div className="h-px bg-sys-outlineVariant mb-2" />
 
                     {/* Prescription */}
                     {displayPrescription && (
@@ -711,10 +711,10 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                     <div className="flex items-center gap-2 mt-2">
                         {/* Weight Stepper (only for weighted exercises) */}
                         {!isBodyweight && (
-                            <div className="flex items-center gap-0.5 bg-sys-surfaceHigh rounded-lg overflow-hidden">
+                            <div className="flex items-center gap-0.5 bg-sys-surfaceContainerLow rounded-lg overflow-hidden">
                                 <button
                                     onClick={() => handleWeightStep(-1)}
-                                    className="h-8 w-8 flex items-center justify-center text-sys-onSurfaceVar active:bg-white/10 transition-colors"
+                                    className="h-8 w-8 flex items-center justify-center text-sys-onSurfaceVar active:bg-sys-onSurface/10 transition-colors"
                                     aria-label="Decrease weight by 1kg"
                                 >
                                     <Minus size={14} />
@@ -728,12 +728,12 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                         onChange={(e) => setLocalWeight(e.target.value)}
                                         onBlur={handleWeightBlur}
                                         onKeyDown={handleWeightKeyDown}
-                                        className="w-14 h-8 bg-transparent text-center text-sm font-mono text-white outline-none"
+                                        className="w-14 h-8 bg-transparent text-center text-sm font-mono text-sys-onSurface outline-none"
                                     />
                                 ) : (
                                     <button
                                         onClick={handleWeightTap}
-                                        className="w-14 h-8 flex items-center justify-center text-sm font-mono text-white active:bg-white/10 transition-colors"
+                                        className="w-14 h-8 flex items-center justify-center text-sm font-mono text-sys-onSurface active:bg-sys-onSurface/10 transition-colors"
                                         aria-label="Edit weight"
                                     >
                                         {localWeight || '0'}
@@ -746,7 +746,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                 )}
                                 <button
                                     onClick={() => handleWeightStep(1)}
-                                    className="h-8 w-8 flex items-center justify-center text-sys-onSurfaceVar active:bg-white/10 transition-colors"
+                                    className="h-8 w-8 flex items-center justify-center text-sys-onSurfaceVar active:bg-sys-onSurface/10 transition-colors"
                                     aria-label="Increase weight by 1kg"
                                 >
                                     <Plus size={14} />
@@ -758,7 +758,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         {!isDensity && !isFlow && (
                             <button
                                 onClick={handleAddSet}
-                                className="h-8 px-3 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center gap-1.5 border border-dashed border-white/20 active:scale-95 transition-all text-xs font-medium"
+                                className="h-8 px-3 rounded-lg bg-sys-surfaceContainerLow text-sys-onSurfaceVar flex items-center justify-center gap-1.5 border border-dashed border-sys-outlineVariant active:scale-95 transition-all text-xs font-medium"
                                 aria-label="Add set"
                             >
                                 <Plus size={12} />
@@ -772,8 +772,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                 onClick={onToggleDensityTimer}
                                 className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
                                     densityTimerActive
-                                        ? 'bg-cyan-500 text-white ring-2 ring-cyan-500/50'
-                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                        ? 'bg-sys-tertiary text-sys-onTertiary ring-2 ring-sys-tertiary/50'
+                                        : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar'
                                 }`}
                                 aria-label={densityTimerActive ? 'Stop density timer' : `Start ${densityTimeMinutes}m density timer`}
                             >
@@ -788,8 +788,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                 onClick={onToggleFlowTimer}
                                 className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
                                     flowTimerActive
-                                        ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
-                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                        ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
+                                        : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar'
                                 }`}
                                 aria-label={flowTimerActive ? 'Stop flow timer' : `Start ${flowTimeMinutes}m flow timer`}
                             >
@@ -804,8 +804,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                 onClick={() => onStartRestTimer(timeSeconds)}
                                 className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
                                     restTimerActive
-                                        ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
-                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                        ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
+                                        : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar'
                                 }`}
                                 aria-label={restTimerActive ? 'Stop timer' : `Start ${timeSeconds >= 60 ? Math.floor(timeSeconds / 60) + 'm' : timeSeconds + 's'} timer`}
                             >
@@ -820,8 +820,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                 onClick={onToggleEmomTimer}
                                 className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
                                     emomTimerActive
-                                        ? 'bg-purple-500 text-white ring-2 ring-purple-500/50'
-                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                        ? 'bg-sys-tertiary text-sys-onTertiary ring-2 ring-sys-tertiary/50'
+                                        : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar'
                                 }`}
                                 aria-label={emomTimerActive ? 'Stop EMOM timer' : `Start ${emomTimerInterval}s EMOM timer`}
                             >
@@ -836,8 +836,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                 onClick={() => onStartRestTimer(restTime)}
                                 className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
                                     restTimerActive
-                                        ? 'bg-sys-accent text-white ring-2 ring-sys-accent/50'
-                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                        ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
+                                        : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar'
                                 }`}
                                 aria-label={`Start ${restTime}s rest timer`}
                             >

@@ -60,58 +60,58 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
             <div className="flex items-center gap-4 mb-6">
                 <button
                     onClick={onBack}
-                    className="btn-icon h-12 w-12 bg-sys-surfaceHigh text-white"
+                    className="btn-icon h-12 w-12 bg-sys-surfaceHigh text-sys-onSurface"
                     aria-label="Go back"
                 >
                     <ArrowLeft size={24} />
                 </button>
-                <h2 className="text-2xl font-bold text-white flex-1">{exercise.name}</h2>
+                <h2 className="text-2xl font-bold text-sys-onSurface flex-1">{exercise.name}</h2>
             </div>
 
             {/* Exercise Info */}
-            <div className="bg-sys-surface rounded-2xl border border-white/5 p-6 mb-6">
+            <div className="bg-sys-surface rounded-2xl border border-sys-outlineVariant p-6 mb-6">
                 <div className="mb-4">
                     <h3 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-2">Primary Muscles</h3>
-                    <p className="text-base text-white">{exercise.primaryMuscles.join(', ')}</p>
+                    <p className="text-base text-sys-onSurface">{exercise.primaryMuscles.join(', ')}</p>
                 </div>
                 {exercise.secondaryMuscles && exercise.secondaryMuscles.length > 0 && (
                     <div className="mb-4">
                         <h3 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-2">Secondary Muscles</h3>
-                        <p className="text-base text-white">{exercise.secondaryMuscles.join(', ')}</p>
+                        <p className="text-base text-sys-onSurface">{exercise.secondaryMuscles.join(', ')}</p>
                     </div>
                 )}
                 <div className="mb-4">
                     <h3 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-2">Equipment</h3>
-                    <p className="text-base text-white">{exercise.equipment.join(', ')}</p>
+                    <p className="text-base text-sys-onSurface">{exercise.equipment.join(', ')}</p>
                 </div>
                 <div>
                     <h3 className="text-xs font-bold text-sys-onSurfaceVar uppercase tracking-wider mb-2">Category</h3>
-                    <p className="text-base text-white capitalize">{exercise.category}</p>
+                    <p className="text-base text-sys-onSurface capitalize">{exercise.category}</p>
                 </div>
             </div>
 
             {/* Stats */}
             {history.length > 0 ? (
                 <>
-                    <div className="bg-sys-surface rounded-2xl border border-white/5 p-6 mb-6">
-                        <h3 className="text-lg font-bold text-white mb-4">Statistics</h3>
+                    <div className="bg-sys-surface rounded-2xl border border-sys-outlineVariant p-6 mb-6">
+                        <h3 className="text-lg font-bold text-sys-onSurface mb-4">Statistics</h3>
 
                         <div className="grid grid-cols-2 gap-4 mb-4">
-                            <div className="bg-sys-surfaceHigh rounded-xl p-4">
+                            <div className="bg-sys-surfaceContainerLow rounded-xl p-4">
                                 <div className="text-xs text-sys-onSurfaceVar mb-1">Total Workouts</div>
-                                <div className="text-2xl font-bold text-white">{stats.totalWorkouts}</div>
+                                <div className="text-2xl font-bold text-sys-onSurface">{stats.totalWorkouts}</div>
                             </div>
-                            <div className="bg-sys-surfaceHigh rounded-xl p-4">
+                            <div className="bg-sys-surfaceContainerLow rounded-xl p-4">
                                 <div className="text-xs text-sys-onSurfaceVar mb-1">Max Sets</div>
-                                <div className="text-2xl font-bold text-white">{stats.maxSets || 'N/A'}</div>
+                                <div className="text-2xl font-bold text-sys-onSurface">{stats.maxSets || 'N/A'}</div>
                             </div>
                         </div>
 
                         {stats.maxWeight && (
                             <div className="grid grid-cols-2 gap-4 mb-4">
-                                <div className="bg-sys-surfaceHigh rounded-xl p-4">
+                                <div className="bg-sys-surfaceContainerLow rounded-xl p-4">
                                     <div className="text-xs text-sys-onSurfaceVar mb-1">Max Weight</div>
-                                    <div className="text-2xl font-bold text-sys-accent">{stats.maxWeight} kg</div>
+                                    <div className="text-2xl font-bold text-sys-primary">{stats.maxWeight} kg</div>
                                 </div>
                                 {stats.estimated1RM && (
                                     <div className="bg-sys-surfaceHigh rounded-xl p-4">
@@ -125,14 +125,14 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
                         {/* Max Weight by Set Count */}
                         {stats.maxWeightBySets && Object.keys(stats.maxWeightBySets).length > 0 && (
                             <div>
-                                <h4 className="text-sm font-semibold text-white mb-3">Max Weight by Sets</h4>
+                                <h4 className="text-sm font-semibold text-sys-onSurface mb-3">Max Weight by Sets</h4>
                                 <div className="grid grid-cols-3 gap-2">
                                     {Object.entries(stats.maxWeightBySets)
                                         .sort(([a], [b]) => +a - +b)
                                         .map(([sets, weight]) => (
-                                            <div key={sets} className="bg-sys-surfaceHigh rounded-lg p-3 text-center">
+                                            <div key={sets} className="bg-sys-surfaceContainerLow rounded-lg p-3 text-center">
                                                 <div className="text-xs text-sys-onSurfaceVar mb-1">{sets} sets</div>
-                                                <div className="text-base font-bold text-white">{weight}kg</div>
+                                                <div className="text-base font-bold text-sys-onSurface">{weight}kg</div>
                                             </div>
                                         ))
                                     }
@@ -142,13 +142,13 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
                     </div>
 
                     {/* History */}
-                    <div className="bg-sys-surface rounded-2xl border border-white/5 p-6">
+                    <div className="bg-sys-surface rounded-2xl border border-sys-outlineVariant p-6">
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-bold text-white">History</h3>
+                            <h3 className="text-lg font-bold text-sys-onSurface">History</h3>
                             {history.length > 5 && (
                                 <button
                                     onClick={() => { haptic.tick(); setShowFullHistory(!showFullHistory); }}
-                                    className="text-sm text-sys-accent font-semibold"
+                                    className="text-sm text-sys-primary font-semibold"
                                 >
                                     {showFullHistory ? 'Show Less' : `Show All (${history.length})`}
                                 </button>
@@ -157,10 +157,10 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
 
                         <div className="space-y-3">
                             {displayHistory.slice().reverse().map((entry, idx) => (
-                                <div key={idx} className="bg-sys-surfaceHigh rounded-xl p-4">
+                                <div key={idx} className="bg-sys-surfaceContainerLow rounded-xl p-4">
                                     <div className="flex items-start justify-between gap-2 mb-2">
                                         <div className="flex-1">
-                                            <div className="text-sm font-semibold text-white">
+                                            <div className="text-sm font-semibold text-sys-onSurface">
                                                 {new Date(entry.date).toLocaleDateString('en-US', {
                                                     month: 'short',
                                                     day: 'numeric',
@@ -172,11 +172,11 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
                                             </div>
                                         </div>
                                         <div className="text-right">
-                                            <div className="text-sm font-bold text-white">
+                                            <div className="text-sm font-bold text-sys-onSurface">
                                                 {entry.sets} sets
                                             </div>
                                             {entry.weight && (
-                                                <div className="text-xs text-sys-accent font-semibold">
+                                                <div className="text-xs text-sys-primary font-semibold">
                                                     {entry.weight} kg
                                                 </div>
                                             )}
@@ -193,11 +193,11 @@ const ExerciseDetailView: React.FC<ExerciseDetailViewProps> = ({
                     </div>
                 </>
             ) : (
-                <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-white/5 px-6">
-                    <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
+                <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-sys-outlineVariant px-6">
+                    <div className="h-20 w-20 rounded-full bg-sys-surfaceContainerLow flex items-center justify-center mb-5">
                         <BarChart2 size={40} className="text-sys-onSurfaceVar" />
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2">No History Yet</h3>
+                    <h3 className="text-lg font-bold text-sys-onSurface mb-2">No History Yet</h3>
                     <p className="text-sm text-sys-onSurfaceVar text-center max-w-[250px]">
                         Complete workouts with this exercise to see your progress
                     </p>
@@ -289,7 +289,7 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
                         placeholder="Search exercises..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full h-12 pl-11 pr-4 bg-sys-surfaceHigh rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all"
+                        className="w-full h-12 pl-11 pr-4 bg-sys-surfaceContainerLow rounded-xl text-sys-onSurface placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-primary transition-all"
                     />
                 </div>
 
@@ -301,8 +301,8 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
                             onClick={() => setCategoryFilter(filter)}
                             className={`min-h-[44px] px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
                                 categoryFilter === filter
-                                    ? 'bg-sys-accent text-white'
-                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                    ? 'bg-sys-primary text-sys-onPrimary'
+                                    : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar'
                             }`}
                         >
                             {filter.charAt(0).toUpperCase() + filter.slice(1)}
@@ -315,8 +315,8 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
                     onClick={() => setShowOnlyTracked(!showOnlyTracked)}
                     className={`w-full h-12 rounded-xl font-medium flex items-center justify-center gap-2 transition-all ${
                         showOnlyTracked
-                            ? 'bg-sys-success/20 text-sys-success border border-sys-success/30'
-                            : 'bg-sys-surfaceHigh text-sys-onSurfaceVar border border-white/5'
+                            ? 'bg-sys-primaryContainer text-sys-onPrimaryContainer border border-sys-primary/30'
+                            : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar border border-sys-outlineVariant'
                     }`}
                 >
                     {showOnlyTracked ? <CheckSquare size={18} /> : <Square size={18} />}
@@ -326,11 +326,11 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
 
             {/* Exercise List */}
             {exercisesToShow.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-white/5 px-6">
-                    <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
+                <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-sys-outlineVariant px-6">
+                    <div className="h-20 w-20 rounded-full bg-sys-surfaceContainerLow flex items-center justify-center mb-5">
                         <Search size={40} className="text-sys-onSurfaceVar" />
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2">No Exercises Found</h3>
+                    <h3 className="text-lg font-bold text-sys-onSurface mb-2">No Exercises Found</h3>
                     <p className="text-sm text-sys-onSurfaceVar text-center">Try adjusting your filters</p>
                 </div>
             ) : (
@@ -343,21 +343,21 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
                             <button
                                 key={exercise.id}
                                 onClick={() => handleExerciseClick(exercise)}
-                                className="stagger-item w-full bg-sys-surface rounded-2xl p-4 border border-white/5 hover:border-sys-accent/30 transition-all active:scale-[0.98] text-left"
+                                className="stagger-item w-full bg-sys-surface rounded-2xl p-4 border border-sys-outlineVariant hover:border-sys-primary/30 transition-all active:scale-[0.98] text-left"
                             >
                                 <div className="flex items-start justify-between gap-3">
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <h4 className="text-sm font-semibold text-white truncate">{exercise.name}</h4>
+                                            <h4 className="text-sm font-semibold text-sys-onSurface truncate">{exercise.name}</h4>
                                             {isTracked && stats && (
-                                                <span className="text-xs px-2 py-0.5 bg-sys-success/20 rounded-full text-sys-success font-bold flex-shrink-0">
+                                                <span className="text-xs px-2 py-0.5 bg-sys-primaryContainer rounded-full text-sys-onPrimaryContainer font-bold flex-shrink-0">
                                                     {stats.totalWorkouts}
                                                 </span>
                                             )}
                                         </div>
                                         {/* Show short name if different from full name */}
                                         {getShortExerciseName(exercise.name) !== exercise.name && (
-                                            <p className="text-xs text-sys-accent mb-1">
+                                            <p className="text-xs text-sys-primary mb-1">
                                                 Short: {getShortExerciseName(exercise.name)}
                                             </p>
                                         )}
@@ -367,12 +367,12 @@ export const ExerciseLibraryView: React.FC<ExerciseLibraryViewProps> = ({
                                         {isTracked && stats && (
                                             <div className="flex flex-wrap gap-2 mt-2">
                                                 {stats.maxWeight && (
-                                                    <span className="text-xs px-2 py-1 bg-sys-accent/10 rounded-lg text-sys-accent">
+                                                    <span className="text-xs px-2 py-1 bg-sys-primaryContainer rounded-lg text-sys-onPrimaryContainer">
                                                         Max: {stats.maxWeight}kg
                                                     </span>
                                                 )}
                                                 {stats.estimated1RM && (
-                                                    <span className="text-xs px-2 py-1 bg-sys-accent/10 rounded-lg text-sys-accent">
+                                                    <span className="text-xs px-2 py-1 bg-sys-primaryContainer rounded-lg text-sys-onPrimaryContainer">
                                                         Est 1RM: {stats.estimated1RM}kg
                                                     </span>
                                                 )}

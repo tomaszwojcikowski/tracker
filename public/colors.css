@@ -121,25 +121,47 @@
   --opacity-dimmed: 0.9;
 
   /* ===== MD3 DEFAULT MAPPINGS (Overridden by Theme Engine) ===== */
+  --color-primary: var(--color-primary-500);
+  --color-on-primary: #ffffff;
   --color-primary-container: var(--color-primary-900);
   --color-on-primary-container: var(--color-primary-100);
   --color-secondary: var(--color-secondary-500);
   --color-on-secondary: #ffffff;
   --color-secondary-container: var(--color-secondary-900);
   --color-on-secondary-container: var(--color-secondary-100);
+  --color-tertiary: var(--color-tertiary-500);
+  --color-on-tertiary: #ffffff;
   --color-tertiary-container: var(--color-tertiary-900);
   --color-on-tertiary-container: var(--color-tertiary-100);
   --color-error: var(--color-error-500);
   --color-on-error: #ffffff;
   --color-error-container: var(--color-error-900);
   --color-on-error-container: var(--color-error-100);
+  --color-success: var(--color-success-500);
+  --color-on-success: #ffffff;
+  --color-success-container: var(--color-success-900);
+  --color-on-success-container: var(--color-success-100);
   --color-background: var(--color-black);
   --color-on-background: var(--color-neutral-50);
+  --color-surface: var(--color-surface-dark);
+  --color-on-surface: var(--color-neutral-50);
+  --color-surface-variant: var(--color-neutral-800);
+  --color-on-surface-variant: var(--color-neutral-300);
+  --color-outline: var(--color-neutral-600);
+  --color-outline-variant: var(--color-neutral-700);
   --color-inverse-surface: var(--color-neutral-50);
   --color-inverse-on-surface: var(--color-black);
   --color-inverse-primary: var(--color-primary-400);
   --color-scrim: #000000;
   --color-shadow: #000000;
+  --color-surface-tint: var(--color-primary-500);
+
+  /* MD3 Surface Container System (Modern) */
+  --color-surface-container-lowest: #000000;
+  --color-surface-container-low: #1a1a1a;
+  --color-surface-container: #212121;
+  --color-surface-container-high: #2b2b2b;
+  --color-surface-container-highest: #363636;
 
   /* ===== MD3 ELEVATION LEVELS ===== */
   --elevation-0: none;
@@ -201,22 +223,6 @@
   --color-surface-elevated: #1a1a1a;
   --color-surface-elevated-high: #242424;
 
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #0ea5e9 0%, #22d3ee 100%);
-  --gradient-secondary: linear-gradient(135deg, #c026d3 0%, #e879f9 100%);
-  --gradient-success: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
-  --gradient-dark: linear-gradient(180deg, #000000 0%, #0f0f0f 100%);
-  --gradient-accent: linear-gradient(135deg, #0ea5e9 0%, #d946ef 100%);
-  --gradient-primary-vertical: linear-gradient(to bottom, #38bdf8, #0284c7);
-
-  /* Workout Section Gradients */
-  --gradient-warmup: linear-gradient(135deg, #fb923c 0%, #f59e0b 100%);
-  --gradient-skill: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
-  --gradient-main: linear-gradient(135deg, #34d399 0%, #10b981 100%);
-  --gradient-accessory: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
-  --gradient-core: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-  --gradient-cooldown: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
-
   /* Tertiary Colors - Pink (MD3 tertiary role) */
   --color-tertiary-50: #fdf2f8;
   --color-tertiary-100: #fce7f3;
@@ -230,10 +236,30 @@
   --color-tertiary-900: #831843;
 
   /* Surface Variants (MD3) - improved contrast for accessibility */
+  --color-primary: var(--color-primary-400);
+  --color-on-primary: var(--color-primary-950);
+  --color-primary-container: var(--color-primary-900);
+  --color-on-primary-container: var(--color-primary-100);
+  --color-secondary: var(--color-secondary-400);
+  --color-on-secondary: var(--color-secondary-950);
+  --color-secondary-container: var(--color-secondary-900);
+  --color-on-secondary-container: var(--color-secondary-100);
+  --color-tertiary: var(--color-tertiary-400);
+  --color-on-tertiary: var(--color-tertiary-950);
+  --color-tertiary-container: var(--color-tertiary-900);
+  --color-on-tertiary-container: var(--color-tertiary-100);
+  --color-surface: var(--color-black);
+  --color-on-surface: var(--color-neutral-200);
   --color-surface-variant: #2a2a2a;
   --color-on-surface-variant: #d1d1d1;
   --color-outline: #525252;
   --color-outline-variant: #404040;
+  --color-surface-container-lowest: #000000;
+  --color-surface-container-low: #0f0f0f;
+  --color-surface-container: #1a1a1a;
+  --color-surface-container-high: #242424;
+  --color-surface-container-highest: #2e2e2e;
+  --color-surface-tint: var(--color-primary-400);
 
   /* Colored Shadows */
   --shadow-primary: 0 10px 30px -5px rgba(14, 165, 233, 0.3);
@@ -295,26 +321,34 @@
   --color-tertiary-500: #ec4899;
 
   /* Surface Variants (MD3) */
+  --color-primary: var(--color-primary-400);
+  --color-on-primary: var(--color-primary-950);
+  --color-primary-container: var(--color-primary-900);
+  --color-on-primary-container: var(--color-primary-100);
+  --color-secondary: var(--color-secondary-400);
+  --color-on-secondary: var(--color-secondary-950);
+  --color-secondary-container: var(--color-secondary-900);
+  --color-on-secondary-container: var(--color-secondary-100);
+  --color-tertiary: var(--color-tertiary-500);
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #4d002b;
+  --color-on-tertiary-container: #ffd9e2;
+  --color-surface: var(--color-black);
+  --color-on-surface: var(--color-neutral-200);
   --color-surface-variant: #1e1640;
   --color-on-surface-variant: #b8c4d4;
   --color-outline: #475569;
   --color-outline-variant: #334155;
+  --color-surface-container-lowest: #030014;
+  --color-surface-container-low: #0c0a1a;
+  --color-surface-container: #150f2e;
+  --color-surface-container-high: #1e1640;
+  --color-surface-container-highest: #281e52;
+  --color-surface-tint: var(--color-primary-400);
 
   /* Gradients - Electric Neon */
-  --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
-  --gradient-secondary: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-  --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-  --gradient-dark: linear-gradient(180deg, #030014 0%, #0c0a1a 100%);
-  --gradient-accent: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #ec4899 100%);
-  --gradient-primary-vertical: linear-gradient(to bottom, #a78bfa, #7c3aed);
 
   /* Workout Section Gradients */
-  --gradient-warmup: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
-  --gradient-skill: linear-gradient(135deg, #c084fc 0%, #a78bfa 100%);
-  --gradient-main: linear-gradient(135deg, #34d399 0%, #22d3ee 100%);
-  --gradient-accessory: linear-gradient(135deg, #60a5fa 0%, #8b5cf6 100%);
-  --gradient-core: linear-gradient(135deg, #fbbf24 0%, #fb923c 100%);
-  --gradient-cooldown: linear-gradient(135deg, #2dd4bf 0%, #06b6d4 100%);
 
   /* Colored Shadows - Neon Glow */
   --shadow-primary: 0 10px 40px -5px rgba(139, 92, 246, 0.4);
@@ -389,26 +423,34 @@
   --color-tertiary-500: #f59e0b;
 
   /* Surface Variants (MD3) */
+  --color-primary: var(--color-primary-400);
+  --color-on-primary: var(--color-primary-950);
+  --color-primary-container: var(--color-primary-900);
+  --color-on-primary-container: var(--color-primary-100);
+  --color-secondary: var(--color-secondary-400);
+  --color-on-secondary: var(--color-secondary-950);
+  --color-secondary-container: var(--color-secondary-900);
+  --color-on-secondary-container: var(--color-secondary-100);
+  --color-tertiary: var(--color-tertiary-500);
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #4d2b00;
+  --color-on-tertiary-container: #ffdf9e;
+  --color-surface: var(--color-black);
+  --color-on-surface: var(--color-neutral-200);
   --color-surface-variant: #162d42;
   --color-on-surface-variant: #b8c4d4;
   --color-outline: #475569;
   --color-outline-variant: #334155;
+  --color-surface-container-lowest: #020a18;
+  --color-surface-container-low: #0a1628;
+  --color-surface-container: #0f2132;
+  --color-surface-container-high: #162d42;
+  --color-surface-container-highest: #1d3952;
+  --color-surface-tint: var(--color-primary-400);
 
   /* Gradients - Ocean Depths */
-  --gradient-primary: linear-gradient(135deg, #0891b2 0%, #2dd4bf 100%);
-  --gradient-secondary: linear-gradient(135deg, #14b8a6 0%, #0ea5e9 100%);
-  --gradient-success: linear-gradient(135deg, #059669 0%, #34d399 100%);
-  --gradient-dark: linear-gradient(180deg, #020a18 0%, #0a1628 100%);
-  --gradient-accent: linear-gradient(135deg, #0891b2 0%, #14b8a6 50%, #0ea5e9 100%);
-  --gradient-primary-vertical: linear-gradient(to bottom, #22d3ee, #0e7490);
 
   /* Workout Section Gradients */
-  --gradient-warmup: linear-gradient(135deg, #fb923c 0%, #fbbf24 100%);
-  --gradient-skill: linear-gradient(135deg, #60a5fa 0%, #0891b2 100%);
-  --gradient-main: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
-  --gradient-accessory: linear-gradient(135deg, #22d3ee 0%, #0ea5e9 100%);
-  --gradient-core: linear-gradient(135deg, #f59e0b 0%, #fb923c 100%);
-  --gradient-cooldown: linear-gradient(135deg, #2dd4bf 0%, #5eead4 100%);
 
   /* Colored Shadows - Deep Water Glow */
   --shadow-primary: 0 10px 40px -5px rgba(8, 145, 178, 0.35);
@@ -470,26 +512,34 @@
   --color-tertiary-500: #8b5cf6;
 
   /* Surface Variants (MD3) */
+  --color-primary: var(--color-primary-400);
+  --color-on-primary: var(--color-primary-950);
+  --color-primary-container: var(--color-primary-900);
+  --color-on-primary-container: var(--color-primary-100);
+  --color-secondary: var(--color-secondary-400);
+  --color-on-secondary: var(--color-secondary-950);
+  --color-secondary-container: var(--color-secondary-900);
+  --color-on-secondary-container: var(--color-secondary-100);
+  --color-tertiary: var(--color-tertiary-500);
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #2e1065;
+  --color-on-tertiary-container: #ede9fe;
+  --color-surface: var(--color-black);
+  --color-on-surface: var(--color-neutral-200);
   --color-surface-variant: #331a1a;
   --color-on-surface-variant: #c9c4bf;
   --color-outline: #57534e;
   --color-outline-variant: #44403c;
+  --color-surface-container-lowest: #0c0505;
+  --color-surface-container-low: #1a0a0a;
+  --color-surface-container: #261212;
+  --color-surface-container-high: #331a1a;
+  --color-surface-container-highest: #402222;
+  --color-surface-tint: var(--color-primary-400);
 
   /* Gradients - Sunset Fire */
-  --gradient-primary: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
-  --gradient-secondary: linear-gradient(135deg, #ec4899 0%, #f97316 100%);
-  --gradient-success: linear-gradient(135deg, #84cc16 0%, #a3e635 100%);
-  --gradient-dark: linear-gradient(180deg, #0c0505 0%, #1a0a0a 100%);
-  --gradient-accent: linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%);
-  --gradient-primary-vertical: linear-gradient(to bottom, #fb923c, #ea580c);
 
   /* Workout Section Gradients */
-  --gradient-warmup: linear-gradient(135deg, #fb923c 0%, #fbbf24 100%);
-  --gradient-skill: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
-  --gradient-main: linear-gradient(135deg, #84cc16 0%, #a3e635 100%);
-  --gradient-accessory: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
-  --gradient-core: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-  --gradient-cooldown: linear-gradient(135deg, #f472b6 0%, #e879f9 100%);
 
   /* Colored Shadows - Warm Glow */
   --shadow-primary: 0 10px 40px -5px rgba(249, 115, 22, 0.4);
@@ -507,8 +557,8 @@
   --color-primary-100: #f3e8ff;
   --color-primary-200: #e9d5ff;
   --color-primary-300: #d8b4fe;
-  --color-primary-400: #c084fc;
-  --color-primary-500: #a855f7;
+  --color-primary-400: #a78bfa;
+  --color-primary-500: #8b5cf6;
   --color-primary-600: #7c3aed;
   --color-primary-700: #6d28d9;
   --color-primary-800: #5b21b6;
@@ -543,34 +593,50 @@
 
   /* Surface Colors - Light backgrounds */
   --color-black: #ffffff;
-  --color-surface-dark: #f8fafc;
+  --color-surface-dark: #faf9fc;
   --color-surface-elevated: #ffffff;
-  --color-surface-elevated-high: #f1f5f9;
+  --color-surface-elevated-high: #f5f2ff;
 
   /* Tertiary Colors - Amber */
   --color-tertiary-500: #f59e0b;
 
   /* Surface Variants (MD3) - Light mode inverted */
-  --color-surface-variant: #e2e8f0;
-  --color-on-surface-variant: #64748b;
-  --color-outline: #cbd5e1;
-  --color-outline-variant: #e2e8f0;
+  --color-primary: var(--color-primary-600);
+  --color-on-primary: #ffffff;
+  --color-primary-container: var(--color-primary-100);
+  --color-on-primary-container: var(--color-primary-900);
+  --color-secondary: var(--color-secondary-600);
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: var(--color-secondary-100);
+  --color-on-secondary-container: var(--color-secondary-900);
+  --color-tertiary: var(--color-tertiary-600);
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #ffdf9e;
+  --color-on-tertiary-container: #261900;
+  --color-error: var(--color-error-600);
+  --color-on-error: #ffffff;
+  --color-error-container: var(--color-error-100);
+  --color-on-error-container: var(--color-error-900);
+  --color-success: var(--color-success-600);
+  --color-on-success: #ffffff;
+  --color-success-container: var(--color-success-100);
+  --color-on-success-container: var(--color-success-900);
+  --color-surface: #ffffff;
+  --color-on-surface: #1f1530;
+  --color-surface-variant: #ede9ff;
+  --color-on-surface-variant: #6b5b85;
+  --color-outline: #ddd6ff;
+  --color-outline-variant: #b9a8d8;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #faf9fc;
+  --color-surface-container: #f5f2ff;
+  --color-surface-container-high: #ede9ff;
+  --color-surface-container-highest: #e5e0ff;
+  --color-surface-tint: var(--color-primary-600);
 
   /* Gradients - Clean Light */
-  --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
-  --gradient-secondary: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-  --gradient-success: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
-  --gradient-dark: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
-  --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
-  --gradient-primary-vertical: linear-gradient(to bottom, #60a5fa, #2563eb);
 
   /* Workout Section Gradients */
-  --gradient-warmup: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
-  --gradient-skill: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
-  --gradient-main: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-  --gradient-accessory: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
-  --gradient-core: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-  --gradient-cooldown: linear-gradient(135deg, #14b8a6 0%, #2dd4bf 100%);
 
   /* Colored Shadows - Subtle */
   --shadow-primary: 0 10px 40px -5px rgba(37, 99, 235, 0.2);
@@ -582,19 +648,6 @@
 :root.theme-light {
   /* Override glass panel for light mode */
   --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
-
-  /* Mockup design tokens for light theme */
-  --m-bg: #faf9fc;
-  --m-fg: #1f1530;
-  --m-muted: #6b5b85;
-  --m-surface: #ffffff;
-  --m-surface-2: #f5f2ff;
-  --m-surface-3: #ede9ff;
-  --m-outline: #ddd6ff;
-  --m-outline-strong: #b9a8d8;
-  --m-shadow-xs: 0 1px 2px rgba(31,21,48,0.05);
-  --m-shadow-sm: 0 2px 4px rgba(31,21,48,0.08);
-  --m-shadow: 0 4px 12px rgba(31,21,48,0.1);
 }
 
 /* ============================================================================
@@ -644,29 +697,10 @@
   --state-error-hover: rgba(239, 68, 68, 0.08);
   --state-error-pressed: rgba(239, 68, 68, 0.12);
 
-  /* ===== MOCKUP DESIGN TOKENS (VIBRANT MODERN UI) ===== */
-  /* Mockup-specific variables for enhanced visual design */
-  --m-bg: var(--color-background);
-  --m-fg: var(--color-on-background);
-  --m-muted: var(--color-on-surface-variant);
-  --m-surface: var(--color-surface-elevated);
-  --m-surface-2: var(--color-surface-variant);
-  --m-surface-3: var(--color-surface-elevated-high);
-  --m-outline: var(--color-outline);
-  --m-outline-strong: var(--color-outline-variant);
-  --m-primary: var(--color-primary-600);
-  --m-primary-strong: var(--color-primary-700);
-  --m-primary-light: var(--color-primary-400);
-  --m-secondary: var(--color-warning-500);
-  --m-success: var(--color-success-600);
-  --m-warning: var(--color-warning-500);
-  --m-error: var(--color-error-500);
+  /* ===== SPACING & RADIUS ===== */
   --m-touch: 48px;
   --m-radius: 12px;
   --m-radius-sm: 8px;
   --m-radius-lg: 16px;
-  --m-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --m-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
-  --m-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   --m-border: 1px;
 }

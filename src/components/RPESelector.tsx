@@ -28,11 +28,11 @@ export interface RPESelectorProps {
 }
 
 const RPE_OPTIONS: { value: RPEValue; label: string; color: string }[] = [
-    { value: '6', label: '6', color: 'bg-green-500/20 text-green-400 border-green-500/30' },
-    { value: '7', label: '7', color: 'bg-green-500/20 text-green-400 border-green-500/30' },
-    { value: '8', label: '8', color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
-    { value: '9', label: '9', color: 'bg-orange-500/20 text-orange-400 border-orange-500/30' },
-    { value: '10', label: '10', color: 'bg-red-500/20 text-red-400 border-red-500/30' },
+    { value: '6', label: '6', color: 'bg-sys-successContainer text-sys-onSuccessContainer border-sys-success/30' },
+    { value: '7', label: '7', color: 'bg-sys-successContainer text-sys-onSuccessContainer border-sys-success/30' },
+    { value: '8', label: '8', color: 'bg-sys-tertiaryContainer text-sys-onTertiaryContainer border-sys-tertiary/30' },
+    { value: '9', label: '9', color: 'bg-sys-secondaryContainer text-sys-onSecondaryContainer border-sys-secondary/30' },
+    { value: '10', label: '10', color: 'bg-sys-errorContainer text-sys-onErrorContainer border-sys-error/30' },
 ];
 
 /**
@@ -49,7 +49,7 @@ export const RPESelector: React.FC<RPESelectorProps> = ({
 }) => {
     if (showAsPrompt) {
         return (
-            <div className="mb-3 p-3 bg-sys-surfaceHigh rounded-xl border border-white/10 animate-fade-in">
+            <div className="mb-3 p-3 bg-sys-surfaceContainerHigh rounded-xl border border-sys-outlineVariant animate-fade-in">
                 <div className="flex items-center justify-between mb-2">
                     <span className="text-xs text-sys-onSurfaceVar uppercase tracking-wider font-semibold">
                         {setNumber !== undefined ? `Set ${setNumber} RPE` : 'Rate this set'}
@@ -57,7 +57,7 @@ export const RPESelector: React.FC<RPESelectorProps> = ({
                     {onSkip && (
                         <button
                             onClick={onSkip}
-                            className="h-6 w-6 rounded-md bg-white/5 text-sys-onSurfaceVar flex items-center justify-center hover:bg-white/10 transition-colors"
+                            className="h-6 w-6 rounded-md bg-sys-surfaceContainerHighest text-sys-onSurfaceVar flex items-center justify-center hover:bg-sys-onSurfaceVariant/20 transition-colors"
                             aria-label="Skip RPE"
                         >
                             <X size={14} />
@@ -79,7 +79,7 @@ export const RPESelector: React.FC<RPESelectorProps> = ({
                                     ${disabled ? 'opacity-50 cursor-not-allowed' : 'active:scale-95'}
                                     ${isSelected
                                         ? `${option.color} border shadow-sm`
-                                        : 'bg-sys-surface text-sys-onSurfaceVar hover:bg-white/10 border border-transparent'
+                                        : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar hover:bg-sys-onSurfaceVariant/10 border border-transparent'
                                     }
                                 `}
                                 aria-label={`RPE ${option.value}`}
@@ -116,7 +116,7 @@ export const RPESelector: React.FC<RPESelectorProps> = ({
                                 ${disabled ? 'opacity-50 cursor-not-allowed' : 'active:scale-90'}
                                 ${isSelected
                                     ? `${option.color} border shadow-sm`
-                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar hover:bg-white/10'
+                                    : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar hover:bg-sys-onSurface/10'
                                 }
                             `}
                             aria-label={`RPE ${option.value}`}

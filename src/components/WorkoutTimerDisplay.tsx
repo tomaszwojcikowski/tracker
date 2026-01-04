@@ -25,9 +25,9 @@ export const WorkoutTimerDisplay: React.FC<WorkoutTimerDisplayProps> = ({
   const formattedTime = formatTimerTime(elapsedSeconds);
 
   // Base classes for the timer button
-  const baseClasses = "flex items-center gap-2 px-4 h-12 rounded-full border transition-all active:scale-95 chip-mockup";
-  const runningClasses = "mockup-bg-surface-3 mockup-text-accent border-transparent shadow-md";
-  const pausedClasses = "mockup-bg-surface-2 mockup-text-muted mockup-border";
+  const baseClasses = "flex items-center gap-2 px-4 h-12 rounded-full border transition-all active:scale-95";
+  const runningClasses = "bg-sys-surfaceContainerHigh text-sys-primary border-transparent shadow-elevation-2";
+  const pausedClasses = "bg-sys-surfaceContainerLow text-sys-onSurfaceVariant border-sys-outlineVariant";
 
   return (
     <button
@@ -37,20 +37,20 @@ export const WorkoutTimerDisplay: React.FC<WorkoutTimerDisplayProps> = ({
       title={isRunning ? 'Tap to pause' : 'Tap to resume'}
     >
       {isRunning ? (
-        <Timer size={16} className="mockup-text-accent" />
+        <Timer size={16} className="text-sys-primary" />
       ) : (
-        <Pause size={16} className="mockup-text-muted" />
+        <Pause size={16} className="text-sys-onSurfaceVariant" />
       )}
       <span
         className={clsx(
-          "font-mono text-label-lg font-bold min-w-[48px] text-left timer-display-mockup",
-          isRunning ? "mockup-text-accent" : "mockup-text-muted"
+          "font-mono text-label-lg font-bold min-w-[48px] text-left",
+          isRunning ? "text-sys-primary" : "text-sys-onSurfaceVariant"
         )}
       >
         {formattedTime}
       </span>
       {!isRunning && (
-        <Play size={14} className="mockup-text-accent" />
+        <Play size={14} className="text-sys-primary" />
       )}
     </button>
   );

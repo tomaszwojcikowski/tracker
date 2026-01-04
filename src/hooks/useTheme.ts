@@ -44,7 +44,7 @@ export function useTheme() {
         // Keep browser chrome aligned with the theme.
         const metaThemeColor = document.querySelector('meta[name="theme-color"]');
         if (metaThemeColor) {
-            const bg = getComputedStyle(root).getPropertyValue('--color-background').trim() || '#faf9fc';
+            const bg = getComputedStyle(root).getPropertyValue('--color-surface').trim() || '#fef7ff';
             metaThemeColor.setAttribute('content', bg);
         }
     }, []);

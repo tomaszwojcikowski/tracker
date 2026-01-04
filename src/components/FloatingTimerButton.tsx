@@ -139,20 +139,20 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
                 ariaLabel="Quick Timer"
                 maxHeight={70}
                 showHandle={true}
-                className="border-t border-white/10"
+                className="border-t border-sys-outlineVariant"
             >
                 {/* Header */}
-                <div className="px-6 pt-2 pb-4 border-b border-white/10">
+                <div className="px-6 pt-2 pb-4 border-b border-sys-outlineVariant">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <div className="h-10 w-10 rounded-xl bg-sys-accent/20 flex items-center justify-center">
-                                <Timer size={20} className="text-sys-accent" />
+                            <div className="h-10 w-10 rounded-xl bg-sys-primary/20 flex items-center justify-center">
+                                <Timer size={20} className="text-sys-primary" />
                             </div>
-                            <h3 className="text-xl font-bold text-white">Quick Timer</h3>
+                            <h3 className="text-xl font-bold text-sys-onSurface">Quick Timer</h3>
                         </div>
                         <button
                             onClick={handleClosePresets}
-                            className="btn-icon h-12 w-12 bg-sys-surfaceHigh"
+                            className="btn-icon h-12 w-12 bg-sys-surfaceContainerHigh"
                             aria-label="Close"
                         >
                             <X size={24} />
@@ -181,22 +181,22 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
                     {/* Custom Timer */}
                     <div>
                         <p className="text-sm text-sys-onSurfaceVar mb-3">Custom duration</p>
-                        <div className="flex items-center justify-center gap-4 p-4 bg-sys-surfaceHigh rounded-2xl">
+                        <div className="flex items-center justify-center gap-4 p-4 bg-sys-surfaceContainerHigh rounded-2xl">
                             <button
                                 onClick={decreaseTime}
-                                className="btn-icon h-12 w-12 bg-sys-surface border border-white/10"
+                                className="btn-icon h-12 w-12 bg-sys-surface border border-sys-outlineVariant"
                                 aria-label="Decrease time by 10 seconds"
                             >
                                 <Minus size={20} />
                             </button>
                             <div className="min-w-[100px] text-center">
-                                <span className="font-mono text-3xl font-bold text-white">
+                                <span className="font-mono text-3xl font-bold text-sys-onSurface">
                                     {formatTime(customTime)}
                                 </span>
                             </div>
                             <button
                                 onClick={increaseTime}
-                                className="btn-icon h-12 w-12 bg-sys-surface border border-white/10"
+                                className="btn-icon h-12 w-12 bg-sys-surface border border-sys-outlineVariant"
                                 aria-label="Increase time by 10 seconds"
                             >
                                 <Plus size={20} />
@@ -220,11 +220,11 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
                 className={`fixed bottom-24 right-4 z-40 flex items-center justify-center shadow-lg transition-all active:scale-90 ${
                     restTimer.active
                         ? isUrgent
-                            ? 'bg-error-500 animate-pulse min-w-[80px] h-14 px-4 rounded-2xl gap-2'
+                            ? 'bg-sys-error animate-pulse min-w-[80px] h-14 px-4 rounded-2xl gap-2'
                             : isWarning
-                            ? 'bg-warning-500 min-w-[80px] h-14 px-4 rounded-2xl gap-2'
-                            : 'bg-sys-accent min-w-[80px] h-14 px-4 rounded-2xl gap-2'
-                        : 'bg-sys-accent h-14 w-14 rounded-2xl'
+                            ? 'bg-sys-warning min-w-[80px] h-14 px-4 rounded-2xl gap-2'
+                            : 'bg-sys-primary min-w-[80px] h-14 px-4 rounded-2xl gap-2'
+                        : 'bg-sys-primary h-14 w-14 rounded-2xl'
                 } ${className}`}
                 aria-label={
                     restTimer.active
@@ -234,13 +234,13 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
             >
                 {restTimer.active ? (
                     <>
-                        <Timer size={18} className={isUrgent ? 'text-white' : 'text-sys-black'} />
-                        <span className={`font-mono font-bold text-base ${isUrgent ? 'text-white' : 'text-sys-black'}`}>
+                        <Timer size={18} className={isUrgent ? 'text-sys-onError' : 'text-sys-onPrimary'} />
+                        <span className={`font-mono font-bold text-base ${isUrgent ? 'text-sys-onError' : 'text-sys-onPrimary'}`}>
                             {formatTime(restTimer.seconds)}
                         </span>
                     </>
                 ) : (
-                    <Timer size={24} className="text-sys-black" />
+                    <Timer size={24} className="text-sys-onPrimary" />
                 )}
             </button>
         </>

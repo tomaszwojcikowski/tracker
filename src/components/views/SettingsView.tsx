@@ -281,15 +281,15 @@ export const SettingsView: React.FC = () => {
             {/* Lightweight toast for non-Firebase settings actions */}
             {settingsToastMessage && (
                 <div className="fixed top-20 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
-                    <div className="bg-sys-success px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-md w-full border border-white/10">
-                        <CheckCircle2 size={24} className="text-white flex-shrink-0" />
-                        <span className="text-white font-bold text-base flex-1">{settingsToastMessage}</span>
+                    <div className="bg-sys-success px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-md w-full border border-sys-outlineVariant">
+                        <CheckCircle2 size={24} className="text-sys-onSuccess flex-shrink-0" />
+                        <span className="text-sys-onSuccess font-bold text-base flex-1">{settingsToastMessage}</span>
                         <button
                             onClick={() => {
                                 haptic.tick();
                                 setSettingsToastMessage('');
                             }}
-                            className="h-8 w-8 min-w-[32px] rounded-full hover:bg-white/10 text-white flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
+                            className="h-8 w-8 min-w-[32px] rounded-full hover:bg-sys-onSuccess/10 text-sys-onSuccess flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
                             aria-label="Close notification"
                         >
                             <X size={18} />
@@ -339,29 +339,29 @@ export const SettingsView: React.FC = () => {
 
                             {/* Sync Controls - Only shown when logged in */}
                             {firebaseUser && (
-                                <div className="bg-sys-surface rounded-2xl border border-white/5 p-6 mb-4">
+                                <div className="bg-sys-surface rounded-2xl border border-sys-outlineVariant p-6 mb-4">
                                     {/* Status message - always visible when there's a message */}
                                     {firebaseMessage && (
                                         <div className={`mb-4 p-3 rounded-xl text-sm font-medium ${
-                                            firebaseMessage.startsWith('✓') ? 'bg-sys-success/20 text-sys-success' :
-                                            firebaseMessage.startsWith('✗') ? 'bg-red-500/20 text-red-400' :
-                                            'bg-sys-accent/20 text-sys-accent'
+                                            firebaseMessage.startsWith('✓') ? 'bg-sys-successContainer text-sys-onSuccessContainer' :
+                                            firebaseMessage.startsWith('✗') ? 'bg-sys-errorContainer text-sys-onErrorContainer' :
+                                            'bg-sys-primaryContainer text-sys-onPrimaryContainer'
                                         }`}>
                                             {firebaseMessage}
                                         </div>
                                     )}
 
                                     {/* Auto-sync toggle */}
-                                    <div className="mb-4 p-4 bg-sys-surfaceHigh rounded-xl">
+                                    <div className="mb-4 p-4 bg-sys-surfaceContainerHigh rounded-xl">
                                         <div className="flex items-start gap-3">
                                             <button
                                                 onClick={handleSyncToggle}
                                                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${firebaseSyncEnabled ? 'bg-sys-success' : 'bg-sys-onSurfaceVar'}`}
                                             >
-                                                <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${firebaseSyncEnabled ? 'translate-x-6' : 'translate-x-1'}`}></span>
+                                                <span className={`inline-block h-4 w-4 transform rounded-full bg-sys-surface transition-transform ${firebaseSyncEnabled ? 'translate-x-6' : 'translate-x-1'}`}></span>
                                             </button>
                                             <div className="flex-1">
-                                                <h4 className="text-sm font-semibold text-white mb-1">Automatic Sync</h4>
+                                                <h4 className="text-sm font-semibold text-sys-onSurface mb-1">Automatic Sync</h4>
                                                 <p className="text-xs text-sys-onSurfaceVar leading-relaxed">
                                                     Automatically sync data to cloud when changes are made
                                                 </p>
@@ -372,7 +372,7 @@ export const SettingsView: React.FC = () => {
                                     <button
                                         onClick={handleManualSync}
                                         disabled={isSyncing}
-                                        className={`w-full h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 transition-transform border border-white/5 ${isSyncing ? 'opacity-50' : 'active:scale-95'}`}
+                                        className={`w-full h-12 rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurface font-medium flex items-center justify-center gap-2 transition-transform border border-sys-outlineVariant ${isSyncing ? 'opacity-50' : 'active:scale-95'}`}
                                     >
                                         <RefreshCw size={18} className={isSyncing ? 'animate-spin' : ''} />
                                         <span>{isSyncing ? 'Syncing...' : 'Sync Now'}</span>
@@ -383,24 +383,24 @@ export const SettingsView: React.FC = () => {
                     )}
 
                     {/* Build Info Section */}
-                    <div className="bg-sys-surface rounded-2xl border border-white/5 p-6 mb-4">
+                    <div className="bg-sys-surface rounded-2xl border border-sys-outlineVariant p-6 mb-4">
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="h-12 w-12 rounded-xl bg-sys-accent/10 flex items-center justify-center">
-                                <Info size={24} className="text-sys-accent" />
+                            <div className="h-12 w-12 rounded-xl bg-sys-primary/10 flex items-center justify-center">
+                                <Info size={24} className="text-sys-primary" />
                             </div>
                             <div>
-                                <h3 className="text-lg font-bold text-white">App Info</h3>
+                                <h3 className="text-lg font-bold text-sys-onSurface">App Info</h3>
                                 <p className="text-xs text-sys-onSurfaceVar">Build version and details</p>
                             </div>
                         </div>
-                        <div className="space-y-3 p-4 bg-sys-surfaceHigh rounded-xl">
+                        <div className="space-y-3 p-4 bg-sys-surfaceContainerHigh rounded-xl">
                             <div className="flex justify-between items-center">
                                 <span className="text-sm text-sys-onSurfaceVar">Version</span>
-                                <span className="text-sm font-medium text-white">{__BUILD_VERSION__}</span>
+                                <span className="text-sm font-medium text-sys-onSurface">{__BUILD_VERSION__}</span>
                             </div>
                             <div className="flex justify-between items-center">
                                 <span className="text-sm text-sys-onSurfaceVar">Build Date</span>
-                                <span className="text-sm font-medium text-white">
+                                <span className="text-sm font-medium text-sys-onSurface">
                                     {new Date(__BUILD_DATE__).toLocaleDateString(undefined, {
                                         year: 'numeric',
                                         month: 'short',
@@ -412,7 +412,7 @@ export const SettingsView: React.FC = () => {
                             </div>
                             {/* Sentry Test Button - for verifying error reporting */}
                             {isErrorReportingEnabled() && (
-                                <div className="pt-3 border-t border-white/10">
+                                <div className="pt-3 border-t border-sys-outlineVariant">
                                     <button
                                         onClick={() => {
                                             captureError(new Error('Test error from Settings page'), 'error', {
@@ -421,7 +421,7 @@ export const SettingsView: React.FC = () => {
                                             });
                                             alert('Test error sent to Sentry! Check your Sentry dashboard.');
                                         }}
-                                        className="w-full py-2 px-4 bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 rounded-xl text-sm font-medium transition-colors"
+                                        className="w-full py-2 px-4 bg-sys-errorContainer/50 hover:bg-sys-errorContainer text-sys-onErrorContainer rounded-xl text-sm font-medium transition-colors"
                                     >
                                         Test Sentry Error Reporting
                                     </button>
@@ -440,14 +440,14 @@ export const SettingsView: React.FC = () => {
                     </p>
                     <ProgramSelector variant="full" />
 
-                    <div className="bg-sys-surface rounded-2xl border border-white/5 p-6">
-                        <h3 className="text-lg font-bold text-white mb-1">Clear your progress data</h3>
+                    <div className="bg-sys-surface rounded-2xl border border-sys-outlineVariant p-6">
+                        <h3 className="text-lg font-bold text-sys-onSurface mb-1">Clear your progress data</h3>
                         <p className="text-xs text-sys-onSurfaceVar mb-4">
                             Clears workout sessions and history for the active program.
                         </p>
                         <button
                             onClick={handleResetProgress}
-                            className="w-full h-12 rounded-xl bg-sys-surfaceHigh text-white font-medium flex items-center justify-center gap-2 transition-transform border border-white/5 active:scale-95"
+                            className="w-full h-12 rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurface font-medium flex items-center justify-center gap-2 transition-transform border border-sys-outlineVariant active:scale-95"
                         >
                             <RotateCcw size={18} />
                             <span>Clear your progress data</span>

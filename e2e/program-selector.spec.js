@@ -59,7 +59,9 @@ test.describe('Program Selector', () => {
 
       // Click on the backdrop (outside the modal content)
       // Use a position that avoids the Desktop Side Rail (260px wide) on desktop
-      await page.locator('.bg-black\\/60').click({ position: { x: 320, y: 100 } });
+      const overlay = page.locator("[class*='bg-black/60']");
+      await overlay.waitFor({ state: 'visible', timeout: 5000 });
+      await overlay.click({ position: { x: 320, y: 100 } });
       await page.waitForTimeout(300);
 
       // Modal should be closed

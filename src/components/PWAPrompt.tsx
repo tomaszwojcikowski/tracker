@@ -36,7 +36,7 @@ export function UpdatePrompt({ needRefresh, offlineReady, isOnline, onAccept, on
               <div className="flex gap-2 mt-3">
                 <button
                   onClick={onAccept}
-                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium rounded-lg transition-colors"
+                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-sys-onPrimary text-xs font-medium rounded-lg transition-colors"
                 >
                   Reload Now
                 </button>

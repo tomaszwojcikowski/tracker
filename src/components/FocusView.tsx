@@ -27,7 +27,8 @@ import type { WorkoutSessionData } from '../types/workout';
  * Get section-based color class for progress dot
  */
 function getSectionDotColor(sectionName?: string, sectionType?: string): string {
-    if (!sectionName && !sectionType) return 'bg-sys-surfaceHigh';
+    // Default to on-surface for maximum contrast on both light and dark themes.
+    if (!sectionName && !sectionType) return 'bg-sys-onSurface';
 
     const nameLower = (sectionName || '').toLowerCase();
 
@@ -50,7 +51,8 @@ function getSectionDotColor(sectionName?: string, sectionType?: string): string 
         return 'bg-cooldown-500';
     }
 
-    return 'bg-sys-accent';
+    // Fall back to primary (accent was removed in MD3 token cleanup).
+    return 'bg-sys-primary';
 }
 
 /**
@@ -62,22 +64,22 @@ function getSectionTextColor(sectionName?: string, sectionType?: string): string
     const nameLower = (sectionName || '').toLowerCase();
 
     if (nameLower.includes('warm') || sectionType === 'prep') {
-        return 'text-warmup-400';
+        return 'text-warmup-500';
     }
     if (nameLower.includes('skill')) {
-        return 'text-skill-400';
+        return 'text-skill-500';
     }
     if (nameLower.includes('main') || nameLower.includes('work') || sectionType === 'main') {
-        return 'text-main-400';
+        return 'text-main-500';
     }
     if (nameLower.includes('accessory') || nameLower.includes('assistance')) {
-        return 'text-accessory-400';
+        return 'text-accessory-500';
     }
     if (nameLower.includes('core') || nameLower.includes('ab')) {
-        return 'text-core-400';
+        return 'text-core-500';
     }
     if (nameLower.includes('cool') || nameLower.includes('stretch') || sectionType === 'cool') {
-        return 'text-cooldown-400';
+        return 'text-cooldown-500';
     }
 
     return 'text-sys-accent';
@@ -348,7 +350,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                 <div className="space-y-2">
                     {/* Superset header */}
                     <div className="flex items-center gap-2 mb-3">
-                        <span className="inline-flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-full bg-amber-500/20 text-amber-400">
+                        <span className="inline-flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer">
                             <Zap size={12} strokeWidth={3} />
                             SUPERSET · {item.exercises.length} exercises
                         </span>
@@ -520,7 +522,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                     <button
                         onClick={navigatePrev}
                         disabled={focusIndex === 0}
-                        className="h-10 w-10 rounded-full bg-sys-surfaceHigh text-white flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
+                        className="h-10 w-10 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
                         aria-label="Previous"
                     >
                         <ChevronLeft size={20} />
@@ -536,14 +538,14 @@ export const FocusView: React.FC<FocusViewProps> = ({
                                         key={idx}
                                         className={`rounded-full transition-all duration-300 ${
                                             idx === focusIndex
-                                                ? 'h-2.5 w-2.5 ring-2 ring-white/50 ring-offset-1 ring-offset-sys-black'
+                                                ? 'h-2.5 w-2.5 ring-2 ring-sys-onSurface ring-offset-1 ring-offset-sys-surface'
                                                 : 'h-2 w-2'
                                         } ${
                                             isComplete
-                                                ? 'bg-emerald-400'
+                                                ? 'bg-sys-success'
                                                 : idx === focusIndex
                                                     ? sectionColor
-                                                    : `${sectionColor} opacity-40`
+                                                    : 'bg-sys-onSurface opacity-80 border border-sys-outlineVariant'
                                         }`}
                                     />
                                 );
@@ -559,7 +561,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                     <button
                         onClick={navigateNext}
                         disabled={focusIndex === focusItems.length - 1}
-                        className="h-10 w-10 rounded-full bg-sys-surfaceHigh text-white flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
+                        className="h-10 w-10 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
                         aria-label="Next"
                     >
                         <ChevronRight size={20} />

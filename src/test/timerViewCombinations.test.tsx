@@ -231,7 +231,7 @@ describe('Timer View Combinations', () => {
 
             const emomTimerButton = screen.getByRole('button', { name: /Stop EMOM timer/i });
             expect(emomTimerButton).toBeInTheDocument();
-            expect(emomTimerButton).toHaveClass('bg-purple-500');
+            expect(emomTimerButton).toHaveClass('bg-sys-tertiary');
         });
     });
 
@@ -378,19 +378,19 @@ describe('Timer View Combinations', () => {
                 // Regular exercises
                 { exercise: 'Regular', view: 'Card', timer: 'Rest', shouldShow: true },
                 { exercise: 'Regular', view: 'Row', timer: 'Rest', shouldShow: true },
-                
+
                 // EMOM exercises
                 { exercise: 'EMOM', view: 'Card', timer: 'EMOM', shouldShow: true },
                 { exercise: 'EMOM', view: 'Card', timer: 'Rest', shouldShow: false },
                 { exercise: 'EMOM', view: 'Row', timer: 'EMOM', shouldShow: true },
                 { exercise: 'EMOM', view: 'Row', timer: 'Rest', shouldShow: false },
-                
+
                 // Density exercises
                 { exercise: 'Density', view: 'Card', timer: 'Density', shouldShow: true },
                 { exercise: 'Density', view: 'Card', timer: 'Rest', shouldShow: false },
                 { exercise: 'Density', view: 'Row', timer: 'Density', shouldShow: true },
                 { exercise: 'Density', view: 'Row', timer: 'Rest', shouldShow: false },
-                
+
                 // Flow exercises
                 { exercise: 'Flow', view: 'Card', timer: 'Flow', shouldShow: true },
                 { exercise: 'Flow', view: 'Card', timer: 'Rest', shouldShow: false },
@@ -400,7 +400,7 @@ describe('Timer View Combinations', () => {
 
             // Verify all combinations are documented
             expect(expectedCombinations.length).toBeGreaterThan(0);
-            
+
             // Log summary for documentation
             console.log('\n=== Timer/View Combinations Matrix ===');
             console.log('Exercise Types:', exerciseTypes.length);

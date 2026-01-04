@@ -19,7 +19,7 @@ export function SideRail({ activeTab, onTabChange, programName }: SideRailProps)
       {/* Brand header */}
       <div className="side-rail-header">
         <div className="brand-mark">
-          <Dumbbell className="w-6 h-6 text-white" />
+          <Dumbbell className="w-6 h-6 text-sys-onPrimary" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="text-title-sm font-bold text-sys-onSurface truncate">

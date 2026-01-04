@@ -24,13 +24,13 @@ export const WorkoutProgress = memo<WorkoutProgressProps>(({
                 <span className="text-sys-onSurfaceVar">
                     {completedSets}/{totalSets} sets
                 </span>
-                <span className="text-white font-bold">
+                <span className="text-sys-onSurface font-bold">
                     <AnimatedNumber value={percentage} duration={400} />%
                 </span>
             </div>
-            <div className="h-2 bg-sys-surfaceHigh rounded-full overflow-hidden">
+            <div className="h-2 bg-sys-surfaceContainerHigh rounded-full overflow-hidden">
                 <div
-                    className="h-full bg-gradient-to-r from-sys-accent to-sys-success transition-all duration-500 rounded-full"
+                    className="h-full bg-gradient-to-r from-sys-primary to-sys-success transition-all duration-500 rounded-full"
                     style={{ width: `${percentage}%` }}
                     role="progressbar"
                     aria-valuenow={percentage}

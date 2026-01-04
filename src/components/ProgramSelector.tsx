@@ -114,12 +114,12 @@ function getTargetLevelLabel(level: string): string {
  */
 function getTargetLevelColor(level: string): string {
   const colors: Record<string, string> = {
-    'beginner': 'bg-green-500/20 text-green-400',
-    'intermediate': 'bg-yellow-500/20 text-yellow-400',
-    'advanced': 'bg-red-500/20 text-red-400',
-    'all-levels': 'bg-blue-500/20 text-blue-400',
+    'beginner': 'bg-sys-successContainer text-sys-onSuccessContainer',
+    'intermediate': 'bg-sys-tertiaryContainer text-sys-onTertiaryContainer',
+    'advanced': 'bg-sys-errorContainer text-sys-onErrorContainer',
+    'all-levels': 'bg-sys-secondaryContainer text-sys-onSecondaryContainer',
   };
-  return colors[level] || 'bg-sys-accent/20 text-sys-accent';
+  return colors[level] || 'bg-sys-primaryContainer text-sys-onPrimaryContainer';
 }
 
 // ============================================================================
@@ -152,16 +152,16 @@ function ProgramCard({ program, isActive, onSelect, isLoading }: ProgramCardProp
       aria-label={`${program.name}${isActive ? ' (Active)' : ''}, ${program.durationWeeks} weeks, ${getTargetLevelLabel(program.targetLevel)}`}
       className={`w-full p-4 rounded-2xl border text-left transition-all ${
         isActive
-          ? 'bg-sys-accent/10 border-sys-accent'
-          : 'bg-sys-surface border-white/5 hover:border-white/10 active:scale-[0.98]'
+          ? 'bg-sys-primaryContainer border-sys-primary'
+          : 'bg-sys-surfaceContainerLow border-sys-outlineVariant hover:border-sys-outline active:scale-[0.98]'
       } ${isLoading ? 'opacity-50 cursor-wait' : ''}`}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <h4 className="text-base font-semibold text-white truncate">{program.name}</h4>
+            <h4 className="text-base font-semibold text-sys-onSurface truncate">{program.name}</h4>
             {isActive && (
-              <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-sys-accent/20 text-sys-accent text-xs font-medium" aria-hidden="true">
+              <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-sys-primary text-sys-onPrimary text-xs font-medium" aria-hidden="true">
                 <Check size={12} />
                 Active
               </span>
@@ -200,11 +200,11 @@ function ProgramCard({ program, isActive, onSelect, isLoading }: ProgramCardProp
         {/* Selection indicator */}
         <div
           className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
-            isActive ? 'bg-sys-accent border-sys-accent' : 'border-white/20'
+            isActive ? 'bg-sys-primary border-sys-primary' : 'border-sys-outline'
           }`}
           aria-hidden="true"
         >
-          {isActive && <Check size={14} className="text-white" />}
+          {isActive && <Check size={14} className="text-sys-onPrimary" />}
         </div>
       </div>
     </button>
@@ -317,17 +317,17 @@ function ProgramSelectorModal({
       aria-labelledby="program-selector-title"
     >
       <div
-        className="w-full max-w-md bg-sys-surfaceHigh rounded-t-3xl max-h-[85vh] flex flex-col animate-slide-up"
+        className="w-full max-w-md bg-sys-surfaceContainerHigh rounded-t-3xl max-h-[85vh] flex flex-col animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-white/5">
-          <h3 id="program-selector-title" className="text-lg font-bold text-white">
+        <div className="flex items-center justify-between p-4 border-b border-sys-outlineVariant">
+          <h3 id="program-selector-title" className="text-lg font-bold text-sys-onSurface">
             {showSamplePrograms ? 'Add New Program' : 'Select Program'}
           </h3>
           <button
             onClick={handleClose}
-            className="p-2 rounded-xl hover:bg-sys-surface transition-colors"
+            className="p-2 rounded-xl hover:bg-sys-surfaceContainer transition-colors"
             aria-label="Close program selector"
           >
             <X size={20} className="text-sys-onSurfaceVar" />
@@ -336,7 +336,7 @@ function ProgramSelectorModal({
 
         {/* Error Message */}
         {errorMessage && (
-          <div className="mx-4 mt-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm" role="alert">
+          <div className="mx-4 mt-4 p-3 rounded-xl bg-sys-errorContainer border border-sys-error/20 text-sys-onErrorContainer text-sm" role="alert">
             {errorMessage}
           </div>
         )}
@@ -348,7 +348,7 @@ function ProgramSelectorModal({
             <>
               <button
                 onClick={() => setShowSamplePrograms(false)}
-                className="flex items-center gap-2 text-sm text-sys-accent mb-2"
+                className="flex items-center gap-2 text-sm text-sys-primary mb-2"
               >
                 <ChevronRight size={16} className="rotate-180" />
                 Back to my programs
@@ -368,14 +368,14 @@ function ProgramSelectorModal({
                     key={sample.id}
                     onClick={() => handleImportSampleProgram(sample)}
                     disabled={importingId !== null}
-                    className={`w-full p-4 rounded-2xl border text-left transition-all bg-sys-surface border-white/5 hover:border-sys-accent/30 active:scale-[0.98] ${
+                    className={`w-full p-4 rounded-2xl border text-left transition-all bg-sys-surfaceContainerLow border-sys-outlineVariant hover:border-sys-primary/30 active:scale-[0.98] ${
                       importingId === sample.id ? 'opacity-70' : ''
                     }`}
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <h4 className="text-base font-semibold text-white truncate">{sample.name}</h4>
+                          <h4 className="text-base font-semibold text-sys-onSurface truncate">{sample.name}</h4>
                         </div>
                         <p className="text-sm text-sys-onSurfaceVar line-clamp-2 mb-3">
                           {sample.description}
@@ -390,11 +390,11 @@ function ProgramSelectorModal({
                           </span>
                         </div>
                       </div>
-                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-sys-accent/10 flex items-center justify-center">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-sys-primaryContainer flex items-center justify-center">
                         {importingId === sample.id ? (
-                          <Loader2 size={20} className="text-sys-accent animate-spin" />
+                          <Loader2 size={20} className="text-sys-primary animate-spin" />
                         ) : (
-                          <Plus size={20} className="text-sys-accent" />
+                          <Plus size={20} className="text-sys-primary" />
                         )}
                       </div>
                     </div>
@@ -430,18 +430,18 @@ function ProgramSelectorModal({
 
         {/* Footer Actions */}
         {!showSamplePrograms && (
-          <div className="p-4 border-t border-white/5 space-y-3">
+          <div className="p-4 border-t border-sys-outlineVariant space-y-3">
             <button
               onClick={() => {
                 haptic.tick();
                 setShowSamplePrograms(true);
               }}
-              className="w-full h-12 rounded-xl bg-sys-surface text-white font-medium flex items-center justify-center gap-2 border border-white/5 active:scale-[0.98] transition-transform hover:border-sys-accent/30"
+              className="w-full h-12 rounded-xl bg-sys-surfaceContainerLow text-sys-onSurface font-medium flex items-center justify-center gap-2 border border-sys-outlineVariant active:scale-[0.98] transition-transform hover:border-sys-primary/30"
             >
               <Plus size={18} />
               Add New Program
               {availableSamplePrograms.length > 0 && (
-                <span className="text-xs bg-sys-accent/20 text-sys-accent px-2 py-0.5 rounded-full ml-1">
+                <span className="text-xs bg-sys-primaryContainer text-sys-onPrimaryContainer px-2 py-0.5 rounded-full ml-1">
                   {availableSamplePrograms.length}
                 </span>
               )}
@@ -485,16 +485,16 @@ export function ProgramSelector({
       <>
         <button
           onClick={handleOpenModal}
-          className={`w-full p-4 rounded-2xl bg-sys-surface border border-white/5 hover:border-white/10 active:scale-[0.98] transition-all text-left ${className}`}
+          className={`w-full p-4 rounded-2xl bg-sys-surfaceContainerLow border border-sys-outlineVariant hover:border-sys-outline active:scale-[0.98] transition-all text-left ${className}`}
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-sys-accent/10 flex items-center justify-center">
-                <Dumbbell size={20} className="text-sys-accent" />
+              <div className="w-10 h-10 rounded-xl bg-sys-primaryContainer flex items-center justify-center">
+                <Dumbbell size={20} className="text-sys-primary" />
               </div>
               <div>
                 <p className="text-xs text-sys-onSurfaceVar mb-0.5">Current Program</p>
-                <p className="text-base font-semibold text-white">
+                <p className="text-base font-semibold text-sys-onSurface">
                   {currentProgram?.name || 'No program selected'}
                 </p>
               </div>
@@ -503,7 +503,7 @@ export function ProgramSelector({
           </div>
 
           {currentProgram && (
-            <div className="mt-3 pt-3 border-t border-white/5 flex items-center gap-3">
+            <div className="mt-3 pt-3 border-t border-sys-outlineVariant flex items-center gap-3">
               <span className="flex items-center gap-1 text-xs text-sys-onSurfaceVar">
                 <Clock size={12} />
                 {currentProgram.durationWeeks} weeks
@@ -586,7 +586,7 @@ export function ProgramSelector({
 
         {/* Empty state */}
         {availablePrograms.length === 0 && uninstalledSamplePrograms.length === 0 && (
-          <div className="text-center py-8 bg-sys-surface rounded-2xl border border-white/5">
+          <div className="text-center py-8 bg-sys-surfaceContainerLow rounded-2xl border border-sys-outlineVariant">
             <Dumbbell size={48} className="mx-auto text-sys-onSurfaceVar/50 mb-3" />
             <p className="text-sys-onSurfaceVar">No programs available</p>
           </div>
@@ -626,14 +626,14 @@ function SampleProgramCard({ sample, onImport }: SampleProgramCardProps): React.
     <button
       onClick={handleImport}
       disabled={isImporting}
-      className={`w-full p-4 rounded-2xl border text-left transition-all bg-sys-surface border-white/5 hover:border-sys-accent/30 active:scale-[0.98] ${
+      className={`w-full p-4 rounded-2xl border text-left transition-all bg-sys-surfaceContainerLow border-sys-outlineVariant hover:border-sys-primary/30 active:scale-[0.98] ${
         isImporting ? 'opacity-70' : ''
       }`}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <h4 className="text-base font-semibold text-white truncate">{sample.name}</h4>
+            <h4 className="text-base font-semibold text-sys-onSurface truncate">{sample.name}</h4>
           </div>
           <p className="text-sm text-sys-onSurfaceVar line-clamp-2 mb-3">
             {sample.description}
@@ -648,11 +648,11 @@ function SampleProgramCard({ sample, onImport }: SampleProgramCardProps): React.
             </span>
           </div>
         </div>
-        <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-sys-accent/10 flex items-center justify-center">
+        <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-sys-primaryContainer flex items-center justify-center">
           {isImporting ? (
-            <Loader2 size={20} className="text-sys-accent animate-spin" />
+            <Loader2 size={20} className="text-sys-primary animate-spin" />
           ) : (
-            <Plus size={20} className="text-sys-accent" />
+            <Plus size={20} className="text-sys-primary" />
           )}
         </div>
       </div>

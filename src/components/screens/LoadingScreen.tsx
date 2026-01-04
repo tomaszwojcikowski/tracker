@@ -17,12 +17,12 @@ export function LoadingScreen({
   subMessage = 'Loading workout schedule and exercises',
 }: LoadingScreenProps) {
   return (
-    <div className="min-h-screen min-h-[100dvh] bg-sys-black text-white flex items-center justify-center p-5">
+    <div className="min-h-screen min-h-[100dvh] bg-sys-surface text-sys-onSurface flex items-center justify-center p-5">
       <div className="text-center max-w-md">
         <div className="mb-6">
-          <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mx-auto mb-4 animate-pulse">
+          <div className="h-20 w-20 rounded-full bg-sys-surfaceContainerHigh flex items-center justify-center mx-auto mb-4 animate-pulse">
             <svg
-              className="w-10 h-10 text-sys-accent animate-spin"
+              className="w-10 h-10 text-sys-primary animate-spin"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -42,7 +42,7 @@ export function LoadingScreen({
               ></path>
             </svg>
           </div>
-          <div className="text-2xl font-bold mb-2 text-white">{message}</div>
+          <div className="text-2xl font-bold mb-2 text-sys-onSurface">{message}</div>
           <div className="text-sm text-sys-onSurfaceVar">{subMessage}</div>
         </div>
       </div>
@@ -68,12 +68,12 @@ export function ErrorScreen({ message, onRetry }: ErrorScreenProps) {
   };
 
   return (
-    <div className="min-h-screen min-h-[100dvh] bg-sys-black text-white flex items-center justify-center p-5">
+    <div className="min-h-screen min-h-[100dvh] bg-sys-surface text-sys-onSurface flex items-center justify-center p-5">
       <div className="text-center max-w-md">
         <div className="mb-6">
-          <div className="h-20 w-20 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-4">
+          <div className="h-20 w-20 rounded-full bg-sys-error/10 flex items-center justify-center mx-auto mb-4">
             <svg
-              className="w-10 h-10 text-red-500"
+              className="w-10 h-10 text-sys-error"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -86,13 +86,13 @@ export function ErrorScreen({ message, onRetry }: ErrorScreenProps) {
               ></path>
             </svg>
           </div>
-          <div className="text-2xl font-bold mb-2 text-red-500">
+          <div className="text-2xl font-bold mb-2 text-sys-error">
             Failed to Load
           </div>
           <div className="text-sm text-sys-onSurfaceVar mb-6">{message}</div>
           <button
             onClick={handleRetry}
-            className="h-12 px-6 rounded-xl bg-sys-accent text-white font-semibold active:scale-95 transition-transform"
+            className="h-12 px-6 rounded-xl bg-sys-primary text-sys-onPrimary font-semibold active:scale-95 transition-transform"
           >
             Try Again
           </button>

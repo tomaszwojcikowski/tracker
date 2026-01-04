@@ -36,12 +36,12 @@ const ProgressBar = memo(function ProgressBar({ progress }: { progress: number }
   const showShimmer = roundedProgress > 0 && roundedProgress < 100;
 
   return (
-    <div className="h-0.5 mockup-bg-surface-2 relative overflow-hidden">
+    <div className="h-0.5 bg-sys-surfaceContainerLow relative overflow-hidden">
       <div
         className="absolute inset-y-0 left-0 transition-all duration-500 ease-out"
         style={{
           width: `${roundedProgress}%`,
-          background: 'linear-gradient(90deg, var(--m-primary) 0%, var(--m-primary-strong) 100%)',
+          background: 'var(--color-primary)',
         }}
       />
       {/* Subtle shimmer effect on active progress */}
@@ -69,7 +69,7 @@ export const TopAppBar = memo(function TopAppBar({
         {showBack ? (
           <button
             onClick={onBack}
-            className="btn-icon h-12 w-12 -ml-1 mockup-text-muted hover:mockup-text-primary"
+            className="btn-icon h-12 w-12 -ml-1 text-sys-onSurfaceVariant hover:text-sys-primary"
             aria-label="Go back"
           >
             <ArrowLeft size={24} />
@@ -77,11 +77,11 @@ export const TopAppBar = memo(function TopAppBar({
         ) : null}
 
         <div className={clsx("flex-1 min-w-0 flex flex-col justify-center", !showBack && "pl-1")}>
-          <h1 className="text-lg font-extrabold mockup-text-primary tracking-tight truncate">
+          <h1 className="text-lg font-extrabold text-sys-onSurface tracking-tight truncate">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-xs mockup-text-muted truncate -mt-0.5 font-semibold">
+            <p className="text-xs text-sys-onSurfaceVariant truncate -mt-0.5 font-semibold">
               {subtitle}
             </p>
           )}

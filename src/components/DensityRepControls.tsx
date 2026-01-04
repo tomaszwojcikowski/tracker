@@ -83,17 +83,17 @@ export const DensityRepControls = ({
                         {totalReps}/{targetReps}
                     </span>
                     <span className={`text-[11px] font-bold ${
-                        allRepsComplete ? 'text-sys-success' : 'text-cyan-400'
+                        allRepsComplete ? 'text-sys-success' : 'text-sys-tertiary'
                     }`}>
                         {Math.round(progressPercent)}%
                     </span>
                 </div>
-                <div className="h-1.5 bg-sys-surfaceHigh rounded-full overflow-hidden">
+                <div className="h-1.5 bg-sys-surfaceContainerLow rounded-full overflow-hidden">
                     <div
                         className={`h-full transition-all duration-300 ${
                             allRepsComplete
-                                ? 'bg-sys-success shadow-[0_0_8px_rgba(16,185,129,0.4)]'
-                                : 'bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.4)]'
+                                ? 'bg-sys-success shadow-elevation-1'
+                                : 'bg-sys-tertiary shadow-elevation-1'
                         }`}
                         style={{ width: `${progressPercent}%` }}
                     />
@@ -104,21 +104,21 @@ export const DensityRepControls = ({
             <div className="flex items-center gap-1.5">
                 <button
                     onClick={() => handleQuickAdd(1)}
-                    className="h-7 px-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-bold active:scale-95 active:bg-cyan-500/20 transition-all"
+                    className="h-7 px-2 rounded-lg bg-sys-tertiaryContainer border border-sys-tertiary/30 text-sys-onTertiaryContainer text-sm font-bold active:scale-95 active:bg-sys-tertiaryContainer/80 transition-all"
                     aria-label="Add 1 rep"
                 >
                     +1
                 </button>
                 <button
                     onClick={() => handleQuickAdd(3)}
-                    className="h-7 px-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-bold active:scale-95 active:bg-cyan-500/20 transition-all"
+                    className="h-7 px-2 rounded-lg bg-sys-tertiaryContainer border border-sys-tertiary/30 text-sys-onTertiaryContainer text-sm font-bold active:scale-95 active:bg-sys-tertiaryContainer/80 transition-all"
                     aria-label="Add 3 reps"
                 >
                     +3
                 </button>
                 <button
                     onClick={() => handleQuickAdd(5)}
-                    className="h-7 px-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-bold active:scale-95 active:bg-cyan-500/20 transition-all"
+                    className="h-7 px-2 rounded-lg bg-sys-tertiaryContainer border border-sys-tertiary/30 text-sys-onTertiaryContainer text-sm font-bold active:scale-95 active:bg-sys-tertiaryContainer/80 transition-all"
                     aria-label="Add 5 reps"
                 >
                     +5
@@ -137,12 +137,12 @@ export const DensityRepControls = ({
                         }
                     }}
                     aria-label="Custom rep count"
-                    className="h-7 w-10 min-w-[40px] px-0 bg-sys-surfaceHigh rounded-lg text-white text-sm font-medium text-center outline-none focus:ring-2 focus:ring-cyan-500 transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="h-7 w-10 min-w-[40px] px-0 bg-sys-surfaceContainerLow rounded-lg text-sys-onSurface text-sm font-medium text-center outline-none focus:ring-2 focus:ring-sys-tertiary transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
                 <button
                     onClick={handleAddChunk}
                     disabled={!chunkInput || parseInt(chunkInput, 10) <= 0}
-                    className="h-7 w-7 rounded-lg bg-cyan-500 text-white text-sm font-medium flex items-center justify-center active:scale-95 transition-all disabled:opacity-40 disabled:pointer-events-none shadow-[0_0_8px_rgba(6,182,212,0.3)]"
+                    className="h-7 w-7 rounded-lg bg-sys-tertiary text-sys-onTertiary text-sm font-medium flex items-center justify-center active:scale-95 transition-all disabled:opacity-40 disabled:pointer-events-none shadow-elevation-1"
                     aria-label="Add custom rep count"
                 >
                     <Plus size={13} />
@@ -152,10 +152,10 @@ export const DensityRepControls = ({
                     onClick={handleToggleComplete}
                     className={`h-7 w-7 rounded-lg flex items-center justify-center font-medium text-sm transition-all active:scale-95 ml-auto ${
                         isComplete
-                            ? 'bg-sys-success text-white shadow-[0_0_12px_rgba(16,185,129,0.4)]'
+                            ? 'bg-sys-success text-sys-onSuccess shadow-elevation-2'
                             : allRepsComplete
-                            ? 'bg-cyan-500 text-white shadow-[0_0_8px_rgba(6,182,212,0.3)]'
-                            : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                            ? 'bg-sys-tertiary text-sys-onTertiary shadow-elevation-1'
+                            : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar'
                     }`}
                     aria-label={isComplete ? 'Mark as incomplete' : 'Mark as complete'}
                     title={isComplete ? 'Mark as incomplete' : 'Mark as complete'}
@@ -170,17 +170,17 @@ export const DensityRepControls = ({
                     {repChunks.map((chunk, index) => (
                         <div
                             key={index}
-                            className="flex items-center gap-0.5 bg-cyan-500/10 border border-cyan-500/30 rounded px-1.5 py-0.5 shadow-[0_0_4px_rgba(6,182,212,0.2)]"
+                            className="flex items-center gap-0.5 bg-sys-tertiaryContainer border border-sys-tertiary/30 rounded px-1.5 py-0.5 shadow-elevation-1"
                         >
-                            <span className="text-xs font-bold text-cyan-400">
+                            <span className="text-xs font-bold text-sys-onTertiaryContainer">
                                 {chunk}
                             </span>
                             <button
                                 onClick={() => handleRemoveChunk(index)}
-                                className="h-3.5 w-3.5 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center active:scale-90 transition-all"
+                                className="h-3.5 w-3.5 rounded-full bg-sys-onTertiaryContainer/10 hover:bg-sys-onTertiaryContainer/20 flex items-center justify-center active:scale-90 transition-all"
                                 aria-label={`Remove ${chunk} reps`}
                             >
-                                <Minus size={9} className="text-white" />
+                                <Minus size={9} className="text-sys-onTertiaryContainer" />
                             </button>
                         </div>
                     ))}

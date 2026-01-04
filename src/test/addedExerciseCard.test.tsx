@@ -146,14 +146,14 @@ describe('AddedExerciseCard', () => {
                 />
             );
 
-            const card = container.querySelector('.border-sys-success\\/30');
+            const card = container.querySelector('.border-sys-successContainer');
             expect(card).toBeInTheDocument();
         });
 
         it('should show default styling when incomplete', () => {
             const { container } = render(<AddedExerciseCard {...defaultProps} />);
 
-            const card = container.querySelector('.border-white\\/5');
+            const card = container.querySelector('.border-sys-outlineVariant');
             expect(card).toBeInTheDocument();
         });
     });

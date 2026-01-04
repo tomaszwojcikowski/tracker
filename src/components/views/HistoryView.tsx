@@ -125,20 +125,20 @@ const SimpleWeightGraph: React.FC<SimpleWeightGraphProps> = ({ data }) => {
     const areaPoints = `${padding},${height - padding} ${points} ${width - padding},${height - padding}`;
 
     return (
-        <div className="bg-gradient-to-b from-sys-surfaceHigh to-sys-surface rounded-2xl p-4 border border-white/5">
+        <div className="bg-gradient-to-b from-sys-surfaceHigh to-sys-surface rounded-2xl p-4 border border-sys-outlineVariant">
             <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-24" preserveAspectRatio="none">
                 {/* Gradient definition */}
                 <defs>
                     <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="var(--color-accent)" stopOpacity="0.3" />
-                        <stop offset="100%" stopColor="var(--color-accent)" stopOpacity="0" />
+                        <stop offset="0%" stopColor="var(--color-primary)" stopOpacity="0.3" />
+                        <stop offset="100%" stopColor="var(--color-primary)" stopOpacity="0" />
                     </linearGradient>
                 </defs>
 
                 {/* Horizontal grid lines */}
-                <line x1={padding} y1={padding} x2={width - padding} y2={padding} stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
-                <line x1={padding} y1={height / 2} x2={width - padding} y2={height / 2} stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
-                <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke="rgba(255,255,255,0.08)" strokeWidth="0.5" />
+                <line x1={padding} y1={padding} x2={width - padding} y2={padding} stroke="var(--color-outline-variant)" strokeOpacity="0.2" strokeWidth="0.5" />
+                <line x1={padding} y1={height / 2} x2={width - padding} y2={height / 2} stroke="var(--color-outline-variant)" strokeOpacity="0.2" strokeWidth="0.5" />
+                <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke="var(--color-outline-variant)" strokeOpacity="0.4" strokeWidth="0.5" />
 
                 {/* Area fill */}
                 <polygon points={areaPoints} fill="url(#areaGradient)" />
@@ -147,7 +147,7 @@ const SimpleWeightGraph: React.FC<SimpleWeightGraphProps> = ({ data }) => {
                 <polyline
                     points={points}
                     fill="none"
-                    stroke="var(--color-accent)"
+                    stroke="var(--color-primary)"
                     strokeWidth="2.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -159,15 +159,15 @@ const SimpleWeightGraph: React.FC<SimpleWeightGraphProps> = ({ data }) => {
                     const y = height - padding - ((d.weight - minWeight) / range) * (height - 2 * padding);
                     return (
                         <g key={i}>
-                            <circle cx={x} cy={y} r="4" fill="var(--color-accent)" opacity="0.3" />
-                            <circle cx={x} cy={y} r="2.5" fill="var(--color-accent)" stroke="white" strokeWidth="1" />
+                            <circle cx={x} cy={y} r="4" fill="var(--color-primary)" opacity="0.3" />
+                            <circle cx={x} cy={y} r="2.5" fill="var(--color-primary)" stroke="var(--color-on-primary)" strokeWidth="1" />
                         </g>
                     );
                 })}
             </svg>
             <div className="flex justify-between text-xs mt-3">
                 <span className="text-sys-onSurfaceVar font-medium">{minWeight} kg</span>
-                <span className="text-sys-accent font-semibold">{maxWeight} kg</span>
+                <span className="text-sys-primary font-semibold">{maxWeight} kg</span>
             </div>
         </div>
     );
@@ -205,11 +205,11 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
 
     if (exerciseStats.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-white/5 px-6">
+            <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-sys-outlineVariant px-6">
                 <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
                     <BarChart2 size={40} className="text-sys-onSurfaceVar" />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">No Exercise Data</h3>
+                <h3 className="text-lg font-bold text-sys-onSurface mb-2">No Exercise Data</h3>
                 <p className="text-sm text-sys-onSurfaceVar text-center max-w-[250px]">Complete workouts to see exercise statistics</p>
             </div>
         );
@@ -225,23 +225,23 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
     return (
         <div className="space-y-5">
             {/* Summary Stats Banner */}
-            <div className="bg-gradient-to-br from-sys-accent/20 via-sys-surface to-sys-surfaceHigh rounded-2xl p-5 border border-sys-accent/20">
+            <div className="bg-sys-surfaceContainerHigh rounded-2xl p-5 border border-sys-outlineVariant">
                 <div className="flex items-center gap-3 mb-4">
-                    <div className="h-10 w-10 rounded-xl bg-sys-accent/30 flex items-center justify-center" aria-hidden="true">
-                        <TrendingUp size={20} className="text-sys-accent" />
+                    <div className="h-10 w-10 rounded-xl bg-sys-primaryContainer flex items-center justify-center" aria-hidden="true">
+                        <TrendingUp size={20} className="text-sys-onPrimaryContainer" />
                     </div>
                     <div>
-                        <h3 className="text-sm font-semibold text-white">Training Overview</h3>
+                        <h3 className="text-sm font-semibold text-sys-onSurface">Training Overview</h3>
                         <p className="text-xs text-sys-onSurfaceVar">{exerciseStats.length} exercises tracked</p>
                     </div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-black/20 rounded-xl p-3 text-center">
-                        <div className="text-2xl font-bold text-white">{totalWorkoutsSum}</div>
+                    <div className="bg-sys-surfaceContainerLow rounded-xl p-3 text-center">
+                        <div className="text-2xl font-bold text-sys-onSurface">{totalWorkoutsSum}</div>
                         <div className="text-xs text-sys-onSurfaceVar">Total Sessions</div>
                     </div>
-                    <div className="bg-black/20 rounded-xl p-3 text-center">
-                        <div className="text-2xl font-bold text-sys-accent">{maxWeightOverall > 0 ? `${maxWeightOverall} kg` : 'N/A'}</div>
+                    <div className="bg-sys-surfaceContainerLow rounded-xl p-3 text-center">
+                        <div className="text-2xl font-bold text-sys-primary">{maxWeightOverall > 0 ? `${maxWeightOverall} kg` : 'N/A'}</div>
                         <div className="text-xs text-sys-onSurfaceVar">Max Weight</div>
                     </div>
                 </div>
@@ -260,7 +260,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3, delay: idx * 0.05 }}
-                            className="bg-sys-surface border border-white/5 rounded-2xl overflow-hidden"
+                            className="bg-sys-surface border border-sys-outlineVariant rounded-2xl overflow-hidden"
                         >
                             <motion.button
                                 layout="position"
@@ -270,15 +270,15 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                 whileTap={{ scale: 0.98 }}
                             >
                                 {/* Exercise Icon/Initial */}
-                                <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-sys-accent/30 to-sys-accent/10 border border-sys-accent/20 flex items-center justify-center flex-shrink-0" aria-hidden="true">
-                                    <span className="text-lg font-bold text-sys-accent">{stat.name.charAt(0)}</span>
+                                <div className="h-12 w-12 rounded-2xl bg-sys-surfaceContainerHighest border border-sys-outlineVariant flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                                    <span className="text-lg font-bold text-sys-primary">{stat.name.charAt(0)}</span>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="text-base font-bold text-white mb-1 truncate">{stat.name}</h3>
+                                    <h3 className="text-base font-bold text-sys-onSurface mb-1 truncate">{stat.name}</h3>
                                     <div className="flex items-center gap-2 text-xs">
                                         <span className="text-sys-onSurfaceVar">{stat.totalWorkouts} workouts</span>
                                         {stat.maxWeight && (
-                                            <span className="px-2 py-0.5 rounded-full bg-sys-accent/15 text-sys-accent font-semibold">
+                                            <span className="px-2 py-0.5 rounded-full bg-sys-primaryContainer text-sys-onPrimaryContainer font-semibold">
                                                 Max: {stat.maxWeight} kg
                                             </span>
                                         )}
@@ -286,7 +286,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                 </div>
                                 <motion.div
                                     animate={{ rotate: isExpanded ? 180 : 0 }}
-                                    className={`h-9 w-9 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${isExpanded ? 'bg-sys-accent text-white' : 'bg-white/10 text-sys-onSurfaceVar'}`}
+                                    className={`h-9 w-9 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${isExpanded ? 'bg-sys-primary text-sys-onPrimary' : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar'}`}
                                 >
                                     <ChevronDown size={18} />
                                 </motion.div>
@@ -300,39 +300,39 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                         exit={{ height: 0, opacity: 0 }}
                                         transition={{ duration: 0.3, ease: "easeInOut" }}
                                     >
-                                        <div className="px-5 pb-5 border-t border-white/5">
+                                        <div className="px-5 pb-5 border-t border-sys-outlineVariant">
                                             {/* Stats Summary Grid */}
                                             <div className="grid grid-cols-2 gap-3 mt-4 mb-5">
-                                                <div className="bg-gradient-to-br from-sys-surfaceHigh to-sys-surface rounded-2xl p-4 border border-white/5">
+                                                <div className="bg-gradient-to-br from-sys-surfaceHigh to-sys-surface rounded-2xl p-4 border border-sys-outlineVariant">
                                                     <div className="flex items-center gap-2 mb-2">
                                                         <Calendar size={14} className="text-sys-onSurfaceVar" />
                                                         <span className="text-xs text-sys-onSurfaceVar font-medium">Workouts</span>
                                                     </div>
-                                                    <div className="text-2xl font-bold text-white">{stat.totalWorkouts}</div>
+                                                    <div className="text-2xl font-bold text-sys-onSurface">{stat.totalWorkouts}</div>
                                                 </div>
-                                                <div className="bg-gradient-to-br from-sys-surfaceHigh to-sys-surface rounded-2xl p-4 border border-white/5">
+                                                <div className="bg-gradient-to-br from-sys-surfaceHigh to-sys-surface rounded-2xl p-4 border border-sys-outlineVariant">
                                                     <div className="flex items-center gap-2 mb-2">
                                                         <Layers size={14} className="text-sys-onSurfaceVar" />
                                                         <span className="text-xs text-sys-onSurfaceVar font-medium">Max Sets</span>
                                                     </div>
-                                                    <div className="text-2xl font-bold text-white">{stat.maxSets || 'N/A'}</div>
+                                                    <div className="text-2xl font-bold text-sys-onSurface">{stat.maxSets || 'N/A'}</div>
                                                 </div>
                                                 {stat.maxWeight && (
-                                                    <div className="bg-gradient-to-br from-sys-accent/10 to-sys-surface rounded-2xl p-4 border border-sys-accent/20">
+                                                    <div className="bg-sys-surfaceContainerHigh rounded-2xl p-4 border border-sys-outlineVariant">
                                                         <div className="flex items-center gap-2 mb-2">
-                                                            <Dumbbell size={14} className="text-sys-accent" />
-                                                            <span className="text-xs text-sys-accent font-medium">Max Weight</span>
+                                                            <Dumbbell size={14} className="text-sys-primary" />
+                                                            <span className="text-xs text-sys-primary font-medium">Max Weight</span>
                                                         </div>
-                                                        <div className="text-2xl font-bold text-sys-accent">{stat.maxWeight} kg</div>
+                                                        <div className="text-2xl font-bold text-sys-primary">{stat.maxWeight} kg</div>
                                                     </div>
                                                 )}
                                                 {stat.estimated1RM && (
-                                                    <div className="bg-gradient-to-br from-sys-success/10 to-sys-surface rounded-2xl p-4 border border-sys-success/20">
+                                                    <div className="bg-sys-successContainer rounded-2xl p-4 border border-sys-outlineVariant">
                                                         <div className="flex items-center gap-2 mb-2">
-                                                            <Trophy size={14} className="text-sys-success" />
-                                                            <span className="text-xs text-sys-success font-medium">Est. 1RM</span>
+                                                            <Trophy size={14} className="text-sys-onSuccessContainer" />
+                                                            <span className="text-xs text-sys-onSuccessContainer font-medium">Est. 1RM</span>
                                                         </div>
-                                                        <div className="text-2xl font-bold text-sys-success">{stat.estimated1RM} kg</div>
+                                                        <div className="text-2xl font-bold text-sys-onSuccessContainer">{stat.estimated1RM} kg</div>
                                                     </div>
                                                 )}
                                             </div>
@@ -353,8 +353,8 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                                 return (
                                                     <div className="mb-5">
                                                         <div className="flex items-center gap-2 mb-3">
-                                                            <TrendingUp size={16} className="text-sys-accent" />
-                                                            <h4 className="text-sm font-semibold text-white">Weight Progress</h4>
+                                                            <TrendingUp size={16} className="text-sys-primary" />
+                                                            <h4 className="text-sm font-semibold text-sys-onSurface">Weight Progress</h4>
                                                         </div>
                                                         <SimpleWeightGraph data={graphData} />
                                                     </div>
@@ -365,13 +365,13 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                             <div>
                                                 <div className="flex items-center gap-2 mb-3">
                                                     <Clock size={16} className="text-sys-onSurfaceVar" />
-                                                    <h4 className="text-sm font-semibold text-white">Recent History</h4>
+                                                    <h4 className="text-sm font-semibold text-sys-onSurface">Recent History</h4>
                                                 </div>
                                                 <div className="space-y-2">
                                                     {history.slice(-5).reverse().map((entry, entryIdx) => (
                                                         <div key={entryIdx} className="bg-sys-surfaceHigh rounded-xl p-3 flex items-center gap-3">
-                                                            <div className="h-10 w-10 rounded-xl bg-white/5 flex flex-col items-center justify-center flex-shrink-0">
-                                                                <span className="text-xs font-bold text-white leading-none">
+                                                            <div className="h-10 w-10 rounded-xl bg-sys-surfaceContainerLow flex flex-col items-center justify-center flex-shrink-0">
+                                                                <span className="text-xs font-bold text-sys-onSurface leading-none">
                                                                     {new Date(entry.date).toLocaleDateString('en-US', { day: 'numeric' })}
                                                                 </span>
                                                                 <span className="text-[10px] text-sys-onSurfaceVar uppercase">
@@ -379,7 +379,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                                                 </span>
                                                             </div>
                                                             <div className="flex-1 min-w-0">
-                                                                <div className="text-sm font-semibold text-white">
+                                                                <div className="text-sm font-semibold text-sys-onSurface">
                                                                     {entry.sets} sets completed
                                                                 </div>
                                                                 <div className="text-xs text-sys-onSurfaceVar">
@@ -387,7 +387,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                                                 </div>
                                                             </div>
                                                             {entry.weight && (
-                                                                <div className="px-3 py-1.5 rounded-lg bg-sys-accent/15 text-sys-accent text-sm font-bold flex-shrink-0">
+                                                                <div className="px-3 py-1.5 rounded-lg bg-sys-primaryContainer text-sys-onPrimaryContainer text-sm font-bold flex-shrink-0">
                                                                     {entry.weight} kg
                                                                 </div>
                                                             )}
@@ -537,11 +537,11 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                     </div>
                 </div>
                 {history.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-white/5 px-6">
+                    <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-sys-outlineVariant px-6">
                         <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
                             <History size={40} className="text-sys-onSurfaceVar" />
                         </div>
-                        <h3 className="text-lg font-bold text-white mb-2">No Workouts Yet</h3>
+                        <h3 className="text-lg font-bold text-sys-onSurface mb-2">No Workouts Yet</h3>
                         <p className="text-sm text-sys-onSurfaceVar text-center max-w-[250px]">Complete your first workout to see it here. Pull down to refresh.</p>
                     </div>
                 ) : viewMode === 'stats' ? (
@@ -605,18 +605,18 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                     className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4"
                                     onClick={handleCloseDayDetail}
                                 >
-                                    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+                                    <div className="absolute inset-0 bg-sys-scrim/60 backdrop-blur-sm" />
                                     <motion.div
                                         initial={{ y: 100, opacity: 0 }}
                                         animate={{ y: 0, opacity: 1 }}
                                         exit={{ y: 100, opacity: 0 }}
                                         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                                        className="relative w-full max-w-lg max-h-[80vh] overflow-y-auto bg-sys-surface border border-white/10 rounded-2xl shadow-2xl"
+                                        className="relative w-full max-w-lg max-h-[80vh] overflow-y-auto bg-sys-surface border border-sys-outlineVariant rounded-2xl shadow-2xl"
                                         onClick={(e) => e.stopPropagation()}
                                     >
-                                        <div className="sticky top-0 bg-sys-surface border-b border-white/5 p-5 flex items-center justify-between z-10">
+                                        <div className="sticky top-0 bg-sys-surface border-b border-sys-outlineVariant p-5 flex items-center justify-between z-10">
                                             <div>
-                                                <h3 className="text-lg font-bold text-white">
+                                                <h3 className="text-lg font-bold text-sys-onSurface">
                                                     {new Date(selectedDayWorkouts[0].date).toLocaleDateString('en-US', {
                                                         weekday: 'long',
                                                         month: 'long',
@@ -629,7 +629,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                             </div>
                                             <button
                                                 onClick={handleCloseDayDetail}
-                                                className="h-10 w-10 rounded-xl bg-sys-surfaceHigh hover:bg-sys-accent/20 transition-colors flex items-center justify-center"
+                                                className="h-10 w-10 rounded-xl bg-sys-surfaceContainerHigh hover:bg-sys-primaryContainer/20 transition-colors flex items-center justify-center"
                                             >
                                                 <ChevronDown size={20} className="text-sys-onSurface" />
                                             </button>
@@ -647,21 +647,21 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                                 const isFullyComplete = completedSets === totalSets && totalSets > 0;
 
                                                 return (
-                                                    <div key={idx} className="bg-sys-surfaceHigh rounded-2xl p-4 border border-white/5">
+                                                    <div key={idx} className="bg-sys-surfaceHigh rounded-2xl p-4 border border-sys-outlineVariant">
                                                         <div className="flex items-center gap-3 mb-3">
                                                             {entry.isEmptyWorkout || (entry.week === 0 && entry.day === 0) ? (
-                                                                <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-sys-success/20 to-sys-success/5 border border-sys-success/30 flex items-center justify-center">
-                                                                    <Plus size={20} className="text-sys-success" />
+                                                                <div className="h-10 w-10 rounded-xl bg-sys-successContainer border border-sys-outlineVariant flex items-center justify-center">
+                                                                    <Plus size={20} className="text-sys-onSuccessContainer" />
                                                                 </div>
                                                             ) : (
-                                                                <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-sys-accent/20 to-sys-accent/5 border border-sys-accent/30 flex flex-col items-center justify-center">
-                                                                    <span className="text-[8px] font-semibold text-sys-accent uppercase">W</span>
-                                                                    <span className="text-sm font-bold text-sys-accent leading-none">{entry.week}</span>
+                                                                <div className="h-10 w-10 rounded-xl bg-sys-primaryContainer border border-sys-outlineVariant flex flex-col items-center justify-center">
+                                                                    <span className="text-[8px] font-semibold text-sys-onPrimaryContainer uppercase">W</span>
+                                                                    <span className="text-sm font-bold text-sys-onPrimaryContainer leading-none">{entry.week}</span>
                                                                 </div>
                                                             )}
                                                             <div className="flex-1">
                                                                 <div className="flex items-center gap-2">
-                                                                    <h4 className="text-sm font-semibold text-white">
+                                                                    <h4 className="text-sm font-semibold text-sys-onSurface">
                                                                         {entry.isEmptyWorkout || (entry.week === 0 && entry.day === 0) ? 'Custom Workout' : `Day ${entry.day}`}
                                                                     </h4>
                                                                     {isFullyComplete && (
@@ -679,12 +679,12 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                                         </div>
 
                                                         {entry.workoutNotes && (
-                                                            <div className="mb-3 p-3 bg-sys-accent/10 rounded-xl border border-sys-accent/20">
+                                                            <div className="mb-3 p-3 bg-sys-surfaceContainerHighest rounded-xl border border-sys-outlineVariant">
                                                                 <div className="flex items-center gap-1.5 mb-1">
-                                                                    <MessageSquare size={12} className="text-sys-accent" />
-                                                                    <span className="text-[10px] font-bold text-sys-accent uppercase">Notes</span>
+                                                                    <MessageSquare size={12} className="text-sys-primary" />
+                                                                    <span className="text-[10px] font-bold text-sys-primary uppercase">Notes</span>
                                                                 </div>
-                                                                <p className="text-xs text-white leading-relaxed whitespace-pre-wrap">{entry.workoutNotes}</p>
+                                                                <p className="text-xs text-sys-onSurface leading-relaxed whitespace-pre-wrap">{entry.workoutNotes}</p>
                                                             </div>
                                                         )}
 
@@ -693,14 +693,14 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                                                 {entry.exercises!.map((ex, exIdx) => {
                                                                     const exComplete = ex.completedSets === ex.totalSets;
                                                                     return (
-                                                                        <div key={exIdx} className={`bg-sys-surface rounded-xl p-3 border ${exComplete ? 'border-sys-success/20' : 'border-white/5'}`}>
+                                                                        <div key={exIdx} className={`bg-sys-surface rounded-xl p-3 border ${exComplete ? 'border-sys-successContainer' : 'border-sys-outlineVariant'}`}>
                                                                             <div className="flex items-start justify-between gap-2 mb-1">
                                                                                 <div className="flex-1 min-w-0">
-                                                                                    <h5 className="text-xs font-bold text-white truncate">{ex.name}</h5>
+                                                                                    <h5 className="text-xs font-bold text-sys-onSurface truncate">{ex.name}</h5>
                                                                                     <p className="text-[10px] text-sys-onSurfaceVar">{ex.prescription}</p>
                                                                                 </div>
                                                                                 <div className={`flex items-center gap-1 px-2 py-0.5 rounded-lg text-[10px] font-bold ${
-                                                                                    exComplete ? 'bg-sys-success/20 text-sys-success' : 'bg-sys-accent/15 text-sys-accent'
+                                                                                    exComplete ? 'bg-sys-successContainer text-sys-onSuccessContainer' : 'bg-sys-primaryContainer text-sys-onPrimaryContainer'
                                                                                 }`}>
                                                                                     {exComplete && <Check size={10} />}
                                                                                     <span>{ex.completedSets}/{ex.totalSets}</span>
@@ -708,7 +708,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                                                             </div>
                                                                             <div className="flex items-center gap-2 flex-wrap">
                                                                                 {ex.weight && (
-                                                                                    <span className="text-[10px] px-2 py-0.5 rounded-lg bg-white/5 text-white font-medium">
+                                                                                    <span className="text-[10px] px-2 py-0.5 rounded-lg bg-sys-surfaceContainerLow text-sys-onSurface font-medium">
                                                                                         {ex.weight} kg
                                                                                     </span>
                                                                                 )}
@@ -716,7 +716,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                                                                     <div className="flex items-center gap-1">
                                                                                         <span className="text-[9px] text-sys-onSurfaceVar uppercase">RPE</span>
                                                                                         {Object.entries(ex.rpe).map(([setIdx, rpe]) => (
-                                                                                            <span key={setIdx} className="text-[10px] w-5 h-5 flex items-center justify-center rounded-md bg-sys-accent/15 text-sys-accent font-semibold">
+                                                                                            <span key={setIdx} className="text-[10px] w-5 h-5 flex items-center justify-center rounded-md bg-sys-primaryContainer text-sys-onPrimaryContainer font-semibold">
                                                                                                 {rpe}
                                                                                             </span>
                                                                                         ))}

@@ -78,15 +78,15 @@ export const ExerciseSelectorModal: React.FC<ExerciseSelectorModalProps> = ({
             ariaLabel="Add Exercise"
             maxHeight={85}
             showHandle={false}
-            className="border-t border-white/10"
+            className="border-t border-sys-outlineVariant"
         >
             {/* Header */}
-            <div className="p-6 border-b border-white/10">
+            <div className="p-6 border-b border-sys-outlineVariant">
                 <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-white">Add Exercise</h3>
+                    <h3 className="text-xl font-bold text-sys-onSurface">Add Exercise</h3>
                     <button
                         onClick={handleClose}
-                        className="btn-icon h-12 w-12 bg-sys-surfaceHigh"
+                        className="btn-icon h-12 w-12 bg-sys-surfaceContainerHighest text-sys-onSurface"
                         aria-label="Close"
                     >
                         <X size={24} />
@@ -98,18 +98,18 @@ export const ExerciseSelectorModal: React.FC<ExerciseSelectorModalProps> = ({
                     placeholder="Search exercises..."
                     value={searchTerm}
                     onChange={(e) => onSearchChange(e.target.value)}
-                    className="w-full h-12 px-4 bg-sys-surfaceHigh rounded-xl text-white placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-accent transition-all"
+                    className="w-full h-12 px-4 bg-sys-surfaceContainer rounded-xl text-sys-onSurface placeholder:text-sys-onSurfaceVar outline-none focus:ring-2 focus:ring-sys-primary transition-all border border-sys-outlineVariant"
                 />
 
-                <div className="flex gap-2 mt-3 overflow-x-auto pb-2 -mx-2 px-2">
+                <div className="flex gap-2 mt-3 overflow-x-auto pb-2 -mx-2 px-2 hide-scrollbar">
                     {MUSCLE_FILTERS.map((filter) => (
                         <button
                             key={filter}
                             onClick={() => onFilterChange(filter)}
-                            className={`btn-md3 px-4 py-2 text-sm whitespace-nowrap transition-all ${
+                            className={`btn-md3 px-4 py-2 text-sm whitespace-nowrap transition-all rounded-full ${
                                 selectedFilter === filter
-                                    ? 'btn-filled'
-                                    : 'btn-tonal'
+                                    ? 'bg-sys-primary text-sys-onPrimary shadow-elevation-1'
+                                    : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar border border-sys-outlineVariant'
                             }`}
                         >
                             {filter.charAt(0).toUpperCase() + filter.slice(1)}

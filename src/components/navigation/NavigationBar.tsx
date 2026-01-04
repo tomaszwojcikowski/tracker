@@ -46,7 +46,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeT
 
     return (
         <nav
-            className="bottom-navigation fixed bottom-0 left-0 right-0 mockup-bg-surface border-t mockup-border z-50 safe-pb surface-elevation-2 min-h-[80px]"
+            className="bottom-navigation fixed bottom-0 left-0 right-0 bg-sys-surface border-t border-sys-outlineVariant z-50 safe-pb shadow-elevation-2 min-h-[80px]"
             role="navigation"
             aria-label="Main navigation"
         >
@@ -66,7 +66,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeT
                                     {isActive && (
                                         <motion.div
                                             layoutId="nav-pill"
-                                            className="absolute inset-0 mockup-bg-surface-3 rounded-2xl"
+                                            className="absolute inset-0 bg-sys-secondaryContainer rounded-2xl"
                                             initial={false}
                                             transition={{ type: "spring", stiffness: 500, damping: 30 }}
                                         />
@@ -75,14 +75,14 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeT
                                         size={24}
                                         className={clsx(
                                             "relative z-10 transition-colors duration-200",
-                                            isActive ? "mockup-text-accent" : "mockup-text-muted"
+                                            isActive ? "text-sys-onSecondaryContainer" : "text-sys-onSurfaceVariant"
                                         )}
                                     />
                                 </div>
                                 <span
                                     className={clsx(
                                         "text-xs font-medium transition-colors duration-200",
-                                        isActive ? "mockup-text-primary" : "mockup-text-muted"
+                                        isActive ? "text-sys-onSurface font-bold" : "text-sys-onSurfaceVariant"
                                     )}
                                 >
                                     {item.label}

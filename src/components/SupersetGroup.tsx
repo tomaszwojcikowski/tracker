@@ -185,24 +185,24 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                 <button
                     type="button"
                     onClick={handleToggleExpand}
-                    className="w-full h-auto min-h-[36px] px-3 py-2 flex items-center gap-2 bg-sys-success/10 rounded-xl border border-sys-success/20 active:bg-sys-success/20 transition-colors"
+                    className="w-full h-auto min-h-[36px] px-3 py-2 flex items-center gap-2 bg-sys-successContainer/30 rounded-xl border border-sys-success/20 active:bg-sys-successContainer/50 transition-colors"
                     aria-label="Superset completed, tap to edit"
                 >
-                    <div className="flex items-center justify-center h-5 w-5 rounded-full bg-sys-success text-white flex-shrink-0">
+                    <div className="flex items-center justify-center h-5 w-5 rounded-full bg-sys-success text-sys-onSuccess flex-shrink-0">
                         <Check size={12} strokeWidth={3} />
                     </div>
 
                     {/* Exercise names stacked */}
                     <div className="flex-1 min-w-0 flex flex-col gap-0.5">
                         {exercises.map((ex, i) => (
-                            <span key={i} className="text-sm font-medium text-white truncate text-left" title={ex.name}>
+                            <span key={i} className="text-sm font-medium text-sys-onSurface truncate text-left" title={ex.name}>
                                 {getShortExerciseName(ex.name)}
                             </span>
                         ))}
                     </div>
 
                     {isEmomSuperset && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-purple-500/20 text-purple-400 flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer flex-shrink-0">
                             <Zap size={8} strokeWidth={3} />
                             EMOM
                         </span>
@@ -225,18 +225,18 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
         <div className="relative">
             <div className={`rounded-xl border overflow-hidden transition-all ${
                 isFirstIncomplete
-                    ? 'bg-sys-accent/10 border-sys-accent/30'
-                    : 'bg-amber-500/5 border-amber-500/20'
+                    ? 'bg-sys-primaryContainer/10 border-sys-primary/30'
+                    : 'bg-sys-surfaceContainer border-sys-outlineVariant'
             }`}>
                 {/* Header with optional EMOM badge and shared round counter */}
-                <div className="px-3 py-2 flex items-center gap-2 border-b border-white/5">
+                <div className="px-3 py-2 flex items-center gap-2 border-b border-sys-outlineVariant">
                     {isEmomSuperset ? (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-tertiary/20 text-sys-tertiary">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer">
                             <Zap size={10} strokeWidth={3} />
                             EMOM SUPERSET
                         </span>
                     ) : (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-secondaryContainer text-sys-onSecondaryContainer">
                             SUPERSET
                         </span>
                     )}
@@ -251,8 +251,8 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                             }}
                             className={`h-7 px-2 rounded-lg text-[10px] font-bold flex items-center justify-center gap-1 transition-all active:scale-95 ${
                                 emomTimerActive
-                                    ? 'bg-sys-accent text-white'
-                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                    ? 'bg-sys-primary text-sys-onPrimary'
+                                    : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar'
                             }`}
                             aria-label={`${emomTimerActive ? 'Stop' : 'Start'} EMOM timer with ${emomTimerInterval} second interval`}
                         >
@@ -275,8 +275,8 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                                 }}
                                 className={`h-8 w-8 rounded-lg flex items-center justify-center text-xs font-bold transition-all active:scale-90 ${
                                     isDone
-                                        ? 'bg-sys-accent text-white shadow-[0_0_8px_rgba(59,130,246,0.4)]'
-                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                        ? 'bg-sys-primary text-sys-onPrimary shadow-[0_0_8px_rgba(var(--color-primary-rgb),0.4)]'
+                                        : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar'
                                 }`}
                                 aria-label={`Round ${i + 1}${isDone ? ' completed' : ''}`}
                             >
@@ -290,7 +290,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                                     e.stopPropagation();
                                     handleCompleteAll();
                                 }}
-                                className="h-8 w-8 rounded-lg bg-sys-success/20 text-sys-success flex items-center justify-center active:scale-90 transition-all"
+                                className="h-8 w-8 rounded-lg bg-sys-successContainer text-sys-onSuccessContainer flex items-center justify-center active:scale-90 transition-all"
                                 aria-label="Complete all rounds"
                             >
                                 <CheckCheck size={14} />
@@ -300,7 +300,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                 </div>
 
                 {/* Exercise List */}
-                <div className="divide-y divide-white/5">
+                <div className="divide-y divide-sys-outlineVariant">
                             {exercises.map((ex, i) => (
                                 <div key={i} className="px-3 py-2 flex items-center gap-2">
                             {/* Exercise name */}
@@ -309,7 +309,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                                 onClick={handleToggleExpand}
                                 className="flex-1 min-w-0 flex items-center gap-1.5 text-left"
                             >
-                                <span className="text-sm font-medium text-white truncate" title={ex.name}>
+                                <span className="text-sm font-medium text-sys-onSurface truncate" title={ex.name}>
                                     {getShortExerciseName(ex.name)}
                                 </span>
                                 {ex.prescription && (
@@ -324,7 +324,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                                         <button
                                             type="button"
                                             onClick={(e) => handleShowDetails(ex, e)}
-                                            className={`flex items-center gap-1.5 h-6 px-3 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar text-[9px] font-bold tracking-wide uppercase flex-shrink-0 active:scale-95 transition-all ${!ex.hasHistory ? 'opacity-80' : ''}`}
+                                            className={`flex items-center gap-1.5 h-6 px-3 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurfaceVar text-[9px] font-bold tracking-wide uppercase flex-shrink-0 active:scale-95 transition-all ${!ex.hasHistory ? 'opacity-80' : ''}`}
                                             aria-label={`View details and history for ${ex.name}`}
                                         >
                                             <History size={10} className="text-sys-onSurfaceVar" />
@@ -333,22 +333,22 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
 
                             {/* Weight stepper (only for weighted exercises) */}
                             {!ex.isBodyweight && (
-                                <div className="flex items-center gap-0.5 bg-sys-surfaceHigh rounded-lg overflow-hidden flex-shrink-0">
+                                <div className="flex items-center gap-0.5 bg-sys-surfaceContainerHigh rounded-lg overflow-hidden flex-shrink-0">
                                     <button
                                         type="button"
                                         onClick={() => handleWeightStep(ex.exId, -1)}
-                                        className="h-7 w-7 flex items-center justify-center text-sys-onSurfaceVar active:bg-white/10"
+                                        className="h-7 w-7 flex items-center justify-center text-sys-onSurfaceVar active:bg-sys-onSurface/10"
                                         aria-label="Decrease weight"
                                     >
                                         <Minus size={12} />
                                     </button>
-                                    <span className="w-10 text-center text-xs font-mono text-white">
+                                    <span className="w-10 text-center text-xs font-mono text-sys-onSurface">
                                         {localWeights[ex.exId] || '0'}
                                     </span>
                                     <button
                                         type="button"
                                         onClick={() => handleWeightStep(ex.exId, 1)}
-                                        className="h-7 w-7 flex items-center justify-center text-sys-onSurfaceVar active:bg-white/10"
+                                        className="h-7 w-7 flex items-center justify-center text-sys-onSurfaceVar active:bg-sys-onSurface/10"
                                         aria-label="Increase weight"
                                     >
                                         <Plus size={12} />

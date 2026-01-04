@@ -32,76 +32,91 @@ function getDayTheme(day: number) {
     case 1:
       return {
         hero: {
-          gradient: 'from-blue-500 to-blue-600',
-          border: 'border-blue-500/30',
-          badge: 'bg-blue-500/20 border-blue-500/30 text-blue-400',
-          iconBg: 'bg-blue-500',
-          text: 'text-blue-400',
+          gradient: 'from-sys-primary to-sys-primary/80',
+          border: 'border-sys-primary/30',
+          badge: 'bg-sys-primaryContainer border-sys-primary/30 text-sys-onPrimaryContainer',
+          iconBg: 'bg-sys-primary',
+          iconColor: 'text-sys-onPrimary',
+          text: 'text-sys-primary',
+          container: 'bg-sys-primaryContainer',
+          onContainer: 'text-sys-onPrimaryContainer'
         },
         card: {
-          bg: 'bg-blue-500/5',
-          border: 'border-blue-500/10',
-          text: 'text-blue-400',
+          bg: 'bg-sys-primaryContainer',
+          border: 'border-sys-primary/10',
+          text: 'text-sys-onPrimaryContainer',
         }
       };
     case 2:
       return {
         hero: {
-          gradient: 'from-purple-500 to-purple-600',
-          border: 'border-purple-500/30',
-          badge: 'bg-purple-500/20 border-purple-500/30 text-purple-400',
-          iconBg: 'bg-purple-500',
-          text: 'text-purple-400',
+          gradient: 'from-sys-secondary to-sys-secondary/80',
+          border: 'border-sys-secondary/30',
+          badge: 'bg-sys-secondaryContainer border-sys-secondary/30 text-sys-onSecondaryContainer',
+          iconBg: 'bg-sys-secondary',
+          iconColor: 'text-sys-onSecondary',
+          text: 'text-sys-secondary',
+          container: 'bg-sys-secondaryContainer',
+          onContainer: 'text-sys-onSecondaryContainer'
         },
         card: {
-          bg: 'bg-purple-500/5',
-          border: 'border-purple-500/10',
-          text: 'text-purple-400',
+          bg: 'bg-sys-secondaryContainer',
+          border: 'border-sys-secondary/10',
+          text: 'text-sys-onSecondaryContainer',
         }
       };
     case 3:
       return {
         hero: {
-          gradient: 'from-teal-500 to-teal-600',
-          border: 'border-teal-500/30',
-          badge: 'bg-teal-500/20 border-teal-500/30 text-teal-400',
-          iconBg: 'bg-teal-500',
-          text: 'text-teal-400',
+          gradient: 'from-sys-tertiary to-sys-tertiary/80',
+          border: 'border-sys-tertiary/30',
+          badge: 'bg-sys-tertiaryContainer border-sys-tertiary/30 text-sys-onTertiaryContainer',
+          iconBg: 'bg-sys-tertiary',
+          iconColor: 'text-sys-onTertiary',
+          text: 'text-sys-tertiary',
+          container: 'bg-sys-tertiaryContainer',
+          onContainer: 'text-sys-onTertiaryContainer'
         },
         card: {
-          bg: 'bg-teal-500/5',
-          border: 'border-teal-500/10',
-          text: 'text-teal-400',
+          bg: 'bg-sys-tertiaryContainer',
+          border: 'border-sys-tertiary/10',
+          text: 'text-sys-onTertiaryContainer',
         }
       };
     case 5:
       return {
         hero: {
-          gradient: 'from-orange-500 to-orange-600',
-          border: 'border-orange-500/30',
-          badge: 'bg-orange-500/20 border-orange-500/30 text-orange-400',
-          iconBg: 'bg-orange-500',
-          text: 'text-orange-400',
+          gradient: 'from-sys-primary to-sys-secondary',
+          border: 'border-sys-primary/30',
+          badge: 'bg-sys-primaryContainer border-sys-primary/30 text-sys-onPrimaryContainer',
+          iconBg: 'bg-sys-primary',
+          iconColor: 'text-sys-onPrimary',
+          text: 'text-sys-primary',
+          container: 'bg-sys-primaryContainer',
+          onContainer: 'text-sys-onPrimaryContainer'
         },
         card: {
-          bg: 'bg-orange-500/5',
-          border: 'border-orange-500/10',
-          text: 'text-orange-400',
+          bg: 'bg-sys-primaryContainer',
+          border: 'border-sys-primary/10',
+          text: 'text-sys-onPrimaryContainer',
         }
       };
     default:
       return {
         hero: {
-          gradient: 'from-sys-primary to-sys-primaryDim',
+          gradient: 'from-sys-primary to-sys-primary/80',
           border: 'border-sys-primary/30',
-          badge: 'bg-sys-primary/20 border-sys-primary/30 text-sys-primary',
+          badge: 'bg-sys-primaryContainer border-sys-primary/30 text-sys-onPrimaryContainer',
           iconBg: 'bg-sys-primary',
+          iconColor: 'text-sys-onPrimary',
           text: 'text-sys-primary',
+          container: 'bg-sys-surfaceContainer',
+          onContainer: 'text-sys-onSurface'
         },
         card: {
-          bg: 'bg-sys-surface',
-          border: 'border-white/5',
-          text: 'text-sys-onSurfaceVar',
+          bg: 'bg-sys-surfaceContainer',
+          border: 'border-sys-outlineVariant',
+          text: 'text-sys-onSurfaceVariant',
         }
       };
   }
@@ -299,7 +314,7 @@ export function Dashboard({
       <div className="py-4 pb-24 flex justify-center items-center gap-2">
         <button
           onClick={() => changeWeek(currentWeek - 1)}
-          className="btn-icon h-12 w-12 bg-sys-surfaceHigh text-white disabled:opacity-30"
+          className="btn-icon h-12 w-12 bg-sys-surfaceHigh text-sys-onSurface disabled:opacity-30"
           disabled={currentWeek === 1}
           aria-label="Previous week"
         >
@@ -316,8 +331,8 @@ export function Dashboard({
                 onClick={() => changeWeek(dotWeek)}
                 className={`rounded-full transition-all ${
                   dotWeek === currentWeek
-                    ? 'w-8 h-2 bg-white'
-                    : 'w-2 h-2 bg-white/30 hover:bg-white/50'
+                    ? 'w-8 h-2 bg-sys-primary'
+                    : 'w-2 h-2 bg-sys-outlineVariant hover:bg-sys-onSurfaceVariant/50'
                 }`}
                 aria-label={`Week ${dotWeek}`}
               />
@@ -326,7 +341,7 @@ export function Dashboard({
         </div>
         <button
           onClick={() => changeWeek(currentWeek + 1)}
-          className="btn-icon h-12 w-12 bg-sys-surfaceHigh text-white disabled:opacity-30"
+          className="btn-icon h-12 w-12 bg-sys-surfaceHigh text-sys-onSurface disabled:opacity-30"
           disabled={currentWeek === maxWeeks}
           aria-label="Next week"
         >
@@ -398,11 +413,11 @@ function WeekContent({
         ariaLabel={previewDay !== null ? `Preview Day ${previewDay} workout` : 'Preview workout'}
         maxHeight={85}
         showHandle={false}
-        className="border-t border-white/10"
+        className="border-t border-sys-outlineVariant"
       >
-        <div className="p-6 border-b border-white/10">
+        <div className="p-6 border-b border-sys-outlineVariant">
           <div className="flex items-center justify-between">
-            <h3 className="text-xl font-bold text-white">
+            <h3 className="text-xl font-bold text-sys-onSurface">
               {previewDay !== null ? `Day ${previewDay} Preview` : 'Preview'}
             </h3>
             <button
@@ -417,7 +432,7 @@ function WeekContent({
             </button>
           </div>
           {previewDay !== null && (
-            <div className="mt-2 text-sm text-sys-onSurfaceVar">
+            <div className="mt-2 text-sm text-sys-onSurfaceVariant">
               Week {week}
             </div>
           )}
@@ -428,7 +443,7 @@ function WeekContent({
             (() => {
               const items = getDayExercises(week, previewDay);
               if (items.length === 0) {
-                return <div className="text-sys-onSurfaceVar">Rest day</div>;
+                return <div className="text-sys-onSurfaceVariant">Rest day</div>;
               }
 
               return (
@@ -437,13 +452,13 @@ function WeekContent({
                     <div
                       // Raw schedule items do not have stable IDs; index is acceptable for read-only preview.
                       key={`${previewDay}-${idx}-${item.ex}`}
-                      className="p-3 rounded-xl bg-sys-surface border border-white/5"
+                      className="p-3 rounded-xl bg-sys-surface border border-sys-outlineVariant"
                     >
-                      <div className="text-sm text-white font-medium">
+                      <div className="text-sm text-sys-onSurface font-medium">
                         {formatScheduleItem(item)}
                       </div>
                       {(item.category || item.n) && (
-                        <div className="mt-1 text-xs text-sys-onSurfaceVar">
+                        <div className="mt-1 text-xs text-sys-onSurfaceVariant">
                           {item.category ?? 'work'}
                           {item.n ? ` • ${item.n}` : ''}
                         </div>
@@ -517,11 +532,11 @@ function WeekContent({
                             haptic.tick();
                             onStartWorkout(day);
                         }}
-                        className="relative overflow-hidden rounded-[32px] p-6 text-left transition-all active:scale-[0.98] group scroll-mt-16"
+                        className={`relative overflow-hidden rounded-[32px] p-6 text-left transition-all active:scale-[0.98] group scroll-mt-16 ${theme.hero.container} shadow-elevation-2`}
                         aria-label={`Start Day ${day} workout`}
                     >
                         {/* Background with gradient */}
-                        <div className={`absolute inset-0 bg-gradient-to-br ${theme.hero.gradient} opacity-20 group-active:opacity-30 transition-opacity`} />
+                        <div className={`absolute inset-0 bg-gradient-to-br ${theme.hero.gradient} opacity-10 group-active:opacity-20 transition-opacity`} />
                         <div className={`absolute inset-0 border-2 ${theme.hero.border} rounded-[32px]`} />
 
                         <div className="relative z-10">
@@ -529,19 +544,29 @@ function WeekContent({
                                 <div className={`px-3 py-1 rounded-full ${theme.hero.badge} text-xs font-bold uppercase tracking-wider`}>
                                     Next Up
                                 </div>
-                                <div className={`h-10 w-10 rounded-full ${theme.hero.iconBg} text-sys-black flex items-center justify-center shadow-lg shadow-sys-primary/20`}>
+                                <div className={`h-10 w-10 rounded-full ${theme.hero.iconBg} ${theme.hero.iconColor} flex items-center justify-center shadow-md`}>
                                     <Play size={20} fill="currentColor" />
                                 </div>
                             </div>
 
-                            <h3 className="text-lg font-bold text-white mb-2">Day {day}</h3>
-                            <p className="text-sys-onSurfaceVar text-sm line-clamp-2 mb-4">
+                            <h3 className={`text-2xl font-bold ${theme.hero.onContainer} mb-1`}>Day {day}</h3>
+                            <p className={`text-sm ${theme.hero.onContainer} opacity-80 mb-4 line-clamp-1`}>
                                 {getExerciseSummary(week, day)}
                             </p>
 
-                            <div className={`flex items-center gap-2 ${theme.hero.text} text-sm font-bold`}>
-                                <span>Start Workout</span>
-                                <ChevronRight size={16} />
+                            <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-1.5">
+                                    <div className={`h-1.5 w-1.5 rounded-full ${theme.hero.iconBg}`} />
+                                    <span className={`text-xs font-bold ${theme.hero.onContainer} opacity-60 uppercase tracking-wider`}>
+                                        {getDayExercises(week, day).length} Exercises
+                                    </span>
+                                </div>
+                                <div className="flex items-center gap-1.5">
+                                    <div className={`h-1.5 w-1.5 rounded-full ${theme.hero.iconBg}`} />
+                                    <span className={`text-xs font-bold ${theme.hero.onContainer} opacity-60 uppercase tracking-wider`}>
+                                        45-60 Min
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </button>
@@ -560,7 +585,7 @@ function WeekContent({
                     <h4 className="text-title-md font-bold text-sys-onSurface mb-1">
                       Day {day}
                     </h4>
-                    <p className="text-body-sm text-sys-onSurfaceVar line-clamp-1">
+                    <p className="text-body-sm text-sys-onSurfaceVariant line-clamp-1">
                       {getExerciseSummary(week, day)}
                     </p>
                   </div>
@@ -598,7 +623,9 @@ function WeekContent({
                     }}
                     className={`btn-md3 flex-1 ${
                       isInProgress
-                        ? 'btn-gradient-primary-mockup'
+                        ? 'btn-filled'
+                        : done
+                        ? 'btn-tonal'
                         : 'btn-filled'
                     } flex items-center justify-center gap-2`}
                     aria-label={`${done ? 'View' : isInProgress ? 'Resume' : 'Start'} Day ${day} workout`}

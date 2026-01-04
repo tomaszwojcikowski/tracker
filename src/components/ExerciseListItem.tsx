@@ -7,6 +7,7 @@
 
 import React, { useState } from 'react';
 import { ChevronUp } from './icons';
+import { TextField } from './TextField';
 import type { Exercise } from '../types';
 import type { HapticFeedback } from '../hooks';
 
@@ -106,48 +107,33 @@ export const ExerciseListItem: React.FC<ExerciseListItemProps> = ({
             {showAddForm && (
                 <div className="mt-4 pt-4 border-t border-sys-outlineVariant">
                     <div className="grid grid-cols-3 gap-3 mb-3">
-                        <div>
-                            <label className="text-[10px] text-sys-onSurfaceVar uppercase font-bold mb-1.5 block tracking-wider">
-                                Sets
-                            </label>
-                            <input
-                                type="number"
-                                min="1"
-                                max="10"
-                                value={sets}
-                                onChange={(e) => setSets(parseInt(e.target.value) || 1)}
-                                className="w-full h-10 px-3 bg-sys-surfaceContainer rounded-xl text-sys-onSurface text-center font-mono outline-none focus:ring-2 focus:ring-sys-primary border border-sys-outlineVariant"
-                            />
-                        </div>
+                        <TextField
+                            label="Sets"
+                            type="number"
+                            value={sets.toString()}
+                            onChange={(v) => setSets(parseInt(v) || 1)}
+                            variant="outlined"
+                            inputMode="numeric"
+                        />
                         {!exercise.isBodyweight && (
-                            <div>
-                                <label className="text-[10px] text-sys-onSurfaceVar uppercase font-bold mb-1.5 block tracking-wider">
-                                    Weight
-                                </label>
-                                <input
-                                    type="number"
-                                    inputMode="decimal"
-                                    value={weight}
-                                    onChange={(e) => setWeight(e.target.value)}
-                                    placeholder="kg"
-                                    className="w-full h-10 px-3 bg-sys-surfaceContainer rounded-xl text-sys-onSurface text-center font-mono outline-none focus:ring-2 focus:ring-sys-primary border border-sys-outlineVariant"
-                                />
-                            </div>
-                        )}
-                        <div>
-                            <label className="text-[10px] text-sys-onSurfaceVar uppercase font-bold mb-1.5 block tracking-wider">
-                                Rest (s)
-                            </label>
-                            <input
+                            <TextField
+                                label="Weight"
                                 type="number"
-                                min="0"
-                                max="300"
-                                step="15"
-                                value={rest}
-                                onChange={(e) => setRest(parseInt(e.target.value) || DEFAULT_REST_TIME)}
-                                className="w-full h-10 px-3 bg-sys-surfaceContainer rounded-xl text-sys-onSurface text-center font-mono outline-none focus:ring-2 focus:ring-sys-primary border border-sys-outlineVariant"
+                                value={weight}
+                                onChange={setWeight}
+                                placeholder="kg"
+                                variant="outlined"
+                                inputMode="decimal"
                             />
-                        </div>
+                        )}
+                        <TextField
+                            label="Rest (s)"
+                            type="number"
+                            value={rest.toString()}
+                            onChange={(v) => setRest(parseInt(v) || DEFAULT_REST_TIME)}
+                            variant="outlined"
+                            inputMode="numeric"
+                        />
                     </div>
                     <button
                         onClick={handleAdd}

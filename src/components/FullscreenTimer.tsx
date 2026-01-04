@@ -325,7 +325,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
       </main>
 
       {/* Bottom controls */}
-      <footer className="relative z-10 px-6 pb-[max(2rem,env(safe-area-inset-bottom))]">
+      <footer className="relative z-10 px-6 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] bg-gradient-to-t from-sys-surface via-sys-surface/95 to-transparent">
         {!isComplete && (
           <div className="flex items-center justify-center gap-5">
             {isEmom ? (

@@ -178,6 +178,210 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     border-color: var(--color-outline-variant);
 }
 
+/* MD3 Card Component Styles */
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+}
+
+/* Card Variant Overrides */
+.card.card-filled {
+    background: var(--color-surface-container-highest);
+    box-shadow: none;
+    border: none;
+}
+
+.card.card-filled:hover {
+    background: var(--color-surface-container-high);
+    box-shadow: var(--elevation-1);
+}
+
+.card.card-elevated {
+    background: var(--color-surface-container-low);
+    box-shadow: var(--elevation-1);
+    border: none;
+}
+
+.card.card-elevated:hover {
+    background: var(--color-surface-container);
+    box-shadow: var(--elevation-2);
+}
+
+.card.card-outlined {
+    background: var(--color-surface);
+    border: 1px solid var(--color-outline);
+    box-shadow: none;
+}
+
+.card.card-outlined:hover {
+    background: var(--color-surface-container-lowest);
+    border-color: var(--color-outline-variant);
+    box-shadow: var(--elevation-0);
+}
+
+/* Interactive Card States */
+.card[role="button"] {
+    cursor: pointer;
+    user-select: none;
+}
+
+.card[role="button"]:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+}
+
+.card[role="button"]:active {
+    transform: scale(0.98);
+}
+
+/* Card Header Section */
+.card-header {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    padding: 16px;
+    border-bottom: 1px solid var(--color-outline-variant);
+    align-items: flex-start;
+}
+
+.card-header-leading {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-header-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    color: var(--color-on-surface);
+    margin: 0;
+}
+
+.card-subtitle {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    color: var(--color-on-surface-variant);
+    margin: 0;
+}
+
+.card-header-trailing {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Card Content Section */
+.card-content {
+    flex: 1;
+    padding: 16px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-on-surface);
+}
+
+.card-header + .card-content {
+    padding-top: 12px;
+}
+
+/* Card Actions Section */
+.card-actions {
+    display: flex;
+    gap: 8px;
+    padding: 8px 16px;
+    border-top: 1px solid var(--color-outline-variant);
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.card-actions.flex-col {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+}
+
+.card-actions button {
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--color-primary);
+    background: transparent;
+}
+
+.card-actions button:hover {
+    background: var(--color-primary-container);
+    color: var(--color-on-primary-container);
+}
+
+.card-actions button:active {
+    transform: scale(0.95);
+}
+
+.card-actions button.primary {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+}
+
+.card-actions button.primary:hover {
+    background: var(--color-primary);
+    opacity: 0.9;
+}
+
+/* Light Theme Card Overrides */
+:root.theme-light .card.card-filled {
+    background: #f5f5f5;
+    color: #1f1f1f;
+}
+
+:root.theme-light .card.card-filled:hover {
+    background: #eeeeee;
+}
+
+:root.theme-light .card.card-outlined {
+    background: #fafafa;
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+:root.theme-light .card.card-outlined:hover {
+    background: #f5f5f5;
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+:root.theme-light .card-header,
+:root.theme-light .card-actions {
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+:root.theme-light .card-title {
+    color: #1f1f1f;
+}
+
+:root.theme-light .card-subtitle,
+:root.theme-light .card-content {
+    color: rgba(0, 0, 0, 0.6);
+}
+
 /* Accent glow effect */
 .accent-glow {
     box-shadow: 0 0 20px rgba(14, 165, 233, 0.4), var(--shadow-primary);
@@ -2267,3 +2471,431 @@ button,
 .preload * {
     transition: none !important;
 }
+/* ============================================================================
+   MATERIAL DESIGN 3 TEXT FIELD
+   Filled and outlined variants with proper labels and supporting text
+   ============================================================================ */
+
+.text-field-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+}
+
+/* Label styling */
+.text-field-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    color: var(--color-on-surface-variant);
+    transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.text-field-label-error {
+    color: var(--color-error);
+}
+
+.text-field-label-disabled {
+    color: var(--color-on-surface);
+    opacity: 0.38;
+}
+
+.text-field-required {
+    color: var(--color-error);
+    margin-left: 2px;
+}
+
+/* Input wrapper (container) */
+.text-field-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 56px;
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Filled variant */
+.text-field-filled .text-field-input-wrapper {
+    background-color: var(--color-surface-container-high);
+    border-radius: 4px 4px 0 0;
+    border-bottom: 2px solid var(--color-on-surface-variant);
+}
+
+.text-field-filled .text-field-input-wrapper:hover:not(.text-field-disabled):not(.text-field-error) {
+    background-color: var(--color-surface-container-highest);
+    border-bottom-color: var(--color-on-surface);
+}
+
+.text-field-filled .text-field-input-wrapper:focus-within:not(.text-field-disabled) {
+    border-bottom-color: var(--color-primary);
+    background-color: var(--color-surface-container-highest);
+}
+
+.text-field-filled.text-field-error .text-field-input-wrapper {
+    border-bottom-color: var(--color-error);
+}
+
+/* Outlined variant */
+.text-field-outlined .text-field-input-wrapper {
+    background-color: transparent;
+    border: 1px solid var(--color-outline);
+    border-radius: 4px;
+    padding: 0 12px;
+}
+
+.text-field-outlined .text-field-input-wrapper:hover:not(.text-field-disabled):not(.text-field-error) {
+    border-color: var(--color-on-surface);
+}
+
+.text-field-outlined .text-field-input-wrapper:focus-within:not(.text-field-disabled) {
+    border-color: var(--color-primary);
+    border-width: 2px;
+    padding: 0 11px;
+}
+
+.text-field-outlined.text-field-error .text-field-input-wrapper {
+    border-color: var(--color-error);
+}
+
+/* Input element */
+.text-field-input {
+    flex: 1;
+    height: 100%;
+    background: transparent;
+    color: var(--color-on-surface);
+    font-size: 16px;
+    font-family: inherit;
+    border: none;
+    outline: none;
+    padding: 8px 0;
+    transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.text-field-input::placeholder {
+    color: var(--color-on-surface-variant);
+    opacity: 0.5;
+}
+
+.text-field-input:disabled {
+    color: var(--color-on-surface);
+    opacity: 0.38;
+    cursor: not-allowed;
+}
+
+.text-field-input-error {
+    color: var(--color-error);
+}
+
+/* Icon styling */
+.text-field-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-on-surface-variant);
+    transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.text-field-icon-left {
+    margin-right: 12px;
+}
+
+.text-field-icon-right {
+    margin-left: 12px;
+}
+
+.text-field-input:focus ~ .text-field-icon-right-slot {
+    color: var(--color-primary);
+}
+
+/* Supporting text */
+.text-field-supporting {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--color-on-surface-variant);
+    transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 16px;
+}
+
+.text-field-supporting-error {
+    color: var(--color-error);
+}
+
+/* Character counter */
+.text-field-counter {
+    font-size: 12px;
+    color: var(--color-on-surface-variant);
+    text-align: right;
+    margin-top: 4px;
+}
+
+/* Disabled state */
+.text-field-disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+}
+
+.text-field-disabled .text-field-input-wrapper {
+    background-color: var(--color-surface-container-high);
+    border-color: var(--color-on-surface-variant);
+}
+
+/* Light theme adjustments */
+:root.theme-light .text-field-filled .text-field-input-wrapper {
+    background-color: var(--color-surface-container-low);
+    border-bottom-color: rgba(0, 0, 0, 0.42);
+}
+
+:root.theme-light .text-field-filled .text-field-input-wrapper:focus-within:not(.text-field-disabled) {
+    background-color: var(--color-surface-container-low);
+}
+
+:root.theme-light .text-field-outlined .text-field-input-wrapper {
+    border-color: rgba(0, 0, 0, 0.38);
+}
+
+:root.theme-light .text-field-outlined .text-field-input-wrapper:hover:not(.text-field-disabled):not(.text-field-error) {
+    border-color: rgba(0, 0, 0, 0.87);
+}
+
+:root.theme-light .text-field-input::placeholder {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+/* ============================================================================
+   MATERIAL DESIGN 3 DIVIDER
+   Full-width and inset variants for visual separation
+   ============================================================================ */
+
+.divider {
+    height: 1px;
+    background-color: var(--color-outline-variant);
+    width: 100%;
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Full-width divider - spans entire width */
+.divider-full-width {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Inset divider - indented from edges (16dp on mobile) */
+.divider-inset {
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+/* Middle divider - equal inset on both sides (72dp on desktop, 16dp on mobile) */
+.divider-middle {
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+@media (min-width: 768px) {
+    .divider-inset,
+    .divider-middle {
+        margin-left: 72px;
+        margin-right: 72px;
+    }
+}
+
+/* Divider with label */
+.divider-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.divider-container.divider-full-width {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.divider-container.divider-inset {
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: var(--color-outline-variant);
+}
+
+.divider-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-on-surface-variant);
+    white-space: nowrap;
+    padding: 0 8px;
+}
+
+/* Light theme adjustments */
+:root.theme-light .divider {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+:root.theme-light .divider-line {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================================================
+   MATERIAL DESIGN 3 LINEAR PROGRESS INDICATOR
+   Determinate and indeterminate variants
+   ============================================================================ */
+
+.linear-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.linear-progress-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-on-surface-variant);
+}
+
+.linear-progress-container {
+    position: relative;
+    height: 4px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 2px;
+    background-color: var(--color-surface-container-high);
+}
+
+/* Determinate progress */
+.linear-progress-determinate .linear-progress-indicator {
+    transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Indeterminate progress */
+.linear-progress-indeterminate .linear-progress-indicator {
+    animation: linear-progress-indeterminate 1.5s infinite;
+}
+
+@keyframes linear-progress-indeterminate {
+    0% {
+        left: -100%;
+        width: 100%;
+    }
+    50% {
+        left: 100%;
+        width: 10%;
+    }
+    100% {
+        left: 100%;
+        width: 100%;
+    }
+}
+
+/* Progress indicator colors */
+.linear-progress-primary .linear-progress-indicator {
+    background-color: var(--color-primary);
+}
+
+.linear-progress-success .linear-progress-indicator {
+    background-color: var(--color-success);
+}
+
+.linear-progress-error .linear-progress-indicator {
+    background-color: var(--color-error);
+}
+
+.linear-progress-warning .linear-progress-indicator {
+    background-color: var(--color-warning);
+}
+
+/* Buffer indicator */
+.linear-progress-buffer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--color-primary);
+    opacity: 0.3;
+    transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Value text */
+.linear-progress-value {
+    font-size: 12px;
+    color: var(--color-on-surface-variant);
+    text-align: right;
+}
+
+/* ============================================================================
+   MATERIAL DESIGN 3 CIRCULAR PROGRESS INDICATOR
+   Determinate and indeterminate variants
+   ============================================================================ */
+
+.circular-progress {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.circular-progress-svg {
+    transform: rotate(-90deg);
+}
+
+/* Circular progress track */
+.circular-progress-track {
+    fill: none;
+    stroke: var(--color-surface-container-high);
+    stroke-width: 4;
+}
+
+/* Circular progress indicator */
+.circular-progress-indicator {
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 4;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.circular-progress-determinate .circular-progress-indicator {
+    stroke-dasharray: var(--circumference);
+}
+
+.circular-progress-indeterminate .circular-progress-indicator {
+    animation: circular-progress-indeterminate 1.8s linear infinite;
+}
+
+@keyframes circular-progress-indeterminate {
+    0% {
+        stroke-dasharray: 1px, var(--circumference);
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: var(--circumference) / 2, var(--circumference);
+        stroke-dashoffset: calc(var(--circumference) / -4);
+    }
+    100% {
+        stroke-dasharray: 1px, var(--circumference);
+        stroke-dashoffset: calc(var(--circumference) / -1);
+    }
+}
+
+/* Color variants */
+.circular-progress-success .circular-progress-indicator {
+    stroke: var(--color-success);
+}
+
+.circular-progress-error .circular-progress-indicator {
+    stroke: var(--color-error);
+}
+
+.circular-progress-warning .circular-progress-indicator {
+    stroke: var(--color-warning);
+}
+
+

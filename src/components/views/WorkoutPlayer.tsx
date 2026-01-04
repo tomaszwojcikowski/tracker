@@ -300,6 +300,29 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     // Track which flow exercise the current flow timer is associated with (for future use)
     const [_activeFlowExerciseId, setActiveFlowExerciseId] = useState<string | null>(null);
 
+    // ========================================================================
+    // TIMER MANAGEMENT - Ensure only one timer runs at a time
+    // ========================================================================
+
+    /**
+     * Stop all other timers when starting one.
+     * Only one timer (rest, emom, or density) should run at a time.
+     */
+    const stopOtherTimers = useCallback((activeTimerType: 'rest' | 'emom' | 'density' | 'flow') => {
+        if (activeTimerType !== 'rest') {
+            restTimer.stop();
+        }
+        if (activeTimerType !== 'emom') {
+            emomTimer.stop();
+        }
+        if (activeTimerType !== 'density') {
+            densityTimer.stop();
+        }
+        if (activeTimerType !== 'flow') {
+            flowTimer.stop();
+        }
+    }, [restTimer, emomTimer, densityTimer, flowTimer]);
+
     // Clear association when the density timer fully stops/completes
     useEffect(() => {
         if (!densityTimer.active && densityTimer.seconds === 0) {
@@ -696,6 +719,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 if (isEmom) {
                     // For EMOM exercises, ensure the EMOM timer is running
                     if (!emomTimer.active) {
+                        stopOtherTimers('emom');
                         emomTimer.start();
                     }
                 } else if (typeof restTime === 'number' && restTime > 0) {
@@ -709,6 +733,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         const hasIncompleteSets = completedSetsCount < totalSets;
 
                         if (hasIncompleteSets) {
+                            stopOtherTimers('rest');
                             restTimer.start(restTime);
                         }
                     }
@@ -797,6 +822,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 if (isEmom) {
                     // For EMOM supersets, ensure the EMOM timer is running
                     if (!emomTimer.active) {
+                        stopOtherTimers('emom');
                         emomTimer.start();
                     }
                 } else if (typeof restTime === 'number' && restTime > 0 && hasIncompleteSetsAfter) {
@@ -804,6 +830,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     const shouldDisableTimer = sectionType === 'prep' || sectionType === 'cool';
 
                     if (!shouldDisableTimer) {
+                        stopOtherTimers('rest');
                         restTimer.start(restTime);
                     }
                 }
@@ -1176,12 +1203,35 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     }, [activeDensityExerciseId, activeDensityExercise, logs, updateDensityRepChunks, markDensityComplete]);
 
     // Consolidated timer props - used across all exercise card variants
-    const timerProps: TimerProps = useMemo(() => createTimerProps(
-        { active: emomTimer.active, interval: emomTimer.interval, toggle: emomTimer.toggle },
-        { start: restTimer.start, active: restTimer.active },
-        { active: densityTimer.active, toggle: densityTimer.toggle },
-        { active: flowTimer.active, toggle: flowTimer.toggle }
-    ), [emomTimer.active, emomTimer.interval, emomTimer.toggle, restTimer.start, restTimer.active, densityTimer.active, densityTimer.toggle, flowTimer.active, flowTimer.toggle]);
+    // Wrapped with stopOtherTimers to ensure only one timer runs at a time
+    const timerProps: TimerProps = useMemo(() => {
+        const wrappedEmomToggle = () => {
+            stopOtherTimers('emom');
+            emomTimer.toggle();
+        };
+
+        const wrappedDensityToggle = densityTimer.toggle ? (minutes: number) => {
+            stopOtherTimers('density');
+            densityTimer.toggle(minutes);
+        } : undefined;
+
+        const wrappedFlowToggle = flowTimer.toggle ? (minutes: number) => {
+            stopOtherTimers('flow');
+            flowTimer.toggle(minutes);
+        } : undefined;
+
+        const wrappedRestStart = (seconds: number) => {
+            stopOtherTimers('rest');
+            restTimer.start(seconds);
+        };
+
+        return createTimerProps(
+            { active: emomTimer.active, interval: emomTimer.interval, toggle: wrappedEmomToggle },
+            { start: wrappedRestStart, active: restTimer.active },
+            wrappedDensityToggle ? { active: densityTimer.active, toggle: wrappedDensityToggle } : undefined,
+            wrappedFlowToggle ? { active: flowTimer.active, toggle: wrappedFlowToggle } : undefined
+        );
+    }, [emomTimer.active, emomTimer.interval, emomTimer.toggle, restTimer.start, restTimer.active, densityTimer.active, densityTimer.toggle, flowTimer.active, flowTimer.toggle, stopOtherTimers]);
 
     // Consolidated RPE props - used across all exercise card variants
     const rpeProps: RPEProps = useMemo(() => createRPEProps(
@@ -1619,11 +1669,15 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     restTimerActive={restTimer.active}
                                                     emomTimerActive={emomTimer.active}
                                                     emomTimerInterval={emomTimer.interval}
-                                                    onToggleEmomTimer={emomTimer.toggle}
+                                                    onToggleEmomTimer={() => {
+                                                        stopOtherTimers('emom');
+                                                        emomTimer.toggle();
+                                                    }}
                                                     densityTimerActive={densityTimer.active}
                                                     onToggleDensityTimer={() => {
                                                         if (exerciseWithOptions.densityTimeMinutes) {
                                                             setActiveDensityExerciseId(exId);
+                                                            stopOtherTimers('density');
                                                             densityTimer.toggle(exerciseWithOptions.densityTimeMinutes);
                                                         }
                                                     }}
@@ -1632,6 +1686,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         const flags = getExerciseTypeFlags(exerciseWithOptions);
                                                         if (flags.flowTimeMinutes) {
                                                             setActiveFlowExerciseId(exId);
+                                                            stopOtherTimers('flow');
                                                             flowTimer.toggle(flags.flowTimeMinutes);
                                                         }
                                                     }}
@@ -1681,10 +1736,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 {...timerProps}
                                                 onToggleDensityTimer={(timeMinutes) => {
                                                     setActiveDensityExerciseId(exId);
+                                                    stopOtherTimers('density');
                                                     densityTimer.toggle(timeMinutes);
                                                 }}
                                                 onToggleFlowTimer={(timeMinutes) => {
                                                     setActiveFlowExerciseId(exId);
+                                                    stopOtherTimers('flow');
                                                     flowTimer.toggle(timeMinutes);
                                                 }}
                                                 haptic={haptic}

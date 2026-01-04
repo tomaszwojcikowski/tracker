@@ -45,101 +45,70 @@ describe('UpdatePrompt', () => {
 
   it('should show offline ready notification', () => {
     render(
-      <UpdatePrompt 
-        {...defaultProps} 
-        offlineReady={true} 
-        isOnline={true} 
-      />
-    );
-    expect(screen.getByText(/Ready for Offline Use/i)).toBeInTheDocument();
-    expect(screen.getByText(/App cached successfully/i)).toBeInTheDocument();
-  });
-
-  it('should dismiss offline ready notification on click', () => {
-    const onDismissOffline = vi.fn();
-    render(
-      <UpdatePrompt 
-        {...defaultProps} 
-        offlineReady={true} 
+      <UpdatePrompt
+        {...defaultProps}
+        offlineReady={true}
         isOnline={true}
-        onDismissOffline={onDismissOffline}
       />
     );
-    
-    const dismissButton = screen.getByRole('button', { name: /dismiss/i });
-    fireEvent.click(dismissButton);
-    expect(onDismissOffline).toHaveBeenCalledTimes(1);
+    expect(screen.getByText(/ready for offline use/i)).toBeInTheDocument();
   });
 
   it('should show update available notification', () => {
     render(
-      <UpdatePrompt 
-        {...defaultProps} 
-        needRefresh={true} 
+      <UpdatePrompt
+        {...defaultProps}
+        needRefresh={true}
       />
     );
-    expect(screen.getByText(/Update Available/i)).toBeInTheDocument();
-    expect(screen.getByText(/A new version is available/i)).toBeInTheDocument();
+    expect(screen.getByText(/Update available/i)).toBeInTheDocument();
   });
 
-  it('should have reload button for updates', () => {
+  it('should have reload action button for updates', () => {
     render(
-      <UpdatePrompt 
-        {...defaultProps} 
-        needRefresh={true} 
+      <UpdatePrompt
+        {...defaultProps}
+        needRefresh={true}
       />
     );
-    expect(screen.getByRole('button', { name: /Reload Now/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Later/i })).toBeInTheDocument();
+    const reloadButton = screen.getByRole('button', { name: 'Reload' });
+    expect(reloadButton).toBeInTheDocument();
   });
 
   it('should call onAccept when reload button clicked', () => {
     const onAccept = vi.fn();
     render(
-      <UpdatePrompt 
-        {...defaultProps} 
+      <UpdatePrompt
+        {...defaultProps}
         needRefresh={true}
         onAccept={onAccept}
       />
     );
-    
-    fireEvent.click(screen.getByRole('button', { name: /Reload Now/i }));
-    expect(onAccept).toHaveBeenCalledTimes(1);
-  });
 
-  it('should call onDismiss when later button clicked', () => {
-    const onDismiss = vi.fn();
-    render(
-      <UpdatePrompt 
-        {...defaultProps} 
-        needRefresh={true}
-        onDismiss={onDismiss}
-      />
-    );
-    
-    fireEvent.click(screen.getByRole('button', { name: /Later/i }));
-    expect(onDismiss).toHaveBeenCalledTimes(1);
+    const reloadButton = screen.getByRole('button', { name: 'Reload' });
+    fireEvent.click(reloadButton);
+    expect(onAccept).toHaveBeenCalledTimes(1);
   });
 
   it('should prioritize update notification over offline ready', () => {
     render(
-      <UpdatePrompt 
-        {...defaultProps} 
+      <UpdatePrompt
+        {...defaultProps}
         needRefresh={true}
         offlineReady={true}
         isOnline={true}
       />
     );
-    
+
     // Update should show, not offline ready
-    expect(screen.getByText(/Update Available/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Ready for Offline Use/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/Update available/i)).toBeInTheDocument();
+    expect(screen.queryByText(/ready for offline use/i)).not.toBeInTheDocument();
   });
 
   it('should not show offline ready when offline', () => {
     const { container } = render(
-      <UpdatePrompt 
-        {...defaultProps} 
+      <UpdatePrompt
+        {...defaultProps}
         offlineReady={true}
         isOnline={false}
       />

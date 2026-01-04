@@ -1,5 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { captureError } from '../utils/errorReporting';
+import { ConfirmDialog } from './Dialog';
 
 interface ErrorBoundaryProps {
     children: ReactNode;
@@ -12,6 +13,7 @@ interface ErrorBoundaryState {
     errorInfo: ErrorInfo | null;
     isRecovering: boolean;
     rawError: unknown;
+    showClearConfirm: boolean;
 }
 
 /**
@@ -34,6 +36,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             errorInfo: null,
             isRecovering: false,
             rawError: null,
+            showClearConfirm: false,
         };
     }
 
@@ -129,14 +132,20 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     };
 
     handleClearAll = (): void => {
-        if (window.confirm('This will delete ALL workout data. Are you sure?')) {
-            try {
-                localStorage.clear();
-                window.location.reload();
-            } catch (e) {
-                console.error('Failed to clear storage:', e);
-            }
+        this.setState({ showClearConfirm: true });
+    };
+
+    handleConfirmClear = (): void => {
+        try {
+            localStorage.clear();
+            window.location.reload();
+        } catch (e) {
+            console.error('Failed to clear storage:', e);
         }
+    };
+
+    handleCancelClear = (): void => {
+        this.setState({ showClearConfirm: false });
     };
 
     render(): ReactNode {
@@ -258,6 +267,18 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                     <p className="text-xs text-sys-onSurfaceVar text-center mt-8 max-w-xs">
                         If the problem persists, try clearing your browser cache or contact support.
                     </p>
+
+                    {/* Clear All Confirmation Dialog */}
+                    <ConfirmDialog
+                        isOpen={this.state.showClearConfirm}
+                        onClose={this.handleCancelClear}
+                        onConfirm={this.handleConfirmClear}
+                        title="Clear All Data?"
+                        message="This will delete ALL workout data including your history, logs, and settings. This action cannot be undone."
+                        confirmLabel="Clear All"
+                        cancelLabel="Cancel"
+                        destructive
+                    />
                 </div>
             );
         }

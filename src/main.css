@@ -256,6 +256,22 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     }
 }
 
+/* Dialog scale-up animation */
+.animate-scale-up {
+    animation: scaleUp 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes scaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 /* Focus mode slide animations with full swipe effect */
 .animate-slide-in-left {
     animation: slideInLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1043,6 +1059,8 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 
 /* ============================================================================
    MATERIAL DESIGN 3 CHIPS
+   MD3 Filter Chips - 32dp height, 8dp radius, 8dp gap between chips
+   Selected state: secondary-container with leading checkmark
    ============================================================================ */
 
 .chip-container {
@@ -1051,35 +1069,77 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     gap: 8px;
 }
 
+/* Base chip - unselected state */
 .chip {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     height: 32px;
-    padding: 0 12px;
-    border-radius: var(--radius-sm);
+    min-height: 32px;
+    padding: 0 16px;
+    border-radius: 8px;
     font-size: 14px;
     font-weight: 500;
+    letter-spacing: 0.1px;
+    line-height: 20px;
     border: 1px solid var(--color-outline);
     background: transparent;
     color: var(--color-on-surface-variant);
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.chip.active {
+/* Chip with leading icon (checkmark for selected) */
+.chip.has-icon {
+    padding-left: 8px;
+}
+
+/* Selected state - MD3 filter chip */
+.chip.active,
+.chip[aria-selected="true"] {
     background: var(--color-secondary-container);
     color: var(--color-on-secondary-container);
     border-color: transparent;
 }
 
-.chip:hover:not(.active) {
-    background: var(--state-hover);
+/* Hover state - unselected */
+.chip:hover:not(.active):not([aria-selected="true"]) {
+    background: color-mix(in srgb, var(--color-on-surface) 8%, transparent);
 }
 
+/* Hover state - selected */
+.chip.active:hover,
+.chip[aria-selected="true"]:hover {
+    background: color-mix(in srgb, var(--color-on-secondary-container) 8%, var(--color-secondary-container));
+}
+
+/* Focus state */
+.chip:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Pressed state */
 .chip:active {
     transform: scale(0.96);
+}
+
+/* Disabled state */
+.chip:disabled,
+.chip[aria-disabled="true"] {
+    opacity: 0.38;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Chip icon (leading checkmark) */
+.chip-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
 }
 
 /* Filter Chip variant */
@@ -1970,7 +2030,7 @@ img {
    Status pills, week selector pills, and enhanced UI elements
    ============================================================================ */
 
-/* Week Selector Pills */
+/* Week Selector Pills - MD3 Filter Chip variant */
 .week-pill {
     display: inline-flex;
     align-items: center;
@@ -1978,27 +2038,29 @@ img {
     min-width: 44px;
     height: 44px;
     padding: 0 16px;
-    border-radius: var(--radius-md);
+    border-radius: 8px;
     font-size: 13px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-weight: 600;
+    letter-spacing: 0.1px;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     border: 1px solid var(--color-outline-variant);
     background: var(--color-surface-container-low);
     color: var(--color-on-surface-variant);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.week-pill:hover {
+.week-pill:hover:not(.active) {
     background: var(--color-surface-container);
     border-color: var(--color-outline);
-    transform: translateY(-1px);
 }
 
 .week-pill:active {
-    transform: translateY(0) scale(0.96);
+    transform: scale(0.96);
 }
 
+/* Selected state - primary container for emphasis */
 .week-pill.active {
     background: var(--color-primary);
     border-color: transparent;
@@ -2006,11 +2068,13 @@ img {
     box-shadow: var(--elevation-1);
 }
 
-/* Remove light theme specific overrides as they now use semantic tokens */
-:root.theme-light .week-pill,
-:root.theme-light .week-pill:hover,
-:root.theme-light .week-pill.active {
-    /* Inherit from base */
+.week-pill.active:hover {
+    box-shadow: var(--elevation-2);
+}
+
+.week-pill:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
 
 /* Continue Card Styles */

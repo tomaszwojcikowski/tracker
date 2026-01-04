@@ -73,8 +73,11 @@ describe('SettingsView - clear progress data', () => {
     // Switch to Programs tab
     fireEvent.click(screen.getByRole('button', { name: /programs/i }));
 
-    // Click clear progress data
+    // Click clear progress data button
     fireEvent.click(screen.getByRole('button', { name: /clear your progress data/i }));
+
+    // Confirm the dialog by clicking "Delete Progress" button
+    fireEvent.click(screen.getByRole('button', { name: /delete progress/i }));
 
     expect(mocks.resetProgramProgress).toHaveBeenCalledWith('program-1');
     expect(mocks.scheduleSync).toHaveBeenCalled();

@@ -1,8 +1,9 @@
 /**
  * PWA Update Prompt Component
- * Shows notifications for app updates and offline status
+ * Shows notifications for app updates and offline status using MD3 Snackbar
  */
 import React from 'react';
+import { Snackbar } from './Snackbar';
 
 export interface UpdatePromptProps {
   needRefresh: boolean;
@@ -14,75 +15,34 @@ export interface UpdatePromptProps {
 }
 
 /**
- * Update notification toast
+ * Update notification using Snackbar
  */
 export function UpdatePrompt({ needRefresh, offlineReady, isOnline, onAccept, onDismiss, onDismissOffline }: UpdatePromptProps): React.ReactElement | null {
   // Prioritize update available notification over offline ready
   if (needRefresh) {
     return (
-      <div className="fixed bottom-20 left-4 right-4 z-50 animate-slide-up">
-        <div className="bg-blue-900/95 backdrop-blur-sm border border-blue-700 rounded-xl p-4 shadow-xl">
-          <div className="flex items-start gap-3">
-            <div className="flex-shrink-0 w-8 h-8 bg-blue-700 rounded-lg flex items-center justify-center">
-              <svg className="w-5 h-5 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="text-sm font-semibold text-blue-100">Update Available</h3>
-              <p className="text-xs text-blue-300 mt-0.5">
-                A new version is available. Reload to update.
-              </p>
-              <div className="flex gap-2 mt-3">
-                <button
-                  onClick={onAccept}
-                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-sys-onPrimary text-xs font-medium rounded-lg transition-colors"
-                >
-                  Reload Now
-                </button>
-                <button
-                  onClick={onDismiss}
-                  className="px-3 py-1.5 bg-blue-800/50 hover:bg-blue-700/50 text-blue-200 text-xs font-medium rounded-lg transition-colors"
-                >
-                  Later
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Snackbar
+        isOpen={true}
+        message="Update available. Reload to get the latest version."
+        actionLabel="Reload"
+        onAction={onAccept}
+        onClose={onDismiss}
+        duration={0} // No auto-dismiss for updates
+        type="info"
+      />
     );
   }
 
   // Show offline ready toast (only when online, so message makes sense)
   if (offlineReady && isOnline) {
     return (
-      <div className="fixed bottom-20 left-4 right-4 z-50 animate-slide-up">
-        <div className="bg-green-900/95 backdrop-blur-sm border border-green-700 rounded-xl p-4 shadow-xl">
-          <div className="flex items-start gap-3">
-            <div className="flex-shrink-0 w-8 h-8 bg-green-700 rounded-lg flex items-center justify-center">
-              <svg className="w-5 h-5 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="text-sm font-semibold text-green-100">Ready for Offline Use</h3>
-              <p className="text-xs text-green-300 mt-0.5">
-                App cached successfully. You can now use it offline.
-              </p>
-            </div>
-            <button
-              onClick={onDismissOffline}
-              className="flex-shrink-0 text-green-400 hover:text-green-200 transition-colors"
-              aria-label="Dismiss"
-            >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
+      <Snackbar
+        isOpen={true}
+        message="App ready for offline use"
+        onClose={onDismissOffline}
+        duration={4000}
+        type="success"
+      />
     );
   }
 

@@ -3,7 +3,9 @@ import * as FirebaseService from '../../firebase-service';
 import { useHaptic, useScrollToTop } from '../../hooks';
 import { useAuth } from '../../hooks/useAuth';
 import { LoginStatus } from '../auth/LoginStatus';
-import { RefreshCw, Info, Dumbbell, Settings, RotateCcw, CheckCircle2, X } from '../icons';
+import { ConfirmDialog } from '../Dialog';
+import { Snackbar } from '../Snackbar';
+import { RefreshCw, Info, Dumbbell, Settings, RotateCcw } from '../icons';
 import { captureError, isErrorReportingEnabled } from '../../utils/errorReporting';
 import { syncService } from '../../services/SyncService';
 import { resetProgramProgress } from '../../utils/programImportExport';
@@ -157,9 +159,11 @@ export const SettingsView: React.FC = () => {
     } = useAuth();
 
     const [firebaseSyncEnabled, setFirebaseSyncEnabled] = useState(true); // Default enabled
-    const [firebaseMessage, setFirebaseMessage] = useState('');
     const [settingsToastMessage, setSettingsToastMessage] = useState('');
+    const [syncSnackbarMessage, setSyncSnackbarMessage] = useState('');
+    const [syncSnackbarType, setSyncSnackbarType] = useState<'success' | 'error' | 'info'>('info');
     const [isSyncing, setIsSyncing] = useState(false);
+    const [showClearProgressConfirm, setShowClearProgressConfirm] = useState(false);
 
     const haptic = useHaptic();
 
@@ -178,8 +182,8 @@ export const SettingsView: React.FC = () => {
                 (cloudData: CloudData | null) => {
                     if (cloudData) {
                         mergeCloudData(cloudData as Parameters<typeof mergeCloudData>[0]);
-                        setFirebaseMessage('✓ Data synced from cloud');
-                        setTimeout(() => setFirebaseMessage(''), 3000);
+                        setSyncSnackbarMessage('Data synced from cloud');
+                        setSyncSnackbarType('success');
                     }
                 },
                 // onAuthChange - called with user AND initial cloud data
@@ -206,13 +210,13 @@ export const SettingsView: React.FC = () => {
                         // STEP 4: Push merged data to cloud
                         FirebaseService.saveToCloud(mergedData)
                             .then(() => {
-                                setFirebaseMessage('✓ Data synced successfully');
-                                setTimeout(() => setFirebaseMessage(''), 3000);
+                                setSyncSnackbarMessage('Data synced successfully');
+                                setSyncSnackbarType('success');
                             })
                             .catch((err: Error) => {
                                 console.error('Failed to sync data:', err);
-                                setFirebaseMessage('✗ Sync failed: ' + err.message);
-                                setTimeout(() => setFirebaseMessage(''), 5000);
+                                setSyncSnackbarMessage('Sync failed: ' + err.message);
+                                setSyncSnackbarType('error');
                             })
                             .finally(() => {
                                 setIsSyncing(false);
@@ -232,28 +236,28 @@ export const SettingsView: React.FC = () => {
     const handleFirebaseLogout = async () => {
         haptic.bump();
         await logout();
-        setFirebaseMessage('✓ Logged out successfully');
-        setTimeout(() => setFirebaseMessage(''), 3000);
+        setSyncSnackbarMessage('Logged out successfully');
+        setSyncSnackbarType('success');
     };
 
     const handleManualSync = async () => {
         haptic.bump();
 
         if (!isSyncEnabled()) {
-            setFirebaseMessage('✗ Sync is disabled. Enable Automatic Sync to use cloud sync.');
-            setTimeout(() => setFirebaseMessage(''), 5000);
+            setSyncSnackbarMessage('Sync is disabled. Enable Automatic Sync to use cloud sync.');
+            setSyncSnackbarType('info');
             return;
         }
 
         setIsSyncing(true);
         try {
             await syncService.syncNow();
-            setFirebaseMessage('✓ Data synced to cloud successfully');
-            setTimeout(() => setFirebaseMessage(''), 3000);
+            setSyncSnackbarMessage('Data synced to cloud successfully');
+            setSyncSnackbarType('success');
         } catch (error) {
             const message = error instanceof Error ? error.message : 'Unknown error';
-            setFirebaseMessage('✗ Sync failed: ' + message);
-            setTimeout(() => setFirebaseMessage(''), 5000);
+            setSyncSnackbarMessage('Sync failed: ' + message);
+            setSyncSnackbarType('error');
         } finally {
             setIsSyncing(false);
         }
@@ -267,36 +271,49 @@ export const SettingsView: React.FC = () => {
     };
 
     const handleResetProgress = () => {
+        setShowClearProgressConfirm(true);
+    };
+
+    const handleClearProgressConfirmed = () => {
         haptic.bump();
         const programId = getActiveProgramId();
         resetProgramProgress(programId);
         syncService.scheduleSync();
-
+        setShowClearProgressConfirm(false);
         setSettingsToastMessage('Progress data cleared');
-        setTimeout(() => setSettingsToastMessage(''), 3000);
     };
 
     return (
         <div className="px-5 pb-20 pt-6">
-            {/* Lightweight toast for non-Firebase settings actions */}
-            {settingsToastMessage && (
-                <div className="fixed top-20 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
-                    <div className="bg-sys-success px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-md w-full border border-sys-outlineVariant">
-                        <CheckCircle2 size={24} className="text-sys-onSuccess flex-shrink-0" />
-                        <span className="text-sys-onSuccess font-bold text-base flex-1">{settingsToastMessage}</span>
-                        <button
-                            onClick={() => {
-                                haptic.tick();
-                                setSettingsToastMessage('');
-                            }}
-                            className="h-8 w-8 min-w-[32px] rounded-full hover:bg-sys-onSuccess/10 text-sys-onSuccess flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
-                            aria-label="Close notification"
-                        >
-                            <X size={18} />
-                        </button>
-                    </div>
-                </div>
-            )}
+            {/* Clear Progress Confirmation Dialog */}
+            <ConfirmDialog
+                title="Clear Progress Data?"
+                message="This will permanently delete all workout sessions and history for the active program. This action cannot be undone."
+                onConfirm={handleClearProgressConfirmed}
+                onClose={() => setShowClearProgressConfirm(false)}
+                isOpen={showClearProgressConfirm}
+                destructive={true}
+                confirmLabel="Delete Progress"
+                cancelLabel="Cancel"
+            />
+
+            {/* Settings toast notification */}
+            <Snackbar
+                isOpen={!!settingsToastMessage}
+                message={settingsToastMessage}
+                onClose={() => setSettingsToastMessage('')}
+                type="success"
+                duration={3000}
+            />
+
+            {/* Sync status notification */}
+            <Snackbar
+                isOpen={!!syncSnackbarMessage}
+                message={syncSnackbarMessage}
+                onClose={() => setSyncSnackbarMessage('')}
+                type={syncSnackbarType}
+                duration={syncSnackbarType === 'error' ? 5000 : 3000}
+            />
 
             {/* Tab Navigation - MD3 segmented button style */}
             <div className="segmented-button-container mb-6">
@@ -340,17 +357,6 @@ export const SettingsView: React.FC = () => {
                             {/* Sync Controls - Only shown when logged in */}
                             {firebaseUser && (
                                 <div className="bg-sys-surface rounded-2xl border border-sys-outlineVariant p-6 mb-4">
-                                    {/* Status message - always visible when there's a message */}
-                                    {firebaseMessage && (
-                                        <div className={`mb-4 p-3 rounded-xl text-sm font-medium ${
-                                            firebaseMessage.startsWith('✓') ? 'bg-sys-successContainer text-sys-onSuccessContainer' :
-                                            firebaseMessage.startsWith('✗') ? 'bg-sys-errorContainer text-sys-onErrorContainer' :
-                                            'bg-sys-primaryContainer text-sys-onPrimaryContainer'
-                                        }`}>
-                                            {firebaseMessage}
-                                        </div>
-                                    )}
-
                                     {/* Auto-sync toggle */}
                                     <div className="mb-4 p-4 bg-sys-surfaceContainerHigh rounded-xl">
                                         <div className="flex items-start gap-3">

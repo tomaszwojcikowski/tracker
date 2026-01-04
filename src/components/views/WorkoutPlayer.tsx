@@ -11,6 +11,8 @@ import { SupersetGroup } from '../SupersetGroup';
 import type { SupersetExercise } from '../SupersetGroup';
 import { GestureHint } from '../GestureHint';
 import { BottomSheet } from '../BottomSheet';
+import { ConfirmDialog } from '../Dialog';
+import { Snackbar, useSnackbar } from '../Snackbar';
 import { ExerciseDetailModal } from '../modals';
 import { ExerciseOptionsModal } from '../modals/ExerciseOptionsModal';
 import { AddedExerciseCard } from '../AddedExerciseCard';
@@ -189,6 +191,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     }, [week, day, isEmptyWorkout, currentProgramId]);
 
     // State
+    const snackbar = useSnackbar();
     const [logs, setLogs] = useState<WorkoutSessionData>({});
     const [addedExercises, setAddedExercises] = useState<AddedExercise[]>([]);
     const [showExerciseSelector, setShowExerciseSelector] = useState(false);
@@ -563,12 +566,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         setLogs(updatedLogs);
         const success = safeSetJSON(sessionKey, updatedLogs);
         if (!success) {
-            alert('Failed to save progress. Your storage might be full.');
+            snackbar.showSnackbar({ message: 'Failed to save progress. Your storage might be full.', type: 'error' });
         } else {
             // Schedule a background sync to cloud
             syncService.scheduleSync();
         }
-    }, [sessionKey]);
+    }, [sessionKey, snackbar]);
 
     const saveLog = useCallback((
         id: string,
@@ -874,7 +877,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         try {
             if (!exercise || !exercise.id || !exercise.name) {
                 console.error('Invalid exercise data:', exercise);
-                alert('Failed to add exercise: Invalid exercise data');
+                snackbar.showSnackbar({ message: 'Failed to add exercise: Invalid exercise data', type: 'error' });
                 return;
             }
 
@@ -883,7 +886,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
             const isDuplicate = addedExercises.some((ex) => ex.id === exercise.id);
             if (isDuplicate) {
-                alert('This exercise has already been added to the workout');
+                snackbar.showSnackbar({ message: 'This exercise has already been added to the workout', type: 'error' });
                 return;
             }
 
@@ -912,7 +915,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             setExerciseSearchTerm('');
         } catch (error) {
             console.error('Failed to add exercise:', error);
-            alert('Failed to add exercise. Please try again.');
+            snackbar.showSnackbar({ message: 'Failed to add exercise. Please try again.', type: 'error' });
         }
     };
 
@@ -1125,7 +1128,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             setShowSummary(true);
         } catch (error) {
             console.error('Failed to complete workout:', error);
-            alert('Failed to save workout completion. Please try again.');
+            snackbar.showSnackbar({ message: 'Failed to save workout completion. Please try again.', type: 'error' });
         }
     };
 
@@ -1830,37 +1833,22 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 )}
 
                 {/* Finish Confirmation Dialog */}
-                {showFinishConfirm && (
-                    <div className="fixed inset-0 z-50 flex items-end justify-center p-4 bg-black/60 backdrop-blur-sm animate-slide-up safe-pb">
-                        <div className="bg-sys-surface rounded-2xl p-6 w-full max-w-md border border-sys-outlineVariant">
-                            <h3 className="text-lg font-bold text-sys-onSurface mb-2">Finish Workout?</h3>
-                            <p className="text-sys-onSurfaceVar mb-6">
-                                Your progress will be saved and logged to history.
-                            </p>
-                            <div className="flex gap-3">
-                                <button
-                                    onClick={() => {
-                                        haptic.tick();
-                                        setShowFinishConfirm(false);
-                                    }}
-                                    className="btn-tonal flex-1 h-14 rounded-xl font-semibold active:scale-95 transition-transform"
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        haptic.success();
-                                        setShowFinishConfirm(false);
-                                        handleFinish();
-                                    }}
-                                    className="flex-1 h-14 rounded-xl bg-sys-success text-sys-onSuccess font-semibold active:scale-95 transition-transform shadow-elevation-1"
-                                >
-                                    Finish
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                )}
+                <ConfirmDialog
+                    isOpen={showFinishConfirm}
+                    onClose={() => {
+                        haptic.tick();
+                        setShowFinishConfirm(false);
+                    }}
+                    onConfirm={() => {
+                        haptic.success();
+                        handleFinish();
+                    }}
+                    title="Finish Workout?"
+                    message="Your progress will be saved and logged to history."
+                    confirmLabel="Finish"
+                    cancelLabel="Cancel"
+                    success
+                />
 
                 {/* Exercise Selector Modal */}
                 <ExerciseSelectorModal
@@ -1998,6 +1986,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     workoutNotes={workoutNotes || undefined}
                 />
             </div>
+            <Snackbar {...snackbar.snackbarProps} />
         </>
     );
 };

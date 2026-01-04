@@ -112,11 +112,7 @@ describe('ErrorBoundary', () => {
         });
     });
 
-    it('provides clear all data button with confirmation', () => {
-        // Mock window.confirm
-        const confirmMock = vi.fn().mockReturnValue(false);
-        window.confirm = confirmMock;
-
+    it('provides clear all data button that opens confirmation dialog', () => {
         render(
             <ErrorBoundary>
                 <ThrowError shouldThrow={true} />
@@ -126,9 +122,9 @@ describe('ErrorBoundary', () => {
         const clearButton = screen.getByText('Clear All Data');
         fireEvent.click(clearButton);
 
-        expect(confirmMock).toHaveBeenCalledWith(
-            'This will delete ALL workout data. Are you sure?'
-        );
+        // Should show the confirmation dialog
+        expect(screen.getByText('Clear All Data?')).toBeInTheDocument();
+        expect(screen.getByText(/This will delete ALL workout data/i)).toBeInTheDocument();
     });
 
     it('renders custom fallback when provided', () => {

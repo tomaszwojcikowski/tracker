@@ -15,8 +15,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const rootDir = join(__dirname, '..');
 
-// Files to validate
-const WORKOUT_FILES = [
+// Files to validate (defaults). Can be overridden by passing file paths as args.
+const DEFAULT_WORKOUT_FILES = [
   'data/workout-plan-v2.5.json',
 ];
 
@@ -24,10 +24,18 @@ const WORKOUT_FILES = [
 async function validateWorkoutData() {
   console.log('🔍 Validating workout data...\n');
 
+  const args = process.argv.slice(2).filter(Boolean);
+  const workoutFiles = args.length > 0 ? args : DEFAULT_WORKOUT_FILES;
+
   let hasErrors = false;
 
-  for (const file of WORKOUT_FILES) {
+  for (const file of workoutFiles) {
     const filePath = join(rootDir, file);
+
+    if (file.endsWith('.schema.json')) {
+      console.log(`⏭️  Skipping ${file} (schema file)`);
+      continue;
+    }
 
     if (!existsSync(filePath)) {
       console.log(`⏭️  Skipping ${file} (file not found)`);

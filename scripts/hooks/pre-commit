@@ -14,7 +14,8 @@
 #   ln -sf ../../scripts/hooks/pre-commit .git/hooks/pre-commit
 
 # Check if any workout data files are being committed
-WORKOUT_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '^data/workout-plan.*\.json$')
+# Excludes .schema.json files
+WORKOUT_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '^data/(workout-plan.*|integrated-strength.*)\.json$' | grep -v '\.schema\.json$')
 
 if [ -z "$WORKOUT_FILES" ]; then
   # No workout files being committed, skip validation
@@ -25,8 +26,11 @@ echo "🔍 Workout data files detected in commit:"
 echo "$WORKOUT_FILES"
 echo ""
 
-# Run the validation script
-node scripts/validate-workout-data.mjs
+# Run strict schema validation (extra fields + missing required fields)
+node scripts/validate-workout-schema-strict.mjs $WORKOUT_FILES
+
+# Run reference validation ($ref / $routine integrity)
+node scripts/validate-workout-data.mjs $WORKOUT_FILES
 
 # Exit with the same code as the validation script
 exit $?

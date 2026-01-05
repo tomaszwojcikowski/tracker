@@ -416,7 +416,7 @@ If you have exercises with simple alternatives:
 
 When adding exercise options to your workout plan:
 
-1. **Validate Schema**: Ensure JSON validates against `workout-plan-v2.3.schema.json`
+1. **Validate Schema**: Ensure JSON validates against `workout-plan-v2.5.schema.json`
 2. **Test Each Option**: Try each option to ensure parameters apply correctly
 3. **Check History**: Verify that each option tracks history separately
 4. **Verify Persistence**: Confirm selection survives page reload
@@ -424,5 +424,5 @@ When adding exercise options to your workout plan:
 ## Resources
 
 - [Workout Plan Format Specification](WORKOUT_PLAN_FORMAT.md)
-- [JSON Schema](../data/workout-plan-v2.3.schema.json)
+- [JSON Schema](../data/workout-plan-v2.5.schema.json)
 - [Example Workout Plan](../data/workout-plan-v2.5.json) - Current plan data with exercise options

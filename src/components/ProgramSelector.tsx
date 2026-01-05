@@ -36,48 +36,7 @@ function getSampleProgramPath(filename: string): string {
 /**
  * Available sample programs that can be imported
  */
-const SAMPLE_PROGRAMS: SampleProgramInfo[] = [
-  {
-    id: 'beginner-bodyweight-v1',
-    name: 'Beginner Bodyweight',
-    description: 'A 4-week program for beginners focusing on fundamental movements.',
-    durationWeeks: 4,
-    targetLevel: 'beginner',
-    path: getSampleProgramPath('beginner-bodyweight.json'),
-  },
-  {
-    id: 'beginner-bodyweight-4week',
-    name: '4-Week Beginner Bodyweight Program',
-    description: 'A beginner-friendly bodyweight program designed to build foundational strength and movement patterns.',
-    durationWeeks: 4,
-    targetLevel: 'beginner',
-    path: getSampleProgramPath('beginner-bodyweight-4week.json'),
-  },
-  {
-    id: 'pull-up-strength-v1',
-    name: '8-Week Pull-Up Builder',
-    description: 'Build pull-up strength with progressive overload and accessory work.',
-    durationWeeks: 8,
-    targetLevel: 'intermediate',
-    path: getSampleProgramPath('pull-up-strength.json'),
-  },
-  {
-    id: 'strength-fundamentals-6week',
-    name: '6-Week Strength Fundamentals',
-    description: 'A focused 6-week program to build core strength using compound movements with barbell and dumbbell exercises.',
-    durationWeeks: 6,
-    targetLevel: 'intermediate',
-    path: getSampleProgramPath('strength-fundamentals-6week.json'),
-  },
-  {
-    id: 'mobility-flexibility-2week',
-    name: '2-Week Mobility & Flexibility',
-    description: 'A focused 2-week program to improve mobility and flexibility. Perfect for recovery or as a supplement to strength training.',
-    durationWeeks: 2,
-    targetLevel: 'beginner',
-    path: getSampleProgramPath('mobility-flexibility-2week.json'),
-  },
-];
+const SAMPLE_PROGRAMS: SampleProgramInfo[] = [];
 
 // ============================================================================
 // TYPES

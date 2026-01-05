@@ -56,8 +56,7 @@
         "exercises": [
           "20 Band Pull-Aparts",
           "15 Band External Rotations per side",
-          "3x5 Scapular Pull-ups with 3s ISO-HOLD",
-          "20-30s Passive Bar Hang"
+          "3x5 Scapular Pull-ups with 3s ISO-HOLD"
         ]
       },
       "straightArmPulldownProgression": {
@@ -179,17 +178,6 @@
               "Depress scapula",
               "Hold 3s"
             ]
-          },
-          {
-            "exerciseName": "Passive Bar Hang",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "time",
-            "repsMin": 20,
-            "repsMax": 30,
-            "repsUnit": "seconds",
-            "loadUnit": "bodyweight",
-            "restSeconds": 0
           }
         ]
       },

@@ -19,6 +19,8 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "validate:workout": "node scripts/validate-workout-data.mjs",
+    "validate:workout:schema": "node scripts/validate-workout-schema-strict.mjs",
+    "validate:workout:precommit": "node scripts/validate-workout-schema-strict.mjs && node scripts/validate-workout-data.mjs",
     "prepare": "node scripts/install-git-hooks.mjs"
   },
   "dependencies": {
@@ -43,6 +45,8 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.2",
     "@vitest/coverage-v8": "^4.0.15",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
     "autoprefixer": "^10.4.16",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",

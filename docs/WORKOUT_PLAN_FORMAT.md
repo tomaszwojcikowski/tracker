@@ -8,7 +8,7 @@ This document defines the robust and complete workout plan format used by the Tr
 
 **Current Version:** 2.3.0
 
-**JSON Schema:** [`workout-plan-v2.3.schema.json`](workout-plan-v2.3.schema.json)
+**JSON Schema:** [`workout-plan-v2.5.schema.json`](workout-plan-v2.5.schema.json)
 
 ## What's New in v2.3.0
 

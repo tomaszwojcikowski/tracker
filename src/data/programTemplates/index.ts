@@ -38,78 +38,7 @@ export function getFullManifest(info: SampleProgramInfo): Omit<ProgramManifest, 
  * These programs are bundled with the app and can be imported by users.
  * They provide different workout styles and durations.
  */
-export const SAMPLE_PROGRAMS: SampleProgramInfo[] = [
-  {
-    manifest: {
-      id: 'beginner-bodyweight-v1',
-      name: 'Beginner Bodyweight',
-      version: '1.0.0',
-      description: 'A 4-week program for beginners focusing on fundamental movements.',
-      author: 'Tracker',
-      durationWeeks: 4,
-      targetLevel: 'beginner',
-      goals: ['foundational-strength', 'movement-quality', 'consistency'],
-      equipment: ['pull-up-bar', 'floor-space'],
-    },
-    dataPath: '/programs/beginner-bodyweight.json',
-  },
-  {
-    manifest: {
-      id: 'beginner-bodyweight-4week',
-      name: '4-Week Beginner Bodyweight',
-      version: '1.0.0',
-      description: 'A beginner-friendly bodyweight program designed to build foundational strength and movement patterns. Perfect for those new to calisthenics.',
-      author: 'Tracker App',
-      durationWeeks: 4,
-      targetLevel: 'beginner',
-      goals: ['foundational-strength', 'movement-patterns', 'bodyweight-basics', 'consistency'],
-      equipment: ['pull-up-bar', 'resistance-bands'],
-    },
-    dataPath: '/programs/beginner-bodyweight-4week.json',
-  },
-  {
-    manifest: {
-      id: 'pull-up-strength-v1',
-      name: '8-Week Pull-Up Builder',
-      version: '1.0.0',
-      description: 'Build pull-up strength with progressive overload and accessory work.',
-      author: 'Tracker',
-      durationWeeks: 8,
-      targetLevel: 'intermediate',
-      goals: ['pull-up-strength', 'upper-body-strength', 'grip-strength'],
-      equipment: ['pull-up-bar', 'resistance-bands', 'dumbbells'],
-    },
-    dataPath: '/programs/pull-up-strength.json',
-  },
-  {
-    manifest: {
-      id: 'strength-fundamentals-6week',
-      name: '6-Week Strength Fundamentals',
-      version: '1.0.0',
-      description: 'A focused 6-week program to build core strength using compound movements. Features progressive overload with barbell and dumbbell exercises.',
-      author: 'Tracker App',
-      durationWeeks: 6,
-      targetLevel: 'intermediate',
-      goals: ['strength-building', 'compound-movements', 'progressive-overload', 'muscle-development'],
-      equipment: ['barbell', 'dumbbells', 'bench', 'squat-rack', 'pull-up-bar'],
-    },
-    dataPath: '/programs/strength-fundamentals-6week.json',
-  },
-  {
-    manifest: {
-      id: 'mobility-flexibility-2week',
-      name: '2-Week Mobility & Flexibility',
-      version: '1.0.0',
-      description: 'A focused 2-week program to improve mobility and flexibility. Perfect as a standalone program for recovery, or as a supplement to strength training.',
-      author: 'Tracker App',
-      durationWeeks: 2,
-      targetLevel: 'beginner',
-      goals: ['improved-flexibility', 'joint-mobility', 'injury-prevention', 'recovery'],
-      equipment: ['yoga-mat', 'resistance-bands'],
-    },
-    dataPath: '/programs/mobility-flexibility-2week.json',
-  },
-];
+export const SAMPLE_PROGRAMS: SampleProgramInfo[] = [];
 
 /**
  * Get a sample program by ID

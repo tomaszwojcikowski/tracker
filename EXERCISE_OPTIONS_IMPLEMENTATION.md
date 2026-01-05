@@ -23,7 +23,7 @@ This is significantly more powerful than the existing "alternatives" feature, wh
 The following components have been fully implemented, tested, and documented:
 
 #### 1. Schema & Data Model
-- **workout-plan-v2.3.schema.json**: Added `exerciseOption` definition with 20+ properties (retained for compatibility and sample programs)
+- **workout-plan-v2.5.schema.json**: Added `exerciseOption` definition with 20+ properties
 - **workout-plan-v2.5.json**: Current workout plan with exercise options applied; legacy v2.3 example file removed
 - JSON schema validation: Fully functional and tested
 
@@ -113,7 +113,7 @@ The following work remains to complete the feature:
 
 ### Schema & Data (4 files)
 ```
-data/workout-plan-v2.3.schema.json  (+130 lines) - Schema definition
+data/workout-plan-v2.5.schema.json  - Schema definition
 data/workout-plan-v2.5.json         (+68 lines)  - Current plan data
 docs/WORKOUT_PLAN_FORMAT.md         (+75 lines)  - Format docs
 docs/EXERCISE_OPTIONS.md            (+428 lines) - Feature guide
@@ -336,6 +336,6 @@ The remaining UI integration work is straightforward and estimated at 2-3 hours.
 
 - **Feature Documentation**: [docs/EXERCISE_OPTIONS.md](docs/EXERCISE_OPTIONS.md)
 - **Format Specification**: [docs/WORKOUT_PLAN_FORMAT.md](docs/WORKOUT_PLAN_FORMAT.md)
-- **JSON Schema**: [data/workout-plan-v2.3.schema.json](data/workout-plan-v2.3.schema.json)
+- **JSON Schema**: [data/workout-plan-v2.5.schema.json](data/workout-plan-v2.5.schema.json)
 - **Current Plan Data**: [data/workout-plan-v2.5.json](data/workout-plan-v2.5.json) (exercise options supported)
 - **Test Suite**: [src/test/exerciseOptions.test.tsx](src/test/exerciseOptions.test.tsx)

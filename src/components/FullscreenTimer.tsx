@@ -255,14 +255,25 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
           </span>
         </div>
 
-        {/* Sound toggle */}
-        <button
-          onClick={handleToggleSound}
-          className="h-12 w-12 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center active:scale-90 transition-all shadow-sm"
-          aria-label={soundEnabled ? 'Disable sound' : 'Enable sound'}
-        >
-          {soundEnabled ? <Volume2 size={28} /> : <VolumeX size={28} />}
-        </button>
+        <div className="flex items-center gap-3">
+          {/* Sound toggle */}
+          <button
+            onClick={handleToggleSound}
+            className="h-12 w-12 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center active:scale-90 transition-all shadow-sm"
+            aria-label={soundEnabled ? 'Disable sound' : 'Enable sound'}
+          >
+            {soundEnabled ? <Volume2 size={28} /> : <VolumeX size={28} />}
+          </button>
+
+          {/* Cancel timer */}
+          <button
+            onClick={handleStop}
+            className="h-12 w-12 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center active:scale-90 transition-all shadow-sm"
+            aria-label="Cancel timer"
+          >
+            <X size={28} />
+          </button>
+        </div>
       </header>
 
       {/* Main timer display */}

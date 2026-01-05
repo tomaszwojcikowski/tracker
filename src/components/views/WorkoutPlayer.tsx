@@ -1872,7 +1872,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 {/* Timer Toast */}
                 {restTimer.showToast && (
                     <div className="fixed top-20 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
-                        <div className="bg-sys-primary px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-md w-full border border-sys-outlineVariant">
+                        <div className="bg-transparent px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-md w-full border border-sys-outlineVariant">
                             <CheckCircle2 size={24} className="text-sys-onPrimary flex-shrink-0" />
                             <span className="text-sys-onPrimary font-bold text-base flex-1">Rest Complete!</span>
                             <button

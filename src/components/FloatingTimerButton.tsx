@@ -139,10 +139,10 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
                 ariaLabel="Quick Timer"
                 maxHeight={70}
                 showHandle={true}
-                className="border-t border-sys-outlineVariant"
             >
                 {/* Header */}
-                <div className="px-6 pt-2 pb-4 border-b border-sys-outlineVariant">
+                <div className="px-6 pt-2 pb-4 space-y-3">
+                    <div className="divider divider-full-width" aria-hidden="true" />
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="h-10 w-10 rounded-xl bg-sys-primary/20 flex items-center justify-center">

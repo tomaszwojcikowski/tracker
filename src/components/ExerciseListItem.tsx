@@ -105,7 +105,8 @@ export const ExerciseListItem: React.FC<ExerciseListItemProps> = ({
             </div>
 
             {showAddForm && (
-                <div className="mt-4 pt-4 border-t border-sys-outlineVariant">
+                <div className="mt-4 pt-4 space-y-4">
+                    <div className="divider divider-inset" aria-hidden="true" />
                     <div className="grid grid-cols-3 gap-3 mb-3">
                         <TextField
                             label="Sets"

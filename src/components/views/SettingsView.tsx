@@ -418,7 +418,8 @@ export const SettingsView: React.FC = () => {
                             </div>
                             {/* Sentry Test Button - for verifying error reporting */}
                             {isErrorReportingEnabled() && (
-                                <div className="pt-3 border-t border-sys-outlineVariant">
+                                <div className="pt-3 space-y-3">
+                                    <div className="divider divider-inset" aria-hidden="true" />
                                     <button
                                         onClick={() => {
                                             captureError(new Error('Test error from Settings page'), 'error', {

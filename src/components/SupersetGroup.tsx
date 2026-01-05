@@ -229,7 +229,8 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                     : 'bg-sys-surfaceContainer border-sys-outlineVariant'
             }`}>
                 {/* Header with optional EMOM badge and shared round counter */}
-                <div className="px-3 py-2 flex items-center gap-2 border-b border-sys-outlineVariant">
+                <div className="px-3 py-2 flex items-center gap-2 space-y-2">
+                    <div className="divider divider-full-width" aria-hidden="true" />
                     {isEmomSuperset ? (
                         <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer">
                             <Zap size={10} strokeWidth={3} />

@@ -45,11 +45,13 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeT
     );
 
     return (
-        <nav
-            className="bottom-navigation fixed bottom-0 left-0 right-0 bg-sys-surface border-t border-sys-outlineVariant z-50 safe-pb shadow-elevation-2 min-h-[80px]"
-            role="navigation"
-            aria-label="Main navigation"
-        >
+        <>
+            <div className="divider-strong fixed bottom-[80px] left-0 right-0 z-50" />
+            <nav
+                className="bottom-navigation fixed bottom-0 left-0 right-0 bg-sys-surface z-50 safe-pb shadow-elevation-2 min-h-[80px]"
+                role="navigation"
+                aria-label="Main navigation"
+            >
             <div className="flex items-center justify-around h-full px-2 py-2">
                 <LayoutGroup>
                     {navItems.map((item) => {
@@ -92,7 +94,8 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeT
                     })}
                 </LayoutGroup>
             </div>
-        </nav>
+            </nav>
+        </>
     );
 });
 

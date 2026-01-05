@@ -413,9 +413,9 @@ function WeekContent({
         ariaLabel={previewDay !== null ? `Preview Day ${previewDay} workout` : 'Preview workout'}
         maxHeight={85}
         showHandle={false}
-        className="border-t border-sys-outlineVariant"
       >
-        <div className="p-6 border-b border-sys-outlineVariant">
+        <div className="p-6 space-y-4">
+          <div className="divider divider-full-width" aria-hidden="true" />
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-bold text-sys-onSurface">
               {previewDay !== null ? `Day ${previewDay} Preview` : 'Preview'}
@@ -432,7 +432,7 @@ function WeekContent({
             </button>
           </div>
           {previewDay !== null && (
-            <div className="mt-2 text-sm text-sys-onSurfaceVariant">
+            <div className="text-sm text-sys-onSurfaceVariant">
               Week {week}
             </div>
           )}

@@ -300,7 +300,8 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                         exit={{ height: 0, opacity: 0 }}
                                         transition={{ duration: 0.3, ease: "easeInOut" }}
                                     >
-                                        <div className="px-5 pb-5 border-t border-sys-outlineVariant">
+                                        <div className="px-5 pb-5 space-y-5">
+                                            <div className="divider divider-inset" aria-hidden="true" />
                                             {/* Stats Summary Grid */}
                                             <div className="grid grid-cols-2 gap-3 mt-4 mb-5">
                                                 <div className="bg-gradient-to-br from-sys-surfaceHigh to-sys-surface rounded-2xl p-4 border border-sys-outlineVariant">
@@ -614,25 +615,28 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                                         className="relative w-full max-w-lg max-h-[80vh] overflow-y-auto bg-sys-surface border border-sys-outlineVariant rounded-2xl shadow-2xl"
                                         onClick={(e) => e.stopPropagation()}
                                     >
-                                        <div className="sticky top-0 bg-sys-surface border-b border-sys-outlineVariant p-5 flex items-center justify-between z-10">
-                                            <div>
-                                                <h3 className="text-lg font-bold text-sys-onSurface">
-                                                    {new Date(selectedDayWorkouts[0].date).toLocaleDateString('en-US', {
-                                                        weekday: 'long',
-                                                        month: 'long',
-                                                        day: 'numeric'
-                                                    })}
-                                                </h3>
-                                                <p className="text-sm text-sys-onSurfaceVar">
-                                                    {selectedDayWorkouts.length} workout{selectedDayWorkouts.length !== 1 ? 's' : ''}
-                                                </p>
+                                        <div className="sticky top-0 bg-sys-surface p-5 z-10 space-y-3">
+                                            <div className="divider divider-full-width" aria-hidden="true" />
+                                            <div className="flex items-center justify-between">
+                                                <div>
+                                                    <h3 className="text-lg font-bold text-sys-onSurface">
+                                                        {new Date(selectedDayWorkouts[0].date).toLocaleDateString('en-US', {
+                                                            weekday: 'long',
+                                                            month: 'long',
+                                                            day: 'numeric'
+                                                        })}
+                                                    </h3>
+                                                    <p className="text-sm text-sys-onSurfaceVar">
+                                                        {selectedDayWorkouts.length} workout{selectedDayWorkouts.length !== 1 ? 's' : ''}
+                                                    </p>
+                                                </div>
+                                                <button
+                                                    onClick={handleCloseDayDetail}
+                                                    className="h-10 w-10 rounded-xl bg-sys-surfaceContainerHigh hover:bg-sys-primaryContainer/20 transition-colors flex items-center justify-center"
+                                                >
+                                                    <ChevronDown size={20} className="text-sys-onSurface" />
+                                                </button>
                                             </div>
-                                            <button
-                                                onClick={handleCloseDayDetail}
-                                                className="h-10 w-10 rounded-xl bg-sys-surfaceContainerHigh hover:bg-sys-primaryContainer/20 transition-colors flex items-center justify-center"
-                                            >
-                                                <ChevronDown size={20} className="text-sys-onSurface" />
-                                            </button>
                                         </div>
                                         <div className="p-5 space-y-4">
                                             {selectedDayWorkouts.map((entry, idx) => {

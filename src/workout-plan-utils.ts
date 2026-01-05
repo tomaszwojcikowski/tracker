@@ -351,7 +351,7 @@ export interface V2RoutineTemplate {
   /** Body areas or movement patterns this routine targets */
   targetAreas?: string[];
   /** Sequence of exercises in this routine */
-  exercises: (V2Exercise | V2ExerciseRef)[];
+  exercises: (V2Exercise | V2ExerciseRef | V2RoutineRef)[];
 }
 
 /**
@@ -701,7 +701,8 @@ function resolveExerciseReference(
 function resolveExercises(
   exercises: (V2Exercise | V2ExerciseRef | V2RoutineRef)[] | undefined,
   exerciseTemplates: Map<string, V2ExerciseTemplate>,
-  routineTemplates?: Map<string, V2RoutineTemplate>
+  routineTemplates?: Map<string, V2RoutineTemplate>,
+  routineStack: string[] = []
 ): V2Exercise[] {
   if (!exercises) return [];
 
@@ -713,14 +714,22 @@ function resolveExercises(
       if (!routineTemplates) {
         throw new Error(`Routine reference "${ex.$routine}" found but no routine templates defined`);
       }
+
+      if (routineStack.includes(ex.$routine)) {
+        const cyclePath = [...routineStack, ex.$routine].join(' -> ');
+        throw new Error(`Routine template cycle detected: ${cyclePath}`);
+      }
+
       const routine = routineTemplates.get(ex.$routine);
       if (!routine) {
         throw new Error(`Routine template "${ex.$routine}" not found`);
       }
-      // Recursively resolve exercises from the routine (routines can contain exercise refs but not other routines)
+      // Recursively resolve exercises from the routine (nested routines supported)
       const routineExercises = resolveExercises(
-        routine.exercises as (V2Exercise | V2ExerciseRef)[],
-        exerciseTemplates
+        routine.exercises,
+        exerciseTemplates,
+        routineTemplates,
+        [...routineStack, ex.$routine]
       );
       result.push(...routineExercises);
     } else {

@@ -865,6 +865,162 @@ describe('Workout Plan Utilities', () => {
       expect(result[2].category).toBe('main');
     });
 
+    it('should resolve nested routine templates in v2.3.0', () => {
+      const v23DataNestedRoutines = {
+        formatVersion: '2.3.0',
+        plan: {
+          id: 'test-v23-nested-routines',
+          name: 'Test v2.3 Nested Routines',
+          description: null,
+          author: null,
+          durationWeeks: 1,
+          goals: [],
+          targetLevel: 'beginner',
+          equipment: [],
+          routineTemplates: [
+            {
+              id: 'warmup-base',
+              name: 'Base Warmup',
+              category: 'warmup',
+              exercises: [
+                {
+                  exerciseName: 'Base Move',
+                  category: 'warmup',
+                  sets: 1,
+                  repsType: 'reps',
+                  repsValue: 5,
+                  loadMin: 0,
+                  loadMax: 0,
+                  loadUnit: 'bodyweight',
+                  restSeconds: 0
+                }
+              ]
+            },
+            {
+              id: 'warmup-full',
+              name: 'Full Warmup',
+              category: 'warmup',
+              exercises: [
+                { $routine: 'warmup-base' },
+                {
+                  exerciseName: 'Extra Move',
+                  category: 'warmup',
+                  sets: 1,
+                  repsType: 'reps',
+                  repsValue: 10,
+                  loadMin: 0,
+                  loadMax: 0,
+                  loadUnit: 'bodyweight',
+                  restSeconds: 0
+                }
+              ]
+            }
+          ],
+          exerciseTemplates: [],
+          dayTemplates: [],
+          phases: [
+            {
+              phaseNumber: 1,
+              name: 'Test',
+              description: null,
+              startWeek: 1,
+              endWeek: 1,
+              focus: null,
+              weeks: [
+                {
+                  weekNumber: 1,
+                  days: [
+                    {
+                      dayNumber: 1,
+                      name: 'Test Day',
+                      exercises: [
+                        { $routine: 'warmup-full' },
+                        {
+                          exerciseName: 'Main Exercise',
+                          category: 'main',
+                          sets: 3,
+                          repsType: 'reps',
+                          repsValue: 10,
+                          loadMin: 0,
+                          loadMax: 0,
+                          loadUnit: 'bodyweight',
+                          restSeconds: 90
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      const result = convertV2ToInternal(v23DataNestedRoutines);
+
+      // Base Move + Extra Move + Main Exercise
+      expect(result.length).toBe(3);
+      expect(result[0].ex).toBe('Base Move');
+      expect(result[1].ex).toBe('Extra Move');
+      expect(result[2].ex).toBe('Main Exercise');
+    });
+
+    it('should throw error for cyclic nested routines in v2.3.0', () => {
+      const v23DataCyclicRoutines = {
+        formatVersion: '2.3.0',
+        plan: {
+          id: 'test-v23-cyclic-routines',
+          name: 'Test v2.3 Cyclic Routines',
+          description: null,
+          author: null,
+          durationWeeks: 1,
+          goals: [],
+          targetLevel: 'beginner',
+          equipment: [],
+          routineTemplates: [
+            {
+              id: 'a',
+              name: 'A',
+              category: 'warmup',
+              exercises: [{ $routine: 'b' }]
+            },
+            {
+              id: 'b',
+              name: 'B',
+              category: 'warmup',
+              exercises: [{ $routine: 'a' }]
+            }
+          ],
+          exerciseTemplates: [],
+          dayTemplates: [],
+          phases: [
+            {
+              phaseNumber: 1,
+              name: 'Test',
+              description: null,
+              startWeek: 1,
+              endWeek: 1,
+              focus: null,
+              weeks: [
+                {
+                  weekNumber: 1,
+                  days: [
+                    {
+                      dayNumber: 1,
+                      name: 'Test Day',
+                      exercises: [{ $routine: 'a' }]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      };
+
+      expect(() => convertV2ToInternal(v23DataCyclicRoutines)).toThrow('Routine template cycle detected');
+    });
+
     it('should throw error for missing routine template reference in v2.3.0', () => {
       const v23DataWithBadRef = {
         formatVersion: '2.3.0',

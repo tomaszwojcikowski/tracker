@@ -339,7 +339,7 @@ When the plan is loaded, routine references are expanded inline - the exercises 
 - Group related exercises in routines (all shoulder warmup exercises together)
 - Keep routines focused on a specific purpose
 - Routines can reference exercise templates with `$ref`
-- Routines cannot reference other routines (no nesting)
+- Routines can reference other routines with `$routine` (nesting supported); avoid cycles
 
 ### Day Templates (v2.1+)
 

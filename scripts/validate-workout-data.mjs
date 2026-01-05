@@ -93,6 +93,45 @@ async function validateWorkoutData() {
         }
       }
 
+      // Validate references in an exercises array (supports nested routines)
+      const validateExercises = (exercises, context, routineStack = []) => {
+        for (const exercise of exercises || []) {
+          // Check exercise template references
+          if (exercise.$ref && !exerciseTemplates.has(exercise.$ref)) {
+            throw new Error(`Exercise template "${exercise.$ref}" not found (${context})`);
+          }
+
+          // Check routine references (including nested routines)
+          if (exercise.$routine) {
+            if (!routines.has(exercise.$routine)) {
+              throw new Error(`Routine "${exercise.$routine}" not found (${context})`);
+            }
+
+            if (routineStack.includes(exercise.$routine)) {
+              const cyclePath = [...routineStack, exercise.$routine].join(' -> ');
+              throw new Error(`Routine template cycle detected: ${cyclePath} (${context})`);
+            }
+
+            const routine = routines.get(exercise.$routine);
+            validateExercises(
+              routine.exercises,
+              `Routine "${routine.id}" expanded from ${context}`,
+              [...routineStack, exercise.$routine]
+            );
+          }
+        }
+      };
+
+      // Validate routine templates directly (catches bad refs even if not used in a day)
+      for (const routine of routines.values()) {
+        validateExercises(routine.exercises, `Routine "${routine.id}"`, [routine.id]);
+      }
+
+      // Validate day templates too
+      for (const dayTemplate of dayTemplates.values()) {
+        validateExercises(dayTemplate.exercises, `DayTemplate "${dayTemplate.id}"`);
+      }
+
       // Validate all references
       let totalExercises = 0;
       let totalDays = 0;
@@ -116,20 +155,9 @@ async function validateWorkoutData() {
             }
 
             const exercises = day.exercises || [];
+            totalExercises += exercises.length;
 
-            for (const exercise of exercises) {
-              totalExercises++;
-
-              // Check exercise template references
-              if (exercise.$ref && !exerciseTemplates.has(exercise.$ref)) {
-                throw new Error(`Exercise template "${exercise.$ref}" not found (Week ${week.weekNumber}, Day ${day.dayNumber})`);
-              }
-
-              // Check routine references
-              if (exercise.$routine && !routines.has(exercise.$routine)) {
-                throw new Error(`Routine "${exercise.$routine}" not found (Week ${week.weekNumber}, Day ${day.dayNumber})`);
-              }
-            }
+            validateExercises(exercises, `Week ${week.weekNumber}, Day ${day.dayNumber}`);
           }
         }
       }

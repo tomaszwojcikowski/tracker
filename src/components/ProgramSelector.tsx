@@ -28,11 +28,6 @@ interface SampleProgramInfo {
 /**
  * Get the correct path for sample programs based on the base URL
  */
-function getSampleProgramPath(filename: string): string {
-  const base = import.meta.env.BASE_URL || '/';
-  return `${base}programs/${filename}`;
-}
-
 /**
  * Available sample programs that can be imported
  */

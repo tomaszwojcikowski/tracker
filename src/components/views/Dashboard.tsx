@@ -541,9 +541,17 @@ function WeekContent({
 
                         <div className="relative z-10">
                             <div className="flex justify-between items-start mb-4">
-                                <div className={`px-3 py-1 rounded-full ${theme.hero.badge} text-xs font-bold uppercase tracking-wider`}>
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        haptic.tick();
+                                        setPreviewDay(day);
+                                    }}
+                                    className={`px-3 py-1 rounded-full ${theme.hero.badge} text-xs font-bold uppercase tracking-wider transition-all hover:scale-105 active:scale-95`}
+                                    aria-label={`Preview Day ${day} workout`}
+                                >
                                     Next Up
-                                </div>
+                                </button>
                                 <div className={`h-10 w-10 rounded-full ${theme.hero.iconBg} ${theme.hero.iconColor} flex items-center justify-center shadow-md`}>
                                     <Play size={20} fill="currentColor" />
                                 </div>

@@ -36,9 +36,11 @@ export interface ExerciseTypeFlags {
     densityTimeMinutes?: number;
     densityRepsTotal?: number;
     isFlow?: boolean;
-    flowTimeMinutes?: number;    isTimeBased?: boolean;
+    flowTimeMinutes?: number;
+    isTimeBased?: boolean;
     timeSeconds?: number;
-    timeMinutes?: number;}
+    timeMinutes?: number;
+}
 
 /**
  * Common exercise metadata props (prescription, notes, ranges, etc.)
@@ -87,18 +89,29 @@ export interface RPEProps {
  * Consolidates the repeated pattern of extracting isAmrap, isLadder, ladderReps.
  */
 export function getExerciseTypeFlags(ex: WorkoutExercise): ExerciseTypeFlags {
+    const getTimeSecondsFromRepsRange = (repsRange: WorkoutExercise['repsRange']): number | undefined => {
+        if (!repsRange || repsRange.type !== 'time') return undefined;
+
+        // Prefer a single value (seconds), otherwise take the max of a range (or min as a fallback).
+        if (typeof repsRange.value === 'number') return repsRange.value;
+        if (typeof repsRange.max === 'number') return repsRange.max;
+        if (typeof repsRange.min === 'number') return repsRange.min;
+        return undefined;
+    };
+
     // Calculate flow time in minutes from repsRange if flow exercise
     let flowTimeMinutes: number | undefined;
-    if (ex.isFlow && ex.repsRange?.type === 'time' && typeof ex.repsRange.value === 'number') {
-        flowTimeMinutes = ex.repsRange.value / 60; // Convert seconds to minutes
+    if (ex.isFlow && ex.repsRange?.type === 'time') {
+        const seconds = getTimeSecondsFromRepsRange(ex.repsRange);
+        if (typeof seconds === 'number') flowTimeMinutes = seconds / 60;
     }
 
     // Calculate time-based exercise duration for warmup/cooldown exercises
     let timeSeconds: number | undefined;
     let timeMinutes: number | undefined;
-    if (ex.repsRange?.type === 'time' && typeof ex.repsRange.value === 'number') {
-        timeSeconds = ex.repsRange.value;
-        timeMinutes = timeSeconds / 60;
+    if (ex.repsRange?.type === 'time') {
+        timeSeconds = getTimeSecondsFromRepsRange(ex.repsRange);
+        if (typeof timeSeconds === 'number') timeMinutes = timeSeconds / 60;
     }
 
     return {

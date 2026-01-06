@@ -107,6 +107,24 @@ describe('Time-Based Exercise Timer', () => {
             expect(flags.timeMinutes).toBe(1);
         });
 
+        it('should use max seconds for time ranges', () => {
+            const timeRangeExercise: Partial<WorkoutExercise> = {
+                repsRange: {
+                    type: 'time',
+                    min: 20,
+                    max: 30,
+                    unit: 'seconds',
+                    raw: '20-30s',
+                },
+            };
+
+            const flags = getExerciseTypeFlags(timeRangeExercise as WorkoutExercise);
+
+            expect(flags.isTimeBased).toBe(true);
+            expect(flags.timeSeconds).toBe(30);
+            expect(flags.timeMinutes).toBe(0.5);
+        });
+
         it('should handle flow exercise with non-time repsRange', () => {
             const exercise: Partial<WorkoutExercise> = {
                 isFlow: true,
@@ -211,7 +229,7 @@ describe('Time-Based Exercise Timer', () => {
                 />
             );
 
-            const timerButton = screen.getByRole('button', { name: /Start 1m timer/i });
+            const timerButton = screen.getByRole('button', { name: /Start 90s timer/i });
             fireEvent.click(timerButton);
 
             expect(onStartRestTimer).toHaveBeenCalledWith(90);
@@ -286,7 +304,7 @@ describe('Time-Based Exercise Timer', () => {
             );
 
             const timerButton = screen.getByRole('button', { name: /Stop timer/i });
-            expect(timerButton).toHaveClass('bg-sys-primary', 'text-sys-onPrimary');
+                expect(screen.queryByRole('button', { name: /Start 90s rest timer/i })).not.toBeInTheDocument();
         });
     });
 
@@ -345,7 +363,7 @@ describe('Time-Based Exercise Timer', () => {
             );
 
             // Should find timer button(s) with correct label
-            const timerButtons = screen.getAllByRole('button', { name: /Start 1m timer/i });
+            const timerButtons = screen.getAllByRole('button', { name: /Start 90s timer/i });
             expect(timerButtons.length).toBeGreaterThanOrEqual(1);
         });
 

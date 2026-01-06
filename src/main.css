@@ -2,6 +2,74 @@
 
 @import "tailwindcss";
 
+/* Section background colors with opacity (Tailwind v4 compatible) */
+@layer utilities {
+  .bg-warmup-500\/70 {
+    background-color: rgb(var(--color-warmup-500-rgb) / 0.45);
+  }
+  .bg-warmup-500\/50 {
+    background-color: rgb(var(--color-warmup-500-rgb) / 0.5);
+  }
+  .bg-warmup-500\/20 {
+    background-color: rgb(var(--color-warmup-500-rgb) / 0.2);
+  }
+  .border-warmup-500\/50 {
+    border-color: rgb(var(--color-warmup-500-rgb) / 0.5);
+  }
+
+  .bg-skill-500\/60 {
+    background-color: rgb(var(--color-skill-500-rgb) / 0.45);
+  }
+  .bg-skill-500\/40 {
+    background-color: rgb(var(--color-skill-500-rgb) / 0.4);
+  }
+  .bg-skill-500\/20 {
+    background-color: rgb(var(--color-skill-500-rgb) / 0.2);
+  }
+  .border-skill-500\/40 {
+    border-color: rgb(var(--color-skill-500-rgb) / 0.4);
+  }
+
+  .bg-main-500\/55 {
+    background-color: rgb(var(--color-main-500-rgb) / 0.45);
+  }
+  .bg-main-500\/35 {
+    background-color: rgb(var(--color-main-500-rgb) / 0.35);
+  }
+  .bg-main-500\/20 {
+    background-color: rgb(var(--color-main-500-rgb) / 0.2);
+  }
+  .border-main-500\/35 {
+    border-color: rgb(var(--color-main-500-rgb) / 0.35);
+  }
+
+  .bg-accessory-500\/55 {
+    background-color: rgb(var(--color-accessory-500-rgb) / 0.45);
+  }
+  .bg-accessory-500\/35 {
+    background-color: rgb(var(--color-accessory-500-rgb) / 0.35);
+  }
+  .bg-accessory-500\/20 {
+    background-color: rgb(var(--color-accessory-500-rgb) / 0.2);
+  }
+  .border-accessory-500\/35 {
+    border-color: rgb(var(--color-accessory-500-rgb) / 0.35);
+  }
+
+  .bg-cooldown-500\/70 {
+    background-color: rgb(var(--color-cooldown-500-rgb) / 0.45);
+  }
+  .bg-cooldown-500\/50 {
+    background-color: rgb(var(--color-cooldown-500-rgb) / 0.5);
+  }
+  .bg-cooldown-500\/20 {
+    background-color: rgb(var(--color-cooldown-500-rgb) / 0.2);
+  }
+  .border-cooldown-500\/50 {
+    border-color: rgb(var(--color-cooldown-500-rgb) / 0.5);
+  }
+}
+
 html {
     background-color: var(--color-surface);
     min-height: 100%;

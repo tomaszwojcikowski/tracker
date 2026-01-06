@@ -298,16 +298,20 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
                 : isUrgent
                 ? 'text-sys-error text-8xl md:text-9xl animate-pulse drop-shadow-2xl'
                 : 'text-sys-onSurface text-8xl md:text-9xl drop-shadow-lg'
-            } ${canTogglePause ? 'cursor-pointer active:scale-95' : 'cursor-default'}`}
+            } ${canTogglePause ? 'cursor-pointer active:scale-95' : 'cursor-default'} ${
+              isComplete
+                ? 'px-10 py-6 rounded-[2.5rem] bg-sys-surfaceContainerHigh/80 backdrop-blur-xl border border-sys-outlineVariant shadow-elevation-2'
+                : ''
+            }`}
             aria-label={canTogglePause ? (isPaused ? 'Resume timer' : 'Pause timer') : 'Timer display'}
           >
             {isComplete ? '✓' : timeString}
           </button>
 
           {/* Subtitle */}
-          {!isComplete && (
+          {!isComplete && isEmom && (
             <p className="text-sys-onSurfaceVariant text-base font-semibold">
-              {isEmom ? `${totalSeconds}s intervals` : `${Math.round(progress)}% remaining`}
+              {`${totalSeconds}s intervals`}
             </p>
           )}
 

@@ -11,6 +11,7 @@ import { Timer, X, Plus, Minus } from './icons';
 import { useHaptic, useRestTimer } from '../hooks';
 import { FullscreenTimer } from './FullscreenTimer';
 import { BottomSheet } from './BottomSheet';
+import { formatSecondsShort } from './TimeBadge';
 
 /** Default rest time options in seconds */
 const TIMER_PRESETS = [30, 60, 90, 120, 180];
@@ -41,13 +42,6 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
     const [soundEnabled, setSoundEnabled] = useState(true);
     // Track total seconds for progress calculation
     const totalSecondsRef = useRef(0);
-
-    // Format time for display
-    const formatTime = useCallback((seconds: number): string => {
-        const mins = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        return `${mins}:${secs.toString().padStart(2, '0')}`;
-    }, []);
 
     // Handle starting timer with preset
     const handleStartTimer = useCallback((seconds: number) => {
@@ -172,7 +166,7 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
                                     onClick={() => handleStartTimer(seconds)}
                                     className="btn-md3 btn-tonal h-12 rounded-xl text-sm font-medium transition-all active:scale-95"
                                 >
-                                    {formatTime(seconds)}
+                                    {formatSecondsShort(seconds)}
                                 </button>
                             ))}
                         </div>
@@ -191,7 +185,7 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
                             </button>
                             <div className="min-w-[100px] text-center">
                                 <span className="font-mono text-3xl font-bold text-sys-onSurface">
-                                    {formatTime(customTime)}
+                                    {formatSecondsShort(customTime)}
                                 </span>
                             </div>
                             <button
@@ -228,7 +222,7 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
                 } ${className}`}
                 aria-label={
                     restTimer.active
-                        ? `Timer: ${formatTime(restTimer.seconds)} remaining. Tap to expand.`
+                        ? `Timer: ${formatSecondsShort(restTimer.seconds)} remaining. Tap to expand.`
                         : 'Open quick timer'
                 }
             >
@@ -236,7 +230,7 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
                     <>
                         <Timer size={18} className={isUrgent ? 'text-sys-onError' : 'text-sys-onPrimary'} />
                         <span className={`font-mono font-bold text-base ${isUrgent ? 'text-sys-onError' : 'text-sys-onPrimary'}`}>
-                            {formatTime(restTimer.seconds)}
+                            {formatSecondsShort(restTimer.seconds)}
                         </span>
                     </>
                 ) : (

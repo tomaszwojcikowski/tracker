@@ -103,6 +103,9 @@ export const Snackbar: React.FC<SnackbarProps> = ({
                     pointer-events-auto
                     min-w-[288px] max-w-[568px] w-full sm:w-auto
                     rounded-[4px] shadow-elevation-3
+                    backdrop-blur-xl
+                    border border-sys-outlineVariant
+                    bg-opacity-90
                     animate-slide-up
                     ${typeStyles[type]}
                     ${isStacked ? 'py-3' : 'py-3.5'}

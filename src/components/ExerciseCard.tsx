@@ -26,6 +26,7 @@ import { RPESelector } from './RPESelector';
 import { ExerciseOptionsBadge } from './ExerciseOptionsBadge';
 import { FlowMovementsDisplay, FlowBadge } from './FlowMovementsDisplay';
 import { DensityRepControls } from './DensityRepControls';
+import { formatSecondsShort, TimeBadge } from './TimeBadge';
 import type { RPEValue } from '../types';
 import type { ExerciseDetailRequest, ExerciseLogEntry } from '../types/workout';
 import type { LoadRange, TempoRange } from '../workout-plan-utils';
@@ -270,11 +271,11 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
         // Section-based colors (applied even when isFirstIncomplete)
         let sectionColors = '';
         switch (sectionType) {
-            case 'prep': sectionColors = 'bg-warmup-500/10 border-warmup-500/20'; break;
-            case 'skill': sectionColors = 'bg-skill-500/10 border-skill-500/20'; break;
-            case 'main': sectionColors = 'bg-main-500/10 border-main-500/20'; break;
-            case 'access': sectionColors = 'bg-accessory-500/10 border-accessory-500/20'; break;
-            case 'cool': sectionColors = 'bg-cooldown-500/10 border-cooldown-500/20'; break;
+            case 'prep': sectionColors = 'bg-warmup-500/70 border-warmup-500/50'; break;
+            case 'skill': sectionColors = 'bg-skill-500/60 border-skill-500/45'; break;
+            case 'main': sectionColors = 'bg-main-500/55 border-main-500/40'; break;
+            case 'access': sectionColors = 'bg-accessory-500/55 border-accessory-500/40'; break;
+            case 'cool': sectionColors = 'bg-cooldown-500/70 border-cooldown-500/50'; break;
             default: sectionColors = 'bg-sys-surfaceContainerLow border-sys-outlineVariant';
         }
 
@@ -379,6 +380,11 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 </span>
                             )}
 
+                            {/* Timed Badge */}
+                            {!isFlow && !isEmom && !isDensity && timeSeconds && timeSeconds > 0 && (
+                                <TimeBadge seconds={timeSeconds} size="card" />
+                            )}
+
                             {/* Flow Badge - show when flow is selected */}
                             {exerciseOptions && exerciseOptions.length > 0 && selectedOption && exerciseOptions.some(opt => opt.flowMovements?.length) && (
                                 <FlowBadge
@@ -471,10 +477,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                             ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
                                             : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                     }`}
-                                    aria-label={restTimerActive ? 'Stop timer' : `Start ${timeSeconds >= 60 ? Math.floor(timeSeconds / 60) + 'm' : timeSeconds + 's'} timer`}
+                                    aria-label={restTimerActive ? 'Stop timer' : `Start ${formatSecondsShort(timeSeconds)} timer`}
                                 >
-                                    <Timer size={18} />
-                                    <span>{timeSeconds >= 60 ? `${Math.floor(timeSeconds / 60)}m` : `${timeSeconds}s`}</span>
+                                    <TimeBadge seconds={timeSeconds} variant="inline" />
                                 </button>
                             </div>
                         ) : null}
@@ -490,10 +495,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                             ? 'bg-sys-tertiary text-sys-onTertiary ring-2 ring-sys-tertiary/50'
                                             : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                     }`}
-                                    aria-label={emomTimerActive ? 'Stop EMOM timer' : `Start ${emomTimerInterval}s EMOM timer`}
+                                    aria-label={emomTimerActive ? 'Stop EMOM timer' : `Start ${formatSecondsShort(emomTimerInterval)} EMOM timer`}
                                 >
                                     <Zap size={18} />
-                                    <span>{emomTimerInterval >= 60 ? `${Math.floor(emomTimerInterval / 60)}m` : `${emomTimerInterval}s`}</span>
+                                    <span>{formatSecondsShort(emomTimerInterval)}</span>
                                 </button>
                             </div>
                         ) : null}
@@ -614,10 +619,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                                 ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
                                                 : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                                         }`}
-                                        aria-label={`Start ${restTime}s rest timer`}
+                                        aria-label={`Start ${formatSecondsShort(restTime)} rest timer`}
                                     >
-                                        <Timer size={16} />
-                                        <span>{restTime >= 60 ? `${Math.floor(restTime / 60)}m` : `${restTime}s`}</span>
+                                        <TimeBadge seconds={restTime} variant="inline" />
                                     </button>
                                 )}
 

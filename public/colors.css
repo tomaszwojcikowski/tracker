@@ -57,24 +57,28 @@
 
   /* ===== WORKOUT SECTION COLORS ===== */
   /* Warm-up - Soft Orange */
+  --color-warmup-500-rgb: 251 146 60;
   --color-warmup-500: #fb923c;
   --color-warmup-600: #f97316;
   --color-warmup-700: #ea580c;
   --color-warmup-glow: rgba(251, 146, 60, 0.3);
 
   /* Skill Practice - Purple */
+  --color-skill-500-rgb: 167 139 250;
   --color-skill-500: #a78bfa;
   --color-skill-600: #8b5cf6;
   --color-skill-700: #7c3aed;
   --color-skill-glow: rgba(167, 139, 250, 0.3);
 
   /* Main Work - Vibrant Green */
+  --color-main-500-rgb: 52 211 153;
   --color-main-500: #34d399;
   --color-main-600: #10b981;
   --color-main-700: #059669;
   --color-main-glow: rgba(52, 211, 153, 0.3);
 
   /* Accessory - Blue */
+  --color-accessory-500-rgb: 96 165 250;
   --color-accessory-500: #60a5fa;
   --color-accessory-600: #3b82f6;
   --color-accessory-700: #2563eb;
@@ -87,6 +91,7 @@
   --color-core-glow: rgba(251, 191, 36, 0.3);
 
   /* Cool-down - Teal */
+  --color-cooldown-500-rgb: 45 212 191;
   --color-cooldown-500: #2dd4bf;
   --color-cooldown-600: #14b8a6;
   --color-cooldown-700: #0d9488;

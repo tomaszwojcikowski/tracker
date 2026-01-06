@@ -11,6 +11,7 @@ import { useHaptic } from '../hooks';
 import { X, Minus, Plus, Maximize2, Repeat, Play, Pause, Gauge } from './icons';
 import { FullscreenTimer } from './FullscreenTimer';
 import { safeGetJSON, safeSetJSON } from '../utils/storage';
+import { formatSecondsShort } from './TimeBadge';
 
 export interface DensityRepControlsState {
   targetReps: number;
@@ -362,9 +363,7 @@ export function ActionBar({
                     : 'text-sys-onSurface'
                 }`}
               >
-                {Math.floor(emomState.seconds / 60)}:
-                {emomState.seconds % 60 < 10 ? '0' : ''}
-                {emomState.seconds % 60}
+                {formatSecondsShort(emomState.seconds)}
               </span>
               <div className="h-6 w-[1px] bg-sys-outlineVariant"></div>
               <div className="flex items-center gap-2">
@@ -438,9 +437,7 @@ export function ActionBar({
                     : 'text-sys-onSurface'
                 }`}
               >
-                {Math.floor(densityState.seconds / 60)}:
-                {densityState.seconds % 60 < 10 ? '0' : ''}
-                {densityState.seconds % 60}
+                {formatSecondsShort(densityState.seconds)}
               </span>
               <button
                 onClick={() => {
@@ -469,9 +466,7 @@ export function ActionBar({
               <Maximize2 size={24} />
             </button>
             <span className="text-2xl font-mono font-bold text-sys-onSurface min-w-[80px]">
-              {Math.floor(timerState.time / 60)}:
-              {timerState.time % 60 < 10 ? '0' : ''}
-              {timerState.time % 60}
+              {formatSecondsShort(timerState.time)}
             </span>
             <div className="h-6 w-[1px] bg-sys-outlineVariant"></div>
             <button

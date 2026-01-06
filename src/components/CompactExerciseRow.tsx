@@ -11,6 +11,7 @@ import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2, Time
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
 import { CompactSetButtons } from './CompactSetButtons';
+import { formatSecondsShort, TimeBadge } from './TimeBadge';
 import { ExerciseOptionsBadge } from './ExerciseOptionsBadge';
 import { FlowMovementsDisplay, FlowBadge } from './FlowMovementsDisplay';
 import { DensityRepControls } from './DensityRepControls';
@@ -377,11 +378,11 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
         // Section-based colors
         let sectionColors = '';
         switch (sectionType) {
-            case 'prep': sectionColors = 'bg-warmup-500/10 border-warmup-500/20'; break;
-            case 'skill': sectionColors = 'bg-skill-500/10 border-skill-500/20'; break;
-            case 'main': sectionColors = 'bg-main-500/10 border-main-500/20'; break;
-            case 'access': sectionColors = 'bg-accessory-500/10 border-accessory-500/20'; break;
-            case 'cool': sectionColors = 'bg-cooldown-500/10 border-cooldown-500/20'; break;
+            case 'prep': sectionColors = 'bg-warmup-500/70 border-warmup-500/50'; break;
+            case 'skill': sectionColors = 'bg-skill-500/60 border-skill-500/45'; break;
+            case 'main': sectionColors = 'bg-main-500/55 border-main-500/40'; break;
+            case 'access': sectionColors = 'bg-accessory-500/55 border-accessory-500/40'; break;
+            case 'cool': sectionColors = 'bg-cooldown-500/70 border-cooldown-500/50'; break;
             default: sectionColors = 'bg-sys-surface border-sys-outlineVariant';
         }
 
@@ -552,6 +553,11 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             <span className="text-[8px]">L/R</span>
                         </span>
                     )}
+
+                    {/* Timed Badge */}
+                    {!isFlow && !isEmom && !isDensity && timeSeconds && timeSeconds > 0 && (
+                        <TimeBadge seconds={timeSeconds} size="compact" />
+                    )}
                     <span ref={textRef} className="text-base font-bold text-sys-onSurface truncate min-w-0" title={historyLookupName}>
                         {/* Active row shows full name, others show short name */}
                         {isFirstIncomplete ? historyLookupName : shortDisplayName}
@@ -616,10 +622,9 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                 ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
                                 : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar'
                         }`}
-                        aria-label={restTimerActive ? 'Stop timer' : `Start ${timeSeconds >= 60 ? Math.floor(timeSeconds / 60) + 'm' : timeSeconds + 's'} timer`}
+                        aria-label={restTimerActive ? 'Stop timer' : `Start ${formatSecondsShort(timeSeconds)} timer`}
                     >
-                        <Timer size={12} />
-                        <span>{timeSeconds >= 60 ? `${Math.floor(timeSeconds / 60)}m` : `${timeSeconds}s`}</span>
+                        <TimeBadge seconds={timeSeconds} size="compact" variant="inline" />
                     </button>
                 )}
 
@@ -632,10 +637,9 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                 ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
                                 : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar'
                         }`}
-                        aria-label={`Start ${restTime}s rest timer`}
+                        aria-label={`Start ${formatSecondsShort(restTime)} rest timer`}
                     >
-                        <Timer size={12} />
-                        <span>{restTime >= 60 ? `${Math.floor(restTime / 60)}m` : `${restTime}s`}</span>
+                        <TimeBadge seconds={restTime} size="compact" variant="inline" />
                     </button>
                 )}
 
@@ -807,10 +811,9 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                         ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
                                         : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar'
                                 }`}
-                                aria-label={restTimerActive ? 'Stop timer' : `Start ${timeSeconds >= 60 ? Math.floor(timeSeconds / 60) + 'm' : timeSeconds + 's'} timer`}
+                                aria-label={restTimerActive ? 'Stop timer' : `Start ${formatSecondsShort(timeSeconds)} timer`}
                             >
-                                <Timer size={12} />
-                                <span>{timeSeconds >= 60 ? `${Math.floor(timeSeconds / 60)}m` : `${timeSeconds}s`}</span>
+                                <TimeBadge seconds={timeSeconds} size="compact" variant="inline" />
                             </button>
                         )}
 
@@ -823,10 +826,10 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                         ? 'bg-sys-tertiary text-sys-onTertiary ring-2 ring-sys-tertiary/50'
                                         : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar'
                                 }`}
-                                aria-label={emomTimerActive ? 'Stop EMOM timer' : `Start ${emomTimerInterval}s EMOM timer`}
+                                aria-label={emomTimerActive ? 'Stop EMOM timer' : `Start ${formatSecondsShort(emomTimerInterval)} EMOM timer`}
                             >
                                 <Zap size={12} />
-                                <span>{emomTimerInterval >= 60 ? `${Math.floor(emomTimerInterval / 60)}m` : `${emomTimerInterval}s`}</span>
+                                <span>{formatSecondsShort(emomTimerInterval)}</span>
                             </button>
                         )}
 
@@ -839,10 +842,9 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                         ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
                                         : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar'
                                 }`}
-                                aria-label={`Start ${restTime}s rest timer`}
+                                aria-label={`Start ${formatSecondsShort(restTime)} rest timer`}
                             >
-                                <Timer size={12} />
-                                <span>{restTime >= 60 ? `${Math.floor(restTime / 60)}m` : `${restTime}s`}</span>
+                                <TimeBadge seconds={restTime} size="compact" variant="inline" />
                             </button>
                         )}
                     </div>

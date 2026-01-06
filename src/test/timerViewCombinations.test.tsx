@@ -172,7 +172,7 @@ describe('Timer View Combinations', () => {
                 />
             );
 
-            const emomTimerButton = screen.getByRole('button', { name: /Start 120s EMOM timer/i });
+            const emomTimerButton = screen.getByRole('button', { name: /Start 2m EMOM timer/i });
             expect(emomTimerButton).toHaveTextContent('2m');
         });
 
@@ -289,7 +289,7 @@ describe('Timer View Combinations', () => {
                 />
             );
 
-            const emomTimerButton = screen.getByRole('button', { name: /Start 60s EMOM timer/i });
+            const emomTimerButton = screen.getByRole('button', { name: /Start 1m EMOM timer/i });
             expect(emomTimerButton).toBeInTheDocument();
         });
 

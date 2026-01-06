@@ -378,11 +378,11 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
         // Section-based colors
         let sectionColors = '';
         switch (sectionType) {
-            case 'prep': sectionColors = 'bg-warmup-500/70 border-warmup-500/50'; break;
-            case 'skill': sectionColors = 'bg-skill-500/60 border-skill-500/45'; break;
-            case 'main': sectionColors = 'bg-main-500/55 border-main-500/40'; break;
-            case 'access': sectionColors = 'bg-accessory-500/55 border-accessory-500/40'; break;
-            case 'cool': sectionColors = 'bg-cooldown-500/70 border-cooldown-500/50'; break;
+            case 'prep': sectionColors = 'bg-warmup-500/15 border-warmup-500/50'; break;
+            case 'skill': sectionColors = 'bg-skill-500/15 border-skill-500/45'; break;
+            case 'main': sectionColors = 'bg-main-500/15 border-main-500/40'; break;
+            case 'access': sectionColors = 'bg-accessory-500/15 border-accessory-500/40'; break;
+            case 'cool': sectionColors = 'bg-cooldown-500/15 border-cooldown-500/50'; break;
             default: sectionColors = 'bg-sys-surface border-sys-outlineVariant';
         }
 

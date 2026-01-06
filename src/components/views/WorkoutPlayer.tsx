@@ -1558,11 +1558,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             </div>
 
                             {/* Exercises */}
-                            <div className="relative mt-2 rounded-2xl overflow-hidden bg-sys-surfaceContainerLow">
-                                <div
-                                    className={`absolute inset-0 pointer-events-none bg-gradient-to-br ${colors.gradientBar} opacity-100`}
-                                />
-                                <div className={`relative ${compactView ? 'space-y-1 p-1.5' : 'space-y-3 p-2'}`}>
+                            <div className="relative mt-2 bg-transparent">
+                                <div className={`relative ${compactView ? 'space-y-1' : 'space-y-3'}`}>
                                     {(() => {
                                     // For compact view, group superset exercises together
                                     if (compactView) {

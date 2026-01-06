@@ -2,72 +2,82 @@
 
 @import "tailwindcss";
 
-/* Section background colors with opacity (Tailwind v4 compatible) */
-@layer utilities {
-  .bg-warmup-500\/70 {
-    background-color: rgb(var(--color-warmup-500-rgb) / 0.45);
-  }
-  .bg-warmup-500\/50 {
-    background-color: rgb(var(--color-warmup-500-rgb) / 0.5);
-  }
-  .bg-warmup-500\/20 {
-    background-color: rgb(var(--color-warmup-500-rgb) / 0.2);
-  }
-  .border-warmup-500\/50 {
-    border-color: rgb(var(--color-warmup-500-rgb) / 0.5);
-  }
+@theme {
+    /* ========================================================================
+         MD3 System Tokens (CSS-first Tailwind v4)
+         Keep names aligned with existing class usage: bg-sys-*, text-sys-*, etc.
+         ======================================================================== */
+    --color-sys-black: var(--color-black);
+    --color-sys-surface: var(--color-surface);
+    --color-sys-onSurface: var(--color-on-surface);
+    --color-sys-surfaceVariant: var(--color-surface-variant);
+    --color-sys-onSurfaceVariant: var(--color-on-surface-variant);
+    --color-sys-surfaceContainerLowest: var(--color-surface-container-lowest);
+    --color-sys-surfaceContainerLow: var(--color-surface-container-low);
+    --color-sys-surfaceContainer: var(--color-surface-container);
+    --color-sys-surfaceContainerHigh: var(--color-surface-container-high);
+    --color-sys-surfaceContainerHighest: var(--color-surface-container-highest);
+    --color-sys-surfaceTint: var(--color-surface-tint);
+    --color-sys-primary: var(--color-primary);
+    --color-sys-onPrimary: var(--color-on-primary);
+    --color-sys-primaryContainer: var(--color-primary-container);
+    --color-sys-onPrimaryContainer: var(--color-on-primary-container);
+    --color-sys-secondary: var(--color-secondary);
+    --color-sys-onSecondary: var(--color-on-secondary);
+    --color-sys-secondaryContainer: var(--color-secondary-container);
+    --color-sys-onSecondaryContainer: var(--color-on-secondary-container);
+    --color-sys-tertiary: var(--color-tertiary);
+    --color-sys-onTertiary: var(--color-on-tertiary);
+    --color-sys-tertiaryContainer: var(--color-tertiary-container);
+    --color-sys-onTertiaryContainer: var(--color-on-tertiary-container);
+    --color-sys-error: var(--color-error);
+    --color-sys-onError: var(--color-on-error);
+    --color-sys-errorContainer: var(--color-error-container);
+    --color-sys-onErrorContainer: var(--color-on-error-container);
+    --color-sys-success: var(--color-success);
+    --color-sys-onSuccess: var(--color-on-success);
+    --color-sys-successContainer: var(--color-success-container);
+    --color-sys-onSuccessContainer: var(--color-on-success-container);
+    --color-sys-warning: var(--color-warning-700);
+    --color-sys-outline: var(--color-outline);
+    --color-sys-outlineVariant: var(--color-outline-variant);
+    --color-sys-inverseSurface: var(--color-inverse-surface);
+    --color-sys-inverseOnSurface: var(--color-inverse-on-surface);
+    --color-sys-inversePrimary: var(--color-inverse-primary);
+    --color-sys-scrim: var(--color-scrim);
+    --color-sys-shadow: var(--color-shadow);
 
-  .bg-skill-500\/60 {
-    background-color: rgb(var(--color-skill-500-rgb) / 0.45);
-  }
-  .bg-skill-500\/40 {
-    background-color: rgb(var(--color-skill-500-rgb) / 0.4);
-  }
-  .bg-skill-500\/20 {
-    background-color: rgb(var(--color-skill-500-rgb) / 0.2);
-  }
-  .border-skill-500\/40 {
-    border-color: rgb(var(--color-skill-500-rgb) / 0.4);
-  }
+    /* Legacy aliases still used by components */
+    --color-sys-surfaceHigh: var(--color-surface-container-high);
+    --color-sys-onSurfaceVar: var(--color-on-surface-variant);
+    --color-sys-accent: var(--color-primary);
+    --color-sys-outlineVar: var(--color-outline-variant);
+    --color-sys-background: var(--color-surface);
+    --color-sys-onBackground: var(--color-on-surface);
 
-  .bg-main-500\/55 {
-    background-color: rgb(var(--color-main-500-rgb) / 0.45);
-  }
-  .bg-main-500\/35 {
-    background-color: rgb(var(--color-main-500-rgb) / 0.35);
-  }
-  .bg-main-500\/20 {
-    background-color: rgb(var(--color-main-500-rgb) / 0.2);
-  }
-  .border-main-500\/35 {
-    border-color: rgb(var(--color-main-500-rgb) / 0.35);
-  }
+  --color-warmup-500: rgb(var(--color-warmup-500-rgb));
+  --color-warmup-600: var(--color-warmup-600);
+  --color-warmup-700: var(--color-warmup-700);
 
-  .bg-accessory-500\/55 {
-    background-color: rgb(var(--color-accessory-500-rgb) / 0.45);
-  }
-  .bg-accessory-500\/35 {
-    background-color: rgb(var(--color-accessory-500-rgb) / 0.35);
-  }
-  .bg-accessory-500\/20 {
-    background-color: rgb(var(--color-accessory-500-rgb) / 0.2);
-  }
-  .border-accessory-500\/35 {
-    border-color: rgb(var(--color-accessory-500-rgb) / 0.35);
-  }
+  --color-skill-500: rgb(var(--color-skill-500-rgb));
+  --color-skill-600: var(--color-skill-600);
+  --color-skill-700: var(--color-skill-700);
 
-  .bg-cooldown-500\/70 {
-    background-color: rgb(var(--color-cooldown-500-rgb) / 0.45);
-  }
-  .bg-cooldown-500\/50 {
-    background-color: rgb(var(--color-cooldown-500-rgb) / 0.5);
-  }
-  .bg-cooldown-500\/20 {
-    background-color: rgb(var(--color-cooldown-500-rgb) / 0.2);
-  }
-  .border-cooldown-500\/50 {
-    border-color: rgb(var(--color-cooldown-500-rgb) / 0.5);
-  }
+  --color-main-500: rgb(var(--color-main-500-rgb));
+  --color-main-600: var(--color-main-600);
+  --color-main-700: var(--color-main-700);
+
+  --color-accessory-500: rgb(var(--color-accessory-500-rgb));
+  --color-accessory-600: var(--color-accessory-600);
+  --color-accessory-700: var(--color-accessory-700);
+
+  --color-core-500: var(--color-core-500);
+  --color-core-600: var(--color-core-600);
+  --color-core-700: var(--color-core-700);
+
+  --color-cooldown-500: rgb(var(--color-cooldown-500-rgb));
+  --color-cooldown-600: var(--color-cooldown-600);
+  --color-cooldown-700: var(--color-cooldown-700);
 }
 
 html {

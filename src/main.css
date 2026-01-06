@@ -3,58 +3,59 @@
 @import "tailwindcss";
 
 @theme {
-    /* ========================================================================
-         MD3 System Tokens (CSS-first Tailwind v4)
-         Keep names aligned with existing class usage: bg-sys-*, text-sys-*, etc.
-         ======================================================================== */
-    --color-sys-black: var(--color-black);
-    --color-sys-surface: var(--color-surface);
-    --color-sys-onSurface: var(--color-on-surface);
-    --color-sys-surfaceVariant: var(--color-surface-variant);
-    --color-sys-onSurfaceVariant: var(--color-on-surface-variant);
-    --color-sys-surfaceContainerLowest: var(--color-surface-container-lowest);
-    --color-sys-surfaceContainerLow: var(--color-surface-container-low);
-    --color-sys-surfaceContainer: var(--color-surface-container);
-    --color-sys-surfaceContainerHigh: var(--color-surface-container-high);
-    --color-sys-surfaceContainerHighest: var(--color-surface-container-highest);
-    --color-sys-surfaceTint: var(--color-surface-tint);
-    --color-sys-primary: var(--color-primary);
-    --color-sys-onPrimary: var(--color-on-primary);
-    --color-sys-primaryContainer: var(--color-primary-container);
-    --color-sys-onPrimaryContainer: var(--color-on-primary-container);
-    --color-sys-secondary: var(--color-secondary);
-    --color-sys-onSecondary: var(--color-on-secondary);
-    --color-sys-secondaryContainer: var(--color-secondary-container);
-    --color-sys-onSecondaryContainer: var(--color-on-secondary-container);
-    --color-sys-tertiary: var(--color-tertiary);
-    --color-sys-onTertiary: var(--color-on-tertiary);
-    --color-sys-tertiaryContainer: var(--color-tertiary-container);
-    --color-sys-onTertiaryContainer: var(--color-on-tertiary-container);
-    --color-sys-error: var(--color-error);
-    --color-sys-onError: var(--color-on-error);
-    --color-sys-errorContainer: var(--color-error-container);
-    --color-sys-onErrorContainer: var(--color-on-error-container);
-    --color-sys-success: var(--color-success);
-    --color-sys-onSuccess: var(--color-on-success);
-    --color-sys-successContainer: var(--color-success-container);
-    --color-sys-onSuccessContainer: var(--color-on-success-container);
-    --color-sys-warning: var(--color-warning-700);
-    --color-sys-outline: var(--color-outline);
-    --color-sys-outlineVariant: var(--color-outline-variant);
-    --color-sys-inverseSurface: var(--color-inverse-surface);
-    --color-sys-inverseOnSurface: var(--color-inverse-on-surface);
-    --color-sys-inversePrimary: var(--color-inverse-primary);
-    --color-sys-scrim: var(--color-scrim);
-    --color-sys-shadow: var(--color-shadow);
+  /* ========================================================================
+     MD3 System Color Tokens (CSS-first Tailwind v4)
+     These define Tailwind utilities like bg-sys-*, text-sys-*, border-sys-*
+     ======================================================================== */
+  --color-sys-black: var(--color-black);
+  --color-sys-surface: var(--color-surface);
+  --color-sys-onSurface: var(--color-on-surface);
+  --color-sys-surfaceVariant: var(--color-surface-variant);
+  --color-sys-onSurfaceVariant: var(--color-on-surface-variant);
+  --color-sys-surfaceContainerLowest: var(--color-surface-container-lowest);
+  --color-sys-surfaceContainerLow: var(--color-surface-container-low);
+  --color-sys-surfaceContainer: var(--color-surface-container);
+  --color-sys-surfaceContainerHigh: var(--color-surface-container-high);
+  --color-sys-surfaceContainerHighest: var(--color-surface-container-highest);
+  --color-sys-surfaceTint: var(--color-surface-tint);
+  --color-sys-primary: var(--color-primary);
+  --color-sys-onPrimary: var(--color-on-primary);
+  --color-sys-primaryContainer: var(--color-primary-container);
+  --color-sys-onPrimaryContainer: var(--color-on-primary-container);
+  --color-sys-secondary: var(--color-secondary);
+  --color-sys-onSecondary: var(--color-on-secondary);
+  --color-sys-secondaryContainer: var(--color-secondary-container);
+  --color-sys-onSecondaryContainer: var(--color-on-secondary-container);
+  --color-sys-tertiary: var(--color-tertiary);
+  --color-sys-onTertiary: var(--color-on-tertiary);
+  --color-sys-tertiaryContainer: var(--color-tertiary-container);
+  --color-sys-onTertiaryContainer: var(--color-on-tertiary-container);
+  --color-sys-error: var(--color-error);
+  --color-sys-onError: var(--color-on-error);
+  --color-sys-errorContainer: var(--color-error-container);
+  --color-sys-onErrorContainer: var(--color-on-error-container);
+  --color-sys-success: var(--color-success);
+  --color-sys-onSuccess: var(--color-on-success);
+  --color-sys-successContainer: var(--color-success-container);
+  --color-sys-onSuccessContainer: var(--color-on-success-container);
+  --color-sys-warning: var(--color-warning-700);
+  --color-sys-outline: var(--color-outline);
+  --color-sys-outlineVariant: var(--color-outline-variant);
+  --color-sys-inverseSurface: var(--color-inverse-surface);
+  --color-sys-inverseOnSurface: var(--color-inverse-on-surface);
+  --color-sys-inversePrimary: var(--color-inverse-primary);
+  --color-sys-scrim: var(--color-scrim);
+  --color-sys-shadow: var(--color-shadow);
 
-    /* Legacy aliases still used by components */
-    --color-sys-surfaceHigh: var(--color-surface-container-high);
-    --color-sys-onSurfaceVar: var(--color-on-surface-variant);
-    --color-sys-accent: var(--color-primary);
-    --color-sys-outlineVar: var(--color-outline-variant);
-    --color-sys-background: var(--color-surface);
-    --color-sys-onBackground: var(--color-on-surface);
+  /* Legacy aliases still used by components */
+  --color-sys-surfaceHigh: var(--color-surface-container-high);
+  --color-sys-onSurfaceVar: var(--color-on-surface-variant);
+  --color-sys-accent: var(--color-primary);
+  --color-sys-outlineVar: var(--color-outline-variant);
+  --color-sys-background: var(--color-surface);
+  --color-sys-onBackground: var(--color-on-surface);
 
+  /* Workout Section Colors */
   --color-warmup-500: rgb(var(--color-warmup-500-rgb));
   --color-warmup-600: var(--color-warmup-600);
   --color-warmup-700: var(--color-warmup-700);
@@ -78,6 +79,120 @@
   --color-cooldown-500: rgb(var(--color-cooldown-500-rgb));
   --color-cooldown-600: var(--color-cooldown-600);
   --color-cooldown-700: var(--color-cooldown-700);
+
+  /* Error and Warning Color Palettes */
+  --color-error-50: var(--color-error-50);
+  --color-error-100: var(--color-error-100);
+  --color-error-200: var(--color-error-200);
+  --color-error-300: var(--color-error-300);
+  --color-error-400: var(--color-error-400);
+  --color-error-500: var(--color-error-500);
+  --color-error-600: var(--color-error-600);
+  --color-error-700: var(--color-error-700);
+  --color-error-800: var(--color-error-800);
+  --color-error-900: var(--color-error-900);
+
+  --color-warning-50: var(--color-warning-50);
+  --color-warning-100: var(--color-warning-100);
+  --color-warning-200: var(--color-warning-200);
+  --color-warning-300: var(--color-warning-300);
+  --color-warning-400: var(--color-warning-400);
+  --color-warning-500: var(--color-warning-500);
+  --color-warning-600: var(--color-warning-600);
+  --color-warning-700: var(--color-warning-700);
+  --color-warning-800: var(--color-warning-800);
+  --color-warning-900: var(--color-warning-900);
+
+  /* ========================================================================
+     Font Families (Tailwind v4)
+     Generates: font-sans, font-mono
+     ======================================================================== */
+  --font-family-sans: 'Inter', 'sans-serif';
+  --font-family-mono: 'JetBrains Mono', 'monospace';
+
+  /* ========================================================================
+     MD3 Typography Scale - Font Sizes (Tailwind v4)
+     Generates utilities like: text-display-lg, text-headline-md, etc.
+     Format: --font-size-{name}: {size}; (line-height, letter-spacing, font-weight handled separately)
+     ======================================================================== */
+  /* Display */
+  --font-size-display-lg: 57px;
+  --font-size-display-md: 45px;
+  --font-size-display-sm: 36px;
+  
+  /* Headline */
+  --font-size-headline-lg: 32px;
+  --font-size-headline-md: 28px;
+  --font-size-headline-sm: 24px;
+  
+  /* Title */
+  --font-size-title-lg: 22px;
+  --font-size-title-md: 16px;
+  --font-size-title-sm: 14px;
+  
+  /* Body */
+  --font-size-body-lg: 16px;
+  --font-size-body-md: 14px;
+  --font-size-body-sm: 12px;
+  
+  /* Label */
+  --font-size-label-lg: 14px;
+  --font-size-label-md: 12px;
+  --font-size-label-sm: 11px;
+
+  /* ========================================================================
+     MD3 Box Shadows / Elevations (Tailwind v4)
+     Generates utilities like: shadow-glass, shadow-elevation-1, etc.
+     ======================================================================== */
+  --box-shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --box-shadow-elevation-0: none;
+  --box-shadow-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --box-shadow-elevation-2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --box-shadow-elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --box-shadow-elevation-4: 0 6px 10px 4px rgba(0, 0, 0, 0.15), 0 2px 3px rgba(0, 0, 0, 0.3);
+  --box-shadow-elevation-5: 0 8px 12px 6px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.3);
+
+  /* ========================================================================
+     MD3 Spacing Scale (Tailwind v4)
+     Generates utilities like: p-0.5, m-3, gap-6, etc.
+     Tailwind v4 uses numeric keys for spacing (0.5, 1, 2, 3, etc.)
+     ======================================================================== */
+  --spacing-0\.5: 2px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+
+  /* ========================================================================
+     MD3 Border Radius System (Tailwind v4)
+     Generates utilities like: rounded-xs, rounded-md, rounded-full, etc.
+     ======================================================================== */
+  --radius-none: 0;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 28px;
+  --radius-full: 9999px;
+
+  /* ========================================================================
+     Animations (Tailwind v4)
+     Generates utilities like: animate-slide-up, animate-bounce-in, etc.
+     Format: --animate-{name}: {keyframe-name} {duration} {timing-function};
+     ======================================================================== */
+  --animate-slide-up: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-bounce-in: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --animate-scale-bounce: scaleBounce 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --animate-pulse-glow: pulseGlow 2s ease-in-out infinite;
 }
 
 html {

@@ -189,7 +189,6 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     selectedOption,
     onToggleSet,
     onWeightChange,
-    onAddSet,
     onCompleteAllSets,
     onShowHistory,
     onStartRestTimer,
@@ -318,10 +317,6 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
         },
         [exId, defaultSets, restTime, onToggleSet, sectionType, isEmom]
     );
-
-    const handleAddSet = useCallback(() => {
-        onAddSet(exId, defaultSets);
-    }, [exId, defaultSets, onAddSet]);
 
     const handleCompleteAllSets = useCallback(() => {
         onCompleteAllSets(exId, defaultSets);
@@ -756,18 +751,6 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                     <Plus size={14} />
                                 </button>
                             </div>
-                        )}
-
-                        {/* Add Set Button - only for non-density, non-flow exercises */}
-                        {!isDensity && !isFlow && (
-                            <button
-                                onClick={handleAddSet}
-                                className="h-8 px-3 rounded-lg bg-sys-surfaceContainerLow text-sys-onSurfaceVar flex items-center justify-center gap-1.5 border border-dashed border-sys-outlineVariant active:scale-95 transition-all text-xs font-medium"
-                                aria-label="Add set"
-                            >
-                                <Plus size={12} />
-                                <span>Add Set</span>
-                            </button>
                         )}
 
                         {/* Density Timer Button - for density exercises */}

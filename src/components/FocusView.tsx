@@ -385,6 +385,8 @@ export const FocusView: React.FC<FocusViewProps> = ({
                                     {...timerProps}
                                     haptic={haptic}
                                     hideCollapseButton={true}
+                                    hideTimerBadges={true}
+                                    hideTimerControls={true}
                                     onToggleCollapse={() => {}}
                                     onToggleSet={onToggleSet}
                                     onAddSet={onAddSet}
@@ -434,6 +436,8 @@ export const FocusView: React.FC<FocusViewProps> = ({
                 {...timerProps}
                 haptic={haptic}
                 hideCollapseButton={true}
+                hideTimerBadges={true}
+                hideTimerControls={true}
                 onToggleCollapse={() => {}}
                 onToggleSet={onToggleSet}
                 onAddSet={onAddSet}
@@ -478,6 +482,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
     const currentItem = focusItems[focusIndex];
     const currentSection = currentItem?.section;
     const currentSectionType = currentItem?.sectionType;
+
 
     // Calculate completion status for each focus item (for progress dots)
     const focusItemCompletionStatus = useMemo(() => {
@@ -558,14 +563,16 @@ export const FocusView: React.FC<FocusViewProps> = ({
                             </div>
                         )}
                     </div>
-                    <button
-                        onClick={navigateNext}
-                        disabled={focusIndex === focusItems.length - 1}
-                        className="h-10 w-10 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
-                        aria-label="Next"
-                    >
-                        <ChevronRight size={20} />
-                    </button>
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={navigateNext}
+                            disabled={focusIndex === focusItems.length - 1}
+                            className="h-10 w-10 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
+                            aria-label="Next"
+                        >
+                            <ChevronRight size={20} />
+                        </button>
+                    </div>
                 </div>
 
                 {/* Horizontal scroll container with snap - native swipe support */}

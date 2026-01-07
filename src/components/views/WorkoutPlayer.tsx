@@ -1871,26 +1871,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     densityRepControls={densityRepControlsForFullscreen}
                 />
 
-                {/* Timer Toast */}
-                {restTimer.showToast && (
-                    <div className="fixed top-20 left-0 right-0 z-50 flex justify-center px-4 safe-pt animate-slide-up">
-                        <div className="bg-transparent px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-md w-full border border-sys-outlineVariant">
-                            <CheckCircle2 size={24} className="text-sys-onPrimary flex-shrink-0" />
-                            <span className="text-sys-onPrimary font-bold text-base flex-1">Rest Complete!</span>
-                            <button
-                                onClick={() => {
-                                    haptic.tick();
-                                    restTimer.dismissToast();
-                                }}
-                                className="h-8 w-8 min-w-[32px] rounded-full hover:bg-sys-onPrimary/10 text-sys-onPrimary flex items-center justify-center active:scale-90 transition-all flex-shrink-0"
-                                aria-label="Close notification"
-                            >
-                                <X size={18} />
-                            </button>
-                        </div>
-                    </div>
-                )}
-
                 {/* Finish Confirmation Dialog */}
                 <ConfirmDialog
                     isOpen={showFinishConfirm}

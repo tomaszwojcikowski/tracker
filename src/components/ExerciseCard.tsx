@@ -111,6 +111,12 @@ export interface ExerciseCardProps {
     hideCollapseButton?: boolean;
     /** Section type for determining if rest button should show (hide for prep/cool sections) */
     sectionType?: string;
+
+    /** Hide the small time badge next to the exercise title (FocusView). */
+    hideTimerBadges?: boolean;
+
+    /** Hide in-card timer controls (rest/time-based/EMOM/density/flow) (FocusView). */
+    hideTimerControls?: boolean;
     /** Callbacks */
     onToggleCollapse: (exId: string) => void;
     onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number, sectionType?: string, isEmom?: boolean) => void;
@@ -180,9 +186,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     restTimerActive = false,
     densityTimerActive = false,
     flowTimerActive = false,
+    hideTimerBadges = false,
+    hideTimerControls = false,
     onToggleCollapse,
     onToggleSet,
-    onAddSet,
     onCompleteAllSets,
     onSaveWeight,
     onSaveRPE,
@@ -201,6 +208,80 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     const completedSets = sets.filter((s) => s).length;
     const totalSets = sets.length;
     const allComplete = completedSets === totalSets && totalSets > 0;
+
+    const focusTimerButton = useMemo(() => {
+        // FocusView uses ExerciseCard with collapse hidden; when timer controls are hidden we
+        // expose a single timer entrypoint in the top-right of the card.
+        if (!hideCollapseButton || !hideTimerControls) return null;
+
+        // Priority: flow -> density -> EMOM -> time-based -> rest
+        if (isFlow && flowTimeMinutes && onToggleFlowTimer) {
+            return {
+                ariaLabel: flowTimerActive ? 'Stop flow timer' : `Start ${flowTimeMinutes}m flow timer`,
+                active: !!flowTimerActive,
+                label: <span>{flowTimeMinutes}m</span>,
+                onClick: () => onToggleFlowTimer(flowTimeMinutes),
+            };
+        }
+
+        if (isDensity && densityTimeMinutes && onToggleDensityTimer) {
+            return {
+                ariaLabel: densityTimerActive ? 'Stop density timer' : `Start ${densityTimeMinutes}m density timer`,
+                active: !!densityTimerActive,
+                label: <span>{densityTimeMinutes}m</span>,
+                onClick: () => onToggleDensityTimer(densityTimeMinutes),
+            };
+        }
+
+        if (isEmom && sectionType === 'main') {
+            return {
+                ariaLabel: emomTimerActive ? 'Stop EMOM timer' : `Start ${formatSecondsShort(emomTimerInterval)} EMOM timer`,
+                active: !!emomTimerActive,
+                label: <span>{formatSecondsShort(emomTimerInterval)}</span>,
+                onClick: () => onToggleEmomTimer(),
+            };
+        }
+
+        if (!isFlow && !isEmom && !isDensity && timeSeconds && timeSeconds > 0) {
+            return {
+                ariaLabel: restTimerActive ? 'Stop timer' : `Start ${formatSecondsShort(timeSeconds)} timer`,
+                active: !!restTimerActive,
+                label: <TimeBadge seconds={timeSeconds} variant="inline" />,
+                onClick: () => onStartRestTimer(timeSeconds),
+            };
+        }
+
+        if (!isFlow && !isEmom && !isDensity && restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access')) {
+            return {
+                ariaLabel: `Start ${formatSecondsShort(restTime)} rest timer`,
+                active: !!restTimerActive,
+                label: <TimeBadge seconds={restTime} variant="inline" />,
+                onClick: () => onStartRestTimer(restTime),
+            };
+        }
+
+        return null;
+    }, [
+        hideCollapseButton,
+        hideTimerControls,
+        isFlow,
+        flowTimeMinutes,
+        onToggleFlowTimer,
+        flowTimerActive,
+        isDensity,
+        densityTimeMinutes,
+        onToggleDensityTimer,
+        densityTimerActive,
+        isEmom,
+        sectionType,
+        emomTimerActive,
+        emomTimerInterval,
+        onToggleEmomTimer,
+        timeSeconds,
+        restTime,
+        restTimerActive,
+        onStartRestTimer,
+    ]);
 
     const displayPrescription = useMemo(() => {
         if (!isDensity) return prescription;
@@ -381,7 +462,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             )}
 
                             {/* Timed Badge */}
-                            {!isFlow && !isEmom && !isDensity && timeSeconds && timeSeconds > 0 && (
+                            {!hideTimerBadges && !isFlow && !isEmom && !isDensity && timeSeconds && timeSeconds > 0 && (
                                 <TimeBadge seconds={timeSeconds} size="card" />
                             )}
 
@@ -429,8 +510,24 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                         <p className="text-sm font-semibold text-sys-onSurfaceVar mt-1">{displayPrescription}</p>
                     </div>
 
-                    {/* Collapse button - hidden in focus view */}
-                    {!hideCollapseButton && (
+                    {/* Right-side header action */}
+                    {focusTimerButton ? (
+                        <button
+                            onClick={() => {
+                                haptic.tick();
+                                focusTimerButton.onClick();
+                            }}
+                            className={`h-12 px-4 rounded-lg flex items-center justify-center gap-1.5 active:scale-90 transition-all text-sm font-medium ${
+                                focusTimerButton.active
+                                    ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
+                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                            }`}
+                            aria-label={focusTimerButton.ariaLabel}
+                        >
+                            <Timer size={18} />
+                            {focusTimerButton.label}
+                        </button>
+                    ) : !hideCollapseButton ? (
                         <button
                             onClick={() => {
                                 haptic.tick();
@@ -441,14 +538,14 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                         >
                             {isCollapsed ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
                         </button>
-                    )}
+                    ) : null}
                 </div>
 
                 {/* Collapsed content */}
                 {!isCollapsed && (
                     <>
                         {/* Flow Exercise Timer - for flow exercises */}
-                        {isFlow && flowTimeMinutes && onToggleFlowTimer ? (
+                        {!hideTimerControls && isFlow && flowTimeMinutes && onToggleFlowTimer ? (
                             <div className="flex items-center mb-2">
                                 <div className="flex-1" />
                                 <button
@@ -467,7 +564,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                         ) : null}
 
                         {/* Time-based Exercise Timer - for warmup/cooldown exercises with time */}
-                        {!isFlow && !isEmom && !isDensity && timeSeconds && timeSeconds > 0 && onStartRestTimer ? (
+                        {!hideTimerControls && !isFlow && !isEmom && !isDensity && timeSeconds && timeSeconds > 0 && onStartRestTimer ? (
                             <div className="flex items-center mb-2">
                                 <div className="flex-1" />
                                 <button
@@ -485,7 +582,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                         ) : null}
 
                         {/* EMOM Timer - for EMOM exercises */}
-                        {isEmom && sectionType === 'main' ? (
+                        {!hideTimerControls && isEmom && sectionType === 'main' ? (
                             <div className="flex items-center mb-2">
                                 <div className="flex-1" />
                                 <button
@@ -506,7 +603,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                         {/* Density Rep Controls - for density exercises */}
                         {isDensity && densityRepsTotal && onUpdateDensityRepChunks && onMarkDensityComplete ? (
                             <>
-                                {densityTimeMinutes && onToggleDensityTimer && (
+                                {!hideTimerControls && densityTimeMinutes && onToggleDensityTimer && (
                                     <div className="flex items-center mb-2">
                                         <div className="flex-1" />
                                         <button
@@ -589,14 +686,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     </div>
 
                                     <div className="ml-auto flex items-center gap-2 shrink-0">
-                                {/* Add set button */}
-                                <button
-                                    onClick={() => onAddSet(exId, defaultSets)}
-                                    className="h-12 w-12 min-w-[48px] rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurfaceVar flex items-center justify-center text-sm font-bold border-2 border-dashed border-sys-outlineVariant active:scale-95 transition-all"
-                                    aria-label="Add set"
-                                >
-                                    <Plus size={18} />
-                                </button>
 
                                 {/* Complete all button - aligned right */}
                                 {sets.filter((s) => !s).length > 1 && (
@@ -611,7 +700,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 )}
 
                                 {/* Rest Timer Button - show for main/access sections, excluding EMOM/density/flow/time-based */}
-                                {!isEmom && !isDensity && !isFlow && !timeSeconds && restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
+                                {!hideTimerControls && !isEmom && !isDensity && !isFlow && !timeSeconds && restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
                                     <button
                                         onClick={() => onStartRestTimer(restTime)}
                                         className={`h-10 px-4 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-sm font-semibold ${

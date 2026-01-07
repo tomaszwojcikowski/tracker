@@ -92,7 +92,6 @@ describe('ExerciseCard', () => {
             // Sets 2 and 3 are shown as dots (not buttons)
             expect(screen.getByLabelText('Set 2 pending')).toBeInTheDocument();
             expect(screen.getByLabelText('Set 3 pending')).toBeInTheDocument();
-            expect(screen.getByRole('button', { name: 'Add set' })).toBeInTheDocument();
             // Progress indicator should be shown
             expect(screen.getByText('(0/3)')).toBeInTheDocument();
         });
@@ -220,14 +219,6 @@ describe('ExerciseCard', () => {
             fireEvent.click(screen.getByRole('button', { name: 'Set 1' }));
 
             expect(defaultProps.onToggleSet).toHaveBeenCalledWith('bench_press', 0, 3, 90, undefined, undefined);
-        });
-
-        it('should call onAddSet when add set button is clicked', () => {
-            render(<ExerciseCard {...defaultProps} />);
-
-            fireEvent.click(screen.getByRole('button', { name: 'Add set' }));
-
-            expect(defaultProps.onAddSet).toHaveBeenCalledWith('bench_press', 3);
         });
 
         it('should call onToggleCollapse when collapse button is clicked', () => {

@@ -296,14 +296,16 @@ export const FocusView: React.FC<FocusViewProps> = ({
 
     // Navigation handlers for buttons
     const navigatePrev = useCallback(() => {
-        if (focusIndex > 0) {
+        if (focusIndex > 0 && !isProgrammaticScroll.current) {
+            isProgrammaticScroll.current = true;
             haptic.swipe();
             setFocusIndex(focusIndex - 1);
         }
     }, [focusIndex, haptic, setFocusIndex]);
 
     const navigateNext = useCallback(() => {
-        if (focusIndex < focusItems.length - 1) {
+        if (focusIndex < focusItems.length - 1 && !isProgrammaticScroll.current) {
+            isProgrammaticScroll.current = true;
             haptic.swipe();
             setFocusIndex(focusIndex + 1);
         }
@@ -684,7 +686,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                         </div>
                         {/* Section label */}
                         {currentSection && (
-                            <div className={`text-xs font-bold ${getSectionTextColor(currentSection, currentSectionType)}`}>
+                            <div className={`text-[10px] sm:text-xs font-bold leading-tight ${getSectionTextColor(currentSection, currentSectionType)}`}>
                                 {currentSection}
                             </div>
                         )}
@@ -693,7 +695,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                         <button
                             onClick={navigateNext}
                             disabled={focusIndex === focusItems.length - 1}
-                            className="h-10 w-10 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
+                            className={`h-10 w-10 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all ${isProgrammaticScroll.current ? 'cursor-wait' : ''}`}
                             aria-label="Next"
                         >
                             <ChevronRight size={20} />
@@ -713,7 +715,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                         return (
                             <div
                                 key={idx}
-                                className="flex-shrink-0 w-full snap-center overflow-y-auto px-1 flex flex-col"
+                                className="flex-shrink-0 w-full snap-center snap-always overflow-y-auto px-1 flex flex-col"
                             >
                                 <div className="mb-4">
                                     {renderFocusItem(item)}

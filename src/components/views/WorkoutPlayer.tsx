@@ -149,6 +149,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     exerciseLibrary,
     isEmptyWorkout = false,
     onWorkoutFinish,
+    onWorkoutTimerStart,
     onProgressChange,
 }) => {
     // Get the current program ID from the program context
@@ -710,6 +711,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
             // Start rest timer and show RPE prompt if completing a set
             if (!wasCompleted && newSets[setIndex]) {
+                // Start workout duration timer only when a set is completed.
+                onWorkoutTimerStart?.();
+
                 // Show RPE prompt for the completed set
                 setRpePrompt({ exerciseId: exId, setIndex });
 
@@ -815,6 +819,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
             // Handle RPE prompt and timer - only if completing (not uncompleting)
             if (anyWasIncomplete) {
+                // Start workout duration timer only when completing a round.
+                onWorkoutTimerStart?.();
+
                 // Clear any previous RPE prompt when completing superset round
                 setRpePrompt(null);
 
@@ -866,6 +873,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
     const completeAllSets = (exId: string, defaultSets: number): void => {
         haptic.success();
+        onWorkoutTimerStart?.();
         const allCompleted = new Array(defaultSets).fill(true);
         saveLog(exId, 'sets', allCompleted);
     };

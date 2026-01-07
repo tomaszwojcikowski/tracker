@@ -431,6 +431,8 @@ export interface WorkoutPlayerProps {
   isEmptyWorkout?: boolean;
   /** Callback when workout is finished, returns final duration in seconds */
   onWorkoutFinish?: () => number;
+  /** Start the workout duration timer (triggered when a set is marked completed) */
+  onWorkoutTimerStart?: () => void;
   /** Callback when workout progress changes (for TopAppBar progress bar) */
   onProgressChange?: (progress: WorkoutProgressData) => void;
 }

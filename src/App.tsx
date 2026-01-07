@@ -111,8 +111,17 @@ const App: React.FC = () => {
     // Initialize onboarding state directly to avoid flash of content
     const [showOnboarding, setShowOnboarding] = useState<boolean>(() => !hasCompletedOnboarding());
 
-    // Workout timer - only active when in workout mode or empty-workout mode
-    const workoutTimer = useWorkoutTimer(currentWeek, activeDay, viewMode === 'workout' || viewMode === 'empty-workout');
+    // Workout timer
+    // Intentionally does NOT auto-start on entering workout mode.
+    // It starts only when the user taps the timer, or when they complete a set.
+    const workoutTimer = useWorkoutTimer(currentWeek, activeDay, false);
+
+    // Keep timer scoped to workout mode: pause when leaving workout views.
+    useEffect(() => {
+        if (viewMode !== 'workout' && viewMode !== 'empty-workout') {
+            workoutTimer.pause();
+        }
+    }, [viewMode, workoutTimer.pause]);
 
     // Workout progress state for TopAppBar progress bar
     const [workoutProgress, setWorkoutProgress] = useState<WorkoutProgressData | null>(null);
@@ -410,6 +419,7 @@ const App: React.FC = () => {
                                         onComplete={goBack}
                                         exerciseLibrary={EXERCISE_LIBRARY}
                                         onWorkoutFinish={workoutTimer.stop}
+                                        onWorkoutTimerStart={workoutTimer.start}
                                         onProgressChange={handleProgressChange}
                                     />
                                 </Suspense>
@@ -433,6 +443,7 @@ const App: React.FC = () => {
                                         exerciseLibrary={EXERCISE_LIBRARY}
                                         isEmptyWorkout={true}
                                         onWorkoutFinish={workoutTimer.stop}
+                                        onWorkoutTimerStart={workoutTimer.start}
                                         onProgressChange={handleProgressChange}
                                     />
                                 </Suspense>

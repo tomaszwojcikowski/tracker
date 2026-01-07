@@ -1014,15 +1014,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
             const completionDate = new Date().toISOString();
 
-            interface ExerciseSummaryItem {
-                name: string;
-                prescription: string;
-                completedSets: number;
-                totalSets: number;
-                weight: number | string | null;
-                isBodyweight?: boolean;
-            }
-
             const exerciseSummary: ExerciseSummaryItem[] = [];
 
             // Process scheduled exercises (only for non-empty workouts)
@@ -1046,6 +1037,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             totalSets,
                             weight: parsedWeight ?? null,
                             isBodyweight: ex.isBodyweight,
+                            rpe: exLog.rpe || {},
                         });
 
                         if (completedSets > 0) {
@@ -1057,6 +1049,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 totalSets,
                                 weight: parseWeight(exLog.weight) ?? undefined,
                                 prescription: ex.prescription,
+                                rpe: exLog.rpe,
                                 isBodyweight: ex.isBodyweight,
                                 notes: exLog.userNotes || exLog.notes,
                                 selectedOption: savedExerciseOptions[exId],
@@ -1084,6 +1077,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     totalSets,
                     weight: ex.weight || exLog.weight || null,
                     isBodyweight: ex.isBodyweight,
+                    rpe: exLog.rpe || {},
                 });
 
                 if (completedSets > 0) {
@@ -1095,6 +1089,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         totalSets,
                         weight: parseWeight(ex.weight || exLog.weight) ?? undefined,
                         prescription: `${ex.sets} sets`,
+                        rpe: exLog.rpe,
                         isBodyweight: ex.isBodyweight,
                         notes: exLog.userNotes || exLog.notes,
                     });
@@ -1612,7 +1607,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         emomTimerInterval={emomTimer.interval}
                                                         onToggleRound={toggleSupersetRound}
                                                         onWeightChange={handleWeightChange}
-                                                        onToggleEmomTimer={() => emomTimer.toggle()}
+                                                        onToggleEmomTimer={wrappedEmomToggle}
                                                         onShowHistory={handleShowExerciseDetail}
                                                         sectionType={section.type}
                                                     />
@@ -1640,15 +1635,12 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     onWeightChange={handleWeightChange}
                                                     onAddSet={addSet}
                                                     onShowHistory={handleShowExerciseDetail}
-                                                    onStartRestTimer={restTimer.start}
+                                                    onStartRestTimer={wrappedRestStart}
                                                     sectionType={section.type}
                                                     restTimerActive={restTimer.active}
                                                     emomTimerActive={emomTimer.active}
                                                     emomTimerInterval={emomTimer.interval}
-                                                    onToggleEmomTimer={() => {
-                                                        stopOtherTimers('emom');
-                                                        emomTimer.toggle();
-                                                    }}
+                                                    onToggleEmomTimer={wrappedEmomToggle}
                                                     densityTimerActive={densityTimer.active}
                                                     onToggleDensityTimer={() => {
                                                         if (exerciseWithOptions.densityTimeMinutes) {
@@ -1767,7 +1759,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         haptic={haptic}
                                         onToggleSet={toggleSet}
                                         onRemove={removeAddedExercise}
-                                        onStartRestTimer={restTimer.start}
+                                        onStartRestTimer={wrappedRestStart}
                                         restTimerActive={restTimer.active}
                                         onUpdateWeight={updateAddedExerciseWeight}
                                         onAddSet={addSetToExercise}

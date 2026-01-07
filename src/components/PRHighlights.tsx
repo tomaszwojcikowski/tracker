@@ -16,6 +16,7 @@ import {
     ChevronRight,
 } from './icons';
 import { useHaptic } from '../hooks';
+import { formatLocalISO } from '../utils/time';
 
 // ============================================================================
 // TYPES
@@ -79,8 +80,7 @@ export function calculateStreak(
 
     for (const entry of sorted) {
         const entryDate = new Date(entry.date);
-        entryDate.setHours(0, 0, 0, 0);
-        const dateKey = entryDate.toISOString().split('T')[0];
+        const dateKey = formatLocalISO(entryDate);
 
         // Skip duplicate days
         if (countedDays.has(dateKey)) continue;

@@ -96,6 +96,7 @@ export function useRestTimer({ haptic }: UseRestTimerOptions): UseRestTimerRetur
 
     const stop = useCallback(() => {
         setActive(false);
+        setSeconds(0);
     }, []);
 
     const dismissToast = useCallback(() => {

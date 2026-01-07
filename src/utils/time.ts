@@ -23,21 +23,21 @@ export interface DateFormatOptions extends Intl.DateTimeFormatOptions {
  */
 export function formatRelativeTime(isoTimestamp: string | null | undefined): string | null {
   if (!isoTimestamp) return null;
-  
+
   const syncDate = new Date(isoTimestamp);
-  
+
   // Validate date object
   if (isNaN(syncDate.getTime())) {
     console.warn('Invalid timestamp provided to formatRelativeTime:', isoTimestamp);
     return null;
   }
-  
+
   const now = new Date();
   const diffMs = now.getTime() - syncDate.getTime();
   const diffMins = Math.floor(diffMs / MS_PER_MINUTE);
   const diffHours = Math.floor(diffMs / MS_PER_HOUR);
   const diffDays = Math.floor(diffMs / MS_PER_DAY);
-  
+
   if (diffMins < 1) {
     return 'just now';
   } else if (diffMins < 60) {
@@ -76,11 +76,23 @@ export function formatDate(date: string | Date, options: DateFormatOptions = {})
 }
 
 /**
- * Get ISO date string for today
+ * Get ISO date string for today (local time YYYY-MM-DD)
  * @returns ISO date string (YYYY-MM-DD)
  */
 export function getTodayISO(): string {
-  return new Date().toISOString().split('T')[0];
+  return formatLocalISO(new Date());
+}
+
+/**
+ * Get YYYY-MM-DD string in local time
+ * @param date - Date object
+ * @returns Formatted date string
+ */
+export function formatLocalISO(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 /**

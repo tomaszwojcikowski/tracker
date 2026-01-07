@@ -8,6 +8,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Check, Dumbbell } from './icons';
+import { formatLocalISO } from '../utils/time';
 
 interface GlobalHistoryEntry {
     date: string;
@@ -60,7 +61,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ history, onDayClick 
     const historyByDate = useMemo(() => {
         const grouped = new Map<string, GlobalHistoryEntry[]>();
         history.forEach(entry => {
-            const dateKey = new Date(entry.date).toISOString().split('T')[0];
+            const dateKey = formatLocalISO(new Date(entry.date));
             if (!grouped.has(dateKey)) {
                 grouped.set(dateKey, []);
             }
@@ -93,7 +94,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ history, onDayClick 
         // Generate 42 days (6 weeks) for calendar grid
         const current = new Date(startDate);
         for (let i = 0; i < 42; i++) {
-            const dateString = current.toISOString().split('T')[0];
+            const dateString = formatLocalISO(current);
             const workouts = historyByDate.get(dateString) || [];
             const hasWorkout = workouts.length > 0;
             const isComplete = hasWorkout && (workoutCompletionStatus.get(dateString) || false);

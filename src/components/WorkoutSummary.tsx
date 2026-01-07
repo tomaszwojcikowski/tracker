@@ -18,6 +18,8 @@ import {
     Zap,
     Award,
     CheckCircle2,
+    Check,
+    Target,
 } from './icons';
 import { useHaptic } from '../hooks';
 
@@ -33,6 +35,7 @@ export interface ExerciseSummaryItem {
     weight: number | string | null;
     isBodyweight?: boolean;
     isPR?: boolean;
+    rpe?: Record<string, number | string>;
 }
 
 export interface WorkoutSummaryProps {
@@ -200,7 +203,7 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 backdrop-blur-md overflow-y-auto workout-summary-container"
+                className="fixed inset-0 z-50 bg-sys-surface/95 backdrop-blur-md overflow-y-auto workout-summary-container shadow-2xl"
             >
                 <div className="min-h-full flex flex-col p-5 safe-pt safe-pb">
                     {/* Header with celebration */}
@@ -352,6 +355,81 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
                             </div>
                         </motion.div>
                     )}
+
+                    {/* Workout Details (Exercise List) */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.68 }}
+                        className="mb-6"
+                    >
+                        <div className="flex items-center gap-2 mb-3">
+                            <Target size={18} className="text-sys-secondary" />
+                            <h2 className="text-lg font-bold text-sys-onSurface">Workout Details</h2>
+                        </div>
+                        <div className="space-y-3">
+                            {exercises.map((ex, exIdx) => {
+                                const isExComplete = ex.completedSets === ex.totalSets;
+                                const hasRPE = ex.rpe && Object.keys(ex.rpe).length > 0;
+
+                                return (
+                                    <motion.div
+                                        key={`${ex.name}-${exIdx}`}
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.7 + exIdx * 0.05 }}
+                                        className={`p-4 rounded-xl border ${
+                                            isExComplete
+                                                ? 'bg-sys-successContainer/10 border-sys-success/20'
+                                                : 'bg-sys-surfaceContainer border-sys-outlineVariant'
+                                        }`}
+                                    >
+                                        <div className="flex items-start justify-between gap-2 mb-2">
+                                            <div className="flex-1 min-w-0">
+                                                <h3 className="font-bold text-sys-onSurface truncate">{ex.name}</h3>
+                                                <p className="text-xs text-sys-onSurfaceVar">{ex.prescription}</p>
+                                            </div>
+                                            <div className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold ${
+                                                isExComplete
+                                                    ? 'bg-sys-successContainer text-sys-onSuccessContainer'
+                                                    : 'bg-sys-primaryContainer text-sys-onPrimaryContainer'
+                                            }`}>
+                                                {isExComplete && <Check size={12} />}
+                                                <span>{ex.completedSets}/{ex.totalSets}</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center gap-2 flex-wrap">
+                                            {ex.weight !== null && (
+                                                <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-sys-surfaceContainerLow border border-sys-outlineVariant">
+                                                    <Dumbbell size={12} className="text-sys-primary" />
+                                                    <span className="text-xs font-bold text-sys-onSurface">
+                                                        {ex.weight} {ex.isBodyweight ? 'BW' : 'kg'}
+                                                    </span>
+                                                </div>
+                                            )}
+
+                                            {hasRPE && (
+                                                <div className="flex items-center gap-1.5">
+                                                    <span className="text-[10px] font-bold text-sys-onSurfaceVar uppercase tracking-wider ml-1">RPE:</span>
+                                                    <div className="flex gap-1">
+                                                        {Object.entries(ex.rpe!).map(([setIdx, rpe]) => (
+                                                            <div
+                                                                key={setIdx}
+                                                                className="w-6 h-6 flex items-center justify-center rounded-md bg-sys-tertiaryContainer text-sys-onTertiaryContainer text-[10px] font-bold border border-sys-tertiary/20"
+                                                            >
+                                                                {rpe}
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </motion.div>
+                                );
+                            })}
+                        </div>
+                    </motion.div>
 
                     {/* Next Workout Preview */}
                     {nextWorkout && !isEmptyWorkout && (

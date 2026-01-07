@@ -147,7 +147,7 @@ describe('useRestTimer', () => {
             expect(result.current.active).toBe(false);
         });
 
-        it('should preserve seconds when stopped', () => {
+        it('should reset seconds to 0 when stopped', () => {
             const { result } = renderHook(() => useRestTimer({ haptic: mockHaptic }));
 
             act(() => {
@@ -162,7 +162,7 @@ describe('useRestTimer', () => {
                 result.current.stop();
             });
 
-            expect(result.current.seconds).toBe(55);
+            expect(result.current.seconds).toBe(0);
             expect(result.current.active).toBe(false);
         });
     });

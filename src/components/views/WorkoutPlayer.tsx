@@ -324,6 +324,27 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         }
     }, [restTimer, emomTimer, densityTimer, flowTimer]);
 
+    // Shared wrappers: always stop other timers before starting/toggling a timer.
+    const wrappedEmomToggle = useCallback(() => {
+        stopOtherTimers('emom');
+        emomTimer.toggle();
+    }, [stopOtherTimers, emomTimer]);
+
+    const wrappedDensityToggle = useCallback((minutes: number) => {
+        stopOtherTimers('density');
+        densityTimer.toggle(minutes);
+    }, [stopOtherTimers, densityTimer]);
+
+    const wrappedFlowToggle = useCallback((minutes: number) => {
+        stopOtherTimers('flow');
+        flowTimer.toggle(minutes);
+    }, [stopOtherTimers, flowTimer]);
+
+    const wrappedRestStart = useCallback((seconds: number) => {
+        stopOtherTimers('rest');
+        restTimer.start(seconds);
+    }, [stopOtherTimers, restTimer]);
+
     // Clear association when the density timer fully stops/completes
     useEffect(() => {
         if (!densityTimer.active && densityTimer.seconds === 0) {
@@ -1213,33 +1234,13 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     // Consolidated timer props - used across all exercise card variants
     // Wrapped with stopOtherTimers to ensure only one timer runs at a time
     const timerProps: TimerProps = useMemo(() => {
-        const wrappedEmomToggle = () => {
-            stopOtherTimers('emom');
-            emomTimer.toggle();
-        };
-
-        const wrappedDensityToggle = densityTimer.toggle ? (minutes: number) => {
-            stopOtherTimers('density');
-            densityTimer.toggle(minutes);
-        } : undefined;
-
-        const wrappedFlowToggle = flowTimer.toggle ? (minutes: number) => {
-            stopOtherTimers('flow');
-            flowTimer.toggle(minutes);
-        } : undefined;
-
-        const wrappedRestStart = (seconds: number) => {
-            stopOtherTimers('rest');
-            restTimer.start(seconds);
-        };
-
         return createTimerProps(
             { active: emomTimer.active, interval: emomTimer.interval, toggle: wrappedEmomToggle },
             { start: wrappedRestStart, active: restTimer.active },
-            wrappedDensityToggle ? { active: densityTimer.active, toggle: wrappedDensityToggle } : undefined,
-            wrappedFlowToggle ? { active: flowTimer.active, toggle: wrappedFlowToggle } : undefined
+            { active: densityTimer.active, toggle: wrappedDensityToggle },
+            { active: flowTimer.active, toggle: wrappedFlowToggle }
         );
-    }, [emomTimer.active, emomTimer.interval, emomTimer.toggle, restTimer.start, restTimer.active, densityTimer.active, densityTimer.toggle, flowTimer.active, flowTimer.toggle, stopOtherTimers]);
+    }, [emomTimer.active, emomTimer.interval, wrappedEmomToggle, restTimer.active, wrappedRestStart, densityTimer.active, wrappedDensityToggle, flowTimer.active, wrappedFlowToggle]);
 
     // Consolidated RPE props - used across all exercise card variants
     const rpeProps: RPEProps = useMemo(() => createRPEProps(
@@ -1470,18 +1471,18 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         emomTimer={{
                             active: emomTimer.active,
                             interval: emomTimer.interval,
-                            toggle: () => emomTimer.toggle(),
+                            toggle: wrappedEmomToggle,
                         }}
                         restTimer={{
-                            start: restTimer.start,
+                            start: wrappedRestStart,
                         }}
                         densityTimer={{
                             active: densityTimer.active,
-                            toggle: densityTimer.toggle,
+                            toggle: wrappedDensityToggle,
                         }}
                         flowTimer={{
                             active: flowTimer.active,
-                            toggle: flowTimer.toggle,
+                            toggle: wrappedFlowToggle,
                         }}
                         haptic={haptic}
                         getEffectiveExerciseName={getEffectiveExerciseName}

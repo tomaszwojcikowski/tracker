@@ -25,6 +25,8 @@ vi.mock('../components/icons', () => ({
     BarChart2: () => <span data-testid="icon-chart">📊</span>,
     History: () => <span data-testid="icon-history">📜</span>,
     Info: () => <span data-testid="icon-info">ℹ️</span>,
+    Clock: () => <span data-testid="icon-clock">🕒</span>,
+    Dumbbell: () => <span data-testid="icon-dumbbell">🏋️</span>,
 }));
 
 // Mock components

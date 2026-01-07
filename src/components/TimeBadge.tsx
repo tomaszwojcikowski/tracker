@@ -34,10 +34,7 @@ export const TimeBadge: React.FC<TimeBadgeProps> = ({ seconds, size = 'card', va
 
   if (variant === 'inline') {
     return (
-      <>
-        <Timer size={iconSize} strokeWidth={3} />
-        <span className={size === 'compact' ? 'text-[8px]' : undefined}>{formatSecondsShort(seconds)}</span>
-      </>
+      <span>{formatSecondsShort(seconds)}</span>
     );
   }
 

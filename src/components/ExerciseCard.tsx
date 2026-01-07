@@ -11,7 +11,6 @@ import {
     ChevronUp,
     Check,
     Plus,
-    CheckCheck,
     Minus,
     Zap,
     ArrowRightLeft,
@@ -20,6 +19,8 @@ import {
     History,
     Timer,
     Gauge,
+    Clock,
+    Dumbbell,
 } from './icons';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { RPESelector } from './RPESelector';
@@ -117,11 +118,14 @@ export interface ExerciseCardProps {
 
     /** Hide in-card timer controls (rest/time-based/EMOM/density/flow) (FocusView). */
     hideTimerControls?: boolean;
+
+    /** Completely disable the focus timer button (used for supersets in FocusView) */
+    hideFocusTimer?: boolean;
+
     /** Callbacks */
     onToggleCollapse: (exId: string) => void;
     onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number, sectionType?: string, isEmom?: boolean) => void;
     onAddSet: (exId: string, defaultSets: number) => void;
-    onCompleteAllSets: (exId: string, defaultSets: number) => void;
     onSaveWeight: (exId: string, weight: string) => void;
     onSaveRPE: (exId: string, setIndex: number, rpe: RPEValue) => void;
     onSaveNotes: (exId: string, notes: string) => void;
@@ -188,9 +192,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     flowTimerActive = false,
     hideTimerBadges = false,
     hideTimerControls = false,
+    hideFocusTimer = false,
     onToggleCollapse,
     onToggleSet,
-    onCompleteAllSets,
     onSaveWeight,
     onSaveRPE,
     onClearRPEPrompt,
@@ -212,14 +216,20 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     const focusTimerButton = useMemo(() => {
         // FocusView uses ExerciseCard with collapse hidden; when timer controls are hidden we
         // expose a single timer entrypoint in the top-right of the card.
-        if (!hideCollapseButton || !hideTimerControls) return null;
+        if (!hideCollapseButton || !hideTimerControls || hideFocusTimer) return null;
 
         // Priority: flow -> density -> EMOM -> time-based -> rest
         if (isFlow && flowTimeMinutes && onToggleFlowTimer) {
             return {
                 ariaLabel: flowTimerActive ? 'Stop flow timer' : `Start ${flowTimeMinutes}m flow timer`,
                 active: !!flowTimerActive,
-                label: <span>{flowTimeMinutes}m</span>,
+                variant: 'flow',
+                label: (
+                    <>
+                        <Timer size={18} />
+                        <span>{flowTimeMinutes}m</span>
+                    </>
+                ),
                 onClick: () => onToggleFlowTimer(flowTimeMinutes),
             };
         }
@@ -228,7 +238,13 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             return {
                 ariaLabel: densityTimerActive ? 'Stop density timer' : `Start ${densityTimeMinutes}m density timer`,
                 active: !!densityTimerActive,
-                label: <span>{densityTimeMinutes}m</span>,
+                variant: 'density',
+                label: (
+                    <>
+                        <Gauge size={18} />
+                        <span>{densityTimeMinutes}m</span>
+                    </>
+                ),
                 onClick: () => onToggleDensityTimer(densityTimeMinutes),
             };
         }
@@ -237,7 +253,13 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             return {
                 ariaLabel: emomTimerActive ? 'Stop EMOM timer' : `Start ${formatSecondsShort(emomTimerInterval)} EMOM timer`,
                 active: !!emomTimerActive,
-                label: <span>{formatSecondsShort(emomTimerInterval)}</span>,
+                variant: 'emom',
+                label: (
+                    <>
+                        <Zap size={18} />
+                        <span>{formatSecondsShort(emomTimerInterval)}</span>
+                    </>
+                ),
                 onClick: () => onToggleEmomTimer(),
             };
         }
@@ -246,7 +268,13 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             return {
                 ariaLabel: restTimerActive ? 'Stop timer' : `Start ${formatSecondsShort(timeSeconds)} timer`,
                 active: !!restTimerActive,
-                label: <TimeBadge seconds={timeSeconds} variant="inline" />,
+                variant: 'exercise',
+                label: (
+                    <>
+                        <Dumbbell size={18} />
+                        <TimeBadge seconds={timeSeconds} variant="inline" />
+                    </>
+                ),
                 onClick: () => onStartRestTimer(timeSeconds),
             };
         }
@@ -255,7 +283,13 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             return {
                 ariaLabel: `Start ${formatSecondsShort(restTime)} rest timer`,
                 active: !!restTimerActive,
-                label: <TimeBadge seconds={restTime} variant="inline" />,
+                variant: 'rest',
+                label: (
+                    <>
+                        <Clock size={18} />
+                        <TimeBadge seconds={restTime} variant="inline" />
+                    </>
+                ),
                 onClick: () => onStartRestTimer(restTime),
             };
         }
@@ -519,12 +553,17 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             }}
                             className={`h-12 px-4 rounded-lg flex items-center justify-center gap-1.5 active:scale-90 transition-all text-sm font-medium ${
                                 focusTimerButton.active
-                                    ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
+                                    ? focusTimerButton.variant === 'emom'
+                                        ? 'bg-sys-tertiary text-sys-onTertiary ring-2 ring-sys-tertiary/50'
+                                        : focusTimerButton.variant === 'density'
+                                        ? 'bg-sys-secondary text-sys-onSecondary ring-2 ring-sys-secondary/50'
+                                        : focusTimerButton.variant === 'rest'
+                                        ? 'bg-sys-surfaceHigh text-sys-onSurfaceVar ring-2 ring-sys-primary/50 font-bold'
+                                        : 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
                                     : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
                             }`}
                             aria-label={focusTimerButton.ariaLabel}
                         >
-                            <Timer size={18} />
                             {focusTimerButton.label}
                         </button>
                     ) : !hideCollapseButton ? (
@@ -576,6 +615,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     }`}
                                     aria-label={restTimerActive ? 'Stop timer' : `Start ${formatSecondsShort(timeSeconds)} timer`}
                                 >
+                                    <Dumbbell size={18} />
                                     <TimeBadge seconds={timeSeconds} variant="inline" />
                                 </button>
                             </div>
@@ -687,29 +727,18 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                                     <div className="ml-auto flex items-center gap-2 shrink-0">
 
-                                {/* Complete all button - aligned right */}
-                                {sets.filter((s) => !s).length > 1 && (
-                                    <button
-                                        onClick={() => onCompleteAllSets(exId, defaultSets)}
-                                        className="h-12 w-12 min-w-[48px] rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-all"
-                                        aria-label="Complete all sets"
-                                        title="Complete all sets"
-                                    >
-                                        <CheckCheck size={18} />
-                                    </button>
-                                )}
-
                                 {/* Rest Timer Button - show for main/access sections, excluding EMOM/density/flow/time-based */}
                                 {!hideTimerControls && !isEmom && !isDensity && !isFlow && !timeSeconds && restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
                                     <button
                                         onClick={() => onStartRestTimer(restTime)}
                                         className={`h-10 px-4 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-sm font-semibold ${
                                             restTimerActive
-                                                ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
-                                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                                ? 'bg-sys-surfaceHigh text-sys-onSurface ring-2 ring-sys-primary/50'
+                                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar border border-sys-outlineVariant/30'
                                         }`}
                                         aria-label={`Start ${formatSecondsShort(restTime)} rest timer`}
                                     >
+                                        <Clock size={16} className={restTimerActive ? 'text-sys-primary' : ''} />
                                         <TimeBadge seconds={restTime} variant="inline" />
                                     </button>
                                 )}

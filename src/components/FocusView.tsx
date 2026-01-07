@@ -7,9 +7,10 @@
  */
 
 import React, { useMemo, useCallback, useRef, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Zap } from './icons';
+import { ChevronLeft, ChevronRight, Zap, Clock, Timer, Gauge, Dumbbell } from './icons';
 import { ExerciseCard } from './ExerciseCard';
 import { AddedExerciseCard } from './AddedExerciseCard';
+import { TimeBadge, formatSecondsShort } from './TimeBadge';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest, ExerciseLogEntry } from '../types/workout';
 import type { AddedExercise, RPEValue } from '../types';
@@ -133,6 +134,7 @@ export interface FocusViewProps {
     };
     /** Rest timer */
     restTimer: {
+        active: boolean;
         start: (seconds: number) => void;
     };
     /** Density timer */
@@ -152,7 +154,6 @@ export interface FocusViewProps {
     /** Callbacks */
     onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number, sectionType?: string, isEmom?: boolean) => void;
     onAddSet: (exId: string, defaultSets: number) => void;
-    onCompleteAllSets: (exId: string, defaultSets: number) => void;
     onSaveLog: (id: string, field: keyof ExerciseLogEntry, value: ExerciseLogEntry[keyof ExerciseLogEntry]) => void;
     onSaveRPE: (exId: string, setIndex: number, rpe: RPEValue) => void;
     onClearRPEPrompt: () => void;
@@ -189,7 +190,6 @@ export const FocusView: React.FC<FocusViewProps> = ({
     getEffectiveExerciseName,
     onToggleSet,
     onAddSet,
-    onCompleteAllSets,
     onSaveLog,
     onSaveRPE,
     onClearRPEPrompt,
@@ -314,7 +314,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
         // Create consolidated props for all ExerciseCards in this render
         const timerProps: TimerProps = createTimerProps(
             { active: emomTimer.active, interval: emomTimer.interval, toggle: emomTimer.toggle },
-            { start: restTimer.start },
+            { active: restTimer.active, start: restTimer.start },
             densityTimer ? { active: densityTimer.active, toggle: densityTimer.toggle } : undefined,
             flowTimer ? { active: flowTimer.active, toggle: flowTimer.toggle } : undefined
         );
@@ -346,14 +346,124 @@ export const FocusView: React.FC<FocusViewProps> = ({
         }
 
         if (item.type === 'superset') {
+            // Find the best timer for the superset.
+            // Priority: Flow -> Density -> EMOM -> Time-based -> Rest
+            let supersetTimer = null;
+
+            // Pre-calculate flags and metadata for all exercises in the superset
+            const exerciseProps = item.exercises.map(ex => {
+                const data = ex.data as WorkoutExercise;
+                return {
+                    flags: getExerciseTypeFlags(data),
+                    meta: getExerciseMetadata(data),
+                    data
+                };
+            });
+
+            // 1. Try Flow
+            const flowEx = exerciseProps.find((p) => p.flags.isFlow);
+            if (flowEx) {
+                const { flags } = flowEx;
+                supersetTimer = {
+                    icon: <Timer size={16} />,
+                    label: `${flags.flowTimeMinutes}m`,
+                    active: flowTimer?.active,
+                    onClick: () => flowTimer?.toggle(flags.flowTimeMinutes || 0),
+                    ariaLabel: flowTimer?.active ? 'Stop flow timer' : `Start ${flags.flowTimeMinutes}m flow timer`,
+                };
+            }
+
+            // 2. Try Density
+            if (!supersetTimer) {
+                const densityEx = exerciseProps.find((p) => p.flags.isDensity);
+                if (densityEx) {
+                    const { flags } = densityEx;
+                    supersetTimer = {
+                        icon: <Gauge size={16} />,
+                        label: `${flags.densityTimeMinutes}m`,
+                        active: densityTimer?.active,
+                        onClick: () => densityTimer?.toggle(flags.densityTimeMinutes || 0),
+                        ariaLabel: densityTimer?.active ? 'Stop density timer' : `Start ${flags.densityTimeMinutes}m density timer`,
+                    };
+                }
+            }
+
+            // 3. Try EMOM (only for main section)
+            if (!supersetTimer) {
+                const emomEx = exerciseProps.find((p) => p.flags.isEmom);
+                if (emomEx && item.sectionType === 'main') {
+                    supersetTimer = {
+                        icon: <Zap size={16} />,
+                        label: formatSecondsShort(emomTimer.interval),
+                        active: emomTimer.active,
+                        onClick: () => emomTimer.toggle(),
+                        ariaLabel: emomTimer.active ? 'Stop EMOM timer' : `Start ${formatSecondsShort(emomTimer.interval)} EMOM timer`,
+                    };
+                }
+            }
+
+            // 4. Try Time-based Exercise
+            if (!supersetTimer) {
+                const timedEx = exerciseProps.find((p) => {
+                    return !!p.flags.timeSeconds && p.flags.timeSeconds > 0;
+                });
+                if (timedEx) {
+                    const { flags } = timedEx;
+                    const seconds = flags.timeSeconds || 0;
+                    supersetTimer = {
+                        icon: <Dumbbell size={16} />,
+                        label: <TimeBadge seconds={seconds} variant="inline" />,
+                        active: restTimer.active,
+                        onClick: () => restTimer.start(seconds),
+                        ariaLabel: restTimer.active ? 'Stop timer' : `Start ${formatSecondsShort(seconds)} timer`,
+                    };
+                }
+            }
+
+            // 5. Try Rest (fallback, from last exercise)
+            if (!supersetTimer) {
+                const restTime = exerciseProps.reduce((acc, p) => {
+                    return p.meta.restTime || acc;
+                }, 0);
+                if (restTime > 0 && (item.sectionType === 'main' || item.sectionType === 'access')) {
+                    supersetTimer = {
+                        icon: <Clock size={16} />,
+                        label: <TimeBadge seconds={restTime} variant="inline" />,
+                        active: restTimer.active,
+                        onClick: () => restTimer.start(restTime),
+                        ariaLabel: `Start ${formatSecondsShort(restTime)} rest timer`,
+                    };
+                }
+            }
+
             return (
                 <div className="space-y-2">
                     {/* Superset header */}
-                    <div className="flex items-center gap-2 mb-3">
-                        <span className="inline-flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer">
-                            <Zap size={12} strokeWidth={3} />
-                            SUPERSET · {item.exercises.length} exercises
-                        </span>
+                    <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                            <span className="inline-flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer">
+                                <Zap size={12} strokeWidth={3} />
+                                SUPERSET · {item.exercises.length} exercises
+                            </span>
+                        </div>
+
+                        {supersetTimer && (
+                            <button
+                                onClick={() => {
+                                    haptic.tick();
+                                    supersetTimer.onClick();
+                                }}
+                                className={`h-11 px-4 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-sm font-medium ${
+                                    supersetTimer.active
+                                        ? 'bg-sys-primaryContainer text-sys-onPrimaryContainer shadow-sm border border-sys-primary/20 scale-[1.02]'
+                                        : 'bg-sys-surfaceHigh text-sys-onSurface border border-sys-outline/30'
+                                }`}
+                                aria-label={supersetTimer.ariaLabel}
+                            >
+                                {supersetTimer.icon}
+                                <span>{supersetTimer.label}</span>
+                            </button>
+                        )}
                     </div>
 
                     {/* Render each exercise in the superset */}
@@ -387,10 +497,10 @@ export const FocusView: React.FC<FocusViewProps> = ({
                                     hideCollapseButton={true}
                                     hideTimerBadges={true}
                                     hideTimerControls={true}
+                                    hideFocusTimer={true}
                                     onToggleCollapse={() => {}}
                                     onToggleSet={onToggleSet}
                                     onAddSet={onAddSet}
-                                    onCompleteAllSets={onCompleteAllSets}
                                     {...saveCallbacks}
                                     onShowHistory={onShowHistory}
                                     onShowAlternatives={onShowAlternatives}
@@ -441,7 +551,6 @@ export const FocusView: React.FC<FocusViewProps> = ({
                 onToggleCollapse={() => {}}
                 onToggleSet={onToggleSet}
                 onAddSet={onAddSet}
-                onCompleteAllSets={onCompleteAllSets}
                 {...saveCallbacks}
                 onShowHistory={onShowHistory}
                 onShowAlternatives={onShowAlternatives}
@@ -465,7 +574,6 @@ export const FocusView: React.FC<FocusViewProps> = ({
         getEffectiveExerciseName,
         onToggleSet,
         onAddSet,
-        onCompleteAllSets,
         onSaveLog,
         onSaveRPE,
         onClearRPEPrompt,
@@ -483,6 +591,24 @@ export const FocusView: React.FC<FocusViewProps> = ({
     const currentSection = currentItem?.section;
     const currentSectionType = currentItem?.sectionType;
 
+    /**
+     * Get next exercise hint name for a specific index
+     */
+    const getNextExerciseName = useCallback((idx: number) => {
+        if (idx >= focusItems.length - 1) return null;
+        const nextItem = focusItems[idx + 1];
+
+        if (nextItem.type === 'added') {
+            return nextItem.exercises[0].data.name;
+        }
+
+        if (nextItem.type === 'superset') {
+            return `Superset: ${nextItem.exercises.length} Exercises`;
+        }
+
+        const ex = nextItem.exercises[0].data as WorkoutExercise;
+        return ex.name;
+    }, [focusItems]);
 
     // Calculate completion status for each focus item (for progress dots)
     const focusItemCompletionStatus = useMemo(() => {
@@ -582,14 +708,31 @@ export const FocusView: React.FC<FocusViewProps> = ({
                     className="flex-1 flex overflow-x-auto snap-x snap-mandatory"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
                 >
-                    {focusItems.map((item, idx) => (
-                        <div
-                            key={idx}
-                            className="flex-shrink-0 w-full snap-center overflow-y-auto px-1"
-                        >
-                            {renderFocusItem(item)}
-                        </div>
-                    ))}
+                    {focusItems.map((item, idx) => {
+                        const nextName = getNextExerciseName(idx);
+                        return (
+                            <div
+                                key={idx}
+                                className="flex-shrink-0 w-full snap-center overflow-y-auto px-1 flex flex-col"
+                            >
+                                <div className="mb-4">
+                                    {renderFocusItem(item)}
+                                </div>
+
+                                {/* Next exercise hint - displayed right after the card */}
+                                {nextName && (
+                                    <div className="mt-2 mb-8 text-center animate-in fade-in slide-in-from-bottom-1 duration-500">
+                                        <p className="text-[10px] font-bold uppercase tracking-wider text-sys-onSurfaceVar opacity-40 mb-1">
+                                            Coming Up Next
+                                        </p>
+                                        <p className="text-sm font-semibold text-sys-onSurface opacity-60 line-clamp-1 px-4">
+                                            {nextName}
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </div>

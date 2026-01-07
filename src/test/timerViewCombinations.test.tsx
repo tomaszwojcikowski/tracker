@@ -29,6 +29,8 @@ vi.mock('../components/icons', () => ({
     Info: () => <span data-testid="icon-info">ℹ️</span>,
     ChevronLeft: () => <span data-testid="icon-chevron-left">◀</span>,
     ChevronRight: () => <span data-testid="icon-chevron-right">▶</span>,
+    Clock: () => <span data-testid="icon-clock">🕒</span>,
+    Dumbbell: () => <span data-testid="icon-dumbbell">🏋️</span>,
 }));
 
 // Mock RPESelector component

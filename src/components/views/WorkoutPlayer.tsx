@@ -892,38 +892,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         saveLog(exId, 'weight', weight);
     }, [saveLog]);
 
-    const completeAllSets = (exId: string, defaultSets: number): void => {
-        haptic.success();
-        onWorkoutTimerStart?.();
-        const allCompleted = new Array(defaultSets).fill(true);
-        saveLog(exId, 'sets', allCompleted);
-    };
-
-    // Complete all sets for multiple exercises in a superset at once
-    const completeAllSupersetSets = (exerciseIds: string[], defaultSets: number): void => {
-        haptic.success();
-        const allCompleted = new Array(defaultSets).fill(true);
-
-        const updatedExercises = { ...(logs.exercises ?? {}) };
-        exerciseIds.forEach((exId) => {
-            const currentEntry = getExerciseLogEntry(logs, exId);
-            updatedExercises[exId] = {
-                ...currentEntry,
-                sets: allCompleted,
-            };
-        });
-        const updatedLogs: WorkoutSessionData = {
-            ...logs,
-            exercises: updatedExercises,
-            lastModified: new Date().toISOString(),
-        };
-        persistLogs(updatedLogs);
-    };
-
-    // ============================================================================
-    // ADD EXERCISE FUNCTIONS
-    // ============================================================================
-
     const addExerciseToWorkout = (
         exercise: Exercise,
         sets = 3,
@@ -1474,6 +1442,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             toggle: wrappedEmomToggle,
                         }}
                         restTimer={{
+                            active: restTimer.active,
                             start: wrappedRestStart,
                         }}
                         densityTimer={{
@@ -1488,7 +1457,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         getEffectiveExerciseName={getEffectiveExerciseName}
                         onToggleSet={toggleSet}
                         onAddSet={addSet}
-                        onCompleteAllSets={completeAllSets}
                         onSaveLog={saveLog}
                         onSaveRPE={saveRPE}
                         onClearRPEPrompt={() => setRpePrompt(null)}
@@ -1644,7 +1612,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         emomTimerInterval={emomTimer.interval}
                                                         onToggleRound={toggleSupersetRound}
                                                         onWeightChange={handleWeightChange}
-                                                        onCompleteAllRounds={completeAllSupersetSets}
                                                         onToggleEmomTimer={() => emomTimer.toggle()}
                                                         onShowHistory={handleShowExerciseDetail}
                                                         sectionType={section.type}
@@ -1672,7 +1639,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     onToggleSet={toggleSet}
                                                     onWeightChange={handleWeightChange}
                                                     onAddSet={addSet}
-                                                    onCompleteAllSets={completeAllSets}
                                                     onShowHistory={handleShowExerciseDetail}
                                                     onStartRestTimer={restTimer.start}
                                                     sectionType={section.type}
@@ -1758,7 +1724,6 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 onToggleCollapse={(id) => exerciseCollapse.toggle(id)}
                                                 onToggleSet={toggleSet}
                                                 onAddSet={addSet}
-                                                onCompleteAllSets={completeAllSets}
                                                 {...saveCallbacks}
                                                 onShowHistory={handleShowExerciseDetail}
                                                 onShowAlternatives={handleShowAlternatives}

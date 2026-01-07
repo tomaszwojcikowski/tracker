@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useCallback, useMemo } from 'react';
-import { Check, Zap, ChevronDown, CheckCheck, Minus, Plus, Repeat, History } from './icons';
+import { Check, Zap, ChevronDown, Minus, Plus, Repeat, History } from './icons';
 import { getShortExerciseName } from '../constants';
 import type { HapticFeedback } from '../hooks';
 import type { ExerciseDetailRequest } from '../types/workout';
@@ -52,8 +52,6 @@ export interface SupersetGroupProps {
     onToggleRound: (exerciseIds: string[], roundIndex: number, defaultSets: number, restTime?: number, sectionType?: string, isEmom?: boolean) => void;
     /** Callback when weight changes for an exercise */
     onWeightChange: (exId: string, weight: string) => void;
-    /** Callback to complete all rounds */
-    onCompleteAllRounds: (exerciseIds: string[], defaultSets: number) => void;
     /** Callback to toggle EMOM timer */
     onToggleEmomTimer?: () => void;
     /** Callback to show exercise detail/history */
@@ -72,7 +70,6 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
     emomTimerInterval = 60,
     onToggleRound,
     onWeightChange,
-    onCompleteAllRounds,
     onToggleEmomTimer,
     onShowHistory,
     sectionType,
@@ -99,7 +96,6 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
     }, [exercises, totalRounds]);
 
     const isComplete = completedRounds === totalRounds && totalRounds > 0;
-    const hasIncompleteRounds = completedRounds < totalRounds;
 
     // Check if this is actually an EMOM superset (at least one exercise has isEmom)
     const isEmomSuperset = exercises.some(ex => ex.isEmom);
@@ -119,11 +115,6 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
         const isEmom = exercises.some(ex => ex.isEmom);
         onToggleRound(exerciseIds, roundIndex, totalRounds, restTime, sectionType, isEmom);
     }, [haptic, exerciseIds, totalRounds, exercises, onToggleRound, sectionType]);
-
-    const handleCompleteAll = useCallback(() => {
-        haptic.success();
-        onCompleteAllRounds(exerciseIds, totalRounds);
-    }, [haptic, exerciseIds, totalRounds, onCompleteAllRounds]);
 
     const handleToggleEmom = useCallback(() => {
         if (onToggleEmomTimer) {
@@ -284,19 +275,6 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                                 {isDone ? <Check size={14} /> : i + 1}
                             </button>
                         ))}
-                        {hasIncompleteRounds && totalRounds > 1 && (
-                            <button
-                                type="button"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleCompleteAll();
-                                }}
-                                className="h-8 w-8 rounded-lg bg-sys-successContainer text-sys-onSuccessContainer flex items-center justify-center active:scale-90 transition-all"
-                                aria-label="Complete all rounds"
-                            >
-                                <CheckCheck size={14} />
-                            </button>
-                        )}
                     </div>
                 </div>
 

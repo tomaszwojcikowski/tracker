@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo, memo } from 'react';
-import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2, Timer, Gauge } from './icons';
+import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2, Timer, Gauge, Clock, Dumbbell } from './icons';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
 import { CompactSetButtons } from './CompactSetButtons';
@@ -114,8 +114,6 @@ export interface CompactExerciseRowProps {
     onWeightChange: (exId: string, weight: string) => void;
     /** Callback when add set is clicked */
     onAddSet: (exId: string, defaultSets: number) => void;
-    /** Callback when complete all sets is clicked */
-    onCompleteAllSets: (exId: string, defaultSets: number) => void;
     /** Callback to show exercise details */
     onShowHistory?: (request: ExerciseDetailRequest) => void;
     /** Callback to start rest timer */
@@ -189,7 +187,6 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     selectedOption,
     onToggleSet,
     onWeightChange,
-    onCompleteAllSets,
     onShowHistory,
     onStartRestTimer,
     onShowOptions,
@@ -317,10 +314,6 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
         },
         [exId, defaultSets, restTime, onToggleSet, sectionType, isEmom]
     );
-
-    const handleCompleteAllSets = useCallback(() => {
-        onCompleteAllSets(exId, defaultSets);
-    }, [exId, defaultSets, onCompleteAllSets]);
 
     const handleShowDetails = useCallback((e: React.MouseEvent) => {
         e.stopPropagation();
@@ -619,6 +612,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         }`}
                         aria-label={restTimerActive ? 'Stop timer' : `Start ${formatSecondsShort(timeSeconds)} timer`}
                     >
+                        <Dumbbell size={12} />
                         <TimeBadge seconds={timeSeconds} size="compact" variant="inline" />
                     </button>
                 )}
@@ -629,11 +623,12 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         onClick={() => onStartRestTimer(restTime)}
                         className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium flex-shrink-0 ${
                             restTimerActive
-                                ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
+                                ? 'bg-sys-surfaceHigh text-sys-onSurface ring-2 ring-sys-primary/50'
                                 : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar'
                         }`}
                         aria-label={`Start ${formatSecondsShort(restTime)} rest timer`}
                     >
+                        <Clock size={12} className={restTimerActive ? 'text-sys-primary' : ''} />
                         <TimeBadge seconds={restTime} size="compact" variant="inline" />
                     </button>
                 )}
@@ -658,7 +653,6 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         totalSets={totalSets}
                         isComplete={isComplete}
                         onToggleSet={handleSetToggle}
-                        onCompleteAllSets={handleCompleteAllSets}
                     />
                 )}
             </div>
@@ -796,6 +790,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                 }`}
                                 aria-label={restTimerActive ? 'Stop timer' : `Start ${formatSecondsShort(timeSeconds)} timer`}
                             >
+                                <Dumbbell size={12} />
                                 <TimeBadge seconds={timeSeconds} size="compact" variant="inline" />
                             </button>
                         )}
@@ -822,11 +817,12 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                                 onClick={() => onStartRestTimer(restTime)}
                                 className={`h-8 px-3 rounded-lg flex items-center justify-center gap-1.5 active:scale-95 transition-all text-xs font-medium ${
                                     restTimerActive
-                                        ? 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
+                                        ? 'bg-sys-surfaceHigh text-sys-onSurface ring-2 ring-sys-primary/50'
                                         : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar'
                                 }`}
                                 aria-label={`Start ${formatSecondsShort(restTime)} rest timer`}
                             >
+                                <Clock size={12} className={restTimerActive ? 'text-sys-primary' : ''} />
                                 <TimeBadge seconds={restTime} size="compact" variant="inline" />
                             </button>
                         )}

@@ -9,7 +9,7 @@
  */
 
 import React, { useMemo, memo } from 'react';
-import { Check, CheckCheck } from './icons';
+import { Check } from './icons';
 
 // ============================================================================
 // TYPES
@@ -28,8 +28,6 @@ export interface CompactSetButtonsProps {
     isComplete: boolean;
     /** Callback when a set is toggled */
     onToggleSet: (setIndex: number) => void;
-    /** Callback to complete all remaining sets */
-    onCompleteAllSets: () => void;
 }
 
 // ============================================================================
@@ -43,17 +41,11 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
     totalSets,
     isComplete,
     onToggleSet,
-    onCompleteAllSets,
 }) => {
     // Memoize computed values to avoid recalculating on every render
-    const { showCompleteAllButton, firstIncompleteIndex } = useMemo(() => {
-        const incompleteCount = totalSets - completedSets;
-        const firstIncomplete = sets.findIndex(s => !s);
-        return {
-            showCompleteAllButton: incompleteCount >= 2,
-            firstIncompleteIndex: firstIncomplete,
-        };
-    }, [sets, completedSets, totalSets]);
+    const firstIncompleteIndex = useMemo(() => {
+        return sets.findIndex(s => !s);
+    }, [sets]);
 
     return (
         <div className="flex items-center gap-1 flex-shrink-0 overflow-hidden">
@@ -105,40 +97,17 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                     />
                 ))}
             </div>
-            {/* Progress indicator - double-tap to complete all */}
-            <button
-                onClick={() => {
-                    // Double-tap detection inline for simplicity
-                    const now = Date.now();
-                    const lastTap = (window as unknown as { __setButtonLastTap?: number }).__setButtonLastTap || 0;
-                    if (now - lastTap < 300 && now - lastTap > 0 && !isComplete) {
-                        // Double tap - complete all
-                        onCompleteAllSets();
-                        (window as unknown as { __setButtonLastTap?: number }).__setButtonLastTap = 0;
-                    } else {
-                        (window as unknown as { __setButtonLastTap?: number }).__setButtonLastTap = now;
-                    }
-                }}
+            {/* Progress indicator */}
+            <div
                 className={`text-sm font-bold ml-1 px-2 py-1 rounded transition-colors ${
                     isComplete
                         ? 'text-sys-success'
-                        : 'text-sys-onSurfaceVar hover:text-sys-onSurface hover:bg-sys-surfaceContainerHigh active:scale-95'
+                        : 'text-sys-onSurfaceVar'
                 }`}
-                aria-label={`${completedSets} of ${totalSets} sets complete${!isComplete ? ', double-tap to complete all' : ''}`}
-                title={!isComplete ? 'Double-tap to complete all' : undefined}
+                aria-label={`${completedSets} of ${totalSets} sets complete`}
             >
                 ({completedSets}/{totalSets})
-            </button>
-            {/* Complete All Sets Button - only show when there are 2+ incomplete sets remaining */}
-            {showCompleteAllButton && (
-                <button
-                    onClick={onCompleteAllSets}
-                    className="h-11 w-11 min-w-[44px] rounded-xl bg-sys-success/20 text-sys-success flex items-center justify-center active:scale-90 transition-all ml-1"
-                    aria-label="Complete all sets"
-                >
-                    <CheckCheck size={18} />
-                </button>
-            )}
+            </div>
         </div>
     );
 };

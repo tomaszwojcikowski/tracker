@@ -229,32 +229,6 @@ describe('ExerciseCard', () => {
             expect(defaultProps.haptic.tick).toHaveBeenCalled();
             expect(defaultProps.onToggleCollapse).toHaveBeenCalledWith('bench_press');
         });
-
-        it('should show Complete All button when multiple sets remain', () => {
-            render(<ExerciseCard {...defaultProps} />);
-
-            expect(screen.getByRole('button', { name: 'Complete all sets' })).toBeInTheDocument();
-        });
-
-        it('should call onCompleteAllSets when Complete All button is clicked', () => {
-            render(<ExerciseCard {...defaultProps} />);
-
-            fireEvent.click(screen.getByRole('button', { name: 'Complete all sets' }));
-
-            expect(defaultProps.onCompleteAllSets).toHaveBeenCalledWith('bench_press', 3);
-        });
-
-        it('should hide Complete All button when only 1 set remains', () => {
-            render(
-                <ExerciseCard
-                    {...defaultProps}
-                    sets={[true, true, false]}
-                    exerciseLog={{ sets: [true, true, false], weight: '', rpe: {} }}
-                />
-            );
-
-            expect(screen.queryByRole('button', { name: 'Complete all sets' })).not.toBeInTheDocument();
-        });
     });
 
     // Rest Timer tests removed - rest timer UI moved to FloatingTimer bar

@@ -1,2 +1,3 @@
 // Modal components
-export { ExerciseDetailModal } from './ExerciseDetailModal';
+export * from './ExerciseDetailModal';
+export * from './WorkoutDetailModal';

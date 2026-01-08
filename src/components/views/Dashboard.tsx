@@ -12,7 +12,7 @@ import { Play, ChevronRight, ChevronLeft, Plus, Clock, X } from '../icons';
 import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, type InProgressWorkout } from '../../utils/storage';
 import { getBlockForWeek } from '../../data/programData';
 import { getCompleteSchedule, type RawScheduleItem } from '../../utils/schedule';
-import { getSessionKey } from '../../services/storageNamespace';
+import { getSessionKey, getGlobalHistoryKey } from '../../services/storageNamespace';
 import { ProgramSelector } from '../ProgramSelector';
 import { useProgram } from '../../context/ProgramContext';
 import { WeeklyProgressRing } from '../progress';
@@ -20,6 +20,8 @@ import { StatusPill } from '../StatusPill';
 import { WeekPills } from '../WeekPills';
 import { ContinueWorkoutCard } from '../ContinueWorkoutCard';
 import { BottomSheet } from '../BottomSheet';
+import { WorkoutDetailModal } from '../modals';
+import type { GlobalHistoryEntry } from '../../types';
 
 /** Maximum number of exercises to show in the summary */
 const MAX_EXERCISES_IN_SUMMARY = 3;
@@ -175,6 +177,7 @@ export function Dashboard({
   onProgramChange,
 }: DashboardProps) {
   const [inProgressWorkout, setInProgressWorkout] = useState<InProgressWorkout | null>(null);
+  const [detailWorkout, setDetailWorkout] = useState<GlobalHistoryEntry[] | null>(null);
   const haptic = useHaptic();
 
   // Get program context for program-aware features
@@ -189,6 +192,16 @@ export function Dashboard({
   const isProgrammaticScroll = useRef(false);
   // Track if this is the initial mount to use instant scroll
   const isInitialMount = useRef(true);
+
+  const handleViewDetails = (week: number, day: number) => {
+    const historyKey = getGlobalHistoryKey();
+    const history = safeGetJSON<GlobalHistoryEntry[]>(historyKey, []);
+    // Find all entries for this specific week and day
+    const entries = history.filter(h => h.week === week && h.day === day);
+    if (entries.length > 0) {
+      setDetailWorkout(entries);
+    }
+  };
 
   // Scroll to the current week when it changes (e.g., from button click or dot navigation)
   useEffect(() => {
@@ -304,11 +317,18 @@ export function Dashboard({
             getExerciseSummary={getExerciseSummary}
             changeWeek={changeWeek}
             onStartWorkout={onStartWorkout}
+            onViewDetails={handleViewDetails}
             onStartEmptyWorkout={onStartEmptyWorkout}
             haptic={haptic}
           />
         ))}
       </div>
+
+      <WorkoutDetailModal
+        isOpen={detailWorkout !== null}
+        onClose={() => setDetailWorkout(null)}
+        workouts={detailWorkout || []}
+      />
 
       {/* Week navigation dots - above bottom nav */}
       <div className="py-4 pb-24 flex justify-center items-center gap-2">
@@ -368,6 +388,7 @@ interface WeekContentProps {
   getExerciseSummary: (week: number, day: number) => string;
   changeWeek: (week: number) => void;
   onStartWorkout: (day: number) => void;
+  onViewDetails: (week: number, day: number) => void;
   onStartEmptyWorkout?: () => void;
   haptic: ReturnType<typeof useHaptic>;
 }
@@ -384,6 +405,7 @@ function WeekContent({
   getExerciseSummary,
   changeWeek,
   onStartWorkout,
+  onViewDetails,
   onStartEmptyWorkout,
   haptic,
 }: WeekContentProps) {
@@ -627,7 +649,11 @@ function WeekContent({
                   <button
                     onClick={() => {
                       haptic.tick();
-                      onStartWorkout(day);
+                      if (done) {
+                        onViewDetails(week, day);
+                      } else {
+                        onStartWorkout(day);
+                      }
                     }}
                     className={`btn-md3 flex-1 ${
                       isInProgress

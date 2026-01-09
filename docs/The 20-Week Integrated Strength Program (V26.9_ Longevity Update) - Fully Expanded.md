@@ -263,7 +263,7 @@ Note: No hanging, no grip loading, no band pulldown work on Day 2\.
 **The Workout**
 
 * **A1: Romanian Deadlift (RDL):** 4 sets of 8 reps @ \~85kg.
-* **B1: Goblet Squats:** 3 sets of 10 reps (Knee-friendly squat mechanics).
+* **B1: Goblet Squats:** 2 sets of 20–25 reps (Hypertrophy focus). **Progression:** Increase KB size only when 2×25 is achieved. **Maxed Out?** Switch to Heels-Elevated (Cyclist) Goblet Squats if 2x25 @ 32kg is easy.
 * **B2: Chest-Supported Row:** 3 sets of 10–12 reps.
 * **C1: Face Pulls:** 3 sets of 15–20 reps.
 

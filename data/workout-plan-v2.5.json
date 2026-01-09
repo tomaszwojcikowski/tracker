@@ -2120,9 +2120,10 @@
                   },
                   {
                     "$ref": "ex-goblet-squats",
-                    "sets": 3,
-                    "repsValue": 10,
-                    "notes": "Knee-friendly squat mechanics"
+                    "sets": 2,
+                    "repsMin": 20,
+                    "repsMax": 25,
+                    "notes": "High Rep Hypertrophy (Lees 2025): Light load to failure (RPE 9-10). If 2x25 @ 32kg+ is easy, switch to Heels-Elevated (Cyclist) Goblet Squats."
                   },
                   {
                     "$ref": "ex-chest-supported-row",

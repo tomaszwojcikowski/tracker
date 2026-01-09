@@ -72,19 +72,19 @@ The production build outputs to the `dist/` directory and includes:
 
 ### Technology Stack
 
-- **React 18** - UI framework
-- **TypeScript** - Type-safe JavaScript (fully migrated from JavaScript)
-- **Tailwind CSS 3** - Utility-first CSS framework
-- **Vite 5** - Build tool and dev server
-- **Vitest** - Unit testing framework
-- **Playwright** - End-to-end testing
-- **Testing Library** - React component testing
-- **Lucide Icons** - Icon library
-- **Firebase** - Cloud sync and Google authentication
+- **React 19** - UI framework (Latest stable)
+- **TypeScript 5** - Type-safe programming (100% migrated)
+- **Tailwind CSS v4** - CSS-first utility framework with Material Design 3 integration
+- **Vite 7** - Ultra-fast build tool and dev server
+- **Vitest 4** - Modern unit testing framework
+- **Playwright** - Reliable end-to-end testing
+- **Testing Library** - Comprehensive React component testing
+- **Lucide Icons** - Tree-shaken vector icons
+- **Firebase 12** - Secure cloud sync and Google authentication
 - **Automerge** - CRDT-based conflict-free data synchronization
-- **Google Gemini AI** - Optional AI coaching integration
-- **Sentry** - Optional error tracking and monitoring
-- **Workbox** - Service worker for PWA capabilities
+- **Google Gemini AI** - Optional personalized coaching integration
+- **Sentry** - Optional production error monitoring
+- **Workbox** - Advanced PWA service worker logic
 
 ### Testing
 
@@ -108,7 +108,7 @@ npm run test:e2e:ui
 npm run typecheck
 ```
 
-The test suite includes 300+ comprehensive Vitest specs and E2E tests covering:
+The test suite includes **1,300+ comprehensive specs** across 70+ test files, covering:
 - **Storage Utilities** (`storageUtils.test.tsx`): LocalStorage operations with error handling
 - **Schedule Building** (`scheduleUtils.test.tsx`): Schedule data loading and processing
 - **Exercise History & Stats** (`exerciseHistory.test.tsx`, `exerciseHistoryComprehensive.test.tsx`): Workout timelines, stats, and 1RM calculations
@@ -136,102 +136,53 @@ For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 
 ## Features
 
-### 🏋️ Workout Tracking & Logging
-- **Progressive Set Tracking**: Mark sets as complete with visual feedback and haptic responses
-- **Weight & RPE Logging**: Track weight lifted and Rate of Perceived Exertion (RPE scale 6-10) for each set
-- **Workout Notes**: Add free-text notes to document your workout sessions, training observations, and form cues
-- **Rest Timer**: Built-in countdown timer with notifications to optimize rest periods between sets
-- **EMOM Timer**: Every Minute On the Minute timer for EMOM exercises with adjustable intervals (10-180s) and audio cues
-- **Density Exercises**: Complete target reps within a time limit (e.g., 30 reps in 10 minutes) with rep chunk tracking
-- **Flow Exercises**: Multi-movement sequences (e.g., "flow of 5 movements x 3 rounds") with visual progress tracking
-- **Dynamic Exercise Addition**: Add custom exercises from the library during your workout
-- **Auto-generated Protocols**: Automatic warmup and cooldown routines for weeks 2-21 based on workout type
-- **Session Persistence**: Your workout progress is automatically saved and survives page reloads
-- **Focus Mode**: Distraction-free single-exercise view with swipe navigation for immersive workouts
-- **Superset Support**: Group exercises together and execute them as supersets with visual organization
-- **Exercise Options**: Customize exercise variations on the fly during workouts
+### 🏋️ Core Training Experience
+- **Progressive Set Tracking**: Mark sets as complete with visual feedback and haptic responses.
+- **Material Design 3 UI**: Full implementation of MD3 color system, elevation, and typography.
+- **Focus Mode**: Distraction-free single-exercise view with swipe navigation for immersive workouts.
+- **Dynamic Training Protocols**: Built-in support for EMOM, Density, and Flow exercise types with specialized timers and controls.
+- **Superset Support**: Group exercises together with visual indicators and optimized execution flows.
+- **Weight & RPE Logging**: Track weight and Rate of Perceived Exertion (RPE 6-10) for every set.
+- **Rest & EMOM Timers**: Integrated timers with notifications and audio cues to optimize recovery.
+- **Dynamic Exercise Modification**: Add, remove, or customize exercise variations on the fly during active sessions.
 
-### 📊 Exercise History & Analytics
-- **Comprehensive History View**: Timeline of all completed workouts with expandable details
-- **Exercise Statistics**: Track total workouts, max sets, max weight, and estimated 1RM for each exercise
-- **Progress Graphs**: Visual weight progression charts showing your strength gains over time
-- **Personal Records**: Automatically calculated and tracked for all exercises with PR highlights
-- **Per-Exercise Details**: Detailed history showing weight, sets, reps, and RPE for each session
-- **1RM Estimation**: Brzycki formula used to estimate one-rep max from your working sets
-- **Time-Based Filtering**: Filter workout history by week, month, or all time
-- **Calendar View**: Visual calendar representation of your training schedule and completed workouts
+### 📊 Intelligence & Analytics
+- **Personal Records**: Automatic PR tracking and highlights for every exercise in your library.
+- **Progress Visualization**: Interactive charts for weight progression, volume, and performance trends.
+- **1RM Estimation**: Real-time Brzycki formula calculations providing strength insights for every lift.
+- **Calendar View**: Comprehensive training schedule visualization showing completed and upcoming sessions.
+- **AI Coaching (Optional)**: Deep integration with Google Gemini for personalized session analysis and feedback.
 
-### 🤖 AI-Powered Coaching (Optional)
-- **Google Gemini Integration**: Connect with Gemini AI for personalized workout feedback
-- **Auto-sync on Completion**: Automatically sync completed workouts to receive AI analysis
-- **Contextual Feedback**: AI considers your workout notes, RPE values, and performance history
-- **Interactive Q&A**: Ask your AI coach questions about form, programming, or recovery
-- **Chat History**: Maintains conversation context for more relevant coaching advice
-- **Configurable**: Enable/disable auto-sync and test API connectivity from Settings
-
-### 🗂️ Exercise Library
-- **Comprehensive Database**: 50+ exercises with detailed information
-- **Smart Filtering**: Filter by muscle groups (pull, push, legs, core)
-- **Search Functionality**: Quick search to find exercises by name
-- **Exercise Details**: View primary/secondary muscles, equipment needed, and available variations
-- **Exercise History Access**: View historical performance directly from the library
+### ☁️ Data & Persistence
+- **Offline-First Resilience**: Full PWA capabilities with Workbox service worker for seamless offline usage even in gyms with poor connectivity.
+- **Zero-Conflict Sync**: Advanced Automerge CRDT-based synchronization for perfect data consistency across multiple devices concurrently.
+- **Google Sign-In**: Secure authentication and cloud storage powered by Firebase Auth and Realtime Database.
+- **Universal Library Search**: Fast exercise lookup with muscle-group filtering, historical performance access, and smart variations.
+- **Optimistic Updates**: Background cloud sync with intelligent debouncing ensures the UI stays snappy regardless of network latency.
 
 ### 🧭 State Management & Navigation
-- **URL-Based Routing**: Shareable URLs that deep-link to specific workouts or tabs
-- **Browser History Support**: Back/forward buttons work correctly throughout the app
-- **State Persistence**: Last viewed workout/tab is remembered across sessions
-- **Multi-Tab Navigation**: Switch between Train, Library, History, Coach, and Settings tabs
-- **URL Priority**: URL parameters override saved state for reliable deep linking
+- **URL-Based Routing**: Shareable URLs that deep-link to specific workouts, tabs, or individual exercises for easy reference.
+- **Browser History Support**: Native back/forward behavior preserved throughout the single-page application experience.
+- **Haptic Design Language**: Physical vibration feedback patterns for set completions, timer alerts, and critical UI interactions.
+- **Gesture-Driven UX**: Intuitive swipe-to-navigate, pull-to-refresh, and long-press actions optimized for mobile use.
 
-### 📱 Progressive Web App
-- **Mobile-First Design**: Optimized touch targets and responsive layout for phone use
-- **Offline Support**: Service worker with Workbox caches app shell and API responses for offline use
-- **Fast Performance**: Built with Vite for optimal load times and bundle size
-- **Haptic Feedback**: Physical vibration feedback for set completions and timer alerts with customizable patterns
-- **Installable**: Can be added to home screen as a standalone app with native install prompts
-- **Auto-Update**: Automatic detection and prompts for new app versions
-- **Background Sync**: Queued changes sync when connection restored
-- **Pull-to-Refresh**: Swipe down to refresh content and check for updates
-- **Gesture Support**: Intuitive swipe gestures for navigation and actions
+### 🛠️ Developer Excellence
+- **100% TypeScript**: Modern, type-safe codebase using strict mode, custom decorators, and advanced utility types.
+- **Massive Test Coverage**: over 1,300+ unit and E2E tests ensuring stability, accessibility, and performance across all features.
+- **Tailwind CSS v4**: Bleeding-edge CSS-first configuration and performance-oriented styling with MD3 semantic tokens.
+- **Vite 7**: Next-gen build pipeline providing ultra-fast HMR and highly optimized production bundles.
 
-### ☁️ Cloud Sync & Authentication (Firebase)
-- **Google Sign-In**: Secure authentication with your Google account
-- **Real-time Sync**: Automatically sync workout data across all your devices
-- **CRDT-Based Merging**: Conflict-free data synchronization using Automerge CRDTs
-- **Private Data**: Each user's data is securely isolated with Firebase Security Rules
-- **Bidirectional Sync**: Changes on any device instantly appear on all other devices
-- **Automatic & Manual Sync**: Choose between automatic sync or manual control
-- **Offline-First**: Works offline, syncs when connection is restored
-- **Cross-Device Support**: Use the same account on phone, tablet, and desktop
-- **Automatic Migration**: Seamless migration from timestamp-based to CRDT sync
-
-### 🎯 Program Structure
-- **21-Week Program**: Structured training plan with 4 training days per week (Days 1, 2, 3, 5)
-- **Week-Based Navigation**: Easy navigation through program weeks
-- **Section Organization**: Workouts divided into Warm-up, Main Work, and Cool-down sections
-- **Progress Tracking**: Visual indicators show completion status for each section
-- **Collapsible Exercises**: Compact view for completed exercises to reduce scrolling
-
-### 📦 Program Management
-- **Program Import**: Import custom workout programs from JSON files with schema validation
-- **Program Export**: Export programs with or without user progress data
-- **Version Migration**: Automatic migration between format versions (v2.0 → v2.3)
-- **Progress Tracking**: Track completion percentage and statistics per program
-- **Progress Archive**: Archive and restore program progress for fresh starts
-- **Program Reset**: Reset program progress while preserving archived data
-- **Sample Programs**: Built-in program templates for beginners, intermediate, and mobility focus
+### 📦 Program & Program Management
+- **Structured Programs**: Support for multi-week programs with phases, warm-ups, main work, and cool-downs.
+- **Dynamic Import/Export**: Import custom JSON workout plans with strict schema validation or export your progress.
+- **Version Migration**: Automatic, non-destructive migration between program format versions (v2.x).
+- **Progress Archiving**: Snapshot your training history before starting new cycles or resets.
 
 ### ⚡ User Experience
-- **Fast Interactions**: Debounced search inputs and optimized rendering
-- **Keyboard Shortcuts**: Escape key to dismiss toasts and modals, comprehensive keyboard navigation
-- **Visual Progress**: Mini progress bars and completion percentages throughout
-- **Toast Notifications**: Non-blocking notifications for sync status and timer completion
-- **Error Handling**: Graceful degradation with helpful error messages and error boundary protection
-- **Onboarding**: First-time user experience with guided setup and feature introduction
-- **Theme Support**: Light and dark mode with system preference detection
-- **Accessibility**: ARIA labels, keyboard navigation, and screen reader support
-- **Animations**: Smooth transitions and micro-interactions for enhanced feel
-- **Compact Mode**: Dense UI option for viewing more content at once
+- **Theme Support**: Integrated light and dark modes with automatic system preference detection.
+- **Accessibility**: ARIA-standard keyboard navigation, focus trap management, and screen reader compatibility.
+- **Animations**: Fluid transitions and micro-interactions powered by Framer Motion for a premium feel.
+- **Error Resilience**: Robust error boundary protection with Sentry integration for real-time monitoring and reporting.
 
 ## Configuration
 
@@ -343,3 +294,20 @@ These generate:
 - `migration-report.json` - Detailed migration report
 
 For complete format specification, see [WORKOUT_PLAN_FORMAT.md](WORKOUT_PLAN_FORMAT.md)
+
+## 🚀 Potential Roadmap
+
+### 🏁 Short-Term (Q1 2026)
+- [ ] **Advanced Volume Analytics**: Visual distribution of training load across primary and secondary muscle groups.
+- [ ] **Progressive Intensity Scoring**: Algorithm-based recommendations for weight/reps adjusted for session RPE.
+- [ ] **Interactive Onboarding 2.0**: Guided tour for new features (Density, Flow, Focus Mode).
+
+### 🏔️ Mid-Term (Q2-Q3 2026)
+- [ ] **AI Program Generation**: GPT/Gemini-driven creation of unique workout cycles based on user goals and equipment.
+- [ ] **Wearable Integration**: Companion app for Apple Watch and WearOS for heart rate tracking and set completion.
+- [ ] **Muscle Load Heatmaps**: 3D or 2D anatomical visualization of accumulated fatigue and training focus.
+
+### 🌌 Long-Term (2027+)
+- [ ] **Social Training Ecosystem**: Shared programs, community challenges, and verified coach profiles.
+- [ ] **Native Mobile Releases**: Capacitor or React Native wrappers for App Store and Play Store availability.
+- [ ] **Computer Vision Form Analysis**: Optional real-time form feedback using device camera and ML.

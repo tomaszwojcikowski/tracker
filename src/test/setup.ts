@@ -77,4 +77,5 @@ vi.mock('../components/icons', () => ({
   Link: mockIcon,
   RotateCcw: mockIcon,
   LogOut: mockIcon,
+  Download: mockIcon,
 }));

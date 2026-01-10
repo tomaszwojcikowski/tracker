@@ -3720,16 +3720,22 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Quadruped Focus",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "description": "Standard template (no grip isometrics)",
+                "description": "Quadruped-based hip and spine work; different loading pattern for same joints",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-quadruped-hip-circles"
+                  },
+                  {
+                    "$ref": "ex-fire-hydrants"
+                  },
+                  {
+                    "$ref": "ex-pallof-press"
                   },
                   {
                     "$ref": "ex-side-plank-recovery"
@@ -3859,16 +3865,19 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Rotation Emphasis",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "description": "Isometric recovery focus: Side Plank 25-30s, prioritize smooth breathing",
+                "description": "Rotation-focused recovery with woodchops and thoracic work; different core angle",
                 "exercises": [
                   {
-                    "$routine": "mobility-ankle-circuit"
+                    "$routine": "day2-ankle-focus"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-seated-hip-cars"
+                  },
+                  {
+                    "$ref": "ex-band-woodchops"
                   },
                   {
                     "$ref": "ex-side-plank-recovery",
@@ -3877,7 +3886,7 @@
                     "repsMax": 30
                   },
                   {
-                    "$routine": "day2-recovery-flow"
+                    "$routine": "day2-spine-focus"
                   }
                 ]
               },
@@ -4001,13 +4010,19 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "description": "Standard template; include Standing Hip CARs (2x5/side)",
+                "description": "Supine and standing hip variation with anti-rotation work",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-supine-hip-circles"
+                  },
+                  {
+                    "$ref": "ex-standing-hip-cars"
+                  },
+                  {
+                    "$ref": "ex-banded-anti-rotation-press"
                   },
                   {
                     "$ref": "ex-side-plank-recovery"
@@ -4143,10 +4158,13 @@
                 "description": "Connective tissue deload: 50-60% volume, no long holds, skip Side Planks",
                 "exercises": [
                   {
-                    "$routine": "mobility-ankle-circuit"
+                    "$routine": "day2-ankle-focus"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-thread-the-needle"
+                  },
+                  {
+                    "$ref": "ex-cat-camel"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -4274,23 +4292,23 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "description": "Standard template; optional Marching Dead Bug 2x8/side if tissues feel excellent",
+                "description": "Dynamic hip and core with optional dead bug progression; build capacity",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$routine": "day2-seated-hip-variation"
                   },
                   {
                     "$ref": "ex-side-plank-recovery"
                   },
                   {
                     "$ref": "ex-marching-dead-bug",
-                    "notes": "Optional"
+                    "notes": "Optional; only if feeling strong"
                   },
                   {
-                    "$routine": "day2-recovery-flow"
+                    "$routine": "day2-deep-stretch-flow"
                   }
                 ]
               },
@@ -4406,19 +4424,19 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Multi-Plane Hip Work",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "description": "Standard template; optional Marching Dead Bug 2x8/side — remove if elbows/hips feel taxed",
+                "description": "Multi-angle hip work with quadruped and supine patterns; skip dead bug if fatigued",
                 "exercises": [
                   {
-                    "$routine": "mobility-ankle-circuit"
+                    "$routine": "day2-ankle-focus"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$routine": "day2-hip-mobility-alt"
                   },
                   {
-                    "$ref": "ex-side-plank-recovery"
+                    "$ref": "ex-copenhagen-plank"
                   },
                   {
                     "$ref": "ex-marching-dead-bug",
@@ -4548,16 +4566,19 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Peak Week Management",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "description": "Peak stress week: standard template with Side Planks shortened to 25-30s",
+                "description": "Peak stress week: gentler hip angles with rotation work, reduced side plank hold",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-supine-hip-circles"
+                  },
+                  {
+                    "$ref": "ex-band-woodchops"
                   },
                   {
                     "$ref": "ex-side-plank-recovery",
@@ -4565,7 +4586,7 @@
                     "repsMax": 30
                   },
                   {
-                    "$routine": "day2-recovery-flow"
+                    "$routine": "day2-spine-focus"
                   }
                 ]
               },
@@ -4686,16 +4707,16 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Breath Focus - DELOAD",
                 "type": "mobility",
                 "estimatedDuration": 26,
-                "description": "Deload: ~60% volume; extend breathing to 4-5 minutes",
+                "description": "Deload: ~60% volume with gentle stretching and extended breathing practice",
                 "exercises": [
                   {
-                    "$routine": "mobility-ankle-circuit"
+                    "$routine": "day2-ankle-focus"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-thread-the-needle"
                   },
                   {
                     "$ref": "ex-side-plank-recovery",
@@ -4828,16 +4849,19 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Taper Variation",
                 "type": "mobility",
                 "estimatedDuration": 30,
-                "description": "~80% volume, breath-led; standard template with no extra load",
+                "description": "~80% volume taper with breath emphasis; use gentler hip patterns",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-seated-hip-cars"
+                  },
+                  {
+                    "$ref": "ex-pallof-press"
                   },
                   {
                     "$ref": "ex-side-plank-recovery",
@@ -4845,7 +4869,7 @@
                     "repsMax": 30
                   },
                   {
-                    "$routine": "day2-recovery-flow"
+                    "$routine": "day2-deep-stretch-flow"
                   }
                 ]
               },
@@ -4965,16 +4989,19 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Continued Taper",
                 "type": "mobility",
                 "estimatedDuration": 28,
-                "description": "~70% volume taper; Side Plank 20-25s",
+                "description": "~70% volume taper; supine hip work with reduced side plank",
                 "exercises": [
                   {
-                    "$routine": "mobility-ankle-circuit"
+                    "$routine": "day2-ankle-focus"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-supine-hip-circles"
+                  },
+                  {
+                    "$ref": "ex-banded-anti-rotation-press"
                   },
                   {
                     "$ref": "ex-side-plank-recovery",

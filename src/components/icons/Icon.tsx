@@ -106,6 +106,8 @@ import {
   FileText,
   Link,
   ArrowUpDown as Sort, // Alias
+  ToggleLeft,
+  ToggleRight,
 
   // Types
   type LucideIcon,
@@ -214,6 +216,8 @@ export {
   FileText,
   Link,
   Sort,
+  ToggleLeft,
+  ToggleRight,
 
   // Types
   type LucideIcon,

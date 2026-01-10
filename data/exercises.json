@@ -580,6 +580,252 @@
     ]
   },
   {
+    "id": "assault_bike_zone_1",
+    "name": "Assault Bike (Zone 1)",
+    "primaryMuscles": [
+      "cardio"
+    ],
+    "secondaryMuscles": [
+      "legs",
+      "arms"
+    ],
+    "equipment": [
+      "assault_bike"
+    ],
+    "category": "cardio",
+    "isBodyweight": true,
+    "variations": [
+      "Assault Bike (Zone 2)",
+      "Assault Bike Sprints"
+    ]
+  },
+  {
+    "id": "assault_bike_zone_2",
+    "name": "Assault Bike (Zone 2)",
+    "primaryMuscles": [
+      "cardio"
+    ],
+    "secondaryMuscles": [
+      "legs",
+      "arms"
+    ],
+    "equipment": [
+      "assault_bike"
+    ],
+    "category": "cardio",
+    "isBodyweight": true,
+    "variations": [
+      "Assault Bike (Zone 1)",
+      "Assault Bike Sprints"
+    ]
+  },
+  {
+    "id": "assault_bike_sprints",
+    "name": "Assault Bike Sprints",
+    "primaryMuscles": [
+      "cardio"
+    ],
+    "secondaryMuscles": [
+      "legs",
+      "arms"
+    ],
+    "equipment": [
+      "assault_bike"
+    ],
+    "category": "cardio",
+    "isBodyweight": true,
+    "variations": [
+      "Assault Bike (Zone 1)",
+      "Assault Bike (Zone 2)"
+    ]
+  },
+  {
+    "id": "jump_rope_easy",
+    "name": "Jump Rope (Easy)",
+    "primaryMuscles": [
+      "cardio",
+      "calves"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "jump_rope"
+    ],
+    "category": "cardio",
+    "isBodyweight": true,
+    "variations": [
+      "Jump Rope (Moderate)",
+      "Jump Rope (Fast)"
+    ]
+  },
+  {
+    "id": "jump_rope_moderate",
+    "name": "Jump Rope (Moderate)",
+    "primaryMuscles": [
+      "cardio",
+      "calves"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "jump_rope"
+    ],
+    "category": "cardio",
+    "isBodyweight": true,
+    "variations": [
+      "Jump Rope (Easy)",
+      "Jump Rope (Fast)"
+    ]
+  },
+  {
+    "id": "jump_rope_fast",
+    "name": "Jump Rope (Fast)",
+    "primaryMuscles": [
+      "cardio",
+      "calves"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "jump_rope"
+    ],
+    "category": "cardio",
+    "isBodyweight": true,
+    "variations": [
+      "Jump Rope (Easy)",
+      "Jump Rope (Moderate)"
+    ]
+  },
+  {
+    "id": "burpees_steady",
+    "name": "Burpees (Steady Pace)",
+    "primaryMuscles": [
+      "cardio",
+      "full_body"
+    ],
+    "secondaryMuscles": [
+      "chest",
+      "legs"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "cardio",
+    "isBodyweight": true,
+    "variations": [
+      "Burpees (Moderate)",
+      "Burpees (Fast)"
+    ]
+  },
+  {
+    "id": "burpees_moderate",
+    "name": "Burpees (Moderate Pace)",
+    "primaryMuscles": [
+      "cardio",
+      "full_body"
+    ],
+    "secondaryMuscles": [
+      "chest",
+      "legs"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "cardio",
+    "isBodyweight": true,
+    "variations": [
+      "Burpees (Steady Pace)",
+      "Burpees (Fast)"
+    ]
+  },
+  {
+    "id": "burpees_fast",
+    "name": "Burpees (Fast/Max Effort)",
+    "primaryMuscles": [
+      "cardio",
+      "full_body"
+    ],
+    "secondaryMuscles": [
+      "chest",
+      "legs"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "cardio",
+    "isBodyweight": true,
+    "variations": [
+      "Burpees (Steady Pace)",
+      "Burpees (Moderate)"
+    ]
+  },
+  {
+    "id": "mountain_climbers_easy",
+    "name": "Mountain Climbers (Easy)",
+    "primaryMuscles": [
+      "cardio",
+      "core"
+    ],
+    "secondaryMuscles": [
+      "hip_flexors",
+      "shoulders"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "cardio",
+    "isBodyweight": true,
+    "variations": [
+      "Mountain Climbers (Moderate)",
+      "Mountain Climbers (Fast)"
+    ]
+  },
+  {
+    "id": "mountain_climbers_moderate",
+    "name": "Mountain Climbers (Moderate)",
+    "primaryMuscles": [
+      "cardio",
+      "core"
+    ],
+    "secondaryMuscles": [
+      "hip_flexors",
+      "shoulders"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "cardio",
+    "isBodyweight": true,
+    "variations": [
+      "Mountain Climbers (Easy)",
+      "Mountain Climbers (Fast)"
+    ]
+  },
+  {
+    "id": "mountain_climbers_fast",
+    "name": "Mountain Climbers (Fast)",
+    "primaryMuscles": [
+      "cardio",
+      "core"
+    ],
+    "secondaryMuscles": [
+      "hip_flexors",
+      "shoulders"
+    ],
+    "equipment": [
+      "bodyweight"
+    ],
+    "category": "cardio",
+    "isBodyweight": true,
+    "variations": [
+      "Mountain Climbers (Easy)",
+      "Mountain Climbers (Moderate)"
+    ]
+  },
+  {
     "id": "hspu",
     "name": "Handstand Push-Up",
     "primaryMuscles": [

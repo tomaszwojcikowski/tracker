@@ -25,6 +25,8 @@
       "dip-bars",
       "resistance-bands",
       "rower",
+      "assault-bike",
+      "jump-rope",
       "dumbbells",
       "barbell",
       "parallettes",
@@ -125,6 +127,251 @@
             "loadUnit": "bodyweight",
             "restSeconds": 10,
             "notes": "Min 5: 3 x 10s Sprints (CNS activation)"
+          }
+        ]
+      },
+      {
+        "id": "warmup-assault-bike-protocol",
+        "name": "Assault Bike Protocol",
+        "description": "Cold Start Protocol before Day 1 & 5 - Assault Bike variant with power output technique focus",
+        "category": "warmup",
+        "estimatedDuration": 5,
+        "targetAreas": [
+          "cardiovascular",
+          "cns-activation"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Assault Bike (Zone 1)",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 120,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Min 1-2: Easy pace. TECHNIQUE FOCUS: Full push-pull coordination - drive handles forward as legs extend, pull back as legs recover. Smooth circular motion.",
+            "cues": [
+              "Push with legs, pull with arms",
+              "Shoulders relaxed, core engaged",
+              "Breathe rhythmically - in for 2, out for 2"
+            ]
+          },
+          {
+            "exerciseName": "Assault Bike (Zone 2)",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 120,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Min 3-4: Moderate pace. SKILL CHALLENGE: Practice 'power circles' - emphasize the push phase (legs + arms working together) rather than grinding. Find your sustainable rhythm.",
+            "cues": [
+              "Power through the bottom of pedal stroke",
+              "Maintain steady cadence (50-60 RPM)",
+              "Feel the full-body connection"
+            ]
+          },
+          {
+            "exerciseName": "Assault Bike Sprints",
+            "category": "warmup",
+            "sets": 3,
+            "repsType": "time",
+            "repsValue": 10,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "restSeconds": 10,
+            "notes": "Min 5: 3 x 10s Max Effort Sprints. POWER FOCUS: Explosive start, aggressive arm pull, drive through heels. Each sprint is CNS priming - wake up fast-twitch fibers!",
+            "cues": [
+              "Sprint 1: Practice explosive start from zero",
+              "Sprint 2: Focus on arm drive intensity",
+              "Sprint 3: All-out - full body explosion"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "warmup-jump-rope-protocol",
+        "name": "Jump Rope Protocol",
+        "description": "Cold Start Protocol before Day 1 & 5 - Jump Rope variant with rhythm and coordination progression",
+        "category": "warmup",
+        "estimatedDuration": 5,
+        "targetAreas": [
+          "cardiovascular",
+          "cns-activation",
+          "coordination"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Jump Rope (Easy)",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 120,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Min 1-2: Single unders, relaxed rhythm. TECHNIQUE FOCUS: Minimize vertical jump height - think 'hover' not 'bounce'. Wrists do the work, arms stay still. Land softly on balls of feet.",
+            "cues": [
+              "Jump only 1-2 inches off ground",
+              "Rotate rope from wrists, not shoulders",
+              "Stay on the balls of your feet",
+              "Breathe naturally - don't hold breath"
+            ]
+          },
+          {
+            "exerciseName": "Jump Rope (Moderate)",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 120,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Min 3-4: Steady pace, maintain form. SKILL CHALLENGE: Try alternating foot singles (boxer skip) for 10-15 seconds, then back to regular bounce. This teaches weight transfer and coordination.",
+            "cues": [
+              "Keep elbows close to ribs",
+              "Experiment: Try 'boxer skip' for variety",
+              "Maintain consistent turnover speed",
+              "Challenge: Can you do 20 unbroken jumps?"
+            ]
+          },
+          {
+            "exerciseName": "Jump Rope (Fast)",
+            "category": "warmup",
+            "sets": 3,
+            "repsType": "time",
+            "repsValue": 10,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "restSeconds": 10,
+            "notes": "Min 5: 3 x 10s Fast singles or double unders. POWER CHALLENGE: If you can do double unders, go for it! If not, fast singles with wrist snap intensity. This is about speed and rhythm, not perfection.",
+            "cues": [
+              "Sprint 1: Fast singles - quick wrist turnover",
+              "Sprint 2: Attempt 1-2 double unders OR faster singles",
+              "Sprint 3: All-out speed - push your rope speed limit!"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "warmup-burpees-protocol",
+        "name": "Burpees Protocol",
+        "description": "Cold Start Protocol before Day 1 & 5 - Burpees variant (no equipment) with movement quality focus",
+        "category": "warmup",
+        "estimatedDuration": 5,
+        "targetAreas": [
+          "cardiovascular",
+          "cns-activation",
+          "full-body"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Burpees (Steady Pace)",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 120,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Min 1-2: Controlled pace, focus on form. TECHNIQUE FOCUS: Perfect each phase - hinge to hands, step or jump back to plank (hollow body!), chest to floor, push up, step/jump feet to hands, stand tall. Quality over speed.",
+            "cues": [
+              "Phase breakdown: Squat → Plank → Push-up → Jump in → Stand",
+              "Keep core braced in plank position",
+              "Full chest to floor on each rep",
+              "Stand fully upright between reps"
+            ]
+          },
+          {
+            "exerciseName": "Burpees (Moderate Pace)",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 120,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Min 3-4: Increase pace slightly. SKILL CHALLENGE: Practice the 'flow state' - smooth transitions between phases. Can you make it look effortless? Breathing rhythm: exhale on push-up, inhale on jump-in.",
+            "cues": [
+              "Flow through transitions smoothly",
+              "Breathe: exhale pushing up, inhale standing",
+              "Find your sustainable rhythm",
+              "Challenge: 8-10 reps without stopping"
+            ]
+          },
+          {
+            "exerciseName": "Burpees (Fast/Max Effort)",
+            "category": "warmup",
+            "sets": 3,
+            "repsType": "time",
+            "repsValue": 10,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "restSeconds": 10,
+            "notes": "Min 5: 3 x 10s Max effort burpees. EXPLOSIVE POWER: Sprint pace! Jump back aggressively, explosive push-up, power jump to hands, explosive stand. CNS activation - move FAST but maintain form.",
+            "cues": [
+              "Sprint 1: Aggressive plank jump-backs",
+              "Sprint 2: Explosive push-up drive",
+              "Sprint 3: All-out speed - count your reps!"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "warmup-mountain-climbers-protocol",
+        "name": "Mountain Climbers Protocol",
+        "description": "Cold Start Protocol before Day 1 & 5 - Mountain Climbers variant (no equipment) with core control emphasis",
+        "category": "warmup",
+        "estimatedDuration": 5,
+        "targetAreas": [
+          "cardiovascular",
+          "cns-activation",
+          "core"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Mountain Climbers (Easy)",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 120,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Min 1-2: Slow controlled pace, knees to chest. TECHNIQUE FOCUS: Perfect plank position first! Hands under shoulders, neutral spine, hips level. Drive knee toward same-side elbow, fully extend back. No hip bobbing!",
+            "cues": [
+              "Start in strong plank - hollow body",
+              "Hips stay level - don't bounce up and down",
+              "Drive knee to elbow, not just forward",
+              "Shoulders stable over hands"
+            ]
+          },
+          {
+            "exerciseName": "Mountain Climbers (Moderate)",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 120,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Min 3-4: Moderate pace, maintain plank position. SKILL CHALLENGE: Focus on 'running in place' rhythm. Can you maintain perfect plank for the full 2 minutes? Core anti-rotation challenge - resist twisting!",
+            "cues": [
+              "Maintain rigid plank throughout",
+              "Run in place - alternate legs rhythmically",
+              "Challenge: Zero hip movement",
+              "Breathe steadily - don't hold breath"
+            ]
+          },
+          {
+            "exerciseName": "Mountain Climbers (Fast)",
+            "category": "warmup",
+            "sets": 3,
+            "repsType": "time",
+            "repsValue": 10,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "restSeconds": 10,
+            "notes": "Min 5: 3 x 10s Max speed sprints. POWER OUTPUT: Sprint your legs as fast as possible while maintaining plank integrity! This is CNS activation - explosive hip flexor action meets core stability.",
+            "cues": [
+              "Sprint 1: Fast leg drive - count reps per side",
+              "Sprint 2: Even faster - can you beat sprint 1?",
+              "Sprint 3: All-out leg speed while keeping shoulders still!"
+            ]
           }
         ]
       },
@@ -2599,7 +2846,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: 40 reps. Core Focus (Dynamic): [RECOVERY WEEK]",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-assault-bike-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -2750,7 +2997,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: 40 reps. Core Focus (Dynamic): [HARD WEEK]",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-jump-rope-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -2908,7 +3155,7 @@
                 "description": "Weekly Pull Total Target: ~20 reps. RPE 6 MAX",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-burpees-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -3060,7 +3307,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: ~40 reps. Core Focus (Dynamic): [HARD WEEK]",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-mountain-climbers-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -3362,7 +3609,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: 39 reps. Core Focus (Dynamic): [HARD WEEK]",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-assault-bike-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -3511,7 +3758,7 @@
                 "description": "Weekly Pull Total Target: ~20 reps. RPE 6 MAX",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-jump-rope-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -3669,7 +3916,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: ~40 reps. Core Focus (Dynamic): [HARD WEEK]",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-burpees-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -3810,7 +4057,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: ~38 reps. Core Focus (Dynamic): [RECOVERY WEEK]",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-mountain-climbers-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -4100,7 +4347,7 @@
                 "description": "Weekly Pull Total Target: ~20 reps. Restrictions: NO Dead Hangs. NO Long Hollow Holds. NO Weighted Core. Straight-Arm Cap: 3 × 6s Tuck Holds Max",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-assault-bike-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -4240,7 +4487,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: ~38 reps. Stop if total hits 30 reps",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-jump-rope-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -4373,7 +4620,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-burpees-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -4507,7 +4754,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps. 1 set All-out AMRAP, 2 sets sub-max",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-mountain-climbers-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -4798,7 +5045,7 @@
                 "description": "Weekly Pull Total Target: 30-35 reps (Tapering)",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-assault-bike-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -4937,7 +5184,7 @@
                 "description": "Weekly Pull Total Target: 25-30 reps. Reduce volume by 20%",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-jump-rope-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -5080,7 +5327,7 @@
                 "description": "Weekly Pull Total Target: ~15 reps. Very Low Intensity",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-burpees-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -5222,10 +5469,10 @@
                 "name": "Endurance Test Day",
                 "type": "test",
                 "estimatedDuration": 29,
-                "description": "Battery Conservation Warm-up: 5 min rower + 10 scap pulls + 3 reps @50% + 1 rep @75% + rest 4 min",
+                "description": "Battery Conservation Warm-up: 5 min cardio + 10 scap pulls + 3 reps @50% + 1 rep @75% + rest 4 min",
                 "exercises": [
                   {
-                    "$routine": "warmup-rower-protocol"
+                    "$routine": "warmup-mountain-climbers-protocol"
                   },
                   {
                     "$ref": "ex-scapular-pull-ups",

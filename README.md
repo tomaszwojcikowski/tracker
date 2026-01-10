@@ -153,7 +153,7 @@ For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 - **1RM Estimation**: Real-time Brzycki formula calculations providing strength insights for every lift.
 - **Calendar View**: Comprehensive training schedule visualization showing completed and upcoming sessions.
 - **AI Coaching (Optional)**: Deep integration with Google Gemini for personalized session analysis and feedback.
-- **User Action Logging**: Detailed tracking of user interactions with CSV export for UX analysis and flow optimization.
+- **Action Logging**: Lightweight tracking of user interactions with programmatic CSV export for detailed usage analysis.
 
 ### ☁️ Data & Persistence
 - **Offline-First Resilience**: Full PWA capabilities with Workbox service worker for seamless offline usage even in gyms with poor connectivity.
@@ -261,13 +261,13 @@ The app will automatically capture and report errors, helping you identify and f
 
 ## User Action Logging
 
-The app includes a comprehensive user action logging system for UX analysis and improvement. Logs track user interactions including navigation, workout activities, and system events.
+The app includes a lightweight user action logging system for detailed usage tracking and UX analysis. Logs track user interactions including navigation, workout activities, and system events, with automatic export capability.
 
 ### Features
 
 - **Automatic Tracking**: Logs user actions automatically without disrupting the workout experience
 - **Privacy-First**: PII (Personally Identifiable Information) is automatically filtered from logs
-- **Configurable**: Enable/disable logging, adjust sampling rates, and exclude specific categories
+- **Configurable**: Enable/disable logging, adjust sampling rates, and exclude specific categories via code
 - **Storage Management**: Circular buffer with automatic rotation based on age and count limits
 - **CSV Export**: Export logs in CSV format for analysis by AI agents or data tools
 - **Rich Metadata**: Logs include timestamp, session ID, action type, category, and contextual information
@@ -283,15 +283,6 @@ The app includes a comprehensive user action logging system for UX analysis and 
 - **UI**: Modal interactions, gestures, pull-to-refresh
 - **Error**: Error tracking and boundary captures
 - **Performance**: Page load times and metrics
-
-### Configuration
-
-Access action log settings in **Settings → Logs** tab:
-
-1. **Enable/Disable**: Toggle action logging on or off
-2. **View Statistics**: See total logs, storage usage, category breakdown, and top actions
-3. **Export**: Download logs as CSV with optional metadata columns
-4. **Clear**: Remove old logs or clear all logs
 
 ### Default Settings
 
@@ -334,6 +325,20 @@ logAction('workout', 'set_complete', 'Completed set 1', {
     setIndex: 0
   }
 });
+```
+
+### Exporting Logs
+
+Export logs programmatically using the utility functions:
+
+```typescript
+import { downloadLogsAsCSV, exportLogsToCSV } from '@/utils/actionLogger';
+
+// Download as CSV file
+downloadLogsAsCSV('workout-logs.csv', undefined, true); // true = include metadata
+
+// Or get CSV string for processing
+const csvData = exportLogsToCSV(undefined, true);
 ```
 
 ### Export Format

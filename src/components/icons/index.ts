@@ -104,8 +104,6 @@ export {
   MessageSquare,
   MessageCircle,
   FileText,
-  ToggleLeft,
-  ToggleRight,
 
   // Type
   type LucideIcon,

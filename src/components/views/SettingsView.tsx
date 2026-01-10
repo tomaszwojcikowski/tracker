@@ -3,10 +3,9 @@ import * as FirebaseService from '../../firebase-service';
 import { useHaptic, useScrollToTop } from '../../hooks';
 import { useAuth } from '../../hooks/useAuth';
 import { LoginStatus } from '../auth/LoginStatus';
-import { ActionLogSettings } from '../ActionLogSettings';
 import { ConfirmDialog } from '../Dialog';
 import { Snackbar } from '../Snackbar';
-import { RefreshCw, Info, Dumbbell, Settings, RotateCcw, Activity } from '../icons';
+import { RefreshCw, Info, Dumbbell, Settings, RotateCcw } from '../icons';
 import { captureError, isErrorReportingEnabled } from '../../utils/errorReporting';
 import { syncService } from '../../services/SyncService';
 import { resetProgramProgress } from '../../utils/programImportExport';
@@ -25,7 +24,7 @@ import type { User } from 'firebase/auth';
 import type { ExerciseHistory } from '../../types';
 
 // Settings tab type
-type SettingsTab = 'general' | 'programs' | 'logs';
+type SettingsTab = 'general' | 'programs';
 
 /**
  * Merge local data with cloud data using smart merge strategy
@@ -338,16 +337,6 @@ export const SettingsView: React.FC = () => {
                     <Dumbbell size={18} />
                     Programs
                 </button>
-                <button
-                    onClick={() => {
-                        haptic.tick();
-                        setActiveTab('logs');
-                    }}
-                    className={`segmented-button ${activeTab === 'logs' ? 'active' : ''}`}
-                >
-                    <Activity size={18} />
-                    Logs
-                </button>
             </div>
 
             {/* General Tab Content */}
@@ -473,9 +462,6 @@ export const SettingsView: React.FC = () => {
                     </div>
                 </div>
             )}
-
-            {/* Logs Tab Content */}
-            {activeTab === 'logs' && <ActionLogSettings />}
         </div>
     );
 };

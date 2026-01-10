@@ -674,9 +674,9 @@
       {
         "id": "warmup-day5-pull-intensity-push",
         "name": "Day 5 Warm-Up (Pull Intensity + Push)",
-        "description": "Complete Day 5 warm-up sequence: Cold Start Rower (5min) → Global Tendon Prep (5min) → Straight-Arm Band Pulldowns (3min) → Upper body pull + push activation (lats/biceps/grip, chest/shoulders/triceps, core). Total: ~22 minutes.",
+        "description": "Complete Day 5 warm-up sequence: Cold Start Rower (5min) → Global Tendon Prep (5min) → Straight-Arm Band Pulldowns (3min) → Mobility & activation (spine, wrists, push prep). Total: ~15 minutes.",
         "category": "warmup",
-        "estimatedDuration": 22,
+        "estimatedDuration": 15,
         "targetAreas": [
           "cardiovascular",
           "cns-activation",
@@ -692,7 +692,7 @@
           "wrists",
           "core"
         ],
-        "notes": "Day 5 Protocol: (1) Cold Start Rower (5min): Zone 1-2 with sprints. (2) Global Tendon Prep (5min): Band pull-aparts, external rotations, scapular pulls. (3) Straight-Arm Band Pulldowns (3min): 4-week progression cycle. (4) Activation: Cat-Cow, T-spine rotations, band work, wrist prep, light grip, scapular pulls, active hang, push-up plus, light press.",
+        "notes": "Day 5 Protocol: (1) Cold Start Rower (5min): Zone 1-2 with sprints. (2) Global Tendon Prep (5min): Band pull-aparts, external rotations, scapular pulls. (3) Straight-Arm Band Pulldowns (3min): 4-week progression cycle. (4) Mobility: Cat-Cow, T-spine rotations, wrist rocks. (5) Push Prep: Push-up plus.",
         "exercises": [
           {
             "$routine": "warmup-rower-protocol"
@@ -710,28 +710,10 @@
             "$ref": "ex-warmup-t-spine-rotations"
           },
           {
-            "$ref": "ex-warmup-band-pull-aparts-palms-up"
-          },
-          {
-            "$ref": "ex-warmup-shoulder-dislocates"
-          },
-          {
             "$ref": "ex-warmup-wrist-rocks"
           },
           {
-            "$ref": "ex-warmup-fist-clenches"
-          },
-          {
-            "$ref": "ex-warmup-scapular-pull-ups"
-          },
-          {
-            "$ref": "ex-warmup-active-hang"
-          },
-          {
             "$ref": "ex-warmup-push-up-plus"
-          },
-          {
-            "$ref": "ex-warmup-light-press"
           }
         ]
       }

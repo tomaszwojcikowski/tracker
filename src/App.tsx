@@ -15,7 +15,7 @@ import { LoadingScreen, ErrorScreen } from './components/screens';
 import { SkipLink } from './components/SkipLink';
 import { Onboarding, hasCompletedOnboarding } from './components/Onboarding';
 import { FloatingTimerButton } from './components/FloatingTimerButton';
-import { useWorkoutTimer, useTheme } from './hooks';
+import { useWorkoutTimer, useTheme, useActionLogger } from './hooks';
 import { useProgram } from './context/ProgramContext';
 
 // Lazy load heavy view components for code splitting
@@ -97,6 +97,9 @@ const updateUrl = (state: AppStateLocal): string => {
 const App: React.FC = () => {
     // Initialize theme globally
     useTheme();
+    
+    // Initialize action logger
+    const logger = useActionLogger({ component: 'App' });
 
     const [activeTab, setActiveTab] = useState<TabId>('train');
     const [viewMode, setViewMode] = useState<ViewMode>('tab');
@@ -282,6 +285,14 @@ const App: React.FC = () => {
     }, [currentProgramId, switchProgram]);
 
     const startWorkout = (day: number): void => {
+        logger.logNavigation('view_change', `Started workout for Day ${day}`, {
+            viewContext: {
+                viewMode: 'workout',
+                activeDay: day,
+                currentWeek,
+            },
+        });
+        
         setActiveDay(day as ValidDay);
         setViewMode('workout');
 
@@ -293,6 +304,12 @@ const App: React.FC = () => {
     };
 
     const startEmptyWorkout = (): void => {
+        logger.logNavigation('view_change', 'Started empty workout', {
+            viewContext: {
+                viewMode: 'empty-workout',
+            },
+        });
+        
         workoutTimer.reset();
 
         setViewMode('empty-workout');
@@ -304,6 +321,13 @@ const App: React.FC = () => {
     };
 
     const goBack = (): void => {
+        logger.logNavigation('back_navigation', 'Navigated back to main tab', {
+            viewContext: {
+                viewMode: 'tab',
+                activeTab: 'train',
+            },
+        });
+        
         // Always return to main tab without leaving the app/origin
         setViewMode('tab');
         setActiveTab('train');
@@ -315,6 +339,13 @@ const App: React.FC = () => {
     };
 
     const handleTabChange = (newTab: TabId): void => {
+        logger.logNavigation('tab_change', `Changed to ${newTab} tab`, {
+            viewContext: {
+                viewMode: 'tab',
+                activeTab: newTab,
+            },
+        });
+        
         setActiveTab(newTab);
 
         // Push new entry to history for tab changes
@@ -329,6 +360,12 @@ const App: React.FC = () => {
      * Updates URL with new program ID
      */
     const handleProgramChange = (newProgramId: string): void => {
+        logger.logNavigation('program_change', `Switched to program: ${newProgramId}`, {
+            viewContext: {
+                programId: newProgramId,
+            },
+        });
+        
         // Reset week to 1 when switching programs
         setCurrentWeek(1);
 

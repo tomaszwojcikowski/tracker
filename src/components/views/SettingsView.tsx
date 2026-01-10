@@ -5,11 +5,12 @@ import { useAuth } from '../../hooks/useAuth';
 import { LoginStatus } from '../auth/LoginStatus';
 import { ConfirmDialog } from '../Dialog';
 import { Snackbar } from '../Snackbar';
-import { RefreshCw, Info, Dumbbell, Settings, RotateCcw } from '../icons';
+import { RefreshCw, Info, Dumbbell, Settings, RotateCcw, Download } from '../icons';
 import { captureError, isErrorReportingEnabled } from '../../utils/errorReporting';
 import { syncService } from '../../services/SyncService';
 import { resetProgramProgress } from '../../utils/programImportExport';
 import { getActiveProgramId } from '../../services/storageNamespace';
+import { downloadLogsAsCSV, getActionLogStats } from '../../utils/actionLogger';
 import {
     getAllLocalData,
     mergeCloudData,
@@ -283,6 +284,25 @@ export const SettingsView: React.FC = () => {
         setSettingsToastMessage('Progress data cleared');
     };
 
+    const handleExportActionLogs = () => {
+        haptic.bump();
+        try {
+            const stats = getActionLogStats();
+            if (stats.totalLogs === 0) {
+                setSyncSnackbarMessage('No action logs to export');
+                setSyncSnackbarType('info');
+                return;
+            }
+            downloadLogsAsCSV(undefined, undefined, true);
+            setSyncSnackbarMessage(`Exported ${stats.totalLogs} action logs to CSV`);
+            setSyncSnackbarType('success');
+        } catch (error) {
+            console.error('Failed to export action logs:', error);
+            setSyncSnackbarMessage('Failed to export action logs');
+            setSyncSnackbarType('error');
+        }
+    };
+
     return (
         <div className="px-5 pb-20 pt-6">
             {/* Clear Progress Confirmation Dialog */}
@@ -434,6 +454,21 @@ export const SettingsView: React.FC = () => {
                                     </button>
                                 </div>
                             )}
+                            
+                            {/* Export Action Logs Button */}
+                            <div className="pt-3 space-y-3">
+                                <div className="divider divider-inset" aria-hidden="true" />
+                                <button
+                                    onClick={handleExportActionLogs}
+                                    className="w-full py-2 px-4 bg-sys-primaryContainer hover:bg-sys-primaryContainer/80 text-sys-onPrimaryContainer rounded-xl text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+                                >
+                                    <Download size={16} />
+                                    <span>Export Action Logs (CSV)</span>
+                                </button>
+                                <p className="text-xs text-sys-onSurfaceVar px-2">
+                                    Download detailed usage tracking logs for UX analysis
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </>

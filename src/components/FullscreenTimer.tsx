@@ -18,7 +18,7 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { X, ChevronDown, Volume2, VolumeX, Plus, Minus, RotateCcw, Timer } from './icons';
 import { playTickSound, playBeepSound } from '../utils/audio';
-import { useHaptic } from '../hooks';
+import { useHaptic, useActionLogger } from '../hooks';
 import { DensityRepControls } from './DensityRepControls';
 
 // ============================================================================
@@ -94,6 +94,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
   densityRepControls,
 }) => {
   const haptic = useHaptic();
+  const logger = useActionLogger({ component: 'FullscreenTimer' });
   const lastTickRef = useRef<number>(-1);
   const isEmom = mode === 'emom';
   const isDensity = mode === 'density';
@@ -115,8 +116,22 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
   const handleTogglePause = useCallback(() => {
     if (!canTogglePause) return;
     haptic.tick();
+    
+    // Log timer pause/resume
+    logger.logTimer(
+      isPaused ? `${mode}_timer_resume` as any : `${mode}_timer_pause` as any,
+      `${isPaused ? 'Resumed' : 'Paused'} ${mode} timer`,
+      {
+        timerContext: {
+          timerType: mode,
+          duration: totalSeconds,
+          remaining: seconds,
+        },
+      }
+    );
+    
     onTogglePause?.();
-  }, [canTogglePause, haptic, onTogglePause]);
+  }, [canTogglePause, haptic, onTogglePause, isPaused, mode, logger, totalSeconds, seconds]);
 
   // Play sounds at specific intervals (only for REST and DENSITY modes; EMOM handles its own sounds)
   useEffect(() => {
@@ -192,6 +207,16 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
 
   const handleStop = useCallback(() => {
     haptic.bump();
+    
+    // Log timer stop
+    logger.logTimer(`${mode}_timer_stop` as any, `Stopped ${mode} timer`, {
+      timerContext: {
+        timerType: mode,
+        duration: totalSeconds,
+        remaining: seconds,
+      },
+    });
+    
     onStop();
   }, [haptic, onStop]);
 

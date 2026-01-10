@@ -32,6 +32,7 @@ import {
     useExerciseCollapse,
     useKeyboardShortcut,
     useScrollToElement,
+    useActionLogger,
 } from '../../hooks';
 import {
     Flame, Dumbbell, Snowflake, Activity, LayoutGrid, LayoutList, PlusCircle, X, CheckCircle2, Maximize2, StickyNote
@@ -193,6 +194,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
     // State
     const snackbar = useSnackbar();
+    const logger = useActionLogger({ component: 'WorkoutPlayer' });
     const [logs, setLogs] = useState<WorkoutSessionData>({});
     const [addedExercises, setAddedExercises] = useState<AddedExercise[]>([]);
     const [showExerciseSelector, setShowExerciseSelector] = useState(false);
@@ -718,6 +720,20 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             newSets[setIndex] = !newSets[setIndex];
             saveLog(exId, 'sets', newSets);
 
+            // Log the set toggle action
+            logger.logExercise(
+                newSets[setIndex] ? 'set_complete' : 'set_uncomplete',
+                `${newSets[setIndex] ? 'Completed' : 'Uncompleted'} set ${setIndex + 1}`,
+                {
+                    workoutContext: {
+                        week: isEmptyWorkout ? 0 : week,
+                        day: isEmptyWorkout ? 0 : day,
+                        exerciseId: exId,
+                        setIndex,
+                    },
+                }
+            );
+
             // Clear RPE if uncompleting a set
             if (wasCompleted && !newSets[setIndex]) {
                 const currentRPEs: RPEData = { ...(getExerciseLogEntry(logs, exId).rpe ?? {}) };
@@ -876,6 +892,16 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             const currentRPEs: RPEData = { ...(getExerciseLogEntry(logs, exId).rpe ?? {}) };
             const updatedRPEs: RPEData = { ...currentRPEs, [setIndex]: rpe };
             saveLog(exId, 'rpe', updatedRPEs);
+            
+            // Log RPE change
+            logger.logExercise('rpe_change', `Set RPE to ${rpe} for set ${setIndex + 1}`, {
+                workoutContext: {
+                    week: isEmptyWorkout ? 0 : week,
+                    day: isEmptyWorkout ? 0 : day,
+                    exerciseId: exId,
+                    setIndex,
+                },
+            });
         } catch (error) {
             console.error('Failed to save RPE:', error);
         }
@@ -890,7 +916,16 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     // Handler for weight changes from compact view
     const handleWeightChange = useCallback((exId: string, weight: string): void => {
         saveLog(exId, 'weight', weight);
-    }, [saveLog]);
+        
+        // Log weight change
+        logger.logExercise('weight_change', `Changed weight to ${weight}`, {
+            workoutContext: {
+                week: isEmptyWorkout ? 0 : week,
+                day: isEmptyWorkout ? 0 : day,
+                exerciseId: exId,
+            },
+        });
+    }, [saveLog, logger, week, day, isEmptyWorkout]);
 
     const addExerciseToWorkout = (
         exercise: Exercise,
@@ -1011,6 +1046,15 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 durationSeconds: workoutDurationSeconds,
             };
             persistLogs(updatedLogs);
+            
+            // Log workout completion
+            logger.logWorkout('workout_complete', `Completed workout in ${Math.round(workoutDurationSeconds / 60)} minutes`, {
+                workoutContext: {
+                    week: effectiveWeek,
+                    day: effectiveDay,
+                    elapsedTime: workoutDurationSeconds,
+                },
+            });
 
             const completionDate = new Date().toISOString();
 

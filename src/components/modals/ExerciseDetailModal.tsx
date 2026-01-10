@@ -26,6 +26,7 @@ import { getExerciseHistory, calculateExerciseStats } from '../../utils/exercise
 import type { ExerciseHistoryEntry } from '../../utils/exerciseHistory';
 import type { ExerciseDetailMetadata } from '../../types/workout';
 import { BottomSheet } from '../BottomSheet';
+import { useActionLogger } from '../../hooks';
 
 export interface ExerciseDetailModalProps {
     /** Exercise name to show details for */
@@ -246,6 +247,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
     currentUserNotes,
     onUpdateUserNotes,
 }) => {
+    const logger = useActionLogger({ component: 'ExerciseDetailModal' });
     const lookupName = historyLookupName || exerciseName;
     const history = lookupName ? getExerciseHistory(lookupName) : [];
     const stats = calculateExerciseStats(lookupName);
@@ -254,6 +256,17 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
     // State for editing user notes
     const [editingUserNotes, setEditingUserNotes] = useState(false);
     const [userNotesValue, setUserNotesValue] = useState(currentUserNotes || '');
+    
+    // Log modal open
+    useEffect(() => {
+        if (isOpen) {
+            logger.logUI('modal_open', `Opened exercise detail modal: ${exerciseName}`, {
+                uiContext: {
+                    component: 'ExerciseDetailModal',
+                },
+            });
+        }
+    }, [isOpen, exerciseName, logger]);
 
     // Sync user notes when modal opens or currentUserNotes changes
     useEffect(() => {

@@ -588,6 +588,128 @@
         ]
       },
       {
+        "id": "day2-hip-mobility-alt",
+        "name": "Day 2 Hip Mobility Alternative",
+        "description": "Supine Hip Circles + Quadruped Hip Circles + Band Woodchops",
+        "category": "prehab",
+        "estimatedDuration": 8,
+        "targetAreas": [
+          "hips",
+          "core",
+          "rotation"
+        ],
+        "exercises": [
+          {
+            "$ref": "ex-supine-hip-circles"
+          },
+          {
+            "$ref": "ex-quadruped-hip-circles"
+          },
+          {
+            "$ref": "ex-band-woodchops"
+          }
+        ]
+      },
+      {
+        "id": "day2-ankle-focus",
+        "name": "Day 2 Ankle Focus Alternative",
+        "description": "Ankle Rotations + Standing Ankle Pumps + Ankle Rocks",
+        "category": "mobility",
+        "estimatedDuration": 6,
+        "targetAreas": [
+          "ankles",
+          "calves",
+          "dorsiflexion"
+        ],
+        "exercises": [
+          {
+            "$ref": "ex-ankle-rotations"
+          },
+          {
+            "$ref": "ex-standing-ankle-pumps"
+          },
+          {
+            "$ref": "ex-ankle-rocks"
+          }
+        ]
+      },
+      {
+        "id": "day2-seated-hip-variation",
+        "name": "Day 2 Seated Hip Variation",
+        "description": "Seated Hip CARs + Fire Hydrants + Banded Anti-Rotation Press",
+        "category": "prehab",
+        "estimatedDuration": 8,
+        "targetAreas": [
+          "hips",
+          "glutes",
+          "core"
+        ],
+        "exercises": [
+          {
+            "$ref": "ex-seated-hip-cars"
+          },
+          {
+            "$ref": "ex-fire-hydrants"
+          },
+          {
+            "$ref": "ex-banded-anti-rotation-press"
+          }
+        ]
+      },
+      {
+        "id": "day2-deep-stretch-flow",
+        "name": "Day 2 Deep Stretch Flow",
+        "description": "Thread the Needle + Frog Stretch + Pigeon Stretch",
+        "category": "cooldown",
+        "estimatedDuration": 7,
+        "targetAreas": [
+          "hips",
+          "thoracic-spine",
+          "recovery"
+        ],
+        "exercises": [
+          {
+            "$ref": "ex-thread-the-needle"
+          },
+          {
+            "$ref": "ex-frog-stretch"
+          },
+          {
+            "$ref": "ex-pigeon-stretch"
+          }
+        ]
+      },
+      {
+        "id": "day2-spine-focus",
+        "name": "Day 2 Spine Focus Flow",
+        "description": "Cat-Camel + Bretzel Stretch + Child's Pose",
+        "category": "cooldown",
+        "estimatedDuration": 7,
+        "targetAreas": [
+          "spine",
+          "thoracic-rotation",
+          "recovery"
+        ],
+        "exercises": [
+          {
+            "$ref": "ex-cat-camel"
+          },
+          {
+            "$ref": "ex-bretzel-stretch"
+          },
+          {
+            "exerciseName": "Child's Pose",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 120,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Focus on breathing into lower back"
+          }
+        ]
+      },
+      {
         "id": "warmup-day3",
         "name": "Day 3 Warmup",
         "description": "Posterior chain activation and hip mobility warmup for Day 3",
@@ -1169,6 +1291,311 @@
         "loadUnit": "bodyweight",
         "restSeconds": 60,
         "notes": "Low-tension option"
+      },
+      {
+        "id": "ex-seated-hip-cars",
+        "exerciseName": "Seated Hip CARs",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 5,
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "notes": "Seated variation; controlled articular rotations from chair or bench",
+        "cues": [
+          "Sit on edge of chair/bench",
+          "Lift one knee up toward chest",
+          "Rotate leg outward in large circle",
+          "Control the movement throughout",
+          "Reverse direction for second half of reps"
+        ]
+      },
+      {
+        "id": "ex-supine-hip-circles",
+        "exerciseName": "Supine Hip Circles",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 8,
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "notes": "Lying on back; draw circles with knee, both directions",
+        "cues": [
+          "Lie on back, one knee bent",
+          "Draw large circles with knee",
+          "Keep lower back stable",
+          "Circle in both directions",
+          "Smooth, controlled movement"
+        ]
+      },
+      {
+        "id": "ex-quadruped-hip-circles",
+        "exerciseName": "Quadruped Hip Circles",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 8,
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "notes": "On all fours; controlled hip circles in both directions",
+        "cues": [
+          "Start on hands and knees",
+          "Lift one knee off ground",
+          "Draw circles with knee",
+          "Keep core braced",
+          "Circle both directions"
+        ]
+      },
+      {
+        "id": "ex-fire-hydrants",
+        "exerciseName": "Fire Hydrants",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 10,
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "notes": "Hip abduction from quadruped position; activates glute medius",
+        "cues": [
+          "Start on hands and knees",
+          "Keep knee bent at 90°",
+          "Lift knee out to side",
+          "Don't rotate torso",
+          "Control the descent"
+        ]
+      },
+      {
+        "id": "ex-ankle-rotations",
+        "exerciseName": "Ankle Rotations",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 10,
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "notes": "Seated or standing; full circles in both directions",
+        "cues": [
+          "Lift foot off ground slightly",
+          "Draw circles with toes",
+          "Make circles as large as possible",
+          "Clockwise then counterclockwise",
+          "Keep movement isolated to ankle"
+        ]
+      },
+      {
+        "id": "ex-standing-ankle-pumps",
+        "exerciseName": "Standing Ankle Pumps",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 15,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "notes": "Alternating heel raises and toe raises; improves ankle mobility",
+        "cues": [
+          "Stand with feet hip-width",
+          "Rise up on toes (calf raise)",
+          "Lower down and rock to heels",
+          "Lift toes off ground",
+          "Alternate smoothly"
+        ]
+      },
+      {
+        "id": "ex-ankle-rocks",
+        "exerciseName": "Ankle Rocks (Front-to-Back)",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 12,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "notes": "Rock forward to toes, back to heels; controlled tempo",
+        "cues": [
+          "Stand with feet together",
+          "Rock forward onto toes",
+          "Rock backward onto heels",
+          "Continuous rocking motion",
+          "Maintain balance throughout"
+        ]
+      },
+      {
+        "id": "ex-banded-anti-rotation-press",
+        "exerciseName": "Banded Anti-Rotation Press",
+        "category": "core",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 10,
+        "repsPerSide": true,
+        "loadUnit": "band",
+        "restSeconds": 60,
+        "notes": "Similar to Pallof but with overhead press component",
+        "cues": [
+          "Stand perpendicular to band anchor",
+          "Hold band at chest height",
+          "Press band overhead while resisting rotation",
+          "Return to chest",
+          "Don't let torso rotate"
+        ]
+      },
+      {
+        "id": "ex-band-woodchops",
+        "exerciseName": "Band Woodchops",
+        "category": "core",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 12,
+        "repsPerSide": true,
+        "loadUnit": "band",
+        "restSeconds": 60,
+        "notes": "Diagonal rotation pattern; high to low and low to high",
+        "cues": [
+          "Stand sideways to band anchor",
+          "Start with hands high on anchor side",
+          "Pull band diagonally across body to opposite hip",
+          "Pivot on back foot",
+          "Control the return"
+        ]
+      },
+      {
+        "id": "ex-copenhagen-plank",
+        "exerciseName": "Copenhagen Plank",
+        "category": "core",
+        "sets": 2,
+        "repsType": "time",
+        "repsMin": 15,
+        "repsMax": 20,
+        "repsUnit": "seconds",
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "notes": "Side plank with top leg supported on bench; targets adductors",
+        "cues": [
+          "Side plank position with top leg on bench",
+          "Bottom leg hangs free or stacked",
+          "Squeeze inner thigh to lift hips",
+          "Keep body in straight line",
+          "Don't sag at hips"
+        ]
+      },
+      {
+        "id": "ex-side-lying-leg-lifts",
+        "exerciseName": "Side-Lying Leg Lifts",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 12,
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "notes": "Lying on side; controlled leg raises; targets hip abductors",
+        "cues": [
+          "Lie on side with legs stacked",
+          "Lift top leg toward ceiling",
+          "Keep hips stacked vertically",
+          "Don't rock backward",
+          "Control the descent"
+        ]
+      },
+      {
+        "id": "ex-frog-stretch",
+        "exerciseName": "Frog Stretch",
+        "category": "mobility",
+        "sets": 1,
+        "repsType": "time",
+        "repsValue": 60,
+        "repsUnit": "seconds",
+        "loadUnit": "bodyweight",
+        "restSeconds": 0,
+        "notes": "Deep hip and groin stretch; knees wide, hips back",
+        "cues": [
+          "Start on hands and knees",
+          "Slide knees wide apart",
+          "Keep feet wider than knees",
+          "Sink hips back and down",
+          "Breathe into the stretch"
+        ]
+      },
+      {
+        "id": "ex-pigeon-stretch",
+        "exerciseName": "Pigeon Stretch",
+        "category": "mobility",
+        "sets": 1,
+        "repsType": "time",
+        "repsValue": 45,
+        "repsUnit": "seconds",
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 0,
+        "notes": "Hip flexor and glute stretch; front leg bent at 90°",
+        "cues": [
+          "Front knee bent, shin perpendicular to body",
+          "Back leg extended straight behind",
+          "Square hips forward",
+          "Sink into stretch",
+          "Keep chest upright"
+        ]
+      },
+      {
+        "id": "ex-bretzel-stretch",
+        "exerciseName": "Bretzel Stretch",
+        "category": "mobility",
+        "sets": 1,
+        "repsType": "time",
+        "repsValue": 60,
+        "repsUnit": "seconds",
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 0,
+        "notes": "Comprehensive hip and t-spine rotation stretch",
+        "cues": [
+          "Lie on side with bottom leg bent",
+          "Hold bottom foot with top hand",
+          "Top leg bent forward, held by bottom hand",
+          "Rotate upper body backward",
+          "Feel stretch in hip and spine"
+        ]
+      },
+      {
+        "id": "ex-thread-the-needle",
+        "exerciseName": "Thread the Needle",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 8,
+        "repsPerSide": true,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "notes": "Quadruped thoracic rotation; thread arm under body",
+        "cues": [
+          "Start on hands and knees",
+          "Reach one arm under body",
+          "Thread through to opposite side",
+          "Shoulder and head touch ground",
+          "Return and repeat"
+        ]
+      },
+      {
+        "id": "ex-cat-camel",
+        "exerciseName": "Cat-Camel",
+        "category": "mobility",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 10,
+        "loadUnit": "bodyweight",
+        "restSeconds": 30,
+        "notes": "Spinal flexion/extension; slow, controlled movement",
+        "cues": [
+          "Start on hands and knees",
+          "Round spine up (cat)",
+          "Drop belly down (camel)",
+          "Move slowly, vertebra by vertebra",
+          "Breathe with the movement"
+        ]
       },
       {
         "id": "ex-mobility-flow",
@@ -2209,16 +2636,16 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Hip Mobility Alternative",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "description": "Use standard template; swap Side Plank for Half Side Plank (25-30s/side)",
+                "description": "Alternative hip mobility pattern with supine/quadruped work; targets same joints from different angles",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$routine": "day2-hip-mobility-alt"
                   },
                   {
                     "$ref": "ex-half-side-plank"
@@ -2360,25 +2787,22 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Seated Hip Variation",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "description": "Standard template + Standing Calf ISO Hold (2x30s/side)",
+                "description": "Seated hip variation with fire hydrants; different angle for hip mobility and glute activation",
                 "exercises": [
                   {
-                    "$routine": "mobility-ankle-circuit"
+                    "$routine": "day2-ankle-focus"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
-                  },
-                  {
-                    "$ref": "ex-standing-calf-iso"
+                    "$routine": "day2-seated-hip-variation"
                   },
                   {
                     "$ref": "ex-side-plank-recovery"
                   },
                   {
-                    "$routine": "day2-recovery-flow"
+                    "$routine": "day2-deep-stretch-flow"
                   }
                 ]
               },
@@ -2524,16 +2948,16 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Spine Focus - DELOAD",
                 "type": "mobility",
                 "estimatedDuration": 28,
-                "description": "Deload version: ~70% volume; reduce holds by 10-15s; omit Standing Hip CARs if joints feel fatigued",
+                "description": "Deload: ~70% volume with spine-focused mobility; gentle recovery patterns",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-cat-camel"
                   },
                   {
                     "$ref": "ex-side-plank-recovery",
@@ -2541,7 +2965,7 @@
                     "repsMax": 30
                   },
                   {
-                    "$routine": "day2-recovery-flow"
+                    "$routine": "day2-spine-focus"
                   }
                 ]
               },
@@ -2668,10 +3092,10 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Adductor Focus",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "description": "Standard template + Cossack Squat (Shallow) 2x6/side for adductor support",
+                "description": "Adductor-focused day with Cossack squats and Copenhagen plank variation",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -2683,7 +3107,7 @@
                     "$ref": "ex-cossack-squat-shallow"
                   },
                   {
-                    "$ref": "ex-side-plank-recovery"
+                    "$ref": "ex-side-lying-leg-lifts"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -2824,25 +3248,22 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Deep Stretch Focus",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "description": "Repeat Week 5 structure: standard template + Cossack Squat (Shallow) 2x6/side",
+                "description": "Deep stretch variation with frog, pigeon, and thread the needle; targets hips and t-spine from different angle",
                 "exercises": [
                   {
-                    "$routine": "mobility-ankle-circuit"
+                    "$routine": "day2-ankle-focus"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$routine": "day2-hip-mobility-alt"
                   },
                   {
-                    "$ref": "ex-cossack-squat-shallow"
+                    "$ref": "ex-copenhagen-plank"
                   },
                   {
-                    "$ref": "ex-side-plank-recovery"
-                  },
-                  {
-                    "$routine": "day2-recovery-flow"
+                    "$routine": "day2-deep-stretch-flow"
                   }
                 ]
               },
@@ -2975,22 +3396,22 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Fatigue Management",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "description": "Fatigue management: run template without Cossacks; extend Child's Pose to 3 minutes",
+                "description": "Fatigue management with seated hip variation and spine-focused flow; gentler angles",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$routine": "day2-seated-hip-variation"
                   },
                   {
-                    "$ref": "ex-side-plank-recovery"
+                    "$ref": "ex-half-side-plank"
                   },
                   {
-                    "$routine": "day2-recovery-flow"
+                    "$routine": "day2-spine-focus"
                   }
                 ]
               },
@@ -3125,16 +3546,16 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Mobility - DELOAD",
                 "type": "mobility",
                 "estimatedDuration": 28,
-                "description": "Deload: 60-70% volume, no add-ons",
+                "description": "Deload: ~65% volume with ankle focus and gentle hip work",
                 "exercises": [
                   {
-                    "$routine": "mobility-ankle-circuit"
+                    "$routine": "day2-ankle-focus"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-supine-hip-circles"
                   },
                   {
                     "$ref": "ex-side-plank-recovery",
@@ -3281,16 +3702,22 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Quadruped Focus",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "description": "Standard template (no grip isometrics)",
+                "description": "Quadruped-based hip and spine work; different loading pattern for same joints",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-quadruped-hip-circles"
+                  },
+                  {
+                    "$ref": "ex-fire-hydrants"
+                  },
+                  {
+                    "$ref": "ex-pallof-press"
                   },
                   {
                     "$ref": "ex-side-plank-recovery"
@@ -3420,16 +3847,19 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Rotation Emphasis",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "description": "Isometric recovery focus: Side Plank 25-30s, prioritize smooth breathing",
+                "description": "Rotation-focused recovery with woodchops and thoracic work; different core angle",
                 "exercises": [
                   {
-                    "$routine": "mobility-ankle-circuit"
+                    "$routine": "day2-ankle-focus"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-seated-hip-cars"
+                  },
+                  {
+                    "$ref": "ex-band-woodchops"
                   },
                   {
                     "$ref": "ex-side-plank-recovery",
@@ -3438,7 +3868,7 @@
                     "repsMax": 30
                   },
                   {
-                    "$routine": "day2-recovery-flow"
+                    "$routine": "day2-spine-focus"
                   }
                 ]
               },
@@ -3562,13 +3992,19 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "description": "Standard template; include Standing Hip CARs (2x5/side)",
+                "description": "Supine and standing hip variation with anti-rotation work",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-supine-hip-circles"
+                  },
+                  {
+                    "$ref": "ex-standing-hip-cars"
+                  },
+                  {
+                    "$ref": "ex-banded-anti-rotation-press"
                   },
                   {
                     "$ref": "ex-side-plank-recovery"
@@ -3704,10 +4140,13 @@
                 "description": "Connective tissue deload: 50-60% volume, no long holds, skip Side Planks",
                 "exercises": [
                   {
-                    "$routine": "mobility-ankle-circuit"
+                    "$routine": "day2-ankle-focus"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-thread-the-needle"
+                  },
+                  {
+                    "$ref": "ex-cat-camel"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -3835,23 +4274,23 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "description": "Standard template; optional Marching Dead Bug 2x8/side if tissues feel excellent",
+                "description": "Dynamic hip and core with optional dead bug progression; build capacity",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$routine": "day2-seated-hip-variation"
                   },
                   {
                     "$ref": "ex-side-plank-recovery"
                   },
                   {
                     "$ref": "ex-marching-dead-bug",
-                    "notes": "Optional"
+                    "notes": "Optional; only if feeling strong"
                   },
                   {
-                    "$routine": "day2-recovery-flow"
+                    "$routine": "day2-deep-stretch-flow"
                   }
                 ]
               },
@@ -3967,19 +4406,19 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Multi-Plane Hip Work",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "description": "Standard template; optional Marching Dead Bug 2x8/side — remove if elbows/hips feel taxed",
+                "description": "Multi-angle hip work with quadruped and supine patterns; skip dead bug if fatigued",
                 "exercises": [
                   {
-                    "$routine": "mobility-ankle-circuit"
+                    "$routine": "day2-ankle-focus"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$routine": "day2-hip-mobility-alt"
                   },
                   {
-                    "$ref": "ex-side-plank-recovery"
+                    "$ref": "ex-copenhagen-plank"
                   },
                   {
                     "$ref": "ex-marching-dead-bug",
@@ -4109,16 +4548,19 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Peak Week Management",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "description": "Peak stress week: standard template with Side Planks shortened to 25-30s",
+                "description": "Peak stress week: gentler hip angles with rotation work, reduced side plank hold",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-supine-hip-circles"
+                  },
+                  {
+                    "$ref": "ex-band-woodchops"
                   },
                   {
                     "$ref": "ex-side-plank-recovery",
@@ -4126,7 +4568,7 @@
                     "repsMax": 30
                   },
                   {
-                    "$routine": "day2-recovery-flow"
+                    "$routine": "day2-spine-focus"
                   }
                 ]
               },
@@ -4247,16 +4689,16 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Breath Focus - DELOAD",
                 "type": "mobility",
                 "estimatedDuration": 26,
-                "description": "Deload: ~60% volume; extend breathing to 4-5 minutes",
+                "description": "Deload: ~60% volume with gentle stretching and extended breathing practice",
                 "exercises": [
                   {
-                    "$routine": "mobility-ankle-circuit"
+                    "$routine": "day2-ankle-focus"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-thread-the-needle"
                   },
                   {
                     "$ref": "ex-side-plank-recovery",
@@ -4389,16 +4831,19 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Taper Variation",
                 "type": "mobility",
                 "estimatedDuration": 30,
-                "description": "~80% volume, breath-led; standard template with no extra load",
+                "description": "~80% volume taper with breath emphasis; use gentler hip patterns",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-seated-hip-cars"
+                  },
+                  {
+                    "$ref": "ex-pallof-press"
                   },
                   {
                     "$ref": "ex-side-plank-recovery",
@@ -4406,7 +4851,7 @@
                     "repsMax": 30
                   },
                   {
-                    "$routine": "day2-recovery-flow"
+                    "$routine": "day2-deep-stretch-flow"
                   }
                 ]
               },
@@ -4526,16 +4971,19 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Anti-Rotation + Ankles",
+                "name": "Recovery + Continued Taper",
                 "type": "mobility",
                 "estimatedDuration": 28,
-                "description": "~70% volume taper; Side Plank 20-25s",
+                "description": "~70% volume taper; supine hip work with reduced side plank",
                 "exercises": [
                   {
-                    "$routine": "mobility-ankle-circuit"
+                    "$routine": "day2-ankle-focus"
                   },
                   {
-                    "$routine": "day2-anti-rotation-trio"
+                    "$ref": "ex-supine-hip-circles"
+                  },
+                  {
+                    "$ref": "ex-banded-anti-rotation-press"
                   },
                   {
                     "$ref": "ex-side-plank-recovery",

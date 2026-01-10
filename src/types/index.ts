@@ -706,3 +706,214 @@ export type Optional<T> = T | undefined;
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
 };
+
+// ============================================================================
+// ACTION LOGGING TYPES
+// ============================================================================
+
+/**
+ * Categories of user actions for logging and analysis
+ */
+export type ActionCategory =
+  | 'navigation'    // Tab changes, view switches, deep links
+  | 'workout'       // Workout session lifecycle (start, pause, complete)
+  | 'exercise'      // Exercise interactions (set completion, weight/RPE entry)
+  | 'timer'         // Timer actions (start, pause, stop)
+  | 'settings'      // Settings changes
+  | 'data'          // Data operations (import, export, sync)
+  | 'ui'            // UI interactions (swipe, long-press, modal open/close)
+  | 'error'         // Error events
+  | 'performance'   // Performance metrics
+  | 'other';        // Other actions
+
+/**
+ * Specific action types within each category
+ */
+export type ActionType =
+  // Navigation actions
+  | 'tab_change'
+  | 'view_change'
+  | 'deep_link'
+  | 'back_navigation'
+  | 'week_change'
+  | 'day_change'
+  // Workout actions
+  | 'workout_start'
+  | 'workout_pause'
+  | 'workout_resume'
+  | 'workout_complete'
+  | 'workout_abandon'
+  | 'continue_workout'
+  // Exercise actions
+  | 'set_toggle'
+  | 'set_complete'
+  | 'set_uncomplete'
+  | 'weight_change'
+  | 'rpe_change'
+  | 'exercise_notes'
+  | 'exercise_add'
+  | 'exercise_remove'
+  | 'exercise_reorder'
+  | 'exercise_option_select'
+  | 'focus_mode_enter'
+  | 'focus_mode_exit'
+  // Timer actions
+  | 'rest_timer_start'
+  | 'rest_timer_pause'
+  | 'rest_timer_resume'
+  | 'rest_timer_stop'
+  | 'rest_timer_complete'
+  | 'emom_timer_start'
+  | 'emom_timer_stop'
+  | 'density_timer_start'
+  | 'density_timer_stop'
+  | 'workout_timer_start'
+  | 'workout_timer_stop'
+  // Settings actions
+  | 'setting_change'
+  | 'theme_change'
+  | 'program_change'
+  | 'haptic_toggle'
+  | 'sound_toggle'
+  | 'rpe_toggle'
+  | 'compact_mode_toggle'
+  // Data actions
+  | 'data_export'
+  | 'data_import'
+  | 'cloud_sync'
+  | 'cloud_login'
+  | 'cloud_logout'
+  | 'log_export'
+  | 'log_clear'
+  // UI actions
+  | 'modal_open'
+  | 'modal_close'
+  | 'swipe_gesture'
+  | 'long_press'
+  | 'pull_to_refresh'
+  | 'pwa_install'
+  | 'pwa_update'
+  // Error actions
+  | 'error_caught'
+  | 'error_boundary'
+  | 'storage_error'
+  | 'network_error'
+  // Performance actions
+  | 'page_load'
+  | 'component_render'
+  | 'api_call';
+
+/**
+ * Action event metadata for detailed analysis
+ */
+export interface ActionMetadata {
+  /** Current view/tab context */
+  viewContext?: {
+    viewMode?: ViewMode;
+    activeTab?: TabId;
+    currentWeek?: number;
+    activeDay?: number;
+    programId?: string;
+  };
+  /** Workout context if in a workout */
+  workoutContext?: {
+    week: number;
+    day: number;
+    exerciseId?: string;
+    exerciseName?: string;
+    setIndex?: number;
+    elapsedTime?: number;
+  };
+  /** UI interaction details */
+  uiContext?: {
+    component?: string;
+    elementType?: string;
+    gesture?: string;
+    duration?: number;
+  };
+  /** Timer context */
+  timerContext?: {
+    timerType?: 'rest' | 'emom' | 'density' | 'workout';
+    duration?: number;
+    remaining?: number;
+  };
+  /** Settings context */
+  settingsContext?: {
+    setting?: string;
+    oldValue?: unknown;
+    newValue?: unknown;
+  };
+  /** Error context */
+  errorContext?: {
+    message?: string;
+    stack?: string;
+    component?: string;
+    severity?: 'low' | 'medium' | 'high' | 'critical';
+  };
+  /** Performance metrics */
+  performanceContext?: {
+    metric?: string;
+    value?: number;
+    unit?: string;
+  };
+  /** Additional flexible data */
+  extra?: Record<string, unknown>;
+}
+
+/**
+ * Single action log entry
+ */
+export interface ActionLogEntry {
+  /** Unique identifier for this log entry */
+  id: string;
+  /** ISO timestamp when action occurred */
+  timestamp: string;
+  /** Category of action */
+  category: ActionCategory;
+  /** Specific action type */
+  type: ActionType;
+  /** Human-readable description of the action */
+  description?: string;
+  /** Detailed metadata about the action */
+  metadata?: ActionMetadata;
+  /** Session ID to group related actions */
+  sessionId?: string;
+  /** User ID if authenticated */
+  userId?: string;
+}
+
+/**
+ * Action log configuration
+ */
+export interface ActionLogConfig {
+  /** Whether action logging is enabled */
+  enabled: boolean;
+  /** Maximum number of logs to store (default: 10000) */
+  maxLogs: number;
+  /** Maximum age of logs in days (default: 30) */
+  maxAgeDays: number;
+  /** Whether to include sensitive data (default: false) */
+  includeSensitiveData: boolean;
+  /** Categories to exclude from logging */
+  excludeCategories: ActionCategory[];
+  /** Sampling rate (0.0-1.0, default: 1.0 = log all actions) */
+  samplingRate: number;
+}
+
+/**
+ * Action log statistics
+ */
+export interface ActionLogStats {
+  /** Total number of logs */
+  totalLogs: number;
+  /** Storage size in bytes */
+  storageBytes: number;
+  /** Oldest log timestamp */
+  oldestLog?: string;
+  /** Newest log timestamp */
+  newestLog?: string;
+  /** Logs by category */
+  byCategory: Record<ActionCategory, number>;
+  /** Logs by type (top 10) */
+  topTypes: Array<{ type: ActionType; count: number }>;
+}

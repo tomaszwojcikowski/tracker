@@ -199,3 +199,7 @@ export { useScrollToElement, useScrollToTop } from './useScrollToElement';
 
 // Re-export media query hook
 export { useMediaQuery } from './useMediaQuery';
+
+// Re-export action logger hook
+export { useActionLogger } from './useActionLogger';
+export type { UseActionLoggerOptions, UseActionLoggerReturn } from './useActionLogger';

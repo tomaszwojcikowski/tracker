@@ -7,7 +7,7 @@
     "description": "Build elite pulling strength (max pull-ups, pull-up variations) while maintaining all-around capacity (pushing, lower body) and protecting knee/shoulder health. Optimized for the 40+ athlete with Volume Management and Joint Longevity principles.",
     "author": "V26.9 Program",
     "createdDate": "2025-12-02",
-    "lastModified": "2026-01-05T12:30:00.000Z",
+    "lastModified": "2026-01-10T16:03:31.986Z",
     "version": "26.9.3",
     "durationWeeks": 21,
     "goals": [
@@ -635,7 +635,7 @@
         ],
         "exercises": [
           {
-            "exerciseName": "Couch Stretch",
+            "exerciseName": "Hip Flexor Stretch",
             "category": "cooldown",
             "sets": 1,
             "repsType": "time",
@@ -643,10 +643,32 @@
             "repsUnit": "seconds",
             "repsPerSide": true,
             "loadUnit": "bodyweight",
-            "notes": "Critical for hip flexors after Squats"
+            "notes": "Choose one hip flexor stretch - critical after lower body work",
+            "exerciseOptions": [
+              {
+                "optionName": "Couch Stretch",
+                "description": "Deep hip flexor and quad stretch",
+                "notes": "Critical for hip flexors after Squats. Rear shin on couch/wall, front foot forward"
+              },
+              {
+                "optionName": "Kneeling Hip Flexor Stretch",
+                "description": "Classic hip flexor stretch",
+                "notes": "Rear knee down, front foot forward, push hips forward, squeeze rear glute"
+              },
+              {
+                "optionName": "Low Lunge Hold",
+                "description": "Active hip flexor stretch",
+                "notes": "Yoga lunge position, sink hips down, reach arms overhead"
+              },
+              {
+                "optionName": "Spiderman Stretch",
+                "description": "Hip flexor with rotation",
+                "notes": "Push-up position, bring foot outside hand, rotate towards front leg"
+              }
+            ]
           },
           {
-            "exerciseName": "Light Weighted Jefferson Curl",
+            "exerciseName": "Spinal Decompression",
             "category": "cooldown",
             "sets": 1,
             "repsType": "time",
@@ -655,16 +677,80 @@
             "loadMin": 10,
             "loadMax": 12,
             "loadUnit": "kg",
-            "notes": "Spinal segmentation. Use empty bar or light DB, NOT PVC"
+            "notes": "Choose one spinal decompression exercise",
+            "exerciseOptions": [
+              {
+                "optionName": "Light Weighted Jefferson Curl",
+                "description": "Spinal segmentation and hamstring stretch",
+                "notes": "Spinal segmentation. Use empty bar or light DB, NOT PVC. Slowly articulate down and up"
+              },
+              {
+                "optionName": "Standing Pike Stretch (PVC)",
+                "description": "Hamstring and lower back stretch",
+                "notes": "Hold PVC/dowel overhead, hinge forward maintaining flat back until stretch felt",
+                "loadMin": null,
+                "loadMax": null,
+                "loadUnit": "bodyweight"
+              },
+              {
+                "optionName": "Seated Forward Fold",
+                "description": "Deep hamstring and spine stretch",
+                "notes": "Sit with legs extended, hinge forward from hips, reach for toes",
+                "loadMin": null,
+                "loadMax": null,
+                "loadUnit": "bodyweight"
+              },
+              {
+                "optionName": "Child's Pose with Reach",
+                "description": "Spinal traction and lat stretch",
+                "notes": "Child's pose, walk hands to one side for lat stretch, hold, then switch",
+                "loadMin": null,
+                "loadMax": null,
+                "loadUnit": "bodyweight"
+              }
+            ]
           },
           {
-            "exerciseName": "90/90 Hip Rotations",
+            "exerciseName": "Hip Mobility",
             "category": "cooldown",
             "sets": 1,
             "repsType": "reps",
             "repsValue": 10,
             "repsPerSide": true,
-            "loadUnit": "bodyweight"
+            "loadUnit": "bodyweight",
+            "notes": "Choose one hip mobility exercise",
+            "exerciseOptions": [
+              {
+                "optionName": "90/90 Hip Rotations",
+                "description": "Internal and external hip rotation",
+                "notes": "Sit in 90/90 position, rotate between front and back leg positions"
+              },
+              {
+                "optionName": "Pigeon Stretch",
+                "description": "Deep hip external rotation",
+                "notes": "Front shin parallel to mat, sink hips down, fold forward if mobile",
+                "repsType": "time",
+                "repsValue": 90,
+                "repsUnit": "seconds"
+              },
+              {
+                "optionName": "Seated Figure-4 Stretch",
+                "description": "Glute and hip stretch",
+                "notes": "Ankle over opposite knee, pull knee towards chest",
+                "repsType": "time",
+                "repsValue": 60,
+                "repsUnit": "seconds"
+              },
+              {
+                "optionName": "Frog Stretch",
+                "description": "Hip adductor mobility",
+                "notes": "Knees wide on mat, sit back towards heels, rock gently",
+                "repsType": "time",
+                "repsValue": 90,
+                "repsUnit": "seconds",
+                "repsPerSide": false
+              }
+            ]
           }
         ]
       },
@@ -971,52 +1057,168 @@
         ],
         "exercises": [
           {
-            "exerciseName": "Cat-Cow",
+            "exerciseName": "Spinal Mobility",
             "category": "warmup",
             "sets": 1,
             "repsType": "reps",
             "repsMin": 10,
             "repsMax": 15,
             "loadUnit": "bodyweight",
-            "notes": "Focus on moving vertebrae by vertebrae"
+            "notes": "Choose one spinal mobilization exercise",
+            "exerciseOptions": [
+              {
+                "optionName": "Cat-Cow",
+                "description": "Classic spinal flexion/extension",
+                "notes": "Focus on moving vertebrae by vertebrae"
+              },
+              {
+                "optionName": "Thread the Needle",
+                "description": "Thoracic rotation and shoulder mobility",
+                "notes": "Rotate through the thoracic spine, reach under and through"
+              },
+              {
+                "optionName": "Quadruped Thoracic Rotations",
+                "description": "Upper back mobility focus",
+                "notes": "Hand behind head, rotate up keeping hips square"
+              },
+              {
+                "optionName": "World's Greatest Stretch",
+                "description": "Full body mobility sequence",
+                "notes": "Lunge position, rotate towards front leg, reach up"
+              }
+            ]
           },
           {
-            "exerciseName": "Bird-Dog",
+            "exerciseName": "Core Stability",
             "category": "warmup",
             "sets": 1,
             "repsType": "reps",
             "repsValue": 10,
             "repsPerSide": true,
             "loadUnit": "bodyweight",
-            "notes": "Brace core, extend opposite arm/leg, hold 3s"
+            "notes": "Choose one core stability exercise",
+            "exerciseOptions": [
+              {
+                "optionName": "Bird-Dog",
+                "description": "Anti-rotation core stability",
+                "notes": "Brace core, extend opposite arm/leg, hold 3s"
+              },
+              {
+                "optionName": "Dead Bug",
+                "description": "Supine core stability",
+                "notes": "Lower opposite arm and leg slowly, maintain lower back contact with floor"
+              },
+              {
+                "optionName": "Pallof Press (Band)",
+                "description": "Anti-rotation with resistance",
+                "notes": "Hold band at chest, press out maintaining square shoulders"
+              },
+              {
+                "optionName": "Plank with Shoulder Taps",
+                "description": "Dynamic plank variation",
+                "notes": "Maintain plank position, alternate tapping opposite shoulders"
+              }
+            ]
           },
           {
-            "exerciseName": "Glute Bridge",
+            "exerciseName": "Glute Activation",
             "category": "warmup",
             "sets": 1,
             "repsType": "reps",
             "repsValue": 15,
             "loadUnit": "bodyweight",
-            "notes": "Drive through heels, squeeze glutes hard at top, don't hyperextend back"
+            "notes": "Choose one glute activation exercise",
+            "exerciseOptions": [
+              {
+                "optionName": "Glute Bridge",
+                "description": "Basic bilateral glute activation",
+                "notes": "Drive through heels, squeeze glutes hard at top, don't hyperextend back"
+              },
+              {
+                "optionName": "Single-Leg Glute Bridge",
+                "description": "Unilateral glute focus",
+                "notes": "Keep hips level, drive through heel, squeeze glutes at top",
+                "repsValue": 12,
+                "repsPerSide": true
+              },
+              {
+                "optionName": "Frog Pumps",
+                "description": "High rep glute burnout",
+                "notes": "Feet together, knees out, pump from glutes maintaining short ROM",
+                "repsValue": 20
+              },
+              {
+                "optionName": "Fire Hydrants",
+                "description": "Hip abduction and external rotation",
+                "notes": "Lift knee out to side while maintaining square hips",
+                "repsPerSide": true
+              }
+            ]
           },
           {
-            "exerciseName": "Banded Side-Steps",
+            "exerciseName": "Hip Stability",
             "category": "warmup",
             "sets": 1,
             "repsType": "reps",
             "repsValue": 20,
             "repsPerSide": true,
             "loadUnit": "band",
-            "notes": "Band around knees or ankles, athletic stance, step side to side maintaining tension"
+            "notes": "Choose one hip stability exercise",
+            "exerciseOptions": [
+              {
+                "optionName": "Banded Side-Steps",
+                "description": "Lateral hip stabilization",
+                "notes": "Band around knees or ankles, athletic stance, step side to side maintaining tension"
+              },
+              {
+                "optionName": "Banded Monster Walks",
+                "description": "Multi-directional hip stability",
+                "notes": "Band around knees, walk forward and backward in quarter squat"
+              },
+              {
+                "optionName": "Clamshells",
+                "description": "Hip external rotation focus",
+                "notes": "Side lying, feet together, lift top knee while keeping feet touching"
+              },
+              {
+                "optionName": "Lateral Band Walks",
+                "description": "Glute med activation",
+                "notes": "Band around ankles, quarter squat, step laterally keeping tension"
+              }
+            ]
           },
           {
-            "exerciseName": "Bodyweight Good Mornings",
+            "exerciseName": "Hip Hinge Pattern",
             "category": "warmup",
             "sets": 1,
             "repsType": "reps",
             "repsValue": 15,
             "loadUnit": "bodyweight",
-            "notes": "Hands behind head, hinge hips back, slight knee bend, flat back. Feel hamstring stretch"
+            "notes": "Choose one hip hinge warm-up",
+            "exerciseOptions": [
+              {
+                "optionName": "Bodyweight Good Mornings",
+                "description": "Classic hinge pattern",
+                "notes": "Hands behind head, hinge hips back, slight knee bend, flat back. Feel hamstring stretch"
+              },
+              {
+                "optionName": "Romanian Deadlift (PVC/Empty Bar)",
+                "description": "Loaded hinge pattern practice",
+                "notes": "Light implement, push hips back, bar stays close, flat back"
+              },
+              {
+                "optionName": "Single-Leg Romanian Deadlift (BW)",
+                "description": "Unilateral hinge and balance",
+                "notes": "Bodyweight, hinge on one leg, reach opposite hand to ground",
+                "repsPerSide": true,
+                "repsValue": 12
+              },
+              {
+                "optionName": "Kang Squats",
+                "description": "Hinge + squat combo",
+                "notes": "Hinge forward at top of squat, then squat down from hinged position"
+              }
+            ]
           }
         ]
       },

@@ -118,6 +118,7 @@ The test suite includes **1,300+ comprehensive specs** across 70+ test files, co
 - **Automerge CRDT Sync** (`automergeSync.test.tsx`): Conflict-free data synchronization
 - **Browser History Regression** (`backNavigation.test.tsx`): Ensures forward/back buttons stay in sync with state
 - **Optimistic Sync Hook** (`optimisticSync.test.tsx`): Background cloud sync with debouncing
+- **Action Logging** (`actionLogger.test.tsx`, `useActionLogger.test.tsx`): User action tracking and CSV export (58 tests)
 - **EMOM Timer Logic** (`emomTimer.test.tsx`, `densityTimer.test.tsx`): Timer functionality for special exercise types
 - **Volume Calculations** (`volume.test.tsx`): Training volume tracking
 - **PWA Hooks** (`pwa.test.tsx`): Progressive Web App functionality
@@ -152,6 +153,7 @@ For detailed manual testing scenarios, see [TESTING.md](TESTING.md).
 - **1RM Estimation**: Real-time Brzycki formula calculations providing strength insights for every lift.
 - **Calendar View**: Comprehensive training schedule visualization showing completed and upcoming sessions.
 - **AI Coaching (Optional)**: Deep integration with Google Gemini for personalized session analysis and feedback.
+- **User Action Logging**: Detailed tracking of user interactions with CSV export for UX analysis and flow optimization.
 
 ### ☁️ Data & Persistence
 - **Offline-First Resilience**: Full PWA capabilities with Workbox service worker for seamless offline usage even in gyms with poor connectivity.
@@ -256,6 +258,100 @@ To enable automatic error tracking and monitoring with Sentry:
 The app will automatically capture and report errors, helping you identify and fix issues quickly.
 
 **For detailed setup instructions, see [ERROR_REPORTING_SETUP.md](ERROR_REPORTING_SETUP.md)**
+
+## User Action Logging
+
+The app includes a comprehensive user action logging system for UX analysis and improvement. Logs track user interactions including navigation, workout activities, and system events.
+
+### Features
+
+- **Automatic Tracking**: Logs user actions automatically without disrupting the workout experience
+- **Privacy-First**: PII (Personally Identifiable Information) is automatically filtered from logs
+- **Configurable**: Enable/disable logging, adjust sampling rates, and exclude specific categories
+- **Storage Management**: Circular buffer with automatic rotation based on age and count limits
+- **CSV Export**: Export logs in CSV format for analysis by AI agents or data tools
+- **Rich Metadata**: Logs include timestamp, session ID, action type, category, and contextual information
+
+### Log Categories
+
+- **Navigation**: Tab changes, view switches, deep links, program changes
+- **Workout**: Session start/end, pause/resume, completion tracking
+- **Exercise**: Set completion, weight/RPE changes, exercise modifications
+- **Timer**: Rest, EMOM, and density timer interactions
+- **Settings**: Configuration changes
+- **Data**: Import/export operations, cloud sync events
+- **UI**: Modal interactions, gestures, pull-to-refresh
+- **Error**: Error tracking and boundary captures
+- **Performance**: Page load times and metrics
+
+### Configuration
+
+Access action log settings in **Settings → Logs** tab:
+
+1. **Enable/Disable**: Toggle action logging on or off
+2. **View Statistics**: See total logs, storage usage, category breakdown, and top actions
+3. **Export**: Download logs as CSV with optional metadata columns
+4. **Clear**: Remove old logs or clear all logs
+
+### Default Settings
+
+- **Enabled**: Yes
+- **Max Logs**: 10,000 entries
+- **Max Age**: 30 days
+- **Sampling Rate**: 100% (log all actions)
+- **Sensitive Data**: Excluded by default
+
+### Usage for Developers
+
+The logging system can be integrated into any component using the `useActionLogger` hook:
+
+```typescript
+import { useActionLogger } from '@/hooks';
+
+function MyComponent() {
+  const logger = useActionLogger({ component: 'MyComponent' });
+
+  const handleAction = () => {
+    logger.logUI('button_click', 'User clicked submit', {
+      uiContext: { elementType: 'button' }
+    });
+  };
+
+  return <button onClick={handleAction}>Submit</button>;
+}
+```
+
+For programmatic access without a React component, use the action logger utility directly:
+
+```typescript
+import { logAction } from '@/utils/actionLogger';
+
+logAction('workout', 'set_complete', 'Completed set 1', {
+  workoutContext: {
+    week: 5,
+    day: 1,
+    exerciseId: 'squats',
+    setIndex: 0
+  }
+});
+```
+
+### Export Format
+
+CSV exports include the following columns:
+
+**Basic Export**:
+- ID, Timestamp, Session ID, Category, Type, Description
+
+**Full Export (with metadata)**:
+- All basic columns plus: View Mode, Active Tab, Current Week, Active Day, Exercise ID, Set Index, Component, Timer Type, Error Severity, Metadata JSON
+
+The exported data can be analyzed by AI agents to identify:
+- Common user flows and navigation patterns
+- Points of friction or confusion
+- Feature usage frequency
+- Error patterns and recovery paths
+- Performance bottlenecks
 
 ## Workout Plan Format
 

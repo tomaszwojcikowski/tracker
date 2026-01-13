@@ -281,9 +281,25 @@ export function Dashboard({
 
   const days = [1, 2, 3, 5];
 
-  // Find the next workout to do (first incomplete day)
-  // If all completed, show the last one or none as "next"
-  const nextWorkoutDay = days.find(day => !isCompleted(day));
+  // Find the next workout to do across ALL weeks in the program (not just current week)
+  // Returns { week, day } of the first incomplete workout, or null if all completed
+  const findNextWorkout = useCallback((): { week: number; day: number } | null => {
+    for (let week = 1; week <= maxWeeks; week++) {
+      for (const day of days) {
+        const sessionKey = getSessionKey(week, day);
+        const session = safeGetJSON<{ completed?: boolean } | null>(
+          sessionKey,
+          null
+        );
+        if (session?.completed !== true) {
+          return { week, day };
+        }
+      }
+    }
+    return null;
+  }, [maxWeeks, days]);
+
+  const nextWorkout = findNextWorkout();
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
@@ -311,7 +327,7 @@ export function Dashboard({
             maxWeeks={maxWeeks}
             inProgressWorkout={inProgressWorkout}
             days={days}
-            nextWorkoutDay={nextWorkoutDay}
+            nextWorkout={nextWorkout}
             isCompleted={isCompleted}
             getDayProgress={getDayProgress}
             getExerciseSummary={getExerciseSummary}
@@ -382,7 +398,7 @@ interface WeekContentProps {
   maxWeeks: number;
   inProgressWorkout: InProgressWorkout | null;
   days: number[];
-  nextWorkoutDay: number | undefined;
+  nextWorkout: { week: number; day: number } | null;
   isCompleted: (day: number) => boolean;
   getDayProgress: (day: number) => { completedSets: number; totalSets: number; completedExercises: number; totalExercises: number; progress: number } | null;
   getExerciseSummary: (week: number, day: number) => string;
@@ -399,7 +415,7 @@ function WeekContent({
   maxWeeks: _maxWeeks,
   inProgressWorkout,
   days,
-  nextWorkoutDay,
+  nextWorkout,
   isCompleted,
   getDayProgress,
   getExerciseSummary,
@@ -536,13 +552,12 @@ function WeekContent({
             void isInProgress;
 
             // Determine if this is the "Hero" card (next up)
-            // It's the hero if it's the next workout day, OR if it's in progress
-
-            // Let's simplify: Hero card is the next scheduled workout if no workout is in progress.
-            // If a workout is in progress, the resume banner handles it, so we can show standard list.
-            // But let's make the next available workout prominent.
-
-            const isNextUp = day === nextWorkoutDay && !inProgressWorkout;
+            // It's the hero only if this week+day matches the next workout in the entire program
+            // and there's no workout currently in progress (in which case the resume banner handles it)
+            const isNextUp = nextWorkout !== null && 
+                             nextWorkout.week === week && 
+                             nextWorkout.day === day && 
+                             !inProgressWorkout;
             const theme = getDayTheme(day);
 
             if (isNextUp) {

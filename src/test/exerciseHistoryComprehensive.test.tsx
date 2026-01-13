@@ -319,7 +319,8 @@ describe('Exercise History Comprehensive Tests', () => {
 
       const exercises = getAllExercisesWithHistory();
 
-      expect(exercises).toEqual(['Bench Press', 'Deadlift', 'Squat']);
+      // Returns normalized exercise IDs (lowercase with underscores)
+      expect(exercises).toEqual(['bench_press', 'deadlift', 'squat']);
     });
   });
 

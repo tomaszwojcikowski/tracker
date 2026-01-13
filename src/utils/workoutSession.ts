@@ -103,14 +103,16 @@ export const normalizeAddedExercises = (value: unknown): AddedExercise[] => {
 /**
  * Generate a normalized exercise ID from exercise name
  * @param name - Exercise name
- * @returns Normalized exercise ID
+ * @returns Normalized exercise ID (lowercase with underscores)
  */
 export const getExerciseId = (name: string): string => {
     if (!name) return '';
-    // Replace characters that are invalid in Firebase paths: . # $ [ ] /
-    // We use underscores for these.
-    // Note: spaces and mixed case are allowed in Firebase keys.
-    return name.replace(/[.#$\[\]/]/g, '_');
+    // Convert to lowercase and replace spaces with underscores
+    // Also replace characters that are invalid in Firebase paths: . # $ [ ] /
+    return name
+        .toLowerCase()
+        .replace(/\s+/g, '_')  // Replace one or more spaces with single underscore
+        .replace(/[.#$\[\]/]/g, '_');  // Replace Firebase-invalid characters
 };
 
 /**

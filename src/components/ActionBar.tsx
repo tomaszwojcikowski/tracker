@@ -61,6 +61,11 @@ export interface ActionBarProps {
 const getDensityBaseSeconds = (state?: DensityState): number =>
   (state?.timeMinutes ?? 0) * 60;
 
+const getProgressPercent = (elapsed: number, total: number): number => {
+  if (!total || total <= 0) return 0;
+  return Math.min(100, Math.max(0, (elapsed / total) * 100));
+};
+
 export function ActionBar({
   timerState,
   setTimerActive,
@@ -247,6 +252,11 @@ export function ActionBar({
     setDensityTotalSeconds(prev => Math.max(0, prev + timeDelta));
   }, [setDensitySeconds]);
 
+  // Progress calculations for inline bars (fill from left to right)
+  const restProgress = getProgressPercent(totalTime - timerState.time, totalTime);
+  const emomProgress = emomState ? getProgressPercent((emomState.interval - emomState.seconds), emomState.interval) : 0;
+  const densityProgress = densityState ? getProgressPercent((densityTotalSeconds - densityState.seconds), densityTotalSeconds) : 0;
+
   // Only show the action bar if there's an active or paused timer
   const hasActiveTimer =
     timerState.time > 0 ||
@@ -321,7 +331,12 @@ export function ActionBar({
       {/* EMOM Timer Display */}
       {emomState && (emomState.active || emomState.seconds > 0) && setEmomActive && setEmomSeconds && setEmomInterval && (
         <div className="px-3 pt-3 pb-2 sm:px-4">
-          <div className={`bg-sys-surfaceContainerHigh px-3 py-4 sm:px-5 rounded-2xl shadow-elevation-2 ${emomTimerJustActivated ? 'animate-slide-up' : ''}`}>
+          <div className={`bg-sys-surfaceContainerHigh px-3 py-4 sm:px-5 rounded-2xl shadow-elevation-2 relative overflow-hidden ${emomTimerJustActivated ? 'animate-slide-up' : ''}`}>
+            <div
+              className="absolute inset-0 bg-sys-primary/12 pointer-events-none"
+              aria-hidden="true"
+              style={{ width: `${emomProgress}%` }}
+            />
             <div className="flex items-center gap-2 sm:gap-3 mb-3">
               {/* Expand button */}
               <button
@@ -392,6 +407,7 @@ export function ActionBar({
                 </button>
               </div>
             </div>
+
           </div>
         </div>
       )}
@@ -399,7 +415,12 @@ export function ActionBar({
       {/* Density Timer Display */}
       {densityState && (densityState.active || densityState.seconds > 0) && setDensityActive && setDensitySeconds && (
         <div className="px-3 pt-3 pb-2 sm:px-4">
-          <div className={`bg-sys-surfaceContainerHigh px-3 py-4 sm:px-5 rounded-2xl shadow-elevation-2 ${densityTimerJustActivated ? 'animate-slide-up' : ''}`}>
+          <div className={`bg-sys-surfaceContainerHigh px-3 py-4 sm:px-5 rounded-2xl shadow-elevation-2 relative overflow-hidden ${densityTimerJustActivated ? 'animate-slide-up' : ''}`}>
+            <div
+              className="absolute inset-0 bg-sys-tertiary/12 pointer-events-none"
+              aria-hidden="true"
+              style={{ width: `${densityProgress}%` }}
+            />
             <div className="flex items-center gap-2 sm:gap-3 mb-3">
               {/* Expand button */}
               <button
@@ -450,6 +471,7 @@ export function ActionBar({
                 +30s
               </button>
             </div>
+
           </div>
         </div>
       )}
@@ -457,7 +479,12 @@ export function ActionBar({
       {/* Rest Timer Display */}
       {timerState.time > 0 && (
         <div className="px-3 pt-3 pb-3 sm:px-4">
-          <div className={`bg-sys-surfaceContainerHigh px-3 py-4 sm:px-5 rounded-2xl flex items-center gap-2 sm:gap-4 shadow-elevation-2 ${restTimerJustActivated ? 'animate-slide-up' : ''}`}>
+          <div className={`bg-sys-surfaceContainerHigh px-3 py-4 sm:px-5 rounded-2xl flex items-center gap-2 sm:gap-4 shadow-elevation-2 relative overflow-hidden ${restTimerJustActivated ? 'animate-slide-up' : ''}`}>
+            <div
+              className="absolute inset-0 bg-sys-secondary/12 pointer-events-none"
+              aria-hidden="true"
+              style={{ width: `${restProgress}%` }}
+            />
             <button
               onClick={handleExpandRest}
               className="btn-icon h-12 w-12 min-w-[44px] sm:min-w-[48px] bg-sys-secondaryContainer text-sys-onSecondaryContainer hover:brightness-110"

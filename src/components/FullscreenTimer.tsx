@@ -105,6 +105,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
 
   // Calculate progress percentage (inverted for conic gradient display)
   const progress = totalSeconds > 0 ? (seconds / totalSeconds) * 100 : 0;
+  const ringSize = 'min(80vw, 420px)';
 
   // Determine urgency state
   const isUrgent = seconds <= 10 && seconds > 0;
@@ -223,20 +224,6 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
       aria-label={isEmom ? 'EMOM timer' : isDensity ? 'Density timer' : 'Rest timer'}
       aria-live="polite"
     >
-      {/* Subtle background ring for visual progress indication */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-all duration-1000 ease-linear"
-        style={{
-          width: 'min(90vw, 500px)',
-          height: 'min(90vw, 500px)',
-          borderRadius: '50%',
-          background: `conic-gradient(var(--color-primary) 0% ${progress}%, transparent ${progress}% 100%)`,
-          opacity: 0.15,
-          maskImage: 'radial-gradient(transparent 60%, black 61%)',
-          WebkitMaskImage: 'radial-gradient(transparent 60%, black 61%)',
-        }}
-      />
-
       {/* Top controls */}
       <header className="relative z-10 flex items-center justify-between px-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-5">
         <button
@@ -287,26 +274,43 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
             </div>
           )}
 
-          {/* Main time display */}
-          <button
-            type="button"
-            onClick={handleTogglePause}
-            disabled={!canTogglePause}
-            className={`font-mono font-black tracking-tight transition-all duration-300 leading-none tabular-nums ${
-              isComplete
-                ? 'text-sys-success text-7xl md:text-8xl drop-shadow-2xl'
-                : isUrgent
-                ? 'text-sys-error text-7xl md:text-9xl animate-pulse drop-shadow-2xl'
-                : 'text-sys-onSurface text-7xl md:text-9xl drop-shadow-lg'
-            } ${canTogglePause ? 'cursor-pointer active:scale-95' : 'cursor-default'} ${
-              isComplete
-                ? 'px-8 py-5 md:px-10 md:py-6 rounded-[2rem] md:rounded-[2.5rem] bg-sys-surfaceContainerHigh/80 backdrop-blur-xl border border-sys-outlineVariant shadow-elevation-2'
-                : ''
-            }`}
-            aria-label={canTogglePause ? (isPaused ? 'Resume timer' : 'Pause timer') : 'Timer display'}
+          {/* Main time display wrapped in centered progress ring */}
+          <div
+            className="relative flex items-center justify-center"
+            style={{ width: ringSize, height: ringSize }}
           >
-            {isComplete ? '✓' : timeString}
-          </button>
+            <div
+              className="absolute inset-0 pointer-events-none transition-all duration-700 ease-linear"
+              style={{
+                borderRadius: '50%',
+                background: `conic-gradient(var(--color-primary) 0% ${progress}%, transparent ${progress}% 100%)`,
+                opacity: 0.18,
+                maskImage: 'radial-gradient(transparent 60%, black 61%)',
+                WebkitMaskImage: 'radial-gradient(transparent 60%, black 61%)',
+              }}
+              aria-hidden="true"
+            />
+
+            <button
+              type="button"
+              onClick={handleTogglePause}
+              disabled={!canTogglePause}
+              className={`relative z-10 font-mono font-black tracking-tight transition-all duration-300 leading-none tabular-nums ${
+                isComplete
+                  ? 'text-sys-success text-7xl md:text-8xl drop-shadow-2xl'
+                  : isUrgent
+                  ? 'text-sys-error text-7xl md:text-9xl animate-pulse drop-shadow-2xl'
+                  : 'text-sys-onSurface text-7xl md:text-9xl drop-shadow-lg'
+              } ${canTogglePause ? 'cursor-pointer active:scale-95' : 'cursor-default'} ${
+                isComplete
+                  ? 'px-8 py-5 md:px-10 md:py-6 rounded-[2rem] md:rounded-[2.5rem] bg-sys-surfaceContainerHigh/80 backdrop-blur-xl border border-sys-outlineVariant shadow-elevation-2'
+                  : ''
+              }`}
+              aria-label={canTogglePause ? (isPaused ? 'Resume timer' : 'Pause timer') : 'Timer display'}
+            >
+              {isComplete ? '✓' : timeString}
+            </button>
+          </div>
 
           {/* Subtitle */}
           {!isComplete && isEmom && (

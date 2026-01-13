@@ -30,20 +30,21 @@ describe('Focus Mode', () => {
 
     describe('Exercise ID Generation', () => {
         it('generates consistent IDs from exercise names', () => {
-            expect(getExerciseId('Bench Press')).toBe('bench_press');
-            expect(getExerciseId('Pull Ups')).toBe('pull_ups');
-            expect(getExerciseId('Lat Pull Down')).toBe('lat_pull_down');
+            expect(getExerciseId('Bench Press')).toBe('Bench Press');
+            expect(getExerciseId('Pull Ups')).toBe('Pull Ups');
+            expect(getExerciseId('Lat Pull Down')).toBe('Lat Pull Down');
         });
 
         it('handles multiple spaces', () => {
-            // Multiple spaces are collapsed to single underscore per space
-            expect(getExerciseId('Bench  Press')).toBe('bench_press');
-            expect(getExerciseId('Pull   Ups')).toBe('pull_ups');
+            // Multiple spaces are preserved
+            expect(getExerciseId('Bench  Press')).toBe('Bench  Press');
+            expect(getExerciseId('Pull   Ups')).toBe('Pull   Ups');
         });
 
         it('converts to lowercase', () => {
-            expect(getExerciseId('BENCH PRESS')).toBe('bench_press');
-            expect(getExerciseId('Pull UPS')).toBe('pull_ups');
+            // Case is preserved; sanitization now only targets Firebase-invalid chars
+            expect(getExerciseId('BENCH PRESS')).toBe('BENCH PRESS');
+            expect(getExerciseId('Pull UPS')).toBe('Pull UPS');
         });
 
         it('generates added exercise IDs with prefix', () => {
@@ -55,7 +56,7 @@ describe('Focus Mode', () => {
     describe('View Mode State Persistence', () => {
         it('loads view mode from localStorage', () => {
             mockStorage['workout_view_mode'] = 'focus';
-            
+
             const result = safeGetJSON('workout_view_mode', 'list');
             expect(result).toBe('focus');
         });
@@ -107,7 +108,7 @@ describe('Focus Mode', () => {
 
             // When length becomes 0
             rerender({ index: result.current.focusIndex, length: 0 });
-            
+
             expect(result.current.focusIndex).toBe(0);
         });
 
@@ -239,10 +240,10 @@ describe('Focus Mode', () => {
             const { result } = renderHook(() => useFlattenedExercises(sections, []));
 
             expect(result.current).toHaveLength(3);
-            expect(result.current[0].id).toBe('jumping_jacks');
+            expect(result.current[0].id).toBe('Jumping Jacks');
             expect(result.current[0].section).toBe('Warmup');
-            expect(result.current[1].id).toBe('arm_circles');
-            expect(result.current[2].id).toBe('bench_press');
+            expect(result.current[1].id).toBe('Arm Circles');
+            expect(result.current[2].id).toBe('Bench Press');
             expect(result.current[2].section).toBe('Main');
         });
 
@@ -329,12 +330,12 @@ describe('Focus Mode', () => {
         it('should navigate left when ArrowLeft is pressed in focus mode', () => {
             const viewMode = 'focus';
             const focusIndex = 2;
-            
+
             // Simulate ArrowLeft navigation
             const newIndex = viewMode === 'focus' && focusIndex > 0
                 ? focusIndex - 1
                 : focusIndex;
-            
+
             expect(newIndex).toBe(1);
         });
 
@@ -342,35 +343,35 @@ describe('Focus Mode', () => {
             const viewMode = 'focus';
             const focusIndex = 2;
             const allExercisesLength = 5;
-            
+
             // Simulate ArrowRight navigation
             const newIndex = viewMode === 'focus' && focusIndex < allExercisesLength - 1
                 ? focusIndex + 1
                 : focusIndex;
-            
+
             expect(newIndex).toBe(3);
         });
 
         it('should not navigate when not in focus mode', () => {
             const viewMode = 'list';
             const focusIndex = 2;
-            
+
             // Simulate ArrowLeft navigation - should not change
             const newIndex = viewMode === 'focus' && focusIndex > 0
                 ? focusIndex - 1
                 : focusIndex;
-            
+
             expect(newIndex).toBe(2);
         });
 
         it('should not go below 0', () => {
             const viewMode = 'focus';
             const focusIndex = 0;
-            
+
             const newIndex = viewMode === 'focus' && focusIndex > 0
                 ? focusIndex - 1
                 : focusIndex;
-            
+
             expect(newIndex).toBe(0);
         });
 
@@ -378,11 +379,11 @@ describe('Focus Mode', () => {
             const viewMode = 'focus';
             const focusIndex = 4;
             const allExercisesLength = 5;
-            
+
             const newIndex = viewMode === 'focus' && focusIndex < allExercisesLength - 1
                 ? focusIndex + 1
                 : focusIndex;
-            
+
             expect(newIndex).toBe(4);
         });
     });

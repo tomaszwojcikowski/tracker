@@ -1,5 +1,6 @@
 import { safeGetJSON, safeSetJSON } from './storage';
 import { getExerciseHistoryKey } from '../services/storageNamespace';
+import { getExerciseId } from './workoutSession';
 
 /**
  * Exercise History Utilities
@@ -105,14 +106,16 @@ export const updateExerciseHistory = (
     return;
   }
 
-  if (!history[exerciseName]) {
-    history[exerciseName] = [];
+  // Use a sanitized ID as the key for both local and cloud storage
+  const historyKey = getExerciseId(exerciseName);
+
+  if (!historyKey) {
+    console.error('Invalid exercise name for history:', exerciseName);
+    return;
   }
 
-  // Validate exercise name and entry
-  if (!exerciseName || typeof exerciseName !== 'string') {
-    console.error('Invalid exercise name:', exerciseName);
-    return;
+  if (!history[historyKey]) {
+    history[historyKey] = [];
   }
 
   if (!entry || typeof entry !== 'object') {
@@ -122,19 +125,19 @@ export const updateExerciseHistory = (
 
   // Check for duplicate entry (same week and day on same date)
   // If duplicate exists, update it instead of adding a new one
-  const existingIndex = history[exerciseName].findIndex(
-    (e) => e.date.split('T')[0] === entry.date.split('T')[0] && 
-           e.week === entry.week && 
+  const existingIndex = history[historyKey].findIndex(
+    (e) => e.date.split('T')[0] === entry.date.split('T')[0] &&
+           e.week === entry.week &&
            e.day === entry.day
   );
 
   if (existingIndex !== -1) {
     // Update existing entry with new data (user re-completed the workout)
-    history[exerciseName][existingIndex] = entry;
+    history[historyKey][existingIndex] = entry;
   } else {
-    history[exerciseName].push(entry);
+    history[historyKey].push(entry);
   }
-  
+
   safeSetJSON(storageKey, history);
 };
 
@@ -157,7 +160,8 @@ export const getExerciseHistory = (
     return [];
   }
 
-  const exerciseHistory = history[exerciseName] || [];
+  const historyKey = getExerciseId(exerciseName);
+  const exerciseHistory = history[historyKey] || [];
 
   if (!Array.isArray(exerciseHistory)) {
     console.warn(`Invalid history for ${exerciseName}, expected array`);
@@ -165,7 +169,7 @@ export const getExerciseHistory = (
   }
 
   // Sort by date to ensure consistent ordering (oldest first)
-  return [...exerciseHistory].sort((a, b) => 
+  return [...exerciseHistory].sort((a, b) =>
     new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 };
@@ -259,6 +263,45 @@ export const getAllExercisesWithHistory = (): string[] => {
     storageKey,
     {}
   );
+
+  if (typeof history !== 'object' || history === null) {
+    return [];
+  }
+
+  // Auto-migration: If we find keys with illegal characters (like / or .), migrate them
+  let hasChanges = false;
+  const migratedHistory: ExerciseHistoryRecord = {};
+
+  Object.keys(history).forEach(key => {
+    const safeKey = getExerciseId(key);
+    if (safeKey !== key) {
+      // Merge if safeKey already exists, or just move
+      migratedHistory[safeKey] = [
+        ...(migratedHistory[safeKey] || []),
+        ...(history[key] || [])
+      ].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      hasChanges = true;
+    } else {
+      // Keep as is if it's already safe or if we already migrated it (though unlikely in this loop)
+      // Actually, we must be careful not to overwrite if multiple keys map to same safeKey
+      if (migratedHistory[safeKey]) {
+         // Already has entries from a previous key migration
+         migratedHistory[safeKey] = [
+           ...migratedHistory[safeKey],
+           ...(history[key] || [])
+         ].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      } else {
+         migratedHistory[safeKey] = history[key];
+      }
+    }
+  });
+
+  if (hasChanges) {
+    console.log('Migrated exercise history keys to Firebase-safe format');
+    safeSetJSON(storageKey, migratedHistory);
+    return Object.keys(migratedHistory).sort();
+  }
+
   return Object.keys(history).sort();
 };
 

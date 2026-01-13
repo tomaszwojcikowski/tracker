@@ -201,24 +201,28 @@ export async function handleLogout(): Promise<void> {
 }
 
 /**
- * Recursively remove undefined values from an object
- * Firebase Realtime Database doesn't accept undefined values
+ * Recursively remove undefined values from an object and sanitize keys for Firebase
+ * Firebase Realtime Database doesn't accept undefined values or certain characters in keys
  * @param obj - Object to sanitize
- * @returns Sanitized object with undefined values removed
+ * @returns Sanitized object
  */
-function removeUndefinedValues<T extends Record<string, unknown>>(obj: T): T {
+function sanitizeForFirebase<T extends Record<string, unknown>>(obj: T): T {
     const result = {} as T;
     for (const key in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, key)) {
             const value = obj[key];
+
+            // Firebase doesn't allow . # $ / [ ] in keys
+            const sanitizedKey = key.replace(/[.#$\[\]/]/g, '_') as Extract<keyof T, string>;
+
             if (value === undefined) {
                 // Skip undefined values
                 continue;
             } else if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
                 // Recursively clean nested objects
-                result[key] = removeUndefinedValues(value as Record<string, unknown>) as T[Extract<keyof T, string>];
+                result[sanitizedKey] = sanitizeForFirebase(value as Record<string, unknown>) as T[Extract<keyof T, string>];
             } else {
-                result[key] = value as T[Extract<keyof T, string>];
+                result[sanitizedKey] = value as T[Extract<keyof T, string>];
             }
         }
     }
@@ -243,8 +247,8 @@ export async function saveToCloud(data: CloudData): Promise<void> {
     }
 
     try {
-        // Remove undefined values - Firebase Realtime Database rejects them
-        const sanitizedData = removeUndefinedValues(data as unknown as Record<string, unknown>) as CloudData;
+        // Sanitize data for Firebase (remove undefined, fix keys)
+        const sanitizedData = sanitizeForFirebase(data as unknown as Record<string, unknown>) as CloudData;
         await set(currentUserRef, sanitizedData);
         console.log('Data saved to cloud successfully');
 

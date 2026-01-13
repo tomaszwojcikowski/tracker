@@ -674,150 +674,148 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             </>
                         ) : !isFlow ? (
                             <>
-                                {/* Set buttons and actions row (non-density, non-flow exercises) */}
-                                <div className="flex gap-2 mb-3 items-center">
-                                    <div className="flex flex-wrap gap-2 items-center min-w-0 flex-1">
-                            {(() => {
-                                // Find first incomplete set once
-                                const firstIncompleteIndex = sets.findIndex(s => !s);
-
-                                return (
-                                    <>
-                                        {sets.map((isDone, i) => {
-                                            const isNextIncomplete = i === firstIncompleteIndex;
-                                            const shouldShowAsButton = isDone || isNextIncomplete;
-
-                                            if (shouldShowAsButton) {
-                                                return (
-                                                    <button
-                                                        key={`${exId}-set-${i}`}
-                                                        onClick={() => onToggleSet(exId, i, defaultSets, restTime, sectionType, isEmom)}
-                                                        className={`set-button h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
-                                                            isDone
-                                                                ? allComplete
-                                                                    ? 'completed bg-sys-success text-sys-onSuccess shadow-elevation-1'
-                                                                    : 'completed bg-sys-primary text-sys-onPrimary shadow-elevation-1'
-                                                                : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVariant border-2 border-sys-outlineVariant'
-                                                        }`}
-                                                        aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
-                                                    >
-                                                        {isDone ? <Check size={18} /> : i + 1}
-                                                    </button>
-                                                );
-                                            }
-                                            return null;
-                                        }).filter(Boolean)}
-
-                                        {/* Future sets shown as dots (max 2 dots) */}
-                                        {firstIncompleteIndex !== -1 && sets.slice(firstIncompleteIndex + 1, firstIncompleteIndex + 3).map((_, i) => (
-                                            <div
-                                                key={`${exId}-dot-${firstIncompleteIndex + 1 + i}`}
-                                                className="w-2 h-2 rounded-full bg-sys-onSurfaceVar opacity-30"
-                                                aria-label={`Set ${firstIncompleteIndex + 2 + i} pending`}
+                                {/* Weight and timer controls row */}
+                                <div className="flex items-center justify-between mb-3">
+                                    {/* Weight input */}
+                                    {!isBodyweight && (
+                                        <div className="flex items-center gap-1.5 shrink-0">
+                                            <button
+                                                onClick={() => {
+                                                    haptic.tick();
+                                                    const current = parseFloat(exerciseLog.weight || '0');
+                                                    onSaveWeight(exId, Math.max(0, current - 2.5).toString());
+                                                }}
+                                                className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
+                                                aria-label="Decrease weight by 2.5kg"
+                                            >
+                                                <Minus size={18} />
+                                            </button>
+                                            <input
+                                                id={`${exId}-weight`}
+                                                type="number"
+                                                inputMode="decimal"
+                                                pattern="[0-9]*"
+                                                enterKeyHint="done"
+                                                value={exerciseLog.weight || ''}
+                                                onChange={(e) => onSaveWeight(exId, e.target.value)}
+                                                placeholder={loadRange && loadRange.unit === 'kg' && loadRange.min > 0 ? String(loadRange.min) : '0'}
+                                                className="w-20 h-10 px-1 bg-sys-surfaceContainerHigh rounded-xl text-sys-onSurface text-center text-xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-primary transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                                aria-label="Weight in kg"
                                             />
-                                        ))}
-                                    </>
-                                );
-                            })()}
+                                            <button
+                                                onClick={() => {
+                                                    haptic.tick();
+                                                    const current = parseFloat(exerciseLog.weight || '0');
+                                                    onSaveWeight(exId, (current + 2.5).toString());
+                                                }}
+                                                className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
+                                                aria-label="Increase weight by 2.5kg"
+                                            >
+                                                <Plus size={18} />
+                                            </button>
+                                        </div>
+                                    )}
 
-                            {/* Progress indicator */}
-                            <span className="text-sm text-sys-onSurfaceVar font-bold">
-                                ({completedSets}/{totalSets})
-                            </span>
-                                    </div>
-
-                                    <div className="ml-auto flex items-center gap-2 shrink-0">
-
-                                {/* Rest Timer Button - show for main/access sections, excluding EMOM/density/flow/time-based */}
-                                {!hideTimerControls && !isEmom && !isDensity && !isFlow && !timeSeconds && restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
-                                    <button
-                                        onClick={() => onStartRestTimer(restTime)}
-                                        className={`h-10 px-4 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-sm font-semibold ${
-                                            restTimerActive
-                                                ? 'bg-sys-surfaceHigh text-sys-onSurface ring-2 ring-sys-primary/50'
-                                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar border border-sys-outlineVariant/30'
-                                        }`}
-                                        aria-label={`Start ${formatSecondsShort(restTime)} rest timer`}
-                                    >
-                                        <Clock size={16} className={restTimerActive ? 'text-sys-primary' : ''} />
-                                        <TimeBadge seconds={restTime} variant="inline" />
-                                    </button>
-                                )}
-
-                                {/* Weight input - inline with set buttons for weighted exercises */}
-                                {!isBodyweight && (
-                                    <div className="flex items-center gap-2">
+                                    {/* Rest Timer Button - show for main/access sections, excluding EMOM/density/flow/time-based */}
+                                    {!hideTimerControls && !isEmom && !isDensity && !isFlow && !timeSeconds && restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
                                         <button
-                                            onClick={() => {
-                                                haptic.tick();
-                                                const current = parseFloat(exerciseLog.weight || '0');
-                                                onSaveWeight(exId, Math.max(0, current - 2.5).toString());
-                                            }}
-                                            className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
-                                            aria-label="Decrease weight by 2.5kg"
+                                            onClick={() => onStartRestTimer(restTime)}
+                                            className={`h-10 px-3 rounded-xl flex items-center justify-center gap-1.5 active:scale-95 transition-all text-sm font-semibold ${
+                                                restTimerActive
+                                                    ? 'bg-sys-surfaceHigh text-sys-onSurface ring-2 ring-sys-primary/50'
+                                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar border border-sys-outlineVariant/30'
+                                            }`}
+                                            aria-label={`Start ${formatSecondsShort(restTime)} rest timer`}
                                         >
-                                            <Minus size={16} />
+                                            <Clock size={16} className={restTimerActive ? 'text-sys-primary' : ''} />
+                                            <TimeBadge seconds={restTime} variant="inline" />
                                         </button>
-                                        <input
-                                            id={`${exId}-weight`}
-                                            type="number"
-                                            inputMode="decimal"
-                                            pattern="[0-9]*"
-                                            enterKeyHint="done"
-                                            value={exerciseLog.weight || ''}
-                                            onChange={(e) => onSaveWeight(exId, e.target.value)}
-                                            placeholder={loadRange && loadRange.unit === 'kg' && loadRange.min > 0 ? String(loadRange.min) : '0'}
-                                            className="w-24 h-12 px-2 bg-sys-surfaceContainerHigh rounded-xl text-sys-onSurface text-center text-2xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-primary transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                                            aria-label="Weight in kg"
-                                        />
-                                        <button
-                                            onClick={() => {
-                                                haptic.tick();
-                                                const current = parseFloat(exerciseLog.weight || '0');
-                                                onSaveWeight(exId, (current + 2.5).toString());
-                                            }}
-                                            className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
-                                            aria-label="Increase weight by 2.5kg"
-                                        >
-                                            <Plus size={16} />
-                                        </button>
-                                    </div>
-                                )}
-                                    </div>
+                                    )}
                                 </div>
 
-                        {/* Previous weight and load range hints - only for weighted exercises */}
-                        {!isBodyweight && (previousWeight || loadRange) && (
-                            <div className="flex items-center justify-end gap-2 mb-2 -mt-1">
-                                {/* Previous weight quick-fill button */}
-                                {previousWeight && !exerciseLog.weight && (
-                                    <button
-                                        onClick={handleUsePreviousWeight}
-                                        className="flex items-center gap-1 text-xs text-sys-onPrimaryContainer font-medium px-2 py-0.5 rounded-full bg-sys-primaryContainer hover:bg-sys-primaryContainer/80 active:scale-95 transition-all"
-                                        aria-label={`Use previous weight of ${previousWeight}kg`}
-                                    >
-                                        <History size={10} />
-                                        <span>Use {previousWeight}kg</span>
-                                    </button>
+                                {/* Previous weight and load range hints - now closer to weight input */}
+                                {!isBodyweight && (previousWeight || loadRange) && (
+                                    <div className="flex items-center justify-start gap-2 mb-4">
+                                        {/* Previous weight quick-fill button */}
+                                        {previousWeight && !exerciseLog.weight && (
+                                            <button
+                                                onClick={handleUsePreviousWeight}
+                                                className="flex items-center gap-1 text-xs text-sys-onPrimaryContainer font-medium px-2 py-0.5 rounded-full bg-sys-primaryContainer hover:bg-sys-primaryContainer/80 active:scale-95 transition-all"
+                                                aria-label={`Use previous weight of ${previousWeight}kg`}
+                                            >
+                                                <History size={10} />
+                                                <span>Use {previousWeight}kg</span>
+                                            </button>
+                                        )}
+                                        {/* Show indicator when using previous weight */}
+                                        {isUsingPreviousWeight && (
+                                            <span className="flex items-center gap-1 text-[10px] text-sys-onSurfaceVar">
+                                                <History size={10} />
+                                                <span>prev</span>
+                                            </span>
+                                        )}
+                                        {/* Load range suggestion */}
+                                        {loadRange && loadRange.min > 0 && loadRange.unit === 'kg' && (
+                                            <span className="text-xs text-sys-primary font-medium">
+                                                Suggested: {loadRange.min === loadRange.max
+                                                    ? `${loadRange.min}kg`
+                                                    : `${loadRange.min}-${loadRange.max}kg`}
+                                                {loadRange.perHand ? ' per hand' : ''}
+                                            </span>
+                                        )}
+                                    </div>
                                 )}
-                                {/* Show indicator when using previous weight */}
-                                {isUsingPreviousWeight && (
-                                    <span className="flex items-center gap-1 text-[10px] text-sys-onSurfaceVar">
-                                        <History size={10} />
-                                        <span>prev</span>
+
+                                {/* Set buttons row */}
+                                <div className="flex flex-wrap gap-2 mb-3 items-center">
+                                    {(() => {
+                                        // Find first incomplete set once
+                                        const firstIncompleteIndex = sets.findIndex(s => !s);
+
+                                        return (
+                                            <>
+                                                {sets.map((isDone, i) => {
+                                                    const isNextIncomplete = i === firstIncompleteIndex;
+                                                    const shouldShowAsButton = isDone || isNextIncomplete;
+
+                                                    if (shouldShowAsButton) {
+                                                        return (
+                                                            <button
+                                                                key={`${exId}-set-${i}`}
+                                                                onClick={() => onToggleSet(exId, i, defaultSets, restTime, sectionType, isEmom)}
+                                                                className={`set-button h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
+                                                                    isDone
+                                                                        ? allComplete
+                                                                            ? 'completed bg-sys-success text-sys-onSuccess shadow-elevation-1'
+                                                                            : 'completed bg-sys-primary text-sys-onPrimary shadow-elevation-1'
+                                                                        : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar border-2 border-sys-outlineVariant'
+                                                                }`}
+                                                                aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
+                                                            >
+                                                                {isDone ? <Check size={18} /> : i + 1}
+                                                            </button>
+                                                        );
+                                                    }
+                                                    return null;
+                                                }).filter(Boolean)}
+
+                                                {/* Future sets shown as dots (max 2 dots) */}
+                                                {firstIncompleteIndex !== -1 && sets.slice(firstIncompleteIndex + 1, firstIncompleteIndex + 3).map((_, i) => (
+                                                    <div
+                                                        key={`${exId}-dot-${firstIncompleteIndex + 1 + i}`}
+                                                        className="w-2 h-2 rounded-full bg-sys-onSurfaceVar opacity-30"
+                                                        aria-label={`Set ${firstIncompleteIndex + 2 + i} pending`}
+                                                    />
+                                                ))}
+                                            </>
+                                        );
+                                    })()}
+
+                                    {/* Progress indicator */}
+                                    <span className="text-sm text-sys-onSurfaceVar font-bold">
+                                        ({completedSets}/{totalSets})
                                     </span>
-                                )}
-                                {/* Load range suggestion */}
-                                {loadRange && loadRange.min > 0 && loadRange.unit === 'kg' && (
-                                    <span className="text-xs text-sys-primary font-medium">
-                                        Suggested: {loadRange.min === loadRange.max
-                                            ? `${loadRange.min}kg`
-                                            : `${loadRange.min}-${loadRange.max}kg`}
-                                        {loadRange.perHand ? ' per hand' : ''}
-                                    </span>
-                                )}
-                            </div>
-                        )}
+                                </div>
                             </>
                         ) : null}
 

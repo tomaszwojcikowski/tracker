@@ -455,6 +455,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         <ExerciseOptionsBadge
                             optionCount={exerciseOptions.length}
                             hasSelection={!!selectedOption}
+                            selectedOptionName={selectedOption}
                             onClick={(e) => {
                                 e?.stopPropagation();
                                 haptic.bump();

@@ -519,6 +519,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 <ExerciseOptionsBadge
                                     optionCount={exerciseOptions.length}
                                     hasSelection={!!selectedOption}
+                                    selectedOptionName={selectedOption}
                                     onClick={() => {
                                         haptic.bump();
                                         if (onShowOptions) {

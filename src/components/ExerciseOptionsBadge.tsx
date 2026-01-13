@@ -12,6 +12,8 @@ export interface ExerciseOptionsBadgeProps {
     optionCount: number;
     /** Whether an option has been selected */
     hasSelection: boolean;
+    /** The name of the selected option */
+    selectedOptionName?: string;
     /** Click handler */
     onClick?: (e?: React.MouseEvent) => void;
 }
@@ -22,13 +24,14 @@ export interface ExerciseOptionsBadgeProps {
 export const ExerciseOptionsBadge: React.FC<ExerciseOptionsBadgeProps> = ({
     optionCount,
     hasSelection,
+    selectedOptionName,
     onClick,
 }) => {
     return (
         <button
             onClick={onClick}
             className={`
-                inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium
+                inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium
                 transition-all duration-200
                 ${
                     hasSelection
@@ -37,10 +40,16 @@ export const ExerciseOptionsBadge: React.FC<ExerciseOptionsBadgeProps> = ({
                 }
                 hover:scale-105 active:scale-95
             `}
-            title={hasSelection ? 'Change exercise option' : 'Select exercise option'}
+            title={hasSelection ? `Chosen: ${selectedOptionName}. Tap to change.` : 'Select exercise option'}
         >
             <Settings2 size={12} />
-            <span>{optionCount} options</span>
+            <span>
+                {hasSelection && selectedOptionName ? (
+                    <span className="max-w-[120px] truncate block">{selectedOptionName}</span>
+                ) : (
+                    `${optionCount} options`
+                )}
+            </span>
         </button>
     );
 };

@@ -2987,10 +2987,12 @@
                     "$ref": "ex-chest-supported-row",
                     "sets": 3,
                     "repsMin": 10,
-                    "repsMax": 12
+                    "repsMax": 12,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-face-pulls",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -3134,10 +3136,12 @@
                     "$ref": "ex-chest-supported-row",
                     "sets": 3,
                     "repsMin": 10,
-                    "repsMax": 12
+                    "repsMax": 12,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-face-pulls",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -3289,12 +3293,14 @@
                     "$ref": "ex-chest-supported-row",
                     "sets": 3,
                     "repsMin": 10,
-                    "repsMax": 12
+                    "repsMax": 12,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-face-pulls",
                     "sets": 3,
-                    "repsValue": 15
+                    "repsValue": 15,
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day3"

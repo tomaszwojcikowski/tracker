@@ -14,7 +14,7 @@ import { TopAppBar } from './components/TopAppBar';
 import { LoadingScreen, ErrorScreen } from './components/screens';
 import { SkipLink } from './components/SkipLink';
 import { Onboarding, hasCompletedOnboarding } from './components/Onboarding';
-import { FloatingTimerButton } from './components/FloatingTimerButton';
+import { UnifiedFloatingTimerButton } from './components/UnifiedFloatingTimerButton';
 import { useWorkoutTimer, useTheme } from './hooks';
 import { useProgram } from './context/ProgramContext';
 
@@ -423,7 +423,7 @@ const App: React.FC = () => {
                                         onProgressChange={handleProgressChange}
                                     />
                                 </Suspense>
-                                <FloatingTimerButton />
+                                <UnifiedFloatingTimerButton week={currentWeek} day={activeDay} />
                             </motion.main>
                         ) : viewMode === 'empty-workout' ? (
                             <motion.main
@@ -447,7 +447,7 @@ const App: React.FC = () => {
                                         onProgressChange={handleProgressChange}
                                     />
                                 </Suspense>
-                                <FloatingTimerButton />
+                                <UnifiedFloatingTimerButton week={0} day={0} />
                             </motion.main>
                         ) : (
                             <React.Fragment key="tab-content">
@@ -492,6 +492,8 @@ const App: React.FC = () => {
                                         {activeTab === 'profile' && <SettingsView />}
                                     </Suspense>
                                 </motion.div>
+                                {/* Show unified timer on dashboard (train tab) */}
+                                {activeTab === 'train' && <UnifiedFloatingTimerButton week={currentWeek} day={0} />}
                                 <NavigationBar activeTab={activeTab} onTabChange={handleTabChange} />
                             </React.Fragment>
                         )}

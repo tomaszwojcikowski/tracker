@@ -198,6 +198,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const [showExerciseSelector, setShowExerciseSelector] = useState(false);
     const [exerciseSearchTerm, setExerciseSearchTerm] = useState('');
     const [selectedMuscleFilter, setSelectedMuscleFilter] = useState<MuscleFilter>('all');
+    const [isDensityFullscreen, setIsDensityFullscreen] = useState(false);
     const [exerciseDetail, setExerciseDetail] = useState<ExerciseDetailRequest | null>(null);
     const [workoutNotes, setWorkoutNotes] = useState('');
     const [showNotesModal, setShowNotesModal] = useState(false);
@@ -1462,6 +1463,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         onShowOptions={handleShowOptions}
                         onUpdateDensityRepChunks={updateDensityRepChunks}
                         onMarkDensityComplete={markDensityComplete}
+                        onExpandDensity={(exId) => {
+                            setActiveDensityExerciseId(exId);
+                            setIsDensityFullscreen(true);
+                        }}
                     />
                 ) : (
                     <>
@@ -1644,10 +1649,18 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     densityTimerActive={densityTimer.active}
                                                     onToggleDensityTimer={() => {
                                                         if (exerciseWithOptions.densityTimeMinutes) {
+                                                            const isStarting = !densityTimer.active;
                                                             setActiveDensityExerciseId(exId);
                                                             stopOtherTimers('density');
                                                             densityTimer.toggle(exerciseWithOptions.densityTimeMinutes);
+                                                            if (isStarting) {
+                                                                setIsDensityFullscreen(true);
+                                                            }
                                                         }
+                                                    }}
+                                                    onExpandDensity={() => {
+                                                        setActiveDensityExerciseId(exId);
+                                                        setIsDensityFullscreen(true);
                                                     }}
                                                     flowTimerActive={flowTimer.active}
                                                     onToggleFlowTimer={() => {
@@ -1703,9 +1716,17 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 {...rpeProps}
                                                 {...timerProps}
                                                 onToggleDensityTimer={(timeMinutes) => {
+                                                    const isStarting = !densityTimer.active;
                                                     setActiveDensityExerciseId(exId);
                                                     stopOtherTimers('density');
                                                     densityTimer.toggle(timeMinutes);
+                                                    if (isStarting) {
+                                                        setIsDensityFullscreen(true);
+                                                    }
+                                                }}
+                                                onExpandDensity={() => {
+                                                    setActiveDensityExerciseId(exId);
+                                                    setIsDensityFullscreen(true);
                                                 }}
                                                 onToggleFlowTimer={(timeMinutes) => {
                                                     setActiveFlowExerciseId(exId);
@@ -1835,6 +1856,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     setDensityActive={densityTimer.setActive}
                     setDensitySeconds={densityTimer.setSeconds}
                     densityRepControls={densityRepControlsForFullscreen}
+                    isDensityFullscreen={isDensityFullscreen}
+                    onDensityFullscreenChange={setIsDensityFullscreen}
                 />
 
                 {/* Finish Confirmation Dialog */}

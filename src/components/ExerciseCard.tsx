@@ -19,6 +19,7 @@ import {
     History,
     Timer,
     Gauge,
+    Maximize2,
     Clock,
     Dumbbell,
 } from './icons';
@@ -132,6 +133,7 @@ export interface ExerciseCardProps {
     onClearRPEPrompt: () => void;
     onStartRestTimer: (seconds: number) => void;
     onToggleEmomTimer: () => void;
+    onExpandDensity?: () => void;
     /** Toggle density timer for this exercise (expects minutes) */
     onToggleDensityTimer?: (timeMinutes: number) => void;
     /** Toggle flow timer for this exercise (expects minutes) */
@@ -200,6 +202,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     onClearRPEPrompt,
     onStartRestTimer,
     onToggleEmomTimer,
+    onExpandDensity,
     onToggleDensityTimer,
     onToggleFlowTimer,
     timeSeconds,
@@ -245,7 +248,13 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                         <span>{densityTimeMinutes}m</span>
                     </>
                 ),
-                onClick: () => onToggleDensityTimer(densityTimeMinutes),
+                onClick: () => {
+                    const isStarting = !densityTimerActive;
+                    onToggleDensityTimer(densityTimeMinutes);
+                    if (isStarting && onExpandDensity) {
+                        onExpandDensity();
+                    }
+                },
             };
         }
 
@@ -547,26 +556,40 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                     {/* Right-side header action */}
                     {focusTimerButton ? (
-                        <button
-                            onClick={() => {
-                                haptic.tick();
-                                focusTimerButton.onClick();
-                            }}
-                            className={`h-12 px-4 rounded-lg flex items-center justify-center gap-1.5 active:scale-90 transition-all text-sm font-medium ${
-                                focusTimerButton.active
-                                    ? focusTimerButton.variant === 'emom'
-                                        ? 'bg-sys-tertiary text-sys-onTertiary ring-2 ring-sys-tertiary/50'
-                                        : focusTimerButton.variant === 'density'
-                                        ? 'bg-sys-secondary text-sys-onSecondary ring-2 ring-sys-secondary/50'
-                                        : focusTimerButton.variant === 'rest'
-                                        ? 'bg-sys-surfaceHigh text-sys-onSurfaceVar ring-2 ring-sys-primary/50 font-bold'
-                                        : 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
-                                    : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
-                            }`}
-                            aria-label={focusTimerButton.ariaLabel}
-                        >
-                            {focusTimerButton.label}
-                        </button>
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => {
+                                    haptic.tick();
+                                    focusTimerButton.onClick();
+                                }}
+                                className={`h-12 px-4 rounded-lg flex items-center justify-center gap-1.5 active:scale-90 transition-all text-sm font-medium ${
+                                    focusTimerButton.active
+                                        ? focusTimerButton.variant === 'emom'
+                                            ? 'bg-sys-tertiary text-sys-onTertiary ring-2 ring-sys-tertiary/50'
+                                            : focusTimerButton.variant === 'density'
+                                            ? 'bg-sys-secondary text-sys-onSecondary ring-2 ring-sys-secondary/50'
+                                            : focusTimerButton.variant === 'rest'
+                                            ? 'bg-sys-surfaceHigh text-sys-onSurfaceVar ring-2 ring-sys-primary/50 font-bold'
+                                            : 'bg-sys-primary text-sys-onPrimary ring-2 ring-sys-primary/50'
+                                        : 'bg-sys-surfaceHigh text-sys-onSurfaceVar'
+                                }`}
+                                aria-label={focusTimerButton.ariaLabel}
+                            >
+                                {focusTimerButton.label}
+                            </button>
+                            {focusTimerButton.variant === 'density' && focusTimerButton.active && onExpandDensity && (
+                                <button
+                                    onClick={() => {
+                                        haptic.tick();
+                                        onExpandDensity();
+                                    }}
+                                    className="h-12 w-12 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
+                                    aria-label="Expand density timer"
+                                >
+                                    <Maximize2 size={20} />
+                                </button>
+                            )}
+                        </div>
                     ) : !hideCollapseButton ? (
                         <button
                             onClick={() => {
@@ -659,6 +682,15 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                             <Gauge size={18} />
                                             <span>{densityTimeMinutes}m</span>
                                         </button>
+                                        {densityTimerActive && onExpandDensity && (
+                                            <button
+                                                onClick={onExpandDensity}
+                                                className="ml-2 h-12 w-12 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-all shadow-sm"
+                                                aria-label="Expand layout"
+                                            >
+                                                <Maximize2 size={18} />
+                                            </button>
+                                        )}
                                     </div>
                                 )}
 

@@ -7,7 +7,7 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo, memo } from 'react';
-import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2, Timer, Gauge, Clock, Dumbbell } from './icons';
+import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2, Timer, Gauge, Maximize2, Clock, Dumbbell } from './icons';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getShortExerciseName } from '../constants';
 import { CompactSetButtons } from './CompactSetButtons';
@@ -134,6 +134,8 @@ export interface CompactExerciseRowProps {
     densityTimerActive?: boolean;
     /** Callback to toggle density timer */
     onToggleDensityTimer?: () => void;
+    /** Callback to expand density timer */
+    onExpandDensity?: () => void;
     /** Flow timer active state */
     flowTimerActive?: boolean;
     /** Callback to toggle flow timer */
@@ -197,6 +199,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     onToggleEmomTimer,
     densityTimerActive = false,
     onToggleDensityTimer,
+    onExpandDensity,
     flowTimerActive = false,
     onToggleFlowTimer,
     densityRepChunks = [],
@@ -585,6 +588,15 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         <span>{densityTimeMinutes}m</span>
                     </button>
                 )}
+                {isDensity && densityTimerActive && onExpandDensity && (
+                    <button
+                        onClick={onExpandDensity}
+                        className="h-8 w-8 rounded-lg bg-sys-surfaceContainerLow text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-all flex-shrink-0"
+                        aria-label="Expand density timer"
+                    >
+                        <Maximize2 size={12} />
+                    </button>
+                )}
 
                 {/* Flow Timer Button - show on active row for flow exercises */}
                 {isFlow && onToggleFlowTimer && flowTimeMinutes && (
@@ -761,6 +773,15 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                             >
                                 <Gauge size={12} />
                                 <span>{densityTimeMinutes}m</span>
+                            </button>
+                        )}
+                        {isDensity && densityTimerActive && onExpandDensity && (
+                            <button
+                                onClick={onExpandDensity}
+                                className="h-8 w-8 rounded-lg bg-sys-surfaceContainerLow text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-all"
+                                aria-label="Expand density timer"
+                            >
+                                <Maximize2 size={12} />
                             </button>
                         )}
 

@@ -10,6 +10,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { useHaptic } from '../hooks';
 import { X, Minus, Plus, Maximize2, Repeat, Play, Pause, Gauge } from './icons';
 import { FullscreenTimer } from './FullscreenTimer';
+import { DensityRepControls } from './DensityRepControls';
 import { safeGetJSON, safeSetJSON } from '../utils/storage';
 import { formatSecondsShort } from './TimeBadge';
 
@@ -56,6 +57,10 @@ export interface ActionBarProps {
 
   /** Optional density rep controls to show inside fullscreen density timer */
   densityRepControls?: DensityRepControlsState;
+
+  /** Fullscreen control (optional, can be managed internally if not provided) */
+  isDensityFullscreen?: boolean;
+  onDensityFullscreenChange?: (fullscreen: boolean) => void;
 }
 
 const getDensityBaseSeconds = (state?: DensityState): number =>
@@ -78,11 +83,21 @@ export function ActionBar({
   setDensityActive,
   setDensitySeconds,
   densityRepControls,
+  isDensityFullscreen: externalIsDensityFullscreen,
+  onDensityFullscreenChange,
 }: ActionBarProps) {
   const haptic = useHaptic();
   const [isRestFullscreen, setIsRestFullscreen] = useState(false);
   const [isEmomFullscreen, setIsEmomFullscreen] = useState(false);
-  const [isDensityFullscreen, setIsDensityFullscreen] = useState(false);
+  const [internalIsDensityFullscreen, setInternalIsDensityFullscreen] = useState(false);
+
+  // Sync internal fullscreen state with external if provided
+  const isDensityFullscreen = externalIsDensityFullscreen ?? internalIsDensityFullscreen;
+  const setIsDensityFullscreen = useCallback((val: boolean) => {
+    setInternalIsDensityFullscreen(val);
+    onDensityFullscreenChange?.(val);
+  }, [onDensityFullscreenChange]);
+
   const [soundEnabled, setSoundEnabled] = useState(() =>
     safeGetJSON<boolean>('rest_timer_sound', true) ?? true
   );
@@ -422,13 +437,13 @@ export function ActionBar({
               style={{ width: `${densityProgress}%` }}
             />
             <div className="flex items-center gap-2 sm:gap-3 mb-3">
-              {/* Expand button */}
+              {/* Fullscreen button */}
               <button
                 onClick={handleExpandDensity}
                 className="btn-icon h-12 w-12 bg-sys-tertiaryContainer text-sys-onTertiaryContainer hover:brightness-110"
                 aria-label="Expand density timer to fullscreen"
               >
-                <Gauge size={20} />
+                <Maximize2 size={24} />
               </button>
               <span className="text-xs font-semibold text-sys-tertiary uppercase tracking-wider">
                 Density
@@ -472,6 +487,20 @@ export function ActionBar({
               </button>
             </div>
 
+            {/* Rep Counting Section */}
+            {densityRepControls && (
+              <div className="mt-3 pt-3 border-t border-sys-outlineVariant/20">
+                <DensityRepControls
+                  variant="actionBar"
+                  targetReps={densityRepControls.targetReps}
+                  repChunks={densityRepControls.repChunks}
+                  isComplete={densityRepControls.isComplete}
+                  haptic={haptic}
+                  onUpdateRepChunks={densityRepControls.onUpdateRepChunks}
+                  onMarkComplete={densityRepControls.onMarkComplete}
+                />
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -163,6 +163,7 @@ export interface FocusViewProps {
     /** Density exercise callbacks for rep tracking and completion */
     onUpdateDensityRepChunks?: (exId: string, chunks: number[]) => void;
     onMarkDensityComplete?: (exId: string, complete: boolean) => void;
+    onExpandDensity?: (exId: string) => void;
     /** Selected exercise options by exercise ID */
     selectedExerciseOptions?: Record<string, string>;
     /** Callback when exercise options button is clicked */
@@ -198,6 +199,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
     onRemoveAddedExercise,
     onUpdateDensityRepChunks,
     onMarkDensityComplete,
+    onExpandDensity,
     selectedExerciseOptions = {},
     onShowOptions,
 }) => {
@@ -380,13 +382,19 @@ export const FocusView: React.FC<FocusViewProps> = ({
                 const densityEx = exerciseProps.find((p) => p.flags.isDensity);
                 if (densityEx) {
                     const { flags } = densityEx;
-                    supersetTimer = {
-                        icon: <Gauge size={16} />,
-                        label: `${flags.densityTimeMinutes}m`,
-                        active: densityTimer?.active,
-                        onClick: () => densityTimer?.toggle(flags.densityTimeMinutes || 0),
-                        ariaLabel: densityTimer?.active ? 'Stop density timer' : `Start ${flags.densityTimeMinutes}m density timer`,
-                    };
+                        supersetTimer = {
+                            icon: <Gauge size={16} />,
+                            label: `${flags.densityTimeMinutes}m`,
+                            active: densityTimer?.active,
+                            onClick: () => {
+                                const isStarting = !densityTimer?.active;
+                                densityTimer?.toggle(flags.densityTimeMinutes || 0);
+                                if (isStarting) {
+                                    onExpandDensity?.(densityEx.id);
+                                }
+                            },
+                            ariaLabel: densityTimer?.active ? 'Stop density timer' : `Start ${flags.densityTimeMinutes}m density timer`,
+                        };
                 }
             }
 
@@ -512,6 +520,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                                     onShowOptions={onShowOptions}
                                     onUpdateDensityRepChunks={onUpdateDensityRepChunks}
                                     onMarkDensityComplete={onMarkDensityComplete}
+                                    onExpandDensity={() => onExpandDensity?.(exId)}
                                 />
                             </div>
                         );
@@ -562,6 +571,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                 onShowOptions={onShowOptions}
                 onUpdateDensityRepChunks={onUpdateDensityRepChunks}
                 onMarkDensityComplete={onMarkDensityComplete}
+                onExpandDensity={() => onExpandDensity?.(exId)}
             />
         );
     }, [

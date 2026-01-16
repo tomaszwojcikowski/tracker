@@ -25,6 +25,8 @@ export interface DensityRepControlsProps {
     onUpdateRepChunks: (chunks: number[]) => void;
     /** Callback to mark as complete */
     onMarkComplete: (complete: boolean) => void;
+    /** Simplified variant for bottom action bar */
+    variant?: 'default' | 'actionBar';
 }
 
 export const DensityRepControls = ({
@@ -35,6 +37,7 @@ export const DensityRepControls = ({
     haptic,
     onUpdateRepChunks,
     onMarkComplete,
+    variant = 'default',
 }: DensityRepControlsProps) => {
     const [chunkInput, setChunkInput] = useState('');
 
@@ -73,6 +76,66 @@ export const DensityRepControls = ({
         haptic.tick();
         onUpdateRepChunks([...repChunks, amount]);
     }, [repChunks, haptic, onUpdateRepChunks]);
+
+    const handleUndo = useCallback(() => {
+        haptic.bump();
+        const newChunks = [...repChunks];
+        newChunks.pop();
+        onUpdateRepChunks(newChunks);
+    }, [repChunks, haptic, onUpdateRepChunks]);
+
+    if (variant === 'actionBar') {
+        return (
+            <div className="flex flex-col gap-3">
+                <div className="flex items-center justify-between">
+                    <div className="flex flex-col">
+                        <span className="text-[10px] uppercase tracking-wider font-bold text-sys-onSurfaceVar/70">
+                            Reps Completed
+                        </span>
+                        <span className="text-xl font-mono font-bold text-sys-tertiary">
+                            {totalReps}
+                            <span className="text-xs text-sys-onSurfaceVar/60 ml-1">
+                                / {targetReps}
+                            </span>
+                        </span>
+                    </div>
+                    <div className="flex gap-1.5 overflow-x-auto pb-1 max-w-[200px] sm:max-w-none no-scrollbar">
+                        {[1, 2, 3, 5, 10].map(val => (
+                            <button
+                                key={val}
+                                onClick={() => handleQuickAdd(val)}
+                                className="h-10 px-3 min-w-[40px] rounded-xl bg-sys-tertiaryContainer text-sys-onTertiaryContainer text-sm font-bold active:scale-95 transition-all shadow-sm flex items-center justify-center border border-sys-tertiary/20"
+                                aria-label={`Add ${val} reps`}
+                            >
+                                +{val}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                {repChunks.length > 0 && (
+                    <div className="flex items-center justify-between gap-2">
+                        <div className="flex flex-wrap gap-1 max-h-[22px] overflow-hidden flex-1 opacity-60">
+                            {repChunks.slice(-5).map((chunk, i) => (
+                                <span key={i} className="text-[10px] bg-sys-surfaceContainerHighest px-1.5 py-0.5 rounded border border-sys-outlineVariant/20">
+                                    {chunk}
+                                </span>
+                            ))}
+                            {repChunks.length > 5 && <span className="text-[10px]">...</span>}
+                        </div>
+                        <button
+                            onClick={handleUndo}
+                            className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-sys-surfaceContainerHighest text-sys-onSurface text-[10px] font-bold active:scale-95 transition-all shadow-sm border border-sys-outlineVariant/20"
+                            aria-label="Undo last entry"
+                        >
+                            <Minus size={12} />
+                            <span>Undo</span>
+                        </button>
+                    </div>
+                )}
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-2">

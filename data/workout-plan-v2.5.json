@@ -3503,7 +3503,7 @@
         "weeks": [
           {
             "weekNumber": 5,
-            "description": "Moderate intensity start, EMOM volume introduction",
+            "description": "Wave method start - gradual transition from ladders, introduce feet-elevated rows",
             "volumeLevel": "moderate",
             "intensityLevel": "moderate",
             "days": [
@@ -3512,7 +3512,7 @@
                 "name": "Pull Volume",
                 "type": "strength",
                 "estimatedDuration": 78,
-                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: ~40 reps. Core Focus (Dynamic): [HARD WEEK]",
+                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: ~39 reps. Core Focus (Dynamic): [HARD WEEK]",
                 "exercises": [
                   {
                     "$routine": "warmup-mountain-climbers-protocol"
@@ -3527,17 +3527,19 @@
                     "$ref": "ex-tuck-planche"
                   },
                   {
-                    "$ref": "ex-pull-up-density",
-                    "densityRepsTotal": 32,
-                    "densityTimeMinutes": 8,
-                    "notes": "Density introduction. Complete 32 reps in 8 minutes"
+                    "$ref": "ex-pull-up-ladders",
+                    "sets": 5,
+                    "notes": "Continue ladder progression from Block 1. Total: 30 reps (5 ladders x 6 reps)"
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
+                    "repsValue": 8,
+                    "sets": 3,
+                    "notes": "Introduction to elevated variation - start conservative",
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-parallette-pushups",
+                    "$ref": "ex-incline-pushups",
                     "supersetGroup": 1
                   },
                   {
@@ -3610,41 +3612,33 @@
                 "name": "Pull Intensity",
                 "type": "strength",
                 "estimatedDuration": 75,
-                "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 8 reps. Day 5 Accessory Timer: 10 Min Cap",
+                "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 9 reps. Day 5 Accessory Timer: 10 Min Cap",
                 "exercises": [
                   {
                     "$routine": "warmup-day5-pull-intensity-push"
                   },
                   {
-                    "$ref": "ex-pppu-lean"
+                    "$ref": "ex-hspu-volume"
                   },
                   {
                     "$ref": "ex-weighted-pull-ups",
-                    "sets": 2,
-                    "repsValue": 4,
-                    "loadMin": 10,
-                    "loadMax": 10,
-                    "notes": "Double Progression. Total: 8 reps"
+                    "sets": 3,
+                    "repsValue": 3,
+                    "loadMin": 12.5,
+                    "loadMax": 15,
+                    "notes": "Increase sets, reduce reps. Total: 9 reps. Focus on control."
                   },
                   {
                     "$ref": "ex-weighted-dips",
-                    "loadMin": 5,
-                    "loadMax": 10
+                    "sets": 3,
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "loadMin": 2.5,
+                    "loadMax": 5,
+                    "notes": "Light weight introduction"
                   },
                   {
                     "$routine": "superset-bss"
-                  },
-                  {
-                    "$ref": "ex-weighted-hollow-rocks",
-                    "sets": 3,
-                    "loadMin": 3,
-                    "loadMax": 5,
-                    "repsValue": 15,
-                    "restSeconds": 0,
-                    "supersetGroup": 1,
-                    "isEmom": true,
-                    "notes": "3-min EMOM with BSS",
-                    "category": "main"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -3655,16 +3649,16 @@
           },
           {
             "weekNumber": 6,
-            "description": "Volume peak for EMOMs",
-            "volumeLevel": "high",
+            "description": "Density introduction with conservative volume",
+            "volumeLevel": "moderate",
             "intensityLevel": "moderate",
             "days": [
               {
                 "dayNumber": 1,
                 "name": "Pull Volume",
                 "type": "strength",
-                "estimatedDuration": 82,
-                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: 40 reps. Core Focus (Dynamic): [RECOVERY WEEK]",
+                "estimatedDuration": 80,
+                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: ~38 reps. Core Focus (Dynamic): [RECOVERY WEEK]",
                 "exercises": [
                   {
                     "$routine": "warmup-rower-protocol"
@@ -3680,9 +3674,9 @@
                   },
                   {
                     "$ref": "ex-pull-up-density",
-                    "densityRepsTotal": 36,
-                    "densityTimeMinutes": 9,
-                    "notes": "Volume peak. Complete 36 reps in 9 minutes"
+                    "densityRepsTotal": 28,
+                    "densityTimeMinutes": 8,
+                    "notes": "Density introduction - conservative volume. Complete 28 reps in 8 minutes"
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -3691,7 +3685,7 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-parallette-pushups",
+                    "$ref": "ex-incline-pushups",
                     "repsValue": 10,
                     "sets": 3,
                     "supersetGroup": 1
@@ -3763,7 +3757,7 @@
                 "name": "Pull Intensity",
                 "type": "strength",
                 "estimatedDuration": 70,
-                "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 4 reps",
+                "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 10 reps",
                 "exercises": [
                   {
                     "$routine": "warmup-day5-pull-intensity-push"
@@ -3773,11 +3767,11 @@
                   },
                   {
                     "$ref": "ex-weighted-pull-ups",
-                    "sets": 1,
-                    "repsValue": 4,
-                    "loadMin": 5,
-                    "loadMax": 10,
-                    "notes": "Heavy single set. Total: 4 reps"
+                    "sets": 2,
+                    "repsValue": 5,
+                    "loadMin": 12.5,
+                    "loadMax": 15,
+                    "notes": "Back to volume, moderate weight. Total: 10 reps"
                   },
                   {
                     "$ref": "ex-weighted-dips",
@@ -3805,7 +3799,7 @@
           },
           {
             "weekNumber": 7,
-            "description": "Intensity Peak. Shifting to triples for speed",
+            "description": "Density volume increase and parallette progression",
             "volumeLevel": "high",
             "intensityLevel": "high",
             "days": [
@@ -3830,9 +3824,9 @@
                   },
                   {
                     "$ref": "ex-pull-up-density",
-                    "densityRepsTotal": 30,
-                    "densityTimeMinutes": 10,
-                    "notes": "Intensity peak. Complete 30 reps in 10 minutes"
+                    "densityRepsTotal": 36,
+                    "densityTimeMinutes": 9,
+                    "notes": "Density volume peak. Complete 36 reps in 9 minutes"
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -3923,14 +3917,14 @@
                     "$ref": "ex-weighted-pull-ups",
                     "sets": 3,
                     "repsValue": 3,
-                    "loadMin": 5,
-                    "loadMax": 10,
-                    "notes": "Heavy triples. Total: 9 reps"
+                    "loadMin": 15,
+                    "loadMax": 17.5,
+                    "notes": "Heavier triples for intensity. Total: 9 reps"
                   },
                   {
                     "$ref": "ex-weighted-dips",
                     "repsValue": 8,
-                    "loadMin": 5,
+                    "loadMin": 7.5,
                     "loadMax": 10
                   },
                   {

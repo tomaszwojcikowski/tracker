@@ -379,9 +379,10 @@ export const FocusView: React.FC<FocusViewProps> = ({
 
             // 2. Try Density
             if (!supersetTimer) {
-                const densityEx = exerciseProps.find((p) => p.flags.isDensity);
-                if (densityEx) {
-                    const { flags } = densityEx;
+                const densityExIndex = exerciseProps.findIndex((p) => p.flags.isDensity);
+                if (densityExIndex !== -1) {
+                    const { flags } = exerciseProps[densityExIndex];
+                    const densityExId = item.exercises[densityExIndex].id;
                         supersetTimer = {
                             icon: <Gauge size={16} />,
                             label: `${flags.densityTimeMinutes}m`,
@@ -390,7 +391,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                                 const isStarting = !densityTimer?.active;
                                 densityTimer?.toggle(flags.densityTimeMinutes || 0);
                                 if (isStarting) {
-                                    onExpandDensity?.(densityEx.id);
+                                    onExpandDensity?.(densityExId);
                                 }
                             },
                             ariaLabel: densityTimer?.active ? 'Stop density timer' : `Start ${flags.densityTimeMinutes}m density timer`,

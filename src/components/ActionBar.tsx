@@ -8,7 +8,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { useHaptic } from '../hooks';
-import { X, Minus, Plus, Maximize2, Repeat, Play, Pause, Gauge } from './icons';
+import { X, Minus, Plus, Maximize2, Repeat, Play, Pause } from './icons';
 import { FullscreenTimer } from './FullscreenTimer';
 import { DensityRepControls } from './DensityRepControls';
 import { safeGetJSON, safeSetJSON } from '../utils/storage';

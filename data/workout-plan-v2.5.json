@@ -1235,10 +1235,12 @@
         ],
         "exercises": [
           {
-            "$ref": "ex-bulgarian-split-squat-left"
+            "$ref": "ex-bulgarian-split-squat-left",
+            "sets": 3
           },
           {
-            "$ref": "ex-bulgarian-split-squat-right"
+            "$ref": "ex-bulgarian-split-squat-right",
+            "sets": 3
           }
         ]
       },

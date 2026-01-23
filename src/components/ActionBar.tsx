@@ -373,6 +373,9 @@ export function ActionBar({
                   <Repeat size={12} className="text-sys-onPrimaryContainer" />
                   <span className="text-xs font-bold text-sys-onPrimaryContainer">
                     Round {emomState.round}
+                    {emomState.totalRounds && emomState.totalRounds > 0
+                      ? `/${emomState.totalRounds}`
+                      : ''}
                   </span>
                 </div>
               )}

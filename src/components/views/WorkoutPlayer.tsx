@@ -328,21 +328,38 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         }
     }, [restTimer, emomTimer, densityTimer, flowTimer]);
 
+    const startEmomWithInterval = useCallback((interval: number) => {
+        emomTimer.setIntervalState(interval);
+        emomTimer.setSeconds(interval);
+        emomTimer.setRound(1);
+        emomTimer.setActive(true);
+    }, [emomTimer]);
+
     // Shared wrappers: always stop other timers before starting/toggling a timer.
-    const wrappedEmomToggle = useCallback((totalRounds?: number) => {
+    const wrappedEmomToggle = useCallback((totalRounds?: number, intervalOverride?: number) => {
         stopOtherTimers('emom');
+        const wasActive = emomTimer.active;
+
+        if (!wasActive && intervalOverride !== undefined) {
+            if (totalRounds !== undefined) {
+                setEmomTotalRounds(totalRounds);
+            }
+            startEmomWithInterval(intervalOverride);
+            return;
+        }
+
         // Store totalRounds when starting the EMOM timer
         if (totalRounds !== undefined) {
             setEmomTotalRounds(totalRounds);
         }
-        // Check if timer is active BEFORE toggling (state hasn't updated yet)
-        const wasActive = emomTimer.active;
+
         emomTimer.toggle();
+
         // Clear totalRounds when stopping (timer was active before toggle)
         if (wasActive) {
             setEmomTotalRounds(undefined);
         }
-    }, [stopOtherTimers, emomTimer]);
+    }, [stopOtherTimers, emomTimer, startEmomWithInterval]);
 
     const wrappedDensityToggle = useCallback((minutes: number) => {
         stopOtherTimers('density');
@@ -791,7 +808,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         defaultSets: number,
         restTime?: number,
         sectionType?: string,
-        isEmom?: boolean
+        isEmom?: boolean,
+        emomInterval?: number
     ): void => {
         try {
             haptic.tick();
@@ -863,10 +881,15 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                 // Start rest timer if completing and there are incomplete sets remaining
                 if (isEmom) {
                     // For EMOM supersets, ensure the EMOM timer is running
+                    // Use provided interval if available, otherwise default to 60s
+                    const intervalToUse = emomInterval && emomInterval > 0 ? emomInterval : 60;
                     if (!emomTimer.active) {
+                        setEmomTotalRounds(defaultSets);
                         stopOtherTimers('emom');
-                        emomTimer.start();
+                        startEmomWithInterval(intervalToUse);
+                        return;
                     }
+                    emomTimer.setIntervalState(intervalToUse);
                 } else if (typeof restTime === 'number' && restTime > 0 && hasIncompleteSetsAfter) {
                     // Check if rest timer should be disabled for this section (warmup/cooldown)
                     const shouldDisableTimer = sectionType === 'prep' || sectionType === 'cool';
@@ -1569,6 +1592,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                             const effectiveName = getEffectiveExerciseName(exerciseWithOptions);
                                             const hasHistory = getExerciseHistory(effectiveName).length > 0;
                                             const isFirstIncomplete = exId === firstIncompleteExerciseId;
+                                            const emomIntervalForExercise = flags.isEmom ? 60 : emomTimer.interval;
+                                            const onToggleEmomForExercise = flags.isEmom
+                                                ? () => wrappedEmomToggle(undefined, 60)
+                                                : wrappedEmomToggle;
 
                                             // Check if this exercise is part of a superset group
                                             if (ex.supersetGroup !== undefined) {
@@ -1602,6 +1629,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         weight: gexLog.weight || '',
                                                         isBodyweight: gex.isBodyweight,
                                                         restTime: gex.rest,
+                                                        restSeconds: gex.rest,
                                                         hasHistory: gexHasHistory,
                                                         alternatives: gex.alternatives,
                                                         isEmom: gex.isEmom,
@@ -1615,6 +1643,11 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     (gex) => getExerciseId(gex.name) === firstIncompleteExerciseId
                                                 );
 
+                                                const emomIntervalOverride = supersetExercises[0]?.restSeconds;
+                                                const emomIntervalForDisplay = emomIntervalOverride && emomIntervalOverride > 0
+                                                    ? emomIntervalOverride
+                                                    : 60;
+
                                                 elements.push(
                                                     <SupersetGroup
                                                         key={`superset-${ex.supersetGroup}`}
@@ -1622,7 +1655,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         isFirstIncomplete={groupHasFirstIncomplete}
                                                         haptic={haptic}
                                                         emomTimerActive={emomTimer.active}
-                                                        emomTimerInterval={emomTimer.interval}
+                                                        emomTimerInterval={emomIntervalForDisplay}
                                                         onToggleRound={toggleSupersetRound}
                                                         onWeightChange={handleWeightChange}
                                                         onToggleEmomTimer={wrappedEmomToggle}
@@ -1657,8 +1690,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     sectionType={section.type}
                                                     restTimerActive={restTimer.active}
                                                     emomTimerActive={emomTimer.active}
-                                                    emomTimerInterval={emomTimer.interval}
-                                                    onToggleEmomTimer={wrappedEmomToggle}
+                                                    emomTimerInterval={emomIntervalForExercise}
+                                                    onToggleEmomTimer={onToggleEmomForExercise}
                                                     densityTimerActive={densityTimer.active}
                                                     onToggleDensityTimer={() => {
                                                         if (exerciseWithOptions.densityTimeMinutes) {
@@ -1710,6 +1743,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         const hasHistory = getExerciseHistory(effectiveName).length > 0;
                                         const isCollapsed = exerciseCollapse.isCollapsed(exId);
                                         const isFirstIncomplete = exId === firstIncompleteExerciseId;
+                                        const emomIntervalForExercise = flags.isEmom ? 60 : emomTimer.interval;
+                                        const onToggleEmomForExercise = flags.isEmom
+                                            ? () => wrappedEmomToggle(undefined, 60)
+                                            : wrappedEmomToggle;
 
                                         return (
                                             <ExerciseCard
@@ -1728,6 +1765,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 isCollapsed={isCollapsed}
                                                 {...rpeProps}
                                                 {...timerProps}
+                                                emomTimerInterval={emomIntervalForExercise}
+                                                onToggleEmomTimer={onToggleEmomForExercise}
                                                 onToggleDensityTimer={(timeMinutes) => {
                                                     const isStarting = !densityTimer.active;
                                                     setActiveDensityExerciseId(exId);

@@ -128,6 +128,20 @@ describe('ExerciseCard', () => {
             expect(screen.getByText('EMOM')).toBeInTheDocument();
         });
 
+        it('should render EMOM timer button with 1m label', () => {
+            render(
+                <ExerciseCard
+                    {...defaultProps}
+                    isEmom={true}
+                    sectionType="main"
+                    emomTimerInterval={60}
+                />
+            );
+
+            expect(screen.getByRole('button', { name: 'Start 1m EMOM timer' })).toBeInTheDocument();
+            expect(screen.getByText('1m')).toBeInTheDocument();
+        });
+
         it('should hide content when collapsed', () => {
             render(<ExerciseCard {...defaultProps} isCollapsed={true} />);
 

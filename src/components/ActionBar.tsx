@@ -35,6 +35,8 @@ export interface EmomState {
   interval: number;
   /** Current round number (1-based) */
   round?: number;
+  /** Total number of rounds (for EMOM supersets) */
+  totalRounds?: number;
 }
 
 export interface DensityState {
@@ -304,6 +306,7 @@ export function ActionBar({
         seconds={emomState.seconds}
         totalSeconds={emomState.interval}
         round={emomState.round}
+        totalRounds={emomState.totalRounds}
         onStop={handleStopEmom}
         onAddTime={() => {}} // EMOM doesn't use add time
         onMinimize={handleMinimizeEmom}
@@ -370,6 +373,9 @@ export function ActionBar({
                   <Repeat size={12} className="text-sys-onPrimaryContainer" />
                   <span className="text-xs font-bold text-sys-onPrimaryContainer">
                     Round {emomState.round}
+                    {emomState.totalRounds && emomState.totalRounds > 0
+                      ? `/${emomState.totalRounds}`
+                      : ''}
                   </span>
                 </div>
               )}

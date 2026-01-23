@@ -48,6 +48,7 @@ describe('SupersetGroup', () => {
         weight: '16',
         isBodyweight: false,
         restTime: 60,
+        restSeconds: 60,
         isEmom: true,
         isUnilateral: true,
       },
@@ -61,6 +62,7 @@ describe('SupersetGroup', () => {
         weight: '16',
         isBodyweight: false,
         restTime: 60,
+        restSeconds: 60,
         isEmom: true,
         isUnilateral: true,
       },
@@ -102,6 +104,22 @@ describe('SupersetGroup', () => {
       expect(screen.getByText(/EMOM SUPERSET/)).toBeInTheDocument();
     });
 
+      it('should display EMOM timer button with 60s interval by default', () => {
+        render(
+          <SupersetGroup
+            exercises={mockExercises}
+            haptic={mockHaptic}
+            onToggleRound={vi.fn()}
+            onWeightChange={vi.fn()}
+            onCompleteAllRounds={vi.fn()}
+            onToggleEmomTimer={vi.fn()}
+          />
+        );
+
+        expect(screen.getByRole('button', { name: 'Start EMOM timer with 60 second interval' })).toBeInTheDocument();
+        expect(screen.getByText('60s')).toBeInTheDocument();
+      });
+
     it('should show plain SUPERSET badge when exercises do not have isEmom flag', () => {
       const nonEmomExercises = [
         {
@@ -141,6 +159,77 @@ describe('SupersetGroup', () => {
       // Should show plain SUPERSET badge, not EMOM SUPERSET
       expect(screen.getByText('SUPERSET')).toBeInTheDocument();
       expect(screen.queryByText(/EMOM SUPERSET/)).not.toBeInTheDocument();
+    });
+
+    it('should display total rounds in expanded header', () => {
+      render(
+        <SupersetGroup
+          exercises={mockExercises}
+          haptic={mockHaptic}
+          onToggleRound={vi.fn()}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+        />
+      );
+
+      // Should show "3 Rounds" text
+      expect(screen.getByText('3 Rounds')).toBeInTheDocument();
+    });
+
+    it('should use max set count across exercises for total rounds', () => {
+      const mixedSetExercises = [
+        {
+          ...mockExercises[0],
+          defaultSets: 2,
+          sets: [false, false],
+        },
+        {
+          ...mockExercises[1],
+          defaultSets: 4,
+          sets: [false, false, false, false],
+        },
+      ];
+
+      render(
+        <SupersetGroup
+          exercises={mixedSetExercises}
+          haptic={mockHaptic}
+          onToggleRound={vi.fn()}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+        />
+      );
+
+      expect(screen.getByText('4 Rounds')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Round 4' })).toBeInTheDocument();
+    });
+
+    it('should display singular "Round" for single round superset', () => {
+      const singleRoundExercises = [
+        {
+          ...mockExercises[0],
+          defaultSets: 1,
+          sets: [false],
+        },
+        {
+          ...mockExercises[1],
+          defaultSets: 1,
+          sets: [false],
+        },
+      ];
+
+      render(
+        <SupersetGroup
+          exercises={singleRoundExercises}
+          haptic={mockHaptic}
+          onToggleRound={vi.fn()}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+        />
+      );
+
+      // Should show "1 Round" text
+      expect(screen.getByText('1 Round')).toBeInTheDocument();
     });
 
     it('should render shared round buttons', () => {
@@ -219,7 +308,8 @@ describe('SupersetGroup', () => {
         3,
         60,
         undefined,
-        true
+        true,
+        60
       );
     });
 
@@ -242,6 +332,59 @@ describe('SupersetGroup', () => {
 
       expect(mockHaptic.tick).toHaveBeenCalled();
       expect(onWeightChange).toHaveBeenCalledWith('bss_left', '17');
+    });
+
+    it('should call onToggleEmomTimer with EmomConfig when EMOM button clicked', () => {
+      const onToggleEmomTimer = vi.fn();
+
+      render(
+        <SupersetGroup
+          exercises={mockExercises}
+          haptic={mockHaptic}
+          onToggleRound={vi.fn()}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+          onToggleEmomTimer={onToggleEmomTimer}
+        />
+      );
+
+      fireEvent.click(screen.getByRole('button', { name: 'Start EMOM timer with 60 second interval' }));
+
+      expect(mockHaptic.tick).toHaveBeenCalled();
+      // Should pass EmomConfig object with totalRounds (3) and interval (60)
+      expect(onToggleEmomTimer).toHaveBeenCalledWith({ totalRounds: 3, interval: 60 });
+    });
+
+    it('should pass correct totalRounds based on max sets when EMOM button clicked', () => {
+      const onToggleEmomTimer = vi.fn();
+      const mixedSetExercises = [
+        {
+          ...mockExercises[0],
+          defaultSets: 4,
+          sets: [false, false, false, false],
+        },
+        {
+          ...mockExercises[1],
+          defaultSets: 2,
+          sets: [false, false],
+        },
+      ];
+
+      render(
+        <SupersetGroup
+          exercises={mixedSetExercises}
+          haptic={mockHaptic}
+          onToggleRound={vi.fn()}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+          onToggleEmomTimer={onToggleEmomTimer}
+        />
+      );
+
+      fireEvent.click(screen.getByRole('button', { name: 'Start EMOM timer with 60 second interval' }));
+
+      // totalRounds should be max(4, 2) = 4
+      expect(onToggleEmomTimer).toHaveBeenCalledWith({ totalRounds: 4, interval: 60 });
     });
   });
 
@@ -312,7 +455,8 @@ describe('SupersetGroup', () => {
         3, // defaultSets
         60, // restTime from first exercise
         undefined,
-        true
+        true,
+        60 // emomInterval
       );
     });
 
@@ -343,7 +487,8 @@ describe('SupersetGroup', () => {
         3,
         60,
         undefined,
-        true
+        true,
+        60 // emomInterval
       );
     });
 
@@ -448,6 +593,7 @@ describe('SupersetGroup', () => {
           weight: '10',
           isBodyweight: false,
           restTime: 60,
+          restSeconds: 60,
         },
       ];
 
@@ -470,7 +616,8 @@ describe('SupersetGroup', () => {
         3,
         60,
         undefined,
-        true
+        true,
+        60
       );
     });
   });

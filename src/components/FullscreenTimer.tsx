@@ -49,6 +49,8 @@ export interface FullscreenTimerProps {
   totalSeconds: number;
   /** Current round number (EMOM mode only) */
   round?: number;
+  /** Total number of rounds (EMOM mode only) */
+  totalRounds?: number;
   /** Callback when timer is stopped */
   onStop: () => void;
   /** Callback to add/subtract time */
@@ -83,6 +85,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
   seconds,
   totalSeconds,
   round = 0,
+  totalRounds,
   onStop,
   onAddTime,
   onMinimize,
@@ -270,7 +273,9 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
           {isEmom && round > 0 && (
             <div className="flex items-center gap-3">
               <span className="text-sys-onSurface/50 text-lg font-bold uppercase tracking-wider">Round</span>
-              <span className="text-sys-onSurface text-4xl font-black tabular-nums">{round}</span>
+              <span className="text-sys-onSurface text-4xl font-black tabular-nums">
+                {totalRounds && totalRounds > 0 ? `${round} of ${totalRounds}` : round}
+              </span>
             </div>
           )}
 

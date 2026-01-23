@@ -17,6 +17,12 @@ import type { LoadRange } from '../workout-plan-utils';
 // TYPES
 // ============================================================================
 
+/** Config object for starting EMOM timer */
+export interface EmomConfig {
+    totalRounds: number;
+    interval: number;
+}
+
 export interface SupersetExercise {
     exId: string;
     name: string;
@@ -28,6 +34,7 @@ export interface SupersetExercise {
     weight: string;
     isBodyweight?: boolean;
     restTime?: number;
+    restSeconds?: number;
     hasHistory?: boolean;
     alternatives?: string[];
     isEmom?: boolean;
@@ -49,11 +56,11 @@ export interface SupersetGroupProps {
     /** Section type for determining if rest button should show (hide for prep/cool sections) */
     sectionType?: string;
     /** Callback when a round is toggled for all exercises */
-    onToggleRound: (exerciseIds: string[], roundIndex: number, defaultSets: number, restTime?: number, sectionType?: string, isEmom?: boolean) => void;
+    onToggleRound: (exerciseIds: string[], roundIndex: number, defaultSets: number, restTime?: number, sectionType?: string, isEmom?: boolean, emomInterval?: number) => void;
     /** Callback when weight changes for an exercise */
     onWeightChange: (exId: string, weight: string) => void;
-    /** Callback to toggle EMOM timer */
-    onToggleEmomTimer?: () => void;
+    /** Callback to toggle EMOM timer with config */
+    onToggleEmomTimer?: (config: EmomConfig) => void;
     /** Callback to show exercise detail/history */
     onShowHistory?: (request: ExerciseDetailRequest) => void;
 }
@@ -84,7 +91,9 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
     });
 
     // Calculate group completion - all exercises must have same set completed
-    const totalRounds = exercises[0]?.defaultSets || 3;
+    const totalRounds = exercises.length > 0
+        ? Math.max(...exercises.map((ex) => ex.defaultSets || 0), 1)
+        : 3;
     const completedRounds = useMemo(() => {
         // A round is complete when ALL exercises in the group have that set done
         let completed = 0;
@@ -113,15 +122,16 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
         haptic.tick();
         const restTime = exercises[0]?.restTime;
         const isEmom = exercises.some(ex => ex.isEmom);
-        onToggleRound(exerciseIds, roundIndex, totalRounds, restTime, sectionType, isEmom);
+        const emomInterval = exercises[0]?.restSeconds || undefined;
+        onToggleRound(exerciseIds, roundIndex, totalRounds, restTime, sectionType, isEmom, emomInterval);
     }, [haptic, exerciseIds, totalRounds, exercises, onToggleRound, sectionType]);
 
     const handleToggleEmom = useCallback(() => {
         if (onToggleEmomTimer) {
             haptic.tick();
-            onToggleEmomTimer();
+            onToggleEmomTimer({ totalRounds, interval: 60 });
         }
-    }, [haptic, onToggleEmomTimer]);
+    }, [haptic, onToggleEmomTimer, totalRounds]);
 
     const handleWeightChange = useCallback((exId: string, weight: string) => {
         setLocalWeights(prev => ({ ...prev, [exId]: weight }));
@@ -252,6 +262,11 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                             <span>{emomTimerInterval}s</span>
                         </button>
                     )}
+
+                    {/* Total Rounds Display */}
+                    <span className="text-[10px] font-bold text-sys-onSurfaceVar">
+                        {totalRounds} {totalRounds === 1 ? 'Round' : 'Rounds'}
+                    </span>
 
                     <div className="flex-1 pointer-events-none" />
 

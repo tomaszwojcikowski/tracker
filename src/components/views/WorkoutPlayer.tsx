@@ -335,9 +335,11 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
         if (totalRounds !== undefined) {
             setEmomTotalRounds(totalRounds);
         }
+        // Check if timer is active BEFORE toggling (state hasn't updated yet)
+        const wasActive = emomTimer.active;
         emomTimer.toggle();
         // Clear totalRounds when stopping (timer was active before toggle)
-        if (emomTimer.active) {
+        if (wasActive) {
             setEmomTotalRounds(undefined);
         }
     }, [stopOtherTimers, emomTimer]);

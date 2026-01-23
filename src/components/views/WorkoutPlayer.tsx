@@ -302,6 +302,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     // Track which flow exercise the current flow timer is associated with (for future use)
     const [_activeFlowExerciseId, setActiveFlowExerciseId] = useState<string | null>(null);
 
+    // Track totalRounds for the active EMOM superset
+    const [emomTotalRounds, setEmomTotalRounds] = useState<number | undefined>(undefined);
+
     // ========================================================================
     // TIMER MANAGEMENT - Ensure only one timer runs at a time
     // ========================================================================
@@ -326,9 +329,17 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     }, [restTimer, emomTimer, densityTimer, flowTimer]);
 
     // Shared wrappers: always stop other timers before starting/toggling a timer.
-    const wrappedEmomToggle = useCallback(() => {
+    const wrappedEmomToggle = useCallback((totalRounds?: number) => {
         stopOtherTimers('emom');
+        // Store totalRounds when starting the EMOM timer
+        if (totalRounds !== undefined) {
+            setEmomTotalRounds(totalRounds);
+        }
         emomTimer.toggle();
+        // Clear totalRounds when stopping
+        if (emomTimer.active) {
+            setEmomTotalRounds(undefined);
+        }
     }, [stopOtherTimers, emomTimer]);
 
     const wrappedDensityToggle = useCallback((minutes: number) => {
@@ -1848,7 +1859,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     timerState={{ time: restTimer.seconds, active: restTimer.active }}
                     setTimerActive={restTimer.setActive}
                     setTimerSeconds={restTimer.setSeconds}
-                    emomState={{ active: emomTimer.active, seconds: emomTimer.seconds, interval: emomTimer.interval, round: emomTimer.round }}
+                    emomState={{ active: emomTimer.active, seconds: emomTimer.seconds, interval: emomTimer.interval, round: emomTimer.round, totalRounds: emomTotalRounds }}
                     setEmomActive={emomTimer.setActive}
                     setEmomSeconds={emomTimer.setSeconds}
                     setEmomInterval={emomTimer.setIntervalState}

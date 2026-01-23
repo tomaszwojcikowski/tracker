@@ -143,6 +143,49 @@ describe('SupersetGroup', () => {
       expect(screen.queryByText(/EMOM SUPERSET/)).not.toBeInTheDocument();
     });
 
+    it('should display total rounds in expanded header', () => {
+      render(
+        <SupersetGroup
+          exercises={mockExercises}
+          haptic={mockHaptic}
+          onToggleRound={vi.fn()}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+        />
+      );
+
+      // Should show "3 Rounds" text
+      expect(screen.getByText('3 Rounds')).toBeInTheDocument();
+    });
+
+    it('should display singular "Round" for single round superset', () => {
+      const singleRoundExercises = [
+        {
+          ...mockExercises[0],
+          defaultSets: 1,
+          sets: [false],
+        },
+        {
+          ...mockExercises[1],
+          defaultSets: 1,
+          sets: [false],
+        },
+      ];
+
+      render(
+        <SupersetGroup
+          exercises={singleRoundExercises}
+          haptic={mockHaptic}
+          onToggleRound={vi.fn()}
+          onWeightChange={vi.fn()}
+          onCompleteAllRounds={vi.fn()}
+        />
+      );
+
+      // Should show "1 Round" text
+      expect(screen.getByText('1 Round')).toBeInTheDocument();
+    });
+
     it('should render shared round buttons', () => {
       render(
         <SupersetGroup

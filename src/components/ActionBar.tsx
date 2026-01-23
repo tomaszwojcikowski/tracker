@@ -35,6 +35,8 @@ export interface EmomState {
   interval: number;
   /** Current round number (1-based) */
   round?: number;
+  /** Total number of rounds (for EMOM supersets) */
+  totalRounds?: number;
 }
 
 export interface DensityState {
@@ -304,6 +306,7 @@ export function ActionBar({
         seconds={emomState.seconds}
         totalSeconds={emomState.interval}
         round={emomState.round}
+        totalRounds={emomState.totalRounds}
         onStop={handleStopEmom}
         onAddTime={() => {}} // EMOM doesn't use add time
         onMinimize={handleMinimizeEmom}

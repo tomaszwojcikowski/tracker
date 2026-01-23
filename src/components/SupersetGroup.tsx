@@ -53,7 +53,7 @@ export interface SupersetGroupProps {
     /** Callback when weight changes for an exercise */
     onWeightChange: (exId: string, weight: string) => void;
     /** Callback to toggle EMOM timer */
-    onToggleEmomTimer?: () => void;
+    onToggleEmomTimer?: (totalRounds?: number) => void;
     /** Callback to show exercise detail/history */
     onShowHistory?: (request: ExerciseDetailRequest) => void;
 }
@@ -119,9 +119,9 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
     const handleToggleEmom = useCallback(() => {
         if (onToggleEmomTimer) {
             haptic.tick();
-            onToggleEmomTimer();
+            onToggleEmomTimer(totalRounds);
         }
-    }, [haptic, onToggleEmomTimer]);
+    }, [haptic, onToggleEmomTimer, totalRounds]);
 
     const handleWeightChange = useCallback((exId: string, weight: string) => {
         setLocalWeights(prev => ({ ...prev, [exId]: weight }));
@@ -252,6 +252,11 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                             <span>{emomTimerInterval}s</span>
                         </button>
                     )}
+
+                    {/* Total Rounds Display */}
+                    <span className="text-[10px] font-bold text-sys-onSurfaceVar">
+                        {totalRounds} {totalRounds === 1 ? 'Round' : 'Rounds'}
+                    </span>
 
                     <div className="flex-1 pointer-events-none" />
 

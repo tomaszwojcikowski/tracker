@@ -336,7 +336,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
             setEmomTotalRounds(totalRounds);
         }
         emomTimer.toggle();
-        // Clear totalRounds when stopping
+        // Clear totalRounds when stopping (timer was active before toggle)
         if (emomTimer.active) {
             setEmomTotalRounds(undefined);
         }

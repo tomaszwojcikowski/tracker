@@ -17,6 +17,12 @@ import type { LoadRange } from '../workout-plan-utils';
 // TYPES
 // ============================================================================
 
+/** Config object for starting EMOM timer */
+export interface EmomConfig {
+    totalRounds: number;
+    interval: number;
+}
+
 export interface SupersetExercise {
     exId: string;
     name: string;
@@ -53,8 +59,8 @@ export interface SupersetGroupProps {
     onToggleRound: (exerciseIds: string[], roundIndex: number, defaultSets: number, restTime?: number, sectionType?: string, isEmom?: boolean, emomInterval?: number) => void;
     /** Callback when weight changes for an exercise */
     onWeightChange: (exId: string, weight: string) => void;
-    /** Callback to toggle EMOM timer */
-    onToggleEmomTimer?: (totalRounds?: number, intervalOverride?: number) => void;
+    /** Callback to toggle EMOM timer with config */
+    onToggleEmomTimer?: (config: EmomConfig) => void;
     /** Callback to show exercise detail/history */
     onShowHistory?: (request: ExerciseDetailRequest) => void;
 }
@@ -123,7 +129,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
     const handleToggleEmom = useCallback(() => {
         if (onToggleEmomTimer) {
             haptic.tick();
-            onToggleEmomTimer(totalRounds, 60);
+            onToggleEmomTimer({ totalRounds, interval: 60 });
         }
     }, [haptic, onToggleEmomTimer, totalRounds]);
 

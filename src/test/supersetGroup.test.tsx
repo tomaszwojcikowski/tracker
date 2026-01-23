@@ -334,7 +334,7 @@ describe('SupersetGroup', () => {
       expect(onWeightChange).toHaveBeenCalledWith('bss_left', '17');
     });
 
-    it('should call onToggleEmomTimer with totalRounds and 60s interval when EMOM button clicked', () => {
+    it('should call onToggleEmomTimer with EmomConfig when EMOM button clicked', () => {
       const onToggleEmomTimer = vi.fn();
 
       render(
@@ -351,8 +351,8 @@ describe('SupersetGroup', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Start EMOM timer with 60 second interval' }));
 
       expect(mockHaptic.tick).toHaveBeenCalled();
-      // Should pass totalRounds (3) and interval override (60)
-      expect(onToggleEmomTimer).toHaveBeenCalledWith(3, 60);
+      // Should pass EmomConfig object with totalRounds (3) and interval (60)
+      expect(onToggleEmomTimer).toHaveBeenCalledWith({ totalRounds: 3, interval: 60 });
     });
 
     it('should pass correct totalRounds based on max sets when EMOM button clicked', () => {
@@ -384,7 +384,7 @@ describe('SupersetGroup', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Start EMOM timer with 60 second interval' }));
 
       // totalRounds should be max(4, 2) = 4
-      expect(onToggleEmomTimer).toHaveBeenCalledWith(4, 60);
+      expect(onToggleEmomTimer).toHaveBeenCalledWith({ totalRounds: 4, interval: 60 });
     });
   });
 

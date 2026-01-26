@@ -15,17 +15,17 @@ describe('Schedule Utilities', () => {
       { w: 1, d: 1, ex: "Rower (Zone 1)", s: 1, r: "2 min", n: "Warm-up" },
       { w: 1, d: 1, ex: "Pull-Ups", s: 3, r: "5 reps", n: "Main Work" },
       { w: 1, d: 1, ex: "Cool-down Protocol", s: 1, r: "5 min", n: "Cool-down" },
-      
+
       // Week 2, Day 1 - should auto-generate warmup/cooldown
       { w: 2, d: 1, ex: "Pull-Ups", s: 3, r: "8 reps", n: "Main Work" },
-      
+
       // Week 2, Day 2 - push day, only needs cooldown
       { w: 2, d: 2, ex: "Push-Ups", s: 3, r: "10 reps", n: "Main Work" },
-      
+
       // Week 2, Day 5 - pull day, needs warmup and cooldown
       { w: 2, d: 5, ex: "Rows", s: 3, r: "10 reps", n: "Main Work" },
     ];
-    
+
     COMPLETE_SCHEDULE = [];
   });
 
@@ -43,7 +43,7 @@ describe('Schedule Utilities', () => {
           add(w, d, "Scapular Pull-Ups", 3, "5 reps", "Warm-up");
         }
       });
-      
+
       // Add standard cooldown for all training days if not already present
       [1, 2, 3, 5].forEach(d => {
         if (!RAW_SCHEDULE.some(i => i.w === w && i.d === d && i.n.includes("Cool-down"))) {
@@ -65,7 +65,7 @@ describe('Schedule Utilities', () => {
       buildCompleteSchedule();
 
       const week1Day1 = getWorkout(1, 1);
-      
+
       expect(week1Day1.length).toBeGreaterThan(0);
       expect(week1Day1.some(ex => ex.ex === "Pull-Ups")).toBe(true);
     });
@@ -74,7 +74,7 @@ describe('Schedule Utilities', () => {
       buildCompleteSchedule();
 
       const week2Day1 = getWorkout(2, 1);
-      
+
       // Should have auto-generated warmups
       expect(week2Day1.some(ex => ex.ex === "Rower (Zone 1)" && ex.n === "Warm-up")).toBe(true);
       expect(week2Day1.some(ex => ex.ex === "Band Pull-Aparts" && ex.n === "Warm-up")).toBe(true);
@@ -85,31 +85,31 @@ describe('Schedule Utilities', () => {
       buildCompleteSchedule();
 
       const week2Day2 = getWorkout(2, 2);
-      
+
       // Should have auto-generated cooldown
       expect(week2Day2.some(ex => ex.ex === "Cool-down Protocol" && ex.n === "Cool-down")).toBe(true);
     });
 
     it('should not duplicate warmups if already present in RAW_SCHEDULE', () => {
       RAW_SCHEDULE.push({ w: 2, d: 1, ex: "Rower (Zone 1)", s: 1, r: "3 min", n: "Warm-up" });
-      
+
       buildCompleteSchedule();
-      
+
       const week2Day1 = getWorkout(2, 1);
       const rowerExercises = week2Day1.filter(ex => ex.ex.includes("Rower"));
-      
+
       // Should only have 1 rower exercise (the original)
       expect(rowerExercises.length).toBe(1);
     });
 
     it('should not duplicate cooldowns if already present in RAW_SCHEDULE', () => {
       RAW_SCHEDULE.push({ w: 2, d: 2, ex: "Cool-down Protocol", s: 1, r: "5 min", n: "Cool-down" });
-      
+
       buildCompleteSchedule();
-      
+
       const week2Day2 = getWorkout(2, 2);
       const cooldowns = week2Day2.filter(ex => ex.n.includes("Cool-down"));
-      
+
       // Should only have 1 cooldown (the original)
       expect(cooldowns.length).toBe(1);
     });
@@ -118,7 +118,7 @@ describe('Schedule Utilities', () => {
       buildCompleteSchedule();
 
       const week2Day2 = getWorkout(2, 2); // Day 2 is push day
-      
+
       // Should NOT have pull-specific warmup exercises
       expect(week2Day2.some(ex => ex.ex === "Scapular Pull-Ups")).toBe(false);
     });
@@ -140,7 +140,7 @@ describe('Schedule Utilities', () => {
       buildCompleteSchedule();
 
       const week2Day5 = getWorkout(2, 5);
-      
+
       // Day 5 should have warmups like Day 1
       expect(week2Day5.some(ex => ex.ex === "Rower (Zone 1)" && ex.n === "Warm-up")).toBe(true);
       expect(week2Day5.some(ex => ex.ex === "Band Pull-Aparts" && ex.n === "Warm-up")).toBe(true);
@@ -151,7 +151,7 @@ describe('Schedule Utilities', () => {
       buildCompleteSchedule();
 
       const week2Day1 = getWorkout(2, 1);
-      
+
       week2Day1.forEach(exercise => {
         expect(exercise).toHaveProperty('w');
         expect(exercise).toHaveProperty('d');
@@ -217,8 +217,8 @@ describe('Schedule Utilities', () => {
       }
     });
 
-    it('should handle Day 4 (rest day) correctly', () => {
-      // Day 4 is a rest day, no exercises should be added
+    it('should handle missing Day 4 schedule correctly', () => {
+      // If the schedule has no items for Day 4, workout should be empty
       const workout = getWorkout(2, 4);
 
       expect(workout).toEqual([]);

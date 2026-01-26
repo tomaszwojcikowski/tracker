@@ -48,7 +48,7 @@ import {
     getAllExercisesWithHistory,
 } from './utils/exerciseHistory';
 
-import type { Exercise, WorkoutProgressData } from './types';
+import type { Exercise, WorkoutProgressData, TrainingDay } from './types';
 
 // ============================================================================
 // TYPES
@@ -56,7 +56,7 @@ import type { Exercise, WorkoutProgressData } from './types';
 
 type ViewMode = 'tab' | 'workout' | 'empty-workout';
 type TabId = 'train' | 'library' | 'history' | 'profile';
-type ValidDay = 1 | 2 | 3 | 5;
+type ValidDay = TrainingDay;
 
 interface AppStateLocal {
     viewMode: ViewMode;

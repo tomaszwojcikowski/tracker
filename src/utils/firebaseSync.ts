@@ -107,9 +107,9 @@ export const FIREBASE_SYNC_ENABLED_KEY = 'firebase_sync_enabled';
 export const EXERCISE_HISTORY_KEY = 'exercise_history';
 
 /**
- * Valid training days (Day 4 is rest)
+ * Valid training days
  */
-const TRAINING_DAYS: TrainingDay[] = [1, 2, 3, 5];
+const TRAINING_DAYS: TrainingDay[] = [1, 2, 3, 4, 5];
 
 // ============================================================================
 // DATA COLLECTION
@@ -136,7 +136,7 @@ export function getAllLocalData(): LocalData {
         sessions: {} as Record<SessionKey, SessionData>,
     };
 
-    // Collect all workout session data (21 weeks × 4 days = 84 sessions max)
+    // Collect all workout session data (21 weeks × 5 days = 105 sessions max)
     // Only non-empty sessions are included in the sync
     // Uses namespaced keys for program isolation
     for (let week = 1; week <= 21; week++) {

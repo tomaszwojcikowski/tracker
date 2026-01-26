@@ -74,9 +74,8 @@ describe('URL State Comprehensive Tests', () => {
       expect(DEFAULT_VIEW_MODE).toBe('tab');
     });
 
-    it('should export valid days (excluding rest day 4)', () => {
-      expect(VALID_DAYS).toEqual([1, 2, 3, 5]);
-      expect(VALID_DAYS).not.toContain(4);
+    it('should export valid days', () => {
+      expect(VALID_DAYS).toEqual([1, 2, 3, 4, 5]);
     });
 
     it('should export valid tabs', () => {
@@ -127,8 +126,8 @@ describe('URL State Comprehensive Tests', () => {
     });
 
     it('should validate day (only valid training days)', () => {
-      window.location.search = '?day=4'; // rest day
-      expect(getUrlParams().day).toBeNull();
+      window.location.search = '?day=4';
+      expect(getUrlParams().day).toBe(4);
 
       window.location.search = '?day=6';
       expect(getUrlParams().day).toBeNull();
@@ -374,7 +373,7 @@ describe('URL State Comprehensive Tests', () => {
         viewMode: 'tab',
         activeTab: 'train',
         currentWeek: 1,
-        activeDay: 4, // rest day
+        activeDay: 6,
       }));
 
       const state = loadAppState();
@@ -513,11 +512,8 @@ describe('URL State Comprehensive Tests', () => {
         expect(isValidDay(1)).toBe(true);
         expect(isValidDay(2)).toBe(true);
         expect(isValidDay(3)).toBe(true);
+        expect(isValidDay(4)).toBe(true);
         expect(isValidDay(5)).toBe(true);
-      });
-
-      it('should return false for rest day 4', () => {
-        expect(isValidDay(4)).toBe(false);
       });
 
       it('should return false for invalid days', () => {
@@ -573,7 +569,8 @@ describe('URL State Comprehensive Tests', () => {
       it('should cycle through valid days', () => {
         expect(getNextDay(1)).toBe(2);
         expect(getNextDay(2)).toBe(3);
-        expect(getNextDay(3)).toBe(5); // skip day 4
+        expect(getNextDay(3)).toBe(4);
+        expect(getNextDay(4)).toBe(5);
         expect(getNextDay(5)).toBe(1); // wrap around
       });
     });
@@ -583,7 +580,8 @@ describe('URL State Comprehensive Tests', () => {
         expect(getPrevDay(1)).toBe(5); // wrap around
         expect(getPrevDay(2)).toBe(1);
         expect(getPrevDay(3)).toBe(2);
-        expect(getPrevDay(5)).toBe(3); // skip day 4
+        expect(getPrevDay(4)).toBe(3);
+        expect(getPrevDay(5)).toBe(4);
       });
     });
   });

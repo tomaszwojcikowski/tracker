@@ -6,7 +6,7 @@
  * Phase 2 Mockup: Enhanced with status pills, week selector pills, and continue card.
  */
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useHaptic, useScrollToElement } from '../../hooks';
 import { Play, ChevronRight, ChevronLeft, Plus, Clock, X } from '../icons';
 import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, type InProgressWorkout } from '../../utils/storage';
@@ -15,6 +15,7 @@ import { getCompleteSchedule, type RawScheduleItem } from '../../utils/schedule'
 import { getSessionKey, getGlobalHistoryKey } from '../../services/storageNamespace';
 import { ProgramSelector } from '../ProgramSelector';
 import { useProgram } from '../../context/ProgramContext';
+import { VALID_DAYS } from '../../constants';
 import { WeeklyProgressRing } from '../progress';
 import { StatusPill } from '../StatusPill';
 import { WeekPills } from '../WeekPills';
@@ -181,7 +182,7 @@ export function Dashboard({
   const haptic = useHaptic();
 
   // Get program context for program-aware features
-  const { currentProgram, metadata } = useProgram();
+  const { currentProgram, metadata, currentProgramId } = useProgram();
 
   // Calculate max weeks based on current program
   const maxWeeks = metadata?.durationWeeks ?? currentProgram?.durationWeeks ?? 21;
@@ -279,13 +280,38 @@ export function Dashboard({
     return getWorkoutProgress(currentWeek, day);
   };
 
-  const days = [1, 2, 3, 5];
+  const days = VALID_DAYS;
+
+  const schedule = useMemo(
+    () => getCompleteSchedule(currentProgramId ?? undefined),
+    [currentProgramId]
+  );
+
+  const workoutDayKeys = useMemo(() => {
+    const keys = new Set<string>();
+    (schedule as RawScheduleItem[]).forEach((item) => {
+      keys.add(`${item.w}-${item.d}`);
+    });
+    return keys;
+  }, [schedule]);
+
+  const daysByWeek = useMemo(() => {
+    const map = new Map<number, number[]>();
+    for (let week = 1; week <= maxWeeks; week++) {
+      map.set(
+        week,
+        days.filter((day) => workoutDayKeys.has(`${week}-${day}`))
+      );
+    }
+    return map;
+  }, [days, maxWeeks, workoutDayKeys]);
 
   // Find the next workout to do across ALL weeks in the program (not just current week)
   // Returns { week, day } of the first incomplete workout, or null if all completed
   const findNextWorkout = useCallback((): { week: number; day: number } | null => {
     for (let week = 1; week <= maxWeeks; week++) {
-      for (const day of days) {
+      const weekDays = daysByWeek.get(week) ?? [];
+      for (const day of weekDays) {
         const sessionKey = getSessionKey(week, day);
         const session = safeGetJSON<{ completed?: boolean } | null>(
           sessionKey,
@@ -297,7 +323,7 @@ export function Dashboard({
       }
     }
     return null;
-  }, [maxWeeks, days]);
+  }, [daysByWeek, maxWeeks]);
 
   const nextWorkout = findNextWorkout();
 
@@ -326,7 +352,7 @@ export function Dashboard({
             currentWeek={currentWeek}
             maxWeeks={maxWeeks}
             inProgressWorkout={inProgressWorkout}
-            days={days}
+            days={daysByWeek.get(week) ?? []}
             nextWorkout={nextWorkout}
             isCompleted={isCompleted}
             getDayProgress={getDayProgress}
@@ -554,9 +580,9 @@ function WeekContent({
             // Determine if this is the "Hero" card (next up)
             // It's the hero only if this week+day matches the next workout in the entire program
             // and there's no workout currently in progress (in which case the resume banner handles it)
-            const isNextUp = nextWorkout !== null && 
-                             nextWorkout.week === week && 
-                             nextWorkout.day === day && 
+            const isNextUp = nextWorkout !== null &&
+                             nextWorkout.week === week &&
+                             nextWorkout.day === day &&
                              !inProgressWorkout;
             const theme = getDayTheme(day);
 

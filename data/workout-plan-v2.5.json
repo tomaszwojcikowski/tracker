@@ -604,23 +604,27 @@
             "repsUnit": "seconds",
             "restSeconds": 120,
             "loadUnit": "bodyweight",
-            "notes": "Aim ~70% effort (strong contraction, no shaking). Choose the direction that matches symptoms. Pain during holds should stay ≤5/10 and feel better (or neutral) afterward.",
+            "notes": "Aim ~70% effort (strong contraction, no shaking). HOW TO: (1) Sit/stand tall with shoulders relaxed. (2) Bend elbow ~90° and support forearm on thigh/bench so only wrist can move (hand hangs off edge). (3) Set wrist in slight extension (lateral) or slight flexion (medial). (4) Apply resistance with a light DB or your other hand and hold absolutely still for 45s. Pain during holds should stay ≤5/10 and ideally feel better (or neutral) afterward.",
             "progressionNotes": "Progress by adding 5-10s per hold (up to 60s), then increase resistance slightly. If next-day pain/stiffness increases, reduce total volume ~50%.",
             "cues": [
               "Elbow at ~90° (or as comfortable)",
+              "Support forearm; hand hangs off edge",
               "Wrist neutral → slight extension/flexion depending on option",
-              "Shoulders relaxed, grip light",
+              "Match resistance to symptoms: firm effort, no shaking",
+              "Grip only as hard as needed; don't crank fingers",
               "Breathe steadily (no breath holding)"
             ],
             "exerciseOptions": [
               {
                 "optionName": "Lateral: Resisted Wrist Extension (ECRB)",
+                "description": "For lateral elbow pain (tennis elbow). Palm down; hold wrist slightly extended and resist extension.",
                 "equipment": [
                   "dumbbells"
                 ]
               },
               {
                 "optionName": "Medial: Resisted Wrist Flexion (Flexor-pronator)",
+                "description": "For medial elbow pain (golfer's elbow). Palm up; hold wrist slightly flexed and resist flexion.",
                 "equipment": [
                   "dumbbells"
                 ]
@@ -636,23 +640,26 @@
             "loadUnit": "kg",
             "loadPerHand": true,
             "restSeconds": 60,
-            "notes": "Slow 4s eccentric. Use a very light DB. Use your other hand to assist the concentric (up) portion; control the lowering only.",
+            "notes": "Slow 4s eccentric. Use a very light DB. HOW TO: (1) Support forearm on bench/thigh with wrist hanging off edge. (2) Use the non-working hand to lift the DB to the top position (concentric assist). (3) Release the assist and LOWER with the working wrist only for a full 4 seconds. (4) At the bottom, re-grip with the assist hand and reset for the next rep. This should feel hard in the tendon/muscle, not sharp in the joint.",
             "progressionNotes": "Add load last. First: reduce symptoms and nail tempo. Then add 1-2 reps/set (up to 20) or add a small load increment.",
             "cues": [
               "Forearm supported on bench/box, wrist over edge",
               "No swinging; keep the movement isolated at the wrist",
               "Lower smoothly for full 4 seconds",
+              "Use the other hand to lift; ONLY the lowering is 'work'",
               "Stop 1-2 reps before form breaks"
             ],
             "exerciseOptions": [
               {
                 "optionName": "Lateral: Eccentric Wrist Extension (DB)",
+                "description": "Palm down. Start in extension (hand up), lower toward flexion over 4 seconds.",
                 "equipment": [
                   "dumbbells"
                 ]
               },
               {
                 "optionName": "Medial: Eccentric Wrist Flexion (DB)",
+                "description": "Palm up. Start in flexion (hand up), lower toward extension over 4 seconds.",
                 "equipment": [
                   "dumbbells"
                 ]
@@ -668,7 +675,7 @@
             "loadUnit": "kg",
             "loadPerHand": true,
             "restSeconds": 90,
-            "notes": "Tempo 3s up / 3s down. Choose a load that stays smooth and controlled. Pain ≤5/10.",
+            "notes": "Tempo 3s up / 3s down. HOW TO: (1) Sit with forearm supported on bench/thigh, palm down, wrist hanging off edge. (2) Start with wrist slightly flexed. (3) Curl wrist up into extension over 3 seconds. (4) Lower back down over 3 seconds. Keep the movement at the wrist only. Choose a load that stays smooth and controlled. Pain ≤5/10.",
             "progressionNotes": "HSR progression: W1-2: 3x15, W3-4: 3x12, W5-6: 3x10, W7-8: 4x8, W9-12: 4x6 (only if pain/stiffness trends down).",
             "cues": [
               "Forearm supported, wrist over edge",
@@ -686,7 +693,7 @@
             "loadUnit": "kg",
             "loadPerHand": true,
             "restSeconds": 90,
-            "notes": "Tempo 3s up / 3s down. If this irritates lateral elbow, reduce range, reduce load, or skip for now.",
+            "notes": "Tempo 3s up / 3s down. HOW TO: (1) Sit with forearm supported, palm up, wrist hanging off edge. (2) Start with wrist slightly extended. (3) Curl wrist up into flexion over 3 seconds. (4) Lower back down over 3 seconds. Keep fingers relaxed (don't death-grip the DB). If this irritates lateral elbow, reduce range, reduce load, or skip for now.",
             "progressionNotes": "Progress only if next-day symptoms are stable or improving. If medial elbow is primary issue, prioritize this over extension work.",
             "cues": [
               "Forearm supported, wrist over edge",
@@ -704,7 +711,7 @@
             "repsPerSide": true,
             "loadUnit": "bodyweight",
             "restSeconds": 60,
-            "notes": "Slow controlled rotations; hold end range 1s. Use a hammer/lever or light dumbbell.",
+            "notes": "Slow controlled rotations; hold end range 1s. HOW TO: (1) Hold a hammer by the handle (or a DB by one end to create a lever). (2) Elbow at ~90° and pinned to ribs, forearm parallel to floor. (3) Rotate slowly palm-up (supination) and pause 1s. (4) Rotate slowly palm-down (pronation) and pause 1s. Keep wrist neutral and avoid shoulder rotation.",
             "progressionNotes": "Increase lever length (hold farther from head) before adding load. Keep elbow tucked to side.",
             "cues": [
               "Elbow pinned to ribs",
@@ -722,7 +729,7 @@
             "repsUnit": "seconds",
             "repsPerSide": true,
             "loadUnit": "bodyweight",
-            "notes": "Gentle stretch; no aggressive pain.",
+            "notes": "Gentle stretch; no aggressive pain. HOW TO: (1) Arm straight in front, palm down. (2) With the other hand, bend wrist down and curl fingers toward forearm. (3) Keep shoulder down and elbow straight. (4) Hold a mild stretch 30s and breathe.",
             "cues": [
               "Elbow straight",
               "Finger flexion + wrist flexion",
@@ -738,7 +745,7 @@
             "repsUnit": "seconds",
             "repsPerSide": true,
             "loadUnit": "bodyweight",
-            "notes": "Gentle stretch; keep elbow straight.",
+            "notes": "Gentle stretch; keep elbow straight. HOW TO: (1) Arm straight in front, palm up. (2) With the other hand, bend wrist back into extension and gently straighten fingers. (3) Keep shoulder down and elbow straight. (4) Hold a mild stretch 30s and breathe.",
             "cues": [
               "Elbow straight",
               "Finger extension + wrist extension",

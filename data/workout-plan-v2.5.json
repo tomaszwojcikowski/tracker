@@ -7,8 +7,8 @@
     "description": "Build elite pulling strength (max pull-ups, pull-up variations) while maintaining all-around capacity (pushing, lower body) and protecting knee/shoulder health. Optimized for the 40+ athlete with Volume Management and Joint Longevity principles.",
     "author": "V26.9 Program",
     "createdDate": "2025-12-02",
-    "lastModified": "2026-01-10T16:03:31.986Z",
-    "version": "26.9.3",
+    "lastModified": "2026-01-26T00:00:00.000Z",
+    "version": "26.9.5",
     "durationWeeks": 21,
     "goals": [
       "elite-pulling-strength",
@@ -19,18 +19,19 @@
     ],
     "targetLevel": "advanced",
     "equipment": [
-      "pull-up-bar",
-      "rings",
-      "parallel-bars",
-      "dip-bars",
-      "resistance-bands",
-      "rower",
-      "assault-bike",
-      "jump-rope",
-      "dumbbells",
+      "pull-up-rig",
+      "gymnastic-rings",
       "barbell",
-      "parallettes",
-      "weight-vest"
+      "bumper-plates",
+      "squat-rack",
+      "bench",
+      "dumbbells",
+      "kettlebells",
+      "plyo-box",
+      "resistance-bands",
+      "jump-rope",
+      "rower",
+      "assault-bike"
     ],
     "programRules": {
       "volumeCap": {
@@ -80,6 +81,11 @@
       "day5AccessoryCap": "10 minutes hard cap",
       "dipGovernorRule": "If shoulder pinch occurs during weighted dips, switch to Straight Bar Dips or Weighted Bench Dips",
       "gripSaverProtocol": "Day 5 core work must be ground-based (V-Ups/Hollows) to prevent medial epicondylitis",
+      "day4ElbowRehab": {
+        "description": "Day 4 is a rest day in the app's navigation, but you can optionally run the elbow rehab routine below on your rest day.",
+        "routineTemplateId": "day4-elbow-rehab",
+        "painGuidelines": "Traffic light: 0-3 OK, 4-5 acceptable (do not progress), >5 back off. 24-hour rule: if worse next morning, reduce load/volume ~50%."
+      },
       "neutralGripTracking": {
         "appliesTo": "Block 3 (weeks 9-12)",
         "rule": "Use the exact same neutral grip implement (rings, parallel bars, etc.) for the entire block"
@@ -573,6 +579,171 @@
             "repsUnit": "seconds",
             "repsPerSide": true,
             "loadUnit": "bodyweight"
+          }
+        ]
+      },
+      {
+        "id": "day4-elbow-rehab",
+        "name": "Day 4 Elbow Rehab (Optional)",
+        "description": "Optional rehab session for lateral/medial elbow tendinopathy. Use Traffic Light: 0-3 OK, 4-5 acceptable, >5 reduce. 24-hour rule: if worse next morning, cut load/volume by ~50%.",
+        "category": "rehab",
+        "estimatedDuration": 20,
+        "targetAreas": [
+          "elbows",
+          "forearms",
+          "tendon-health",
+          "grip"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Wrist Isometric Hold (Pain Modulation)",
+            "category": "mobility",
+            "sets": 4,
+            "repsType": "time",
+            "repsValue": 45,
+            "repsUnit": "seconds",
+            "restSeconds": 120,
+            "loadUnit": "bodyweight",
+            "notes": "Aim ~70% effort (strong contraction, no shaking). Choose the direction that matches symptoms. Pain during holds should stay ≤5/10 and feel better (or neutral) afterward.",
+            "progressionNotes": "Progress by adding 5-10s per hold (up to 60s), then increase resistance slightly. If next-day pain/stiffness increases, reduce total volume ~50%.",
+            "cues": [
+              "Elbow at ~90° (or as comfortable)",
+              "Wrist neutral → slight extension/flexion depending on option",
+              "Shoulders relaxed, grip light",
+              "Breathe steadily (no breath holding)"
+            ],
+            "exerciseOptions": [
+              {
+                "optionName": "Lateral: Resisted Wrist Extension (ECRB)",
+                "equipment": [
+                  "dumbbells"
+                ]
+              },
+              {
+                "optionName": "Medial: Resisted Wrist Flexion (Flexor-pronator)",
+                "equipment": [
+                  "dumbbells"
+                ]
+              }
+            ]
+          },
+          {
+            "exerciseName": "Eccentrics (Wrist Extension/Flexion)",
+            "category": "accessory",
+            "sets": 3,
+            "repsType": "reps",
+            "repsValue": 15,
+            "loadUnit": "kg",
+            "loadPerHand": true,
+            "restSeconds": 60,
+            "notes": "Slow 4s eccentric. Use a very light DB. Use your other hand to assist the concentric (up) portion; control the lowering only.",
+            "progressionNotes": "Add load last. First: reduce symptoms and nail tempo. Then add 1-2 reps/set (up to 20) or add a small load increment.",
+            "cues": [
+              "Forearm supported on bench/box, wrist over edge",
+              "No swinging; keep the movement isolated at the wrist",
+              "Lower smoothly for full 4 seconds",
+              "Stop 1-2 reps before form breaks"
+            ],
+            "exerciseOptions": [
+              {
+                "optionName": "Lateral: Eccentric Wrist Extension (DB)",
+                "equipment": [
+                  "dumbbells"
+                ]
+              },
+              {
+                "optionName": "Medial: Eccentric Wrist Flexion (DB)",
+                "equipment": [
+                  "dumbbells"
+                ]
+              }
+            ]
+          },
+          {
+            "exerciseName": "HSR Wrist Extension (DB)",
+            "category": "accessory",
+            "sets": 3,
+            "repsType": "reps",
+            "repsValue": 15,
+            "loadUnit": "kg",
+            "loadPerHand": true,
+            "restSeconds": 90,
+            "notes": "Tempo 3s up / 3s down. Choose a load that stays smooth and controlled. Pain ≤5/10.",
+            "progressionNotes": "HSR progression: W1-2: 3x15, W3-4: 3x12, W5-6: 3x10, W7-8: 4x8, W9-12: 4x6 (only if pain/stiffness trends down).",
+            "cues": [
+              "Forearm supported, wrist over edge",
+              "Full ROM without snapping into end range",
+              "No shoulder movement",
+              "Keep tempo honest (count it)"
+            ]
+          },
+          {
+            "exerciseName": "HSR Wrist Flexion (DB)",
+            "category": "accessory",
+            "sets": 3,
+            "repsType": "reps",
+            "repsValue": 15,
+            "loadUnit": "kg",
+            "loadPerHand": true,
+            "restSeconds": 90,
+            "notes": "Tempo 3s up / 3s down. If this irritates lateral elbow, reduce range, reduce load, or skip for now.",
+            "progressionNotes": "Progress only if next-day symptoms are stable or improving. If medial elbow is primary issue, prioritize this over extension work.",
+            "cues": [
+              "Forearm supported, wrist over edge",
+              "Smooth lift and smooth lower",
+              "Avoid gripping too hard",
+              "Stop before sharp pain"
+            ]
+          },
+          {
+            "exerciseName": "HSR Pronation/Supination (Hammer)",
+            "category": "accessory",
+            "sets": 3,
+            "repsType": "reps",
+            "repsValue": 12,
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "restSeconds": 60,
+            "notes": "Slow controlled rotations; hold end range 1s. Use a hammer/lever or light dumbbell.",
+            "progressionNotes": "Increase lever length (hold farther from head) before adding load. Keep elbow tucked to side.",
+            "cues": [
+              "Elbow pinned to ribs",
+              "Rotate forearm only (no shoulder rotation)",
+              "Control both directions",
+              "Small range is OK early"
+            ]
+          },
+          {
+            "exerciseName": "Wrist Extensor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Gentle stretch; no aggressive pain.",
+            "cues": [
+              "Elbow straight",
+              "Finger flexion + wrist flexion",
+              "Ease off if you get nerve symptoms"
+            ]
+          },
+          {
+            "exerciseName": "Wrist Flexor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Gentle stretch; keep elbow straight.",
+            "cues": [
+              "Elbow straight",
+              "Finger extension + wrist extension",
+              "Don't crank into pain"
+            ]
           }
         ]
       },
@@ -2879,6 +3050,21 @@
         "notes": "5 minutes at RPE 3-4 (conversation pace)"
       }
     ],
+    "dayTemplates": [
+      {
+        "id": "day4-elbow-rehab-template",
+        "dayNumber": 4,
+        "name": "Day 4: Elbow Rehab (Optional)",
+        "type": "recovery",
+        "estimatedDuration": 20,
+        "description": "Optional tendon rehab session for elbow pain. Note: the app treats Day 4 as a rest day for navigation; this template is provided for reference.",
+        "exercises": [
+          {
+            "$routine": "day4-elbow-rehab"
+          }
+        ]
+      }
+    ],
     "phases": [
       {
         "phaseNumber": 1,
@@ -3464,6 +3650,12 @@
                 ]
               },
               {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+              },
+              {
                 "dayNumber": 5,
                 "name": "Pull Intensity + Push (Workout B) - DELOAD",
                 "type": "strength",
@@ -3610,6 +3802,12 @@
                 ]
               },
               {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+              },
+              {
                 "dayNumber": 5,
                 "name": "Pull Intensity",
                 "type": "strength",
@@ -3753,6 +3951,12 @@
                     "$routine": "cooldown-day3"
                   }
                 ]
+              },
+              {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
               },
               {
                 "dayNumber": 5,
@@ -3901,6 +4105,12 @@
                     "$routine": "cooldown-day3"
                   }
                 ]
+              },
+              {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
               },
               {
                 "dayNumber": 5,
@@ -4067,6 +4277,12 @@
                 ]
               },
               {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+              },
+              {
                 "dayNumber": 5,
                 "name": "Pull Intensity - DELOAD",
                 "type": "strength",
@@ -4209,6 +4425,12 @@
                     "$routine": "cooldown-day3"
                   }
                 ]
+              },
+              {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
               },
               {
                 "dayNumber": 5,
@@ -4356,6 +4578,12 @@
                 ]
               },
               {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+              },
+              {
                 "dayNumber": 5,
                 "name": "Isometric Focus",
                 "type": "strength",
@@ -4498,6 +4726,12 @@
                 ]
               },
               {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+              },
+              {
                 "dayNumber": 5,
                 "name": "Neutral Grip Intensity",
                 "type": "strength",
@@ -4633,6 +4867,12 @@
                     "$routine": "cooldown-day3"
                   }
                 ]
+              },
+              {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
               },
               {
                 "dayNumber": 5,
@@ -4778,6 +5018,12 @@
                 ]
               },
               {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+              },
+              {
                 "dayNumber": 5,
                 "name": "Weighted Pull-ups Peak",
                 "type": "strength",
@@ -4911,6 +5157,12 @@
                     "$routine": "cooldown-day3"
                   }
                 ]
+              },
+              {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
               },
               {
                 "dayNumber": 5,
@@ -5056,6 +5308,12 @@
                 ]
               },
               {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+              },
+              {
                 "dayNumber": 5,
                 "name": "Weighted Pull-ups Peak - PR Attempt",
                 "type": "strength",
@@ -5194,6 +5452,12 @@
                     "$routine": "cooldown-day3"
                   }
                 ]
+              },
+              {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
               },
               {
                 "dayNumber": 5,
@@ -5349,6 +5613,12 @@
                 ]
               },
               {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+              },
+              {
                 "dayNumber": 5,
                 "name": "Archer Negatives Introduction",
                 "type": "strength",
@@ -5489,6 +5759,12 @@
                 ]
               },
               {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+              },
+              {
                 "dayNumber": 5,
                 "name": "Archer Negatives Peak",
                 "type": "strength",
@@ -5615,6 +5891,12 @@
                     "$routine": "cooldown-day3"
                   }
                 ]
+              },
+              {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
               },
               {
                 "dayNumber": 5,
@@ -5744,6 +6026,12 @@
                     "loadMax": 55
                   }
                 ]
+              },
+              {
+                "dayNumber": 4,
+                "$ref": "day4-elbow-rehab-template",
+                "name": "Elbow Rehab (Optional)",
+                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
               },
               {
                 "dayNumber": 5,

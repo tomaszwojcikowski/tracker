@@ -2,17 +2,17 @@
   "$schema": "./workout-plan-v2.5.schema.json",
   "formatVersion": "2.5.0",
   "plan": {
-    "id": "integrated-strength-v26-9",
-    "name": "The 20-Week Integrated Strength Program (V26.9: Longevity Update)",
-    "description": "Build elite pulling strength (max pull-ups, pull-up variations) while maintaining all-around capacity (pushing, lower body) and protecting knee/shoulder health. Optimized for the 40+ athlete with Volume Management and Joint Longevity principles.",
-    "author": "V26.9 Program",
-    "createdDate": "2025-12-02",
-    "lastModified": "2026-01-26T00:00:00.000Z",
-    "version": "26.9.5",
+    "id": "integrated-push-strength-v1",
+    "name": "The 20-Week Integrated Push Program (V1.0: Push Dominant)",
+    "description": "Build elite pushing strength (max dips, push-up variations, overhead press) while maintaining all-around capacity (pulling, lower body) and protecting shoulder/elbow health. Optimized for the 40+ athlete with Volume Management and Joint Longevity principles.",
+    "author": "V1.0 Push Program",
+    "createdDate": "2026-02-01",
+    "lastModified": "2026-02-01T00:00:00.000Z",
+    "version": "1.0.0",
     "durationWeeks": 21,
     "goals": [
-      "elite-pulling-strength",
-      "max-pull-ups",
+      "elite-pushing-strength",
+      "max-dips",
       "joint-longevity",
       "volume-management",
       "40-plus-optimization"
@@ -35,7 +35,7 @@
     ],
     "programRules": {
       "volumeCap": {
-        "weeklyPullUpReps": {
+        "weeklyDipReps": {
           "min": 36,
           "max": 40
         }
@@ -43,10 +43,10 @@
       "earlyWarningSystem": {
         "reduceVolumeBy": 0.3,
         "triggers": [
-          "Elbow tightness > 24 hours",
-          "Sharp pain during Ring Rows or PPPU",
-          "Grip fatigue lasting into Day 3",
-          "Shoulder pinch or impingement on Dips or HSPU"
+          "Anterior shoulder pain > 24 hours",
+          "Sharp pain during Dips or Pushups",
+          "Sternum pain/pressure",
+          "Elbow discomfort during extensions"
         ]
       },
       "coldStartRowerProtocol": {
@@ -59,14 +59,14 @@
         "exercises": [
           "20 Band Pull-Aparts",
           "15 Band External Rotations per side",
-          "3x5 Scapular Pull-ups with 3s ISO-HOLD"
+          "3x10 Scapular Push-ups (Plus) with 2s ISO-HOLD"
         ]
       },
-      "straightArmPulldownProgression": {
-        "description": "Lat and scapular activation on Day 1 & Day 5 warm-ups",
+      "facePullProgression": {
+        "description": "Rear delt and external rotator activation on Day 1 & Day 5 warm-ups",
         "appliesTo": "All weeks",
-        "cycle": "4-week progression (W1: 3x12 RPE6, W2: 3x15 RPE6-7, W3: 4x12 RPE7, W4: Deload 2-3x12 RPE5-6)",
-        "notes": "Stop before elbow irritation; substitute with chest-supported rows if needed"
+        "cycle": "4-week progression (W1: 3x15 RPE6, W2: 3x20 RPE6-7, W3: 4x15 RPE7, W4: Deload 2-3x15 RPE5-6)",
+        "notes": "Focus on external rotation at the end range. Keep elbows high."
       },
       "rtoRingSupportHolds": {
         "description": "Moderate RTO ring support holds for shoulder stability",
@@ -435,60 +435,60 @@
         ]
       },
       {
-        "id": "warmup-straight-arm-pulldowns",
-        "name": "Straight-Arm Band Pulldowns",
-        "description": "Lat and scapular activation with band pulldowns. 4-week progression cycle.",
+        "id": "warmup-face-pulls",
+        "name": "Face Pulls Progression",
+        "description": "Rear delt and external rotator activation. 4-week progression cycle.",
         "category": "warmup",
         "estimatedDuration": 3,
         "targetAreas": [
-          "lats",
-          "scapula",
+          "rear-delts",
+          "rotator-cuff",
           "shoulders"
         ],
         "progressionCycle": {
           "weeks": 4,
           "week1": {
             "sets": 3,
-            "reps": 12,
+            "reps": 15,
             "load": "easy band",
             "rpe": 6
           },
           "week2": {
             "sets": 3,
-            "reps": 15,
+            "reps": 20,
             "load": "same band",
             "rpe": "6-7"
           },
           "week3": {
             "sets": 4,
-            "reps": 12,
+            "reps": 15,
             "load": "same band",
             "rpe": 7
           },
           "week4": {
             "sets": 2,
-            "reps": 12,
+            "reps": 15,
             "load": "same band (deload)",
             "rpe": "5-6"
           }
         },
         "exercises": [
           {
-            "exerciseName": "Straight-Arm Band Pulldown",
+            "exerciseName": "Band Face Pulls",
             "category": "warmup",
             "sets": 3,
             "repsType": "reps",
-            "repsValue": 12,
+            "repsValue": 15,
             "loadUnit": "band",
             "tempo": "2-1-2-1",
             "restSeconds": 45,
             "cues": [
-              "Neutral/shoulder-width grip",
-              "Slight hip hinge, ribs down",
-              "Lead with lats/scaps",
-              "Finish with scapular depression"
+              "Pull to forehead",
+              "External rotation at end",
+              "Squeeze rear delts",
+              "Elbows high"
             ],
-            "notes": "Avoid elbow irritation; stop well before pain. If sore, substitute with chest-supported rows."
+            "notes": "Focus on quality of rotation. Do not arch back."
           }
         ]
       },
@@ -797,6 +797,17 @@
             "repsPerSide": true,
             "loadUnit": "bodyweight",
             "notes": "Releasing Quads from Split Squats"
+          },
+          {
+            "exerciseName": "Overhead Tricep Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Releasing Triceps from HSPU/Dips"
           }
         ]
       },
@@ -1423,27 +1434,23 @@
         ]
       },
       {
-        "id": "warmup-day5-pull-intensity-push",
-        "name": "Day 5 Warm-Up (Pull Intensity + Push)",
-        "description": "Complete Day 5 warm-up sequence: Cold Start Rower (5min) → Global Tendon Prep (5min) → Straight-Arm Band Pulldowns (3min) → Mobility & activation (spine, wrists, push prep). Total: ~15 minutes.",
+        "id": "warmup-day5-push-intensity",
+        "name": "Day 5 Warm-Up (Push Intensity + Pull)",
+        "description": "Complete Day 5 warm-up sequence: Cold Start Rower (5min) → Global Tendon Prep (5min) → Shoulder Mobility (3min) → Push Prep. Total: ~15 minutes. Optimized for HSPU and Heavy Dips.",
         "category": "warmup",
         "estimatedDuration": 15,
         "targetAreas": [
           "cardiovascular",
           "cns-activation",
           "tendon-health",
-          "upper-back",
-          "lats",
-          "biceps",
-          "grip",
-          "chest",
           "shoulders",
+          "chest",
           "triceps",
           "t-spine",
           "wrists",
           "core"
         ],
-        "notes": "Day 5 Protocol: (1) Cold Start Rower (5min): Zone 1-2 with sprints. (2) Global Tendon Prep (5min): Band pull-aparts, external rotations, scapular pulls. (3) Straight-Arm Band Pulldowns (3min): 4-week progression cycle. (4) Mobility: Cat-Cow, T-spine rotations, wrist rocks. (5) Push Prep: Push-up plus.",
+        "notes": "Day 5 Protocol: (1) Cold Start Rower (5min): Zone 1-2 with sprints. (2) Global Tendon Prep (5min). (3) Face Pulls (Prehab). (4) Mobility: Shoulder Dislocates, T-spine rotations, Wrist rocks (essential for HSPU/Dips). (5) Push Prep: Push-up plus.",
         "exercises": [
           {
             "$routine": "warmup-rower-protocol"
@@ -1452,10 +1459,10 @@
             "$routine": "warmup-global-tendon-prep"
           },
           {
-            "$routine": "warmup-straight-arm-pulldowns"
+            "$routine": "warmup-face-pulls"
           },
           {
-            "$ref": "ex-warmup-cat-cow"
+            "$ref": "ex-warmup-shoulder-dislocates"
           },
           {
             "$ref": "ex-warmup-t-spine-rotations"
@@ -1470,6 +1477,38 @@
       }
     ],
     "exerciseTemplates": [
+      {
+        "id": "ex-lu-raises",
+        "exerciseName": "Lu Raises",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 12,
+        "loadUnit": "kg",
+        "restSeconds": 90,
+        "notes": "Full ROM lateral raise ending overhead. Key for shoulder health.",
+        "cues": [
+          "Connect lateral raise to overhead",
+          "Shrug at the top",
+          "Control the descent"
+        ]
+      },
+      {
+        "id": "ex-tricep-overhead-extension",
+        "exerciseName": "Overhead Tricep Extension",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 15,
+        "loadUnit": "kg",
+        "restSeconds": 90,
+        "notes": "Focus on deep stretch. Tendon health focus.",
+        "cues": [
+          "Full stretch at bottom",
+          "Elbows point up",
+          "Lock out at top"
+        ]
+      },
       {
         "id": "ex-pull-ups",
         "exerciseName": "Pull-Ups",
@@ -1490,7 +1529,7 @@
         ]
       },
       {
-        "id": "ex-pull-up-ladders",
+        "id": "ex-dip-ladders",
         "exerciseName": "Pull-Up Ladders",
         "category": "main",
         "sets": 4,
@@ -3055,6 +3094,52 @@
         "repsUnit": "seconds",
         "loadUnit": "bodyweight",
         "notes": "5 minutes at RPE 3-4 (conversation pace)"
+      },
+      {
+        "id": "ex-dip-ladders",
+        "exerciseName": "Dip Ladders",
+        "category": "main",
+        "sets": 4,
+        "repsType": "ladder",
+        "repsValue": [1, 2, 3],
+        "loadUnit": "bodyweight",
+        "restSeconds": 120,
+        "notes": "Ladders: 1, 2, 3 reps. Focus on deep ROM and lockout.",
+        "progressionNotes": "Volume accumulation. Perfect form."
+      },
+      {
+        "id": "ex-weighted-dips",
+        "exerciseName": "Weighted Dips",
+        "category": "main",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 5,
+        "loadUnit": "kg",
+        "restSeconds": 180,
+        "notes": "Double Progression Rule. Watch for sternum pain.",
+        "progressionNotes": "Earn weight increase only when hitting top rep range for ALL sets."
+      },
+      {
+        "id": "ex-ring-pushups",
+        "exerciseName": "Ring Push-Ups",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 12,
+        "loadUnit": "bodyweight",
+        "restSeconds": 90,
+        "notes": "RTO at top. Keep core tight."
+      },
+      {
+        "id": "ex-deficit-pushups",
+        "exerciseName": "Deficit Push-Ups",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 12,
+        "loadUnit": "bodyweight",
+        "restSeconds": 90,
+        "notes": "Hands on parallettes or plates. Chest to floor."
       }
     ],
     "dayTemplates": [
@@ -3075,8 +3160,8 @@
     "phases": [
       {
         "phaseNumber": 1,
-        "name": "BLOCK 1: FOUNDATION",
-        "description": "Establish volume baseline (36-40 reps) without tendon agitation. Reinforce healthy squat patterns via Goblet Squats. Build connective tissue tolerance through high-frequency hanging.",
+        "name": "BLOCK 1: PUSH FOUNDATION",
+        "description": "Establish Dip volume baseline (36-40 weekly reps) without tendon agitation. Build pushing endurance through Dip Ladders and Ring Push-Ups. Introduce HSPU skill work. Maintain pulling capacity with moderate pull volume.",
         "startWeek": 1,
         "endWeek": 4,
         "focus": "volume",
@@ -3089,10 +3174,10 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Volume (Workout A)",
+                "name": "Push Volume (Workout A)",
                 "type": "strength",
                 "estimatedDuration": 77,
-                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: ~39 reps. Core Focus (Dynamic): [HARD WEEK]",
+                "description": "Weekly Push Total Target: 36-40 reps | Scheduled: ~39 reps. Core Focus (Dynamic): [HARD WEEK]",
                 "exercises": [
                   {
                     "$routine": "warmup-rower-protocol"
@@ -3101,22 +3186,22 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-crow-stand"
                   },
                   {
-                    "$ref": "ex-pull-up-ladders",
+                    "$ref": "ex-dip-ladders",
                     "notes": "Volume baseline. Total: 24 reps (4 ladders x 6 reps)"
                   },
                   {
-                    "$ref": "ex-ring-rows",
+                    "$ref": "ex-lu-raises",
                     "repsValue": 10,
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-ring-rows",
                     "supersetGroup": 1
                   },
                   {
@@ -3196,30 +3281,30 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Intensity + Push (Workout B)",
+                "name": "Push Intensity + Pull (Workout B)",
                 "type": "strength",
                 "estimatedDuration": 76,
-                "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 15 reps",
+                "description": "Weekly Push Total Target: 36-40 reps | Day 5 adds 15 reps",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-hspu-volume"
                   },
                   {
-                    "$ref": "ex-weighted-pull-ups",
+                    "$ref": "ex-weighted-dips",
                     "repsMin": 3,
                     "repsMax": 5,
-                    "loadMin": 10,
+                    "loadMin": 5,
                     "loadMax": 10,
-                    "notes": "Start @ +10kg. Double progression"
+                    "notes": "Start @ +5-10kg. Double progression"
                   },
                   {
-                    "$ref": "ex-dips",
+                    "$ref": "ex-pull-ups",
                     "repsMin": 6,
                     "repsMax": 8,
-                    "notes": "Bodyweight. Tempo 2-1-1-0"
+                    "notes": "Bodyweight. Tempo 2-1-1-0. Quality focus."
                   },
                   {
                     "$routine": "superset-bss"
@@ -3239,10 +3324,10 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Volume (Workout A)",
+                "name": "Push Volume (Workout A)",
                 "type": "strength",
                 "estimatedDuration": 80,
-                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: 40 reps. Core Focus (Dynamic): [RECOVERY WEEK]",
+                "description": "Weekly Dip Total Target: 36-40 reps | Scheduled: ~36 reps. Core Focus (Dynamic): [RECOVERY WEEK]",
                 "exercises": [
                   {
                     "$routine": "warmup-assault-bike-protocol"
@@ -3251,24 +3336,27 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-crow-stand"
                   },
                   {
-                    "$ref": "ex-pull-up-ladders",
+                    "$ref": "ex-dip-ladders",
                     "sets": 5,
                     "notes": "Volume increase. Total: 30 reps (5 ladders x 6 reps)"
                   },
                   {
-                    "$ref": "ex-ring-rows",
-                    "repsValue": 10,
-                    "supersetGroup": 1
+                    "$ref": "ex-ring-pushups",
+                    "repsValue": 8,
+                    "supersetGroup": 1,
+                    "notes": "RTO at top for shoulder stability"
                   },
                   {
-                    "$ref": "ex-incline-pushups",
-                    "supersetGroup": 1
+                    "$ref": "ex-ring-rows",
+                    "repsValue": 10,
+                    "supersetGroup": 1,
+                    "notes": "Horizontal pull balance"
                   },
                   {
                     "$ref": "ex-hollow-rocks",
@@ -3345,30 +3433,32 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Intensity + Push (Workout B)",
+                "name": "Push Intensity (Workout B)",
                 "type": "strength",
                 "estimatedDuration": 70,
-                "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 10 reps",
+                "description": "Weekly Dip Total: adds ~6 intensity reps | HSPU skill work",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-hspu-volume"
                   },
                   {
-                    "$ref": "ex-weighted-pull-ups",
+                    "$ref": "ex-weighted-dips",
                     "sets": 2,
-                    "repsValue": 4,
-                    "loadMin": 10,
-                    "loadMax": 12.5,
-                    "notes": "Total: 8 reps (2x4)"
+                    "repsMin": 3,
+                    "repsMax": 5,
+                    "loadMin": 7.5,
+                    "loadMax": 10,
+                    "notes": "Intensity focus. Total: ~6-10 reps"
                   },
                   {
-                    "$ref": "ex-dips",
-                    "repsMin": 6,
-                    "repsMax": 8,
-                    "notes": "Bodyweight. Tempo 2-1-1-0"
+                    "$ref": "ex-pull-ups",
+                    "sets": 2,
+                    "repsMin": 5,
+                    "repsMax": 6,
+                    "notes": "Maintenance pulling. Bodyweight only."
                   },
                   {
                     "$routine": "superset-bss"
@@ -3386,16 +3476,16 @@
           },
           {
             "weekNumber": 3,
-            "description": "Peak volume for the block; focus on perfect ladder execution",
+            "description": "Peak Dip volume for the block; focus on perfect ladder execution",
             "volumeLevel": "high",
             "intensityLevel": "high",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Volume (Workout A)",
+                "name": "Push Volume Peak (Workout A)",
                 "type": "strength",
                 "estimatedDuration": 80,
-                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: 40 reps. Core Focus (Dynamic): [HARD WEEK]",
+                "description": "Weekly Dip Total Target: 40 reps | Peak volume. Core Focus (Dynamic): [HARD WEEK]",
                 "exercises": [
                   {
                     "$routine": "warmup-jump-rope-protocol"
@@ -3404,29 +3494,32 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-crow-stand"
                   },
                   {
-                    "$ref": "ex-pull-up-ladders",
-                    "sets": 5,
-                    "notes": "Volume peak. Total: 30 reps (5 ladders x 6 reps)"
+                    "$ref": "ex-dip-ladders",
+                    "sets": 6,
+                    "notes": "Volume peak. Total: 36 reps (6 ladders x 6 reps). Perfect form only."
+                  },
+                  {
+                    "$ref": "ex-ring-pushups",
+                    "repsValue": 10,
+                    "supersetGroup": 1,
+                    "notes": "Peak volume - RTO at top"
                   },
                   {
                     "$ref": "ex-ring-rows",
                     "repsValue": 10,
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-incline-pushups",
-                    "supersetGroup": 1
+                    "supersetGroup": 1,
+                    "notes": "Pull balance"
                   },
                   {
                     "$ref": "ex-hollow-rocks",
-                    "repsMin": 20,
-                    "repsMax": 25
+                    "repsMin": 25,
+                    "repsMax": 30
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -3504,35 +3597,32 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Intensity + Push (Workout B)",
+                "name": "Push Intensity (Workout B)",
                 "type": "strength",
                 "estimatedDuration": 70,
-                "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 10 reps",
+                "description": "Peak intensity week | Weighted Dips focus",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-hspu-volume"
                   },
                   {
-                    "$ref": "ex-weighted-pull-ups",
-                    "sets": 2,
-                    "repsValue": 5,
-                    "loadMin": 12.5,
+                    "$ref": "ex-weighted-dips",
+                    "sets": 3,
+                    "repsMin": 3,
+                    "repsMax": 5,
+                    "loadMin": 10,
                     "loadMax": 12.5,
-                    "notes": "Only if 2x4 felt clean"
+                    "notes": "Peak intensity. If clean, add 2.5kg next block."
                   },
                   {
-                    "$ref": "ex-dips",
-                    "repsMin": 6,
-                    "repsMax": 8,
-                    "notes": "Bodyweight. Tempo 2-1-1-0"
-                  },
-                  {
-                    "$ref": "ex-chest-supported-row",
+                    "$ref": "ex-pull-ups",
                     "sets": 2,
-                    "repsValue": 12
+                    "repsMin": 5,
+                    "repsMax": 6,
+                    "notes": "Maintenance pulling"
                   },
                   {
                     "$routine": "superset-bss"
@@ -3546,16 +3636,16 @@
           },
           {
             "weekNumber": 4,
-            "description": "System reset. Volume dropped by 40%",
+            "description": "System reset. Dip volume dropped by 40%. Maintain movement quality.",
             "volumeLevel": "low",
             "intensityLevel": "low",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Volume (Workout A) - DELOAD",
+                "name": "Push Volume - DELOAD",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Weekly Pull Total Target: ~20 reps. RPE 6 MAX",
+                "description": "Weekly Dip Target: ~20 reps. RPE 6 MAX. Movement quality focus.",
                 "exercises": [
                   {
                     "$routine": "warmup-burpees-protocol"
@@ -3564,27 +3654,28 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-crow-stand"
                   },
                   {
-                    "$ref": "ex-pull-up-ladders",
+                    "$ref": "ex-dip-ladders",
                     "sets": 3,
-                    "notes": "Deload. Total: 18 reps (3 ladders x 6 reps). RPE 6 MAX"
+                    "notes": "Deload. Total: 18 reps (3 ladders x 6 reps). RPE 6 MAX. Perfect form."
+                  },
+                  {
+                    "$ref": "ex-ring-pushups",
+                    "sets": 2,
+                    "repsValue": 8,
+                    "notes": "Deload - focus on RTO quality",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-ring-rows",
                     "sets": 2,
-                    "repsValue": 10,
-                    "notes": "Deload",
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-incline-pushups",
-                    "sets": 2,
-                    "notes": "Deload",
+                    "repsValue": 8,
+                    "notes": "Deload - pull balance",
                     "supersetGroup": 1
                   },
                   {
@@ -3664,26 +3755,27 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Intensity + Push (Workout B) - DELOAD",
+                "name": "Push Intensity - DELOAD",
                 "type": "strength",
                 "estimatedDuration": 55,
-                "description": "Weekly Pull Total Target: ~20 reps | Day 5 adds 6 reps",
+                "description": "Deload: Light weighted dips. RPE 5-6 MAX.",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
-                    "$ref": "ex-weighted-pull-ups",
+                    "$ref": "ex-weighted-dips",
                     "sets": 2,
                     "repsValue": 3,
                     "loadMin": 5,
-                    "loadMax": 10,
+                    "loadMax": 7.5,
                     "notes": "Easy. 50% load. Total: 6 reps"
                   },
                   {
-                    "$ref": "ex-dips",
+                    "$ref": "ex-pull-ups",
                     "sets": 2,
-                    "notes": "Deload"
+                    "repsValue": 4,
+                    "notes": "Deload - maintenance pulling"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -3696,24 +3788,24 @@
       },
       {
         "phaseNumber": 2,
-        "name": "BLOCK 2: INTENSIFICATION",
-        "description": "Transition to density-based volume (EMOMs) to spike metabolism. Manage hamstring fatigue with specific post-session recovery. Block Skills: (A) Tuck Planche, (B) PPPU Lean.",
+        "name": "BLOCK 2: PUSH INTENSIFICATION",
+        "description": "Increase Dip intensity via progressive loading. Introduce Ring Dips for stability. HSPU progression from pike to wall-assisted. Block Skills: (A) Tuck Planche, (B) PPPU Lean.",
         "startWeek": 5,
         "endWeek": 8,
         "focus": "intensity",
         "weeks": [
           {
             "weekNumber": 5,
-            "description": "Wave method start - gradual transition from ladders, introduce feet-elevated rows",
+            "description": "Wave method start - transition to weighted dips, introduce PPPU progression",
             "volumeLevel": "moderate",
             "intensityLevel": "moderate",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Volume",
+                "name": "Push Volume",
                 "type": "strength",
                 "estimatedDuration": 78,
-                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: ~39 reps. Core Focus (Dynamic): [HARD WEEK]",
+                "description": "Weekly Dip Total Target: 36-40 reps | Scheduled: ~36 reps. Core Focus (Dynamic): [HARD WEEK]",
                 "exercises": [
                   {
                     "$routine": "warmup-mountain-climbers-protocol"
@@ -3722,26 +3814,28 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-tuck-planche"
                   },
                   {
-                    "$ref": "ex-pull-up-ladders",
+                    "$ref": "ex-dip-ladders",
                     "sets": 5,
                     "notes": "Continue ladder progression from Block 1. Total: 30 reps (5 ladders x 6 reps)"
                   },
                   {
-                    "$ref": "ex-feet-elevated-ring-rows",
-                    "repsValue": 8,
+                    "$ref": "ex-ring-pushups",
+                    "repsValue": 10,
                     "sets": 3,
-                    "notes": "Introduction to elevated variation - start conservative",
+                    "notes": "RTO at top - shoulder stability focus",
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-incline-pushups",
-                    "supersetGroup": 1
+                    "$ref": "ex-ring-rows",
+                    "repsValue": 10,
+                    "supersetGroup": 1,
+                    "notes": "Pull balance"
                   },
                   {
                     "$routine": "cooldown-day1"
@@ -3822,7 +3916,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 9 reps. Day 5 Accessory Timer: 10 Min Cap",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-hspu-volume"
@@ -3862,7 +3956,7 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Volume",
+                "name": "Push Volume",
                 "type": "strength",
                 "estimatedDuration": 80,
                 "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: ~38 reps. Core Focus (Dynamic): [RECOVERY WEEK]",
@@ -3874,7 +3968,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-tuck-planche"
@@ -3892,7 +3986,7 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-tricep-overhead-extension",
                     "repsValue": 10,
                     "sets": 3,
                     "supersetGroup": 1
@@ -3973,7 +4067,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 10 reps",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-pppu-lean"
@@ -4018,7 +4112,7 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Volume",
+                "name": "Push Volume",
                 "type": "strength",
                 "estimatedDuration": 85,
                 "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: 39 reps. Core Focus (Dynamic): [HARD WEEK]",
@@ -4030,7 +4124,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-tuck-planche"
@@ -4127,7 +4221,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 9 reps",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-pppu-lean"
@@ -4185,7 +4279,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-tuck-planche",
@@ -4297,7 +4391,7 @@
                 "description": "Weekly Pull Total Target: ~20 reps | Day 5 adds 6 reps",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-weighted-pull-ups",
@@ -4349,7 +4443,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-cluster-pull-ups-neutral",
@@ -4447,7 +4541,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 6 reps",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-neutral-grip-weighted-pull-ups",
@@ -4496,7 +4590,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-cluster-pull-ups-neutral",
@@ -4598,7 +4692,7 @@
                 "description": "Elbow protection week. Isometric focus",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$routine": "warmup-rto-ring-support"
@@ -4649,7 +4743,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-cluster-pull-ups-neutral",
@@ -4663,7 +4757,7 @@
                     "repsValue": 15
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-tricep-overhead-extension",
                     "supersetGroup": 1,
                     "sets": 3,
                     "repsValue": 15
@@ -4746,7 +4840,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 8 reps",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-neutral-grip-weighted-pull-ups",
@@ -4798,7 +4892,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-cluster-pull-ups-neutral",
@@ -4813,7 +4907,7 @@
                     "repsValue": 10
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-tricep-overhead-extension",
                     "sets": 2,
                     "notes": "Deload",
                     "supersetGroup": 1,
@@ -4889,7 +4983,7 @@
                 "description": "Unweighted or very light. NO Dead Hangs",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
@@ -4944,7 +5038,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-pull-ups-amrap-minus",
@@ -4957,7 +5051,7 @@
                     "repsValue": 15
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-tricep-overhead-extension",
                     "supersetGroup": 1,
                     "sets": 3,
                     "repsValue": 15
@@ -5038,7 +5132,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds 8 reps",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-weighted-pull-ups",
@@ -5083,7 +5177,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-pull-ups",
@@ -5098,7 +5192,7 @@
                     "repsValue": 15
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-tricep-overhead-extension",
                     "supersetGroup": 1,
                     "sets": 3,
                     "repsValue": 15
@@ -5179,7 +5273,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps | Day 5 adds reps",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-weighted-pull-ups",
@@ -5223,7 +5317,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-pull-ups",
@@ -5246,7 +5340,7 @@
                     "repsValue": 15
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-tricep-overhead-extension",
                     "supersetGroup": 1,
                     "sets": 3,
                     "repsValue": 10
@@ -5328,7 +5422,7 @@
                 "description": "PR attempt week",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-weighted-pull-ups",
@@ -5375,7 +5469,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-pull-ups",
@@ -5392,7 +5486,7 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-tricep-overhead-extension",
                     "sets": 2,
                     "notes": "Deload",
                     "repsValue": 8,
@@ -5474,7 +5568,7 @@
                 "description": "Easy deload",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-weighted-pull-ups",
@@ -5526,7 +5620,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-pull-ups",
@@ -5541,7 +5635,7 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-tricep-overhead-extension",
                     "sets": 3,
                     "repsValue": 10,
                     "supersetGroup": 1
@@ -5633,7 +5727,7 @@
                 "description": "Introducing Archer Negatives for neural sharpening",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-archer-negatives",
@@ -5671,7 +5765,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-pull-ups",
@@ -5687,7 +5781,7 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-tricep-overhead-extension",
                     "sets": 2,
                     "repsValue": 10,
                     "supersetGroup": 1
@@ -5779,7 +5873,7 @@
                 "description": "Peak Archer Negative volume",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-archer-negatives",
@@ -5820,7 +5914,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$routine": "warmup-straight-arm-pulldowns"
+                    "$routine": "warmup-face-pulls"
                   },
                   {
                     "$ref": "ex-pull-ups",
@@ -5835,7 +5929,7 @@
                     "notes": "Deload"
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-tricep-overhead-extension",
                     "sets": 2,
                     "repsValue": 8,
                     "supersetGroup": 1,
@@ -5913,7 +6007,7 @@
                 "description": "Light movement only. Preparing for Test Week",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-push-intensity"
                   },
                   {
                     "$ref": "ex-pull-ups",
@@ -6107,7 +6201,7 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$ref": "ex-pull-up-ladders",
+                    "$ref": "ex-dip-ladders",
                     "sets": 2,
                     "notes": "60% Vol (Reload). Total: 12 reps (2 ladders x 6 reps)"
                   },
@@ -6117,7 +6211,7 @@
                     "notes": "60% Vol (Reload)"
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-tricep-overhead-extension",
                     "sets": 2,
                     "notes": "60% Vol (Reload)"
                   },

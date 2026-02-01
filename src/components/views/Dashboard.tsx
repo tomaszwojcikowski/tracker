@@ -128,32 +128,6 @@ function getDayTheme(day: number) {
 /**
  * Get a summary of main and skill exercises for a day (excluding warmup/accessory)
  */
-function getExerciseSummary(week: number, day: number): string {
-  const schedule = getCompleteSchedule();
-  const dayExercises = schedule.filter((item) => item.w === week && item.d === day);
-
-  if (dayExercises.length === 0) {
-    return 'Rest day';
-  }
-
-  // Filter to only skill and main work exercises based on category
-  const mainExercises = dayExercises
-    .filter((item) => item.category === 'skill' || item.category === 'main')
-    .map((item) => item.ex)
-    .slice(0, MAX_EXERCISES_IN_SUMMARY);
-
-  if (mainExercises.length === 0) {
-    return 'Rest day';
-  }
-
-  return mainExercises.join(', ');
-}
-
-function getDayExercises(week: number, day: number): RawScheduleItem[] {
-  const schedule = getCompleteSchedule();
-  return schedule.filter((item) => item.w === week && item.d === day);
-}
-
 function formatScheduleItem(item: RawScheduleItem): string {
   // Keep this intentionally simple and stable for UI.
   const setsReps = item.s && item.r ? `${item.s}×${item.r}` : '';
@@ -193,6 +167,33 @@ export function Dashboard({
   const isProgrammaticScroll = useRef(false);
   // Track if this is the initial mount to use instant scroll
   const isInitialMount = useRef(true);
+
+  // Helper functions that depend on the current program ID
+  const getExerciseSummary = useCallback((week: number, day: number): string => {
+    const schedule = getCompleteSchedule(currentProgramId ?? undefined);
+    const dayExercises = schedule.filter((item) => item.w === week && item.d === day);
+
+    if (dayExercises.length === 0) {
+      return 'Rest day';
+    }
+
+    // Filter to only skill and main work exercises based on category
+    const mainExercises = dayExercises
+      .filter((item) => item.category === 'skill' || item.category === 'main')
+      .map((item) => item.ex)
+      .slice(0, MAX_EXERCISES_IN_SUMMARY);
+
+    if (mainExercises.length === 0) {
+      return 'Rest day';
+    }
+
+    return mainExercises.join(', ');
+  }, [currentProgramId]);
+
+  const getDayExercises = useCallback((week: number, day: number): RawScheduleItem[] => {
+    const schedule = getCompleteSchedule(currentProgramId ?? undefined);
+    return schedule.filter((item) => item.w === week && item.d === day);
+  }, [currentProgramId]);
 
   const handleViewDetails = (week: number, day: number) => {
     const historyKey = getGlobalHistoryKey();
@@ -357,6 +358,7 @@ export function Dashboard({
             isCompleted={isCompleted}
             getDayProgress={getDayProgress}
             getExerciseSummary={getExerciseSummary}
+            getDayExercises={getDayExercises}
             changeWeek={changeWeek}
             onStartWorkout={onStartWorkout}
             onViewDetails={handleViewDetails}
@@ -428,6 +430,7 @@ interface WeekContentProps {
   isCompleted: (day: number) => boolean;
   getDayProgress: (day: number) => { completedSets: number; totalSets: number; completedExercises: number; totalExercises: number; progress: number } | null;
   getExerciseSummary: (week: number, day: number) => string;
+  getDayExercises: (week: number, day: number) => RawScheduleItem[];
   changeWeek: (week: number) => void;
   onStartWorkout: (day: number) => void;
   onViewDetails: (week: number, day: number) => void;
@@ -445,6 +448,7 @@ function WeekContent({
   isCompleted,
   getDayProgress,
   getExerciseSummary,
+  getDayExercises,
   changeWeek,
   onStartWorkout,
   onViewDetails,
@@ -588,14 +592,23 @@ function WeekContent({
 
             if (isNextUp) {
                 return (
-                    <button
+                    <div
                         key={day}
                         id={`day-card-${day}`}
                         onClick={() => {
                             haptic.tick();
                             onStartWorkout(day);
                         }}
-                        className={`relative overflow-hidden rounded-[32px] p-6 text-left transition-all active:scale-[0.98] group scroll-mt-16 ${theme.hero.container} shadow-elevation-2`}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            haptic.tick();
+                            onStartWorkout(day);
+                          }
+                        }}
+                        role="button"
+                        tabIndex={0}
+                        className={`relative overflow-hidden rounded-[32px] p-6 text-left transition-all active:scale-[0.98] group scroll-mt-16 ${theme.hero.container} shadow-elevation-2 cursor-pointer`}
                         aria-label={`Start Day ${day} workout`}
                     >
                         {/* Background with gradient */}
@@ -640,7 +653,7 @@ function WeekContent({
                                 </div>
                             </div>
                         </div>
-                    </button>
+                    </div>
                 );
             }
 

@@ -181,7 +181,8 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
 
     try {
       const registry = getProgramRegistry();
-      registry.setActiveProgram(programId);
+      // Use force=true because user-initiated switch should override any default/locked program
+      registry.setActiveProgram(programId, { force: true });
 
       const program = registry.getActiveProgram();
       if (!program) {

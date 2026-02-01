@@ -7,7 +7,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { LoadingScreen, ErrorScreen } from './components/screens';
 import { initErrorReporting, captureError } from './utils/errorReporting';
 import { autoMigrate, getMigrationStatus } from './services/storageMigration';
-import { initializeDefaultProgram, getProgramRegistry, DEFAULT_PROGRAM_ID } from './services/programRegistry';
+import { initializeDefaultProgram, ensureSecondaryProgram, getProgramRegistry, DEFAULT_PROGRAM_ID } from './services/programRegistry';
 import { setRawSchedule, buildCompleteSchedule } from './utils/schedule';
 import { ProgramProvider } from './context/ProgramContext';
 
@@ -168,9 +168,16 @@ Promise.all([
             throw new Error('Network timeout - check your connection');
         }
         throw error;
-    })
+    }),
+    // Load optional Push program
+    fetchWithTimeout(`${import.meta.env.BASE_URL}workout-plan-push.json`, FETCH_TIMEOUT_MS).then(response => {
+        if (response.ok) return response.json();
+        // Return null if not found or error, so we don't block app load
+        console.warn('Optional push program not found', response.status);
+        return null;
+    }).catch((console.warn))
 ])
-    .then(([scheduleData, exercisesData]) => {
+    .then(([scheduleData, exercisesData, pushProgramData]) => {
         // Load and convert workout plan (v2.0.0 format only)
         let schedule;
         let metadata: WorkoutPlanMetadata;
@@ -217,6 +224,33 @@ Promise.all([
         // Initialize program registry with the loaded workout plan
         // This registers the default program if not already registered
         initializeDefaultProgram(scheduleData);
+
+        // Register optional push program if loaded successfully
+        if (pushProgramData) {
+            const base = import.meta.env.BASE_URL || '/';
+            const pushDataPath = `${base}workout-plan-push.json`;
+            // @ts-ignore - Assuming valid JSON structure if loaded
+            ensureSecondaryProgram(pushProgramData, pushDataPath);
+
+            try {
+                // @ts-ignore
+                const pushResult = loadWorkoutPlan(pushProgramData);
+                const pushId = pushResult.metadata.id;
+
+                if (pushId) {
+                    setRawSchedule(pushResult.schedule, pushId);
+                    buildCompleteSchedule(pushId);
+
+                    // Register the data so it's available
+                    getProgramRegistry().setProgramData(pushId, {
+                        schedule: pushResult.schedule,
+                        metadata: pushResult.metadata,
+                    });
+                }
+            } catch (error) {
+                console.warn('Failed to compile Push program schedule:', error);
+            }
+        }
 
         // Store program data in registry for access by other modules
         const registry = getProgramRegistry();

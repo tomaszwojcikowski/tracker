@@ -481,3 +481,22 @@ export function initializeDefaultProgram(defaultPlanJson: WorkoutPlanJson): void
     registry.registerProgram(existing);
   }
 }
+
+/**
+ * Ensure a secondary program is registered in the system.
+ * This does NOT act as a default program initialization (won't force active).
+ */
+export function ensureSecondaryProgram(planJson: WorkoutPlanJson, dataPath: string): void {
+  const registry = getProgramRegistry();
+  const manifest = extractManifestFromPlan(planJson);
+  manifest.dataPath = dataPath;
+
+  const existing = registry.getProgramById(manifest.id);
+  if (!existing) {
+    registry.registerProgram(manifest);
+  } else if (existing.dataPath !== dataPath) {
+    // Update path if changed
+    existing.dataPath = dataPath;
+    registry.registerProgram(existing);
+  }
+}

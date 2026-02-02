@@ -181,7 +181,9 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
 
     try {
       const registry = getProgramRegistry();
-      registry.setActiveProgram(programId);
+      // Program switches are always an explicit user/URL-driven intent.
+      // Force the switch to override the locked active program.
+      registry.setActiveProgram(programId, { force: true });
 
       const program = registry.getActiveProgram();
       if (!program) {
@@ -220,6 +222,7 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
       const errorObj = err instanceof Error ? err : new Error(String(err));
       setError(errorObj);
       console.error('Failed to switch program:', errorObj);
+      throw errorObj;
     } finally {
       setIsLoading(false);
     }

@@ -2465,7 +2465,7 @@
       {
         "id": "ex-rower-leg-curls",
         "exerciseName": "Rower Leg Curls (2-Leg)",
-        "category": "accessory",
+        "category": "main",
         "sets": 3,
         "repsType": "reps",
         "repsValue": 10,
@@ -3795,10 +3795,12 @@
                     "loadMax": 80
                   },
                   {
-                    "$ref": "ex-rower-leg-curls"
+                    "$ref": "ex-rower-leg-curls",
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-goblet-squats"
+                    "$ref": "ex-goblet-squats",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-back-extensions"
@@ -3946,10 +3948,12 @@
                     "loadMax": 80
                   },
                   {
-                    "$ref": "ex-rower-leg-curls"
+                    "$ref": "ex-rower-leg-curls",
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-goblet-squats"
+                    "$ref": "ex-goblet-squats",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-back-extensions"
@@ -4100,10 +4104,12 @@
                     "loadMax": 80
                   },
                   {
-                    "$ref": "ex-rower-leg-curls"
+                    "$ref": "ex-rower-leg-curls",
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-goblet-squats"
+                    "$ref": "ex-goblet-squats",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-back-extensions"
@@ -4266,12 +4272,14 @@
                   {
                     "$ref": "ex-rower-leg-curls",
                     "sets": 2,
-                    "notes": "Deload"
+                    "notes": "Deload",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-goblet-squats",
                     "sets": 2,
-                    "notes": "Deload"
+                    "notes": "Deload",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-back-extensions",
@@ -4423,10 +4431,12 @@
                     "loadMax": 12
                   },
                   {
-                    "$ref": "ex-goblet-squats"
+                    "$ref": "ex-goblet-squats",
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-face-pulls",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -4574,10 +4584,12 @@
                     "loadMax": 12
                   },
                   {
-                    "$ref": "ex-goblet-squats"
+                    "$ref": "ex-goblet-squats",
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-face-pulls",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -4722,10 +4734,12 @@
                     "loadMax": 12
                   },
                   {
-                    "$ref": "ex-goblet-squats"
+                    "$ref": "ex-goblet-squats",
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-face-pulls",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -5014,10 +5028,12 @@
                     "loadMax": 85
                   },
                   {
-                    "$ref": "ex-goblet-squats"
+                    "$ref": "ex-goblet-squats",
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-face-pulls",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -5155,10 +5171,12 @@
                     "loadMax": 85
                   },
                   {
-                    "$ref": "ex-goblet-squats"
+                    "$ref": "ex-goblet-squats",
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-face-pulls",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -5607,12 +5625,14 @@
                   {
                     "$ref": "ex-goblet-squats",
                     "sets": 3,
-                    "notes": "Taper"
+                    "notes": "Taper",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-face-pulls",
                     "sets": 2,
-                    "notes": "Taper"
+                    "notes": "Taper",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -5753,12 +5773,14 @@
                   {
                     "$ref": "ex-goblet-squats",
                     "sets": 2,
-                    "notes": "Taper"
+                    "notes": "Taper",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-face-pulls",
                     "sets": 2,
-                    "notes": "Taper"
+                    "notes": "Taper",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day3"

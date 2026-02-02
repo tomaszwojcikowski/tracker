@@ -173,7 +173,11 @@ const App: React.FC = () => {
             // Only the URL explicitly controls program switching on initialization.
             // The ProgramRegistry already persists the active program for normal reloads.
             if (urlParams.programId && urlParams.programId !== currentProgramId) {
-                await switchProgram(urlParams.programId);
+                try {
+                    await switchProgram(urlParams.programId);
+                } catch (error) {
+                    console.warn('Failed to switch program from initial URL params:', error);
+                }
             }
 
             if (!cancelled) {

@@ -9,6 +9,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo, memo } from 'react';
 import { Check, Minus, Plus, ChevronDown, Zap, Info, TrendingUp, BarChart2, Timer, Gauge, Maximize2, Clock, Dumbbell } from './icons';
 import { getExerciseHistory } from '../utils/exerciseHistory';
+import { getExerciseDisplayName } from '../utils/exerciseOptions';
 import { getShortExerciseName } from '../constants';
 import { CompactSetButtons } from './CompactSetButtons';
 import { formatSecondsShort, TimeBadge } from './TimeBadge';
@@ -322,8 +323,10 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
         e.stopPropagation();
         if (!onShowHistory) return;
         haptic.tick();
+        // Get display name considering selected exercise option
+        const finalDisplayName = getExerciseDisplayName(historyLookupName, exerciseOptions, selectedOption);
         onShowHistory({
-            displayName: historyLookupName,
+            displayName: finalDisplayName,
             historyLookupName,
             originalName: name,
             alternatives,
@@ -352,6 +355,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
         isEmom,
         isUnilateral,
         tempoRange,
+        exerciseOptions,
+        selectedOption,
     ]);
 
     // Superset indicator logic

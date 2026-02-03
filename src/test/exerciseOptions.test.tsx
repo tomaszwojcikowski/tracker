@@ -237,6 +237,75 @@ describe('Exercise Options Utilities', () => {
             const summary = getExerciseOptionSummary(option);
             expect(summary).toBe('5 sets, 8-12 reps, 60-100kg');
         });
+
+        it('should format time-based exercise with seconds', () => {
+            const option: ExerciseOption = {
+                optionName: 'Pigeon Stretch',
+                repsType: 'time',
+                repsValue: 90,
+                repsUnit: 'seconds',
+            };
+
+            const summary = getExerciseOptionSummary(option);
+            expect(summary).toBe('90 seconds');
+        });
+
+        it('should format time-based exercise with minutes', () => {
+            const option: ExerciseOption = {
+                optionName: 'Plank Hold',
+                repsType: 'time',
+                repsValue: 3,
+                repsUnit: 'minutes',
+            };
+
+            const summary = getExerciseOptionSummary(option);
+            expect(summary).toBe('3 minutes');
+        });
+
+        it('should default to seconds for time-based exercise without unit', () => {
+            const option: ExerciseOption = {
+                optionName: 'Wall Sit',
+                repsType: 'time',
+                repsValue: 60,
+            };
+
+            const summary = getExerciseOptionSummary(option);
+            expect(summary).toBe('60 seconds');
+        });
+
+        it('should format time-based exercise with range', () => {
+            const option: ExerciseOption = {
+                optionName: 'Dead Hang',
+                repsType: 'time',
+                repsMin: 30,
+                repsMax: 60,
+                repsUnit: 'seconds',
+            };
+
+            const summary = getExerciseOptionSummary(option);
+            expect(summary).toBe('30-60 seconds');
+        });
+
+        it('should format regular reps (not time-based)', () => {
+            const option: ExerciseOption = {
+                optionName: '90/90 Hip Rotations',
+                repsType: 'reps',
+                repsValue: 10,
+            };
+
+            const summary = getExerciseOptionSummary(option);
+            expect(summary).toBe('10 reps');
+        });
+
+        it('should handle option without repsType (defaults to reps)', () => {
+            const option: ExerciseOption = {
+                optionName: 'Push-ups',
+                repsValue: 20,
+            };
+
+            const summary = getExerciseOptionSummary(option);
+            expect(summary).toBe('20 reps');
+        });
     });
 
     describe('exerciseNeedsOptionSelection', () => {

@@ -111,13 +111,21 @@ export function getExerciseOptionSummary(option: ExerciseOption): string {
         parts.push(`${option.sets} sets`);
     }
 
+    // Handle reps display with proper type checking
     if (option.repsMin !== undefined && option.repsMax !== undefined) {
-        parts.push(`${option.repsMin}-${option.repsMax} reps`);
+        const unit = option.repsType === 'time' && option.repsUnit ? option.repsUnit : 'reps';
+        parts.push(`${option.repsMin}-${option.repsMax} ${unit}`);
     } else if (option.repsValue !== undefined) {
         if (Array.isArray(option.repsValue)) {
             parts.push(`${option.repsValue.join('-')} ladder`);
         } else {
-            parts.push(`${option.repsValue} reps`);
+            // Check if it's a time-based exercise
+            if (option.repsType === 'time') {
+                const unit = option.repsUnit || 'seconds';
+                parts.push(`${option.repsValue} ${unit}`);
+            } else {
+                parts.push(`${option.repsValue} reps`);
+            }
         }
     }
 

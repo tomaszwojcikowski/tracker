@@ -24,6 +24,7 @@ import {
     Dumbbell,
 } from './icons';
 import { getExerciseHistory } from '../utils/exerciseHistory';
+import { getExerciseDisplayName } from '../utils/exerciseOptions';
 import { RPESelector } from './RPESelector';
 import { ExerciseOptionsBadge } from './ExerciseOptionsBadge';
 import { FlowMovementsDisplay, FlowBadge } from './FlowMovementsDisplay';
@@ -358,8 +359,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
     const handleShowDetails = (): void => {
         haptic.tick();
+        // Get display name considering selected exercise option
+        const displayName = getExerciseDisplayName(effectiveName, exerciseOptions, selectedOption);
         onShowHistory({
-            displayName: effectiveName,
+            displayName,
             historyLookupName: effectiveName,
             originalName: name,
             alternatives,

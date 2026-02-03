@@ -175,6 +175,21 @@ describe('Exercise Options Utilities', () => {
             expect(summary).toBe('Bodyweight');
         });
 
+        it('should handle null loadMin/loadMax with bodyweight loadUnit', () => {
+            // This tests the case where JSON has: loadMin: null, loadMax: null, loadUnit: "bodyweight"
+            const option: ExerciseOption = {
+                optionName: 'Standing Pike Stretch',
+                description: 'Hamstring and lower back stretch',
+                loadMin: null as unknown as number,
+                loadMax: null as unknown as number,
+                loadUnit: 'bodyweight',
+            };
+
+            const summary = getExerciseOptionSummary(option);
+            expect(summary).toBe('Bodyweight');
+            expect(summary).not.toContain('null');
+        });
+
         it('should include per side indicator', () => {
             const option: ExerciseOption = {
                 optionName: 'Test',

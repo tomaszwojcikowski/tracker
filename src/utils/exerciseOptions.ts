@@ -121,7 +121,7 @@ export function getExerciseOptionSummary(option: ExerciseOption): string {
         }
     }
 
-    if (option.loadMin !== undefined && option.loadMax !== undefined && option.loadUnit) {
+    if (option.loadMin != null && option.loadMax != null && option.loadUnit) {
         if (option.loadMin === option.loadMax) {
             parts.push(`${option.loadMin}${option.loadUnit}`);
         } else {

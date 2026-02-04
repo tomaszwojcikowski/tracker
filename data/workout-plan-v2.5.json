@@ -1628,6 +1628,7 @@
           "Chin over bar",
           "Controlled descent"
         ],
+        "coachingNotes": "Start from dead hang with arms fully extended and shoulders engaged (don't let shoulders collapse into ears). Pull chin over bar using lat activation, not just arms. Squeeze shoulder blades together at top. Lower with control for 2-3 seconds, maintaining shoulder engagement throughout. Avoid kipping or swinging - this is strict pull-ups only.",
         "alternatives": [
           "Lat Pulldowns",
           "Assisted Pull-Ups"
@@ -1647,6 +1648,7 @@
         "loadUnit": "bodyweight",
         "restSeconds": 120,
         "notes": "Ladders: 1, 2, 3 reps. Focus on perfect form.",
+        "coachingNotes": "Ladder protocol: Set 1 = 1 rep, Set 2 = 2 reps, Set 3 = 3 reps, Set 4 = 1 rep (repeats pattern). This allows volume accumulation without going to failure. Rest 120 seconds between all sets. Each rep should be perfect quality - if form breaks down, stop the set. This is volume work, not intensity work. Save energy for later weeks.",
         "progressionNotes": "Volume accumulation phase. Do not fail sets."
       },
       {
@@ -1668,7 +1670,8 @@
           "Full ROM",
           "Chin over bar",
           "Controlled descent"
-        ]
+        ],
+        "coachingNotes": "Use dip belt or weighted vest. Start with small increments (2.5kg). Maintain the same form as bodyweight pull-ups - no shortening ROM or using momentum. The added weight should force stricter form, not compromise it. Focus on controlled eccentric (lowering) phase - this is where you build the most strength. Rest the full 120 seconds between sets."
       },
       {
         "id": "ex-ring-rows",
@@ -1683,7 +1686,8 @@
         "tempoPauseBottom": 1,
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
-        "notes": "Tempo 2-1-1-0. Stop if sharp pain"
+        "notes": "Tempo 2-1-1-0. Stop if sharp pain",
+        "coachingNotes": "Set rings at appropriate height - the more horizontal your body, the harder it is. Keep body in straight plank position throughout - no sagging hips or piking. Pull chest to rings, not just hands to chest. Squeeze shoulder blades together at top and pause for 1 second. Lower for 2 seconds with control. If you feel elbow pain, stop immediately - this is an early warning exercise."
       },
       {
         "id": "ex-incline-pushups",
@@ -1698,7 +1702,8 @@
         "tempoPauseBottom": 1,
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
-        "notes": "Tempo 2-1-1-0"
+        "notes": "Tempo 2-1-1-0",
+        "coachingNotes": "Place hands on elevated surface (bench, box, or bar set at appropriate height). Body should form straight line from head to heels - don't let hips sag or pike up. Lower for 2 seconds until chest nearly touches surface, pause 1 second, press up for 1 second, no pause at top. Keep elbows at 45° angle to body. The elevation makes this easier than floor push-ups while maintaining perfect form. Lower the surface height as you get stronger."
       },
       {
         "id": "ex-hollow-rocks",
@@ -1710,7 +1715,8 @@
         "repsUnit": "seconds",
         "loadUnit": "bodyweight",
         "restSeconds": 60,
-        "notes": "Ground-Based. Watch for elbow tightness"
+        "notes": "Ground-Based. Watch for elbow tightness",
+        "coachingNotes": "Lie on back, press lower back into ground. Lift shoulders and legs slightly off ground, arms extended overhead. Rock back and forth using core contraction - not momentum. Keep lower back pressed down throughout. If your back arches, your core isn't strong enough yet - reduce the range or hold static hollow position instead. This is ground-based to avoid grip strain and protect elbows."
       },
       {
         "id": "ex-dips",
@@ -1731,6 +1737,7 @@
           "Shoulders down",
           "Don't flair elbows"
         ],
+        "coachingNotes": "Start at top with arms locked, shoulders pulled down away from ears. Lower until upper arms are parallel to ground (90° elbow bend) or slightly below if comfortable. Keep elbows at 45° angle to body - don't let them flare wide. Push back up, maintaining shoulder depression. If you feel any shoulder pinch or impingement, stop immediately and switch to the alternative (bench dips or push-ups). This is the Dip Governor Rule in action.",
         "progressionNotes": "Double Progression Rule applies"
       },
       {
@@ -1749,6 +1756,7 @@
         "supersetGroup": 1,
         "restSeconds": 60,
         "notes": "EMOM Min 1: Left Leg",
+        "coachingNotes": "Place left foot forward, right foot elevated behind on bench (laces down). Position front foot far enough forward so shin stays vertical at bottom. Hold dumbbells at sides. Lower under control until rear knee nearly touches ground. Keep torso upright - don't lean forward. Drive through front heel to stand. Front knee should track over toes, not caving inward. This is minute 1 of the EMOM superset.",
         "cues": [
           "Vertical shin",
           "Drive through heel"
@@ -1770,6 +1778,7 @@
         "supersetGroup": 1,
         "restSeconds": 60,
         "notes": "EMOM Min 2: Right Leg",
+        "coachingNotes": "Place right foot forward, left foot elevated behind on bench (laces down). Position front foot far enough forward so shin stays vertical at bottom. Hold dumbbells at sides. Lower under control until rear knee nearly touches ground. Keep torso upright - don't lean forward. Drive through front heel to stand. Front knee should track over toes, not caving inward. This is minute 2 of the EMOM superset.",
         "cues": [
           "Vertical shin",
           "Drive through heel"
@@ -1788,6 +1797,7 @@
         "supersetGroup": 1,
         "restSeconds": 120,
         "notes": "EMOM Min 3. Arms straight overhead. If lower back arches, drop weight immediately",
+        "coachingNotes": "Lie on back holding light plate or dumbbell overhead with straight arms. Press lower back into ground, lift shoulders and legs off ground into hollow body position. The weight increases difficulty exponentially. If your lower back arches even slightly, you're going too heavy - drop the weight immediately. Start with just 1.25-2.5kg. Rock gently while maintaining hollow position. This is minute 3 of the EMOM superset. Stop set if form breaks.",
         "progressionNotes": "Start 1.25kg or 2.5kg. Progress to 5kg only when holding perfect form for 45s"
       },
       {
@@ -1799,7 +1809,8 @@
         "repsValue": 8,
         "loadUnit": "kg",
         "restSeconds": 120,
-        "notes": "Posterior chain focus"
+        "notes": "Posterior chain focus",
+        "coachingNotes": "Romanian Deadlift: Start standing with barbell at hips, slight knee bend. Push hips back while maintaining neutral spine - think about closing a car door with your butt. Lower bar down front of legs, keeping it close to body. Feel stretch in hamstrings. Bar should reach mid-shin to just below knee depending on flexibility. Return by driving hips forward and squeezing glutes. Keep shoulders back and chest proud throughout. This is NOT a squat - knees stay mostly locked."
       },
       {
         "id": "ex-weighted-glute-bridge",
@@ -1816,6 +1827,7 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "notes": "Tempo 2-1-1-0. Squeeze glutes hard at top. Place weight on hip crease",
+        "coachingNotes": "Lie on back with knees bent, feet flat on ground. Place barbell or plate across hip crease (use pad if needed). Lower for 2 seconds, pause 1 second with glutes touching ground (not resting), drive up for 1 second by squeezing glutes - NOT by extending lower back. At top, pelvis should be neutral - avoid hyperextending lumbar spine. Squeeze glutes maximally at top and pause. This is glute activation, not a lower back exercise.",
         "cues": [
           "No lumbar hyperextension"
         ]
@@ -1830,6 +1842,7 @@
         "loadUnit": "kg",
         "restSeconds": 120,
         "notes": "Reinforce healthy squat patterns. Ankle mobility focus",
+        "coachingNotes": "Hold dumbbell or kettlebell vertically at chest, elbows pointing down. Feet shoulder-width apart, toes slightly out. Squat down while keeping chest up and weight at chest. The weight will naturally keep you upright. Go as deep as mobility allows while maintaining neutral spine. Drive through full foot to stand. This is THE squat to teach proper mechanics. If you can't go deep, work on ankle mobility.",
         "cues": [
           "Upright torso",
           "Knees track toes"
@@ -1849,6 +1862,7 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "notes": "Heels elevated. Knee-friendly squat pattern. Tempo 2-1-1-0",
+        "coachingNotes": "Place heels on small plates or wedge (1-2 inches elevation). This shifts load to quads and allows deeper squat with less ankle mobility. Can be done with dumbbells at sides or goblet style. Lower for 2 seconds, pause 1 second at bottom, drive up for 1 second. This variation is incredibly knee-friendly despite going deep - the heel elevation reduces knee stress. Perfect for those with ankle mobility limitations.",
         "cues": [
           "Knees track toes",
           "Stay tall",
@@ -1937,7 +1951,8 @@
         "tempoPauseBottom": 1,
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
-        "notes": "Tempo 2-1-1-0"
+        "notes": "Tempo 2-1-1-0",
+        "coachingNotes": "Attach band to sturdy anchor at face height. Grab ends with both hands, step back to create tension. Pull band toward face, separating hands as they approach (like making double bicep pose). Focus on pulling elbows back and squeezing shoulder blades together. Think 'pull apart' not just 'pull back'. Externally rotate shoulders at end position. Pause 1 second, then return with control over 2 seconds. This exercise is crucial for shoulder health and rear delt development."
       },
       {
         "id": "ex-pallof-press",
@@ -1947,7 +1962,8 @@
         "repsType": "reps",
         "repsValue": 12,
         "loadUnit": "band",
-        "restSeconds": 60
+        "restSeconds": 60,
+        "coachingNotes": "Attach band to anchor at chest height. Stand perpendicular to anchor, hold band with both hands at chest. Brace core and press hands straight out in front of you, fully extending arms. The band will try to rotate your torso - resist this with your core. Hold extended position for 1-2 seconds, then return to chest. Keep hips and shoulders square throughout - no rotation. This is anti-rotation core training. Do all reps on one side, then switch to other side."
       },
       {
         "id": "ex-band-internal-rotations",
@@ -1960,6 +1976,7 @@
         "loadUnit": "band",
         "restSeconds": 60,
         "notes": "Shoulder Balance",
+        "coachingNotes": "Attach band at elbow height. Stand sideways to anchor, arm closest to anchor bent 90° with elbow tucked to side. Grab band with that hand. Rotate forearm inward (toward belly) while keeping elbow pinned to side. Control the return. This targets the subscapularis and helps balance out all the external rotation from pulling exercises. Critical for shoulder health in pull-heavy programs.",
         "alternatives": [
           "Light Supinated Pulldown"
         ]
@@ -1974,7 +1991,8 @@
         "repsPerSide": true,
         "loadUnit": "bodyweight",
         "restSeconds": 30,
-        "notes": "Controlled rotation, no collapse of front knee"
+        "notes": "Controlled rotation, no collapse of front knee",
+        "coachingNotes": "Sit on floor with one leg in front bent 90°, other leg to side also bent 90°. Both knees and both feet should touch ground. Rotate entire body to switch leg positions - what was in front goes to side, what was on side comes to front. Move with control, don't let front knee collapse inward. If you can't get both knees down, that's your hip mobility baseline - work within your range. This exercise directly addresses hip internal and external rotation."
       },
       {
         "id": "ex-standing-hip-cars",
@@ -1986,7 +2004,8 @@
         "repsPerSide": true,
         "loadUnit": "bodyweight",
         "restSeconds": 30,
-        "notes": "Slow controlled articular rotations; hold balance or use support"
+        "notes": "Slow controlled articular rotations; hold balance or use support",
+        "coachingNotes": "Stand on one leg (use wall for balance if needed). Lift other knee up and out to side, creating largest circle possible with your hip joint. Move SLOWLY with control - this isn't about speed or momentum. Complete full circle in one direction, then reverse. You're exploring and expanding your hip's full range of motion. If you find sticky spots or limitations, that's valuable information about your hip mobility."
       },
       {
         "id": "ex-open-book-rotations",
@@ -1998,7 +2017,8 @@
         "repsPerSide": true,
         "loadUnit": "bodyweight",
         "restSeconds": 30,
-        "notes": "Thoracic rotation; knees stacked"
+        "notes": "Thoracic rotation; knees stacked",
+        "coachingNotes": "Lie on side with knees bent and stacked, arms extended in front. Keep bottom arm on ground and knees stacked throughout. Rotate top arm up and over, trying to touch ground behind you. Follow your hand with your eyes. This mobilizes thoracic spine rotation - critical for shoulder health and pulling mechanics. Don't force the rotation; breathe into the stretch and let mobility improve over time."
       },
       {
         "id": "ex-side-plank-recovery",
@@ -2012,7 +2032,8 @@
         "repsPerSide": true,
         "loadUnit": "bodyweight",
         "restSeconds": 60,
-        "notes": "Knee-down option allowed"
+        "notes": "Knee-down option allowed",
+        "coachingNotes": "Lie on side, prop up on elbow with forearm flat. Stack feet or stagger them. Lift hips off ground until body forms straight line. Hold this position while breathing normally. If full side plank is too hard, drop bottom knee to ground (half side plank). Focus on maintaining straight line from shoulder to knee/feet - don't let hips sag. This is anti-lateral flexion core training."
       },
       {
         "id": "ex-half-side-plank",
@@ -2051,7 +2072,8 @@
         "repsPerSide": true,
         "loadUnit": "bodyweight",
         "restSeconds": 60,
-        "notes": "Slow, controlled; stay in shallow range"
+        "notes": "Slow, controlled; stay in shallow range",
+        "coachingNotes": "Start with feet wider than shoulder-width. Shift weight to one leg, bending that knee while keeping other leg straight. Descend only to comfortable depth (shallow range) - don't force deep squat. Straight leg stays flat on ground with toes pointed up. Keep chest up and weight in heel of bent leg. This develops lateral hip mobility and single-leg strength. Progress depth gradually over weeks."
       },
       {
         "id": "ex-marching-dead-bug",
@@ -2063,7 +2085,8 @@
         "repsPerSide": true,
         "loadUnit": "bodyweight",
         "restSeconds": 60,
-        "notes": "Low-tension option"
+        "notes": "Low-tension option",
+        "coachingNotes": "Lie on back with lower back pressed into ground. Lift legs with knees bent 90°, arms extended straight up. Slowly lower one leg until heel nearly touches ground while opposite arm reaches overhead. Return and repeat other side. The key is maintaining lower back contact with ground throughout - if back arches, reduce the range. This is anti-extension core work with low grip/elbow strain."
       },
       {
         "id": "ex-seated-hip-cars",
@@ -2567,6 +2590,7 @@
         "loadUnit": "bodyweight",
         "restSeconds": 90,
         "notes": "Arms straight, scapula protracted and depressed. Knees to chest",
+        "coachingNotes": "Start on parallettes or low bars. Lean forward with straight arms, protract (push) shoulder blades forward, and lift knees to chest. Your weight should be balanced on your hands with feet off ground. This is an advanced skill requiring significant shoulder and core strength. Scapular protraction is key - don't let shoulder blades pinch together. Start with very short holds (6-8 seconds) and gradually increase. This builds toward full planche.",
         "cues": [
           "Arms straight",
           "Scapula protracted",
@@ -2601,6 +2625,7 @@
           "Straight Bar Dips",
           "Weighted Bench Dips"
         ],
+        "coachingNotes": "Add weight using dip belt or weight vest. Same technique as bodyweight dips but with added load. Start with small increments (2.5kg). The weight should force even stricter form. Lower until upper arms parallel to ground, keep elbows at 45°. If you feel any shoulder impingement with added weight, immediately drop the weight or switch to alternative. Double Progression: master the reps before adding weight.",
         "cues": [
           "Shoulders down",
           "Don't flair elbows"
@@ -2615,7 +2640,8 @@
         "repsValue": 10,
         "loadUnit": "bodyweight",
         "restSeconds": 60,
-        "notes": "Substituted for Sliders. Heels on rower seat, lift hips, slide away and back"
+        "notes": "Substituted for Sliders. Heels on rower seat, lift hips, slide away and back",
+        "coachingNotes": "Lie on back next to rower with heels on seat. Push seat away so legs are extended and lift hips off ground into bridge position. Keep hips elevated and use hamstrings to curl (pull) the seat toward you by bending knees. Extend legs back out while maintaining hip height. This is excellent hamstring isolation using the rower's sliding seat. Keep glutes engaged throughout to protect lower back."
       },
       {
         "id": "ex-back-extensions",

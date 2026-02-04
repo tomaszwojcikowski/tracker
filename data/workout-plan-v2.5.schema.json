@@ -215,6 +215,10 @@
           "type": ["string", "null"],
           "description": "Default training prescription and coaching cues"
         },
+        "coachingNotes": {
+          "type": ["string", "null"],
+          "description": "Detailed technique and execution coaching for this exercise"
+        },
         "alternatives": {
           "type": "array",
           "items": { "type": "string" },
@@ -578,6 +582,10 @@
           "type": ["string", "null"],
           "description": "Override notes"
         },
+        "coachingNotes": {
+          "type": ["string", "null"],
+          "description": "Override coaching notes"
+        },
         "alternatives": {
           "type": "array",
           "items": { "type": "string" },
@@ -846,6 +854,10 @@
         "notes": {
           "type": ["string", "null"],
           "description": "Training prescription and coaching cues"
+        },
+        "coachingNotes": {
+          "type": ["string", "null"],
+          "description": "Detailed technique and execution coaching for this exercise"
         },
         "alternatives": {
           "type": "array",

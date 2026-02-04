@@ -91,7 +91,7 @@ describe('User Notes - ExerciseDetailModal', () => {
                 />
             );
 
-            expect(screen.getByText('Coaching Notes')).toBeInTheDocument();
+            expect(screen.getByText('Exercise Notes')).toBeInTheDocument();
             expect(screen.getByText('Focus on full range of motion')).toBeInTheDocument();
             expect(screen.getByText('My Notes')).toBeInTheDocument();
         });

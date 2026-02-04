@@ -243,6 +243,8 @@ export interface ExerciseOption {
   densityTimeMinutes?: number;
   /** Override density reps target for this option (v2.5+) */
   densityRepsTotal?: number;
+  /** Coaching cues for this option */
+  cues?: string[];
 }
 
 /**

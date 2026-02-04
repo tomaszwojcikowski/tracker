@@ -48,6 +48,7 @@ export interface ExerciseTypeFlags {
 export interface ExerciseMetadataProps {
     prescription: string;
     notes?: string;
+    coachingNotes?: string;
     restTime?: number;
     loadRange?: LoadRange;
     tempoRange?: TempoRange;
@@ -142,6 +143,7 @@ export function getExerciseMetadata(ex: WorkoutExercise): ExerciseMetadataProps 
     return {
         prescription: ex.prescription,
         notes: ex.notes,
+        coachingNotes: ex.coachingNotes,
         restTime: ex.rest,
         loadRange: ex.loadRange ?? undefined,
         tempoRange: ex.tempoRange ?? undefined,

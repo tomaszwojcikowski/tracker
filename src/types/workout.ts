@@ -45,6 +45,8 @@ export interface ExerciseDetailMetadata {
     prescription?: string;
     /** Optional exercise notes */
     notes?: string;
+    /** Optional coaching notes for technique/execution */
+    coachingNotes?: string;
     /** Rest time in seconds */
     restTime?: number;
     /** Whether the exercise is bodyweight */
@@ -69,6 +71,10 @@ export interface ExerciseDetailMetadata {
     loadRange?: LoadRange | null;
     /** Tempo for the exercise (eccentric-pauseBottom-concentric-pauseTop) */
     tempoRange?: TempoRange | null;
+    /** Coaching cues for the exercise */
+    cues?: string[];
+    /** Exercise options/variations */
+    exerciseOptions?: import('../workout-plan-utils').ExerciseOption[];
 }
 
 export interface ExerciseDetailRequest {

@@ -80,6 +80,10 @@ export interface ExerciseCardProps {
     exerciseOptions?: import('../workout-plan-utils').ExerciseOption[];
     /** Currently selected exercise option */
     selectedOption?: string;
+    /** Coaching cues for the exercise */
+    cues?: string[];
+    /** Optional coaching notes for technique/execution */
+    coachingNotes?: string;
     /** Current set completion array */
     sets: boolean[];
     /** Default number of sets */
@@ -176,6 +180,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     alternatives,
     exerciseOptions,
     selectedOption,
+    cues,
+    coachingNotes,
     sets,
     defaultSets,
     exerciseLog,
@@ -371,6 +377,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             metadata: {
                 prescription,
                 notes,
+                coachingNotes,
                 restTime,
                 isBodyweight,
                 isEmom,
@@ -382,7 +389,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                 densityRepsTotal,
                 loadRange,
                 tempoRange,
+                cues,
+                exerciseOptions,
             },
+            selectedOption,
         });
     };
 

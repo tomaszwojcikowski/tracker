@@ -336,7 +336,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     }, [emomTimer]);
 
     // Shared wrappers: always stop other timers before starting/toggling a timer.
-    
+
     /** Start EMOM timer with config from superset */
     const startEmomFromSuperset = useCallback((config: EmomConfig) => {
         stopOtherTimers('emom');
@@ -1975,6 +1975,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     }
                     onUpdateUserNotes={handleUpdateUserNotes}
                     onSwapExercise={exerciseDetail?.alternatives?.length ? handleSwapFromDetails : undefined}
+                    selectedOption={exerciseDetail?.selectedOption}
                     onClose={() => {
                         haptic.tick();
                         setExerciseDetail(null);

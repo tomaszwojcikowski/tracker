@@ -25,6 +25,7 @@ export interface WorkoutExercise {
   name: string;
   prescription: string;
   notes: string;
+  coachingNotes?: string;
   sets: number;
   rest: number;
   isBodyweight: boolean;
@@ -48,6 +49,8 @@ export interface WorkoutExercise {
   alternatives?: string[];
   /** Exercise options for this exercise (variations with different parameters) */
   exerciseOptions?: ExerciseOption[];
+  /** Coaching cues for the exercise */
+  cues?: string[];
   /** Whether this is a mobility flow exercise (v2.4+) */
   isFlow?: boolean;
   /** Total time in minutes for density exercises (v2.5+) */
@@ -63,7 +66,7 @@ export interface WorkoutExercise {
  */
 type OptionalExerciseFields = Pick<
   WorkoutExercise,
-  'load' | 'loadRange' | 'repsRange' | 'tempoRange' | 'alternatives' | 'exerciseOptions' | 'isFlow' | 'densityTimeMinutes' | 'densityRepsTotal'
+  'load' | 'loadRange' | 'repsRange' | 'tempoRange' | 'alternatives' | 'exerciseOptions' | 'cues' | 'isFlow' | 'densityTimeMinutes' | 'densityRepsTotal' | 'coachingNotes'
 >;
 
 /**
@@ -79,9 +82,11 @@ function extractOptionalExerciseFields(item: RawScheduleItem): OptionalExerciseF
     tempoRange: item.tempoRange || undefined,
     alternatives: item.alternatives,
     exerciseOptions: item.exerciseOptions,
+    cues: item.cues,
     isFlow: item.isFlow,
     densityTimeMinutes: item.densityTimeMinutes,
     densityRepsTotal: item.densityRepsTotal,
+    coachingNotes: item.coachingNotes,
   };
 }
 

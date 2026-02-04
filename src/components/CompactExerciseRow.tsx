@@ -109,6 +109,10 @@ export interface CompactExerciseRowProps {
     exerciseOptions?: import('../workout-plan-utils').ExerciseOption[];
     /** Currently selected exercise option */
     selectedOption?: string;
+    /** Coaching cues for the exercise */
+    cues?: string[];
+    /** Optional coaching notes for technique/execution */
+    coachingNotes?: string;
     /** Callback when set is toggled */
     onToggleSet: (exId: string, setIndex: number, defaultSets: number, restTime?: number, sectionType?: string, isEmom?: boolean) => void;
     /** Callback when weight changes */
@@ -188,6 +192,8 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
     alternatives,
     exerciseOptions,
     selectedOption,
+    cues,
+    coachingNotes,
     onToggleSet,
     onWeightChange,
     onShowHistory,
@@ -335,13 +341,17 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
             metadata: {
                 prescription,
                 notes,
+                coachingNotes,
                 restTime,
                 isBodyweight,
                 isEmom,
                 isUnilateral,
                 isAmrap,
                 tempoRange,
+                cues,
+                exerciseOptions,
             },
+            selectedOption,
         });
     }, [
         onShowHistory,
@@ -357,6 +367,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
         tempoRange,
         exerciseOptions,
         selectedOption,
+        cues,
     ]);
 
     // Superset indicator logic

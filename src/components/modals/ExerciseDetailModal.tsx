@@ -52,6 +52,8 @@ export interface ExerciseDetailModalProps {
     currentUserNotes?: string;
     /** Callback to update user notes */
     onUpdateUserNotes?: (exerciseId: string, notes: string) => void;
+    /** Currently selected exercise option */
+    selectedOption?: string;
 }
 
 const extractRepsFromPrescription = (prescription?: string): string | null => {
@@ -245,6 +247,7 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
     exerciseId,
     currentUserNotes,
     onUpdateUserNotes,
+    selectedOption,
 }) => {
     const lookupName = historyLookupName || exerciseName;
     const history = lookupName ? getExerciseHistory(lookupName) : [];
@@ -433,13 +436,64 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
                     <div className="bg-sys-surfaceContainerHigh rounded-xl p-4 border border-sys-outlineVariant space-y-3">
                         <div className="flex items-center gap-2 text-sys-onSurface">
                             <FileText size={16} className="text-sys-primary" />
-                            <h3 className="text-sm font-bold">Coaching Notes</h3>
+                            <h3 className="text-sm font-bold">Exercise Notes</h3>
                         </div>
                         <p className="text-sm leading-relaxed text-sys-onSurfaceVar whitespace-pre-line">
                             {metadata.notes}
                         </p>
                     </div>
                 )}
+
+                {metadata?.coachingNotes && (
+                    <div className="bg-sys-surfaceContainerHigh rounded-xl p-4 border border-sys-outlineVariant space-y-3">
+                        <div className="flex items-center gap-2 text-sys-onSurface">
+                            <ClipboardList size={16} className="text-sys-secondary" />
+                            <h3 className="text-sm font-bold">Coaching Notes</h3>
+                        </div>
+                        <p className="text-sm leading-relaxed text-sys-onSurfaceVar whitespace-pre-line">
+                            {metadata.coachingNotes}
+                        </p>
+                    </div>
+                )}
+
+                {/* Cues Section - Show option-specific cues if an option is selected, otherwise main exercise cues */}
+                {(() => {
+                    let cuesToDisplay: string[] | undefined;
+                    let cuesLabel = 'Coaching Cues';
+
+                    // Check if an option is selected and has cues
+                    if (selectedOption && metadata?.exerciseOptions) {
+                        const option = metadata.exerciseOptions.find(opt => opt.optionName === selectedOption);
+                        if (option?.cues && option.cues.length > 0) {
+                            cuesToDisplay = option.cues;
+                            cuesLabel = `${selectedOption} - Cues`;
+                        }
+                    }
+
+                    // Fall back to main exercise cues if no option-specific cues
+                    if (!cuesToDisplay && metadata?.cues && metadata.cues.length > 0) {
+                        cuesToDisplay = metadata.cues;
+                    }
+
+                    if (!cuesToDisplay) return null;
+
+                    return (
+                        <div className="bg-sys-surfaceContainerHigh rounded-xl p-4 border border-sys-outlineVariant space-y-3">
+                            <div className="flex items-center gap-2 text-sys-onSurface">
+                                <ClipboardList size={16} className="text-sys-primary" />
+                                <h3 className="text-sm font-bold">{cuesLabel}</h3>
+                            </div>
+                            <ul className="space-y-2">
+                                {cuesToDisplay.map((cue, index) => (
+                                    <li key={index} className="flex items-start gap-2 text-sm text-sys-onSurfaceVar">
+                                        <span className="text-sys-primary font-bold mt-0.5">•</span>
+                                        <span className="leading-relaxed">{cue}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    );
+                })()}
 
                 {/* User Notes Section - Only shown when onUpdateUserNotes is provided */}
                 {exerciseId && onUpdateUserNotes && (

@@ -81,8 +81,12 @@
       "day5AccessoryCap": "10 minutes hard cap",
       "dipGovernorRule": "If shoulder pinch occurs during weighted dips, switch to Straight Bar Dips or Weighted Bench Dips",
       "gripSaverProtocol": "Day 5 core work must be ground-based (V-Ups/Hollows) to prevent medial epicondylitis",
+      "day4CoreWork": {
+        "description": "Day 4 active recovery with core training. Focuses on anti-rotation, anti-extension, and rotational strength to complement the pulling and pushing days.",
+        "routineTemplateId": "day4-core-work"
+      },
       "day4ElbowRehab": {
-        "description": "Day 4 is a rest day in the app's navigation, but you can optionally run the elbow rehab routine below on your rest day.",
+        "description": "Optional elbow rehab routine can be added after core work if needed.",
         "routineTemplateId": "day4-elbow-rehab",
         "painGuidelines": "Traffic light: 0-3 OK, 4-5 acceptable (do not progress), >5 back off. 24-hour rule: if worse next morning, reduce load/volume ~50%."
       },
@@ -579,6 +583,146 @@
             "repsUnit": "seconds",
             "repsPerSide": true,
             "loadUnit": "bodyweight"
+          }
+        ]
+      },
+      {
+        "id": "day4-core-work",
+        "name": "Day 4 Core Routine",
+        "description": "Active recovery core work focusing on anti-rotation, anti-extension, and rotational strength. Complements pulling and pushing days while maintaining joint health.",
+        "category": "core",
+        "estimatedDuration": 25,
+        "targetAreas": [
+          "core",
+          "anti-rotation",
+          "anti-extension",
+          "obliques",
+          "stability"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Dead Bug",
+            "category": "core",
+            "sets": 3,
+            "repsType": "reps",
+            "repsValue": 10,
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "restSeconds": 60,
+            "notes": "Anti-extension core work. HOW TO: (1) Lie on back with arms extended toward ceiling, knees bent 90°. (2) Press lower back flat into floor. (3) Slowly extend opposite arm and leg, maintaining lower back contact with floor. (4) Return to start and switch sides. Focus on breathing and control.",
+            "cues": [
+              "Lower back stays glued to floor throughout",
+              "Move slowly and with control",
+              "Exhale as you extend limbs",
+              "Stop before your back arches"
+            ]
+          },
+          {
+            "exerciseName": "Pallof Press",
+            "category": "core",
+            "sets": 3,
+            "repsType": "reps",
+            "repsValue": 12,
+            "repsPerSide": true,
+            "loadUnit": "resistance-band",
+            "restSeconds": 60,
+            "notes": "Anti-rotation core stability. HOW TO: (1) Attach band to anchor point at chest height. (2) Stand perpendicular to anchor, band in both hands at chest. (3) Press hands straight out, resisting rotation. (4) Hold 2 seconds, return to chest. (5) Complete all reps one side, then switch.",
+            "cues": [
+              "Stand tall, core braced",
+              "Press straight out (don't let band pull you)",
+              "Control the return",
+              "Shoulders down, no shrugging"
+            ]
+          },
+          {
+            "exerciseName": "Copenhagen Plank",
+            "category": "core",
+            "sets": 3,
+            "repsType": "time",
+            "repsValue": 20,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "restSeconds": 60,
+            "notes": "Adductor and lateral core strength. HOW TO: (1) Set up in side plank position with top leg elevated on bench/box at knee height. (2) Bottom leg hangs freely or rests lightly on ground. (3) Hold side plank position, engaging top adductor to keep leg elevated. (4) Maintain straight line from head to heels.",
+            "progressionNotes": "Start with bottom leg on ground for support. Progress to bottom leg elevated off ground. Advanced: add hip abduction pulses.",
+            "cues": [
+              "Top leg actively pushes into bench",
+              "Don't let hips sag",
+              "Breathe steadily",
+              "Stack shoulders over elbow"
+            ]
+          },
+          {
+            "exerciseName": "Hollow Body Hold",
+            "category": "core",
+            "sets": 3,
+            "repsType": "time",
+            "repsMin": 20,
+            "repsMax": 40,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "restSeconds": 60,
+            "notes": "Core compression and anti-extension. HOW TO: (1) Lie on back, arms extended overhead. (2) Press lower back into floor. (3) Lift shoulders and legs slightly off ground. (4) Hold position, maintaining lower back contact with floor.",
+            "progressionNotes": "Start with knees bent if needed. Progress to straight legs, then arms overhead.",
+            "cues": [
+              "Lower back pressed into floor",
+              "Ribs down, no flaring",
+              "Slight posterior pelvic tilt",
+              "Breathe in short, controlled breaths"
+            ]
+          },
+          {
+            "exerciseName": "Bird Dog",
+            "category": "core",
+            "sets": 3,
+            "repsType": "reps",
+            "repsValue": 10,
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "restSeconds": 60,
+            "notes": "Anti-rotation and anti-extension from quadruped. HOW TO: (1) Start on hands and knees, spine neutral. (2) Slowly extend opposite arm and leg, keeping hips level. (3) Hold 2 seconds at full extension. (4) Return with control and switch sides.",
+            "cues": [
+              "Hips stay level (don't rotate)",
+              "Spine neutral throughout",
+              "Move slowly and deliberately",
+              "Reach arm and leg long"
+            ]
+          },
+          {
+            "exerciseName": "Russian Twists",
+            "category": "core",
+            "sets": 3,
+            "repsType": "reps",
+            "repsValue": 20,
+            "loadUnit": "kg",
+            "loadMin": 5,
+            "loadMax": 10,
+            "restSeconds": 60,
+            "notes": "Rotational core strength. HOW TO: (1) Sit with knees bent, feet elevated slightly off ground. (2) Lean back ~45°, maintaining neutral spine. (3) Hold weight at chest, rotate torso side to side, tapping weight to floor beside hips. (4) Focus on rotating through thoracic spine, not just moving arms.",
+            "progressionNotes": "Start with bodyweight or light plate. Progress load only when form is perfect.",
+            "cues": [
+              "Chest up, no rounding",
+              "Rotate from ribcage, not just arms",
+              "Controlled tempo",
+              "Feet stay off ground (or modify with heels down)"
+            ]
+          },
+          {
+            "exerciseName": "Plank with Shoulder Taps",
+            "category": "core",
+            "sets": 3,
+            "repsType": "reps",
+            "repsValue": 16,
+            "loadUnit": "bodyweight",
+            "restSeconds": 60,
+            "notes": "Anti-rotation plank variation. HOW TO: (1) Start in high plank position. (2) Tap one hand to opposite shoulder while minimizing hip rotation. (3) Alternate sides. (4) Keep hips level and core braced throughout.",
+            "cues": [
+              "Hips stay level (minimal rotation)",
+              "Weight shift to stabilizing arm",
+              "Core braced tight",
+              "Move with control, not speed"
+            ]
           }
         ]
       },
@@ -2514,6 +2658,7 @@
         "loadUnit": "bodyweight",
         "restSeconds": 120,
         "notes": "Cluster sets for unilateral stability. 36 reps cap",
+        "coachingNotes": "Cluster training technique: Perform 3 reps, rest 15-20 seconds while hanging, then 3 more reps, rest 15-20s, then final 3 reps. This is ONE set. Take full 120s rest between cluster sets. The brief intra-set rests allow you to maintain higher quality reps throughout the set by clearing lactate without fully releasing the bar. Focus on controlled tempo and maintaining neutral grip throughout.",
         "alternatives": [
           "Lat Pulldowns",
           "Ring Rows",
@@ -3068,6 +3213,19 @@
         "exercises": [
           {
             "$routine": "day4-elbow-rehab"
+          }
+        ]
+      },
+      {
+        "id": "day4-core-work-template",
+        "dayNumber": 4,
+        "name": "Day 4: Core Work",
+        "type": "recovery",
+        "estimatedDuration": 25,
+        "description": "Active recovery core training focusing on anti-rotation, anti-extension, and rotational strength.",
+        "exercises": [
+          {
+            "$routine": "day4-core-work"
           }
         ]
       }
@@ -3965,9 +4123,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,
@@ -4121,9 +4279,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,
@@ -4293,9 +4451,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,
@@ -4445,9 +4603,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,
@@ -4598,9 +4756,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,
@@ -4748,9 +4906,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,
@@ -4891,9 +5049,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,
@@ -5042,9 +5200,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,
@@ -5185,9 +5343,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,
@@ -5334,9 +5492,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,
@@ -5480,9 +5638,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,
@@ -5641,9 +5799,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,
@@ -5789,9 +5947,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,
@@ -5923,9 +6081,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,
@@ -6058,9 +6216,9 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-elbow-rehab-template",
-                "name": "Elbow Rehab (Optional)",
-                "description": "Rest-day add-on: isometrics + slow eccentrics/HSR (keep pain ≤5/10; respect 24-hour response)."
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
               },
               {
                 "dayNumber": 5,

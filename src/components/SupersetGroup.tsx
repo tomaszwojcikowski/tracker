@@ -40,6 +40,10 @@ export interface SupersetExercise {
     isEmom?: boolean;
     isUnilateral?: boolean;
     loadRange?: LoadRange | null;
+    cues?: string[];
+    coachingNotes?: string;
+    exerciseOptions?: import('../workout-plan-utils').ExerciseOption[];
+    selectedOption?: string;
 }
 
 export interface SupersetGroupProps {
@@ -160,12 +164,16 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
             metadata: {
                 prescription: exercise.prescription,
                 notes: exercise.notes,
+                coachingNotes: exercise.coachingNotes,
                 restTime: exercise.restTime,
                 isBodyweight: exercise.isBodyweight,
                 isEmom: exercise.isEmom,
                 isUnilateral: exercise.isUnilateral,
                 loadRange: exercise.loadRange,
+                cues: exercise.cues,
+                exerciseOptions: exercise.exerciseOptions,
             },
+            selectedOption: exercise.selectedOption,
         });
     }, [onShowHistory, haptic]);
 

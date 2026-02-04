@@ -429,7 +429,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             {/* Superset Badge */}
             {isFirstInSuperset && (
                 <div className="absolute left-2 -top-2 z-20">
-                    <div className="flex items-center gap-1 bg-amber-500/90 text-amber-950 text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-lg">
+                    <div className="flex items-center gap-1 bg-amber-500/90 text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-lg">
                         <span>SUPERSET</span>
                     </div>
                 </div>

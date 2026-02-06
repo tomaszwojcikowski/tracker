@@ -8,7 +8,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useHaptic, useScrollToElement } from '../../hooks';
-import { Play, ChevronRight, ChevronLeft, Plus, Clock, X } from '../icons';
+import { Play, ChevronRight, ChevronLeft, ChevronDown, Plus, Clock, X } from '../icons';
 import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, type InProgressWorkout } from '../../utils/storage';
 import { getBlockForWeek } from '../../data/programData';
 import { getCompleteSchedule, type RawScheduleItem } from '../../utils/schedule';
@@ -16,6 +16,7 @@ import { getSessionKey, getGlobalHistoryKey } from '../../services/storageNamesp
 import { ProgramSelector } from '../ProgramSelector';
 import { useProgram } from '../../context/ProgramContext';
 import { VALID_DAYS } from '../../constants';
+import { getSectionTheme } from '../../utils/themeUtils';
 import { WeeklyProgressRing } from '../progress';
 import { StatusPill } from '../StatusPill';
 import { WeekPills } from '../WeekPills';
@@ -393,6 +394,9 @@ interface WeekContentProps {
   haptic: ReturnType<typeof useHaptic>;
 }
 
+// Helper to get color classes for preview items based on section/category
+// (Replaced by shared getSectionTheme utility)
+
 function WeekContent({
   week,
   currentWeek,
@@ -410,6 +414,12 @@ function WeekContent({
   haptic,
 }: WeekContentProps) {
   const [previewDay, setPreviewDay] = useState<number | null>(null);
+  const [isWarmupExpanded, setIsWarmupExpanded] = useState(false);
+
+  // Reset expansion when preview day changes
+  useEffect(() => {
+    setIsWarmupExpanded(false);
+  }, [previewDay]);
 
   const currentBlock = getBlockForWeek(week) || { name: `Week ${week}`, id: week, weeks: [week] };
   const completedWorkouts = days.filter(day => isCompleted(day)).length;
@@ -466,25 +476,78 @@ function WeekContent({
                 return <div className="text-sys-onSurfaceVariant">Rest day</div>;
               }
 
+              const isWarmup = (item: RawScheduleItem) => {
+                  const key = (item.category || item.n || '').toLowerCase();
+                  return key.includes('prep') || key.includes('warmup');
+              };
+
+              const warmupItems = items.filter(isWarmup);
+              const mainItems = items.filter(i => !isWarmup(i));
+              let staggerIndex = 1;
+
               return (
                 <div className="space-y-2">
-                  {items.map((item, idx) => (
-                    <div
-                      // Raw schedule items do not have stable IDs; index is acceptable for read-only preview.
-                      key={`${previewDay}-${idx}-${item.ex}`}
-                      className={`p-3 rounded-xl bg-sys-surface border border-sys-outlineVariant stagger-item stagger-${Math.min(idx + 1, 10)}`}
-                    >
-                      <div className="text-sm text-sys-onSurface font-medium">
-                        {formatScheduleItem(item)}
+                  {warmupItems.length > 0 && (
+                      <div className={`rounded-xl border border-warmup-500/20 bg-warmup-500/5 overflow-hidden stagger-item stagger-${Math.min(staggerIndex++, 10)}`}>
+                        <button
+                            onClick={() => {
+                                haptic.tick();
+                                setIsWarmupExpanded(!isWarmupExpanded);
+                            }}
+                            className="w-full flex items-center justify-between p-3 text-left"
+                        >
+                            <span className="text-sm font-medium text-warmup-100">
+                                Warmup • {warmupItems.length} exercises
+                            </span>
+                            <ChevronDown size={16} className={`text-warmup-100 transition-transform duration-300 ${isWarmupExpanded ? 'rotate-180' : ''}`} />
+                        </button>
+
+                        {isWarmupExpanded && (
+                            <div className="p-2 pt-0 space-y-2 border-t border-warmup-500/10 mt-1">
+                                {warmupItems.map((item, idx) => {
+                                    const theme = getSectionTheme(item.category || item.n);
+                                    return (
+                                        <div
+                                            key={`${previewDay}-warmup-${idx}-${item.ex}`}
+                                            className={`p-3 rounded-xl border ${theme.bg} ${theme.border} stagger-item stagger-${Math.min(staggerIndex++, 10)}`}
+                                        >
+                                            <div className="text-sm text-sys-onSurface font-medium">
+                                                {formatScheduleItem(item)}
+                                            </div>
+                                            {(item.category || item.n) && (
+                                                <div className="mt-1 text-xs text-sys-onSurfaceVariant">
+                                                    {item.category ?? 'work'}
+                                                    {item.n ? ` • ${item.n}` : ''}
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        )}
                       </div>
-                      {(item.category || item.n) && (
-                        <div className="mt-1 text-xs text-sys-onSurfaceVariant">
-                          {item.category ?? 'work'}
-                          {item.n ? ` • ${item.n}` : ''}
+                  )}
+
+                  {mainItems.map((item, idx) => {
+                    const theme = getSectionTheme(item.category || item.n);
+                    return (
+                      <div
+                        // Raw schedule items do not have stable IDs; index is acceptable for read-only preview.
+                        key={`${previewDay}-${idx}-${item.ex}`}
+                        className={`p-3 rounded-xl border stagger-item stagger-${Math.min(staggerIndex++, 10)} ${theme.bg} ${theme.border}`}
+                      >
+                        <div className="text-sm text-sys-onSurface font-medium">
+                          {formatScheduleItem(item)}
                         </div>
-                      )}
-                    </div>
-                  ))}
+                        {(item.category || item.n) && (
+                          <div className="mt-1 text-xs text-sys-onSurfaceVariant">
+                            {item.category ?? 'work'}
+                            {item.n ? ` • ${item.n}` : ''}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               );
             })()

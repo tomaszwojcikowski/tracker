@@ -27,6 +27,7 @@ import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getExerciseDisplayName } from '../utils/exerciseOptions';
 import { RPESelector } from './RPESelector';
 import { ExerciseOptionsBadge } from './ExerciseOptionsBadge';
+import { getSectionTheme } from '../utils/themeUtils';
 import { FlowMovementsDisplay, FlowBadge } from './FlowMovementsDisplay';
 import { DensityRepControls } from './DensityRepControls';
 import { formatSecondsShort, TimeBadge } from './TimeBadge';
@@ -406,15 +407,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
         if (hasSupersetGroup) return 'border-amber-500/30 bg-amber-500/5';
 
         // Section-based colors (applied even when isFirstIncomplete)
-        let sectionColors = '';
-        switch (sectionType) {
-            case 'prep': sectionColors = 'bg-warmup-500/15 border-warmup-500/50'; break;
-            case 'skill': sectionColors = 'bg-skill-500/15 border-skill-500/45'; break;
-            case 'main': sectionColors = 'bg-main-500/15 border-main-500/40'; break;
-            case 'access': sectionColors = 'bg-accessory-500/15 border-accessory-500/40'; break;
-            case 'cool': sectionColors = 'bg-cooldown-500/15 border-cooldown-500/50'; break;
-            default: sectionColors = 'bg-sys-surface border-sys-outlineVariant';
-        }
+        const sectionColors = getSectionTheme(sectionType || '').container;
 
         // First incomplete gets accent ring on top of section color (only when not in focus view)
         if (isFirstIncomplete && !hideCollapseButton) {

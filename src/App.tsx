@@ -8,6 +8,7 @@
 import React, { useState, useEffect, useCallback, useRef, lazy, Suspense } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import './main.css';
+import './enhanced.css';
 import { NavigationBar } from './components/navigation';
 import { SideRail } from './components/SideRail';
 import { TopAppBar } from './components/TopAppBar';

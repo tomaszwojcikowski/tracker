@@ -1652,10 +1652,10 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     : 60;
 
                                                 elements.push(
-                                                    <SupersetGroup
-                                                        key={`superset-${ex.supersetGroup}`}
-                                                        exercises={supersetExercises}
-                                                        isFirstIncomplete={groupHasFirstIncomplete}
+                                                    <div key={`superset-${ex.supersetGroup}`} className="stagger-item" style={{ animationDelay: `${eIdx * 50}ms` }}>
+                                                        <SupersetGroup
+                                                            exercises={supersetExercises}
+                                                            isFirstIncomplete={groupHasFirstIncomplete}
                                                         haptic={haptic}
                                                         emomTimerActive={emomTimer.active}
                                                         emomTimerInterval={emomIntervalForDisplay}
@@ -1665,15 +1665,16 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                         onShowHistory={handleShowExerciseDetail}
                                                         sectionType={section.type}
                                                     />
+                                                    </div>
                                                 );
                                                 return;
                                             }
 
                                             // Regular exercise (not in superset)
                                             elements.push(
-                                                <CompactExerciseRow
-                                                    key={eIdx}
-                                                    exId={exId}
+                                                <div key={eIdx} className="stagger-item" style={{ animationDelay: `${eIdx * 50}ms` }}>
+                                                    <CompactExerciseRow
+                                                        exId={exId}
                                                     name={ex.name}
                                                     displayName={effectiveName}
                                                     {...getExerciseMetadata(exerciseWithOptions)}
@@ -1725,6 +1726,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     onUpdateDensityRepChunks={updateDensityRepChunks}
                                                     onMarkDensityComplete={markDensityComplete}
                                                 />
+                                                </div>
                                             );
                                         });
 
@@ -1759,9 +1761,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                             : wrappedEmomToggle;
 
                                         return (
-                                            <ExerciseCard
-                                                key={eIdx}
-                                                exId={exId}
+                                            <div key={eIdx} className="stagger-item" style={{ animationDelay: `${eIdx * 50}ms` }}>
+                                                <ExerciseCard
+                                                    exId={exId}
                                                 name={ex.name}
                                                 effectiveName={effectiveName}
                                                 {...getExerciseMetadata(exerciseWithOptions)}
@@ -1806,6 +1808,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 onMarkDensityComplete={markDensityComplete}
                                                 sectionType={section.type}
                                             />
+                                            </div>
                                         );
                                     });
                                     })()}
@@ -1829,15 +1832,15 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                         </div>
 
                         <div className="space-y-3">
-                            {addedExercises.map((ex) => {
+                            {addedExercises.map((ex, idx) => {
                                 const exId = `added_${ex.id}`;
                                 const exerciseLog = getExerciseLogEntry(logs, exId);
                                 const currentSetArray = exerciseLog.sets || new Array(ex.sets).fill(false);
 
                                 return (
-                                    <AddedExerciseCard
-                                        key={ex.id}
-                                        exercise={ex}
+                                    <div key={ex.id} className="stagger-item" style={{ animationDelay: `${idx * 50}ms` }}>
+                                        <AddedExerciseCard
+                                            exercise={ex}
                                         sets={currentSetArray}
                                         haptic={haptic}
                                         onToggleSet={toggleSet}
@@ -1847,6 +1850,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                         onUpdateWeight={updateAddedExerciseWeight}
                                         onAddSet={addSetToExercise}
                                     />
+                                    </div>
                                 );
                             })}
                         </div>

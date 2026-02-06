@@ -465,7 +465,7 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
                             haptic.bump();
                             onClose();
                         }}
-                        className="w-full h-14 rounded-2xl bg-sys-success text-sys-onSuccess font-bold text-lg active:scale-95 transition-transform shadow-lg"
+                        className="w-full h-14 rounded-2xl bg-gradient-to-r from-sys-success to-sys-primary text-sys-white font-bold text-lg active:scale-95 transition-transform shadow-lg shadow-sys-primary/20"
                     >
                         Done
                     </motion.button>

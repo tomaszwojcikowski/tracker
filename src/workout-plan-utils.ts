@@ -182,6 +182,10 @@ export interface ScheduleEntry {
   densityTimeMinutes?: number;
   /** Total reps target for density exercises (v2.5+) */
   densityRepsTotal?: number;
+  /** Coaching cues for the exercise */
+  cues?: string[];
+  /** Optional coaching notes for technique/execution */
+  coachingNotes?: string;
 }
 
 /**
@@ -193,59 +197,6 @@ export type LoadUnit = 'kg' | 'band' | 'bodyweight' | 'percent';
  * Rep type for structured reps data
  */
 export type RepsType = 'reps' | 'time' | 'ladder' | 'amrap' | 'rm' | 'max' | 'effort' | 'submax' | 'none' | 'flow' | 'density';
-
-/**
- * Exercise option - a single variation of an exercise
- * Used when an exercise has multiple implementation choices (e.g., barbell vs dumbbell squats)
- */
-export interface ExerciseOption {
-  /** Name of this option (e.g., "Barbell", "Dumbbell", "Band") */
-  optionName: string;
-  /** Override exercise name for this option */
-  exerciseName?: string;
-  /** Description of when to use this option */
-  description?: string;
-  /** Override sets for this option */
-  sets?: number;
-  /** Override rest seconds for this option */
-  restSeconds?: number;
-  /** Override RPE for this option */
-  rpe?: number;
-  /** Override notes for this option */
-  notes?: string;
-  /** Override load minimum for this option */
-  loadMin?: number;
-  /** Override load maximum for this option */
-  loadMax?: number;
-  /** Override load unit for this option */
-  loadUnit?: LoadUnit;
-  /** Override per-hand flag for this option */
-  loadPerHand?: boolean;
-  /** Override reps type for this option */
-  repsType?: RepsType;
-  /** Override reps value for this option */
-  repsValue?: number | number[];
-  /** Override minimum reps for this option */
-  repsMin?: number;
-  /** Override maximum reps for this option */
-  repsMax?: number;
-  /** Override reps unit for this option */
-  repsUnit?: 'seconds' | 'minutes';
-  /** Override per-side flag for this option */
-  repsPerSide?: boolean;
-  /** Required equipment for this option */
-  equipment?: string[];
-  /** Variation descriptor (e.g., "Barbell Back Squat") */
-  variation?: string;
-  /** Sequence of movements for flow exercises (v2.4+) */
-  flowMovements?: string[];
-  /** Override density time for this option (v2.5+) */
-  densityTimeMinutes?: number;
-  /** Override density reps target for this option (v2.5+) */
-  densityRepsTotal?: number;
-  /** Coaching cues for this option */
-  cues?: string[];
-}
 
 /**
  * Base exercise properties shared by templates, references, and exercise definitions
@@ -290,6 +241,24 @@ export interface V2ExerciseBase {
   densityTimeMinutes?: number;
   /** Total reps target for density exercises (v2.5+) */
   densityRepsTotal?: number;
+}
+
+/**
+ * Exercise option - a single variation of an exercise
+ * Used when an exercise has multiple implementation choices (e.g., barbell vs dumbbell squats)
+ * Extends V2ExerciseBase to inherit all exercise properties as optional overrides
+ */
+export interface ExerciseOption extends Partial<V2ExerciseBase> {
+  /** Name of this option (e.g., "Barbell", "Dumbbell", "Band") - REQUIRED */
+  optionName: string;
+  /** Description of when to use this option */
+  description?: string;
+  /** Required equipment for this option */
+  equipment?: string[];
+  /** Variation descriptor (e.g., "Barbell Back Squat") */
+  variation?: string;
+  /** Sequence of movements for flow exercises (v2.4+) */
+  flowMovements?: string[];
 }
 
 /**
@@ -838,6 +807,9 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             // Density exercises (v2.5+)
             densityTimeMinutes: exercise.densityTimeMinutes,
             densityRepsTotal: exercise.densityRepsTotal,
+            // Coaching cues and notes
+            cues: exercise.cues,
+            coachingNotes: exercise.coachingNotes,
           });
         });
       });

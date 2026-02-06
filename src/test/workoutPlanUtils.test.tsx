@@ -135,9 +135,16 @@ describe('Workout Plan Utilities', () => {
         repsRange: { type: 'reps', value: 8, raw: '8' },
         tempoRange: undefined,
         isEmom: undefined,
+        isUnilateral: undefined,
         supersetGroup: undefined,
         restSeconds: 120,
-        alternatives: []
+        alternatives: [],
+        exerciseOptions: undefined,
+        isFlow: undefined,
+        densityTimeMinutes: undefined,
+        densityRepsTotal: undefined,
+        cues: [],
+        coachingNotes: undefined,
       });
 
       // Check second exercise (has bodyweight load)
@@ -154,9 +161,16 @@ describe('Workout Plan Utilities', () => {
         repsRange: { type: 'reps', value: 10, raw: '10' },
         tempoRange: undefined,
         isEmom: undefined,
+        isUnilateral: undefined,
         supersetGroup: undefined,
         restSeconds: 90,
-        alternatives: []
+        alternatives: [],
+        exerciseOptions: undefined,
+        isFlow: undefined,
+        densityTimeMinutes: undefined,
+        densityRepsTotal: undefined,
+        cues: [],
+        coachingNotes: undefined,
       });
 
       // Check third exercise (load: null becomes undefined)
@@ -173,9 +187,16 @@ describe('Workout Plan Utilities', () => {
         repsRange: { type: 'time', value: 600, unit: 'seconds', perSide: undefined, raw: '10 min' },
         tempoRange: undefined,
         isEmom: undefined,
+        isUnilateral: undefined,
         supersetGroup: undefined,
         restSeconds: null,
-        alternatives: []
+        alternatives: [],
+        exerciseOptions: undefined,
+        isFlow: undefined,
+        densityTimeMinutes: undefined,
+        densityRepsTotal: undefined,
+        cues: [],
+        coachingNotes: undefined,
       });
     });
 

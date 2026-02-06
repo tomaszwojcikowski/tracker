@@ -248,15 +248,11 @@ export interface ExerciseOption {
 }
 
 /**
- * V2.2.0 exercise template definition
- * Exercise templates allow defining common exercises once with all their default properties.
- * When referenced via $ref, any field can be overridden.
+ * Base exercise properties shared by templates, references, and exercise definitions
  */
-export interface V2ExerciseTemplate {
-  /** Unique identifier for this exercise template */
-  id: string;
+export interface V2ExerciseBase {
   /** Full exercise name as displayed to user */
-  exerciseName: string;
+  exerciseName?: string;
   /** Number of sets */
   sets?: number;
   notes?: string;
@@ -266,6 +262,8 @@ export interface V2ExerciseTemplate {
   alternatives?: string[];
   /** Array of exercise options to choose from */
   exerciseOptions?: ExerciseOption[];
+  /** Optional coaching notes for technique/execution */
+  coachingNotes?: string;
   progressionNotes?: string;
   cues?: string[];
   loadMin?: number;
@@ -293,45 +291,25 @@ export interface V2ExerciseTemplate {
   /** Total reps target for density exercises (v2.5+) */
   densityRepsTotal?: number;
 }
-export interface V2ExerciseRef {
+
+/**
+ * V2.2.0 exercise template definition
+ * Exercise templates allow defining common exercises once with all their default properties.
+ * When referenced via $ref, any field can be overridden.
+ */
+export interface V2ExerciseTemplate extends V2ExerciseBase {
+  /** Unique identifier for this exercise template */
+  id: string;
+  /** Full exercise name as displayed to user (required for templates) */
+  exerciseName: string;
+}
+
+/**
+ * V2.2.0+ exercise reference - references a template and optionally overrides fields
+ */
+export interface V2ExerciseRef extends Partial<V2ExerciseBase> {
   /** Reference to an exercise template ID */
   $ref: string;
-  /** Override fields from the template */
-  exerciseName?: string;
-  sets?: number;
-  notes?: string;
-  category?: string;
-  restSeconds?: number;
-  rpe?: number;
-  alternatives?: string[];
-  /** Override exercise options */
-  exerciseOptions?: ExerciseOption[];
-  progressionNotes?: string;
-  cues?: string[];
-  loadMin?: number;
-  loadMax?: number;
-  loadUnit?: LoadUnit;
-  loadPerHand?: boolean;
-  repsType?: RepsType;
-  repsValue?: number | number[] | null;
-  repsMin?: number;
-  repsMax?: number;
-  repsUnit?: 'seconds';
-  repsPerSide?: boolean;
-  repsModifier?: number;
-  tempoEccentric?: number;
-  tempoPauseBottom?: number;
-  tempoConcentric?: number;
-  tempoPauseTop?: number;
-  isEmom?: boolean;
-  isUnilateral?: boolean;
-  supersetGroup?: number;
-  /** Whether this is a mobility flow exercise (v2.4+) */
-  isFlow?: boolean;
-  /** Total time in minutes for density exercises (v2.5+) */
-  densityTimeMinutes?: number;
-  /** Total reps target for density exercises (v2.5+) */
-  densityRepsTotal?: number;
 }
 
 /**
@@ -366,25 +344,17 @@ export interface V2RoutineRef {
 
 /**
  * V2.0.0 exercise definition
+ * Extends the base with required fields and legacy backward-compatibility fields
  */
-export interface V2Exercise {
+export interface V2Exercise extends V2ExerciseBase {
+  /** Exercise name is required for exercise definitions */
   exerciseName: string;
+  /** Sets is required for exercise definitions */
   sets: number;
+  /** Exercise order within the day */
   order?: number;
-  notes?: string;
-  category?: string;
+  /** @deprecated Use restSeconds instead */
   rest?: number;
-  rpe?: number;
-  /** Rest between sets in seconds */
-  restSeconds?: number;
-  /** Array of alternative exercise names or IDs */
-  alternatives?: string[];
-  /** Array of exercise options to choose from */
-  exerciseOptions?: ExerciseOption[];
-  /** Progression notes for this exercise */
-  progressionNotes?: string;
-  /** Coaching cues */
-  cues?: string[];
 
   // ---- Legacy fields (deprecated, for backward compatibility) ----
   /** @deprecated Use repsType/repsValue/repsMin/repsMax instead */
@@ -393,56 +363,6 @@ export interface V2Exercise {
   load?: string | null;
   /** @deprecated Use tempoEccentric/tempoPauseBottom/tempoConcentric/tempoPauseTop instead */
   tempo?: string;
-
-  // ---- Structured load fields ----
-  /** Minimum weight value for weight ranges */
-  loadMin?: number;
-  /** Maximum weight value for weight ranges (same as min for fixed loads) */
-  loadMax?: number;
-  /** Unit of measurement for load */
-  loadUnit?: LoadUnit;
-  /** Whether the load is per hand (for dumbbell exercises) */
-  loadPerHand?: boolean;
-
-  // ---- Structured reps fields ----
-  /** Type of rep scheme */
-  repsType?: RepsType;
-  /** Primary value for reps (count, seconds, RM number, etc.) */
-  repsValue?: number | number[] | null;
-  /** Minimum reps for rep ranges */
-  repsMin?: number;
-  /** Maximum reps for rep ranges */
-  repsMax?: number;
-  /** Unit for time-based reps */
-  repsUnit?: 'seconds';
-  /** Whether reps are per side */
-  repsPerSide?: boolean;
-  /** Modifier for AMRAP (e.g., -1, -20%) */
-  repsModifier?: number;
-
-  // ---- Structured tempo fields ----
-  /** Eccentric (lowering) phase duration in seconds */
-  tempoEccentric?: number;
-  /** Pause at bottom position in seconds */
-  tempoPauseBottom?: number;
-  /** Concentric (lifting) phase duration in seconds */
-  tempoConcentric?: number;
-  /** Pause at top position in seconds */
-  tempoPauseTop?: number;
-
-  // ---- EMOM and Superset fields ----
-  /** Whether this exercise uses EMOM (Every Minute On the Minute) timing */
-  isEmom?: boolean;
-  /** Whether this exercise is performed unilaterally (per side) */
-  isUnilateral?: boolean;
-  /** Superset group ID. Exercises with the same supersetGroup value are performed together */
-  supersetGroup?: number;
-  /** Whether this is a mobility flow exercise (v2.4+) */
-  isFlow?: boolean;
-  /** Total time in minutes for density exercises (v2.5+) */
-  densityTimeMinutes?: number;
-  /** Total reps target for density exercises (v2.5+) */
-  densityRepsTotal?: number;
 }
 
 /**
@@ -651,45 +571,15 @@ function resolveExerciseReference(
     throw new Error(`Exercise template "${exerciseOrRef.$ref}" not found`);
   }
 
-  // Merge template with overrides
+  // Merge template with overrides using spread operator
   // The reference can override any field from the template
-  const resolved: V2Exercise = {
-    exerciseName: exerciseOrRef.exerciseName ?? template.exerciseName,
-    sets: exerciseOrRef.sets ?? template.sets ?? 1,
-    notes: exerciseOrRef.notes ?? template.notes,
-    category: exerciseOrRef.category ?? template.category,
-    restSeconds: exerciseOrRef.restSeconds ?? template.restSeconds,
-    rpe: exerciseOrRef.rpe ?? template.rpe,
-    alternatives: exerciseOrRef.alternatives ?? template.alternatives,
-    exerciseOptions: exerciseOrRef.exerciseOptions ?? template.exerciseOptions,
-    progressionNotes: exerciseOrRef.progressionNotes ?? template.progressionNotes,
-    loadMin: exerciseOrRef.loadMin ?? template.loadMin,
-    loadMax: exerciseOrRef.loadMax ?? template.loadMax,
-    loadUnit: exerciseOrRef.loadUnit ?? template.loadUnit,
-    loadPerHand: exerciseOrRef.loadPerHand ?? template.loadPerHand,
-    repsType: exerciseOrRef.repsType ?? template.repsType,
-    repsValue: exerciseOrRef.repsValue ?? template.repsValue,
-    repsMin: exerciseOrRef.repsMin ?? template.repsMin,
-    repsMax: exerciseOrRef.repsMax ?? template.repsMax,
-    repsUnit: exerciseOrRef.repsUnit ?? template.repsUnit,
-    repsPerSide: exerciseOrRef.repsPerSide ?? template.repsPerSide,
-    repsModifier: exerciseOrRef.repsModifier ?? template.repsModifier,
-    tempoEccentric: exerciseOrRef.tempoEccentric ?? template.tempoEccentric,
-    tempoPauseBottom: exerciseOrRef.tempoPauseBottom ?? template.tempoPauseBottom,
-    tempoConcentric: exerciseOrRef.tempoConcentric ?? template.tempoConcentric,
-    tempoPauseTop: exerciseOrRef.tempoPauseTop ?? template.tempoPauseTop,
-    isEmom: exerciseOrRef.isEmom ?? template.isEmom,
-    isUnilateral: exerciseOrRef.isUnilateral ?? template.isUnilateral,
-    supersetGroup: exerciseOrRef.supersetGroup ?? template.supersetGroup,
-    isFlow: exerciseOrRef.isFlow ?? template.isFlow,
-    densityTimeMinutes: exerciseOrRef.densityTimeMinutes ?? template.densityTimeMinutes,
-    densityRepsTotal: exerciseOrRef.densityRepsTotal ?? template.densityRepsTotal,
-  };
+  const { $ref, ...overrides } = exerciseOrRef;
 
-  // Add cues if present
-  if (exerciseOrRef.cues ?? template.cues) {
-    (resolved as V2Exercise & { cues?: string[] }).cues = exerciseOrRef.cues ?? template.cues;
-  }
+  const resolved: V2Exercise = {
+    ...template,
+    ...overrides,
+    sets: overrides.sets ?? template.sets ?? 1, // Ensure sets has a default
+  };
 
   return resolved;
 }

@@ -1807,8 +1807,8 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 onUpdateDensityRepChunks={updateDensityRepChunks}
                                                 onMarkDensityComplete={markDensityComplete}
                                                 sectionType={section.type}
-                                            </div>
                                             />
+                                            </div>
                                         );
                                     });
                                     })()}

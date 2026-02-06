@@ -12,3 +12,4 @@ playwright-report/
 public/exercises.json
 public/colors.css
 coverage/
+tracker.code-workspace

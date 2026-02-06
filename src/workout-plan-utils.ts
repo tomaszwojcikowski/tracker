@@ -5,6 +5,8 @@
  * in v2.0.0 structured format.
  */
 
+import { normalizeString, parseIntSafe, parseFloatSafe } from './utils/stringUtils';
+
 // ============================================================================
 // TYPE DEFINITIONS
 // ============================================================================
@@ -34,7 +36,7 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
   if (!load) return null;
 
   const raw = load.trim();
-  const lower = raw.toLowerCase();
+  const lower = normalizeString(load);
 
   // Handle bodyweight
   if (lower === 'bodyweight') {
@@ -55,7 +57,7 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
   if (lower.includes('%')) {
     const match = raw.match(/(\d+)/);
     if (match) {
-      const value = parseInt(match[1], 10);
+      const value = parseIntSafe(match[1]);
       return { min: value, max: value, unit: 'percent', raw };
     }
   }
@@ -71,8 +73,8 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
   const rangeMatch = cleaned.match(/^[+~]?(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)$/);
   if (rangeMatch) {
     return {
-      min: parseFloat(rangeMatch[1]),
-      max: parseFloat(rangeMatch[2]),
+      min: parseFloatSafe(rangeMatch[1]),
+      max: parseFloatSafe(rangeMatch[2]),
       unit: 'kg',
       raw,
       perHand,
@@ -82,7 +84,7 @@ export function parseLoadRange(load: string | null | undefined): LoadRange | nul
   // Check for single value
   const singleMatch = cleaned.match(/^[+~]?(\d+(?:\.\d+)?)$/);
   if (singleMatch) {
-    const value = parseFloat(singleMatch[1]);
+    const value = parseFloatSafe(singleMatch[1]);
     return {
       min: value,
       max: value,
@@ -890,14 +892,14 @@ function parseRepsRange(reps: string): RepsRange | null {
   if (!reps) return null;
 
   const raw = reps.trim();
-  const lower = raw.toLowerCase();
+  const lower = normalizeString(reps);
 
   // Ladder reps
   const ladderMatch = raw.match(/^\((\d+(?:-\d+)+)\)\s*reps?$/i);
   if (ladderMatch) {
     return {
       type: 'ladder',
-      value: ladderMatch[1].split('-').map(n => parseInt(n, 10)),
+      value: ladderMatch[1].split('-').map(n => parseIntSafe(n)),
       raw,
     };
   }
@@ -907,7 +909,7 @@ function parseRepsRange(reps: string): RepsRange | null {
   if (amrapMatch) {
     const mod = amrapMatch[1];
     if (mod && mod.toLowerCase() !== 'max') {
-      return { type: 'amrap', value: null, modifier: parseInt(mod, 10), raw };
+      return { type: 'amrap', value: null, modifier: parseIntSafe(mod), raw };
     }
     return { type: 'amrap', value: null, raw };
   }
@@ -915,7 +917,7 @@ function parseRepsRange(reps: string): RepsRange | null {
   // RM tests
   const rmMatch = raw.match(/^(\d+)RM$/i);
   if (rmMatch) {
-    return { type: 'rm', value: parseInt(rmMatch[1], 10), raw };
+    return { type: 'rm', value: parseIntSafe(rmMatch[1]), raw };
   }
 
   // Max
@@ -936,14 +938,14 @@ function parseRepsRange(reps: string): RepsRange | null {
   // Effort
   const effortMatch = raw.match(/^(\d+)%\s*Effort$/i);
   if (effortMatch) {
-    return { type: 'effort', value: parseInt(effortMatch[1], 10), raw };
+    return { type: 'effort', value: parseIntSafe(effortMatch[1]), raw };
   }
 
   // Time-based
   const perSideTime = lower.includes('/side');
   const timeMatch = raw.match(/^(\d+(?:\.\d+)?)\s*(s|sec|min|m)(?:\/side)?$/i);
   if (timeMatch) {
-    const value = parseFloat(timeMatch[1]);
+    const value = parseFloatSafe(timeMatch[1]);
     const unit = timeMatch[2].toLowerCase();
     const seconds = (unit === 'min' || unit === 'm') ? value * 60 : value;
     return { type: 'time', value: seconds, unit: 'seconds', perSide: perSideTime ? true : undefined, raw };
@@ -954,8 +956,8 @@ function parseRepsRange(reps: string): RepsRange | null {
   if (timeRangeMatch) {
     return {
       type: 'time',
-      min: parseInt(timeRangeMatch[1], 10),
-      max: parseInt(timeRangeMatch[2], 10),
+      min: parseIntSafe(timeRangeMatch[1]),
+      max: parseIntSafe(timeRangeMatch[2]),
       unit: 'seconds',
       raw,
     };
@@ -966,8 +968,8 @@ function parseRepsRange(reps: string): RepsRange | null {
   if (rangeMatch) {
     return {
       type: 'reps',
-      min: parseInt(rangeMatch[1], 10),
-      max: parseInt(rangeMatch[2], 10),
+      min: parseIntSafe(rangeMatch[1]),
+      max: parseIntSafe(rangeMatch[2]),
       raw,
     };
   }
@@ -975,19 +977,19 @@ function parseRepsRange(reps: string): RepsRange | null {
   // Fixed reps with per-side
   const perSideMatch = raw.match(/^(\d+)\s*(?:reps?)?\s*\/\s*side$/i);
   if (perSideMatch) {
-    return { type: 'reps', value: parseInt(perSideMatch[1], 10), perSide: true, raw };
+    return { type: 'reps', value: parseIntSafe(perSideMatch[1]), perSide: true, raw };
   }
 
   // Fixed reps
   const fixedMatch = raw.match(/^(\d+)\s*reps?$/i);
   if (fixedMatch) {
-    return { type: 'reps', value: parseInt(fixedMatch[1], 10), raw };
+    return { type: 'reps', value: parseIntSafe(fixedMatch[1]), raw };
   }
 
   // Plain number (just digits)
   const plainNumberMatch = raw.match(/^(\d+)$/);
   if (plainNumberMatch) {
-    return { type: 'reps', value: parseInt(plainNumberMatch[1], 10), raw };
+    return { type: 'reps', value: parseIntSafe(plainNumberMatch[1]), raw };
   }
 
   return null;
@@ -1002,10 +1004,10 @@ function parseTempoRange(tempo: string): TempoRange | null {
   const match = tempo.match(/^(\d+)-(\d+)-(\d+)-(\d+)$/);
   if (match) {
     return {
-      eccentric: parseInt(match[1], 10),
-      pauseBottom: parseInt(match[2], 10),
-      concentric: parseInt(match[3], 10),
-      pauseTop: parseInt(match[4], 10),
+      eccentric: parseIntSafe(match[1]),
+      pauseBottom: parseIntSafe(match[2]),
+      concentric: parseIntSafe(match[3]),
+      pauseTop: parseIntSafe(match[4]),
       raw: tempo,
     };
   }

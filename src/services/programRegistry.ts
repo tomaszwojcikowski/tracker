@@ -11,56 +11,8 @@
  * - Program switching
  */
 
-// NOTE: We inline safe localStorage wrappers here to avoid circular dependencies
-// with storage.ts -> storageNamespace.ts -> programRegistry.ts
-
 import type { WorkoutPlanMetadata, InternalSchedule } from '../workout-plan-utils';
-
-// ============================================================================
-// INLINE STORAGE UTILITIES (to avoid circular dependency)
-// ============================================================================
-
-/**
- * Safely get and parse JSON from localStorage (inlined to avoid circular dep)
- */
-function registrySafeGetJSON<T>(key: string, defaultValue: T): T;
-function registrySafeGetJSON<T>(key: string): T | null;
-function registrySafeGetJSON<T>(key: string, defaultValue?: T): T | null {
-  try {
-    const item = localStorage.getItem(key);
-    if (item === null) return defaultValue ?? null;
-    return JSON.parse(item) as T;
-  } catch (error) {
-    console.warn(`Failed to parse JSON for key "${key}":`, error);
-    return defaultValue ?? null;
-  }
-}
-
-/**
- * Safely stringify and save JSON to localStorage (inlined to avoid circular dep)
- */
-function registrySafeSetJSON<T>(key: string, value: T): boolean {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-    return true;
-  } catch (error) {
-    console.error(`Failed to save JSON for key "${key}":`, error);
-    return false;
-  }
-}
-
-/**
- * Safely remove item from localStorage (inlined to avoid circular dep)
- */
-function registrySafeRemove(key: string): boolean {
-  try {
-    localStorage.removeItem(key);
-    return true;
-  } catch (error) {
-    console.error(`Failed to remove key "${key}":`, error);
-    return false;
-  }
-}
+import { safeGetJSON, safeSetJSON, safeRemove } from '../utils/storageCore';
 
 // ============================================================================
 // TYPES
@@ -239,7 +191,7 @@ class ProgramRegistryImpl implements ProgramRegistry {
    */
   private loadFromStorage(): void {
     // Load programs
-    const storedPrograms = registrySafeGetJSON<StoredProgramManifest[]>(REGISTRY_STORAGE_KEY, []);
+    const storedPrograms = safeGetJSON<StoredProgramManifest[]>(REGISTRY_STORAGE_KEY, []);
     for (const stored of storedPrograms) {
       const manifest: ProgramManifest = {
         ...stored,
@@ -249,8 +201,8 @@ class ProgramRegistryImpl implements ProgramRegistry {
     }
 
     // Load active program ID
-    this.activeProgramId = registrySafeGetJSON<string | null>(ACTIVE_PROGRAM_STORAGE_KEY, null);
-    this.lockedActiveProgramId = registrySafeGetJSON<string | null>(LOCKED_ACTIVE_PROGRAM_STORAGE_KEY, null);
+    this.activeProgramId = safeGetJSON<string | null>(ACTIVE_PROGRAM_STORAGE_KEY, null);
+    this.lockedActiveProgramId = safeGetJSON<string | null>(LOCKED_ACTIVE_PROGRAM_STORAGE_KEY, null);
 
     // If we have an active program but no locked value (legacy state), lock it to preserve user choice
     if (this.activeProgramId && !this.lockedActiveProgramId) {
@@ -259,7 +211,7 @@ class ProgramRegistryImpl implements ProgramRegistry {
 
     // Load persisted program data for each known program
     for (const programId of this.programs.keys()) {
-      const storedData = registrySafeGetJSON<ProgramData | null>(`${PROGRAM_DATA_STORAGE_PREFIX}${programId}`, null);
+      const storedData = safeGetJSON<ProgramData | null>(`${PROGRAM_DATA_STORAGE_PREFIX}${programId}`, null);
       if (storedData) {
         this.programData.set(programId, storedData);
       }
@@ -276,9 +228,9 @@ class ProgramRegistryImpl implements ProgramRegistry {
         installedAt: manifest.installedAt.toISOString(),
       })
     );
-    registrySafeSetJSON(REGISTRY_STORAGE_KEY, storedPrograms);
-    registrySafeSetJSON(ACTIVE_PROGRAM_STORAGE_KEY, this.activeProgramId);
-    registrySafeSetJSON(LOCKED_ACTIVE_PROGRAM_STORAGE_KEY, this.lockedActiveProgramId);
+    safeSetJSON(REGISTRY_STORAGE_KEY, storedPrograms);
+    safeSetJSON(ACTIVE_PROGRAM_STORAGE_KEY, this.activeProgramId);
+    safeSetJSON(LOCKED_ACTIVE_PROGRAM_STORAGE_KEY, this.lockedActiveProgramId);
   }
 
   /**
@@ -398,7 +350,7 @@ class ProgramRegistryImpl implements ProgramRegistry {
     this.programs.delete(programId);
     // Also remove program data
     this.programData.delete(programId);
-    registrySafeRemove(`${PROGRAM_DATA_STORAGE_PREFIX}${programId}`);
+    safeRemove(`${PROGRAM_DATA_STORAGE_PREFIX}${programId}`);
     this.updateActiveFlags();
     this.saveToStorage();
     return true;
@@ -406,7 +358,7 @@ class ProgramRegistryImpl implements ProgramRegistry {
 
   setProgramData(programId: string, data: ProgramData): void {
     this.programData.set(programId, data);
-    registrySafeSetJSON(`${PROGRAM_DATA_STORAGE_PREFIX}${programId}`, data);
+    safeSetJSON(`${PROGRAM_DATA_STORAGE_PREFIX}${programId}`, data);
   }
 
   getProgramData(programId: string): ProgramData | null {

@@ -4,7 +4,7 @@
  * Safe wrappers for localStorage operations with error handling.
  * These functions prevent crashes from quota exceeded, JSON parse errors,
  * or localStorage being unavailable.
- * 
+ *
  * Program-Scoped Storage:
  * Functions like getInProgressWorkout, isWorkoutInProgress, getWorkoutProgress,
  * and hasWorkoutData now use program-scoped namespaced keys to isolate
@@ -14,57 +14,10 @@
 import type { StorageResult } from '../types';
 import { getWorkoutForDay } from '../data/programData';
 import { getSessionKey as getNamespacedSessionKey, parseSessionKey, getActiveProgramId, NAMESPACE_PREFIX, NAMESPACE_SEPARATOR } from '../services/storageNamespace';
+import { safeGetJSON, safeSetJSON, safeRemove } from './storageCore';
 
-/**
- * Safely get and parse JSON from localStorage
- * @param key - localStorage key
- * @param defaultValue - value to return if key doesn't exist or parsing fails
- * @returns parsed value or defaultValue
- */
-export function safeGetJSON<T>(key: string, defaultValue: T): T;
-export function safeGetJSON<T>(key: string): T | null;
-export function safeGetJSON<T>(key: string, defaultValue?: T): T | null {
-  try {
-    const item = localStorage.getItem(key);
-    if (item === null) return defaultValue ?? null;
-    return JSON.parse(item) as T;
-  } catch (error) {
-    console.warn(`Failed to parse JSON for key "${key}":`, error);
-    return defaultValue ?? null;
-  }
-}
-
-/**
- * Safely stringify and save JSON to localStorage
- * @param key - localStorage key
- * @param value - value to stringify and save
- * @returns true if successful, false otherwise
- */
-export function safeSetJSON<T>(key: string, value: T): boolean {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-    return true;
-  } catch (error) {
-    console.error(`Failed to save JSON for key "${key}":`, error);
-    // Storage might be full
-    return false;
-  }
-}
-
-/**
- * Safely remove item from localStorage
- * @param key - localStorage key
- * @returns true if successful, false otherwise
- */
-export function safeRemove(key: string): boolean {
-  try {
-    localStorage.removeItem(key);
-    return true;
-  } catch (error) {
-    console.error(`Failed to remove key "${key}":`, error);
-    return false;
-  }
-}
+// Re-export core storage utilities for external consumers
+export { safeGetJSON, safeSetJSON, safeRemove };
 
 /**
  * Get all localStorage keys matching a pattern
@@ -283,7 +236,7 @@ export function getInProgressWorkout(): InProgressWorkout | null {
     // Pattern to match namespaced session keys: p:{programId}:session_w{week}d{day}
     const programId = getActiveProgramId();
     const prefix = `${NAMESPACE_PREFIX}${programId}${NAMESPACE_SEPARATOR}`;
-    
+
     let mostRecent: InProgressWorkout | null = null;
     let mostRecentTime = 0;
 
@@ -400,10 +353,10 @@ export function getWorkoutProgress(week: number, day: number): { completedSets: 
 export function hasWorkoutData(week: number, day: number): boolean {
   const key = getNamespacedSessionKey(week, day);
   const session = safeGetJSON<WorkoutSessionData>(key);
-  
+
   if (!session) return false;
   if (session.completed) return true;
-  
+
   const { total } = countSetsFromSession(session);
   return total > 0;
 }

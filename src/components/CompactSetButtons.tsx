@@ -9,7 +9,7 @@
  */
 
 import React, { useMemo, memo } from 'react';
-import { Check } from './icons';
+// import { Check } from './icons';
 
 // ============================================================================
 // TYPES

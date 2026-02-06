@@ -6,7 +6,7 @@
  * Phase 2 Mockup: Enhanced with status pills, week selector pills, and continue card.
  */
 
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useHaptic, useScrollToElement } from '../../hooks';
 import { Play, ChevronRight, ChevronLeft, Plus, Clock, X } from '../icons';
 import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, type InProgressWorkout } from '../../utils/storage';
@@ -187,13 +187,6 @@ export function Dashboard({
   // Calculate max weeks based on current program
   const maxWeeks = metadata?.durationWeeks ?? currentProgram?.durationWeeks ?? 21;
 
-  // Ref for the horizontal scroll container
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  // Track if we're programmatically scrolling to prevent scroll event feedback loop
-  const isProgrammaticScroll = useRef(false);
-  // Track if this is the initial mount to use instant scroll
-  const isInitialMount = useRef(true);
-
   const handleViewDetails = (week: number, day: number) => {
     const historyKey = getGlobalHistoryKey();
     const history = safeGetJSON<GlobalHistoryEntry[]>(historyKey, []);
@@ -203,44 +196,6 @@ export function Dashboard({
       setDetailWorkout(entries);
     }
   };
-
-  // Scroll to the current week when it changes (e.g., from button click or dot navigation)
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const targetScroll = (currentWeek - 1) * container.clientWidth;
-    // Only scroll if we're not already at the right position
-    if (Math.abs(container.scrollLeft - targetScroll) > 10) {
-      isProgrammaticScroll.current = true;
-      // Use instant scroll on initial mount, smooth scroll for user navigation
-      const behavior = isInitialMount.current ? 'auto' : 'smooth';
-      container.scrollTo({ left: targetScroll, behavior });
-      // Reset flag after scroll animation completes
-      setTimeout(() => {
-        isProgrammaticScroll.current = false;
-        isInitialMount.current = false;
-      }, 350);
-    }
-  }, [currentWeek]);
-
-  // Handle scroll end to update week based on scroll position
-  const handleScroll = useCallback(() => {
-    // Skip if this is a programmatic scroll
-    if (isProgrammaticScroll.current) return;
-
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const scrollLeft = container.scrollLeft;
-    const itemWidth = container.clientWidth;
-    const newWeek = Math.round(scrollLeft / itemWidth) + 1;
-
-    if (newWeek !== currentWeek && newWeek >= 1 && newWeek <= maxWeeks) {
-      haptic.swipe();
-      setCurrentWeek(newWeek);
-    }
-  }, [currentWeek, maxWeeks, haptic, setCurrentWeek]);
 
   // Navigation handlers for buttons
   const changeWeek = useCallback((newWeek: number) => {
@@ -338,21 +293,25 @@ export function Dashboard({
         />
       </div>
 
-      {/* Horizontal scroll container for weeks - native swipe support */}
-      <div
-        ref={scrollContainerRef}
-        onScroll={handleScroll}
-        className="flex-1 flex overflow-x-auto snap-x snap-mandatory"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
-      >
-        {Array.from({ length: maxWeeks }, (_, i) => i + 1).map((week) => (
+      {/* Week Selector Pills - Moved outside WeekContent for smooth transition */}
+      <div className="px-5 mb-4 shrink-0">
+        <WeekPills
+          currentWeek={currentWeek}
+          totalWeeks={maxWeeks}
+          onWeekSelect={changeWeek}
+          visibleWeeks={4}
+        />
+      </div>
+
+      {/* Main Content Area - Renders active week only for smooth transitions */}
+      <div className="flex-1 overflow-y-auto" style={{ scrollbarWidth: 'none' }}>
           <WeekContent
-            key={week}
-            week={week}
+            key={currentWeek}
+            week={currentWeek}
             currentWeek={currentWeek}
             maxWeeks={maxWeeks}
             inProgressWorkout={inProgressWorkout}
-            days={daysByWeek.get(week) ?? []}
+            days={daysByWeek.get(currentWeek) ?? []}
             nextWorkout={nextWorkout}
             isCompleted={isCompleted}
             getDayProgress={getDayProgress}
@@ -363,7 +322,6 @@ export function Dashboard({
             onStartEmptyWorkout={onStartEmptyWorkout}
             haptic={haptic}
           />
-        ))}
       </div>
 
       <WorkoutDetailModal
@@ -468,9 +426,7 @@ function WeekContent({
   };
 
   return (
-    <div
-      className="flex-shrink-0 w-full snap-center overflow-y-auto px-5 pb-20"
-    >
+    <div className="flex-shrink-0 w-full px-5 pb-20">
       <BottomSheet
         isOpen={previewDay !== null}
         onClose={() => setPreviewDay(null)}
@@ -543,16 +499,6 @@ function WeekContent({
         currentWeek={week}
       />
 
-      {/* Week Selector Pills - Phase 2 Mockup Feature */}
-      <div className="mb-6">
-        <WeekPills
-          currentWeek={currentWeek}
-          totalWeeks={21}
-          onWeekSelect={changeWeek}
-          visibleWeeks={4}
-        />
-      </div>
-
       {/* Continue Workout Card - Phase 2 Mockup Feature */}
       {inProgressWorkout && inProgressWorkout.week === week && (
         <div className="mb-6">
@@ -571,7 +517,7 @@ function WeekContent({
         </div>
 
         <div className="flex flex-col gap-4">
-          {days.map((day) => {
+          {days.map((day, idx) => {
             const done = isCompleted(day);
             const dayProgress = getDayProgress(day);
             const isInProgress = !done && dayProgress !== null;
@@ -595,7 +541,8 @@ function WeekContent({
                             haptic.tick();
                             onStartWorkout(day);
                         }}
-                        className={`relative overflow-hidden rounded-[32px] p-6 text-left transition-all active:scale-[0.98] group scroll-mt-16 ${theme.hero.container} shadow-elevation-2`}
+                        className={`stagger-item relative overflow-hidden rounded-[32px] p-6 text-left transition-all active:scale-[0.98] group scroll-mt-16 ${theme.hero.container} shadow-elevation-2`}
+                        style={{ animationDelay: `${idx * 200}ms` }}
                         aria-label={`Start Day ${day} workout`}
                     >
                         {/* Background with gradient */}
@@ -648,7 +595,8 @@ function WeekContent({
               <div
                 key={day}
                 id={`day-card-${day}`}
-                className="day-card-enhanced"
+                className="day-card-enhanced stagger-item"
+                style={{ animationDelay: `${idx * 200}ms` }}
               >
                 {/* Day header with status pill */}
                 <div className="flex items-center justify-between mb-3">
@@ -660,9 +608,11 @@ function WeekContent({
                       {getExerciseSummary(week, day)}
                     </p>
                   </div>
-                  <StatusPill
-                    status={done ? 'completed' : isInProgress ? 'up-next' : 'not-started'}
-                  />
+                  {(done || isInProgress) && (
+                    <StatusPill
+                      status={done ? 'completed' : 'up-next'}
+                    />
+                  )}
                 </div>
 
                 {/* Metadata row - Phase 2 Mockup Feature */}

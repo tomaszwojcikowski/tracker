@@ -49,7 +49,7 @@ export function WeekPills({
                 layoutId="active-week-pill"
                 className="absolute inset-0 bg-sys-primary rounded-lg -z-10 shadow-elevation-1"
                 initial={false}
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                transition={{ type: "spring", stiffness: 280, damping: 28 }}
               />
             )}
             <span className={`relative z-10 ${week === currentWeek ? 'text-sys-onPrimary' : ''}`}>

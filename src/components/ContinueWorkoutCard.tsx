@@ -18,6 +18,7 @@ export function ContinueWorkoutCard({ workout, onResume }: ContinueWorkoutCardPr
   const { week, day, lastModified, completedSets, totalSets } = workout;
 
   const progress = totalSets > 0 ? `${completedSets} / ${totalSets} sets` : 'In progress';
+  const progressPercent = totalSets > 0 ? Math.round((completedSets / totalSets) * 100) : 0;
   const timeAgo = lastModified ? (formatRelativeTime(lastModified.toISOString()) || 'Recently') : 'Recently';
 
   return (
@@ -35,13 +36,22 @@ export function ContinueWorkoutCard({ workout, onResume }: ContinueWorkoutCardPr
         </div>
         <button
           onClick={onResume}
-          className="h-12 px-6 rounded-xl bg-sys-primary text-sys-onPrimary font-bold flex items-center gap-2 shrink-0 shadow-elevation-1 hover:shadow-elevation-2 active:scale-95 transition-all"
+          className="h-12 px-6 rounded-xl bg-gradient-primary text-sys-onPrimary font-bold flex items-center gap-2 shrink-0 shadow-elevation-1 hover:shadow-elevation-2 active:scale-95 transition-all"
           aria-label="Resume workout"
         >
           <PlayCircle className="w-5 h-5" />
           Resume
         </button>
       </div>
+
+      {totalSets > 0 && (
+        <div className="w-full bg-sys-surfaceContainerHigh h-1.5 rounded-full overflow-hidden mb-4">
+          <div
+            className="h-full bg-sys-primary transition-all duration-500 ease-out"
+            style={{ width: `${progressPercent}%` }}
+          />
+        </div>
+      )}
 
       <div className="grid grid-cols-2 gap-4 pt-4 border-t border-sys-outlineVariant">
         <div>

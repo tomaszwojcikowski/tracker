@@ -5,6 +5,8 @@
  * Part of Phase 2 mockup implementation.
  */
 
+import { motion, LayoutGroup } from 'framer-motion';
+
 interface WeekPillsProps {
   currentWeek: number;
   totalWeeks: number;
@@ -32,18 +34,30 @@ export function WeekPills({
       <div className="text-label-md font-bold text-sys-onSurfaceVariant uppercase tracking-wider">
         Week
       </div>
-      <div className="flex gap-2 items-center overflow-x-auto hide-scrollbar py-1">
+      <div className="flex gap-2 items-center overflow-x-auto hide-scrollbar py-1 isolate">
+        <LayoutGroup id="week-pills">
         {weeks.map((week) => (
           <button
             key={week}
             onClick={() => onWeekSelect(week)}
-            className={`week-pill ${week === currentWeek ? 'active' : ''}`}
+            className={`week-pill relative ${week === currentWeek ? 'active' : ''}`}
             aria-label={`Week ${week}`}
             aria-current={week === currentWeek ? 'true' : undefined}
           >
-            {week}
+            {week === currentWeek && (
+              <motion.div
+                layoutId="active-week-pill"
+                className="absolute inset-0 bg-sys-primary rounded-lg -z-10 shadow-elevation-1"
+                initial={false}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              />
+            )}
+            <span className={`relative z-10 ${week === currentWeek ? 'text-sys-onPrimary' : ''}`}>
+              {week}
+            </span>
           </button>
         ))}
+        </LayoutGroup>
       </div>
     </div>
   );

@@ -82,7 +82,23 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                                 }`}
                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                             >
-                                {isDone ? <Check size={18} /> : i + 1}
+                                {isDone ? (
+                                    <svg
+                                        width="18"
+                                        height="18"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="3"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className="animate-checkmark"
+                                    >
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                ) : (
+                                    i + 1
+                                )}
                             </button>
                         );
                     }

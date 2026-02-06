@@ -25,7 +25,10 @@ export function StatusPill({ status, className = '' }: StatusPillProps) {
   const statusClass = `status-pill-${status}`;
 
   return (
-    <span className={`status-pill ${statusClass} ${className}`}>
+    <span className={`status-pill ${statusClass} ${status === 'up-next' ? 'status-pill-glow pl-2' : ''} ${className}`}>
+      {status === 'up-next' && (
+        <span className="w-2 h-2 rounded-full bg-sys-primary animate-pulse-dot mr-1.5" />
+      )}
       {getStatusText()}
     </span>
   );

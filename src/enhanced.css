@@ -1,0 +1,93 @@
+/* ============================================================================
+   VISUAL ENHANCEMENTS (Added by Copilot)
+   Gradients, pulsing effects, and staggered animations
+   ============================================================================ */
+
+/* Gradient Gradients */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-tertiary) 100%);
+    color: var(--color-on-primary);
+}
+
+.bg-gradient-secondary {
+    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+    color: var(--color-on-secondary);
+}
+
+.bg-gradient-surface {
+    background: linear-gradient(180deg, var(--color-surface-container-low) 0%, var(--color-surface) 100%);
+}
+
+.text-gradient-primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-tertiary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Stagger Animations */
+@keyframes staggerSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stagger-item {
+    animation: staggerSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    opacity: 0; /* Start hidden */
+}
+
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+.stagger-7 { animation-delay: 0.35s; }
+.stagger-8 { animation-delay: 0.4s; }
+.stagger-9 { animation-delay: 0.45s; }
+.stagger-10 { animation-delay: 0.5s; }
+
+/* Status Pill pulsing dot */
+@keyframes pulseDot {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-pulse-dot {
+    animation: pulseDot 2s infinite ease-in-out;
+}
+
+.status-pill-glow {
+    box-shadow: 0 0 8px var(--color-primary-container);
+}
+
+/* Checkmark SVG animation fix for Lucide icons (usually polyline) */
+.animate-checkmark polyline {
+    stroke-dasharray: 24;
+    stroke-dashoffset: 24;
+    animation: checkmarkDraw 0.4s ease-out forwards;
+}
+
+/* Sliding Pill Transition */
+.sliding-pill-container {
+    position: relative;
+    isolation: isolate;
+}
+
+.sliding-pill-indicator {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary-container);
+    z-index: -1;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+

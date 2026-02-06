@@ -41,8 +41,8 @@ function getDayTheme(day: number) {
           iconBg: 'bg-sys-primary',
           iconColor: 'text-sys-onPrimary',
           text: 'text-sys-primary',
-          container: 'bg-sys-primaryContainer',
-          onContainer: 'text-sys-onPrimaryContainer'
+          container: 'bg-gradient-primary text-sys-onPrimary shadow-elevation-3',
+          onContainer: 'text-sys-onPrimary'
         },
         card: {
           bg: 'bg-sys-primaryContainer',
@@ -59,7 +59,7 @@ function getDayTheme(day: number) {
           iconBg: 'bg-sys-secondary',
           iconColor: 'text-sys-onSecondary',
           text: 'text-sys-secondary',
-          container: 'bg-sys-secondaryContainer',
+          container: 'bg-gradient-secondary text-sys-onSecondary shadow-elevation-3',
           onContainer: 'text-sys-onSecondaryContainer'
         },
         card: {
@@ -516,7 +516,7 @@ function WeekContent({
                     <div
                       // Raw schedule items do not have stable IDs; index is acceptable for read-only preview.
                       key={`${previewDay}-${idx}-${item.ex}`}
-                      className="p-3 rounded-xl bg-sys-surface border border-sys-outlineVariant"
+                      className={`p-3 rounded-xl bg-sys-surface border border-sys-outlineVariant stagger-item stagger-${Math.min(idx + 1, 10)}`}
                     >
                       <div className="text-sm text-sys-onSurface font-medium">
                         {formatScheduleItem(item)}

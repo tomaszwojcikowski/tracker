@@ -2067,6 +2067,28 @@
     "suggestedLoad": "30-50kg"
   },
   {
+    "id": "close_grip_dumbbell_press",
+    "name": "Close Grip Dumbbell Press",
+    "primaryMuscles": [
+      "triceps",
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": [
+      "dumbbells",
+      "bench"
+    ],
+    "category": "push",
+    "isBodyweight": false,
+    "variations": [
+      "Close Grip Bench Press",
+      "Dumbbell Floor Press"
+    ],
+    "suggestedLoad": "14-22kg per dumbbell"
+  },
+  {
     "id": "wrist_curls",
     "name": "Wrist Curls",
     "primaryMuscles": [

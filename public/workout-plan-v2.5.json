@@ -2632,6 +2632,27 @@
         ]
       },
       {
+        "id": "ex-close-grip-db-press",
+        "exerciseName": "Close Grip Dumbbell Press",
+        "category": "main",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 8,
+        "loadUnit": "kg",
+        "restSeconds": 120,
+        "notes": "Double Progression. Per-dumbbell load. Replaces weighted dips",
+        "alternatives": [
+          "Close Grip Bench Press",
+          "Dumbbell Floor Press"
+        ],
+        "coachingNotes": "Lie on a flat bench with a dumbbell in each hand. Keep elbows tucked at 30-45° angle to torso (close grip position). Lower dumbbells to mid-chest level with controlled eccentric. Press up and slightly inward without locking elbows. Maintain shoulder blades retracted and depressed throughout. Focus on tricep and inner chest engagement. Double Progression: master the reps before adding weight.",
+        "cues": [
+          "Elbows tucked",
+          "Shoulder blades pinched",
+          "Controlled descent"
+        ]
+      },
+      {
         "id": "ex-rower-leg-curls",
         "exerciseName": "Rower Leg Curls (2-Leg)",
         "category": "main",
@@ -2863,6 +2884,40 @@
         "cues": [
           "Shoulders down",
           "Don't flair elbows"
+        ]
+      },
+      {
+        "id": "ex-close-grip-db-press-heavy",
+        "exerciseName": "Close Grip Dumbbell Press",
+        "category": "main",
+        "sets": 4,
+        "repsType": "reps",
+        "repsValue": 5,
+        "loadUnit": "kg",
+        "restSeconds": 120,
+        "notes": "Heavy variant. Per-dumbbell load. Replaces weighted dips",
+        "alternatives": [
+          "Close Grip Bench Press",
+          "Dumbbell Floor Press"
+        ],
+        "cues": [
+          "Elbows tucked",
+          "Shoulder blades pinched",
+          "Controlled descent"
+        ]
+      },
+      {
+        "id": "ex-max-close-grip-db-press",
+        "exerciseName": "Max Reps Close Grip DB Press",
+        "category": "main",
+        "sets": 1,
+        "repsType": "max",
+        "loadUnit": "kg",
+        "restSeconds": 120,
+        "notes": "TEST. Use moderate weight (~14kg per hand). Max reps with good form",
+        "alternatives": [
+          "Max Reps Push-Ups",
+          "Close Grip Bench Press"
         ]
       },
       {
@@ -4175,10 +4230,11 @@
                     "notes": "Back to volume, moderate weight. Total: 10 reps"
                   },
                   {
-                    "$ref": "ex-weighted-dips",
+                    "$ref": "ex-close-grip-db-press",
                     "repsValue": 8,
-                    "loadMin": 5,
-                    "loadMax": 10
+                    "loadMin": 14,
+                    "loadMax": 18,
+                    "notes": "Per dumbbell. Close grip"
                   },
                   {
                     "$routine": "superset-bss"
@@ -4331,10 +4387,11 @@
                     "notes": "Heavier triples for intensity. Total: 9 reps"
                   },
                   {
-                    "$ref": "ex-weighted-dips",
+                    "$ref": "ex-close-grip-db-press",
                     "repsValue": 8,
-                    "loadMin": 7.5,
-                    "loadMax": 10
+                    "loadMin": 16,
+                    "loadMax": 20,
+                    "notes": "Per dumbbell. Close grip"
                   },
                   {
                     "$routine": "superset-bss"
@@ -4500,9 +4557,11 @@
                     "notes": "Easy. Total: 6 reps"
                   },
                   {
-                    "$ref": "ex-weighted-dips",
+                    "$ref": "ex-close-grip-db-press",
                     "sets": 2,
-                    "notes": "Deload"
+                    "loadMin": 10,
+                    "loadMax": 12,
+                    "notes": "Deload. Per dumbbell"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -5249,9 +5308,10 @@
                     "notes": "Double Progression. Total: 8 reps @ 14kg"
                   },
                   {
-                    "$ref": "ex-weighted-dips-heavy",
-                    "loadMin": 5,
-                    "loadMax": 10
+                    "$ref": "ex-close-grip-db-press-heavy",
+                    "loadMin": 16,
+                    "loadMax": 22,
+                    "notes": "Per dumbbell. Close grip"
                   },
                   {
                     "$ref": "ex-chest-supported-row"
@@ -5391,9 +5451,10 @@
                     "notes": "To 16kg. Double Progression"
                   },
                   {
-                    "$ref": "ex-weighted-dips-heavy",
-                    "loadMin": 5,
-                    "loadMax": 10
+                    "$ref": "ex-close-grip-db-press-heavy",
+                    "loadMin": 16,
+                    "loadMax": 22,
+                    "notes": "Per dumbbell. Close grip"
                   },
                   {
                     "$ref": "ex-chest-supported-row"
@@ -5539,9 +5600,10 @@
                     "notes": "To 17.5kg (PR attempt). Double Progression"
                   },
                   {
-                    "$ref": "ex-weighted-dips-heavy",
-                    "loadMin": 5,
-                    "loadMax": 10
+                    "$ref": "ex-close-grip-db-press-heavy",
+                    "loadMin": 18,
+                    "loadMax": 24,
+                    "notes": "Per dumbbell. Close grip. Peak week"
                   },
                   {
                     "$ref": "ex-chest-supported-row"
@@ -5687,9 +5749,11 @@
                     "notes": "Easy. Deload"
                   },
                   {
-                    "$ref": "ex-weighted-dips-heavy",
+                    "$ref": "ex-close-grip-db-press-heavy",
                     "sets": 2,
-                    "notes": "Deload"
+                    "loadMin": 10,
+                    "loadMax": 14,
+                    "notes": "Deload. Per dumbbell"
                   },
                   {
                     "$routine": "cooldown-day5"
@@ -6201,7 +6265,10 @@
                     "$ref": "ex-max-pull-ups"
                   },
                   {
-                    "$ref": "ex-max-dips"
+                    "$ref": "ex-max-close-grip-db-press",
+                    "loadMin": 14,
+                    "loadMax": 14,
+                    "notes": "Max reps @ 14kg per dumbbell"
                   }
                 ]
               },

@@ -4988,7 +4988,7 @@
                 "name": "Cluster Pull-ups",
                 "type": "strength",
                 "estimatedDuration": 75,
-                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: ~44 reps (pre-deload peak). Core Focus (Dynamic): [HARD WEEK]",
+                "description": "Scheduled: ~44 reps (intentional pre-deload peak, exceeds 36-40 cap). Core Focus (Dynamic): [HARD WEEK]",
                 "exercises": [
                   {
                     "$routine": "warmup-rower-protocol"

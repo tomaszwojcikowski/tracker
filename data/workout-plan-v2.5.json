@@ -4110,7 +4110,13 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-back-extensions"
+                    "$ref": "ex-back-extensions",
+                    "supersetGroup": 2
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "supersetGroup": 2,
+                    "notes": "Shoulder health. Tempo 2-1-1-0"
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -4263,7 +4269,13 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-back-extensions"
+                    "$ref": "ex-back-extensions",
+                    "supersetGroup": 2
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "supersetGroup": 2,
+                    "notes": "Shoulder health. Tempo 2-1-1-0"
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -4349,9 +4361,9 @@
                   },
                   {
                     "$ref": "ex-pull-up-density",
-                    "densityRepsTotal": 36,
+                    "densityRepsTotal": 30,
                     "densityTimeMinutes": 9,
-                    "notes": "Density volume peak. Complete 36 reps in 9 minutes"
+                    "notes": "Density volume peak. Complete 30 reps in 9 minutes. Weekly total: 30 + 9 (D5) = 39"
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -4420,7 +4432,13 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-back-extensions"
+                    "$ref": "ex-back-extensions",
+                    "supersetGroup": 2
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "supersetGroup": 2,
+                    "notes": "Shoulder health. Tempo 2-1-1-0"
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -4593,7 +4611,14 @@
                   {
                     "$ref": "ex-back-extensions",
                     "sets": 2,
-                    "notes": "Deload"
+                    "notes": "Deload",
+                    "supersetGroup": 2
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "notes": "Deload. Shoulder health",
+                    "supersetGroup": 2
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -4963,7 +4988,7 @@
                 "name": "Cluster Pull-ups",
                 "type": "strength",
                 "estimatedDuration": 75,
-                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: 38 reps. Core Focus (Dynamic): [HARD WEEK]",
+                "description": "Weekly Pull Total Target: 36-40 reps | Scheduled: ~44 reps (pre-deload peak). Core Focus (Dynamic): [HARD WEEK]",
                 "exercises": [
                   {
                     "$routine": "warmup-rower-protocol"
@@ -4976,8 +5001,8 @@
                   },
                   {
                     "$ref": "ex-cluster-pull-ups-neutral",
-                    "sets": 5,
-                    "notes": "Do not exceed 40 reps total. Total: max 40 reps (5 clusters x 9 reps, reduce if needed)"
+                    "sets": 4,
+                    "notes": "Intensity increase. Total: 36 reps (4 clusters x 9 reps). Weekly total: 36 + 8 (D5) = 44 (pre-deload peak)"
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -5077,9 +5102,9 @@
                     "$ref": "ex-neutral-grip-weighted-pull-ups",
                     "sets": 2,
                     "repsValue": 4,
-                    "loadMin": 5,
-                    "loadMax": 10,
-                    "notes": "Heavy. Total: 8 reps (2x4)"
+                    "loadMin": 10,
+                    "loadMax": 12.5,
+                    "notes": "Heavy. Total: 8 reps (2x4). Progress from Week 9 load"
                   },
                   {
                     "$ref": "ex-pppu"
@@ -6121,9 +6146,9 @@
                   },
                   {
                     "$ref": "ex-archer-negatives",
-                    "sets": 5,
+                    "sets": 4,
                     "repsValue": 3,
-                    "notes": "Peak volume. 5-6s eccentric"
+                    "notes": "Peak volume. 4x3 per side (12 per side). 5-6s eccentric"
                   },
                   {
                     "$ref": "ex-weighted-v-ups",

@@ -188,6 +188,10 @@ export interface ScheduleEntry {
   cues?: string[];
   /** Optional coaching notes for technique/execution */
   coachingNotes?: string;
+  /** ID of the routine where this exercise was defined (v2.5+) */
+  sourceRoutineId?: string;
+  /** Name of the routine where this exercise was defined (v2.5+) */
+  sourceRoutineName?: string;
 }
 
 /**
@@ -243,6 +247,10 @@ export interface V2ExerciseBase {
   densityTimeMinutes?: number;
   /** Total reps target for density exercises (v2.5+) */
   densityRepsTotal?: number;
+  /** ID of the routine where this exercise was defined (v2.5+) */
+  sourceRoutineId?: string;
+  /** Name of the routine where this exercise was defined (v2.5+) */
+  sourceRoutineName?: string;
 }
 
 /**
@@ -594,7 +602,15 @@ function resolveExercises(
         routineTemplates,
         [...routineStack, ex.$routine]
       );
-      result.push(...routineExercises);
+
+      // Tag exercises with their source routine (preserving deepest source)
+      const taggedExercises = routineExercises.map((rex) => ({
+        ...rex,
+        sourceRoutineId: rex.sourceRoutineId || ex.$routine,
+        sourceRoutineName: rex.sourceRoutineName || routine.name,
+      }));
+
+      result.push(...taggedExercises);
     } else {
       // Handle regular exercise or exercise reference
       result.push(resolveExerciseReference(ex as V2Exercise | V2ExerciseRef, exerciseTemplates));
@@ -812,6 +828,9 @@ export function convertV2ToInternal(v2Data: unknown): InternalSchedule {
             // Coaching cues and notes
             cues: exercise.cues,
             coachingNotes: exercise.coachingNotes,
+            // Routine source info (v2.5+)
+            sourceRoutineId: exercise.sourceRoutineId,
+            sourceRoutineName: exercise.sourceRoutineName,
           });
         });
       });

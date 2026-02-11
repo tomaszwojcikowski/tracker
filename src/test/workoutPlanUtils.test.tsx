@@ -982,8 +982,17 @@ describe('Workout Plan Utilities', () => {
       // Base Move + Extra Move + Main Exercise
       expect(result.length).toBe(3);
       expect(result[0].ex).toBe('Base Move');
+      // Check tagging: Base Move comes from 'warmup-base' (deepest)
+      expect(result[0]).toHaveProperty('sourceRoutineId', 'warmup-base');
+      expect(result[0]).toHaveProperty('sourceRoutineName', 'Base Warmup');
+
       expect(result[1].ex).toBe('Extra Move');
+      // Check tagging: Extra Move comes from 'warmup-full'
+      expect(result[1]).toHaveProperty('sourceRoutineId', 'warmup-full');
+      expect(result[1]).toHaveProperty('sourceRoutineName', 'Full Warmup');
+
       expect(result[2].ex).toBe('Main Exercise');
+      expect(result[2].sourceRoutineId).toBeUndefined();
     });
 
     it('should throw error for cyclic nested routines in v2.3.0', () => {

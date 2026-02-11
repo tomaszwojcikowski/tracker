@@ -1615,9 +1615,9 @@
       {
         "id": "warmup-day5-elbow-saver",
         "name": "Day 5 Warm-Up (Elbow Saver)",
-        "description": "Day 5 warm-up: Cold Start Rower (5min) → Global Tendon Prep (5min) → Straight-Arm Band Pulldowns (3min) → Mobility & activation.",
+        "description": "Day 5 warm-up: Cold Start Rower (5min) → Global Tendon Prep (5min) → Mobility & activation.",
         "category": "warmup",
-        "estimatedDuration": 15,
+        "estimatedDuration": 12,
         "targetAreas": [
           "cardiovascular",
           "cns-activation",
@@ -1637,9 +1637,6 @@
           },
           {
             "$routine": "warmup-global-tendon-prep"
-          },
-          {
-            "$routine": "warmup-straight-arm-pulldowns"
           },
           {
             "$ref": "ex-warmup-cat-cow"

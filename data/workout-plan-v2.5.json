@@ -624,7 +624,7 @@
             "repsType": "reps",
             "repsValue": 12,
             "repsPerSide": true,
-            "loadUnit": "resistance-band",
+            "loadUnit": "band",
             "restSeconds": 60,
             "notes": "Anti-rotation core stability. HOW TO: (1) Attach band to anchor point at chest height. (2) Stand perpendicular to anchor, band in both hands at chest. (3) Press hands straight out, resisting rotation. (4) Hold 2 seconds, return to chest. (5) Complete all reps one side, then switch.",
             "cues": [

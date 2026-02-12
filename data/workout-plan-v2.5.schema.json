@@ -82,7 +82,7 @@
         "routineTemplates": {
           "type": "array",
           "items": { "$ref": "#/definitions/routineTemplate" },
-          "description": "Reusable routine templates (v2.3+). Define sequences of exercises like warmups and cooldowns once, then reference them with $routine in any day's exercises array. The routine's exercises are expanded inline at that position."
+          "description": "Reusable routine templates (v2.3+). Define sequences of exercises like warmups and cooldowns once, then reference them with $routine in any day's exercises array. The routine's exercises are expanded inline at that position. Supports nested routines (v2.5+)."
         },
         "exerciseTemplates": {
           "type": "array",
@@ -124,7 +124,7 @@
         },
         "category": {
           "type": ["string", "null"],
-          "enum": ["warmup", "cooldown", "mobility", "activation", "prehab", "rehab", "main", null],
+          "enum": ["warmup", "cooldown", "mobility", "activation", "prehab", "rehab", "main", "core", null],
           "description": "Category of routine for filtering and organization"
         },
         "estimatedDuration": {
@@ -152,15 +152,15 @@
         "exercises": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/definitions/exerciseOrRef" },
-          "description": "Sequence of exercises in this routine. Can include both full exercise definitions and $ref references to exercise templates."
+          "items": { "$ref": "#/definitions/exerciseOrRefOrRoutine" },
+          "description": "Sequence of exercises in this routine. Can include full exercise definitions, $ref references to exercise templates, and $routine references to other routines (nested routines)."
         }
       }
     },
     "routineRef": {
       "type": "object",
       "required": ["$routine"],
-      "description": "Reference to a routine template. When resolved, all exercises from the routine are inserted inline at this position in the exercises array.",
+      "description": "Reference to a routine template. When resolved, all exercises from the routine are inserted inline at this position. Can be used within Days or other Routine Templates (nested routines).",
       "properties": {
         "$routine": {
           "type": "string",

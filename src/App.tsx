@@ -10,7 +10,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import './main.css';
 import './enhanced.css';
 import { NavigationBar } from './components/navigation';
-import { SideRail } from './components/SideRail';
 import { TopAppBar } from './components/TopAppBar';
 import { LoadingScreen, ErrorScreen } from './components/screens';
 import { SkipLink } from './components/SkipLink';
@@ -111,6 +110,23 @@ const App: React.FC = () => {
     const [isInitialized, setIsInitialized] = useState<boolean>(false);
     // Initialize onboarding state directly to avoid flash of content
     const [showOnboarding, setShowOnboarding] = useState<boolean>(() => !hasCompletedOnboarding());
+
+    // Enforce portrait orientation on mount
+    useEffect(() => {
+        const lockOrientation = async () => {
+            try {
+                // @ts-ignore - Screen Orientation API
+                if (window.screen?.orientation?.lock) {
+                    // @ts-ignore
+                    await window.screen.orientation.lock('portrait');
+                }
+            } catch (err) {
+                // Silently fail if lock is not supported or allowed (e.g. not fullscreen)
+                console.debug('Orientation lock failed:', err);
+            }
+        };
+        void lockOrientation();
+    }, []);
 
     // Workout timer
     // Intentionally does NOT auto-start on entering workout mode.
@@ -372,13 +388,6 @@ const App: React.FC = () => {
         <>
             {showOnboarding && (
                 <Onboarding onComplete={() => setShowOnboarding(false)} />
-            )}
-            {/* Desktop Side Rail (Phase 3) - Hidden on mobile, visible on desktop >= 900px */}
-            {viewMode === 'tab' && (
-                <SideRail
-                    activeTab={activeTab as 'train' | 'library' | 'history' | 'profile'}
-                    onTabChange={handleTabChange}
-                />
             )}
             <div className="min-h-screen min-h-[100dvh] bg-sys-surface text-sys-onSurface font-sans flex flex-col max-w-md mx-auto relative app-container">
                 <SkipLink targetId="main-content" />

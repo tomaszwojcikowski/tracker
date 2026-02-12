@@ -119,22 +119,22 @@
   --font-size-display-lg: 57px;
   --font-size-display-md: 45px;
   --font-size-display-sm: 36px;
-  
+
   /* Headline */
   --font-size-headline-lg: 32px;
   --font-size-headline-md: 28px;
   --font-size-headline-sm: 24px;
-  
+
   /* Title */
   --font-size-title-lg: 22px;
   --font-size-title-md: 16px;
   --font-size-title-sm: 14px;
-  
+
   /* Body */
   --font-size-body-lg: 16px;
   --font-size-body-md: 14px;
   --font-size-body-sm: 12px;
-  
+
   /* Label */
   --font-size-label-lg: 14px;
   --font-size-label-md: 12px;
@@ -2422,44 +2422,12 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
 }
 
-/* Desktop Side Rail Navigation (hidden on mobile, visible on desktop) */
+/* Desktop Side Rail Navigation (disabled) */
 .side-rail {
-    display: none;
+    display: none !important;
 }
 
-@media (min-width: 900px) {
-    /* Desktop: side rail + content layout */
-    .side-rail {
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 260px;
-        height: 100vh;
-        border-right: 1px solid var(--color-outline-variant);
-        background: var(--color-surface-container-low);
-        padding: 24px 16px;
-        box-shadow: 4px 0 12px rgba(0, 0, 0, 0.03);
-        overflow-y: auto;
-        z-index: 100;
-    }
-
-    :root.theme-light .side-rail {
-        background: var(--color-surface-container-low);
-        border-right: 1px solid var(--color-outline-variant);
-        box-shadow: 4px 0 12px rgba(31, 21, 48, 0.03);
-    }
-
-    /* Adjust main content for side rail */
-    .app-container {
-        margin-left: 260px;
-    }
-
-    /* Hide bottom navigation on desktop */
-    .bottom-navigation {
-        display: none !important;
-    }
-}
+/* @media (min-width: 900px) disabled for mobile-only layout */
 
 /* Mobile Bottom Navigation Bar - Explicit Background */
 @media (max-width: 1024px) {

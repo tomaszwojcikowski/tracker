@@ -11,7 +11,7 @@ import { safeGetJSON, safeSetJSON } from '../utils/storage';
 
 export interface GestureHintProps {
     /** Type of gesture to hint */
-    type: 'swipe-left' | 'swipe-right' | 'swipe-horizontal';
+    type: 'swipe-left' | 'swipe-right';
     /** Storage key for tracking if hint was shown */
     storageKey: string;
     /** Text to display with the hint */
@@ -70,9 +70,7 @@ export const GestureHint: React.FC<GestureHintProps> = ({
 
     const defaultMessage = type === 'swipe-left'
         ? 'Swipe left to go forward'
-        : type === 'swipe-right'
-            ? 'Swipe right to go back'
-            : 'Swipe to navigate';
+        : 'Swipe right to go back';
 
     return (
         <div
@@ -89,13 +87,11 @@ export const GestureHint: React.FC<GestureHintProps> = ({
                     {/* Swipe trail effect */}
                     <div
                         className={`absolute inset-0 flex items-center ${
-                            type === 'swipe-left' ? 'justify-end' : type === 'swipe-right' ? 'justify-start' : 'justify-center'
+                            type === 'swipe-left' ? 'justify-end' : 'justify-start'
                         }`}
                     >
                         <div
-                            className={`h-1 bg-gradient-to-r from-transparent via-sys-accent to-transparent rounded-full ${
-                                type === 'swipe-horizontal' ? 'w-32' : 'w-24'
-                            } animate-pulse`}
+                            className="h-1 bg-gradient-to-r from-transparent via-sys-accent to-transparent rounded-full w-24 animate-pulse"
                         />
                     </div>
 
@@ -104,9 +100,7 @@ export const GestureHint: React.FC<GestureHintProps> = ({
                         className={`relative flex items-center gap-2 ${
                             type === 'swipe-right'
                                 ? 'animate-[swipeRight_1.5s_ease-in-out_infinite]'
-                                : type === 'swipe-left'
-                                    ? 'animate-[swipeLeft_1.5s_ease-in-out_infinite]'
-                                    : 'animate-[swipeHorizontal_2s_ease-in-out_infinite]'
+                                : 'animate-[swipeLeft_1.5s_ease-in-out_infinite]'
                         }`}
                     >
                         {type !== 'swipe-left' && (

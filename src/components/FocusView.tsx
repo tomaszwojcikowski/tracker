@@ -2,11 +2,11 @@
  * FocusView Component
  *
  * Focus mode for workout player that shows one exercise (or superset group) at a time.
- * Supports swipe navigation with slide animations.
+ * Supports navigation with previous/next buttons.
  * Supersets are displayed together with all exercises visible.
  */
 
-import React, { useMemo, useCallback, useRef, useEffect } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Zap, Clock, Timer, Gauge, Dumbbell } from './icons';
 import { ExerciseCard } from './ExerciseCard';
 import { AddedExerciseCard } from './AddedExerciseCard';
@@ -256,58 +256,16 @@ export const FocusView: React.FC<FocusViewProps> = ({
         return items;
     }, [allExercises]);
 
-    // Ref for the horizontal scroll container
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
-    // Track if we're programmatically scrolling to prevent scroll event feedback loop
-    const isProgrammaticScroll = useRef(false);
-
-    // Scroll to the current focus index when it changes (e.g., from button click)
-    useEffect(() => {
-        const container = scrollContainerRef.current;
-        if (!container) return;
-
-        const targetScroll = focusIndex * container.clientWidth;
-        // Only scroll if we're not already at the right position
-        if (Math.abs(container.scrollLeft - targetScroll) > 10) {
-            isProgrammaticScroll.current = true;
-            container.scrollTo({ left: targetScroll, behavior: 'smooth' });
-            // Reset flag after scroll animation completes
-            setTimeout(() => {
-                isProgrammaticScroll.current = false;
-            }, 350);
-        }
-    }, [focusIndex]);
-
-    // Handle scroll end to update focus index based on scroll position
-    const handleScroll = useCallback(() => {
-        // Skip if this is a programmatic scroll
-        if (isProgrammaticScroll.current) return;
-
-        const container = scrollContainerRef.current;
-        if (!container) return;
-
-        const scrollLeft = container.scrollLeft;
-        const itemWidth = container.clientWidth;
-        const newIndex = Math.round(scrollLeft / itemWidth);
-
-        if (newIndex !== focusIndex && newIndex >= 0 && newIndex < focusItems.length) {
-            haptic.swipe();
-            setFocusIndex(newIndex);
-        }
-    }, [focusIndex, focusItems.length, haptic, setFocusIndex]);
-
     // Navigation handlers for buttons
     const navigatePrev = useCallback(() => {
-        if (focusIndex > 0 && !isProgrammaticScroll.current) {
-            isProgrammaticScroll.current = true;
+        if (focusIndex > 0) {
             haptic.swipe();
             setFocusIndex(focusIndex - 1);
         }
     }, [focusIndex, haptic, setFocusIndex]);
 
     const navigateNext = useCallback(() => {
-        if (focusIndex < focusItems.length - 1 && !isProgrammaticScroll.current) {
-            isProgrammaticScroll.current = true;
+        if (focusIndex < focusItems.length - 1) {
             haptic.swipe();
             setFocusIndex(focusIndex + 1);
         }
@@ -706,7 +664,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                         <button
                             onClick={navigateNext}
                             disabled={focusIndex === focusItems.length - 1}
-                            className={`h-10 w-10 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all ${isProgrammaticScroll.current ? 'cursor-wait' : ''}`}
+                            className="h-10 w-10 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center disabled:opacity-30 active:scale-90 transition-all"
                             aria-label="Next"
                         >
                             <ChevronRight size={20} />
@@ -714,38 +672,26 @@ export const FocusView: React.FC<FocusViewProps> = ({
                     </div>
                 </div>
 
-                {/* Horizontal scroll container with snap - native swipe support */}
-                <div
-                    ref={scrollContainerRef}
-                    onScroll={handleScroll}
-                    className="flex-1 flex overflow-x-auto snap-x snap-mandatory"
-                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
-                >
-                    {focusItems.map((item, idx) => {
-                        const nextName = getNextExerciseName(idx);
-                        return (
-                            <div
-                                key={idx}
-                                className="flex-shrink-0 w-full snap-center snap-always overflow-y-auto px-1 flex flex-col"
-                            >
-                                <div className="mb-4">
-                                    {renderFocusItem(item)}
-                                </div>
+                {/* Vertical layout - displays current focused exercise */}
+                <div className="flex-1 overflow-y-auto px-1 flex flex-col">
+                    <div className="mb-4">
+                        {renderFocusItem(focusItems[focusIndex])}
+                    </div>
 
-                                {/* Next exercise hint - displayed right after the card */}
-                                {nextName && (
-                                    <div className="mt-2 mb-8 text-center animate-in fade-in slide-in-from-bottom-1 duration-500">
-                                        <p className="text-[10px] font-bold uppercase tracking-wider text-sys-onSurfaceVar opacity-40 mb-1">
-                                            Coming Up Next
-                                        </p>
-                                        <p className="text-sm font-semibold text-sys-onSurface opacity-60 line-clamp-1 px-4">
-                                            {nextName}
-                                        </p>
-                                    </div>
-                                )}
+                    {/* Next exercise hint - displayed right after the card */}
+                    {(() => {
+                        const nextName = getNextExerciseName(focusIndex);
+                        return nextName ? (
+                            <div className="mt-2 mb-8 text-center animate-in fade-in slide-in-from-bottom-1 duration-500">
+                                <p className="text-[10px] font-bold uppercase tracking-wider text-sys-onSurfaceVar opacity-40 mb-1">
+                                    Coming Up Next
+                                </p>
+                                <p className="text-sm font-semibold text-sys-onSurface opacity-60 line-clamp-1 px-4">
+                                    {nextName}
+                                </p>
                             </div>
-                        );
-                    })}
+                        ) : null;
+                    })()}
                 </div>
             </div>
         </div>

@@ -1243,25 +1243,6 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     }
 }
 
-@keyframes swipeHorizontal {
-    0%, 100% {
-        transform: translateX(-30px);
-        opacity: 0.6;
-    }
-    25% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-    50% {
-        transform: translateX(30px);
-        opacity: 0.6;
-    }
-    75% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
 /* ============================================================================
    OLED DARK MODE OPTIMIZATIONS
    True black surfaces for AMOLED/OLED screens (5.1)

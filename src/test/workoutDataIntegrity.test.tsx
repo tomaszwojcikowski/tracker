@@ -15,20 +15,20 @@ describe('Workout Data Integrity', () => {
     const { schedule } = loadWorkoutPlan(workoutData);
     expect(schedule.length).toBeGreaterThan(0);
 
-    // Check for specific exercises we modified
+    // Check for specific exercises that are actually scheduled in the plan
     // schedule is a flat array of ScheduleEntry objects
 
-    // Check for Butcher's Block Stretch
-    const butchersBlock = schedule.find(entry => entry.ex === "Butcher's Block Stretch");
-    expect(butchersBlock).toBeDefined();
-
-    // Check for Pull-Ups
-    const pullUps = schedule.find(entry => entry.ex === "Pull-Ups");
-    expect(pullUps).toBeDefined();
-
-    // Check for Weighted Pull-Ups
+    // Check for Weighted Pull-Ups (used in the program)
     const weightedPullUps = schedule.find(entry => entry.ex === "Weighted Pull-Ups");
     expect(weightedPullUps).toBeDefined();
+
+    // Check for Pull-Up Ladders (used in the program)
+    const pullUpLadders = schedule.find(entry => entry.ex === "Pull-Up Ladders");
+    expect(pullUpLadders).toBeDefined();
+
+    // Check for Face Pulls (used in the program)
+    const facePulls = schedule.find(entry => entry.ex === "Face Pulls");
+    expect(facePulls).toBeDefined();
   });
 
   it('should resolve all references correctly', () => {

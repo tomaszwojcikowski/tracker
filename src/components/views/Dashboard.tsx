@@ -436,7 +436,7 @@ function WeekContent({
   };
 
   return (
-    <div className="flex-shrink-0 w-full px-5 pb-20">
+    <div className="flex-shrink-0 w-full px-5 pb-32">
       <BottomSheet
         isOpen={previewDay !== null}
         onClose={() => setPreviewDay(null)}

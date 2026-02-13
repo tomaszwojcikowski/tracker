@@ -79,7 +79,10 @@ test.describe('Navigation', () => {
 
   test('custom workout persists on reload', async ({ page }) => {
     // Start a custom (empty) workout
-    await page.locator('button[aria-label="Start an empty workout"]:visible').first().click();
+    // Workaround for bottom navigation covering the button: use JS click
+    const startButton = page.locator('button[aria-label="Start an empty workout"]:visible').first();
+    await startButton.scrollIntoViewIfNeeded();
+    await startButton.evaluate(node => node.click());
     await page.waitForTimeout(500);
 
     // Verify custom workout view

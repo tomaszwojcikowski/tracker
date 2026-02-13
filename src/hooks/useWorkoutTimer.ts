@@ -110,6 +110,8 @@ export function useWorkoutTimer(
 ): WorkoutTimerReturn {
   const keysRef = useRef<WorkoutTimerKeys>(getTimerKeys(week, day));
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  // Store the elapsed seconds at the moment the timer started/resumed
+  const baseElapsedRef = useRef<number>(0);
 
   // Helper to load saved timer state from localStorage or session data
   const loadSavedState = useCallback((keys: WorkoutTimerKeys): WorkoutTimerState | null => {
@@ -217,6 +219,7 @@ export function useWorkoutTimer(
         const now = Date.now();
         setIsRunning(true);
         setStartedAt(now);
+        baseElapsedRef.current = elapsedSeconds;
       }
       return;
     }
@@ -253,7 +256,10 @@ export function useWorkoutTimer(
 
     if (autoStart) {
       setIsRunning(saved?.isRunning ?? true);
-      setStartedAt(saved?.isRunning ? saved.startedAt : Date.now());
+      // Reset anchor to now, since nextElapsed already accounts for past time
+      const now = Date.now();
+      setStartedAt(now);
+      baseElapsedRef.current = nextElapsed;
     } else {
       setIsRunning(false);
       setStartedAt(null);
@@ -264,15 +270,20 @@ export function useWorkoutTimer(
   useEffect(() => {
     if (isRunning && elapsedSeconds < MAX_TIMER_SECONDS) {
       intervalRef.current = setInterval(() => {
+        const now = Date.now();
+        const startTime = startedAt || now;
+        // Calculate total elapsed using absolute timestamps to handle background throttling
+        const totalElapsed = baseElapsedRef.current + Math.floor((now - startTime) / 1000);
+
         setElapsedSeconds((prev) => {
-          const next = prev + 1;
-          if (next >= MAX_TIMER_SECONDS) {
+          if (totalElapsed >= MAX_TIMER_SECONDS) {
             // Stop at max time
             setIsRunning(false);
             setStartedAt(null);
             return MAX_TIMER_SECONDS;
           }
-          return next;
+          // Only update if time advanced (avoids unnecessary renders)
+          return totalElapsed > prev ? totalElapsed : prev;
         });
       }, 1000);
     }
@@ -283,7 +294,7 @@ export function useWorkoutTimer(
         intervalRef.current = null;
       }
     };
-  }, [isRunning, elapsedSeconds]);
+  }, [isRunning, elapsedSeconds, startedAt]);
 
   // Persist state on changes
   useEffect(() => {
@@ -295,6 +306,7 @@ export function useWorkoutTimer(
       const now = Date.now();
       setIsRunning(true);
       setStartedAt(now);
+      baseElapsedRef.current = elapsedSeconds;
     }
   }, [isRunning, elapsedSeconds]);
 

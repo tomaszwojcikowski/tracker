@@ -6,7 +6,7 @@
  * Includes countdown ticks, haptic feedback, and audio cues.
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { safeGetJSON, safeSetJSON } from '../utils/storage';
 import { playTickSound, playBeepSound } from '../utils/audio';
 import type { HapticFeedback } from './index';
@@ -59,17 +59,32 @@ export function useDensityTimer({ haptic }: UseDensityTimerOptions): UseDensityT
         safeGetJSON<number>(DENSITY_TIME_STORAGE_KEY, DEFAULT_DENSITY_TIME) ?? DEFAULT_DENSITY_TIME
     );
 
-    // Countdown timer effect with enhanced haptics
+    // Store target end time for robust background handling
+    const endTimeRef = useRef<number>(0);
+
+    // Wrap setSeconds to keep ref in sync
+    const handleSetSeconds: React.Dispatch<React.SetStateAction<number>> = useCallback((action) => {
+        setSeconds(prev => {
+            const nextSeconds = typeof action === 'function' ? action(prev) : action;
+            if (active) {
+                endTimeRef.current = Date.now() + nextSeconds * 1000;
+            }
+            return nextSeconds;
+        });
+    }, [active]);
+
+    // Countdown timer effect
     useEffect(() => {
         if (active && seconds > 0) {
             const timerInterval = window.setInterval(() => {
-                setSeconds((s) => {
-                    const newValue = s - 1;
-                    // Play tick sound for last 10 seconds
-                    if (newValue <= 10 && newValue >= 1) {
-                        playTickSound();
+                const now = Date.now();
+                const remaining = Math.max(0, Math.ceil((endTimeRef.current - now) / 1000));
+
+                setSeconds(prev => {
+                    if (remaining !== prev) {
+                        return remaining;
                     }
-                    return newValue;
+                    return prev;
                 });
             }, 1000);
             return () => clearInterval(timerInterval);
@@ -83,9 +98,14 @@ export function useDensityTimer({ haptic }: UseDensityTimerOptions): UseDensityT
         }
     }, [active, seconds, haptic]);
 
-    // Enhanced haptic feedback at key intervals
+    // Enhanced haptic feedback and audio at key intervals
     useEffect(() => {
         if (!active) return;
+
+        // Audio ticks for last 10 seconds
+        if (seconds <= 10 && seconds >= 1) {
+             playTickSound();
+        }
 
         // Warning at 60 seconds remaining
         if (seconds === 60) {
@@ -108,8 +128,10 @@ export function useDensityTimer({ haptic }: UseDensityTimerOptions): UseDensityT
 
     const start = useCallback((minutes: number) => {
         setTimeMinutes(minutes);
-        setSeconds(minutes * 60);
+        const secs = minutes * 60;
+        setSeconds(secs);
         setActive(true);
+        endTimeRef.current = Date.now() + secs * 1000;
     }, []);
 
     const stop = useCallback(() => {
@@ -121,8 +143,10 @@ export function useDensityTimer({ haptic }: UseDensityTimerOptions): UseDensityT
             setActive(false);
         } else {
             setTimeMinutes(minutes);
-            setSeconds(minutes * 60);
+            const secs = minutes * 60;
+            setSeconds(secs);
             setActive(true);
+            endTimeRef.current = Date.now() + secs * 1000;
         }
     }, [active]);
 
@@ -134,7 +158,7 @@ export function useDensityTimer({ haptic }: UseDensityTimerOptions): UseDensityT
         stop,
         toggle,
         setTimeMinutes,
-        setSeconds,
+        setSeconds: handleSetSeconds,
         setActive,
     };
 }

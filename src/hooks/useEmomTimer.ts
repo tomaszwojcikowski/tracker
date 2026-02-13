@@ -6,7 +6,7 @@
  * Extracted from WorkoutPlayer for reuse across workout views.
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { safeGetJSON, safeSetJSON } from '../utils/storage';
 import { playTickSound, playBeepSound } from '../utils/audio';
 import type { HapticFeedback } from './index';
@@ -66,30 +66,40 @@ export function useEmomTimer({ haptic }: UseEmomTimerOptions): UseEmomTimerRetur
         safeGetJSON<number>(EMOM_INTERVAL_STORAGE_KEY, DEFAULT_EMOM_INTERVAL) ?? DEFAULT_EMOM_INTERVAL
     );
 
+    const startTimeRef = useRef<number>(0);
+
     // EMOM timer effect with enhanced haptics
     useEffect(() => {
-        if (active && seconds > 0) {
+        if (active) {
             const timerInterval = window.setInterval(() => {
-                setSeconds((s) => {
-                    const newValue = s - 1;
-                    // Play tick sound for last 5 seconds
-                    if (newValue <= 5 && newValue >= 1) {
+                const now = Date.now();
+                const intervalSec = Math.max(1, interval);
+                const elapsed = Math.floor((now - startTimeRef.current) / 1000);
+
+                const currentRound = Math.floor(elapsed / intervalSec) + 1;
+                const remaining = intervalSec - (elapsed % intervalSec);
+
+                setRound(prevRound => {
+                    if (currentRound > prevRound) {
+                        // Round completed
+                        haptic.timerComplete();
+                        playBeepSound();
+                        return currentRound;
+                    }
+                    return prevRound;
+                });
+
+                setSeconds(prevSeconds => {
+                    // Play tick sound for last 5 seconds (only if value changed)
+                    if (remaining <= 5 && remaining >= 1 && remaining !== prevSeconds) {
                         playTickSound();
                     }
-                    return newValue;
+                    return remaining;
                 });
             }, 1000);
             return () => clearInterval(timerInterval);
         }
-        if (seconds === 0 && active) {
-            // Reset to interval and continue, increment round
-            setSeconds(interval);
-            setRound((r) => r + 1);
-            // Use enhanced timer complete haptic pattern
-            haptic.timerComplete();
-            playBeepSound();
-        }
-    }, [active, seconds, interval, haptic]);
+    }, [active, interval, haptic]);
 
     // Enhanced haptic feedback at key intervals for EMOM
     useEffect(() => {
@@ -114,6 +124,7 @@ export function useEmomTimer({ haptic }: UseEmomTimerOptions): UseEmomTimerRetur
         setSeconds(interval);
         setRound(1);
         setActive(true);
+        startTimeRef.current = Date.now();
     }, [interval]);
 
     const stop = useCallback(() => {
@@ -129,6 +140,7 @@ export function useEmomTimer({ haptic }: UseEmomTimerOptions): UseEmomTimerRetur
             setSeconds(interval);
             setRound(1);
             setActive(true);
+            startTimeRef.current = Date.now();
         }
     }, [active, interval]);
 

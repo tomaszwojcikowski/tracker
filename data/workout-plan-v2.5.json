@@ -4473,10 +4473,10 @@
                     "$ref": "ex-tuck-planche"
                   },
                   {
-                    "$ref": "ex-pull-up-density",
-                    "densityRepsTotal": 30,
-                    "densityTimeMinutes": 9,
-                    "notes": "Density volume peak. Complete 30 reps in 9 minutes. Weekly total: 30 + 9 (D5) = 39"
+                    "$ref": "ex-db-pullover",
+                    "sets": 3,
+                    "repsValue": 12,
+                    "notes": "Replaces Pull-ups. Focus on deep lat stretch."
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",

@@ -1746,6 +1746,39 @@
         "coachingNotes": "Place hands on elevated surface (bench, box, or bar set at appropriate height). Body should form straight line from head to heels - don't let hips sag or pike up. Lower for 2 seconds until chest nearly touches surface, pause 1 second, press up for 1 second, no pause at top. Keep elbows at 45° angle to body. The elevation makes this easier than floor push-ups while maintaining perfect form. Lower the surface height as you get stronger."
       },
       {
+        "id": "ex-ring-pushups",
+        "exerciseName": "Ring Push-Ups",
+        "category": "accessory",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 10,
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "tempoEccentric": 2,
+        "tempoPauseBottom": 1,
+        "tempoConcentric": 1,
+        "tempoPauseTop": 0,
+        "notes": "Tempo 2-1-1-0. Rings knee/ankle height",
+        "exerciseOptions": [
+          {
+            "optionName": "Ring Push-Ups",
+            "variation": "Rings",
+            "notes": "Instability focus. Keep core tight."
+          },
+          {
+            "optionName": "Deficit Push-Ups",
+            "variation": "Blocks/Parallettes",
+            "notes": "Deep stretch at bottom. Stable surface."
+          },
+             {
+            "optionName": "Standard Push-Ups",
+            "variation": "Floor",
+            "notes": "Standard form. Scalable."
+          }
+        ],
+        "coachingNotes": "Set rings low (ankle height). Start in plank with hollow body. Lower until thumbs touch chest/shoulders, keeping elbows tucked ~45°. Squeeze rings together slightly at top. The instability forces shoulder stabilizers to work harder. If too difficult, raise rings higher."
+      },
+      {
         "id": "ex-hollow-rocks",
         "exerciseName": "Hollow Rocks",
         "category": "core",
@@ -2626,22 +2659,6 @@
         "tempoPauseTop": 0,
         "notes": "Tempo 2-1-1-0. Stop if sharp pain",
         "coachingNotes": "Set rings at appropriate height and elevate feet on bench or box, making your body more horizontal (harder than standard ring rows). Start in plank position hanging from rings. Keep entire body in straight line - no sagging hips or piking. Pull chest to rings, squeezing shoulder blades together at top. Pause 1 second, then lower for 2 seconds with control. The elevated feet increase loading on your upper body. If you feel any elbow pain, stop immediately - this is an early warning exercise. Can regress by lowering feet or progressing by adding weight vest."
-      },
-      {
-        "id": "ex-parallette-pushups",
-        "exerciseName": "Parallette Push-Ups",
-        "category": "accessory",
-        "sets": 3,
-        "repsType": "reps",
-        "repsValue": 10,
-        "loadUnit": "bodyweight",
-        "restSeconds": 60,
-        "tempoEccentric": 2,
-        "tempoPauseBottom": 1,
-        "tempoConcentric": 1,
-        "tempoPauseTop": 0,
-        "notes": "Deep range of motion. Tempo 2-1-1-0",
-        "coachingNotes": "Perform push-ups on parallettes or push-up bars, which elevates your hands and allows deeper range of motion than floor push-ups. Start in plank with hands on parallettes, body straight from head to heels. Lower for 2 seconds, going deeper than you could on the floor until chest is below hand level. Pause 1 second at bottom, then press up for 1 second. No pause at top. Keep elbows at 45°. The extra range of motion increases chest and shoulder stretch at the bottom, building strength through a fuller ROM. Great for shoulder health and upper body hypertrophy."
       },
       {
         "id": "ex-tuck-planche",
@@ -4484,7 +4501,7 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-parallette-pushups",
+                    "$ref": "ex-ring-pushups",
                     "supersetGroup": 1,
                     "repsValue": 10
                   },
@@ -4654,7 +4671,7 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-parallette-pushups",
+                    "$ref": "ex-ring-pushups",
                     "sets": 2,
                     "supersetGroup": 1
                   },
@@ -4831,7 +4848,7 @@
                     "repsValue": 15
                   },
                   {
-                    "$ref": "ex-parallette-pushups",
+                    "$ref": "ex-ring-pushups",
                     "supersetGroup": 1,
                     "sets": 3,
                     "repsValue": 15
@@ -4986,7 +5003,7 @@
                     "sets": 3
                   },
                   {
-                    "$ref": "ex-parallette-pushups",
+                    "$ref": "ex-ring-pushups",
                     "supersetGroup": 1,
                     "repsValue": 15,
                     "sets": 3
@@ -5142,7 +5159,7 @@
                     "repsValue": 15
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-ring-pushups",
                     "supersetGroup": 1,
                     "sets": 3,
                     "repsValue": 15
@@ -5288,7 +5305,7 @@
                     "repsValue": 10
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-ring-pushups",
                     "sets": 2,
                     "notes": "Deload",
                     "supersetGroup": 1,
@@ -5439,7 +5456,7 @@
                     "repsValue": 15
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-ring-pushups",
                     "supersetGroup": 1,
                     "sets": 3,
                     "repsValue": 15
@@ -5588,7 +5605,7 @@
                     "repsValue": 15
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-ring-pushups",
                     "supersetGroup": 1,
                     "sets": 3,
                     "repsValue": 15
@@ -5737,7 +5754,7 @@
                     "repsValue": 15
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-ring-pushups",
                     "supersetGroup": 1,
                     "sets": 3,
                     "repsValue": 10
@@ -5891,7 +5908,7 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-ring-pushups",
                     "sets": 2,
                     "notes": "Deload",
                     "repsValue": 8,
@@ -6041,7 +6058,7 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-ring-pushups",
                     "sets": 3,
                     "repsValue": 10,
                     "supersetGroup": 1
@@ -6190,7 +6207,7 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-ring-pushups",
                     "sets": 2,
                     "repsValue": 10,
                     "supersetGroup": 1
@@ -6341,7 +6358,7 @@
                     "notes": "Deload"
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-ring-pushups",
                     "sets": 2,
                     "repsValue": 8,
                     "supersetGroup": 1,
@@ -6631,12 +6648,14 @@
                   {
                     "$ref": "ex-ring-rows",
                     "sets": 2,
-                    "notes": "60% Vol (Reload)"
+                    "notes": "60% Vol (Reload)",
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-incline-pushups",
+                    "$ref": "ex-ring-pushups",
                     "sets": 2,
-                    "notes": "60% Vol (Reload)"
+                    "notes": "60% Vol (Reload)",
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-hollow-rocks",

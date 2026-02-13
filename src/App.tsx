@@ -111,7 +111,7 @@ const App: React.FC = () => {
     // Initialize onboarding state directly to avoid flash of content
     const [showOnboarding, setShowOnboarding] = useState<boolean>(() => !hasCompletedOnboarding());
 
-    // Enforce portrait orientation on mount
+    // Enforce portrait orientation on mount and retry on interaction
     useEffect(() => {
         const lockOrientation = async () => {
             try {
@@ -122,10 +122,24 @@ const App: React.FC = () => {
                 }
             } catch (err) {
                 // Silently fail if lock is not supported or allowed (e.g. not fullscreen)
+                // We'll retry on interaction
                 console.debug('Orientation lock failed:', err);
             }
         };
+
         void lockOrientation();
+
+        const handleInteraction = () => {
+            void lockOrientation();
+        };
+
+        window.addEventListener('click', handleInteraction);
+        window.addEventListener('touchstart', handleInteraction);
+
+        return () => {
+            window.removeEventListener('click', handleInteraction);
+            window.removeEventListener('touchstart', handleInteraction);
+        };
     }, []);
 
     // Workout timer

@@ -34,7 +34,7 @@ export default defineConfig({
         theme_color: '#ef4444',
         background_color: '#0a0a0a',
         display: 'standalone',
-        orientation: 'portrait',
+        orientation: 'portrait-primary',
         scope: '/tracker/',
         start_url: '/tracker/',
         categories: ['fitness', 'health', 'sports'],

@@ -1743,7 +1743,35 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "notes": "Tempo 2-1-1-0",
-        "coachingNotes": "Place hands on elevated surface (bench, box, or bar set at appropriate height). Body should form straight line from head to heels - don't let hips sag or pike up. Lower for 2 seconds until chest nearly touches surface, pause 1 second, press up for 1 second, no pause at top. Keep elbows at 45° angle to body. The elevation makes this easier than floor push-ups while maintaining perfect form. Lower the surface height as you get stronger."
+        "exerciseOptions": [
+          {
+            "optionName": "Incline Push-Ups",
+            "variation": "Incline",
+            "notes": "Place hands on elevated surface (bench, box, or bar set at appropriate height). Body should form straight line from head to heels - don't let hips sag or pike up. Lower for 2 seconds until chest nearly touches surface, pause 1 second, press up for 1 second, no pause at top. Keep elbows at 45° angle to body. The elevation makes this easier than floor push-ups while maintaining perfect form. Lower the surface height as you get stronger.",
+            "description": "Hands on elevated surface (bench/box). Easier than floor push-ups."
+          },
+          {
+            "optionName": "Standard Push-Ups",
+            "variation": "Floor",
+            "notes": "Start in high plank position with hands slightly wider than shoulder-width. Body forms straight line from head to heels - engage core to prevent sagging or piking. Lower for 2 seconds until chest touches floor (or 1-2 inches above), pause 1 second, press up explosively for 1 second. Keep elbows at 45° angle to body throughout. Maintain neutral neck position - eyes looking slightly forward. Full ROM is essential for building strength.",
+            "description": "Classic push-ups on the floor. Moderate difficulty."
+          },
+          {
+            "optionName": "Parallette Push-Ups",
+            "variation": "Parallettes",
+            "notes": "Grip parallettes (or blocks) with hands shoulder-width apart. Lower beyond the plane of your hands for increased range of motion - aim for shoulders at or below hand level. The deeper ROM creates greater chest stretch at bottom and increased muscle activation. Keep elbows at 45° angle, pause 1 second at bottom, press up for 1 second. Control is crucial - don't bounce out of the bottom position. Requires good shoulder mobility.",
+            "description": "Increased range of motion with parallettes or blocks. Greater chest stretch.",
+            "equipment": ["parallettes"]
+          },
+          {
+            "optionName": "Ring Push-Ups",
+            "variation": "Rings",
+            "notes": "Set rings at ankle to knee height. Start in plank with hollow body - pull rings slightly apart and outward to create tension. The instability forces constant micro-adjustments from shoulder stabilizers. Lower for 2 seconds until thumbs touch chest/shoulders, keeping elbows tucked ~45°. Squeeze rings together slightly at top for additional chest activation. Most challenging variation - if too unstable, raise rings higher or regress to parallettes/standard. Focus on control over speed.",
+            "description": "Rings add instability for shoulder stabilizer work. Most challenging option.",
+            "equipment": ["rings"]
+          }
+        ],
+        "coachingNotes": "Choose variation based on current strength level and available equipment. All variations use 2-1-1-0 tempo: 2 seconds down, 1 second pause, 1 second up, no pause at top. Maintain rigid body position throughout - don't let hips sag or pike. Keep elbows at 45° angle to protect shoulders. Progress by lowering surface height (incline), adding ROM (parallettes), or increasing instability (rings)."
       },
       {
         "id": "ex-ring-pushups",
@@ -1763,20 +1791,31 @@
           {
             "optionName": "Ring Push-Ups",
             "variation": "Rings",
-            "notes": "Instability focus. Keep core tight."
+            "notes": "Set rings at ankle to knee height. Start in plank with hollow body - pull rings slightly apart and outward to create tension. The instability forces constant micro-adjustments from shoulder stabilizers. Lower for 2 seconds until thumbs touch chest/shoulders, keeping elbows tucked ~45°. Squeeze rings together slightly at top for additional chest activation. Most challenging variation - if too unstable, raise rings higher or regress to parallettes/standard. Focus on control over speed.",
+            "description": "Rings add instability for shoulder stabilizer work. Most challenging option.",
+            "equipment": ["rings"]
           },
           {
-            "optionName": "Deficit Push-Ups",
-            "variation": "Blocks/Parallettes",
-            "notes": "Deep stretch at bottom. Stable surface."
+            "optionName": "Parallette Push-Ups",
+            "variation": "Parallettes",
+            "notes": "Grip parallettes (or blocks) with hands shoulder-width apart. Lower beyond the plane of your hands for increased range of motion - aim for shoulders at or below hand level. The deeper ROM creates greater chest stretch at bottom and increased muscle activation. Keep elbows at 45° angle, pause 1 second at bottom, press up for 1 second. Control is crucial - don't bounce out of the bottom position. Requires good shoulder mobility.",
+            "description": "Increased range of motion with parallettes or blocks. Greater chest stretch.",
+            "equipment": ["parallettes"]
           },
-             {
+          {
             "optionName": "Standard Push-Ups",
             "variation": "Floor",
-            "notes": "Standard form. Scalable."
+            "notes": "Start in high plank position with hands slightly wider than shoulder-width. Body forms straight line from head to heels - engage core to prevent sagging or piking. Lower for 2 seconds until chest touches floor (or 1-2 inches above), pause 1 second, press up explosively for 1 second. Keep elbows at 45° angle to body throughout. Maintain neutral neck position - eyes looking slightly forward. Full ROM is essential for building strength.",
+            "description": "Classic push-ups on the floor. Moderate difficulty."
+          },
+          {
+            "optionName": "Incline Push-Ups",
+            "variation": "Incline",
+            "notes": "Place hands on elevated surface (bench, box, or bar set at appropriate height). Body should form straight line from head to heels - don't let hips sag or pike up. Lower for 2 seconds until chest nearly touches surface, pause 1 second, press up for 1 second, no pause at top. Keep elbows at 45° angle to body. The elevation makes this easier than floor push-ups while maintaining perfect form. Lower the surface height as you get stronger.",
+            "description": "Hands on elevated surface (bench/box). Easier than floor push-ups."
           }
         ],
-        "coachingNotes": "Set rings low (ankle height). Start in plank with hollow body. Lower until thumbs touch chest/shoulders, keeping elbows tucked ~45°. Squeeze rings together slightly at top. The instability forces shoulder stabilizers to work harder. If too difficult, raise rings higher."
+        "coachingNotes": "Choose variation based on current strength level and available equipment. All variations use 2-1-1-0 tempo: 2 seconds down, 1 second pause, 1 second up, no pause at top. Maintain rigid body position throughout - don't let hips sag or pike. Keep elbows at 45° angle to protect shoulders. Progress by lowering surface height (incline), adding ROM (parallettes), or increasing instability (rings)."
       },
       {
         "id": "ex-hollow-rocks",

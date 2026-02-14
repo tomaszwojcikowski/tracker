@@ -1743,6 +1743,34 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "notes": "Tempo 2-1-1-0",
+        "exerciseOptions": [
+          {
+            "optionName": "Incline Push-Ups",
+            "variation": "Incline",
+            "notes": "Elevated surface. Easier progression. Good for building form.",
+            "description": "Hands on elevated surface (bench/box). Easier than floor push-ups."
+          },
+          {
+            "optionName": "Standard Push-Ups",
+            "variation": "Floor",
+            "notes": "Floor-based. Standard progression.",
+            "description": "Classic push-ups on the floor. Moderate difficulty."
+          },
+          {
+            "optionName": "Parallette Push-Ups",
+            "variation": "Parallettes",
+            "notes": "Deep ROM. Requires parallettes or blocks.",
+            "description": "Increased range of motion with parallettes or blocks. Greater chest stretch.",
+            "equipment": ["parallettes"]
+          },
+          {
+            "optionName": "Ring Push-Ups",
+            "variation": "Rings",
+            "notes": "Instability challenge. Advanced.",
+            "description": "Rings add instability for shoulder stabilizer work. Most challenging option.",
+            "equipment": ["rings"]
+          }
+        ],
         "coachingNotes": "Place hands on elevated surface (bench, box, or bar set at appropriate height). Body should form straight line from head to heels - don't let hips sag or pike up. Lower for 2 seconds until chest nearly touches surface, pause 1 second, press up for 1 second, no pause at top. Keep elbows at 45° angle to body. The elevation makes this easier than floor push-ups while maintaining perfect form. Lower the surface height as you get stronger."
       },
       {

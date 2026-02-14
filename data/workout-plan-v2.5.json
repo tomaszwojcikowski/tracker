@@ -1791,17 +1791,28 @@
           {
             "optionName": "Ring Push-Ups",
             "variation": "Rings",
-            "notes": "Instability focus. Keep core tight."
+            "notes": "Instability challenge. Advanced.",
+            "description": "Rings add instability for shoulder stabilizer work. Most challenging option.",
+            "equipment": ["rings"]
           },
           {
-            "optionName": "Deficit Push-Ups",
-            "variation": "Blocks/Parallettes",
-            "notes": "Deep stretch at bottom. Stable surface."
+            "optionName": "Parallette Push-Ups",
+            "variation": "Parallettes",
+            "notes": "Deep ROM. Requires parallettes or blocks.",
+            "description": "Increased range of motion with parallettes or blocks. Greater chest stretch.",
+            "equipment": ["parallettes"]
           },
-             {
+          {
             "optionName": "Standard Push-Ups",
             "variation": "Floor",
-            "notes": "Standard form. Scalable."
+            "notes": "Floor-based. Standard progression.",
+            "description": "Classic push-ups on the floor. Moderate difficulty."
+          },
+          {
+            "optionName": "Incline Push-Ups",
+            "variation": "Incline",
+            "notes": "Elevated surface. Easier progression. Good for building form.",
+            "description": "Hands on elevated surface (bench/box). Easier than floor push-ups."
           }
         ],
         "coachingNotes": "Set rings low (ankle height). Start in plank with hollow body. Lower until thumbs touch chest/shoulders, keeping elbows tucked ~45°. Squeeze rings together slightly at top. The instability forces shoulder stabilizers to work harder. If too difficult, raise rings higher."

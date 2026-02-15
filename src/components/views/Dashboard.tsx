@@ -9,7 +9,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useHaptic, useScrollToElement } from '../../hooks';
 import { Play, ChevronRight, ChevronLeft, ChevronDown, Plus, Clock, X } from '../icons';
-import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, type InProgressWorkout } from '../../utils/storage';
+import { safeGetJSON, getInProgressWorkout, getWorkoutProgress, getWeekCompletionStatus, type InProgressWorkout, type WeekCompletionStatus } from '../../utils/storage';
 import { getBlockForWeek } from '../../data/programData';
 import { getCompleteSchedule, type RawScheduleItem } from '../../utils/schedule';
 import { getSessionKey, getGlobalHistoryKey } from '../../services/storageNamespace';
@@ -283,6 +283,17 @@ export function Dashboard({
 
   const nextWorkout = findNextWorkout();
 
+  // Calculate completion status for all weeks
+  const weekCompletions = useMemo(() => {
+    const completions = new Map<number, WeekCompletionStatus>();
+    for (let week = 1; week <= maxWeeks; week++) {
+      const weekDays = daysByWeek.get(week) ?? [];
+      const status = getWeekCompletionStatus(week, weekDays);
+      completions.set(week, status);
+    }
+    return completions;
+  }, [maxWeeks, daysByWeek, currentWeek]); // Include currentWeek to refresh when week changes
+
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Program Selector - fixed at top */}
@@ -301,6 +312,7 @@ export function Dashboard({
           totalWeeks={maxWeeks}
           onWeekSelect={changeWeek}
           visibleWeeks={4}
+          weekCompletions={weekCompletions}
         />
       </div>
 

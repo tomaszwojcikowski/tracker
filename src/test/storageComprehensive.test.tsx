@@ -15,6 +15,7 @@ import {
   isWorkoutInProgress,
   getWorkoutProgress,
   hasWorkoutData,
+  getWeekCompletionStatus,
 } from '../utils/storage';
 
 // Mock storage namespace service
@@ -448,6 +449,101 @@ describe('Storage Comprehensive Tests', () => {
         }));
 
         expect(hasWorkoutData(1, 1)).toBe(false);
+      });
+    });
+
+    describe('getWeekCompletionStatus', () => {
+      it('should return 0% for a week with no completed workouts', () => {
+        const result = getWeekCompletionStatus(1, [1, 2, 3]);
+        
+        expect(result).toEqual({
+          week: 1,
+          completedDays: 0,
+          totalDays: 3,
+          progress: 0,
+          isCompleted: false,
+        });
+      });
+
+      it('should return 100% for a fully completed week', () => {
+        localStorage.setItem('p:default:session_w1d1', JSON.stringify({ completed: true }));
+        localStorage.setItem('p:default:session_w1d2', JSON.stringify({ completed: true }));
+        localStorage.setItem('p:default:session_w1d3', JSON.stringify({ completed: true }));
+        
+        const result = getWeekCompletionStatus(1, [1, 2, 3]);
+        
+        expect(result).toEqual({
+          week: 1,
+          completedDays: 3,
+          totalDays: 3,
+          progress: 100,
+          isCompleted: true,
+        });
+      });
+
+      it('should return partial progress for partially completed week', () => {
+        localStorage.setItem('p:default:session_w1d1', JSON.stringify({ completed: true }));
+        localStorage.setItem('p:default:session_w1d2', JSON.stringify({ completed: false }));
+        localStorage.setItem('p:default:session_w1d3', JSON.stringify({ completed: false }));
+        
+        const result = getWeekCompletionStatus(1, [1, 2, 3]);
+        
+        expect(result).toEqual({
+          week: 1,
+          completedDays: 1,
+          totalDays: 3,
+          progress: 33,
+          isCompleted: false,
+        });
+      });
+
+      it('should handle weeks with different valid days', () => {
+        localStorage.setItem('p:default:session_w2d1', JSON.stringify({ completed: true }));
+        localStorage.setItem('p:default:session_w2d3', JSON.stringify({ completed: true }));
+        localStorage.setItem('p:default:session_w2d5', JSON.stringify({ completed: false }));
+        
+        const result = getWeekCompletionStatus(2, [1, 3, 5]);
+        
+        expect(result).toEqual({
+          week: 2,
+          completedDays: 2,
+          totalDays: 3,
+          progress: 67,
+          isCompleted: false,
+        });
+      });
+
+      it('should handle empty valid days array', () => {
+        const result = getWeekCompletionStatus(3, []);
+        
+        expect(result).toEqual({
+          week: 3,
+          completedDays: 0,
+          totalDays: 0,
+          progress: 0,
+          isCompleted: false,
+        });
+      });
+
+      it('should only count explicitly completed sessions', () => {
+        // In-progress workout (not completed)
+        localStorage.setItem('p:default:session_w1d1', JSON.stringify({
+          completed: false,
+          exercise1: { sets: [true, true] },
+        }));
+        // No data
+        // Completed
+        localStorage.setItem('p:default:session_w1d3', JSON.stringify({ completed: true }));
+        
+        const result = getWeekCompletionStatus(1, [1, 2, 3]);
+        
+        expect(result).toEqual({
+          week: 1,
+          completedDays: 1,
+          totalDays: 3,
+          progress: 33,
+          isCompleted: false,
+        });
       });
     });
   });

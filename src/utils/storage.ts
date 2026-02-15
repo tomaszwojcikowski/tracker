@@ -360,3 +360,49 @@ export function hasWorkoutData(week: number, day: number): boolean {
   const { total } = countSetsFromSession(session);
   return total > 0;
 }
+
+// ============================================================================
+// WEEK COMPLETION TRACKING
+// ============================================================================
+
+/**
+ * Information about week completion status
+ */
+export interface WeekCompletionStatus {
+  week: number;
+  completedDays: number;
+  totalDays: number;
+  progress: number; // 0-100 percentage
+  isCompleted: boolean;
+}
+
+/**
+ * Get completion status for a specific week
+ * Uses program-scoped namespaced keys
+ * @param week - week number
+ * @param validDays - array of valid day numbers for this week (e.g. [1, 2, 3, 5])
+ * @returns WeekCompletionStatus with completion information
+ */
+export function getWeekCompletionStatus(week: number, validDays: number[]): WeekCompletionStatus {
+  let completedDays = 0;
+  const totalDays = validDays.length;
+
+  for (const day of validDays) {
+    const key = getNamespacedSessionKey(week, day);
+    const session = safeGetJSON<WorkoutSessionData>(key);
+    if (session?.completed === true) {
+      completedDays += 1;
+    }
+  }
+
+  const progress = totalDays > 0 ? Math.round((completedDays / totalDays) * 100) : 0;
+  const isCompleted = totalDays > 0 && completedDays === totalDays;
+
+  return {
+    week,
+    completedDays,
+    totalDays,
+    progress,
+    isCompleted,
+  };
+}

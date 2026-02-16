@@ -2109,7 +2109,7 @@
         "id": "finisher-day1-core",
         "name": "Day 1 Core Finisher (Choose One)",
         "description": "Core finisher choices for Day 1: select one variation each week to avoid repetition.",
-        "category": "finisher",
+        "category": "core",
         "estimatedDuration": 5,
         "targetAreas": [
           "core",
@@ -2119,45 +2119,40 @@
         "notes": "Pick one variation below. Alternate weekly: Hollow-Rocks → V-Ups → Dead Bugs → Tuck-Ups",
         "exercises": [
           {
-            "exerciseName": "Weighted Hollow-Rocks",
+            "exerciseName": "Core Finisher (Weighted)",
             "category": "main",
             "sets": 3,
             "repsValue": 12,
             "loadUnit": "kg",
             "loadMin": 2,
             "loadMax": 4,
-            "notes": "Core compression and anti-extension. Smooth, controlled rocking motion."
-          },
-          {
-            "exerciseName": "Weighted V-Ups",
-            "category": "main",
-            "sets": 3,
-            "repsValue": 12,
-            "loadUnit": "kg",
-            "loadMin": 2,
-            "loadMax": 4,
-            "notes": "Full core dynamic movement. Keep biceps by ears throughout."
-          },
-          {
-            "exerciseName": "Weighted Dead Bugs",
-            "category": "main",
-            "sets": 3,
-            "repsValue": 12,
-            "repsPerSide": true,
-            "loadUnit": "kg",
-            "loadMin": 2,
-            "loadMax": 3,
-            "notes": "Anti-extension control. Move slowly with lower back glued to floor."
-          },
-          {
-            "exerciseName": "Tuck-Ups (Weighted)",
-            "category": "main",
-            "sets": 3,
-            "repsValue": 8,
-            "loadUnit": "kg",
-            "loadMin": 2,
-            "loadMax": 3,
-            "notes": "Advanced core compression. Explosive tuck and hold."
+            "notes": "Select one core finisher variation each week. Rotate through options to avoid repetition.",
+            "exerciseOptions": [
+              {
+                "optionName": "Weighted Hollow-Rocks",
+                "variation": "Hollow-Rocks",
+                "description": "Weighted hollow body rocks for core compression",
+                "notes": "Lie on back with arms overhead, press lower back into ground. Lift shoulders and legs slightly, rock gently using core contraction. Keep lower back pressed down throughout. Start 2-4kg. If lower back arches, drop weight immediately."
+              },
+              {
+                "optionName": "Weighted V-Ups",
+                "variation": "V-Ups",
+                "description": "Weighted dynamic core movement",
+                "notes": "Lie on back with light weight held overhead. Perform V-up movement by simultaneously lifting torso and legs to meet at center. Keep biceps by ears throughout. Full core dynamic movement. Smooth, controlled motion."
+              },
+              {
+                "optionName": "Weighted Dead Bugs",
+                "variation": "Dead Bugs",
+                "description": "Weighted anti-extension core work",
+                "notes": "Lie on back with weight held on chest or overhead. Lie flat with knees bent at 90°, hips at 90°. Extend opposite arm and leg while maintaining lower back contact with floor. Move slowly and methodically. Lower back must stay glued to floor throughout."
+              },
+              {
+                "optionName": "Tuck-Ups (Weighted)",
+                "variation": "Tuck-Ups",
+                "description": "Weighted explosive core compression",
+                "notes": "Hold light weight on chest. Perform explosive tuck-up movement: pull knees toward chest while crunching torso. Contract hard at top, lower with control. Advanced core compression. Start 2-3kg. This is an explosive movement - maximize velocity."
+              }
+            ]
           }
         ]
       }

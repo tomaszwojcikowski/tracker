@@ -2104,6 +2104,62 @@
             "notes": "Use quad stretch when split-squat accessory is present; otherwise optional"
           }
         ]
+      },
+      {
+        "id": "finisher-day1-core",
+        "name": "Day 1 Core Finisher (Choose One)",
+        "description": "Core finisher choices for Day 1: select one variation each week to avoid repetition.",
+        "category": "finisher",
+        "estimatedDuration": 5,
+        "targetAreas": [
+          "core",
+          "abs",
+          "stability"
+        ],
+        "notes": "Pick one variation below. Alternate weekly: Hollow-Rocks → V-Ups → Dead Bugs → Tuck-Ups",
+        "exercises": [
+          {
+            "exerciseName": "Weighted Hollow-Rocks",
+            "category": "main",
+            "sets": 3,
+            "repsValue": 12,
+            "loadUnit": "kg",
+            "loadMin": 2,
+            "loadMax": 4,
+            "notes": "Core compression and anti-extension. Smooth, controlled rocking motion."
+          },
+          {
+            "exerciseName": "Weighted V-Ups",
+            "category": "main",
+            "sets": 3,
+            "repsValue": 12,
+            "loadUnit": "kg",
+            "loadMin": 2,
+            "loadMax": 4,
+            "notes": "Full core dynamic movement. Keep biceps by ears throughout."
+          },
+          {
+            "exerciseName": "Weighted Dead Bugs",
+            "category": "main",
+            "sets": 3,
+            "repsValue": 12,
+            "repsPerSide": true,
+            "loadUnit": "kg",
+            "loadMin": 2,
+            "loadMax": 3,
+            "notes": "Anti-extension control. Move slowly with lower back glued to floor."
+          },
+          {
+            "exerciseName": "Tuck-Ups (Weighted)",
+            "category": "main",
+            "sets": 3,
+            "repsValue": 8,
+            "loadUnit": "kg",
+            "loadMin": 2,
+            "loadMax": 3,
+            "notes": "Advanced core compression. Explosive tuck and hold."
+          }
+        ]
       }
     ],
     "exerciseTemplates": [
@@ -5006,6 +5062,9 @@
                     "repsValue": 10
                   },
                   {
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
                     "$routine": "cooldown-day1-foundation"
                   }
                 ]
@@ -5174,6 +5233,9 @@
                     "$ref": "ex-ring-pushups",
                     "sets": 2,
                     "supersetGroup": 1
+                  },
+                  {
+                    "$routine": "finisher-day1-core"
                   },
                   {
                     "$routine": "cooldown-day1-foundation"
@@ -5354,6 +5416,9 @@
                     "repsValue": 15
                   },
                   {
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
                     "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
@@ -5507,6 +5572,9 @@
                     "supersetGroup": 1,
                     "repsValue": 15,
                     "sets": 3
+                  },
+                  {
+                    "$routine": "finisher-day1-core"
                   },
                   {
                     "$routine": "cooldown-day1-neutral-grip"
@@ -5665,6 +5733,9 @@
                     "repsValue": 15
                   },
                   {
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
                     "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
@@ -5810,6 +5881,9 @@
                     "notes": "Deload",
                     "supersetGroup": 1,
                     "repsValue": 10
+                  },
+                  {
+                    "$routine": "finisher-day1-core"
                   },
                   {
                     "$routine": "cooldown-day1-neutral-grip"
@@ -5962,6 +6036,9 @@
                     "repsValue": 15
                   },
                   {
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
                     "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
@@ -6111,6 +6188,9 @@
                     "repsValue": 15
                   },
                   {
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
                     "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
@@ -6258,6 +6338,9 @@
                     "supersetGroup": 1,
                     "sets": 3,
                     "repsValue": 10
+                  },
+                  {
+                    "$routine": "finisher-day1-core"
                   },
                   {
                     "$routine": "cooldown-day1-neutral-grip"
@@ -6415,6 +6498,9 @@
                     "supersetGroup": 1
                   },
                   {
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
                     "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
@@ -6564,6 +6650,9 @@
                     "supersetGroup": 1
                   },
                   {
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
                     "$routine": "cooldown-day1-peak-taper"
                   }
                 ]
@@ -6711,6 +6800,9 @@
                     "sets": 2,
                     "repsValue": 10,
                     "supersetGroup": 1
+                  },
+                  {
+                    "$routine": "finisher-day1-core"
                   },
                   {
                     "$routine": "cooldown-day1-peak-taper"
@@ -6863,6 +6955,9 @@
                     "repsValue": 8,
                     "supersetGroup": 1,
                     "notes": "Deload"
+                  },
+                  {
+                    "$routine": "finisher-day1-core"
                   },
                   {
                     "$routine": "cooldown-day1-peak-taper"

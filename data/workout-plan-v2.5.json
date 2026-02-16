@@ -5214,12 +5214,6 @@
                     "notes": "Deload. Light weight."
                   },
                   {
-                    "$ref": "ex-scapular-pull-ups",
-                    "sets": 2,
-                    "repsValue": 10,
-                    "notes": "Deload."
-                  },
-                  {
                     "$ref": "ex-feet-elevated-ring-rows",
                     "sets": 2,
                     "supersetGroup": 1
@@ -5393,11 +5387,6 @@
                     "notes": "Block 3 Start. Focus on Heavier Load."
                   },
                   {
-                    "$ref": "ex-scapular-pull-ups",
-                    "sets": 3,
-                    "repsValue": 10
-                  },
-                  {
                     "$ref": "ex-feet-elevated-ring-rows",
                     "notes": "Neutral grip block",
                     "supersetGroup": 1,
@@ -5552,11 +5541,6 @@
                     "notes": "Maintain Volume."
                   },
                   {
-                    "$ref": "ex-scapular-pull-ups",
-                    "sets": 3,
-                    "repsValue": 10
-                  },
-                  {
                     "$ref": "ex-feet-elevated-ring-rows",
                     "repsValue": 15,
                     "supersetGroup": 1,
@@ -5709,11 +5693,6 @@
                     "sets": 5,
                     "repsValue": 10,
                     "notes": "Volume Increase."
-                  },
-                  {
-                    "$ref": "ex-scapular-pull-ups",
-                    "sets": 3,
-                    "repsValue": 10
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -6014,11 +5993,6 @@
                     "notes": "AMRAP replacement. Focus on perfect technique + glute engagement."
                   },
                   {
-                    "$ref": "ex-scapular-pull-ups",
-                    "sets": 3,
-                    "repsValue": 10
-                  },
-                  {
                     "$ref": "ex-feet-elevated-ring-rows",
                     "supersetGroup": 1,
                     "sets": 3,
@@ -6166,11 +6140,6 @@
                     "notes": "Maintain High Volume. Keep hips high."
                   },
                   {
-                    "$ref": "ex-scapular-pull-ups",
-                    "sets": 3,
-                    "repsValue": 12
-                  },
-                  {
                     "$ref": "ex-feet-elevated-ring-rows",
                     "supersetGroup": 1,
                     "sets": 3,
@@ -6316,11 +6285,6 @@
                     "sets": 5,
                     "repsValue": 10,
                     "notes": "Peak Volume Week. Push near failure."
-                  },
-                  {
-                    "$ref": "ex-scapular-pull-ups",
-                    "sets": 3,
-                    "repsValue": 12
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -6472,11 +6436,6 @@
                     "sets": 2,
                     "repsValue": 10,
                     "notes": "Deload. Easy."
-                  },
-                  {
-                    "$ref": "ex-scapular-pull-ups",
-                    "sets": 2,
-                    "repsValue": 10
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -7079,10 +7038,6 @@
                 "exercises": [
                   {
                     "$routine": "warmup-mountain-climbers-protocol"
-                  },
-                  {
-                    "$ref": "ex-scapular-pull-ups",
-                    "notes": "Warm-up. Battery conservation"
                   },
                   {
                     "$ref": "ex-db-pullover",

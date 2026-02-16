@@ -54,7 +54,11 @@ export const ExerciseListItem: React.FC<ExerciseListItemProps> = ({
     };
 
     return (
-        <div className="bg-sys-surfaceContainerLow rounded-2xl p-4">
+        <div className={`rounded-2xl p-4 ${
+            exercise.category === 'mobility'
+                ? 'bg-gradient-to-br from-[#a855f7]/10 to-[#9333ea]/5 border border-[#a855f7]/20'
+                : 'bg-sys-surfaceContainerLow'
+        }`}>
             <div className="flex items-start justify-between gap-3">
                 <div className="flex-1">
                     <h4 className="text-base font-semibold text-sys-onSurface mb-1">

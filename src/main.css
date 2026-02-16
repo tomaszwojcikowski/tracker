@@ -80,6 +80,10 @@
   --color-cooldown-600: var(--color-cooldown-600);
   --color-cooldown-700: var(--color-cooldown-700);
 
+  --color-mobility-500: rgb(var(--color-mobility-500-rgb));
+  --color-mobility-600: var(--color-mobility-600);
+  --color-mobility-700: var(--color-mobility-700);
+
   /* Error and Warning Color Palettes */
   --color-error-50: var(--color-error-50);
   --color-error-100: var(--color-error-100);

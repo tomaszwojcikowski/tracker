@@ -532,7 +532,7 @@
       {
         "id": "cooldown-day1",
         "name": "Day 1 Cooldown",
-        "description": "Volume Reset cooldown for Day 1",
+        "description": "Universal recovery protocol for Day 1 pull volume work across all training blocks",
         "category": "cooldown",
         "estimatedDuration": 4,
         "targetAreas": [
@@ -552,7 +552,7 @@
             "repsMax": 60,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "notes": "Spinal decompression"
+            "notes": "Spinal decompression and shoulder traction"
           },
           {
             "exerciseName": "Butcher's Block Stretch",
@@ -562,7 +562,7 @@
             "repsValue": 60,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "notes": "Targeting Lats/Triceps"
+            "notes": "Releasing lats and triceps tension from pulling and pushing work"
           },
           {
             "exerciseName": "Cobra Stretch",
@@ -572,7 +572,7 @@
             "repsValue": 60,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "notes": "Releasing abs from Hollow Rocks"
+            "notes": "Releasing anterior core and opening chest"
           },
           {
             "exerciseName": "Wrist Extensor Stretch",
@@ -901,15 +901,28 @@
       {
         "id": "cooldown-day5",
         "name": "Day 5 Cooldown",
-        "description": "Anterior Chain Openers for Day 5",
+        "description": "Universal recovery protocol for Day 5 pull intensity and push work across all training blocks",
         "category": "cooldown",
-        "estimatedDuration": 4,
+        "estimatedDuration": 6,
         "targetAreas": [
+          "shoulders",
+          "triceps",
+          "wrists",
           "pecs",
           "lats",
           "quads"
         ],
         "exercises": [
+          {
+            "exerciseName": "Butcher's Block Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Releasing lats, triceps, and shoulder tension from pressing and pulling movements"
+          },
           {
             "exerciseName": "Banded Pec Stretch",
             "category": "cooldown",
@@ -919,7 +932,29 @@
             "repsUnit": "seconds",
             "repsPerSide": true,
             "loadUnit": "bodyweight",
-            "notes": "Releasing tension from Dips"
+            "notes": "Opening chest and anterior shoulder after pressing work"
+          },
+          {
+            "exerciseName": "Wrist Extensor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Wrist care for loaded pressing (especially relevant for handstand work in early blocks)"
+          },
+          {
+            "exerciseName": "Wrist Flexor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Complements wrist extensor stretch for complete wrist care"
           },
           {
             "exerciseName": "Lat Prayer (Bench/Box)",
@@ -929,7 +964,7 @@
             "repsValue": 60,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "notes": "Releasing Lats"
+            "notes": "Deep lat stretch after pulling movements (pull-ups, rows, pullovers)"
           },
           {
             "exerciseName": "Standing Quad Stretch",
@@ -940,7 +975,7 @@
             "repsUnit": "seconds",
             "repsPerSide": true,
             "loadUnit": "bodyweight",
-            "notes": "Releasing Quads from Split Squats"
+            "notes": "Quad release (relevant for blocks with split squats)"
           }
         ]
       },
@@ -1651,6 +1686,480 @@
             "$ref": "ex-warmup-push-up-plus"
           }
         ]
+      },
+      {
+        "id": "cooldown-day1-foundation",
+        "name": "Day 1 Cooldown (Blocks 1-2 Foundation)",
+        "description": "Recovery protocol for Day 1 pull volume blocks with pull-up ladders, rows, and push-up supersets.",
+        "category": "cooldown",
+        "estimatedDuration": 4,
+        "targetAreas": [
+          "spine",
+          "lats",
+          "triceps",
+          "abs",
+          "forearms"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Passive Dead Hang",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsMin": 30,
+            "repsMax": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Spinal decompression and shoulder traction after ladder pulling volume"
+          },
+          {
+            "exerciseName": "Butcher's Block Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Releasing lats and triceps tension from pull-up and row volume"
+          },
+          {
+            "exerciseName": "Cobra Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Releasing anterior core and opening chest after push-up superset work"
+          },
+          {
+            "exerciseName": "Wrist Extensor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Forearm decompression after grip-intensive pulling"
+          }
+        ]
+      },
+      {
+        "id": "cooldown-day1-neutral-grip",
+        "name": "Day 1 Cooldown (Blocks 3-4 Neutral Grip)",
+        "description": "Recovery protocol for neutral-grip and ring-focused Day 1 work with pullovers, scapular pulling, and ring pushing.",
+        "category": "cooldown",
+        "estimatedDuration": 4,
+        "targetAreas": [
+          "spine",
+          "lats",
+          "triceps",
+          "pecs",
+          "forearms"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Passive Dead Hang",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsMin": 30,
+            "repsMax": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Spinal decompression and shoulder traction after scapular pull-up and row volume"
+          },
+          {
+            "exerciseName": "Butcher's Block Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Releasing lats/triceps after pullover and ring pulling work"
+          },
+          {
+            "exerciseName": "Banded Pec Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Opening chest and anterior shoulder after ring push-up volume",
+            "repsPerSide": true
+          },
+          {
+            "exerciseName": "Wrist Extensor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Wrist and forearm relief after ring stability work"
+          }
+        ]
+      },
+      {
+        "id": "cooldown-day1-peak-taper",
+        "name": "Day 1 Cooldown (Blocks 5-6 Peak/Taper)",
+        "description": "Lower-fatigue recovery protocol for peak, taper, and test-week Day 1 sessions.",
+        "category": "cooldown",
+        "estimatedDuration": 4,
+        "targetAreas": [
+          "spine",
+          "lats",
+          "triceps",
+          "abs",
+          "forearms"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Passive Dead Hang",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsMin": 30,
+            "repsMax": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Gentle decompression when Day 1 includes test effort or reduced pulling volume"
+          },
+          {
+            "exerciseName": "Butcher's Block Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Lat/triceps downregulation after pulldown and row patterns"
+          },
+          {
+            "exerciseName": "Cobra Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Anterior chain opening to offset pressing and static support work"
+          },
+          {
+            "exerciseName": "Wrist Extensor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Quick forearm reset between high-intent sessions"
+          }
+        ]
+      },
+      {
+        "id": "cooldown-day5-hspu-dips",
+        "name": "Day 5 Cooldown (Blocks 1-2 HSPU + Dips)",
+        "description": "Recovery protocol for Day 5 phases with HSPU, weighted pull-ups/dips, and split-squat accessory work.",
+        "category": "cooldown",
+        "estimatedDuration": 6,
+        "targetAreas": [
+          "shoulders",
+          "triceps",
+          "wrists",
+          "pecs",
+          "lats",
+          "quads"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Butcher's Block Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Releasing lats, triceps, and shoulder tension from pressing and pulling movements"
+          },
+          {
+            "exerciseName": "Banded Pec Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Opening chest and anterior shoulder after pressing work"
+          },
+          {
+            "exerciseName": "Wrist Extensor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Wrist care for loaded vertical pressing and handstand progressions"
+          },
+          {
+            "exerciseName": "Wrist Flexor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Complements extensor work for complete wrist recovery after hand-supported pressing"
+          },
+          {
+            "exerciseName": "Lat Prayer (Bench/Box)",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Deep lat stretch after pulling movements (pull-ups, rows, pullovers)"
+          },
+          {
+            "exerciseName": "Standing Quad Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Quad release after Bulgarian split squat accessory volume"
+          }
+        ]
+      },
+      {
+        "id": "cooldown-day5-neutral-grip",
+        "name": "Day 5 Cooldown (Block 3 Neutral Grip)",
+        "description": "Recovery protocol for neutral-grip integration phase emphasizing straight-arm pull strength and pseudo-planche pressing.",
+        "category": "cooldown",
+        "estimatedDuration": 6,
+        "targetAreas": [
+          "shoulders",
+          "triceps",
+          "wrists",
+          "pecs",
+          "lats",
+          "quads"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Butcher's Block Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Releasing lats, triceps, and shoulder tension from pressing and pulling movements"
+          },
+          {
+            "exerciseName": "Banded Pec Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Opening chest/anterior shoulder after pseudo-planche pressing and ring support"
+          },
+          {
+            "exerciseName": "Wrist Extensor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Wrist extensor recovery for PPPU loading and support work"
+          },
+          {
+            "exerciseName": "Wrist Flexor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Balances wrist flexor/extensor tone after high-tension pressing"
+          },
+          {
+            "exerciseName": "Lat Prayer (Bench/Box)",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Deep lat stretch after pulling movements (pull-ups, rows, pullovers)"
+          },
+          {
+            "exerciseName": "Standing Quad Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Optional quad release if split-squat superset was performed"
+          }
+        ]
+      },
+      {
+        "id": "cooldown-day5-pullover-press",
+        "name": "Day 5 Cooldown (Blocks 4-6 Pullover/Press/Test)",
+        "description": "Recovery protocol for later phases centered on DB pullover, close-grip pressing, rows, and testing efforts.",
+        "category": "cooldown",
+        "estimatedDuration": 6,
+        "targetAreas": [
+          "shoulders",
+          "triceps",
+          "wrists",
+          "pecs",
+          "lats",
+          "quads"
+        ],
+        "exercises": [
+          {
+            "exerciseName": "Butcher's Block Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Releasing lats/triceps after pullover and pulling patterns"
+          },
+          {
+            "exerciseName": "Banded Pec Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Chest/shoulder opening after close-grip pressing and push-up test work"
+          },
+          {
+            "exerciseName": "Wrist Extensor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "General wrist extensor decompression from gripping and pressing"
+          },
+          {
+            "exerciseName": "Wrist Flexor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "General wrist flexor decompression from gripping and pressing"
+          },
+          {
+            "exerciseName": "Lat Prayer (Bench/Box)",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Deep lat stretch after pulling movements (pull-ups, rows, pullovers)"
+          },
+          {
+            "exerciseName": "Standing Quad Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Use quad stretch when split-squat accessory is present; otherwise optional"
+          }
+        ]
+      },
+      {
+        "id": "finisher-day1-core",
+        "name": "Day 1 Core Finisher (Choose One)",
+        "description": "Core finisher choices for Day 1: select one variation each week to avoid repetition.",
+        "category": "finisher",
+        "estimatedDuration": 5,
+        "targetAreas": [
+          "core",
+          "abs",
+          "stability"
+        ],
+        "notes": "Pick one variation below. Alternate weekly: Hollow-Rocks → V-Ups → Dead Bugs → Tuck-Ups",
+        "exercises": [
+          {
+            "exerciseName": "Weighted Hollow-Rocks",
+            "category": "main",
+            "sets": 3,
+            "repsValue": 12,
+            "loadUnit": "kg",
+            "loadMin": 2,
+            "loadMax": 4,
+            "notes": "Core compression and anti-extension. Smooth, controlled rocking motion."
+          },
+          {
+            "exerciseName": "Weighted V-Ups",
+            "category": "main",
+            "sets": 3,
+            "repsValue": 12,
+            "loadUnit": "kg",
+            "loadMin": 2,
+            "loadMax": 4,
+            "notes": "Full core dynamic movement. Keep biceps by ears throughout."
+          },
+          {
+            "exerciseName": "Weighted Dead Bugs",
+            "category": "main",
+            "sets": 3,
+            "repsValue": 12,
+            "repsPerSide": true,
+            "loadUnit": "kg",
+            "loadMin": 2,
+            "loadMax": 3,
+            "notes": "Anti-extension control. Move slowly with lower back glued to floor."
+          },
+          {
+            "exerciseName": "Tuck-Ups (Weighted)",
+            "category": "main",
+            "sets": 3,
+            "repsValue": 8,
+            "loadUnit": "kg",
+            "loadMin": 2,
+            "loadMax": 3,
+            "notes": "Advanced core compression. Explosive tuck and hold."
+          }
+        ]
       }
     ],
     "exerciseTemplates": [
@@ -1761,14 +2270,18 @@
             "variation": "Parallettes",
             "notes": "Grip parallettes (or blocks) with hands shoulder-width apart. Lower beyond the plane of your hands for increased range of motion - aim for shoulders at or below hand level. The deeper ROM creates greater chest stretch at bottom and increased muscle activation. Keep elbows at 45° angle, pause 1 second at bottom, press up for 1 second. Control is crucial - don't bounce out of the bottom position. Requires good shoulder mobility.",
             "description": "Increased range of motion with parallettes or blocks. Greater chest stretch.",
-            "equipment": ["parallettes"]
+            "equipment": [
+              "parallettes"
+            ]
           },
           {
             "optionName": "Ring Push-Ups",
             "variation": "Rings",
             "notes": "Set rings at ankle to knee height. Start in plank with hollow body - pull rings slightly apart and outward to create tension. The instability forces constant micro-adjustments from shoulder stabilizers. Lower for 2 seconds until thumbs touch chest/shoulders, keeping elbows tucked ~45°. Squeeze rings together slightly at top for additional chest activation. Most challenging variation - if too unstable, raise rings higher or regress to parallettes/standard. Focus on control over speed.",
             "description": "Rings add instability for shoulder stabilizer work. Most challenging option.",
-            "equipment": ["rings"]
+            "equipment": [
+              "rings"
+            ]
           }
         ],
         "coachingNotes": "Choose variation based on current strength level and available equipment. All variations use 2-1-1-0 tempo: 2 seconds down, 1 second pause, 1 second up, no pause at top. Maintain rigid body position throughout - don't let hips sag or pike. Keep elbows at 45° angle to protect shoulders. Progress by lowering surface height (incline), adding ROM (parallettes), or increasing instability (rings)."
@@ -1793,14 +2306,18 @@
             "variation": "Rings",
             "notes": "Set rings at ankle to knee height. Start in plank with hollow body - pull rings slightly apart and outward to create tension. The instability forces constant micro-adjustments from shoulder stabilizers. Lower for 2 seconds until thumbs touch chest/shoulders, keeping elbows tucked ~45°. Squeeze rings together slightly at top for additional chest activation. Most challenging variation - if too unstable, raise rings higher or regress to parallettes/standard. Focus on control over speed.",
             "description": "Rings add instability for shoulder stabilizer work. Most challenging option.",
-            "equipment": ["rings"]
+            "equipment": [
+              "rings"
+            ]
           },
           {
             "optionName": "Parallette Push-Ups",
             "variation": "Parallettes",
             "notes": "Grip parallettes (or blocks) with hands shoulder-width apart. Lower beyond the plane of your hands for increased range of motion - aim for shoulders at or below hand level. The deeper ROM creates greater chest stretch at bottom and increased muscle activation. Keep elbows at 45° angle, pause 1 second at bottom, press up for 1 second. Control is crucial - don't bounce out of the bottom position. Requires good shoulder mobility.",
             "description": "Increased range of motion with parallettes or blocks. Greater chest stretch.",
-            "equipment": ["parallettes"]
+            "equipment": [
+              "parallettes"
+            ]
           },
           {
             "optionName": "Standard Push-Ups",
@@ -3596,7 +4113,7 @@
                     "repsMax": 25
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "cooldown-day1-foundation"
                   }
                 ]
               },
@@ -3696,7 +4213,7 @@
                     "$routine": "superset-bss"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-hspu-dips"
                   }
                 ]
               }
@@ -3747,7 +4264,7 @@
                     "repsMax": 25
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "cooldown-day1-foundation"
                   }
                 ]
               },
@@ -3849,7 +4366,7 @@
                     "notes": "Core (anti-extension)"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-hspu-dips"
                   }
                 ]
               }
@@ -3900,7 +4417,7 @@
                     "repsMax": 25
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "cooldown-day1-foundation"
                   }
                 ]
               },
@@ -4009,7 +4526,7 @@
                     "$routine": "superset-bss"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-hspu-dips"
                   }
                 ]
               }
@@ -4063,7 +4580,7 @@
                     "notes": "Deload replacement for Hollow Rocks"
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "cooldown-day1-foundation"
                   }
                 ]
               },
@@ -4157,7 +4674,7 @@
                     "notes": "Deload"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-hspu-dips"
                   }
                 ]
               }
@@ -4215,7 +4732,7 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "cooldown-day1-foundation"
                   }
                 ]
               },
@@ -4327,7 +4844,7 @@
                     "$routine": "superset-bss"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-hspu-dips"
                   }
                 ]
               }
@@ -4383,7 +4900,7 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "cooldown-day1-foundation"
                   }
                 ]
               },
@@ -4497,7 +5014,7 @@
                     "category": "main"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-hspu-dips"
                   }
                 ]
               }
@@ -4545,7 +5062,10 @@
                     "repsValue": 10
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-foundation"
                   }
                 ]
               },
@@ -4660,7 +5180,7 @@
                     "category": "main"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-hspu-dips"
                   }
                 ]
               }
@@ -4715,7 +5235,10 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-foundation"
                   }
                 ]
               },
@@ -4830,7 +5353,7 @@
                     "notes": "Deload. Per dumbbell"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-hspu-dips"
                   }
                 ]
               }
@@ -4893,7 +5416,10 @@
                     "repsValue": 15
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
               },
@@ -4996,7 +5522,7 @@
                     "category": "main"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-neutral-grip"
                   }
                 ]
               }
@@ -5048,7 +5574,10 @@
                     "sets": 3
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
               },
@@ -5152,7 +5681,7 @@
                     "category": "main"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-neutral-grip"
                   }
                 ]
               }
@@ -5204,7 +5733,10 @@
                     "repsValue": 15
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
               },
@@ -5302,7 +5834,7 @@
                     "category": "main"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-neutral-grip"
                   }
                 ]
               }
@@ -5351,7 +5883,10 @@
                     "repsValue": 10
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
               },
@@ -5439,7 +5974,7 @@
                     "notes": "Straight-Arm Cap: 3 x 6s Tuck Holds Max"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-neutral-grip"
                   }
                 ]
               }
@@ -5501,7 +6036,10 @@
                     "repsValue": 15
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
               },
@@ -5578,7 +6116,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-elbow-saver"
                   },
                   {
                     "$ref": "ex-db-pullover",
@@ -5598,7 +6136,7 @@
                     "$ref": "ex-chest-supported-row"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-pullover-press"
                   }
                 ]
               }
@@ -5650,7 +6188,10 @@
                     "repsValue": 15
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
               },
@@ -5727,7 +6268,7 @@
                 "description": "Weekly Pull Total Target: 36-40 reps",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-elbow-saver"
                   },
                   {
                     "$ref": "ex-db-pullover",
@@ -5747,7 +6288,7 @@
                     "$ref": "ex-chest-supported-row"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-pullover-press"
                   }
                 ]
               }
@@ -5799,7 +6340,10 @@
                     "repsValue": 10
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
               },
@@ -5875,7 +6419,7 @@
                 "description": "PR attempt week",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-elbow-saver"
                   },
                   {
                     "$ref": "ex-db-pullover",
@@ -5900,7 +6444,7 @@
                     "notes": "Core Recovery"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-pullover-press"
                   }
                 ]
               }
@@ -5954,7 +6498,10 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
               },
@@ -6029,7 +6576,7 @@
                 "description": "Easy deload",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-elbow-saver"
                   },
                   {
                     "$ref": "ex-straight-arm-pulldown-strength",
@@ -6046,7 +6593,7 @@
                     "notes": "Deload. Per dumbbell"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-pullover-press"
                   }
                 ]
               }
@@ -6103,7 +6650,10 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-peak-taper"
                   }
                 ]
               },
@@ -6191,7 +6741,7 @@
                 "description": "Maintaining High Intensity intensity while reducing volume",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-elbow-saver"
                   },
                   {
                     "$ref": "ex-db-pullover",
@@ -6205,7 +6755,7 @@
                     "notes": "Core Hard"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-pullover-press"
                   }
                 ]
               }
@@ -6252,7 +6802,10 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-peak-taper"
                   }
                 ]
               },
@@ -6340,7 +6893,7 @@
                 "description": "Maintaining neural drive.",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-elbow-saver"
                   },
                   {
                     "$ref": "ex-db-pullover",
@@ -6355,7 +6908,7 @@
                     "notes": "Core Hard"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-pullover-press"
                   }
                 ]
               }
@@ -6404,7 +6957,10 @@
                     "notes": "Deload"
                   },
                   {
-                    "$routine": "cooldown-day1"
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-peak-taper"
                   }
                 ]
               },
@@ -6475,7 +7031,7 @@
                 "description": "Light movement only. Preparing for Test Week",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-elbow-saver"
                   },
                   {
                     "$ref": "ex-db-pullover",
@@ -6497,7 +7053,7 @@
                     "category": "main"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-pullover-press"
                   }
                 ]
               }
@@ -6814,7 +7370,7 @@
                     "category": "main"
                   },
                   {
-                    "$routine": "cooldown-day5"
+                    "$routine": "cooldown-day5-pullover-press"
                   }
                 ]
               }

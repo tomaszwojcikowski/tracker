@@ -901,15 +901,29 @@
       {
         "id": "cooldown-day5",
         "name": "Day 5 Cooldown",
-        "description": "Anterior Chain Openers for Day 5",
+        "description": "Complete recovery protocol for Day 5: addresses shoulders, triceps, wrists (HSPU), pecs (Dips), lats (Weighted Pull-Ups), and quads (Split Squats)",
         "category": "cooldown",
-        "estimatedDuration": 4,
+        "estimatedDuration": 6,
         "targetAreas": [
+          "shoulders",
+          "triceps",
+          "wrists",
           "pecs",
           "lats",
-          "quads"
+          "quads",
+          "forearms"
         ],
         "exercises": [
+          {
+            "exerciseName": "Butcher's Block Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 60,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "Targeting Lats/Triceps (critical for HSPU and Dips recovery)"
+          },
           {
             "exerciseName": "Banded Pec Stretch",
             "category": "cooldown",
@@ -922,6 +936,28 @@
             "notes": "Releasing tension from Dips"
           },
           {
+            "exerciseName": "Wrist Extensor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Essential for HSPU recovery - wrists under heavy load"
+          },
+          {
+            "exerciseName": "Wrist Flexor Stretch",
+            "category": "cooldown",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Complements wrist extensor stretch for complete HSPU recovery"
+          },
+          {
             "exerciseName": "Lat Prayer (Bench/Box)",
             "category": "cooldown",
             "sets": 1,
@@ -929,7 +965,7 @@
             "repsValue": 60,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "notes": "Releasing Lats"
+            "notes": "Releasing Lats from Weighted Pull-Ups"
           },
           {
             "exerciseName": "Standing Quad Stretch",

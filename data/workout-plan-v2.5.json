@@ -532,7 +532,7 @@
       {
         "id": "cooldown-day1",
         "name": "Day 1 Cooldown",
-        "description": "Volume Reset cooldown for Day 1",
+        "description": "Universal recovery protocol for Day 1 pull volume work across all training blocks",
         "category": "cooldown",
         "estimatedDuration": 4,
         "targetAreas": [
@@ -552,7 +552,7 @@
             "repsMax": 60,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "notes": "Spinal decompression"
+            "notes": "Spinal decompression and shoulder traction"
           },
           {
             "exerciseName": "Butcher's Block Stretch",
@@ -562,7 +562,7 @@
             "repsValue": 60,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "notes": "Targeting Lats/Triceps"
+            "notes": "Releasing lats and triceps tension from pulling and pushing work"
           },
           {
             "exerciseName": "Cobra Stretch",
@@ -572,7 +572,7 @@
             "repsValue": 60,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "notes": "Releasing abs from Hollow Rocks"
+            "notes": "Releasing anterior core and opening chest"
           },
           {
             "exerciseName": "Wrist Extensor Stretch",
@@ -901,7 +901,7 @@
       {
         "id": "cooldown-day5",
         "name": "Day 5 Cooldown",
-        "description": "Complete recovery protocol for Day 5: addresses shoulders, triceps, wrists (HSPU), pecs (Dips), lats (Weighted Pull-Ups), and quads (Split Squats)",
+        "description": "Universal recovery protocol for Day 5 pull intensity and push work across all training blocks",
         "category": "cooldown",
         "estimatedDuration": 6,
         "targetAreas": [
@@ -921,7 +921,7 @@
             "repsValue": 60,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "notes": "Targeting Lats/Triceps (critical for HSPU and Dips recovery)"
+            "notes": "Releasing lats, triceps, and shoulder tension from pressing and pulling movements"
           },
           {
             "exerciseName": "Banded Pec Stretch",
@@ -932,7 +932,7 @@
             "repsUnit": "seconds",
             "repsPerSide": true,
             "loadUnit": "bodyweight",
-            "notes": "Releasing tension from Dips"
+            "notes": "Opening chest and anterior shoulder after pressing work"
           },
           {
             "exerciseName": "Wrist Extensor Stretch",
@@ -943,7 +943,7 @@
             "repsUnit": "seconds",
             "repsPerSide": true,
             "loadUnit": "bodyweight",
-            "notes": "Essential for HSPU recovery - wrists under heavy load"
+            "notes": "Wrist care for loaded pressing (especially relevant for handstand work in early blocks)"
           },
           {
             "exerciseName": "Wrist Flexor Stretch",
@@ -954,7 +954,7 @@
             "repsUnit": "seconds",
             "repsPerSide": true,
             "loadUnit": "bodyweight",
-            "notes": "Complements wrist extensor stretch for complete HSPU recovery"
+            "notes": "Complements wrist extensor stretch for complete wrist care"
           },
           {
             "exerciseName": "Lat Prayer (Bench/Box)",
@@ -964,7 +964,7 @@
             "repsValue": 60,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "notes": "Releasing Lats from Weighted Pull-Ups"
+            "notes": "Deep lat stretch after pulling movements (pull-ups, rows, pullovers)"
           },
           {
             "exerciseName": "Standing Quad Stretch",
@@ -975,7 +975,7 @@
             "repsUnit": "seconds",
             "repsPerSide": true,
             "loadUnit": "bodyweight",
-            "notes": "Releasing Quads from Split Squats"
+            "notes": "Quad release (relevant for blocks with split squats)"
           }
         ]
       },

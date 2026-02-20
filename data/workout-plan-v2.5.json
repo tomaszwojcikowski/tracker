@@ -2577,7 +2577,41 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "notes": "Tempo 2-1-1-0",
-        "coachingNotes": "Attach band to sturdy anchor at face height. Grab ends with both hands, step back to create tension. Pull band toward face, separating hands as they approach (like making double bicep pose). Focus on pulling elbows back and squeezing shoulder blades together. Think 'pull apart' not just 'pull back'. Externally rotate shoulders at end position. Pause 1 second, then return with control over 2 seconds. This exercise is crucial for shoulder health and rear delt development."
+        "coachingNotes": "Attach band to sturdy anchor at face height. Grab ends with both hands, step back to create tension. Pull band toward face, separating hands as they approach (like making double bicep pose). Focus on pulling elbows back and squeezing shoulder blades together. Think 'pull apart' not just 'pull back'. Externally rotate shoulders at end position. Pause 1 second, then return with control over 2 seconds. This exercise is crucial for shoulder health and rear delt development.",
+        "exerciseOptions": [
+          {
+            "optionName": "Banded",
+            "description": "Standard isolation with band",
+            "variation": "Band",
+            "loadUnit": "band",
+            "coachingNotes": "Standard band face pull. Focus on pulling to forehead height and separating hands. Squeeze shoulder blades at the top."
+          },
+          {
+            "optionName": "Rings",
+            "description": "Bodyweight leverage (harder)",
+            "variation": "Rings",
+            "loadUnit": "bodyweight",
+            "equipment": [
+              "rings"
+            ],
+            "notes": "Lean back further to increase difficulty. Pull chest to rings.",
+            "coachingNotes": "Set rings at chest height. Lean back with straight arms. Pull chest towards rings while keeping elbows high and out. Tougher than bands due to bodyweight leverage."
+          },
+          {
+            "optionName": "W-Raise (ER Focus)",
+            "description": "Rotator cuff and upper trap emphasis",
+            "variation": "External Rotation",
+            "notes": "Higher hands, focus on 'W' shape at peak contraction",
+            "coachingNotes": "Pull the band slightly higher and focus on rotating your thumbs back at the end of the movement. Your arms should form a 'W' shape at peak contraction. Excellent for infraspinatus and teres minor."
+          },
+          {
+            "optionName": "High-to-Low",
+            "description": "Lower trap and lat emphasis",
+            "variation": "High-to-Low",
+            "notes": "Anchor high, pull low towards sternum",
+            "coachingNotes": "Secure band above head height. Pull towards your upper chest/sternum. This emphasizes the lower trapezius and rhomboids more than standard face pulls."
+          }
+        ]
       },
       {
         "id": "ex-pallof-press",
@@ -3312,7 +3346,45 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "notes": "Tempo 2-1-1-0",
-        "coachingNotes": "Use back extension machine or GHD (Glute-Ham Developer). Secure feet/ankles, start with torso hanging down. Keep hands crossed on chest or behind head. Use lower back and glutes to extend (raise) torso until body is in straight line - don't hyperextend at top. Lower for 2 seconds with control, pause 1 second at bottom, extend for 1 second, no pause at top. This strengthens erector spinae (lower back muscles) and glutes. Essential for posterior chain strength and injury prevention. If no machine available, can do Superman holds on floor."
+        "coachingNotes": "Use back extension machine or GHD (Glute-Ham Developer). Secure feet/ankles, start with torso hanging down. Keep hands crossed on chest or behind head. Use lower back and glutes to extend (raise) torso until body is in straight line - don't hyperextend at top. Lower for 2 seconds with control, pause 1 second at bottom, extend for 1 second, no pause at top. This strengthens erector spinae (lower back muscles) and glutes. Essential for posterior chain strength and injury prevention. If no machine available, can do Superman holds on floor.",
+        "exerciseOptions": [
+          {
+            "optionName": "Standard",
+            "description": "Bodyweight for volume",
+            "variation": "Bodyweight",
+            "loadUnit": "bodyweight",
+            "coachingNotes": "Standard bodyweight back extension. Focus on glute squeeze at the top and maintain a controlled 2-second eccentric phase."
+          },
+          {
+            "optionName": "Weighted",
+            "description": "Strength focus",
+            "variation": "Weighted",
+            "loadUnit": "kg",
+            "loadMin": 5,
+            "loadMax": 20,
+            "notes": "Hold weight plate at chest",
+            "coachingNotes": "Hold a weight plate or dumbbell close to your chest. Maintain a proud chest throughout the movement and do not let the weight round your shoulders forward."
+          },
+          {
+            "optionName": "ISO-Hold",
+            "description": "Static endurance",
+            "variation": "Isometric",
+            "repsType": "time",
+            "repsValue": 45,
+            "repsUnit": "seconds",
+            "notes": "Hold parallel position. Squeeze glutes.",
+            "coachingNotes": "Extend until your body is in a straight line, parallel to the floor. Hold this position for 45 seconds while actively squeezing glutes and core. Avoid hyperextending your neck."
+          },
+          {
+            "optionName": "Single-Leg",
+            "description": "Unilateral stability",
+            "variation": "Single-Leg",
+            "repsPerSide": true,
+            "repsValue": 8,
+            "notes": "Lower load, focus on glute stability",
+            "coachingNotes": "Perform the movement with only one leg secured. This requires significantly more glute and hamstring stability from the working leg. Start with lower volume."
+          }
+        ]
       },
       {
         "id": "ex-dead-bugs",
@@ -4169,6 +4241,10 @@
                     "supersetGroup": 1
                   },
                   {
+                    "$ref": "ex-back-extensions",
+                    "supersetGroup": 1
+                  },
+                  {
                     "$ref": "ex-face-pulls",
                     "supersetGroup": 1
                   },
@@ -4315,6 +4391,10 @@
                     "sets": 3,
                     "repsMin": 10,
                     "repsMax": 12,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-back-extensions",
                     "supersetGroup": 1
                   },
                   {
@@ -4472,6 +4552,12 @@
                     "sets": 3,
                     "repsMin": 10,
                     "repsMax": 12,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-back-extensions",
+                    "sets": 3,
+                    "repsValue": 15,
                     "supersetGroup": 1
                   },
                   {
@@ -4635,6 +4721,18 @@
                     "notes": "Deload Weight"
                   },
                   {
+                    "$ref": "ex-back-extensions",
+                    "sets": 2,
+                    "notes": "Deload",
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "notes": "Deload",
+                    "supersetGroup": 1
+                  },
+                  {
                     "$routine": "cooldown-day3"
                   }
                 ]
@@ -4787,12 +4885,13 @@
                   },
                   {
                     "$ref": "ex-back-extensions",
-                    "supersetGroup": 2
+                    "supersetGroup": 2,
+                    "notes": "Try Weighted option (hold 5kg plate)"
                   },
                   {
                     "$ref": "ex-face-pulls",
                     "supersetGroup": 2,
-                    "notes": "Shoulder health. Tempo 2-1-1-0"
+                    "notes": "Try W-Raise (External Rotation) variation"
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -4952,12 +5051,13 @@
                   },
                   {
                     "$ref": "ex-back-extensions",
-                    "supersetGroup": 2
+                    "supersetGroup": 2,
+                    "notes": "Try Weighted option (hold 5kg plate)"
                   },
                   {
                     "$ref": "ex-face-pulls",
                     "supersetGroup": 2,
-                    "notes": "Shoulder health. Tempo 2-1-1-0"
+                    "notes": "Try W-Raise (External Rotation) variation"
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -5117,12 +5217,13 @@
                   },
                   {
                     "$ref": "ex-back-extensions",
-                    "supersetGroup": 2
+                    "supersetGroup": 2,
+                    "notes": "Try Weighted option (hold 5kg plate)"
                   },
                   {
                     "$ref": "ex-face-pulls",
                     "supersetGroup": 2,
-                    "notes": "Shoulder health. Tempo 2-1-1-0"
+                    "notes": "Try W-Raise (External Rotation) variation"
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -5456,12 +5557,17 @@
                     "loadMax": 12
                   },
                   {
-                    "$ref": "ex-goblet-squats",
-                    "supersetGroup": 1
+                    "$ref": "ex-goblet-squats"
+                  },
+                  {
+                    "$ref": "ex-back-extensions",
+                    "supersetGroup": 1,
+                    "notes": "Try Single-Leg option for stability"
                   },
                   {
                     "$ref": "ex-face-pulls",
-                    "supersetGroup": 1
+                    "supersetGroup": 1,
+                    "notes": "Try Rings option (Neutral Grip)"
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -5609,12 +5715,17 @@
                     "loadMax": 12
                   },
                   {
-                    "$ref": "ex-goblet-squats",
-                    "supersetGroup": 1
+                    "$ref": "ex-goblet-squats"
+                  },
+                  {
+                    "$ref": "ex-back-extensions",
+                    "supersetGroup": 1,
+                    "notes": "Try Single-Leg option for stability"
                   },
                   {
                     "$ref": "ex-face-pulls",
-                    "supersetGroup": 1
+                    "supersetGroup": 1,
+                    "notes": "Try Rings option (Neutral Grip)"
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -5763,12 +5874,17 @@
                     "loadMax": 12
                   },
                   {
-                    "$ref": "ex-goblet-squats",
-                    "supersetGroup": 1
+                    "$ref": "ex-goblet-squats"
+                  },
+                  {
+                    "$ref": "ex-back-extensions",
+                    "supersetGroup": 1,
+                    "notes": "Try Single-Leg option for stability"
                   },
                   {
                     "$ref": "ex-face-pulls",
-                    "supersetGroup": 1
+                    "supersetGroup": 1,
+                    "notes": "Try Rings option (Neutral Grip)"
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -5909,6 +6025,18 @@
                     "$ref": "ex-goblet-squats",
                     "sets": 2,
                     "notes": "Deload"
+                  },
+                  {
+                    "$ref": "ex-back-extensions",
+                    "sets": 2,
+                    "notes": "Deload",
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "notes": "Deload. Shoulder health",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -6059,12 +6187,17 @@
                     "loadMax": 85
                   },
                   {
-                    "$ref": "ex-goblet-squats",
-                    "supersetGroup": 1
+                    "$ref": "ex-goblet-squats"
+                  },
+                  {
+                    "$ref": "ex-back-extensions",
+                    "supersetGroup": 1,
+                    "notes": "Try ISO-Hold variation (45s hold)"
                   },
                   {
                     "$ref": "ex-face-pulls",
-                    "supersetGroup": 1
+                    "supersetGroup": 1,
+                    "notes": "Try High-to-Low variation (lower trap focus)"
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -6103,6 +6236,16 @@
                   },
                   {
                     "$ref": "ex-chest-supported-row"
+                  },
+                  {
+                    "$routine": "superset-bss"
+                  },
+                  {
+                    "$ref": "ex-dead-bugs",
+                    "sets": 3,
+                    "repsValue": 10,
+                    "repsPerSide": true,
+                    "notes": "Core stability"
                   },
                   {
                     "$routine": "cooldown-day5-pullover-press"
@@ -6206,12 +6349,17 @@
                     "loadMax": 85
                   },
                   {
-                    "$ref": "ex-goblet-squats",
-                    "supersetGroup": 1
+                    "$ref": "ex-goblet-squats"
+                  },
+                  {
+                    "$ref": "ex-back-extensions",
+                    "supersetGroup": 1,
+                    "notes": "Try ISO-Hold variation (45s hold)"
                   },
                   {
                     "$ref": "ex-face-pulls",
-                    "supersetGroup": 1
+                    "supersetGroup": 1,
+                    "notes": "Try High-to-Low variation (lower trap focus)"
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -6250,6 +6398,16 @@
                   },
                   {
                     "$ref": "ex-chest-supported-row"
+                  },
+                  {
+                    "$routine": "superset-bss"
+                  },
+                  {
+                    "$ref": "ex-dead-bugs",
+                    "sets": 3,
+                    "repsValue": 10,
+                    "repsPerSide": true,
+                    "notes": "Core stability"
                   },
                   {
                     "$routine": "cooldown-day5-pullover-press"
@@ -6357,7 +6515,14 @@
                     "$ref": "ex-goblet-squats"
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-back-extensions",
+                    "supersetGroup": 1,
+                    "notes": "Try ISO-Hold variation (45s hold)"
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "supersetGroup": 1,
+                    "notes": "Try High-to-Low variation (lower trap focus)"
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -6396,7 +6561,16 @@
                     "notes": "Focus on lats. Peak week volume reduction. Unilateral."
                   },
                   {
+                    "$ref": "ex-close-grip-db-press-heavy",
+                    "loadMin": 16,
+                    "loadMax": 22,
+                    "notes": "Per dumbbell. Close grip"
+                  },
+                  {
                     "$ref": "ex-chest-supported-row"
+                  },
+                  {
+                    "$routine": "superset-bss"
                   },
                   {
                     "$ref": "ex-side-planks",
@@ -6510,6 +6684,18 @@
                     "$ref": "ex-goblet-squats",
                     "sets": 2,
                     "notes": "Deload"
+                  },
+                  {
+                    "$ref": "ex-back-extensions",
+                    "sets": 2,
+                    "notes": "Deload",
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "notes": "Deload. Shoulder health",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -6667,13 +6853,18 @@
                   {
                     "$ref": "ex-goblet-squats",
                     "sets": 3,
+                    "notes": "Taper"
+                  },
+                  {
+                    "$ref": "ex-back-extensions",
+                    "sets": 3,
                     "notes": "Taper",
                     "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-face-pulls",
                     "sets": 2,
-                    "notes": "Taper",
+                    "notes": "Taper. Shoulder health",
                     "supersetGroup": 1
                   },
                   {
@@ -6707,6 +6898,9 @@
                     "$ref": "ex-weighted-v-ups",
                     "repsValue": 10,
                     "notes": "Core Hard"
+                  },
+                  {
+                    "$routine": "superset-bss"
                   },
                   {
                     "$routine": "cooldown-day5-pullover-press"
@@ -6819,13 +7013,18 @@
                   {
                     "$ref": "ex-goblet-squats",
                     "sets": 2,
+                    "notes": "Taper"
+                  },
+                  {
+                    "$ref": "ex-back-extensions",
+                    "sets": 2,
                     "notes": "Taper",
                     "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-face-pulls",
                     "sets": 2,
-                    "notes": "Taper",
+                    "notes": "Taper. Shoulder health",
                     "supersetGroup": 1
                   },
                   {
@@ -6860,6 +7059,9 @@
                     "sets": 2,
                     "repsValue": 10,
                     "notes": "Core Hard"
+                  },
+                  {
+                    "$routine": "superset-bss"
                   },
                   {
                     "$routine": "cooldown-day5-pullover-press"
@@ -6965,6 +7167,18 @@
                     "$ref": "ex-goblet-squats",
                     "sets": 2,
                     "notes": "Deload"
+                  },
+                  {
+                    "$ref": "ex-back-extensions",
+                    "sets": 2,
+                    "notes": "Deload",
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "notes": "Deload. Shoulder health",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day3"
@@ -7271,9 +7485,16 @@
                     "notes": "Light"
                   },
                   {
+                    "$ref": "ex-back-extensions",
+                    "sets": 2,
+                    "notes": "Light",
+                    "supersetGroup": 1
+                  },
+                  {
                     "$ref": "ex-face-pulls",
                     "sets": 2,
-                    "notes": "Light"
+                    "notes": "Light. Shoulder health",
+                    "supersetGroup": 1
                   }
                 ]
               },

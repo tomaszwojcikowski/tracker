@@ -21,6 +21,9 @@ describe('Exercise Options Utilities', () => {
                 sets: 4,
                 reps: '8-12',
                 restSeconds: 180,
+                loadUnit: '',
+                loadMin: 0,
+                loadMax: 0,
             };
 
             const option: ExerciseOption = {
@@ -58,6 +61,50 @@ describe('Exercise Options Utilities', () => {
 
             expect(result.sets).toBe(4);
             expect(result.rpe).toBe(8); // Preserved
+        });
+
+        it('should override technical fields like coachingNotes, cues, and tempo', () => {
+            const baseExercise = {
+                name: 'Base Exercise',
+                coachingNotes: 'Base technique',
+                cues: ['Cue 1'],
+                tempoEccentric: 2,
+                tempoPauseBottom: 0,
+            };
+
+            const option: ExerciseOption = {
+                optionName: 'Advanced Variation',
+                coachingNotes: 'Advanced technique override',
+                cues: ['Advanced Cue 1', 'Advanced Cue 2'],
+                tempoEccentric: 3,
+                tempoPauseBottom: 1,
+            };
+
+            const result = applyExerciseOption(baseExercise, option);
+
+            expect(result.coachingNotes).toBe('Advanced technique override');
+            expect(result.cues).toEqual(['Advanced Cue 1', 'Advanced Cue 2']);
+            expect(result.tempoEccentric).toBe(3);
+            expect(result.tempoPauseBottom).toBe(1);
+        });
+
+        it('should override special feature flags like isFlow and isDensity', () => {
+            const baseExercise = {
+                name: 'Standard Exercise',
+                isFlow: false,
+                densityTimeMinutes: 0,
+            };
+
+            const option: ExerciseOption = {
+                optionName: 'Flow Variation',
+                isFlow: true,
+                densityTimeMinutes: 10,
+            };
+
+            const result = applyExerciseOption(baseExercise, option as any);
+
+            expect(result.isFlow).toBe(true);
+            expect(result.densityTimeMinutes).toBe(10);
         });
     });
 
@@ -251,7 +298,7 @@ describe('Exercise Options Utilities', () => {
         });
 
         it('should format time-based exercise with minutes', () => {
-            const option: ExerciseOption = {
+            const option: any = {
                 optionName: 'Plank Hold',
                 repsType: 'time',
                 repsValue: 3,

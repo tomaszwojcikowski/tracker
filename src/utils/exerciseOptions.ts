@@ -25,6 +25,18 @@ interface BaseExerciseProperties {
     repsMax?: number;
     repsUnit?: string;
     repsPerSide?: boolean;
+    coachingNotes?: string;
+    progressionNotes?: string;
+    cues?: string[];
+    tempoEccentric?: number;
+    tempoPauseBottom?: number;
+    tempoConcentric?: number;
+    tempoPauseTop?: number;
+    isEmom?: boolean;
+    isUnilateral?: boolean;
+    isFlow?: boolean;
+    densityTimeMinutes?: number;
+    densityRepsTotal?: number;
     [key: string]: unknown; // Allow additional properties
 }
 
@@ -55,6 +67,22 @@ export function applyExerciseOption<T extends BaseExerciseProperties>(
         ...(option.repsMax !== undefined && { repsMax: option.repsMax }),
         ...(option.repsUnit && { repsUnit: option.repsUnit }),
         ...(option.repsPerSide !== undefined && { repsPerSide: option.repsPerSide }),
+        // Override notes and technique
+        ...(option.coachingNotes && { coachingNotes: option.coachingNotes }),
+        ...(option.progressionNotes && { progressionNotes: option.progressionNotes }),
+        ...(option.cues && { cues: option.cues }),
+        // Override tempo
+        ...(option.tempoEccentric !== undefined && { tempoEccentric: option.tempoEccentric }),
+        ...(option.tempoPauseBottom !== undefined && { tempoPauseBottom: option.tempoPauseBottom }),
+        ...(option.tempoConcentric !== undefined && { tempoConcentric: option.tempoConcentric }),
+        ...(option.tempoPauseTop !== undefined && { tempoPauseTop: option.tempoPauseTop }),
+        // Override special flags
+        ...(option.isEmom !== undefined && { isEmom: option.isEmom }),
+        ...(option.isUnilateral !== undefined && { isUnilateral: option.isUnilateral }),
+        ...(option.isFlow !== undefined && { isFlow: option.isFlow }),
+        // Override density params
+        ...(option.densityTimeMinutes !== undefined && { densityTimeMinutes: option.densityTimeMinutes }),
+        ...(option.densityRepsTotal !== undefined && { densityRepsTotal: option.densityRepsTotal }),
     };
 }
 

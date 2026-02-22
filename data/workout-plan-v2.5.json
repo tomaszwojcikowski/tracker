@@ -3728,6 +3728,24 @@
         ]
       },
       {
+        "id": "ex-cross-body-hammer-curls",
+        "exerciseName": "Cross-Body Hammer Curls",
+        "category": "main",
+        "sets": 2,
+        "repsType": "reps",
+        "repsValue": 12,
+        "repsPerSide": true,
+        "loadUnit": "kg",
+        "restSeconds": 60,
+        "notes": "Elbow-friendly biceps accessory. Neutral grip, controlled eccentric.",
+        "coachingNotes": "Stand tall holding dumbbells with neutral grip (palms facing in). Curl one dumbbell across the body toward opposite shoulder while keeping elbow close to torso. Lower slowly over 2-3 seconds. Alternate sides or complete all reps per side. Keep wrist neutral and avoid swinging. If elbow irritation appears, reduce load and shorten range slightly.",
+        "cues": [
+          "Neutral grip",
+          "Elbow pinned",
+          "Slow lower"
+        ]
+      },
+      {
         "id": "ex-pullover-bridge",
         "exerciseName": "Pullover in Glute Bridge",
         "category": "main",
@@ -5093,9 +5111,9 @@
                   {
                     "$ref": "ex-close-grip-db-press",
                     "repsValue": 8,
-                    "loadMin": 14,
-                    "loadMax": 18,
-                    "notes": "Per dumbbell. Close grip"
+                    "loadMin": 20,
+                    "loadMax": 22.5,
+                    "notes": "Dip substitute (80kg BW baseline). Per dumbbell, close grip"
                   },
                   {
                     "$routine": "superset-bss"
@@ -5144,7 +5162,9 @@
                     "$ref": "ex-db-pullover",
                     "sets": 3,
                     "repsValue": 12,
-                    "notes": "Replaces Pull-ups. Focus on deep lat stretch."
+                    "loadMin": 25,
+                    "loadMax": 25,
+                    "notes": "Replaces Pull-ups. Focus on deep lat stretch. Current: 25kg x12"
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -5259,9 +5279,9 @@
                   {
                     "$ref": "ex-close-grip-db-press",
                     "repsValue": 8,
-                    "loadMin": 16,
-                    "loadMax": 20,
-                    "notes": "Per dumbbell. Close grip"
+                    "loadMin": 22.5,
+                    "loadMax": 25,
+                    "notes": "Dip substitute progression (80kg BW). Per dumbbell, close grip"
                   },
                   {
                     "$routine": "superset-bss"
@@ -5312,6 +5332,8 @@
                     "$ref": "ex-db-pullover",
                     "sets": 2,
                     "repsValue": 12,
+                    "loadMin": 17.5,
+                    "loadMax": 20,
                     "notes": "Deload. Light weight."
                   },
                   {
@@ -5349,6 +5371,9 @@
                     "$ref": "ex-side-plank-recovery",
                     "repsMin": 20,
                     "repsMax": 30
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -5438,9 +5463,9 @@
                   {
                     "$ref": "ex-close-grip-db-press",
                     "sets": 2,
-                    "loadMin": 10,
-                    "loadMax": 12,
-                    "notes": "Deload. Per dumbbell"
+                    "loadMin": 15,
+                    "loadMax": 17.5,
+                    "notes": "Deload dip substitute. Per dumbbell"
                   },
                   {
                     "$routine": "cooldown-day5-hspu-dips"
@@ -5485,6 +5510,8 @@
                     "$ref": "ex-db-pullover",
                     "sets": 4,
                     "repsValue": 10,
+                    "loadMin": 25,
+                    "loadMax": 27.5,
                     "notes": "Block 3 Start. Focus on Heavier Load."
                   },
                   {
@@ -5529,6 +5556,9 @@
                   },
                   {
                     "$ref": "ex-side-plank-recovery"
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -5644,6 +5674,8 @@
                     "$ref": "ex-db-pullover",
                     "sets": 4,
                     "repsValue": 10,
+                    "loadMin": 25,
+                    "loadMax": 27.5,
                     "notes": "Maintain Volume."
                   },
                   {
@@ -5687,6 +5719,9 @@
                     "sets": 2,
                     "repsMin": 25,
                     "repsMax": 30
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
                   },
                   {
                     "$routine": "day2-spine-focus"
@@ -5803,6 +5838,8 @@
                     "$ref": "ex-db-pullover",
                     "sets": 5,
                     "repsValue": 10,
+                    "loadMin": 27.5,
+                    "loadMax": 30,
                     "notes": "Volume Increase."
                   },
                   {
@@ -5846,6 +5883,9 @@
                   },
                   {
                     "$ref": "ex-side-plank-recovery"
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -5956,6 +5996,8 @@
                     "$ref": "ex-db-pullover",
                     "sets": 3,
                     "repsValue": 10,
+                    "loadMin": 20,
+                    "loadMax": 22.5,
                     "notes": "Deload."
                   },
                   {
@@ -5995,6 +6037,9 @@
                   },
                   {
                     "$ref": "ex-cat-camel"
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -6118,6 +6163,8 @@
                     "$ref": "ex-pullover-bridge",
                     "sets": 4,
                     "repsValue": 12,
+                    "loadMin": 22.5,
+                    "loadMax": 25,
                     "notes": "AMRAP replacement. Focus on perfect technique + glute engagement."
                   },
                   {
@@ -6159,6 +6206,9 @@
                   {
                     "$ref": "ex-marching-dead-bug",
                     "notes": "Optional; only if feeling strong"
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
                   },
                   {
                     "$routine": "day2-deep-stretch-flow"
@@ -6224,14 +6274,14 @@
                     "$ref": "ex-db-pullover",
                     "sets": 5,
                     "repsValue": 8,
-                    "loadMin": 18,
-                    "loadMax": 24,
+                    "loadMin": 27.5,
+                    "loadMax": 30,
                     "notes": "Intensity Peak Phase. Heavy."
                   },
                   {
                     "$ref": "ex-close-grip-db-press-heavy",
-                    "loadMin": 16,
-                    "loadMax": 22,
+                    "loadMin": 17.5,
+                    "loadMax": 22.5,
                     "notes": "Per dumbbell. Close grip"
                   },
                   {
@@ -6280,6 +6330,8 @@
                     "$ref": "ex-pullover-bridge",
                     "sets": 4,
                     "repsValue": 12,
+                    "loadMin": 25,
+                    "loadMax": 27.5,
                     "notes": "Maintain High Volume. Keep hips high."
                   },
                   {
@@ -6321,6 +6373,9 @@
                   {
                     "$ref": "ex-marching-dead-bug",
                     "notes": "Optional; skip if taxed"
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -6386,14 +6441,14 @@
                     "$ref": "ex-db-pullover",
                     "sets": 5,
                     "repsValue": 6,
-                    "loadMin": 18,
-                    "loadMax": 24,
+                    "loadMin": 30,
+                    "loadMax": 32.5,
                     "notes": "Increasing intensity."
                   },
                   {
                     "$ref": "ex-close-grip-db-press-heavy",
-                    "loadMin": 16,
-                    "loadMax": 22,
+                    "loadMin": 17.5,
+                    "loadMax": 22.5,
                     "notes": "Per dumbbell. Close grip"
                   },
                   {
@@ -6442,6 +6497,8 @@
                     "$ref": "ex-pullover-bridge",
                     "sets": 5,
                     "repsValue": 10,
+                    "loadMin": 27.5,
+                    "loadMax": 30,
                     "notes": "Peak Volume Week. Push near failure."
                   },
                   {
@@ -6484,6 +6541,9 @@
                     "$ref": "ex-side-plank-recovery",
                     "repsMin": 25,
                     "repsMax": 30
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
                   },
                   {
                     "$routine": "day2-spine-focus"
@@ -6549,8 +6609,8 @@
                     "$ref": "ex-db-pullover",
                     "sets": 5,
                     "repsValue": 5,
-                    "loadMin": 18,
-                    "loadMax": 24,
+                    "loadMin": 32.5,
+                    "loadMax": 35,
                     "notes": "PR Attempt. Heaviest possible for 5 reps. Close grip."
                   },
                   {
@@ -6562,8 +6622,8 @@
                   },
                   {
                     "$ref": "ex-close-grip-db-press-heavy",
-                    "loadMin": 16,
-                    "loadMax": 22,
+                    "loadMin": 17.5,
+                    "loadMax": 22.5,
                     "notes": "Per dumbbell. Close grip"
                   },
                   {
@@ -6609,6 +6669,8 @@
                     "$ref": "ex-db-pullover",
                     "sets": 2,
                     "repsValue": 10,
+                    "loadMin": 20,
+                    "loadMax": 22.5,
                     "notes": "Deload. Easy."
                   },
                   {
@@ -6650,6 +6712,9 @@
                     "$ref": "ex-side-plank-recovery",
                     "repsMin": 20,
                     "repsMax": 30
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -6729,7 +6794,7 @@
                     "$ref": "ex-close-grip-db-press-heavy",
                     "sets": 2,
                     "loadMin": 10,
-                    "loadMax": 14,
+                    "loadMax": 15,
                     "notes": "Deload. Per dumbbell"
                   },
                   {
@@ -6819,6 +6884,9 @@
                     "repsMax": 30
                   },
                   {
+                    "$ref": "ex-cross-body-hammer-curls"
+                  },
+                  {
                     "$routine": "day2-deep-stretch-flow"
                   }
                 ]
@@ -6892,6 +6960,8 @@
                     "$ref": "ex-db-pullover",
                     "sets": 3,
                     "repsValue": 5,
+                    "loadMin": 30,
+                    "loadMax": 32.5,
                     "notes": "Heavy but low volume."
                   },
                   {
@@ -6935,6 +7005,8 @@
                     "$ref": "ex-pullover-bridge",
                     "sets": 2,
                     "repsValue": 10,
+                    "loadMin": 22.5,
+                    "loadMax": 25,
                     "notes": "Volume reduced. Engage glutes."
                   },
                   {
@@ -6977,6 +7049,9 @@
                     "$ref": "ex-side-plank-recovery",
                     "repsMin": 20,
                     "repsMax": 25
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -7052,6 +7127,8 @@
                     "$ref": "ex-db-pullover",
                     "sets": 2,
                     "repsValue": 3,
+                    "loadMin": 32.5,
+                    "loadMax": 35,
                     "notes": "Keep heavy but minimal volume."
                   },
                   {
@@ -7096,6 +7173,8 @@
                     "$ref": "ex-pullover-bridge",
                     "sets": 2,
                     "repsValue": 10,
+                    "loadMin": 15,
+                    "loadMax": 17.5,
                     "notes": "50% volume. Very low intensity"
                   },
                   {
@@ -7129,6 +7208,9 @@
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -7205,6 +7287,8 @@
                     "$ref": "ex-db-pullover",
                     "sets": 2,
                     "repsValue": 10,
+                    "loadMin": 17.5,
+                    "loadMax": 20,
                     "notes": "Deload. Light weight."
                   },
                   {
@@ -7258,6 +7342,8 @@
                     "category": "warmup",
                     "sets": 1,
                     "repsValue": 5,
+                    "loadMin": 17.5,
+                    "loadMax": 17.5,
                     "restSeconds": 30,
                     "notes": "Warm-up @ 50%"
                   },
@@ -7266,6 +7352,8 @@
                     "category": "warmup",
                     "sets": 1,
                     "repsValue": 3,
+                    "loadMin": 25,
+                    "loadMax": 25,
                     "restSeconds": 30,
                     "notes": "Warm-up @ 75%"
                   },
@@ -7281,9 +7369,9 @@
                   },
                   {
                     "$ref": "ex-max-close-grip-db-press",
-                    "loadMin": 14,
-                    "loadMax": 14,
-                    "notes": "Max reps @ 14kg per dumbbell"
+                    "loadMin": 15,
+                    "loadMax": 15,
+                    "notes": "Max reps @ 15kg per dumbbell"
                   }
                 ]
               },
@@ -7294,6 +7382,9 @@
                 "estimatedDuration": 8,
                 "description": "Passive recovery: optional light mobility only; keep joints warm, no core/stability",
                 "exercises": [
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
+                  },
                   {
                     "$routine": "day2-recovery-flow"
                   }
@@ -7402,6 +7493,8 @@
                     "$ref": "ex-db-pullover",
                     "sets": 2,
                     "repsValue": 10,
+                    "loadMin": 17.5,
+                    "loadMax": 20,
                     "notes": "Reload. Light."
                   },
                   {
@@ -7437,6 +7530,9 @@
                   },
                   {
                     "$ref": "ex-mobility-flow"
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
                   },
                   {
                     "$routine": "day2-recovery-flow"
@@ -7520,6 +7616,8 @@
                     "$ref": "ex-db-pullover",
                     "sets": 2,
                     "repsValue": 10,
+                    "loadMin": 20,
+                    "loadMax": 22.5,
                     "notes": "Reload. Perfect reps only."
                   },
                   {

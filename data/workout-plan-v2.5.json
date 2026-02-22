@@ -4,7 +4,7 @@
   "plan": {
     "id": "integrated-strength-v26-9",
     "name": "The 20-Week Integrated Strength Program (V26.9: Longevity Update)",
-    "description": "Build elite pulling strength (max pull-ups, pull-up variations) while maintaining all-around capacity (pushing, lower body) and protecting knee/shoulder health. Optimized for the 40+ athlete with Volume Management and Joint Longevity principles.",
+    "description": "Build elite pulling strength (DB pullovers, cable pulldown patterns, and pull-up variations where tolerated) while maintaining all-around capacity (pushing, lower body) and protecting knee/shoulder health. Optimized for the 40+ athlete with Volume Management and Joint Longevity principles.",
     "author": "V26.9 Program",
     "createdDate": "2025-12-02",
     "lastModified": "2026-01-26T00:00:00.000Z",
@@ -1865,7 +1865,7 @@
       {
         "id": "cooldown-day5-hspu-dips",
         "name": "Day 5 Cooldown (Blocks 1-2 HSPU + Dips)",
-        "description": "Recovery protocol for Day 5 phases with HSPU, weighted pull-ups/dips, and split-squat accessory work.",
+        "description": "Recovery protocol for Day 5 phases with HSPU, high-intent vertical pulling variants (pullovers/cable pulldowns), dip or dip-substitute pressing, and split-squat accessory work.",
         "category": "cooldown",
         "estimatedDuration": 6,
         "targetAreas": [
@@ -6132,7 +6132,7 @@
       {
         "phaseNumber": 4,
         "name": "BLOCK 4: ACCUMULATION",
-        "description": "Peak absolute strength testing (Weighted Pull-ups). Challenge core strength under fatigue (Dragon Flags/V-Ups). Auto-regulate pushing intensity via Dip Governor.",
+        "description": "Peak absolute strength testing (DB Pullovers). Challenge core strength under fatigue (Dragon Flags/V-Ups). Auto-regulate pushing intensity via Dip Governor.",
         "startWeek": 13,
         "endWeek": 16,
         "focus": "intensity",

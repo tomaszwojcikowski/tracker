@@ -6968,12 +6968,13 @@
                     "notes": "Heavy but low volume."
                   },
                   {
-                    "$ref": "ex-weighted-v-ups",
-                    "repsValue": 10,
-                    "notes": "Core Hard"
+                    "$routine": "superset-bss"
                   },
                   {
-                    "$routine": "superset-bss"
+                    "$ref": "ex-weighted-v-ups",
+                    "repsValue": 10,
+                    "notes": "Core Hard",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day5-pullover-press"
@@ -7135,13 +7136,14 @@
                     "notes": "Keep heavy but minimal volume."
                   },
                   {
+                    "$routine": "superset-bss"
+                  },
+                  {
                     "$ref": "ex-weighted-v-ups",
                     "sets": 2,
                     "repsValue": 10,
-                    "notes": "Core Hard"
-                  },
-                  {
-                    "$routine": "superset-bss"
+                    "notes": "Core Hard",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day5-pullover-press"
@@ -7305,7 +7307,8 @@
                     "loadMax": 3,
                     "restSeconds": 120,
                     "notes": "Deload weight",
-                    "category": "main"
+                    "category": "main",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day5-pullover-press"

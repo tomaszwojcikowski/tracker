@@ -6295,7 +6295,8 @@
                     "sets": 3,
                     "repsValue": 10,
                     "repsPerSide": true,
-                    "notes": "Core stability"
+                    "notes": "Core stability",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day5-pullover-press"
@@ -6462,7 +6463,8 @@
                     "sets": 3,
                     "repsValue": 10,
                     "repsPerSide": true,
-                    "notes": "Core stability"
+                    "notes": "Core stability",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day5-pullover-press"
@@ -6634,7 +6636,8 @@
                   },
                   {
                     "$ref": "ex-side-planks",
-                    "notes": "Core Recovery"
+                    "notes": "Core Recovery",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day5-pullover-press"

@@ -2120,7 +2120,7 @@
         "exercises": [
           {
             "exerciseName": "Core Finisher (Weighted)",
-            "category": "main",
+            "category": "core",
             "sets": 3,
             "repsValue": 12,
             "loadUnit": "kg",
@@ -4997,7 +4997,8 @@
                     "$ref": "ex-scapular-pull-ups",
                     "sets": 3,
                     "repsValue": 10,
-                    "notes": "Maintain scapular strength without elbow load."
+                    "notes": "Maintain scapular strength without elbow load.",
+                    "category": "accessory"
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -6105,6 +6106,11 @@
                     "$routine": "warmup-day5-pull-intensity-push"
                   },
                   {
+                    "$ref": "ex-tuck-planche",
+                    "sets": 3,
+                    "notes": "Straight-Arm Cap: 3 x 6s Tuck Holds Max"
+                  },
+                  {
                     "$ref": "ex-straight-arm-pulldown-strength",
                     "sets": 2,
                     "repsValue": 10,
@@ -6114,11 +6120,6 @@
                     "$ref": "ex-pppu",
                     "sets": 2,
                     "notes": "Deload"
-                  },
-                  {
-                    "$ref": "ex-tuck-planche",
-                    "sets": 3,
-                    "notes": "Straight-Arm Cap: 3 x 6s Tuck Holds Max"
                   },
                   {
                     "$routine": "cooldown-day5-neutral-grip"
@@ -7389,6 +7390,9 @@
                 "description": "Passive recovery: optional light mobility only; keep joints warm, no core/stability",
                 "exercises": [
                   {
+                    "$routine": "day2-ankle-focus"
+                  },
+                  {
                     "$ref": "ex-cross-body-hammer-curls"
                   },
                   {
@@ -7404,7 +7408,7 @@
                 "description": "Passive recovery: light mobility only; no core/stability",
                 "exercises": [
                   {
-                    "$routine": "day2-recovery-flow"
+                    "$routine": "warmup-day3"
                   },
                   {
                     "$routine": "warmup-power-clean"
@@ -7416,6 +7420,9 @@
                     "repsValue": 3,
                     "loadMin": 40,
                     "loadMax": 55
+                  },
+                  {
+                    "$routine": "cooldown-day3"
                   }
                 ]
               },
@@ -7519,6 +7526,9 @@
                     "$ref": "ex-hollow-rocks",
                     "sets": 2,
                     "notes": "60% Vol (Reload)"
+                  },
+                  {
+                    "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
               },
@@ -7574,16 +7584,16 @@
                     "notes": "60% (Reload)"
                   },
                   {
+                    "$ref": "ex-goblet-squats",
+                    "sets": 2,
+                    "notes": "Light"
+                  },
+                  {
                     "$ref": "ex-weighted-glute-bridge",
                     "sets": 2,
                     "repsValue": 10,
                     "loadMin": 40,
                     "loadMax": 60,
-                    "notes": "Light"
-                  },
-                  {
-                    "$ref": "ex-goblet-squats",
-                    "sets": 2,
                     "notes": "Light"
                   },
                   {
@@ -7597,6 +7607,9 @@
                     "sets": 2,
                     "notes": "Light. Shoulder health",
                     "supersetGroup": 1
+                  },
+                  {
+                    "$routine": "cooldown-day3"
                   }
                 ]
               },

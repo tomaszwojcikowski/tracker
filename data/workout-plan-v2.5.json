@@ -5676,23 +5676,23 @@
                   },
                   {
                     "$ref": "ex-db-pullover",
-                    "sets": 4,
+                    "sets": 3,
                     "repsValue": 10,
                     "loadMin": 25,
                     "loadMax": 27.5,
-                    "notes": "Maintain Volume."
+                    "notes": "Recovery volume. Smooth stretch and no grinding."
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
-                    "repsValue": 15,
+                    "repsValue": 12,
                     "supersetGroup": 1,
-                    "sets": 3
+                    "sets": 2
                   },
                   {
                     "$ref": "ex-ring-pushups",
                     "supersetGroup": 1,
-                    "repsValue": 15,
-                    "sets": 3
+                    "repsValue": 12,
+                    "sets": 2
                   },
                   {
                     "$routine": "finisher-day1-core"
@@ -5804,7 +5804,7 @@
                   },
                   {
                     "$ref": "ex-chest-supported-row",
-                    "sets": 3,
+                    "sets": 2,
                     "repsValue": 10
                   },
                   {
@@ -5849,23 +5849,23 @@
                   },
                   {
                     "$ref": "ex-db-pullover",
-                    "sets": 5,
+                    "sets": 4,
                     "repsValue": 10,
                     "loadMin": 27.5,
                     "loadMax": 30,
-                    "notes": "Volume Increase."
+                    "notes": "Rebuild volume. Leave 1-2 reps in reserve."
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
                     "supersetGroup": 1,
                     "sets": 3,
-                    "repsValue": 15
+                    "repsValue": 12
                   },
                   {
                     "$ref": "ex-ring-pushups",
                     "supersetGroup": 1,
                     "sets": 3,
-                    "repsValue": 15
+                    "repsValue": 12
                   },
                   {
                     "$routine": "finisher-day1-core"
@@ -5964,8 +5964,8 @@
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 4,
-                    "repsValue": 5,
-                    "notes": "Clean neutral-grip reps. Full ROM."
+                    "repsValue": 4,
+                    "notes": "Clean neutral-grip reps. Full ROM with 1-2 reps in reserve."
                   },
                   {
                     "$ref": "ex-chest-supported-row",
@@ -6130,7 +6130,7 @@
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 2,
-                    "repsValue": 3,
+                    "repsValue": 2,
                     "notes": "Deload. Stop well shy of fatigue."
                   },
                   {
@@ -6188,22 +6188,22 @@
                   {
                     "$ref": "ex-pullover-bridge",
                     "sets": 4,
-                    "repsValue": 12,
+                    "repsValue": 10,
                     "loadMin": 22.5,
                     "loadMax": 25,
-                    "notes": "AMRAP replacement. Focus on perfect technique + glute engagement."
+                    "notes": "Rebuild volume. Focus on perfect technique and glute engagement."
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
                     "supersetGroup": 1,
                     "sets": 3,
-                    "repsValue": 15
+                    "repsValue": 12
                   },
                   {
                     "$ref": "ex-ring-pushups",
                     "supersetGroup": 1,
                     "sets": 3,
-                    "repsValue": 15
+                    "repsValue": 12
                   },
                   {
                     "$routine": "finisher-day1-core"
@@ -6300,8 +6300,8 @@
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 4,
-                    "repsValue": 5,
-                    "notes": "Primary pull pattern. Stay smooth and repeatable."
+                    "repsValue": 4,
+                    "notes": "Primary pull pattern. Stay smooth and repeatable with no grinding."
                   },
                   {
                     "$ref": "ex-db-pullover",
@@ -6363,22 +6363,22 @@
                   {
                     "$ref": "ex-pullover-bridge",
                     "sets": 4,
-                    "repsValue": 12,
+                    "repsValue": 10,
                     "loadMin": 25,
                     "loadMax": 27.5,
-                    "notes": "Maintain High Volume. Keep hips high."
+                    "notes": "Build volume. Keep hips high and range controlled."
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
                     "supersetGroup": 1,
                     "sets": 3,
-                    "repsValue": 15
+                    "repsValue": 12
                   },
                   {
                     "$ref": "ex-ring-pushups",
                     "supersetGroup": 1,
                     "sets": 3,
-                    "repsValue": 15
+                    "repsValue": 12
                   },
                   {
                     "$routine": "finisher-day1-core"
@@ -6475,13 +6475,13 @@
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 5,
-                    "repsValue": 5,
+                    "repsValue": 4,
                     "notes": "Own all reps. No grinders."
                   },
                   {
                     "$ref": "ex-db-pullover",
                     "sets": 3,
-                    "repsValue": 6,
+                    "repsValue": 8,
                     "loadMin": 27.5,
                     "loadMax": 30,
                     "notes": "Moderate load. Controlled stretch."
@@ -6540,17 +6540,17 @@
                   },
                   {
                     "$ref": "ex-pullover-bridge",
-                    "sets": 5,
-                    "repsValue": 10,
+                    "sets": 4,
+                    "repsValue": 8,
                     "loadMin": 27.5,
                     "loadMax": 30,
-                    "notes": "Peak volume week. Stay one clean rep shy of breakdown."
+                    "notes": "Peak bridge loading. Stay one clean rep shy of breakdown."
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
                     "supersetGroup": 1,
                     "sets": 3,
-                    "repsValue": 15
+                    "repsValue": 12
                   },
                   {
                     "$ref": "ex-ring-pushups",
@@ -6654,11 +6654,12 @@
                   {
                     "$ref": "ex-cluster-pull-ups-neutral",
                     "sets": 3,
-                    "notes": "Peak vertical pulling density. Keep every cluster clean."
+                    "repsValue": [3, 3, 2],
+                    "notes": "Peak vertical pulling density. Build each cluster as 3-3-2 with clean form."
                   },
                   {
                     "$ref": "ex-single-arm-pulldown",
-                    "sets": 3,
+                    "sets": 2,
                     "repsValue": 10,
                     "loadUnit": "band",
                     "notes": "Lat support work. Unilateral."
@@ -6670,7 +6671,9 @@
                     "notes": "Per dumbbell. Close grip"
                   },
                   {
-                    "$ref": "ex-chest-supported-row"
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 2,
+                    "repsValue": 8
                   },
                   {
                     "$routine": "superset-bss"
@@ -6712,7 +6715,7 @@
                   {
                     "$ref": "ex-db-pullover",
                     "sets": 2,
-                    "repsValue": 10,
+                    "repsValue": 8,
                     "loadMin": 20,
                     "loadMax": 22.5,
                     "notes": "Deload. Easy."
@@ -6831,7 +6834,7 @@
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 2,
-                    "repsValue": 3,
+                    "repsValue": 2,
                     "notes": "Deload. Crisp reps only."
                   },
                   {
@@ -6888,19 +6891,19 @@
                   },
                   {
                     "$ref": "ex-single-arm-pulldown",
-                    "sets": 3,
-                    "repsValue": 12,
-                    "notes": "Taper Volume. High Quality Unilateral."
+                    "sets": 2,
+                    "repsValue": 10,
+                    "notes": "Taper volume. High-quality unilateral reps only."
                   },
                   {
                     "$ref": "ex-feet-on-floor-rows",
-                    "sets": 3,
-                    "repsValue": 12,
+                    "sets": 2,
+                    "repsValue": 10,
                     "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-ring-pushups",
-                    "sets": 3,
+                    "sets": 2,
                     "repsValue": 10,
                     "supersetGroup": 1
                   },
@@ -7010,7 +7013,7 @@
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 3,
-                    "repsValue": 4,
+                    "repsValue": 3,
                     "notes": "Taper volume. Keep the groove."
                   },
                   {
@@ -7062,21 +7065,21 @@
                   {
                     "$ref": "ex-pullover-bridge",
                     "sets": 2,
-                    "repsValue": 10,
-                    "loadMin": 22.5,
-                    "loadMax": 25,
-                    "notes": "Volume reduced. Engage glutes."
+                    "repsValue": 8,
+                    "loadMin": 20,
+                    "loadMax": 22.5,
+                    "notes": "Volume reduced. Engage glutes and keep range crisp."
                   },
                   {
                     "$ref": "ex-feet-on-floor-rows",
                     "sets": 2,
-                    "repsValue": 10,
+                    "repsValue": 8,
                     "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-ring-pushups",
                     "sets": 2,
-                    "repsValue": 10,
+                    "repsValue": 8,
                     "supersetGroup": 1
                   },
                   {
@@ -7185,7 +7188,7 @@
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 2,
-                    "repsValue": 3,
+                    "repsValue": 2,
                     "notes": "Very low fatigue. Strong reps only."
                   },
                   {
@@ -7333,14 +7336,20 @@
                   },
                   {
                     "$ref": "ex-scapular-pull-ups",
-                    "sets": 2,
-                    "repsValue": 8,
-                    "notes": "Easy activation only."
+                    "sets": 1,
+                    "repsValue": 6,
+                    "notes": "One easy activation set only."
+                  },
+                  {
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "sets": 1,
+                    "repsValue": 2,
+                    "notes": "Primer only. Stop far from fatigue."
                   },
                   {
                     "$ref": "ex-single-arm-pulldown",
-                    "sets": 2,
-                    "repsValue": 10,
+                    "sets": 1,
+                    "repsValue": 8,
                     "loadUnit": "band",
                     "notes": "Light activation. Leave plenty in reserve."
                   },
@@ -7672,7 +7681,7 @@
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 2,
-                    "repsValue": 4,
+                    "repsValue": 3,
                     "notes": "Reload. Smooth reps only."
                   },
                   {

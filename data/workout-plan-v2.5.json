@@ -6336,7 +6336,7 @@
                     "sets": 3,
                     "repsValue": 10,
                     "repsPerSide": true,
-                    "notes": "Core stability",
+                    "notes": "Core stability. Third movement in the BSS superset.",
                     "supersetGroup": 1
                   },
                   {
@@ -6522,7 +6522,7 @@
                     "sets": 3,
                     "repsValue": 10,
                     "repsPerSide": true,
-                    "notes": "Core stability",
+                    "notes": "Core stability. Third movement in the BSS superset.",
                     "supersetGroup": 1
                   },
                   {
@@ -6705,7 +6705,7 @@
                   },
                   {
                     "$ref": "ex-side-planks",
-                    "notes": "Core Recovery",
+                    "notes": "Core recovery. Third movement in the BSS superset.",
                     "supersetGroup": 1
                   },
                   {
@@ -7065,7 +7065,7 @@
                   {
                     "$ref": "ex-weighted-v-ups",
                     "repsValue": 10,
-                    "notes": "Core Hard",
+                    "notes": "Core Hard. Third movement in the BSS superset.",
                     "supersetGroup": 1
                   },
                   {
@@ -7249,7 +7249,7 @@
                     "$ref": "ex-weighted-v-ups",
                     "sets": 2,
                     "repsValue": 10,
-                    "notes": "Core Hard",
+                    "notes": "Core Hard. Third movement in the BSS superset.",
                     "supersetGroup": 1
                   },
                   {
@@ -7752,7 +7752,8 @@
                     "repsType": "time",
                     "repsValue": 20,
                     "repsUnit": "seconds",
-                    "notes": "EMOM. Bodyweight only for tissue reset",
+                    "notes": "Bodyweight only for tissue reset. Third movement in the BSS superset.",
+                    "supersetGroup": 1,
                     "category": "main"
                   },
                   {

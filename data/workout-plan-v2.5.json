@@ -78,7 +78,7 @@
         "description": "Double Progression: Add weight only when hitting top rep range for all sets with perfect form"
       },
       "standardTempo": "2-1-1-0",
-      "day5AccessoryCap": "10 minutes hard cap",
+      "day5AccessoryCap": "10 minutes hard cap for post-main accessories on Day 5; prioritize one lower-body support superset and one brief core movement",
       "dipGovernorRule": "If shoulder pinch occurs during weighted dips, switch to Straight Bar Dips or Weighted Bench Dips",
       "gripSaverProtocol": "Day 5 core work must be ground-based (V-Ups/Hollows) to prevent medial epicondylitis",
       "day4CoreWork": {
@@ -6186,6 +6186,12 @@
                     "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "sets": 3,
+                    "repsValue": 3,
+                    "notes": "Secondary exposure. Easy speed reps only; stop well before fatigue and keep elbows quiet."
+                  },
+                  {
                     "$ref": "ex-pullover-bridge",
                     "sets": 4,
                     "repsValue": 10,
@@ -6259,16 +6265,18 @@
                   },
                   {
                     "$ref": "ex-rdl",
-                    "loadMin": 85,
-                    "loadMax": 85
+                    "loadMin": 70,
+                    "loadMax": 75
                   },
                   {
-                    "$ref": "ex-goblet-squats"
+                    "$ref": "ex-goblet-squats",
+                    "loadMin": 16,
+                    "loadMax": 20
                   },
                   {
                     "$ref": "ex-back-extensions",
                     "supersetGroup": 1,
-                    "notes": "Try ISO-Hold variation (45s hold)"
+                    "notes": "Standard volume. Smooth reps; save the ISO-Hold variation for week 15 if feeling good."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -6361,6 +6369,12 @@
                     "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "sets": 3,
+                    "repsValue": 3,
+                    "notes": "Secondary exposure. Easy speed reps only; leave at least 2 reps in reserve."
+                  },
+                  {
                     "$ref": "ex-pullover-bridge",
                     "sets": 4,
                     "repsValue": 10,
@@ -6434,16 +6448,18 @@
                   },
                   {
                     "$ref": "ex-rdl",
-                    "loadMin": 85,
-                    "loadMax": 85
+                    "loadMin": 75,
+                    "loadMax": 80
                   },
                   {
-                    "$ref": "ex-goblet-squats"
+                    "$ref": "ex-goblet-squats",
+                    "loadMin": 18,
+                    "loadMax": 22
                   },
                   {
                     "$ref": "ex-back-extensions",
                     "supersetGroup": 1,
-                    "notes": "Try ISO-Hold variation (45s hold)"
+                    "notes": "Standard volume. Add a brief top squeeze on each rep."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -6539,6 +6555,12 @@
                     "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "sets": 3,
+                    "repsValue": 3,
+                    "notes": "Secondary exposure. Speed and positioning only; use this to groove the pattern, not to add fatigue."
+                  },
+                  {
                     "$ref": "ex-pullover-bridge",
                     "sets": 4,
                     "repsValue": 8,
@@ -6613,11 +6635,13 @@
                   },
                   {
                     "$ref": "ex-rdl",
-                    "loadMin": 85,
+                    "loadMin": 80,
                     "loadMax": 85
                   },
                   {
-                    "$ref": "ex-goblet-squats"
+                    "$ref": "ex-goblet-squats",
+                    "loadMin": 20,
+                    "loadMax": 24
                   },
                   {
                     "$ref": "ex-back-extensions",
@@ -6652,17 +6676,18 @@
                     "$routine": "warmup-day5-elbow-saver"
                   },
                   {
-                    "$ref": "ex-cluster-pull-ups-neutral",
-                    "sets": 3,
-                    "repsValue": [3, 3, 2],
-                    "notes": "Peak vertical pulling density. Build each cluster as 3-3-2 with clean form."
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "sets": 5,
+                    "repsValue": 4,
+                    "notes": "Peak week straight sets. Keep reps strict and stop before any grind or elbow flare-up."
                   },
                   {
-                    "$ref": "ex-single-arm-pulldown",
+                    "$ref": "ex-db-pullover",
                     "sets": 2,
-                    "repsValue": 10,
-                    "loadUnit": "band",
-                    "notes": "Lat support work. Unilateral."
+                    "repsValue": 6,
+                    "loadMin": 22.5,
+                    "loadMax": 25,
+                    "notes": "Accessory lat support. Maintain lat loading while giving the elbows a break from extra pulling volume."
                   },
                   {
                     "$ref": "ex-close-grip-db-press-heavy",
@@ -6877,7 +6902,7 @@
                 "dayNumber": 1,
                 "name": "Pull Volume (Elbow Saver) - Taper",
                 "type": "strength",
-                "estimatedDuration": 70,
+                "estimatedDuration": 65,
                 "description": "Reduced volume day that keeps pulling patterns active without forcing fatigue.",
                 "exercises": [
                   {
@@ -6890,10 +6915,12 @@
                     "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
-                    "$ref": "ex-single-arm-pulldown",
+                    "$ref": "ex-pullover-bridge",
                     "sets": 2,
-                    "repsValue": 10,
-                    "notes": "Taper volume. High-quality unilateral reps only."
+                    "repsValue": 8,
+                    "loadMin": 20,
+                    "loadMax": 22.5,
+                    "notes": "Accessory lat support. Keep tension on the lats while minimizing elbow stress."
                   },
                   {
                     "$ref": "ex-feet-on-floor-rows",
@@ -7004,7 +7031,7 @@
                 "dayNumber": 5,
                 "name": "Neutral Grip Pull Progression - Taper",
                 "type": "strength",
-                "estimatedDuration": 75,
+                "estimatedDuration": 60,
                 "description": "Short neutral-grip session to maintain feel and confidence.",
                 "exercises": [
                   {
@@ -7023,6 +7050,14 @@
                     "loadMin": 25,
                     "loadMax": 27.5,
                     "notes": "Moderate support work."
+                  },
+                  {
+                    "$ref": "ex-close-grip-db-press-heavy",
+                    "sets": 2,
+                    "repsValue": 8,
+                    "loadMin": 12.5,
+                    "loadMax": 15,
+                    "notes": "Light maintenance work so the pressing benchmark is not cold in week 20. Per dumbbell."
                   },
                   {
                     "$routine": "superset-bss"
@@ -7179,7 +7214,7 @@
                 "dayNumber": 5,
                 "name": "Neutral Grip Pull Progression - Taper",
                 "type": "strength",
-                "estimatedDuration": 75,
+                "estimatedDuration": 50,
                 "description": "Final low-fatigue pulling exposure before benchmark week.",
                 "exercises": [
                   {
@@ -7195,9 +7230,17 @@
                     "$ref": "ex-db-pullover",
                     "sets": 2,
                     "repsValue": 5,
-                    "loadMin": 27.5,
-                    "loadMax": 30,
-                    "notes": "Moderate support work."
+                    "loadMin": 22.5,
+                    "loadMax": 25,
+                    "notes": "Accessory support only. Keep it crisp and well shy of fatigue."
+                  },
+                  {
+                    "$ref": "ex-close-grip-db-press-heavy",
+                    "sets": 2,
+                    "repsValue": 6,
+                    "loadMin": 10,
+                    "loadMax": 12.5,
+                    "notes": "Light maintenance work. Per dumbbell."
                   },
                   {
                     "$routine": "superset-bss"

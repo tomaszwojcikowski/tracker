@@ -5794,7 +5794,10 @@
                   {
                     "$ref": "ex-ring-support-holds",
                     "exerciseName": "Ring Support Holds (slight RTO)",
-                    "notes": "Short, crisp holds. Stay tall through shoulders."
+                    "sets": 3,
+                    "repsMin": 15,
+                    "repsMax": 20,
+                    "notes": "Week 10 skill baseline. Short, crisp holds with slight turnout. Stay tall through shoulders."
                   },
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
@@ -5962,6 +5965,17 @@
                     "$routine": "warmup-day5-elbow-saver"
                   },
                   {
+                    "$routine": "warmup-rto-ring-support"
+                  },
+                  {
+                    "$ref": "ex-ring-support-holds",
+                    "exerciseName": "Ring Support Holds (slight RTO)",
+                    "sets": 3,
+                    "repsMin": 20,
+                    "repsMax": 25,
+                    "notes": "Week 11 skill build. Slight turnout, quiet rings, no grinding."
+                  },
+                  {
                     "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 4,
                     "repsValue": 4,
@@ -6126,6 +6140,17 @@
                 "exercises": [
                   {
                     "$routine": "warmup-day5-elbow-saver"
+                  },
+                  {
+                    "$routine": "warmup-rto-ring-support"
+                  },
+                  {
+                    "$ref": "ex-ring-support-holds",
+                    "exerciseName": "Ring Support Holds (slight RTO)",
+                    "sets": 2,
+                    "repsMin": 10,
+                    "repsMax": 15,
+                    "notes": "Deload skill exposure only. Keep turnout modest and stop before shaking."
                   },
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
@@ -6304,6 +6329,17 @@
                 "exercises": [
                   {
                     "$routine": "warmup-day5-elbow-saver"
+                  },
+                  {
+                    "$routine": "warmup-rto-ring-support"
+                  },
+                  {
+                    "$ref": "ex-ring-support-holds",
+                    "exerciseName": "Ring Support Holds (slight RTO)",
+                    "sets": 3,
+                    "repsMin": 20,
+                    "repsMax": 25,
+                    "notes": "Block 4 skill restart. Own the hold before increasing turnout or duration."
                   },
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
@@ -6487,6 +6523,17 @@
                 "exercises": [
                   {
                     "$routine": "warmup-day5-elbow-saver"
+                  },
+                  {
+                    "$routine": "warmup-rto-ring-support"
+                  },
+                  {
+                    "$ref": "ex-ring-support-holds",
+                    "exerciseName": "Ring Support Holds (moderate RTO)",
+                    "sets": 3,
+                    "repsMin": 25,
+                    "repsMax": 30,
+                    "notes": "Build week two. Turn rings out a bit more only if shoulders stay packed."
                   },
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
@@ -6676,6 +6723,17 @@
                     "$routine": "warmup-day5-elbow-saver"
                   },
                   {
+                    "$routine": "warmup-rto-ring-support"
+                  },
+                  {
+                    "$ref": "ex-ring-support-holds",
+                    "exerciseName": "Ring Support Holds (moderate RTO)",
+                    "sets": 4,
+                    "repsMin": 20,
+                    "repsMax": 25,
+                    "notes": "Peak skill week. Prefer cleaner turnout and calmer rings over longer holds."
+                  },
+                  {
                     "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 5,
                     "repsValue": 4,
@@ -6855,6 +6913,17 @@
                 "exercises": [
                   {
                     "$routine": "warmup-day5-elbow-saver"
+                  },
+                  {
+                    "$routine": "warmup-rto-ring-support"
+                  },
+                  {
+                    "$ref": "ex-ring-support-holds",
+                    "exerciseName": "Ring Support Holds (slight RTO)",
+                    "sets": 2,
+                    "repsMin": 10,
+                    "repsMax": 15,
+                    "notes": "Deload skill touch. Keep it easy and crisp."
                   },
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
@@ -7038,6 +7107,17 @@
                     "$routine": "warmup-day5-elbow-saver"
                   },
                   {
+                    "$routine": "warmup-rto-ring-support"
+                  },
+                  {
+                    "$ref": "ex-ring-support-holds",
+                    "exerciseName": "Ring Support Holds (slight RTO)",
+                    "sets": 2,
+                    "repsMin": 15,
+                    "repsMax": 20,
+                    "notes": "Taper maintenance. Keep the skill alive without adding fatigue."
+                  },
+                  {
                     "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 3,
                     "repsValue": 3,
@@ -7219,6 +7299,17 @@
                 "exercises": [
                   {
                     "$routine": "warmup-day5-elbow-saver"
+                  },
+                  {
+                    "$routine": "warmup-rto-ring-support"
+                  },
+                  {
+                    "$ref": "ex-ring-support-holds",
+                    "exerciseName": "Ring Support Holds (slight RTO)",
+                    "sets": 2,
+                    "repsMin": 10,
+                    "repsMax": 15,
+                    "notes": "Final maintenance touch. Finish feeling fresher than you started."
                   },
                   {
                     "$ref": "ex-neutral-grip-pull-ups",

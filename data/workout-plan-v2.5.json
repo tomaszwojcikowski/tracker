@@ -4,7 +4,7 @@
   "plan": {
     "id": "integrated-strength-v26-9",
     "name": "The 20-Week Integrated Strength Program (V26.9: Longevity Update)",
-    "description": "Build elite pulling strength (DB pullovers, cable pulldown patterns, and pull-up variations where tolerated) while maintaining all-around capacity (pushing, lower body) and protecting knee/shoulder health. Optimized for the 40+ athlete with Volume Management and Joint Longevity principles.",
+    "description": "Build pulling strength while protecting irritated elbows. After week 4, the plan shifts away from max pull-up chasing and toward pain-free neutral-grip pulling capacity, lat strength, and a steady return to vertical pulling. Maintain pushing and lower-body capacity while keeping the overall workload joint-friendly for a 40+ athlete.",
     "author": "V26.9 Program",
     "createdDate": "2025-12-02",
     "lastModified": "2026-01-26T00:00:00.000Z",
@@ -5479,15 +5479,15 @@
       },
       {
         "phaseNumber": 3,
-        "name": "BLOCK 3: NEUTRAL GRIP INTEGRATION",
-        "description": "Protect distal biceps tendon by mandating Neutral Grip. Develop unilateral stability via Clusters and Offset loading.",
+        "name": "BLOCK 3: ELBOW-SAFE REBUILD",
+        "description": "Elbow-safe rebuild block. Reintroduce vertical pulling through neutral grip, reinforce lat strength with rows and pullovers, and restore confidence without provoking symptoms.",
         "startWeek": 9,
         "endWeek": 12,
         "focus": "technique",
         "weeks": [
           {
             "weekNumber": 9,
-            "description": "Introduction to Clusters and Neutral Grip pulling",
+            "description": "First rebuild week. Reintroduce vertical pulling with conservative neutral-grip volume and stable accessory work.",
             "volumeLevel": "moderate",
             "intensityLevel": "moderate",
             "days": [
@@ -5496,7 +5496,7 @@
                 "name": "Pull Volume (Elbow Saver)",
                 "type": "strength",
                 "estimatedDuration": 70,
-                "description": "Weekly Pull Total Target: 36-40 reps. Core Focus (Dynamic): [HARD WEEK]",
+                "description": "Base pulling volume through pullovers, rows, and pressing while keeping elbows calm and trunk work dynamic.",
                 "exercises": [
                   {
                     "$routine": "warmup-burpees-protocol"
@@ -5541,7 +5541,7 @@
                 "name": "Recovery + Quadruped Focus",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "description": "Quadruped-based hip and spine work; different loading pattern for same joints",
+                "description": "Low-impact recovery day for hips, thoracic motion, and light arm care.",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -5603,33 +5603,36 @@
                   {
                     "$routine": "cooldown-day3"
                   }
-                ]
+                ],
+                "description": "Unilateral lower-body strength with clean power practice and no extra elbow demand."
               },
               {
                 "dayNumber": 4,
                 "$ref": "day4-core-work-template",
                 "name": "Core Work",
-                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
+                "description": "Short core stability session that supports trunk control without adding grip fatigue."
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Intensity (Elbow Saver)",
+                "name": "Neutral Grip Pull Progression",
                 "type": "strength",
                 "estimatedDuration": 70,
-                "description": "Weekly Pull Total Target: 36-40 reps",
+                "description": "Intro pulling session: low volume, perfect neutral-grip reps, no strain.",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-elbow-saver"
                   },
                   {
-                    "$ref": "ex-straight-arm-pulldown-strength",
-                    "sets": 4,
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "sets": 3,
+                    "repsValue": 4,
+                    "notes": "Quality reps only. Full rest between sets."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 3,
                     "repsValue": 10,
-                    "loadUnit": "band",
-                    "notes": "Intensity Focus. Heavy."
-                  },
-                  {
-                    "$ref": "ex-pppu"
+                    "notes": "Smooth tempo. Keep elbow quiet."
                   },
                   {
                     "$routine": "superset-bss"
@@ -5651,7 +5654,7 @@
           },
           {
             "weekNumber": 10,
-            "description": "Elbow protection week. Isometric focus",
+            "description": "Recovery-oriented rebuild week. Maintain the pattern, reduce joint stress, and leave the elbows quieter than week 9.",
             "volumeLevel": "moderate",
             "intensityLevel": "moderate",
             "days": [
@@ -5660,7 +5663,7 @@
                 "name": "Pull Volume (Elbow Saver)",
                 "type": "strength",
                 "estimatedDuration": 72,
-                "description": "Weekly Pull Total Target: 36-40 reps. Core Focus (Dynamic): [RECOVERY WEEK]",
+                "description": "Moderate pulling volume with familiar patterns and no aggressive loading.",
                 "exercises": [
                   {
                     "$routine": "warmup-mountain-climbers-protocol"
@@ -5704,7 +5707,7 @@
                 "name": "Recovery + Rotation Emphasis",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "description": "Rotation-focused recovery with woodchops and thoracic work; different core angle",
+                "description": "Rotation-focused recovery to restore trunk motion and keep total stress low.",
                 "exercises": [
                   {
                     "$routine": "day2-ankle-focus"
@@ -5766,20 +5769,21 @@
                   {
                     "$routine": "cooldown-day3"
                   }
-                ]
+                ],
+                "description": "Repeat unilateral lower-body work while elbows get a break from heavy pulling."
               },
               {
                 "dayNumber": 4,
                 "$ref": "day4-core-work-template",
                 "name": "Core Work",
-                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
+                "description": "Short core stability session that supports trunk control without adding grip fatigue."
               },
               {
                 "dayNumber": 5,
                 "name": "Isometric Focus",
                 "type": "strength",
                 "estimatedDuration": 65,
-                "description": "Elbow protection week. Isometric focus",
+                "description": "Patterning day with isometrics and light pulling exposure so the skill stays alive without chasing output.",
                 "exercises": [
                   {
                     "$routine": "warmup-day5-pull-intensity-push"
@@ -5790,10 +5794,18 @@
                   {
                     "$ref": "ex-ring-support-holds",
                     "exerciseName": "Ring Support Holds (slight RTO)",
-                    "notes": "OR Active Hang (Neutral)"
+                    "notes": "Short, crisp holds. Stay tall through shoulders."
                   },
                   {
-                    "$ref": "ex-chest-supported-row"
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "sets": 2,
+                    "repsValue": 3,
+                    "notes": "Light exposure. Clean reps only."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 3,
+                    "repsValue": 10
                   },
                   {
                     "$routine": "superset-bss"
@@ -5815,7 +5827,7 @@
           },
           {
             "weekNumber": 11,
-            "description": "Return to Neutral Grip intensity",
+            "description": "Return to productive work. Build neutral-grip volume with better tolerance and repeatable technique.",
             "volumeLevel": "high",
             "intensityLevel": "high",
             "days": [
@@ -5824,7 +5836,7 @@
                 "name": "Pull Volume (Elbow Saver)",
                 "type": "strength",
                 "estimatedDuration": 75,
-                "description": "Core Focus (Dynamic): [HARD WEEK]",
+                "description": "Higher-quality pulling volume with the same elbow-safe exercise family.",
                 "exercises": [
                   {
                     "$routine": "warmup-rower-protocol"
@@ -5868,7 +5880,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "description": "Supine and standing hip variation with anti-rotation work",
+                "description": "Recovery work for hips, ankles, and anti-rotation strength between harder sessions.",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -5930,27 +5942,36 @@
                   {
                     "$routine": "cooldown-day3"
                   }
-                ]
+                ],
+                "description": "Unilateral lower body plus technical power work with no added upper-limb strain."
+              },
+              {
+                "dayNumber": 4,
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Short core stability session that supports trunk control without adding grip fatigue."
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Intensity (Elbow Saver)",
+                "name": "Neutral Grip Pull Progression",
                 "type": "strength",
                 "estimatedDuration": 72,
-                "description": "Weekly Pull Total Target: 36-40 reps",
+                "description": "Main pulling day: accumulate clean neutral-grip reps and back-off support work.",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-elbow-saver"
                   },
                   {
-                    "$ref": "ex-straight-arm-pulldown-strength",
-                    "sets": 5,
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "sets": 4,
+                    "repsValue": 5,
+                    "notes": "Clean neutral-grip reps. Full ROM."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 3,
                     "repsValue": 10,
-                    "loadUnit": "band",
-                    "notes": "Peak Intensity."
-                  },
-                  {
-                    "$ref": "ex-pppu"
+                    "notes": "Back-off volume without extra elbow stress."
                   },
                   {
                     "$routine": "superset-bss"
@@ -5973,7 +5994,7 @@
           },
           {
             "weekNumber": 12,
-            "description": "Connective Tissue Deload - System reset with strict restrictions on tension",
+            "description": "Deload week. Reduce tension, keep movement quality, and unload irritated connective tissue.",
             "volumeLevel": "low",
             "intensityLevel": "low",
             "days": [
@@ -5982,7 +6003,7 @@
                 "name": "Pull Volume (Elbow Saver) - DELOAD",
                 "type": "strength",
                 "estimatedDuration": 65,
-                "description": "Weekly Pull Total Target: ~20 reps. Restrictions: NO Dead Hangs.",
+                "description": "Deload pulling volume with strict limits on joint stress and no dead hangs.",
                 "exercises": [
                   {
                     "$routine": "warmup-assault-bike-protocol"
@@ -6028,7 +6049,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 24,
-                "description": "Connective tissue deload: 50-60% volume, no long holds, skip Side Planks",
+                "description": "Reduced recovery volume with gentle mobility and arm maintenance only.",
                 "exercises": [
                   {
                     "$routine": "day2-ankle-focus"
@@ -6087,39 +6108,43 @@
                   {
                     "$routine": "cooldown-day3"
                   }
-                ]
+                ],
+                "description": "Lower-body deload with light technique work and minimal systemic fatigue."
               },
               {
                 "dayNumber": 4,
                 "$ref": "day4-core-work-template",
                 "name": "Core Work",
-                "description": "Active recovery."
+                "description": "Very light core reset."
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Intensity (Elbow Saver) - DELOAD",
+                "name": "Neutral Grip Pull Progression - DELOAD",
                 "type": "strength",
                 "estimatedDuration": 55,
-                "description": "Unweighted or very light.",
+                "description": "Minimal vertical pulling exposure to preserve patterning while unloading the elbows.",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-pull-intensity-push"
+                    "$routine": "warmup-day5-elbow-saver"
                   },
                   {
-                    "$ref": "ex-tuck-planche",
-                    "sets": 3,
-                    "notes": "Straight-Arm Cap: 3 x 6s Tuck Holds Max"
-                  },
-                  {
-                    "$ref": "ex-straight-arm-pulldown-strength",
+                    "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 2,
-                    "repsValue": 10,
-                    "notes": "Deload."
+                    "repsValue": 3,
+                    "notes": "Deload. Stop well shy of fatigue."
                   },
                   {
-                    "$ref": "ex-pppu",
+                    "$ref": "ex-chest-supported-row",
                     "sets": 2,
+                    "repsValue": 8,
                     "notes": "Deload"
+                  },
+                  {
+                    "$ref": "ex-close-grip-db-press",
+                    "sets": 2,
+                    "loadMin": 12.5,
+                    "loadMax": 15,
+                    "notes": "Easy pressing. Per dumbbell."
                   },
                   {
                     "$routine": "cooldown-day5-neutral-grip"
@@ -6133,14 +6158,14 @@
       {
         "phaseNumber": 4,
         "name": "BLOCK 4: ACCUMULATION",
-        "description": "Peak absolute strength testing (DB Pullovers). Challenge core strength under fatigue (Dragon Flags/V-Ups). Auto-regulate pushing intensity via Dip Governor.",
+        "description": "Progress-capacity block. Build repeatable neutral-grip pull-up volume, keep lat strength trending up, and pair it with shoulder-friendly pressing.",
         "startWeek": 13,
         "endWeek": 16,
         "focus": "intensity",
         "weeks": [
           {
             "weekNumber": 13,
-            "description": "Re-introducing AMRAPs with strict technical caps",
+            "description": "Build week one. Reintroduce stronger vertical pulling without losing elbow control.",
             "volumeLevel": "moderate",
             "intensityLevel": "moderate",
             "days": [
@@ -6149,7 +6174,7 @@
                 "name": "Pull Volume (Elbow Saver) - AMRAPs",
                 "type": "strength",
                 "estimatedDuration": 70,
-                "description": "Weekly Pull Total Target: 36-40 reps. Core Focus (Dynamic): [HARD WEEK]",
+                "description": "Volume day built around pullovers, rows, and controlled push assistance.",
                 "exercises": [
                   {
                     "$routine": "warmup-jump-rope-protocol"
@@ -6193,7 +6218,7 @@
                 "name": "Recovery + Anti-Rotation + Ankles",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "description": "Dynamic hip and core with optional dead bug progression; build capacity",
+                "description": "Capacity-building recovery day with hips, core, and light arm care.",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -6253,31 +6278,38 @@
                   {
                     "$routine": "cooldown-day3"
                   }
-                ]
+                ],
+                "description": "Posterior-chain strength and power with stable loading and no pulling excess."
               },
               {
                 "dayNumber": 4,
                 "$ref": "day4-core-work-template",
                 "name": "Core Work",
-                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
+                "description": "Core control and active recovery between strength sessions."
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Intensity (Elbow Saver) - Peak",
+                "name": "Neutral Grip Pull Progression - Build",
                 "type": "strength",
                 "estimatedDuration": 75,
-                "description": "Weekly Pull Total Target: 36-40 reps",
+                "description": "Structured neutral-grip strength day with clear main work and low-irritation accessories.",
                 "exercises": [
                   {
                     "$routine": "warmup-day5-elbow-saver"
                   },
                   {
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "sets": 4,
+                    "repsValue": 5,
+                    "notes": "Primary pull pattern. Stay smooth and repeatable."
+                  },
+                  {
                     "$ref": "ex-db-pullover",
-                    "sets": 5,
+                    "sets": 3,
                     "repsValue": 8,
-                    "loadMin": 27.5,
-                    "loadMax": 30,
-                    "notes": "Intensity Peak Phase. Heavy."
+                    "loadMin": 25,
+                    "loadMax": 27.5,
+                    "notes": "Lat strength support."
                   },
                   {
                     "$ref": "ex-close-grip-db-press-heavy",
@@ -6308,7 +6340,7 @@
           },
           {
             "weekNumber": 14,
-            "description": "Increasing intensity on AMRAPs and Dips",
+            "description": "Build week two. Increase density while keeping the same calm elbow response.",
             "volumeLevel": "moderate",
             "intensityLevel": "high",
             "days": [
@@ -6317,7 +6349,7 @@
                 "name": "Pull Volume (Elbow Saver) - AMRAPs",
                 "type": "strength",
                 "estimatedDuration": 72,
-                "description": "Weekly Pull Total Target: 36-40 reps",
+                "description": "Repeat the volume pattern with slightly higher challenge and no form drift.",
                 "exercises": [
                   {
                     "$routine": "warmup-burpees-protocol"
@@ -6361,7 +6393,7 @@
                 "name": "Recovery + Multi-Plane Hip Work",
                 "type": "mobility",
                 "estimatedDuration": 34,
-                "description": "Multi-angle hip work with quadruped and supine patterns; skip dead bug if fatigued",
+                "description": "Multi-plane hip and trunk recovery to keep movement quality high.",
                 "exercises": [
                   {
                     "$routine": "day2-ankle-focus"
@@ -6421,31 +6453,38 @@
                   {
                     "$routine": "cooldown-day3"
                   }
-                ]
+                ],
+                "description": "Lower-body strength continues while upper-limb stress stays predictable."
               },
               {
                 "dayNumber": 4,
                 "$ref": "day4-core-work-template",
                 "name": "Core Work",
-                "description": "Active recovery."
+                "description": "Short core session for trunk stiffness and recovery."
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Intensity (Elbow Saver) - Peak",
+                "name": "Neutral Grip Pull Progression - Build",
                 "type": "strength",
                 "estimatedDuration": 78,
-                "description": "Weekly Pull Total Target: 36-40 reps",
+                "description": "Progress the main pull pattern with a modest density increase and controlled support work.",
                 "exercises": [
                   {
                     "$routine": "warmup-day5-elbow-saver"
                   },
                   {
-                    "$ref": "ex-db-pullover",
+                    "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 5,
+                    "repsValue": 5,
+                    "notes": "Own all reps. No grinders."
+                  },
+                  {
+                    "$ref": "ex-db-pullover",
+                    "sets": 3,
                     "repsValue": 6,
-                    "loadMin": 30,
-                    "loadMax": 32.5,
-                    "notes": "Increasing intensity."
+                    "loadMin": 27.5,
+                    "loadMax": 30,
+                    "notes": "Moderate load. Controlled stretch."
                   },
                   {
                     "$ref": "ex-close-grip-db-press-heavy",
@@ -6454,7 +6493,10 @@
                     "notes": "Per dumbbell. Close grip"
                   },
                   {
-                    "$ref": "ex-chest-supported-row"
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 3,
+                    "repsValue": 8,
+                    "notes": "Low-irritation back-off work."
                   },
                   {
                     "$routine": "superset-bss"
@@ -6476,7 +6518,7 @@
           },
           {
             "weekNumber": 15,
-            "description": "Peak Volume & Load. All-out effort week",
+            "description": "Peak rebuild week. This is the highest useful vertical-pulling exposure before unloading.",
             "volumeLevel": "peak",
             "intensityLevel": "peak",
             "days": [
@@ -6485,7 +6527,7 @@
                 "name": "Pull Volume (Elbow Saver) - Peak",
                 "type": "strength",
                 "estimatedDuration": 75,
-                "description": "Weekly Pull Total Target: 36-40 reps. All-out effort week",
+                "description": "Highest volume day of the block, still capped by clean form and elbow comfort.",
                 "exercises": [
                   {
                     "$routine": "warmup-mountain-climbers-protocol"
@@ -6502,7 +6544,7 @@
                     "repsValue": 10,
                     "loadMin": 27.5,
                     "loadMax": 30,
-                    "notes": "Peak Volume Week. Push near failure."
+                    "notes": "Peak volume week. Stay one clean rep shy of breakdown."
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -6529,7 +6571,7 @@
                 "name": "Recovery + Peak Week Management",
                 "type": "mobility",
                 "estimatedDuration": 32,
-                "description": "Peak stress week: gentler hip angles with rotation work, reduced side plank hold",
+                "description": "Recovery management day designed to keep the peak week sustainable.",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -6590,38 +6632,36 @@
                   {
                     "$routine": "cooldown-day3"
                   }
-                ]
+                ],
+                "description": "Lower-body work stays strong but controlled to avoid spilling fatigue into pull days."
               },
               {
                 "dayNumber": 4,
                 "$ref": "day4-core-work-template",
                 "name": "Core Work",
-                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
+                "description": "Core maintenance only."
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Intensity (Elbow Saver) - PR Attempt",
+                "name": "Neutral Grip Pull Progression - Peak",
                 "type": "strength",
                 "estimatedDuration": 80,
-                "description": "PR attempt week",
+                "description": "Peak neutral-grip day. Highest quality pulling density of the cycle.",
                 "exercises": [
                   {
                     "$routine": "warmup-day5-elbow-saver"
                   },
                   {
-                    "$ref": "ex-db-pullover",
-                    "sets": 5,
-                    "repsValue": 5,
-                    "loadMin": 32.5,
-                    "loadMax": 35,
-                    "notes": "PR Attempt. Heaviest possible for 5 reps. Close grip."
+                    "$ref": "ex-cluster-pull-ups-neutral",
+                    "sets": 3,
+                    "notes": "Peak vertical pulling density. Keep every cluster clean."
                   },
                   {
                     "$ref": "ex-single-arm-pulldown",
                     "sets": 3,
                     "repsValue": 10,
                     "loadUnit": "band",
-                    "notes": "Focus on lats. Peak week volume reduction. Unilateral."
+                    "notes": "Lat support work. Unilateral."
                   },
                   {
                     "$ref": "ex-close-grip-db-press-heavy",
@@ -6649,7 +6689,7 @@
           },
           {
             "weekNumber": 16,
-            "description": "Significant volume cut before the taper",
+            "description": "Deload and consolidate. Drop fatigue, keep coordination, and prepare for taper.",
             "volumeLevel": "low",
             "intensityLevel": "low",
             "days": [
@@ -6658,7 +6698,7 @@
                 "name": "Pull Volume (Elbow Saver) - DELOAD",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Weekly Pull Total Target: ~15 reps. RPE 6 MAX",
+                "description": "Reduced pulling volume with easy loads and clean movement only.",
                 "exercises": [
                   {
                     "$routine": "warmup-rower-protocol"
@@ -6704,7 +6744,7 @@
                 "name": "Recovery + Breath Focus - DELOAD",
                 "type": "mobility",
                 "estimatedDuration": 26,
-                "description": "Deload: ~60% volume with gentle stretching and extended breathing practice",
+                "description": "Breathing-led recovery with light mobility and low total demand.",
                 "exercises": [
                   {
                     "$routine": "day2-ankle-focus"
@@ -6769,30 +6809,30 @@
                   {
                     "$routine": "cooldown-day3"
                   }
-                ]
+                ],
+                "description": "Lower-body deload with technique retention and minimal fatigue."
               },
               {
                 "dayNumber": 4,
                 "$ref": "day4-core-work-template",
                 "name": "Core Work",
-                "description": "Active recovery."
+                "description": "Light core reset."
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Intensity (Elbow Saver) - DELOAD",
+                "name": "Neutral Grip Pull Progression - DELOAD",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Easy deload",
+                "description": "Short patterning session to keep the groove while letting fatigue fall.",
                 "exercises": [
                   {
                     "$routine": "warmup-day5-elbow-saver"
                   },
                   {
-                    "$ref": "ex-straight-arm-pulldown-strength",
+                    "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 2,
-                    "repsValue": 8,
-                    "loadUnit": "band",
-                    "notes": "Deload."
+                    "repsValue": 3,
+                    "notes": "Deload. Crisp reps only."
                   },
                   {
                     "$ref": "ex-close-grip-db-press-heavy",
@@ -6800,6 +6840,12 @@
                     "loadMin": 10,
                     "loadMax": 15,
                     "notes": "Deload. Per dumbbell"
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 2,
+                    "repsValue": 8,
+                    "notes": "Easy back-off pulling."
                   },
                   {
                     "$routine": "cooldown-day5-pullover-press"
@@ -6813,14 +6859,14 @@
       {
         "phaseNumber": 5,
         "name": "BLOCK 5: PEAK & TAPER",
-        "description": "Sharpen neural drive for the final test. Minimize joint stress via Archer Negatives. Execute Full Deload to supercompensate for Week 20.",
+        "description": "Taper block. Preserve pulling sharpness, reduce total work, and arrive fresh for the benchmark.",
         "startWeek": 17,
         "endWeek": 19,
         "focus": "deload",
         "weeks": [
           {
             "weekNumber": 17,
-            "description": "High intensity, reduced joint stress variations",
+            "description": "Early taper. Keep the skill, cut the noise.",
             "volumeLevel": "moderate",
             "intensityLevel": "high",
             "days": [
@@ -6829,7 +6875,7 @@
                 "name": "Pull Volume (Elbow Saver) - Taper",
                 "type": "strength",
                 "estimatedDuration": 70,
-                "description": "Weekly Pull Total Target: 30-35 reps (Tapering)",
+                "description": "Reduced volume day that keeps pulling patterns active without forcing fatigue.",
                 "exercises": [
                   {
                     "$routine": "warmup-assault-bike-protocol"
@@ -6871,7 +6917,7 @@
                 "name": "Recovery + Taper Variation",
                 "type": "mobility",
                 "estimatedDuration": 30,
-                "description": "~80% volume taper with breath emphasis; use gentler hip patterns",
+                "description": "Mobility and trunk recovery with a clear reduction in total work.",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -6942,31 +6988,38 @@
                   {
                     "$routine": "cooldown-day3"
                   }
-                ]
+                ],
+                "description": "Tapered lower-body session that keeps power alive without lingering soreness."
               },
               {
                 "dayNumber": 4,
                 "$ref": "day4-core-work-template",
                 "name": "Core Work",
-                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
+                "description": "Easy core maintenance."
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Intensity (Elbow Saver) - Heavy Taper",
+                "name": "Neutral Grip Pull Progression - Taper",
                 "type": "strength",
                 "estimatedDuration": 75,
-                "description": "Maintaining High Intensity intensity while reducing volume",
+                "description": "Short neutral-grip session to maintain feel and confidence.",
                 "exercises": [
                   {
                     "$routine": "warmup-day5-elbow-saver"
                   },
                   {
-                    "$ref": "ex-db-pullover",
+                    "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 3,
-                    "repsValue": 5,
-                    "loadMin": 30,
-                    "loadMax": 32.5,
-                    "notes": "Heavy but low volume."
+                    "repsValue": 4,
+                    "notes": "Taper volume. Keep the groove."
+                  },
+                  {
+                    "$ref": "ex-db-pullover",
+                    "sets": 2,
+                    "repsValue": 6,
+                    "loadMin": 25,
+                    "loadMax": 27.5,
+                    "notes": "Moderate support work."
                   },
                   {
                     "$routine": "superset-bss"
@@ -6986,7 +7039,7 @@
           },
           {
             "weekNumber": 18,
-            "description": "Tapering + Archer Negative Peak",
+            "description": "Late taper. Small exposures only, with freshness now the priority.",
             "volumeLevel": "moderate",
             "intensityLevel": "moderate",
             "days": [
@@ -6995,7 +7048,7 @@
                 "name": "Pull Volume (Elbow Saver) - Taper",
                 "type": "strength",
                 "estimatedDuration": 65,
-                "description": "Weekly Pull Total Target: ~25 reps. Reduce volume by 20%",
+                "description": "Low-volume pulling day to stay coordinated while continuing to unload.",
                 "exercises": [
                   {
                     "$routine": "warmup-jump-rope-protocol"
@@ -7039,7 +7092,7 @@
                 "name": "Recovery + Continued Taper",
                 "type": "mobility",
                 "estimatedDuration": 28,
-                "description": "~70% volume taper; supine hip work with reduced side plank",
+                "description": "Simple recovery work to keep hips and trunk moving without adding fatigue.",
                 "exercises": [
                   {
                     "$routine": "day2-ankle-focus"
@@ -7110,31 +7163,38 @@
                   {
                     "$routine": "cooldown-day3"
                   }
-                ]
+                ],
+                "description": "Minimal lower-body work to preserve rhythm and stay loose."
               },
               {
                 "dayNumber": 4,
                 "$ref": "day4-core-work-template",
                 "name": "Core Work",
-                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
+                "description": "Light core maintenance only."
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Intensity (Elbow Saver) - Heavy Taper",
+                "name": "Neutral Grip Pull Progression - Taper",
                 "type": "strength",
                 "estimatedDuration": 75,
-                "description": "Maintaining neural drive.",
+                "description": "Final low-fatigue pulling exposure before benchmark week.",
                 "exercises": [
                   {
                     "$routine": "warmup-day5-elbow-saver"
                   },
                   {
-                    "$ref": "ex-db-pullover",
+                    "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 2,
                     "repsValue": 3,
-                    "loadMin": 32.5,
-                    "loadMax": 35,
-                    "notes": "Keep heavy but minimal volume."
+                    "notes": "Very low fatigue. Strong reps only."
+                  },
+                  {
+                    "$ref": "ex-db-pullover",
+                    "sets": 2,
+                    "repsValue": 5,
+                    "loadMin": 27.5,
+                    "loadMax": 30,
+                    "notes": "Moderate support work."
                   },
                   {
                     "$routine": "superset-bss"
@@ -7155,7 +7215,7 @@
           },
           {
             "weekNumber": 19,
-            "description": "The calm before the test. 50% volume",
+            "description": "Freshness week. Remove fatigue and keep only the smallest useful amount of movement.",
             "volumeLevel": "low",
             "intensityLevel": "low",
             "days": [
@@ -7164,7 +7224,7 @@
                 "name": "Pull Volume (Elbow Saver) - FULL DELOAD",
                 "type": "recovery",
                 "estimatedDuration": 55,
-                "description": "Weekly Pull Total Target: ~15 reps. Very Low Intensity",
+                "description": "Very easy volume to stay loose without creating any carryover fatigue.",
                 "exercises": [
                   {
                     "$routine": "warmup-burpees-protocol"
@@ -7198,9 +7258,6 @@
                     "notes": "Deload"
                   },
                   {
-                    "$routine": "finisher-day1-core"
-                  },
-                  {
                     "$routine": "cooldown-day1-peak-taper"
                   }
                 ]
@@ -7210,7 +7267,7 @@
                 "name": "Mobility & Recovery - FULL DELOAD",
                 "type": "mobility",
                 "estimatedDuration": 18,
-                "description": "Full deload: light mobility only, no Pallof/core load",
+                "description": "Light mobility and arm care only.",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
@@ -7227,7 +7284,7 @@
                 "dayNumber": 3,
                 "name": "Lower Body - FULL DELOAD",
                 "type": "recovery",
-                "estimatedDuration": 40,
+                "estimatedDuration": 25,
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
@@ -7244,72 +7301,48 @@
                     "loadMax": 50
                   },
                   {
-                    "$ref": "ex-rdl",
-                    "sets": 2,
-                    "repsValue": 8,
-                    "loadMin": 60,
-                    "loadMax": 80,
-                    "notes": "Deload"
-                  },
-                  {
-                    "$ref": "ex-goblet-squats",
-                    "sets": 2,
-                    "notes": "Deload"
-                  },
-                  {
-                    "$ref": "ex-back-extensions",
-                    "sets": 2,
-                    "notes": "Deload",
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-face-pulls",
-                    "sets": 2,
-                    "notes": "Deload. Shoulder health",
-                    "supersetGroup": 1
-                  },
-                  {
                     "$routine": "cooldown-day3"
                   }
-                ]
+                ],
+                "description": "Minimal lower-body movement so the athlete feels fresh, not flat."
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-core-work-template",
-                "name": "Core Work",
-                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
+                "name": "Mobility Reset",
+                "type": "mobility",
+                "estimatedDuration": 12,
+                "description": "Mobility reset with no trunk loading.",
+                "exercises": [
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
+                  },
+                  {
+                    "$routine": "day2-recovery-flow"
+                  }
+                ]
               },
               {
                 "dayNumber": 5,
                 "name": "Movement Prep - FULL DELOAD",
                 "type": "recovery",
-                "estimatedDuration": 45,
-                "description": "Light movement only. Preparing for Test Week",
+                "estimatedDuration": 25,
+                "description": "Very light pulling activation and cooldown only.",
                 "exercises": [
                   {
                     "$routine": "warmup-day5-elbow-saver"
                   },
                   {
-                    "$ref": "ex-db-pullover",
+                    "$ref": "ex-scapular-pull-ups",
+                    "sets": 2,
+                    "repsValue": 8,
+                    "notes": "Easy activation only."
+                  },
+                  {
+                    "$ref": "ex-single-arm-pulldown",
                     "sets": 2,
                     "repsValue": 10,
-                    "loadMin": 17.5,
-                    "loadMax": 20,
-                    "notes": "Deload. Light weight."
-                  },
-                  {
-                    "$routine": "superset-bss"
-                  },
-                  {
-                    "$ref": "ex-weighted-hollow-rocks",
-                    "sets": 2,
-                    "repsValue": 12,
-                    "loadMin": 2,
-                    "loadMax": 3,
-                    "restSeconds": 120,
-                    "notes": "Deload weight",
-                    "category": "main",
-                    "supersetGroup": 1
+                    "loadUnit": "band",
+                    "notes": "Light activation. Leave plenty in reserve."
                   },
                   {
                     "$routine": "cooldown-day5-pullover-press"
@@ -7323,26 +7356,130 @@
       {
         "phaseNumber": 6,
         "name": "BLOCK 6: TEST WEEK & POST-PROGRAM RELOAD",
-        "description": "Week 20: Performance testing. Week 21: Full connective tissue reset.",
+        "description": "Benchmark and reload block. Test injury-compatible pulling metrics, then transition into a low-stress reset week.",
         "startWeek": 20,
         "endWeek": 21,
         "focus": "test",
         "weeks": [
           {
             "weekNumber": 20,
-            "description": "TEST WEEK (doc-prescribed tests)",
+            "description": "Benchmark week for elbow-safe pulling progress and repeatable lat strength.",
             "volumeLevel": "low",
             "intensityLevel": "peak",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Endurance Test Day (Elbow Safe Variant)",
+                "name": "Neutral Grip Pull-Up Benchmark Day",
                 "type": "test",
-                "estimatedDuration": 29,
-                "description": "Max Reps Pullovers Test Day",
+                "estimatedDuration": 28,
+                "description": "Primary benchmark for strict neutral-grip pulling capacity.",
                 "exercises": [
                   {
-                    "$routine": "warmup-mountain-climbers-protocol"
+                    "$routine": "warmup-rower-protocol"
+                  },
+                  {
+                    "$ref": "ex-scapular-pull-ups",
+                    "category": "warmup",
+                    "sets": 1,
+                    "repsValue": 5,
+                    "restSeconds": 30,
+                    "notes": "Warm-up. Prime scapular depression."
+                  },
+                  {
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "category": "warmup",
+                    "sets": 1,
+                    "repsValue": 3,
+                    "restSeconds": 30,
+                    "notes": "Warm-up set. Smooth reps."
+                  },
+                  {
+                    "$ref": "ex-rest",
+                    "notes": "Full 4 min rest before the benchmark set"
+                  },
+                  {
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "sets": 1,
+                    "repsType": "max",
+                    "notes": "Benchmark set. Count only strict, pain-free reps with full ROM."
+                  },
+                  {
+                    "$ref": "ex-max-close-grip-db-press",
+                    "loadMin": 15,
+                    "loadMax": 15,
+                    "notes": "Secondary benchmark. Max reps @ 15kg per dumbbell"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Mobility & Recovery - Passive",
+                "type": "mobility",
+                "estimatedDuration": 8,
+                "description": "Light recovery to keep tissue warm and calm.",
+                "exercises": [
+                  {
+                    "$routine": "day2-ankle-focus"
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
+                  },
+                  {
+                    "$routine": "day2-recovery-flow"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Lower Body - Passive Recovery",
+                "type": "mobility",
+                "estimatedDuration": 20,
+                "description": "Passive lower-body movement only to avoid interfering with the benchmark.",
+                "exercises": [
+                  {
+                    "$routine": "day2-recovery-flow"
+                  },
+                  {
+                    "$ref": "ex-hang-high-pull",
+                    "notes": "Week 20: high-pulls only, no catching impact",
+                    "sets": 2,
+                    "repsValue": 3,
+                    "loadMin": 40,
+                    "loadMax": 55
+                  },
+                  {
+                    "$routine": "cooldown-day3"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 4,
+                "name": "Mobility Reset",
+                "type": "mobility",
+                "estimatedDuration": 10,
+                "description": "Mobility only between benchmark days.",
+                "exercises": [
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
+                  },
+                  {
+                    "$routine": "day2-recovery-flow"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Pullover Strength Benchmark Day",
+                "type": "test",
+                "estimatedDuration": 31,
+                "description": "Repeatable pullover strength benchmark with supportive accessory work.",
+                "exercises": [
+                  {
+                    "$routine": "warmup-rower-protocol"
+                  },
+                  {
+                    "$ref": "ex-scapular-pull-ups",
+                    "notes": "Warm-up. Battery conservation"
                   },
                   {
                     "$ref": "ex-db-pullover",
@@ -7370,114 +7507,18 @@
                   },
                   {
                     "$ref": "ex-db-pullover",
+                    "repsValue": 6,
                     "sets": 1,
-                    "repsType": "max",
-                    "notes": "Good Form."
-                  },
-                  {
-                    "$ref": "ex-max-close-grip-db-press",
-                    "loadMin": 15,
-                    "loadMax": 15,
-                    "notes": "Max reps @ 15kg per dumbbell"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 2,
-                "name": "Mobility & Recovery - Passive",
-                "type": "mobility",
-                "estimatedDuration": 8,
-                "description": "Passive recovery: optional light mobility only; keep joints warm, no core/stability",
-                "exercises": [
-                  {
-                    "$routine": "day2-ankle-focus"
-                  },
-                  {
-                    "$ref": "ex-cross-body-hammer-curls"
-                  },
-                  {
-                    "$routine": "day2-recovery-flow"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 3,
-                "name": "Lower Body - Passive Recovery",
-                "type": "mobility",
-                "estimatedDuration": 28,
-                "description": "Passive recovery: light mobility only; no core/stability",
-                "exercises": [
-                  {
-                    "$routine": "warmup-day3"
-                  },
-                  {
-                    "$routine": "warmup-power-clean"
-                  },
-                  {
-                    "$ref": "ex-hang-high-pull",
-                    "notes": "Week 20: high-pulls only, no catching impact",
-                    "sets": 2,
-                    "repsValue": 3,
-                    "loadMin": 40,
-                    "loadMax": 55
-                  },
-                  {
-                    "$routine": "cooldown-day3"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 4,
-                "$ref": "day4-core-work-template",
-                "name": "Core Work",
-                "description": "Active recovery: anti-rotation, anti-extension, and rotational core work."
-              },
-              {
-                "dayNumber": 5,
-                "name": "Strength Test Day (Elbow Safe Variant)",
-                "type": "test",
-                "estimatedDuration": 31,
-                "description": "Test 3RM Straight Arm Pulldown",
-                "exercises": [
-                  {
-                    "$routine": "warmup-rower-protocol"
-                  },
-                  {
-                    "$ref": "ex-scapular-pull-ups",
-                    "notes": "Warm-up. Battery conservation"
-                  },
-                  {
-                    "$ref": "ex-straight-arm-pulldown-strength",
-                    "category": "warmup",
-                    "sets": 1,
-                    "repsValue": 5,
-                    "restSeconds": 30,
-                    "notes": "Warm-up @ 50%"
-                  },
-                  {
-                    "$ref": "ex-straight-arm-pulldown-strength",
-                    "category": "warmup",
-                    "sets": 1,
-                    "repsValue": 3,
-                    "restSeconds": 30,
-                    "notes": "Warm-up @ 75%"
-                  },
-                  {
-                    "$ref": "ex-rest",
-                    "notes": "Battery Saver. 4 min rest"
-                  },
-                  {
-                    "$ref": "ex-straight-arm-pulldown-strength",
-                    "repsValue": 3,
-                    "sets": 1,
-                    "notes": "TEST 3RM. Heaviest possible band tension/weight."
+                    "notes": "Benchmark set. Use the heaviest load you can own for 6 strict reps."
                   },
                   {
                     "$ref": "ex-5rm-weighted-push-up"
                   },
                   {
-                    "$ref": "ex-max-quality-archer-negatives",
-                    "notes": "Optional. Skip if elbows hurt."
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 2,
+                    "repsValue": 8,
+                    "notes": "Easy flush work after the benchmark."
                   }
                 ]
               }
@@ -7485,7 +7526,7 @@
           },
           {
             "weekNumber": 21,
-            "description": "Post-Program Reload. NO Weighted Dips, NO Weighted Pulls",
+            "description": "Reload week. Keep training enjoyable, reduce stress, and exit the cycle feeling better than you started.",
             "volumeLevel": "low",
             "intensityLevel": "low",
             "days": [
@@ -7494,7 +7535,7 @@
                 "name": "Reload Week (Elbow Saver)",
                 "type": "recovery",
                 "estimatedDuration": 50,
-                "description": "Objective: Full connective tissue reset. Volume: 60% of Week 1",
+                "description": "Light full-body pulling work to begin the reset week.",
                 "exercises": [
                   {
                     "$routine": "warmup-rower-protocol"
@@ -7553,7 +7594,8 @@
                   {
                     "$routine": "day2-recovery-flow"
                   }
-                ]
+                ],
+                "description": "Mobility and tissue-quality work only."
               },
               {
                 "dayNumber": 3,
@@ -7611,14 +7653,15 @@
                   {
                     "$routine": "cooldown-day3"
                   }
-                ]
+                ],
+                "description": "Easy lower-body session to maintain rhythm without fatigue."
               },
               {
                 "dayNumber": 5,
                 "name": "Pull Day B - Reload",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Reload version of Week 1 Pull Day B. 60% volume. NO weighted pulls or dips",
+                "description": "Reload pull day that keeps neutral-grip practice and shoulder-friendly pressing.",
                 "exercises": [
                   {
                     "$routine": "warmup-rower-protocol"
@@ -7627,9 +7670,10 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$ref": "ex-hspu-volume",
+                    "$ref": "ex-neutral-grip-pull-ups",
                     "sets": 2,
-                    "notes": "60% Vol (Reload). Practice the groove, stop far from failure"
+                    "repsValue": 4,
+                    "notes": "Reload. Smooth reps only."
                   },
                   {
                     "$ref": "ex-db-pullover",
@@ -7640,10 +7684,12 @@
                     "notes": "Reload. Perfect reps only."
                   },
                   {
-                    "$ref": "ex-dips",
+                    "$ref": "ex-close-grip-db-press",
                     "sets": 2,
                     "repsValue": 8,
-                    "notes": "Reload. Bodyweight only. Stop if shoulder pinch"
+                    "loadMin": 12.5,
+                    "loadMax": 15,
+                    "notes": "Reload. Shoulder-friendly pressing."
                   },
                   {
                     "$routine": "superset-bss"

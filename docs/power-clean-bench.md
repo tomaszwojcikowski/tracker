@@ -79,11 +79,94 @@ If catches get sloppy or slow, convert remaining sets to Clean Pulls to preserve
 
 **Core:** Hollow Body Hold — 2×20 seconds
 
-**Lift-Specific Ramp-Up:**
-- Take 3-5 progressive warm-up sets before the first main lift
-- For Bench: add 1-2 light sets of scapular retraction/depression work
-- For Cleans: add front rack mobility and 2-3 crisp turnover/high-pull drills
-- On Mondays for the first 4 weeks after V26.9, add **2 light sets of straight-arm band pulldowns or scapular pull-ups** before Ring Pull-Ups
+## Session-Specific Warm-Up Ramps (MWF Only)
+
+Use a **ramp principle**, not extra lifting sets:
+
+- Start with the joint positions you need that day
+- Move to unloaded or lightly loaded pattern rehearsal
+- Finish with 1-2 crisp neural primers that match the session's speed and positions
+- Nothing in the warm-up should create fatigue, burn, or local failure
+
+### Monday Ramp: Bench, Ring Pull-Ups, Compression
+
+**Phase 1 (Weeks 1-4):** rebuild straight-bar pressing positions and calm the elbow
+- Scapular Push-Ups — smooth shoulder blade protraction/retraction
+- Wall Slides or Foam-Roller Wall Reach — upward rotation and rib control
+- Dead Hang to Scap Pull-Up or Straight-Arm Band Pulldown — gentle lat/scap engagement before Ring Pull-Ups
+- Push-Up Plank Shoulder Taps — slow trunk/bracing rehearsal
+- Parallette Tuck Support Hold — brief position exposure before L-sit work
+
+**Phase 2 (Weeks 5-8):** shorter and sharper, with more pressing readiness
+- Scapular Push-Ups
+- Band Pull-Aparts + External Rotation Combo
+- Dead Hang to Scap Pull-Up
+- Explosive Incline Push-Up or fast-eccentric Push-Up on handles
+- Short Parallette Tuck Support Hold
+
+**Phase 3 (Weeks 9-10):** strip it down and stay fresh
+- Wall Slides
+- Band Pull-Aparts
+- Dead Hang to Scap Pull-Up
+- 1-2 crisp Push-Ups with perfect bar path intent
+- Brief Tuck Support Hold
+
+### Wednesday Ramp: Clean, Box Squat, Pike Compression
+
+**Phase 1 (Weeks 1-4):** prepare front rack, timing, and squat depth
+- Ankle Rocks against wall or plate-assisted ankle drives
+- Front Rack Stretch on rig or straps
+- PVC or empty-hand Muscle Clean turnover drill
+- Tall Clean pull-under rehearsal from high position
+- Deep Goblet Pry or paused bodyweight squat for hips/adductors
+- Seated Pike Reach with active toe lift
+
+**Phase 2 (Weeks 5-8):** shift from mobility emphasis to speed-position rehearsal
+- Ankle Rocks
+- Front Rack Stretch
+- Tall Clean to fast elbows
+- Jump Shrug or clean extension drill from power position
+- Bodyweight Squat with fast stand-up intent
+- Seated Pike Pulses, low fatigue only
+
+**Phase 3 (Weeks 9-10):** preserve speed and front-rack comfort without adding fatigue
+- Short ankle and front-rack reset
+- Tall Clean turnover drill
+- 1-2 quick clean extension rehearsals
+- One paused bodyweight squat at target depth
+- Brief pike compression exposure
+
+### Friday Ramp: Clean Variation, Back Squat, Hinge, Press Support
+
+**Phase 1 (Weeks 1-4):** prepare hips, trunk, and the clean variation without tiring the squat pattern
+- Hip Airplanes or Single-Leg RDL reach
+- Glute Bridge march or frog pump
+- Tall Clean drill matching the day's clean variation height
+- Bodyweight Squat to box or target-depth pause squat
+- Dowel hip hinge sweep to rehearse RDL path
+- Light floor-press lockout hold to set shoulder position
+
+**Phase 2 (Weeks 5-8):** move from positional prep to power and stiffness
+- Hip Airplanes
+- Glute Bridge march
+- High-Hang or pause-at-knee clean drill matching the day's variation
+- Snap-down to squat stance or fast bodyweight squat
+- Dowel hip hinge sweep
+- Light incline push-up or neutral-grip press pattern rehearsal
+
+**Phase 3 (Weeks 9-10):** minimal but specific
+- Brief hip stability reset
+- One clean drill matching the day's variation
+- One squat-depth rehearsal
+- One hinge-path rehearsal
+- One short press-position rehearsal
+
+### Day-Specific Emphasis Notes
+
+- **Monday:** prioritize scapular control, elbow comfort, and hollow-body tension
+- **Wednesday:** prioritize front-rack access, fast elbows, ankle depth, and upright catch mechanics
+- **Friday:** prioritize hip stiffness, squat depth, hinge path, and upper-back tightness for the squat
+- For the first 4 weeks after V26.9, keep **straight-arm band pulldowns or scapular pull-ups** in the Monday ramp before Ring Pull-Ups
 
 ---
 
@@ -164,7 +247,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 ## PHASE 1: Accumulation & Tendon Prep (Weeks 1–4)
 
-**Focus:** 3-second eccentric on Bench. 3-second pause at the bottom of the Back Squat. Building tissue capacity and rebuilding straight-bar familiarity after the prior pull-focused block.
+**Focus:** Controlled 2-second eccentric on Bench. Brief 1-second pause at the bottom of the Back Squat. Building tissue capacity and rebuilding straight-bar familiarity after the prior pull-focused block without burying recovery.
 
 **Secondary Dose:** Fridays add a light Power Clean variation before squats and a bench-support variation after squats so Bench and Clean patterns each appear twice per week without turning Friday into another heavy day.
 
@@ -174,7 +257,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 #### Monday — Bench Focus & Compression
 
-**A. Bench Press** — 4×8 @ 65% (57.5 kg) — *3-second negative*
+**A. Bench Press** — 4×8 @ 65% (57.5 kg) — *Controlled 2-second eccentric*
 
 **B. Ring Pull-Ups** — 3×5–8 *(Bodyweight — use a slow 2-sec negative; rings allow natural wrist rotation to protect the elbow)*
 > **Progression rule:** Start conservative. Add reps before adding weight. If elbow flares, switch to ring rows for that session.
@@ -214,7 +297,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **A. Tall Clean from High Hang** — 3×2 @ 40–50% (35–42.5 kg) *(Technique primer — fast elbows, vertical dip, crisp catch)*
 
-**B. Back Squat** — 4×6 @ 65% (87.5 kg) — *3-second pause at the bottom*
+**B. Back Squat** — 4×6 @ 65% (87.5 kg) — *1-second pause at the bottom*
 
 **C. Single-Arm DB Neutral Floor Press** — 2×10/arm @ 17.5–20 kg *(Support Bench volume — smooth reps, no elbow irritation)*
 
@@ -230,7 +313,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 #### Monday — Bench Focus & Compression
 
-**A. Bench Press** — 4×7 @ 67.5% (60 kg) — *3-second negative*
+**A. Bench Press** — 4×7 @ 67.5% (60 kg) — *Controlled 2-second eccentric*
 
 **B. Ring Pull-Ups** — 3×5–8 *(Bodyweight, slow negative)*
 
@@ -265,7 +348,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **A. Tall Clean from High Hang** — 3×2 @ 45–50% (40–42.5 kg) *(Same crisp technique focus as Week 1)*
 
-**B. Back Squat** — 4×6 @ 67.5% (90 kg) — *3-second pause at the bottom*
+**B. Back Squat** — 4×6 @ 67.5% (90 kg) — *1-second pause at the bottom*
 
 **C. Single-Arm DB Neutral Floor Press** — 2×10/arm @ 17.5–20 kg
 
@@ -281,7 +364,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 #### Monday — Bench Focus & Compression
 
-**A. Bench Press** — 4×6 @ 70% (62.5 kg) — *3-second negative*
+**A. Bench Press** — 4×6 @ 70% (62.5 kg) — *Controlled 2-second eccentric*
 
 **B. Ring Pull-Ups** — 3×6–8 *(Bodyweight, slow negative)*
 
@@ -316,7 +399,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **A. Low-Hang Power Clean** — 3×2 @ 55% (47.5 kg) *(Start from just above the knee; stay snappy, no grinding)*
 
-**B. Back Squat** — 4×6 @ 70% (95 kg) — *3-second pause at the bottom*
+**B. Back Squat** — 4×6 @ 70% (95 kg) — *1-second pause at the bottom*
 
 **C. Single-Arm DB Neutral Floor Press** — 3×8/arm @ 20–22.5 kg
 
@@ -332,7 +415,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 #### Monday — Bench Focus & Compression
 
-**A. Bench Press** — 4×6 @ 72.5% (65 kg) — *3-second negative*
+**A. Bench Press** — 4×6 @ 72.5% (65 kg) — *Controlled 2-second eccentric*
 
 **B. Ring Pull-Ups** — 3×6–8 *(Bodyweight, slow negative)*
 
@@ -366,7 +449,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **A. Low-Hang Power Clean** — 3×2 @ 60% (52.5 kg)
 
-**B. Back Squat** — 4×6 @ 72.5% (97.5 kg) — *3-second pause at the bottom*
+**B. Back Squat** — 4×6 @ 72.5% (97.5 kg) — *1-second pause at the bottom*
 
 **C. Single-Arm DB Neutral Floor Press** — 3×8/arm @ 20–22.5 kg
 
@@ -384,7 +467,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **Secondary Dose:** Friday Clean variations shift from learning positions to speed-strength primers, while Friday Bench variations move from floor-press support to neutral-grip incline pressing for extra chest and triceps work with lower elbow cost than more straight-bar volume.
 
-> **Tempo change:** Drop the 3-second eccentric on Bench and the 3-second pause on Back Squat starting this phase. Use controlled but normal bar speed from Week 5 onward.
+> **Tempo change:** Drop the 2-second Bench eccentric and the 1-second Back Squat pause starting this phase. Use controlled but normal bar speed from Week 5 onward.
 
 **Note:** If knee or elbow symptoms trend upward in Weeks 6-8, drop either the clean pulls or the unilateral accessory first before reducing the main lifts.
 

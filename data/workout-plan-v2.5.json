@@ -3400,6 +3400,59 @@
         "coachingNotes": "Lie on back with arms extended straight up toward ceiling and legs lifted with knees bent 90°. Press lower back into ground - this is critical. Slowly lower opposite arm and leg (right arm overhead, left leg extending straight) while keeping lower back pressed down. Return and repeat other side. Move slowly and deliberately. If your lower back arches off the ground even slightly, you've gone too far - reduce the range. This is dead bug because the position looks like a dead bug on its back. Core anti-extension work with zero grip and elbow load - perfect for recovery days."
       },
       {
+        "id": "ex-seated-tuck-compression-lifts",
+        "exerciseName": "Seated Tuck Compression Lifts",
+        "category": "skill",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 8,
+        "loadUnit": "bodyweight",
+        "restSeconds": 45,
+        "notes": "Compression drill. Use parallettes, yoga blocks, or fingertips to reduce joint stress.",
+        "coachingNotes": "Sit on the floor or a low box in a bent-knee tuck with hands beside hips on parallettes, blocks, bench edges, or the floor. Press the hands down hard, keep shoulders depressed, and try to float the feet or heels just off the ground for a brief moment. Think about pulling thighs toward ribs instead of swinging the legs. Start with tiny lift-offs and bent knees. This builds beginner compression strength toward L-sit patterns with relatively low elbow stress because the efforts are short and controlled. If elbows or wrists get irritated, elevate the hands higher and shorten the range.",
+        "cues": [
+          "Push tall through the hands",
+          "Shoulders down",
+          "Lift from abs, not momentum"
+        ]
+      },
+      {
+        "id": "ex-tuck-l-sit-support-hold",
+        "exerciseName": "Tuck L-Sit Support Hold",
+        "category": "skill",
+        "sets": 3,
+        "repsType": "time",
+        "repsMin": 8,
+        "repsMax": 15,
+        "repsUnit": "seconds",
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "notes": "Begin on parallettes, boxes, or bench edges. Keep elbow load submaximal.",
+        "coachingNotes": "Support yourself on parallettes, yoga blocks, sturdy bench edges, or low bars with arms straight and shoulders pushed down away from ears. Start in a tuck with knees close to chest and feet hovering if possible. The goal is to create a strong support position plus hip compression, not a perfect full L-sit yet. Use bent knees, toe taps, or one foot lightly on the floor if needed. If elbows feel achy, shorten the hold, elevate the hands more, or keep one toe down. Quality support and compression matter more than duration.",
+        "cues": [
+          "Push the floor away",
+          "Knees to chest",
+          "Shoulders away from ears"
+        ]
+      },
+      {
+        "id": "ex-floor-tuck-compression-pulses",
+        "exerciseName": "Floor Tuck Compression Pulses",
+        "category": "skill",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 8,
+        "loadUnit": "bodyweight",
+        "restSeconds": 45,
+        "notes": "Floor-only compression. No hand push-off.",
+        "coachingNotes": "Lie on your back with knees bent and lower back pressed into the floor. Curl head and shoulders slightly up, then pull knees toward chest using the abs and hip flexors while keeping the movement small and controlled. Think about folding ribs toward pelvis rather than swinging the legs. Return with control and repeat. This is a beginner floor-only compression drill that avoids support loading through the elbows. If the neck gets cranky, support the head lightly without yanking it forward.",
+        "cues": [
+          "Low back stays down",
+          "Small controlled fold",
+          "Exhale into the squeeze"
+        ]
+      },
+      {
         "id": "ex-cluster-pull-ups-neutral",
         "exerciseName": "Cluster Pull-Ups (Neutral)",
         "category": "main",
@@ -5774,9 +5827,28 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-core-work-template",
-                "name": "Core Work",
-                "description": "Short core stability session that supports trunk control without adding grip fatigue."
+                "name": "Core Work + Optional Compression Skill",
+                "type": "recovery",
+                "estimatedDuration": 33,
+                "description": "Base core session plus an optional 8-minute beginner compression block for elbow-safe L-sit development.",
+                "exercises": [
+                  {
+                    "$routine": "day4-core-work"
+                  },
+                  {
+                    "$ref": "ex-seated-tuck-compression-lifts",
+                    "sets": 2,
+                    "repsValue": 6,
+                    "notes": "Week 10 intro. Small lift-offs only; use high hands if needed."
+                  },
+                  {
+                    "$ref": "ex-tuck-l-sit-support-hold",
+                    "sets": 3,
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "notes": "Week 10 intro. Bent-knee support hold with toe assist allowed."
+                  }
+                ]
               },
               {
                 "dayNumber": 5,
@@ -5950,9 +6022,27 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-core-work-template",
-                "name": "Core Work",
-                "description": "Short core stability session that supports trunk control without adding grip fatigue."
+                "name": "Core Work + Optional Compression Skill",
+                "type": "recovery",
+                "estimatedDuration": 32,
+                "description": "Base core session plus a floor-only compression block to alternate away from support work.",
+                "exercises": [
+                  {
+                    "$routine": "day4-core-work"
+                  },
+                  {
+                    "$ref": "ex-floor-tuck-compression-pulses",
+                    "sets": 3,
+                    "repsValue": 8,
+                    "notes": "Week 11 floor-only build. Smooth folds; no momentum."
+                  },
+                  {
+                    "$ref": "ex-hollow-rocks",
+                    "sets": 2,
+                    "repsValue": 20,
+                    "notes": "Week 11 floor-only pairing. Stop if low back loses contact."
+                  }
+                ]
               },
               {
                 "dayNumber": 5,
@@ -6127,9 +6217,28 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-core-work-template",
-                "name": "Core Work",
-                "description": "Very light core reset."
+                "name": "Core Work + Optional Compression Skill - DELOAD",
+                "type": "recovery",
+                "estimatedDuration": 30,
+                "description": "Very light core reset plus a reduced compression dose to keep the pattern without adding fatigue.",
+                "exercises": [
+                  {
+                    "$routine": "day4-core-work"
+                  },
+                  {
+                    "$ref": "ex-seated-tuck-compression-lifts",
+                    "sets": 2,
+                    "repsValue": 5,
+                    "notes": "Deload. Easy crisp reps only."
+                  },
+                  {
+                    "$ref": "ex-tuck-l-sit-support-hold",
+                    "sets": 2,
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "notes": "Deload. Keep one toe down if needed."
+                  }
+                ]
               },
               {
                 "dayNumber": 5,
@@ -6316,9 +6425,27 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-core-work-template",
-                "name": "Core Work",
-                "description": "Core control and active recovery between strength sessions."
+                "name": "Core Work + Optional Compression Skill",
+                "type": "recovery",
+                "estimatedDuration": 33,
+                "description": "Core control work followed by a short compression block to restart L-sit progress without elbow flare-ups.",
+                "exercises": [
+                  {
+                    "$routine": "day4-core-work"
+                  },
+                  {
+                    "$ref": "ex-floor-tuck-compression-pulses",
+                    "sets": 3,
+                    "repsValue": 8,
+                    "notes": "Week 13 floor-only restart. Keep the fold small and deliberate."
+                  },
+                  {
+                    "$ref": "ex-hollow-rocks",
+                    "sets": 3,
+                    "repsValue": 20,
+                    "notes": "Week 13 floor-only pairing. Keep ribs down and rock small."
+                  }
+                ]
               },
               {
                 "dayNumber": 5,
@@ -6510,9 +6637,28 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-core-work-template",
-                "name": "Core Work",
-                "description": "Short core session for trunk stiffness and recovery."
+                "name": "Core Work + Optional Compression Skill",
+                "type": "recovery",
+                "estimatedDuration": 33,
+                "description": "Core recovery plus a short compression progression aimed at longer tucked support and cleaner lift-offs.",
+                "exercises": [
+                  {
+                    "$routine": "day4-core-work"
+                  },
+                  {
+                    "$ref": "ex-seated-tuck-compression-lifts",
+                    "sets": 3,
+                    "repsValue": 8,
+                    "notes": "Week 14 build. Pause each lift-off for a beat instead of rushing reps."
+                  },
+                  {
+                    "$ref": "ex-tuck-l-sit-support-hold",
+                    "sets": 3,
+                    "repsMin": 12,
+                    "repsMax": 15,
+                    "notes": "Week 14 build. If crisp, briefly extend one leg for 1-2 seconds during the hold."
+                  }
+                ]
               },
               {
                 "dayNumber": 5,
@@ -6708,9 +6854,27 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-core-work-template",
-                "name": "Core Work",
-                "description": "Core maintenance only."
+                "name": "Core Work + Optional Compression Skill",
+                "type": "recovery",
+                "estimatedDuration": 33,
+                "description": "Core maintenance plus the highest useful compression exposure of the cycle before unloading.",
+                "exercises": [
+                  {
+                    "$routine": "day4-core-work"
+                  },
+                  {
+                    "$ref": "ex-floor-tuck-compression-pulses",
+                    "sets": 3,
+                    "repsValue": 10,
+                    "notes": "Week 15 floor-only peak. Exhale hard into each fold and own the squeeze."
+                  },
+                  {
+                    "$ref": "ex-hollow-rocks",
+                    "sets": 3,
+                    "repsValue": 25,
+                    "notes": "Week 15 floor-only peak. Small rocks, no lumbar arch."
+                  }
+                ]
               },
               {
                 "dayNumber": 5,
@@ -6900,9 +7064,28 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-core-work-template",
-                "name": "Core Work",
-                "description": "Light core reset."
+                "name": "Core Work + Optional Compression Skill - DELOAD",
+                "type": "recovery",
+                "estimatedDuration": 30,
+                "description": "Light core reset plus a reduced compression dose to keep coordination without residual stress.",
+                "exercises": [
+                  {
+                    "$routine": "day4-core-work"
+                  },
+                  {
+                    "$ref": "ex-seated-tuck-compression-lifts",
+                    "sets": 2,
+                    "repsValue": 6,
+                    "notes": "Deload. Smooth lift-offs only."
+                  },
+                  {
+                    "$ref": "ex-tuck-l-sit-support-hold",
+                    "sets": 2,
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "notes": "Deload. Submaximal support only."
+                  }
+                ]
               },
               {
                 "dayNumber": 5,
@@ -7092,9 +7275,27 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-core-work-template",
-                "name": "Core Work",
-                "description": "Easy core maintenance."
+                "name": "Core Work + Optional Compression Skill - TAPER",
+                "type": "recovery",
+                "estimatedDuration": 31,
+                "description": "Easy core maintenance plus a light compression touch so the skill stays familiar during taper.",
+                "exercises": [
+                  {
+                    "$routine": "day4-core-work"
+                  },
+                  {
+                    "$ref": "ex-floor-tuck-compression-pulses",
+                    "sets": 2,
+                    "repsValue": 6,
+                    "notes": "Week 17 floor-only taper. Leave plenty in reserve."
+                  },
+                  {
+                    "$ref": "ex-hollow-rocks",
+                    "sets": 2,
+                    "repsValue": 15,
+                    "notes": "Week 17 floor-only taper. Keep the rocks short and crisp."
+                  }
+                ]
               },
               {
                 "dayNumber": 5,
@@ -7286,9 +7487,28 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-core-work-template",
-                "name": "Core Work",
-                "description": "Light core maintenance only."
+                "name": "Core Work + Optional Compression Skill - TAPER",
+                "type": "recovery",
+                "estimatedDuration": 30,
+                "description": "Light core maintenance plus a final low-fatigue compression touch before benchmark week.",
+                "exercises": [
+                  {
+                    "$routine": "day4-core-work"
+                  },
+                  {
+                    "$ref": "ex-seated-tuck-compression-lifts",
+                    "sets": 2,
+                    "repsValue": 5,
+                    "notes": "Late taper. Tiny clean lift-offs only."
+                  },
+                  {
+                    "$ref": "ex-tuck-l-sit-support-hold",
+                    "sets": 2,
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "notes": "Late taper. Keep one toe down if that feels fresher."
+                  }
+                ]
               },
               {
                 "dayNumber": 5,
@@ -7445,11 +7665,23 @@
               },
               {
                 "dayNumber": 4,
-                "name": "Mobility Reset",
+                "name": "Mobility Reset + Optional Compression Skill",
                 "type": "mobility",
-                "estimatedDuration": 12,
-                "description": "Mobility reset with no trunk loading.",
+                "estimatedDuration": 18,
+                "description": "Mobility reset plus an optional very light compression primer that stays well below fatigue.",
                 "exercises": [
+                  {
+                    "$ref": "ex-floor-tuck-compression-pulses",
+                    "sets": 1,
+                    "repsValue": 5,
+                    "notes": "Week 19 floor-only primer. Stop while everything still feels easy."
+                  },
+                  {
+                    "$ref": "ex-hollow-rocks",
+                    "sets": 1,
+                    "repsValue": 12,
+                    "notes": "Week 19 floor-only primer. One easy set only."
+                  },
                   {
                     "$ref": "ex-cross-body-hammer-curls"
                   },

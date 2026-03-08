@@ -842,10 +842,10 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 ### DB Low Box Step-Ups (Friday — Unilateral Lower Support)
 | Week | Sets × Reps | Load | Notes |
 |------|-------------|------|-------|
-| 2 | 3×8/leg | Moderate DBs | Slow eccentric, crisp tracking |
-| 4 | 3×8/leg | Moderate DBs | Stay clearly submaximal |
-| 6 | 3×6–8/leg | Moderate DBs | Use only pain-free ROM |
-| 8 | 2×6/leg | Light–moderate DBs | Preserve freshness for Week 10 |
+| 2 | 3×8/leg | 10–15 kg/hand | Slow eccentric, crisp tracking |
+| 4 | 3×8/leg | 10–15 kg/hand | Stay clearly submaximal |
+| 6 | 3×6–8/leg | 12.5–17.5 kg/hand | Use only pain-free ROM |
+| 8 | 2×6/leg | 10–15 kg/hand | Preserve freshness for Week 10 |
 | 1, 3, 5, 7 | — | Alternated out for RDLs | |
 | 9 | — | CUT | |
 | 10 | — | CUT | |
@@ -863,15 +863,15 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 ### Thursday Shoulder Support
 | Week | Work | Notes |
 |------|------|-------|
-| 1–8 | 2 sets superset: 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press | Keep it submaximal; this is shoulder balance, not a third press day |
-| 9 | 1–2 light superset sets: 12 Face Pulls + 8/side Half-Kneeling Landmine Press | Deload effort |
-| 10 | 1–2×12 Face Pulls | Keep shoulders fresh for heavy bench and squat work |
+| 1–8 | 2 sets superset: 12–15 Face Pulls *(light band or ~10–15 kg cable)* + 8–10/side Half-Kneeling Landmine Press *(empty bar to +5 kg)* | Keep it submaximal; this is shoulder balance, not a third press day |
+| 9 | 1–2 light superset sets: 12 Face Pulls *(light band or ~7.5–10 kg cable)* + 8/side Half-Kneeling Landmine Press *(empty bar or technique bar)* | Deload effort |
+| 10 | 1–2×12 Face Pulls *(light band or ~7.5–10 kg cable)* | Keep shoulders fresh for heavy bench and squat work |
 
 ### Accessory Supersets
 | Day | Work | Notes |
 |-----|------|-------|
-| Monday | DB Rows + Band Pull-Aparts | Good time-saver; keep the rows controlled rather than heaving them |
-| Tuesday | Front Plank + Pallof Press | Use this as your trunk finisher after cardio and mobility |
+| Monday | DB Rows @ 20–30 kg/hand + Band Pull-Aparts *(light-medium band)* | Good time-saver; keep the rows controlled rather than heaving them |
+| Tuesday | Front Plank + Pallof Press *(light band or ~5–10 kg cable)* | Use this as your trunk finisher after cardio and mobility |
 
 ### Ring Pull-Ups (Monday — Vertical Pull)
 | Week | Sets × Reps | Load | Notes |
@@ -886,7 +886,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 ### Pallof Press (Tuesday — Anti-Rotation Core)
 | Week | Sets × Reps | Notes |
 |------|-------------|-------|
-| 1–4 | 2–3×10/side | Band or light cable, done within the core circuit |
-| 5–8 | 2×10/side | Part of the Tuesday trunk superset |
-| 9 | 2×8/side | Light band *(deload)* |
-| 10 | 2×10/side | Band |
+| 1–4 | 2–3×10/side | Light band or ~5–10 kg cable, done within the core circuit |
+| 5–8 | 2×10/side | Light band or ~5–10 kg cable; part of the Tuesday trunk superset |
+| 9 | 2×8/side | Very light band or ~5 kg cable *(deload)* |
+| 10 | 2×10/side | Light band or ~5–10 kg cable |

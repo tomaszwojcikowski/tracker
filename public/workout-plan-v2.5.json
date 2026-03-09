@@ -7,8 +7,8 @@
     "description": "Build pulling strength while protecting irritated elbows. After week 4, the plan shifts away from max pull-up chasing and toward pain-free neutral-grip pulling capacity, lat strength, and a steady return to vertical pulling. Maintain pushing and lower-body capacity while keeping the overall workload joint-friendly for a 40+ athlete.",
     "author": "V26.9 Program",
     "createdDate": "2025-12-02",
-    "lastModified": "2026-01-26T00:00:00.000Z",
-    "version": "26.9.5",
+    "lastModified": "2026-03-07T00:00:00.000Z",
+    "version": "26.9.6",
     "durationWeeks": 21,
     "goals": [
       "elite-pulling-strength",
@@ -3436,6 +3436,23 @@
         ]
       },
       {
+        "id": "ex-floor-tuck-compression-pulses",
+        "exerciseName": "Floor Tuck Compression Pulses",
+        "category": "skill",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 8,
+        "loadUnit": "bodyweight",
+        "restSeconds": 45,
+        "notes": "Floor-only compression. No hand push-off.",
+        "coachingNotes": "Lie on your back with knees bent and lower back pressed into the floor. Curl head and shoulders slightly up, then pull knees toward chest using the abs and hip flexors while keeping the movement small and controlled. Think about folding ribs toward pelvis rather than swinging the legs. Return with control and repeat. This is a beginner floor-only compression drill that avoids support loading through the elbows. If the neck gets cranky, support the head lightly without yanking it forward.",
+        "cues": [
+          "Low back stays down",
+          "Small controlled fold",
+          "Exhale into the squeeze"
+        ]
+      },
+      {
         "id": "ex-cluster-pull-ups-neutral",
         "exerciseName": "Cluster Pull-Ups (Neutral)",
         "category": "main",
@@ -3928,6 +3945,60 @@
         "restSeconds": 0,
         "notes": "Battery Saver",
         "coachingNotes": "Take 4 minutes (240 seconds) of complete rest. This is a 'Battery Saver' - designed to let your nervous system and muscles recover more fully between high-intensity blocks or after particularly taxing exercises. You can sit, walk around slowly, hydrate, check your form notes for the next exercise. This longer rest period allows heart rate to come down significantly and ATP stores to replenish. Essential for maintaining quality on subsequent exercises, especially power or strength movements. Don't rush this - the rest is part of the training."
+      },
+      {
+        "id": "ex-bench-press",
+        "exerciseName": "Bench Press",
+        "category": "main",
+        "sets": 4,
+        "repsType": "reps",
+        "repsValue": 8,
+        "loadUnit": "kg",
+        "restSeconds": 150,
+        "notes": "Straight-bar reintroduction. Treat listed load as a ceiling.",
+        "coachingNotes": "Lie on bench with eyes under the bar. Plant feet firmly, keep upper back tight, and use a moderate grip with wrists stacked over elbows. Lower the bar with control to the lower chest, pause briefly if needed, then press without bouncing. Keep the shoulder blades pulled back and down throughout. This template is meant to rebuild straight-bar familiarity after a pull-dominant cycle, so stop well before grinders and reduce load immediately if elbows or shoulders feel off.",
+        "cues": [
+          "Smooth bar path",
+          "Wrists stacked",
+          "Shoulders packed"
+        ],
+        "progressionNotes": "Add load only when all reps are crisp and elbow-friendly"
+      },
+      {
+        "id": "ex-box-squat",
+        "exerciseName": "Box Squat",
+        "category": "main",
+        "sets": 3,
+        "repsType": "reps",
+        "repsValue": 5,
+        "loadUnit": "kg",
+        "restSeconds": 150,
+        "notes": "Support squat. Stay below back squat intensity.",
+        "coachingNotes": "Set box height so you can sit back under control while keeping a neutral spine and full foot pressure. Reach hips back first, touch the box softly without collapsing, then drive up through the whole foot. Shins should stay relatively vertical. This is a controlled support lift used to rebuild barbell squatting tolerance while managing knee stress, not a max-strength movement.",
+        "cues": [
+          "Sit back, not down",
+          "Soft box contact",
+          "Drive through full foot"
+        ],
+        "progressionNotes": "Keep this lift clearly easier than the main back squat day"
+      },
+      {
+        "id": "ex-back-squat",
+        "exerciseName": "Back Squat",
+        "category": "main",
+        "sets": 4,
+        "repsType": "reps",
+        "repsValue": 6,
+        "loadUnit": "kg",
+        "restSeconds": 180,
+        "notes": "Straight-bar squat reintroduction. Treat listed load as a ceiling.",
+        "coachingNotes": "Place the bar on the upper traps, brace before each rep, and descend with tripod foot pressure while letting the knees track over the toes. Maintain a neutral spine and controlled descent, then drive up smoothly without grinding. Because this follows a long pull-focused block, the goal is to restore barbell squat rhythm and tolerance, not chase fatigue. If knees feel irritated or the bar path gets unstable, reduce load by 5kg.",
+        "cues": [
+          "Brace before descent",
+          "Tripod foot pressure",
+          "Stand up smooth"
+        ],
+        "progressionNotes": "Advance conservatively; bar speed matters more than load"
       },
       {
         "id": "ex-hang-power-clean",
@@ -5644,28 +5715,9 @@
               },
               {
                 "dayNumber": 4,
-                "name": "Core Work + Optional Compression Skill",
-                "type": "recovery",
-                "estimatedDuration": 33,
-                "description": "Base core session plus an optional 8-minute beginner compression block for elbow-safe L-sit development.",
-                "exercises": [
-                  {
-                    "$routine": "day4-core-work"
-                  },
-                  {
-                    "$ref": "ex-seated-tuck-compression-lifts",
-                    "sets": 2,
-                    "repsValue": 6,
-                    "notes": "Week 10 intro. Small lift-offs only; use high hands if needed."
-                  },
-                  {
-                    "$ref": "ex-tuck-l-sit-support-hold",
-                    "sets": 3,
-                    "repsMin": 8,
-                    "repsMax": 10,
-                    "notes": "Week 10 intro. Bent-knee support hold with toe assist allowed."
-                  }
-                ]
+                "$ref": "day4-core-work-template",
+                "name": "Core Work",
+                "description": "Short core stability session that supports trunk control without adding grip fatigue."
               },
               {
                 "dayNumber": 5,
@@ -5839,16 +5891,16 @@
                   },
                   {
                     "$ref": "ex-seated-tuck-compression-lifts",
-                    "sets": 3,
+                    "sets": 2,
                     "repsValue": 6,
-                    "notes": "Week 11 build. Aim for cleaner lift-offs before higher reps."
+                    "notes": "Week 10 intro. Small lift-offs only; use high hands if needed."
                   },
                   {
                     "$ref": "ex-tuck-l-sit-support-hold",
                     "sets": 3,
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "notes": "Week 11 build. Toe taps are fine, but keep shoulders packed down."
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "notes": "Week 10 intro. Bent-knee support hold with toe assist allowed."
                   }
                 ]
               },
@@ -6024,9 +6076,27 @@
               },
               {
                 "dayNumber": 4,
-                "$ref": "day4-core-work-template",
-                "name": "Core Work",
-                "description": "Short core stability session that supports trunk control without adding grip fatigue."
+                "name": "Core Work + Optional Compression Skill",
+                "type": "recovery",
+                "estimatedDuration": 32,
+                "description": "Base core session plus a floor-only compression block to alternate away from support work.",
+                "exercises": [
+                  {
+                    "$routine": "day4-core-work"
+                  },
+                  {
+                    "$ref": "ex-floor-tuck-compression-pulses",
+                    "sets": 3,
+                    "repsValue": 8,
+                    "notes": "Week 11 floor-only build. Smooth folds; no momentum."
+                  },
+                  {
+                    "$ref": "ex-hollow-rocks",
+                    "sets": 2,
+                    "repsValue": 20,
+                    "notes": "Week 11 floor-only pairing. Stop if low back loses contact."
+                  }
+                ]
               },
               {
                 "dayNumber": 5,
@@ -6418,17 +6488,16 @@
                     "$routine": "day4-core-work"
                   },
                   {
-                    "$ref": "ex-seated-tuck-compression-lifts",
+                    "$ref": "ex-floor-tuck-compression-pulses",
                     "sets": 3,
                     "repsValue": 8,
-                    "notes": "Block 4 restart. Lift a bit higher before adding more time on support holds."
+                    "notes": "Week 13 floor-only restart. Keep the fold small and deliberate."
                   },
                   {
-                    "$ref": "ex-tuck-l-sit-support-hold",
+                    "$ref": "ex-hollow-rocks",
                     "sets": 3,
-                    "repsMin": 12,
-                    "repsMax": 15,
-                    "notes": "Strong tuck shape. Try less toe assist if elbows stay calm."
+                    "repsValue": 20,
+                    "notes": "Week 13 floor-only pairing. Keep ribs down and rock small."
                   }
                 ]
               },
@@ -6848,17 +6917,16 @@
                     "$routine": "day4-core-work"
                   },
                   {
-                    "$ref": "ex-seated-tuck-compression-lifts",
+                    "$ref": "ex-floor-tuck-compression-pulses",
                     "sets": 3,
                     "repsValue": 10,
-                    "notes": "Peak week. Own the top position for a brief pause on every rep."
+                    "notes": "Week 15 floor-only peak. Exhale hard into each fold and own the squeeze."
                   },
                   {
-                    "$ref": "ex-tuck-l-sit-support-hold",
-                    "sets": 4,
-                    "repsMin": 12,
-                    "repsMax": 15,
-                    "notes": "Peak week. Optional brief single-leg extension only if elbow and shoulders feel perfect."
+                    "$ref": "ex-hollow-rocks",
+                    "sets": 3,
+                    "repsValue": 25,
+                    "notes": "Week 15 floor-only peak. Small rocks, no lumbar arch."
                   }
                 ]
               },
@@ -7124,27 +7192,27 @@
       },
       {
         "phaseNumber": 5,
-        "name": "BLOCK 5: PEAK & TAPER",
-        "description": "Taper block. Preserve pulling sharpness, reduce total work, and arrive fresh for the benchmark.",
+        "name": "BLOCK 5: BARBELL REINTRODUCTION",
+        "description": "Replace the old taper with productive bridge work. Reintroduce straight-bar bench and squat patterns while preserving elbow-friendly pulling.",
         "startWeek": 17,
         "endWeek": 19,
-        "focus": "deload",
+        "focus": "bridge",
         "weeks": [
           {
             "weekNumber": 17,
-            "description": "Early taper. Keep the skill, cut the noise.",
+            "description": "Conservative reintroduction week. Rebuild straight-bar rhythm without chasing fatigue.",
             "volumeLevel": "moderate",
-            "intensityLevel": "high",
+            "intensityLevel": "moderate",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Volume (Elbow Saver) - Taper",
+                "name": "Bench + Pull Bridge I",
                 "type": "strength",
-                "estimatedDuration": 65,
-                "description": "Reduced volume day that keeps pulling patterns active without forcing fatigue.",
+                "estimatedDuration": 70,
+                "description": "Reintroduce straight-bar pressing while keeping pulling elbow-friendly and submaximal.",
                 "exercises": [
                   {
-                    "$routine": "warmup-assault-bike-protocol"
+                    "$routine": "warmup-rower-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -7153,67 +7221,68 @@
                     "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
-                    "$ref": "ex-pullover-bridge",
-                    "sets": 2,
+                    "$ref": "ex-bench-press",
+                    "sets": 4,
                     "repsValue": 8,
-                    "loadMin": 20,
-                    "loadMax": 22.5,
-                    "notes": "Accessory lat support. Keep tension on the lats while minimizing elbow stress."
+                    "loadMin": 50,
+                    "loadMax": 55,
+                    "notes": "Week 17 bridge. Reintroduce the straight bar and stop well before grinders."
                   },
                   {
-                    "$ref": "ex-feet-on-floor-rows",
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "sets": 3,
+                    "repsValue": 5,
+                    "notes": "Bridge volume. Use rings or parallel handles if elbows prefer it."
+                  },
+                  {
+                    "$ref": "ex-ring-rows",
                     "sets": 2,
-                    "repsValue": 10,
-                    "supersetGroup": 1
+                    "repsValue": 12,
+                    "supersetGroup": 1,
+                    "notes": "Controlled support volume."
                   },
                   {
                     "$ref": "ex-ring-pushups",
                     "sets": 2,
                     "repsValue": 10,
-                    "supersetGroup": 1
+                    "supersetGroup": 1,
+                    "notes": "Submaximal. Shoulders calm."
                   },
                   {
                     "$routine": "finisher-day1-core"
                   },
                   {
-                    "$routine": "cooldown-day1-peak-taper"
+                    "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Taper Variation",
+                "name": "Recovery + Hip/Core Maintenance",
                 "type": "mobility",
                 "estimatedDuration": 30,
-                "description": "Mobility and trunk recovery with a clear reduction in total work.",
+                "description": "Keep the trunk and hips moving while barbell patterns return.",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-seated-hip-cars"
-                  },
-                  {
-                    "$ref": "ex-pallof-press"
-                  },
-                  {
-                    "$ref": "ex-side-plank-recovery",
-                    "repsMin": 25,
-                    "repsMax": 30
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$ref": "ex-cross-body-hammer-curls"
                   },
                   {
-                    "$routine": "day2-deep-stretch-flow"
+                    "$routine": "day2-recovery-flow"
                   }
                 ]
               },
               {
                 "dayNumber": 3,
-                "name": "Lower Body - Taper",
+                "name": "Clean + Box Squat Bridge I",
                 "type": "strength",
-                "estimatedDuration": 55,
+                "estimatedDuration": 65,
+                "description": "Rebuild barbell speed and squat tolerance with conservative loads.",
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
@@ -7223,101 +7292,92 @@
                   },
                   {
                     "$ref": "ex-hang-power-clean",
-                    "notes": "Taper: light technique doubles, RPE 5 max",
+                    "sets": 4,
+                    "repsValue": 3,
+                    "loadMin": 50,
+                    "loadMax": 55,
+                    "notes": "Bridge week. Crisp catches only."
+                  },
+                  {
+                    "$ref": "ex-clean-pull",
                     "sets": 3,
-                    "repsValue": 2,
-                    "loadMin": 35,
-                    "loadMax": 45
+                    "repsValue": 3,
+                    "loadMin": 65,
+                    "loadMax": 70,
+                    "notes": "Support the pull without fatigue chasing."
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "sets": 3,
+                    "repsValue": 5,
+                    "loadMin": 80,
+                    "loadMax": 85,
+                    "notes": "Easy support squat."
                   },
                   {
                     "$ref": "ex-rdl",
                     "sets": 3,
-                    "loadMin": 60,
-                    "loadMax": 80,
-                    "notes": "Taper volume"
-                  },
-                  {
-                    "$ref": "ex-goblet-squats",
-                    "sets": 3,
-                    "notes": "Taper"
-                  },
-                  {
-                    "$ref": "ex-back-extensions",
-                    "sets": 3,
-                    "notes": "Taper",
-                    "supersetGroup": 1
+                    "repsValue": 8,
+                    "loadMin": 65,
+                    "loadMax": 75,
+                    "notes": "Moderate hinge volume."
                   },
                   {
                     "$ref": "ex-face-pulls",
                     "sets": 2,
-                    "notes": "Taper. Shoulder health",
-                    "supersetGroup": 1
+                    "repsMin": 15,
+                    "repsMax": 20,
+                    "notes": "Shoulder balance while barbell work comes back."
                   },
                   {
                     "$routine": "cooldown-day3"
                   }
-                ],
-                "description": "Tapered lower-body session that keeps power alive without lingering soreness."
+                ]
               },
               {
                 "dayNumber": 4,
-                "name": "Core Work + Optional Compression Skill - TAPER",
+                "name": "Core Work + Compression Skill",
                 "type": "recovery",
                 "estimatedDuration": 31,
-                "description": "Easy core maintenance plus a light compression touch so the skill stays familiar during taper.",
+                "description": "Keep the core work productive; no reason to strip this down anymore.",
                 "exercises": [
                   {
                     "$routine": "day4-core-work"
                   },
                   {
-                    "$ref": "ex-seated-tuck-compression-lifts",
+                    "$ref": "ex-floor-tuck-compression-pulses",
                     "sets": 2,
-                    "repsValue": 6,
-                    "notes": "Taper. Leave plenty in reserve."
+                    "repsValue": 8,
+                    "notes": "Bridge week. Leave 1-2 reps in reserve."
                   },
                   {
-                    "$ref": "ex-tuck-l-sit-support-hold",
+                    "$ref": "ex-hollow-rocks",
                     "sets": 2,
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "notes": "Taper. Just enough support work to keep the pattern alive."
+                    "repsValue": 20,
+                    "notes": "Crisp rocks only."
                   }
                 ]
               },
               {
                 "dayNumber": 5,
-                "name": "Neutral Grip Pull Progression - Taper",
+                "name": "Back Squat + Support Bridge I",
                 "type": "strength",
-                "estimatedDuration": 60,
-                "description": "Short neutral-grip session to maintain feel and confidence.",
+                "estimatedDuration": 75,
+                "description": "Bring back the main squat pattern with supportive pressing, rowing, unilateral work, and core.",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-elbow-saver"
+                    "$routine": "warmup-rower-protocol"
                   },
                   {
-                    "$routine": "warmup-rto-ring-support"
+                    "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$ref": "ex-ring-support-holds",
-                    "exerciseName": "Ring Support Holds (slight RTO)",
-                    "sets": 2,
-                    "repsMin": 15,
-                    "repsMax": 20,
-                    "notes": "Taper maintenance. Keep the skill alive without adding fatigue."
-                  },
-                  {
-                    "$ref": "ex-neutral-grip-pull-ups",
-                    "sets": 3,
-                    "repsValue": 3,
-                    "notes": "Taper volume. Keep the groove."
-                  },
-                  {
-                    "$ref": "ex-db-pullover",
-                    "sets": 2,
+                    "$ref": "ex-back-squat",
+                    "sets": 4,
                     "repsValue": 6,
-                    "loadMin": 25,
-                    "loadMax": 27.5,
-                    "notes": "Moderate support work."
+                    "loadMin": 75,
+                    "loadMax": 80,
+                    "notes": "Week 17 bridge. Rebuild the pattern, not fatigue."
                   },
                   {
                     "$ref": "ex-close-grip-db-press-heavy",
@@ -7325,15 +7385,22 @@
                     "repsValue": 8,
                     "loadMin": 12.5,
                     "loadMax": 15,
-                    "notes": "Light maintenance work so the pressing benchmark is not cold in week 20. Per dumbbell."
+                    "notes": "Per dumbbell. Low-stress pressing support."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 2,
+                    "repsValue": 8,
+                    "notes": "Easy support rowing."
                   },
                   {
                     "$routine": "superset-bss"
                   },
                   {
                     "$ref": "ex-weighted-v-ups",
+                    "sets": 2,
                     "repsValue": 10,
-                    "notes": "Core Hard. Third movement in the BSS superset.",
+                    "notes": "Third movement in the BSS superset.",
                     "supersetGroup": 1
                   },
                   {
@@ -7345,16 +7412,235 @@
           },
           {
             "weekNumber": 18,
-            "description": "Late taper. Small exposures only, with freshness now the priority.",
+            "description": "Build the same patterns with a small load increase and no testing mindset.",
             "volumeLevel": "moderate",
             "intensityLevel": "moderate",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Volume (Elbow Saver) - Taper",
+                "name": "Bench + Pull Bridge II",
+                "type": "strength",
+                "estimatedDuration": 72,
+                "description": "Continue rebuilding straight-bar pressing while keeping vertical pulling smooth.",
+                "exercises": [
+                  {
+                    "$routine": "warmup-assault-bike-protocol"
+                  },
+                  {
+                    "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "sets": 4,
+                    "repsValue": 7,
+                    "loadMin": 52.5,
+                    "loadMax": 57.5,
+                    "notes": "Small jump only if Week 17 was clean."
+                  },
+                  {
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "sets": 3,
+                    "repsValue": 6,
+                    "notes": "All reps should still look the same."
+                  },
+                  {
+                    "$ref": "ex-ring-rows",
+                    "sets": 2,
+                    "repsValue": 10,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-ring-pushups",
+                    "sets": 2,
+                    "repsValue": 10,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-neutral-grip"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Recovery + Hip/Core Maintenance",
+                "type": "mobility",
+                "estimatedDuration": 30,
+                "description": "Same recovery structure; keep ankles, hips, and trunk ready for barbell work.",
+                "exercises": [
+                  {
+                    "$routine": "day2-ankle-focus"
+                  },
+                  {
+                    "$ref": "ex-supine-hip-circles"
+                  },
+                  {
+                    "$ref": "ex-banded-anti-rotation-press"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery",
+                    "repsMin": 25,
+                    "repsMax": 30
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
+                  },
+                  {
+                    "$routine": "day2-recovery-flow"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Clean + Box Squat Bridge II",
                 "type": "strength",
                 "estimatedDuration": 65,
-                "description": "Low-volume pulling day to stay coordinated while continuing to unload.",
+                "description": "Continue barbell speed work and support squatting with a modest increase.",
+                "exercises": [
+                  {
+                    "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "sets": 4,
+                    "repsValue": 3,
+                    "loadMin": 52.5,
+                    "loadMax": 57.5,
+                    "notes": "Still crisp; no chasing misses."
+                  },
+                  {
+                    "$ref": "ex-clean-pull",
+                    "sets": 3,
+                    "repsValue": 3,
+                    "loadMin": 67.5,
+                    "loadMax": 72.5,
+                    "notes": "Support the clean without overshooting fatigue."
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "sets": 3,
+                    "repsValue": 5,
+                    "loadMin": 82.5,
+                    "loadMax": 87.5,
+                    "notes": "Support squat still clearly submaximal."
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "sets": 3,
+                    "repsValue": 8,
+                    "loadMin": 70,
+                    "loadMax": 80,
+                    "notes": "Moderate hinge progression."
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "repsMin": 15,
+                    "repsMax": 20,
+                    "notes": "Shoulder balance."
+                  },
+                  {
+                    "$routine": "cooldown-day3"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 4,
+                "name": "Core Work + Compression Skill",
+                "type": "recovery",
+                "estimatedDuration": 32,
+                "description": "Maintain useful core and compression work rather than tapering it away.",
+                "exercises": [
+                  {
+                    "$routine": "day4-core-work"
+                  },
+                  {
+                    "$ref": "ex-seated-tuck-compression-lifts",
+                    "sets": 2,
+                    "repsValue": 6,
+                    "notes": "Clean lift-offs only."
+                  },
+                  {
+                    "$ref": "ex-tuck-l-sit-support-hold",
+                    "sets": 2,
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "notes": "Submaximal but deliberate."
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Back Squat + Support Bridge II",
+                "type": "strength",
+                "estimatedDuration": 76,
+                "description": "Continue rebuilding the back squat with supportive pressing and rowing.",
+                "exercises": [
+                  {
+                    "$routine": "warmup-rower-protocol"
+                  },
+                  {
+                    "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "sets": 4,
+                    "repsValue": 6,
+                    "loadMin": 77.5,
+                    "loadMax": 82.5,
+                    "notes": "Only move up if Week 17 recovered well."
+                  },
+                  {
+                    "$ref": "ex-close-grip-db-press-heavy",
+                    "sets": 2,
+                    "repsValue": 8,
+                    "loadMin": 15,
+                    "loadMax": 17.5,
+                    "notes": "Per dumbbell."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 3,
+                    "repsValue": 8,
+                    "notes": "Support back-off pulling."
+                  },
+                  {
+                    "$routine": "superset-bss"
+                  },
+                  {
+                    "$ref": "ex-weighted-v-ups",
+                    "sets": 2,
+                    "repsValue": 10,
+                    "notes": "Third movement in the BSS superset.",
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$routine": "cooldown-day5-pullover-press"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 19,
+            "description": "Last reintroduction week. Start turning the clean from the floor and bring the barbell work closer to the next block.",
+            "volumeLevel": "moderate",
+            "intensityLevel": "high",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Bench + Pull Bridge III",
+                "type": "strength",
+                "estimatedDuration": 74,
+                "description": "Push the straight-bar bench slightly while keeping pulling quality-first.",
                 "exercises": [
                   {
                     "$routine": "warmup-jump-rope-protocol"
@@ -7366,17 +7652,250 @@
                     "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
-                    "$ref": "ex-pullover-bridge",
-                    "sets": 2,
-                    "repsValue": 8,
-                    "loadMin": 20,
-                    "loadMax": 22.5,
-                    "notes": "Volume reduced. Engage glutes and keep range crisp."
+                    "$ref": "ex-bench-press",
+                    "sets": 4,
+                    "repsValue": 6,
+                    "loadMin": 55,
+                    "loadMax": 60,
+                    "notes": "Bridge week three. Smooth reps only."
                   },
                   {
-                    "$ref": "ex-feet-on-floor-rows",
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "sets": 4,
+                    "repsValue": 5,
+                    "notes": "Extra set only if elbows stay quiet."
+                  },
+                  {
+                    "$ref": "ex-ring-rows",
+                    "sets": 3,
+                    "repsValue": 10,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-ring-pushups",
+                    "sets": 3,
+                    "repsValue": 8,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$routine": "finisher-day1-core"
+                  },
+                  {
+                    "$routine": "cooldown-day1-neutral-grip"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Recovery + Rotation Maintenance",
+                "type": "mobility",
+                "estimatedDuration": 30,
+                "description": "Keep hips and trunk moving while the bridge load rises.",
+                "exercises": [
+                  {
+                    "$routine": "mobility-ankle-circuit"
+                  },
+                  {
+                    "$ref": "ex-supine-hip-circles"
+                  },
+                  {
+                    "$ref": "ex-band-woodchops"
+                  },
+                  {
+                    "$ref": "ex-side-plank-recovery",
+                    "repsMin": 25,
+                    "repsMax": 30
+                  },
+                  {
+                    "$ref": "ex-cross-body-hammer-curls"
+                  },
+                  {
+                    "$routine": "day2-spine-focus"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Clean + Box Squat Bridge III",
+                "type": "strength",
+                "estimatedDuration": 68,
+                "description": "Transition the clean to the floor and keep the squat support work productive.",
+                "exercises": [
+                  {
+                    "$routine": "warmup-day3"
+                  },
+                  {
+                    "$routine": "warmup-power-clean"
+                  },
+                  {
+                    "$ref": "ex-power-clean-5x2",
+                    "sets": 4,
+                    "repsValue": 3,
+                    "loadMin": 57.5,
+                    "loadMax": 60,
+                    "notes": "First bridge week from the floor. Own the start position."
+                  },
+                  {
+                    "$ref": "ex-clean-pull",
+                    "sets": 3,
+                    "repsValue": 3,
+                    "loadMin": 70,
+                    "loadMax": 75,
+                    "notes": "Support the pull without missed reps."
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "sets": 3,
+                    "repsValue": 5,
+                    "loadMin": 85,
+                    "loadMax": 90,
+                    "notes": "Still below your main squat effort."
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "sets": 3,
+                    "repsValue": 8,
+                    "loadMin": 70,
+                    "loadMax": 80,
+                    "notes": "Stable posterior-chain volume."
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "repsMin": 15,
+                    "repsMax": 20
+                  },
+                  {
+                    "$routine": "cooldown-day3"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 4,
+                "name": "Core Work + Compression Skill",
+                "type": "recovery",
+                "estimatedDuration": 33,
+                "description": "Keep compression and trunk work useful rather than turning it into a deload filler.",
+                "exercises": [
+                  {
+                    "$routine": "day4-core-work"
+                  },
+                  {
+                    "$ref": "ex-floor-tuck-compression-pulses",
+                    "sets": 3,
+                    "repsValue": 8,
+                    "notes": "Quality fold position."
+                  },
+                  {
+                    "$ref": "ex-hollow-rocks",
+                    "sets": 3,
+                    "repsValue": 20,
+                    "notes": "No lumbar arch."
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Back Squat + Support Bridge III",
+                "type": "strength",
+                "estimatedDuration": 78,
+                "description": "Bring the main squat closer to the next block while keeping assistance controlled.",
+                "exercises": [
+                  {
+                    "$routine": "warmup-rower-protocol"
+                  },
+                  {
+                    "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "sets": 4,
+                    "repsValue": 5,
+                    "loadMin": 80,
+                    "loadMax": 85,
+                    "notes": "Move only if speed stays honest."
+                  },
+                  {
+                    "$ref": "ex-close-grip-db-press-heavy",
                     "sets": 2,
                     "repsValue": 8,
+                    "loadMin": 15,
+                    "loadMax": 17.5,
+                    "notes": "Per dumbbell."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 3,
+                    "repsValue": 8,
+                    "notes": "Low-irritation support rowing."
+                  },
+                  {
+                    "$routine": "superset-bss"
+                  },
+                  {
+                    "$ref": "ex-weighted-v-ups",
+                    "sets": 2,
+                    "repsValue": 10,
+                    "notes": "Third movement in the BSS superset.",
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$routine": "cooldown-day5-pullover-press"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "phaseNumber": 6,
+        "name": "BLOCK 6: POWER CLEAN / BENCH BRIDGE",
+        "description": "Two final weeks that bridge directly into the next strength block. Keep training productive, but finish ready rather than flattened.",
+        "startWeek": 20,
+        "endWeek": 21,
+        "focus": "bridge",
+        "weeks": [
+          {
+            "weekNumber": 20,
+            "description": "Specific bridge week. The work now starts to look like the next plan.",
+            "volumeLevel": "moderate",
+            "intensityLevel": "high",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Bench + Pull Bridge IV",
+                "type": "strength",
+                "estimatedDuration": 72,
+                "description": "Pressing gets a little more specific while vertical pulling stays controlled.",
+                "exercises": [
+                  {
+                    "$routine": "warmup-rower-protocol"
+                  },
+                  {
+                    "$routine": "warmup-global-tendon-prep"
+                  },
+                  {
+                    "$routine": "warmup-straight-arm-pulldowns"
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "sets": 4,
+                    "repsValue": 5,
+                    "loadMin": 57.5,
+                    "loadMax": 62.5,
+                    "notes": "Specific bridge. This should still look smooth."
+                  },
+                  {
+                    "$ref": "ex-neutral-grip-pull-ups",
+                    "sets": 4,
+                    "repsValue": 5,
+                    "notes": "Stay one clean rep shy of breakdown."
+                  },
+                  {
+                    "$ref": "ex-ring-rows",
+                    "sets": 2,
+                    "repsValue": 10,
                     "supersetGroup": 1
                   },
                   {
@@ -7389,16 +7908,16 @@
                     "$routine": "finisher-day1-core"
                   },
                   {
-                    "$routine": "cooldown-day1-peak-taper"
+                    "$routine": "cooldown-day1-neutral-grip"
                   }
                 ]
               },
               {
                 "dayNumber": 2,
-                "name": "Recovery + Continued Taper",
+                "name": "Recovery + Anti-Rotation",
                 "type": "mobility",
                 "estimatedDuration": 28,
-                "description": "Simple recovery work to keep hips and trunk moving without adding fatigue.",
+                "description": "Keep recovery days active without draining readiness.",
                 "exercises": [
                   {
                     "$routine": "day2-ankle-focus"
@@ -7424,9 +7943,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Lower Body - Taper",
+                "name": "Clean + Box Squat Bridge IV",
                 "type": "strength",
-                "estimatedDuration": 50,
+                "estimatedDuration": 68,
+                "description": "Specific power clean and support squat work for the upcoming block.",
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
@@ -7435,49 +7955,55 @@
                     "$routine": "warmup-power-clean"
                   },
                   {
-                    "$ref": "ex-hang-power-clean",
-                    "notes": "Taper week: minimal power work",
-                    "sets": 2,
+                    "$ref": "ex-power-clean-5x2",
+                    "sets": 5,
                     "repsValue": 2,
-                    "loadMin": 30,
-                    "loadMax": 40
+                    "loadMin": 60,
+                    "loadMax": 65,
+                    "notes": "Specific bridge week. Fast bar only."
+                  },
+                  {
+                    "$ref": "ex-clean-pull",
+                    "sets": 3,
+                    "repsValue": 3,
+                    "loadMin": 72.5,
+                    "loadMax": 77.5,
+                    "notes": "Support the pull without missed positions."
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "sets": 3,
+                    "repsValue": 5,
+                    "loadMin": 87.5,
+                    "loadMax": 92.5,
+                    "notes": "Still below the upcoming main squat work."
                   },
                   {
                     "$ref": "ex-rdl",
                     "sets": 3,
-                    "loadMin": 60,
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "loadMin": 70,
                     "loadMax": 80,
-                    "notes": "Taper"
-                  },
-                  {
-                    "$ref": "ex-goblet-squats",
-                    "sets": 2,
-                    "notes": "Taper"
-                  },
-                  {
-                    "$ref": "ex-back-extensions",
-                    "sets": 2,
-                    "notes": "Taper",
-                    "supersetGroup": 1
+                    "notes": "Moderate posterior-chain support."
                   },
                   {
                     "$ref": "ex-face-pulls",
                     "sets": 2,
-                    "notes": "Taper. Shoulder health",
-                    "supersetGroup": 1
+                    "repsMin": 15,
+                    "repsMax": 20
                   },
                   {
                     "$routine": "cooldown-day3"
                   }
-                ],
-                "description": "Minimal lower-body work to preserve rhythm and stay loose."
+                ]
               },
               {
                 "dayNumber": 4,
-                "name": "Core Work + Optional Compression Skill - TAPER",
+                "name": "Core Work + Compression Skill",
                 "type": "recovery",
-                "estimatedDuration": 30,
-                "description": "Light core maintenance plus a final low-fatigue compression touch before benchmark week.",
+                "estimatedDuration": 31,
+                "description": "Keep the core work in place and avoid turning this into a passive week.",
                 "exercises": [
                   {
                     "$routine": "day4-core-work"
@@ -7485,60 +8011,52 @@
                   {
                     "$ref": "ex-seated-tuck-compression-lifts",
                     "sets": 2,
-                    "repsValue": 5,
-                    "notes": "Late taper. Tiny clean lift-offs only."
+                    "repsValue": 6,
+                    "notes": "Keep the positions sharp."
                   },
                   {
                     "$ref": "ex-tuck-l-sit-support-hold",
                     "sets": 2,
                     "repsMin": 8,
                     "repsMax": 10,
-                    "notes": "Late taper. Keep one toe down if that feels fresher."
+                    "notes": "Submaximal support."
                   }
                 ]
               },
               {
                 "dayNumber": 5,
-                "name": "Neutral Grip Pull Progression - Taper",
+                "name": "Back Squat + Support Bridge IV",
                 "type": "strength",
-                "estimatedDuration": 50,
-                "description": "Final low-fatigue pulling exposure before benchmark week.",
+                "estimatedDuration": 78,
+                "description": "Main squat pattern continues to build, but the week should still finish with reserve.",
                 "exercises": [
                   {
-                    "$routine": "warmup-day5-elbow-saver"
+                    "$routine": "warmup-rower-protocol"
                   },
                   {
-                    "$routine": "warmup-rto-ring-support"
+                    "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$ref": "ex-ring-support-holds",
-                    "exerciseName": "Ring Support Holds (slight RTO)",
-                    "sets": 2,
-                    "repsMin": 10,
-                    "repsMax": 15,
-                    "notes": "Final maintenance touch. Finish feeling fresher than you started."
-                  },
-                  {
-                    "$ref": "ex-neutral-grip-pull-ups",
-                    "sets": 2,
-                    "repsValue": 2,
-                    "notes": "Very low fatigue. Strong reps only."
-                  },
-                  {
-                    "$ref": "ex-db-pullover",
-                    "sets": 2,
+                    "$ref": "ex-back-squat",
+                    "sets": 4,
                     "repsValue": 5,
-                    "loadMin": 22.5,
-                    "loadMax": 25,
-                    "notes": "Accessory support only. Keep it crisp and well shy of fatigue."
+                    "loadMin": 82.5,
+                    "loadMax": 87.5,
+                    "notes": "Fast enough to own every rep."
                   },
                   {
                     "$ref": "ex-close-grip-db-press-heavy",
                     "sets": 2,
-                    "repsValue": 6,
-                    "loadMin": 10,
-                    "loadMax": 12.5,
-                    "notes": "Light maintenance work. Per dumbbell."
+                    "repsValue": 8,
+                    "loadMin": 17.5,
+                    "loadMax": 20,
+                    "notes": "Per dumbbell."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 3,
+                    "repsValue": 8,
+                    "notes": "Support row."
                   },
                   {
                     "$routine": "superset-bss"
@@ -7547,7 +8065,7 @@
                     "$ref": "ex-weighted-v-ups",
                     "sets": 2,
                     "repsValue": 10,
-                    "notes": "Core Hard. Third movement in the BSS superset.",
+                    "notes": "Third movement in the BSS superset.",
                     "supersetGroup": 1
                   },
                   {
@@ -7558,20 +8076,20 @@
             ]
           },
           {
-            "weekNumber": 19,
-            "description": "Freshness week. Remove fatigue and keep only the smallest useful amount of movement.",
-            "volumeLevel": "low",
-            "intensityLevel": "low",
+            "weekNumber": 21,
+            "description": "Handoff week. Keep the bridge productive, but finish ready to roll into the next block rather than cooked.",
+            "volumeLevel": "moderate",
+            "intensityLevel": "moderate",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Pull Volume (Elbow Saver) - FULL DELOAD",
-                "type": "recovery",
-                "estimatedDuration": 55,
-                "description": "Very easy volume to stay loose without creating any carryover fatigue.",
+                "name": "Bench + Pull Handoff",
+                "type": "strength",
+                "estimatedDuration": 68,
+                "description": "Final bench exposure before the next plan; enough work to stay primed, not enough to create drag.",
                 "exercises": [
                   {
-                    "$routine": "warmup-burpees-protocol"
+                    "$routine": "warmup-rower-protocol"
                   },
                   {
                     "$routine": "warmup-global-tendon-prep"
@@ -7580,356 +8098,33 @@
                     "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
-                    "$ref": "ex-pullover-bridge",
-                    "sets": 2,
-                    "repsValue": 10,
-                    "loadMin": 15,
-                    "loadMax": 17.5,
-                    "notes": "50% volume. Very low intensity"
-                  },
-                  {
-                    "$ref": "ex-feet-on-floor-rows",
-                    "sets": 2,
-                    "repsValue": 8,
-                    "supersetGroup": 1,
-                    "notes": "Deload"
-                  },
-                  {
-                    "$ref": "ex-ring-pushups",
-                    "sets": 2,
-                    "repsValue": 8,
-                    "supersetGroup": 1,
-                    "notes": "Deload"
-                  },
-                  {
-                    "$routine": "cooldown-day1-peak-taper"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 2,
-                "name": "Mobility & Recovery - FULL DELOAD",
-                "type": "mobility",
-                "estimatedDuration": 18,
-                "description": "Light mobility and arm care only.",
-                "exercises": [
-                  {
-                    "$routine": "mobility-ankle-circuit"
-                  },
-                  {
-                    "$ref": "ex-cross-body-hammer-curls"
-                  },
-                  {
-                    "$routine": "day2-recovery-flow"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 3,
-                "name": "Lower Body - FULL DELOAD",
-                "type": "recovery",
-                "estimatedDuration": 25,
-                "exercises": [
-                  {
-                    "$routine": "warmup-day3"
-                  },
-                  {
-                    "$routine": "warmup-power-clean"
-                  },
-                  {
-                    "$ref": "ex-hang-power-clean",
-                    "notes": "Final week: light singles, RPE 4 max",
-                    "sets": 2,
-                    "repsValue": 1,
-                    "loadMin": 40,
-                    "loadMax": 50
-                  },
-                  {
-                    "$routine": "cooldown-day3"
-                  }
-                ],
-                "description": "Minimal lower-body movement so the athlete feels fresh, not flat."
-              },
-              {
-                "dayNumber": 4,
-                "name": "Mobility Reset + Optional Compression Skill",
-                "type": "mobility",
-                "estimatedDuration": 18,
-                "description": "Mobility reset plus an optional very light compression primer that stays well below fatigue.",
-                "exercises": [
-                  {
-                    "$ref": "ex-seated-tuck-compression-lifts",
-                    "sets": 1,
+                    "$ref": "ex-bench-press",
+                    "sets": 4,
                     "repsValue": 5,
-                    "notes": "Week 19 primer only. Stop while everything still feels easy."
-                  },
-                  {
-                    "$ref": "ex-tuck-l-sit-support-hold",
-                    "sets": 1,
-                    "repsMin": 8,
-                    "repsMax": 8,
-                    "notes": "Week 19 primer. Toe-assisted hold is preferred here."
-                  },
-                  {
-                    "$ref": "ex-cross-body-hammer-curls"
-                  },
-                  {
-                    "$routine": "day2-recovery-flow"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 5,
-                "name": "Movement Prep - FULL DELOAD",
-                "type": "recovery",
-                "estimatedDuration": 25,
-                "description": "Very light pulling activation and cooldown only.",
-                "exercises": [
-                  {
-                    "$routine": "warmup-day5-elbow-saver"
-                  },
-                  {
-                    "$ref": "ex-scapular-pull-ups",
-                    "sets": 1,
-                    "repsValue": 6,
-                    "notes": "One easy activation set only."
+                    "loadMin": 60,
+                    "loadMax": 65,
+                    "notes": "Final bridge week. Leave 1-2 reps in reserve every set."
                   },
                   {
                     "$ref": "ex-neutral-grip-pull-ups",
-                    "sets": 1,
-                    "repsValue": 2,
-                    "notes": "Primer only. Stop far from fatigue."
-                  },
-                  {
-                    "$ref": "ex-single-arm-pulldown",
-                    "sets": 1,
-                    "repsValue": 8,
-                    "loadUnit": "band",
-                    "notes": "Light activation. Leave plenty in reserve."
-                  },
-                  {
-                    "$routine": "cooldown-day5-pullover-press"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "phaseNumber": 6,
-        "name": "BLOCK 6: TEST WEEK & POST-PROGRAM RELOAD",
-        "description": "Benchmark and reload block. Test injury-compatible pulling metrics, then transition into a low-stress reset week.",
-        "startWeek": 20,
-        "endWeek": 21,
-        "focus": "test",
-        "weeks": [
-          {
-            "weekNumber": 20,
-            "description": "Benchmark week for elbow-safe pulling progress and repeatable lat strength.",
-            "volumeLevel": "low",
-            "intensityLevel": "peak",
-            "days": [
-              {
-                "dayNumber": 1,
-                "name": "Neutral Grip Pull-Up Benchmark Day",
-                "type": "test",
-                "estimatedDuration": 28,
-                "description": "Primary benchmark for strict neutral-grip pulling capacity.",
-                "exercises": [
-                  {
-                    "$routine": "warmup-rower-protocol"
-                  },
-                  {
-                    "$ref": "ex-scapular-pull-ups",
-                    "category": "warmup",
-                    "sets": 1,
+                    "sets": 3,
                     "repsValue": 5,
-                    "restSeconds": 30,
-                    "notes": "Warm-up. Prime scapular depression."
-                  },
-                  {
-                    "$ref": "ex-neutral-grip-pull-ups",
-                    "category": "warmup",
-                    "sets": 1,
-                    "repsValue": 3,
-                    "restSeconds": 30,
-                    "notes": "Warm-up set. Smooth reps."
-                  },
-                  {
-                    "$ref": "ex-rest",
-                    "notes": "Full 4 min rest before the benchmark set"
-                  },
-                  {
-                    "$ref": "ex-neutral-grip-pull-ups",
-                    "sets": 1,
-                    "repsType": "max",
-                    "notes": "Benchmark set. Count only strict, pain-free reps with full ROM."
-                  },
-                  {
-                    "$ref": "ex-max-close-grip-db-press",
-                    "loadMin": 15,
-                    "loadMax": 15,
-                    "notes": "Secondary benchmark. Max reps @ 15kg per dumbbell"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 2,
-                "name": "Mobility & Recovery - Passive",
-                "type": "mobility",
-                "estimatedDuration": 8,
-                "description": "Light recovery to keep tissue warm and calm.",
-                "exercises": [
-                  {
-                    "$routine": "day2-ankle-focus"
-                  },
-                  {
-                    "$ref": "ex-cross-body-hammer-curls"
-                  },
-                  {
-                    "$routine": "day2-recovery-flow"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 3,
-                "name": "Lower Body - Passive Recovery",
-                "type": "mobility",
-                "estimatedDuration": 20,
-                "description": "Passive lower-body movement only to avoid interfering with the benchmark.",
-                "exercises": [
-                  {
-                    "$routine": "day2-recovery-flow"
-                  },
-                  {
-                    "$ref": "ex-hang-high-pull",
-                    "notes": "Week 20: high-pulls only, no catching impact",
-                    "sets": 2,
-                    "repsValue": 3,
-                    "loadMin": 40,
-                    "loadMax": 55
-                  },
-                  {
-                    "$routine": "cooldown-day3"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 4,
-                "name": "Mobility Reset",
-                "type": "mobility",
-                "estimatedDuration": 10,
-                "description": "Mobility only between benchmark days.",
-                "exercises": [
-                  {
-                    "$ref": "ex-cross-body-hammer-curls"
-                  },
-                  {
-                    "$routine": "day2-recovery-flow"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 5,
-                "name": "Pullover Strength Benchmark Day",
-                "type": "test",
-                "estimatedDuration": 31,
-                "description": "Repeatable pullover strength benchmark with supportive accessory work.",
-                "exercises": [
-                  {
-                    "$routine": "warmup-rower-protocol"
-                  },
-                  {
-                    "$ref": "ex-scapular-pull-ups",
-                    "notes": "Warm-up. Battery conservation"
-                  },
-                  {
-                    "$ref": "ex-db-pullover",
-                    "category": "warmup",
-                    "sets": 1,
-                    "repsValue": 5,
-                    "loadMin": 17.5,
-                    "loadMax": 17.5,
-                    "restSeconds": 30,
-                    "notes": "Warm-up @ 50%"
-                  },
-                  {
-                    "$ref": "ex-db-pullover",
-                    "category": "warmup",
-                    "sets": 1,
-                    "repsValue": 3,
-                    "loadMin": 25,
-                    "loadMax": 25,
-                    "restSeconds": 30,
-                    "notes": "Warm-up @ 75%"
-                  },
-                  {
-                    "$ref": "ex-rest",
-                    "notes": "Battery Saver. 4 min rest"
-                  },
-                  {
-                    "$ref": "ex-db-pullover",
-                    "repsValue": 6,
-                    "sets": 1,
-                    "notes": "Benchmark set. Use the heaviest load you can own for 6 strict reps."
-                  },
-                  {
-                    "$ref": "ex-5rm-weighted-push-up"
-                  },
-                  {
-                    "$ref": "ex-chest-supported-row",
-                    "sets": 2,
-                    "repsValue": 8,
-                    "notes": "Easy flush work after the benchmark."
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "weekNumber": 21,
-            "description": "Reload week. Keep training enjoyable, reduce stress, and exit the cycle feeling better than you started.",
-            "volumeLevel": "low",
-            "intensityLevel": "low",
-            "days": [
-              {
-                "dayNumber": 1,
-                "name": "Reload Week (Elbow Saver)",
-                "type": "recovery",
-                "estimatedDuration": 50,
-                "description": "Light full-body pulling work to begin the reset week.",
-                "exercises": [
-                  {
-                    "$routine": "warmup-rower-protocol"
-                  },
-                  {
-                    "$routine": "warmup-global-tendon-prep"
-                  },
-                  {
-                    "$ref": "ex-db-pullover",
-                    "sets": 2,
-                    "repsValue": 10,
-                    "loadMin": 17.5,
-                    "loadMax": 20,
-                    "notes": "Reload. Light."
+                    "notes": "Crisp reps only."
                   },
                   {
                     "$ref": "ex-ring-rows",
                     "sets": 2,
-                    "notes": "60% Vol (Reload)",
+                    "repsValue": 10,
                     "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-ring-pushups",
                     "sets": 2,
-                    "notes": "60% Vol (Reload)",
+                    "repsValue": 8,
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-hollow-rocks",
-                    "sets": 2,
-                    "notes": "60% Vol (Reload)"
+                    "$routine": "finisher-day1-core"
                   },
                   {
                     "$routine": "cooldown-day1-neutral-grip"
@@ -7940,16 +8135,14 @@
                 "dayNumber": 2,
                 "name": "Mobility & Recovery",
                 "type": "mobility",
-                "estimatedDuration": 30,
+                "estimatedDuration": 28,
+                "description": "Simple recovery so the bridge week ends with good readiness.",
                 "exercises": [
                   {
                     "$routine": "mobility-ankle-circuit"
                   },
                   {
-                    "$ref": "ex-band-internal-rotations"
-                  },
-                  {
-                    "$ref": "ex-mobility-flow"
+                    "$routine": "day2-anti-rotation-trio"
                   },
                   {
                     "$ref": "ex-cross-body-hammer-curls"
@@ -7957,14 +8150,14 @@
                   {
                     "$routine": "day2-recovery-flow"
                   }
-                ],
-                "description": "Mobility and tissue-quality work only."
+                ]
               },
               {
                 "dayNumber": 3,
-                "name": "Lower Body",
+                "name": "Clean + Box Squat Handoff",
                 "type": "strength",
-                "estimatedDuration": 55,
+                "estimatedDuration": 65,
+                "description": "Final productive clean/squat support exposure before the next block.",
                 "exercises": [
                   {
                     "$routine": "warmup-day3"
@@ -7973,58 +8166,73 @@
                     "$routine": "warmup-power-clean"
                   },
                   {
-                    "$ref": "ex-hang-high-pull",
-                    "notes": "Final week: light high-pulls, recovery emphasis",
-                    "sets": 2,
+                    "$ref": "ex-power-clean-5x2",
+                    "sets": 5,
+                    "repsValue": 2,
+                    "loadMin": 62.5,
+                    "loadMax": 67.5,
+                    "notes": "Stop before any sloppy catches."
+                  },
+                  {
+                    "$ref": "ex-clean-pull",
+                    "sets": 3,
                     "repsValue": 3,
-                    "loadMin": 40,
-                    "loadMax": 55
+                    "loadMin": 75,
+                    "loadMax": 80,
+                    "notes": "Strong but clean pulls only."
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "sets": 3,
+                    "repsValue": 4,
+                    "loadMin": 90,
+                    "loadMax": 95,
+                    "notes": "Primer level; do not turn this into a max day."
                   },
                   {
                     "$ref": "ex-rdl",
-                    "sets": 3,
-                    "repsValue": 8,
-                    "loadMin": 60,
+                    "sets": 2,
+                    "repsValue": 6,
+                    "loadMin": 70,
                     "loadMax": 80,
-                    "notes": "60% (Reload)"
-                  },
-                  {
-                    "$ref": "ex-goblet-squats",
-                    "sets": 2,
-                    "notes": "Light"
-                  },
-                  {
-                    "$ref": "ex-weighted-glute-bridge",
-                    "sets": 2,
-                    "repsValue": 10,
-                    "loadMin": 40,
-                    "loadMax": 60,
-                    "notes": "Light"
-                  },
-                  {
-                    "$ref": "ex-back-extensions",
-                    "sets": 2,
-                    "notes": "Light",
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-face-pulls",
-                    "sets": 2,
-                    "notes": "Light. Shoulder health",
-                    "supersetGroup": 1
+                    "notes": "Keep hinge volume modest this week."
                   },
                   {
                     "$routine": "cooldown-day3"
                   }
-                ],
-                "description": "Easy lower-body session to maintain rhythm without fatigue."
+                ]
+              },
+              {
+                "dayNumber": 4,
+                "name": "Core Work + Compression Skill",
+                "type": "recovery",
+                "estimatedDuration": 30,
+                "description": "Normal recovery/core work. No taper needed, just avoid unnecessary fatigue.",
+                "exercises": [
+                  {
+                    "$routine": "day4-core-work"
+                  },
+                  {
+                    "$ref": "ex-seated-tuck-compression-lifts",
+                    "sets": 2,
+                    "repsValue": 5,
+                    "notes": "Leave plenty in reserve."
+                  },
+                  {
+                    "$ref": "ex-tuck-l-sit-support-hold",
+                    "sets": 2,
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "notes": "Short crisp holds only."
+                  }
+                ]
               },
               {
                 "dayNumber": 5,
-                "name": "Pull Day B - Reload",
+                "name": "Back Squat + Support Handoff",
                 "type": "strength",
-                "estimatedDuration": 60,
-                "description": "Reload pull day that keeps neutral-grip practice and shoulder-friendly pressing.",
+                "estimatedDuration": 74,
+                "description": "Final main squat exposure before the next block. Finish feeling ready, not heavy.",
                 "exercises": [
                   {
                     "$routine": "warmup-rower-protocol"
@@ -8033,39 +8241,36 @@
                     "$routine": "warmup-global-tendon-prep"
                   },
                   {
-                    "$ref": "ex-neutral-grip-pull-ups",
-                    "sets": 2,
-                    "repsValue": 3,
-                    "notes": "Reload. Smooth reps only."
+                    "$ref": "ex-back-squat",
+                    "sets": 4,
+                    "repsValue": 4,
+                    "loadMin": 85,
+                    "loadMax": 90,
+                    "notes": "Final bridge week. Strong but controlled."
                   },
                   {
-                    "$ref": "ex-db-pullover",
-                    "sets": 2,
-                    "repsValue": 10,
-                    "loadMin": 20,
-                    "loadMax": 22.5,
-                    "notes": "Reload. Perfect reps only."
-                  },
-                  {
-                    "$ref": "ex-close-grip-db-press",
+                    "$ref": "ex-close-grip-db-press-heavy",
                     "sets": 2,
                     "repsValue": 8,
-                    "loadMin": 12.5,
-                    "loadMax": 15,
-                    "notes": "Reload. Shoulder-friendly pressing."
+                    "loadMin": 17.5,
+                    "loadMax": 20,
+                    "notes": "Per dumbbell."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 2,
+                    "repsValue": 8,
+                    "notes": "Easy flush rowing."
                   },
                   {
                     "$routine": "superset-bss"
                   },
                   {
-                    "$ref": "ex-hollow-rocks",
+                    "$ref": "ex-weighted-v-ups",
                     "sets": 2,
-                    "repsType": "time",
-                    "repsValue": 20,
-                    "repsUnit": "seconds",
-                    "notes": "Bodyweight only for tissue reset. Third movement in the BSS superset.",
-                    "supersetGroup": 1,
-                    "category": "main"
+                    "repsValue": 10,
+                    "notes": "Third movement in the BSS superset.",
+                    "supersetGroup": 1
                   },
                   {
                     "$routine": "cooldown-day5-pullover-press"

@@ -23,7 +23,8 @@
       "Pull-Up Ladders",
       "Max Reps Pull-Ups (BW)",
       "3RM Weighted Pull-Up"
-    ]
+    ],
+    "coachingNotes": "Start from dead hang with arms fully extended and shoulders engaged (don't let shoulders collapse into ears). Pull chin over bar using lat activation, not just arms. Squeeze shoulder blades together at top. Lower with control for 2-3 seconds, maintaining shoulder engagement throughout. Avoid kipping or swinging - this is strict pull-ups only."
   },
   {
     "id": "weighted_pull_ups",
@@ -46,7 +47,9 @@
       "Neutral Grip Weighted Pull-Ups",
       "3RM Weighted Pull-Up"
     ],
-    "suggestedLoad": "5-10kg"
+    "suggestedLoad": "5-10kg",
+    "coachingNotes": "Use dip belt or weighted vest. Start with small increments (2.5kg). Maintain the same form as bodyweight pull-ups - no shortening ROM or using momentum. The added weight should force stricter form, not compromise it. Focus on controlled eccentric (lowering) phase - this is where you build the most strength. Rest the full 120 seconds between sets.",
+    "progressionNotes": "Earn weight increase only when hitting top rep range for ALL sets with perfect form"
   },
   {
     "id": "cluster_pull_ups_neutral",
@@ -64,7 +67,8 @@
     ],
     "category": "pull",
     "isBodyweight": true,
-    "variations": []
+    "variations": [],
+    "coachingNotes": "Cluster training technique: Perform 3 reps, rest 15-20 seconds while hanging, then 3 more reps, rest 15-20s, then final 3 reps. This is ONE set. Take full 120s rest between cluster sets. The brief intra-set rests allow you to maintain higher quality reps throughout the set by clearing lactate without fully releasing the bar. Focus on controlled tempo and maintaining neutral grip throughout."
   },
   {
     "id": "archer_negatives",
@@ -84,7 +88,8 @@
     "isBodyweight": true,
     "variations": [
       "Max Quality Archer Negatives"
-    ]
+    ],
+    "coachingNotes": "Archer pull-up negative (eccentric only): Jump or pull to the top with chin over bar. Shift weight to one side while extending the other arm mostly straight (archer position). Lower yourself for 5-6 seconds under control on the working side. The extended arm stays relatively straight and slides along the bar. Once you reach bottom, drop off and reset - don't try to pull back up. This builds unilateral pulling strength toward one-arm pull-ups. The slow eccentric is key - fight gravity the entire way down. Do 2 reps per side per set. This is brutally hard work."
   },
   {
     "id": "scapular_pull_ups",
@@ -103,7 +108,8 @@
     "isBodyweight": true,
     "variations": [
       "Scapular Pull-Ups (3s ISO-HOLD)"
-    ]
+    ],
+    "coachingNotes": "Hang from bar with arms fully straight. Without bending elbows at all, engage (depress) your shoulder blades - pull shoulders down away from ears. You should lift slightly (maybe 1-2 inches). Hold for 1-2 seconds at top. Relax and return to passive hang. Repeat. This isolates scapular depression and teaches proper shoulder engagement for pull-ups. Your arms stay completely straight the entire time - all the movement comes from shoulder blade movement. This is crucial warm-up and can help prevent shoulder injuries. Essential for building pulling foundation."
   },
   {
     "id": "ring_rows",
@@ -124,7 +130,8 @@
     "variations": [
       "Feet-Elevated Ring Rows",
       "Feet-on-Floor Rows"
-    ]
+    ],
+    "coachingNotes": "Set rings at appropriate height - the more horizontal your body, the harder it is. Keep body in straight plank position throughout - no sagging hips or piking. Pull chest to rings, not just hands to chest. Squeeze shoulder blades together at top and pause for 1 second. Lower for 2 seconds with control. If you feel elbow pain, stop immediately - this is an early warning exercise."
   },
   {
     "id": "chest_supported_row",
@@ -144,7 +151,8 @@
     "category": "pull",
     "isBodyweight": false,
     "variations": [],
-    "suggestedLoad": "10-15kg per dumbbell"
+    "suggestedLoad": "10-15kg per dumbbell",
+    "coachingNotes": "Lie face-down on incline bench (30-45\u00b0) with chest supported. Hold dumbbells or use machine. Pull weight toward your torso, squeezing shoulder blades together. Lower for 2 seconds, pause 1 second with arms extended (feel the stretch), pull for 1 second, no pause at contraction. The chest support removes lower back strain and prevents cheating, allowing you to isolate the pulling muscles (lats, rhomboids, traps). Perfect for high-quality rowing volume without spinal fatigue. Great substitute when elbows are irritated from other pulling."
   },
   {
     "id": "dips",
@@ -165,7 +173,9 @@
     "variations": [
       "Weighted Dips",
       "Max Reps Dips"
-    ]
+    ],
+    "coachingNotes": "Start at top with arms locked, shoulders pulled down away from ears. Lower until upper arms are parallel to ground (90\u00b0 elbow bend) or slightly below if comfortable. Keep elbows at 45\u00b0 angle to body - don't let them flare wide. Push back up, maintaining shoulder depression. If you feel any shoulder pinch or impingement, stop immediately and switch to the alternative (bench dips or push-ups). This is the Dip Governor Rule in action.",
+    "progressionNotes": "Double Progression Rule applies"
   },
   {
     "id": "weighted_dips",
@@ -184,7 +194,8 @@
     "category": "push",
     "isBodyweight": false,
     "variations": [],
-    "suggestedLoad": "5-10kg"
+    "suggestedLoad": "5-10kg",
+    "coachingNotes": "Add weight using dip belt or weight vest. Same technique as bodyweight dips but with added load. Start with small increments (2.5kg). The weight should force even stricter form. Lower until upper arms parallel to ground, keep elbows at 45\u00b0. If you feel any shoulder impingement with added weight, immediately drop the weight or switch to alternative. Double Progression: master the reps before adding weight."
   },
   {
     "id": "push_ups",
@@ -244,7 +255,8 @@
     "isBodyweight": true,
     "variations": [
       "Skill: PPPU Lean"
-    ]
+    ],
+    "coachingNotes": "Pseudo Planche Push-Ups: Start in plank with hands positioned closer to hips than standard push-up (hands by lower ribs/waist). Lean forward so shoulders are well ahead of hands. Maintain scapular protraction throughout (shoulder blades pushed apart). Perform push-ups from this position. Much harder than regular push-ups due to leverage disadvantage and straight-arm loading pattern. Glutes squeezed, body perfectly straight. This builds straight-arm pushing strength that translates to advanced skills like planche. Start with small forward lean; increase over time. Stop if shoulders or elbows hurt."
   },
   {
     "id": "rdl",
@@ -265,7 +277,8 @@
     "variations": [
       "Single Leg RDL"
     ],
-    "suggestedLoad": "60-80kg"
+    "suggestedLoad": "60-80kg",
+    "coachingNotes": "Romanian Deadlift: Start standing with barbell at hips, slight knee bend. Push hips back while maintaining neutral spine - think about closing a car door with your butt. Lower bar down front of legs, keeping it close to body. Feel stretch in hamstrings. Bar should reach mid-shin to just below knee depending on flexibility. Return by driving hips forward and squeezing glutes. Keep shoulders back and chest proud throughout. This is NOT a squat - knees stay mostly locked."
   },
   {
     "id": "single_leg_rdl",
@@ -284,7 +297,8 @@
     "category": "legs",
     "isBodyweight": false,
     "variations": [],
-    "suggestedLoad": "8-12kg per hand"
+    "suggestedLoad": "8-12kg per hand",
+    "coachingNotes": "Stand on one leg holding dumbbell(s) or kettlebell. Maintain slight bend in standing knee. Hinge at hip, pushing other leg straight back as you lower weight toward ground - think teeter-totter. Keep back neutral (don't round), chest proud. Lower until you feel hamstring stretch or torso is parallel to ground. Drive through standing heel to return, squeezing glute at top. The free leg acts as counterbalance. This addresses imbalances, builds single-leg stability, and hammers hamstrings and glutes. Use wall or pole for balance initially if needed. Count 8 reps per leg."
   },
   {
     "id": "goblet_squats",
@@ -303,7 +317,8 @@
     "category": "legs",
     "isBodyweight": false,
     "variations": [],
-    "suggestedLoad": "16-24kg"
+    "suggestedLoad": "16-24kg",
+    "coachingNotes": "Hold dumbbell or kettlebell vertically at chest, elbows pointing down. Feet shoulder-width apart, toes slightly out. Squat down while keeping chest up and weight at chest. The weight will naturally keep you upright. Go as deep as mobility allows while maintaining neutral spine. Drive through full foot to stand. This is THE squat to teach proper mechanics. If you can't go deep, work on ankle mobility."
   },
   {
     "id": "bulgarian_split_squat",
@@ -344,7 +359,8 @@
     "category": "legs",
     "isBodyweight": false,
     "variations": [],
-    "suggestedLoad": "40-60kg"
+    "suggestedLoad": "40-60kg",
+    "coachingNotes": "Lie on back with knees bent, feet flat on ground. Place barbell or plate across hip crease (use pad if needed). Lower for 2 seconds, pause 1 second with glutes touching ground (not resting), drive up for 1 second by squeezing glutes - NOT by extending lower back. At top, pelvis should be neutral - avoid hyperextending lumbar spine. Squeeze glutes maximally at top and pause. This is glute activation, not a lower back exercise."
   },
   {
     "id": "back_extensions",
@@ -361,7 +377,46 @@
     ],
     "category": "legs",
     "isBodyweight": true,
-    "variations": []
+    "variations": [],
+    "coachingNotes": "Use back extension machine or GHD (Glute-Ham Developer). Secure feet/ankles, start with torso hanging down. Keep hands crossed on chest or behind head. Use lower back and glutes to extend (raise) torso until body is in straight line - don't hyperextend at top. Lower for 2 seconds with control, pause 1 second at bottom, extend for 1 second, no pause at top. This strengthens erector spinae (lower back muscles) and glutes. Essential for posterior chain strength and injury prevention. If no machine available, can do Superman holds on floor.",
+    "exerciseOptions": [
+      {
+        "optionName": "Standard",
+        "description": "Bodyweight for volume",
+        "variation": "Bodyweight",
+        "loadUnit": "bodyweight",
+        "coachingNotes": "Standard bodyweight back extension. Focus on glute squeeze at the top and maintain a controlled 2-second eccentric phase."
+      },
+      {
+        "optionName": "Weighted",
+        "description": "Strength focus",
+        "variation": "Weighted",
+        "loadUnit": "kg",
+        "loadMin": 5,
+        "loadMax": 20,
+        "notes": "Hold weight plate at chest",
+        "coachingNotes": "Hold a weight plate or dumbbell close to your chest. Maintain a proud chest throughout the movement and do not let the weight round your shoulders forward."
+      },
+      {
+        "optionName": "ISO-Hold",
+        "description": "Static endurance",
+        "variation": "Isometric",
+        "repsType": "time",
+        "repsValue": 45,
+        "repsUnit": "seconds",
+        "notes": "Hold parallel position. Squeeze glutes.",
+        "coachingNotes": "Extend until your body is in a straight line, parallel to the floor. Hold this position for 45 seconds while actively squeezing glutes and core. Avoid hyperextending your neck."
+      },
+      {
+        "optionName": "Single-Leg",
+        "description": "Unilateral stability",
+        "variation": "Single-Leg",
+        "repsPerSide": true,
+        "repsValue": 8,
+        "notes": "Lower load, focus on glute stability",
+        "coachingNotes": "Perform the movement with only one leg secured. This requires significantly more glute and hamstring stability from the working leg. Start with lower volume."
+      }
+    ]
   },
   {
     "id": "rower_leg_curls",
@@ -377,7 +432,8 @@
     ],
     "category": "legs",
     "isBodyweight": true,
-    "variations": []
+    "variations": [],
+    "coachingNotes": "Lie on back next to rower with heels on seat. Push seat away so legs are extended and lift hips off ground into bridge position. Keep hips elevated and use hamstrings to curl (pull) the seat toward you by bending knees. Extend legs back out while maintaining hip height. This is excellent hamstring isolation using the rower's sliding seat. Keep glutes engaged throughout to protect lower back."
   },
   {
     "id": "hollow_rocks",
@@ -397,7 +453,8 @@
     "variations": [
       "Weighted Hollow Rocks",
       "Weighted Hollow Hold"
-    ]
+    ],
+    "coachingNotes": "Lie on back, press lower back into ground. Lift shoulders and legs slightly off ground, arms extended overhead. Rock back and forth using core contraction - not momentum. Keep lower back pressed down throughout. If your back arches, your core isn't strong enough yet - reduce the range or hold static hollow position instead. This is ground-based to avoid grip strain and protect elbows."
   },
   {
     "id": "weighted_v_ups",
@@ -418,7 +475,8 @@
     "variations": [
       "Dragon Flags OR Weighted V-Ups"
     ],
-    "suggestedLoad": "3-5kg"
+    "suggestedLoad": "3-5kg",
+    "coachingNotes": "Lie on back holding light weight (plate or dumbbell) with arms extended straight overhead. Keep arms by ears throughout. Simultaneously lift legs and torso, reaching weight toward toes to form a V shape. Contract abs hard at the top. Lower with control back to start. The weight makes this exponentially harder than bodyweight V-ups. Keep arms straight and by ears - don't bend them or bring them forward. Start with just 3kg and master form before progressing. This is intense anterior core work. Alternative to dragon flags when elbows need rest."
   },
   {
     "id": "pallof_press",
@@ -437,7 +495,8 @@
     "category": "core",
     "isBodyweight": false,
     "variations": [],
-    "suggestedLoad": "light band"
+    "suggestedLoad": "light band",
+    "coachingNotes": "Attach band to anchor at chest height. Stand perpendicular to anchor, hold band with both hands at chest. Brace core and press hands straight out in front of you, fully extending arms. The band will try to rotate your torso - resist this with your core. Hold extended position for 1-2 seconds, then return to chest. Keep hips and shoulders square throughout - no rotation. This is anti-rotation core training. Do all reps on one side, then switch to other side."
   },
   {
     "id": "side_planks",
@@ -454,7 +513,8 @@
     ],
     "category": "core",
     "isBodyweight": true,
-    "variations": []
+    "variations": [],
+    "coachingNotes": "Lie on side, prop up on elbow with forearm perpendicular to body. Stack or stagger feet. Lift hips off ground until body forms straight line from head to feet. Hold this position while breathing normally. Keep hips stacked vertically - don't let top hip roll forward or back. Don't let hips sag. This is anti-lateral flexion training - your obliques and QL work to prevent sideways bending. Essential for core stability and injury prevention. If too hard, drop bottom knee for support (half side plank). If too easy, hold weight on top hip or lift top leg."
   },
   {
     "id": "dead_bugs",
@@ -471,7 +531,8 @@
     ],
     "category": "core",
     "isBodyweight": true,
-    "variations": []
+    "variations": [],
+    "coachingNotes": "Lie on back with arms extended straight up toward ceiling and legs lifted with knees bent 90\u00b0. Press lower back into ground - this is critical. Slowly lower opposite arm and leg (right arm overhead, left leg extending straight) while keeping lower back pressed down. Return and repeat other side. Move slowly and deliberately. If your lower back arches off the ground even slightly, you've gone too far - reduce the range. This is dead bug because the position looks like a dead bug on its back. Core anti-extension work with zero grip and elbow load - perfect for recovery days."
   },
   {
     "id": "flutter_kicks",
@@ -488,7 +549,8 @@
     ],
     "category": "core",
     "isBodyweight": true,
-    "variations": []
+    "variations": [],
+    "coachingNotes": "Lie on back with hands under glutes for lower back support. Lift both legs slightly off ground (6-12 inches). Perform small, rapid alternating kicks - up and down with straight legs. Keep lower back pressed into ground throughout. Legs should stay low - the lower they are, the harder on your core. Small, quick movements, not big kicks. Breathe steadily; don't hold breath. This is ground-based to avoid grip strain, making it perfect for recovery. Targets lower abs and hip flexors. Stop if lower back arches off ground."
   },
   {
     "id": "face_pulls",
@@ -507,7 +569,42 @@
     "category": "pull",
     "isBodyweight": false,
     "variations": [],
-    "suggestedLoad": "light-medium band"
+    "suggestedLoad": "light-medium band",
+    "coachingNotes": "Attach band to sturdy anchor at face height. Grab ends with both hands, step back to create tension. Pull band toward face, separating hands as they approach (like making double bicep pose). Focus on pulling elbows back and squeezing shoulder blades together. Think 'pull apart' not just 'pull back'. Externally rotate shoulders at end position. Pause 1 second, then return with control over 2 seconds. This exercise is crucial for shoulder health and rear delt development.",
+    "exerciseOptions": [
+      {
+        "optionName": "Banded",
+        "description": "Standard isolation with band",
+        "variation": "Band",
+        "loadUnit": "band",
+        "coachingNotes": "Standard band face pull. Focus on pulling to forehead height and separating hands. Squeeze shoulder blades at the top."
+      },
+      {
+        "optionName": "Rings",
+        "description": "Bodyweight leverage (harder)",
+        "variation": "Rings",
+        "loadUnit": "bodyweight",
+        "equipment": [
+          "rings"
+        ],
+        "notes": "Lean back further to increase difficulty. Pull chest to rings.",
+        "coachingNotes": "Set rings at chest height. Lean back with straight arms. Pull chest towards rings while keeping elbows high and out. Tougher than bands due to bodyweight leverage."
+      },
+      {
+        "optionName": "W-Raise (ER Focus)",
+        "description": "Rotator cuff and upper trap emphasis",
+        "variation": "External Rotation",
+        "notes": "Higher hands, focus on 'W' shape at peak contraction",
+        "coachingNotes": "Pull the band slightly higher and focus on rotating your thumbs back at the end of the movement. Your arms should form a 'W' shape at peak contraction. Excellent for infraspinatus and teres minor."
+      },
+      {
+        "optionName": "High-to-Low",
+        "description": "Lower trap and lat emphasis",
+        "variation": "High-to-Low",
+        "notes": "Anchor high, pull low towards sternum",
+        "coachingNotes": "Secure band above head height. Pull towards your upper chest/sternum. This emphasizes the lower trapezius and rhomboids more than standard face pulls."
+      }
+    ]
   },
   {
     "id": "band_pull_aparts",
@@ -557,7 +654,8 @@
     "category": "shoulders",
     "isBodyweight": false,
     "variations": [],
-    "suggestedLoad": "light band"
+    "suggestedLoad": "light band",
+    "coachingNotes": "Attach band at elbow height. Stand sideways to anchor, arm closest to anchor bent 90\u00b0 with elbow tucked to side. Grab band with that hand. Rotate forearm inward (toward belly) while keeping elbow pinned to side. Control the return. This targets the subscapularis and helps balance out all the external rotation from pulling exercises. Critical for shoulder health in pull-heavy programs."
   },
   {
     "id": "rower_zone_1",
@@ -863,7 +961,8 @@
     "isBodyweight": true,
     "variations": [
       "Skill: Crow Stand"
-    ]
+    ],
+    "coachingNotes": "Start in a deep squat with hands flat on ground shoulder-width apart, fingers spread wide. Place knees on outside of elbows/upper arms. Lean forward, shifting weight onto hands until feet lift off ground. Keep head neutral and gaze forward (looking down makes you fall forward). Core should be tight, back rounded. Knees rest on or near elbows. Balance point is over your hands. Start with short holds (even 1-2 seconds) and gradually build time. This builds wrist strength, core control, and body awareness needed for more advanced skills. If wrists hurt, stretch them first and don't force it."
   },
   {
     "id": "tuck_planche_hold",
@@ -901,7 +1000,8 @@
     ],
     "category": "skill",
     "isBodyweight": true,
-    "variations": []
+    "variations": [],
+    "coachingNotes": "Jump or press up into support position on rings with arms fully locked out. Keep rings close to body (neutral position - not turned out). Shoulders should be depressed (pushed down away from ears). Hold this position statically, fighting the ring instability. Core tight, legs together. The challenge is keeping rings stable while supporting full bodyweight. This builds straight-arm strength, shoulder stability, and prepares you for ring dips and advanced ring skills. Start with shorter holds if needed. If you feel anterior shoulder pain, slightly turn rings out (RTO) to reduce stress."
   },
   {
     "id": "passive_bar_hang",
@@ -2613,5 +2713,1132 @@
       "Band Front Squat"
     ],
     "suggestedLoad": "heavy band"
+  },
+  {
+    "id": "pull_up_ladders",
+    "name": "Pull-Up Ladders",
+    "coachingNotes": "Ladder protocol: Set 1 = 1 rep, Set 2 = 2 reps, Set 3 = 3 reps, Set 4 = 1 rep (repeats pattern). This allows volume accumulation without going to failure. Rest 120 seconds between all sets. Each rep should be perfect quality - if form breaks down, stop the set. This is volume work, not intensity work. Save energy for later weeks.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": [],
+    "progressionNotes": "Volume accumulation phase. Do not fail sets."
+  },
+  {
+    "id": "incline_pushups",
+    "name": "Incline Push-Ups",
+    "coachingNotes": "Choose variation based on current strength level and available equipment. All variations use 2-1-1-0 tempo: 2 seconds down, 1 second pause, 1 second up, no pause at top. Maintain rigid body position throughout - don't let hips sag or pike. Keep elbows at 45\u00b0 angle to protect shoulders. Progress by lowering surface height (incline), adding ROM (parallettes), or increasing instability (rings).",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "accessory",
+    "isBodyweight": true,
+    "variations": [],
+    "exerciseOptions": [
+      {
+        "optionName": "Incline Push-Ups",
+        "variation": "Incline",
+        "notes": "Place hands on elevated surface (bench, box, or bar set at appropriate height). Body should form straight line from head to heels - don't let hips sag or pike up. Lower for 2 seconds until chest nearly touches surface, pause 1 second, press up for 1 second, no pause at top. Keep elbows at 45\u00b0 angle to body. The elevation makes this easier than floor push-ups while maintaining perfect form. Lower the surface height as you get stronger.",
+        "description": "Hands on elevated surface (bench/box). Easier than floor push-ups."
+      },
+      {
+        "optionName": "Standard Push-Ups",
+        "variation": "Floor",
+        "notes": "Start in high plank position with hands slightly wider than shoulder-width. Body forms straight line from head to heels - engage core to prevent sagging or piking. Lower for 2 seconds until chest touches floor (or 1-2 inches above), pause 1 second, press up explosively for 1 second. Keep elbows at 45\u00b0 angle to body throughout. Maintain neutral neck position - eyes looking slightly forward. Full ROM is essential for building strength.",
+        "description": "Classic push-ups on the floor. Moderate difficulty."
+      },
+      {
+        "optionName": "Parallette Push-Ups",
+        "variation": "Parallettes",
+        "notes": "Grip parallettes (or blocks) with hands shoulder-width apart. Lower beyond the plane of your hands for increased range of motion - aim for shoulders at or below hand level. The deeper ROM creates greater chest stretch at bottom and increased muscle activation. Keep elbows at 45\u00b0 angle, pause 1 second at bottom, press up for 1 second. Control is crucial - don't bounce out of the bottom position. Requires good shoulder mobility.",
+        "description": "Increased range of motion with parallettes or blocks. Greater chest stretch.",
+        "equipment": [
+          "parallettes"
+        ]
+      },
+      {
+        "optionName": "Ring Push-Ups",
+        "variation": "Rings",
+        "notes": "Set rings at ankle to knee height. Start in plank with hollow body - pull rings slightly apart and outward to create tension. The instability forces constant micro-adjustments from shoulder stabilizers. Lower for 2 seconds until thumbs touch chest/shoulders, keeping elbows tucked ~45\u00b0. Squeeze rings together slightly at top for additional chest activation. Most challenging variation - if too unstable, raise rings higher or regress to parallettes/standard. Focus on control over speed.",
+        "description": "Rings add instability for shoulder stabilizer work. Most challenging option.",
+        "equipment": [
+          "rings"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ring_pushups",
+    "name": "Ring Push-Ups",
+    "coachingNotes": "Choose variation based on current strength level and available equipment. All variations use 2-1-1-0 tempo: 2 seconds down, 1 second pause, 1 second up, no pause at top. Maintain rigid body position throughout - don't let hips sag or pike. Keep elbows at 45\u00b0 angle to protect shoulders. Progress by lowering surface height (incline), adding ROM (parallettes), or increasing instability (rings).",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "accessory",
+    "isBodyweight": true,
+    "variations": [],
+    "exerciseOptions": [
+      {
+        "optionName": "Ring Push-Ups",
+        "variation": "Rings",
+        "notes": "Set rings at ankle to knee height. Start in plank with hollow body - pull rings slightly apart and outward to create tension. The instability forces constant micro-adjustments from shoulder stabilizers. Lower for 2 seconds until thumbs touch chest/shoulders, keeping elbows tucked ~45\u00b0. Squeeze rings together slightly at top for additional chest activation. Most challenging variation - if too unstable, raise rings higher or regress to parallettes/standard. Focus on control over speed.",
+        "description": "Rings add instability for shoulder stabilizer work. Most challenging option.",
+        "equipment": [
+          "rings"
+        ]
+      },
+      {
+        "optionName": "Parallette Push-Ups",
+        "variation": "Parallettes",
+        "notes": "Grip parallettes (or blocks) with hands shoulder-width apart. Lower beyond the plane of your hands for increased range of motion - aim for shoulders at or below hand level. The deeper ROM creates greater chest stretch at bottom and increased muscle activation. Keep elbows at 45\u00b0 angle, pause 1 second at bottom, press up for 1 second. Control is crucial - don't bounce out of the bottom position. Requires good shoulder mobility.",
+        "description": "Increased range of motion with parallettes or blocks. Greater chest stretch.",
+        "equipment": [
+          "parallettes"
+        ]
+      },
+      {
+        "optionName": "Standard Push-Ups",
+        "variation": "Floor",
+        "notes": "Start in high plank position with hands slightly wider than shoulder-width. Body forms straight line from head to heels - engage core to prevent sagging or piking. Lower for 2 seconds until chest touches floor (or 1-2 inches above), pause 1 second, press up explosively for 1 second. Keep elbows at 45\u00b0 angle to body throughout. Maintain neutral neck position - eyes looking slightly forward. Full ROM is essential for building strength.",
+        "description": "Classic push-ups on the floor. Moderate difficulty."
+      },
+      {
+        "optionName": "Incline Push-Ups",
+        "variation": "Incline",
+        "notes": "Place hands on elevated surface (bench, box, or bar set at appropriate height). Body should form straight line from head to heels - don't let hips sag or pike up. Lower for 2 seconds until chest nearly touches surface, pause 1 second, press up for 1 second, no pause at top. Keep elbows at 45\u00b0 angle to body. The elevation makes this easier than floor push-ups while maintaining perfect form. Lower the surface height as you get stronger.",
+        "description": "Hands on elevated surface (bench/box). Easier than floor push-ups."
+      }
+    ]
+  },
+  {
+    "id": "bulgarian_split_squat_left",
+    "name": "Bulgarian Split Squat (Left)",
+    "coachingNotes": "Place left foot forward, right foot elevated behind on bench (laces down). Position front foot far enough forward so shin stays vertical at bottom. Hold dumbbells at sides. Lower under control until rear knee nearly touches ground. Keep torso upright - don't lean forward. Drive through front heel to stand. Front knee should track over toes, not caving inward. This is minute 1 of the EMOM superset.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "bulgarian_split_squat_right",
+    "name": "Bulgarian Split Squat (Right)",
+    "coachingNotes": "Place right foot forward, left foot elevated behind on bench (laces down). Position front foot far enough forward so shin stays vertical at bottom. Hold dumbbells at sides. Lower under control until rear knee nearly touches ground. Keep torso upright - don't lean forward. Drive through front heel to stand. Front knee should track over toes, not caving inward. This is minute 2 of the EMOM superset.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "weighted_hollow_rocks",
+    "name": "Weighted Hollow Rocks / V-Ups",
+    "coachingNotes": "Lie on back holding light plate or dumbbell overhead with straight arms. Press lower back into ground, lift shoulders and legs off ground into hollow body position. The weight increases difficulty exponentially. If your lower back arches even slightly, you're going too heavy - drop the weight immediately. Start with just 1.25-2.5kg. Rock gently while maintaining hollow position. This is minute 3 of the EMOM superset. Stop set if form breaks.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": [],
+    "progressionNotes": "Start 1.25kg or 2.5kg. Progress to 5kg only when holding perfect form for 45s"
+  },
+  {
+    "id": "cyclist_squats",
+    "name": "Cyclist Squats (Heels-Elevated)",
+    "coachingNotes": "Place heels on small plates or wedge (1-2 inches elevation). This shifts load to quads and allows deeper squat with less ankle mobility. Can be done with dumbbells at sides or goblet style. Lower for 2 seconds, pause 1 second at bottom, drive up for 1 second. This variation is incredibly knee-friendly despite going deep - the heel elevation reduces knee stress. Perfect for those with ankle mobility limitations.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "lower_body_compound",
+    "name": "Lower Body Compound (Choose One)",
+    "coachingNotes": "Select one variation based on your equipment and experience. Barbell Back Squat: Bar on upper traps, feet shoulder-width, descend until thighs parallel or below, drive through full foot. Goblet Squat (Heavy): Weight at chest level keeps torso upright naturally, perfect for mobility work. Bulgarian Split Squat: Rear foot elevated on bench, front foot far enough forward to keep shin vertical at bottom, great for addressing imbalances. Bodyweight Squats: No load allows focus on perfect mechanics and high rep endurance. All variations require neutral spine, controlled descent, and full depth within your mobility range.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": [],
+    "exerciseOptions": [
+      {
+        "optionName": "Barbell Back Squat",
+        "description": "Classic strength builder, requires rack and barbell",
+        "loadUnit": "kg",
+        "loadMin": 60,
+        "loadMax": 100,
+        "equipment": [
+          "barbell",
+          "rack"
+        ],
+        "variation": "Barbell Back Squat",
+        "notes": "Focus on depth and control. Keep chest up."
+      },
+      {
+        "optionName": "Goblet Squat (Heavy)",
+        "description": "Easier on back, good for mobility work",
+        "sets": 4,
+        "loadUnit": "kg",
+        "loadMin": 24,
+        "loadMax": 40,
+        "equipment": [
+          "dumbbell",
+          "kettlebell"
+        ],
+        "variation": "Goblet Squat",
+        "notes": "Hold weight close to chest. Focus on upright torso."
+      },
+      {
+        "optionName": "Bulgarian Split Squat",
+        "description": "Unilateral focus, improves balance and addresses imbalances",
+        "sets": 3,
+        "repsPerSide": true,
+        "loadUnit": "kg",
+        "loadMin": 12,
+        "loadMax": 24,
+        "loadPerHand": true,
+        "equipment": [
+          "dumbbells",
+          "bench"
+        ],
+        "variation": "Bulgarian Split Squat",
+        "notes": "Rear foot elevated. Control the descent. Each side separately."
+      },
+      {
+        "optionName": "Bodyweight Squats (High Volume)",
+        "description": "No equipment needed, focus on endurance and form",
+        "sets": 5,
+        "repsMin": 15,
+        "repsMax": 20,
+        "loadUnit": "bodyweight",
+        "restSeconds": 90,
+        "equipment": [],
+        "variation": "Bodyweight Squat",
+        "notes": "Perfect for travel or home workouts. Focus on tempo."
+      }
+    ]
+  },
+  {
+    "id": "90_90_transitions",
+    "name": "90/90 Transitions",
+    "coachingNotes": "Sit on floor with one leg in front bent 90\u00b0, other leg to side also bent 90\u00b0. Both knees and both feet should touch ground. Rotate entire body to switch leg positions - what was in front goes to side, what was on side comes to front. Move with control, don't let front knee collapse inward. If you can't get both knees down, that's your hip mobility baseline - work within your range. This exercise directly addresses hip internal and external rotation.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "standing_hip_cars",
+    "name": "Standing Hip CARs",
+    "coachingNotes": "Stand on one leg (use wall for balance if needed). Lift other knee up and out to side, creating largest circle possible with your hip joint. Move SLOWLY with control - this isn't about speed or momentum. Complete full circle in one direction, then reverse. You're exploring and expanding your hip's full range of motion. If you find sticky spots or limitations, that's valuable information about your hip mobility.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "open_book_rotations",
+    "name": "Open-Book Rotations",
+    "coachingNotes": "Lie on side with knees bent and stacked, arms extended in front. Keep bottom arm on ground and knees stacked throughout. Rotate top arm up and over, trying to touch ground behind you. Follow your hand with your eyes. This mobilizes thoracic spine rotation - critical for shoulder health and pulling mechanics. Don't force the rotation; breathe into the stretch and let mobility improve over time.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "side_plank_recovery",
+    "name": "Side Plank (Recovery)",
+    "coachingNotes": "Lie on side, prop up on elbow with forearm flat. Stack feet or stagger them. Lift hips off ground until body forms straight line. Hold this position while breathing normally. If full side plank is too hard, drop bottom knee to ground (half side plank). Focus on maintaining straight line from shoulder to knee/feet - don't let hips sag. This is anti-lateral flexion core training.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "half_side_plank",
+    "name": "Half Side Plank",
+    "coachingNotes": "Lie on side, prop up on elbow with forearm flat and perpendicular to body. Drop bottom knee to ground for support (this makes it easier than full side plank). Top leg extends straight, foot stacked on bottom. Lift hips until body forms straight line from head to knee. Focus on stacking hips vertically - don't let top hip roll forward or back. Breathe normally throughout the hold. This builds lateral core stability with less intensity than full side plank, making it ideal for beginners or when fatigued.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "standing_calf_iso",
+    "name": "Standing Calf ISO Hold (Mid-Range)",
+    "coachingNotes": "Stand on one leg near a wall for light balance support. Rise up onto the ball of your foot, lifting heel about halfway to maximum height (mid-range position, not fully extended). Hold this position isometrically for the prescribed time. Focus on creating stiffness and stability in the ankle and Achilles tendon - don't bounce or shift. This builds tendon resilience and calf endurance needed for explosive movements. Keep supporting knee slightly bent, not locked. Breathe normally; don't hold breath.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "cossack_squat_shallow",
+    "name": "Cossack Squat (Shallow Range)",
+    "coachingNotes": "Start with feet wider than shoulder-width. Shift weight to one leg, bending that knee while keeping other leg straight. Descend only to comfortable depth (shallow range) - don't force deep squat. Straight leg stays flat on ground with toes pointed up. Keep chest up and weight in heel of bent leg. This develops lateral hip mobility and single-leg strength. Progress depth gradually over weeks.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "marching_dead_bug",
+    "name": "Marching Dead Bug",
+    "coachingNotes": "Lie on back with lower back pressed into ground. Lift legs with knees bent 90\u00b0, arms extended straight up. Slowly lower one leg until heel nearly touches ground while opposite arm reaches overhead. Return and repeat other side. The key is maintaining lower back contact with ground throughout - if back arches, reduce the range. This is anti-extension core work with low grip/elbow strain.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "seated_hip_cars",
+    "name": "Seated Hip CARs",
+    "coachingNotes": "Sit on ground with one leg extended straight, other leg bent with foot flat on ground. Lift bent knee up toward chest, then rotate it out to the side (external rotation), then circle it back and around (internal rotation) to complete the circle. Move slowly and deliberately through your full available range of motion. The goal is controlled articular rotation (CAR) to explore and expand hip mobility in all directions. If certain ranges feel tight or sticky, spend extra time there. This is assessment and training combined.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "supine_hip_circles",
+    "name": "Supine Hip Circles",
+    "coachingNotes": "Lie on your back with one leg extended on the ground and other knee bent, foot off floor. Keep lower back pressed into ground throughout. Draw large circles with your bent knee - up toward chest, out to side, down toward extended position, and back around. Use your hip joint as the pivot point, moving the entire thigh. Complete half the reps circling one direction, then reverse. Keep the movement slow and controlled. If you find restricted ranges or clicking, work gently in those areas. This improves hip mobility in a safe, non-weight-bearing position.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "quadruped_hip_circles",
+    "name": "Quadruped Hip Circles",
+    "coachingNotes": "Start on hands and knees in quadruped position with neutral spine. Lift one knee slightly off the ground. Draw large circles with that knee - forward, out to side, back, and around. Keep your core braced to prevent lower back movement. Your hip should do all the work while torso stays stable. Complete half the reps in one direction, then reverse. This challenges hip mobility while requiring core stability, making it more functional than supine variations. Breathe normally throughout. If you feel pinching or clicking in the hip, reduce the circle size.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "fire_hydrants",
+    "name": "Fire Hydrants",
+    "coachingNotes": "Start on hands and knees with neutral spine, core engaged. Keep one knee bent at 90\u00b0 throughout the movement. Lift that knee out to the side (abduction) as high as comfortable while keeping hips level - don't let your torso rotate or tilt. The lifting leg should move like a dog at a fire hydrant. Pause briefly at the top, then lower with control. Focus on using your glute medius (side of hip) to lift, not momentum. This exercise is crucial for hip stability and preventing knee injuries. If you feel it in your lower back, reduce the range and focus on keeping hips level.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "ankle_rotations",
+    "name": "Ankle Rotations",
+    "coachingNotes": "Sit in a chair or stand on one leg (use wall for balance if needed). Lift the working foot off the ground. Draw large circles with your toes, moving only at the ankle joint - think of your big toe drawing a circle on an imaginary wall. Make the circles as large as your ankle mobility allows. Complete half the reps circling clockwise, then reverse to counterclockwise. Keep the movement slow and controlled; don't rush. This improves ankle mobility in all planes of motion (dorsiflexion, plantarflexion, inversion, eversion). Essential for injury prevention in running, jumping, and squatting movements.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "standing_ankle_pumps",
+    "name": "Standing Ankle Pumps",
+    "coachingNotes": "Stand with feet hip-width apart, use wall for light balance support if needed. Alternate between two positions: 1) Rise up onto balls of feet (plantarflexion - heel raise), lifting heels as high as possible, then 2) Rock back onto heels, lifting toes toward shins (dorsiflexion - toe raise). Move smoothly between positions without pausing. This dynamic movement pumps blood through the ankle joint, increases range of motion, and prepares ankles for loaded movements. Essential for squat depth and jump/land mechanics. Count each complete cycle as one rep.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "ankle_rocks",
+    "name": "Ankle Rocks (Front-to-Back)",
+    "coachingNotes": "Stand with feet together or hip-width apart. Rock forward onto your toes (balls of feet), lifting heels as high as possible. Then rock backward onto your heels, lifting toes off the ground. Create a smooth, continuous rocking motion - don't pause between positions. Use minimal arm movement for balance; the challenge is controlling the rock with ankle strength and stability. This develops ankle strength in both plantarflexion and dorsiflexion while improving balance. Count each complete forward-and-back cycle as one rep. Great warm-up for any lower body work or running.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "banded_anti_rotation_press",
+    "name": "Banded Anti-Rotation Press",
+    "coachingNotes": "Attach band to anchor at chest height. Stand perpendicular to anchor, holding band with both hands at chest. Band should have tension even at starting position. Brace your core, then press hands straight overhead while the band tries to rotate your torso toward the anchor. Resist this rotational force - keep hips and shoulders square to the front. Press to full overhead extension, pause 1 second, then return to chest. The anti-rotation component is the key - don't let your body twist. This builds core stability that translates to overhead pressing and rotational sports. Much harder than standard Pallof press due to longer lever arm.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "band_woodchops",
+    "name": "Band Woodchops",
+    "coachingNotes": "Attach band to anchor at head height. Stand sideways to anchor with feet shoulder-width apart. Grab band with both hands, starting with hands high near anchor side. Pull band diagonally across your body down toward opposite hip, rotating your torso and pivoting on back foot. The movement should feel like chopping wood. Keep arms relatively straight; power comes from core rotation, not arm strength. Control the return slowly against band tension. This trains rotational power used in throwing, swinging, and explosive movements. Can also be done low-to-high by anchoring band near ground and pulling upward across body.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "copenhagen_plank",
+    "name": "Copenhagen Plank",
+    "coachingNotes": "Set up in side plank position with top leg's foot or lower leg resting on a bench (knee can be bent or straight - bent is easier). Bottom leg hangs in the air or stacks on top; body supported by forearm and top leg only. This creates intense adductor (inner thigh) activation as you must squeeze to keep hips lifted. Keep body in straight line from head to feet, don't let hips sag. This exercise has been shown in research to prevent groin injuries in athletes. Start with shorter holds (10-15s) as adductors fatigue quickly. To regress, place bottom leg on ground for support.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "side_lying_leg_lifts",
+    "name": "Side-Lying Leg Lifts",
+    "coachingNotes": "Lie on your side with legs stacked, bottom arm extended overhead or bent for head support. Keep hips stacked vertically (don't roll forward or back). Lift top leg straight up toward ceiling, leading with heel, to about 45\u00b0. Keep the leg straight and toes pointing forward (not up). Control the descent - don't let it drop. This isolates the hip abductors (glute medius primarily), which are crucial for hip stability and preventing knee valgus (knees caving in) during squats and running. If too easy, add ankle weight or resistance band. Focus on quality over quantity.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "frog_stretch",
+    "name": "Frog Stretch",
+    "coachingNotes": "Start on hands and knees. Slide your knees wide apart (as wide as comfortable), keeping feet wider than knees if possible with feet turned out. Keep your spine neutral (don't let lower back sag). Slowly sink your hips back toward your heels and down toward the ground, feeling a deep stretch in the inner thighs and groin (adductors). You can rock gently forward and back to explore the stretch. Breathe deeply and relax into it - don't force. This is one of the best stretches for hip mobility and adductor flexibility. Use padding under knees if needed. Exit slowly by bringing knees together.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "pigeon_stretch",
+    "name": "Pigeon Stretch",
+    "coachingNotes": "From hands and knees, bring one knee forward and place it behind the same-side wrist. Angle your shin more horizontal for deeper stretch (beginners can keep shin more vertical). Extend the back leg straight behind you. Square your hips to face forward - don't let back hip rotate open. Keep chest upright or fold forward to deepen the stretch. You should feel this in the front leg's glute and back leg's hip flexor. This is THE stretch for hip external rotation and is beloved by runners and cyclists. If knee feels uncomfortable, adjust shin angle. Breathe deeply and hold; muscles will release over time.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "bretzel_stretch",
+    "name": "Bretzel Stretch",
+    "coachingNotes": "Lie on your side. Bend bottom leg back and grab that ankle/foot with your top hand (hip flexor stretch for bottom leg). Bend top leg forward at hip and knee, grab that knee with bottom hand. Now rotate upper body backward (away from top leg), trying to get top shoulder toward ground. You'll feel a stretch in the bottom leg hip flexor, top leg hip, and thoracic spine all at once. This is called the Bretzel because you're twisted like a pretzel. Breathe deeply and relax into the stretch. One of the most comprehensive stretches for athletes. Named after physical therapist Gray Cook.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "thread_the_needle",
+    "name": "Thread the Needle",
+    "coachingNotes": "Start on hands and knees in quadruped position. Lift one arm and thread it underneath your body, reaching toward the opposite side. Your shoulder and temple (side of head) should touch or approach the ground. Your hips should stay stacked - don't let them rotate. Feel the stretch in your upper back and shoulders. Pause briefly, then unthread and return. Repeat for reps, then switch sides. This is excellent for thoracic spine rotation mobility, which is often limited in people with desk jobs. The threading motion mimics the rotational pattern needed for many sports and daily activities.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "cat_camel",
+    "name": "Cat-Camel",
+    "coachingNotes": "Start on hands and knees with neutral spine. For Cat: Round your spine upward (like a scared cat), tucking tailbone under, pulling belly button to spine, and dropping head. Feel the stretch through your entire back. For Camel: Reverse the motion - let belly drop toward floor, arch lower back, lift tailbone up, and lift head to look forward. Move slowly and smoothly, taking 3-5 seconds for each position. The goal is segmental spinal movement - each vertebra should move. This is THE exercise for spinal health, especially for lower back pain. Breathe in during Camel; breathe out during Cat.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "mobility_flow",
+    "name": "Mobility Flow",
+    "coachingNotes": "Select one of the flow sequences based on your current mobility needs and time available. Each flow is designed to address specific movement patterns and areas of restriction. Move continuously at a comfortable pace, linking your breath to the movements (generally inhale on extensions, exhale on flexions). Don't rush - quality movement is more important than speed. Flows 1-4 are dynamic full-body sequences. Flow 5 is traditional yoga-based. Flow 6 targets upper body. Flow 7 focuses on hips. Flow 8 is recovery-oriented. Aim for 5-10 minutes total. Listen to your body and spend extra time in positions that feel tight or restricted. This is active recovery that maintains mobility without taxing your nervous system.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "mobility",
+    "isBodyweight": true,
+    "variations": [],
+    "exerciseOptions": [
+      {
+        "optionName": "Flow 1 - Squat/Lunge",
+        "description": "Dynamic squat and lunge sequence with push-up and downward dog transitions",
+        "flowMovements": [
+          "Deep Squat",
+          "Spiderman Lunge",
+          "Downward Dog",
+          "Plank",
+          "Slow Push-up",
+          "Upward Dog",
+          "Downward Dog",
+          "Deep Squat",
+          "Stand"
+        ]
+      },
+      {
+        "optionName": "Flow 2 - Beast to Plank",
+        "description": "Quadruped-based flow with beast position and spinal wave movements",
+        "flowMovements": [
+          "Quadruped (all fours)",
+          "Beast (lift knees 1 inch)",
+          "Step back to Plank",
+          "Pike to Downward Dog",
+          "Spinal Wave to Upward Dog",
+          "Push back to Plank",
+          "Return to Beast",
+          "Knees down"
+        ]
+      },
+      {
+        "optionName": "Flow 3 - Cossack/Lunge",
+        "description": "Lateral movement flow with Cossack squats and rotational transitions",
+        "flowMovements": [
+          "Wide Stance",
+          "Cossack Squat (Left)",
+          "Rotate to Low Lunge (Left)",
+          "Hands down, step to Plank",
+          "Pike to Downward Dog",
+          "Step forward to Low Lunge (Right)",
+          "Rotate to Cossack Squat (Right)",
+          "Return to center"
+        ]
+      },
+      {
+        "optionName": "Flow 4 - Spinal Wave",
+        "description": "Vertebra-by-vertebra spinal mobility with segmental movements",
+        "flowMovements": [
+          "Standing",
+          "Roll down (one vertebra at a time)",
+          "Walk hands to Plank",
+          "Segmental Cat-Cows (2-3 reps)",
+          "Push to Downward Dog",
+          "Spinal Waves (3-5 reps)",
+          "Walk hands back to feet",
+          "Roll up (one vertebra at a time)"
+        ]
+      },
+      {
+        "optionName": "Flow 5 - Yoga Flow",
+        "description": "Flowing yoga sequence with sun salutations and standing poses for mobility and mindfulness.",
+        "flowMovements": [
+          "Sun salutation A - 3 rounds",
+          "Downward dog to upward dog - 5 reps",
+          "Warrior I to Warrior II flow - 3 each side",
+          "Triangle pose holds - 30 sec each side",
+          "Forward fold with hamstring stretch - 1 min"
+        ]
+      },
+      {
+        "optionName": "Flow 6 - Thoracic & Shoulder",
+        "description": "Upper body focused mobility with thread the needle and scapular work",
+        "flowMovements": [
+          "Quadruped",
+          "Cat-Cow (5 reps)",
+          "Thread the Needle (5 each side)",
+          "Sit back on heels",
+          "Scapular Push-ups (10 reps)",
+          "Prone Snow Angels (10 reps)",
+          "Child's Pose (30s)"
+        ]
+      },
+      {
+        "optionName": "Flow 7 - Hip Opener",
+        "description": "Comprehensive hip mobility sequence with squat and 90/90 stretches",
+        "flowMovements": [
+          "Deep Squat Hold (1 min)",
+          "Spiderman Lunge (10 alternating)",
+          "Cossack Squat (10 alternating)",
+          "90/90 Stretch (30s each side)",
+          "Frog Stretch (1 min)",
+          "Pigeon Stretch (30s each side)"
+        ]
+      },
+      {
+        "optionName": "Flow 8 - Spinal Decompression",
+        "description": "Recovery-focused flow with hanging and gentle stretches for spine health",
+        "flowMovements": [
+          "Dead Hang (1 min or 3x20s)",
+          "Segmental Cat-Cow (10 reps)",
+          "Seal Stretch (1 min)",
+          "Supine Twist (1 min each side)",
+          "Child's Pose (1 min)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hspu_volume",
+    "name": "Skill: HSPU Volume",
+    "coachingNotes": "Kick up into handstand against wall with hands about 6 inches from wall. Lower yourself under control until head lightly touches ground or pad. Keep elbows at 45\u00b0 angle (not flared wide). Press back up to full extension. Core should be tight throughout. This is Handstand Push-Up (HSPU) volume work - the goal is practicing the movement pattern, not max effort. If you feel any shoulder impingement or pinching, stop immediately. Can be scaled with extra abmats under head to reduce range of motion. This builds overhead pressing strength and handstand control.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "skill",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "pull_up_density",
+    "name": "Pull-Up Density",
+    "coachingNotes": "Density training means completing a target number of reps (30) within a time limit (10 minutes) using whatever rep scheme works. You might do 5 sets of 6, 10 sets of 3, or 15 sets of 2 - whatever allows you to accumulate 30 quality reps. Rest as needed between sets, but the clock is always running. The goal is total volume within time, not max effort sets. This builds work capacity and technique under fatigue. Track your rest times; as you progress, you should need less rest to complete the reps. Every rep must be high quality - no kipping or sloppy form.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "feet_elevated_ring_rows",
+    "name": "Feet-Elevated Ring Rows",
+    "coachingNotes": "Set rings at appropriate height and elevate feet on bench or box, making your body more horizontal (harder than standard ring rows). Start in plank position hanging from rings. Keep entire body in straight line - no sagging hips or piking. Pull chest to rings, squeezing shoulder blades together at top. Pause 1 second, then lower for 2 seconds with control. The elevated feet increase loading on your upper body. If you feel any elbow pain, stop immediately - this is an early warning exercise. Can regress by lowering feet or progressing by adding weight vest.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "accessory",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "tuck_planche",
+    "name": "Skill: Tuck Planche Hold",
+    "coachingNotes": "Start on parallettes or low bars. Lean forward with straight arms, protract (push) shoulder blades forward, and lift knees to chest. Your weight should be balanced on your hands with feet off ground. This is an advanced skill requiring significant shoulder and core strength. Scapular protraction is key - don't let shoulder blades pinch together. Start with very short holds (6-8 seconds) and gradually increase. This builds toward full planche.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "skill",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "pppu_lean",
+    "name": "Skill: PPPU Lean",
+    "coachingNotes": "Start in plank position. Walk feet back and lean forward so hands are farther back (closer to waist than shoulders). This shifts more weight onto your hands and shoulders. Maintain scapular protraction (push shoulder blades apart). Perform push-ups from this leaned position. The farther forward you lean, the harder it gets. This is Pseudo Planche Push-Up (PPPU) position - it mimics the loading pattern of planche training. Start with small lean and gradually increase over weeks/months. Glutes should be squeezed, body straight. This is advanced pushing strength work.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "skill",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "close_grip_db_press",
+    "name": "Close Grip Dumbbell Press",
+    "coachingNotes": "Lie on a flat bench with a dumbbell in each hand. Keep elbows tucked at 30-45\u00b0 angle to torso (close grip position). Lower dumbbells to mid-chest level with controlled eccentric. Press up and slightly inward without locking elbows. Maintain shoulder blades retracted and depressed throughout. Focus on tricep and inner chest engagement. Double Progression: master the reps before adding weight.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "seated_tuck_compression_lifts",
+    "name": "Seated Tuck Compression Lifts",
+    "coachingNotes": "Sit on the floor or a low box in a bent-knee tuck with hands beside hips on parallettes, blocks, bench edges, or the floor. Press the hands down hard, keep shoulders depressed, and try to float the feet or heels just off the ground for a brief moment. Think about pulling thighs toward ribs instead of swinging the legs. Start with tiny lift-offs and bent knees. This builds beginner compression strength toward L-sit patterns with relatively low elbow stress because the efforts are short and controlled. If elbows or wrists get irritated, elevate the hands higher and shorten the range.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "skill",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "tuck_l_sit_support_hold",
+    "name": "Tuck L-Sit Support Hold",
+    "coachingNotes": "Support yourself on parallettes, yoga blocks, sturdy bench edges, or low bars with arms straight and shoulders pushed down away from ears. Start in a tuck with knees close to chest and feet hovering if possible. The goal is to create a strong support position plus hip compression, not a perfect full L-sit yet. Use bent knees, toe taps, or one foot lightly on the floor if needed. If elbows feel achy, shorten the hold, elevate the hands more, or keep one toe down. Quality support and compression matter more than duration.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "skill",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "floor_tuck_compression_pulses",
+    "name": "Floor Tuck Compression Pulses",
+    "coachingNotes": "Lie on your back with knees bent and lower back pressed into the floor. Curl head and shoulders slightly up, then pull knees toward chest using the abs and hip flexors while keeping the movement small and controlled. Think about folding ribs toward pelvis rather than swinging the legs. Return with control and repeat. This is a beginner floor-only compression drill that avoids support loading through the elbows. If the neck gets cranky, support the head lightly without yanking it forward.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "skill",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "neutral_grip_weighted_pull_ups",
+    "name": "Neutral Grip Weighted Pull-Ups",
+    "coachingNotes": "Use parallel handles or rings for neutral grip (palms facing each other). Attach weight using dip belt or vest. This grip is easier on elbows than overhand/underhand and allows heavier loads safely. Same pull-up technique: start from dead hang, pull chin over hands, squeeze at top, lower with control. The neutral grip emphasizes biceps and brachialis while still hitting lats hard. Only add weight when you can hit the target reps with perfect form. This is the safest weighted pull-up variation for long-term elbow health.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": [],
+    "progressionNotes": "Earn weight increase only when hitting top rep range for ALL sets with perfect form"
+  },
+  {
+    "id": "weighted_hollow_hold",
+    "name": "Weighted Hollow Hold",
+    "coachingNotes": "Lie on back holding light weight (plate or dumbbell) with arms extended straight overhead. Press lower back into ground, lift shoulders and legs slightly off ground into hollow body position. The weight overhead makes this exponentially harder than unweighted hollow holds. If your lower back arches even slightly, you've gone too heavy or lifted limbs too high - adjust immediately. Start with only 1.25-2.5kg. Hold for prescribed time while maintaining perfect hollow position. Breathe shallowly; don't hold breath. This builds extreme anterior core strength. Only add weight when you can hold 45s with perfect form.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": [],
+    "progressionNotes": "Start 1.25/2.5kg. Progress to 5kg only when perfect form for 45s"
+  },
+  {
+    "id": "feet_on_floor_rows",
+    "name": "Feet-on-Floor Rows",
+    "coachingNotes": "Set rings or TRX at appropriate height. Unlike feet-elevated rows, keep feet flat on ground for easier variation and less joint stress. Body at ~45\u00b0 angle, not horizontal. Pull chest to handles, squeezing shoulder blades together. Extra slow eccentric (3 seconds) builds strength and control while keeping tension time under manageable. Pause 1 second at bottom extension, pull for 1 second, no pause at contraction. The reduced loading angle and slow tempo make this ideal for high-rep work or when elbows/shoulders need a break from heavier pulling.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "accessory",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "pull_ups_amrap_minus",
+    "name": "Pull-ups AMRAP -2",
+    "coachingNotes": "AMRAP -2 means 'As Many Reps As Possible minus 2' - stop the set 2 reps BEFORE you would fail. This is not max-out training; it's volume work with a built-in safety buffer. Each rep must be strict with perfect form. If you could do 10 reps max, stop at 8. Rest full 120 seconds between sets. The technical cap of 30 total reps means even if you could do more across all sets, stop at 30 total to manage volume and fatigue. This approach builds volume without beating up your CNS and joints. Quality over ego.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "weighted_dips_heavy",
+    "name": "Weighted Dips",
+    "coachingNotes": "Heavy weighted dips with 5-rep sets. Use dip belt or weight vest. Same technique as lighter weighted dips but now with significant load. Every rep must be strict - lower until upper arms parallel to ground, keep elbows at 45\u00b0, press back up with control. The Dip Governor Rule is critical here: if you feel ANY shoulder impingement or pinching with this heavy load, immediately stop and switch to alternative (straight bar dips or weighted bench dips). Heavy dips build serious pushing strength but can be hard on shoulders. Quality and pain-free movement is non-negotiable.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "close_grip_db_press_heavy",
+    "name": "Close Grip Dumbbell Press",
+    "coachingNotes": "Heavy close grip dumbbell press with 5-rep sets. Lie on flat bench holding heavier dumbbells. Keep elbows tucked at 30-45\u00b0 angle (close grip). Lower with control to mid-chest, press up powerfully without locking out elbows. Maintain retracted shoulder blades throughout. This is the primary alternative to weighted dips for those with shoulder issues. The close grip emphasizes triceps and inner chest while being easier on shoulders than parallel bar dips. Focus on controlled eccentrics and explosive concentrics. Load listed is per dumbbell.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "max_close_grip_db_press",
+    "name": "Max Reps Close Grip DB Press",
+    "coachingNotes": "This is a MAX REP TEST to assess pushing endurance. Use moderate weight (around 14kg per dumbbell - adjust based on your strength). After proper warm-up, perform one all-out set to technical failure while maintaining perfect form. Close grip position: elbows tucked, controlled tempo on each rep. Stop when form breaks down - no cheating reps. This tests your muscular endurance in the horizontal pushing pattern. Track the number and use it to gauge progress over training blocks. Rest at least 2 minutes before next exercise.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "dragon_flags_negatives",
+    "name": "Dragon Flags (Negatives)",
+    "coachingNotes": "Dragon flag negatives (eccentric only): Lie on bench and grab bench behind head. Pull knees to chest then extend body straight up so only upper back/shoulders touch bench. This is the top position. Lower your entire body as one rigid unit (like a flag) for 5 seconds under control. Bend knees if needed. The core must stay tight - don't break at hips. Once you reach bottom or lose control, reset to top. Named after Bruce Lee who popularized this exercise. This is EXTREMELY advanced core work with significant grip and shoulder strain. Only do this if your elbows and shoulders feel 100%. Otherwise substitute Weighted V-Ups.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "core",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "max_pull_ups",
+    "name": "Max Reps Pull-Ups (BW)",
+    "coachingNotes": "This is a MAX REP TEST to assess your pulling strength endurance. After proper warm-up, perform one all-out set of strict bodyweight pull-ups to technical failure. Start from dead hang, pull chin over bar, lower to dead hang - that's one rep. Stop when you can no longer perform a full rep with perfect form - no kipping, no short reps, no swinging. Track the number as a benchmark. This will be used to program future training volumes and monitor progress. Rest at least 2 minutes before the next exercise. Go hard but maintain strict form throughout.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "db_pullover",
+    "name": "Dumbbell Pullover",
+    "coachingNotes": "Lie on bench (upper back across bench or full back supported). Hold one dumbbell with both hands over chest. Lower weight behind head, keeping elbows slightly bent but fixed in position (don't bend and extend like a tricep extension). Feel deep stretch in lats. Pull back over to chest using lats. This isolates lats without heavy elbow flexion loads. Keep core tight so ribs don't flare excessively.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "straight_arm_pulldown_strength",
+    "name": "Straight-Arm Pulldowns (Strength)",
+    "coachingNotes": "Stand facing cable stack or band anchor (high). Grab bar/handles with straight arms. Hinge hips slightly back. Pull bar down to thighs keeping arms straight (slight soft bend is ok, but locked joint angle). Focus on driving elbows down and back. Squeeze lats hard at bottom. Control eccentric. This takes biceps and elbow joint out of the equation to isolate lats.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "single_arm_pulldown",
+    "name": "Single-Arm Straight-Arm Pulldown",
+    "coachingNotes": "Attach single handle to high cable or band. Stand sideways or facing anchor. Hinge hips. Pull handle down to hip with straight arm, adding a slight side bend/crunch at the bottom to maximize lat contraction. Control the stretch on the way up. Doing one arm at a time allows for greater range of motion and prevents the stronger side from compensating. Keep core tight to prevent rotation.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "cross_body_hammer_curls",
+    "name": "Cross-Body Hammer Curls",
+    "coachingNotes": "Stand tall holding dumbbells with neutral grip (palms facing in). Curl one dumbbell across the body toward opposite shoulder while keeping elbow close to torso. Lower slowly over 2-3 seconds. Alternate sides or complete all reps per side. Keep wrist neutral and avoid swinging. If elbow irritation appears, reduce load and shorten range slightly.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "pullover_bridge",
+    "name": "Pullover in Glute Bridge",
+    "coachingNotes": "Perform a Dumbbell Pullover while holding a Glute Bridge position (hips elevated, shoulders on bench). This flattens the spine and allows for a deeper stretch overhead without lumbar extension compensation. It also recruits glutes and core, making it a full-body integration move. Keep hips high throughout the movement. Drive the dumbbell up with lats, not by dropping hips.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "max_dips",
+    "name": "Max Reps Dips",
+    "coachingNotes": "This is a MAX REP TEST to assess your pushing strength endurance. After proper warm-up, perform one all-out set of bodyweight dips to technical failure. Lower until upper arms parallel to ground, press back up - that's one rep. Keep elbows at 45\u00b0, shoulders depressed. Stop when form breaks down. Dip Governor Rule still applies - if you feel shoulder impingement even during this test, stop immediately and record where you stopped. This test establishes your dip capacity and helps calibrate future training. Rest at least 2 minutes before next exercise.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "3rm_weighted_pull_up",
+    "name": "3RM Weighted Pull-Up",
+    "coachingNotes": "This is a 3-REP MAX (3RM) TEST to assess your pulling strength. After warm-up sets with progressively heavier weight, work up to a weight where you can perform exactly 3 perfect reps but not 4. The range 15-20kg is a guideline - you may need more or less. Each rep must be strict: dead hang start, chin over bar, controlled descent. If you get 4 reps, add weight and try again after rest. If you fail at 2 reps, reduce weight. The goal is finding your true 3RM. This tests raw pulling strength under load.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "5rm_weighted_push_up",
+    "name": "5RM Weighted Push-Up",
+    "coachingNotes": "This is a 5-REP MAX (5RM) TEST to assess your pushing strength. Use a weight vest or plate on back. After warm-up sets, work up to a weight where you can perform exactly 5 perfect push-ups but not 6. The range 10-15kg is a guideline. Each rep: lower until chest nearly touches ground, press up with control. Body stays rigid throughout. If you get 6 reps, add weight and try again. If you fail at 4, reduce weight. Find your true 5RM. This tests your horizontal pushing strength under significant load.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "max_quality_archer_negatives",
+    "name": "Max Quality Archer Negatives",
+    "coachingNotes": "This is a MAX QUALITY TEST for archer negatives. After warm-up, perform as many quality archer negatives as possible (alternating sides). Emphasis is on QUALITY - each negative must be 5-6 seconds with control. Jump to top, shift to one side in archer position, lower slowly over 5-6 seconds. Count the total number of quality negatives you can perform before technique breaks down. Stop when you can no longer control the descent or maintain the archer position. This tests unilateral pulling strength and eccentric control. Rest at least 2 minutes after.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "neutral_grip_pull_ups",
+    "name": "Neutral Grip Pull-Ups",
+    "coachingNotes": "Use parallel handles or rings positioned so palms face each other (neutral grip). This grip is biomechanically easiest on elbows and shoulders while still providing excellent lat and bicep activation. Start from dead hang with arms fully extended. Pull chin over hands by engaging lats and arms. Squeeze at top, pause briefly, then lower with control for 2-3 seconds to dead hang. No swinging or kipping. The neutral grip allows slightly more weight/reps than overhand grip while reducing joint stress. Ideal for maintaining pull-up volume when elbows are sensitive.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "rest",
+    "name": "Rest",
+    "coachingNotes": "Take 4 minutes (240 seconds) of complete rest. This is a 'Battery Saver' - designed to let your nervous system and muscles recover more fully between high-intensity blocks or after particularly taxing exercises. You can sit, walk around slowly, hydrate, check your form notes for the next exercise. This longer rest period allows heart rate to come down significantly and ATP stores to replenish. Essential for maintaining quality on subsequent exercises, especially power or strength movements. Don't rush this - the rest is part of the training.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "warmup",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "bench_press",
+    "name": "Bench Press",
+    "coachingNotes": "Lie on bench with eyes under the bar. Plant feet firmly, keep upper back tight, and use a moderate grip with wrists stacked over elbows. Lower the bar with control to the lower chest, pause briefly if needed, then press without bouncing. Keep the shoulder blades pulled back and down throughout. This template is meant to rebuild straight-bar familiarity after a pull-dominant cycle, so stop well before grinders and reduce load immediately if elbows or shoulders feel off.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": [],
+    "progressionNotes": "Add load only when all reps are crisp and elbow-friendly"
+  },
+  {
+    "id": "box_squat",
+    "name": "Box Squat",
+    "coachingNotes": "Set box height so you can sit back under control while keeping a neutral spine and full foot pressure. Reach hips back first, touch the box softly without collapsing, then drive up through the whole foot. Shins should stay relatively vertical. This is a controlled support lift used to rebuild barbell squatting tolerance while managing knee stress, not a max-strength movement.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": [],
+    "progressionNotes": "Keep this lift clearly easier than the main back squat day"
+  },
+  {
+    "id": "back_squat",
+    "name": "Back Squat",
+    "coachingNotes": "Place the bar on the upper traps, brace before each rep, and descend with tripod foot pressure while letting the knees track over the toes. Maintain a neutral spine and controlled descent, then drive up smoothly without grinding. Because this follows a long pull-focused block, the goal is to restore barbell squat rhythm and tolerance, not chase fatigue. If knees feel irritated or the bar path gets unstable, reduce load by 5kg.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": [],
+    "progressionNotes": "Advance conservatively; bar speed matters more than load"
+  },
+  {
+    "id": "hang_power_clean",
+    "name": "Hang Power Clean",
+    "coachingNotes": "Start with bar at mid-thigh (hang position) with slight knee bend. Explosively extend hips and knees (triple extension), shrug shoulders up, pull bar vertically keeping it close to body. As bar reaches chest level, drop under by rotating elbows forward and catch in front rack position (bar on shoulders, elbows high). Stand to complete rep. Lower with control back to hang. This builds explosive power and coordination. Bar path must be vertical - any looping wastes energy. Load should be 60-70% of max - fast and smooth, never grinding. Add weight only when all reps are crisp and controlled. Skip immediately if elbows feel any irritation.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": [],
+    "progressionNotes": "Add 2.5kg only when all reps are crisp"
+  },
+  {
+    "id": "power_clean_5x2",
+    "name": "Power Clean - 5\u00d72 (Block 3)",
+    "coachingNotes": "Power clean volume at moderate intensity (70-75% of max). Focus on speed and technique, not grinding reps. Each of 5 sets includes 2 reps. Start from floor or hang, explosively extend hips/knees, pull bar high, catch in front rack with elbows high and forward. Bar speed is critical - if bar slows down, reduce weight. Maintain perfect form on every rep. No early arm pull; let legs and hips do the work first. If elbows feel any irritation, skip this entirely. Take full 150s rest between sets to maintain power output.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "power_clean_cluster",
+    "name": "Power Clean - Cluster 3\u00d7(2-2) (Block 4)",
+    "coachingNotes": "Power clean cluster training at higher intensity (75-80% max). Cluster format: perform 2 reps, rest 15-20 seconds while standing/walking, then 2 more reps. That's ONE cluster set. Take full 120s rest before next cluster. The brief intra-set rest lets you lift heavier while maintaining speed and technique. Load should be challenging but every rep must be crisp - no 'star-fish' catches with arms wide. If any rep is sloppy, don't increase load next session. This builds power while respecting joint health. Skip if elbows are sensitive.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": [],
+    "progressionNotes": "Do not increase load if any reps are sloppy"
+  },
+  {
+    "id": "hang_high_pull",
+    "name": "Hang High Pull",
+    "coachingNotes": "Start with bar at mid-thigh (hang position). Explosively extend hips and knees (triple extension), shrug shoulders up hard, and pull bar straight up keeping it close to body. Pull elbows high and wide (like upright row). Bar should reach chest/shoulder height. Lower with control back to hang. This is like a power clean but WITHOUT catching - you don't drop under the bar. Develops explosive pulling power without the receiving/racking impact on wrists, elbows, and shoulders. Perfect alternative on high-stress weeks or when joints are sensitive. Focus on vertical bar path and high elbows.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "clean_pull",
+    "name": "Clean Pull",
+    "coachingNotes": "Start with bar on ground or from hang. Perform the pull portion of a clean - explosive hip and knee extension, shrug shoulders, pull bar high keeping it close - but DO NOT catch or drop under the bar. Once bar reaches maximum height, lower it back down with control. This isolates the pulling phase without the technical demand and joint stress of catching. Can be loaded heavier than full cleans (100-105% of clean max) to overload the pull. Perfect for technique deload weeks or when you want pulling strength without taxing CNS and joints with full cleans. Smooth acceleration throughout - no jerky movements.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "main",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "warmup_light_press",
+    "name": "Light Dumbbell Press / Empty Bar Press",
+    "coachingNotes": "Use very light dumbbells (5-10kg each) or empty barbell (20kg). Lie on bench or press overhead while standing. Perform 15 smooth reps through full range of motion. This warms up shoulders, triceps, and chest with minimal load. Focus on feeling the movement pattern, not exertion. Controlled tempo: 2 seconds down, 1 second up. This prepares joints and muscles for heavier pressing later. Think of this as rehearsing the movement, not training it. Should feel easy and smooth.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "warmup",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "warmup_push_up_plus",
+    "name": "Push-Up Plus (Scapular Push-Ups)",
+    "coachingNotes": "Start in push-up plank position with arms fully extended. At the top of the push-up, let your shoulder blades come together (retract) so you 'sink' slightly between your shoulders. Then actively push the ground away, spreading shoulder blades apart (protract) and lifting upper back slightly higher. This is the 'plus' part. Each rep includes this scapular protraction movement. This warms up and strengthens serratus anterior, crucial for shoulder health and push-up strength. Focus on quality shoulder blade movement, not speed. Should feel muscles between shoulder blades working.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "warmup",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "warmup_active_hang",
+    "name": "Active Hang",
+    "coachingNotes": "Hang from pull-up bar with active shoulder engagement - shoulders pulled down away from ears (scapular depression). Grip bar firmly. Create hollow body position: ribs down, core tight, legs together and slightly forward. Don't just hang passively like a dead weight. This active position engages lats, core, and grip. Hold for 20-30 seconds. This builds grip strength, shoulder stability, and prepares your body for pull-ups and hanging work. Your shoulders should feel engaged, not loose. Great for shoulder health and decompression.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "warmup",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "warmup_scapular_pull_ups",
+    "name": "Scapular Pull-Ups",
+    "coachingNotes": "Hang from bar with arms completely straight. Without bending elbows at all, engage your shoulder blades by pulling them down (depression). You'll lift slightly, maybe 1-2 inches. Hold briefly at top, then relax to passive hang. Repeat. This teaches proper shoulder engagement for pull-ups. All movement comes from shoulder blades, arms stay straight. Critical for pull-up technique and shoulder injury prevention. If you can't feel your shoulder blades moving, lighten the load or get coaching on the movement pattern.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "warmup",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "warmup_fist_clenches",
+    "name": "Fist Clenches",
+    "coachingNotes": "Make a tight fist, squeezing as hard as you can for 2-3 seconds. Release and repeat. Can be done with or without a stress ball or grip strengthener. This warms up forearms, grip muscles, and prepares hands for hanging and pulling work. The hard squeeze activates all the small muscles in hands and forearms that stabilize during gripping movements. Simple but effective for grip preparation and preventing forearm fatigue. Some athletes report this helps prevent elbow issues by warming the flexor tendons.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "warmup",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "warmup_wrist_rocks",
+    "name": "Wrist Rocks",
+    "coachingNotes": "Start on hands and knees (quadruped position) with hands flat, fingers spread. Rock your bodyweight forward so hands extend (wrist flexion), then back so hands bend (wrist extension). Do 10 smooth forward-back rocks. Then rock side to side, shifting weight from left hand to right hand. Do 10 side-to-side rocks. This mobilizes wrists in all planes of motion and strengthens the small wrist stabilizers. Essential prep for any hand-intensive work like push-ups, handstands, or Olympic lifts. If wrists feel tight or painful, spend extra time here or use fists instead of flat hands.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "warmup",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "warmup_shoulder_dislocates",
+    "name": "Shoulder Dislocates (Pass-throughs)",
+    "coachingNotes": "Hold PVC pipe, resistance band, or broomstick with wide grip (wider than shoulder-width). Keep arms straight. Raise the stick overhead and continue rotating arms behind you until stick is behind your back at hip level. Reverse the motion to return to front. This is one 'dislocate' or pass-through. The name sounds scary but it just means passing through full shoulder rotation. Start with very wide grip; as flexibility improves, bring hands closer together. This mobilizes shoulders through extreme range of motion, helping prevent injuries and improving overhead positions. Never force it - gentle progressive stretching only.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "warmup",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "warmup_band_pull_aparts_palms_up",
+    "name": "Band Pull-Aparts (Palms Up)",
+    "coachingNotes": "Hold resistance band in front of you at chest height with arms straight, palms facing UP (supinated grip). This is different from standard pull-aparts. Pull band apart by moving hands away from each other, simultaneously externally rotating shoulders so thumbs point back. Squeeze shoulder blades together. The palms-up grip emphasizes external rotation and targets the often-neglected rotator cuff and rear delts differently than palms-down version. This helps balance out all the internal rotation from daily life (desk work, driving, etc.). Control the return; don't let band snap back.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "warmup",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "warmup_t_spine_rotations",
+    "name": "T-Spine Rotations (Quadruped)",
+    "coachingNotes": "Start on hands and knees (quadruped). Place one hand behind head with elbow pointing out. First, reach that elbow under your body toward the opposite side (this is the 'reach under' part). Then rotate in opposite direction, pointing elbow toward ceiling/sky. Move through full range of thoracic spine rotation. Hips should stay mostly still - all rotation comes from mid-back (thoracic spine). Do 8 rotations per side. This mobilizes the often-stiff thoracic spine, crucial for overhead pressing, pulling, and preventing shoulder compensations. Essential for desk workers and anyone with rounded upper back posture.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "warmup",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "warmup_cat_cow",
+    "name": "Cat-Cow",
+    "coachingNotes": "Start on hands and knees with neutral spine. For Cat: Round spine upward (like scared cat), tuck tailbone, pull belly button to spine, drop head. For Cow: Reverse - let belly drop toward floor, arch lower back, lift tailbone, lift head. Move slowly and smoothly, taking 3-5 seconds for each position. Focus on moving one vertebra at a time - this is what 'articulating the spine' means. Segment by segment. Breathe in during Cow, breathe out during Cat. Perfect warm-up for any workout. Especially good for people with lower back stiffness or pain. Think of it as a massage for your spine.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "warmup",
+    "isBodyweight": true,
+    "variations": []
+  },
+  {
+    "id": "warmup_light_cardio_5min",
+    "name": "Light Cardio (Rower / Assault Bike / Skipping)",
+    "coachingNotes": "Perform 5 minutes of very easy cardio using rower, assault bike, or jump rope. This is RPE 3-4 intensity - conversational pace, breathing easy. Not a workout, just movement to raise body temperature, increase blood flow, and wake up your nervous system. This prepares your body for more intense work. Think of it as turning on the engine before driving. Choose the modality that feels best for your body today. Can also be a light jog, bike ride, or fast walk. The key is EASY - you should feel ready to train, not tired, after this.",
+    "primaryMuscles": [],
+    "secondaryMuscles": [],
+    "equipment": [],
+    "category": "warmup",
+    "isBodyweight": true,
+    "variations": []
   }
 ]

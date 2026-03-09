@@ -59,7 +59,7 @@ Assault/Echo Bike and SkiErg are always acceptable. Row only if absolutely sympt
 
 ### Superset Rule
 - Keep the main lifts **standalone**: Bench Press, Power Clean, Clean Pulls, Box Squat, Back Squat, and Wednesday bench variations all get full attention and normal rest.
-- Use supersets only for **low-skill or non-interfering work**: Monday rows + band pull-aparts, Thursday face pulls + landmine press, and Tuesday trunk/breathing work.
+- Use supersets only for **low-skill or non-interfering work**: Monday band pull-aparts used as bench-rest fillers, Thursday face pulls + landmine press, and Tuesday trunk/breathing work.
 - Low-load structural work can be used as an **active-recovery filler** between main-lift sets when it does not interfere with output. Default fillers in this plan: Band Pull-Aparts between Monday Bench sets, and calf raises/external rotation inside Thursday structural work.
 - Avoid pairing **two grip-heavy pulls** back-to-back when elbow or forearm tolerance is a constraint. In this plan, Ring Pull-Ups stay standalone and DB Rows, if used at all, stay optional late-block accessory work.
 - Do **not** superset or interleave Power Cleans, Clean Pulls, Box Squats, Back Squats, or Friday clean variations with fatiguing work. Those lifts keep normal rest and full concentration.
@@ -204,7 +204,8 @@ Use a **ramp principle**, not extra lifting sets:
 ### Day-Specific Emphasis Notes
 
 - **Monday:** prioritize scapular control, elbow comfort, and hollow-body tension
-- **Wednesday:** prioritize front-rack access, fast elbows, ankle depth, upright catch mechanics, and clean scapular upward rotation on the landmine press
+- **Wednesday:** prioritize front-rack access, fast elbows, ankle depth, upright catch mechanics, and crisp bar path on the secondary bench work
+- **Thursday:** prioritize smooth scapular upward rotation and full reach on the landmine press while keeping the shoulder-support work submaximal
 - **Friday:** prioritize hip stiffness, squat depth, hinge path, and upper-back tightness for the squat
 - For the first 4 weeks after V26.9, keep **straight-arm band pulldowns or scapular pull-ups** in the Monday ramp before Ring Pull-Ups
 
@@ -880,7 +881,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 ### Accessory Supersets
 | Day | Work | Notes |
 |-----|------|-------|
-| Monday | Bench Press + light Band Pull-Aparts as rest filler; then Straight-Arm Band Pulldowns in early weeks or assisted chest-to-rings top holds in later weeks | Keep Band Pull-Aparts in one slot only to avoid redundant shoulder-endurance work |
+| Monday | Bench Press + light Band Pull-Aparts as rest filler; then Straight-Arm Band Pulldowns in Weeks 1–4, assisted chest-to-rings top holds in Weeks 5–8, or minimal DB Rows in Weeks 9–10 | Keep Band Pull-Aparts in one slot only to avoid redundant shoulder-endurance work |
 | Tuesday | Front Plank + Pallof Press or 90/90 breathing | Use this as your trunk finisher after easy cardio and mobility |
 
 ### Ring Pull-Ups (Monday — Vertical Pull)
@@ -914,8 +915,8 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 |------|------|-------|
 | Weeks 1–4 | 4-minute density block: accumulate 24–30 Straight-Arm Band Pulldown reps | Low-grip lat and scap support for higher pull mechanics |
 | Weeks 5–8 | 3–4 minute EMOM: 1 assisted Chest-to-Rings Top Hold × 5–8 sec each minute | Most specific accessory for chest-to-rings progression; use toe assist as needed |
-| Week 9 | 2×12 Straight-Arm Band Pulldowns only | Deload |
-| Week 10 | 1–2 assisted Chest-to-Rings Top Holds × 5 sec only if elbows feel great | Optional, minimal |
+| Week 9 | 2 rounds of 10 DB Rows/arm only | Deload; shifts away from specific pull-support work and into minimal horizontal pulling |
+| Week 10 | 1–2 rounds of 8–10 DB Rows/arm only | Optional, minimal; skip if grip or elbow tolerance is the limiter |
 
 ### Parallette L-Sit Progression
 
@@ -953,4 +954,4 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 | 1–4 | 2–3×10/side | Light band or ~5–10 kg cable, done within the core circuit |
 | 5–8 | 1×10/side + 1 round 90/90 breathing | Use one anti-rotation round, then downshift to breathing to limit hip-flexor fatigue |
 | 9 | 2×8/side | Very light band or ~5 kg cable *(deload)* |
-| 10 | 2×10/side | Light band or ~5–10 kg cable |
+| 10 | 1–2×8/side | Light band or ~5–10 kg cable; keep trunk work restorative in realization week |

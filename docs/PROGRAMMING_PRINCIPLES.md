@@ -26,7 +26,7 @@ Distilled from the iterative design of the 10-Week Strength & Conditioning Plan.
 
 ### Knee (Goose Foot)
 - Tripod foot pressure, knees tracking over toes on all squats.
-- Box squat is always a lower-intensity accessory, never a primary squat.
+- Box squat is always a lower-stress accessory by intent and RPE, never a primary squat, even if its percentage briefly matches or slightly exceeds a paused back squat load in accumulation.
 - Unilateral work: slow eccentric, perfect tracking, submaximal load.
 - Single-leg calf raises belong in every program for ankle/knee stability.
 
@@ -47,9 +47,9 @@ Distilled from the iterative design of the 10-Week Strength & Conditioning Plan.
 ### 60-Minute Rule
 All MWF sessions must fit within 60 minutes including warm-up, session-specific ramp, working sets, and cooldown. To enforce this:
 - Barbell work first; trunk and shoulder-balance work shifts to Tue/Thu.
-- Friday assistance work (exercise D) is **time-permitting** — complete A–C first.
-- Use **non-interfering density work** to cut idle rest without reducing output: light band pull-aparts between Monday bench sets, and pull supersets after the main press work.
-- Main lifts stay standalone: no fatiguing supersets for cleans, clean pulls, squats, or Friday bench work.
+- Friday lower-body assistance is **time-permitting** — complete the clean variation and squat work first.
+- Use **non-interfering density work** to cut idle rest without reducing output: light band pull-aparts between Monday bench sets, time-bounded pull-support blocks, and EMOM singles for suitable technical power work.
+- Main lifts stay standalone: no fatiguing supersets for cleans, clean pulls, squats, or Wednesday bench work.
 
 ### Warm-Up Structure (Every MWF)
 1. **General** — 3–5 min light Bike or SkiErg.
@@ -69,10 +69,10 @@ All MWF sessions must fit within 60 minutes including warm-up, session-specific 
 | Day | Stress | Role |
 |-----|--------|------|
 | Monday | **Light** (lower body) | Upper-body primary (bench), compression skills, vertical pull |
-| Wednesday | **Medium** | Olympic lift + moderate squat (box squat), pike compression |
-| Friday | **Heavy** | Heavy squat, clean variation primer, secondary bench, hinge/unilateral |
-| Tuesday | Recovery | Cardio (harder rowing day), trunk work (plank + Pallof), compression micro-dose |
-| Thursday | Recovery | Cardio (easy rowing day), shoulder balance (face pulls + landmine press), structural circuit |
+| Wednesday | **Medium** | Olympic lift + moderate squat (box squat) + secondary bench, pike compression |
+| Friday | **Heavy** | Heavy squat, clean variation primer, hinge/unilateral |
+| Tuesday | Recovery | Cardio (easy rowing day), trunk work (plank + Pallof) |
+| Thursday | Recovery | Cardio (harder rowing day), shoulder balance (face pulls + landmine press), structural circuit |
 
 This pattern is the single most effective structural choice for masters lifters. Wednesday squat loads must stay **clearly below** Friday squat loads at all times.
 
@@ -98,6 +98,18 @@ This pattern is the single most effective structural choice for masters lifters.
 - Reps decrease as intensity increases (e.g. 4×8 → 4×3).
 - Week-to-week jumps: 2.5% (press), 2.5–5% (squat/pull).
 
+### Set Structure Variations
+- Do not default to straight sets for every exercise. Rotate set structures when they preserve the same stimulus with better engagement, time control, or movement quality.
+- Acceptable alternatives include **density sets**, **clusters**, **EMOMs**, and short **quality blocks**, but only when the total rep quality, fatigue cost, and intent remain aligned with the lift's role.
+- Use set variation to change the **delivery**, not the actual stress. A different format should still respect the planned intensity, total reps, and recovery demand of the day.
+- Good default uses:
+	- **Density sets** for accessory work, trunk work, and bodyweight patterns where time economy matters.
+	- **Clusters** for explosive lifts or pulling patterns when you want more high-quality reps without grinders.
+	- **EMOMs** for technical power work at submaximal loads, provided technique does not decay under the clock.
+	- **Straight sets** remain best for heavy squats, heavy bench work, and any lift where full recovery is part of the stimulus.
+- Avoid using clock-driven formats for lifts that already sit near the edge of technical tolerance or joint tolerance.
+- For this athlete profile, format variation should usually make the session feel **cleaner and fresher**, not more conditioning-heavy.
+
 ---
 
 ## 5. Volume & Frequency Rules
@@ -108,14 +120,14 @@ Aim for roughly **2:3 push-to-pull** by set count. Pulls include rows, pull-ups,
 ### Pull Progression Rule
 - Keep Weeks 1–2 conservative for elbow reintroduction.
 - From Week 3 onward, increase Monday vertical-pull volume before adding more exercise variety.
-- Default pattern: Ring pull-ups progress from 3 sets early to 4 sets across the main build, while DB rows stay secondary accessory work.
+- Default pattern: Ring pull-ups progress from 3 sets early to 4 sets across the main build, while DB rows stay optional secondary accessory work rather than guaranteed weekly volume.
 - Do not pair ring pull-ups and DB rows if gripping tolerance is a limiting factor; protect the higher-skill or higher-priority pull first.
 - For chin-to-chest progression, use **low-grip support work first**: straight-arm band pulldowns early in the block, then assisted chest-to-rings top holds later when the pattern is established.
 
 ### Secondary Dose Principle
 Each primary pattern appears **twice per week**: once as the main lift, once as a lighter variation on a different day. The second dose is for skill and frequency, never intensity.
 - Friday clean variation is a **technical primer** — stop the set if turnover slows.
-- Friday bench variation is a **lighter barbell dose** — stay 2–3 reps shy of failure.
+- Wednesday bench variation is a **lighter barbell dose** — stay 2–3 reps shy of failure.
 
 ### Alternating Assistance
 Don't stack posterior chain stress. Alternate by week:
@@ -124,8 +136,12 @@ Don't stack posterior chain stress. Alternate by week:
 
 This spreads tissue stress across training weeks.
 
+### Wednesday Medium-Day Order
+Always: Olympic lift → Box Squat → Secondary bench → Compression work. This keeps the secondary press dose productive without stealing from Friday.
+If Wednesday gets too crowded, trim Clean Pulls before cutting Box Squats, secondary bench, or the main Olympic lift.
+
 ### Friday Priority Order
-Always: Clean primer → Squat → Bench variation → Assistance (time-permitting). This ordering preserves performance on the exercises that matter most.
+Always: Clean primer → Squat → Lower-body assistance (time-permitting). This ordering preserves performance on the exercises that matter most.
 
 ---
 
@@ -137,6 +153,7 @@ Always: Clean primer → Squat → Bench variation → Assistance (time-permitti
 - Friday variations: light, fast, positional — tall cleans, high-hang, low-hang, pause variants.
 - If catches get sloppy or slow → convert remaining sets to clean pulls.
 - Clean pull loads scale off the clean max (80–85%), not the deadlift.
+- For athletes with a clearly stronger deadlift than clean, clean pulls at these loads are usually a technical reinforcement rather than a major posterior-chain strength stimulus. In those cases, let cleans and RDLs supply most of the hinge volume.
 - Total Olympic lift volume should taper: ~12 reps/session → ~10 → ~8 across phases.
 
 ---
@@ -162,9 +179,11 @@ These are not optional accessories — they are **permanent maintenance work** t
 ### Density Fillers And Supersets
 - Monday bench can use **light band pull-aparts as active-recovery fillers** during rest periods, provided bar speed stays unchanged.
 - Monday pull work should avoid **stacking two grip-heavy pulls** if elbows, forearms, or grip recovery are limiting. In that case, keep ring pull-ups standalone and place DB rows later as separate accessory work.
+- If rows are used at all, treat them as optional late-block or deload accessory work rather than mandatory weekly pulling volume in a grip-limited plan.
 - When adding support for a higher ring pull, prefer **band-based lat work or short assisted top holds** over more row volume. This keeps the session within the time cap and limits extra gripping.
 - Keep **Band Pull-Aparts in one Monday slot only**. If they are already used as bench-rest fillers, the later pull-support block should stay focused on the progression-specific work.
 - Thursday shoulder-balance work remains a low-skill superset.
+- Clusters or EMOM-style formats are acceptable for submaximal technical work if they improve rep quality, but they are not a license to compress rest on heavy barbell work.
 - Break any superset immediately if pain rises, positions worsen, or the main movement loses quality.
 
 ### Deload/Realization Adjustments
@@ -187,8 +206,8 @@ Advance only when all sets are held with locked elbows, depressed shoulders, no 
 
 Progress by **lift height and peak holds**, not just rep count.
 
-### Micro-Dosing (Tue/Thu)
-Short compression work (10–20s holds, 6–10 compression lifts) on recovery days provides frequency without fatigue.
+### Weekly Placement
+Keep dedicated compression work on the lifting days only: Monday for L-sit progressions and Wednesday for pike compression. Do not add extra recovery-day compression work when hip flexor or medial-knee tolerance is a constraint.
 
 ---
 
@@ -199,8 +218,8 @@ Short compression work (10–20s holds, 6–10 compression lifts) on recovery da
 - Rowing only when elbow and knee are fully symptom-free.
 
 ### Weekly Pattern
-- **Tuesday:** harder cardio day (intervals, distance pieces).
-- **Thursday:** lower-fatigue aerobic/technique day.
+- **Tuesday:** lower-fatigue aerobic/technique day.
+- **Thursday:** harder cardio day (intervals, distance pieces).
 - **Weeks 9–10:** easy aerobic only (15–30 min), no structured intervals.
 
 ### Rowing-Specific Rules
@@ -209,7 +228,7 @@ Short compression work (10–20s holds, 6–10 compression lifts) on recovery da
 - Damper ≤ 4, loose hook grip.
 
 ### Timing Conflicts
-Never schedule a max-effort cardio test (2,000m row, etc.) the day before a peak lifting session. If Wednesday or Friday carries ≥ 80% loads, Tuesday cardio must be moderate or easy.
+Never schedule a max-effort cardio test (2,000m row, etc.) the day before a peak lifting session. Tuesday should stay moderate or easy so Wednesday lifting starts fresh; Thursday can carry the harder row dose only if it still leaves Friday squats sharp.
 
 ---
 
@@ -248,5 +267,6 @@ When writing a new program document:
 - Cooldown is in the rules — don't restate it every Friday.
 - Mark all optional/time-permitting work explicitly.
 - If density methods are used, name the exact structure once in the rules section: which movement is a filler, which movements are paired, and what quality threshold stops the pairing.
+- If using clusters, density blocks, or EMOMs, state what stimulus they are replacing: e.g. straight sets for power quality, accessory volume, or time-capped technical work.
 - Include a quick-reference load progression table at the end.
 - Every phase needs explicit RPE targets in the autoregulation rule — no gaps.

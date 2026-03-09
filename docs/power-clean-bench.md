@@ -72,7 +72,7 @@ Before every Monday bench session, perform **2–3 rounds of 3 reps** of med-bal
 ### Structural Balance Circuit Rule (Thursday — Permanent, Weeks 1–8)
 After the shoulder balance superset each Thursday, complete **2 rounds** of the following circuit before the compression micro-dose. Total time ~7 minutes. Treat this as easy maintenance work, not conditioning:
 - **Single-Leg Calf Raise** — 12/leg, slow and controlled *(ankle and knee stability; directly relevant for goose foot management)*
-- **Side Plank** — 20 seconds/side *(lateral trunk stability; complements the anti-extension work on Tuesday)*
+- **Side Plank** — 20 seconds/side in Weeks 1–4, **30 seconds/side in Weeks 5–8** *(lateral trunk stability; complements the anti-extension work on Tuesday)*
 - **Banded External Rotation** — 12/side, light band *(rotator cuff endurance; distinct from the scapular work in face pulls)*
 
 Reduce to **1 round** in Week 9 (deload). **Omit entirely** in Week 10 to keep hips and shoulders fresh for peak efforts.
@@ -241,8 +241,8 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 | 4 | 1 min row / 1 min rest × 3, 2 min rest, then 30 sec row / 1 min rest × 4 | 4 min @ 22 SPM, 3 min @ 24 SPM, 2 min @ 26 SPM, 1 min @ 28 SPM |
 | 5 | 1,000 m row, 3 min rest, 1,000 m row | 3 min @ 20 SPM, 3 min @ 22 SPM, 3 min @ 24 SPM, 2 min @ 26 SPM, 1 min @ 28 SPM |
 | 6 | 1 min @ 26-28 SPM / 1 min rest × 3, 3 min rest, then 30 sec @ 28+ SPM / 1 min rest × 4 | 4 min @ 20 SPM, 3 min @ 22 SPM, 3 min @ 24 SPM, 2 min @ 26 SPM, 1 min @ 28 SPM |
-| 7 | 1,000 m row @ 26-28 SPM, 2.5 min rest, 1,000 m row @ 26-28 SPM | 5 min @ 20 SPM, 4 min @ 22 SPM, 3 min @ 24 SPM, 2 min @ 26 SPM, 1 min @ 28 SPM |
-| 8 | **2,000 m row attempt (optional)** — only if elbow and knee are symptom-free; otherwise 2×1,000 m @ 26 SPM with 3 min rest *(note: this falls the day before 82.5% Cleans and two days before 82.5% Squats — prioritize recovery if in doubt)* | 15-20 min very easy row or Bike/SkiErg only |
+| 7 | 1,000 m row @ 26-28 SPM, 2.5 min rest, 1,000 m row @ 26-28 SPM; **if feeling 100% and recovery is excellent: 2,000 m attempt instead** | 5 min @ 20 SPM, 4 min @ 22 SPM, 3 min @ 24 SPM, 2 min @ 26 SPM, 1 min @ 28 SPM |
+| 8 | 2×1,000 m @ 26 SPM with 3 min rest — **do not attempt 2,000 m this week** *(82.5% Cleans Wednesday, 82.5% Squats Friday — systemic fatigue risk too high)* | 15-20 min very easy row or Bike/SkiErg only |
 
 ### Realization Phase Adjustment (Weeks 9-10)
 
@@ -253,20 +253,20 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 ## Movement Pattern Coverage
 
-| Pattern | Exercise(s) | Status |
-|---|---|---|
-| Horizontal Push | Bench Press, Close-Grip Bench Press | Covered |
-| Angled Vertical Press | Half-Kneeling Landmine Press | Covered |
-| Horizontal Pull | DB Rows | Covered |
-| Vertical Pull | Ring Pull-Ups | Covered |
-| Quad-Dominant | Back Squat, Box Squat | Covered |
-| Hip Hinge | RDLs, Power Cleans | Covered |
-| Unilateral Lower | DB Low Box Step-Ups | Covered |
-| Olympic Power | Hang Power Clean, Power Clean | Covered |
-| Anti-Extension Core | Front Plank, Hollow Hold | Covered |
-| Anti-Rotation Core | Pallof Press | Covered |
-| Compression Core | L-Sit Progressions, Pike Pulses | Covered |
-| Scapular/Upper-Back Support | Ring Pull-Ups, DB Rows, Face Pulls, Band Pull-Aparts | Covered |
+| Pattern | Exercise(s) |
+|---|---|
+| Horizontal Push | Bench Press, Close-Grip Bench Press |
+| Angled Vertical Press | Half-Kneeling Landmine Press |
+| Horizontal Pull | DB Rows |
+| Vertical Pull | Ring Pull-Ups |
+| Quad-Dominant | Back Squat, Box Squat |
+| Hip Hinge | RDLs, Power Cleans |
+| Unilateral Lower | DB Low Box Step-Ups |
+| Olympic Power | Hang Power Clean, Power Clean |
+| Anti-Extension Core | Front Plank, Hollow Hold |
+| Anti-Rotation Core | Pallof Press |
+| Compression Core | L-Sit Progressions, Pike Pulses |
+| Scapular/Upper-Back Support | Ring Pull-Ups, DB Rows, Face Pulls, Band Pull-Aparts |
 
 ## Phase Overview
 
@@ -290,7 +290,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 #### Monday — Bench Focus & Compression
 
-> **Power Primer (applies to all Monday sessions, Weeks 1–10):** 3×3 med-ball chest pass (wall or floor-bounce) — 30 sec rest between rounds, ~2 min total. Prefer med ball to protect the elbow. Plyo push-ups only in Phase 2 if elbow is fully symptom-free. Skip if elbow >2/10. *(See Power Primer Rule.)*
+> **Power Primer (all Monday sessions):** 3×3 med-ball chest pass before bench, ~2 min. *(See Power Primer Rule for variants and elbow guidelines.)*
 
 **A. Bench Press** — 4×8 @ 65% (57.5 kg) — *Controlled 2-second eccentric*
 
@@ -300,8 +300,8 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 **C. Ring Pull-Ups** — 3×5–8 *(Bodyweight — use a slow 2-sec negative; rings allow natural wrist rotation to protect the elbow)*
 > **Progression rule:** Start conservative. Add reps before adding weight. If elbow flares, switch to ring rows for that session.
 
-**D. Accessory Superset** *(2 Rounds)* — 10–12 DB Rows/arm (Neutral) + 12–15 Band Pull-Aparts
-> OPTIONAL: Skip if elbow is above 2/10 pain. Hold this at 2 rounds so Monday reliably fits the time cap.
+**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm (Neutral) + 12–15 Band Pull-Aparts
+> OPTIONAL: Skip if elbow is above 2/10 pain. 3 rounds is the target — reduces to 2 rounds in Weeks 9–10.
 
 #### Tuesday — Active Recovery
 - **Cardio:** Tuesday Row Session — Week 1 prescription from the rowing table above, or Bike/SkiErg with the same work/rest timing if rowing is not symptom-free
@@ -325,7 +325,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 - **Cardio:** Thursday Row Session — Week 1 prescription from the rowing table above, or easy Bike/SkiErg if rowing is not symptom-free
 - **Core/Mobility:** 3×15 Hollow Rocks + Banded Hamstring Flossing. Foam roll legs.
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
-- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank 20 sec/side + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
+- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 - **Compression Micro-Dose:** 2 rounds of 6-8 pike pulses + 10-15s hollow body hold
 
 #### Friday — Full Body Power & Strength
@@ -352,10 +352,10 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **C. Ring Pull-Ups** — 3×5–8 *(Bodyweight, slow negative)*
 
-**D. Accessory Superset** *(2 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts (Optional)
+**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts
 
 #### Tuesday — Active Recovery
-- **Cardio:** Tuesday Row Session — Week 2 prescription from the rowing table above, or Bike/SkiErg with the same work/rest timing if rowing is not symptom-free
+- **Cardio:** Row — Week 2 *(Rowing table)*; Bike/SkiErg at same work/rest if symptomatic
 - **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
 - **Compression Micro-Dose:** 2 rounds of 10-15s tuck L-sit support + 6-8 seated compression lifts
 
@@ -369,21 +369,19 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 **C. Seated Pike Pulses** — 4×10–15 reps
 
 #### Thursday — Active Recovery
-- **Cardio:** Thursday Row Session — Week 2 prescription from the rowing table above, or easy Bike/SkiErg if rowing is not symptom-free
+- **Cardio:** Row — Week 2 *(Rowing table)*; easy Bike/SkiErg if symptomatic
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
 - **Compression Micro-Dose:** 2 rounds of 6-8 pike pulses + 10-15s hollow body hold
 
 #### Friday — Full Body Power & Strength
 
-**A. Tall Clean from High Hang** — 3×2 @ 45–50% (40–42.5 kg) *(Same crisp technique focus as Week 1)*
+**A. Tall Clean from High Hang** — 3×2 @ 45–50% (40–42.5 kg)
 
 **B. Back Squat** — 4×6 @ 67.5% (90 kg) — *1-second pause at the bottom*
 
 **C. Close-Grip Bench Press** — 3×6 @ 62.5% (57.5 kg)
 
 **D. DB Low Box Step-Ups** — 3×8/leg *(Slow descent; use a load that keeps tracking perfect and pain-free)*
-
-**E. Cooldown Priority:** Use the post-session cooldown spin and stretching as the Friday aerobic flush.
 
 ---
 
@@ -397,11 +395,10 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **C. Ring Pull-Ups** — 3×6–8 *(Bodyweight, slow negative)*
 
-**D. Accessory Superset** *(2 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts (Optional)
-> Hold at 2 rounds so Monday reliably fits the time cap.
+**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts
 
 #### Tuesday — Active Recovery
-- **Cardio:** Tuesday Row Session — Week 3 prescription from the rowing table above, or Bike/SkiErg with the same work/rest timing if rowing is not symptom-free
+- **Cardio:** Row — Week 3 *(Rowing table)*; Bike/SkiErg at same work/rest if symptomatic
 - **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
 - **Compression Micro-Dose:** 2 rounds of 10-15s tuck L-sit support + 6-8 seated compression lifts
 
@@ -416,7 +413,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 **D. Seated Pike Pulses** — 4×10–15 reps
 
 #### Thursday — Active Recovery
-- **Cardio:** Thursday Row Session — Week 3 prescription from the rowing table above, or easy Bike/SkiErg if rowing is not symptom-free
+- **Cardio:** Row — Week 3 *(Rowing table)*; easy Bike/SkiErg if symptomatic
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
 - **Compression Micro-Dose:** 2 rounds of 6-8 pike pulses + 10-15s hollow body hold
 
@@ -430,8 +427,6 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **D. RDLs** — 3×8–10 @ 65–75 kg
 
-**E. Cooldown Priority:** Use the post-session cooldown spin and stretching as the Friday aerobic flush.
-
 ---
 
 ### WEEK 4
@@ -444,10 +439,10 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **C. Ring Pull-Ups** — 3×6–8 *(Bodyweight, slow negative)*
 
-**D. Accessory Superset** *(2 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts (Optional)
+**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts
 
 #### Tuesday — Active Recovery
-- **Cardio:** Tuesday Row Session — Week 4 prescription from the rowing table above, or Bike/SkiErg with the same work/rest timing if rowing is not symptom-free
+- **Cardio:** Row — Week 4 *(Rowing table)*; Bike/SkiErg at same work/rest if symptomatic
 - **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
 - **Compression Micro-Dose:** 2 rounds of 10-15s tuck L-sit support + 6-8 seated compression lifts
 
@@ -460,7 +455,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 **C. Seated Pike Pulses** — 4×10–15 reps
 
 #### Thursday — Active Recovery
-- **Cardio:** Thursday Row Session — Week 4 prescription from the rowing table above, or easy Bike/SkiErg if rowing is not symptom-free
+- **Cardio:** Row — Week 4 *(Rowing table)*; easy Bike/SkiErg if symptomatic
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
 - **Compression Micro-Dose:** 2 rounds of 6-8 pike pulses + 10-15s hollow body hold
 
@@ -474,15 +469,13 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **D. DB Low Box Step-Ups** — 3×8/leg *(Slow descent; stay submaximal and crisp)*
 
-**E. Cooldown Priority:** Use the post-session cooldown spin and stretching as the Friday aerobic flush.
-
 ---
 
 ## PHASE 2: Intensification (Weeks 5–8)
 
 **Focus:** Normal tempos. Tapering accessory volume while building sustainable strength in the 3–5 rep range.
 
-**Secondary Dose:** Friday Clean variations shift from learning positions to speed-strength primers, while Friday Bench variations stay in the straight-bar family so you get a true second weekly bench exposure without turning Friday into a max-effort press day. Tuesday now handles trunk work and Thursday handles shoulder-balance work so the main lifting days stay inside the time cap.
+**Secondary Dose:** Friday Clean variations shift from learning positions to speed-strength primers, while Friday Bench variations stay in the straight-bar family so you get a true second weekly bench exposure without turning Friday into a max-effort press day.
 
 > **Tempo change:** Drop the 2-second Bench eccentric and the 1-second Back Squat pause starting this phase. Use controlled but normal bar speed from Week 5 onward.
 
@@ -504,10 +497,10 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **C. Ring Pull-Ups** — 3×5–8 *(Stay at bodyweight unless elbows feel perfect and all reps are crisp for two straight weeks; only then add 2.5–5 kg)*
 
-**D. Accessory Superset** *(2 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts (Optional)
+**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts
 
 #### Tuesday — Active Recovery
-- **Cardio:** Tuesday Row Session — Week 5 prescription from the rowing table above, or Bike/SkiErg with matched duration if rowing is not symptom-free
+- **Cardio:** Row — Week 5 *(Rowing table)*; Bike/SkiErg at matched duration if symptomatic
 - **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
 - **Compression Micro-Dose:** 2-3 rounds of 10-20s tuck L-sit support + 8-10 seated compression lifts
 
@@ -515,12 +508,12 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **A. Power Clean** — 5×2 @ 75% (65 kg)
 
-**B. Box Squat** — 3×4 @ 68% (92.5 kg) *(HLM reduction — deliberately lighter than Phase 1 to lower Wednesday fatigue and protect Friday Back Squat performance)*
+**B. Box Squat** — 3×4 @ 68% (92.5 kg) *(HLM — see Phase 2 HLM note)*
 
 **C. Seated Pike Pulses** — 4×15–20 reps
 
 #### Thursday — Active Recovery
-- **Cardio:** Thursday Row Session — Week 5 prescription from the rowing table above, or easy Bike/SkiErg if rowing is not symptom-free
+- **Cardio:** Row — Week 5 *(Rowing table)*; easy Bike/SkiErg if symptomatic
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
 - **Compression Micro-Dose:** 2-3 rounds of 8-10 pike pulses + 10-20s hollow body hold
 
@@ -534,8 +527,6 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **D. RDLs** — 3×6–8 @ 70–75 kg *(Volume drops slightly to prep for heavier squats)*
 
-**E. Cooldown Priority:** Use the post-session cooldown spin and stretching as the Friday aerobic flush.
-
 ---
 
 ### WEEK 6
@@ -548,10 +539,10 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **C. Ring Pull-Ups** — 3×5–8 *(Bodyweight is still acceptable here if elbow tolerance is lagging; only add load if the prior two weeks were symptom-free)*
 
-**D. Accessory Superset** *(2 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts (Optional)
+**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts
 
 #### Tuesday — Active Recovery
-- **Cardio:** Tuesday Row Session — Week 6 prescription from the rowing table above, or Bike/SkiErg with matched duration if rowing is not symptom-free
+- **Cardio:** Row — Week 6 *(Rowing table)*; Bike/SkiErg at matched duration if symptomatic
 - **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
 - **Compression Micro-Dose:** 2-3 rounds of 10-20s tuck L-sit support + 8-10 seated compression lifts
 
@@ -564,7 +555,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 **C. Seated Pike Pulses** — 4×15–20 reps
 
 #### Thursday — Active Recovery
-- **Cardio:** Thursday Row Session — Week 6 prescription from the rowing table above, or easy Bike/SkiErg if rowing is not symptom-free
+- **Cardio:** Row — Week 6 *(Rowing table)*; easy Bike/SkiErg if symptomatic
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
 - **Compression Micro-Dose:** 2-3 rounds of 8-10 pike pulses + 10-20s hollow body hold
 
@@ -578,8 +569,6 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **D. DB Low Box Step-Ups** — 3×6–8/leg *(Use a controlled eccentric; cut the set early if knee tracking slips)*
 
-**E. Cooldown Priority:** Use the post-session cooldown spin and stretching as the Friday aerobic flush.
-
 ---
 
 ### WEEK 7
@@ -592,10 +581,10 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **C. Ring Pull-Ups** — 3×5–7 *(Weighted if progressing; stay at BW if elbow is sensitive)*
 
-**D. Accessory Superset** *(2 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts (Optional)
+**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts
 
 #### Tuesday — Active Recovery
-- **Cardio:** Tuesday Row Session — Week 7 prescription from the rowing table above, or Bike/SkiErg with matched duration if rowing is not symptom-free
+- **Cardio:** Row — Week 7 *(Rowing table)*; Bike/SkiErg at matched duration if symptomatic
 - **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
 - **Compression Micro-Dose:** 2-3 rounds of 10-20s tuck L-sit support + 8-10 seated compression lifts
 
@@ -608,7 +597,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 **C. Seated Pike Pulses** — 4×15–20 reps
 
 #### Thursday — Active Recovery
-- **Cardio:** Thursday Row Session — Week 7 prescription from the rowing table above, or easy Bike/SkiErg if rowing is not symptom-free
+- **Cardio:** Row — Week 7 *(Rowing table)*; easy Bike/SkiErg if symptomatic
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
 - **Compression Micro-Dose:** 2-3 rounds of 8-10 pike pulses + 10-20s hollow body hold
 
@@ -622,8 +611,6 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **D. RDLs** — 2×6 @ 75–80 kg *(Dropping a set to spare the CNS)*
 
-**E. Cooldown Priority:** Use the post-session cooldown spin and stretching as the Friday aerobic flush.
-
 ---
 
 ### WEEK 8
@@ -636,10 +623,10 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **C. Ring Pull-Ups** — 3×5–7 *(Weighted if progressing)*
 
-**D. Accessory Superset** *(2 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts (Optional)
+**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts
 
 #### Tuesday — Active Recovery
-- **Cardio:** Tuesday Row Session — Week 8 prescription from the rowing table above, or 20-30 min Bike/SkiErg if rowing is not symptom-free
+- **Cardio:** Row — Week 8 *(Rowing table)*; 20-30 min Bike/SkiErg if symptomatic
 - **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
 - **Compression Micro-Dose:** 2-3 rounds of 10-20s tuck L-sit support + 8-10 seated compression lifts
 
@@ -652,7 +639,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 **C. Seated Pike Pulses** — 4×15–20 reps
 
 #### Thursday — Active Recovery
-- **Cardio:** Thursday Row Session — Week 8 prescription from the rowing table above, or 15-20 min easy Bike/SkiErg if rowing is not symptom-free
+- **Cardio:** Row — Week 8 *(Rowing table)*; 15-20 min easy Bike/SkiErg if symptomatic
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8/side Half-Kneeling Landmine Press
 - **Compression Micro-Dose:** 2-3 rounds of 8-10 pike pulses + 10-20s hollow body hold
 
@@ -665,8 +652,6 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 **C. Paused Bench Press** — 3×3 @ 77.5% (70 kg) *(Competition grip or slightly in; 1-second pause, crisp bar speed)*
 
 **D. DB Low Box Step-Ups** — 2×6/leg *(Light to moderate; preserve knee quality for the final phase)*
-
-**E. Cooldown Priority:** Use the post-session cooldown spin and stretching as the Friday aerobic flush.
 
 ---
 
@@ -686,7 +671,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **C. Ring Pull-Ups** — 2×6 *(Bodyweight only — deload week)*
 
-**D. Accessory** *(2 Rounds)* — 10 DB Rows/arm ONLY
+**D. Accessory** *(2 Rounds)* — 10 DB Rows/arm ONLY *(deload — 1 round dropped)*
 
 #### Tuesday — Active Recovery
 - **Cardio:** 15-20 min very easy row, Bike, or SkiErg only *(Week 9 deload — no structured rowing intervals)*
@@ -717,8 +702,6 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **D. RDLs** — **CUT THIS WEEK**
 
-**E. Cooldown Priority:** Use the post-session cooldown spin and stretching as the Friday aerobic flush.
-
 ---
 
 ### WEEK 10 — HEAVY EFFORT
@@ -735,8 +718,6 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **D. Accessory** *(2 Rounds)* — 8-10 DB Rows/arm ONLY
 
-**E. Cooldown Priority:** Use the post-session cooldown spin and stretching as the Monday recovery flush.
-
 #### Tuesday — Active Recovery
 - **Cardio:** 20-30 min easy row, Bike, or SkiErg only *(Week 10 realization — keep it restorative)*
 - **Trunk Superset:** 1–2 rounds of 30-45-second Front Plank + 8/side Pallof Press
@@ -746,7 +727,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **A. Power Clean** — 4×2 @ 85% (75 kg)
 
-**B. Box Squat** — 3×3 @ 75% (100 kg) *(Backed off from 80% — keep this lighter to protect the realization week)*
+**B. Box Squat** — 3×3 @ 75% (100 kg)
 
 **C. Seated Pike Pulses** — 2×8-10 crisp reps
 
@@ -764,8 +745,6 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 **C. Paused Bench Press** — 3×3 @ 80% (72.5 kg) *(Moderate, crisp reps only; leave a rep in reserve)*
 
 **D. RDLs** — **CUT THIS WEEK**
-
-**E. Cooldown Priority:** Use the post-session cooldown spin and stretching as the Friday aerobic flush.
 
 ---
 
@@ -888,14 +867,14 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 ### Thursday Shoulder Support
 | Week | Work | Notes |
 |------|------|-------|
-| 1–8 | 2 sets superset: 12–15 Face Pulls *(light band or ~10–15 kg cable)* + 8–10/side Half-Kneeling Landmine Press *(empty bar to +5 kg)*; then Structural Circuit 2 rounds: Single-Leg Calf Raise 12/leg + Side Plank 20 sec/side + Banded External Rotation 12/side | Keep superset submaximal; Structural Circuit is easy maintenance work (~7 min total) |
+| 1–8 | 2 sets superset: 12–15 Face Pulls *(light band or ~10–15 kg cable)* + 8–10/side Half-Kneeling Landmine Press *(empty bar to +5 kg)*; then Structural Circuit 2 rounds: Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Wks 1–4) / 30 sec/side (Wks 5–8)** + Banded External Rotation 12/side | Keep superset submaximal; Structural Circuit is easy maintenance work (~7 min total) |
 | 9 | 1–2 light superset sets: 12 Face Pulls *(light band or ~7.5–10 kg cable)* + 8/side Half-Kneeling Landmine Press *(empty bar or technique bar)*; Structural Circuit 1 round only | Deload effort — half structural volume |
 | 10 | 1–2×12 Face Pulls *(light band or ~7.5–10 kg cable)* | Keep shoulders fresh for heavy bench and squat work |
 
 ### Accessory Supersets
 | Day | Work | Notes |
 |-----|------|-------|
-| Monday | DB Rows @ 20–30 kg/hand + Band Pull-Aparts *(light-medium band)* | Good time-saver; keep the rows controlled rather than heaving them |
+| Monday | DB Rows @ 20–30 kg/hand (3 sets) + Band Pull-Aparts *(light-medium band)* | Third row set balances push:pull ratio; keep reps controlled |
 | Tuesday | Front Plank + Pallof Press *(light band or ~5–10 kg cable)* | Use this as your trunk finisher after cardio and mobility |
 
 ### Ring Pull-Ups (Monday — Vertical Pull)

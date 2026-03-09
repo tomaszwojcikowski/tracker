@@ -48,7 +48,8 @@ Distilled from the iterative design of the 10-Week Strength & Conditioning Plan.
 All MWF sessions must fit within 60 minutes including warm-up, session-specific ramp, working sets, and cooldown. To enforce this:
 - Barbell work first; trunk and shoulder-balance work shifts to Tue/Thu.
 - Friday assistance work (exercise D) is **time-permitting** — complete A–C first.
-- Supersets only for low-skill accessories, never for main lifts.
+- Use **non-interfering density work** to cut idle rest without reducing output: light band pull-aparts between Monday bench sets, and pull supersets after the main press work.
+- Main lifts stay standalone: no fatiguing supersets for cleans, clean pulls, squats, or Friday bench work.
 
 ### Warm-Up Structure (Every MWF)
 1. **General** — 3–5 min light Bike or SkiErg.
@@ -104,6 +105,13 @@ This pattern is the single most effective structural choice for masters lifters.
 ### Push : Pull Ratio
 Aim for roughly **2:3 push-to-pull** by set count. Pulls include rows, pull-ups, face pulls. This protects shoulder health long-term.
 
+### Pull Progression Rule
+- Keep Weeks 1–2 conservative for elbow reintroduction.
+- From Week 3 onward, increase Monday vertical-pull volume before adding more exercise variety.
+- Default pattern: Ring pull-ups progress from 3 sets early to 4 sets across the main build, while DB rows stay secondary accessory work.
+- Do not pair ring pull-ups and DB rows if gripping tolerance is a limiting factor; protect the higher-skill or higher-priority pull first.
+- For chin-to-chest progression, use **low-grip support work first**: straight-arm band pulldowns early in the block, then assisted chest-to-rings top holds later when the pattern is established.
+
 ### Secondary Dose Principle
 Each primary pattern appears **twice per week**: once as the main lift, once as a lighter variation on a different day. The second dose is for skill and frequency, never intensity.
 - Friday clean variation is a **technical primer** — stop the set if turnover slows.
@@ -143,12 +151,21 @@ These are not optional accessories — they are **permanent maintenance work** t
 - Banded external rotation: 12/side
 
 ### Tuesday Trunk Work
-- Front plank + Pallof press superset — anti-extension and anti-rotation in one block.
+- Early block: front plank + Pallof press for anti-extension and anti-rotation.
+- Main build: use one anti-rotation round, then one round of 90/90 breathing to keep trunk stimulus high without overloading the hip flexors.
 - This is the only dedicated trunk training day; keep it low-fatigue.
 
 ### Power Primer (Monday, ~2 min)
 - 3×3 plyo push-ups before bench. Primes nervous system, improves bar speed.
 - Substitute med-ball chest pass if elbow flares (pain > 2/10).
+
+### Density Fillers And Supersets
+- Monday bench can use **light band pull-aparts as active-recovery fillers** during rest periods, provided bar speed stays unchanged.
+- Monday pull work should avoid **stacking two grip-heavy pulls** if elbows, forearms, or grip recovery are limiting. In that case, keep ring pull-ups standalone and place DB rows later as separate accessory work.
+- When adding support for a higher ring pull, prefer **band-based lat work or short assisted top holds** over more row volume. This keeps the session within the time cap and limits extra gripping.
+- Keep **Band Pull-Aparts in one Monday slot only**. If they are already used as bench-rest fillers, the later pull-support block should stay focused on the progression-specific work.
+- Thursday shoulder-balance work remains a low-skill superset.
+- Break any superset immediately if pain rises, positions worsen, or the main movement loses quality.
 
 ### Deload/Realization Adjustments
 - Deload: structural circuit → 1 round; trunk work → lighter.
@@ -230,5 +247,6 @@ When writing a new program document:
 - Cardio lines should be brief: "Row — Week N *(Rowing table)*; Bike/SkiErg if symptomatic."
 - Cooldown is in the rules — don't restate it every Friday.
 - Mark all optional/time-permitting work explicitly.
+- If density methods are used, name the exact structure once in the rules section: which movement is a filler, which movements are paired, and what quality threshold stops the pairing.
 - Include a quick-reference load progression table at the end.
 - Every phase needs explicit RPE targets in the autoregulation rule — no gaps.

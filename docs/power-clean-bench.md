@@ -59,15 +59,18 @@ Assault/Echo Bike and SkiErg are always acceptable. Row only if absolutely sympt
 
 ### Superset Rule
 - Keep the main lifts **standalone**: Bench Press, Power Clean, Clean Pulls, Box Squat, Back Squat, and Friday bench variations all get full attention and normal rest.
-- Use supersets only for **low-skill accessory work**: Monday rows + band pull-aparts, Thursday face pulls + landmine press, and Tuesday plank + Pallof work.
+- Use supersets only for **low-skill or non-interfering work**: Monday rows + band pull-aparts, Thursday face pulls + landmine press, and Tuesday trunk/breathing work.
+- Low-load structural work can be used as an **active-recovery filler** between main-lift sets when it does not interfere with output. Default fillers in this plan: Band Pull-Aparts between Monday Bench sets, and calf raises/external rotation inside Thursday structural work.
+- Avoid pairing **two grip-heavy pulls** back-to-back when elbow or forearm tolerance is a constraint. In this plan, Ring Pull-Ups stay standalone and DB Rows remain secondary accessory work.
+- Do **not** superset or interleave Power Cleans, Clean Pulls, Box Squats, Back Squats, or Friday clean variations with fatiguing work. Those lifts keep normal rest and full concentration.
 - Rest roughly **45-75 seconds** between paired movements and **75-120 seconds** between rounds. If bar speed, positions, or pain worsen, break the superset and run the movements separately.
 
 ### Power Primer Rule (Monday — Before Every Bench Session)
-Before every Monday bench session, perform **2–3 rounds of 3 reps** of med-ball chest pass (wall or floor-bounce). If no med ball is available, 3×3 plyo push-ups are acceptable in Phase 2 only. Rest 30–45 seconds between rounds. Total time ~2 minutes.
+Before every Monday bench session, perform **2–3 rounds of 3 reps** of plyo push-ups. Use handles or a slightly elevated surface if needed to keep the wrist and elbow comfortable. Rest 30–45 seconds between rounds. Total time ~2 minutes.
 - Primes the nervous system for explosive intent and measurably improves bar speed on the bench press
-- **Prefer med-ball chest pass** over plyo push-ups — the ball absorbs the catch and removes elbow stress at impact
+- **Substitute med-ball chest pass** (wall or floor-bounce) if elbow pain is above 2/10, impact feels sketchy, or you need a lower-stress power option that day
 - Skip if elbow pain is above 2/10 that morning
-- Phase 1 (Weeks 1–4): wall-throw or floor-bounce variant only; plyo push-ups are not permitted until elbow is fully symptom-free
+- Phase 1 (Weeks 1–4): use the shallowest plyo variation that stays crisp and pain-free; if that is not available, use the med-ball substitute instead
 
 ### Structural Balance Circuit Rule (Thursday — Permanent, Weeks 1–8)
 After the shoulder balance superset each Thursday, complete **2 rounds** of the following circuit before the compression micro-dose. Total time ~7 minutes. Treat this as easy maintenance work, not conditioning:
@@ -290,9 +293,10 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 #### Monday — Bench Focus & Compression
 
-> **Power Primer (all Monday sessions):** 3×3 med-ball chest pass before bench, ~2 min. *(See Power Primer Rule for variants and elbow guidelines.)*
+> **Power Primer (all Monday sessions):** 3×3 plyo push-ups before bench, ~2 min. *(See Power Primer Rule for regressions and elbow guidelines.)*
 
 **A. Bench Press** — 4×8 @ 65% (57.5 kg) — *Controlled 2-second eccentric*
+> **Density note:** During the first 3 rest periods, perform **12–15 Band Pull-Aparts**. Keep them light and easy so bench bar speed stays unchanged.
 
 **B. Parallette L-Sit Practice** — 4×8–12 seconds (Tucked hold)
 > **Progression rule:** Build from 8s toward 12s across Phase 1. Advance to one leg out only when all 4 sets are held with locked elbows, depressed shoulders, no lumbar collapse, and no shaking.
@@ -300,8 +304,8 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 **C. Ring Pull-Ups** — 3×5–8 *(Bodyweight — use a slow 2-sec negative; rings allow natural wrist rotation to protect the elbow)*
 > **Progression rule:** Start conservative. Add reps before adding weight. If elbow flares, switch to ring rows for that session.
 
-**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm (Neutral) + 12–15 Band Pull-Aparts
-> OPTIONAL: Skip if elbow is above 2/10 pain. 3 rounds is the target — reduces to 2 rounds in Weeks 9–10.
+**D. Pull Support Block** *(2 Rounds)* — 12–15 Straight-Arm Band Pulldowns
+> Low-grip support work for chest-to-rings progression. Band Pull-Aparts already appear during bench rest periods, so this block stays focused and time-efficient.
 
 #### Tuesday — Active Recovery
 - **Cardio:** Tuesday Row Session — Week 1 prescription from the rowing table above, or Bike/SkiErg with the same work/rest timing if rowing is not symptom-free
@@ -347,12 +351,13 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×7 @ 67.5% (60 kg) — *Controlled 2-second eccentric*
+> **Density note:** During the first 3 rest periods, perform **12–15 Band Pull-Aparts**. Keep them restorative, not fatiguing.
 
 **B. Parallette L-Sit Practice** — 4×10–12 seconds
 
 **C. Ring Pull-Ups** — 3×5–8 *(Bodyweight, slow negative)*
 
-**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts
+**D. Pull Support Block** *(2 Rounds)* — 12–15 Straight-Arm Band Pulldowns
 
 #### Tuesday — Active Recovery
 - **Cardio:** Row — Week 2 *(Rowing table)*; Bike/SkiErg at same work/rest if symptomatic
@@ -390,12 +395,15 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×6 @ 70% (62.5 kg) — *Controlled 2-second eccentric*
+> **Density note:** During the first 3 rest periods, perform **12–15 Band Pull-Aparts**. Stop using them as fillers if bench bar speed slows.
 
 **B. Parallette L-Sit Practice** — 4×8–10 seconds (Alternating single-leg extensions)
 
-**C. Ring Pull-Ups** — 3×6–8 *(Bodyweight, slow negative)*
+**C. Ring Pull-Ups** — 4×6–8 *(Bodyweight, slow negative)*
 
-**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts
+> **Height target:** Start aiming above chin level. Think upper chest moving toward the rings, not neck reaching up.
+
+**D. Pull Support Block** *(2 Rounds)* — 12–15 Straight-Arm Band Pulldowns
 
 #### Tuesday — Active Recovery
 - **Cardio:** Row — Week 3 *(Rowing table)*; Bike/SkiErg at same work/rest if symptomatic
@@ -434,12 +442,15 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×6 @ 72.5% (65 kg) — *Controlled 2-second eccentric*
+> **Density note:** During the first 3 rest periods, perform **12–15 Band Pull-Aparts**. Keep them crisp and light.
 
 **B. Parallette L-Sit Practice** — 4×10–12 seconds (Alternating single-leg extensions) *(Push toward the top of the range — this is the last week before tempo and intensity shift in Phase 2)*
 
-**C. Ring Pull-Ups** — 3×6–8 *(Bodyweight, slow negative)*
+**C. Ring Pull-Ups** — 4×6–8 *(Bodyweight, slow negative)*
 
-**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts
+> **Height target:** Hold the top for 1 second when possible and aim upper chest closer to the rings.
+
+**D. Pull Support Block** *(2 Rounds)* — 12–15 Straight-Arm Band Pulldowns
 
 #### Tuesday — Active Recovery
 - **Cardio:** Row — Week 4 *(Rowing table)*; Bike/SkiErg at same work/rest if symptomatic
@@ -492,16 +503,18 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×5 @ 75% (67.5 kg) — *Normal speed*
+> **Density note:** During the first 3 rest periods, perform **12–15 Band Pull-Aparts**. These are shoulder-health fillers only.
 
 **B. Parallette L-Sit Practice** — 4×8–12 seconds (One leg out) *(Increase capacity if position remains perfect)*
 
-**C. Ring Pull-Ups** — 3×5–8 *(Stay at bodyweight unless elbows feel perfect and all reps are crisp for two straight weeks; only then add 2.5–5 kg)*
+**C. Ring Pull-Ups** — 4×5–8 *(Stay at bodyweight unless elbows feel perfect and all reps are crisp for two straight weeks; only then add 2.5–5 kg)*
 
-**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts
+**D. Pull Support Block** — Assisted Chest-to-Rings Top Hold 3×5–8 seconds
+> Use a toe assist or box as needed. This is the most specific accessory for building chest-to-rings strength; Band Pull-Aparts are already covered during bench rest periods.
 
 #### Tuesday — Active Recovery
 - **Cardio:** Row — Week 5 *(Rowing table)*; Bike/SkiErg at matched duration if symptomatic
-- **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
+- **Trunk Work:** 1 round of 45-second Front Plank + 10/side Pallof Press, then 1 round of 5 slow breaths/side 90/90 breathing
 - **Compression Micro-Dose:** 2-3 rounds of 10-20s tuck L-sit support + 8-10 seated compression lifts
 
 #### Wednesday — Power Clean & Leg Strength
@@ -534,16 +547,17 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×5 @ 77.5% (70 kg)
+> **Density note:** During the first 3 rest periods, perform **12–15 Band Pull-Aparts**. Remove them if they blunt pressing output.
 
 **B. Parallette L-Sit Practice** — 4×10–12 seconds (One leg out)
 
-**C. Ring Pull-Ups** — 3×5–8 *(Bodyweight is still acceptable here if elbow tolerance is lagging; only add load if the prior two weeks were symptom-free)*
+**C. Ring Pull-Ups** — 4×5–8 *(Bodyweight is still acceptable here if elbow tolerance is lagging; only add load if the prior two weeks were symptom-free)*
 
-**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts
+**D. Pull Support Block** — Assisted Chest-to-Rings Top Hold 3×5–8 seconds
 
 #### Tuesday — Active Recovery
 - **Cardio:** Row — Week 6 *(Rowing table)*; Bike/SkiErg at matched duration if symptomatic
-- **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
+- **Trunk Work:** 1 round of 45-second Front Plank + 10/side Pallof Press, then 1 round of 5 slow breaths/side 90/90 breathing
 - **Compression Micro-Dose:** 2-3 rounds of 10-20s tuck L-sit support + 8-10 seated compression lifts
 
 #### Wednesday — Power Clean & Leg Strength
@@ -576,16 +590,17 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×4 @ 80% (72.5 kg)
+> **Density note:** During the first 3 rest periods, perform **12–15 Band Pull-Aparts** only if bench bar speed stays sharp.
 
 **B. Parallette L-Sit Practice** — 4×6–10 seconds (Alternating single-leg or full-attempt)
 
-**C. Ring Pull-Ups** — 3×5–7 *(Weighted if progressing; stay at BW if elbow is sensitive)*
+**C. Ring Pull-Ups** — 4×5–7 *(Weighted if progressing; stay at BW if elbow is sensitive)*
 
-**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts
+**D. Pull Support Block** — Assisted Chest-to-Rings Top Hold 2×5–8 seconds
 
 #### Tuesday — Active Recovery
 - **Cardio:** Row — Week 7 *(Rowing table)*; Bike/SkiErg at matched duration if symptomatic
-- **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
+- **Trunk Work:** 1 round of 45-second Front Plank + 10/side Pallof Press, then 1 round of 5 slow breaths/side 90/90 breathing
 - **Compression Micro-Dose:** 2-3 rounds of 10-20s tuck L-sit support + 8-10 seated compression lifts
 
 #### Wednesday — Power Clean & Leg Strength
@@ -603,7 +618,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 #### Friday — Full Body Power & Strength
 
-**A. Hang Power Clean with 1-second pause at knee** — 3×(1+1) @ 65% (57.5 kg) *(One rep from hang, reset, then repeat)*
+**A. Hang Power Clean with 1-second pause just above knee** — 3×(1+1) @ 65% (57.5 kg) *(Lower from the hang to just above the knee, pause 1 second, then finish the rep; reset and repeat)*
 
 **B. Back Squat** — 4×4 @ 80% (107.5 kg)
 
@@ -618,16 +633,17 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×4 @ 82.5% (75 kg)
+> **Density note:** During the first 3 rest periods, perform **12–15 Band Pull-Aparts** only if they stay easy and non-fatiguing.
 
 **B. Parallette L-Sit Practice** — 4×6–10 seconds (Best-quality variation: alternating single-leg or full attempt)
 
-**C. Ring Pull-Ups** — 3×5–7 *(Weighted if progressing)*
+**C. Ring Pull-Ups** — 4×5–7 *(Weighted if progressing)*
 
-**D. Accessory Superset** *(3 Rounds)* — 10–12 DB Rows/arm + 12–15 Band Pull-Aparts
+**D. Pull Support Block** — Assisted Chest-to-Rings Top Hold 2×5–8 seconds
 
 #### Tuesday — Active Recovery
 - **Cardio:** Row — Week 8 *(Rowing table)*; 20-30 min Bike/SkiErg if symptomatic
-- **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
+- **Trunk Work:** 1 round of 45-second Front Plank + 10/side Pallof Press, then 1 round of 5 slow breaths/side 90/90 breathing
 - **Compression Micro-Dose:** 2-3 rounds of 10-20s tuck L-sit support + 8-10 seated compression lifts
 
 #### Wednesday — Power Clean & Leg Strength
@@ -636,7 +652,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 **B. Box Squat** — 3×3 @ 75% (100 kg) *(Capped at 75% to maintain a meaningful gap below the 82.5% Back Squat)*
 
-**C. Seated Pike Pulses** — 4×15–20 reps
+**C. Seated Pike Pulses** — 3×15–20 reps *(Slight volume drop to protect hip flexors during the heaviest loading week)*
 
 #### Thursday — Active Recovery
 - **Cardio:** Row — Week 8 *(Rowing table)*; 15-20 min easy Bike/SkiErg if symptomatic
@@ -645,7 +661,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 
 #### Friday — Full Body Power & Strength
 
-**A. Hang Power Clean with 1-second pause at knee** — 3×(1+1) @ 70% (60 kg)
+**A. Hang Power Clean with 1-second pause just above knee** — 3×(1+1) @ 70% (60 kg)
 
 **B. Back Squat** — 4×3 @ 82.5% (110 kg)
 
@@ -666,6 +682,7 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 #### Monday — Bench Focus
 
 **A. Bench Press** — 3×5 @ 65% (57.5 kg)
+> **Density note:** During the first 2 rest periods, perform **12–15 Band Pull-Aparts** if elbows and shoulders feel good.
 
 **B. Parallette L-Sit Practice** — 3×8–10 seconds (Tucked or one-leg-out)
 
@@ -711,12 +728,13 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×3 @ 85% (77.5 kg)
+> **Density note:** During the first 2–3 rest periods, perform **12–15 Band Pull-Aparts** only if they help you stay warm without reducing bar speed.
 
 **B. Parallette L-Sit Practice** — 3×6-8 seconds, stop well before shaking and use your best-quality variation
 
 **C. Ring Pull-Ups** — 3×4–6 *(Weighted or BW — quality reps only, stop before grinders)*
 
-**D. Accessory** *(2 Rounds)* — 8-10 DB Rows/arm ONLY
+**D. Accessory** *(1–2 Rounds)* — 8-10 DB Rows/arm ONLY *(Skip entirely if pull-up grip or elbow tolerance is the limiter that day)*
 
 #### Tuesday — Active Recovery
 - **Cardio:** 20-30 min easy row, Bike, or SkiErg only *(Week 10 realization — keep it restorative)*
@@ -801,8 +819,8 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 | 4 | Low-Hang Power Clean | 3×2 | 60% (52.5 kg) | Crisp catches only |
 | 5 | High-Hang Power Clean | 3×2 | 60% (52.5 kg) | Speed-strength primer |
 | 6 | High-Hang Power Clean | 3×2 | 65% (57.5 kg) | Keep turnover quick |
-| 7 | Hang Power Clean + pause at knee | 3×(1+1) | 65% (57.5 kg) | Add positional control |
-| 8 | Hang Power Clean + pause at knee | 3×(1+1) | 70% (60 kg) | Last high-quality exposure before deload |
+| 7 | Hang Power Clean + pause just above knee | 3×(1+1) | 65% (57.5 kg) | Add positional control |
+| 8 | Hang Power Clean + pause just above knee | 3×(1+1) | 70% (60 kg) | Last high-quality exposure before deload |
 | 9 | Tall Clean from High Hang | 2×2 | 40–45% (35–40 kg) | *(deload)* |
 | 10 | High-Hang Power Clean | 2×1 | 50–60% (42.5–52.5 kg) | Speed primer only |
 
@@ -874,23 +892,31 @@ The Tuesday/Thursday cardio slots now borrow from the British Rowing advanced 2,
 ### Accessory Supersets
 | Day | Work | Notes |
 |-----|------|-------|
-| Monday | DB Rows @ 20–30 kg/hand (3 sets) + Band Pull-Aparts *(light-medium band)* | Third row set balances push:pull ratio; keep reps controlled |
-| Tuesday | Front Plank + Pallof Press *(light band or ~5–10 kg cable)* | Use this as your trunk finisher after cardio and mobility |
+| Monday | Bench Press + light Band Pull-Aparts as rest filler; then Straight-Arm Band Pulldowns in early weeks or assisted chest-to-rings top holds in later weeks | Keep Band Pull-Aparts in one slot only to avoid redundant shoulder-endurance work |
+| Tuesday | Front Plank + Pallof Press or 90/90 breathing | Use this as your trunk finisher after cardio and mobility |
 
 ### Ring Pull-Ups (Monday — Vertical Pull)
 | Week | Sets × Reps | Load | Notes |
 |------|-------------|------|-------|
 | 1–2 | 3×5–8 | Bodyweight | Slow 2-sec negative |
-| 3–4 | 3×6–8 | Bodyweight | |
-| 5–6 | 3×5–8 | Bodyweight or +2.5–5 kg | Add load only if Weeks 3-4 were fully symptom-free |
-| 7–8 | 3×5–7 | Weighted progression | |
+| 3–4 | 4×6–8 | Bodyweight | Begin pulling above chin height; add brief top holds when crisp |
+| 5–6 | 4×5–8 | Bodyweight or +2.5–5 kg | Add load only if Weeks 3-4 were fully symptom-free |
+| 7–8 | 4×5–7 | Weighted progression | Aim chest higher while keeping reps crisp |
 | 9 | 2×6 | Bodyweight | *(deload)* |
-| 10 | 3×4–6 | Weighted or BW | Quality reps only |
+| 10 | 3×4–6 | Weighted or BW | Quality reps only; rows are optional and minimal |
+
+### Monday Pull Support Work
+| Phase | Work | Notes |
+|------|------|-------|
+| Weeks 1–4 | 2 rounds: 12–15 Straight-Arm Band Pulldowns | Low-grip lat and scap support for higher pull mechanics |
+| Weeks 5–8 | 2–3 assisted Chest-to-Rings Top Holds × 5–8 sec | Most specific accessory for chest-to-rings progression; use toe assist as needed |
+| Week 9 | 2×12 Straight-Arm Band Pulldowns only | Deload |
+| Week 10 | 1–2 assisted Chest-to-Rings Top Holds × 5 sec only if elbows feel great | Optional, minimal |
 
 ### Pallof Press (Tuesday — Anti-Rotation Core)
 | Week | Sets × Reps | Notes |
 |------|-------------|-------|
 | 1–4 | 2–3×10/side | Light band or ~5–10 kg cable, done within the core circuit |
-| 5–8 | 2×10/side | Light band or ~5–10 kg cable; part of the Tuesday trunk superset |
+| 5–8 | 1×10/side + 1 round 90/90 breathing | Use one anti-rotation round, then downshift to breathing to limit hip-flexor fatigue |
 | 9 | 2×8/side | Very light band or ~5 kg cable *(deload)* |
 | 10 | 2×10/side | Light band or ~5–10 kg cable |

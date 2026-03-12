@@ -308,29 +308,25 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 ## PHASE 1: Accumulation & Tendon Prep (Weeks 1–4)
 
-**Focus:** Controlled 2-second eccentric on Bench. Brief 1-second pause at the bottom of the Back Squat. Building tissue capacity and rebuilding straight-bar familiarity after the prior pull-focused block without burying recovery.
+**Focus:** Controlled eccentric bench, paused squat quality, and tissue-capacity rebuild while reintroducing straight-bar work.
 
-**Secondary Dose:** Fridays add a light Power Clean variation before squats, while Wednesdays add the lighter close-grip bench dose after Box Squats so Bench and Clean patterns each appear twice per week without overloading Friday. Hinge and unilateral work now alternate by week to keep Friday at two lower-body lifts instead of three. Tuesday now carries trunk work and Thursday carries shoulder-balance work so the main lifting days stay inside the time cap. In the early accumulation weeks, Clean Pulls stay at a single back-off set when included so Wednesday remains executable inside the time cap.
+**Structure:** Friday carries clean variation + squat + one assistance slot; Wednesday carries the secondary bench dose.
 
 ---
 
 ### WEEK 1
 
+**Execution Key:** Prioritize crisp tempo work, pain-free pulling, and stable positions.
+
 #### Monday — Bench Focus & Compression
 
-> **Power Primer (all Monday sessions):** 3×3 plyo push-ups before bench, ~2 min. *(See Power Primer Rule for regressions and elbow guidelines.)*
-
 **A. Bench Press** — 4×8 @ 65% (57.5 kg) — *Controlled 2-second eccentric*
-> **Density note:** During the first 3 rest periods, perform **15 Band Pull-Aparts with a 1-second squeeze**. Keep them light and easy so bench bar speed stays unchanged.
 
 **B. Ring Pull-Ups** — 3×5–8 *(Bodyweight — use **3-1-X-0 tempo**; rings allow natural wrist rotation to protect the elbow)*
-> **Progression rule:** Start conservative. Add reps before adding weight. If elbow flares, switch to ring rows for that session.
 
 **C. Parallette L-Sit Practice** — 4×8–12 seconds (Tucked hold)
-> **Progression rule:** Build from 8s toward 12s across Phase 1. Advance to one leg out only when all 4 sets are held with locked elbows, depressed shoulders, no lumbar collapse, and no shaking.
 
 **D. Pull Support Density Block** — 4 minutes: accumulate **24–30 total Straight-Arm Band Pulldown reps** in small crisp sets
-> Low-grip support work for chest-to-rings progression. Band Pull-Aparts already appear during bench rest periods, so this block stays focused and time-efficient.
 
 #### Tuesday — Conditioning/Active Recovery
 - **Conditioning:** Tuesday Row Session — Week 1 prescription from the rowing table above, or easy Bike/SkiErg with the same work/rest timing if rowing is not symptom-free
@@ -365,17 +361,16 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 **C2. Chest-Supported Row (Neutral Grip)** — 2×10–12 @ 20–30 kg (or machine equivalent) *(light to moderate, scapular control focus)*
 
 **D. Seated Pike Pulses** — 4×10–15 reps
-> **Progression rule:** Progress by increasing lift height or adding 1–2 second holds at the peak, NOT just more reps.
-> **Position milestones:** Hands beside knees with hips just clearing floor; progress to hands beside mid-shin with consistent lift; target: full hip extension with both heels elevated and no collapse at peak.
 
 ---
 
 ### WEEK 2
 
+**Execution Key:** Stay submaximal and smooth; use this week to lock in quality before floor clean transition.
+
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×7 @ 67.5% (60 kg) — *Controlled 2-second eccentric*
-> **Density note:** During the first 3 rest periods, perform **15 Band Pull-Aparts with a 1-second squeeze**. Keep them restorative, not fatiguing.
 
 **B. Ring Pull-Ups** — 3×5–8 *(Bodyweight, 3-1-X-0 tempo)*
 
@@ -391,7 +386,6 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 #### Wednesday — Power Clean & Leg Strength
 
 **A. Hang Power Clean** — 4×3 @ 70% (60 kg) — *Hook grip*
-> Week 2 is the last hang clean week. Week 3 transitions to power cleans from the floor — expect a longer pull and slightly different timing. Keep loads the same to focus on the new start position.
 
 **B. Box Squat** — 3×5 @ 70% (95 kg)
 
@@ -417,14 +411,13 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 ### WEEK 3
 
+**Execution Key:** Transition to floor cleans and slightly higher pull quality while preserving bar speed.
+
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×6 @ 70% (62.5 kg) — *Controlled 2-second eccentric*
-> **Density note:** During the first 3 rest periods, perform **15 Band Pull-Aparts with a 1-second squeeze**. Stop using them as fillers if bench bar speed slows.
 
 **B. Ring Pull-Ups** — 4×6–8 *(Bodyweight, 3-1-X-0 tempo)*
-
-> **Height target:** Start aiming above chin level. Think upper chest moving toward the rings, not neck reaching up.
 
 **C. Parallette L-Sit Practice** — 4×8–10 seconds (Alternating single-leg extensions)
 
@@ -465,14 +458,13 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 ### WEEK 4
 
+**Execution Key:** Finish accumulation with clean reps and stable joints before intensity rises.
+
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×6 @ 72.5% (65 kg) — *Controlled 2-second eccentric*
-> **Density note:** During the first 3 rest periods, perform **15 Band Pull-Aparts with a 1-second squeeze**. Keep them crisp and light.
 
 **B. Ring Pull-Ups** — 4×6–8 *(Bodyweight, 3-1-X-0 tempo)*
-
-> **Height target:** Hold the top for 1 second when possible and aim upper chest closer to the rings.
 
 **C. Parallette L-Sit Practice** — 4×10–12 seconds (Alternating single-leg extensions) *(Push toward the top of the range — this is the last week before tempo and intensity shift in Phase 2)*
 
@@ -511,9 +503,9 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 ## PHASE 2: Intensification (Weeks 5–8)
 
-**Focus:** Normal tempos. Tapering accessory volume while building sustainable strength in the 3–5 rep range.
+**Focus:** Normal tempos, reduced accessory volume, and sustainable strength in the 3–5 rep range.
 
-**Secondary Dose:** Friday Clean variations shift from learning positions to speed-strength primers, while Wednesday Bench variations stay in the straight-bar family so you get a true second weekly bench exposure without turning Friday into a max-effort press day.
+**Structure:** Friday clean variations become speed-strength primers; Wednesday keeps the secondary straight-bar bench dose.
 
 > **Tempo change:** Drop the 2-second Bench eccentric and the 1-second Back Squat pause starting this phase. Use controlled but normal bar speed from Week 5 onward.
 
@@ -527,17 +519,17 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 ### WEEK 5
 
+**Execution Key:** Start intensification with crisp singles/sets and strict fatigue control.
+
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×5 @ 75% (67.5 kg) — *Normal speed*
-> **Density note:** During the first 3 rest periods, perform **15 Band Pull-Aparts with a 1-second squeeze**. These are shoulder-health fillers only.
 
 **B. Ring Pull-Ups** — 4×5–8 *(Use split progression: reach top reps for 2 exposures, add 1.25–2.5 kg, drop 1 rep per set, then rebuild)*
 
 **C. Parallette L-Sit Practice** — 4×8–12 seconds (One leg out) *(Increase capacity if position remains perfect)*
 
 **D. Pull Support EMOM** — 4 minutes: **1 assisted Chest-to-Rings Top Hold × 5–8 seconds** at the top of each minute
-> Use a toe assist or box as needed. This is the most specific accessory for building chest-to-rings strength; Band Pull-Aparts are already covered during bench rest periods.
 
 #### Tuesday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 5 *(Rowing table)*; easy Bike/SkiErg at matched duration if symptomatic
@@ -547,7 +539,6 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 #### Wednesday — Power Clean & Leg Strength
 
 **A. Power Clean** — **EMOM 10 min × 1 rep** @ 75% (65 kg)
-> Same total reps as 5×2, but with cleaner bar speed and more repeatable setup quality.
 
 **A2. Clean Pulls** — 1×3 @ 85% (75 kg) *(Post-EMOM technical back-off set; explosive extension ABOVE the knee, finish tall before elbows bend.)*
 
@@ -575,10 +566,11 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 ### WEEK 6
 
+**Execution Key:** Build intensity, keep quality high, and cut assistance if recovery slips.
+
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×5 @ 77.5% (70 kg)
-> **Density note:** During the first 3 rest periods, perform **15 Band Pull-Aparts with a 1-second squeeze**. Remove them if they blunt pressing output.
 
 **B. Ring Pull-Ups** — 4×5–8 *(Bodyweight is still acceptable if elbow tolerance lags; load jumps follow split progression only)*
 
@@ -621,10 +613,11 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 ### WEEK 7
 
+**Execution Key:** Heavy week; protect elbow and prioritize bar speed over extra volume.
+
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×4 @ 80% (72.5 kg)
-> **Density note:** During the first 3 rest periods, perform **15 Band Pull-Aparts with a 1-second squeeze** only if bench bar speed stays sharp.
 
 **B. Ring Pull-Ups** — 4×5–7 *(Weighted if progressing via split progression; stay at BW if elbow is sensitive)*
 
@@ -667,10 +660,11 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 ### WEEK 8
 
+**Execution Key:** Peak training stress; keep all reps crisp and accessories conservative.
+
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×4 @ 82.5% (75 kg)
-> **Density note:** During the first 3 rest periods, perform **15 Band Pull-Aparts with a 1-second squeeze** only if they stay easy and non-fatiguing.
 
 **B. Ring Pull-Ups** — 4×5–7 *(Weighted if progressing via split progression)*
 
@@ -717,10 +711,11 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 ### WEEK 9 — DELOAD
 
+**Execution Key:** Reduce stress aggressively and leave every set well in reserve.
+
 #### Monday — Bench Focus
 
 **A. Bench Press** — 3×5 @ 65% (57.5 kg)
-> **Density note:** During the first 2 rest periods, perform **15 Band Pull-Aparts with a 1-second squeeze** if elbows and shoulders feel good.
 
 **B. Ring Pull-Ups** — 2×6 *(Bodyweight only — deload week)*
 
@@ -762,10 +757,11 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 > This week, you will lift your heaviest loads of the cycle for reps. **No 1RM testing.** Keep the main lifts crisp, avoid grinders, and treat recovery as part of the training.
 
+**Execution Key:** Heaviest week for reps, but stop before grinders and preserve clean technique.
+
 #### Monday — Bench Focus & Compression
 
 **A. Bench Press** — 4×3 @ 85% (77.5 kg)
-> **Density note:** During the first 2–3 rest periods, perform **15 Band Pull-Aparts with a 1-second squeeze** only if they help you stay warm without reducing bar speed.
 
 **B. Ring Pull-Ups** — 3×4–6 *(Weighted or BW — quality reps only, stop before grinders)*
 
@@ -944,74 +940,5 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 | Tuesday | Front Plank + Pallof Press or 90/90 breathing, then Rower Slider Hamstring Curls | Use this as your trunk and knee-support finisher after easy cardio and mobility |
 | Friday | RDLs or Step-Ups + Chest-Supported Row (neutral grip) | Keep rows submaximal and technical; this is horizontal-pull balance, not a fatigue driver |
 
-### Ring Pull-Ups (Monday — Vertical Pull)
-| Week | Sets × Reps | Load | Notes |
-|------|-------------|------|-------|
-| 1–2 | 3×5–8 | Bodyweight | 3-1-X-0 tempo |
-| 3–4 | 4×6–8 | Bodyweight | 3-1-X-0 tempo; begin pulling above chin height; add brief top holds when crisp |
-| 5–6 | 4×5–8 | Bodyweight or +1.25–2.5 kg | Split progression: hit top reps for 2 exposures, then add small load and drop 1 rep/set |
-| 7–8 | 4×5–7 | Weighted progression | Continue split progression; keep jumps small and elbow-tolerant |
-| 9 | 2×6 | Bodyweight | *(deload)* |
-| 10 | 3×4–6 | Weighted or BW | Quality reps only; rows are optional and minimal |
-
-### Wednesday Secondary Bench Dose
-
-| Week | Variation | Sets × Reps | Load | Notes |
-|------|-----------|-------------|------|-------|
-| 1 | Close-Grip Bench Press | 3×6 | 60% / 55 kg | 1-second pause, technical volume |
-| 2 | Close-Grip Bench Press | 3×6 | 62.5% / 57.5 kg | Keep elbows tucked and smooth |
-| 3 | Close-Grip Bench Press | 3×5 | 65% / 60 kg | Build barbell familiarity |
-| 4 | Close-Grip Bench Press | 3×5 | 67.5% / 62.5 kg | Last accumulation-phase secondary dose |
-| 5 | Close-Grip Bench Press | 3×5 | 70% / 62.5 kg | Crisp reps only |
-| 6 | Close-Grip Bench Press | 3×5 | 72.5% / 65 kg | Secondary strength dose |
-| 7 | Close-Grip Bench Press | 2×2 | 70% / 62.5 kg | Reduced dose for elbow protection in heavy weeks |
-| 8 | Paused Bench Press | 2×2 | 72.5% / 65 kg | Reduced dose; prioritize crisp bar speed |
-| 9 | Close-Grip Bench Press | 2×5 | 55% / 50 kg | Light *(deload)* |
-| 10 | Paused Bench Press | 3×3 | 80% / 72.5 kg | Moderate, crisp reps only |
-
-### Monday Pull Support Work
-
-| Phase | Work | Notes |
-|------|------|-------|
-| Weeks 1–4 | 4-minute density block: accumulate 24–30 Straight-Arm Band Pulldown reps | Low-grip lat and scap support for higher pull mechanics |
-| Weeks 5–8 | 3–4 minute EMOM: 1 assisted Chest-to-Rings Top Hold × 5–8 sec each minute | Most specific accessory for chest-to-rings progression; use toe assist as needed |
-| Week 9 | 2 rounds of 10 DB Rows/arm only | Deload; shifts away from specific pull-support work and into minimal horizontal pulling |
-| Week 10 | 1–2 rounds of 8–10 DB Rows/arm only | Optional, minimal; skip if grip or elbow tolerance is the limiter |
-
-### Parallette L-Sit Progression
-
-| Week | Prescription | Position Focus |
-|------|-------------|----------------|
-| 1 | 4×8–12 sec | Tucked hold |
-| 2 | 4×10–12 sec | Tucked hold |
-| 3 | 4×8–10 sec | Alternating single-leg extensions |
-| 4 | 4×10–12 sec | Alternating single-leg extensions |
-| 5 | 4×8–12 sec | One leg out |
-| 6 | 4×10–12 sec | One leg out |
-| 7 | 4×6–10 sec | Alternating single-leg or first full attempts |
-| 8 | 4×6–10 sec | Best-quality variation |
-| 9 | 3×8–10 sec | Tucked or one-leg-out *(deload)* |
-| 10 | 3×6–8 sec | Best-quality variation, stop well before shaking |
-
-### Seated Pike Pulse Progression
-
-| Week | Prescription | Position Focus |
-|------|-------------|----------------|
-| 1 | 4×10–15 | Hands beside knees; hips just clearing floor |
-| 2 | 4×10–15 | Hands beside knees; cleaner lift height |
-| 3 | 4×10–15 | Start shifting hands slightly forward as tolerated |
-| 4 | 4×10–15 | Hold the top briefly when possible |
-| 5 | 3×15–20 | Higher lift with cleaner peak |
-| 6 | 3×15–20 | Hands beside mid-shin if position stays clean |
-| 7 | 3×15–20 | Higher consistent lift, no collapse |
-| 8 | 2×10–15 | Reduced fatigue week; keep only crisp reps |
-| 9 | 2×8–10 | Deload |
-| 10 | 2×8–10 | Crisp realization-week maintenance only |
-
-### Pallof Press (Tuesday — Anti-Rotation Core)
-| Week | Sets × Reps | Notes |
-|------|-------------|-------|
-| 1–4 | 2–3×10/side | Light band or ~5–10 kg cable, done within the core circuit |
-| 5–8 | 1×10/side + 1 round 90/90 breathing | Use one anti-rotation round, then downshift to breathing to limit hip-flexor fatigue |
-| 9 | 2×8/side | Very light band or ~5 kg cable *(deload)* |
-| 10 | 1–2×8/side | Light band or ~5–10 kg cable; keep trunk work restorative in realization week |
+### Note
+Detailed accessory progressions (Ring Pull-Ups, pull-support blocks, L-sit, pike pulses, and Pallof progression) are already embedded in the weekly prescriptions above to keep this reference section compact.

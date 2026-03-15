@@ -6362,7 +6362,7 @@
                 "name": "Pull Volume (Elbow Saver) - AMRAPs",
                 "type": "strength",
                 "estimatedDuration": 70,
-                "description": "Volume day built around pullovers, rows, and controlled push assistance.",
+                "description": "Volume day built around repeatable neutral-grip pulls, posterior-chain support, rows, and controlled push assistance.",
                 "exercises": [
                   {
                     "$routine": "warmup-jump-rope-protocol"
@@ -6380,12 +6380,12 @@
                     "notes": "Secondary exposure. Easy speed reps only; stop well before fatigue and keep elbows quiet."
                   },
                   {
-                    "$ref": "ex-pullover-bridge",
+                    "$ref": "ex-weighted-glute-bridge",
                     "sets": 4,
                     "repsValue": 10,
                     "loadMin": 22.5,
                     "loadMax": 25,
-                    "notes": "Rebuild volume. Focus on perfect technique and glute engagement."
+                    "notes": "Rebuild volume. Use 2-1-1-0 tempo and finish each rep with a hard glute lockout."
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -6574,7 +6574,7 @@
                 "name": "Pull Volume (Elbow Saver) - AMRAPs",
                 "type": "strength",
                 "estimatedDuration": 72,
-                "description": "Repeat the volume pattern with slightly higher challenge and no form drift.",
+                "description": "Repeat the volume pattern with slightly higher challenge, posterior-chain support, and no form drift.",
                 "exercises": [
                   {
                     "$routine": "warmup-burpees-protocol"
@@ -6592,12 +6592,12 @@
                     "notes": "Secondary exposure. Easy speed reps only; leave at least 2 reps in reserve."
                   },
                   {
-                    "$ref": "ex-pullover-bridge",
+                    "$ref": "ex-weighted-glute-bridge",
                     "sets": 4,
                     "repsValue": 10,
                     "loadMin": 25,
                     "loadMax": 27.5,
-                    "notes": "Build volume. Keep hips high and range controlled."
+                    "notes": "Build volume. Use 2-1-1-0 tempo and keep the pelvis neutral at lockout."
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -6808,12 +6808,12 @@
                     "notes": "Secondary exposure. Speed and positioning only; use this to groove the pattern, not to add fatigue."
                   },
                   {
-                    "$ref": "ex-pullover-bridge",
+                    "$ref": "ex-weighted-glute-bridge",
                     "sets": 4,
                     "repsValue": 8,
                     "loadMin": 27.5,
                     "loadMax": 30,
-                    "notes": "Peak bridge loading. Stay one clean rep shy of breakdown."
+                    "notes": "Peak bridge loading. Stay one clean rep shy of breakdown and own the top position."
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",
@@ -7014,12 +7014,12 @@
                     "$routine": "warmup-straight-arm-pulldowns"
                   },
                   {
-                    "$ref": "ex-db-pullover",
+                    "$ref": "ex-weighted-glute-bridge",
                     "sets": 2,
                     "repsValue": 8,
                     "loadMin": 20,
                     "loadMax": 22.5,
-                    "notes": "Deload. Easy."
+                    "notes": "Deload. Easy tempo and crisp glute lockout."
                   },
                   {
                     "$ref": "ex-feet-elevated-ring-rows",

@@ -6529,14 +6529,6 @@
                     "notes": "Primary pull pattern. Stay smooth and repeatable with no grinding."
                   },
                   {
-                    "$ref": "ex-db-pullover",
-                    "sets": 3,
-                    "repsValue": 8,
-                    "loadMin": 25,
-                    "loadMax": 27.5,
-                    "notes": "Lat strength support."
-                  },
-                  {
                     "$ref": "ex-close-grip-db-press-heavy",
                     "loadMin": 17.5,
                     "loadMax": 22.5,
@@ -6740,14 +6732,6 @@
                     "sets": 5,
                     "repsValue": 4,
                     "notes": "Own all reps. No grinders."
-                  },
-                  {
-                    "$ref": "ex-db-pullover",
-                    "sets": 3,
-                    "repsValue": 8,
-                    "loadMin": 27.5,
-                    "loadMax": 30,
-                    "notes": "Moderate load. Controlled stretch."
                   },
                   {
                     "$ref": "ex-close-grip-db-press-heavy",
@@ -6956,14 +6940,6 @@
                     "sets": 5,
                     "repsValue": 4,
                     "notes": "Peak week straight sets. Keep reps strict and stop before any grind or elbow flare-up."
-                  },
-                  {
-                    "$ref": "ex-db-pullover",
-                    "sets": 2,
-                    "repsValue": 6,
-                    "loadMin": 22.5,
-                    "loadMax": 25,
-                    "notes": "Accessory lat support. Maintain lat loading while giving the elbows a break from extra pulling volume."
                   },
                   {
                     "$ref": "ex-close-grip-db-press-heavy",

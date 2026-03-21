@@ -1,6 +1,6 @@
 # 10-Week Strength & Conditioning Plan
 
-**Last Updated:** March 12, 2026
+**Last Updated:** March 20, 2026
 
 ## Athlete Profile & Goals
 
@@ -83,6 +83,24 @@ After the shoulder balance superset each Thursday, complete **2 rounds** of the 
 - **Banded External Rotation** — 12/side, light band *(rotator cuff endurance; distinct from the scapular work in face pulls)*
 
 Reduce to **1 round** in Week 9 (deload). In Week 10, keep **1 short maintenance round** (Single-Leg Calf Raise + Banded External Rotation only) to preserve joint support without adding fatigue.
+
+### Skill Work Rules (Skin-the-Cat & Dragon Flag)
+
+**Skin-the-Cat (Thursday — after shoulder balance superset, Weeks 1–10):** A straight-arm shoulder-extension and lat-length skill on the rings. It helps offset pressing stiffness accumulated across the week, supports ring comfort, and preserves usable overhead range. Keep it smooth and submaximal: this is mobility-strength practice, not a max-range test. Total time ~4 minutes.
+
+- **Stop rule:** Any sharp shoulder impingement → stop immediately. Mild anterior shoulder stretch at the bottom is normal; pain is not.
+- **Readiness rule:** Skip it that day if shoulders feel unstable, front-rack soreness is high, or ring support positions feel unusually shaky after the warm-up.
+- **German hang depth:** Earn it gradually. Weeks 1–2 stop before the German hang entirely — tuck and return only.
+- **Progression:** Tuck only (Weeks 1–2) → partial German hang (Weeks 3–4) → full German hang (Weeks 5–6) → full German hang with 3–4s bottom hold (Weeks 7–8) → tuck deload (Week 9) → full range maintenance (Week 10).
+- **Deload rule:** Drop to 2 × 2 reps tuck only in Week 9. In Week 10 keep 2 × 2 full-range reps to preserve shoulder mobility without adding fatigue before Friday.
+
+**Dragon Flag (Tuesday — after trunk superset, Weeks 1–10):** A full-body anti-extension skill on a flat bench. It builds on the hollow-body work already in the plan and gives you a higher-tension trunk skill without adding grip stress. Treat it as low-volume quality practice, not ab burnout. Total time ~4 minutes.
+
+- **Stop rule:** Lower back arches or ribs flare = the rep is finished. Always end in a controlled position, never a collapsed one.
+- **Anchor:** Set your upper back on a flat bench and grip the bench edge or a stable upright behind your head. Your hands are the anchor point here, not your feet.
+- **Progression:** Tuck hold (Weeks 1–2) → tuck hold with single-leg reach (Weeks 3–4) → single-leg extended hold (Weeks 5–6) → full eccentric negative (Weeks 7–8) → tuck hold deload (Week 9) → best-quality variation (Week 10).
+- **Volume:** Skill work only — 2–3 sets of 1 quality rep or a short timed hold. Never train to failure here.
+- **Deload rule:** 2 × 5s tuck hold in Week 9. In Week 10, 2 × best variation, stop well before shaking.
 
 ### 60-Minute Session Rule
 - Monday, Wednesday, and Friday are written to fit inside a **60-minute window including the mandatory warm-up, session ramp, and cooldown stretching**.
@@ -295,6 +313,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 | Anti-Rotation Core | Pallof Press |
 | Compression Core | L-Sit Progressions, Pike Pulses |
 | Scapular/Upper-Back Support | Ring Pull-Ups, Face Pulls, Band Pull-Aparts |
+| Straight-Arm Shoulder Mobility | Skin-the-Cat |
+| Advanced Anti-Extension Core | Dragon Flag Progressions |
 
 ## Phase Overview
 
@@ -326,13 +346,14 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 **C. Parallette L-Sit Practice** — 4×8–12 seconds (Tucked hold)
 
-**D. Pull Support Density Block** — 4 minutes: accumulate **24–30 total Straight-Arm Band Pulldown reps** in small crisp sets
+**D. Pull Support Density Block** — 4 minutes: accumulate **16–20 total Ring Row reps** in small crisp sets *(feet-assisted as needed; 2-second squeeze with chest to rings on each rep)*
 
 #### Tuesday — Conditioning/Active Recovery
 - **Conditioning:** Tuesday Row Session — Week 1 prescription from the rowing table above, or easy Bike/SkiErg with the same work/rest timing if rowing is not symptom-free
 - **Mobility:** 15 min adductor/hamstring stretches + 3×15 eccentric wrist extensions
 - **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
 - **Knee/Hamstring Support:** Rower Slider Hamstring Curls — 2×8 (slow eccentric, hips high)
+- **Dragon Flag Skill:** 3 × 5–8s Tuck Dragon Flag Hold *(anchor feet under bench; tuck knees to chest, lift hips and back off bench; hold neutral spine throughout; 60s rest between sets)*
 
 #### Wednesday — Power Clean & Leg Strength
 
@@ -348,6 +369,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 - **Conditioning:** Thursday Row Session — Week 1 prescription from the rowing table above, or Bike/SkiErg with the same work/rest timing if rowing is not symptom-free
 - **Core/Mobility:** 3×15 Hollow Rocks + Banded Hamstring Flossing. Foam roll legs.
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
+- **Skin-the-Cat Skill:** 3 × 2 reps Tuck Skin-the-Cat on rings *(pull knees through to inverted hang, hold 1–2s, return; do NOT descend into German hang yet; 90s rest between sets)*
 - **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
@@ -376,12 +398,13 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 **C. Parallette L-Sit Practice** — 4×10–12 seconds
 
-**D. Pull Support Density Block** — 4 minutes: accumulate **24–30 total Straight-Arm Band Pulldown reps** in small crisp sets
+**D. Pull Support Density Block** — 4 minutes: accumulate **18–22 total Ring Row reps** in small crisp sets *(same setup as Week 1; keep body line rigid and pause 2 seconds at the top)*
 
 #### Tuesday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 2 *(Rowing table)*; easy Bike/SkiErg at the same work/rest if symptomatic
 - **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
 - **Knee/Hamstring Support:** Rower Slider Hamstring Curls — 2×8 (slow eccentric, hips high)
+- **Dragon Flag Skill:** 3 × 5–8s Tuck Dragon Flag Hold *(same as Week 1; focus on keeping lower back flat against bench throughout)*
 
 #### Wednesday — Power Clean & Leg Strength
 
@@ -394,6 +417,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 2 *(Rowing table)*; Bike/SkiErg at the same work/rest if symptomatic
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
+- **Skin-the-Cat Skill:** 3 × 2 reps Tuck Skin-the-Cat on rings *(same as Week 1; build comfort in the inverted hang position)*
+- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -421,12 +446,13 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 **C. Parallette L-Sit Practice** — 4×8–10 seconds (Alternating single-leg extensions)
 
-**D. Pull Support Density Block** — 4 minutes: accumulate **24–30 total Straight-Arm Band Pulldown reps** in small crisp sets
+**D. Pull Support Density Block** — 4 minutes: accumulate **18–24 total Ring Row reps** in small crisp sets *(walk feet slightly farther forward if elbow tolerance is good; keep every rep strict)*
 
 #### Tuesday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 3 *(Rowing table)*; easy Bike/SkiErg at the same work/rest if symptomatic
 - **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
 - **Knee/Hamstring Support:** Rower Slider Hamstring Curls — 2×8 (slow eccentric, hips high)
+- **Dragon Flag Skill:** 3 × 8–10s Tuck Dragon Flag Hold *(extend one leg for 2–3s of each hold if lower back stays flat; return to tuck if it starts to arch)*
 
 #### Wednesday — Power Clean & Leg Strength
 
@@ -441,6 +467,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 3 *(Rowing table)*; Bike/SkiErg at the same work/rest if symptomatic
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
+- **Skin-the-Cat Skill:** 3 × 2–3 reps Tuck to partial German hang *(pull through to inverted hang, lower hips slowly until mild anterior shoulder stretch, hold 2s, pull back through; stop before reaching full German hang)*
+- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -468,12 +496,13 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 **C. Parallette L-Sit Practice** — 4×10–12 seconds (Alternating single-leg extensions) *(Push toward the top of the range — this is the last week before tempo and intensity shift in Phase 2)*
 
-**D. Pull Support Density Block** — 4 minutes: accumulate **24–30 total Straight-Arm Band Pulldown reps** in small crisp sets
+**D. Pull Support Density Block** — 4 minutes: accumulate **20–24 total Ring Row reps** in small crisp sets *(same setup or slightly harder angle than Week 3; 2-second pause at the top of every rep)*
 
 #### Tuesday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 4 *(Rowing table)*; easy Bike/SkiErg at the same work/rest if symptomatic
 - **Trunk Superset:** 2 rounds of 45-second Front Plank + 10/side Pallof Press
 - **Knee/Hamstring Support:** Rower Slider Hamstring Curls — 2×8 (slow eccentric, hips high)
+- **Dragon Flag Skill:** 3 × 8–10s Tuck Dragon Flag Hold with single-leg reach *(same as Week 3; aim for a clean 10s hold with one leg fully extended before Phase 2 progression)*
 
 #### Wednesday — Power Clean & Leg Strength
 
@@ -486,6 +515,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 4 *(Rowing table)*; Bike/SkiErg at the same work/rest if symptomatic
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
+- **Skin-the-Cat Skill:** 3 × 2–3 reps Tuck to partial German hang *(same as Week 3; earn a little more depth each rep if the stretch feels clean and pain-free)*
+- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -535,6 +566,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 - **Conditioning:** Row — Week 5 *(Rowing table)*; easy Bike/SkiErg at matched duration if symptomatic
 - **Trunk Work:** 1 round of 45-second Front Plank + 10/side Pallof Press, then 1 round of 5 slow breaths/side 90/90 breathing
 - **Knee/Hamstring Support:** Rower Slider Hamstring Curls — 2×8 (slow eccentric, hips high)
+- **Dragon Flag Skill:** 3 × 4–6s Single-Leg Dragon Flag Hold *(one leg fully extended, one tucked; if lower back stays flat for the full hold, attempt 1 slow 4-count negative with both legs tucked)*
 
 #### Wednesday — Power Clean & Leg Strength
 
@@ -549,6 +581,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 5 *(Rowing table)*; Bike/SkiErg at matched duration if symptomatic
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
+- **Skin-the-Cat Skill:** 3 × 2–3 reps full Skin-the-Cat *(pull knees through to inverted hang, descend with control to full German hang, hold 2–3s, pull back through; keep the descent smooth and controlled)*
+- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -582,6 +616,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 - **Conditioning:** Row — Week 6 *(Rowing table)*; easy Bike/SkiErg at matched duration if symptomatic
 - **Trunk Work:** 1 round of 45-second Front Plank + 10/side Pallof Press, then 1 round of 5 slow breaths/side 90/90 breathing
 - **Knee/Hamstring Support:** Rower Slider Hamstring Curls — 2×8 (slow eccentric, hips high)
+- **Dragon Flag Skill:** 3 × 4–6s Single-Leg Dragon Flag Hold *(same as Week 5; work toward a clean 6s hold before attempting negatives)*
 
 #### Wednesday — Power Clean & Leg Strength
 
@@ -596,6 +631,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 6 *(Rowing table)*; Bike/SkiErg at matched duration if symptomatic
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
+- **Skin-the-Cat Skill:** 3 × 2–3 reps full Skin-the-Cat *(same as Week 5; add 0.5–1s to the German hang hold if shoulder feels open and pain-free)*
+- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -629,6 +666,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 - **Conditioning:** Row — Week 7 *(Rowing table)*; easy Bike/SkiErg at matched duration if symptomatic
 - **Trunk Work:** 1 round of 45-second Front Plank + 10/side Pallof Press, then 1 round of 5 slow breaths/side 90/90 breathing
 - **Knee/Hamstring Support:** Rower Slider Hamstring Curls — 2×8 (slow eccentric, hips high)
+- **Dragon Flag Skill:** 2 × 1 Full Dragon Flag Negative *(start at top with both legs tucked; slowly extend to full body and lower for a 5-count; tuck to return; stop the set if lower back arches before reaching the bench)*
 
 #### Wednesday — Power Clean & Leg Strength
 
@@ -643,6 +681,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 7 *(Rowing table)*; Bike/SkiErg at matched duration if symptomatic
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
+- **Skin-the-Cat Skill:** 3 × 2–3 reps full Skin-the-Cat with 3–4s German hang hold *(full range, extended pause at the bottom; breathe into the stretch; do not rush the pull-back)*
+- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -676,6 +716,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 - **Conditioning:** Row — Week 8 *(Rowing table)*; 15-20 min easy Bike/SkiErg if symptomatic
 - **Trunk Work:** 1 round of 45-second Front Plank + 10/side Pallof Press, then 1 round of 5 slow breaths/side 90/90 breathing
 - **Knee/Hamstring Support:** Rower Slider Hamstring Curls — 2×8 (slow eccentric, hips high)
+- **Dragon Flag Skill:** 2 × 1 Full Dragon Flag Negative *(same as Week 7; heaviest training week — keep reps crisp and stop immediately if form slips)*
 
 #### Wednesday — Power Clean & Leg Strength
 
@@ -688,6 +729,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 8 *(Rowing table)*; Bike/SkiErg at the same work/rest if symptomatic
 - **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8/side Half-Kneeling Landmine Press
+- **Skin-the-Cat Skill:** 3 × 2–3 reps full Skin-the-Cat with 3–4s German hang hold *(same as Week 7; heaviest week — keep the movement smooth and stop if shoulders feel elevated tension)*
+- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -727,6 +770,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 - **Conditioning:** 15-20 min very easy row, Bike, or SkiErg only *(Week 9 deload — no structured rowing intervals)*
 - **Trunk Superset:** 2 rounds of 45-second Front Plank + 8/side Pallof Press (light)
 - **Knee/Hamstring Support:** Rower Slider Hamstring Curls — 1–2×8 (light deload effort)
+- **Dragon Flag Skill:** 2 × 5s Tuck Dragon Flag Hold only *(deload — do not attempt negatives this week)*
 
 #### Wednesday — Power Clean & Leg Strength
 
@@ -741,6 +785,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** 15-20 min very easy row, Bike, or SkiErg only *(Week 9 deload — no structured rowing intervals)*
 - **Shoulder Balance Superset:** 1–2 sets of 12 Face Pulls + 8/side Half-Kneeling Landmine Press *(light deload effort)*
+- **Skin-the-Cat Skill:** 2 × 2 reps Tuck only *(deload — do not descend into German hang this week)*
 - **Structural Circuit:** 1 round only — Single-Leg Calf Raise 12/leg + Side Plank 20 sec/side + Banded External Rotation 12/side *(deload — half volume)*
 
 #### Friday — Squat Deload
@@ -773,6 +818,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 - **Conditioning:** 20-30 min easy row, Bike, or SkiErg only *(Week 10 realization — keep it restorative)*
 - **Trunk Superset:** 1–2 rounds of 30-45-second Front Plank + 8/side Pallof Press
 - **Knee/Hamstring Support:** Rower Slider Hamstring Curls — 1–2×8 (light, no cramping)
+- **Dragon Flag Skill:** 2 × best-quality variation *(1 slow negative or 6s single-leg hold; stop well before shaking — preserve the CNS for Friday)*
 
 #### Wednesday — Power Clean & Leg Strength
 
@@ -787,6 +833,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** 20-30 min easy row, Bike, or SkiErg only *(Week 10 realization — keep it restorative)*
 - **Shoulder Balance:** 1–2×12 Face Pulls only *(keep shoulders fresh for Friday)*
+- **Skin-the-Cat Skill:** 2 × 2 reps full Skin-the-Cat *(keep shoulders mobile and fresh; do not push depth or hold time this week)*
 - **Structural Circuit:** 1 short round — Single-Leg Calf Raise 12/leg + Banded External Rotation 12/side *(skip side plank this week)*
 
 #### Friday — Full Body Power & Strength
@@ -936,7 +983,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 ### Accessory Supersets
 | Day | Work | Notes |
 |-----|------|-------|
-| Monday | Bench Press + light Band Pull-Aparts as rest filler; then Straight-Arm Band Pulldowns in Weeks 1–4, assisted chest-to-rings top holds in Weeks 5–8, or minimal DB Rows in Weeks 9–10 | Keep Band Pull-Aparts as low-fatigue fillers (15 reps with 1-second squeeze), and add 1×8–10 Scap Push-Up Plus before first loaded bench set |
+| Monday | Bench Press + light Band Pull-Aparts as rest filler; then Ring Row density blocks in Weeks 1–4, assisted chest-to-rings top holds in Weeks 5–8, or minimal DB Rows in Weeks 9–10 | Keep Band Pull-Aparts as low-fatigue fillers (15 reps with 1-second squeeze), and add 1×8–10 Scap Push-Up Plus before first loaded bench set |
 | Tuesday | Front Plank + Pallof Press or 90/90 breathing, then Rower Slider Hamstring Curls | Use this as your trunk and knee-support finisher after easy cardio and mobility |
 | Friday | RDLs or Step-Ups + Chest-Supported Row (neutral grip) | Keep rows submaximal and technical; this is horizontal-pull balance, not a fatigue driver |
 

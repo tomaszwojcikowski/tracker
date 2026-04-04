@@ -77,12 +77,12 @@ Before every Monday bench session, perform **2–3 rounds of 3 reps** of plyo pu
 - Immediately before your first loaded Bench set, perform **1×8-10 Scap Push-Up Plus** (slow and controlled) as a shoulder-position primer
 
 ### Structural Balance Circuit Rule (Thursday — Permanent, Weeks 1–8)
-After the shoulder balance superset each Thursday, complete **2 rounds** of the following circuit. Total time ~7 minutes. Treat this as easy maintenance work, not conditioning:
+Fold the structural movements **into** the shoulder balance superset each Thursday rather than running them as a separate block. Between Face Pull + Landmine Press sets, perform the structural work as active-recovery fillers. Total time ~10 minutes for the combined block. Treat this as easy maintenance work, not conditioning:
 - **Single-Leg Calf Raise** — 12/leg, slow and controlled *(ankle and knee stability; directly relevant for goose foot management)*
 - **Side Plank** — 20 seconds/side in Weeks 1–4, **30 seconds/side in Weeks 5–8** *(lateral trunk stability; complements the anti-extension work on Tuesday)*
 - **Banded External Rotation** — 12/side, light band *(rotator cuff endurance; distinct from the scapular work in face pulls)*
 
-Reduce to **1 round** in Week 9 (deload). In Week 10, keep **1 short maintenance round** (Single-Leg Calf Raise + Banded External Rotation only) to preserve joint support without adding fatigue.
+In Week 9 (deload), reduce to 1–2 light sets with structural fillers and skip side plank. In Week 10, keep structural fillers (Calf Raise + Banded ER only) to preserve joint support without adding fatigue.
 
 ### Skill Work Rules (Skin-the-Cat & Dragon Flag)
 
@@ -359,7 +359,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 **A. Hang Power Clean** — 4×3 @ 65% (57.5 kg) — *Hook grip*
 
-**B. Clean Pulls** — 1×3 @ 80% (70 kg) *(Explosive extension ABOVE the knee; finish tall before elbows bend.)*
+**B. Clean Pulls** — 2×3 @ 80% (70 kg) *(Explosive extension ABOVE the knee; finish tall before elbows bend.)*
 
 **C. Box Squat** — 3×5 @ 70% (95 kg)
 
@@ -368,9 +368,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Thursday Row Session — Week 1 prescription from the rowing table above, or Bike/SkiErg with the same work/rest timing if rowing is not symptom-free
 - **Core/Mobility:** 3×15 Hollow Rocks + Banded Hamstring Flossing. Foam roll legs.
-- **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
+- **Shoulder Balance + Structural Circuit:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press, with Single-Leg Calf Raise 12/leg + Banded External Rotation 12/side folded in between sets; finish with Side Plank **20 sec/side** *(~10 min total; see Structural Balance Circuit Rule)*
 - **Skin-the-Cat Skill:** 3 × 2 reps Tuck Skin-the-Cat on rings *(pull knees through to inverted hang, hold 1–2s, return; do NOT descend into German hang yet; 90s rest between sets)*
-- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -416,9 +415,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 2 *(Rowing table)*; Bike/SkiErg at the same work/rest if symptomatic
-- **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
+- **Shoulder Balance + Structural Circuit:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press, with Single-Leg Calf Raise 12/leg + Banded External Rotation 12/side folded in between sets; finish with Side Plank **20 sec/side** *(~10 min total; see Structural Balance Circuit Rule)*
 - **Skin-the-Cat Skill:** 3 × 2 reps Tuck Skin-the-Cat on rings *(same as Week 1; build comfort in the inverted hang position)*
-- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -458,7 +456,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 **A. Power Clean (From Floor)** — 4×3 @ 70% (60 kg)
 
-**B. Clean Pulls** — 1×3 @ 85% (75 kg) *(Explosive extension ABOVE the knee; finish tall before elbows bend.)*
+**B. Clean Pulls** — 2×3 @ 85% (75 kg) *(Explosive extension ABOVE the knee; finish tall before elbows bend.)*
 
 **C. Box Squat** — 3×5 @ 72.5% (97.5 kg)
 
@@ -466,9 +464,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 3 *(Rowing table)*; Bike/SkiErg at the same work/rest if symptomatic
-- **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
+- **Shoulder Balance + Structural Circuit:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press, with Single-Leg Calf Raise 12/leg + Banded External Rotation 12/side folded in between sets; finish with Side Plank **20 sec/side** *(~10 min total; see Structural Balance Circuit Rule)*
 - **Skin-the-Cat Skill:** 3 × 2–3 reps Tuck to partial German hang *(pull through to inverted hang, lower hips slowly until mild anterior shoulder stretch, hold 2s, pull back through; stop before reaching full German hang)*
-- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -514,9 +511,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 4 *(Rowing table)*; Bike/SkiErg at the same work/rest if symptomatic
-- **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
+- **Shoulder Balance + Structural Circuit:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press, with Single-Leg Calf Raise 12/leg + Banded External Rotation 12/side folded in between sets; finish with Side Plank **20 sec/side** *(~10 min total; see Structural Balance Circuit Rule)*
 - **Skin-the-Cat Skill:** 3 × 2–3 reps Tuck to partial German hang *(same as Week 3; earn a little more depth each rep if the stretch feels clean and pain-free)*
-- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -572,7 +568,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 **A. Power Clean** — **EMOM 10 min × 1 rep** @ 75% (65 kg)
 
-**A2. Clean Pulls** — 1×3 @ 85% (75 kg) *(Post-EMOM technical back-off set; explosive extension ABOVE the knee, finish tall before elbows bend.)*
+**A2. Clean Pulls** — 2×3 @ 85% (75 kg) *(Post-EMOM technical back-off sets; explosive extension ABOVE the knee, finish tall before elbows bend.)*
 
 **B. Box Squat** — 3×4 @ 68% (92.5 kg) *(HLM — see Phase 2 HLM note)*
 
@@ -580,9 +576,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 5 *(Rowing table)*; Bike/SkiErg at matched duration if symptomatic
-- **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
+- **Shoulder Balance + Structural Circuit:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press, with Single-Leg Calf Raise 12/leg + Banded External Rotation 12/side folded in between sets; finish with Side Plank **30 sec/side** *(~10 min total; see Structural Balance Circuit Rule)*
 - **Skin-the-Cat Skill:** 3 × 2–3 reps full Skin-the-Cat *(pull knees through to inverted hang, descend with control to full German hang, hold 2–3s, pull back through; keep the descent smooth and controlled)*
-- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -622,7 +617,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 **A. Power Clean** — **EMOM 10 min × 1 rep** @ 77.5% (67.5 kg)
 
-**A2. Clean Pulls** — 1×3 @ 87.5% (77.5 kg) *(Post-EMOM technical back-off set; explosive extension ABOVE the knee, finish tall before elbows bend.)*
+**A2. Clean Pulls** — 2×3 @ 87.5% (77.5 kg) *(Post-EMOM technical back-off sets; explosive extension ABOVE the knee, finish tall before elbows bend.)*
 
 **B. Box Squat** — 3×3 @ 70% (95 kg) *(HLM reduction)*
 
@@ -630,9 +625,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 6 *(Rowing table)*; Bike/SkiErg at matched duration if symptomatic
-- **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
+- **Shoulder Balance + Structural Circuit:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press, with Single-Leg Calf Raise 12/leg + Banded External Rotation 12/side folded in between sets; finish with Side Plank **30 sec/side** *(~10 min total; see Structural Balance Circuit Rule)*
 - **Skin-the-Cat Skill:** 3 × 2–3 reps full Skin-the-Cat *(same as Week 5; add 0.5–1s to the German hang hold if shoulder feels open and pain-free)*
-- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -672,7 +666,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 **A. Power Clean** — **EMOM 8 min × 1 rep** @ 80% (70 kg)
 
-**A2. Clean Pulls** — 1×3 @ 90% (80 kg) *(Post-EMOM technical back-off set; focus on explosive extension ABOVE the knee with full triple extension)*
+**A2. Clean Pulls** — 2×3 @ 90% (80 kg) *(Post-EMOM technical back-off sets; focus on explosive extension ABOVE the knee with full triple extension)*
 
 **B. Box Squat** — 3×3 @ 72.5% (97.5 kg) *(HLM reduction)*
 
@@ -680,9 +674,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 7 *(Rowing table)*; Bike/SkiErg at matched duration if symptomatic
-- **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press
+- **Shoulder Balance + Structural Circuit:** 2 sets of 12–15 Face Pulls + 8–10/side Half-Kneeling Landmine Press, with Single-Leg Calf Raise 12/leg + Banded External Rotation 12/side folded in between sets; finish with Side Plank **30 sec/side** *(~10 min total; see Structural Balance Circuit Rule)*
 - **Skin-the-Cat Skill:** 3 × 2–3 reps full Skin-the-Cat with 3–4s German hang hold *(full range, extended pause at the bottom; breathe into the stretch; do not rush the pull-back)*
-- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -720,7 +713,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 #### Wednesday — Power Clean & Leg Strength
 
-**A. Power Clean** — **EMOM 8 min × 1 rep** @ 82.5% (72.5 kg)
+**A. Power Clean** — **EMOM 8 min × 1 rep** @ 80% (70 kg) *(Capped at 80% to protect elbow/wrist under catch stress; if any catch felt slow or positions degraded, convert remaining reps to clean pulls)*
 
 **B. Box Squat** — 3×3 @ 72.5% (97.5 kg) *(Capped at 72.5% to preserve a clearer stress gap below the 82.5% Back Squat)*
 
@@ -728,9 +721,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** Row — Week 8 *(Rowing table)*; Bike/SkiErg at the same work/rest if symptomatic
-- **Shoulder Balance Superset:** 2 sets of 12–15 Face Pulls + 8/side Half-Kneeling Landmine Press
+- **Shoulder Balance + Structural Circuit:** 2 sets of 12–15 Face Pulls + 8/side Half-Kneeling Landmine Press, with Single-Leg Calf Raise 12/leg + Banded External Rotation 12/side folded in between sets; finish with Side Plank **30 sec/side** *(~10 min total; see Structural Balance Circuit Rule)*
 - **Skin-the-Cat Skill:** 3 × 2–3 reps full Skin-the-Cat with 3–4s German hang hold *(same as Week 7; heaviest week — keep the movement smooth and stop if shoulders feel elevated tension)*
-- **Structural Circuit (applies to all Thursday sessions, Weeks 1–8):** 2 rounds — Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Weeks 1–4) / 30 sec/side (Weeks 5–8)** + Banded External Rotation 12/side *(~7 min; see Structural Balance Circuit Rule)*
 
 #### Friday — Full Body Power & Strength
 
@@ -784,9 +776,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** 15-20 min very easy row, Bike, or SkiErg only *(Week 9 deload — no structured rowing intervals)*
-- **Shoulder Balance Superset:** 1–2 sets of 12 Face Pulls + 8/side Half-Kneeling Landmine Press *(light deload effort)*
+- **Shoulder Balance + Structural Maintenance:** 1–2 light sets of 12 Face Pulls + 8/side Half-Kneeling Landmine Press, with Single-Leg Calf Raise 12/leg + Banded External Rotation 12/side folded in between sets *(deload — half volume, skip side plank)*
 - **Skin-the-Cat Skill:** 2 × 2 reps Tuck only *(deload — do not descend into German hang this week)*
-- **Structural Circuit:** 1 round only — Single-Leg Calf Raise 12/leg + Side Plank 20 sec/side + Banded External Rotation 12/side *(deload — half volume)*
 
 #### Friday — Squat Deload
 
@@ -801,6 +792,8 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 ### WEEK 10 — HEAVY EFFORT
 
 > This week, you will lift your heaviest loads of the cycle for reps. **No 1RM testing.** Keep the main lifts crisp, avoid grinders, and treat recovery as part of the training.
+
+**Staggered Realization:** Monday carries the heaviest bench, Friday carries the heaviest squat. Wednesday stays moderate to keep systemic fatigue manageable — the cleanup session, not a third peak.
 
 **Execution Key:** Heaviest week for reps, but stop before grinders and preserve clean technique.
 
@@ -820,21 +813,20 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 - **Knee/Hamstring Support:** Rower Slider Hamstring Curls — 1–2×8 (light, no cramping)
 - **Dragon Flag Skill:** 2 × best-quality variation *(1 slow negative or 6s single-leg hold; stop well before shaking — preserve the CNS for Friday)*
 
-#### Wednesday — Power Clean & Leg Strength
+#### Wednesday — Power Clean & Leg Strength *(Moderate — save peak effort for Monday bench and Friday squat)*
 
-**A. Power Clean** — 4×2 @ 85% (75 kg)
+**A. Power Clean** — 3×2 @ 80% (70 kg) *(Moderate realization dose — only increase to 85% if Week 8 EMOM at 80% was completely pain-free and every catch was crisp)*
 
-**B. Box Squat** — 3×3 @ 72.5% (97.5 kg)
+**B. Box Squat** — 2×3 @ 70% (95 kg) *(Reduced to clear the runway for Friday's 85% Back Squat)*
 
-**C. Paused Bench Press** — 3×3 @ 80% (72.5 kg) *(Moderate, crisp reps only; leave a rep in reserve)*
+**C. Paused Bench Press** — 2×3 @ 75% (67.5 kg) *(Moderate secondary dose — Monday already carried 85%; keep bar speed clean and leave 2+ reps in reserve)*
 
 **D. Seated Pike Pulses** — 2×8-10 crisp reps
 
 #### Thursday — Conditioning/Active Recovery
 - **Conditioning:** 20-30 min easy row, Bike, or SkiErg only *(Week 10 realization — keep it restorative)*
-- **Shoulder Balance:** 1–2×12 Face Pulls only *(keep shoulders fresh for Friday)*
+- **Shoulder Balance + Structural Maintenance:** 1–2 sets of 12 Face Pulls, with Single-Leg Calf Raise 12/leg + Banded External Rotation 12/side folded in between sets *(keep shoulders and joints fresh for Friday)*
 - **Skin-the-Cat Skill:** 2 × 2 reps full Skin-the-Cat *(keep shoulders mobile and fresh; do not push depth or hold time this week)*
-- **Structural Circuit:** 1 short round — Single-Leg Calf Raise 12/leg + Banded External Rotation 12/side *(skip side plank this week)*
 
 #### Friday — Full Body Power & Strength
 
@@ -876,7 +868,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 | 7 | Close-Grip Bench Press | 2×2 | 70% / 62.5 kg | Reduced dose for elbow protection in heavy weeks |
 | 8 | Paused Bench Press | 2×2 | 72.5% / 65 kg | Reduced dose; prioritize crisp bar speed |
 | 9 | Close-Grip Bench Press | 2×5 | 55% / 50 kg | Light *(deload)* |
-| 10 | Paused Bench Press | 3×3 | 80% / 72.5 kg | Moderate, crisp reps only |
+| 10 | Paused Bench Press | 2×3 | 75% / 67.5 kg | Moderate secondary dose — Monday already carried 85% |
 
 ### Power Clean
 | Week | Sets × Reps | % | kg | Notes |
@@ -888,9 +880,9 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 | 5 | 10×1 *(EMOM)* | 75% | 65 | Same 10 reps, cleaner singles |
 | 6 | 10×1 *(EMOM)* | 77.5% | 67.5 | Same 10 reps, tighter quality control |
 | 7 | 8×1 *(EMOM)* | 80% | 70 | Volume trim to keep quality high and set up Week 8 |
-| 8 | 8×1 *(EMOM)* | 82.5% | 72.5 | Same 8 reps, preserves quality in the heaviest week |
+| 8 | 8×1 *(EMOM)* | 80% | 70 | Capped at 80% to protect elbow/wrist under catch stress |
 | 9 | 3×3 | 70% | 60 | *(deload)* |
-| 10 | 4×2 | 85% | 75 | |
+| 10 | 3×2 | 80% | 70 | Moderate realization; increase to 85% only if Week 8 was pain-free |
 
 ### Power Clean Variations (Friday — Secondary Technique Dose)
 | Week | Variation | Sets × Reps | Load | Notes |
@@ -930,7 +922,7 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 | 7 | 3×3 | 72.5% | 97.5 |
 | 8 | 3×3 | 72.5% | 97.5 *(capped — clearer gap below Back Squat)* |
 | 9 | 2×5 | 60% | 80 *(deload)* |
-| 10 | 3×3 | 72.5% | 97.5 |
+| 10 | 2×3 | 70% | 95 *(reduced to clear runway for Friday 85% Back Squat)* |
 
 ### RDLs (Scaled to ~40–55% of 155 kg Deadlift)
 | Week | Sets × Reps | kg |
@@ -957,22 +949,23 @@ The Tuesday/Thursday conditioning slots include structured rowing or equivalent 
 ### Clean Pulls (% of Power Clean Max)
 | Week | Sets × Reps | % | kg | Notes |
 |------|-------------|---|----|-------|
-| 1 | 1×3 | 80% | 70 | Early technical reinforcement only; explosive extension ABOVE the knee |
-| 3 | 1×3 | 85% | 75 | Last dedicated clean-pull block; explosive extension ABOVE the knee |
-| 5 | 1×3 | 85% | 75 | Post-EMOM technical back-off set; explosive extension ABOVE the knee |
-| 6 | 1×3 | 87.5% | 77.5 | Post-EMOM technical back-off set; explosive extension ABOVE the knee |
-| 7 | 1×3 | 90% | 80 | Post-EMOM technical back-off set; explosive extension ABOVE the knee |
+| 1 | 2×3 | 80% | 70 | Early technical reinforcement; explosive extension ABOVE the knee |
+| 3 | 2×3 | 85% | 75 | Last dedicated clean-pull block; explosive extension ABOVE the knee |
+| 5 | 2×3 | 85% | 75 | Post-EMOM technical back-off sets; explosive extension ABOVE the knee |
+| 6 | 2×3 | 87.5% | 77.5 | Post-EMOM technical back-off sets; explosive extension ABOVE the knee |
+| 7 | 2×3 | 90% | 80 | Post-EMOM technical back-off sets; explosive extension ABOVE the knee |
 | 2, 4 | — | — | — | Alternated out to manage posterior-chain fatigue |
 | 8 | — | — | — | Omitted to keep the heaviest week crisp |
 | 9 | — | — | — | CUT |
 | 10 | — | — | — | CUT |
 
-### Thursday Shoulder Support
+### Thursday Shoulder Support + Structural Maintenance (Combined)
 | Week | Work | Notes |
 |------|------|-------|
-| 1–8 | 2 sets superset: 12–15 Face Pulls *(light band or ~10–15 kg cable)* + 8–10/side Half-Kneeling Landmine Press *(landmine bar +10–15 kg, submaximal)*; then Structural Circuit 2 rounds: Single-Leg Calf Raise 12/leg + Side Plank **20 sec/side (Wks 1–4) / 30 sec/side (Wks 5–8)** + Banded External Rotation 12/side | Keep superset submaximal; Structural Circuit is easy maintenance work (~7 min total) |
-| 9 | 1–2 light superset sets: 12 Face Pulls *(light band or ~7.5–10 kg cable)* + 8/side Half-Kneeling Landmine Press *(landmine bar +5–10 kg, easy deload load)*; Structural Circuit 1 round only | Deload effort — half structural volume |
-| 10 | 1–2×12 Face Pulls *(light band or ~7.5–10 kg cable)* + 1 short structural round *(Single-Leg Calf Raise + Banded External Rotation)* | Keep shoulders fresh while preserving low-fatigue joint support |
+| 1–4 | 2 sets: 12–15 Face Pulls + 8–10/side Landmine Press, with Calf Raise 12/leg + Banded ER 12/side folded between sets; finish with Side Plank **20 sec/side** | All structural work integrated into the superset block (~10 min total) |
+| 5–8 | 2 sets: 12–15 Face Pulls + 8–10/side Landmine Press, with Calf Raise 12/leg + Banded ER 12/side folded between sets; finish with Side Plank **30 sec/side** | Side plank duration increases; everything else stays the same |
+| 9 | 1–2 light sets: 12 Face Pulls + 8/side Landmine Press, with Calf Raise 12/leg + Banded ER 12/side folded between sets | Deload — skip side plank, half volume |
+| 10 | 1–2 sets: 12 Face Pulls, with Calf Raise 12/leg + Banded ER 12/side folded between sets | Keep shoulders and joints fresh for Friday |
 
 ### Wednesday Main-Lift Rest Targets
 | Week | Box Squat Rest | Secondary Bench Rest | Notes |

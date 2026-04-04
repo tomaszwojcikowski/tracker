@@ -7270,17 +7270,17 @@
                     "$ref": "ex-hang-power-clean",
                     "sets": 4,
                     "repsValue": 3,
-                    "loadMin": 50,
-                    "loadMax": 55,
-                    "notes": "Bridge week. Crisp catches only."
+                    "loadMin": 57.5,
+                    "loadMax": 60,
+                    "notes": "Week 17 bridge. Sub-peak loading. Vertical bar path, stable rack, crisp catch."
                   },
                   {
                     "$ref": "ex-clean-pull",
                     "sets": 3,
                     "repsValue": 3,
-                    "loadMin": 65,
-                    "loadMax": 70,
-                    "notes": "Support the pull without fatigue chasing."
+                    "loadMin": 67.5,
+                    "loadMax": 72.5,
+                    "notes": "Support pull. Do not outpace clean loading."
                   },
                   {
                     "$ref": "ex-box-squat",
@@ -7339,7 +7339,7 @@
                 "name": "Back Squat + Support Bridge I",
                 "type": "strength",
                 "estimatedDuration": 75,
-                "description": "Bring back the main squat pattern with supportive pressing, rowing, unilateral work, and core.",
+                "description": "Bring back the main squat pattern with supportive pressing, rowing, hamstring support work, and core.",
                 "exercises": [
                   {
                     "$routine": "warmup-rower-protocol"
@@ -7370,13 +7370,16 @@
                     "notes": "Easy support rowing."
                   },
                   {
-                    "$routine": "superset-bss"
+                    "$ref": "ex-rower-leg-curls",
+                    "sets": 2,
+                    "supersetGroup": 1,
+                    "notes": "Hamstring support instead of a second squat pattern. Keep hips high."
                   },
                   {
                     "$ref": "ex-weighted-v-ups",
                     "sets": 2,
                     "repsValue": 10,
-                    "notes": "Third movement in the BSS superset.",
+                    "notes": "Core pairing with the hamstring support work.",
                     "supersetGroup": 1
                   },
                   {
@@ -7488,17 +7491,17 @@
                     "$ref": "ex-hang-power-clean",
                     "sets": 4,
                     "repsValue": 3,
-                    "loadMin": 52.5,
-                    "loadMax": 57.5,
-                    "notes": "Still crisp; no chasing misses."
+                    "loadMin": 60,
+                    "loadMax": 62.5,
+                    "notes": "Week 18 bridge. Build from Week 17. Stable hang, vertical bar path, secure rack."
                   },
                   {
                     "$ref": "ex-clean-pull",
                     "sets": 3,
                     "repsValue": 3,
-                    "loadMin": 67.5,
-                    "loadMax": 72.5,
-                    "notes": "Support the clean without overshooting fatigue."
+                    "loadMin": 70,
+                    "loadMax": 75,
+                    "notes": "Support pull. Do not overshoot fatigue before floor transition."
                   },
                   {
                     "$ref": "ex-box-squat",
@@ -7589,13 +7592,16 @@
                     "notes": "Support back-off pulling."
                   },
                   {
-                    "$routine": "superset-bss"
+                    "$ref": "ex-rower-leg-curls",
+                    "sets": 2,
+                    "supersetGroup": 1,
+                    "notes": "Hamstring support instead of a second squat pattern. Keep hips high."
                   },
                   {
                     "$ref": "ex-weighted-v-ups",
                     "sets": 2,
                     "repsValue": 10,
-                    "notes": "Third movement in the BSS superset.",
+                    "notes": "Core pairing with the hamstring support work.",
                     "supersetGroup": 1
                   },
                   {
@@ -7707,16 +7713,16 @@
                     "$ref": "ex-power-clean-5x2",
                     "sets": 4,
                     "repsValue": 3,
-                    "loadMin": 57.5,
-                    "loadMax": 60,
-                    "notes": "First bridge week from the floor. Own the start position."
+                    "loadMin": 62.5,
+                    "loadMax": 65,
+                    "notes": "Week 19 floor transition. Start position consistent, vertical bar path, secure rack."
                   },
                   {
                     "$ref": "ex-clean-pull",
                     "sets": 3,
                     "repsValue": 3,
-                    "loadMin": 70,
-                    "loadMax": 75,
+                    "loadMin": 72.5,
+                    "loadMax": 77.5,
                     "notes": "Support the pull without missed reps."
                   },
                   {
@@ -7806,13 +7812,16 @@
                     "notes": "Low-irritation support rowing."
                   },
                   {
-                    "$routine": "superset-bss"
+                    "$ref": "ex-rower-leg-curls",
+                    "sets": 2,
+                    "supersetGroup": 1,
+                    "notes": "Hamstring support instead of a second squat pattern. Keep hips high."
                   },
                   {
                     "$ref": "ex-weighted-v-ups",
                     "sets": 2,
                     "repsValue": 10,
-                    "notes": "Third movement in the BSS superset.",
+                    "notes": "Core pairing with the hamstring support work.",
                     "supersetGroup": 1
                   },
                   {
@@ -7934,16 +7943,16 @@
                     "$ref": "ex-power-clean-5x2",
                     "sets": 5,
                     "repsValue": 2,
-                    "loadMin": 60,
-                    "loadMax": 65,
-                    "notes": "Specific bridge week. Fast bar only."
+                    "loadMin": 65,
+                    "loadMax": 67.5,
+                    "notes": "Week 20 bridge. Fast bar speed, stable turnover, no missed reps."
                   },
                   {
                     "$ref": "ex-clean-pull",
                     "sets": 3,
                     "repsValue": 3,
-                    "loadMin": 72.5,
-                    "loadMax": 77.5,
+                    "loadMin": 75,
+                    "loadMax": 80,
                     "notes": "Support the pull without missed positions."
                   },
                   {
@@ -8035,13 +8044,16 @@
                     "notes": "Support row."
                   },
                   {
-                    "$routine": "superset-bss"
+                    "$ref": "ex-rower-leg-curls",
+                    "sets": 2,
+                    "supersetGroup": 1,
+                    "notes": "Hamstring support instead of a second squat pattern. Keep hips high."
                   },
                   {
                     "$ref": "ex-weighted-v-ups",
                     "sets": 2,
                     "repsValue": 10,
-                    "notes": "Third movement in the BSS superset.",
+                    "notes": "Core pairing with the hamstring support work.",
                     "supersetGroup": 1
                   },
                   {
@@ -8143,18 +8155,18 @@
                   },
                   {
                     "$ref": "ex-power-clean-5x2",
-                    "sets": 5,
+                    "sets": 4,
                     "repsValue": 2,
-                    "loadMin": 62.5,
-                    "loadMax": 67.5,
-                    "notes": "Stop before any sloppy catches."
+                    "loadMin": 65,
+                    "loadMax": 70,
+                    "notes": "Week 21 handoff. High-quality doubles. Cut volume, keep speed and rack quality."
                   },
                   {
                     "$ref": "ex-clean-pull",
                     "sets": 3,
                     "repsValue": 3,
-                    "loadMin": 75,
-                    "loadMax": 80,
+                    "loadMin": 77.5,
+                    "loadMax": 82.5,
                     "notes": "Strong but clean pulls only."
                   },
                   {
@@ -8239,13 +8251,16 @@
                     "notes": "Easy flush rowing."
                   },
                   {
-                    "$routine": "superset-bss"
+                    "$ref": "ex-rower-leg-curls",
+                    "sets": 2,
+                    "supersetGroup": 1,
+                    "notes": "Hamstring support instead of a second squat pattern. Keep hips high."
                   },
                   {
                     "$ref": "ex-weighted-v-ups",
                     "sets": 2,
                     "repsValue": 10,
-                    "notes": "Third movement in the BSS superset.",
+                    "notes": "Core pairing with the hamstring support work.",
                     "supersetGroup": 1
                   },
                   {

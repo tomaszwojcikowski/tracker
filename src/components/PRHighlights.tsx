@@ -224,7 +224,7 @@ const PRCard: React.FC<PRCardProps> = ({ pr, onTap, delay }) => {
             <div className="text-right flex-shrink-0">
                 <div className="text-lg font-bold text-sys-tertiary">{pr.weight}kg</div>
                 {improvement !== null && improvement > 0 && (
-                    <div className="text-xs text-sys-success flex items-center justify-end gap-0.5">
+                    <div className="text-xs text-sys-onSurfaceVariant flex items-center justify-end gap-0.5">
                         <TrendingUp size={10} />
                         +{improvement}%
                     </div>
@@ -270,7 +270,7 @@ const StreakBadge: React.FC<StreakBadgeProps> = ({ days, bestStreak }) => {
                 </div>
             </div>
             {isNewRecord && (
-                <div className="ml-1 px-1.5 py-0.5 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer text-[9px] font-bold uppercase">
+                <div className="ml-1 px-1.5 py-0.5 rounded-sm bg-sys-tertiaryContainer text-sys-onTertiaryContainer text-[9px] font-bold uppercase">
                     Best!
                 </div>
             )}
@@ -316,7 +316,7 @@ export const PRHighlights: React.FC<PRHighlightsProps> = ({
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-sys-surfaceContainerHigh rounded-2xl border border-sys-tertiary/20 overflow-hidden shadow-elevation-1"
+                    className="bg-sys-surfaceContainerHigh rounded-md border border-sys-outlineVariant overflow-hidden"
                 >
                     <button
                         onClick={handleToggle}

@@ -422,7 +422,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             {/* Superset Badge */}
             {isFirstInSuperset && (
                 <div className="absolute left-2 -top-2 z-20">
-                    <div className="flex items-center gap-1 bg-sys-tertiary text-sys-onTertiary text-[9px] font-bold px-1.5 py-0.5 rounded-full ring-1 ring-sys-outline">
+                    <div className="flex items-center gap-1 bg-sys-onSurface text-sys-surface text-[9px] font-bold px-1.5 py-0.5 rounded-sm">
                         <span>SUPERSET</span>
                     </div>
                 </div>
@@ -470,7 +470,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* EMOM Badge */}
                             {isEmom && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-tertiary/20 text-sys-tertiary border border-sys-tertiary/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-sm bg-sys-tertiary/20 text-sys-tertiary border border-sys-tertiary/30">
                                     <Zap size={10} strokeWidth={3} />
                                     EMOM
                                 </span>
@@ -478,7 +478,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* Density Badge */}
                             {isDensity && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-secondary/20 text-sys-onSecondaryContainer border border-sys-secondary/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-sm bg-sys-secondary/20 text-sys-onSecondaryContainer border border-sys-secondary/30">
                                     <Gauge size={10} strokeWidth={3} />
                                     {densityRepsTotal && densityTimeMinutes && (
                                         <span>{densityRepsTotal}/{densityTimeMinutes}m</span>
@@ -488,7 +488,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* AMRAP Badge */}
                             {isAmrap && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-secondaryContainer text-sys-onSecondaryContainer border border-sys-secondary/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-sm bg-sys-secondaryContainer text-sys-onSecondaryContainer border border-sys-secondary/30">
                                     <TrendingUp size={10} strokeWidth={3} />
                                     AMRAP
                                 </span>
@@ -496,7 +496,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* Ladder Badge */}
                             {isLadder && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer border border-sys-tertiary/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-sm bg-sys-tertiaryContainer text-sys-onTertiaryContainer border border-sys-tertiary/30">
                                     <BarChart2 size={10} strokeWidth={3} />
                                     {ladderReps ? ladderReps.join('-') : 'LADDER'}
                                 </span>
@@ -504,7 +504,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* Unilateral Badge */}
                             {isUnilateral && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-primaryContainer text-sys-onPrimaryContainer border border-sys-primary/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-sm bg-sys-primaryContainer text-sys-onPrimaryContainer border border-sys-primary/30">
                                     <ArrowRightLeft size={10} strokeWidth={3} />
                                     PER SIDE
                                 </span>
@@ -824,8 +824,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                                                 className={`set-button h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
                                                                     isDone
                                                                         ? allComplete
-                                                                            ? 'completed bg-sys-success text-sys-onSuccess shadow-elevation-1'
-                                                                            : 'completed bg-sys-primary text-sys-onPrimary shadow-elevation-1'
+                                                                            ? 'completed bg-sys-onSurface text-sys-surface'
+                                                                            : 'completed bg-sys-onSurface text-sys-surface'
                                                                         : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar border-2 border-sys-outlineVariant'
                                                                 }`}
                                                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}

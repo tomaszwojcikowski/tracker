@@ -198,8 +198,8 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                                 className={`set-button h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
                                     isDone
                                         ? allComplete
-                                            ? 'completed bg-sys-success text-sys-onSuccess shadow-elevation-1'
-                                            : 'completed bg-sys-primary text-sys-onPrimary shadow-elevation-1'
+                                            ? 'completed bg-sys-onSurface text-sys-surface'
+                                            : 'completed bg-sys-onSurface text-sys-surface'
                                         : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar border-2 border-sys-outlineVariant'
                                 }`}
                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}

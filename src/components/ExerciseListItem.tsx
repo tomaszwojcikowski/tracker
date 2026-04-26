@@ -142,7 +142,7 @@ export const ExerciseListItem: React.FC<ExerciseListItemProps> = ({
                     </div>
                     <button
                         onClick={handleAdd}
-                        className="w-full h-12 rounded-xl bg-sys-success text-sys-onSuccess font-bold active:scale-95 transition-transform shadow-elevation-1 hover:shadow-elevation-2"
+                        className="w-full h-12 rounded-md bg-sys-onSurface text-sys-surface font-bold active:scale-[0.99] transition-transform"
                     >
                         Add to Workout
                     </button>

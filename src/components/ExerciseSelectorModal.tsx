@@ -106,9 +106,9 @@ export const ExerciseSelectorModal: React.FC<ExerciseSelectorModalProps> = ({
                         <button
                             key={filter}
                             onClick={() => onFilterChange(filter)}
-                            className={`btn-md3 px-4 py-2 text-sm whitespace-nowrap transition-all rounded-full ${
+                            className={`btn-md3 px-4 py-2 text-sm whitespace-nowrap transition-all rounded-sm ${
                                 selectedFilter === filter
-                                    ? 'bg-sys-primary text-sys-onPrimary shadow-elevation-1'
+                                    ? 'bg-sys-onSurface text-sys-surface'
                                     : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar border border-sys-outlineVariant'
                             }`}
                         >

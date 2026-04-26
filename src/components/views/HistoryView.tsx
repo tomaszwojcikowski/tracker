@@ -204,8 +204,8 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
     if (exerciseStats.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-sys-outlineVariant px-6">
-                <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
-                    <BarChart2 size={40} className="text-sys-onSurfaceVar" />
+                <div className="h-20 w-20 rounded-full bg-gradient-to-br from-sys-primaryContainer/60 to-sys-tertiaryContainer/40 ring-1 ring-sys-primary/10 shadow-elevation-1 flex items-center justify-center mb-5">
+                    <BarChart2 size={40} className="text-sys-primary" />
                 </div>
                 <h3 className="text-lg font-bold text-sys-onSurface mb-2">No Exercise Data</h3>
                 <p className="text-sm text-sys-onSurfaceVar text-center max-w-[250px]">Complete workouts to see exercise statistics</p>
@@ -223,7 +223,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
     return (
         <div className="space-y-5">
             {/* Summary Stats Banner */}
-            <div className="bg-sys-surfaceContainerHigh rounded-2xl p-5 border border-sys-outlineVariant">
+            <div className="bg-sys-surfaceContainerHigh rounded-2xl p-5 border border-sys-outlineVariant shadow-elevation-1">
                 <div className="flex items-center gap-3 mb-4">
                     <div className="h-10 w-10 rounded-xl bg-sys-primaryContainer flex items-center justify-center" aria-hidden="true">
                         <TrendingUp size={20} className="text-sys-onPrimaryContainer" />
@@ -258,7 +258,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3, delay: idx * 0.05 }}
-                            className="bg-sys-surface border border-sys-outlineVariant rounded-2xl overflow-hidden"
+                            className="bg-sys-surface border border-sys-outlineVariant rounded-2xl overflow-hidden shadow-elevation-1"
                         >
                             <motion.button
                                 layout="position"
@@ -268,8 +268,8 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                 whileTap={{ scale: 0.98 }}
                             >
                                 {/* Exercise Icon/Initial */}
-                                <div className="h-12 w-12 rounded-2xl bg-sys-surfaceContainerHighest border border-sys-outlineVariant flex items-center justify-center flex-shrink-0" aria-hidden="true">
-                                    <span className="text-lg font-bold text-sys-primary">{stat.name.charAt(0)}</span>
+                                <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-sys-primaryContainer/70 to-sys-primaryContainer/30 border border-sys-primary/20 flex items-center justify-center flex-shrink-0 shadow-elevation-1" aria-hidden="true">
+                                    <span className="text-lg font-bold text-sys-onPrimaryContainer">{stat.name.charAt(0)}</span>
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <h3 className="text-base font-bold text-sys-onSurface mb-1 truncate">{stat.name}</h3>

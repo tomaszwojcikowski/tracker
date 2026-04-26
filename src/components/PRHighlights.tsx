@@ -316,7 +316,7 @@ export const PRHighlights: React.FC<PRHighlightsProps> = ({
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-sys-surfaceContainerHigh rounded-2xl border border-sys-tertiary/20 overflow-hidden"
+                    className="bg-sys-surfaceContainerHigh rounded-2xl border border-sys-tertiary/20 overflow-hidden shadow-elevation-1"
                 >
                     <button
                         onClick={handleToggle}

@@ -68,7 +68,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeT
                                     {isActive && (
                                         <motion.div
                                             layoutId="nav-pill"
-                                            className="absolute inset-0 bg-sys-secondaryContainer rounded-2xl shadow-sm border border-sys-outlineVariant/20"
+                                            className="absolute inset-0 bg-sys-secondaryContainer rounded-2xl shadow-elevation-2"
                                             initial={false}
                                             transition={{ type: "spring", stiffness: 500, damping: 30 }}
                                         />

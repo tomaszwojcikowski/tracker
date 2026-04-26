@@ -211,14 +211,14 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
             {/* Floating Action Button - MD3 FAB */}
             <button
                 onClick={handleFabClick}
-                className={`fixed bottom-24 right-4 z-40 flex items-center justify-center shadow-lg transition-all active:scale-90 ${
+                className={`fixed bottom-24 right-4 z-40 flex items-center justify-center transition-all active:scale-90 ${
                     restTimer.active
                         ? isUrgent
-                            ? 'bg-sys-error animate-pulse min-w-[80px] h-14 px-4 rounded-2xl gap-2'
+                            ? 'bg-sys-error animate-pulse min-w-[80px] h-14 px-4 rounded-2xl gap-2 shadow-elevation-4'
                             : isWarning
-                            ? 'bg-sys-warning min-w-[80px] h-14 px-4 rounded-2xl gap-2'
-                            : 'bg-sys-primary min-w-[80px] h-14 px-4 rounded-2xl gap-2'
-                        : 'bg-sys-primary h-14 w-14 rounded-2xl'
+                            ? 'bg-sys-warning min-w-[80px] h-14 px-4 rounded-2xl gap-2 shadow-elevation-3'
+                            : 'bg-sys-primary min-w-[80px] h-14 px-4 rounded-2xl gap-2 shadow-elevation-3'
+                        : 'bg-sys-primary h-14 w-14 rounded-2xl shadow-elevation-3 ring-1 ring-sys-onPrimary/10'
                 } ${className}`}
                 aria-label={
                     restTimer.active

@@ -2919,11 +2919,12 @@ img {
     background: var(--color-primary);
     border-color: transparent;
     color: var(--color-on-primary);
-    box-shadow: var(--elevation-1);
+    box-shadow: var(--elevation-2);
 }
 
 .week-pill.active:hover {
-    box-shadow: var(--elevation-2);
+    box-shadow: var(--elevation-3);
+    transform: translateY(-1px);
 }
 
 .week-pill:focus-visible {

@@ -469,11 +469,11 @@ export function ProgramSelector({
       <>
         <button
           onClick={handleOpenModal}
-          className={`w-full p-4 rounded-2xl bg-sys-surfaceContainerLow border border-sys-outlineVariant hover:border-sys-outline active:scale-[0.98] transition-all text-left ${className}`}
+          className={`w-full p-4 rounded-2xl bg-sys-surfaceContainerLow border border-sys-outlineVariant shadow-elevation-1 hover:border-sys-primary/40 hover:shadow-elevation-2 active:scale-[0.98] transition-all text-left ${className}`}
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-sys-primaryContainer flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sys-primaryContainer to-sys-primaryContainer/60 ring-1 ring-sys-primary/15 shadow-elevation-1 flex items-center justify-center">
                 <Dumbbell size={20} className="text-sys-primary" />
               </div>
               <div>

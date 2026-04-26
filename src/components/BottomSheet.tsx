@@ -196,7 +196,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
                         onMouseDown={handleMouseDown}
                     >
                         {/* MD3 Drag Handle: 32dp width, 4dp height */}
-                        <div className="w-8 h-1 rounded-full bg-sys-surfaceContainerHigh" />
+                        <div className="w-10 h-1 rounded-full bg-sys-onSurfaceVar/30" />
                     </div>
                 )}
 

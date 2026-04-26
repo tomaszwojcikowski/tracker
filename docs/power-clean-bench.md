@@ -268,17 +268,48 @@ Structured aerobic/conditioning -- not passive recovery. Based on British Rowing
 - Stroke order: legs -> body -> arms (drive); arms -> body -> legs (recovery). Watch split/500 m, stay consistent
 - If rowing irritates elbow or knee: substitute Bike or SkiErg at the same work/rest structure
 
-### Tuesday Session Structure (Weeks 1-8)
-Conditioning row/substitute -> Trunk Superset -> Knee/Hamstring Support -> Dragon Flag Skill
+### Tuesday Day Template (Weeks 1-8) -- "Trunk + Posterior Chain + Anti-Extension Skill"
 
-| Component | Weeks 1-4 | Weeks 5-8 |
-|-----------|-----------|-----------|
-| Trunk | 2 rounds: 45 s Front Plank + 10/side Pallof Press | 1 round: 45 s Front Plank + 10/side Pallof Press; then 1 round: 5 slow breaths/side 90/90 breathing |
-| Knee/Ham | Rower Slider Hamstring Curls -- 2x8 slow eccentric | Same |
-| Dragon Flag | See Skill Work Rules | See Skill Work Rules |
+Tuesday is a complete training day, not an "active recovery" checklist. **Run components in order** -- conditioning first (CNS engagement), trunk before fatiguing posterior-chain work, skill last (technical, not metabolic). Total time **45-55 min** including warm-up and cooldown.
 
-### Thursday Session Structure (Weeks 1-8)
-Conditioning row/substitute -> Core/Mobility -> Shoulder Balance + Structural Circuit (see Structural Balance Circuit Rule) -> Skin-the-Cat Skill
+| Slot | Component | Prescription | Purpose |
+|------|-----------|--------------|---------|
+| Warm-up | 5 min easy spin + dynamic mobility | Hip 90/90, T-spine open-book 5/side, ankle rocks | Tissue prep |
+| **A** | **Conditioning** (Row / Bike / SkiErg) | See Rowing Schedule -- Phase 1 = easy technique; Phase 2 = harder intervals | Aerobic capacity |
+| **B1** | Anti-Rotation: Pallof Press | 10/side, 1-s hold, controlled | Trunk stiffness vs rotation |
+| **B2** | Anti-Extension: Front Plank | 45 s, ribs down, glutes squeezed | Trunk stiffness vs extension |
+| **C** | Posterior-Chain Support: Rower Slider Hamstring Curls | 2x8, 3-s eccentric | Goose-foot management; hamstring eccentric capacity |
+| **D** | Skill: Dragon Flag | Per Skill Work Rules table | Advanced anti-extension; never to failure |
+| **E** | Elbow Rehab: Eccentric Wrist Extensions | 3x15/arm @ 1-2 kg | Tennis elbow tendon work *(this is the day for it -- not Mon/Fri warm-up)* |
+| Cooldown | 3 min easy spin + 30 s/side hip flexor + pigeon | | |
+
+**B1+B2 superset:** alternate ~45 s rest; 2 rounds Wks 1-4, 1 round + 1 round 90/90 breathing (5 breaths/side) Wks 5-8.
+
+**Phase 2 modification (Wks 5-8):** Slot A becomes the harder intensity (1,000 m / interval work). Slot B reduces to 1 round of plank+Pallof to manage cumulative fatigue; the freed time goes to 90/90 breathing. Slot E is non-negotiable -- elbow does not deload during peak weeks.
+
+### Thursday Day Template (Weeks 1-8) -- "Shoulder Balance + Structural Circuit + Straight-Arm Mobility"
+
+Thursday is the **shoulder-and-joint day**. Designed as a single integrated circuit with conditioning bookending it. Total time **45-55 min**. Every movement here directly supports either pressing tolerance, knee/ankle resilience, or overhead range -- nothing is filler.
+
+| Slot | Component | Prescription | Purpose |
+|------|-----------|--------------|---------|
+| Warm-up | 5 min easy spin + scapular CARs + wall slides | | Shoulder prep |
+| **A** | **Conditioning** (Row / Bike / SkiErg) | See Rowing Schedule -- Phase 1 = moderate; Phase 2 = light Zone 1-2 only | Aerobic; preserves Friday squat in Phase 2 |
+| **B** | Integrated Structural Circuit -- 2 rounds, ~45-60 s rest between rounds: | | |
+| B1 | Face Pulls *(neutral, elbows high)* | 12-15, 1-s squeeze | Posterior shoulder + scap upward rotation |
+| B2 | Half-Kneeling Landmine Press | 8-10/side, full reach, ribs down | Pain-free vertical press dose |
+| B3 | Single-Leg Calf Raise | 12/leg, slow | Goose-foot + ankle stability |
+| B4 | Banded External Rotation | 12/side, light | Rotator cuff endurance |
+| B5 | Side Plank | 20 s/side Wks 1-4; 30 s/side Wks 5-8 | Lateral trunk stability |
+| **C** | Skill: Skin-the-Cat | Per Skill Work Rules table | Straight-arm mobility; offsets pressing stiffness |
+| **D** | T-Spine Mobility: Side-Lying Open Book | 8/side, slow | Pulling/pressing range |
+| Cooldown | 3 min easy spin + 30 s/side doorway pec stretch + 15 band pull-aparts | | |
+
+**The B-block is one integrated circuit, not five separate exercises.** Move from B1 -> B5 in order, rest, repeat. If a movement aggravates symptoms, skip it -- do not stop the circuit.
+
+**Phase 2 modification (Wks 5-8):** Slot A drops to easy aerobic only (Concurrent-Fatigue Sequencing Rule). The B-circuit stays the same -- joint maintenance does not deload. Slot C progresses depth/hold time.
+
+**Deload (Wk 9):** B-circuit reduces to 1 round; skip Side Plank. **Realization (Wk 10):** B-circuit reduces to Face Pulls + Calf Raise + Banded ER only -- keep joints fresh.
 
 ### Rowing Schedule (Weeks 1-8)
 
@@ -343,12 +374,10 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 **C. Parallette L-Sit** -- 4x8-12 s tucked
 **D. Pull Support Density Block** -- 4 min: accumulate **16-20 Ring Row reps** in crisp sets *(2-second chest-to-rings squeeze)*
 
-#### Tuesday
-- **Row:** Week 1 table (or Bike/SkiErg work/rest substitute)
-- **Mobility:** 15 min adductor/hamstring + 3x15 eccentric wrist extensions
-- **Trunk:** 2 rounds -- 45 s Front Plank + 10/side Pallof Press
-- **Knee/Ham:** Rower Slider Hamstring Curls -- 2x8 slow eccentric
-- **Dragon Flag:** 3x5-8 s Tuck hold
+#### Tuesday *(Tuesday Day Template)*
+- **A. Conditioning:** Row Week 1 prescription (or Bike/SkiErg work-rest substitute)
+- **D. Dragon Flag:** 3x5-8 s Tuck hold
+- All other slots per template
 
 #### Wednesday
 **A. Hang Power Clean** -- 4x3 @ 65% (57.5 kg) -- *hook grip*
@@ -356,11 +385,10 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 **C. Box Squat** -- 3x5 @ 62.5% (82.5 kg) *(HLM: 5 kg below Friday Back Squat)*
 **D. Swiss-bar Bench Press** -- 3x6 @ ~60% Bench equivalent (55 kg) *(neutral grip, 1-second pause; sub: neutral-grip DB Bench 3x8 @ 22.5 kg/hand)*
 
-#### Thursday
-- **Row:** Week 1 table (or Bike/SkiErg substitute)
-- **Core/Mobility:** 3x15 Hollow Rocks + Banded Hamstring Flossing; foam roll legs
-- **Shoulder Balance + Structural Circuit:** 2 sets -- 12-15 Face Pulls + 8-10/side Landmine Press; Calf Raise 12/leg + Banded ER 12/side folded between; **Side Plank 20 s/side** *(~10 min; see Structural Balance Circuit Rule)*
-- **Skin-the-Cat:** 3x2 Tuck only
+#### Thursday *(Thursday Day Template)*
+- **A. Conditioning:** Row Week 1 prescription (or substitute)
+- **C. Skin-the-Cat:** 3x2 Tuck only
+- All other slots per template
 
 #### Friday
 **A. Tall Clean from High Hang** -- 3x2 @ 40-50% (35-42.5 kg) *(technique primer: fast elbows, vertical dip, crisp catch)*
@@ -381,21 +409,20 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 **C. Parallette L-Sit** -- 4x10-12 s
 **D. Pull Support Density Block** -- 4 min: **18-22 Ring Row reps** *(rigid body line, 2-second top pause)*
 
-#### Tuesday
-- **Row:** Week 2 table (or substitute)
-- **Trunk:** 2 rounds -- 45 s Front Plank + 10/side Pallof Press
-- **Knee/Ham:** Rower Slider Hamstring Curls -- 2x8
-- **Dragon Flag:** 3x5-8 s Tuck hold *(focus: keep lower back flat throughout)*
+#### Tuesday *(Tuesday Day Template)*
+- **A. Conditioning:** Row Week 2 prescription (or substitute)
+- **D. Dragon Flag:** 3x5-8 s Tuck hold *(focus: keep lower back flat throughout)*
+- All other slots per template
 
 #### Wednesday
 **A. Hang Power Clean** -- 4x3 @ 70% (60 kg)
 **B. Box Squat** -- 3x5 @ 65% (87.5 kg) *(HLM: ~3 kg below Friday Back Squat)*
 **C. Swiss-bar Bench Press** -- 3x6 @ 62.5% Bench equivalent (57.5 kg) *(neutral grip; sub: neutral-grip DB Bench 3x8)*
 
-#### Thursday
-- **Row:** Week 2 table (or substitute)
-- **Shoulder Balance + Structural Circuit:** same as Week 1 *(Side Plank 20 s/side)*
-- **Skin-the-Cat:** 3x2 Tuck *(build comfort in inverted hang)*
+#### Thursday *(Thursday Day Template)*
+- **A. Conditioning:** Row Week 2 prescription (or substitute)
+- **C. Skin-the-Cat:** 3x2 Tuck *(build comfort in inverted hang)*
+- All other slots per template
 
 #### Friday
 **A. Tall Clean from High Hang** -- 3x2 @ 45-50% (40-42.5 kg)
@@ -416,11 +443,10 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 **C. Parallette L-Sit** -- 4x8-10 s alternating single-leg extensions
 **D. Pull Support Density Block** -- 4 min: **18-24 Ring Row reps** *(walk feet farther if elbow tolerates; strict reps)*
 
-#### Tuesday
-- **Row:** Week 3 table (or substitute)
-- **Trunk:** 2 rounds -- 45 s Front Plank + 10/side Pallof Press
-- **Knee/Ham:** Rower Slider Hamstring Curls -- 2x8
-- **Dragon Flag:** 3x8-10 s Tuck; single-leg extend 2-3 s if back stays flat
+#### Tuesday *(Tuesday Day Template)*
+- **A. Conditioning:** Row Week 3 prescription (or substitute)
+- **D. Dragon Flag:** 3x8-10 s Tuck; single-leg extend 2-3 s if back stays flat
+- All other slots per template
 
 #### Wednesday
 **A. Power Clean (floor)** -- 4x3 @ 70% (60 kg)
@@ -428,10 +454,10 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 **C. Box Squat** -- 3x5 @ 67.5% (90 kg) *(HLM: 5 kg below Friday Back Squat)*
 **D. Floor Press (medium grip)** -- 3x5 @ 65% (60 kg) *(reduced ROM = lower elbow stress; 1-second pause on the floor)*
 
-#### Thursday
-- **Row:** Week 3 table (or substitute)
-- **Shoulder Balance + Structural Circuit:** same as Weeks 1-2 *(Side Plank 20 s/side)*
-- **Skin-the-Cat:** 3x2-3 Tuck to partial German hang *(lower to mild anterior stretch, hold 2 s, pull back; stop before full German hang)*
+#### Thursday *(Thursday Day Template)*
+- **A. Conditioning:** Row Week 3 prescription (or substitute)
+- **C. Skin-the-Cat:** 3x2-3 Tuck to partial German hang *(lower to mild anterior stretch, hold 2 s, pull back; stop before full German hang)*
+- All other slots per template
 
 #### Friday
 **A. Low-Hang Power Clean** -- 3x2 @ 55% (47.5 kg) *(just above knee; snappy)*
@@ -452,21 +478,20 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 **C. Parallette L-Sit** -- 4x10-12 s alternating single-leg *(skill is low-fatigue; keep frequency)*
 **D. Pull Support Density Block** -- 3 min: **15-18 Ring Row reps** *(reduced density)*
 
-#### Tuesday
-- **Row:** Week 4 table (or substitute)
-- **Trunk:** 2 rounds -- 45 s Front Plank + 10/side Pallof Press
-- **Knee/Ham:** Rower Slider Hamstring Curls -- 2x8
-- **Dragon Flag:** 3x8-10 s Tuck with single-leg reach *(aim for clean 10 s with one leg extended before Phase 2)*
+#### Tuesday *(Tuesday Day Template)*
+- **A. Conditioning:** Row Week 4 prescription (or substitute)
+- **D. Dragon Flag:** 3x8-10 s Tuck with single-leg reach *(aim for clean 10 s with one leg extended before Phase 2)*
+- All other slots per template
 
 #### Wednesday
 **A. Power Clean (floor)** -- 3x3 @ 70% (60 kg) *(consolidation: one set fewer; same load as Week 3)*
 **B. Box Squat** -- 3x5 @ 67.5% (90 kg) *(HLM: 5 kg below Friday Back Squat; same as Week 3)*
 **C. Floor Press (medium grip)** -- 3x5 @ 65% (60 kg) *(no progression -- consolidate)*
 
-#### Thursday
-- **Row:** Week 4 table (or substitute)
-- **Shoulder Balance + Structural Circuit:** same as Weeks 1-3 *(Side Plank 20 s/side)*
-- **Skin-the-Cat:** 3x2-3 Tuck to partial German hang *(earn a little more depth if stretch feels clean)*
+#### Thursday *(Thursday Day Template)*
+- **A. Conditioning:** Row Week 4 prescription (or substitute)
+- **C. Skin-the-Cat:** 3x2-3 Tuck to partial German hang *(earn a little more depth if stretch feels clean)*
+- All other slots per template
 
 #### Friday
 **A. Low-Hang Power Clean** -- 3x2 @ 55% (47.5 kg) *(consolidation: same load as Week 3)*
@@ -507,21 +532,20 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 **C. Parallette L-Sit** -- 4x8-12 s one leg out
 **D. Pull Support EMOM** -- 4 min: 1 assisted Chest-to-Rings Top Hold x 5-8 s per minute
 
-#### Tuesday
-- **Row:** Week 5 table (or substitute)
-- **Trunk:** 1 round 45 s Front Plank + 10/side Pallof Press; then 1 round 90/90 breathing 5 slow breaths/side
-- **Knee/Ham:** Rower Slider Hamstring Curls -- 2x8
-- **Dragon Flag:** 3x4-6 s Single-leg hold; attempt 1 slow negative if 6 s is clean
+#### Tuesday *(Tuesday Day Template -- Phase 2 modification)*
+- **A. Conditioning:** Row Week 5 prescription -- harder intervals (or Bike/SkiErg substitute)
+- **D. Dragon Flag:** 3x4-6 s Single-leg hold; attempt 1 slow negative if 6 s is clean
+- B-block reduced to 1 round per template; 90/90 breathing replaces second round
 
 #### Wednesday
 **A. Power Clean -- EMOM 12 min x 1 rep @ 75% (65 kg)** *(Prilepin minimum 12 reps; abort if bar speed drops or catch quality falls)*
 **B. Box Squat** -- 3x4 @ 67.5% (90 kg) *(HLM: 7.5 kg below Friday Back Squat)*
 **C. Floor Press (medium grip)** -- 3x5 @ 70% (62.5 kg) *(reduced ROM; bar speed crisp; cap RPE 7)*
 
-#### Thursday
-- **Row:** Week 5 table (or substitute)
-- **Shoulder Balance + Structural Circuit:** 2 sets -- 12-15 Face Pulls + 8-10/side Landmine Press; Calf Raise 12/leg + Banded ER 12/side folded between; **Side Plank 30 s/side** *(~10 min)*
-- **Skin-the-Cat:** 3x2-3 full Skin-the-Cat *(full German hang; 2-3 s hold; smooth descent)*
+#### Thursday *(Thursday Day Template -- Phase 2 modification)*
+- **A. Conditioning:** Row Week 5 prescription -- light Zone 1-2 only (Concurrent-Fatigue Sequencing Rule)
+- **C. Skin-the-Cat:** 3x2-3 full Skin-the-Cat *(full German hang; 2-3 s hold; smooth descent)*
+- B-circuit unchanged: Side Plank advances to 30 s/side
 
 #### Friday
 **A. High-Hang Power Clean** -- 3x2 @ 60% (52.5 kg) *(fast extension, quick elbows)*
@@ -542,21 +566,18 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 **C. Parallette L-Sit** -- 4x10-12 s one leg out
 **D. Pull Support EMOM** -- 4 min: 1 assisted Chest-to-Rings Top Hold x 5-8 s per minute
 
-#### Tuesday
-- **Row:** Week 6 table (or substitute)
-- **Trunk:** 1 round Front Plank + Pallof Press; then 1 round 90/90 breathing
-- **Knee/Ham:** Rower Slider Hamstring Curls -- 2x8
-- **Dragon Flag:** 3x4-6 s Single-leg hold *(work toward 6 s clean before attempting negatives)*
+#### Tuesday *(Tuesday Day Template -- Phase 2 modification)*
+- **A. Conditioning:** Row Week 6 prescription (or substitute)
+- **D. Dragon Flag:** 3x4-6 s Single-leg hold *(work toward 6 s clean before attempting negatives)*
 
 #### Wednesday
 **A. Power Clean -- EMOM 10 min x 1 rep @ 80% (70 kg)** *(Prilepin minimum 10 reps; bigger intensity step than W5; abort if speed or catch quality falls)*
 **B. Box Squat** -- 3x3 @ 70% (95 kg) *(HLM: 10 kg below Friday Back Squat)*
 **C. Floor Press (medium grip)** -- 3x5 @ 72.5% (65 kg) *(crisp; 2 reps in reserve)*
 
-#### Thursday
-- **Row:** Week 6 table (or substitute)
-- **Shoulder Balance + Structural Circuit:** same as Week 5 *(Side Plank 30 s/side)*
-- **Skin-the-Cat:** 3x2-3 full *(add 0.5-1 s to German hang if shoulder feels open)*
+#### Thursday *(Thursday Day Template -- Phase 2 modification)*
+- **A. Conditioning:** Row Week 6 prescription -- light Zone 1-2 only
+- **C. Skin-the-Cat:** 3x2-3 full *(add 0.5-1 s to German hang if shoulder feels open)*
 
 #### Friday
 **A. High-Hang Power Clean** -- 3x2 @ 65% (57.5 kg)
@@ -577,21 +598,18 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 **C. Parallette L-Sit** -- 4x6-10 s alternating single-leg or full attempt
 **D. Pull Support EMOM** -- 3 min: 1 Chest-to-Rings Top Hold x 5-8 s per minute
 
-#### Tuesday
-- **Row:** Week 7 table (or substitute)
-- **Trunk:** 1 round Front Plank + Pallof Press; then 1 round 90/90 breathing
-- **Knee/Ham:** Rower Slider Hamstring Curls -- 2x8
-- **Dragon Flag:** 2x1 Full negative *(5-count eccentric; tuck to return; stop if back arches before bench)*
+#### Tuesday *(Tuesday Day Template -- Phase 2 modification)*
+- **A. Conditioning:** Row Week 7 prescription (or substitute)
+- **D. Dragon Flag:** 2x1 Full negative *(5-count eccentric; tuck to return; stop if back arches before bench)*
 
 #### Wednesday
 **A. Power Clean -- 5x2 @ 80% (70 kg)** *(doubles cluster; full 2-3 min rest; positional demand without raising %; abort to singles if catch quality falls)*
 **B. Box Squat** -- 3x3 @ 72.5% (97.5 kg) *(HLM: 10 kg below Friday Back Squat)*
 **C. Paused Bench Press (medium grip)** -- 2x3 @ 72.5% (65 kg) *(1-2 s pause; bench-specific; reduced volume vs Week 6)*
 
-#### Thursday
-- **Row:** Week 7 table (or substitute). **Fatigue alert -- concurrent load risk:** Thursday's 1,000 m intervals fall immediately before the heaviest Friday of Phase 2 (80% Back Squat). If Friday warm-up feels meaningfully below normal, apply Autoregulation Rule: drop one EMOM rep from Wednesday or reduce Friday squat by one set. Do not outwork accumulated fatigue.
-- **Shoulder Balance + Structural Circuit:** same as Weeks 5-6 *(Side Plank 30 s/side)*
-- **Skin-the-Cat:** 3x2-3 full with 3-4 s German hang hold *(breathe into stretch; do not rush pull-back)*
+#### Thursday *(Thursday Day Template -- Phase 2 modification)*
+- **A. Conditioning:** Row Week 7 prescription -- light Zone 1-2 only. **Fatigue alert -- concurrent load risk:** Thursday's 1,000 m intervals fall immediately before the heaviest Friday of Phase 2 (80% Back Squat). If Friday warm-up feels meaningfully below normal, apply Autoregulation Rule: drop one EMOM rep from Wednesday or reduce Friday squat by one set. Do not outwork accumulated fatigue.
+- **C. Skin-the-Cat:** 3x2-3 full with 3-4 s German hang hold *(breathe into stretch; do not rush pull-back)*
 
 #### Friday
 **A. Hang Power Clean + 1 s pause just above knee** -- 3x(1+1) @ 65% (57.5 kg)
@@ -612,21 +630,19 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 **C. Parallette L-Sit** -- 4x6-10 s best-quality variation
 **D. Pull Support EMOM** -- 3 min: 1 Chest-to-Rings Top Hold x 5-8 s per minute
 
-#### Tuesday
-- **Row:** Week 8 table (or 15-20 min easy Bike/SkiErg)
-- **Trunk:** 1 round Front Plank + Pallof Press; then 1 round 90/90 breathing
-- **Knee/Ham:** Rower Slider Hamstring Curls -- 2x8
-- **Dragon Flag:** 2x1 Full negative *(heaviest week -- crisp; stop immediately if form slips)*
+#### Tuesday *(Tuesday Day Template -- Phase 2 modification)*
+- **A. Conditioning:** Week 8 row table (or 15-20 min easy Bike/SkiErg)
+- **D. Dragon Flag:** 2x1 Full negative *(heaviest week -- crisp; stop immediately if form slips)*
 
 #### Wednesday
 **A. Power Clean -- 6x1 @ 82.5% (72.5 kg)** *(top intensity for the cycle; 2.5-3 min rest; abort immediately if catch quality or elbow/wrist discomfort rises -- this is the heaviest exposure before realization)*
 **B. Box Squat** -- 3x3 @ 72.5% (97.5 kg) *(HLM: 12.5 kg below Friday Back Squat)*
 **C. Paused Bench Press (medium grip)** -- 2x2 @ 75% (67.5 kg) *(crisp bar speed, 2+ reps in reserve)*
 
-#### Thursday
-- **Conditioning: Bike or SkiErg** at Week 8 row table work/rest structure -- **this is the default this week**, not a fallback. At peak load (10x1 Power Clean Wednesday, 82.5% Back Squat Friday), removing rowing-specific grip and posterior-chain residual fatigue gives a clear benefit. Row only if elbow and knee feel completely fresh with zero fatigue concerns.
-- **Shoulder Balance + Structural Circuit:** 2 sets -- 12-15 Face Pulls + 8/side Landmine Press; Calf Raise 12/leg + Banded ER 12/side; **Side Plank 30 s/side**
-- **Skin-the-Cat:** 3x2-3 full with 3-4 s German hang hold *(same as Week 7; keep smooth)*
+#### Thursday *(Thursday Day Template -- Phase 2 modification, peak week)*
+- **A. Conditioning: Bike or SkiErg** at Week 8 row table work/rest structure -- **this is the default this week**, not a fallback. At peak load (6x1 @ 82.5% Power Clean Wednesday, 82.5% Back Squat Friday), removing rowing-specific grip and posterior-chain residual fatigue gives a clear benefit. Row only if elbow and knee feel completely fresh with zero fatigue concerns.
+- **C. Skin-the-Cat:** 3x2-3 full with 3-4 s German hang hold *(same as Week 7; keep smooth)*
+- B-circuit unchanged: maintain joint exposure even at peak
 
 #### Friday
 **A. Hang Power Clean + 1 s pause just above knee** -- 3x(1+1) @ 70% (60 kg)
@@ -653,11 +669,12 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 **C. Parallette L-Sit** -- 3x8-10 s tucked or one-leg-out
 **D. Accessory** *(2 rounds)* -- 10 DB Rows/arm only
 
-#### Tuesday
-- **Conditioning:** 15-20 min easy row, Bike, or SkiErg *(no intervals)*
-- **Trunk:** 2 rounds -- 45 s Front Plank + 8/side Pallof Press (light)
-- **Knee/Ham:** Rower Slider Hamstring Curls -- 1-2x8 (light)
-- **Dragon Flag:** 2x5 s Tuck hold only
+#### Tuesday *(Tuesday Day Template -- Deload)*
+- **A. Conditioning:** 15-20 min easy row, Bike, or SkiErg *(no intervals)*
+- **B.** 2 rounds 45 s Front Plank + 8/side Pallof Press (light)
+- **C.** Slider Hamstring Curls 1-2x8 (light)
+- **D. Dragon Flag:** 2x5 s Tuck hold only
+- **E.** Eccentric wrist extensions: cut to 2x15 (maintenance only)
 
 #### Wednesday
 **A. Power Clean** -- 3x3 @ 70% (60 kg)
@@ -665,10 +682,11 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 **C. Floor Press (medium grip)** -- 2x5 @ 55% (50 kg) *(light, easy)*
 **D. Seated Pike Pulses** -- 2x8-10
 
-#### Thursday
-- **Conditioning:** 15-20 min easy row, Bike, or SkiErg *(no intervals)*
-- **Shoulder Balance + Structural Maintenance:** 1-2 light sets -- 12 Face Pulls + 8/side Landmine Press; Calf Raise 12/leg + Banded ER 12/side *(skip Side Plank)*
-- **Skin-the-Cat:** 2x2 Tuck only
+#### Thursday *(Thursday Day Template -- Deload)*
+- **A. Conditioning:** 15-20 min easy row, Bike, or SkiErg *(no intervals)*
+- **B. Maintenance circuit (1 round only):** 12 Face Pulls + 8/side Landmine Press + Calf Raise 12/leg + Banded ER 12/side *(skip Side Plank this week)*
+- **C. Skin-the-Cat:** 2x2 Tuck only
+- Skip slot D mobility -- recover
 
 #### Friday
 **A. Tall Clean from High Hang** -- 2x2 @ 40-45% (35-40 kg) *(technique only)*
@@ -691,11 +709,12 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 **C. Parallette L-Sit** -- 3x6-8 s best-quality variation; stop before shaking
 **D. Accessory** *(1-2 rounds)* -- 8-10 DB Rows/arm *(skip if pull-up grip or elbow is limiting)*
 
-#### Tuesday
-- **Conditioning:** 20-30 min easy row, Bike, or SkiErg *(restorative)*
-- **Trunk:** 1-2 rounds -- 30-45 s Front Plank + 8/side Pallof Press
-- **Knee/Ham:** Rower Slider Hamstring Curls -- 1-2x8 (light, no cramping)
-- **Dragon Flag:** 2x best variation *(stop well before shaking -- preserve CNS for Friday)*
+#### Tuesday *(Tuesday Day Template -- Realization)*
+- **A. Conditioning:** 20-30 min easy row, Bike, or SkiErg *(restorative)*
+- **B.** 1-2 rounds 30-45 s Front Plank + 8/side Pallof Press
+- **C.** Slider Hamstring Curls 1-2x8 (light, no cramping)
+- **D. Dragon Flag:** 2x best variation *(stop well before shaking -- preserve CNS for Friday)*
+- **E.** Eccentric wrist extensions: 2x15 (final maintenance dose)
 
 #### Wednesday *(Moderate -- save peak effort for Mon bench and Fri squat)*
 **A. Power Clean** -- 3x1 @ 85% (75 kg) *(true realization; one warm-up double at 80% then 3 working singles; abort to 80% if first rep catch is slow)*
@@ -703,10 +722,10 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 **C. Paused Bench Press (medium grip)** -- 2x3 @ 75% (67.5 kg) *(Monday already carried 85%; 2+ reps in reserve)*
 **D. Seated Pike Pulses** -- 2x8-10
 
-#### Thursday
-- **Conditioning:** 20-30 min easy row, Bike, or SkiErg *(restorative)*
-- **Shoulder Balance + Structural Maintenance:** 1-2 sets -- 12 Face Pulls; Calf Raise 12/leg + Banded ER 12/side folded between *(keep joints fresh for Friday)*
-- **Skin-the-Cat:** 2x2 full range *(keep mobile; no extra depth or hold time)*
+#### Thursday *(Thursday Day Template -- Realization)*
+- **A. Conditioning:** 20-30 min easy row, Bike, or SkiErg *(restorative)*
+- **B. Joint-freshness circuit (1-2 rounds):** Face Pulls 12 + Calf Raise 12/leg + Banded ER 12/side *(drop Landmine Press and Side Plank -- prioritize Friday squat readiness)*
+- **C. Skin-the-Cat:** 2x2 full range *(keep mobile; no extra depth or hold time)*
 
 #### Friday
 **A. High-Hang Power Clean** -- 2x1 @ 50-60% (42.5-52.5 kg) *(speed primer only)*

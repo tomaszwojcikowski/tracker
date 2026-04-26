@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Option C — Editorial / Notion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FAFAF7;
+    --paper-2: #F2F1EC;
+    --rule: rgba(20, 20, 16, 0.08);
+    --rule-strong: rgba(20, 20, 16, 0.18);
+    --ink: #1A1A17;
+    --ink-2: #4D4B45;
+    --ink-3: #87847C;
+    --ink-4: #B7B4AB;
+    --teal: #3B7A6F;
+    --teal-soft: #E5EFEC;
+    --rust: #B8593E;
+    --gold: #C9A33F;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: #ECECE6;
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+  }
+  body { display: flex; flex-direction: column; align-items: center; padding: 32px; gap: 20px; }
+  .label {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 500;
+  }
+
+  .phone {
+    width: 390px; min-height: 844px;
+    background: var(--paper);
+    border-radius: 36px;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    box-shadow: 0 30px 70px rgba(40,30,20,0.18);
+    display: flex; flex-direction: column;
+  }
+
+  .status {
+    display: flex; justify-content: space-between;
+    padding: 14px 26px 4px;
+    font-size: 13px; font-weight: 500; color: var(--ink-2);
+  }
+
+  /* Header */
+  header.top {
+    padding: 28px 28px 22px;
+  }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 500;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow .rule {
+    flex: 0 0 24px; height: 1px; background: var(--rule-strong);
+  }
+  h1.title {
+    font-family: 'Newsreader', Georgia, serif;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin-top: 14px;
+    color: var(--ink);
+  }
+  h1.title em { font-style: italic; color: var(--teal); font-weight: 400; }
+  .lede {
+    font-family: 'Newsreader', Georgia, serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--ink-2);
+    margin-top: 12px;
+    max-width: 28ch;
+    line-height: 1.45;
+  }
+
+  /* Stat strip */
+  .stat-strip {
+    margin: 24px 28px 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .stat .v {
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .v small {
+    font-size: 13px; color: var(--ink-3); font-weight: 400;
+    margin-left: 2px;
+  }
+  .stat .k {
+    margin-top: 6px;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 500;
+  }
+
+  /* Week navigation - subtle */
+  .weeks {
+    margin: 24px 28px 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+    display: flex; gap: 14px; overflow-x: auto;
+    align-items: center;
+  }
+  .wk {
+    font-size: 13px; color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+    padding-bottom: 4px;
+    border-bottom: 1px solid transparent;
+  }
+  .wk.done { color: var(--ink-2); }
+  .wk.active {
+    color: var(--ink);
+    font-weight: 600;
+    border-bottom-color: var(--teal);
+  }
+
+  /* Exercise list — long-form rows */
+  main { padding: 26px 28px 130px; display: flex; flex-direction: column; gap: 24px; flex: 1; }
+  .ex {
+    border-top: 1px solid var(--rule);
+    padding-top: 20px;
+  }
+  .ex:first-child { border-top: 0; padding-top: 0; }
+  .ex-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 12px;
+  }
+  .ex-name {
+    font-family: 'Newsreader', serif;
+    font-weight: 400;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .ex-name em { font-style: italic; color: var(--ink-2); }
+  .marker {
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 500;
+  }
+  .marker.live { color: var(--teal); }
+  .ex-sub {
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ink-2);
+    margin-top: 4px;
+    font-size: 14px;
+  }
+  .ex-sets {
+    margin-top: 16px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .set-line {
+    display: grid; grid-template-columns: 28px 1fr 1fr 60px;
+    align-items: baseline; gap: 8px;
+    font-variant-numeric: tabular-nums;
+    font-size: 14px;
+    color: var(--ink-2);
+    padding-bottom: 6px;
+    border-bottom: 1px dotted var(--rule-strong);
+  }
+  .set-line .n { color: var(--ink-4); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .set-line .w { color: var(--ink); font-weight: 500; }
+  .set-line .r { color: var(--ink); font-weight: 500; }
+  .set-line .check { text-align: right; }
+  .set-line .check .mark {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--ink-4);
+    color: var(--ink-4);
+    font-size: 12px;
+  }
+  .set-line.done .mark { background: var(--teal); border-color: var(--teal); color: #fff; }
+  .set-line.done .w, .set-line.done .r { color: var(--ink); }
+  .set-line.next {
+    background: var(--teal-soft);
+    margin: 0 -10px;
+    padding: 10px;
+    border-bottom: 0;
+    border-radius: 6px;
+  }
+  .set-line.next .mark { border-color: var(--teal); color: var(--teal); border-style: dashed; }
+
+  /* Action row — chip-like */
+  .actions {
+    position: absolute;
+    bottom: 78px; left: 24px; right: 24px;
+    display: flex; gap: 12px; align-items: center;
+  }
+  .chip {
+    flex: 1;
+    height: 50px;
+    border-radius: 28px;
+    background: var(--ink);
+    color: var(--paper);
+    border: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 10px;
+  }
+  .chip .num {
+    background: rgba(255,255,255,0.16);
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .chip-secondary {
+    height: 50px; min-width: 50px;
+    border-radius: 25px;
+    background: transparent;
+    border: 1px solid var(--rule-strong);
+    color: var(--ink);
+    font-size: 16px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+
+  /* Footer nav — text links */
+  .nav {
+    margin: auto 0 0;
+    border-top: 1px solid var(--rule);
+    padding: 18px 28px max(22px, env(safe-area-inset-bottom));
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+  }
+  .nav button {
+    background: transparent; border: 0; color: var(--ink-3);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; letter-spacing: 0.04em; font-weight: 500;
+    padding: 0;
+    text-align: center;
+  }
+  .nav button.on { color: var(--ink); font-weight: 600; }
+  .nav button.on::after {
+    content: "·"; display: block; color: var(--teal);
+    font-size: 18px; line-height: 0.5; margin-top: 4px;
+  }
+
+  .phone { position: relative; }
+
+  /* swatches */
+  .swatches { display: flex; gap: 8px; color: var(--ink-2); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .sw { width: 36px; height: 24px; border-radius: 4px; border: 1px solid var(--rule-strong); }
+</style>
+</head>
+<body>
+  <div class="label">Option C · Editorial / Notion</div>
+
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+
+    <header class="top">
+      <div class="eyebrow"><span class="rule"></span>Week 7 — Day 2</div>
+      <h1 class="title">Heavy bench &amp;<br/><em>vertical press</em></h1>
+      <p class="lede">A short, dense session focused on top-end strength and overhead control.</p>
+    </header>
+
+    <section class="stat-strip">
+      <div class="stat"><div class="v">9<small>/14</small></div><div class="k">Sets</div></div>
+      <div class="stat"><div class="v">4.2<small>k</small></div><div class="k">Volume kg</div></div>
+      <div class="stat"><div class="v">22<small>′18</small></div><div class="k">Elapsed</div></div>
+    </section>
+
+    <div class="weeks">
+      <span class="wk done">5</span>
+      <span class="wk done">6</span>
+      <span class="wk active">7</span>
+      <span class="wk">8</span>
+      <span class="wk">9</span>
+      <span class="wk">10</span>
+      <span class="wk">11</span>
+      <span class="wk">12</span>
+    </div>
+
+    <main>
+      <div class="ex">
+        <div class="ex-row">
+          <div class="ex-name">Barbell <em>bench press</em></div>
+          <div class="marker live">In progress</div>
+        </div>
+        <div class="ex-sub">Five sets of five at RPE 8, three minutes between sets.</div>
+        <div class="ex-sets">
+          <div class="set-line done"><span class="n">i</span><span class="w">102.5 kg</span><span class="r">5 reps</span><span class="check"><span class="mark">✓</span></span></div>
+          <div class="set-line done"><span class="n">ii</span><span class="w">102.5 kg</span><span class="r">5 reps</span><span class="check"><span class="mark">✓</span></span></div>
+          <div class="set-line done"><span class="n">iii</span><span class="w">105.0 kg</span><span class="r">5 reps</span><span class="check"><span class="mark">✓</span></span></div>
+          <div class="set-line next"><span class="n">iv</span><span class="w">105.0 kg</span><span class="r">— reps</span><span class="check"><span class="mark">·</span></span></div>
+          <div class="set-line"><span class="n">v</span><span class="w" style="color:var(--ink-3)">105.0 kg</span><span class="r" style="color:var(--ink-3)">— reps</span><span class="check"><span class="mark">·</span></span></div>
+        </div>
+      </div>
+
+      <div class="ex">
+        <div class="ex-row">
+          <div class="ex-name">Strict <em>overhead press</em></div>
+          <div class="marker">Up next</div>
+        </div>
+        <div class="ex-sub">Three sets of eight, leave two reps in the tank.</div>
+      </div>
+
+      <div class="ex">
+        <div class="ex-row">
+          <div class="ex-name">Weighted <em>dips</em></div>
+          <div class="marker">Queued</div>
+        </div>
+        <div class="ex-sub">Bodyweight plus 20 kg, three sets, as many reps as possible.</div>
+      </div>
+    </main>
+
+    <div class="actions">
+      <button class="chip-secondary">⏱</button>
+      <button class="chip">Log set iv <span class="num">+1</span></button>
+      <button class="chip-secondary">⋯</button>
+    </div>
+
+    <nav class="nav">
+      <button class="on">Train</button>
+      <button>Library</button>
+      <button>History</button>
+      <button>Coach</button>
+      <button>You</button>
+    </nav>
+  </div>
+
+  <div class="swatches">
+    <div><div class="sw" style="background:#FAFAF7"></div>paper</div>
+    <div><div class="sw" style="background:#1A1A17"></div>ink</div>
+    <div><div class="sw" style="background:#3B7A6F"></div>teal</div>
+    <div><div class="sw" style="background:#B8593E"></div>rust</div>
+    <div><div class="sw" style="background:#C9A33F"></div>gold</div>
+  </div>
+</body>
+</html>

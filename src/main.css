@@ -145,16 +145,16 @@
   --font-size-label-sm: 11px;
 
   /* ========================================================================
-     MD3 Box Shadows / Elevations (Tailwind v4)
+     Plain-brutalist elevations: hairline rings, no drop shadows
      Generates utilities like: shadow-glass, shadow-elevation-1, etc.
      ======================================================================== */
-  --box-shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --box-shadow-glass: 0 0 0 1px rgba(20, 20, 16, 0.08);
   --box-shadow-elevation-0: none;
-  --box-shadow-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
-  --box-shadow-elevation-2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
-  --box-shadow-elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.3);
-  --box-shadow-elevation-4: 0 6px 10px 4px rgba(0, 0, 0, 0.15), 0 2px 3px rgba(0, 0, 0, 0.3);
-  --box-shadow-elevation-5: 0 8px 12px 6px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.3);
+  --box-shadow-elevation-1: 0 0 0 1px rgba(20, 20, 16, 0.06);
+  --box-shadow-elevation-2: 0 0 0 1px rgba(20, 20, 16, 0.08);
+  --box-shadow-elevation-3: 0 0 0 1px rgba(20, 20, 16, 0.10);
+  --box-shadow-elevation-4: 0 0 0 1px rgba(20, 20, 16, 0.12);
+  --box-shadow-elevation-5: 0 0 0 1px rgba(20, 20, 16, 0.14);
 
   /* ========================================================================
      MD3 Spacing Scale (Tailwind v4)
@@ -175,17 +175,17 @@
   --spacing-20: 80px;
 
   /* ========================================================================
-     MD3 Border Radius System (Tailwind v4)
+     Plain-brutalist radius scale: tight, square-leaning corners
      Generates utilities like: rounded-xs, rounded-md, rounded-full, etc.
      ======================================================================== */
   --radius-none: 0;
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-2xl: 24px;
-  --radius-3xl: 28px;
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
+  --radius-2xl: 12px;
+  --radius-3xl: 14px;
   --radius-full: 9999px;
 
   /* ========================================================================
@@ -669,53 +669,52 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     opacity: 0.9;
 }
 
-/* Light Theme Card Overrides */
+/* Plain-brutalist card overrides — warm paper, hairline outlines */
 :root.theme-light .card.card-filled {
-    background: #f5f5f5;
-    color: #1f1f1f;
+    background: var(--color-surface-container-high);
+    color: var(--color-on-surface);
 }
 
 :root.theme-light .card.card-filled:hover {
-    background: #eeeeee;
+    background: var(--color-surface-container-highest);
 }
 
 :root.theme-light .card.card-outlined {
-    background: #fafafa;
-    border-color: rgba(0, 0, 0, 0.12);
+    background: var(--color-surface-container-lowest);
+    border-color: var(--color-outline-variant);
 }
 
 :root.theme-light .card.card-outlined:hover {
-    background: #f5f5f5;
-    border-color: rgba(0, 0, 0, 0.2);
+    background: var(--color-surface-container-low);
+    border-color: var(--color-outline);
 }
 
 :root.theme-light .card-header,
 :root.theme-light .card-actions {
-    border-color: rgba(0, 0, 0, 0.12);
+    border-color: var(--color-outline-variant);
 }
 
 :root.theme-light .card-title {
-    color: #1f1f1f;
+    color: var(--color-on-surface);
 }
 
 :root.theme-light .card-subtitle,
 :root.theme-light .card-content {
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--color-on-surface-variant);
 }
 
-/* Accent glow effect */
+/* Accent ring (replaces former coloured glow) */
 .accent-glow {
-    box-shadow: 0 0 20px rgba(14, 165, 233, 0.4), var(--shadow-primary);
+    box-shadow: inset 0 0 0 1px var(--color-primary);
 }
 
-/* Hover effects */
+/* Hover lift — flattened: no transform, just darken outline */
 .hover-lift {
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.18s ease;
 }
 
 .hover-lift:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 0 0 1px var(--color-outline);
 }
 
 /* Dimmed opacity for subtle buttons */
@@ -981,13 +980,13 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     animation: confettiBurst 0.8s ease-out forwards;
 }
 
-/* P2: Milestone achievement glow */
+/* P2: Milestone achievement glow (flattened to outline pulse) */
 @keyframes milestoneGlow {
     0%, 100% {
-        box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4);
+        box-shadow: 0 0 0 0 transparent;
     }
     50% {
-        box-shadow: 0 0 20px 10px rgba(14, 165, 233, 0.3);
+        box-shadow: 0 0 0 3px var(--color-primary-container);
     }
 }
 
@@ -1052,19 +1051,19 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     animation: checkmarkDraw 0.3s ease-out forwards;
 }
 
-/* Weight saved pulse glow */
+/* Weight saved pulse glow (flattened to outline pulse) */
 @keyframes weightSavedPulse {
     0% {
         transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+        box-shadow: 0 0 0 0 transparent;
     }
     50% {
-        transform: scale(1.02);
-        box-shadow: 0 0 12px 4px rgba(34, 197, 94, 0.3);
+        transform: scale(1.01);
+        box-shadow: 0 0 0 2px var(--color-primary-container);
     }
     100% {
         transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+        box-shadow: 0 0 0 0 transparent;
     }
 }
 
@@ -1138,7 +1137,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 /* Value change highlight */
 @keyframes valueChangeHighlight {
     0% {
-        background-color: rgba(14, 165, 233, 0.3);
+        background-color: var(--color-primary-container);
     }
     100% {
         background-color: transparent;
@@ -1205,7 +1204,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 }
 
 .compact-set-button.completed {
-    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+    box-shadow: inset 0 0 0 1px var(--color-primary);
 }
 
 /* Weight stepper group */
@@ -1780,14 +1779,14 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     color: var(--color-on-tertiary);
 }
 
-/* Light theme tonal */
+/* Plain-brutalist tonal — sage on paper */
 :root.theme-light .btn-tonal-mockup {
-    background: #f3e8ff;
-    color: #6d28d9;
+    background: var(--color-primary-container);
+    color: var(--color-on-primary-container);
 }
 
 :root.theme-light .btn-tonal-mockup:hover:not(:disabled) {
-    background: #ede9fe;
+    background: var(--color-secondary-container);
 }
 
 /* Text Button - No container */
@@ -2726,7 +2725,7 @@ input:focus-visible {
 :root.theme-light button:focus-visible,
 :root.theme-light a:focus-visible,
 :root.theme-light input:focus-visible {
-    outline-color: #7c3aed;
+    outline-color: var(--color-primary-600);
 }
 
 /* Enhanced card styling with Phase 4 refinements */

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Look &amp; Feel Mockups · Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #0a0a0a;
+    color: #f5f5f4;
+    min-height: 100dvh;
+    padding: 56px 32px 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .lede { color: rgba(255,255,255,0.6); max-width: 56ch; margin-bottom: 40px; line-height: 1.5; }
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  a.card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.18s ease, border-color 0.18s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+  }
+  a.card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.3); }
+  .tag {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55); font-weight: 700;
+  }
+  .name { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin-top: 8px; }
+  .desc { margin-top: 10px; color: rgba(255,255,255,0.65); font-size: 13px; line-height: 1.5; }
+  .arrow { margin-top: 18px; font-size: 14px; color: rgba(255,255,255,0.7); }
+  /* Variant skins */
+  .a {
+    background: #f6f5f1;
+    color: #1d1d1b;
+    border-color: rgba(20,20,16,0.12);
+  }
+  .a .tag { color: #6e6c66; }
+  .a .desc { color: #4d4b45; }
+  .a .arrow { color: #2f6b5e; }
+  .a .accent { color: #2f6b5e; }
+  .b {
+    background:
+      radial-gradient(400px 200px at 0% 0%, rgba(124,123,255,0.5), transparent 60%),
+      radial-gradient(400px 200px at 100% 100%, rgba(78,215,255,0.5), transparent 60%),
+      rgba(11,16,32,0.8);
+    backdrop-filter: blur(20px);
+  }
+  .c {
+    background: #FAFAF7;
+    color: #1A1A17;
+    border-color: rgba(20,20,16,0.12);
+  }
+  .c .tag { color: #87847C; }
+  .c .desc { color: #4D4B45; }
+  .c .name { font-family: 'Newsreader', serif; font-weight: 400; font-size: 26px; }
+  .c .name em { font-style: italic; color: #3B7A6F; }
+  .c .arrow { color: #3B7A6F; }
+  .d {
+    background: linear-gradient(135deg, #6750A4, #7D5260);
+    color: #fff;
+  }
+  .d .tag { color: rgba(255,255,255,0.78); }
+  .d .desc { color: rgba(255,255,255,0.85); }
+
+  footer {
+    margin-top: 56px; padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.4); font-size: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Look &amp; Feel proposals</h1>
+  <p class="lede">Four directions for evolving the Tracker UI. Each is a single static screen showing the Train tab. Pick one — or mix elements from several — and I&rsquo;ll execute it across the app.</p>
+
+  <div class="grid">
+    <a class="card a" href="option-a-brutalist.html">
+      <div class="tag">Option A</div>
+      <div class="name">Plain <span class="accent">&amp; quiet</span></div>
+      <div class="desc">Warm off-white, hairline borders, muted sage accent. Calm, honest, low-contrast — gets out of the way.</div>
+      <div class="arrow">View mockup →</div>
+    </a>
+
+    <a class="card b" href="option-b-glass.html">
+      <div class="tag">Option B</div>
+      <div class="name">Glass · visionOS</div>
+      <div class="desc">Frosted layers, prismatic gradients, soft halos. Premium, futuristic, slightly playful.</div>
+      <div class="arrow">View mockup →</div>
+    </a>
+
+    <a class="card c" href="option-c-editorial.html">
+      <div class="tag">Option C</div>
+      <div class="name">Editorial · <em>Notion</em></div>
+      <div class="desc">Warm paper, serif headers, generous whitespace. Calm, journal-like, mature.</div>
+      <div class="arrow">View mockup →</div>
+    </a>
+
+    <a class="card d" href="option-d-expressive.html">
+      <div class="tag">Option D</div>
+      <div class="name">Expressive Material 3</div>
+      <div class="desc">Asymmetric squircles, big color blobs, morphing pills. Lively modern Android.</div>
+      <div class="arrow">View mockup →</div>
+    </a>
+  </div>
+
+  <footer>Each mockup is a self-contained HTML file in <code>mockups/</code>. Open directly in a browser, or right-click → Open With Live Preview.</footer>
+</div>
+</body>
+</html>

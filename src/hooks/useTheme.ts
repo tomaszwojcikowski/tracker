@@ -26,9 +26,9 @@ export const THEMES: ThemeInfo[] = [
         description: 'Vibrant light theme (mockup design system)',
         isDark: false,
         preview: {
-            primary: '#7c3aed',
-            accent: '#6d28d9',
-            surface: '#faf9fc',
+            primary: '#2f6b5e',
+            accent: '#b35a2c',
+            surface: '#f6f5f1',
         },
     },
 ];
@@ -44,7 +44,7 @@ export function useTheme() {
         // Keep browser chrome aligned with the theme.
         const metaThemeColor = document.querySelector('meta[name="theme-color"]');
         if (metaThemeColor) {
-            const bg = getComputedStyle(root).getPropertyValue('--color-surface').trim() || '#fef7ff';
+            const bg = getComputedStyle(root).getPropertyValue('--color-surface').trim() || '#f6f5f1';
             metaThemeColor.setAttribute('content', bg);
         }
     }, []);

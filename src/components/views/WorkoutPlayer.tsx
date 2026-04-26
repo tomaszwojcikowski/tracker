@@ -329,10 +329,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     }, [restTimer, emomTimer, densityTimer, flowTimer]);
 
     const startEmomWithInterval = useCallback((interval: number) => {
-        emomTimer.setIntervalState(interval);
-        emomTimer.setSeconds(interval);
-        emomTimer.setRound(1);
-        emomTimer.setActive(true);
+        emomTimer.start(interval);
     }, [emomTimer]);
 
     // Shared wrappers: always stop other timers before starting/toggling a timer.

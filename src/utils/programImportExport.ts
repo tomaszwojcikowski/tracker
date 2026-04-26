@@ -233,12 +233,12 @@ export function validateWorkoutPlan(data: unknown): ValidationResult {
 /**
  * Supported format versions
  */
-const SUPPORTED_VERSIONS = ['2.0.0', '2.1.0', '2.2.0', '2.3.0'];
+const SUPPORTED_VERSIONS = ['2.0.0', '2.1.0', '2.2.0', '2.3.0', '2.4.0', '2.5.0'];
 
 /**
  * Current target version for migration
  */
-const CURRENT_VERSION = '2.3.0';
+const CURRENT_VERSION = '2.5.0';
 
 /**
  * Check if a version is supported
@@ -341,6 +341,16 @@ function applyMigration(data: V2WorkoutPlan, fromVersion: string, toVersion: str
       if (!result.plan.routineTemplates) {
         result.plan = { ...result.plan, routineTemplates: [] };
       }
+      break;
+
+    case '2.3.0->2.4.0':
+      // 2.3.0 to 2.4.0: Additive schema fields (e.g. routine references). No structural changes.
+      result.formatVersion = '2.4.0';
+      break;
+
+    case '2.4.0->2.5.0':
+      // 2.4.0 to 2.5.0: Additive density exercise fields (totalTime, totalReps). No structural changes.
+      result.formatVersion = '2.5.0';
       break;
 
     default:

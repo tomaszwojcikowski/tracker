@@ -243,12 +243,14 @@ describe('Program Import/Export Utilities', () => {
       expect(isVersionSupported('2.1.0')).toBe(true);
       expect(isVersionSupported('2.2.0')).toBe(true);
       expect(isVersionSupported('2.3.0')).toBe(true);
+      expect(isVersionSupported('2.4.0')).toBe(true);
+      expect(isVersionSupported('2.5.0')).toBe(true);
     });
 
     it('should return false for unsupported versions', () => {
       expect(isVersionSupported('1.0.0')).toBe(false);
       expect(isVersionSupported('3.0.0')).toBe(false);
-      expect(isVersionSupported('2.4.0')).toBe(false);
+      expect(isVersionSupported('2.6.0')).toBe(false);
     });
   });
 
@@ -316,7 +318,7 @@ describe('Program Import/Export Utilities', () => {
       expect(result.success).toBe(true);
       expect(result.migrated).toBe(true);
       expect(result.originalVersion).toBe('2.0.0');
-      expect(result.targetVersion).toBe('2.3.0');
+      expect(result.targetVersion).toBe('2.5.0');
     });
 
     it('should reject duplicate program IDs', async () => {
@@ -329,7 +331,7 @@ describe('Program Import/Export Utilities', () => {
     it('should set program as active when requested', async () => {
       const result = await importProgram(validPlanV2_3, { setActive: true });
       expect(result.success).toBe(true);
-      
+
       const registry = getProgramRegistry();
       expect(registry.getActiveProgramId()).toBe('test-program-v1');
     });

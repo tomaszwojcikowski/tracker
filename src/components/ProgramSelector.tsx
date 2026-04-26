@@ -5,7 +5,7 @@
  * Shows the current program and provides a modal for program selection.
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { ChevronRight, Check, Clock, Target, Dumbbell, X, Plus, Loader2 } from './icons';
 import { useProgram } from '../context/ProgramContext';
 import { useHaptic } from '../hooks';
@@ -270,6 +270,26 @@ function ProgramSelectorModal({
     onClose();
   };
 
+  // Lock body scroll while the modal is open so the page behind doesn't
+  // scroll on mobile (which can drag the modal off-screen and make footer
+  // buttons unreachable). Also wire up Escape to close.
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
@@ -281,7 +301,7 @@ function ProgramSelectorModal({
       aria-labelledby="program-selector-title"
     >
       <div
-        className="w-full max-w-md modal-dialog rounded-t-3xl max-h-[85vh] flex flex-col animate-slide-up"
+        className="w-full max-w-md modal-dialog rounded-t-3xl max-h-[85dvh] flex flex-col animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -306,7 +326,7 @@ function ProgramSelectorModal({
         )}
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+        <div className="flex-1 overflow-y-auto overscroll-contain p-4 space-y-3">
           {showSamplePrograms ? (
             /* Sample Programs List */
             <>

@@ -36,8 +36,8 @@ export interface UseEmomTimerReturn {
     interval: number;
     /** Current round number (1-based, starts at 1 when timer starts) */
     round: number;
-    /** Start the EMOM timer */
-    start: () => void;
+    /** Start the EMOM timer. Optionally pass a new interval (seconds) to use immediately. */
+    start: (intervalOverride?: number) => void;
     /** Stop the EMOM timer */
     stop: () => void;
     /** Toggle the EMOM timer */
@@ -120,8 +120,12 @@ export function useEmomTimer({ haptic }: UseEmomTimerOptions): UseEmomTimerRetur
         safeSetJSON(EMOM_INTERVAL_STORAGE_KEY, interval);
     }, [interval]);
 
-    const start = useCallback(() => {
-        setSeconds(interval);
+    const start = useCallback((intervalOverride?: number) => {
+        const effectiveInterval = intervalOverride && intervalOverride > 0 ? intervalOverride : interval;
+        if (intervalOverride && intervalOverride > 0 && intervalOverride !== interval) {
+            setIntervalState(intervalOverride);
+        }
+        setSeconds(effectiveInterval);
         setRound(1);
         setActive(true);
         startTimeRef.current = Date.now();

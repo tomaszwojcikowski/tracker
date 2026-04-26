@@ -381,7 +381,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
 
     // Determine background and border colors based on state and section
     const containerClasses = useMemo(() => {
-        if (hasSupersetGroup) return 'bg-amber-500/5 border-amber-500/20';
+        if (hasSupersetGroup) return 'bg-sys-tertiary/5 border-sys-tertiary/30';
 
         // Section-based colors
         const sectionColors = getSectionTheme(sectionType || '').container;

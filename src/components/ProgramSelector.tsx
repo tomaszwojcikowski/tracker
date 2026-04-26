@@ -473,7 +473,7 @@ export function ProgramSelector({
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sys-primaryContainer to-sys-primaryContainer/60 ring-1 ring-sys-primary/15 shadow-elevation-1 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-md bg-sys-primaryContainer ring-1 ring-sys-outlineVariant flex items-center justify-center">
                 <Dumbbell size={20} className="text-sys-primary" />
               </div>
               <div>

@@ -403,8 +403,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
     // Determine background and border colors based on state and section
     const containerClasses = useMemo(() => {
-        if (completedSets === totalSets && totalSets > 0) return 'border-sys-success/20 bg-gradient-to-br from-sys-success/10 via-transparent to-transparent';
-        if (hasSupersetGroup) return 'border-amber-500/30 bg-amber-500/5';
+        if (completedSets === totalSets && totalSets > 0) return 'border-sys-success/30 bg-sys-success/5';
+        if (hasSupersetGroup) return 'border-sys-tertiary/40 bg-sys-tertiary/5';
 
         // Section-based colors (applied even when isFirstIncomplete)
         const sectionColors = getSectionTheme(sectionType || '').container;
@@ -422,7 +422,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             {/* Superset Badge */}
             {isFirstInSuperset && (
                 <div className="absolute left-2 -top-2 z-20">
-                    <div className="flex items-center gap-1 bg-amber-500/95 text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-elevation-2 ring-1 ring-amber-600/30">
+                    <div className="flex items-center gap-1 bg-sys-tertiary text-sys-onTertiary text-[9px] font-bold px-1.5 py-0.5 rounded-full ring-1 ring-sys-outline">
                         <span>SUPERSET</span>
                     </div>
                 </div>
@@ -478,7 +478,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* Density Badge */}
                             {isDensity && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-secondary/20 text-sys-onSecondaryContainer border border-sys-secondary/30">
                                     <Gauge size={10} strokeWidth={3} />
                                     {densityRepsTotal && densityTimeMinutes && (
                                         <span>{densityRepsTotal}/{densityTimeMinutes}m</span>

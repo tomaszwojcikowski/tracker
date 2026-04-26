@@ -123,7 +123,7 @@ const SimpleWeightGraph: React.FC<SimpleWeightGraphProps> = ({ data }) => {
     const areaPoints = `${padding},${height - padding} ${points} ${width - padding},${height - padding}`;
 
     return (
-        <div className="bg-gradient-to-b from-sys-surfaceHigh to-sys-surface rounded-2xl p-4 border border-sys-outlineVariant">
+        <div className="bg-sys-surfaceContainerLow rounded-md p-4 border border-sys-outlineVariant">
             <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-24" preserveAspectRatio="none">
                 {/* Gradient definition */}
                 <defs>
@@ -204,7 +204,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
     if (exerciseStats.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-sys-outlineVariant px-6">
-                <div className="h-20 w-20 rounded-full bg-gradient-to-br from-sys-primaryContainer/60 to-sys-tertiaryContainer/40 ring-1 ring-sys-primary/10 shadow-elevation-1 flex items-center justify-center mb-5">
+                <div className="h-20 w-20 rounded-md bg-sys-primaryContainer ring-1 ring-sys-outlineVariant flex items-center justify-center mb-5">
                     <BarChart2 size={40} className="text-sys-primary" />
                 </div>
                 <h3 className="text-lg font-bold text-sys-onSurface mb-2">No Exercise Data</h3>
@@ -268,7 +268,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                 whileTap={{ scale: 0.98 }}
                             >
                                 {/* Exercise Icon/Initial */}
-                                <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-sys-primaryContainer/70 to-sys-primaryContainer/30 border border-sys-primary/20 flex items-center justify-center flex-shrink-0 shadow-elevation-1" aria-hidden="true">
+                                <div className="h-12 w-12 rounded-md bg-sys-primaryContainer border border-sys-outlineVariant flex items-center justify-center flex-shrink-0" aria-hidden="true">
                                     <span className="text-lg font-bold text-sys-onPrimaryContainer">{stat.name.charAt(0)}</span>
                                 </div>
                                 <div className="flex-1 min-w-0">
@@ -302,14 +302,14 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                             <div className="divider divider-inset" aria-hidden="true" />
                                             {/* Stats Summary Grid */}
                                             <div className="grid grid-cols-2 gap-3 mt-4 mb-5">
-                                                <div className="bg-gradient-to-br from-sys-surfaceHigh to-sys-surface rounded-2xl p-4 border border-sys-outlineVariant">
+                                                <div className="bg-sys-surfaceContainerLow rounded-md p-4 border border-sys-outlineVariant">
                                                     <div className="flex items-center gap-2 mb-2">
                                                         <Calendar size={14} className="text-sys-onSurfaceVar" />
                                                         <span className="text-xs text-sys-onSurfaceVar font-medium">Workouts</span>
                                                     </div>
                                                     <div className="text-2xl font-bold text-sys-onSurface">{stat.totalWorkouts}</div>
                                                 </div>
-                                                <div className="bg-gradient-to-br from-sys-surfaceHigh to-sys-surface rounded-2xl p-4 border border-sys-outlineVariant">
+                                                <div className="bg-sys-surfaceContainerLow rounded-md p-4 border border-sys-outlineVariant">
                                                     <div className="flex items-center gap-2 mb-2">
                                                         <Layers size={14} className="text-sys-onSurfaceVar" />
                                                         <span className="text-xs text-sys-onSurfaceVar font-medium">Max Sets</span>

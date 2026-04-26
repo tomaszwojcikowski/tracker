@@ -338,7 +338,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
                   : 'text-sys-onSurface text-7xl md:text-9xl drop-shadow-lg'
               } ${canTogglePause ? 'cursor-pointer active:scale-95' : 'cursor-default'} ${
                 isComplete
-                  ? 'px-8 py-5 md:px-10 md:py-6 rounded-[2rem] md:rounded-[2.5rem] bg-sys-surfaceContainerHigh/80 backdrop-blur-xl border border-sys-outlineVariant shadow-elevation-2'
+                  ? 'px-8 py-5 md:px-10 md:py-6 rounded-md bg-sys-surfaceContainerHigh border border-sys-outlineVariant'
                   : ''
               }`}
               aria-label={canTogglePause ? (isPaused ? 'Resume timer' : 'Pause timer') : 'Timer display'}
@@ -378,7 +378,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
       </main>
 
       {/* Bottom controls */}
-      <footer className="relative z-10 px-6 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] bg-gradient-to-t from-sys-surface via-sys-surface/95 to-transparent">
+      <footer className="relative z-10 px-6 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] bg-sys-surface border-t border-sys-outlineVariant">
         {!isComplete && (
           <div className="flex items-center justify-center gap-5">
             {isEmom ? (

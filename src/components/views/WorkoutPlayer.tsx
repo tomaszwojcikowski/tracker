@@ -1427,9 +1427,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                 {/* Empty Workout Prompt */}
                 {isEmptyWorkout && addedExercises.length === 0 && !logs.completed && (
-                    <div className="mb-6 p-6 rounded-2xl bg-gradient-to-br from-sys-primary/10 via-sys-surface to-sys-surfaceContainerHigh border-2 border-dashed border-sys-primary/30 shadow-elevation-1">
+                    <div className="mb-6 p-6 rounded-md bg-sys-surfaceContainerLow border-2 border-dashed border-sys-outline">
                         <div className="flex flex-col items-center text-center">
-                            <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-sys-primary/30 to-sys-primary/10 flex items-center justify-center mb-4 shadow-elevation-2 ring-1 ring-sys-primary/20">
+                            <div className="h-16 w-16 rounded-md bg-sys-primaryContainer flex items-center justify-center mb-4 ring-1 ring-sys-outlineVariant">
                                 <PlusCircle size={32} className="text-sys-primary" />
                             </div>
                             <h3 className="text-lg font-bold text-sys-onSurface mb-2">Build Your Workout</h3>
@@ -1825,7 +1825,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             <span className="text-sm font-bold text-sys-onSurface uppercase tracking-wide">
                                 {isEmptyWorkout ? 'Exercises' : 'Added Exercises'}
                             </span>
-                            <div className="h-[2px] flex-1 bg-gradient-to-r from-sys-outlineVariant to-transparent rounded-full"></div>
+                            <div className="h-px flex-1 bg-sys-outlineVariant"></div>
                         </div>
 
                         <div className="space-y-3">

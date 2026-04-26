@@ -76,7 +76,8 @@
             "repsValue": 240,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "notes": "3-5 min light spin to raise core temp"
+            "notes": "3-5 min light spin to raise core temp",
+            "coachingNotes": "Conversational pace — light resistance, smooth cadence. The goal is to raise core temp and lubricate joints, not to start the workout fatigued."
           },
           {
             "exerciseName": "Single-Leg Glute Bridge",
@@ -86,7 +87,8 @@
             "repsType": "reps",
             "isUnilateral": true,
             "loadUnit": "bodyweight",
-            "notes": "Pause at top each rep"
+            "notes": "Pause at top each rep",
+            "coachingNotes": "Lying on back, one foot flat, other knee tucked. Drive through the heel and squeeze the glute hard at the top; pause 1 s before lowering. Hips stay level — no twisting toward the supporting side."
           },
           {
             "exerciseName": "Single-Leg RDL",
@@ -95,7 +97,8 @@
             "repsValue": 8,
             "repsType": "reps",
             "isUnilateral": true,
-            "loadUnit": "bodyweight"
+            "loadUnit": "bodyweight",
+            "coachingNotes": "Stand on one leg with a soft knee. Hinge at the hip, letting the back leg float straight behind. Reach the chest forward as the heel lifts back; descend until the torso is parallel to the floor. Move slowly — balance is part of the work."
           },
           {
             "exerciseName": "Lateral Band Walk",
@@ -104,7 +107,8 @@
             "repsValue": 15,
             "repsType": "reps",
             "isUnilateral": true,
-            "loadUnit": "band"
+            "loadUnit": "band",
+            "coachingNotes": "Band just above the knees or around the ankles. Quarter-squat, chest up, knees pushed out. Step sideways with small, deliberate steps; do not let the trailing foot drag in. Glute medius should burn within 10 reps/side."
           },
           {
             "exerciseName": "Wrist Rolls",
@@ -113,7 +117,8 @@
             "repsValue": 15,
             "repsType": "reps",
             "loadUnit": "bodyweight",
-            "notes": "Each direction"
+            "notes": "Each direction",
+            "coachingNotes": "Arms outstretched, hands relaxed. Slow, full circles in each direction. Goal is joint lubrication, not range of motion — keep it gentle, especially with any elbow tendinopathy history."
           },
           {
             "exerciseName": "Eccentric Wrist Extensions",
@@ -124,7 +129,8 @@
             "isUnilateral": true,
             "loadMin": 1,
             "loadMax": 2,
-            "loadUnit": "kg"
+            "loadUnit": "kg",
+            "coachingNotes": "Forearm supported, palm down, holding 1-2 kg DB. Use the other hand to lift the weight to full wrist extension, then slowly lower over 3 s using only the working forearm. Tyler-twist style eccentric — the prep work that keeps elbow tendons happy."
           },
           {
             "exerciseName": "Hollow Body Hold",
@@ -133,7 +139,8 @@
             "repsType": "time",
             "repsValue": 20,
             "repsUnit": "seconds",
-            "loadUnit": "bodyweight"
+            "loadUnit": "bodyweight",
+            "coachingNotes": "Lie on back, lower back pressed flat into the floor, arms overhead, legs straight. Lift shoulders and legs slightly off the floor while keeping the lumbar glued down. If the back arches, tuck the knees until you can hold neutral."
           }
         ]
       },
@@ -151,7 +158,8 @@
             "repsValue": 240,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "notes": "3-5 min easy spin"
+            "notes": "3-5 min easy spin",
+            "coachingNotes": "Light, easy aerobic spin to flush blood through worked tissues. Cadence smooth, breathing easy. Lower body goes here too if you just hammered upper."
           },
           {
             "exerciseName": "Eccentric Wrist Extensions (cooldown)",
@@ -162,7 +170,8 @@
             "isUnilateral": true,
             "loadMin": 1,
             "loadMax": 2,
-            "loadUnit": "kg"
+            "loadUnit": "kg",
+            "coachingNotes": "Same protocol as warm-up: lift with assistance, lower 3 s solo. After hard pressing the tendon prep work doubles as recovery — do not skip."
           },
           {
             "exerciseName": "Hip Flexor / Pigeon / Quad Stretch",
@@ -173,7 +182,8 @@
             "repsUnit": "seconds",
             "isUnilateral": true,
             "loadUnit": "bodyweight",
-            "notes": "30 s/side each"
+            "notes": "30 s/side each",
+            "coachingNotes": "Hold each position 30 s per side without bouncing. Breathe into the stretch; back off if you feel pinching at end-range. Pigeon belongs only on Friday-cooldown days when the hip is warm."
           },
           {
             "exerciseName": "Doorway Pec Stretch",
@@ -183,7 +193,8 @@
             "repsValue": 30,
             "repsUnit": "seconds",
             "isUnilateral": true,
-            "loadUnit": "bodyweight"
+            "loadUnit": "bodyweight",
+            "coachingNotes": "Forearm vertical against a doorframe, elbow at shoulder height. Step the same-side foot through the door until you feel a stretch across the chest. 30 s each side, no shoulder shrugging."
           },
           {
             "exerciseName": "Band Pull-Aparts",
@@ -191,7 +202,8 @@
             "sets": 1,
             "repsValue": 15,
             "repsType": "reps",
-            "loadUnit": "band"
+            "loadUnit": "band",
+            "coachingNotes": "Hold a band at chest height, arms straight, hands shoulder-width. Pull the band apart by squeezing the shoulder blades together, finishing with the band touching the chest. Slow return. Endurance work — keep it light."
           }
         ]
       },
@@ -209,7 +221,8 @@
             "repsValue": 540,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "notes": "8-10 min Zone 1-2 aerobic flush"
+            "notes": "8-10 min Zone 1-2 aerobic flush",
+            "coachingNotes": "Sustained Zone 1-2 effort: nasal breathing should be possible. Friday cooldown — flush the legs after the heaviest day of the week."
           },
           {
             "exerciseName": "Hip Flexor / Pigeon / Quad Stretch",
@@ -220,7 +233,8 @@
             "repsUnit": "seconds",
             "isUnilateral": true,
             "loadUnit": "bodyweight",
-            "notes": "30 s/side each"
+            "notes": "30 s/side each",
+            "coachingNotes": "Hold each position 30 s per side without bouncing. Breathe into the stretch; back off if you feel pinching at end-range. Pigeon belongs only on Friday-cooldown days when the hip is warm."
           },
           {
             "exerciseName": "Doorway Pec Stretch",
@@ -230,7 +244,8 @@
             "repsValue": 30,
             "repsUnit": "seconds",
             "isUnilateral": true,
-            "loadUnit": "bodyweight"
+            "loadUnit": "bodyweight",
+            "coachingNotes": "Forearm vertical against a doorframe, elbow at shoulder height. Step the same-side foot through the door until you feel a stretch across the chest. 30 s each side, no shoulder shrugging."
           }
         ]
       }
@@ -246,7 +261,12 @@
         "restSeconds": 40,
         "loadUnit": "bodyweight",
         "notes": "Power Primer Rule: 2-3 rounds x 3 plyo push-ups (handles or elevated). CNS prime before bench. Sub: med-ball chest pass if elbow > 2/10. Skip if elbow > 2/10.",
-        "alternatives": ["Med-Ball Chest Pass", "Clap Push-Ups", "Hand-Release Push-Ups"]
+        "alternatives": [
+          "Med-Ball Chest Pass",
+          "Clap Push-Ups",
+          "Hand-Release Push-Ups"
+        ],
+        "coachingNotes": "Set up with hands on raised handles or a sturdy box edge so the chest never travels deeper than parallel to the elbow. Brace hard, drive the chest away from the ground explosively, and let the hands leave the surface; reset to a controlled landing each rep. Keep the elbow path tight (~30°) — if you feel any medial-elbow pinch, switch to a med-ball chest pass and skip the plyo."
       },
       {
         "id": "ex-scap-pushup-plus",
@@ -257,7 +277,8 @@
         "repsMax": 10,
         "repsType": "reps",
         "loadUnit": "bodyweight",
-        "notes": "Slow and controlled - immediately before first loaded Bench set"
+        "notes": "Slow and controlled - immediately before first loaded Bench set",
+        "coachingNotes": "In a tall plank, keep arms locked. Let the chest sag between the shoulder blades, then protract hard at the top so the upper back rounds — full scapular ROM, no elbow movement. Move slowly (~2 s up, 2 s down). The goal is to wake up serratus before the bench, not to fatigue."
       },
       {
         "id": "ex-bench-press",
@@ -274,7 +295,8 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "rpe": 7,
-        "notes": "Straight-bar Bench (only non-neutral grip press). 2-second eccentric. Stop set if bar speed drops or positions break."
+        "notes": "Straight-bar Bench (only non-neutral grip press). 2-second eccentric. Stop set if bar speed drops or positions break.",
+        "coachingNotes": "Eyes under the bar, shoulder blades retracted and depressed, mid-foot flat. Bar lands on the lower sternum with a 2 s controlled eccentric, no bouncing; drive heels and press in a slight J-curve back over the shoulders. If bar speed visibly slows or the elbow flares, end the set — the prescription assumes crisp reps only."
       },
       {
         "id": "ex-ring-pull-ups",
@@ -293,7 +315,11 @@
         "restSeconds": 120,
         "rpe": 7,
         "notes": "Bodyweight through Week 6 unless elbows are fully calm and reps stay crisp (Ring Pull-Up Split Progression Rule). Ring variation lets wrists rotate naturally.",
-        "alternatives": ["Neutral-Grip Pull-Ups", "Chin-Ups (light)"]
+        "alternatives": [
+          "Neutral-Grip Pull-Ups",
+          "Chin-Ups (light)"
+        ],
+        "coachingNotes": "Hang from rings with thumbs slightly toward each other; let the rings rotate as you pull so the wrists self-select a neutral path. Initiate with scapular depression, finish with the chest passing the ring line. 3 s controlled descent, 1 s pause at the dead hang — no kipping, no swinging. Stop the set when full ROM breaks down."
       },
       {
         "id": "ex-parallette-l-sit",
@@ -308,7 +334,12 @@
         "loadUnit": "bodyweight",
         "restSeconds": 60,
         "notes": "Compression-Goal Rule (Monday). Tucked progressions Phase 1; one-leg / straddle Phase 2; full L-sit work Phase 3.",
-        "alternatives": ["Tucked L-Sit", "One-Leg L-Sit", "Foot-Supported L-Sit"]
+        "alternatives": [
+          "Tucked L-Sit",
+          "One-Leg L-Sit",
+          "Foot-Supported L-Sit"
+        ],
+        "coachingNotes": "Grip parallettes with locked elbows, shoulders pressed down (away from the ears), legs squeezed straight with toes pointed. Drive the hips forward and crunch the rib cage toward the pelvis to \"compress\" — this, not just leg strength, is the goal. Pick the hardest variation you can hold with locked elbows for the full duration."
       },
       {
         "id": "ex-pull-density-block",
@@ -324,7 +355,8 @@
         "tempoPauseBottom": 0,
         "tempoConcentric": 1,
         "tempoPauseTop": 2,
-        "notes": "4 min: accumulate 16-20 crisp Ring Rows (rigid body line, 2-second chest-to-rings squeeze). Stop early if positions break."
+        "notes": "4 min: accumulate 16-20 crisp Ring Rows (rigid body line, 2-second chest-to-rings squeeze). Stop early if positions break.",
+        "coachingNotes": "Set the rings or barbell so a chest-to-rings finish takes ~1 s of pulling. Body stays a rigid plank (glutes squeezed, ribs down). Pull until the chest touches, hold a 2 s squeeze, then lower in 1 s. Aim for short, frequent micro-sets to accumulate the rep total — quality reps only, never grind a bad rep to hit the number."
       },
       {
         "id": "ex-hang-power-clean",
@@ -337,7 +369,8 @@
         "loadUnit": "kg",
         "restSeconds": 180,
         "rpe": 7,
-        "notes": "Hook grip (elbow management). Vertical bar path, smooth pulls, no grinding. Convert to Clean Pulls if catches get sloppy or slow."
+        "notes": "Hook grip (elbow management). Vertical bar path, smooth pulls, no grinding. Convert to Clean Pulls if catches get sloppy or slow.",
+        "coachingNotes": "Start from the hang at mid-thigh with hook grip and lats engaged. Initiate with a violent leg drive and hip extension; the bar travels up the body, not away. Catch in a quarter-squat with elbows whipping through high and the chest tall. Reset every rep — singles strung together, never touch-and-go."
       },
       {
         "id": "ex-clean-pulls",
@@ -350,7 +383,8 @@
         "loadUnit": "kg",
         "restSeconds": 150,
         "rpe": 7,
-        "notes": "Explosive extension ABOVE knee; finish tall. Positional/technical reinforcement."
+        "notes": "Explosive extension ABOVE knee; finish tall. Positional/technical reinforcement.",
+        "coachingNotes": "Same setup as the clean but without the catch. Pull off the floor with patience, accelerate hard once the bar passes the knees, finish with a tall triple extension and a vertical shrug. Keep arms straight throughout — this is a positional and CNS primer, not a row."
       },
       {
         "id": "ex-tall-clean-high-hang",
@@ -363,7 +397,8 @@
         "loadUnit": "kg",
         "restSeconds": 120,
         "rpe": 6,
-        "notes": "Variation Dose Rule: Friday clean variation is a TECHNICAL PRIMER. Fast, sharp reps only. Stop the set if turnover slows."
+        "notes": "Variation Dose Rule: Friday clean variation is a TECHNICAL PRIMER. Fast, sharp reps only. Stop the set if turnover slows.",
+        "coachingNotes": "Start with the bar at the hip crease, dip the knees ~10 cm, and immediately re-extend explosively. The bar barely moves before the catch — focus on a fast turnover with the elbows whipping under. Treat every rep like a max-velocity primer; if speed drops, stop the set even if the prescription is unfinished."
       },
       {
         "id": "ex-power-clean",
@@ -376,7 +411,8 @@
         "loadUnit": "kg",
         "restSeconds": 180,
         "rpe": 8,
-        "notes": "Hook grip. Full power clean from floor. Convert to Clean Pulls if positions break."
+        "notes": "Hook grip. Full power clean from floor. Convert to Clean Pulls if positions break.",
+        "coachingNotes": "Setup: bar over mid-foot, hook grip, hips slightly higher than the squat. First pull is patient and bar-path vertical; second pull explodes once the bar passes the knees. Catch in a controlled quarter-squat with vertical torso. Drop and reset between reps — quality, not density."
       },
       {
         "id": "ex-box-squat",
@@ -389,7 +425,8 @@
         "loadUnit": "kg",
         "restSeconds": 180,
         "rpe": 7,
-        "notes": "Box at exactly parallel (~41-43 cm). True 1-second dead stop on box, no rocking. HLM rule: load stays ~5 kg below same-week Back Squat top set. 2.5-3 min rest in Wks 7-10."
+        "notes": "Box at exactly parallel (~41-43 cm). True 1-second dead stop on box, no rocking. HLM rule: load stays ~5 kg below same-week Back Squat top set. 2.5-3 min rest in Wks 7-10.",
+        "coachingNotes": "Box height set to exactly parallel. Sit back onto the box with vertical shins, dead-stop for a true 1 s with no relaxing the trunk, then drive the floor away and stand. No rocking, no bouncing. The dead stop kills the stretch reflex — that's the point."
       },
       {
         "id": "ex-back-squat",
@@ -406,7 +443,8 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "rpe": 7,
-        "notes": "Tripod foot, knees track over toes. 1-second pause at depth (Phases 1-2). If knees irritated, drop 5 kg from listed load."
+        "notes": "Tripod foot, knees track over toes. 1-second pause at depth (Phases 1-2). If knees irritated, drop 5 kg from listed load.",
+        "coachingNotes": "High-bar position across the upper traps, elbows tucked under the bar. Brace 360°, break at hips and knees together, descend to one inch below parallel with a controlled 1 s pause. Drive the chest up and the floor away simultaneously. If the knees protest, drop 5 kg and tighten the descent tempo."
       },
       {
         "id": "ex-rdl",
@@ -424,7 +462,8 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "rpe": 7,
-        "notes": "Hinge Rule: shins vertical, 3-0-1-0 tempo. Stop at deepest pain-free hamstring position. Loads ~40-55% of 155 kg DL."
+        "notes": "Hinge Rule: shins vertical, 3-0-1-0 tempo. Stop at deepest pain-free hamstring position. Loads ~40-55% of 155 kg DL.",
+        "coachingNotes": "Bar starts at the hip with a soft knee bend (~15°). Push the hips straight back, keeping the bar in contact with the thigh and then the shin; descend to the deepest point you can reach without lumbar rounding. 3 s eccentric, no pause, smooth concentric. Hamstring stretch — not lower back — should be the limit."
       },
       {
         "id": "ex-chest-supported-row",
@@ -439,7 +478,8 @@
         "loadPerHand": true,
         "restSeconds": 90,
         "rpe": 7,
-        "notes": "Phase 1: 20-25 kg/hand build. Phase 2: 25-30 kg/hand. Wks 9-10: 20-25 kg/hand back-off. Upper end only when scapular control is perfect."
+        "notes": "Phase 1: 20-25 kg/hand build. Phase 2: 25-30 kg/hand. Wks 9-10: 20-25 kg/hand back-off. Upper end only when scapular control is perfect.",
+        "coachingNotes": "Chest pinned to the pad, feet planted, dumbbells hanging straight down. Pull the elbows back and slightly out (~45°) until the handles touch the ribs; squeeze the shoulder blades together at the top, then lower under control. No torso rocking — if you need to swing, the load is too heavy."
       },
       {
         "id": "ex-swiss-bar-bench",
@@ -457,7 +497,11 @@
         "tempoPauseTop": 0,
         "rpe": 7,
         "notes": "Neutral grip, 1-second pause. Submaximal secondary press (stay 2-3 reps shy of failure). Sub: Neutral-Grip DB Bench 3x8.",
-        "alternatives": ["Neutral-Grip DB Bench Press", "Football-Bar Bench"]
+        "alternatives": [
+          "Neutral-Grip DB Bench Press",
+          "Football-Bar Bench"
+        ],
+        "coachingNotes": "Neutral grip on the inner handles. Same arch and leg drive as the bench press; the neutral grip should keep the elbows at ~45° automatically. 1 s pause on the chest, smooth press. Stop the set 2-3 reps shy of failure — this is a secondary press for volume, not a rep test."
       },
       {
         "id": "ex-floor-press",
@@ -474,7 +518,8 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "rpe": 7,
-        "notes": "Medium grip. Reduced ROM removes deep-elbow-flex range; protects medial tendon. Pause triceps on floor each rep. Min 2 min rest in Wks 7-10."
+        "notes": "Medium grip. Reduced ROM removes deep-elbow-flex range; protects medial tendon. Pause triceps on floor each rep. Min 2 min rest in Wks 7-10.",
+        "coachingNotes": "Lie on the floor with feet flat or legs straight, depending on what feels stable. Lower the bar until the back of the upper arm contacts the floor, pause 2 s without losing tension, then press. The reduced ROM removes the deep stretch on the medial elbow — keep the descent honest, no bouncing the triceps."
       },
       {
         "id": "ex-paused-bench",
@@ -491,7 +536,8 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "rpe": 8,
-        "notes": "Medium grip, 2-second chest pause. Bench-specific without extra triceps/elbow stress. Min 2 min rest."
+        "notes": "Medium grip, 2-second chest pause. Bench-specific without extra triceps/elbow stress. Min 2 min rest.",
+        "coachingNotes": "Standard bench setup with a medium grip. Lower the bar to the lower sternum, pause 2 s with active tension (not collapsed on the chest), then press. The pause builds raw start strength without adding ROM stress. Min 2 min rest so the press is fresh, not fatigued."
       },
       {
         "id": "ex-light-floor-press",
@@ -504,7 +550,8 @@
         "loadUnit": "kg",
         "restSeconds": 120,
         "rpe": 6,
-        "notes": "Maintenance only. Stop 2-3 reps shy of failure."
+        "notes": "Maintenance only. Stop 2-3 reps shy of failure.",
+        "coachingNotes": "Same setup as Floor Press but treat as maintenance. Move briskly with crisp pauses, stop 2-3 reps shy of failure. The job here is grease-the-groove for the bench pattern — not a hard session."
       },
       {
         "id": "ex-seated-pike-pulses",
@@ -516,7 +563,8 @@
         "repsType": "reps",
         "loadUnit": "bodyweight",
         "restSeconds": 45,
-        "notes": "Compression-Goal Rule (Friday). Active toe lift, lift hips off floor with straight legs. Quality over quantity."
+        "notes": "Compression-Goal Rule (Friday). Active toe lift, lift hips off floor with straight legs. Quality over quantity.",
+        "coachingNotes": "Sit tall with legs straight and toes actively pulled toward you. Press the hands into the floor next to the hips and lift the heels (and ideally the hips) off the ground while keeping the legs perfectly straight. Each rep is a small, controlled pulse — no kipping the legs up."
       },
       {
         "id": "ex-friday-l-sit-hold",
@@ -531,7 +579,13 @@
         "loadUnit": "bodyweight",
         "restSeconds": 60,
         "notes": "Best L-Sit variation, target 8-15 s. Adds to Friday Pike Pulses for compression total ~5 min.",
-        "alternatives": ["Tucked L-Sit", "One-Leg L-Sit", "Straddle L-Sit", "Full L-Sit"]
+        "alternatives": [
+          "Tucked L-Sit",
+          "One-Leg L-Sit",
+          "Straddle L-Sit",
+          "Full L-Sit"
+        ],
+        "coachingNotes": "Pick the hardest L-sit progression you can hold with locked elbows, depressed shoulders, and legs straight. Press the floor away, lift the chest, and crunch the ribs toward the pelvis. Stop the hold the moment the legs drop or the elbows bend."
       },
       {
         "id": "ex-row-conditioning-easy",
@@ -543,7 +597,8 @@
         "repsUnit": "seconds",
         "loadUnit": "bodyweight",
         "rpe": 5,
-        "notes": "Lower-intensity technique row, RPE 5-6. Warm up 5-10 min easy + dynamic mobility. Cool down 3 min easy. Sub Bike or SkiErg if elbow/knee not 100%."
+        "notes": "Lower-intensity technique row, RPE 5-6. Warm up 5-10 min easy + dynamic mobility. Cool down 3 min easy. Sub Bike or SkiErg if elbow/knee not 100%.",
+        "coachingNotes": "Easy aerobic effort: nasal-only breathing or full conversational pace. Long stroke, full slide, no rushing the recovery. Rower split should feel \"I could do this for 60 min.\" If form gets sloppy or the heart rate drifts above Z2, slow down."
       },
       {
         "id": "ex-row-conditioning-moderate",
@@ -555,7 +610,8 @@
         "repsUnit": "seconds",
         "loadUnit": "bodyweight",
         "rpe": 7,
-        "notes": "Per Tuesday/Thursday rowing-schedule table for the week. Stay consistent on splits. Cool down 3 min easy."
+        "notes": "Per Tuesday/Thursday rowing-schedule table for the week. Stay consistent on splits. Cool down 3 min easy.",
+        "coachingNotes": "Hold target splits exactly per the week's rowing table — RPE 6-7. Strong leg drive, deliberate finish, controlled recovery. If splits drift more than ~5 s/500 m off target, cut the interval rather than grind through bad strokes."
       },
       {
         "id": "ex-row-conditioning-hard",
@@ -567,7 +623,8 @@
         "repsUnit": "seconds",
         "loadUnit": "bodyweight",
         "rpe": 8,
-        "notes": "Phase 2 Tuesday: 1,000 m / interval work, RPE 7-8. Sits 72 h before Friday squats."
+        "notes": "Phase 2 Tuesday: 1,000 m / interval work, RPE 7-8. Sits 72 h before Friday squats.",
+        "coachingNotes": "High-intensity intervals at RPE 7-8. Aim for repeatable splits across all reps; the last interval should not be slower than the first by more than ~2 s/500 m. Full recovery between reps. Stops 72 h before Friday squats, so don't bury yourself."
       },
       {
         "id": "ex-front-plank",
@@ -579,7 +636,8 @@
         "repsValue": 45,
         "repsUnit": "seconds",
         "loadUnit": "bodyweight",
-        "restSeconds": 45
+        "restSeconds": 45,
+        "coachingNotes": "Forearms shoulder-width, elbows under shoulders. Squeeze glutes, posterior pelvic tilt, ribs down. Body forms one line from heel to crown — no hip sag, no butt in the air. If the lower back arches, end the set early."
       },
       {
         "id": "ex-pallof-press",
@@ -592,7 +650,8 @@
         "isUnilateral": true,
         "loadUnit": "band",
         "restSeconds": 60,
-        "notes": "10/side - anti-rotation hold each rep"
+        "notes": "10/side - anti-rotation hold each rep",
+        "coachingNotes": "Stand side-on to the band, hands at the sternum. Press the hands straight out and resist the band's rotational pull — the trunk should not move at all. 1 s hold at full extension, return slowly. Anti-rotation is the goal; if the torso twists, lighten the band."
       },
       {
         "id": "ex-rower-ham-curl",
@@ -608,7 +667,8 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "restSeconds": 60,
-        "notes": "Slow eccentric. Knee/hamstring support."
+        "notes": "Slow eccentric. Knee/hamstring support.",
+        "coachingNotes": "Lie on your back, heels on the rower seat, hips lifted into a glute bridge. Pull the seat toward the hips by curling the heels under, keeping the hips high the entire time. 3 s eccentric. If hamstrings cramp, shorten the ROM rather than dropping the hips."
       },
       {
         "id": "ex-dragon-flag-tuck",
@@ -622,7 +682,8 @@
         "repsUnit": "seconds",
         "loadUnit": "bodyweight",
         "restSeconds": 60,
-        "notes": "Anchor upper back, grip bench edge behind head. Stop rule: lower back arches or ribs flare = rep done. Never train to failure."
+        "notes": "Anchor upper back, grip bench edge behind head. Stop rule: lower back arches or ribs flare = rep done. Never train to failure.",
+        "coachingNotes": "Lie on a bench, grip the edge above your head. Lift the legs and hips so the body forms a vertical line from shoulders to feet, knees tucked tight to the chest. Lower under control, keeping the lower back glued to neutral. Stop the rep — and the set — if the lumbar arches or ribs flare."
       },
       {
         "id": "ex-dragon-flag-single-leg",
@@ -636,7 +697,8 @@
         "repsUnit": "seconds",
         "loadUnit": "bodyweight",
         "restSeconds": 75,
-        "notes": "If 6 s is clean, add 1 slow negative."
+        "notes": "If 6 s is clean, add 1 slow negative.",
+        "coachingNotes": "Same vertical start position as the tuck variant, but extend one leg fully while the other stays tucked. Hold rigid; the extended leg adds a long lever the trunk must resist. If a clean 6 s hold is easy, finish with one slow negative rather than chasing more time."
       },
       {
         "id": "ex-dragon-flag-negative",
@@ -648,7 +710,8 @@
         "repsType": "reps",
         "loadUnit": "bodyweight",
         "restSeconds": 90,
-        "notes": "5-count eccentric, tuck back to start. Stop well before shaking."
+        "notes": "5-count eccentric, tuck back to start. Stop well before shaking.",
+        "coachingNotes": "Kick or assist into the top vertical position. Lower the entire body — straight as a board — over a 5 s count, fighting the lumbar arch the whole way. Tuck the knees once the heels are ~30 cm off the bench to reset. Stop well before the trunk starts shaking."
       },
       {
         "id": "ex-face-pulls",
@@ -662,7 +725,8 @@
         "loadUnit": "band",
         "restSeconds": 60,
         "supersetGroup": 1,
-        "notes": "External rotation at top of pull"
+        "notes": "External rotation at top of pull",
+        "coachingNotes": "Band at face height, wide overhand grip. Pull the band toward the eyebrows while flaring the elbows wide and externally rotating so the hands finish above the elbows. Pause 1 s at the top. The cue is \"show me your biceps,\" not \"row to your chin.\""
       },
       {
         "id": "ex-landmine-press",
@@ -677,7 +741,8 @@
         "restSeconds": 75,
         "supersetGroup": 1,
         "rpe": 6,
-        "notes": "Vertical press stays light and clean. +10-15 kg Wks 1-8, +5-10 kg Wk 9. Full reach, ribs down, smooth arc. Skip if symptoms elevated."
+        "notes": "Vertical press stays light and clean. +10-15 kg Wks 1-8, +5-10 kg Wk 9. Full reach, ribs down, smooth arc. Skip if symptoms elevated.",
+        "coachingNotes": "Half-kneeling with the down-leg matching the pressing arm. Bar starts at the shoulder, ribs stacked over hips. Press up and slightly forward in a smooth arc, fully extending the elbow without shrugging. Lower under control. If shoulder symptoms flare, skip — vertical pressing is dispensable."
       },
       {
         "id": "ex-single-leg-calf-raise",
@@ -694,7 +759,8 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 1,
         "restSeconds": 45,
-        "notes": "Slow - ankle/knee stability, goose-foot management"
+        "notes": "Slow - ankle/knee stability, goose-foot management",
+        "coachingNotes": "Stand on one foot on a small step, other foot tucked behind. Rise onto the ball of the foot fully (1 s pause at the top), then descend under control past flat for a heel drop. Use a wall or post for balance only — load the working calf, don't hop."
       },
       {
         "id": "ex-side-plank",
@@ -708,7 +774,8 @@
         "isUnilateral": true,
         "loadUnit": "bodyweight",
         "restSeconds": 30,
-        "notes": "Lateral trunk stability"
+        "notes": "Lateral trunk stability",
+        "coachingNotes": "Forearm under shoulder, body rigid in one line. Stack feet (or stagger if needed for balance) and lift the hips so the bottom side does not sag. Squeeze glutes and obliques. End the set when the hips drop, not when the time runs out."
       },
       {
         "id": "ex-banded-er",
@@ -720,7 +787,8 @@
         "isUnilateral": true,
         "loadUnit": "band",
         "restSeconds": 45,
-        "notes": "Light - rotator cuff endurance"
+        "notes": "Light - rotator cuff endurance",
+        "coachingNotes": "Elbow tucked at the side, 90° bend. Anchor the band so it pulls across the body. Rotate the forearm out without letting the elbow drift away from the ribs. Slow and deliberate — this is rotator cuff endurance, not a strength move."
       },
       {
         "id": "ex-skin-the-cat-tuck",
@@ -731,7 +799,8 @@
         "repsType": "reps",
         "loadUnit": "bodyweight",
         "restSeconds": 90,
-        "notes": "Tuck only - no German hang yet. Stop any sharp impingement."
+        "notes": "Tuck only - no German hang yet. Stop any sharp impingement.",
+        "coachingNotes": "Hang from rings with a tight tuck (knees to chest). Pull the knees up and through the rings, rolling backwards until the hips reach ring height — stop there, then reverse the motion under control. Do not chase a German hang yet. Any sharp shoulder pinch ends the set."
       },
       {
         "id": "ex-skin-the-cat-partial",
@@ -743,7 +812,8 @@
         "repsType": "reps",
         "loadUnit": "bodyweight",
         "restSeconds": 90,
-        "notes": "Hold 2 s in partial German hang."
+        "notes": "Hold 2 s in partial German hang.",
+        "coachingNotes": "From a tucked inversion, slowly extend through the back of the rings to a partial German hang (arms straight, hips below shoulders, but stopping above full extension). Hold 2 s, then reverse. Build slowly — full ROM unlocks only when shoulders feel calm at this depth."
       },
       {
         "id": "ex-skin-the-cat-full",
@@ -755,7 +825,8 @@
         "repsType": "reps",
         "loadUnit": "bodyweight",
         "restSeconds": 90,
-        "notes": "Full Skin-the-Cat with full German hang."
+        "notes": "Full Skin-the-Cat with full German hang.",
+        "coachingNotes": "Full Skin-the-Cat: from inversion, extend all the way through to a complete German hang with arms straight, body extended, toes pointed. Pause briefly at the bottom, then reverse to inverted. Move continuously and smoothly — never drop or jerk through the bottom."
       },
       {
         "id": "ex-step-ups",
@@ -773,7 +844,8 @@
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "restSeconds": 90,
-        "notes": "Slow descent, perfect knee tracking. Unilateral stability slot."
+        "notes": "Slow descent, perfect knee tracking. Unilateral stability slot.",
+        "coachingNotes": "Box height roughly knee-level. Place the working foot fully on the box, drive through the heel — no push-off from the back leg. Stand tall at the top, then lower under control over 3 s. Both DBs hang at the sides; use straps if grip is the limiter."
       }
     ],
     "phases": [
@@ -798,14 +870,38 @@
                 "estimatedDuration": 60,
                 "description": "Power Primer + Bench 4x8 @ 65% (57.5 kg)",
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-power-primer" },
-                  { "$ref": "ex-scap-pushup-plus" },
-                  { "$ref": "ex-bench-press", "loadMin": 57.5, "loadMax": 57.5, "repsValue": 8, "sets": 4, "notes": "65% (57.5 kg). 2-second eccentric. RPE 6-7." },
-                  { "$ref": "ex-ring-pull-ups" },
-                  { "$ref": "ex-parallette-l-sit", "repsMin": 8, "repsMax": 12 },
-                  { "$ref": "ex-pull-density-block", "densityRepsTotal": 18 },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-power-primer"
+                  },
+                  {
+                    "$ref": "ex-scap-pushup-plus"
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 57.5,
+                    "loadMax": 57.5,
+                    "repsValue": 8,
+                    "sets": 4,
+                    "notes": "65% (57.5 kg). 2-second eccentric. RPE 6-7."
+                  },
+                  {
+                    "$ref": "ex-ring-pull-ups"
+                  },
+                  {
+                    "$ref": "ex-parallette-l-sit",
+                    "repsMin": 8,
+                    "repsMax": 12
+                  },
+                  {
+                    "$ref": "ex-pull-density-block",
+                    "densityRepsTotal": 18
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -815,11 +911,26 @@
                 "estimatedDuration": 50,
                 "description": "Phase 1 Tue easy: 4 min @ 20 SPM, 3 min @ 22, 2 min @ 24",
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-easy", "notes": "Week 1: 4 min @ 20 SPM, 3 min @ 22, 2 min @ 24. Sub Bike/SkiErg same work/rest if elbow/knee not 100%." },
-                  { "$ref": "ex-front-plank", "sets": 2, "supersetGroup": 1 },
-                  { "$ref": "ex-pallof-press", "sets": 2, "supersetGroup": 1 },
-                  { "$ref": "ex-rower-ham-curl" },
-                  { "$ref": "ex-dragon-flag-tuck" }
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Week 1: 4 min @ 20 SPM, 3 min @ 22, 2 min @ 24. Sub Bike/SkiErg same work/rest if elbow/knee not 100%."
+                  },
+                  {
+                    "$ref": "ex-front-plank",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-pallof-press",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-rower-ham-curl"
+                  },
+                  {
+                    "$ref": "ex-dragon-flag-tuck"
+                  }
                 ]
               },
               {
@@ -829,12 +940,36 @@
                 "estimatedDuration": 60,
                 "description": "HPC 4x3 @ 65% + Box Squat 3x5 @ 62.5% + Swiss-Bar Bench",
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-hang-power-clean", "loadMin": 57.5, "loadMax": 57.5, "notes": "65% (57.5 kg). Hook grip." },
-                  { "$ref": "ex-clean-pulls", "loadMin": 70, "loadMax": 70, "notes": "80% (70 kg). 2x3 explosive extension." },
-                  { "$ref": "ex-box-squat", "loadMin": 82.5, "loadMax": 82.5, "notes": "62.5% (82.5 kg). HLM: 5 kg below Friday Back Squat." },
-                  { "$ref": "ex-swiss-bar-bench", "loadMin": 55, "loadMax": 55, "notes": "~60% Bench equivalent (55 kg). Neutral grip. Sub: Neutral-Grip DB Bench 3x8 @ 22.5 kg/hand." },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "loadMin": 57.5,
+                    "loadMax": 57.5,
+                    "notes": "65% (57.5 kg). Hook grip."
+                  },
+                  {
+                    "$ref": "ex-clean-pulls",
+                    "loadMin": 70,
+                    "loadMax": 70,
+                    "notes": "80% (70 kg). 2x3 explosive extension."
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "loadMin": 82.5,
+                    "loadMax": 82.5,
+                    "notes": "62.5% (82.5 kg). HLM: 5 kg below Friday Back Squat."
+                  },
+                  {
+                    "$ref": "ex-swiss-bar-bench",
+                    "loadMin": 55,
+                    "loadMax": 55,
+                    "notes": "~60% Bench equivalent (55 kg). Neutral grip. Sub: Neutral-Grip DB Bench 3x8 @ 22.5 kg/hand."
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -844,13 +979,31 @@
                 "estimatedDuration": 45,
                 "description": "Phase 1 Thu moderate: 1 min on / 1 min off x 3, rest 3 min, then x 3",
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-moderate", "notes": "Week 1: 1 min on / 1 min off x 3, rest 3 min, then x 3" },
-                  { "$ref": "ex-face-pulls" },
-                  { "$ref": "ex-landmine-press", "loadMin": 15, "loadMax": 20 },
-                  { "$ref": "ex-single-leg-calf-raise" },
-                  { "$ref": "ex-side-plank", "repsValue": 20 },
-                  { "$ref": "ex-banded-er" },
-                  { "$ref": "ex-skin-the-cat-tuck" }
+                  {
+                    "$ref": "ex-row-conditioning-moderate",
+                    "notes": "Week 1: 1 min on / 1 min off x 3, rest 3 min, then x 3"
+                  },
+                  {
+                    "$ref": "ex-face-pulls"
+                  },
+                  {
+                    "$ref": "ex-landmine-press",
+                    "loadMin": 15,
+                    "loadMax": 20
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise"
+                  },
+                  {
+                    "$ref": "ex-side-plank",
+                    "repsValue": 20
+                  },
+                  {
+                    "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-skin-the-cat-tuck"
+                  }
                 ]
               },
               {
@@ -860,14 +1013,43 @@
                 "estimatedDuration": 60,
                 "description": "Tall Clean 3x2 + Back Squat 4x6 @ 65% + RDL + Compression Block",
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-tall-clean-high-hang", "loadMin": 35, "loadMax": 42.5, "notes": "40-50% (35-42.5 kg). Fast elbows, vertical dip, crisp catch." },
-                  { "$ref": "ex-back-squat", "loadMin": 87.5, "loadMax": 87.5, "notes": "65% (87.5 kg). 1-second pause." },
-                  { "$ref": "ex-rdl", "loadMin": 60, "loadMax": 70, "supersetGroup": 1 },
-                  { "$ref": "ex-chest-supported-row", "loadMin": 20, "loadMax": 25, "supersetGroup": 1, "notes": "Phase 1 load. Scapular control focus." },
-                  { "$ref": "ex-seated-pike-pulses" },
-                  { "$ref": "ex-friday-l-sit-hold" },
-                  { "$routine": "cooldown-friday" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-tall-clean-high-hang",
+                    "loadMin": 35,
+                    "loadMax": 42.5,
+                    "notes": "40-50% (35-42.5 kg). Fast elbows, vertical dip, crisp catch."
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 87.5,
+                    "loadMax": 87.5,
+                    "notes": "65% (87.5 kg). 1-second pause."
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "loadMin": 60,
+                    "loadMax": 70,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "loadMin": 20,
+                    "loadMax": 25,
+                    "supersetGroup": 1,
+                    "notes": "Phase 1 load. Scapular control focus."
+                  },
+                  {
+                    "$ref": "ex-seated-pike-pulses"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold"
+                  },
+                  {
+                    "$routine": "cooldown-friday"
+                  }
                 ]
               }
             ]
@@ -884,14 +1066,38 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-power-primer" },
-                  { "$ref": "ex-scap-pushup-plus" },
-                  { "$ref": "ex-bench-press", "loadMin": 60, "loadMax": 60, "repsValue": 7, "sets": 4, "notes": "67.5% (60 kg). 2-second eccentric." },
-                  { "$ref": "ex-ring-pull-ups" },
-                  { "$ref": "ex-parallette-l-sit", "repsMin": 10, "repsMax": 12 },
-                  { "$ref": "ex-pull-density-block", "densityRepsTotal": 20 },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-power-primer"
+                  },
+                  {
+                    "$ref": "ex-scap-pushup-plus"
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 60,
+                    "loadMax": 60,
+                    "repsValue": 7,
+                    "sets": 4,
+                    "notes": "67.5% (60 kg). 2-second eccentric."
+                  },
+                  {
+                    "$ref": "ex-ring-pull-ups"
+                  },
+                  {
+                    "$ref": "ex-parallette-l-sit",
+                    "repsMin": 10,
+                    "repsMax": 12
+                  },
+                  {
+                    "$ref": "ex-pull-density-block",
+                    "densityRepsTotal": 20
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -900,11 +1106,27 @@
                 "type": "cardio",
                 "estimatedDuration": 50,
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-easy", "notes": "Week 2: 4 min @ 20, 3 min @ 22, 2 min @ 24, 1 min @ 26" },
-                  { "$ref": "ex-front-plank", "sets": 2, "supersetGroup": 1 },
-                  { "$ref": "ex-pallof-press", "sets": 2, "supersetGroup": 1 },
-                  { "$ref": "ex-rower-ham-curl" },
-                  { "$ref": "ex-dragon-flag-tuck", "notes": "Focus: keep lower back flat throughout" }
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Week 2: 4 min @ 20, 3 min @ 22, 2 min @ 24, 1 min @ 26"
+                  },
+                  {
+                    "$ref": "ex-front-plank",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-pallof-press",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-rower-ham-curl"
+                  },
+                  {
+                    "$ref": "ex-dragon-flag-tuck",
+                    "notes": "Focus: keep lower back flat throughout"
+                  }
                 ]
               },
               {
@@ -913,11 +1135,30 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-hang-power-clean", "loadMin": 60, "loadMax": 60, "notes": "70% (60 kg)" },
-                  { "$ref": "ex-box-squat", "loadMin": 87.5, "loadMax": 87.5, "notes": "65% (87.5 kg). HLM: ~3 kg below Friday Back Squat." },
-                  { "$ref": "ex-swiss-bar-bench", "loadMin": 57.5, "loadMax": 57.5, "notes": "62.5% Bench equivalent (57.5 kg). Sub: Neutral-Grip DB Bench 3x8." },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "loadMin": 60,
+                    "loadMax": 60,
+                    "notes": "70% (60 kg)"
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "loadMin": 87.5,
+                    "loadMax": 87.5,
+                    "notes": "65% (87.5 kg). HLM: ~3 kg below Friday Back Squat."
+                  },
+                  {
+                    "$ref": "ex-swiss-bar-bench",
+                    "loadMin": 57.5,
+                    "loadMax": 57.5,
+                    "notes": "62.5% Bench equivalent (57.5 kg). Sub: Neutral-Grip DB Bench 3x8."
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -926,13 +1167,31 @@
                 "type": "cardio",
                 "estimatedDuration": 45,
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-moderate", "notes": "Week 2: 1 min on / 1 min off x 3, rest 2 min, then x 3" },
-                  { "$ref": "ex-face-pulls" },
-                  { "$ref": "ex-landmine-press", "loadMin": 17.5, "loadMax": 22.5 },
-                  { "$ref": "ex-single-leg-calf-raise" },
-                  { "$ref": "ex-side-plank", "repsValue": 20 },
-                  { "$ref": "ex-banded-er" },
-                  { "$ref": "ex-skin-the-cat-tuck" }
+                  {
+                    "$ref": "ex-row-conditioning-moderate",
+                    "notes": "Week 2: 1 min on / 1 min off x 3, rest 2 min, then x 3"
+                  },
+                  {
+                    "$ref": "ex-face-pulls"
+                  },
+                  {
+                    "$ref": "ex-landmine-press",
+                    "loadMin": 17.5,
+                    "loadMax": 22.5
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise"
+                  },
+                  {
+                    "$ref": "ex-side-plank",
+                    "repsValue": 20
+                  },
+                  {
+                    "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-skin-the-cat-tuck"
+                  }
                 ]
               },
               {
@@ -941,14 +1200,44 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-tall-clean-high-hang", "loadMin": 40, "loadMax": 42.5, "notes": "45-50% (40-42.5 kg)" },
-                  { "$ref": "ex-back-squat", "loadMin": 90, "loadMax": 90, "repsValue": 5, "sets": 4, "notes": "67.5% (90 kg). 1-second pause." },
-                  { "$ref": "ex-rdl", "loadMin": 65, "loadMax": 70, "supersetGroup": 1 },
-                  { "$ref": "ex-chest-supported-row", "loadMin": 22.5, "loadMax": 25, "supersetGroup": 1 },
-                  { "$ref": "ex-seated-pike-pulses" },
-                  { "$ref": "ex-friday-l-sit-hold" },
-                  { "$routine": "cooldown-friday" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-tall-clean-high-hang",
+                    "loadMin": 40,
+                    "loadMax": 42.5,
+                    "notes": "45-50% (40-42.5 kg)"
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 90,
+                    "loadMax": 90,
+                    "repsValue": 5,
+                    "sets": 4,
+                    "notes": "67.5% (90 kg). 1-second pause."
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "loadMin": 65,
+                    "loadMax": 70,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "loadMin": 22.5,
+                    "loadMax": 25,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-seated-pike-pulses"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold"
+                  },
+                  {
+                    "$routine": "cooldown-friday"
+                  }
                 ]
               }
             ]
@@ -965,14 +1254,38 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-power-primer" },
-                  { "$ref": "ex-scap-pushup-plus" },
-                  { "$ref": "ex-bench-press", "loadMin": 62.5, "loadMax": 62.5, "repsValue": 6, "sets": 4, "notes": "70% (62.5 kg). 2-second eccentric." },
-                  { "$ref": "ex-ring-pull-ups" },
-                  { "$ref": "ex-parallette-l-sit", "repsMin": 10, "repsMax": 15 },
-                  { "$ref": "ex-pull-density-block", "densityRepsTotal": 22 },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-power-primer"
+                  },
+                  {
+                    "$ref": "ex-scap-pushup-plus"
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 62.5,
+                    "loadMax": 62.5,
+                    "repsValue": 6,
+                    "sets": 4,
+                    "notes": "70% (62.5 kg). 2-second eccentric."
+                  },
+                  {
+                    "$ref": "ex-ring-pull-ups"
+                  },
+                  {
+                    "$ref": "ex-parallette-l-sit",
+                    "repsMin": 10,
+                    "repsMax": 15
+                  },
+                  {
+                    "$ref": "ex-pull-density-block",
+                    "densityRepsTotal": 22
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -981,11 +1294,29 @@
                 "type": "cardio",
                 "estimatedDuration": 50,
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-easy", "notes": "Week 3: 5 min @ 20, 4 min @ 22, 3 min @ 24, 2 min @ 26" },
-                  { "$ref": "ex-front-plank", "sets": 2, "supersetGroup": 1 },
-                  { "$ref": "ex-pallof-press", "sets": 2, "supersetGroup": 1 },
-                  { "$ref": "ex-rower-ham-curl" },
-                  { "$ref": "ex-dragon-flag-tuck", "repsMin": 8, "repsMax": 10, "notes": "Add single-leg reach 2-3 s if back stays flat" }
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Week 3: 5 min @ 20, 4 min @ 22, 3 min @ 24, 2 min @ 26"
+                  },
+                  {
+                    "$ref": "ex-front-plank",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-pallof-press",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-rower-ham-curl"
+                  },
+                  {
+                    "$ref": "ex-dragon-flag-tuck",
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "notes": "Add single-leg reach 2-3 s if back stays flat"
+                  }
                 ]
               },
               {
@@ -994,12 +1325,36 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-hang-power-clean", "loadMin": 62.5, "loadMax": 62.5, "notes": "72.5% (62.5 kg)" },
-                  { "$ref": "ex-clean-pulls", "loadMin": 72.5, "loadMax": 72.5, "notes": "82.5% (72.5 kg)" },
-                  { "$ref": "ex-box-squat", "loadMin": 90, "loadMax": 90, "notes": "67.5% (90 kg). HLM: 5 kg below Friday Back Squat." },
-                  { "$ref": "ex-swiss-bar-bench", "loadMin": 60, "loadMax": 60, "notes": "65% Bench equivalent (60 kg)" },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "loadMin": 62.5,
+                    "loadMax": 62.5,
+                    "notes": "72.5% (62.5 kg)"
+                  },
+                  {
+                    "$ref": "ex-clean-pulls",
+                    "loadMin": 72.5,
+                    "loadMax": 72.5,
+                    "notes": "82.5% (72.5 kg)"
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "loadMin": 90,
+                    "loadMax": 90,
+                    "notes": "67.5% (90 kg). HLM: 5 kg below Friday Back Squat."
+                  },
+                  {
+                    "$ref": "ex-swiss-bar-bench",
+                    "loadMin": 60,
+                    "loadMax": 60,
+                    "notes": "65% Bench equivalent (60 kg)"
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1008,13 +1363,31 @@
                 "type": "cardio",
                 "estimatedDuration": 45,
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-moderate", "notes": "Week 3: 1 min on / 1 min off x 3, rest 3 min, then x 4" },
-                  { "$ref": "ex-face-pulls" },
-                  { "$ref": "ex-landmine-press", "loadMin": 20, "loadMax": 25 },
-                  { "$ref": "ex-single-leg-calf-raise" },
-                  { "$ref": "ex-side-plank", "repsValue": 20 },
-                  { "$ref": "ex-banded-er" },
-                  { "$ref": "ex-skin-the-cat-partial" }
+                  {
+                    "$ref": "ex-row-conditioning-moderate",
+                    "notes": "Week 3: 1 min on / 1 min off x 3, rest 3 min, then x 4"
+                  },
+                  {
+                    "$ref": "ex-face-pulls"
+                  },
+                  {
+                    "$ref": "ex-landmine-press",
+                    "loadMin": 20,
+                    "loadMax": 25
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise"
+                  },
+                  {
+                    "$ref": "ex-side-plank",
+                    "repsValue": 20
+                  },
+                  {
+                    "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-skin-the-cat-partial"
+                  }
                 ]
               },
               {
@@ -1023,14 +1396,44 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-tall-clean-high-hang", "loadMin": 42.5, "loadMax": 45, "notes": "50-52.5% (42.5-45 kg)" },
-                  { "$ref": "ex-back-squat", "loadMin": 95, "loadMax": 95, "repsValue": 5, "sets": 4, "notes": "70% (95 kg). 1-second pause." },
-                  { "$ref": "ex-rdl", "loadMin": 70, "loadMax": 75, "supersetGroup": 1 },
-                  { "$ref": "ex-chest-supported-row", "loadMin": 22.5, "loadMax": 25, "supersetGroup": 1 },
-                  { "$ref": "ex-seated-pike-pulses" },
-                  { "$ref": "ex-friday-l-sit-hold" },
-                  { "$routine": "cooldown-friday" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-tall-clean-high-hang",
+                    "loadMin": 42.5,
+                    "loadMax": 45,
+                    "notes": "50-52.5% (42.5-45 kg)"
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 95,
+                    "loadMax": 95,
+                    "repsValue": 5,
+                    "sets": 4,
+                    "notes": "70% (95 kg). 1-second pause."
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "loadMin": 70,
+                    "loadMax": 75,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "loadMin": 22.5,
+                    "loadMax": 25,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-seated-pike-pulses"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold"
+                  },
+                  {
+                    "$routine": "cooldown-friday"
+                  }
                 ]
               }
             ]
@@ -1047,14 +1450,40 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-power-primer" },
-                  { "$ref": "ex-scap-pushup-plus" },
-                  { "$ref": "ex-bench-press", "loadMin": 65, "loadMax": 65, "repsValue": 5, "sets": 4, "notes": "72.5% (65 kg). 2-second eccentric." },
-                  { "$ref": "ex-ring-pull-ups", "repsMin": 5, "repsMax": 8 },
-                  { "$ref": "ex-parallette-l-sit", "repsMin": 12, "repsMax": 15 },
-                  { "$ref": "ex-pull-density-block", "densityRepsTotal": 24 },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-power-primer"
+                  },
+                  {
+                    "$ref": "ex-scap-pushup-plus"
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 65,
+                    "loadMax": 65,
+                    "repsValue": 5,
+                    "sets": 4,
+                    "notes": "72.5% (65 kg). 2-second eccentric."
+                  },
+                  {
+                    "$ref": "ex-ring-pull-ups",
+                    "repsMin": 5,
+                    "repsMax": 8
+                  },
+                  {
+                    "$ref": "ex-parallette-l-sit",
+                    "repsMin": 12,
+                    "repsMax": 15
+                  },
+                  {
+                    "$ref": "ex-pull-density-block",
+                    "densityRepsTotal": 24
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1063,11 +1492,28 @@
                 "type": "cardio",
                 "estimatedDuration": 50,
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-easy", "notes": "Week 4: 4 min @ 22, 3 min @ 24, 2 min @ 26, 1 min @ 28" },
-                  { "$ref": "ex-front-plank", "sets": 2, "supersetGroup": 1 },
-                  { "$ref": "ex-pallof-press", "sets": 2, "supersetGroup": 1 },
-                  { "$ref": "ex-rower-ham-curl" },
-                  { "$ref": "ex-dragon-flag-tuck", "repsMin": 8, "repsMax": 10 }
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Week 4: 4 min @ 22, 3 min @ 24, 2 min @ 26, 1 min @ 28"
+                  },
+                  {
+                    "$ref": "ex-front-plank",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-pallof-press",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-rower-ham-curl"
+                  },
+                  {
+                    "$ref": "ex-dragon-flag-tuck",
+                    "repsMin": 8,
+                    "repsMax": 10
+                  }
                 ]
               },
               {
@@ -1076,11 +1522,30 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-hang-power-clean", "loadMin": 65, "loadMax": 65, "notes": "75% (65 kg)" },
-                  { "$ref": "ex-box-squat", "loadMin": 92.5, "loadMax": 92.5, "notes": "68.5% (92.5 kg). HLM: 5 kg below Friday Back Squat." },
-                  { "$ref": "ex-swiss-bar-bench", "loadMin": 62.5, "loadMax": 62.5, "notes": "67.5% Bench equivalent (62.5 kg)" },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "loadMin": 65,
+                    "loadMax": 65,
+                    "notes": "75% (65 kg)"
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "loadMin": 92.5,
+                    "loadMax": 92.5,
+                    "notes": "68.5% (92.5 kg). HLM: 5 kg below Friday Back Squat."
+                  },
+                  {
+                    "$ref": "ex-swiss-bar-bench",
+                    "loadMin": 62.5,
+                    "loadMax": 62.5,
+                    "notes": "67.5% Bench equivalent (62.5 kg)"
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1089,13 +1554,31 @@
                 "type": "cardio",
                 "estimatedDuration": 45,
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-moderate", "notes": "Week 4: 1 min on / 1 min off x 3, rest 2 min, then 30 s on / 1 min off x 4" },
-                  { "$ref": "ex-face-pulls" },
-                  { "$ref": "ex-landmine-press", "loadMin": 22.5, "loadMax": 25 },
-                  { "$ref": "ex-single-leg-calf-raise" },
-                  { "$ref": "ex-side-plank", "repsValue": 20 },
-                  { "$ref": "ex-banded-er" },
-                  { "$ref": "ex-skin-the-cat-partial" }
+                  {
+                    "$ref": "ex-row-conditioning-moderate",
+                    "notes": "Week 4: 1 min on / 1 min off x 3, rest 2 min, then 30 s on / 1 min off x 4"
+                  },
+                  {
+                    "$ref": "ex-face-pulls"
+                  },
+                  {
+                    "$ref": "ex-landmine-press",
+                    "loadMin": 22.5,
+                    "loadMax": 25
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise"
+                  },
+                  {
+                    "$ref": "ex-side-plank",
+                    "repsValue": 20
+                  },
+                  {
+                    "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-skin-the-cat-partial"
+                  }
                 ]
               },
               {
@@ -1104,14 +1587,44 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-tall-clean-high-hang", "loadMin": 45, "loadMax": 47.5, "notes": "52.5-55% (45-47.5 kg)" },
-                  { "$ref": "ex-back-squat", "loadMin": 97.5, "loadMax": 97.5, "repsValue": 5, "sets": 3, "notes": "72.5% (97.5 kg). 1-second pause." },
-                  { "$ref": "ex-rdl", "loadMin": 75, "loadMax": 80, "supersetGroup": 1 },
-                  { "$ref": "ex-chest-supported-row", "loadMin": 25, "loadMax": 25, "supersetGroup": 1 },
-                  { "$ref": "ex-seated-pike-pulses" },
-                  { "$ref": "ex-friday-l-sit-hold" },
-                  { "$routine": "cooldown-friday" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-tall-clean-high-hang",
+                    "loadMin": 45,
+                    "loadMax": 47.5,
+                    "notes": "52.5-55% (45-47.5 kg)"
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 97.5,
+                    "loadMax": 97.5,
+                    "repsValue": 5,
+                    "sets": 3,
+                    "notes": "72.5% (97.5 kg). 1-second pause."
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "loadMin": 75,
+                    "loadMax": 80,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "loadMin": 25,
+                    "loadMax": 25,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-seated-pike-pulses"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold"
+                  },
+                  {
+                    "$routine": "cooldown-friday"
+                  }
                 ]
               }
             ]
@@ -1138,14 +1651,42 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-power-primer" },
-                  { "$ref": "ex-scap-pushup-plus" },
-                  { "$ref": "ex-bench-press", "loadMin": 67.5, "loadMax": 67.5, "repsValue": 4, "sets": 5, "rpe": 8, "notes": "75% (67.5 kg). RPE 7-9. Cap on grinders." },
-                  { "$ref": "ex-ring-pull-ups", "repsMin": 5, "repsMax": 8 },
-                  { "$ref": "ex-parallette-l-sit", "repsMin": 12, "repsMax": 18, "notes": "Progress to one-leg or straddle if tucked is solid" },
-                  { "$ref": "ex-pull-density-block", "densityRepsTotal": 24 },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-power-primer"
+                  },
+                  {
+                    "$ref": "ex-scap-pushup-plus"
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 67.5,
+                    "loadMax": 67.5,
+                    "repsValue": 4,
+                    "sets": 5,
+                    "rpe": 8,
+                    "notes": "75% (67.5 kg). RPE 7-9. Cap on grinders."
+                  },
+                  {
+                    "$ref": "ex-ring-pull-ups",
+                    "repsMin": 5,
+                    "repsMax": 8
+                  },
+                  {
+                    "$ref": "ex-parallette-l-sit",
+                    "repsMin": 12,
+                    "repsMax": 18,
+                    "notes": "Progress to one-leg or straddle if tucked is solid"
+                  },
+                  {
+                    "$ref": "ex-pull-density-block",
+                    "densityRepsTotal": 24
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1155,11 +1696,26 @@
                 "estimatedDuration": 50,
                 "description": "Phase 2 swap: harder conditioning Tuesday (72 h before Friday squats)",
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-hard", "notes": "Week 5: 1,000 m, rest 3 min, 1,000 m" },
-                  { "$ref": "ex-front-plank", "sets": 1, "supersetGroup": 1 },
-                  { "$ref": "ex-pallof-press", "sets": 1, "supersetGroup": 1 },
-                  { "$ref": "ex-rower-ham-curl" },
-                  { "$ref": "ex-dragon-flag-single-leg" }
+                  {
+                    "$ref": "ex-row-conditioning-hard",
+                    "notes": "Week 5: 1,000 m, rest 3 min, 1,000 m"
+                  },
+                  {
+                    "$ref": "ex-front-plank",
+                    "sets": 1,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-pallof-press",
+                    "sets": 1,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-rower-ham-curl"
+                  },
+                  {
+                    "$ref": "ex-dragon-flag-single-leg"
+                  }
                 ]
               },
               {
@@ -1169,11 +1725,37 @@
                 "estimatedDuration": 60,
                 "description": "Secondary press rotates to Floor Press (Wks 5-6)",
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-hang-power-clean", "loadMin": 67.5, "loadMax": 67.5, "repsValue": 2, "sets": 4, "rpe": 8, "notes": "77.5% (67.5 kg)" },
-                  { "$ref": "ex-box-squat", "loadMin": 95, "loadMax": 95, "repsValue": 4, "sets": 4, "rpe": 8, "notes": "70% (95 kg). HLM: 5 kg below Friday Back Squat." },
-                  { "$ref": "ex-floor-press", "loadMin": 65, "loadMax": 65, "rpe": 7, "notes": "72.5% Bench equivalent (65 kg). Medium grip, 2-s pause on floor." },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "loadMin": 67.5,
+                    "loadMax": 67.5,
+                    "repsValue": 2,
+                    "sets": 4,
+                    "rpe": 8,
+                    "notes": "77.5% (67.5 kg)"
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "loadMin": 95,
+                    "loadMax": 95,
+                    "repsValue": 4,
+                    "sets": 4,
+                    "rpe": 8,
+                    "notes": "70% (95 kg). HLM: 5 kg below Friday Back Squat."
+                  },
+                  {
+                    "$ref": "ex-floor-press",
+                    "loadMin": 65,
+                    "loadMax": 65,
+                    "rpe": 7,
+                    "notes": "72.5% Bench equivalent (65 kg). Medium grip, 2-s pause on floor."
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1183,13 +1765,32 @@
                 "estimatedDuration": 40,
                 "description": "Phase 2 Thu: Z1-2 only - preserves Friday squat",
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-easy", "notes": "Phase 2 Thu: lighter Z1-Z2 aerobic only (RPE 4-5). 15-25 min steady." },
-                  { "$ref": "ex-face-pulls" },
-                  { "$ref": "ex-landmine-press", "loadMin": 25, "loadMax": 27.5 },
-                  { "$ref": "ex-single-leg-calf-raise" },
-                  { "$ref": "ex-side-plank", "repsValue": 30, "notes": "Wks 5-8: 30 s/side" },
-                  { "$ref": "ex-banded-er" },
-                  { "$ref": "ex-skin-the-cat-full" }
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Phase 2 Thu: lighter Z1-Z2 aerobic only (RPE 4-5). 15-25 min steady."
+                  },
+                  {
+                    "$ref": "ex-face-pulls"
+                  },
+                  {
+                    "$ref": "ex-landmine-press",
+                    "loadMin": 25,
+                    "loadMax": 27.5
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise"
+                  },
+                  {
+                    "$ref": "ex-side-plank",
+                    "repsValue": 30,
+                    "notes": "Wks 5-8: 30 s/side"
+                  },
+                  {
+                    "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-skin-the-cat-full"
+                  }
                 ]
               },
               {
@@ -1198,15 +1799,54 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-hang-power-clean", "loadMin": 60, "loadMax": 65, "repsValue": 2, "sets": 3, "rpe": 7, "notes": "Phase 2 Friday clean variation (technical primer): high-hang/pause-at-knee 70-75%" },
-                  { "$ref": "ex-back-squat", "loadMin": 100, "loadMax": 100, "repsValue": 4, "sets": 4, "rpe": 8, "notes": "75% (100 kg). 1-second pause." },
-                  { "$ref": "ex-rdl", "loadMin": 80, "loadMax": 85, "supersetGroup": 1 },
-                  { "$ref": "ex-chest-supported-row", "loadMin": 25, "loadMax": 27.5, "supersetGroup": 1, "notes": "Phase 2 load: 25-30 kg/hand" },
-                  { "$ref": "ex-step-ups", "loadMin": 12.5, "loadMax": 15 },
-                  { "$ref": "ex-seated-pike-pulses" },
-                  { "$ref": "ex-friday-l-sit-hold" },
-                  { "$routine": "cooldown-friday" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "loadMin": 60,
+                    "loadMax": 65,
+                    "repsValue": 2,
+                    "sets": 3,
+                    "rpe": 7,
+                    "notes": "Phase 2 Friday clean variation (technical primer): high-hang/pause-at-knee 70-75%"
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 100,
+                    "loadMax": 100,
+                    "repsValue": 4,
+                    "sets": 4,
+                    "rpe": 8,
+                    "notes": "75% (100 kg). 1-second pause."
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "loadMin": 80,
+                    "loadMax": 85,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "loadMin": 25,
+                    "loadMax": 27.5,
+                    "supersetGroup": 1,
+                    "notes": "Phase 2 load: 25-30 kg/hand"
+                  },
+                  {
+                    "$ref": "ex-step-ups",
+                    "loadMin": 12.5,
+                    "loadMax": 15
+                  },
+                  {
+                    "$ref": "ex-seated-pike-pulses"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold"
+                  },
+                  {
+                    "$routine": "cooldown-friday"
+                  }
                 ]
               }
             ]
@@ -1223,14 +1863,41 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-power-primer" },
-                  { "$ref": "ex-scap-pushup-plus" },
-                  { "$ref": "ex-bench-press", "loadMin": 70, "loadMax": 70, "repsValue": 3, "sets": 5, "rpe": 8, "notes": "77.5% (70 kg). RPE 8 ceiling." },
-                  { "$ref": "ex-ring-pull-ups", "repsMin": 5, "repsMax": 7 },
-                  { "$ref": "ex-parallette-l-sit", "repsMin": 12, "repsMax": 18 },
-                  { "$ref": "ex-pull-density-block", "densityRepsTotal": 26 },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-power-primer"
+                  },
+                  {
+                    "$ref": "ex-scap-pushup-plus"
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 70,
+                    "loadMax": 70,
+                    "repsValue": 3,
+                    "sets": 5,
+                    "rpe": 8,
+                    "notes": "77.5% (70 kg). RPE 8 ceiling."
+                  },
+                  {
+                    "$ref": "ex-ring-pull-ups",
+                    "repsMin": 5,
+                    "repsMax": 7
+                  },
+                  {
+                    "$ref": "ex-parallette-l-sit",
+                    "repsMin": 12,
+                    "repsMax": 18
+                  },
+                  {
+                    "$ref": "ex-pull-density-block",
+                    "densityRepsTotal": 26
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1239,11 +1906,26 @@
                 "type": "cardio",
                 "estimatedDuration": 50,
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-hard", "notes": "Week 6: 1 min @ 26-28 / 1 min off x 3, rest 3 min, then 30 s @ 28+ / 1 min off x 4" },
-                  { "$ref": "ex-front-plank", "sets": 1, "supersetGroup": 1 },
-                  { "$ref": "ex-pallof-press", "sets": 1, "supersetGroup": 1 },
-                  { "$ref": "ex-rower-ham-curl" },
-                  { "$ref": "ex-dragon-flag-single-leg" }
+                  {
+                    "$ref": "ex-row-conditioning-hard",
+                    "notes": "Week 6: 1 min @ 26-28 / 1 min off x 3, rest 3 min, then 30 s @ 28+ / 1 min off x 4"
+                  },
+                  {
+                    "$ref": "ex-front-plank",
+                    "sets": 1,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-pallof-press",
+                    "sets": 1,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-rower-ham-curl"
+                  },
+                  {
+                    "$ref": "ex-dragon-flag-single-leg"
+                  }
                 ]
               },
               {
@@ -1252,12 +1934,43 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-hang-power-clean", "loadMin": 70, "loadMax": 70, "repsValue": 2, "sets": 4, "rpe": 8, "notes": "80% (70 kg)" },
-                  { "$ref": "ex-clean-pulls", "loadMin": 75, "loadMax": 75, "notes": "85% (75 kg). 2x3." },
-                  { "$ref": "ex-box-squat", "loadMin": 100, "loadMax": 100, "repsValue": 3, "sets": 4, "rpe": 8, "notes": "74% (100 kg). HLM: 5 kg below Friday Back Squat." },
-                  { "$ref": "ex-floor-press", "loadMin": 67.5, "loadMax": 67.5, "rpe": 8, "notes": "75% Bench equivalent (67.5 kg)" },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "loadMin": 70,
+                    "loadMax": 70,
+                    "repsValue": 2,
+                    "sets": 4,
+                    "rpe": 8,
+                    "notes": "80% (70 kg)"
+                  },
+                  {
+                    "$ref": "ex-clean-pulls",
+                    "loadMin": 75,
+                    "loadMax": 75,
+                    "notes": "85% (75 kg). 2x3."
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "loadMin": 100,
+                    "loadMax": 100,
+                    "repsValue": 3,
+                    "sets": 4,
+                    "rpe": 8,
+                    "notes": "74% (100 kg). HLM: 5 kg below Friday Back Squat."
+                  },
+                  {
+                    "$ref": "ex-floor-press",
+                    "loadMin": 67.5,
+                    "loadMax": 67.5,
+                    "rpe": 8,
+                    "notes": "75% Bench equivalent (67.5 kg)"
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1266,13 +1979,31 @@
                 "type": "cardio",
                 "estimatedDuration": 40,
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-easy", "notes": "Phase 2 Thu: 15-25 min Z1-Z2" },
-                  { "$ref": "ex-face-pulls" },
-                  { "$ref": "ex-landmine-press", "loadMin": 25, "loadMax": 27.5 },
-                  { "$ref": "ex-single-leg-calf-raise" },
-                  { "$ref": "ex-side-plank", "repsValue": 30 },
-                  { "$ref": "ex-banded-er" },
-                  { "$ref": "ex-skin-the-cat-full" }
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Phase 2 Thu: 15-25 min Z1-Z2"
+                  },
+                  {
+                    "$ref": "ex-face-pulls"
+                  },
+                  {
+                    "$ref": "ex-landmine-press",
+                    "loadMin": 25,
+                    "loadMax": 27.5
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise"
+                  },
+                  {
+                    "$ref": "ex-side-plank",
+                    "repsValue": 30
+                  },
+                  {
+                    "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-skin-the-cat-full"
+                  }
                 ]
               },
               {
@@ -1281,15 +2012,52 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-hang-power-clean", "loadMin": 65, "loadMax": 67.5, "repsValue": 2, "sets": 3, "rpe": 7 },
-                  { "$ref": "ex-back-squat", "loadMin": 105, "loadMax": 105, "repsValue": 3, "sets": 4, "rpe": 8, "notes": "77.5% (105 kg)" },
-                  { "$ref": "ex-rdl", "loadMin": 80, "loadMax": 85, "supersetGroup": 1 },
-                  { "$ref": "ex-chest-supported-row", "loadMin": 27.5, "loadMax": 30, "supersetGroup": 1 },
-                  { "$ref": "ex-step-ups", "loadMin": 15, "loadMax": 17.5 },
-                  { "$ref": "ex-seated-pike-pulses" },
-                  { "$ref": "ex-friday-l-sit-hold" },
-                  { "$routine": "cooldown-friday" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "loadMin": 65,
+                    "loadMax": 67.5,
+                    "repsValue": 2,
+                    "sets": 3,
+                    "rpe": 7
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 105,
+                    "loadMax": 105,
+                    "repsValue": 3,
+                    "sets": 4,
+                    "rpe": 8,
+                    "notes": "77.5% (105 kg)"
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "loadMin": 80,
+                    "loadMax": 85,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "loadMin": 27.5,
+                    "loadMax": 30,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-step-ups",
+                    "loadMin": 15,
+                    "loadMax": 17.5
+                  },
+                  {
+                    "$ref": "ex-seated-pike-pulses"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold"
+                  },
+                  {
+                    "$routine": "cooldown-friday"
+                  }
                 ]
               }
             ]
@@ -1306,14 +2074,42 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-power-primer" },
-                  { "$ref": "ex-scap-pushup-plus" },
-                  { "$ref": "ex-bench-press", "loadMin": 72.5, "loadMax": 72.5, "repsValue": 3, "sets": 4, "rpe": 8, "notes": "80% (72.5 kg)" },
-                  { "$ref": "ex-ring-pull-ups", "repsMin": 4, "repsMax": 6, "notes": "Per Ring Pull-Up Split Progression Rule, +1.25-2.5 kg only if elbows fully calm" },
-                  { "$ref": "ex-parallette-l-sit", "repsMin": 15, "repsMax": 20 },
-                  { "$ref": "ex-pull-density-block", "densityRepsTotal": 28 },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-power-primer"
+                  },
+                  {
+                    "$ref": "ex-scap-pushup-plus"
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 72.5,
+                    "loadMax": 72.5,
+                    "repsValue": 3,
+                    "sets": 4,
+                    "rpe": 8,
+                    "notes": "80% (72.5 kg)"
+                  },
+                  {
+                    "$ref": "ex-ring-pull-ups",
+                    "repsMin": 4,
+                    "repsMax": 6,
+                    "notes": "Per Ring Pull-Up Split Progression Rule, +1.25-2.5 kg only if elbows fully calm"
+                  },
+                  {
+                    "$ref": "ex-parallette-l-sit",
+                    "repsMin": 15,
+                    "repsMax": 20
+                  },
+                  {
+                    "$ref": "ex-pull-density-block",
+                    "densityRepsTotal": 28
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1322,11 +2118,26 @@
                 "type": "cardio",
                 "estimatedDuration": 55,
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-hard", "notes": "Week 7: 1,000 m @ 26-28, rest 2.5 min, 1,000 m. If fully recovered: 2,000 m instead." },
-                  { "$ref": "ex-front-plank", "sets": 1, "supersetGroup": 1 },
-                  { "$ref": "ex-pallof-press", "sets": 1, "supersetGroup": 1 },
-                  { "$ref": "ex-rower-ham-curl" },
-                  { "$ref": "ex-dragon-flag-negative" }
+                  {
+                    "$ref": "ex-row-conditioning-hard",
+                    "notes": "Week 7: 1,000 m @ 26-28, rest 2.5 min, 1,000 m. If fully recovered: 2,000 m instead."
+                  },
+                  {
+                    "$ref": "ex-front-plank",
+                    "sets": 1,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-pallof-press",
+                    "sets": 1,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-rower-ham-curl"
+                  },
+                  {
+                    "$ref": "ex-dragon-flag-negative"
+                  }
                 ]
               },
               {
@@ -1336,11 +2147,37 @@
                 "estimatedDuration": 60,
                 "description": "Secondary press rotates to Paused Bench (Wks 7-8)",
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-hang-power-clean", "loadMin": 72.5, "loadMax": 72.5, "repsValue": 2, "sets": 4, "rpe": 8, "notes": "82.5% (72.5 kg)" },
-                  { "$ref": "ex-box-squat", "loadMin": 102.5, "loadMax": 102.5, "repsValue": 3, "sets": 4, "rpe": 8, "notes": "76% (102.5 kg). 2.5-3 min rest. HLM: 5 kg below Friday Back Squat." },
-                  { "$ref": "ex-paused-bench", "loadMin": 70, "loadMax": 70, "rpe": 8, "notes": "77.5% Bench (70 kg). 2-s chest pause. Min 2 min rest." },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "loadMin": 72.5,
+                    "loadMax": 72.5,
+                    "repsValue": 2,
+                    "sets": 4,
+                    "rpe": 8,
+                    "notes": "82.5% (72.5 kg)"
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "loadMin": 102.5,
+                    "loadMax": 102.5,
+                    "repsValue": 3,
+                    "sets": 4,
+                    "rpe": 8,
+                    "notes": "76% (102.5 kg). 2.5-3 min rest. HLM: 5 kg below Friday Back Squat."
+                  },
+                  {
+                    "$ref": "ex-paused-bench",
+                    "loadMin": 70,
+                    "loadMax": 70,
+                    "rpe": 8,
+                    "notes": "77.5% Bench (70 kg). 2-s chest pause. Min 2 min rest."
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1349,13 +2186,32 @@
                 "type": "cardio",
                 "estimatedDuration": 40,
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-easy", "notes": "Phase 2 Thu: 20-25 min Z1-Z2" },
-                  { "$ref": "ex-face-pulls" },
-                  { "$ref": "ex-landmine-press", "loadMin": 27.5, "loadMax": 30 },
-                  { "$ref": "ex-single-leg-calf-raise" },
-                  { "$ref": "ex-side-plank", "repsValue": 30 },
-                  { "$ref": "ex-banded-er" },
-                  { "$ref": "ex-skin-the-cat-full", "notes": "Wks 7-8: German hang 3-4 s" }
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Phase 2 Thu: 20-25 min Z1-Z2"
+                  },
+                  {
+                    "$ref": "ex-face-pulls"
+                  },
+                  {
+                    "$ref": "ex-landmine-press",
+                    "loadMin": 27.5,
+                    "loadMax": 30
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise"
+                  },
+                  {
+                    "$ref": "ex-side-plank",
+                    "repsValue": 30
+                  },
+                  {
+                    "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-skin-the-cat-full",
+                    "notes": "Wks 7-8: German hang 3-4 s"
+                  }
                 ]
               },
               {
@@ -1364,15 +2220,53 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-hang-power-clean", "loadMin": 67.5, "loadMax": 70, "repsValue": 2, "sets": 3, "rpe": 7 },
-                  { "$ref": "ex-back-squat", "loadMin": 107.5, "loadMax": 107.5, "repsValue": 3, "sets": 4, "rpe": 9, "notes": "80% (107.5 kg)" },
-                  { "$ref": "ex-rdl", "loadMin": 85, "loadMax": 85, "supersetGroup": 1 },
-                  { "$ref": "ex-chest-supported-row", "loadMin": 27.5, "loadMax": 30, "supersetGroup": 1 },
-                  { "$ref": "ex-step-ups", "loadMin": 15, "loadMax": 17.5, "notes": "Add C-block only if on pace to finish within 60-min cap" },
-                  { "$ref": "ex-seated-pike-pulses" },
-                  { "$ref": "ex-friday-l-sit-hold" },
-                  { "$routine": "cooldown-friday" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "loadMin": 67.5,
+                    "loadMax": 70,
+                    "repsValue": 2,
+                    "sets": 3,
+                    "rpe": 7
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 107.5,
+                    "loadMax": 107.5,
+                    "repsValue": 3,
+                    "sets": 4,
+                    "rpe": 9,
+                    "notes": "80% (107.5 kg)"
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "loadMin": 85,
+                    "loadMax": 85,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "loadMin": 27.5,
+                    "loadMax": 30,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-step-ups",
+                    "loadMin": 15,
+                    "loadMax": 17.5,
+                    "notes": "Add C-block only if on pace to finish within 60-min cap"
+                  },
+                  {
+                    "$ref": "ex-seated-pike-pulses"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold"
+                  },
+                  {
+                    "$routine": "cooldown-friday"
+                  }
                 ]
               }
             ]
@@ -1389,14 +2283,41 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-power-primer" },
-                  { "$ref": "ex-scap-pushup-plus" },
-                  { "$ref": "ex-bench-press", "loadMin": 75, "loadMax": 75, "repsValue": 3, "sets": 3, "rpe": 9, "notes": "82.5% (75 kg). RPE 9 ceiling - no grinders." },
-                  { "$ref": "ex-ring-pull-ups", "repsMin": 4, "repsMax": 6 },
-                  { "$ref": "ex-parallette-l-sit", "repsMin": 15, "repsMax": 20 },
-                  { "$ref": "ex-pull-density-block", "densityRepsTotal": 30 },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-power-primer"
+                  },
+                  {
+                    "$ref": "ex-scap-pushup-plus"
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 75,
+                    "loadMax": 75,
+                    "repsValue": 3,
+                    "sets": 3,
+                    "rpe": 9,
+                    "notes": "82.5% (75 kg). RPE 9 ceiling - no grinders."
+                  },
+                  {
+                    "$ref": "ex-ring-pull-ups",
+                    "repsMin": 4,
+                    "repsMax": 6
+                  },
+                  {
+                    "$ref": "ex-parallette-l-sit",
+                    "repsMin": 15,
+                    "repsMax": 20
+                  },
+                  {
+                    "$ref": "ex-pull-density-block",
+                    "densityRepsTotal": 30
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1406,11 +2327,26 @@
                 "estimatedDuration": 50,
                 "description": "Peak loading week - DO NOT attempt 2,000 m",
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-hard", "notes": "Week 8: 2 x 1,000 m @ 26 SPM, 3 min rest. Do NOT attempt 2,000 m (peak loading week)." },
-                  { "$ref": "ex-front-plank", "sets": 1, "supersetGroup": 1 },
-                  { "$ref": "ex-pallof-press", "sets": 1, "supersetGroup": 1 },
-                  { "$ref": "ex-rower-ham-curl" },
-                  { "$ref": "ex-dragon-flag-negative" }
+                  {
+                    "$ref": "ex-row-conditioning-hard",
+                    "notes": "Week 8: 2 x 1,000 m @ 26 SPM, 3 min rest. Do NOT attempt 2,000 m (peak loading week)."
+                  },
+                  {
+                    "$ref": "ex-front-plank",
+                    "sets": 1,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-pallof-press",
+                    "sets": 1,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-rower-ham-curl"
+                  },
+                  {
+                    "$ref": "ex-dragon-flag-negative"
+                  }
                 ]
               },
               {
@@ -1419,11 +2355,37 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-hang-power-clean", "loadMin": 75, "loadMax": 75, "repsValue": 2, "sets": 3, "rpe": 9, "notes": "85% (75 kg)" },
-                  { "$ref": "ex-box-squat", "loadMin": 107.5, "loadMax": 107.5, "repsValue": 3, "sets": 3, "rpe": 9, "notes": "80% (107.5 kg). HLM: 5 kg below Friday Back Squat." },
-                  { "$ref": "ex-paused-bench", "loadMin": 72.5, "loadMax": 72.5, "rpe": 8, "notes": "80% Bench (72.5 kg)" },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "loadMin": 75,
+                    "loadMax": 75,
+                    "repsValue": 2,
+                    "sets": 3,
+                    "rpe": 9,
+                    "notes": "85% (75 kg)"
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "loadMin": 107.5,
+                    "loadMax": 107.5,
+                    "repsValue": 3,
+                    "sets": 3,
+                    "rpe": 9,
+                    "notes": "80% (107.5 kg). HLM: 5 kg below Friday Back Squat."
+                  },
+                  {
+                    "$ref": "ex-paused-bench",
+                    "loadMin": 72.5,
+                    "loadMax": 72.5,
+                    "rpe": 8,
+                    "notes": "80% Bench (72.5 kg)"
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1432,13 +2394,31 @@
                 "type": "cardio",
                 "estimatedDuration": 40,
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-easy", "notes": "Phase 2 Thu: 15-20 min very easy" },
-                  { "$ref": "ex-face-pulls" },
-                  { "$ref": "ex-landmine-press", "loadMin": 27.5, "loadMax": 30 },
-                  { "$ref": "ex-single-leg-calf-raise" },
-                  { "$ref": "ex-side-plank", "repsValue": 30 },
-                  { "$ref": "ex-banded-er" },
-                  { "$ref": "ex-skin-the-cat-full" }
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Phase 2 Thu: 15-20 min very easy"
+                  },
+                  {
+                    "$ref": "ex-face-pulls"
+                  },
+                  {
+                    "$ref": "ex-landmine-press",
+                    "loadMin": 27.5,
+                    "loadMax": 30
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise"
+                  },
+                  {
+                    "$ref": "ex-side-plank",
+                    "repsValue": 30
+                  },
+                  {
+                    "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-skin-the-cat-full"
+                  }
                 ]
               },
               {
@@ -1447,14 +2427,47 @@
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-hang-power-clean", "loadMin": 70, "loadMax": 72.5, "repsValue": 2, "sets": 3, "rpe": 7 },
-                  { "$ref": "ex-back-squat", "loadMin": 112.5, "loadMax": 112.5, "repsValue": 3, "sets": 3, "rpe": 9, "notes": "82.5% (112.5 kg)" },
-                  { "$ref": "ex-rdl", "loadMin": 80, "loadMax": 85, "supersetGroup": 1 },
-                  { "$ref": "ex-chest-supported-row", "loadMin": 27.5, "loadMax": 30, "supersetGroup": 1 },
-                  { "$ref": "ex-seated-pike-pulses" },
-                  { "$ref": "ex-friday-l-sit-hold" },
-                  { "$routine": "cooldown-friday" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "loadMin": 70,
+                    "loadMax": 72.5,
+                    "repsValue": 2,
+                    "sets": 3,
+                    "rpe": 7
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 112.5,
+                    "loadMax": 112.5,
+                    "repsValue": 3,
+                    "sets": 3,
+                    "rpe": 9,
+                    "notes": "82.5% (112.5 kg)"
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "loadMin": 80,
+                    "loadMax": 85,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "loadMin": 27.5,
+                    "loadMax": 30,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-seated-pike-pulses"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold"
+                  },
+                  {
+                    "$routine": "cooldown-friday"
+                  }
                 ]
               }
             ]
@@ -1481,13 +2494,42 @@
                 "type": "strength",
                 "estimatedDuration": 45,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-power-primer", "sets": 2, "notes": "Shallow crisp variation only - skip if elbow > 2/10" },
-                  { "$ref": "ex-scap-pushup-plus" },
-                  { "$ref": "ex-bench-press", "loadMin": 55, "loadMax": 55, "repsValue": 5, "sets": 3, "rpe": 6, "notes": "60% (55 kg). Cap RPE 6 - undertraining is the goal." },
-                  { "$ref": "ex-ring-pull-ups", "sets": 2, "repsMin": 4, "repsMax": 6, "notes": "Quality only - drop sets if grip-tired" },
-                  { "$ref": "ex-parallette-l-sit", "sets": 3, "repsMin": 10, "repsMax": 15 },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-power-primer",
+                    "sets": 2,
+                    "notes": "Shallow crisp variation only - skip if elbow > 2/10"
+                  },
+                  {
+                    "$ref": "ex-scap-pushup-plus"
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 55,
+                    "loadMax": 55,
+                    "repsValue": 5,
+                    "sets": 3,
+                    "rpe": 6,
+                    "notes": "60% (55 kg). Cap RPE 6 - undertraining is the goal."
+                  },
+                  {
+                    "$ref": "ex-ring-pull-ups",
+                    "sets": 2,
+                    "repsMin": 4,
+                    "repsMax": 6,
+                    "notes": "Quality only - drop sets if grip-tired"
+                  },
+                  {
+                    "$ref": "ex-parallette-l-sit",
+                    "sets": 3,
+                    "repsMin": 10,
+                    "repsMax": 15
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1497,10 +2539,23 @@
                 "estimatedDuration": 35,
                 "description": "Realization phase: 15-30 min easy row/Bike/SkiErg only",
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-easy", "notes": "Wk 9: 15-30 min easy. No intervals, 1,000 m, or 2,000 m efforts." },
-                  { "$ref": "ex-front-plank", "sets": 1 },
-                  { "$ref": "ex-pallof-press", "sets": 1 },
-                  { "$ref": "ex-dragon-flag-tuck", "sets": 2, "notes": "Tuck only - deload" }
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Wk 9: 15-30 min easy. No intervals, 1,000 m, or 2,000 m efforts."
+                  },
+                  {
+                    "$ref": "ex-front-plank",
+                    "sets": 1
+                  },
+                  {
+                    "$ref": "ex-pallof-press",
+                    "sets": 1
+                  },
+                  {
+                    "$ref": "ex-dragon-flag-tuck",
+                    "sets": 2,
+                    "notes": "Tuck only - deload"
+                  }
                 ]
               },
               {
@@ -1509,11 +2564,37 @@
                 "type": "strength",
                 "estimatedDuration": 50,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-hang-power-clean", "loadMin": 52.5, "loadMax": 52.5, "repsValue": 2, "sets": 3, "rpe": 6, "notes": "60% (52.5 kg). Maintenance speed work." },
-                  { "$ref": "ex-box-squat", "loadMin": 75, "loadMax": 75, "repsValue": 5, "sets": 2, "rpe": 6, "notes": "Light maintenance. HLM: 5 kg below Friday." },
-                  { "$ref": "ex-light-floor-press", "loadMin": 55, "loadMax": 55, "rpe": 6, "notes": "Maintenance only" },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-hang-power-clean",
+                    "loadMin": 52.5,
+                    "loadMax": 52.5,
+                    "repsValue": 2,
+                    "sets": 3,
+                    "rpe": 6,
+                    "notes": "60% (52.5 kg). Maintenance speed work."
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "loadMin": 75,
+                    "loadMax": 75,
+                    "repsValue": 5,
+                    "sets": 2,
+                    "rpe": 6,
+                    "notes": "Light maintenance. HLM: 5 kg below Friday."
+                  },
+                  {
+                    "$ref": "ex-light-floor-press",
+                    "loadMin": 55,
+                    "loadMax": 55,
+                    "rpe": 6,
+                    "notes": "Maintenance only"
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1522,12 +2603,34 @@
                 "type": "cardio",
                 "estimatedDuration": 30,
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-easy", "notes": "Easy aerobic 15-20 min" },
-                  { "$ref": "ex-face-pulls", "sets": 1 },
-                  { "$ref": "ex-landmine-press", "loadMin": 22.5, "loadMax": 27.5, "sets": 1, "notes": "+5-10 kg on Wk 9 only - shoulder support" },
-                  { "$ref": "ex-single-leg-calf-raise", "sets": 1 },
-                  { "$ref": "ex-banded-er", "sets": 1, "notes": "Skip Side Plank in Wk 9" },
-                  { "$ref": "ex-skin-the-cat-tuck", "sets": 2 }
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Easy aerobic 15-20 min"
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "sets": 1
+                  },
+                  {
+                    "$ref": "ex-landmine-press",
+                    "loadMin": 22.5,
+                    "loadMax": 27.5,
+                    "sets": 1,
+                    "notes": "+5-10 kg on Wk 9 only - shoulder support"
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise",
+                    "sets": 1
+                  },
+                  {
+                    "$ref": "ex-banded-er",
+                    "sets": 1,
+                    "notes": "Skip Side Plank in Wk 9"
+                  },
+                  {
+                    "$ref": "ex-skin-the-cat-tuck",
+                    "sets": 2
+                  }
                 ]
               },
               {
@@ -1536,14 +2639,49 @@
                 "type": "strength",
                 "estimatedDuration": 50,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-tall-clean-high-hang", "loadMin": 35, "loadMax": 40, "sets": 2, "rpe": 6, "notes": "Light technique only" },
-                  { "$ref": "ex-back-squat", "loadMin": 80, "loadMax": 80, "repsValue": 5, "sets": 3, "rpe": 6, "notes": "60% (80 kg). 1-second pause." },
-                  { "$ref": "ex-rdl", "loadMin": 60, "loadMax": 65, "sets": 2 },
-                  { "$ref": "ex-chest-supported-row", "loadMin": 20, "loadMax": 25, "sets": 2, "notes": "Wk 9-10 back-off load" },
-                  { "$ref": "ex-seated-pike-pulses", "sets": 3 },
-                  { "$ref": "ex-friday-l-sit-hold" },
-                  { "$routine": "cooldown-friday" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-tall-clean-high-hang",
+                    "loadMin": 35,
+                    "loadMax": 40,
+                    "sets": 2,
+                    "rpe": 6,
+                    "notes": "Light technique only"
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 80,
+                    "loadMax": 80,
+                    "repsValue": 5,
+                    "sets": 3,
+                    "rpe": 6,
+                    "notes": "60% (80 kg). 1-second pause."
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "loadMin": 60,
+                    "loadMax": 65,
+                    "sets": 2
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "loadMin": 20,
+                    "loadMax": 25,
+                    "sets": 2,
+                    "notes": "Wk 9-10 back-off load"
+                  },
+                  {
+                    "$ref": "ex-seated-pike-pulses",
+                    "sets": 3
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold"
+                  },
+                  {
+                    "$routine": "cooldown-friday"
+                  }
                 ]
               }
             ]
@@ -1560,14 +2698,48 @@
                 "type": "strength",
                 "estimatedDuration": 55,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-power-primer" },
-                  { "$ref": "ex-scap-pushup-plus" },
-                  { "$ref": "ex-bench-press", "loadMin": 80, "loadMax": 80, "repsValue": 3, "sets": 1, "rpe": 9, "notes": "Top set @ 87.5% (80 kg). Floor RPE 7, ceiling 9 - no grinders. Stop set if bar speed drops or positions break." },
-                  { "$ref": "ex-bench-press", "loadMin": 70, "loadMax": 70, "repsValue": 3, "sets": 2, "rpe": 7, "notes": "Back-off sets @ 77.5% (70 kg)" },
-                  { "$ref": "ex-ring-pull-ups", "sets": 2, "repsMin": 4, "repsMax": 6 },
-                  { "$ref": "ex-parallette-l-sit", "repsMin": 12, "repsMax": 18, "notes": "Realization metric: unbroken 15 s straight-leg L-Sit" },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-power-primer"
+                  },
+                  {
+                    "$ref": "ex-scap-pushup-plus"
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 80,
+                    "loadMax": 80,
+                    "repsValue": 3,
+                    "sets": 1,
+                    "rpe": 9,
+                    "notes": "Top set @ 87.5% (80 kg). Floor RPE 7, ceiling 9 - no grinders. Stop set if bar speed drops or positions break."
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 70,
+                    "loadMax": 70,
+                    "repsValue": 3,
+                    "sets": 2,
+                    "rpe": 7,
+                    "notes": "Back-off sets @ 77.5% (70 kg)"
+                  },
+                  {
+                    "$ref": "ex-ring-pull-ups",
+                    "sets": 2,
+                    "repsMin": 4,
+                    "repsMax": 6
+                  },
+                  {
+                    "$ref": "ex-parallette-l-sit",
+                    "repsMin": 12,
+                    "repsMax": 18,
+                    "notes": "Realization metric: unbroken 15 s straight-leg L-Sit"
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1576,10 +2748,23 @@
                 "type": "cardio",
                 "estimatedDuration": 30,
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-easy", "notes": "Wk 10: 15-30 min easy" },
-                  { "$ref": "ex-front-plank", "sets": 1 },
-                  { "$ref": "ex-pallof-press", "sets": 1 },
-                  { "$ref": "ex-dragon-flag-single-leg", "sets": 2, "notes": "Stop well before shaking - best variation only" }
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Wk 10: 15-30 min easy"
+                  },
+                  {
+                    "$ref": "ex-front-plank",
+                    "sets": 1
+                  },
+                  {
+                    "$ref": "ex-pallof-press",
+                    "sets": 1
+                  },
+                  {
+                    "$ref": "ex-dragon-flag-single-leg",
+                    "sets": 2,
+                    "notes": "Stop well before shaking - best variation only"
+                  }
                 ]
               },
               {
@@ -1588,12 +2773,46 @@
                 "type": "strength",
                 "estimatedDuration": 55,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-power-clean", "loadMin": 77.5, "loadMax": 77.5, "repsValue": 1, "sets": 2, "rpe": 9, "notes": "Top singles @ 90% (77.5 kg). Hook grip. Stop if positions break." },
-                  { "$ref": "ex-power-clean", "loadMin": 65, "loadMax": 65, "repsValue": 2, "sets": 2, "rpe": 7, "notes": "Back-off doubles @ 75%" },
-                  { "$ref": "ex-box-squat", "loadMin": 110, "loadMax": 110, "repsValue": 2, "sets": 2, "rpe": 8, "notes": "HLM: 5 kg below Friday Back Squat top set" },
-                  { "$ref": "ex-light-floor-press", "loadMin": 60, "loadMax": 60, "rpe": 6, "notes": "Maintenance only" },
-                  { "$routine": "cooldown-mwf" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-power-clean",
+                    "loadMin": 77.5,
+                    "loadMax": 77.5,
+                    "repsValue": 1,
+                    "sets": 2,
+                    "rpe": 9,
+                    "notes": "Top singles @ 90% (77.5 kg). Hook grip. Stop if positions break."
+                  },
+                  {
+                    "$ref": "ex-power-clean",
+                    "loadMin": 65,
+                    "loadMax": 65,
+                    "repsValue": 2,
+                    "sets": 2,
+                    "rpe": 7,
+                    "notes": "Back-off doubles @ 75%"
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "loadMin": 110,
+                    "loadMax": 110,
+                    "repsValue": 2,
+                    "sets": 2,
+                    "rpe": 8,
+                    "notes": "HLM: 5 kg below Friday Back Squat top set"
+                  },
+                  {
+                    "$ref": "ex-light-floor-press",
+                    "loadMin": 60,
+                    "loadMax": 60,
+                    "rpe": 6,
+                    "notes": "Maintenance only"
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
                 ]
               },
               {
@@ -1602,10 +2821,25 @@
                 "type": "cardio",
                 "estimatedDuration": 30,
                 "exercises": [
-                  { "$ref": "ex-row-conditioning-easy", "notes": "15-20 min easy aerobic" },
-                  { "$ref": "ex-single-leg-calf-raise", "sets": 1 },
-                  { "$ref": "ex-banded-er", "sets": 1, "notes": "Wk 10: Calf Raise + Banded ER only" },
-                  { "$ref": "ex-skin-the-cat-full", "sets": 2, "repsValue": 2, "notes": "Full range, no extra hold time" }
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "15-20 min easy aerobic"
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise",
+                    "sets": 1
+                  },
+                  {
+                    "$ref": "ex-banded-er",
+                    "sets": 1,
+                    "notes": "Wk 10: Calf Raise + Banded ER only"
+                  },
+                  {
+                    "$ref": "ex-skin-the-cat-full",
+                    "sets": 2,
+                    "repsValue": 2,
+                    "notes": "Full range, no extra hold time"
+                  }
                 ]
               },
               {
@@ -1614,15 +2848,58 @@
                 "type": "strength",
                 "estimatedDuration": 55,
                 "exercises": [
-                  { "$routine": "warmup-mwf-base" },
-                  { "$ref": "ex-tall-clean-high-hang", "loadMin": 45, "loadMax": 50, "sets": 2, "rpe": 6, "notes": "Tight technique primer only" },
-                  { "$ref": "ex-back-squat", "loadMin": 117.5, "loadMax": 117.5, "repsValue": 2, "sets": 1, "rpe": 9, "notes": "Top set @ 87.5% (117.5 kg). 1-second pause." },
-                  { "$ref": "ex-back-squat", "loadMin": 100, "loadMax": 100, "repsValue": 3, "sets": 2, "rpe": 7, "notes": "Back-off sets @ 75%" },
-                  { "$ref": "ex-rdl", "loadMin": 70, "loadMax": 75, "sets": 2 },
-                  { "$ref": "ex-chest-supported-row", "loadMin": 22.5, "loadMax": 25, "sets": 2 },
-                  { "$ref": "ex-seated-pike-pulses", "sets": 4, "notes": "Realization metric: forehead-to-knee active pike for 3 controlled reps" },
-                  { "$ref": "ex-friday-l-sit-hold" },
-                  { "$routine": "cooldown-friday" }
+                  {
+                    "$routine": "warmup-mwf-base"
+                  },
+                  {
+                    "$ref": "ex-tall-clean-high-hang",
+                    "loadMin": 45,
+                    "loadMax": 50,
+                    "sets": 2,
+                    "rpe": 6,
+                    "notes": "Tight technique primer only"
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 117.5,
+                    "loadMax": 117.5,
+                    "repsValue": 2,
+                    "sets": 1,
+                    "rpe": 9,
+                    "notes": "Top set @ 87.5% (117.5 kg). 1-second pause."
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 100,
+                    "loadMax": 100,
+                    "repsValue": 3,
+                    "sets": 2,
+                    "rpe": 7,
+                    "notes": "Back-off sets @ 75%"
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "loadMin": 70,
+                    "loadMax": 75,
+                    "sets": 2
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "loadMin": 22.5,
+                    "loadMax": 25,
+                    "sets": 2
+                  },
+                  {
+                    "$ref": "ex-seated-pike-pulses",
+                    "sets": 4,
+                    "notes": "Realization metric: forehead-to-knee active pike for 3 controlled reps"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold"
+                  },
+                  {
+                    "$routine": "cooldown-friday"
+                  }
                 ]
               }
             ]

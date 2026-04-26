@@ -1882,7 +1882,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             }}
                             className={`h-10 min-h-[40px] px-6 rounded-xl font-medium flex items-center justify-center gap-2 active:scale-95 transition-all relative overflow-hidden ${
                                 workoutProgress.totalSets > 0 && workoutProgress.completedSets === workoutProgress.totalSets
-                                    ? 'bg-sys-success text-sys-onSuccess shadow-lg shadow-sys-success/30 border-0'
+                                    ? 'bg-sys-success text-sys-onSuccess shadow-elevation-3 ring-1 ring-sys-success/30 border-0'
                                     : 'bg-sys-surfaceContainerHigh border border-sys-outlineVariant text-sys-onSurface'
                             }`}
                         >

@@ -422,7 +422,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             {/* Superset Badge */}
             {isFirstInSuperset && (
                 <div className="absolute left-2 -top-2 z-20">
-                    <div className="flex items-center gap-1 bg-amber-500/90 text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-lg">
+                    <div className="flex items-center gap-1 bg-amber-500/95 text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-elevation-2 ring-1 ring-amber-600/30">
                         <span>SUPERSET</span>
                     </div>
                 </div>
@@ -691,7 +691,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                         {densityTimerActive && onExpandDensity && (
                                             <button
                                                 onClick={onExpandDensity}
-                                                className="ml-2 h-12 w-12 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-all shadow-sm"
+                                                className="ml-2 h-12 w-12 rounded-lg bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-95 transition-all shadow-elevation-1 hover:shadow-elevation-2"
                                                 aria-label="Expand layout"
                                             >
                                                 <Maximize2 size={18} />

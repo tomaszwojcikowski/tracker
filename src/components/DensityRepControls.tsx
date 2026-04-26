@@ -104,7 +104,7 @@ export const DensityRepControls = ({
                             <button
                                 key={val}
                                 onClick={() => handleQuickAdd(val)}
-                                className="h-10 px-3 min-w-[40px] rounded-xl bg-sys-tertiaryContainer text-sys-onTertiaryContainer text-sm font-bold active:scale-95 transition-all shadow-sm flex items-center justify-center border border-sys-tertiary/20"
+                                className="h-10 px-3 min-w-[40px] rounded-xl bg-sys-tertiaryContainer text-sys-onTertiaryContainer text-sm font-bold active:scale-95 transition-all shadow-elevation-1 hover:shadow-elevation-2 flex items-center justify-center border border-sys-tertiary/20"
                                 aria-label={`Add ${val} reps`}
                             >
                                 +{val}
@@ -125,7 +125,7 @@ export const DensityRepControls = ({
                         </div>
                         <button
                             onClick={handleUndo}
-                            className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-sys-surfaceContainerHighest text-sys-onSurface text-[10px] font-bold active:scale-95 transition-all shadow-sm border border-sys-outlineVariant/20"
+                            className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-sys-surfaceContainerHighest text-sys-onSurface text-[10px] font-bold active:scale-95 transition-all shadow-elevation-1 border border-sys-outlineVariant/20"
                             aria-label="Undo last entry"
                         >
                             <Minus size={12} />

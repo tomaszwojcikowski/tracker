@@ -261,14 +261,14 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
       <header className="relative z-10 flex items-center justify-between px-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-5">
         <button
           onClick={handleMinimize}
-          className="h-12 w-12 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center active:scale-90 transition-all shadow-sm"
+          className="h-12 w-12 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center active:scale-90 transition-all shadow-elevation-2 hover:shadow-elevation-3"
           aria-label="Minimize timer"
         >
           <ChevronDown size={28} />
         </button>
 
         {/* Timer mode badge */}
-        <div className="px-4 py-2 rounded-full bg-sys-surfaceContainerHigh flex items-center gap-2 border border-sys-outlineVariant shadow-sm">
+        <div className="px-4 py-2 rounded-full bg-sys-surfaceContainerHigh flex items-center gap-2 border border-sys-outlineVariant shadow-elevation-1">
           <Timer size={20} className="text-sys-primary" />
           <span className="text-sys-onSurface text-sm font-bold uppercase tracking-wider">
             {isEmom ? 'EMOM' : isDensity ? 'Density' : 'Rest Timer'}
@@ -279,7 +279,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
           {/* Sound toggle */}
           <button
             onClick={handleToggleSound}
-            className="h-12 w-12 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center active:scale-90 transition-all shadow-sm"
+            className="h-12 w-12 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center active:scale-90 transition-all shadow-elevation-2 hover:shadow-elevation-3"
             aria-label={soundEnabled ? 'Disable sound' : 'Enable sound'}
           >
             {soundEnabled ? <Volume2 size={28} /> : <VolumeX size={28} />}
@@ -288,7 +288,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
           {/* Cancel timer */}
           <button
             onClick={handleStop}
-            className="h-12 w-12 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center active:scale-90 transition-all shadow-sm"
+            className="h-12 w-12 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center active:scale-90 transition-all shadow-elevation-2 hover:shadow-elevation-3"
             aria-label="Cancel timer"
           >
             <X size={28} />

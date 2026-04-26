@@ -637,7 +637,7 @@ function WeekContent({
                                 >
                                     Next Up
                                 </button>
-                                <div className={`h-10 w-10 rounded-full ${theme.hero.iconBg} ${theme.hero.iconColor} flex items-center justify-center shadow-md`}>
+                                <div className={`h-10 w-10 rounded-full ${theme.hero.iconBg} ${theme.hero.iconColor} flex items-center justify-center shadow-elevation-2 ring-1 ring-sys-onSurface/5`}>
                                     <Play size={20} fill="currentColor" />
                                 </div>
                             </div>

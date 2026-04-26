@@ -696,7 +696,7 @@ export const UnifiedFloatingTimerButton: React.FC<UnifiedFloatingTimerButtonProp
             {/* Floating Action Button */}
             <button
                 onClick={handleFabClick}
-                className={`fixed bottom-24 right-4 z-40 flex items-center justify-center shadow-lg transition-all active:scale-90 ${
+                className={`fixed bottom-24 right-4 z-40 flex items-center justify-center shadow-elevation-3 hover:shadow-elevation-4 transition-all active:scale-90 ${
                     activeInfo
                         ? activeInfo.isUrgent
                             ? 'bg-sys-error animate-pulse min-w-[80px] h-14 px-4 rounded-2xl gap-2'

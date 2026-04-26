@@ -79,7 +79,7 @@ export const RPESelector: React.FC<RPESelectorProps> = ({
                                     flex items-center justify-center
                                     ${disabled ? 'opacity-50 cursor-not-allowed' : 'active:scale-95'}
                                     ${isSelected
-                                        ? `${option.color} border shadow-sm`
+                                        ? `${option.color} border shadow-elevation-2`
                                         : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar hover:bg-sys-onSurfaceVariant/10 border border-transparent'
                                     }
                                 `}
@@ -116,7 +116,7 @@ export const RPESelector: React.FC<RPESelectorProps> = ({
                                 flex items-center justify-center
                                 ${disabled ? 'opacity-50 cursor-not-allowed' : 'active:scale-90'}
                                 ${isSelected
-                                    ? `${option.color} border shadow-sm`
+                                    ? `${option.color} border shadow-elevation-2`
                                     : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar hover:bg-sys-onSurface/10'
                                 }
                             `}

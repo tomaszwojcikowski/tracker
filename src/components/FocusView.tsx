@@ -466,7 +466,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
                                 }}
                                 className={`h-11 px-4 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-sm font-medium ${
                                     supersetTimer.active
-                                        ? 'bg-sys-primaryContainer text-sys-onPrimaryContainer shadow-sm border border-sys-primary/20 scale-[1.02]'
+                                        ? 'bg-sys-primaryContainer text-sys-onPrimaryContainer shadow-elevation-2 border border-sys-primary/20 scale-[1.02]'
                                         : 'bg-sys-surfaceHigh text-sys-onSurface border border-sys-outline/30'
                                 }`}
                                 aria-label={supersetTimer.ariaLabel}

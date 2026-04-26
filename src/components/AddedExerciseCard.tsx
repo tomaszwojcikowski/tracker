@@ -169,19 +169,19 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
 
                 {/* Rest time indicator */}
                 {exercise.rest && exercise.rest > 0 && (
-                    <div className="mb-2">
+                    <div className="mb-3">
                         <button
                             onClick={() => {
                                 haptic.bump();
                                 onStartRestTimer(exercise.rest ?? 90);
                             }}
-                            className={`btn-md3 h-7 px-2.5 min-h-0 rounded-lg text-xs font-medium flex items-center gap-1 ${restTimerActive
-                                ? 'btn-filled ring-2 ring-sys-primary/50'
-                                : 'btn-tonal'
+                            className={`h-10 px-3 rounded-xl flex items-center gap-1.5 active:scale-95 transition-all text-sm font-semibold ${restTimerActive
+                                ? 'bg-sys-surfaceHigh text-sys-onSurface ring-2 ring-sys-primary/50'
+                                : 'bg-sys-surfaceHigh text-sys-onSurfaceVar border border-sys-outlineVariant/30'
                             }`}
                             aria-label={`Start ${exercise.rest} second timer`}
                         >
-                            <Timer size={12} />
+                            <Timer size={16} className={restTimerActive ? 'text-sys-primary' : ''} />
                             <span>{exercise.rest}s</span>
                         </button>
                     </div>
@@ -189,20 +189,41 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
 
                 {/* Set buttons */}
                 <div className="flex flex-wrap gap-2">
-                    {sets.map((isDone, i) => (
-                        <button
-                            key={`${exId}-set-${i}`}
-                            onClick={() => onToggleSet(exId, i, exercise.sets, exercise.rest ?? 90)}
-                            className={`set-button h-10 w-10 min-w-[40px] rounded-lg flex items-center justify-center text-sm font-bold transition-all active:scale-90 ${
-                                isDone
-                                    ? 'completed bg-sys-primary text-sys-onPrimary shadow-md'
-                                    : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar border border-sys-outlineVariant'
-                            }`}
-                            aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
-                        >
-                            {isDone ? <Check size={16} /> : i + 1}
-                        </button>
-                    ))}
+                    {sets.map((isDone, i) => {
+                        const allComplete = completedSets === totalSets && totalSets > 0;
+                        return (
+                            <button
+                                key={`${exId}-set-${i}`}
+                                onClick={() => onToggleSet(exId, i, exercise.sets, exercise.rest ?? 90)}
+                                className={`set-button h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
+                                    isDone
+                                        ? allComplete
+                                            ? 'completed bg-sys-success text-sys-onSuccess shadow-elevation-1'
+                                            : 'completed bg-sys-primary text-sys-onPrimary shadow-elevation-1'
+                                        : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar border-2 border-sys-outlineVariant'
+                                }`}
+                                aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
+                            >
+                                {isDone ? (
+                                    <svg
+                                        width="18"
+                                        height="18"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="3"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className="animate-checkmark"
+                                    >
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                ) : (
+                                    i + 1
+                                )}
+                            </button>
+                        );
+                    })}
                     {/* Add Set button */}
                     {onAddSet && sets.length < 10 && (
                         <button
@@ -210,10 +231,10 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                                 haptic.bump();
                                 onAddSet(exercise.id);
                             }}
-                            className="h-10 w-10 min-w-[40px] rounded-lg flex items-center justify-center text-sm font-bold transition-all active:scale-90 bg-sys-surfaceContainerLow text-sys-primary border border-dashed border-sys-outlineVariant hover:bg-sys-surfaceContainerHigh"
+                            className="h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 bg-sys-surfaceContainerLow text-sys-primary border-2 border-dashed border-sys-outlineVariant hover:bg-sys-surfaceContainerHigh"
                             aria-label="Add another set"
                         >
-                            <Plus size={16} />
+                            <Plus size={18} />
                         </button>
                     )}
                 </div>

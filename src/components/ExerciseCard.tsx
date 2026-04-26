@@ -723,10 +723,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                                     const current = parseFloat(exerciseLog.weight || '0');
                                                     onSaveWeight(exId, Math.max(0, current - 2.5).toString());
                                                 }}
-                                                className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
+                                                className="h-12 w-12 min-w-12 rounded-xl bg-sys-surfaceContainerHigh text-sys-primary flex items-center justify-center active:bg-sys-primaryContainer/40 transition-colors shrink-0"
                                                 aria-label="Decrease weight by 2.5kg"
                                             >
-                                                <Minus size={18} />
+                                                <Minus size={20} strokeWidth={2.5} />
                                             </button>
                                             <input
                                                 id={`${exId}-weight`}
@@ -737,7 +737,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                                 value={exerciseLog.weight || ''}
                                                 onChange={(e) => onSaveWeight(exId, e.target.value)}
                                                 placeholder={loadRange && loadRange.unit === 'kg' && loadRange.min > 0 ? String(loadRange.min) : '0'}
-                                                className="w-20 h-10 px-1 bg-sys-surfaceContainerHigh rounded-xl text-sys-onSurface text-center text-xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-primary transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                                className="w-20 h-12 px-1 bg-sys-surfaceContainerHigh rounded-xl text-sys-onSurface text-center text-xl font-bold font-mono outline-none focus:ring-2 focus:ring-sys-primary focus:bg-sys-surface transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                 aria-label="Weight in kg"
                                             />
                                             <button
@@ -746,10 +746,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                                     const current = parseFloat(exerciseLog.weight || '0');
                                                     onSaveWeight(exId, (current + 2.5).toString());
                                                 }}
-                                                className="h-10 w-10 min-w-[40px] rounded-xl bg-sys-surfaceContainerHigh text-sys-onSurfaceVar flex items-center justify-center active:bg-sys-onSurfaceVar/20 transition-colors shrink-0"
+                                                className="h-12 w-12 min-w-12 rounded-xl bg-sys-surfaceContainerHigh text-sys-primary flex items-center justify-center active:bg-sys-primaryContainer/40 transition-colors shrink-0"
                                                 aria-label="Increase weight by 2.5kg"
                                             >
-                                                <Plus size={18} />
+                                                <Plus size={20} strokeWidth={2.5} />
                                             </button>
                                         </div>
                                     )}
@@ -758,7 +758,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     {!hideTimerControls && !isEmom && !isDensity && !isFlow && !timeSeconds && restTime && restTime > 0 && (sectionType === 'main' || sectionType === 'access') && (
                                         <button
                                             onClick={() => onStartRestTimer(restTime)}
-                                            className={`h-10 px-3 rounded-xl flex items-center justify-center gap-1.5 active:scale-95 transition-all text-sm font-semibold ${
+                                            className={`h-12 px-3.5 rounded-xl flex items-center justify-center gap-1.5 active:scale-95 transition-all text-sm font-semibold ${
                                                 restTimerActive
                                                     ? 'bg-sys-surfaceHigh text-sys-onSurface ring-2 ring-sys-primary/50'
                                                     : 'bg-sys-surfaceHigh text-sys-onSurfaceVar border border-sys-outlineVariant/30'

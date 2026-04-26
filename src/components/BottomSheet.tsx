@@ -11,6 +11,7 @@
  */
 
 import React, { useEffect, useRef, useCallback, useState } from 'react';
+import { useFocusTrap } from '../hooks/useAccessibility';
 
 export interface BottomSheetProps {
     /** Whether the bottom sheet is visible */
@@ -51,6 +52,10 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
     className = '',
 }) => {
     const sheetRef = useRef<HTMLDivElement>(null);
+    // Focus trap so Tab / Shift+Tab cycle inside the sheet instead of escaping
+    // to elements behind the scrim. Returns focus to the previously focused
+    // element when the sheet closes.
+    const focusTrapRef = useFocusTrap<HTMLDivElement>(isOpen);
     const dragStartY = useRef<number | null>(null);
     const [dragOffset, setDragOffset] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
@@ -80,6 +85,16 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
             sheetRef.current.focus();
         }
     }, [isOpen]);
+
+    // Wire both the local sheet ref (used for direct DOM access) and the
+    // focus-trap ref returned by useFocusTrap to the same element.
+    const setSheetRef = useCallback(
+        (node: HTMLDivElement | null) => {
+            sheetRef.current = node;
+            (focusTrapRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+        },
+        [focusTrapRef]
+    );
 
     // Touch/drag handlers for swipe-to-dismiss
     const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -161,7 +176,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
 
             {/* Sheet Container */}
             <div
-                ref={sheetRef}
+                ref={setSheetRef}
                 role="dialog"
                 aria-modal="true"
                 aria-label={ariaLabel}

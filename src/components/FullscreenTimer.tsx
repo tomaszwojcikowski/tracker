@@ -98,6 +98,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
 }) => {
   const haptic = useHaptic();
   const lastTickRef = useRef<number>(-1);
+  const pendingTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const isEmom = mode === 'emom';
   const isDensity = mode === 'density';
 
@@ -125,27 +126,56 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
   // Play sounds at specific intervals (only for REST and DENSITY modes; EMOM handles its own sounds)
   useEffect(() => {
     if (isEmom) return; // EMOM hook handles its own sounds
-    if (!soundEnabled || seconds === lastTickRef.current) return;
+    if (seconds === lastTickRef.current) return;
+    const previousSeconds = lastTickRef.current;
     lastTickRef.current = seconds;
+
+    // If the user added time after the timer hit zero, cancel any pending
+    // auto-minimize / completion beeps from the previous countdown.
+    if (seconds > 0 && previousSeconds === 0) {
+      pendingTimeoutsRef.current.forEach(id => clearTimeout(id));
+      pendingTimeoutsRef.current = [];
+    }
 
     // Play tick sounds in the last 5 seconds (REST) or last 10 seconds (DENSITY)
     const tickThreshold = isDensity ? 10 : 5;
-    if (seconds <= tickThreshold && seconds >= 1) {
+    if (soundEnabled && seconds <= tickThreshold && seconds >= 1) {
       playTickSound();
       haptic.tick();
     }
 
-    // Play beep when timer completes
+    // Timer just hit zero — play completion cues and auto-minimize.
+    // The auto-minimize is independent of soundEnabled so users with
+    // sound off still get their timer dismissed automatically.
     if (seconds === 0) {
-      playBeepSound();
-      // Play completion sequence (3 beeps)
-      setTimeout(() => playBeepSound(), 200);
-      setTimeout(() => playBeepSound(), 400);
+      const queue = (cb: () => void, delay: number) => {
+        const id = setTimeout(() => {
+          // Drop completed timeout from the pending list
+          pendingTimeoutsRef.current = pendingTimeoutsRef.current.filter(t => t !== id);
+          cb();
+        }, delay);
+        pendingTimeoutsRef.current.push(id);
+      };
+
+      if (soundEnabled) {
+        playBeepSound();
+        queue(() => playBeepSound(), 200);
+        queue(() => playBeepSound(), 400);
+      }
       haptic.timer();
       // Auto-minimize after a short delay when timer ends
-      setTimeout(() => onMinimize(), 1500);
+      queue(() => onMinimize(), 1500);
     }
   }, [seconds, soundEnabled, haptic, onMinimize, isEmom, isDensity]);
+
+  // Cancel any pending completion timeouts on unmount so we never call
+  // onMinimize / playBeep after the component is gone.
+  useEffect(() => {
+    return () => {
+      pendingTimeoutsRef.current.forEach(id => clearTimeout(id));
+      pendingTimeoutsRef.current = [];
+    };
+  }, []);
 
   // Keyboard handler for accessibility
   useEffect(() => {

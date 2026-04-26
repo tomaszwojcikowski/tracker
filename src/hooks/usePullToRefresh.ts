@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, RefObject } from 'react';
+import { useState, useCallback, useEffect, useRef, RefObject } from 'react';
 
 // ============================================================================
 // PULL TO REFRESH TYPES
@@ -78,6 +78,18 @@ export const usePullToRefresh = ({
     const startY = useRef(0);
     const currentY = useRef(0);
     const containerRef = useRef<HTMLElement | null>(null);
+    // Mirror state in refs so the native (non-passive) touchmove listener
+    // can read the latest values without re-binding on every render.
+    const isPullingRef = useRef(false);
+    const isRefreshingRef = useRef(false);
+
+    useEffect(() => {
+        isPullingRef.current = isPulling;
+    }, [isPulling]);
+
+    useEffect(() => {
+        isRefreshingRef.current = isRefreshing;
+    }, [isRefreshing]);
 
     const handleTouchStart = useCallback(
         (e: React.TouchEvent) => {
@@ -91,28 +103,36 @@ export const usePullToRefresh = ({
         []
     );
 
-    const handleTouchMove = useCallback(
-        (e: React.TouchEvent) => {
-            if (!isPulling || isRefreshing) return;
+    // Native non-passive touchmove listener so e.preventDefault() actually
+    // suppresses the browser's pull-to-scroll behavior. React attaches
+    // touch handlers as passive by default, which makes preventDefault a no-op.
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        const onTouchMove = (e: TouchEvent) => {
+            if (!isPullingRef.current || isRefreshingRef.current) return;
 
             currentY.current = e.touches[0].clientY;
             const diff = currentY.current - startY.current;
 
-            // Only allow pulling down (positive diff) and limit the pull distance
             if (diff > 0) {
-                // Apply resistance to make it feel natural
                 const resistance = 0.4;
                 const distance = Math.min(diff * resistance, maxPull);
                 setPullDistance(distance);
 
-                // Prevent default scroll when pulling
                 if (distance > 10) {
+                    // Suppress native scroll while user is pulling down from top.
                     e.preventDefault();
                 }
             }
-        },
-        [isPulling, isRefreshing, maxPull]
-    );
+        };
+
+        container.addEventListener('touchmove', onTouchMove, { passive: false });
+        return () => {
+            container.removeEventListener('touchmove', onTouchMove);
+        };
+    }, [maxPull]);
 
     const handleTouchEnd = useCallback(async () => {
         if (!isPulling) return;
@@ -149,7 +169,11 @@ export const usePullToRefresh = ({
         canRefresh,
         handlers: {
             onTouchStart: handleTouchStart,
-            onTouchMove: handleTouchMove,
+            // No-op: the actual touchmove listener is attached natively with
+            // { passive: false } via useEffect so e.preventDefault() works.
+            // Kept on the handlers object for backward compatibility with
+            // call sites that spread `handlers` onto an element.
+            onTouchMove: () => {},
             onTouchEnd: handleTouchEnd,
         },
     };

@@ -1789,6 +1789,72 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     background: var(--color-secondary-container);
 }
 
+/* ============================================================================
+   PLAIN-BRUTALIST: flatten MD3 button shape + ink palette in light theme
+   ============================================================================ */
+:root.theme-light .btn-md3 {
+    border-radius: 4px;
+    min-height: 44px;
+    padding: 0 16px;
+    font-weight: 600;
+    letter-spacing: 0;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+:root.theme-light .btn-md3:active:not(:disabled) {
+    transform: scale(0.99);
+}
+
+:root.theme-light .btn-filled {
+    background: var(--color-on-surface);
+    color: var(--color-surface);
+    box-shadow: none;
+}
+
+:root.theme-light .btn-filled:hover:not(:disabled),
+:root.theme-light .btn-filled:active:not(:disabled) {
+    background: var(--color-on-surface);
+    color: var(--color-surface);
+    box-shadow: none;
+    opacity: 0.9;
+}
+
+:root.theme-light .btn-tonal {
+    background: var(--color-surface-container);
+    color: var(--color-on-surface);
+    border: 1px solid var(--color-outline-variant);
+    box-shadow: none;
+}
+
+:root.theme-light .btn-tonal:hover:not(:disabled),
+:root.theme-light .btn-tonal:active:not(:disabled) {
+    background: var(--color-surface-container-high);
+    color: var(--color-on-surface);
+    box-shadow: none;
+}
+
+:root.theme-light .btn-outlined {
+    color: var(--color-on-surface);
+    border: 1px solid var(--color-outline-variant);
+    background: transparent;
+}
+
+:root.theme-light .btn-outlined:hover:not(:disabled),
+:root.theme-light .btn-outlined:active:not(:disabled) {
+    background: var(--color-surface-container);
+    color: var(--color-on-surface);
+}
+
+:root.theme-light .btn-text {
+    color: var(--color-on-surface);
+    border-radius: 4px;
+}
+
+:root.theme-light .btn-text:hover:not(:disabled),
+:root.theme-light .btn-text:active:not(:disabled) {
+    background: var(--color-surface-container);
+}
+
 /* Text Button - No container */
 .btn-text {
     background: transparent;

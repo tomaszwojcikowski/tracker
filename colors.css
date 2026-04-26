@@ -618,9 +618,9 @@
   --color-tertiary-500: #b35a2c;
 
   /* MD3 surface roles */
-  --color-primary: var(--color-primary-600);
-  --color-on-primary: #ffffff;
-  --color-primary-container: #e3ece9;       /* very soft sage tint */
+  --color-primary: #1d1d1b;                  /* ink — high-contrast brutalist accent */
+  --color-on-primary: #f6f5f1;               /* paper */
+  --color-primary-container: #e3ece9;        /* very soft sage tint kept for subtle accents */
   --color-on-primary-container: var(--color-primary-900);
   --color-secondary: #4a4538;
   --color-on-secondary: #ffffff;
@@ -634,8 +634,8 @@
   --color-on-error: #ffffff;
   --color-error-container: #fbe8e6;
   --color-on-error-container: #5a1d18;
-  --color-success: var(--color-primary-600); /* reuse sage for success */
-  --color-on-success: #ffffff;
+  --color-success: #1d1d1b;                  /* ink — completion state */
+  --color-on-success: #f6f5f1;
   --color-success-container: #e3ece9;
   --color-on-success-container: var(--color-primary-900);
   --color-surface: #f6f5f1;

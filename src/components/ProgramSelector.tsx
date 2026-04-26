@@ -301,11 +301,11 @@ function ProgramSelectorModal({
       aria-labelledby="program-selector-title"
     >
       <div
-        className="w-full max-w-md modal-dialog rounded-t-3xl max-h-[85dvh] flex flex-col animate-slide-up"
+        className="w-full max-w-md modal-dialog rounded-t-3xl max-h-[85dvh] flex flex-col animate-slide-up overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-sys-outlineVariant">
+        <div className="shrink-0 flex items-center justify-between p-4 border-b border-sys-outlineVariant">
           <h3 id="program-selector-title" className="text-lg font-bold text-sys-onSurface">
             {showSamplePrograms ? 'Add New Program' : 'Select Program'}
           </h3>
@@ -326,7 +326,7 @@ function ProgramSelectorModal({
         )}
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto overscroll-contain p-4 space-y-3">
+        <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-3">
           {showSamplePrograms ? (
             /* Sample Programs List */
             <>
@@ -414,7 +414,7 @@ function ProgramSelectorModal({
 
         {/* Footer Actions */}
         {!showSamplePrograms && (
-          <div className="p-4 border-t border-sys-outlineVariant space-y-3">
+          <div className="shrink-0 p-4 border-t border-sys-outlineVariant space-y-3 safe-pb">
             <button
               onClick={() => {
                 haptic.tick();

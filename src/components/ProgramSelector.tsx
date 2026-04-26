@@ -31,7 +31,17 @@ interface SampleProgramInfo {
 /**
  * Available sample programs that can be imported
  */
-const SAMPLE_PROGRAMS: SampleProgramInfo[] = [];
+const SAMPLE_PROGRAMS: SampleProgramInfo[] = [
+  {
+    id: 'power-clean-bench-10-week',
+    name: '10-Week Strength & Conditioning',
+    description:
+      'Power Clean / Bench focused 10-week plan with elbow-aware programming, compression skill work, and rowing conditioning. Designed as a follow-up to the 21-week Integrated Strength Program.',
+    durationWeeks: 10,
+    targetLevel: 'advanced',
+    path: `${import.meta.env.BASE_URL}power-clean-bench.json`,
+  },
+];
 
 // ============================================================================
 // TYPES

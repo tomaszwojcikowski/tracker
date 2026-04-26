@@ -7,6 +7,7 @@ const repoRoot = resolve(scriptsDir, '..');
 
 const filesToCopy = [
   ['data/workout-plan-v2.5.json', 'public/workout-plan-v2.5.json'],
+  ['data/power-clean-bench.json', 'public/power-clean-bench.json'],
   ['data/exercises.json', 'public/exercises.json'],
   ['colors.css', 'public/colors.css'],
 ];

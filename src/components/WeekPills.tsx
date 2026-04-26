@@ -54,7 +54,7 @@ export function WeekPills({
           const isCompleted = completion?.isCompleted ?? false;
           const progress = completion?.progress ?? 0;
           const hasProgress = progress > 0 && progress < 100;
-          
+
           return (
           <button
             key={week}
@@ -74,8 +74,8 @@ export function WeekPills({
             <span className={`relative z-10 flex items-center gap-1.5 ${week === currentWeek ? 'text-sys-onPrimary' : ''}`}>
               {week}
               {isCompleted && (
-                <Check 
-                  size={14} 
+                <Check
+                  size={14}
                   className={`${week === currentWeek ? 'text-sys-surface' : 'text-sys-onSurface'}`}
                   strokeWidth={3}
                 />
@@ -83,7 +83,7 @@ export function WeekPills({
             </span>
             {/* Progress indicator for partially completed weeks */}
             {hasProgress && (
-              <div 
+              <div
                 className="absolute bottom-0.5 left-1/2 -translate-x-1/2 h-0.5 bg-sys-onSurface rounded-sm transition-all"
                 style={{ width: `${Math.max(progress * 0.6, 12)}%` }}
                 aria-hidden="true"

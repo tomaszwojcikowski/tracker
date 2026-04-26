@@ -283,7 +283,7 @@ describe('Snackbar Component', () => {
             <Snackbar isOpen={true} message="Test" onClose={mockOnClose} />
         );
         const snackbar = container.querySelector('[role="alert"]');
-        expect(snackbar).toHaveClass('shadow-elevation-3');
+        expect(snackbar).toHaveClass('shadow-elevation-4');
     });
 
     it('should apply success type styling', () => {

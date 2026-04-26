@@ -223,16 +223,17 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
                                 damping: 20,
                                 delay: 0.2,
                             }}
-                            className="inline-flex items-center justify-center h-20 w-20 rounded-full bg-sys-tertiaryContainer border-2 border-sys-tertiary/30 mb-4"
+                            className="relative inline-flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-sys-tertiaryContainer via-sys-tertiaryContainer to-sys-primaryContainer/60 border-2 border-sys-tertiary/40 shadow-elevation-3 mb-4"
                         >
-                            <Trophy size={40} className="text-sys-onTertiaryContainer" />
+                            <span aria-hidden="true" className="absolute inset-0 rounded-full ring-4 ring-sys-tertiary/10 animate-pulse-glow" />
+                            <Trophy size={40} className="relative text-sys-onTertiaryContainer" />
                         </motion.div>
 
                         <motion.h1
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.3 }}
-                            className="text-2xl font-bold text-sys-onSurface mb-1"
+                            className="text-3xl font-extrabold text-sys-onSurface mb-1 tracking-tight"
                         >
                             Workout Complete! 💪
                         </motion.h1>

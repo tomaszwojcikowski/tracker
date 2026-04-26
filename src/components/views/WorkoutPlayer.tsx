@@ -1427,9 +1427,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                 {/* Empty Workout Prompt */}
                 {isEmptyWorkout && addedExercises.length === 0 && !logs.completed && (
-                    <div className="mb-6 p-6 rounded-2xl bg-gradient-to-br from-sys-primary/10 via-sys-surface to-sys-surfaceContainerHigh border-2 border-dashed border-sys-primary/30">
+                    <div className="mb-6 p-6 rounded-2xl bg-gradient-to-br from-sys-primary/10 via-sys-surface to-sys-surfaceContainerHigh border-2 border-dashed border-sys-primary/30 shadow-elevation-1">
                         <div className="flex flex-col items-center text-center">
-                            <div className="h-16 w-16 rounded-2xl bg-sys-primary/20 flex items-center justify-center mb-4">
+                            <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-sys-primary/30 to-sys-primary/10 flex items-center justify-center mb-4 shadow-elevation-2 ring-1 ring-sys-primary/20">
                                 <PlusCircle size={32} className="text-sys-primary" />
                             </div>
                             <h3 className="text-lg font-bold text-sys-onSurface mb-2">Build Your Workout</h3>
@@ -1526,15 +1526,15 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             {/* Section Header - Always sticky below TopAppBar (h-16 + progress bar) */}
                             <div className="sticky top-[68px] z-20 bg-sys-surface/95 backdrop-blur-sm py-2 -mx-4 px-4 border-b border-sys-outlineVariant">
                                 <div className="flex items-center gap-2">
-                                    <div className={`rounded-md flex items-center justify-center ${colors.iconBg} h-6 w-6`}>
+                                    <div className={`rounded-lg flex items-center justify-center ${colors.iconBg} h-7 w-7 ring-1 ring-inset ring-white/5 shadow-elevation-1`}>
                                         {section.type === 'prep' ? (
-                                            <Flame size={14} className={colors.iconColor} />
+                                            <Flame size={15} className={colors.iconColor} />
                                         ) : section.type === 'main' ? (
-                                            <Dumbbell size={14} className={colors.iconColor} />
+                                            <Dumbbell size={15} className={colors.iconColor} />
                                         ) : section.type === 'cool' ? (
-                                            <Snowflake size={14} className={colors.iconColor} />
+                                            <Snowflake size={15} className={colors.iconColor} />
                                         ) : (
-                                            <Activity size={14} className={colors.iconColor} />
+                                            <Activity size={15} className={colors.iconColor} />
                                         )}
                                     </div>
                                     <span className="font-bold text-sys-onSurface uppercase tracking-wide text-sm">

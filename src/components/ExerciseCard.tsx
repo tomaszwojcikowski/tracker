@@ -403,15 +403,15 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
     // Determine background and border colors based on state and section
     const containerClasses = useMemo(() => {
-        if (completedSets === totalSets && totalSets > 0) return 'border-sys-success/10 bg-sys-success/5';
+        if (completedSets === totalSets && totalSets > 0) return 'border-sys-success/20 bg-gradient-to-br from-sys-success/10 via-transparent to-transparent';
         if (hasSupersetGroup) return 'border-amber-500/30 bg-amber-500/5';
 
         // Section-based colors (applied even when isFirstIncomplete)
         const sectionColors = getSectionTheme(sectionType || '').container;
 
-        // First incomplete gets accent ring on top of section color (only when not in focus view)
+        // First incomplete gets accent ring + subtle primary glow on top of section color (only when not in focus view)
         if (isFirstIncomplete && !hideCollapseButton) {
-            return `${sectionColors} ring-2 ring-sys-primary/50`;
+            return `${sectionColors} ring-2 ring-sys-primary/50 shadow-elevation-2`;
         }
 
         return sectionColors;

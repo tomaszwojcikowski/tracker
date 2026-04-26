@@ -2790,6 +2790,7 @@ input:focus-visible {
 .status-pill-up-next {
     background: var(--color-primary-container);
     color: var(--color-on-primary-container);
+    box-shadow: 0 0 0 1px rgba(var(--color-primary-rgb, 124 92 255) / 0.25), 0 4px 12px -4px rgba(var(--color-primary-rgb, 124 92 255) / 0.45);
 }
 
 .status-pill-not-started {
@@ -2935,7 +2936,9 @@ img {
     border: 1px solid var(--color-outline-variant);
     border-radius: var(--radius-xl);
     padding: 20px;
-    background: var(--color-surface-container-low);
+    background:
+        radial-gradient(circle at top right, rgba(var(--color-primary-rgb, 124 92 255) / 0.08), transparent 60%),
+        var(--color-surface-container-low);
     box-shadow: var(--elevation-1);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }

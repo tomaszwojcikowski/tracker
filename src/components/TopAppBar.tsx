@@ -36,18 +36,17 @@ const ProgressBar = memo(function ProgressBar({ progress }: { progress: number }
   const showShimmer = roundedProgress > 0 && roundedProgress < 100;
 
   return (
-    <div className="h-0.5 bg-sys-surfaceContainerLow relative overflow-hidden">
+    <div className="h-1 bg-sys-surfaceContainerLow relative overflow-hidden">
       <div
-        className="absolute inset-y-0 left-0 transition-all duration-500 ease-out"
+        className="absolute inset-y-0 left-0 transition-all duration-500 ease-out bg-gradient-to-r from-sys-primary via-sys-primary to-sys-tertiary"
         style={{
           width: `${roundedProgress}%`,
-          background: 'var(--color-primary)',
         }}
       />
       {/* Subtle shimmer effect on active progress */}
       {showShimmer && (
         <div
-          className="absolute inset-y-0 left-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"
+          className="absolute inset-y-0 left-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer"
           style={{ width: `${roundedProgress}%` }}
         />
       )}

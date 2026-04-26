@@ -102,7 +102,7 @@ export const Snackbar: React.FC<SnackbarProps> = ({
                 className={`
                     pointer-events-auto
                     min-w-[288px] max-w-[568px] w-full sm:w-auto
-                    rounded-[4px] shadow-elevation-3
+                    rounded-2xl shadow-elevation-4
                     backdrop-blur-xl
                     border border-sys-outlineVariant
                     bg-opacity-90
@@ -130,7 +130,7 @@ export const Snackbar: React.FC<SnackbarProps> = ({
                             <button
                                 onClick={handleAction}
                                 className={`
-                                    px-3 py-1.5 rounded-[4px]
+                                    px-3 py-1.5 rounded-lg
                                     text-sm font-bold
                                     transition-colors
                                     ${actionStyles[type]}

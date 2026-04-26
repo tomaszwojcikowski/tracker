@@ -30,6 +30,7 @@ const WorkoutPlayer = lazy(() => import('./components/views/WorkoutPlayer').then
 import {
     buildCompleteSchedule as buildSchedule,
     setRawSchedule,
+    getCompleteSchedule,
     type RawScheduleItem,
 } from './utils/schedule';
 import {
@@ -39,7 +40,9 @@ import {
     buildUrl,
     VALID_TABS,
 } from './utils/urlState';
-import { FETCH_TIMEOUT_MS } from './constants';
+import { FETCH_TIMEOUT_MS, VALID_DAYS } from './constants';
+import { getWeekCompletionStatus } from './utils/storage';
+import { getProgramRegistry } from './services/programRegistry';
 
 // Import exercise history utilities
 import {
@@ -361,22 +364,52 @@ const App: React.FC = () => {
 
     /**
      * Handle program change from Dashboard or Settings
-     * Updates URL with new program ID
+     * Switches the program, then jumps to the first non-completed week of
+     * that program (or week 1 if all weeks are complete or none have data).
      */
     const handleProgramChange = (newProgramId: string): void => {
-        // Reset week to 1 when switching programs
-        setCurrentWeek(1);
-
         setRequestedProgramId(newProgramId);
 
-        void switchProgram(newProgramId).catch((error) => {
-            console.warn('Failed to switch program from UI:', error);
-        });
+        void (async () => {
+            let targetWeek = 1;
+            try {
+                await switchProgram(newProgramId);
 
-        // Update URL with new program
-        const state: AppStateLocal = { viewMode, activeTab, currentWeek: 1, activeDay, programId: newProgramId };
-        const newUrl = updateUrl(state);
-        window.history.replaceState(state, '', newUrl);
+                // Determine first non-completed week for the new program.
+                // After switchProgram resolves, the program is the active one,
+                // so getWeekCompletionStatus reads from the right namespace.
+                const registry = getProgramRegistry();
+                const program = registry.getProgramById(newProgramId);
+                const durationWeeks = program?.durationWeeks ?? 1;
+
+                const schedule = getCompleteSchedule(newProgramId) as RawScheduleItem[];
+                const daysByWeek = new Map<number, number[]>();
+                for (const item of schedule) {
+                    const list = daysByWeek.get(item.w) ?? [];
+                    if (!list.includes(item.d)) list.push(item.d);
+                    daysByWeek.set(item.w, list);
+                }
+
+                for (let week = 1; week <= durationWeeks; week++) {
+                    const days = daysByWeek.get(week) ?? (VALID_DAYS as number[]);
+                    if (days.length === 0) continue;
+                    const status = getWeekCompletionStatus(week, days);
+                    if (!status.isCompleted) {
+                        targetWeek = week;
+                        break;
+                    }
+                }
+            } catch (error) {
+                console.warn('Failed to switch program from UI:', error);
+            }
+
+            setCurrentWeek(targetWeek);
+
+            // Update URL with new program and target week
+            const state: AppStateLocal = { viewMode, activeTab, currentWeek: targetWeek, activeDay, programId: newProgramId };
+            const newUrl = updateUrl(state);
+            window.history.replaceState(state, '', newUrl);
+        })();
     };
 
     const getTitle = (): string => {

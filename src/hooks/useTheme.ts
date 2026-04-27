@@ -26,7 +26,7 @@ export const THEMES: ThemeInfo[] = [
         description: 'Plain-brutalist light theme with warm paper surfaces and ink accents',
         isDark: false,
         preview: {
-            primary: '#2f6b5e',
+            primary: '#1d1d1b',
             accent: '#b35a2c',
             surface: '#f6f5f1',
         },

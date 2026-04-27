@@ -428,7 +428,7 @@ describe('ExerciseCard', () => {
                 />
             );
 
-            const card = container.querySelector('.border-sys-success\\/20');
+            const card = container.querySelector('.border-sys-success\\/30');
             expect(card).toBeInTheDocument();
         });
     });

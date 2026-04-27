@@ -381,7 +381,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
 
     // Determine background and border colors based on state and section
     const containerClasses = useMemo(() => {
-        if (hasSupersetGroup) return 'bg-amber-500/5 border-amber-500/20';
+        if (hasSupersetGroup) return 'bg-sys-tertiary/5 border-sys-tertiary/30';
 
         // Section-based colors
         const sectionColors = getSectionTheme(sectionType || '').container;
@@ -417,7 +417,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                     className={`w-full h-9 px-3 flex items-center gap-2 bg-sys-successContainer/10 rounded-xl border border-sys-success/10 active:bg-sys-successContainer/30 transition-colors ${hasSupersetGroup ? 'ml-3' : ''}`}
                     aria-label={`${historyLookupName} - completed, tap to edit`}
                 >
-                    <div className="flex items-center justify-center h-5 w-5 rounded-full bg-sys-success text-sys-onSuccess flex-shrink-0">
+                    <div className="flex items-center justify-center h-5 w-5 rounded-sm bg-sys-onSurface text-sys-surface flex-shrink-0">
                         <Check size={12} strokeWidth={3} />
                     </div>
                     <span className="flex-1 text-sm font-medium text-sys-onSurface truncate text-left" title={historyLookupName}>
@@ -478,7 +478,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         />
                     )}
                     {!isDensity && (
-                        <span className="text-xs text-sys-success font-semibold">
+                        <span className="text-xs text-sys-onSurfaceVariant font-semibold">
                             {completedSets}/{totalSets}
                         </span>
                     )}

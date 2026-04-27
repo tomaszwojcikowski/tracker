@@ -93,7 +93,7 @@ export const GestureHint: React.FC<GestureHintProps> = ({
                         }`}
                     >
                         <div
-                            className={`h-1 bg-gradient-to-r from-transparent via-sys-accent to-transparent rounded-full ${
+                            className={`h-1 bg-sys-accent rounded-full ${
                                 type === 'swipe-horizontal' ? 'w-32' : 'w-24'
                             } animate-pulse`}
                         />

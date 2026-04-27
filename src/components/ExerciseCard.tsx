@@ -222,7 +222,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 }) => {
     const completedSets = sets.filter((s) => s).length;
     const totalSets = sets.length;
-    const allComplete = completedSets === totalSets && totalSets > 0;
 
     const focusTimerButton = useMemo(() => {
         // FocusView uses ExerciseCard with collapse hidden; when timer controls are hidden we
@@ -403,8 +402,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
     // Determine background and border colors based on state and section
     const containerClasses = useMemo(() => {
-        if (completedSets === totalSets && totalSets > 0) return 'border-sys-success/20 bg-gradient-to-br from-sys-success/10 via-transparent to-transparent';
-        if (hasSupersetGroup) return 'border-amber-500/30 bg-amber-500/5';
+        if (completedSets === totalSets && totalSets > 0) return 'border-sys-success/30 bg-sys-success/5';
+        if (hasSupersetGroup) return 'border-sys-tertiary/40 bg-sys-tertiary/5';
 
         // Section-based colors (applied even when isFirstIncomplete)
         const sectionColors = getSectionTheme(sectionType || '').container;
@@ -422,7 +421,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             {/* Superset Badge */}
             {isFirstInSuperset && (
                 <div className="absolute left-2 -top-2 z-20">
-                    <div className="flex items-center gap-1 bg-amber-500/95 text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-elevation-2 ring-1 ring-amber-600/30">
+                    <div className="flex items-center gap-1 bg-sys-onSurface text-sys-surface text-[9px] font-bold px-1.5 py-0.5 rounded-sm">
                         <span>SUPERSET</span>
                     </div>
                 </div>
@@ -470,7 +469,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* EMOM Badge */}
                             {isEmom && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-tertiary/20 text-sys-tertiary border border-sys-tertiary/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-sm bg-sys-tertiary/20 text-sys-tertiary border border-sys-tertiary/30">
                                     <Zap size={10} strokeWidth={3} />
                                     EMOM
                                 </span>
@@ -478,7 +477,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* Density Badge */}
                             {isDensity && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-sm bg-sys-secondary/20 text-sys-onSecondaryContainer border border-sys-secondary/30">
                                     <Gauge size={10} strokeWidth={3} />
                                     {densityRepsTotal && densityTimeMinutes && (
                                         <span>{densityRepsTotal}/{densityTimeMinutes}m</span>
@@ -488,7 +487,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* AMRAP Badge */}
                             {isAmrap && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-secondaryContainer text-sys-onSecondaryContainer border border-sys-secondary/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-sm bg-sys-secondaryContainer text-sys-onSecondaryContainer border border-sys-secondary/30">
                                     <TrendingUp size={10} strokeWidth={3} />
                                     AMRAP
                                 </span>
@@ -496,7 +495,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* Ladder Badge */}
                             {isLadder && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer border border-sys-tertiary/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-sm bg-sys-tertiaryContainer text-sys-onTertiaryContainer border border-sys-tertiary/30">
                                     <BarChart2 size={10} strokeWidth={3} />
                                     {ladderReps ? ladderReps.join('-') : 'LADDER'}
                                 </span>
@@ -504,7 +503,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                             {/* Unilateral Badge */}
                             {isUnilateral && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-primaryContainer text-sys-onPrimaryContainer border border-sys-primary/30">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-sm bg-sys-primaryContainer text-sys-onPrimaryContainer border border-sys-primary/30">
                                     <ArrowRightLeft size={10} strokeWidth={3} />
                                     PER SIDE
                                 </span>
@@ -821,13 +820,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                                             <button
                                                                 key={`${exId}-set-${i}`}
                                                                 onClick={() => onToggleSet(exId, i, defaultSets, restTime, sectionType, isEmom)}
-                                                                className={`set-button h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
-                                                                    isDone
-                                                                        ? allComplete
-                                                                            ? 'completed bg-sys-success text-sys-onSuccess shadow-elevation-1'
-                                                                            : 'completed bg-sys-primary text-sys-onPrimary shadow-elevation-1'
-                                                                        : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar border-2 border-sys-outlineVariant'
-                                                                }`}
+                                                                className={`set-button h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${isDone ? 'completed bg-sys-onSurface text-sys-surface' : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar border-2 border-sys-outlineVariant'}`}
                                                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                             >
                                                                 {isDone ? <Check size={18} /> : i + 1}

@@ -42,8 +42,8 @@ function getDayTheme(day: number) {
           iconBg: 'bg-sys-primary',
           iconColor: 'text-sys-onPrimary',
           text: 'text-sys-primary',
-          container: 'bg-gradient-primary text-sys-onPrimary shadow-elevation-3',
-          onContainer: 'text-sys-onPrimary'
+          container: 'bg-sys-primaryContainer text-sys-onPrimaryContainer',
+          onContainer: 'text-sys-onPrimaryContainer'
         },
         card: {
           bg: 'bg-sys-primaryContainer',
@@ -60,7 +60,7 @@ function getDayTheme(day: number) {
           iconBg: 'bg-sys-secondary',
           iconColor: 'text-sys-onSecondary',
           text: 'text-sys-secondary',
-          container: 'bg-gradient-secondary text-sys-onSecondary shadow-elevation-3',
+          container: 'bg-sys-secondaryContainer text-sys-onSecondaryContainer',
           onContainer: 'text-sys-onSecondaryContainer'
         },
         card: {
@@ -616,13 +616,11 @@ function WeekContent({
                             haptic.tick();
                             onStartWorkout(day);
                         }}
-                        className={`stagger-item relative overflow-hidden rounded-[32px] p-6 text-left transition-all active:scale-[0.98] group scroll-mt-16 ${theme.hero.container} shadow-elevation-2`}
+                        className={`stagger-item relative overflow-hidden rounded-md p-6 text-left transition-all active:scale-[0.99] group scroll-mt-16 ${theme.hero.container}`}
                         style={{ animationDelay: `${idx * 200}ms` }}
                         aria-label={`Start Day ${day} workout`}
                     >
-                        {/* Background with gradient */}
-                        <div className={`absolute inset-0 bg-gradient-to-br ${theme.hero.gradient} opacity-10 group-active:opacity-20 transition-opacity`} />
-                        <div className={`absolute inset-0 border-2 ${theme.hero.border} rounded-[32px]`} />
+                        <div className={`absolute inset-0 border ${theme.hero.border} rounded-md`} />
 
                         <div className="relative z-10">
                             <div className="flex justify-between items-start mb-4">

@@ -197,7 +197,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                     className="w-full h-auto min-h-[36px] px-3 py-2 flex items-center gap-2 bg-sys-successContainer/30 rounded-xl border border-sys-success/20 active:bg-sys-successContainer/50 transition-colors"
                     aria-label="Superset completed, tap to edit"
                 >
-                    <div className="flex items-center justify-center h-5 w-5 rounded-full bg-sys-success text-sys-onSuccess flex-shrink-0">
+                    <div className="flex items-center justify-center h-5 w-5 rounded-sm bg-sys-onSurface text-sys-surface flex-shrink-0">
                         <Check size={12} strokeWidth={3} />
                     </div>
 
@@ -211,13 +211,13 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                     </div>
 
                     {isEmomSuperset && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-sm bg-sys-tertiaryContainer text-sys-onTertiaryContainer flex-shrink-0">
                             <Zap size={8} strokeWidth={3} />
                             EMOM
                         </span>
                     )}
 
-                    <span className="text-xs text-sys-success font-semibold">
+                    <span className="text-xs text-sys-onSurfaceVariant font-semibold">
                         {completedRounds}/{totalRounds}
                     </span>
                     <ChevronDown size={14} className="text-sys-onSurfaceVar flex-shrink-0" />
@@ -241,12 +241,12 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                 <div className="px-3 py-2 flex items-center gap-2 space-y-2">
                     <div className="divider divider-full-width" aria-hidden="true" />
                     {isEmomSuperset ? (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-sm bg-sys-tertiaryContainer text-sys-onTertiaryContainer">
                             <Zap size={10} strokeWidth={3} />
                             EMOM SUPERSET
                         </span>
                     ) : (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sys-secondaryContainer text-sys-onSecondaryContainer">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-sm bg-sys-secondaryContainer text-sys-onSecondaryContainer">
                             SUPERSET
                         </span>
                     )}
@@ -326,7 +326,7 @@ export const SupersetGroup: React.FC<SupersetGroupProps> = ({
                                         <button
                                             type="button"
                                             onClick={(e) => handleShowDetails(ex, e)}
-                                            className={`flex items-center gap-1.5 h-6 px-3 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurfaceVar text-[9px] font-bold tracking-wide uppercase flex-shrink-0 active:scale-95 transition-all ${!ex.hasHistory ? 'opacity-80' : ''}`}
+                                            className={`flex items-center gap-1.5 h-6 px-3 rounded-sm bg-sys-surfaceContainerHigh text-sys-onSurfaceVar text-[9px] font-bold tracking-wide uppercase flex-shrink-0 active:scale-[0.98] transition-all ${!ex.hasHistory ? 'opacity-80' : ''}`}
                                             aria-label={`View details and history for ${ex.name}`}
                                         >
                                             <History size={10} className="text-sys-onSurfaceVar" />

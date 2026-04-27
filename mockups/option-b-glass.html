@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Option B — Glass / visionOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #ffffff;
+    --ink-soft: rgba(255,255,255,0.72);
+    --ink-dim: rgba(255,255,255,0.48);
+    --glass: rgba(255,255,255,0.08);
+    --glass-strong: rgba(255,255,255,0.14);
+    --glass-border: rgba(255,255,255,0.16);
+    --glass-border-soft: rgba(255,255,255,0.08);
+    --halo: 0 12px 40px rgba(8, 12, 32, 0.45), 0 2px 0 rgba(255,255,255,0.06) inset;
+    --indigo: #7C7BFF;
+    --cyan: #4ED7FF;
+    --pink: #FF8AD9;
+    --gold: #FFC774;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    min-height: 100dvh;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 700px at 12% -10%, rgba(124,123,255,0.55), transparent 60%),
+      radial-gradient(1000px 700px at 110% 0%, rgba(78,215,255,0.45), transparent 55%),
+      radial-gradient(900px 600px at 50% 110%, rgba(255,138,217,0.4), transparent 60%),
+      linear-gradient(180deg, #0B1020 0%, #060914 100%);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { display: flex; flex-direction: column; align-items: center; padding: 32px; gap: 20px; }
+  .label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .phone {
+    width: 390px;
+    min-height: 844px;
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    background: rgba(8, 12, 28, 0.55);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    box-shadow:
+      0 40px 100px rgba(0,0,0,0.55),
+      inset 0 1px 0 rgba(255,255,255,0.12);
+    display: flex;
+    flex-direction: column;
+  }
+  /* aurora behind glass content */
+  .phone::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(400px 240px at 20% 10%, rgba(124,123,255,0.55), transparent 70%),
+      radial-gradient(360px 220px at 90% 35%, rgba(78,215,255,0.5), transparent 70%),
+      radial-gradient(420px 280px at 50% 110%, rgba(255,138,217,0.45), transparent 70%);
+    z-index: 0;
+    filter: blur(20px);
+  }
+  .phone > * { position: relative; z-index: 1; }
+
+  .status {
+    display: flex; justify-content: space-between;
+    padding: 14px 26px 4px;
+    font-size: 13px; font-weight: 600;
+  }
+
+  /* hero */
+  .hero {
+    margin: 16px 16px 12px;
+    padding: 22px 22px 20px;
+    border-radius: 28px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    box-shadow: var(--halo);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(124,123,255,0.18), transparent 50%, rgba(255,138,217,0.12));
+    pointer-events: none;
+  }
+  .hero .crumb {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-soft); font-weight: 600; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hero .crumb .pip { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+  .hero h1 {
+    font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05;
+    background: linear-gradient(180deg, #fff, rgba(255,255,255,0.7));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .meta {
+    margin-top: 14px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+  }
+  .stat {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--glass-border-soft);
+    border-radius: 16px;
+    padding: 10px 12px;
+  }
+  .stat .k { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-dim); }
+  .stat .v { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; margin-top: 4px; }
+  .stat .v small { font-size: 11px; color: var(--ink-soft); font-weight: 500; margin-left: 2px; }
+
+  /* week strip */
+  .weeks {
+    display: flex; gap: 8px; padding: 4px 16px 12px; overflow-x: auto;
+  }
+  .wk {
+    flex: 0 0 auto;
+    min-width: 48px; height: 36px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--glass-border-soft);
+    color: var(--ink-soft);
+    font-size: 12px; font-weight: 600;
+    display: inline-flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(10px);
+  }
+  .wk.active {
+    background: linear-gradient(135deg, rgba(124,123,255,0.9), rgba(78,215,255,0.9));
+    color: #0B1020;
+    border-color: rgba(255,255,255,0.4);
+    box-shadow: 0 6px 20px rgba(124,123,255,0.45);
+  }
+
+  /* cards list */
+  main { padding: 4px 16px 130px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .card {
+    border-radius: 22px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border-soft);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    padding: 16px 16px 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+  .card.live {
+    background: linear-gradient(135deg, rgba(124,123,255,0.22), rgba(78,215,255,0.16));
+    border: 1px solid rgba(255,255,255,0.22);
+    box-shadow: 0 12px 36px rgba(124,123,255,0.35), inset 0 1px 0 rgba(255,255,255,0.16);
+  }
+  .row { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+  .name { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-soft); font-size: 12px; margin-top: 4px; font-weight: 500; }
+  .pill {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid var(--glass-border-soft);
+    color: var(--ink-soft);
+    font-weight: 700;
+  }
+  .pill.live { background: linear-gradient(90deg, var(--cyan), var(--indigo)); color: #0B1020; border: 0; }
+
+  .sets {
+    display: flex; gap: 6px; margin-top: 12px;
+  }
+  .dot {
+    flex: 1;
+    height: 36px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--glass-border-soft);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .dot.done {
+    background: linear-gradient(135deg, rgba(124,123,255,0.85), rgba(78,215,255,0.85));
+    border-color: rgba(255,255,255,0.3);
+    color: #0B1020;
+    box-shadow: 0 4px 14px rgba(124,123,255,0.4);
+  }
+  .dot.next {
+    border-color: rgba(255,138,217,0.6);
+    color: var(--pink);
+    box-shadow: 0 0 0 2px rgba(255,138,217,0.2);
+  }
+
+  /* big floating CTA */
+  .dock {
+    position: absolute;
+    left: 16px; right: 16px; bottom: 86px;
+    display: grid; grid-template-columns: 56px 1fr 56px; gap: 10px;
+  }
+  .ico {
+    height: 56px; border-radius: 18px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    color: var(--ink);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.3);
+  }
+  .cta {
+    height: 56px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--indigo), var(--cyan));
+    color: #0B1020;
+    border: 0;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    box-shadow: 0 14px 36px rgba(78,215,255,0.5), inset 0 1px 0 rgba(255,255,255,0.45);
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .cta .badge {
+    background: rgba(11,16,32,0.18);
+    color: #0B1020;
+    padding: 4px 8px; border-radius: 8px;
+    font-size: 12px; font-weight: 700;
+  }
+
+  /* tab bar */
+  .tabs {
+    margin: auto 12px 14px;
+    height: 64px;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(28px) saturate(180%);
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+  }
+  .tabs button {
+    background: transparent; border: 0; color: var(--ink-soft);
+    font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .tabs button .glyph {
+    width: 36px; height: 36px; border-radius: 14px;
+    background: rgba(255,255,255,0.06);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    border: 1px solid var(--glass-border-soft);
+  }
+  .tabs button.on { color: #fff; }
+  .tabs button.on .glyph {
+    background: linear-gradient(135deg, var(--indigo), var(--cyan));
+    border-color: transparent;
+    box-shadow: 0 8px 22px rgba(124,123,255,0.5);
+  }
+
+  /* swatches */
+  .swatches {
+    display: flex; gap: 8px; color: var(--ink-soft);
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .sw { width: 36px; height: 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); }
+</style>
+</head>
+<body>
+  <div class="label">Option B · Glass / visionOS</div>
+
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+
+    <section class="hero">
+      <div class="crumb"><span class="pip"></span>Week 7 · Day 2 · Push</div>
+      <h1>Heavy Bench<br/>+ Vertical Press</h1>
+      <div class="meta">
+        <div class="stat"><div class="k">Sets</div><div class="v">9<small>/14</small></div></div>
+        <div class="stat"><div class="k">Volume</div><div class="v">4.2<small>k kg</small></div></div>
+        <div class="stat"><div class="k">Time</div><div class="v">22<small>:18</small></div></div>
+      </div>
+    </section>
+
+    <div class="weeks">
+      <span class="wk">5</span><span class="wk">6</span>
+      <span class="wk active">7</span>
+      <span class="wk">8</span><span class="wk">9</span><span class="wk">10</span><span class="wk">11</span>
+    </div>
+
+    <main>
+      <div class="card live">
+        <div class="row">
+          <div>
+            <div class="name">Barbell Bench Press</div>
+            <div class="sub">5 × 5  ·  RPE 8  ·  3:00 rest</div>
+          </div>
+          <span class="pill live">In progress</span>
+        </div>
+        <div class="sets">
+          <span class="dot done">5</span>
+          <span class="dot done">5</span>
+          <span class="dot done">5</span>
+          <span class="dot next">4</span>
+          <span class="dot">5</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div>
+            <div class="name">Strict Overhead Press</div>
+            <div class="sub">3 × 8  ·  RPE 7</div>
+          </div>
+          <span class="pill">Up next</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div>
+            <div class="name">Weighted Dips</div>
+            <div class="sub">3 × AMRAP  ·  BW + 20kg</div>
+          </div>
+          <span class="pill">Queued</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div>
+            <div class="name">DB Lateral Raise</div>
+            <div class="sub">4 × 12  ·  drop on last set</div>
+          </div>
+          <span class="pill">Queued</span>
+        </div>
+      </div>
+    </main>
+
+    <div class="dock">
+      <button class="ico">⏱</button>
+      <button class="cta">Log set 4 <span class="badge">+1</span></button>
+      <button class="ico">⋯</button>
+    </div>
+
+    <nav class="tabs">
+      <button class="on"><span class="glyph">◉</span>Train</button>
+      <button><span class="glyph">≡</span>Library</button>
+      <button><span class="glyph">◷</span>History</button>
+      <button><span class="glyph">✦</span>Coach</button>
+      <button><span class="glyph">☻</span>You</button>
+    </nav>
+  </div>
+
+  <div class="swatches">
+    <div><div class="sw" style="background:#0B1020"></div>base</div>
+    <div><div class="sw" style="background:linear-gradient(135deg,#7C7BFF,#4ED7FF)"></div>primary</div>
+    <div><div class="sw" style="background:#FF8AD9"></div>accent</div>
+    <div><div class="sw" style="background:#FFC774"></div>warn</div>
+    <div><div class="sw" style="background:rgba(255,255,255,0.14)"></div>glass</div>
+  </div>
+</body>
+</html>

@@ -30,7 +30,7 @@ export const WorkoutProgress = memo<WorkoutProgressProps>(({
             </div>
             <div className="h-2 bg-sys-surfaceContainerHigh rounded-full overflow-hidden">
                 <div
-                    className="h-full bg-gradient-to-r from-sys-primary to-sys-success transition-all duration-500 rounded-full"
+                    className="h-full bg-sys-primary transition-all duration-500 rounded-full"
                     style={{ width: `${percentage}%` }}
                     role="progressbar"
                     aria-valuenow={percentage}

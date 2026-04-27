@@ -146,7 +146,7 @@ export const DensityRepControls = ({
                         {totalReps}/{targetReps}
                     </span>
                     <span className={`text-[11px] font-bold ${
-                        allRepsComplete ? 'text-sys-success' : 'text-sys-tertiary'
+                        allRepsComplete ? 'text-sys-onSurface' : 'text-sys-tertiary'
                     }`}>
                         {Math.round(progressPercent)}%
                     </span>
@@ -155,8 +155,8 @@ export const DensityRepControls = ({
                     <div
                         className={`h-full transition-all duration-300 ${
                             allRepsComplete
-                                ? 'bg-sys-success shadow-elevation-1'
-                                : 'bg-sys-tertiary shadow-elevation-1'
+                                ? 'bg-sys-onSurface'
+                                : 'bg-sys-tertiary'
                         }`}
                         style={{ width: `${progressPercent}%` }}
                     />
@@ -215,9 +215,9 @@ export const DensityRepControls = ({
                     onClick={handleToggleComplete}
                     className={`h-7 w-7 rounded-lg flex items-center justify-center font-medium text-sm transition-all active:scale-95 ml-auto ${
                         isComplete
-                            ? 'bg-sys-success text-sys-onSuccess shadow-elevation-2'
+                            ? 'bg-sys-onSurface text-sys-surface'
                             : allRepsComplete
-                            ? 'bg-sys-tertiary text-sys-onTertiary shadow-elevation-1'
+                            ? 'bg-sys-tertiary text-sys-onTertiary'
                             : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar'
                     }`}
                     aria-label={isComplete ? 'Mark as incomplete' : 'Mark as complete'}

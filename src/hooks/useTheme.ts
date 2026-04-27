@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 /**
  * Theme switching has been removed.
- * The app always renders using the new light theme (mockup design system).
+ * The app always renders using the plain-brutalist light theme.
  */
 export type ThemeId = 'light';
 
@@ -23,12 +23,12 @@ export const THEMES: ThemeInfo[] = [
     {
         id: 'light',
         name: 'Light Mode',
-        description: 'Vibrant light theme (mockup design system)',
+        description: 'Plain-brutalist light theme with warm paper surfaces and ink accents',
         isDark: false,
         preview: {
-            primary: '#7c3aed',
-            accent: '#6d28d9',
-            surface: '#faf9fc',
+            primary: '#1d1d1b',
+            accent: '#b35a2c',
+            surface: '#f6f5f1',
         },
     },
 ];
@@ -44,7 +44,7 @@ export function useTheme() {
         // Keep browser chrome aligned with the theme.
         const metaThemeColor = document.querySelector('meta[name="theme-color"]');
         if (metaThemeColor) {
-            const bg = getComputedStyle(root).getPropertyValue('--color-surface').trim() || '#fef7ff';
+            const bg = getComputedStyle(root).getPropertyValue('--color-surface').trim() || '#f6f5f1';
             metaThemeColor.setAttribute('content', bg);
         }
     }, []);

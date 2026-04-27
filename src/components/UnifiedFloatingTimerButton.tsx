@@ -661,7 +661,7 @@ export const UnifiedFloatingTimerButton: React.FC<UnifiedFloatingTimerButtonProp
 
             {/* Extended Timer Bar */}
             {isExtended && !activeInfo && (
-                <div className="fixed bottom-24 right-20 z-40 flex items-center bg-sys-surfaceContainerHigh rounded-2xl p-1.5 shadow-xl border border-sys-outlineVariant animate-in fade-in slide-in-from-right-4 duration-200">
+                <div className="fixed bottom-24 right-20 z-40 flex items-center bg-sys-surfaceContainerHigh rounded-md p-1.5 border border-sys-outlineVariant animate-in fade-in slide-in-from-right-4 duration-200">
                     <button
                         onClick={() => handleSelectTimerType('rest')}
                         className="btn-icon h-11 w-11 bg-transparent hover:bg-sys-surfaceVariant rounded-xl transition-colors"
@@ -696,16 +696,16 @@ export const UnifiedFloatingTimerButton: React.FC<UnifiedFloatingTimerButtonProp
             {/* Floating Action Button */}
             <button
                 onClick={handleFabClick}
-                className={`fixed bottom-24 right-4 z-40 flex items-center justify-center shadow-elevation-3 hover:shadow-elevation-4 transition-all active:scale-90 ${
+                className={`fixed bottom-24 right-4 z-40 flex items-center justify-center transition-all active:scale-90 ${
                     activeInfo
                         ? activeInfo.isUrgent
-                            ? 'bg-sys-error animate-pulse min-w-[80px] h-14 px-4 rounded-2xl gap-2'
+                            ? 'bg-sys-error animate-pulse min-w-[80px] h-14 px-4 rounded-md gap-2'
                             : activeInfo.isWarning
-                            ? 'bg-sys-warning min-w-[80px] h-14 px-4 rounded-2xl gap-2'
-                            : 'bg-sys-primary min-w-[80px] h-14 px-4 rounded-2xl gap-2'
+                            ? 'bg-sys-warning min-w-[80px] h-14 px-4 rounded-md gap-2'
+                            : 'bg-sys-primary min-w-[80px] h-14 px-4 rounded-md gap-2'
                         : isExtended
-                        ? 'bg-sys-surfaceContainerHigh h-14 w-14 rounded-2xl border border-sys-outlineVariant'
-                        : 'bg-sys-primary h-14 w-14 rounded-2xl'
+                        ? 'bg-sys-surfaceContainerHigh h-14 w-14 rounded-md border border-sys-outlineVariant'
+                        : 'bg-sys-primary h-14 w-14 rounded-md'
                 } ${className}`}
                 aria-label={
                     activeInfo

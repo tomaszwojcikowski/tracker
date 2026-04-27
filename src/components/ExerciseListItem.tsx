@@ -56,7 +56,7 @@ export const ExerciseListItem: React.FC<ExerciseListItemProps> = ({
     return (
         <div className={`rounded-2xl p-4 ${
             exercise.category === 'mobility'
-                ? 'bg-gradient-to-br from-[#a855f7]/10 to-[#9333ea]/5 border border-[#a855f7]/20'
+                ? 'bg-sys-primaryContainer/40 border border-sys-primary/30'
                 : 'bg-sys-surfaceContainerLow'
         }`}>
             <div className="flex items-start justify-between gap-3">
@@ -142,7 +142,7 @@ export const ExerciseListItem: React.FC<ExerciseListItemProps> = ({
                     </div>
                     <button
                         onClick={handleAdd}
-                        className="w-full h-12 rounded-xl bg-sys-success text-sys-onSuccess font-bold active:scale-95 transition-transform shadow-elevation-1 hover:shadow-elevation-2"
+                        className="w-full h-12 rounded-md bg-sys-onSurface text-sys-surface font-bold active:scale-[0.99] transition-transform"
                     >
                         Add to Workout
                     </button>

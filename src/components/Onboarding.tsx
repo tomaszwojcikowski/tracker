@@ -168,7 +168,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
             <div className="px-6 pb-6">
                 <button
                     onClick={handleNext}
-                    className="w-full h-14 rounded-2xl bg-gradient-to-r from-sys-primary to-sys-tertiary text-sys-onPrimary font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform shadow-elevation-3 hover:shadow-elevation-4"
+                    className="w-full h-14 rounded-md bg-sys-primary text-sys-onPrimary font-bold flex items-center justify-center gap-2 active:scale-[0.99] transition-transform"
                     aria-label={isLastStep ? 'Get Started' : 'Next step'}
                 >
                     {isLastStep ? 'Get Started' : 'Next'}

@@ -1427,9 +1427,9 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
 
                 {/* Empty Workout Prompt */}
                 {isEmptyWorkout && addedExercises.length === 0 && !logs.completed && (
-                    <div className="mb-6 p-6 rounded-2xl bg-gradient-to-br from-sys-primary/10 via-sys-surface to-sys-surfaceContainerHigh border-2 border-dashed border-sys-primary/30 shadow-elevation-1">
+                    <div className="mb-6 p-6 rounded-md bg-sys-surfaceContainerLow border-2 border-dashed border-sys-outline">
                         <div className="flex flex-col items-center text-center">
-                            <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-sys-primary/30 to-sys-primary/10 flex items-center justify-center mb-4 shadow-elevation-2 ring-1 ring-sys-primary/20">
+                            <div className="h-16 w-16 rounded-md bg-sys-primaryContainer flex items-center justify-center mb-4 ring-1 ring-sys-outlineVariant">
                                 <PlusCircle size={32} className="text-sys-primary" />
                             </div>
                             <h3 className="text-lg font-bold text-sys-onSurface mb-2">Build Your Workout</h3>
@@ -1548,7 +1548,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                 key={dotIdx}
                                                 className={`h-2 w-2 rounded-full transition-all duration-300 ${
                                                     isComplete
-                                                        ? 'bg-sys-success scale-110'
+                                                        ? 'bg-sys-onSurface scale-110'
                                                         : 'bg-sys-surfaceContainerHigh border border-sys-outlineVariant'
                                                 }`}
                                             />
@@ -1825,7 +1825,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                             <span className="text-sm font-bold text-sys-onSurface uppercase tracking-wide">
                                 {isEmptyWorkout ? 'Exercises' : 'Added Exercises'}
                             </span>
-                            <div className="h-[2px] flex-1 bg-gradient-to-r from-sys-outlineVariant to-transparent rounded-full"></div>
+                            <div className="h-px flex-1 bg-sys-outlineVariant"></div>
                         </div>
 
                         <div className="space-y-3">
@@ -1864,7 +1864,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 haptic.bump();
                                 setShowExerciseSelector(true);
                             }}
-                            className="w-full h-10 px-4 rounded-lg bg-sys-success/10 border border-sys-success/30 text-sys-success text-sm font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+                            className="w-full h-10 px-4 rounded-md bg-sys-surfaceContainerLow border-2 border-dashed border-sys-outline text-sys-onSurface text-sm font-semibold flex items-center justify-center gap-2 active:scale-[0.99] transition-transform"
                         >
                             <PlusCircle size={22} />
                             <span>Add Exercise</span>
@@ -1880,16 +1880,16 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 haptic.bump();
                                 setShowFinishConfirm(true);
                             }}
-                            className={`h-10 min-h-[40px] px-6 rounded-xl font-medium flex items-center justify-center gap-2 active:scale-95 transition-all relative overflow-hidden ${
+                            className={`h-10 min-h-[40px] px-6 rounded-md font-medium flex items-center justify-center gap-2 active:scale-[0.99] transition-all relative overflow-hidden ${
                                 workoutProgress.totalSets > 0 && workoutProgress.completedSets === workoutProgress.totalSets
-                                    ? 'bg-sys-success text-sys-onSuccess shadow-elevation-3 ring-1 ring-sys-success/30 border-0'
+                                    ? 'bg-sys-onSurface text-sys-surface border-0'
                                     : 'bg-sys-surfaceContainerHigh border border-sys-outlineVariant text-sys-onSurface'
                             }`}
                         >
                             {/* Progress bar background for incomplete workouts */}
                             {workoutProgress.totalSets > 0 && workoutProgress.completedSets < workoutProgress.totalSets && (
                                 <div
-                                    className="absolute inset-0 bg-sys-success/20 transition-all duration-500"
+                                    className="absolute inset-0 bg-sys-onSurface/15 transition-all duration-500"
                                     style={{ width: `${(workoutProgress.completedSets / workoutProgress.totalSets) * 100}%` }}
                                 />
                             )}
@@ -1897,7 +1897,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                 <CheckCircle2 size={20} />
                                 <span>Finish</span>
                                 {workoutProgress.totalSets > 0 && (
-                                    <span className={workoutProgress.completedSets === workoutProgress.totalSets ? 'text-sys-onSuccess/90 text-xs' : 'text-sys-onSurfaceVar text-xs'}>
+                                    <span className={workoutProgress.completedSets === workoutProgress.totalSets ? 'text-sys-surface/90 text-xs' : 'text-sys-onSurfaceVar text-xs'}>
                                         ({workoutProgress.completedSets}/{workoutProgress.totalSets})
                                     </span>
                                 )}

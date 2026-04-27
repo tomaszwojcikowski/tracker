@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Option D — Expressive Material 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,GRAD@8..144,300..900,-50..150&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #6750A4;
+    --on-primary: #FFFFFF;
+    --primary-c: #EADDFF;
+    --on-primary-c: #21005D;
+
+    --secondary: #625B71;
+    --secondary-c: #E8DEF8;
+    --on-secondary-c: #1D192B;
+
+    --tertiary: #7D5260;
+    --tertiary-c: #FFD8E4;
+    --on-tertiary-c: #31111D;
+
+    --error: #B3261E;
+    --error-c: #F9DEDC;
+
+    --bg: #FFFBFE;
+    --surface: #FFFBFE;
+    --surface-c: #F3EDF7;
+    --surface-c-high: #ECE6F0;
+    --surface-c-highest: #E6E0E9;
+    --on-surface: #1D1B20;
+    --on-surface-var: #49454F;
+    --outline-var: #CAC4D0;
+
+    --gold: #FFB300;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: linear-gradient(160deg, #F3EDF7 0%, #FFD8E4 50%, #EADDFF 100%);
+    color: var(--on-surface);
+    font-family: 'Roboto Flex', 'Roboto', system-ui, sans-serif;
+    font-variation-settings: 'opsz' 24, 'wght' 400, 'GRAD' 0;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+  }
+  body { display: flex; flex-direction: column; align-items: center; padding: 32px; gap: 20px; }
+  .label {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--on-surface-var); font-weight: 600;
+  }
+
+  .phone {
+    width: 390px; min-height: 844px;
+    background: var(--surface);
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(60,40,90,0.3);
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+  .status {
+    display: flex; justify-content: space-between;
+    padding: 14px 24px 4px;
+    font-size: 13px; font-weight: 600;
+  }
+
+  /* Hero — squircle with gradient */
+  .hero {
+    margin: 12px 12px 8px;
+    padding: 22px 22px 22px;
+    border-radius: 40px 40px 12px 40px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--tertiary) 100%);
+    color: var(--on-primary);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero .blob {
+    position: absolute;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,216,228,0.5), transparent 70%);
+    right: -60px; top: -60px;
+    pointer-events: none;
+  }
+  .hero .blob.b2 {
+    left: -80px; bottom: -100px; top: auto; right: auto;
+    background: radial-gradient(circle, rgba(234,221,255,0.4), transparent 70%);
+  }
+  .hero .crumb {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 700; color: rgba(255,255,255,0.85);
+    display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+  }
+  .hero .crumb .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold); box-shadow: 0 0 10px var(--gold);
+  }
+  .hero h1 {
+    font-size: 34px;
+    font-variation-settings: 'opsz' 48, 'wght' 700, 'GRAD' 0;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(90deg, var(--gold), #FFD8E4);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .meta {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 8px; margin-top: 18px;
+  }
+  .stat {
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(10px);
+    border-radius: 18px 6px 18px 18px;
+    padding: 10px 12px;
+  }
+  .stat:nth-child(2) { border-radius: 6px 18px 18px 18px; }
+  .stat:nth-child(3) { border-radius: 18px 18px 6px 18px; }
+  .stat .k {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    font-weight: 700; opacity: 0.8;
+  }
+  .stat .v {
+    font-size: 22px;
+    font-variation-settings: 'opsz' 36, 'wght' 700;
+    letter-spacing: -0.02em;
+    margin-top: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .v small { font-size: 12px; font-weight: 500; opacity: 0.85; margin-left: 2px; }
+
+  /* Week chips — pill morph */
+  .weeks {
+    display: flex; gap: 8px; padding: 14px 16px 10px;
+    overflow-x: auto;
+  }
+  .wk {
+    flex: 0 0 auto;
+    min-width: 44px; height: 44px;
+    border-radius: 22px;
+    background: var(--surface-c);
+    color: var(--on-surface-var);
+    font-size: 14px; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .wk.done { background: var(--secondary-c); color: var(--on-secondary-c); }
+  .wk.active {
+    background: var(--primary);
+    color: var(--on-primary);
+    min-width: 92px;
+    border-radius: 22px;
+    box-shadow: 0 6px 16px rgba(103,80,164,0.4);
+    padding: 0 16px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+  .wk.active::before { content: "Week "; opacity: 0.85; font-weight: 600; margin-right: 4px; }
+
+  /* Cards with asymmetric corners */
+  main { padding: 4px 12px 130px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .card {
+    background: var(--surface-c);
+    border-radius: 28px 12px 28px 28px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card.live {
+    background: var(--primary-c);
+    color: var(--on-primary-c);
+    border-radius: 28px 12px 28px 28px;
+    box-shadow: 0 10px 28px rgba(103,80,164,0.18);
+  }
+  .card.live::after {
+    content: "";
+    position: absolute; right: -50px; top: -50px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(125,82,96,0.18), transparent 70%);
+    pointer-events: none;
+  }
+  .row { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+  .name {
+    font-size: 17px;
+    font-variation-settings: 'opsz' 24, 'wght' 700;
+    letter-spacing: -0.01em;
+  }
+  .sub {
+    font-size: 12px; font-weight: 500;
+    color: var(--on-surface-var);
+    margin-top: 4px;
+  }
+  .card.live .sub { color: var(--on-primary-c); opacity: 0.78; }
+  .pill {
+    background: var(--surface-c-high);
+    color: var(--on-surface-var);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    align-self: flex-start;
+  }
+  .pill.live { background: var(--tertiary); color: #fff; }
+
+  .sets {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 8px; margin-top: 14px;
+  }
+  .seg {
+    height: 44px;
+    border-radius: 14px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px;
+    background: rgba(255,255,255,0.6);
+    color: var(--on-surface-var);
+    font-variant-numeric: tabular-nums;
+  }
+  .card.live .seg { background: rgba(255,255,255,0.5); color: var(--on-primary-c); }
+  .seg.done {
+    background: var(--primary);
+    color: var(--on-primary);
+    box-shadow: 0 4px 12px rgba(103,80,164,0.35);
+  }
+  .seg.next {
+    background: var(--gold);
+    color: #3a2900;
+    box-shadow: 0 4px 14px rgba(255,179,0,0.5);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  /* Floating extended FAB */
+  .fab {
+    position: absolute;
+    bottom: 90px; left: 16px; right: 16px;
+    display: grid; grid-template-columns: 56px 1fr 56px; gap: 10px;
+  }
+  .ico {
+    height: 56px; border-radius: 18px 18px 18px 6px;
+    background: var(--secondary-c);
+    color: var(--on-secondary-c);
+    border: 0;
+    font-size: 20px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .ico.r { border-radius: 18px 18px 6px 18px; }
+  .efab {
+    height: 56px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, var(--primary), var(--tertiary));
+    color: #fff;
+    border: 0;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 12px;
+    box-shadow: 0 14px 36px rgba(103,80,164,0.45), inset 0 1px 0 rgba(255,255,255,0.25);
+  }
+  .efab .badge {
+    background: rgba(255,255,255,0.25);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  /* Bottom nav with morphing pill */
+  .bnav {
+    margin: auto 8px 8px;
+    height: 80px;
+    background: var(--surface-c);
+    border-radius: 32px;
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .tab {
+    background: transparent; border: 0;
+    color: var(--on-surface-var);
+    font-size: 11px; font-weight: 600;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 8px 0;
+    border-radius: 24px;
+  }
+  .tab .glyph {
+    width: 56px; height: 30px;
+    border-radius: 999px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    background: transparent;
+  }
+  .tab.on .glyph {
+    background: var(--primary-c);
+    color: var(--on-primary-c);
+  }
+  .tab.on { color: var(--on-surface); font-weight: 700; }
+
+  /* swatches */
+  .swatches { display: flex; gap: 8px; color: var(--on-surface-var); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .sw { width: 36px; height: 24px; border-radius: 8px; border: 1px solid var(--outline-var); }
+</style>
+</head>
+<body>
+  <div class="label">Option D · Expressive Material 3</div>
+
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+
+    <section class="hero">
+      <div class="blob"></div>
+      <div class="blob b2"></div>
+      <div class="crumb"><span class="dot"></span>Day 2 · Push</div>
+      <h1>Heavy Bench<br/><span class="accent">+ Vertical Press</span></h1>
+      <div class="meta">
+        <div class="stat"><div class="k">Sets</div><div class="v">9<small>/14</small></div></div>
+        <div class="stat"><div class="k">Volume</div><div class="v">4.2<small>k kg</small></div></div>
+        <div class="stat"><div class="k">Time</div><div class="v">22<small>:18</small></div></div>
+      </div>
+    </section>
+
+    <div class="weeks">
+      <span class="wk done">5</span>
+      <span class="wk done">6</span>
+      <span class="wk active">7</span>
+      <span class="wk">8</span>
+      <span class="wk">9</span>
+      <span class="wk">10</span>
+      <span class="wk">11</span>
+    </div>
+
+    <main>
+      <div class="card live">
+        <div class="row">
+          <div>
+            <div class="name">Barbell Bench Press</div>
+            <div class="sub">5 × 5  ·  RPE 8  ·  3:00 rest</div>
+          </div>
+          <span class="pill live">Active</span>
+        </div>
+        <div class="sets">
+          <span class="seg done">5</span>
+          <span class="seg done">5</span>
+          <span class="seg done">5</span>
+          <span class="seg next">·</span>
+          <span class="seg">·</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div>
+            <div class="name">Strict Overhead Press</div>
+            <div class="sub">3 × 8  ·  RPE 7</div>
+          </div>
+          <span class="pill">Up next</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div>
+            <div class="name">Weighted Dips</div>
+            <div class="sub">3 × AMRAP  ·  BW + 20 kg</div>
+          </div>
+          <span class="pill">Queued</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div>
+            <div class="name">DB Lateral Raise</div>
+            <div class="sub">4 × 12  ·  drop on last set</div>
+          </div>
+          <span class="pill">Queued</span>
+        </div>
+      </div>
+    </main>
+
+    <div class="fab">
+      <button class="ico">⏱</button>
+      <button class="efab">Log set 4 <span class="badge">+1</span></button>
+      <button class="ico r">⋯</button>
+    </div>
+
+    <nav class="bnav">
+      <button class="tab on"><span class="glyph">◉</span>Train</button>
+      <button class="tab"><span class="glyph">≡</span>Library</button>
+      <button class="tab"><span class="glyph">◷</span>History</button>
+      <button class="tab"><span class="glyph">✦</span>Coach</button>
+      <button class="tab"><span class="glyph">☻</span>You</button>
+    </nav>
+  </div>
+
+  <div class="swatches">
+    <div><div class="sw" style="background:#6750A4"></div>primary</div>
+    <div><div class="sw" style="background:#7D5260"></div>tertiary</div>
+    <div><div class="sw" style="background:#EADDFF"></div>p-c</div>
+    <div><div class="sw" style="background:#FFD8E4"></div>t-c</div>
+    <div><div class="sw" style="background:#FFB300"></div>gold</div>
+    <div><div class="sw" style="background:#FFFBFE"></div>surface</div>
+  </div>
+</body>
+</html>

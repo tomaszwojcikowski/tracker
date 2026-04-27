@@ -223,9 +223,8 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
                                 damping: 20,
                                 delay: 0.2,
                             }}
-                            className="relative inline-flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-sys-tertiaryContainer via-sys-tertiaryContainer to-sys-primaryContainer/60 border-2 border-sys-tertiary/40 shadow-elevation-3 mb-4"
+                            className="relative inline-flex items-center justify-center h-20 w-20 rounded-md bg-sys-tertiaryContainer border border-sys-outline mb-4"
                         >
-                            <span aria-hidden="true" className="absolute inset-0 rounded-full ring-4 ring-sys-tertiary/10 animate-pulse-glow" />
                             <Trophy size={40} className="relative text-sys-onTertiaryContainer" />
                         </motion.div>
 
@@ -466,7 +465,7 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
                             haptic.bump();
                             onClose();
                         }}
-                        className="w-full h-14 rounded-2xl bg-gradient-to-r from-sys-success to-sys-primary text-sys-white font-bold text-lg active:scale-95 transition-transform shadow-elevation-3 hover:shadow-elevation-4"
+                        className="w-full h-14 rounded-md bg-sys-primary text-sys-onPrimary font-bold text-lg active:scale-[0.99] transition-transform"
                     >
                         Done
                     </motion.button>

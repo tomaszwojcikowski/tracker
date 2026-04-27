@@ -24,7 +24,7 @@ export function ContinueWorkoutCard({ workout, onResume }: ContinueWorkoutCardPr
   return (
     <section className="continue-card relative overflow-hidden" aria-label="Continue workout">
       {/* Decorative accent stripe */}
-      <span aria-hidden="true" className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-sys-primary via-sys-primary/70 to-transparent" />
+      <span aria-hidden="true" className="absolute left-0 top-0 bottom-0 w-1 bg-sys-primary" />
 
       <div className="flex items-start justify-between gap-4 mb-4">
         <div>
@@ -39,7 +39,7 @@ export function ContinueWorkoutCard({ workout, onResume }: ContinueWorkoutCardPr
         </div>
         <button
           onClick={onResume}
-          className="h-12 px-6 rounded-xl bg-gradient-primary text-sys-onPrimary font-bold flex items-center gap-2 shrink-0 shadow-elevation-2 hover:shadow-elevation-3 active:scale-95 transition-all"
+          className="h-12 px-6 rounded-md bg-sys-primary text-sys-onPrimary font-bold flex items-center gap-2 shrink-0 active:scale-[0.99] transition-all"
           aria-label="Resume workout"
         >
           <PlayCircle className="w-5 h-5" />
@@ -50,7 +50,7 @@ export function ContinueWorkoutCard({ workout, onResume }: ContinueWorkoutCardPr
       {totalSets > 0 && (
         <div className="w-full bg-sys-surfaceContainerHigh h-2 rounded-full overflow-hidden mb-4">
           <div
-            className="h-full bg-gradient-to-r from-sys-primary to-sys-tertiary transition-all duration-500 ease-out"
+            className="h-full bg-sys-primary transition-all duration-500 ease-out"
             style={{ width: `${progressPercent}%` }}
           />
         </div>

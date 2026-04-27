@@ -73,13 +73,7 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                             <button
                                 key={`${exId}-set-${i}`}
                                 onClick={() => onToggleSet(i)}
-                                className={`h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
-                                    isDone
-                                        ? isComplete
-                                            ? 'bg-sys-success text-sys-onSuccess shadow-elevation-1'
-                                            : 'bg-sys-primary text-sys-onPrimary shadow-elevation-1'
-                                        : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVariant border-2 border-sys-outlineVariant'
-                                }`}
+                                className={`h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${isDone ? 'bg-sys-onSurface text-sys-surface' : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVariant border-2 border-sys-outlineVariant'}`}
                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                             >
                                 {isDone ? (

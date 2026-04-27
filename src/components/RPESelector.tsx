@@ -49,7 +49,7 @@ export const RPESelector: React.FC<RPESelectorProps> = ({
 }) => {
     if (showAsPrompt) {
         return (
-            <div className="relative mb-3 p-3 pl-4 bg-gradient-to-br from-sys-tertiaryContainer/40 via-sys-surfaceContainerHigh to-sys-surfaceContainerHigh rounded-xl border border-sys-tertiary/30 shadow-elevation-1 animate-fade-in overflow-hidden">
+            <div className="relative mb-3 p-3 pl-4 bg-sys-surfaceContainerHigh rounded-md border border-sys-outlineVariant animate-fade-in overflow-hidden">
                 <span aria-hidden="true" className="absolute left-0 top-0 bottom-0 w-1 bg-sys-tertiary rounded-r-full" />
                 <div className="flex items-center justify-between mb-2">
                     <span className="text-xs text-sys-onTertiaryContainer uppercase tracking-wider font-semibold">

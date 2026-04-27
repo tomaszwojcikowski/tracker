@@ -103,11 +103,11 @@ export const Dialog: React.FC<DialogProps> = ({
     if (!isOpen) return null;
 
     const getActionButtonClass = (variant: DialogAction['variant'] = 'text') => {
-        const base = 'px-4 py-2.5 rounded-full text-sm font-bold transition-all active:scale-95';
+        const base = 'px-4 py-2.5 rounded-sm text-sm font-bold transition-all active:scale-[0.99]';
 
         switch (variant) {
             case 'filled':
-                return `${base} bg-sys-primary text-sys-onPrimary shadow-elevation-1 hover:shadow-elevation-2`;
+                return `${base} bg-sys-onSurface text-sys-surface`;
             case 'tonal':
                 return `${base} bg-sys-primaryContainer text-sys-onPrimaryContainer hover:bg-sys-primaryContainer/80`;
             case 'text':
@@ -224,10 +224,10 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     // For destructive/success actions, use appropriate color on confirm button
     const getConfirmButtonClass = () => {
         if (destructive) {
-            return 'px-4 py-2.5 rounded-full text-sm font-bold transition-all active:scale-95 text-sys-error hover:bg-sys-error/10';
+            return 'px-4 py-2.5 rounded-sm text-sm font-bold transition-all active:scale-[0.99] text-sys-error hover:bg-sys-error/10';
         }
         if (success) {
-            return 'px-4 py-2.5 rounded-full text-sm font-bold transition-all active:scale-95 bg-sys-success text-sys-onSuccess hover:opacity-90';
+            return 'px-4 py-2.5 rounded-sm text-sm font-bold transition-all active:scale-[0.99] bg-sys-onSurface text-sys-surface hover:opacity-90';
         }
         return undefined; // Use default variant styling
     };
@@ -243,7 +243,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
             <div className="flex justify-end gap-2 mt-6 -mb-2 -mx-2">
                 <button
                     onClick={onClose}
-                    className="px-4 py-2.5 rounded-full text-sm font-bold transition-all active:scale-95 text-sys-primary hover:bg-sys-primary/10"
+                    className="px-4 py-2.5 rounded-sm text-sm font-bold transition-all active:scale-[0.99] text-sys-onSurface hover:bg-sys-onSurface/10"
                 >
                     {cancelLabel}
                 </button>
@@ -252,7 +252,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
                         onConfirm();
                         onClose();
                     }}
-                    className={getConfirmButtonClass() || 'px-4 py-2.5 rounded-full text-sm font-bold transition-all active:scale-95 text-sys-primary hover:bg-sys-primary/10'}
+                    className={getConfirmButtonClass() || 'px-4 py-2.5 rounded-sm text-sm font-bold transition-all active:scale-[0.99] text-sys-onSurface hover:bg-sys-onSurface/10'}
                     data-testid="confirm-button"
                 >
                     {confirmLabel}

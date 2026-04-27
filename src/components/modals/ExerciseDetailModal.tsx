@@ -277,13 +277,13 @@ export const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({
         metadata?.isUnilateral
             ? {
                   label: 'Per Side',
-                  className: 'bg-blue-500/20 text-blue-200 border border-blue-500/30',
+                  className: 'bg-sys-secondary/20 text-sys-onSecondaryContainer border border-sys-secondary/30',
               }
             : null,
         metadata?.isBodyweight
             ? {
                   label: 'Bodyweight',
-                  className: 'bg-amber-500/15 text-amber-200 border border-amber-500/30',
+                  className: 'bg-sys-tertiaryContainer text-sys-onTertiaryContainer border border-sys-tertiary/30',
               }
             : null,
     ].filter((chip): chip is { label: string; className: string } => Boolean(chip));

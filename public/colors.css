@@ -117,14 +117,16 @@
   --color-pending-500: #6b7280;
   --color-pending-glow: rgba(107, 114, 128, 0.2);
 
-  /* ===== BORDER RADIUS ===== */
-  --radius-xs: 0.25rem;    /* 4px */
-  --radius-sm: 0.5rem;     /* 8px */
-  --radius-md: 0.75rem;    /* 12px */
-  --radius-lg: 1rem;       /* 16px */
-  --radius-xl: 1.75rem;    /* 28px */
-  --radius-2xl: 2rem;      /* 32px */
-  --radius-full: 9999px;   /* Full rounded */
+  /* ===== BORDER RADIUS (plain-brutalist scale) ===== */
+  --radius-none: 0;
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 6px;
+  --radius-2xl: 8px;
+  --radius-3xl: 10px;
+  --radius-full: 9999px;
 
   /* ===== OPACITY VALUES ===== */
   --opacity-disabled: 0.5;
@@ -560,106 +562,141 @@
 }
 
 /* ============================================================================
-   THEME: CLEAN LIGHT (Bright & Minimal)
+   THEME: PLAIN BRUTALIST (Calm, off-white, hairline borders)
+   ----------------------------------------------------------------------------
+   The class name `theme-light` is preserved so existing component overrides
+   targeting `:root.theme-light` keep working — but the visual identity is
+   now the "Plain & quiet" direction (warm paper bg, muted sage accent,
+   sentence case, no shadows, hairline borders).
    ============================================================================ */
 
 :root.theme-light {
-  /* Primary Colors - Violet/Purple (Mockup palette) */
-  --color-primary-50: #faf5ff;
-  --color-primary-100: #f3e8ff;
-  --color-primary-200: #e9d5ff;
-  --color-primary-300: #d8b4fe;
-  --color-primary-400: #a78bfa;
-  --color-primary-500: #8b5cf6;
-  --color-primary-600: #7c3aed;
-  --color-primary-700: #6d28d9;
-  --color-primary-800: #5b21b6;
-  --color-primary-900: #4c1d95;
-  --color-primary-950: #2e1065;
+  /* Primary - Muted sage / forest (single accent) */
+  --color-primary-50:  #eef3f1;
+  --color-primary-100: #dde7e3;
+  --color-primary-200: #bcd0c8;
+  --color-primary-300: #92b3a7;
+  --color-primary-400: #5e8e80;
+  --color-primary-500: #3f7a6c;
+  --color-primary-600: #2f6b5e;
+  --color-primary-700: #285a4f;
+  --color-primary-800: #234c43;
+  --color-primary-900: #1c3e37;
+  --color-primary-950: #102521;
 
-  /* Secondary Colors - Emerald */
-  --color-secondary-50: #ecfdf5;
-  --color-secondary-100: #d1fae5;
-  --color-secondary-200: #a7f3d0;
-  --color-secondary-300: #6ee7b7;
-  --color-secondary-400: #34d399;
-  --color-secondary-500: #10b981;
-  --color-secondary-600: #059669;
-  --color-secondary-700: #047857;
-  --color-secondary-800: #065f46;
-  --color-secondary-900: #064e3b;
-  --color-secondary-950: #022c22;
+  /* Secondary - Warm sand (subtle, used as container background) */
+  --color-secondary-50:  #fbfaf6;
+  --color-secondary-100: #f3f1ea;
+  --color-secondary-200: #e7e3d6;
+  --color-secondary-300: #d4ceba;
+  --color-secondary-400: #b8b099;
+  --color-secondary-500: #9a907a;
+  --color-secondary-600: #7d745f;
+  --color-secondary-700: #625b4b;
+  --color-secondary-800: #4a4538;
+  --color-secondary-900: #322f26;
+  --color-secondary-950: #1a1814;
 
-  /* Neutral Colors - Cool Gray (inverted for light mode) */
-  --color-neutral-50: #18181b;
-  --color-neutral-100: #27272a;
-  --color-neutral-200: #3f3f46;
-  --color-neutral-300: #52525b;
-  --color-neutral-400: #71717a;
-  --color-neutral-500: #a1a1aa;
-  --color-neutral-600: #d4d4d8;
-  --color-neutral-700: #e4e4e7;
-  --color-neutral-800: #f4f4f5;
-  --color-neutral-900: #fafafa;
-  --color-neutral-950: #ffffff;
+  /* Neutral - Warm grey ramp (light mode, inverted by index) */
+  --color-neutral-50:  #1d1d1b; /* near-ink, used as on-surface */
+  --color-neutral-100: #2a2a26;
+  --color-neutral-200: #3d3c37;
+  --color-neutral-300: #555149;
+  --color-neutral-400: #6e6c66;
+  --color-neutral-500: #8a8780;
+  --color-neutral-600: #a09d96;
+  --color-neutral-700: #bcb8af;
+  --color-neutral-800: #d4d0c5;
+  --color-neutral-900: #e4e2dc;
+  --color-neutral-950: #f6f5f1;
 
-  /* Surface Colors - Light backgrounds */
-  --color-black: #ffffff;
-  --color-surface-dark: #faf9fc;
+  /* Surface canvas */
+  --color-black: #f6f5f1;            /* "background" stays the warm paper */
+  --color-surface-dark: #f1efea;
   --color-surface-elevated: #ffffff;
-  --color-surface-elevated-high: #f5f2ff;
+  --color-surface-elevated-high: #ffffff;
 
-  /* Tertiary Colors - Amber */
-  --color-tertiary-500: #f59e0b;
+  /* Tertiary - amber kept very muted (warnings/PR badges) */
+  --color-tertiary-500: #b35a2c;
 
-  /* Surface Variants (MD3) - Light mode inverted */
-  --color-primary: var(--color-primary-600);
-  --color-on-primary: #ffffff;
-  --color-primary-container: var(--color-primary-100);
+  /* MD3 surface roles */
+  --color-primary: #1d1d1b;                  /* ink — high-contrast brutalist accent */
+  --color-on-primary: #f6f5f1;               /* paper */
+  --color-primary-container: #e3ece9;        /* very soft sage tint kept for subtle accents */
   --color-on-primary-container: var(--color-primary-900);
-  --color-secondary: var(--color-secondary-600);
+  --color-secondary: #4a4538;
   --color-on-secondary: #ffffff;
-  --color-secondary-container: var(--color-secondary-100);
-  --color-on-secondary-container: var(--color-secondary-900);
-  --color-tertiary: var(--color-tertiary-600);
+  --color-secondary-container: #f3f1ea;
+  --color-on-secondary-container: #322f26;
+  --color-tertiary: var(--color-tertiary-500);
   --color-on-tertiary: #ffffff;
-  --color-tertiary-container: #ffdf9e;
-  --color-on-tertiary-container: #261900;
-  --color-error: var(--color-error-600);
+  --color-tertiary-container: #f6e6da;
+  --color-on-tertiary-container: #4a2511;
+  --color-error: var(--color-error-700);
   --color-on-error: #ffffff;
-  --color-error-container: var(--color-error-100);
-  --color-on-error-container: var(--color-error-900);
-  --color-success: var(--color-success-600);
-  --color-on-success: #ffffff;
-  --color-success-container: var(--color-success-100);
-  --color-on-success-container: var(--color-success-900);
-  --color-surface: #ffffff;
-  --color-on-surface: #1f1530;
-  --color-surface-variant: #ede9ff;
-  --color-on-surface-variant: #6b5b85;
-  --color-outline: #ddd6ff;
-  --color-outline-variant: #b9a8d8;
+  --color-error-container: #fbe8e6;
+  --color-on-error-container: #5a1d18;
+  --color-success: #1d1d1b;                  /* ink — completion state */
+  --color-on-success: #f6f5f1;
+  --color-success-container: #e3ece9;
+  --color-on-success-container: var(--color-primary-900);
+  --color-surface: #f6f5f1;
+  --color-on-surface: #1d1d1b;
+  --color-surface-variant: #efede7;
+  --color-on-surface-variant: #6e6c66;
+  --color-outline: #cfccc4;            /* hairline strong */
+  --color-outline-variant: #e4e2dc;    /* hairline soft */
   --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #faf9fc;
-  --color-surface-container: #f5f2ff;
-  --color-surface-container-high: #ede9ff;
-  --color-surface-container-highest: #e5e0ff;
+  --color-surface-container-low: #fbfaf6;
+  --color-surface-container: #ffffff;
+  --color-surface-container-high: #f3f1ea;
+  --color-surface-container-highest: #ebe9e2;
   --color-surface-tint: var(--color-primary-600);
 
-  /* Gradients - Clean Light */
-
-  /* Workout Section Gradients */
-
-  /* Colored Shadows - Subtle */
-  --shadow-primary: 0 10px 40px -5px rgba(37, 99, 235, 0.2);
-  --shadow-secondary: 0 10px 40px -5px rgba(5, 150, 105, 0.2);
-  --shadow-success: 0 10px 40px -5px rgba(34, 197, 94, 0.2);
+  /* No coloured drop shadows — flat aesthetic */
+  --shadow-primary: none;
+  --shadow-secondary: none;
+  --shadow-success: none;
 }
 
-/* Light theme specific overrides for text colors and MD3 roles */
+/* Plain-theme global flattening: kill drop shadows, soften glass */
 :root.theme-light {
-  /* Override glass panel for light mode */
-  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+  --shadow-glass: none;
+  --shadow-xs: 0 0 0 1px rgba(20, 20, 16, 0.04);
+  --shadow-sm: 0 0 0 1px rgba(20, 20, 16, 0.06);
+  --shadow-md: 0 0 0 1px rgba(20, 20, 16, 0.08);
+  --shadow-lg: 0 0 0 1px rgba(20, 20, 16, 0.10);
+  --shadow-xl: 0 0 0 1px rgba(20, 20, 16, 0.12);
+  --shadow-2xl: 0 0 0 1px rgba(20, 20, 16, 0.12);
+
+  --elevation-1: 0 0 0 1px rgba(20, 20, 16, 0.06);
+  --elevation-2: 0 0 0 1px rgba(20, 20, 16, 0.08);
+  --elevation-3: 0 0 0 1px rgba(20, 20, 16, 0.10);
+  --elevation-4: 0 0 0 1px rgba(20, 20, 16, 0.12);
+  --elevation-5: 0 0 0 1px rgba(20, 20, 16, 0.14);
+
+  /* Workout section accents collapse to greyscale + single sage tint */
+  --color-warmup-500: #6e6c66;
+  --color-warmup-600: #555149;
+  --color-warmup-700: #3d3c37;
+  --color-skill-500: #6e6c66;
+  --color-skill-600: #555149;
+  --color-skill-700: #3d3c37;
+  --color-main-500: var(--color-primary-600);
+  --color-main-600: var(--color-primary-700);
+  --color-main-700: var(--color-primary-800);
+  --color-accessory-500: #8a8780;
+  --color-accessory-600: #6e6c66;
+  --color-accessory-700: #555149;
+  --color-core-500: var(--color-tertiary-500);
+  --color-core-600: #8e4321;
+  --color-core-700: #6a3318;
+  --color-cooldown-500: #8a8780;
+  --color-cooldown-600: #6e6c66;
+  --color-cooldown-700: #555149;
+  --color-mobility-500: #8a8780;
+  --color-mobility-600: #6e6c66;
+  --color-mobility-700: #555149;
 }
 
 /* ============================================================================

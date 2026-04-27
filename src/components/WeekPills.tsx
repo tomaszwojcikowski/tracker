@@ -54,7 +54,7 @@ export function WeekPills({
           const isCompleted = completion?.isCompleted ?? false;
           const progress = completion?.progress ?? 0;
           const hasProgress = progress > 0 && progress < 100;
-          
+
           return (
           <button
             key={week}
@@ -66,25 +66,25 @@ export function WeekPills({
             {week === currentWeek && (
               <motion.div
                 layoutId="active-week-pill"
-                className="absolute inset-0 bg-sys-primary rounded-lg -z-10 shadow-elevation-1"
+                className="absolute inset-0 bg-sys-onSurface rounded-sm -z-10"
                 initial={false}
-                transition={{ type: "spring", stiffness: 280, damping: 28 }}
+                transition={{ type: 'spring', stiffness: 280, damping: 28 }}
               />
             )}
             <span className={`relative z-10 flex items-center gap-1.5 ${week === currentWeek ? 'text-sys-onPrimary' : ''}`}>
               {week}
               {isCompleted && (
-                <Check 
-                  size={14} 
-                  className={`${week === currentWeek ? 'text-sys-onPrimary' : 'text-sys-primary'}`}
+                <Check
+                  size={14}
+                  className={`${week === currentWeek ? 'text-sys-surface' : 'text-sys-onSurface'}`}
                   strokeWidth={3}
                 />
               )}
             </span>
             {/* Progress indicator for partially completed weeks */}
             {hasProgress && (
-              <div 
-                className="absolute bottom-0.5 left-1/2 -translate-x-1/2 h-0.5 bg-sys-primary rounded-full transition-all"
+              <div
+                className="absolute bottom-0.5 left-1/2 -translate-x-1/2 h-0.5 bg-sys-onSurface rounded-sm transition-all"
                 style={{ width: `${Math.max(progress * 0.6, 12)}%` }}
                 aria-hidden="true"
               />

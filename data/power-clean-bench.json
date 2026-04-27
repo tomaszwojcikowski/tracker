@@ -7,7 +7,7 @@
     "description": "Post-V26.9 transition program for a 45-year-old with managed tennis elbow and goose-foot knee. M/W/F lifting with the Olympic lifts and bench, Tue/Thu conditioning. 3 phases: accumulation & tendon prep (1-4), intensification (5-8), deload + heavy realization (9-10). Loads ride below Monday-relative bench/back-squat ceilings; all percentages cap at the rule-defined RPE floor/ceiling.",
     "author": "Power Clean / Bench Plan",
     "createdDate": "2026-03-20",
-    "lastModified": "2026-04-26T15:00:00.000Z",
+    "lastModified": "2026-04-27T12:00:00.000Z",
     "version": "1.0.0",
     "durationWeeks": 10,
     "goals": [
@@ -342,6 +342,20 @@
         "coachingNotes": "Grip parallettes with locked elbows, shoulders pressed down (away from the ears), legs squeezed straight with toes pointed. Drive the hips forward and crunch the rib cage toward the pelvis to \"compress\" — this, not just leg strength, is the goal. Pick the hardest variation you can hold with locked elbows for the full duration."
       },
       {
+        "id": "ex-weighted-seated-compression-lift-offs",
+        "exerciseName": "Weighted Seated Compression Lift-Offs",
+        "exerciseId": "compression_lift_off",
+        "category": "skill",
+        "sets": 2,
+        "repsMin": 8,
+        "repsMax": 12,
+        "repsType": "reps",
+        "loadUnit": "kg",
+        "restSeconds": 60,
+        "notes": "Monday compression upgrade. Use a small plate or ankle weights and keep every rep crisp.",
+        "coachingNotes": "Sit tall in a hard pike with hands by the hips, knees locked, toes up. Add a small external load with ankle weights or a light plate, then lift the heels and, if possible, the hips from the floor without leaning back. Treat each rep as an active compression contraction, not a momentum swing."
+      },
+      {
         "id": "ex-pull-density-block",
         "exerciseName": "Pull Support Density Block (Ring Rows)",
         "exerciseId": "ring_rows",
@@ -586,6 +600,21 @@
           "Full L-Sit"
         ],
         "coachingNotes": "Pick the hardest L-sit progression you can hold with locked elbows, depressed shoulders, and legs straight. Press the floor away, lift the chest, and crunch the ribs toward the pelvis. Stop the hold the moment the legs drop or the elbows bend."
+      },
+      {
+        "id": "ex-jefferson-curl-light",
+        "exerciseName": "Spinal Decompression",
+        "exerciseId": "spinal_decompression",
+        "category": "skill",
+        "sets": 1,
+        "repsValue": 8,
+        "repsType": "reps",
+        "loadUnit": "kg",
+        "loadMin": 5,
+        "loadMax": 10,
+        "restSeconds": 60,
+        "notes": "Light Weighted Jefferson Curl. Smooth spinal segmentation only; replace one Friday pike set in Phase 2.",
+        "coachingNotes": "Stand tall holding a very light load. Tuck the chin and slowly articulate one spinal segment at a time as you roll down, then reverse the motion from the pelvis up. Keep the load light enough that the rep stays smooth and restorative rather than straining."
       },
       {
         "id": "ex-row-conditioning-easy",
@@ -1759,12 +1788,22 @@
                     "repsValue": 5,
                     "sets": 4,
                     "rpe": 8,
-                    "notes": "75% (67.5 kg). RPE 7-9. Cap on grinders."
+                    "notes": "75% (67.5 kg). RPE 7-9. Cap on grinders. Optional last-set back-off: reduce 5-7% if elbow/tendon strain is rising."
                   },
                   {
                     "$ref": "ex-ring-pull-ups",
+                    "sets": 3,
                     "repsMin": 5,
                     "repsMax": 8
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "loadMin": 20,
+                    "loadMax": 25,
+                    "sets": 2,
+                    "repsMin": 10,
+                    "repsMax": 12,
+                    "notes": "Phase 2 Monday balancing row. Keep it light and smooth."
                   },
                   {
                     "$ref": "ex-parallette-l-sit",
@@ -1806,6 +1845,10 @@
                     "$ref": "ex-rower-ham-curl"
                   },
                   {
+                    "$ref": "ex-weighted-seated-compression-lift-offs",
+                    "notes": "Moved off Monday in Phase 2 so compression quality is higher and hip flexors are fresher before the next squat exposure."
+                  },
+                  {
                     "$ref": "ex-dragon-flag-single-leg"
                   },
                   {
@@ -1828,9 +1871,9 @@
                     "loadMin": 65,
                     "loadMax": 65,
                     "repsValue": 1,
-                    "sets": 12,
+                    "sets": 10,
                     "rpe": 8,
-                    "notes": "EMOM 12 min x 1 rep @ 75% (65 kg). Abort if bar speed or catch quality falls."
+                    "notes": "EMOM 10 min x 1 rep @ 75% (65 kg). Trimmed to create a true mid-week knee-deload window. Abort if bar speed or catch quality falls."
                   },
                   {
                     "$ref": "ex-box-squat",
@@ -1938,9 +1981,12 @@
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 3,
+                    "sets": 2,
                     "repsMin": 15,
                     "repsMax": 20
+                  },
+                  {
+                    "$ref": "ex-jefferson-curl-light"
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -1977,12 +2023,22 @@
                     "repsValue": 5,
                     "sets": 4,
                     "rpe": 8,
-                    "notes": "77.5% (70 kg). RPE 8 ceiling."
+                    "notes": "77.5% (70 kg). RPE 8 ceiling. Optional last-set back-off: reduce 5-7% if elbow/tendon strain is rising."
                   },
                   {
                     "$ref": "ex-ring-pull-ups",
+                    "sets": 3,
                     "repsMin": 5,
                     "repsMax": 7
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "loadMin": 20,
+                    "loadMax": 25,
+                    "sets": 2,
+                    "repsMin": 10,
+                    "repsMax": 12,
+                    "notes": "Phase 2 Monday balancing row. Keep it light and smooth."
                   },
                   {
                     "$ref": "ex-parallette-l-sit",
@@ -2019,7 +2075,13 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-rower-ham-curl"
+                    "$ref": "ex-rower-ham-curl",
+                    "sets": 1,
+                    "notes": "Step-Ups Friday this week. Keep hamstring curl volume to 1 set."
+                  },
+                  {
+                    "$ref": "ex-weighted-seated-compression-lift-offs",
+                    "notes": "Moved off Monday in Phase 2 so compression quality is higher and hip flexors are fresher before the next squat exposure."
                   },
                   {
                     "$ref": "ex-dragon-flag-single-leg"
@@ -2043,9 +2105,9 @@
                     "loadMin": 70,
                     "loadMax": 70,
                     "repsValue": 1,
-                    "sets": 10,
+                    "sets": 8,
                     "rpe": 8,
-                    "notes": "EMOM 10 min x 1 rep @ 80% (70 kg). Abort if bar speed or catch quality falls."
+                    "notes": "EMOM 8 min x 1 rep @ 80% (70 kg). Trimmed to create a true mid-week knee-deload window. Abort if bar speed or catch quality falls."
                   },
                   {
                     "$ref": "ex-box-squat",
@@ -2076,10 +2138,6 @@
                 "type": "cardio",
                 "estimatedDuration": 40,
                 "exercises": [
-                  {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Phase 2 Thu: 15-25 min Z1-Z2"
-                  },
                   {
                     "$ref": "ex-face-pulls"
                   },
@@ -2114,12 +2172,12 @@
                   },
                   {
                     "$ref": "ex-hang-power-clean",
-                    "loadMin": 57.5,
-                    "loadMax": 57.5,
-                    "repsValue": 2,
+                    "loadMin": 47.5,
+                    "loadMax": 52.5,
+                    "repsValue": 1,
                     "sets": 3,
                     "rpe": 7,
-                    "notes": "High-Hang Power Clean 3x2 @ 65% (57.5 kg)."
+                    "notes": "Week B row-emphasis Friday: High-Hang Power Clean 3x1 @ 55-60% (47.5-52.5 kg). Technique singles only."
                   },
                   {
                     "$ref": "ex-back-squat",
@@ -2152,9 +2210,12 @@
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 3,
+                    "sets": 2,
                     "repsMin": 15,
                     "repsMax": 20
+                  },
+                  {
+                    "$ref": "ex-jefferson-curl-light"
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -2191,13 +2252,23 @@
                     "repsValue": 4,
                     "sets": 4,
                     "rpe": 8,
-                    "notes": "80% (72.5 kg)."
+                    "notes": "80% (72.5 kg). Optional last-set back-off: reduce 5-7% if elbow/tendon strain is rising."
                   },
                   {
                     "$ref": "ex-ring-pull-ups",
-                    "repsMin": 4,
-                    "repsMax": 6,
+                    "sets": 3,
+                    "repsMin": 5,
+                    "repsMax": 7,
                     "notes": "Per Ring Pull-Up Split Progression Rule, +1.25-2.5 kg only if elbows fully calm"
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "loadMin": 20,
+                    "loadMax": 25,
+                    "sets": 1,
+                    "repsMin": 10,
+                    "repsMax": 12,
+                    "notes": "Phase 2 Monday balancing row. Add a second set only if elbow feels fully calm."
                   },
                   {
                     "$ref": "ex-parallette-l-sit",
@@ -2234,7 +2305,13 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-rower-ham-curl"
+                    "$ref": "ex-rower-ham-curl",
+                    "sets": 2,
+                    "notes": "RDLs Friday this week. Keep the full eccentric support dose."
+                  },
+                  {
+                    "$ref": "ex-weighted-seated-compression-lift-offs",
+                    "notes": "Moved off Monday in Phase 2 so compression quality is higher and hip flexors are fresher before the next squat exposure."
                   },
                   {
                     "$ref": "ex-dragon-flag-negative"
@@ -2259,9 +2336,9 @@
                     "loadMin": 70,
                     "loadMax": 70,
                     "repsValue": 2,
-                    "sets": 5,
+                    "sets": 4,
                     "rpe": 8,
-                    "notes": "5x2 @ 80% (70 kg). Doubles cluster; full 2-3 min rest; abort to singles if catch quality falls."
+                    "notes": "4x2 @ 80% (70 kg). Reduced cluster volume to create a true mid-week knee-deload window; full 2-3 min rest."
                   },
                   {
                     "$ref": "ex-box-squat",
@@ -2292,10 +2369,6 @@
                 "type": "cardio",
                 "estimatedDuration": 40,
                 "exercises": [
-                  {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Phase 2 Thu: 20-25 min Z1-Z2"
-                  },
                   {
                     "$ref": "ex-face-pulls"
                   },
@@ -2334,9 +2407,9 @@
                     "loadMin": 57.5,
                     "loadMax": 57.5,
                     "repsValue": 2,
-                    "sets": 3,
+                    "sets": 2,
                     "rpe": 7,
-                    "notes": "Hang Power Clean + 1 s pause just above knee: 3x(1+1) @ 65% (57.5 kg)."
+                    "notes": "Hang Power Clean + 1 s pause just above knee: 2x(1+1) @ 65% (57.5 kg). Keep motor patterning without extra CNS accumulation."
                   },
                   {
                     "$ref": "ex-back-squat",
@@ -2368,9 +2441,12 @@
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 3,
+                    "sets": 2,
                     "repsMin": 15,
                     "repsMax": 20
+                  },
+                  {
+                    "$ref": "ex-jefferson-curl-light"
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -2407,12 +2483,22 @@
                     "repsValue": 4,
                     "sets": 4,
                     "rpe": 9,
-                    "notes": "82.5% (75 kg). RPE 9 ceiling - no grinders."
+                    "notes": "82.5% (75 kg). RPE 9 ceiling - no grinders. Optional last-set back-off: reduce 5-7% if elbow/tendon strain is rising."
                   },
                   {
                     "$ref": "ex-ring-pull-ups",
+                    "sets": 3,
                     "repsMin": 4,
                     "repsMax": 6
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "loadMin": 20,
+                    "loadMax": 25,
+                    "sets": 1,
+                    "repsMin": 10,
+                    "repsMax": 12,
+                    "notes": "Phase 2 Monday balancing row. Add a second set only if elbow feels fully calm."
                   },
                   {
                     "$ref": "ex-parallette-l-sit",
@@ -2450,7 +2536,13 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-rower-ham-curl"
+                    "$ref": "ex-rower-ham-curl",
+                    "sets": 1,
+                    "notes": "Step-Ups Friday this week. Keep hamstring curl volume to 1 set."
+                  },
+                  {
+                    "$ref": "ex-weighted-seated-compression-lift-offs",
+                    "notes": "Peak week: moved off Monday so compression quality is higher and hip flexors are fresher before the next squat exposure."
                   },
                   {
                     "$ref": "ex-dragon-flag-negative"
@@ -2474,9 +2566,9 @@
                     "loadMin": 72.5,
                     "loadMax": 72.5,
                     "repsValue": 1,
-                    "sets": 6,
+                    "sets": 4,
                     "rpe": 9,
-                    "notes": "6x1 @ 82.5% (72.5 kg). Top intensity for the cycle before realization; abort if catch quality or elbow/wrist discomfort rises."
+                    "notes": "4x1 @ 82.5% (72.5 kg). Cap at 4 quality singles to create a true mid-week knee-deload window; abort if catch quality or elbow/wrist discomfort rises."
                   },
                   {
                     "$ref": "ex-box-squat",
@@ -2507,10 +2599,6 @@
                 "type": "cardio",
                 "estimatedDuration": 40,
                 "exercises": [
-                  {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Phase 2 Thu: 15-20 min very easy"
-                  },
                   {
                     "$ref": "ex-face-pulls"
                   },
@@ -2545,12 +2633,12 @@
                   },
                   {
                     "$ref": "ex-hang-power-clean",
-                    "loadMin": 60,
-                    "loadMax": 60,
+                    "loadMin": 47.5,
+                    "loadMax": 52.5,
                     "repsValue": 2,
-                    "sets": 3,
+                    "sets": 2,
                     "rpe": 7,
-                    "notes": "Hang Power Clean + 1 s pause just above knee: 3x(1+1) @ 70% (60 kg)."
+                    "notes": "Week B row-emphasis Friday: High-Hang Power Clean 2x1 @ 55-60% (47.5-52.5 kg). Technique singles only."
                   },
                   {
                     "$ref": "ex-back-squat",
@@ -2582,10 +2670,13 @@
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 2,
+                    "sets": 1,
                     "repsMin": 10,
                     "repsMax": 15,
                     "notes": "Volume drop - protect hip flexors at peak loading."
+                  },
+                  {
+                    "$ref": "ex-jefferson-curl-light"
                   },
                   {
                     "$routine": "cooldown-friday"

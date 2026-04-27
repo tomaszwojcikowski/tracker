@@ -74,9 +74,10 @@ Box Squat is **always** programmed below the Monday-relative load of the paused/
 ### Compression-Goal Rule (Stated Primary Goal)
 "Calisthenics compression skills (L-sit, Pike)" is a primary goal but easily under-dosed. Two enforced exposures per week:
 - **Monday (after Bench):** Parallette L-Sit -- progression as written
-- **Friday (after Back Squat, before cooldown):** Friday Compression Block -- the existing **Seated Pike Pulses set count** PLUS **2 sets of best-variation L-Sit hold** (target 8-15 s). Total ~5 minutes; low fatigue and high frequency-benefit
+- **Tuesday (Weeks 5-8, after trunk work):** **2x8-12 Weighted Seated Compression Lift-Offs**
+- **Friday (after Back Squat, before cooldown):** Friday Compression Block -- keep the written **Seated Pike Pulses set count minus one set**, replace that removed set with **1x8 Light Jefferson Curl**, then add **2 sets of best-variation L-Sit hold** (target 8-15 s). Total ~5-6 minutes; low fatigue and better mechanical-tension value
 
-**Implementation:** The "Seated Pike Pulses" line in each Friday session below counts as the *active pike* portion of this block; add the 2 L-Sit holds immediately after, before cooldown. Do not skip on consolidation or deload weeks -- reduce volume, never frequency.
+**Implementation:** The Tuesday lift-off slot is loaded lightly with a plate or ankle weights and stays crisp, never sloppy. It moves off Monday so compression quality is higher and hip flexors are fresher before the next squat exposure. The "Seated Pike Pulses" line in each Friday session below counts as the *active pike* portion of this block; subtract one set for the Jefferson Curl, then add the 2 L-Sit holds immediately after, before cooldown. Do not skip on consolidation or deload weeks -- reduce volume, never frequency.
 
 **Realization metric (Week 10):** unbroken **15 s straight-leg L-Sit** OR **forehead-to-knee active pike** for 3 controlled reps.
 
@@ -155,6 +156,9 @@ Box Squats: **2.5-3 minutes** between sets. Secondary bench: **minimum 2 minutes
 1. Reach **top of rep range on all sets** for 2 consecutive exposures
 2. Add **1.25-2.5 kg**; drop each set by **1 rep** after the load jump, then rebuild
 3. If elbow symptoms increase: hold load and rebuild quality at bodyweight
+
+### Pulling-Balance Add-On (Phase 2 Mondays)
+Weeks 5-8 keep Monday Ring Pull-Ups at **3 work sets** rather than 4. Add **1-2 light sets of Chest-Supported Row** immediately after pull-ups to offset the vertical-pull bias and reduce medial-elbow irritation.
 
 ### Hinge Rule (RDLs)
 Shins vertical. **3-0-1-0 tempo**. Stop at deepest pain-free hamstring position. Loads ~40-55% of 155 kg Deadlift max. If medial knee or hamstring irritation lingers into Saturday, reduce to 2 sets or shorten ROM next week.
@@ -285,7 +289,7 @@ Tuesday is a complete training day, not an "active recovery" checklist. **Run co
 
 **B1+B2 superset:** alternate ~45 s rest; 2 rounds Wks 1-4, 1 round + 1 round 90/90 breathing (5 breaths/side) Wks 5-8.
 
-**Phase 2 modification (Wks 5-8):** Slot A becomes the harder intensity (1,000 m / interval work). Slot B reduces to 1 round of plank+Pallof to manage cumulative fatigue; the freed time goes to 90/90 breathing. Slot E is non-negotiable -- elbow does not deload during peak weeks.
+**Phase 2 modification (Wks 5-8):** Slot A becomes the harder intensity (1,000 m / interval work). Slot B reduces to 1 round of plank+Pallof to manage cumulative fatigue; the freed time goes to 90/90 breathing. Add the weighted compression lift-offs after Slot D. Slot E is non-negotiable -- elbow does not deload during peak weeks.
 
 ### Thursday Day Template (Weeks 1-8) -- "Shoulder Balance + Structural Circuit + Straight-Arm Mobility"
 
@@ -516,7 +520,11 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 
 **Conditioning Swap (Phase 2):** Per the Concurrent-Fatigue Sequencing Rule, Tuesday becomes the harder conditioning day (intervals / 1,000 m work) and Thursday becomes lighter Zone 1-2 aerobic. This puts hard intervals 72 h before Friday squats instead of 18-24 h.
 
-**Power Clean Phase 2 Progression:** Weeks 5-6 use EMOM density (12-min x 1 @ 75% -> 10-min x 1 @ 80%); Week 7 shifts to a doubles cluster (5x2 @ 80%) for positional demand; Week 8 lands the heaviest singles (6x1 @ 82.5%) before the Week 10 realization at 85%. **Clean Pulls are cut Wks 5-8** -- the EMOM/cluster already saturates pulling stimulus and pairing them violates the Superset Rule.
+**Power Clean Phase 2 Progression:** Weeks 5-6 use trimmed EMOM density (10-min x 1 @ 75% -> 8-min x 1 @ 80%); Week 7 shifts to a reduced doubles cluster (4x2 @ 80%) for positional demand; Week 8 caps the heavy exposures at **4 quality singles** @ 82.5% before the Week 10 realization at 85%. This creates a true mid-week knee-deload window while keeping the power stimulus. **Clean Pulls are cut Wks 5-8** -- the EMOM/cluster already saturates pulling stimulus and pairing them violates the Superset Rule.
+
+**Friday Alternating Emphasis (Phase 2):** Weeks 5 and 7 keep the written clean variation and rows together. Weeks 6 and 8 become the lower-fatigue "row emphasis" Fridays: keep the rows, but reduce the clean slot to technique singles only.
+
+**Bench Tendon-Management Note (Phase 2 Mondays):** Keep the listed load for the first 3 work sets. On the final set, a **5-7% back-off is optional** if elbow tendon strain is climbing. This preserves exposure while lowering peak tendon stress.
 
 **Masters Recovery Cadence:** At 45, CNS fatigue from sessions above 80% persists 48-72 h (vs. 24-48 h younger) and systemic fatigue compounds across weeks. Week 4 was the **transition consolidation**. This creates an effective 3-week build / consolidation reset / 3-week build / deload cadence aligned with actual masters recovery capacity.
 
@@ -527,18 +535,20 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 **Execution Key:** Start intensification with crisp sets and strict fatigue control.
 
 #### Monday
-**A. Bench Press** -- 4x5 @ 75% (67.5 kg)
-**B. Ring Pull-Ups** -- 4x5-8 *(split progression: reach top reps x 2 exposures -> +1.25-2.5 kg -> drop 1 rep/set -> rebuild)*
+**A. Bench Press** -- 4x5 @ 75% (67.5 kg) *(optional last-set back-off: -5-7% if elbow/tendon strain is rising)*
+**B. Ring Pull-Ups** -- 3x5-8 *(split progression: reach top reps x 2 exposures -> +1.25-2.5 kg -> drop 1 rep/set -> rebuild; Phase 2 volume cap begins here)*
+**B2. Chest-Supported Row** -- 2x10-12 @ 20-25 kg *(light balancing volume; smooth scapular motion only)*
 **C. Parallette L-Sit** -- 4x8-12 s one leg out
 **D. Pull Support EMOM** -- 4 min: 1 assisted Chest-to-Rings Top Hold x 5-8 s per minute
 
 #### Tuesday *(Tuesday Day Template -- Phase 2 modification)*
 - **A. Conditioning:** Row Week 5 prescription -- harder intervals (or Bike/SkiErg substitute)
+- **E. Weighted Seated Compression Lift-Offs:** 2x8-12 *(moved off Monday; higher-quality compression slot)*
 - **D. Dragon Flag:** 3x4-6 s Single-leg hold; attempt 1 slow negative if 6 s is clean
 - B-block reduced to 1 round per template; 90/90 breathing replaces second round
 
 #### Wednesday
-**A. Power Clean -- EMOM 12 min x 1 rep @ 75% (65 kg)** *(Prilepin minimum 12 reps; abort if bar speed drops or catch quality falls)*
+**A. Power Clean -- EMOM 10 min x 1 rep @ 75% (65 kg)** *(trimmed slightly to create a true knee-deload window; abort if bar speed drops or catch quality falls)*
 **B. Box Squat** -- 3x4 @ 67.5% (90 kg) *(HLM: 7.5 kg below Friday Back Squat)*
 **C. Floor Press (medium grip)** -- 3x5 @ 70% (62.5 kg) *(reduced ROM; bar speed crisp; cap RPE 7)*
 
@@ -552,7 +562,8 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 **B. Back Squat** -- 4x5 @ 72.5% (97.5 kg)
 **C1. RDLs** -- 3x6-8 @ 70-75 kg *(3-0-1-0)*
 **C2. Chest-Supported Row** -- 2x10-12 @ **25-30 kg** *(Phase 2 load)*
-**D. Seated Pike Pulses** -- 3x15-20
+**D. Seated Pike Pulses** -- 2x15-20
+**E. Jefferson Curl (light)** -- 1x8 *(replace one pike set; smooth spinal segmentation)*
 
 ---
 
@@ -561,30 +572,34 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 **Execution Key:** Build intensity; cut assistance if recovery slips.
 
 #### Monday
-**A. Bench Press** -- 4x5 @ 77.5% (70 kg)
-**B. Ring Pull-Ups** -- 4x5-8 *(BW acceptable if elbow lags; load via split progression only)*
+**A. Bench Press** -- 4x5 @ 77.5% (70 kg) *(optional last-set back-off: -5-7% if elbow/tendon strain is rising)*
+**B. Ring Pull-Ups** -- 3x5-8 *(BW acceptable if elbow lags; load via split progression only)*
+**B2. Chest-Supported Row** -- 2x10-12 @ 20-25 kg *(light balancing volume)*
 **C. Parallette L-Sit** -- 4x10-12 s one leg out
 **D. Pull Support EMOM** -- 4 min: 1 assisted Chest-to-Rings Top Hold x 5-8 s per minute
 
 #### Tuesday *(Tuesday Day Template -- Phase 2 modification)*
 - **A. Conditioning:** Row Week 6 prescription (or substitute)
+- **C. Rower Slider Hamstring Curls:** 1x8 only *(Friday Step-Ups are present this week; spare posterior/medial knee load)*
+- **E. Weighted Seated Compression Lift-Offs:** 2x8-12 *(moved off Monday; higher-quality compression slot)*
 - **D. Dragon Flag:** 3x4-6 s Single-leg hold *(work toward 6 s clean before attempting negatives)*
 
 #### Wednesday
-**A. Power Clean -- EMOM 10 min x 1 rep @ 80% (70 kg)** *(Prilepin minimum 10 reps; bigger intensity step than W5; abort if speed or catch quality falls)*
+**A. Power Clean -- EMOM 8 min x 1 rep @ 80% (70 kg)** *(trimmed to create a true knee-deload window; abort if speed or catch quality falls)*
 **B. Box Squat** -- 3x3 @ 70% (95 kg) *(HLM: 10 kg below Friday Back Squat)*
 **C. Floor Press (medium grip)** -- 3x5 @ 72.5% (65 kg) *(crisp; 2 reps in reserve)*
 
 #### Thursday *(Thursday Day Template -- Phase 2 modification)*
-- **A. Conditioning:** Row Week 6 prescription -- light Zone 1-2 only
+- **A. Conditioning:** **Removed in Week 6** -- keep this as a pure shoulder-balance + mobility day to preserve Friday performance
 - **C. Skin-the-Cat:** 3x2-3 full *(add 0.5-1 s to German hang if shoulder feels open)*
 
 #### Friday
-**A. High-Hang Power Clean** -- 3x2 @ 65% (57.5 kg)
+**A. High-Hang Power Clean** -- 3x1 @ 55-60% (47.5-52.5 kg) *(Week B row-emphasis Friday: technique singles only)*
 **B. Back Squat** -- 4x4 @ 77.5% (105 kg)
 **C1. DB Low Box Step-Ups** -- 3x6-8/leg *(3-1-1-0; cut if knee tracking slips)*
 **C2. Chest-Supported Row** -- 2x10-12 @ **25-30 kg** *(Phase 2 load)*
-**D. Seated Pike Pulses** -- 3x15-20
+**D. Seated Pike Pulses** -- 2x15-20
+**E. Jefferson Curl (light)** -- 1x8 *(replace one pike set)*
 
 ---
 
@@ -593,30 +608,34 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 **Execution Key:** Heavy week; protect elbow and prioritize bar speed over volume.
 
 #### Monday
-**A. Bench Press** -- 4x4 @ 80% (72.5 kg)
-**B. Ring Pull-Ups** -- 4x5-7 *(weighted via split progression; BW if elbow sensitive)*
+**A. Bench Press** -- 4x4 @ 80% (72.5 kg) *(optional last-set back-off: -5-7% if elbow/tendon strain is rising)*
+**B. Ring Pull-Ups** -- 3x5-7 *(weighted via split progression; BW if elbow sensitive)*
+**B2. Chest-Supported Row** -- 1-2x10-12 @ 20-25 kg *(light balancing volume; 1 set is enough if elbow is tender)*
 **C. Parallette L-Sit** -- 4x6-10 s alternating single-leg or full attempt
 **D. Pull Support EMOM** -- 3 min: 1 Chest-to-Rings Top Hold x 5-8 s per minute
 
 #### Tuesday *(Tuesday Day Template -- Phase 2 modification)*
 - **A. Conditioning:** Row Week 7 prescription (or substitute)
+- **C. Rower Slider Hamstring Curls:** 2x8 *(RDLs are present Friday, so keep the full eccentric support dose)*
+- **E. Weighted Seated Compression Lift-Offs:** 2x8-12 *(moved off Monday; higher-quality compression slot)*
 - **D. Dragon Flag:** 2x1 Full negative *(5-count eccentric; tuck to return; stop if back arches before bench)*
 
 #### Wednesday
-**A. Power Clean -- 5x2 @ 80% (70 kg)** *(doubles cluster; full 2-3 min rest; positional demand without raising %; abort to singles if catch quality falls)*
+**A. Power Clean -- 4x2 @ 80% (70 kg)** *(reduced cluster volume to create a true mid-week knee-deload window; full 2-3 min rest)*
 **B. Box Squat** -- 3x3 @ 72.5% (97.5 kg) *(HLM: 10 kg below Friday Back Squat)*
 **C. Paused Bench Press (medium grip)** -- 2x3 @ 72.5% (65 kg) *(1-2 s pause; bench-specific; reduced volume vs Week 6)*
 
 #### Thursday *(Thursday Day Template -- Phase 2 modification)*
-- **A. Conditioning:** Row Week 7 prescription -- light Zone 1-2 only. **Fatigue alert -- concurrent load risk:** Thursday's 1,000 m intervals fall immediately before the heaviest Friday of Phase 2 (80% Back Squat). If Friday warm-up feels meaningfully below normal, apply Autoregulation Rule: drop one EMOM rep from Wednesday or reduce Friday squat by one set. Do not outwork accumulated fatigue.
+- **A. Conditioning:** **Removed in Week 7** -- Tuesday is the primary conditioning day, so Thursday stays joint-focused and non-fatiguing.
 - **C. Skin-the-Cat:** 3x2-3 full with 3-4 s German hang hold *(breathe into stretch; do not rush pull-back)*
 
 #### Friday
-**A. Hang Power Clean + 1 s pause just above knee** -- 3x(1+1) @ 65% (57.5 kg)
+**A. Hang Power Clean + 1 s pause just above knee** -- 2x(1+1) @ 65% (57.5 kg) *(keep patterning, drop one exposure)*
 **B. Back Squat** -- 4x4 @ 80% (107.5 kg)
 **C1. RDLs** -- 2x6 @ 75-80 kg *(1 set dropped to spare CNS)*
 **C2. Chest-Supported Row** -- 2x10-12 @ **25-30 kg** *(Phase 2 load)*
-**D. Seated Pike Pulses** -- 3x15-20
+**D. Seated Pike Pulses** -- 2x15-20
+**E. Jefferson Curl (light)** -- 1x8 *(replace one pike set)*
 
 ---
 
@@ -625,31 +644,35 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 **Execution Key:** Peak training stress -- all reps crisp, accessories conservative.
 
 #### Monday
-**A. Bench Press** -- 4x4 @ 82.5% (75 kg)
-**B. Ring Pull-Ups** -- 4x5-7 *(weighted via split progression)*
+**A. Bench Press** -- 4x4 @ 82.5% (75 kg) *(optional last-set back-off: -5-7% if elbow/tendon strain is rising)*
+**B. Ring Pull-Ups** -- 3x5-7 *(weighted via split progression)*
+**B2. Chest-Supported Row** -- 1-2x10-12 @ 20-25 kg *(light balancing volume)*
 **C. Parallette L-Sit** -- 4x6-10 s best-quality variation
 **D. Pull Support EMOM** -- 3 min: 1 Chest-to-Rings Top Hold x 5-8 s per minute
 
 #### Tuesday *(Tuesday Day Template -- Phase 2 modification)*
 - **A. Conditioning:** Week 8 row table (or 15-20 min easy Bike/SkiErg)
+- **C. Rower Slider Hamstring Curls:** 1x8 only *(Friday Step-Ups are present this week; spare posterior/medial knee load)*
+- **E. Weighted Seated Compression Lift-Offs:** 2x8-12 *(moved off Monday; higher-quality compression slot)*
 - **D. Dragon Flag:** 2x1 Full negative *(heaviest week -- crisp; stop immediately if form slips)*
 
 #### Wednesday
-**A. Power Clean -- 6x1 @ 82.5% (72.5 kg)** *(top intensity for the cycle; 2.5-3 min rest; abort immediately if catch quality or elbow/wrist discomfort rises -- this is the heaviest exposure before realization)*
+**A. Power Clean -- 4x1 @ 82.5% (72.5 kg)** *(cap at 4 quality singles to create a true knee-deload window; abort immediately if catch quality or elbow/wrist discomfort rises)*
 **B. Box Squat** -- 3x3 @ 72.5% (97.5 kg) *(HLM: 12.5 kg below Friday Back Squat)*
 **C. Paused Bench Press (medium grip)** -- 2x2 @ 75% (67.5 kg) *(crisp bar speed, 2+ reps in reserve)*
 
 #### Thursday *(Thursday Day Template -- Phase 2 modification, peak week)*
-- **A. Conditioning: Bike or SkiErg** at Week 8 row table work/rest structure -- **this is the default this week**, not a fallback. At peak load (6x1 @ 82.5% Power Clean Wednesday, 82.5% Back Squat Friday), removing rowing-specific grip and posterior-chain residual fatigue gives a clear benefit. Row only if elbow and knee feel completely fresh with zero fatigue concerns.
+- **A. Conditioning:** **Removed in Week 8** -- keep the skill and structural circuit only; do not add extra aerobic fatigue here.
 - **C. Skin-the-Cat:** 3x2-3 full with 3-4 s German hang hold *(same as Week 7; keep smooth)*
 - B-circuit unchanged: maintain joint exposure even at peak
 
 #### Friday
-**A. Hang Power Clean + 1 s pause just above knee** -- 3x(1+1) @ 70% (60 kg)
+**A. High-Hang Power Clean** -- 2x1 @ 55-60% (47.5-52.5 kg) *(Week B row-emphasis Friday: technique singles only)*
 **B. Back Squat** -- 4x3 @ 82.5% (110 kg)
 **C1. DB Low Box Step-Ups** -- 2x6/leg *(3-1-1-0; light; preserve knee quality for final phase)*
 **C2. Chest-Supported Row** -- 2x10-12 @ **25-30 kg** *(Phase 2 load; light and smooth)*
-**D. Seated Pike Pulses** -- 2x10-15 *(volume drop -- protect hip flexors at peak loading)*
+**D. Seated Pike Pulses** -- 1x10-15 *(volume drop -- protect hip flexors at peak loading)*
+**E. Jefferson Curl (light)** -- 1x8 *(replace one pike set)*
 
 ---
 

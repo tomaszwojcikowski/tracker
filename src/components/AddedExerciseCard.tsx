@@ -190,18 +190,11 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                 {/* Set buttons */}
                 <div className="flex flex-wrap gap-2">
                     {sets.map((isDone, i) => {
-                        const allComplete = completedSets === totalSets && totalSets > 0;
                         return (
                             <button
                                 key={`${exId}-set-${i}`}
                                 onClick={() => onToggleSet(exId, i, exercise.sets, exercise.rest ?? 90)}
-                                className={`set-button h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
-                                    isDone
-                                        ? allComplete
-                                            ? 'completed bg-sys-onSurface text-sys-surface'
-                                            : 'completed bg-sys-onSurface text-sys-surface'
-                                        : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar border-2 border-sys-outlineVariant'
-                                }`}
+                                className={`set-button h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${isDone ? 'completed bg-sys-onSurface text-sys-surface' : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar border-2 border-sys-outlineVariant'}`}
                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                             >
                                 {isDone ? (

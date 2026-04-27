@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 /**
  * Theme switching has been removed.
- * The app always renders using the new light theme (mockup design system).
+ * The app always renders using the plain-brutalist light theme.
  */
 export type ThemeId = 'light';
 
@@ -23,7 +23,7 @@ export const THEMES: ThemeInfo[] = [
     {
         id: 'light',
         name: 'Light Mode',
-        description: 'Vibrant light theme (mockup design system)',
+        description: 'Plain-brutalist light theme with warm paper surfaces and ink accents',
         isDark: false,
         preview: {
             primary: '#2f6b5e',

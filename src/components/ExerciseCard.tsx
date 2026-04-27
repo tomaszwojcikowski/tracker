@@ -222,7 +222,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 }) => {
     const completedSets = sets.filter((s) => s).length;
     const totalSets = sets.length;
-    const allComplete = completedSets === totalSets && totalSets > 0;
 
     const focusTimerButton = useMemo(() => {
         // FocusView uses ExerciseCard with collapse hidden; when timer controls are hidden we
@@ -821,13 +820,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                                             <button
                                                                 key={`${exId}-set-${i}`}
                                                                 onClick={() => onToggleSet(exId, i, defaultSets, restTime, sectionType, isEmom)}
-                                                                className={`set-button h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${
-                                                                    isDone
-                                                                        ? allComplete
-                                                                            ? 'completed bg-sys-onSurface text-sys-surface'
-                                                                            : 'completed bg-sys-onSurface text-sys-surface'
-                                                                        : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar border-2 border-sys-outlineVariant'
-                                                                }`}
+                                                                className={`set-button h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${isDone ? 'completed bg-sys-onSurface text-sys-surface' : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar border-2 border-sys-outlineVariant'}`}
                                                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                                                             >
                                                                 {isDone ? <Check size={18} /> : i + 1}

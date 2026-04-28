@@ -82,9 +82,9 @@ Box Squat is **always** programmed below the Monday-relative load of the paused/
 **Realization metric (Week 10):** unbroken **15 s straight-leg L-Sit** OR **forehead-to-knee active pike** for 3 controlled reps.
 
 ### Concurrent-Fatigue Sequencing Rule
-Heavy interval work the day before a heavy squat session is poor sequencing for a 45-year-old. From **Phase 2 onward** the conditioning days swap intensity:
+Heavy interval work the day before a heavy squat session is poor sequencing for a 45-year-old. In **Phase 2**, conditioning is sequenced as:
 - **Tuesday = harder conditioning** (intervals / 1,000 m work) -- 72 h before Friday squats
-- **Thursday = lighter aerobic** (Zone 1-2 steady) -- preserves Friday
+- **Thursday = lighter aerobic** (Zone 1-2 steady) in Week 5, then removed in Weeks 6-8 to preserve Friday squat performance
 
 This only applies Wks 5-8. Phase 1 (Wks 1-4) keeps the original Tue-easy / Thu-moderate pattern because top-end loads are still submaximal.
 
@@ -263,10 +263,10 @@ Structured aerobic/conditioning -- not passive recovery. Based on British Rowing
 - **Tuesday:** Lower-intensity technique row (RPE 5-6)
 - **Thursday:** Moderate-intensity conditioning row (RPE 6-7)
 
-**Phase 2 onward (Weeks 5-10) -- swap intensity per Concurrent-Fatigue Sequencing Rule:**
+**Phase 2 onward (Weeks 5-10) -- sequence conditioning per Concurrent-Fatigue Sequencing Rule:**
 - **Tuesday:** Harder conditioning -- 1,000 m / interval work (RPE 7-8). Sits 72 h before Friday squats.
-- **Thursday:** Lighter Zone 1-2 aerobic only (RPE 4-5). Preserves Friday squat performance.
-- Use the rowing schedule table below by **swapping the Tue and Thu columns for Weeks 5-8**
+- **Thursday:** Week 5 = lighter Zone 1-2 aerobic only (RPE 4-5); Weeks 6-8 = conditioning removed (joint/skill circuit only). Weeks 9-10 return to easy aerobic only.
+- Use the rowing schedule table below by **swapping the Tue and Thu columns for Week 5 only**; Weeks 6-8 Thursday conditioning is intentionally removed in the weekly prescriptions.
 
 - Warm up 5-10 min easy spin/row + dynamic mobility; cool down 3 min easy + hip flexor/calf/hamstring stretch
 - Stroke order: legs -> body -> arms (drive); arms -> body -> legs (recovery). Watch split/500 m, stay consistent
@@ -311,7 +311,7 @@ Thursday is the **shoulder-and-joint day**. Designed as a single integrated circ
 
 **The B-block is one integrated circuit, not five separate exercises.** Move from B1 -> B5 in order, rest, repeat. If a movement aggravates symptoms, skip it -- do not stop the circuit.
 
-**Phase 2 modification (Wks 5-8):** Slot A drops to easy aerobic only (Concurrent-Fatigue Sequencing Rule). The B-circuit stays the same -- joint maintenance does not deload. Slot C progresses depth/hold time.
+**Phase 2 modification (Wks 5-8):** Slot A is easy aerobic only in Week 5, then removed in Weeks 6-8 per weekly prescriptions. The B-circuit stays the same -- joint maintenance does not deload. Slot C progresses depth/hold time.
 
 **Deload (Wk 9):** B-circuit reduces to 1 round; skip Side Plank. **Realization (Wk 10):** B-circuit reduces to Face Pulls + Calf Raise + Banded ER only -- keep joints fresh.
 
@@ -518,7 +518,7 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 
 **HLM -- Bench Press:** Monday = Heavy pressing day (RPE floor 7). Wednesday secondary press = Medium/Light (RPE cap 7; target 70-75% of Monday's working weight). Never exceed this Wednesday ceiling -- it caps cumulative elbow tendon stress across the week. From Phase 2 the Wednesday slot rotates Floor Press -> Paused Bench (see Secondary Press Rotation Rule).
 
-**Conditioning Swap (Phase 2):** Per the Concurrent-Fatigue Sequencing Rule, Tuesday becomes the harder conditioning day (intervals / 1,000 m work) and Thursday becomes lighter Zone 1-2 aerobic. This puts hard intervals 72 h before Friday squats instead of 18-24 h.
+**Conditioning Swap (Phase 2):** Per the Concurrent-Fatigue Sequencing Rule, Tuesday becomes the harder conditioning day (intervals / 1,000 m work). Thursday is Week 5 light Zone 1-2 aerobic, then removed in Weeks 6-8 to preserve Friday squat performance. This puts hard intervals 72 h before Friday squats instead of 18-24 h and trims late-phase fatigue.
 
 **Power Clean Phase 2 Progression:** Weeks 5-6 use trimmed EMOM density (10-min x 1 @ 75% -> 8-min x 1 @ 80%); Week 7 shifts to a reduced doubles cluster (4x2 @ 80%) for positional demand; Week 8 caps the heavy exposures at **4 quality singles** @ 82.5% before the Week 10 realization at 85%. This creates a true mid-week knee-deload window while keeping the power stimulus. **Clean Pulls are cut Wks 5-8** -- the EMOM/cluster already saturates pulling stimulus and pairing them violates the Superset Rule.
 
@@ -760,6 +760,7 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 ## Quick Reference: Load Progression
 
 **Load note:** Barbell loads rounded to nearest **2.5 kg**.
+**Precedence note:** If any Quick Reference row conflicts with a weekly prescription, the **weekly prescription wins**.
 
 ### Bench Press
 | Week | Sets x Reps | % | kg |
@@ -798,10 +799,10 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 | 2 | 4x3 | 70% | 60 | Hang |
 | 3 | 4x3 | 70% | 60 | Floor |
 | 4 | 3x3 | 70% | 60 | Floor *(consolidation: -1 set, no load increase)* |
-| 5 | 12x1 *(EMOM)* | 75% | 65 | Prilepin min (12 reps); abort if bar speed drops |
-| 6 | 10x1 *(EMOM)* | 80% | 70 | Bigger intensity step than W5; abort if speed/quality falls |
-| 7 | 5x2 | 80% | 70 | Doubles cluster; positional demand without raising % |
-| 8 | 6x1 | 82.5% | 72.5 | Top intensity for cycle; 2.5-3 min rest |
+| 5 | 10x1 *(EMOM)* | 75% | 65 | Trimmed EMOM density; abort if bar speed drops |
+| 6 | 8x1 *(EMOM)* | 80% | 70 | Trimmed to preserve mid-week knee-deload window |
+| 7 | 4x2 | 80% | 70 | Reduced doubles cluster; full 2-3 min rest |
+| 8 | 4x1 | 82.5% | 72.5 | Cap at 4 quality singles; abort if catch quality slips |
 | 9 | 3x3 | 70% | 60 | *(deload)* |
 | 10 | 3x1 | 85% | 75 | True realization (1 warm-up double @ 80% first) |
 
@@ -811,11 +812,11 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 | 1 | Tall Clean (High Hang) | 3x2 | 40-50% (35-42.5 kg) | Fast elbows, vertical finish |
 | 2 | Tall Clean (High Hang) | 3x2 | 45-50% (40-42.5 kg) | Slightly more load if sharp |
 | 3 | Low-Hang Power Clean | 3x2 | 55% (47.5 kg) | Pull from above-knee |
-| 4 | Low-Hang Power Clean | 3x2 | 60% (52.5 kg) | Crisp catches only |
+| 4 | Low-Hang Power Clean | 3x2 | 55% (47.5 kg) | Consolidation: hold Week 3 load and keep catches crisp |
 | 5 | High-Hang Power Clean | 3x2 | 60% (52.5 kg) | Speed-strength primer |
-| 6 | High-Hang Power Clean | 3x2 | 65% (57.5 kg) | Quick turnover |
-| 7 | Hang + 1 s pause above knee | 3x(1+1) | 65% (57.5 kg) | Positional control |
-| 8 | Hang + 1 s pause above knee | 3x(1+1) | 70% (60 kg) | Last quality exposure before deload |
+| 6 | High-Hang Power Clean | 3x1 | 55-60% (47.5-52.5 kg) | Row-emphasis Friday: technique singles only |
+| 7 | Hang + 1 s pause above knee | 2x(1+1) | 65% (57.5 kg) | Keep patterning, reduced exposure |
+| 8 | High-Hang Power Clean | 2x1 | 55-60% (47.5-52.5 kg) | Row-emphasis Friday: technique singles only |
 | 9 | Tall Clean (High Hang) | 2x2 | 40-45% (35-40 kg) | *(deload)* |
 | 10 | High-Hang Power Clean | 2x1 | 50-60% (42.5-52.5 kg) | Speed primer only |
 

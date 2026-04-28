@@ -1755,7 +1755,7 @@
       {
         "phaseNumber": 2,
         "name": "Phase 2: Intensification",
-        "description": "Heavier loads, lower reps. Wednesday secondary press rotates to Floor Press (Wks 5-6) then Paused Bench (Wks 7-8). Tue conditioning gets harder; Thu drops to easy aerobic (Concurrent-Fatigue Sequencing Rule).",
+        "description": "Heavier loads, lower reps. Wednesday secondary press rotates to Floor Press (Wks 5-6) then Paused Bench (Wks 7-8). Tue conditioning gets harder; Thu is light aerobic in Week 5, then conditioning is removed in Weeks 6-8 (Concurrent-Fatigue Sequencing Rule).",
         "startWeek": 5,
         "endWeek": 8,
         "focus": "intensity",
@@ -1989,6 +1989,10 @@
                     "$ref": "ex-jefferson-curl-light"
                   },
                   {
+                    "$ref": "ex-friday-l-sit-hold",
+                    "notes": "Best L-Sit hold variation, 8-15 s. Add after Pike Pulses and Jefferson Curl per Friday Compression Block."
+                  },
+                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -2134,9 +2138,10 @@
               },
               {
                 "dayNumber": 4,
-                "name": "Thursday — Shoulder Balance + Structural Circuit (Phase 2: light aerobic)",
+                "name": "Thursday — Shoulder Balance + Structural Circuit (Phase 2: no conditioning)",
                 "type": "cardio",
                 "estimatedDuration": 40,
+                "description": "Conditioning removed in Week 6 to preserve Friday performance; keep the joint-balance circuit and skill work only.",
                 "exercises": [
                   {
                     "$ref": "ex-face-pulls"
@@ -2216,6 +2221,10 @@
                   },
                   {
                     "$ref": "ex-jefferson-curl-light"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold",
+                    "notes": "Best L-Sit hold variation, 8-15 s. Add after Pike Pulses and Jefferson Curl per Friday Compression Block."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -2365,9 +2374,10 @@
               },
               {
                 "dayNumber": 4,
-                "name": "Thursday — Shoulder Balance + Structural Circuit (Phase 2: light aerobic)",
+                "name": "Thursday — Shoulder Balance + Structural Circuit (Phase 2: no conditioning)",
                 "type": "cardio",
                 "estimatedDuration": 40,
+                "description": "Conditioning removed in Week 7 to preserve Friday performance; keep the joint-balance circuit and skill work only.",
                 "exercises": [
                   {
                     "$ref": "ex-face-pulls"
@@ -2447,6 +2457,10 @@
                   },
                   {
                     "$ref": "ex-jefferson-curl-light"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold",
+                    "notes": "Best L-Sit hold variation, 8-15 s. Add after Pike Pulses and Jefferson Curl per Friday Compression Block."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -2595,9 +2609,10 @@
               },
               {
                 "dayNumber": 4,
-                "name": "Thursday — Shoulder Balance + Structural Circuit (Phase 2: light aerobic)",
+                "name": "Thursday — Shoulder Balance + Structural Circuit (Phase 2: no conditioning)",
                 "type": "cardio",
                 "estimatedDuration": 40,
+                "description": "Conditioning removed in Week 8 to preserve Friday performance; keep the joint-balance circuit and skill work only.",
                 "exercises": [
                   {
                     "$ref": "ex-face-pulls"
@@ -2624,7 +2639,7 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Paused Hang Power Clean, Back Squat, Step-Ups",
+                "name": "Friday — High-Hang Power Clean, Back Squat, Step-Ups",
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
@@ -2635,7 +2650,7 @@
                     "$ref": "ex-hang-power-clean",
                     "loadMin": 47.5,
                     "loadMax": 52.5,
-                    "repsValue": 2,
+                    "repsValue": 1,
                     "sets": 2,
                     "rpe": 7,
                     "notes": "Week B row-emphasis Friday: High-Hang Power Clean 2x1 @ 55-60% (47.5-52.5 kg). Technique singles only."
@@ -2677,6 +2692,10 @@
                   },
                   {
                     "$ref": "ex-jefferson-curl-light"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold",
+                    "notes": "Best L-Sit hold variation, 8-15 s. Keep frequency even in peak week."
                   },
                   {
                     "$routine": "cooldown-friday"

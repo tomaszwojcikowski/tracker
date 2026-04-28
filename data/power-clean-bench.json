@@ -47,7 +47,7 @@
         "deload": "Cap RPE 6 (Week 9)",
         "realization": "RPE 7-9 (Week 10)"
       },
-      "boxSquatHLM": "Box Squat top set ~5 kg below the same-week Friday Back Squat top set",
+      "boxSquatHLM": "Box Squat top set programmed below the Friday Back Squat in every week. Phase 1 gap ≈ -5 kg; Phase 2 gap widens to -7.5 → -12.5 kg as Friday intensity climbs; Week 10 = -20 kg (runway clearance before realization).",
       "secondaryPressRotation": {
         "weeks1to4": "Swiss-bar Bench (or neutral-grip DB Bench)",
         "weeks5to6": "Floor Press (medium grip)",
@@ -119,18 +119,6 @@
             "loadUnit": "bodyweight",
             "notes": "Each direction",
             "coachingNotes": "Arms outstretched, hands relaxed. Slow, full circles in each direction. Goal is joint lubrication, not range of motion — keep it gentle, especially with any elbow tendinopathy history."
-          },
-          {
-            "exerciseName": "Eccentric Wrist Extensions",
-            "category": "warmup",
-            "sets": 2,
-            "repsValue": 15,
-            "repsType": "reps",
-            "isUnilateral": true,
-            "loadMin": 1,
-            "loadMax": 2,
-            "loadUnit": "kg",
-            "coachingNotes": "Forearm supported, palm down, holding 1-2 kg DB. Use the other hand to lift the weight to full wrist extension, then slowly lower over 3 s using only the working forearm. Tyler-twist style eccentric — the prep work that keeps elbow tendons happy."
           },
           {
             "exerciseName": "Hollow Body Hold",
@@ -439,7 +427,7 @@
         "loadUnit": "kg",
         "restSeconds": 180,
         "rpe": 7,
-        "notes": "Box at exactly parallel (~41-43 cm). True 1-second dead stop on box, no rocking. HLM rule: load stays ~5 kg below same-week Back Squat top set. 2.5-3 min rest in Wks 7-10.",
+        "notes": "Box at exactly parallel (~41-43 cm). True 1-second dead stop on box, no rocking. HLM rule: load programmed below Friday Back Squat in every week (gap by phase: -5 kg Phase 1, -7.5 to -12.5 kg Phase 2, -20 kg Wk 10). 2.5-3 min rest in Wks 7-10.",
         "coachingNotes": "Box height set to exactly parallel. Sit back onto the box with vertical shins, dead-stop for a true 1 s with no relaxing the trunk, then drive the floor away and stand. No rocking, no bouncing. The dead stop kills the stretch reflex — that's the point."
       },
       {
@@ -960,7 +948,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 1: 4 min @ 20 SPM, 3 min @ 22, 2 min @ 24. Sub Bike/SkiErg same work/rest if elbow/knee not 100%."
+                    "notes": "Week 1 technique row: 5 min easy warm-up + dynamic hip/shoulder mobility. Step-rate ladder: 4 min @ 20 SPM / 3 min @ 22 / 2 min @ 24 (9 min continuous, no rest between steps). Cool down 3 min easy. Total ~17 min. Sub Bike/SkiErg same structure if elbow/knee not 100%."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -1031,7 +1019,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-moderate",
-                    "notes": "Week 1: 1 min on / 1 min off x 3, rest 3 min, then x 3"
+                    "notes": "Week 1 intervals: 5 min easy warm-up. Block A: 1 min on (RPE 6-7, ~24-26 SPM) / 1 min off ×3. Rest 3 min easy. Block B: 1 min on / 1 min off ×3. Cool down 3 min easy. Total work: 6 × 1 min. Sub Bike/SkiErg if knee not 100%."
                   },
                   {
                     "$ref": "ex-face-pulls"
@@ -1103,9 +1091,17 @@
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 4,
+                    "sets": 3,
                     "repsMin": 10,
-                    "repsMax": 15
+                    "repsMax": 15,
+                    "notes": "Compression-Goal Rule: set count minus one."
+                  },
+                  {
+                    "$ref": "ex-jefferson-curl-light"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold",
+                    "notes": "Best L-Sit hold variation, 8-15 s. Per Friday Compression Block."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -1168,7 +1164,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 2: 4 min @ 20, 3 min @ 22, 2 min @ 24, 1 min @ 26"
+                    "notes": "Week 2 technique row: 5 min easy warm-up. Step-rate ladder: 4 min @ 20 / 3 min @ 22 / 2 min @ 24 / 1 min @ 26 (10 min continuous). Cool down 3 min easy. Total ~18 min."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -1232,7 +1228,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-moderate",
-                    "notes": "Week 2: 1 min on / 1 min off x 3, rest 2 min, then x 3"
+                    "notes": "Week 2 intervals: 5 min easy warm-up. Block A: 1 min on (RPE 6-7) / 1 min off ×3. Rest 2 min (shorter than Wk 1). Block B: 1 min on / 1 min off ×3. Cool down 3 min easy. Total work: 6 × 1 min."
                   },
                   {
                     "$ref": "ex-face-pulls"
@@ -1303,9 +1299,17 @@
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 4,
+                    "sets": 3,
                     "repsMin": 10,
-                    "repsMax": 15
+                    "repsMax": 15,
+                    "notes": "Compression-Goal Rule: set count minus one."
+                  },
+                  {
+                    "$ref": "ex-jefferson-curl-light"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold",
+                    "notes": "Best L-Sit hold variation, 8-15 s. Per Friday Compression Block."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -1368,7 +1372,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 3: 5 min @ 20, 4 min @ 22, 3 min @ 24, 2 min @ 26"
+                    "notes": "Week 3 technique row: 5 min easy warm-up. Step-rate ladder: 5 min @ 20 / 4 min @ 22 / 3 min @ 24 / 2 min @ 26 (14 min continuous — longest Phase 1 Tuesday session). Cool down 3 min easy. Total ~22 min."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -1448,7 +1452,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-moderate",
-                    "notes": "Week 3: 1 min on / 1 min off x 3, rest 3 min, then x 4"
+                    "notes": "Week 3 intervals: 5 min easy warm-up. Block A: 1 min on (RPE 6-7) / 1 min off ×3. Rest 3 min. Block B: 1 min on / 1 min off ×4 (one extra rep vs Wks 1-2). Cool down 3 min easy. Total work: 7 × 1 min."
                   },
                   {
                     "$ref": "ex-face-pulls"
@@ -1519,9 +1523,17 @@
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 4,
+                    "sets": 3,
                     "repsMin": 10,
-                    "repsMax": 15
+                    "repsMax": 15,
+                    "notes": "Compression-Goal Rule: set count minus one."
+                  },
+                  {
+                    "$ref": "ex-jefferson-curl-light"
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold",
+                    "notes": "Best L-Sit hold variation, 8-15 s. Per Friday Compression Block."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -1592,7 +1604,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 4: 4 min @ 22, 3 min @ 24, 2 min @ 26, 1 min @ 28"
+                    "notes": "Week 4 technique row: 5 min easy warm-up. Step-rate ladder starts at 22 SPM (Phase 1 consolidation): 4 min @ 22 / 3 min @ 24 / 2 min @ 26 / 1 min @ 28 (10 min continuous). Cool down 3 min easy. Total ~18 min."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -1663,7 +1675,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-moderate",
-                    "notes": "Week 4: 1 min on / 1 min off x 3, rest 2 min, then 30 s on / 1 min off x 4"
+                    "notes": "Week 4 intervals: 5 min easy warm-up. Block A: 1 min on (RPE 6-7) / 1 min off ×3. Rest 2 min. Block B: 30 s on (RPE 7-8, sprint effort) / 1 min off ×4. Cool down 3 min easy. Total work: 3×1 min + 4×30 s = 5 min."
                   },
                   {
                     "$ref": "ex-face-pulls"
@@ -1734,9 +1746,12 @@
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 3,
+                    "sets": 2,
                     "repsValue": 8,
-                    "notes": "Active Pike Compression 3x8."
+                    "notes": "Consolidation: one fewer set per Compression-Goal Rule."
+                  },
+                  {
+                    "$ref": "ex-jefferson-curl-light"
                   },
                   {
                     "$ref": "ex-friday-l-sit-hold",
@@ -1829,7 +1844,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-hard",
-                    "notes": "Week 5: 1,000 m, rest 3 min, 1,000 m"
+                    "notes": "Week 5: 5 min easy warm-up. 1,000 m (RPE 7-8), rest 3 min, 1,000 m. Cool down 3 min easy. Concurrent-Fatigue Rule: harder intervals on Tue, 72 h before Friday squats; do not exceed RPE 8."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -1873,7 +1888,7 @@
                     "repsValue": 1,
                     "sets": 10,
                     "rpe": 8,
-                    "notes": "EMOM 10 min x 1 rep @ 75% (65 kg). Trimmed to create a true mid-week knee-deload window. Abort if bar speed or catch quality falls."
+                    "notes": "EMOM 10 min x 1 rep @ 75% (65 kg). EMOM density format provides the mid-week knee-deload window. Abort if bar speed or catch quality falls."
                   },
                   {
                     "$ref": "ex-box-squat",
@@ -1907,7 +1922,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Phase 2 Thu: lighter Z1-Z2 aerobic only (RPE 4-5). 15-25 min steady."
+                    "notes": "Week 5 (Phase 2 Thu): 15-25 min easy Z1-Z2 steady (RPE 4-5). Nasal breathing throughout. Lighter than Phase 1 Thursdays — preserves Friday squat performance."
                   },
                   {
                     "$ref": "ex-face-pulls"
@@ -2066,7 +2081,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-hard",
-                    "notes": "Week 6: 1 min @ 26-28 / 1 min off x 3, rest 3 min, then 30 s @ 28+ / 1 min off x 4"
+                    "notes": "Week 6: 5 min easy warm-up. Block A: 1 min @ 26-28 SPM / 1 min off ×3, rest 3 min. Block B: 30 s @ 28+ SPM (sprint effort) / 1 min off ×4. Cool down 3 min easy."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2111,7 +2126,7 @@
                     "repsValue": 1,
                     "sets": 8,
                     "rpe": 8,
-                    "notes": "EMOM 8 min x 1 rep @ 80% (70 kg). Trimmed to create a true mid-week knee-deload window. Abort if bar speed or catch quality falls."
+                    "notes": "EMOM 8 min x 1 rep @ 80% (70 kg). 8-minute EMOM maintains the knee-deload window. Abort if bar speed or catch quality falls."
                   },
                   {
                     "$ref": "ex-box-squat",
@@ -2301,7 +2316,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-hard",
-                    "notes": "Week 7: 1,000 m @ 26-28, rest 2.5 min, 1,000 m. If fully recovered: 2,000 m instead."
+                    "notes": "Week 7: 5 min easy warm-up. 1,000 m @ 26-28 SPM (RPE 7-8), rest 2.5 min, 1,000 m. Only if both feel crisp and full recovery: 2,000 m attempt instead of the second 1,000 m. Cool down 3 min easy."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2537,7 +2552,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-hard",
-                    "notes": "Week 8: 2 x 1,000 m @ 26 SPM, 3 min rest. Do NOT attempt 2,000 m (peak loading week)."
+                    "notes": "Week 8: 5 min easy warm-up. 2 ×1,000 m @ 26 SPM, 3 min rest. Do NOT attempt 2,000 m (peak loading week — preserve CNS for Friday). Cool down 3 min easy."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2653,7 +2668,7 @@
                     "repsValue": 1,
                     "sets": 2,
                     "rpe": 7,
-                    "notes": "Week B row-emphasis Friday: High-Hang Power Clean 2x1 @ 55-60% (47.5-52.5 kg). Technique singles only."
+                    "notes": "Pre-realization Friday: High-Hang Power Clean 2x1 @ 55-60% (47.5-52.5 kg). Technique singles only; CNS-sparing before Wk 10 squat at 85%."
                   },
                   {
                     "$ref": "ex-back-squat",
@@ -2773,7 +2788,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Wk 9: 15-30 min easy. No intervals, 1,000 m, or 2,000 m efforts."
+                    "notes": "Wk 9 (deload): 15-30 min easy row/Bike/SkiErg @ RPE 4-5. No intervals, 1,000 m, or 2,000 m efforts. Aerobic-only, nasal breathing. Maintain base without adding fatigue."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2855,7 +2870,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Easy aerobic 15-20 min"
+                    "notes": "Wk 9 (deload Thu): 15-20 min easy aerobic @ RPE 4 max. No intervals. Realization prep: maintain aerobic base without adding any loading fatigue before Monday realization."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -2911,6 +2926,20 @@
                     "notes": "60-65% (80-87.5 kg). Deload; leave every set well in reserve."
                   },
                   {
+                    "$ref": "ex-seated-pike-pulses",
+                    "sets": 2,
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "notes": "Deload compression: reduce volume, never frequency per Compression-Goal Rule."
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold",
+                    "sets": 1,
+                    "repsMin": 6,
+                    "repsMax": 10,
+                    "notes": "Deload: 1 set, 6-10 s best variation."
+                  },
+                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -2956,10 +2985,10 @@
                   },
                   {
                     "$ref": "ex-parallette-l-sit",
-                    "sets": 3,
+                    "sets": 2,
                     "repsMin": 6,
                     "repsMax": 8,
-                    "notes": "Best-quality variation; stop before shaking."
+                    "notes": "2 maintenance sets; stop before shaking. Then 1 max-effort straight-leg L-Sit hold (target 15 s unbroken) OR 3 forehead-to-knee active pike folds — the compression realization metric."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2974,7 +3003,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Wk 10: 15-30 min easy"
+                    "notes": "Wk 10 (realization Tue): 15-30 min easy row/Bike/SkiErg. No structured work — prime the aerobic system without accumulating fatigue before Friday squat realization."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -3057,7 +3086,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Wk 10: 20-30 min easy row, Bike, or SkiErg (restorative)."
+                    "notes": "Wk 10 (realization Thu): 20-30 min easy row, Bike, or SkiErg (restorative). Maintains aerobic priming without adding fatigue before Friday Back Squat realization at 85%."
                   },
                   {
                     "$ref": "ex-face-pulls",

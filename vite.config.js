@@ -100,7 +100,9 @@ export default defineConfig({
       }
     },
     copyPublicDir: true,
-    // Increase chunk size warning limit since we're code-splitting
-    chunkSizeWarningLimit: 600
+    // Lower threshold to surface bundle regressions early. Vendor chunks are
+    // already split (firebase/automerge/framer/etc.); the main app bundle
+    // should stay well under this.
+    chunkSizeWarningLimit: 300
   }
 })

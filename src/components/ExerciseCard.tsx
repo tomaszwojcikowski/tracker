@@ -5,7 +5,7 @@
  * Handles exercise display, set toggling, weight input, and collapse state.
  */
 
-import React, { useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import {
     ChevronDown,
     ChevronUp,
@@ -158,7 +158,7 @@ export interface ExerciseCardProps {
 // COMPONENT
 // ============================================================================
 
-export const ExerciseCard: React.FC<ExerciseCardProps> = ({
+const ExerciseCardImpl: React.FC<ExerciseCardProps> = ({
     exId,
     name,
     effectiveName,
@@ -884,3 +884,13 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
         </div>
     );
 };
+
+ExerciseCardImpl.displayName = 'ExerciseCardImpl';
+
+/**
+ * Memoized ExerciseCard. Re-renders only when one of its many props changes
+ * (shallow compare). Parent components MUST stabilize callback props with
+ * `useCallback` for the memoization to be effective.
+ */
+export const ExerciseCard = memo(ExerciseCardImpl);
+

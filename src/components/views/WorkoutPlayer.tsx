@@ -4,7 +4,7 @@
  * Main workout execution view with exercise tracking, timers, and set logging.
  */
 
-import React, { useEffect, useMemo, useState, useCallback } from 'react';
+import React, { useEffect, useMemo, useState, useCallback, lazy, Suspense } from 'react';
 import { ActionBar } from '../ActionBar';
 import { CompactExerciseRow } from '../CompactExerciseRow';
 import { SupersetGroup } from '../SupersetGroup';
@@ -13,10 +13,17 @@ import { GestureHint } from '../GestureHint';
 import { BottomSheet } from '../BottomSheet';
 import { ConfirmDialog } from '../Dialog';
 import { Snackbar, useSnackbar } from '../Snackbar';
-import { ExerciseDetailModal } from '../modals';
-import { ExerciseOptionsModal } from '../modals/ExerciseOptionsModal';
+// Modals are lazy-loaded so their chunks are fetched only when opened.
+const ExerciseDetailModal = lazy(() =>
+    import('../modals').then((m) => ({ default: m.ExerciseDetailModal }))
+);
+const ExerciseOptionsModal = lazy(() =>
+    import('../modals/ExerciseOptionsModal').then((m) => ({ default: m.ExerciseOptionsModal }))
+);
+const ExerciseSelectorModal = lazy(() =>
+    import('../ExerciseSelectorModal').then((m) => ({ default: m.ExerciseSelectorModal }))
+);
 import { AddedExerciseCard } from '../AddedExerciseCard';
-import { ExerciseSelectorModal } from '../ExerciseSelectorModal';
 import { ExerciseCard } from '../ExerciseCard';
 import { FocusView } from '../FocusView';
 import { WorkoutSummary } from '../WorkoutSummary';
@@ -1795,7 +1802,7 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                                                     flowTimer.toggle(timeMinutes);
                                                 }}
                                                 haptic={haptic}
-                                                onToggleCollapse={(id) => exerciseCollapse.toggle(id)}
+                                                onToggleCollapse={exerciseCollapse.toggle}
                                                 onToggleSet={toggleSet}
                                                 onAddSet={addSet}
                                                 {...saveCallbacks}
@@ -1941,47 +1948,55 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     success
                 />
 
-                {/* Exercise Selector Modal */}
-                <ExerciseSelectorModal
-                    isOpen={showExerciseSelector}
-                    searchTerm={exerciseSearchTerm}
-                    debouncedSearchTerm={debouncedExerciseSearch}
-                    selectedFilter={selectedMuscleFilter}
-                    filteredExercises={filteredExercises}
-                    exerciseLibrary={exerciseLibrary}
-                    haptic={haptic}
-                    onSearchChange={setExerciseSearchTerm}
-                    onFilterChange={setSelectedMuscleFilter}
-                    onAddExercise={addExerciseToWorkout}
-                    onClose={() => {
-                        setShowExerciseSelector(false);
-                        setExerciseSearchTerm('');
-                    }}
-                />
+                {/* Exercise Selector Modal (lazy) */}
+                {showExerciseSelector && (
+                    <Suspense fallback={null}>
+                        <ExerciseSelectorModal
+                            isOpen={showExerciseSelector}
+                            searchTerm={exerciseSearchTerm}
+                            debouncedSearchTerm={debouncedExerciseSearch}
+                            selectedFilter={selectedMuscleFilter}
+                            filteredExercises={filteredExercises}
+                            exerciseLibrary={exerciseLibrary}
+                            haptic={haptic}
+                            onSearchChange={setExerciseSearchTerm}
+                            onFilterChange={setSelectedMuscleFilter}
+                            onAddExercise={addExerciseToWorkout}
+                            onClose={() => {
+                                setShowExerciseSelector(false);
+                                setExerciseSearchTerm('');
+                            }}
+                        />
+                    </Suspense>
+                )}
 
-                {/* Exercise History Modal - Using new ExerciseDetailModal */}
-                <ExerciseDetailModal
-                    isOpen={!!exerciseDetail}
-                    exerciseName={exerciseDetail?.displayName ?? ''}
-                    historyLookupName={exerciseDetail?.historyLookupName}
-                    originalName={exerciseDetail?.originalName}
-                    alternatives={exerciseDetail?.alternatives}
-                    isSwapped={exerciseDetail?.isSwapped}
-                    metadata={exerciseDetail?.metadata}
-                    exerciseId={exerciseDetail?.exerciseId}
-                    currentUserNotes={
-                        exerciseDetail?.exerciseId
-                            ? getExerciseLogEntry(logs, exerciseDetail.exerciseId).userNotes
-                            : undefined
-                    }
-                    onUpdateUserNotes={handleUpdateUserNotes}
-                    onSwapExercise={exerciseDetail?.alternatives?.length ? handleSwapFromDetails : undefined}
-                    selectedOption={exerciseDetail?.selectedOption}
-                    onClose={() => {
-                        haptic.tick();
-                        setExerciseDetail(null);
-                    }}
-                />
+                {/* Exercise History Modal - Using new ExerciseDetailModal (lazy) */}
+                {!!exerciseDetail && (
+                    <Suspense fallback={null}>
+                        <ExerciseDetailModal
+                            isOpen={!!exerciseDetail}
+                            exerciseName={exerciseDetail?.displayName ?? ''}
+                            historyLookupName={exerciseDetail?.historyLookupName}
+                            originalName={exerciseDetail?.originalName}
+                            alternatives={exerciseDetail?.alternatives}
+                            isSwapped={exerciseDetail?.isSwapped}
+                            metadata={exerciseDetail?.metadata}
+                            exerciseId={exerciseDetail?.exerciseId}
+                            currentUserNotes={
+                                exerciseDetail?.exerciseId
+                                    ? getExerciseLogEntry(logs, exerciseDetail.exerciseId).userNotes
+                                    : undefined
+                            }
+                            onUpdateUserNotes={handleUpdateUserNotes}
+                            onSwapExercise={exerciseDetail?.alternatives?.length ? handleSwapFromDetails : undefined}
+                            selectedOption={exerciseDetail?.selectedOption}
+                            onClose={() => {
+                                haptic.tick();
+                                setExerciseDetail(null);
+                            }}
+                        />
+                    </Suspense>
+                )}
 
                 {/* Alternatives Picker Modal */}
                 {showAlternativesFor && (
@@ -2046,21 +2061,23 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
                     </div>
                 )}
 
-                {/* Exercise Options Modal */}
+                {/* Exercise Options Modal (lazy) */}
                 {showOptionsFor && (
-                    <ExerciseOptionsModal
-                        isOpen={true}
-                        onClose={() => {
-                            haptic.tick();
-                            setShowOptionsFor(null);
-                        }}
-                        exerciseName={showOptionsFor.exerciseName}
-                        options={showOptionsFor.options}
-                        selectedOption={selectedExerciseOptions[showOptionsFor.exerciseId]}
-                        onSelectOption={(optionName) => {
-                            handleSelectExerciseOption(showOptionsFor.exerciseId, optionName);
-                        }}
-                    />
+                    <Suspense fallback={null}>
+                        <ExerciseOptionsModal
+                            isOpen={true}
+                            onClose={() => {
+                                haptic.tick();
+                                setShowOptionsFor(null);
+                            }}
+                            exerciseName={showOptionsFor.exerciseName}
+                            options={showOptionsFor.options}
+                            selectedOption={selectedExerciseOptions[showOptionsFor.exerciseId]}
+                            onSelectOption={(optionName) => {
+                                handleSelectExerciseOption(showOptionsFor.exerciseId, optionName);
+                            }}
+                        />
+                    </Suspense>
                 )}
 
                 {/* Notes Modal */}

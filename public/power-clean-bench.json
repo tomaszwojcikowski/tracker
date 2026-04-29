@@ -27,7 +27,6 @@
       "gymnastic-rings",
       "parallettes",
       "dumbbells",
-      "swiss-bar",
       "landmine",
       "resistance-bands",
       "rower",
@@ -49,17 +48,17 @@
       },
       "boxSquatHLM": "Box Squat top set programmed below the Friday Back Squat in every week. Phase 1 gap ≈ -5 kg; Phase 2 gap widens to -7.5 → -12.5 kg as Friday intensity climbs; Week 10 = -20 kg (runway clearance before realization).",
       "secondaryPressRotation": {
-        "weeks1to4": "Swiss-bar Bench (or neutral-grip DB Bench)",
-        "weeks5to6": "Floor Press (medium grip)",
+        "weeks1to6": "Neutral-grip DB Bench Press",
         "weeks7to8": "Paused Bench Press (medium grip)",
-        "weeks9to10": "Light Floor Press / Paused Bench"
+        "weeks9to10": "Light Neutral-grip DB Bench / Paused Bench"
       },
       "concurrentFatigue": {
         "weeks1to4": "Tue easy / Thu moderate",
         "weeks5to8": "Tue harder intervals / Thu Z1-2 only",
         "weeks9to10": "Both days easy aerobic"
       },
-      "compressionGoal": "Mon parallette L-Sit + Friday Pike Pulses + 2 sets best-variation L-Sit hold (8-15 s)"
+      "compressionGoal": "Mon parallette L-Sit + Friday Pike Pulses + 2 sets best-variation L-Sit hold (8-15 s)",
+      "ringPushUpContinuation": "Thursday controlled Ring Push-Up practice Weeks 1-9 after the structural circuit and before Skin-the-Cat; omit Week 10 to keep realization week fresh."
     },
     "routineTemplates": [
       {
@@ -344,21 +343,40 @@
         "coachingNotes": "Sit tall in a hard pike with hands by the hips, knees locked, toes up. Add a small external load with ankle weights or a light plate, then lift the heels and, if possible, the hips from the floor without leaning back. Treat each rep as an active compression contraction, not a momentum swing."
       },
       {
-        "id": "ex-pull-density-block",
-        "exerciseName": "Pull Support Density Block (Ring Rows)",
+        "id": "ex-pull-support-quality-rows",
+        "exerciseName": "Pull Support Quality Rows (Ring Rows)",
         "exerciseId": "ring_rows",
         "category": "accessory",
-        "sets": 1,
-        "repsType": "density",
-        "densityTimeMinutes": 4,
-        "densityRepsTotal": 18,
+        "sets": 2,
+        "repsType": "reps",
+        "repsMin": 8,
+        "repsMax": 10,
         "loadUnit": "bodyweight",
         "tempoEccentric": 1,
         "tempoPauseBottom": 0,
         "tempoConcentric": 1,
         "tempoPauseTop": 2,
-        "notes": "4 min: accumulate 16-20 crisp Ring Rows (rigid body line, 2-second chest-to-rings squeeze). Stop early if positions break.",
-        "coachingNotes": "Set the rings or barbell so a chest-to-rings finish takes ~1 s of pulling. Body stays a rigid plank (glutes squeezed, ribs down). Pull until the chest touches, hold a 2 s squeeze, then lower in 1 s. Aim for short, frequent micro-sets to accumulate the rep total — quality reps only, never grind a bad rep to hit the number."
+        "restSeconds": 75,
+        "rpe": 6,
+        "notes": "Phase 1 Monday pull support. Untimed quality rows after Ring Pull-Ups; stop 2-3 reps shy of fatigue.",
+        "coachingNotes": "Set the rings or barbell so a chest-to-rings finish takes ~1 s of pulling. Body stays a rigid plank (glutes squeezed, ribs down). Pull until the chest touches, hold a 2 s squeeze, then lower in 1 s. Rest 60-75 s between sets. This is scapular quality work after pull-ups, not a density challenge."
+      },
+      {
+        "id": "ex-chest-to-rings-top-hold-emom",
+        "exerciseName": "Chest-to-Rings Top Hold EMOM",
+        "exerciseId": "ring_rows",
+        "category": "accessory",
+        "sets": 4,
+        "repsType": "time",
+        "repsMin": 5,
+        "repsMax": 8,
+        "repsUnit": "seconds",
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "isEmom": true,
+        "rpe": 6,
+        "notes": "Phase 2 Monday pull support EMOM: 1 assisted chest-to-rings top hold per minute. Keep scapular depression clean and stop if elbows feel loaded.",
+        "coachingNotes": "Set the rings high enough that the top position is easy to reach. Start each minute with one chest-to-rings hold, squeeze shoulder blades down and back, keep ribs tucked, then step out and rest for the remainder of the minute. This reinforces the top position without adding row volume after pull-ups."
       },
       {
         "id": "ex-hang-power-clean",
@@ -484,44 +502,27 @@
         "coachingNotes": "Chest pinned to the pad, feet planted, dumbbells hanging straight down. Pull the elbows back and slightly out (~45°) until the handles touch the ribs; squeeze the shoulder blades together at the top, then lower under control. No torso rocking — if you need to swing, the load is too heavy."
       },
       {
-        "id": "ex-swiss-bar-bench",
-        "exerciseName": "Swiss-Bar Bench Press",
-        "exerciseId": "barbell_bench_press",
+        "id": "ex-neutral-grip-db-bench",
+        "exerciseName": "Neutral-Grip DB Bench Press",
+        "exerciseId": "dumbbell_bench_press",
         "category": "main",
         "sets": 3,
-        "repsValue": 6,
+        "repsValue": 8,
         "repsType": "reps",
         "loadUnit": "kg",
-        "restSeconds": 150,
+        "loadPerHand": true,
+        "restSeconds": 120,
         "tempoEccentric": 2,
         "tempoPauseBottom": 1,
         "tempoConcentric": 1,
         "tempoPauseTop": 0,
         "rpe": 7,
-        "notes": "Neutral grip, 1-second pause. Submaximal secondary press (stay 2-3 reps shy of failure). Sub: Neutral-Grip DB Bench 3x8.",
+        "notes": "Neutral-grip dumbbell bench, 1-second pause. Submaximal secondary press (stay 2-3 reps shy of failure).",
         "alternatives": [
-          "Neutral-Grip DB Bench Press",
-          "Football-Bar Bench"
+          "Incline DB Bench Press",
+          "Push-Ups on Handles"
         ],
-        "coachingNotes": "Neutral grip on the inner handles. Same arch and leg drive as the bench press; the neutral grip should keep the elbows at ~45° automatically. 1 s pause on the chest, smooth press. Stop the set 2-3 reps shy of failure — this is a secondary press for volume, not a rep test."
-      },
-      {
-        "id": "ex-floor-press",
-        "exerciseName": "Floor Press",
-        "exerciseId": "barbell_bench_press",
-        "category": "main",
-        "sets": 4,
-        "repsValue": 5,
-        "repsType": "reps",
-        "loadUnit": "kg",
-        "restSeconds": 180,
-        "tempoEccentric": 2,
-        "tempoPauseBottom": 2,
-        "tempoConcentric": 1,
-        "tempoPauseTop": 0,
-        "rpe": 7,
-        "notes": "Medium grip. Reduced ROM removes deep-elbow-flex range; protects medial tendon. Pause triceps on floor each rep. Min 2 min rest in Wks 7-10.",
-        "coachingNotes": "Lie on the floor with feet flat or legs straight, depending on what feels stable. Lower the bar until the back of the upper arm contacts the floor, pause 2 s without losing tension, then press. The reduced ROM removes the deep stretch on the medial elbow — keep the descent honest, no bouncing the triceps."
+        "coachingNotes": "Lie on a flat bench with dumbbells held in a neutral grip. Keep shoulder blades set, wrists stacked over elbows, and elbows 30-45° from the torso. Lower to a comfortable pain-free depth, pause 1 s, then press smoothly without letting the bells drift apart. Stop the set 2-3 reps shy of failure — this is a secondary press for volume, not a rep test."
       },
       {
         "id": "ex-paused-bench",
@@ -540,20 +541,6 @@
         "rpe": 8,
         "notes": "Medium grip, 2-second chest pause. Bench-specific without extra triceps/elbow stress. Min 2 min rest.",
         "coachingNotes": "Standard bench setup with a medium grip. Lower the bar to the lower sternum, pause 2 s with active tension (not collapsed on the chest), then press. The pause builds raw start strength without adding ROM stress. Min 2 min rest so the press is fresh, not fatigued."
-      },
-      {
-        "id": "ex-light-floor-press",
-        "exerciseName": "Floor Press (Light)",
-        "exerciseId": "barbell_bench_press",
-        "category": "main",
-        "sets": 3,
-        "repsValue": 5,
-        "repsType": "reps",
-        "loadUnit": "kg",
-        "restSeconds": 120,
-        "rpe": 6,
-        "notes": "Maintenance only. Stop 2-3 reps shy of failure.",
-        "coachingNotes": "Same setup as Floor Press but treat as maintenance. Move briskly with crisp pauses, stop 2-3 reps shy of failure. The job here is grease-the-groove for the bench pattern — not a hard session."
       },
       {
         "id": "ex-seated-pike-pulses",
@@ -811,6 +798,29 @@
         "coachingNotes": "Elbow tucked at the side, 90° bend. Anchor the band so it pulls across the body. Rotate the forearm out without letting the elbow drift away from the ribs. Slow and deliberate — this is rotator cuff endurance, not a strength move."
       },
       {
+        "id": "ex-ring-pushups",
+        "exerciseName": "Ring Push-Ups",
+        "exerciseId": "ring_pushups",
+        "category": "accessory",
+        "sets": 2,
+        "repsMin": 6,
+        "repsMax": 8,
+        "repsType": "reps",
+        "loadUnit": "bodyweight",
+        "restSeconds": 60,
+        "tempoEccentric": 2,
+        "tempoPauseBottom": 1,
+        "tempoConcentric": 1,
+        "tempoPauseTop": 0,
+        "rpe": 6,
+        "notes": "Thursday Ring Push-Up Continuation Rule. Controlled horizontal-push skill only; stop well before fatigue.",
+        "alternatives": [
+          "Incline Push-Ups",
+          "Parallette Push-Ups"
+        ],
+        "coachingNotes": "Set the rings high enough that every rep stays crisp. Hold a hollow-body plank, let the wrists rotate naturally, keep elbows 30-45° from the torso, lower for 2 s, pause for 1 s, then press smoothly. Stop when the rings wobble, depth shortens, or elbows flare."
+      },
+      {
         "id": "ex-tuesday-wrist-eccentric",
         "exerciseName": "Eccentric Wrist Extensions (Tuesday slot E)",
         "category": "accessory",
@@ -887,7 +897,7 @@
       {
         "phaseNumber": 1,
         "name": "Phase 1: Accumulation & Tendon Prep",
-        "description": "Controlled eccentric bench, paused squat quality, tissue-capacity rebuild while reintroducing straight-bar work. Friday: clean variation + squat + one assistance slot. Wednesday: Swiss-bar / neutral-DB secondary bench.",
+        "description": "Controlled eccentric bench, paused squat quality, tissue-capacity rebuild while reintroducing straight-bar work. Friday: clean variation + squat + one assistance slot. Wednesday: neutral-grip DB bench secondary bench.",
         "startWeek": 1,
         "endWeek": 4,
         "focus": "volume",
@@ -931,8 +941,10 @@
                     "repsMax": 12
                   },
                   {
-                    "$ref": "ex-pull-density-block",
-                    "densityRepsTotal": 18
+                    "$ref": "ex-pull-support-quality-rows",
+                    "repsMin": 8,
+                    "repsMax": 8,
+                    "notes": "2x8 Ring Rows. 2-second chest-to-rings squeeze; rest 60-75 s; stop 2-3 reps shy of fatigue."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -976,7 +988,7 @@
                 "name": "Wednesday — Clean, Box Squat, Secondary Bench",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "HPC 4x3 @ 65% + Box Squat 3x5 @ 62.5% + Swiss-Bar Bench",
+                "description": "HPC 4x3 @ 65% + Box Squat 3x5 @ 62.5% + Neutral-Grip DB Bench",
                 "exercises": [
                   {
                     "$routine": "warmup-mwf-base"
@@ -1000,10 +1012,10 @@
                     "notes": "62.5% (82.5 kg). HLM: 5 kg below Friday Back Squat."
                   },
                   {
-                    "$ref": "ex-swiss-bar-bench",
-                    "loadMin": 55,
-                    "loadMax": 55,
-                    "notes": "~60% Bench equivalent (55 kg). Neutral grip. Sub: Neutral-Grip DB Bench 3x8 @ 22.5 kg/hand."
+                    "$ref": "ex-neutral-grip-db-bench",
+                    "loadMin": 22.5,
+                    "loadMax": 22.5,
+                    "notes": "22.5 kg/hand. Neutral grip, 1-second pause. Stop 2-3 reps shy of failure."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1014,7 +1026,7 @@
                 "dayNumber": 4,
                 "name": "Thursday — Shoulder Balance + Structural Circuit (Day Template)",
                 "type": "cardio",
-                "estimatedDuration": 45,
+                "estimatedDuration": 50,
                 "description": "Phase 1 Thu moderate: 1 min on / 1 min off x 3, rest 3 min, then x 3",
                 "exercises": [
                   {
@@ -1038,6 +1050,12 @@
                   },
                   {
                     "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-ring-pushups",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "notes": "High-ring Ring Push-Ups. 2-1-1-0 tempo, RPE 6. Stop when stability changes."
                   },
                   {
                     "$ref": "ex-skin-the-cat-tuck"
@@ -1148,8 +1166,10 @@
                     "repsMax": 12
                   },
                   {
-                    "$ref": "ex-pull-density-block",
-                    "densityRepsTotal": 20
+                    "$ref": "ex-pull-support-quality-rows",
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "notes": "2x8-10 Ring Rows. Rigid body line, 2-second top pause; no density chasing."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1210,10 +1230,10 @@
                     "notes": "65% (87.5 kg). HLM: ~3 kg below Friday Back Squat."
                   },
                   {
-                    "$ref": "ex-swiss-bar-bench",
-                    "loadMin": 57.5,
-                    "loadMax": 57.5,
-                    "notes": "62.5% Bench equivalent (57.5 kg). Sub: Neutral-Grip DB Bench 3x8."
+                    "$ref": "ex-neutral-grip-db-bench",
+                    "loadMin": 22.5,
+                    "loadMax": 25,
+                    "notes": "22.5-25 kg/hand. Neutral grip. Stop 2-3 reps shy of failure."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1224,7 +1244,7 @@
                 "dayNumber": 4,
                 "name": "Thursday — Shoulder Balance + Structural Circuit (Day Template)",
                 "type": "cardio",
-                "estimatedDuration": 45,
+                "estimatedDuration": 50,
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-moderate",
@@ -1247,6 +1267,12 @@
                   },
                   {
                     "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-ring-pushups",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "notes": "High-ring Ring Push-Ups. 2-1-1-0 tempo, RPE 6. Keep every rep smooth."
                   },
                   {
                     "$ref": "ex-skin-the-cat-tuck"
@@ -1356,8 +1382,10 @@
                     "repsMax": 15
                   },
                   {
-                    "$ref": "ex-pull-density-block",
-                    "densityRepsTotal": 22
+                    "$ref": "ex-pull-support-quality-rows",
+                    "repsMin": 10,
+                    "repsMax": 12,
+                    "notes": "2x10-12 Ring Rows. Walk feet farther only if elbow tolerates; strict reps, no grip burn."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1432,12 +1460,12 @@
                     "notes": "67.5% (90 kg). HLM: 5 kg below Friday Back Squat."
                   },
                   {
-                    "$ref": "ex-floor-press",
-                    "loadMin": 60,
-                    "loadMax": 60,
-                    "repsValue": 5,
+                    "$ref": "ex-neutral-grip-db-bench",
+                    "loadMin": 25,
+                    "loadMax": 25,
+                    "repsValue": 8,
                     "sets": 3,
-                    "notes": "65% (60 kg). Reduced ROM; 1-second pause on floor."
+                    "notes": "25 kg/hand. Neutral grip, 1-second pause. Stop 2-3 reps shy of failure."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1448,7 +1476,7 @@
                 "dayNumber": 4,
                 "name": "Thursday — Shoulder Balance + Structural Circuit (Day Template)",
                 "type": "cardio",
-                "estimatedDuration": 45,
+                "estimatedDuration": 50,
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-moderate",
@@ -1471,6 +1499,12 @@
                   },
                   {
                     "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-ring-pushups",
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "notes": "Ring Push-Ups. Rings may move slightly lower only if shoulder position and elbow path stay clean."
                   },
                   {
                     "$ref": "ex-skin-the-cat-partial"
@@ -1586,10 +1620,10 @@
                     "notes": "Alternating single-leg; skill is low-fatigue, keep frequency."
                   },
                   {
-                    "$ref": "ex-pull-density-block",
-                    "densityRepsTotal": 18,
-                    "densityTimeMinutes": 3,
-                    "notes": "3 min: 15-18 Ring Row reps. Reduced density."
+                    "$ref": "ex-pull-support-quality-rows",
+                    "repsMin": 8,
+                    "repsMax": 8,
+                    "notes": "2x8 Ring Rows. Reduced volume; leave every rep crisp."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1655,12 +1689,12 @@
                     "notes": "67.5% (90 kg). HLM: 5 kg below Friday Back Squat; same as Week 3."
                   },
                   {
-                    "$ref": "ex-floor-press",
-                    "loadMin": 60,
-                    "loadMax": 60,
-                    "repsValue": 5,
-                    "sets": 3,
-                    "notes": "65% (60 kg). No progression - consolidate."
+                    "$ref": "ex-neutral-grip-db-bench",
+                    "loadMin": 22.5,
+                    "loadMax": 25,
+                    "repsValue": 8,
+                    "sets": 2,
+                    "notes": "22.5-25 kg/hand. Consolidation: one set fewer, easy reps."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1671,7 +1705,7 @@
                 "dayNumber": 4,
                 "name": "Thursday — Shoulder Balance + Structural Circuit (Day Template)",
                 "type": "cardio",
-                "estimatedDuration": 45,
+                "estimatedDuration": 50,
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-moderate",
@@ -1694,6 +1728,12 @@
                   },
                   {
                     "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-ring-pushups",
+                    "repsMin": 8,
+                    "repsMax": 10,
+                    "notes": "Ring Push-Ups. Same volume as Week 3; do not chase fatigue."
                   },
                   {
                     "$ref": "ex-skin-the-cat-partial"
@@ -1770,14 +1810,14 @@
       {
         "phaseNumber": 2,
         "name": "Phase 2: Intensification",
-        "description": "Heavier loads, lower reps. Wednesday secondary press rotates to Floor Press (Wks 5-6) then Paused Bench (Wks 7-8). Tue conditioning gets harder; Thu is light aerobic in Week 5, then conditioning is removed in Weeks 6-8 (Concurrent-Fatigue Sequencing Rule).",
+        "description": "Heavier loads, lower reps. Wednesday secondary press stays neutral-grip DB bench in Wks 5-6, then rotates to Paused Bench in Wks 7-8. Tue conditioning gets harder; Thu is light aerobic in Week 5, then conditioning is removed in Weeks 6-8 (Concurrent-Fatigue Sequencing Rule).",
         "startWeek": 5,
         "endWeek": 8,
         "focus": "intensity",
         "weeks": [
           {
             "weekNumber": 5,
-            "description": "Phase 2 entry - Floor Press introduces; Tue intervals begin",
+            "description": "Phase 2 entry - DB secondary press stays submaximal; Tue intervals begin",
             "volumeLevel": "moderate",
             "intensityLevel": "high",
             "days": [
@@ -1827,8 +1867,9 @@
                     "notes": "Progress to one-leg or straddle if tucked is solid"
                   },
                   {
-                    "$ref": "ex-pull-density-block",
-                    "densityRepsTotal": 24
+                    "$ref": "ex-chest-to-rings-top-hold-emom",
+                    "sets": 4,
+                    "notes": "4 min EMOM: 1 assisted Chest-to-Rings Top Hold x 5-8 s per minute."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1873,7 +1914,7 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean EMOM, Box Squat, Floor Press",
+                "name": "Wednesday — Power Clean EMOM, Box Squat, DB Bench",
                 "type": "strength",
                 "estimatedDuration": 60,
                 "description": "Power Clean EMOM density; clean pulls cut in Phase 2.",
@@ -1900,13 +1941,13 @@
                     "notes": "67.5% (90 kg). HLM: 7.5 kg below Friday Back Squat."
                   },
                   {
-                    "$ref": "ex-floor-press",
-                    "loadMin": 62.5,
-                    "loadMax": 62.5,
-                    "repsValue": 5,
+                    "$ref": "ex-neutral-grip-db-bench",
+                    "loadMin": 25,
+                    "loadMax": 27.5,
+                    "repsValue": 6,
                     "sets": 3,
                     "rpe": 7,
-                    "notes": "70% (62.5 kg). Medium grip; reduced ROM; cap RPE 7."
+                    "notes": "25-27.5 kg/hand. Neutral grip; bar speed crisp; cap RPE 7."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1917,7 +1958,7 @@
                 "dayNumber": 4,
                 "name": "Thursday — Shoulder Balance + Structural Circuit (Phase 2: light aerobic)",
                 "type": "cardio",
-                "estimatedDuration": 40,
+                "estimatedDuration": 45,
                 "description": "Phase 2 Thu: Z1-2 only - preserves Friday squat",
                 "exercises": [
                   {
@@ -1942,6 +1983,13 @@
                   },
                   {
                     "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-ring-pushups",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "rpe": 7,
+                    "notes": "Tempo Ring Push-Ups. 2-1-1-0, RPE 6-7; keep the dose submaximal."
                   },
                   {
                     "$ref": "ex-skin-the-cat-full"
@@ -2016,7 +2064,7 @@
           },
           {
             "weekNumber": 6,
-            "description": "Phase 2 build - Floor Press intensity, harder Tuesday intervals",
+            "description": "Phase 2 build - DB secondary press, harder Tuesday intervals",
             "volumeLevel": "moderate",
             "intensityLevel": "high",
             "days": [
@@ -2065,8 +2113,9 @@
                     "repsMax": 18
                   },
                   {
-                    "$ref": "ex-pull-density-block",
-                    "densityRepsTotal": 26
+                    "$ref": "ex-chest-to-rings-top-hold-emom",
+                    "sets": 4,
+                    "notes": "4 min EMOM: 1 assisted Chest-to-Rings Top Hold x 5-8 s per minute."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2112,7 +2161,7 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean EMOM, Box Squat, Floor Press",
+                "name": "Wednesday — Power Clean EMOM, Box Squat, DB Bench",
                 "type": "strength",
                 "estimatedDuration": 60,
                 "exercises": [
@@ -2138,13 +2187,13 @@
                     "notes": "70% (95 kg). HLM: 10 kg below Friday Back Squat."
                   },
                   {
-                    "$ref": "ex-floor-press",
-                    "loadMin": 65,
-                    "loadMax": 65,
-                    "repsValue": 5,
+                    "$ref": "ex-neutral-grip-db-bench",
+                    "loadMin": 27.5,
+                    "loadMax": 27.5,
+                    "repsValue": 6,
                     "sets": 3,
                     "rpe": 7,
-                    "notes": "72.5% (65 kg). Crisp; 2 reps in reserve."
+                    "notes": "27.5 kg/hand. Crisp; 2 reps in reserve. Use the nearest pair that keeps RPE <=7."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2155,7 +2204,7 @@
                 "dayNumber": 4,
                 "name": "Thursday — Shoulder Balance + Structural Circuit (Phase 2: no conditioning)",
                 "type": "cardio",
-                "estimatedDuration": 40,
+                "estimatedDuration": 45,
                 "description": "Conditioning removed in Week 6 to preserve Friday performance; keep the joint-balance circuit and skill work only.",
                 "exercises": [
                   {
@@ -2175,6 +2224,13 @@
                   },
                   {
                     "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-ring-pushups",
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "rpe": 7,
+                    "notes": "Tempo Ring Push-Ups. Use high rings if elbow or shoulder feels loaded."
                   },
                   {
                     "$ref": "ex-skin-the-cat-full"
@@ -2300,8 +2356,9 @@
                     "repsMax": 20
                   },
                   {
-                    "$ref": "ex-pull-density-block",
-                    "densityRepsTotal": 28
+                    "$ref": "ex-chest-to-rings-top-hold-emom",
+                    "sets": 3,
+                    "notes": "3 min EMOM: 1 Chest-to-Rings Top Hold x 5-8 s per minute."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2391,7 +2448,7 @@
                 "dayNumber": 4,
                 "name": "Thursday — Shoulder Balance + Structural Circuit (Phase 2: no conditioning)",
                 "type": "cardio",
-                "estimatedDuration": 40,
+                "estimatedDuration": 45,
                 "description": "Conditioning removed in Week 7 to preserve Friday performance; keep the joint-balance circuit and skill work only.",
                 "exercises": [
                   {
@@ -2411,6 +2468,12 @@
                   },
                   {
                     "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-ring-pushups",
+                    "repsMin": 5,
+                    "repsMax": 7,
+                    "notes": "Ring Push-Ups. Stop 3 reps shy of failure; use high rings if elbow or shoulder feels loaded."
                   },
                   {
                     "$ref": "ex-skin-the-cat-full",
@@ -2535,8 +2598,9 @@
                     "repsMax": 20
                   },
                   {
-                    "$ref": "ex-pull-density-block",
-                    "densityRepsTotal": 30
+                    "$ref": "ex-chest-to-rings-top-hold-emom",
+                    "sets": 3,
+                    "notes": "3 min EMOM: 1 Chest-to-Rings Top Hold x 5-8 s per minute."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2626,7 +2690,7 @@
                 "dayNumber": 4,
                 "name": "Thursday — Shoulder Balance + Structural Circuit (Phase 2: no conditioning)",
                 "type": "cardio",
-                "estimatedDuration": 40,
+                "estimatedDuration": 45,
                 "description": "Conditioning removed in Week 8 to preserve Friday performance; keep the joint-balance circuit and skill work only.",
                 "exercises": [
                   {
@@ -2646,6 +2710,12 @@
                   },
                   {
                     "$ref": "ex-banded-er"
+                  },
+                  {
+                    "$ref": "ex-ring-pushups",
+                    "repsMin": 5,
+                    "repsMax": 7,
+                    "notes": "Ring Push-Ups. Same as Week 7; no fatigue chasing."
                   },
                   {
                     "$ref": "ex-skin-the-cat-full"
@@ -2817,7 +2887,7 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean Deload, Box Squat, Light Floor Press",
+                "name": "Wednesday — Power Clean Deload, Box Squat, Light DB Bench",
                 "type": "strength",
                 "estimatedDuration": 50,
                 "exercises": [
@@ -2843,13 +2913,13 @@
                     "notes": "60% (80 kg). Light maintenance."
                   },
                   {
-                    "$ref": "ex-floor-press",
-                    "loadMin": 50,
-                    "loadMax": 50,
-                    "repsValue": 5,
+                    "$ref": "ex-neutral-grip-db-bench",
+                    "loadMin": 17.5,
+                    "loadMax": 20,
+                    "repsValue": 8,
                     "sets": 2,
                     "rpe": 6,
-                    "notes": "55% (50 kg). Light, easy."
+                    "notes": "17.5-20 kg/hand. Light, easy deload."
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
@@ -2866,7 +2936,7 @@
                 "dayNumber": 4,
                 "name": "Thursday — Shoulder Balance Maintenance (deload)",
                 "type": "cardio",
-                "estimatedDuration": 30,
+                "estimatedDuration": 35,
                 "exercises": [
                   {
                     "$ref": "ex-row-conditioning-easy",
@@ -2891,6 +2961,13 @@
                     "$ref": "ex-banded-er",
                     "sets": 1,
                     "notes": "Skip Side Plank in Wk 9"
+                  },
+                  {
+                    "$ref": "ex-ring-pushups",
+                    "sets": 1,
+                    "repsMin": 6,
+                    "repsMax": 8,
+                    "notes": "High-ring maintenance only. Keep it easy and stop far from fatigue."
                   },
                   {
                     "$ref": "ex-skin-the-cat-tuck",

@@ -2773,9 +2773,17 @@
     "id": "ring_pushups",
     "name": "Ring Push-Ups",
     "coachingNotes": "Choose variation based on current strength level and available equipment. All variations use 2-1-1-0 tempo: 2 seconds down, 1 second pause, 1 second up, no pause at top. Maintain rigid body position throughout - don't let hips sag or pike. Keep elbows at 45\u00b0 angle to protect shoulders. Progress by lowering surface height (incline), adding ROM (parallettes), or increasing instability (rings).",
-    "primaryMuscles": [],
-    "secondaryMuscles": [],
-    "equipment": [],
+    "primaryMuscles": [
+      "chest",
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "core"
+    ],
+    "equipment": [
+      "rings"
+    ],
     "category": "accessory",
     "isBodyweight": true,
     "variations": [],

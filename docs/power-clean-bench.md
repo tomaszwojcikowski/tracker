@@ -57,14 +57,13 @@ Assault/Echo Bike and SkiErg are always acceptable. Row only if symptom-free at 
 - **Thursday landmine press:** shoulder-support only; submaximal, neutral wrist, full reach; skip if symptoms elevated
 
 ### Secondary Press Rotation Rule (Wednesday)
-The athlete arrives from V26.9 with managed tennis elbow. Close-grip pressing concentrates load on the medial elbow tendon and contradicts the V26.9 neutral-grip ethos. The Wednesday secondary press therefore rotates by phase:
+The athlete arrives from V26.9 with managed tennis elbow. Close-grip pressing concentrates load on the medial elbow tendon and contradicts the V26.9 neutral-grip ethos. The Wednesday secondary press therefore rotates by block:
 
-| Phase | Default Movement | Rationale |
+| Weeks | Default Movement | Rationale |
 |-------|------------------|-----------|
-| Phase 1 (Wks 1-4) | **Swiss-bar Bench** (or **Neutral-grip DB Bench Press** if no Swiss bar) | Neutral wrist, low elbow stress; rebuilds press volume |
-| Phase 2 (Wks 5-6) | **Floor Press (medium grip)** | Reduced ROM removes the deep-elbow-flex range; protects the medial tendon |
-| Phase 2 (Wks 7-8) | **Paused Bench Press (medium grip)** | Bench-specific; no additional triceps/elbow stress beyond Monday |
-| Phase 3 (Wks 9-10) | Light Floor Press / Paused Bench | Maintenance only |
+| Weeks 1-6 | **Neutral-grip DB Bench Press** | Neutral wrist, low elbow stress, no specialty bar needed; rebuilds press volume while keeping Wednesday submaximal |
+| Weeks 7-8 | **Paused Bench Press (medium grip)** | Bench-specific; no additional triceps/elbow stress beyond Monday |
+| Weeks 9-10 | Light Neutral-grip DB Bench / Paused Bench | Maintenance only |
 
 **Substitution:** Close-Grip Bench may replace the rotated lift for a given session **only if** elbow pain has been 0/10 for 2 consecutive weeks AND the Monday bench session showed no elbow symptoms within 24 h. Default to the rotated lift.
 
@@ -102,6 +101,18 @@ Do not superset or interleave Power Cleans, Clean Pulls, or squats with fatiguin
 - **Substitute:** med-ball chest pass if elbow pain is above 2/10 or impact feels sketchy
 - **Skip** if elbow pain is above 2/10 that morning; Phase 1: shallowest crisp variation or med-ball substitute
 - Immediately before first loaded Bench set: **1x8-10 Scap Push-Up Plus** (slow and controlled)
+
+### Ring Push-Up Continuation Rule (Thursday -- Weeks 1-9)
+Ring Push-Ups stay in the plan as controlled horizontal-push skill work, not fatigue work. Place them on Thursday after the structural circuit and before Skin-the-Cat so Monday's heavy Bench and Wednesday's secondary press remain the priority.
+
+- **Weeks 1-2:** 2x6-8 high-ring Ring Push-Ups, RPE 6
+- **Weeks 3-4:** 2x8-10 Ring Push-Ups, rings slightly lower only if control is perfect
+- **Weeks 5-6:** 2x6-8 tempo Ring Push-Ups, RPE 6-7
+- **Weeks 7-8:** 2x5-7 Ring Push-Ups, stop 3 reps shy of failure; use high rings if elbow or shoulder feels loaded
+- **Week 9:** 1x6-8 high-ring maintenance only
+- **Week 10:** omit to keep realization week fresh
+
+Use a **2-1-1-0 tempo**, hollow-body plank, neutral wrist rotation, and elbows ~30-45 degrees from the torso. Regress to incline/parallette push-ups if ring stability, elbow symptoms, or shoulder position is not clean. Stop the set as soon as the rings wobble, depth shortens, or elbows flare.
 
 ### Structural Balance Circuit Rule (Thursday -- Weeks 1-8)
 Fold structural movements **into** the Face Pull + Landmine Press superset as active-recovery fillers. Total ~10 min:
@@ -141,7 +152,7 @@ Mon/Wed/Fri fit inside **60 minutes including warm-up, ramp, and cooldown**. Bar
 **Phase 2 Fridays (Weeks 7-8):** Complete A-B first; add C only if on pace to finish within the cap.
 
 ### Set Structure Variation Rule
-Straight sets default for heavy Bench, Back Squat, Box Squat, and Wednesday bench work. Density blocks and EMOMs vary delivery without changing intended stress -- stop early if bar speed, position, or joint tolerance worsens.
+Straight sets default for heavy Bench, Back Squat, Box Squat, Wednesday bench work, and post-pull-up Ring Rows. EMOMs vary delivery without changing intended stress -- stop early if bar speed, position, or joint tolerance worsens.
 
 ### Wednesday Rest-Control Rule (Weeks 7-10)
 Box Squats: **2.5-3 minutes** between sets. Secondary bench: **minimum 2 minutes**. Add 30-60 s if bar speed slows before changing load.
@@ -212,7 +223,7 @@ Ramp principle: joint positions -> unloaded pattern rehearsal -> 1-2 neural prim
 
 **Phase 1 (Weeks 1-4) -- add:** PVC Muscle Clean | Tall Clean pull-under rehearsal | Deep Goblet Pry or paused bodyweight squat | Seated Pike Reach with active toe lift
 
-**Phase 2 (Weeks 5-8) -- shift to speed:** Jump Shrug or clean extension from power position | Fast-stand bodyweight squat | Empty-bar bench rehearsal matching Wednesday's secondary press (Floor Press setup or paused bench groove) | Seated Pike Pulses (low fatigue)
+**Phase 2 (Weeks 5-8) -- shift to speed:** Jump Shrug or clean extension from power position | Fast-stand bodyweight squat | Light DB bench setup or paused bench groove | Seated Pike Pulses (low fatigue)
 
 **Phase 3 (Weeks 9-10) -- strip to:** Short ankle + front-rack reset | 1-2 quick clean extension rehearsals | One paused bodyweight squat | One short empty-bar bench rehearsal | Brief pike compression
 
@@ -305,13 +316,14 @@ Thursday is the **shoulder-and-joint day**. Designed as a single integrated circ
 | B3 | Single-Leg Calf Raise | 12/leg, slow | Goose-foot + ankle stability |
 | B4 | Banded External Rotation | 12/side, light | Rotator cuff endurance |
 | B5 | Side Plank | 20 s/side Wks 1-4; 30 s/side Wks 5-8 | Lateral trunk stability |
-| **C** | Skill: Skin-the-Cat | Per Skill Work Rules table | Straight-arm mobility; offsets pressing stiffness |
-| **D** | T-Spine Mobility: Side-Lying Open Book | 8/side, slow | Pulling/pressing range |
+| **C** | Ring Push-Up Practice | Per Ring Push-Up Continuation Rule | Horizontal-push stability without fatigue |
+| **D** | Skill: Skin-the-Cat | Per Skill Work Rules table | Straight-arm mobility; offsets pressing stiffness |
+| **E** | T-Spine Mobility: Side-Lying Open Book | 8/side, slow | Pulling/pressing range |
 | Cooldown | 3 min easy spin + 30 s/side doorway pec stretch + 15 band pull-aparts | | |
 
 **The B-block is one integrated circuit, not five separate exercises.** Move from B1 -> B5 in order, rest, repeat. If a movement aggravates symptoms, skip it -- do not stop the circuit.
 
-**Phase 2 modification (Wks 5-8):** Slot A is easy aerobic only in Week 5, then removed in Weeks 6-8 per weekly prescriptions. The B-circuit stays the same -- joint maintenance does not deload. Slot C progresses depth/hold time.
+**Phase 2 modification (Wks 5-8):** Slot A is easy aerobic only in Week 5, then removed in Weeks 6-8 per weekly prescriptions. The B-circuit stays the same -- joint maintenance does not deload. Ring Push-Ups stay submaximal; Skin-the-Cat progresses depth/hold time.
 
 **Deload (Wk 9):** B-circuit reduces to 1 round; skip Side Plank. **Realization (Wk 10):** B-circuit reduces to Face Pulls + Calf Raise + Banded ER only -- keep joints fresh.
 
@@ -337,7 +349,7 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 
 | Pattern | Exercise(s) |
 |---------|-------------|
-| Horizontal Push | Bench Press, Floor Press, Swiss-bar / Neutral-DB Bench, Paused Bench Press |
+| Horizontal Push | Bench Press, Neutral-grip DB Bench Press, Paused Bench Press, Ring Push-Ups |
 | Angled Vertical Press | Half-Kneeling Landmine Press |
 | Horizontal Pull | Chest-Supported Rows (Fri), DB Rows (light Mon Wks 9-10) |
 | Vertical Pull | Ring Pull-Ups |
@@ -376,7 +388,7 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 **A. Bench Press** -- 4x8 @ 65% (57.5 kg) -- *2-second eccentric*
 **B. Ring Pull-Ups** -- 3x5-8 BW *(3-1-X-0 tempo)*
 **C. Parallette L-Sit** -- 4x8-12 s tucked
-**D. Pull Support Density Block** -- 4 min: accumulate **16-20 Ring Row reps** in crisp sets *(2-second chest-to-rings squeeze)*
+**D. Pull Support Quality Rows** -- 2x8 Ring Rows *(2-second chest-to-rings squeeze; rest 60-75 s; stop 2-3 reps shy of fatigue)*
 
 #### Tuesday *(Tuesday Day Template)*
 - **A. Conditioning:** Row Week 1 prescription (or Bike/SkiErg work-rest substitute)
@@ -387,11 +399,12 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 **A. Hang Power Clean** -- 4x3 @ 65% (57.5 kg) -- *hook grip*
 **B. Clean Pulls** -- 2x3 @ 80% (70 kg) *(explosive extension ABOVE knee; finish tall)*
 **C. Box Squat** -- 3x5 @ 62.5% (82.5 kg) *(HLM: 5 kg below Friday Back Squat)*
-**D. Swiss-bar Bench Press** -- 3x6 @ ~60% Bench equivalent (55 kg) *(neutral grip, 1-second pause; sub: neutral-grip DB Bench 3x8 @ 22.5 kg/hand)*
+**D. Neutral-grip DB Bench Press** -- 3x8 @ 22.5 kg/hand *(neutral grip, 1-second pause; stop 2-3 reps shy of failure)*
 
 #### Thursday *(Thursday Day Template)*
 - **A. Conditioning:** Row Week 1 prescription (or substitute)
-- **C. Skin-the-Cat:** 3x2 Tuck only
+- **C. Ring Push-Up Practice:** 2x6-8 high-ring Ring Push-Ups *(2-1-1-0; RPE 6)*
+- **D. Skin-the-Cat:** 3x2 Tuck only
 - All other slots per template
 
 #### Friday
@@ -413,7 +426,7 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 **A. Bench Press** -- 4x7 @ 67.5% (60 kg) -- *2-second eccentric*
 **B. Ring Pull-Ups** -- 3x5-8 BW *(3-1-X-0)*
 **C. Parallette L-Sit** -- 4x10-12 s
-**D. Pull Support Density Block** -- 4 min: **18-22 Ring Row reps** *(rigid body line, 2-second top pause)*
+**D. Pull Support Quality Rows** -- 2x8-10 Ring Rows *(rigid body line, 2-second top pause; no density chasing)*
 
 #### Tuesday *(Tuesday Day Template)*
 - **A. Conditioning:** Row Week 2 prescription (or substitute)
@@ -423,11 +436,12 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 #### Wednesday
 **A. Hang Power Clean** -- 4x3 @ 70% (60 kg)
 **B. Box Squat** -- 3x5 @ 65% (87.5 kg) *(HLM: ~3 kg below Friday Back Squat)*
-**C. Swiss-bar Bench Press** -- 3x6 @ 62.5% Bench equivalent (57.5 kg) *(neutral grip; sub: neutral-grip DB Bench 3x8)*
+**C. Neutral-grip DB Bench Press** -- 3x8 @ 22.5-25 kg/hand *(neutral grip; stop 2-3 reps shy of failure)*
 
 #### Thursday *(Thursday Day Template)*
 - **A. Conditioning:** Row Week 2 prescription (or substitute)
-- **C. Skin-the-Cat:** 3x2 Tuck *(build comfort in inverted hang)*
+- **C. Ring Push-Up Practice:** 2x6-8 high-ring Ring Push-Ups *(2-1-1-0; RPE 6)*
+- **D. Skin-the-Cat:** 3x2 Tuck *(build comfort in inverted hang)*
 - All other slots per template
 
 #### Friday
@@ -449,7 +463,7 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 **A. Bench Press** -- 4x6 @ 70% (62.5 kg) -- *2-second eccentric*
 **B. Ring Pull-Ups** -- 4x6-8 BW *(3-1-X-0)*
 **C. Parallette L-Sit** -- 4x8-10 s alternating single-leg extensions
-**D. Pull Support Density Block** -- 4 min: **18-24 Ring Row reps** *(walk feet farther if elbow tolerates; strict reps)*
+**D. Pull Support Quality Rows** -- 2x10-12 Ring Rows *(walk feet farther only if elbow tolerates; strict reps, no grip burn)*
 
 #### Tuesday *(Tuesday Day Template)*
 - **A. Conditioning:** Row Week 3 prescription (or substitute)
@@ -460,11 +474,12 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 **A. Power Clean (floor)** -- 4x3 @ 70% (60 kg)
 **B. Clean Pulls** -- 2x3 @ 85% (75 kg)
 **C. Box Squat** -- 3x5 @ 67.5% (90 kg) *(HLM: 5 kg below Friday Back Squat)*
-**D. Floor Press (medium grip)** -- 3x5 @ 65% (60 kg) *(reduced ROM = lower elbow stress; 1-second pause on the floor)*
+**D. Neutral-grip DB Bench Press** -- 3x8 @ 25 kg/hand *(neutral grip, 1-second pause; stop 2-3 reps shy of failure)*
 
 #### Thursday *(Thursday Day Template)*
 - **A. Conditioning:** Row Week 3 prescription (or substitute)
-- **C. Skin-the-Cat:** 3x2-3 Tuck to partial German hang *(lower to mild anterior stretch, hold 2 s, pull back; stop before full German hang)*
+- **C. Ring Push-Up Practice:** 2x8-10 Ring Push-Ups *(rings slightly lower only if control is perfect)*
+- **D. Skin-the-Cat:** 3x2-3 Tuck to partial German hang *(lower to mild anterior stretch, hold 2 s, pull back; stop before full German hang)*
 - All other slots per template
 
 #### Friday
@@ -486,7 +501,7 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 **A. Bench Press** -- 3x6 @ 70% (62.5 kg) -- *2-second eccentric* *(consolidation: one set fewer than Week 3; no load increase)*
 **B. Ring Pull-Ups** -- 3x6-8 BW *(3-1-X-0; one set fewer than Week 3)*
 **C. Parallette L-Sit** -- 4x10-12 s alternating single-leg *(skill is low-fatigue; keep frequency)*
-**D. Pull Support Density Block** -- 3 min: **15-18 Ring Row reps** *(reduced density)*
+**D. Pull Support Quality Rows** -- 2x8 Ring Rows *(reduced volume; leave every rep crisp)*
 
 #### Tuesday *(Tuesday Day Template)*
 - **A. Conditioning:** Row Week 4 prescription (or substitute)
@@ -496,11 +511,12 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 #### Wednesday
 **A. Power Clean (floor)** -- 3x3 @ 70% (60 kg) *(consolidation: one set fewer; same load as Week 3)*
 **B. Box Squat** -- 3x5 @ 67.5% (90 kg) *(HLM: 5 kg below Friday Back Squat; same as Week 3)*
-**C. Floor Press (medium grip)** -- 3x5 @ 65% (60 kg) *(no progression -- consolidate)*
+**C. Neutral-grip DB Bench Press** -- 2x8 @ 22.5-25 kg/hand *(consolidation: one set fewer; keep it easy)*
 
 #### Thursday *(Thursday Day Template)*
 - **A. Conditioning:** Row Week 4 prescription (or substitute)
-- **C. Skin-the-Cat:** 3x2-3 Tuck to partial German hang *(earn a little more depth if stretch feels clean)*
+- **C. Ring Push-Up Practice:** 2x8-10 Ring Push-Ups *(same volume as Week 3; do not chase fatigue)*
+- **D. Skin-the-Cat:** 3x2-3 Tuck to partial German hang *(earn a little more depth if stretch feels clean)*
 - All other slots per template
 
 #### Friday
@@ -516,7 +532,7 @@ Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or
 
 ## PHASE 2: Intensification (Weeks 5-8)
 
-**Focus:** Normal tempos, reduced accessory volume, strength in the 3-5 rep range.
+**Focus:** Normal tempos, reduced accessory volume, strength in the 3-6 rep range.
 
 > **Tempo change:** Drop the 2-second Bench eccentric and 1-second Back Squat pause from Week 5. Controlled but normal bar speed.
 
@@ -524,7 +540,7 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 
 **HLM Structure:** Box Squat is held below Friday Back Squat **in every week** (see Box Squat HLM Rule). The gap widens through Phase 2 -- Heavy (Fri Back Squat), Medium (Wed Box Squat), Light (Mon upper-dominant). Lowers cumulative knee stress, improves Friday performance; especially effective for masters lifters.
 
-**HLM -- Bench Press:** Monday = Heavy pressing day (RPE floor 7). Wednesday secondary press = Medium/Light (RPE cap 7; target 70-75% of Monday's working weight). Never exceed this Wednesday ceiling -- it caps cumulative elbow tendon stress across the week. From Phase 2 the Wednesday slot rotates Floor Press -> Paused Bench (see Secondary Press Rotation Rule).
+**HLM -- Bench Press:** Monday = Heavy pressing day (RPE floor 7). Wednesday secondary press = Medium/Light (RPE cap 7; target 70-75% of Monday's working stress). Never exceed this Wednesday ceiling -- it caps cumulative elbow tendon stress across the week. From Phase 2 the Wednesday slot rotates Neutral-grip DB Bench -> Paused Bench (see Secondary Press Rotation Rule).
 
 **Conditioning Swap (Phase 2):** Per the Concurrent-Fatigue Sequencing Rule, Tuesday becomes the harder conditioning day (intervals / 1,000 m work). Thursday is Week 5 light Zone 1-2 aerobic, then removed in Weeks 6-8 to preserve Friday squat performance. This puts hard intervals 72 h before Friday squats instead of 18-24 h and trims late-phase fatigue.
 
@@ -558,11 +574,12 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 #### Wednesday
 **A. Power Clean -- EMOM 10 min x 1 rep @ 75% (65 kg)** *(EMOM density format provides the knee-deload window; abort if bar speed drops or catch quality falls)*
 **B. Box Squat** -- 3x4 @ 67.5% (90 kg) *(HLM: 7.5 kg below Friday Back Squat)*
-**C. Floor Press (medium grip)** -- 3x5 @ 70% (62.5 kg) *(reduced ROM; bar speed crisp; cap RPE 7)*
+**C. Neutral-grip DB Bench Press** -- 3x6 @ 25-27.5 kg/hand *(neutral grip; bar speed crisp; cap RPE 7)*
 
 #### Thursday *(Thursday Day Template -- Phase 2 modification)*
 - **A. Conditioning:** Row Week 5 prescription -- light Zone 1-2 only (Concurrent-Fatigue Sequencing Rule)
-- **C. Skin-the-Cat:** 3x2-3 full Skin-the-Cat *(full German hang; 2-3 s hold; smooth descent)*
+- **C. Ring Push-Up Practice:** 2x6-8 tempo Ring Push-Ups *(2-1-1-0; RPE 6-7)*
+- **D. Skin-the-Cat:** 3x2-3 full Skin-the-Cat *(full German hang; 2-3 s hold; smooth descent)*
 - B-circuit unchanged: Side Plank advances to 30 s/side
 
 #### Friday
@@ -596,11 +613,12 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 #### Wednesday
 **A. Power Clean -- EMOM 8 min x 1 rep @ 80% (70 kg)** *(8-minute EMOM maintains the knee-deload window; abort if speed or catch quality falls)*
 **B. Box Squat** -- 3x3 @ 70% (95 kg) *(HLM: 10 kg below Friday Back Squat)*
-**C. Floor Press (medium grip)** -- 3x5 @ 72.5% (65 kg) *(crisp; 2 reps in reserve)*
+**C. Neutral-grip DB Bench Press** -- 3x6 @ 27.5 kg/hand *(crisp; 2 reps in reserve; use the nearest pair that keeps RPE <=7)*
 
 #### Thursday *(Thursday Day Template -- Phase 2 modification)*
 - **A. Conditioning:** **Removed in Week 6** -- keep this as a pure shoulder-balance + mobility day to preserve Friday performance
-- **C. Skin-the-Cat:** 3x2-3 full *(add 0.5-1 s to German hang if shoulder feels open)*
+- **C. Ring Push-Up Practice:** 2x6-8 tempo Ring Push-Ups *(use high rings if elbow or shoulder feels loaded)*
+- **D. Skin-the-Cat:** 3x2-3 full *(add 0.5-1 s to German hang if shoulder feels open)*
 
 #### Friday
 **A. High-Hang Power Clean** -- 3x1 @ 55-60% (47.5-52.5 kg) *(Week 6 row-emphasis Friday: technique singles only)*
@@ -637,7 +655,8 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 
 #### Thursday *(Thursday Day Template -- Phase 2 modification)*
 - **A. Conditioning:** **Removed in Week 7** -- Tuesday is the primary conditioning day, so Thursday stays joint-focused and non-fatiguing.
-- **C. Skin-the-Cat:** 3x2-3 full with 3-4 s German hang hold *(breathe into stretch; do not rush pull-back)*
+- **C. Ring Push-Up Practice:** 2x5-7 Ring Push-Ups *(stop 3 reps shy of failure; high rings if needed)*
+- **D. Skin-the-Cat:** 3x2-3 full with 3-4 s German hang hold *(breathe into stretch; do not rush pull-back)*
 
 #### Friday
 **A. Hang Power Clean + 1 s pause just above knee** -- 2x(1+1) @ 65% (57.5 kg) *(keep patterning, drop one exposure)*
@@ -674,7 +693,8 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 
 #### Thursday *(Thursday Day Template -- Phase 2 modification, peak week)*
 - **A. Conditioning:** **Removed in Week 8** -- keep the skill and structural circuit only; do not add extra aerobic fatigue here.
-- **C. Skin-the-Cat:** 3x2-3 full with 3-4 s German hang hold *(same as Week 7; keep smooth)*
+- **C. Ring Push-Up Practice:** 2x5-7 Ring Push-Ups *(same as Week 7; no fatigue chasing)*
+- **D. Skin-the-Cat:** 3x2-3 full with 3-4 s German hang hold *(same as Week 7; keep smooth)*
 - B-circuit unchanged: maintain joint exposure even at peak
 
 #### Friday
@@ -714,14 +734,15 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 #### Wednesday
 **A. Power Clean** -- 3x3 @ 70% (60 kg)
 **B. Box Squat** -- 2x5 @ 60% (80 kg)
-**C. Floor Press (medium grip)** -- 2x5 @ 55% (50 kg) *(light, easy)*
+**C. Neutral-grip DB Bench Press** -- 2x8 @ 17.5-20 kg/hand *(light, easy)*
 **D. Seated Pike Pulses** -- 2x8-10
 
 #### Thursday *(Thursday Day Template -- Deload)*
 - **A. Conditioning:** 15-20 min easy row, Bike, or SkiErg *(no intervals)*
 - **B. Maintenance circuit (1 round only):** 12 Face Pulls + 8/side Landmine Press + Calf Raise 12/leg + Banded ER 12/side *(skip Side Plank this week)*
-- **C. Skin-the-Cat:** 2x2 Tuck only
-- Skip slot D mobility -- recover
+- **C. Ring Push-Up Practice:** 1x6-8 high-ring maintenance only
+- **D. Skin-the-Cat:** 2x2 Tuck only
+- Skip slot E mobility -- recover
 
 #### Friday
 **A. Tall Clean from High Hang** -- 2x2 @ 40-45% (35-40 kg) *(technique only)*
@@ -762,7 +783,7 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 #### Thursday *(Thursday Day Template -- Realization)*
 - **A. Conditioning:** 20-30 min easy row, Bike, or SkiErg *(restorative)*
 - **B. Joint-freshness circuit (1-2 rounds):** Face Pulls 12 + Calf Raise 12/leg + Banded ER 12/side *(drop Landmine Press and Side Plank -- prioritize Friday squat readiness)*
-- **C. Skin-the-Cat:** 2x2 full range *(keep mobile; no extra depth or hold time)*
+- **C. Skin-the-Cat:** 2x2 full range *(keep mobile; no extra depth or hold time; omit Ring Push-Ups this week)*
 
 #### Friday
 **A. High-Hang Power Clean** -- 2x1 @ 50-60% (42.5-52.5 kg) *(speed primer only)*
@@ -793,15 +814,15 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 ### Wednesday Secondary Press (Rotated -- see Secondary Press Rotation Rule)
 | Week | Movement | Sets x Reps | Load | Notes |
 |------|----------|-------------|------|-------|
-| 1 | Swiss-bar Bench *(or neutral DB Bench)* | 3x6 | ~60% / 55 kg | Neutral grip; 1-s pause; lowest elbow stress |
-| 2 | Swiss-bar Bench *(or neutral DB Bench)* | 3x6 | ~62.5% / 57.5 kg | Smooth bar path |
-| 3 | Floor Press (medium grip) | 3x5 | 65% / 60 kg | Reduced ROM; protects medial elbow |
-| 4 | Floor Press (medium grip) | 3x5 | 65% / 60 kg | Consolidation: no progression |
-| 5 | Floor Press (medium grip) | 3x5 | 70% / 62.5 kg | Crisp; cap RPE 7 |
-| 6 | Floor Press (medium grip) | 3x5 | 72.5% / 65 kg | 2 reps in reserve |
+| 1 | Neutral-grip DB Bench Press | 3x8 | 22.5 kg/hand | Neutral grip; 1-s pause; lowest elbow stress |
+| 2 | Neutral-grip DB Bench Press | 3x8 | 22.5-25 kg/hand | Smooth path; stop 2-3 reps shy of failure |
+| 3 | Neutral-grip DB Bench Press | 3x8 | 25 kg/hand | Neutral grip; 1-s pause; stop 2-3 reps shy of failure |
+| 4 | Neutral-grip DB Bench Press | 2x8 | 22.5-25 kg/hand | Consolidation: one set fewer, easy reps |
+| 5 | Neutral-grip DB Bench Press | 3x6 | 25-27.5 kg/hand | Crisp; cap RPE 7 |
+| 6 | Neutral-grip DB Bench Press | 3x6 | 27.5 kg/hand | 2 reps in reserve; nearest RPE-7 pair is fine |
 | 7 | Paused Bench (medium grip) | 2x3 | 72.5% / 65 kg | Bench-specific; no extra elbow stress |
 | 8 | Paused Bench (medium grip) | 2x2 | 75% / 67.5 kg | Crisp bar speed, RIR 2+ |
-| 9 | Floor Press (medium grip) | 2x5 | 55% / 50 kg | Light *(deload)* |
+| 9 | Neutral-grip DB Bench Press | 2x8 | 17.5-20 kg/hand | Light *(deload)* |
 | 10 | Paused Bench (medium grip) | 2x3 | 75% / 67.5 kg | Monday already carried 85% |
 
 *Close-Grip Bench may substitute the rotated lift only if elbow has been 0/10 for 2 consecutive weeks AND Monday bench was symptom-free for 24 h.*
@@ -911,9 +932,9 @@ If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assi
 ### Accessory Supersets
 | Day | Work |
 |-----|------|
-| Monday | Bench + Band Pull-Aparts as rest filler (15 reps, 1-second squeeze) + 1x8-10 Scap Push-Up Plus before first bench set; Ring Row density blocks (Wks 1-4), chest-to-rings holds + **Chest-Supported Row 1-2×10-12 @ 20-25 kg** (Wks 5-8, per Pulling-Balance Add-On Rule), or minimal DB Rows (Wks 9-10) |
+| Monday | Bench + Band Pull-Aparts as rest filler (15 reps, 1-second squeeze) + 1x8-10 Scap Push-Up Plus before first bench set; quality Ring Row sets (Wks 1-4), chest-to-rings holds + **Chest-Supported Row 1-2×10-12 @ 20-25 kg** (Wks 5-8, per Pulling-Balance Add-On Rule), or minimal DB Rows (Wks 9-10) |
 | Tuesday | Front Plank + Pallof Press or 90/90 breathing -> Rower Slider Hamstring Curls |
 | Friday | RDLs or Step-Ups + Chest-Supported Row (neutral grip, submaximal, technical) |
 
 ### Note
-Detailed accessory progressions (Ring Pull-Ups, pull-support blocks, L-sit, pike pulses, Pallof) are embedded in the weekly prescriptions above.
+Detailed accessory progressions (Ring Pull-Ups, pull-support rows, L-sit, pike pulses, Pallof) are embedded in the weekly prescriptions above.

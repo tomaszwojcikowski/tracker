@@ -187,64 +187,136 @@ Upper end of each range only when all reps are crisp with perfect scapular contr
 
 ---
 
-## Mandatory Warm-Up (Before Every MWF Session)
+## Targeted Daily Warm-Ups
 
-**General:** 3-5 min light Bike or SkiErg.
+Warm-up principle: each day gets its own prep sequence matched to the first hard movement and the joints most likely to complain. Keep the whole sequence to **8-12 minutes**, move continuously, and stop anything that creates fatigue, joint irritation, or sloppy positions.
 
-**Knee/Glute/Stability:** Single-Leg Glute Bridges 2x10/leg (pause) | Single-Leg RDLs 2x8/leg | Lateral Band Walks 2x15 steps/side
+### Monday Warm-Up -- Bench, Ring Pull-Ups, L-Sit
 
-**Elbow/Wrist:** Wrist Rolls 15 reps each direction
+**1. General heat (2-3 min)**
+- Easy Bike or SkiErg
 
-**Core:** Hollow Body Hold 2x20 s
+**2. Scap + elbow prep (1-2 rounds)**
+- Wrist Rolls -- 10 each direction
+- Scapular Push-Ups -- 8
+- Dead Hang to Scap Pull-Up or Straight-Arm Band Pulldown -- 6-8
+- Wall Slides or Foam-Roller Wall Reach -- 8
 
-## Session-Specific Warm-Up Ramps (MWF Only)
+**3. Bench-specific activation**
+- Band Pull-Aparts + External Rotation Combo -- 10 + 10
+- Push-Up Plank Shoulder Taps -- 6/side
+- Power Primer: Plyo Push-Ups on handles or elevated surface -- 2-3x3
+- Scap Push-Up Plus -- 1x8-10 immediately before the first loaded bench set
 
-Ramp principle: joint positions -> unloaded pattern rehearsal -> 1-2 neural primers matching session speed. Nothing creates fatigue, burn, or local failure.
+**4. Compression primer**
+- Parallette Tuck Support Hold -- 2x8-12 s
 
-### Monday Ramp: Bench, Compression, Ring Pull-Ups
+**Phase tweaks**
+- **Weeks 1-4:** use the shallowest crisp plyo push-up variation; prioritize wall-slide quality over speed
+- **Weeks 5-8:** swap wall slides for a second set of Band Pull-Aparts + ER if shoulders feel good and you want more neural pop
+- **Weeks 9-10:** trim to one round of scap prep, 1-2 crisp push-ups, and one brief tuck support hold
 
-**Base (all phases):**
-- Scapular Push-Ups
-- Dead Hang to Scap Pull-Up (or Straight-Arm Band Pulldown)
-- Scap Push-Up Plus -- 1x8-10 before first loaded Bench set *(keep through Week 4 before Ring Pull-Ups)*
+### Tuesday Warm-Up -- Conditioning, Trunk, Dragon Flag
 
-**Phase 1 (Weeks 1-4) -- add:** Wall Slides or Foam-Roller Wall Reach | Push-Up Plank Shoulder Taps | Parallette Tuck Support Hold
+**1. General heat (4-5 min)**
+- Easy row, Bike, or SkiErg building gradually to the day's conditioning pace
 
-**Phase 2 (Weeks 5-8) -- replace wall work with:** Band Pull-Aparts + ER Combo | Explosive Incline Push-Up or fast-eccentric Push-Up on handles | Short Parallette Tuck Support Hold
+**2. Mobility reset**
+- Hip 90/90 switches -- 5/side
+- T-Spine Open Book -- 5/side
+- Ankle Rocks -- 8/side
 
-**Phase 3 (Weeks 9-10) -- strip to:** Wall Slides | Band Pull-Aparts | 1-2 crisp Push-Ups | Brief Tuck Support Hold
+**3. Trunk + posterior-chain prep**
+- Dead Bug or Hollow Hold -- 20 s
+- Glute Bridge -- 8 with 1-second pause
+- Light Slider Hamstring Curl or Hamstring Walkout -- 5 controlled reps
 
-### Wednesday Ramp: Clean, Box Squat, Pike Compression
+**4. Skill primer**
+- One short Dragon Flag tuck hold or negative rehearsal -- 3-5 s
 
-**Base (all phases):**
-- Ankle Rocks against wall
-- Front Rack Stretch on rig or straps
-- Tall Clean turnover drill
+**Phase tweaks**
+- **Weeks 5-8:** let the erg warm-up ramp slightly harder because Tuesday becomes the higher-intensity conditioning day, but keep the trunk prep to one clean round
+- **Weeks 9-10:** strip the skill primer to a single easy tuck hold and keep the whole warm-up restorative
 
-**Phase 1 (Weeks 1-4) -- add:** PVC Muscle Clean | Tall Clean pull-under rehearsal | Deep Goblet Pry or paused bodyweight squat | Seated Pike Reach with active toe lift
+### Wednesday Warm-Up -- Power Clean, Box Squat, Secondary Press
 
-**Phase 2 (Weeks 5-8) -- shift to speed:** Jump Shrug or clean extension from power position | Fast-stand bodyweight squat | Light DB bench setup or paused bench groove | Seated Pike Pulses (low fatigue)
+**1. General heat (2-3 min)**
+- Easy Bike or SkiErg
 
-**Phase 3 (Weeks 9-10) -- strip to:** Short ankle + front-rack reset | 1-2 quick clean extension rehearsals | One paused bodyweight squat | One short empty-bar bench rehearsal | Brief pike compression
+**2. Ankle, rack, and squat access**
+- Ankle Rocks against wall -- 8/side
+- Front Rack Stretch on rig or straps -- 20-30 s
+- Deep Goblet Pry or Paused Bodyweight Squat -- 5 breaths / 5 reps
 
-### Friday Ramp: Clean Variation, Back Squat, Hinge/Unilateral
+**3. Clean patterning**
+- Tall Clean Turnover Drill -- 3-5 reps
+- PVC Muscle Clean or Tall Clean Pull-Under Rehearsal -- 3-5 reps
+- Jump Shrug or Clean Extension from power position -- 2x3
 
-**Base (all phases):**
-- Hip Airplanes or Single-Leg RDL reach
-- Tall Clean drill matching the day's variation
-- Bodyweight Squat to box or target-depth pause
+**4. Squat + press bridge**
+- Fast-Stand Bodyweight Squat -- 2x3
+- Light DB Bench Setup or Empty-Bar Paused Bench Groove -- 1-2 short sets
+- Seated Pike Reach or low-fatigue Pike Pulses -- 6-8 reps
 
-**Phase 1 (Weeks 1-4) -- add:** Glute Bridge march or frog pump | Dowel hip hinge sweep
+**Phase tweaks**
+- **Weeks 1-4:** spend more time on PVC turnover and goblet pry; positions matter more than speed
+- **Weeks 5-8:** bias the jump shrug / clean extension and fast-stand squat so the clean feels sharp without adding fatigue
+- **Weeks 9-10:** keep only a short ankle + rack reset, 1-2 quick clean rehearsals, one paused squat, and one short bench groove set
 
-**Phase 2 (Weeks 5-8) -- shift to stiffness:** High-Hang or pause-at-knee clean drill | Snap-down to squat stance | Dowel hip hinge sweep
+### Thursday Warm-Up -- Shoulder Balance, Rings Skill, Landmine Press
 
-**Phase 3 (Weeks 9-10) -- strip to:** Brief hip stability reset | One short hinge-path rehearsal if RDLs programmed
+**1. General heat (3-5 min)**
+- Easy Bike, SkiErg, or row substitute if symptom-free
+
+**2. Shoulder motion prep**
+- Scapular CARs -- 5 each direction
+- Wall Slides -- 8
+- Banded External Rotation -- 10/side
+
+**3. Circuit primer**
+- Light Face Pull -- 10
+- Half-Kneeling Landmine Press -- 5/side with an empty sleeve or very light load
+- Side Plank -- 15-20 s/side
+
+**4. Rings readiness**
+- Ring Support Hold or High-Plank on rings -- 10-15 s
+- One controlled Skin-the-Cat entry rehearsal or Tuck Inversion -- 1 rep
+
+**Phase tweaks**
+- **Weeks 5-8:** if Thursday conditioning is removed, keep the warm-up short and shoulder-focused; do not add extra aerobic work just to fill time
+- **Weeks 9-10:** drop to one round of circuit primer and keep the rings rehearsal very submaximal
+
+### Friday Warm-Up -- Clean Variation, Back Squat, Hinge or Step-Up
+
+**1. General heat (2-3 min)**
+- Easy Bike or SkiErg
+
+**2. Hip and knee prep**
+- Hip Airplanes or Single-Leg RDL Reach -- 5/side
+- Lateral Band Walks -- 10-12 steps/side
+- Bodyweight Squat to box or target-depth pause -- 5 reps
+
+**3. Olympic + squat rehearsal**
+- Tall Clean Drill matching the day's variation -- 3 reps
+- High-Hang or Pause-at-Knee Clean Drill -- 2x2
+- Snap-Down to squat stance -- 2x3
+
+**4. Assistance-specific primer**
+- If RDLs are programmed: Dowel Hip Hinge Sweep -- 6 reps
+- If Step-Ups are programmed: Low box Step-Up rehearsal -- 5/leg
+- Optional frog pump or glute bridge march -- 8 if hips feel flat
+
+**Phase tweaks**
+- **Weeks 1-4:** use more controlled tall-clean reps and a longer squat pause to lock in positions
+- **Weeks 5-8:** emphasize stiffness and speed in the high-hang / pause-at-knee drill, then stop
+- **Weeks 9-10:** keep the warm-up minimal: hip reset, 1-2 clean rehearsals, one squat-depth check, and one hinge or step-up rehearsal only if that movement is programmed
 
 ### Day-Specific Emphasis
-- **Monday:** scapular control, elbow comfort, hollow-body tension
-- **Wednesday:** front-rack access, fast elbows, ankle depth, upright catch mechanics, crisp secondary bench bar path
-- **Thursday:** smooth scapular upward rotation, full reach on landmine, submaximal
-- **Friday:** hip stiffness, squat depth, hinge path, upper-back tightness
+- **Monday:** scapular control, elbow comfort, hollow-body tension, first-rep bench speed
+- **Tuesday:** gradual aerobic ramp, trunk stiffness, posterior-chain readiness without fatigue
+- **Wednesday:** front-rack access, fast elbows, ankle depth, upright catch mechanics, clean bench groove
+- **Thursday:** smooth scapular upward rotation, clean landmine path, stable ring support, submaximal mobility
+- **Friday:** hip stiffness, squat depth, hinge or step-up patterning, upper-back tightness before squatting
 
 ---
 

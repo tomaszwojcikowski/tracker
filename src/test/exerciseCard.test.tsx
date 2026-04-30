@@ -414,8 +414,8 @@ describe('ExerciseCard', () => {
                 <ExerciseCard {...defaultProps} isFirstIncomplete={true} />
             );
 
-            // Should have primary ring when first incomplete
-            const card = container.querySelector('.ring-sys-primary\\/50');
+            // Should have onSurface ring when first incomplete
+            const card = container.querySelector('.ring-sys-onSurface');
             expect(card).toBeInTheDocument();
         });
 

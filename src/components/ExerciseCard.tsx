@@ -410,7 +410,7 @@ const ExerciseCardImpl: React.FC<ExerciseCardProps> = ({
 
         // First incomplete gets accent ring + subtle primary glow on top of section color (only when not in focus view)
         if (isFirstIncomplete && !hideCollapseButton) {
-            return `${sectionColors} ring-2 ring-sys-primary/50 shadow-elevation-2`;
+            return `${sectionColors} ring-1 ring-sys-onSurface`;
         }
 
         return sectionColors;
@@ -428,7 +428,7 @@ const ExerciseCardImpl: React.FC<ExerciseCardProps> = ({
             )}
 
             <div
-                className={`rounded-2xl p-4 border relative z-10 overflow-hidden ${containerClasses}`}
+                className={`rounded-md p-4 border relative z-10 overflow-hidden ${containerClasses}`}
             >
                 {/* Progress bar */}
                 {completedSets > 0 && (
@@ -460,7 +460,7 @@ const ExerciseCardImpl: React.FC<ExerciseCardProps> = ({
                                         haptic.tick();
                                         onShowAlternatives(name, alternatives);
                                     }}
-                                    className="h-6 w-6 rounded-full bg-sys-surfaceHigh text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
+                                    className="h-6 w-6 rounded-sm bg-sys-surfaceContainerHigh border border-sys-outlineVariant text-sys-onSurfaceVar flex items-center justify-center active:scale-90 transition-all"
                                     aria-label="Swap to alternative exercise"
                                 >
                                     <ArrowRightLeft size={12} />

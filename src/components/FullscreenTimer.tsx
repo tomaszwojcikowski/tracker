@@ -356,8 +356,8 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
 
           {/* Pause indicator */}
           {isPaused && !isComplete && (
-            <div className="mt-2 px-4 py-2 rounded-full bg-sys-surfaceContainerHigh backdrop-blur-md border border-sys-outlineVariant">
-              <span className="text-sys-onSurface text-sm font-bold uppercase tracking-wider">Paused</span>
+            <div className="mt-2 px-4 py-2 rounded-sm bg-sys-surfaceContainerHigh border border-sys-outlineVariant">
+              <span className="eyebrow text-sys-onSurface">Paused</span>
             </div>
           )}
         </div>
@@ -387,11 +387,11 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
                 <button
                   onClick={() => handleAdjustInterval(-5)}
                   disabled={totalSeconds <= 10}
-                  className="h-16 w-16 md:h-18 md:w-18 rounded-3xl bg-sys-surfaceContainerHigh hover:bg-sys-surfaceContainerHighest disabled:opacity-30 text-sys-onSurface flex flex-col items-center justify-center gap-1 active:scale-90 transition-all font-medium"
+                  className="h-16 w-16 md:h-18 md:w-18 rounded-md bg-sys-surfaceContainerHigh border border-sys-outlineVariant hover:bg-sys-surfaceContainerHighest disabled:opacity-30 text-sys-onSurface flex flex-col items-center justify-center gap-1 active:scale-90 transition-all font-medium"
                   aria-label="Decrease interval by 5 seconds"
                 >
                   <Minus size={20} />
-                  <span className="text-[10px] uppercase font-bold tracking-wider">5s</span>
+                  <span className="eyebrow">5s</span>
                 </button>
 
                 <button
@@ -413,7 +413,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
                   aria-label="Reduce density timer by 30 seconds"
                 >
                   <Minus size={20} />
-                  <span className="text-[10px] uppercase font-bold tracking-wider">30s</span>
+                  <span className="eyebrow">30s</span>
                 </button>
 
                 <button
@@ -442,7 +442,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
                   aria-label="Subtract 30 seconds"
                 >
                   <Minus size={20} />
-                  <span className="text-[10px] uppercase font-bold tracking-wider">30s</span>
+                  <span className="eyebrow">30s</span>
                 </button>
 
                 <button

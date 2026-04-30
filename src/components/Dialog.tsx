@@ -139,8 +139,8 @@ export const Dialog: React.FC<DialogProps> = ({
                     relative w-full ${maxWidth}
                     min-w-[280px]
                     modal-dialog
-                    rounded-[28px]
-                    shadow-elevation-3
+                    rounded-md
+                    border border-sys-outlineVariant
                     animate-scale-up
                     ${className}
                 `}

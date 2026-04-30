@@ -169,7 +169,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         >
             {/* Scrim/Backdrop */}
             <div
-                className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in"
+                className="absolute inset-0 bg-black/60 animate-fade-in"
                 onClick={onClose}
                 aria-hidden="true"
             />

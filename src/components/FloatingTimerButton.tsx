@@ -184,7 +184,7 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
                                 <Minus size={20} />
                             </button>
                             <div className="min-w-[100px] text-center">
-                                <span className="font-mono text-3xl font-bold text-sys-onSurface">
+                                <span className="text-mono-stat text-3xl font-bold text-sys-onSurface">
                                     {formatSecondsShort(customTime)}
                                 </span>
                             </div>
@@ -229,7 +229,7 @@ export const FloatingTimerButton: React.FC<FloatingTimerButtonProps> = ({
                 {restTimer.active ? (
                     <>
                         <Timer size={18} className={isUrgent ? 'text-sys-onError' : 'text-sys-onPrimary'} />
-                        <span className={`font-mono font-bold text-base ${isUrgent ? 'text-sys-onError' : 'text-sys-onPrimary'}`}>
+                        <span className={`text-mono-stat font-bold text-base ${isUrgent ? 'text-sys-onError' : 'text-sys-onPrimary'}`}>
                             {formatSecondsShort(restTimer.seconds)}
                         </span>
                     </>

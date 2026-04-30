@@ -252,7 +252,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex flex-col backdrop-blur-2xl fullscreen-timer-container"
+      className="fixed inset-0 z-[100] flex flex-col fullscreen-timer-container"
       role="dialog"
       aria-label={isEmom ? 'EMOM timer' : isDensity ? 'Density timer' : 'Rest timer'}
       aria-live="polite"
@@ -261,16 +261,16 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
       <header className="relative z-10 flex items-center justify-between px-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-5">
         <button
           onClick={handleMinimize}
-          className="h-12 w-12 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center active:scale-90 transition-all shadow-elevation-2 hover:shadow-elevation-3"
+          className="h-12 w-12 rounded-md bg-sys-surfaceContainerHigh text-sys-onSurface border border-sys-outlineVariant flex items-center justify-center active:scale-90 transition-transform"
           aria-label="Minimize timer"
         >
           <ChevronDown size={28} />
         </button>
 
         {/* Timer mode badge */}
-        <div className="px-4 py-2 rounded-full bg-sys-surfaceContainerHigh flex items-center gap-2 border border-sys-outlineVariant shadow-elevation-1">
-          <Timer size={20} className="text-sys-primary" />
-          <span className="text-sys-onSurface text-sm font-bold uppercase tracking-wider">
+        <div className="px-3 py-1.5 rounded-sm bg-sys-surfaceContainerLow flex items-center gap-2 border border-sys-outlineVariant">
+          <Timer size={18} className="text-sys-primary" />
+          <span className="eyebrow text-sys-onSurface">
             {isEmom ? 'EMOM' : isDensity ? 'Density' : 'Rest Timer'}
           </span>
         </div>
@@ -279,7 +279,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
           {/* Sound toggle */}
           <button
             onClick={handleToggleSound}
-            className="h-12 w-12 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center active:scale-90 transition-all shadow-elevation-2 hover:shadow-elevation-3"
+            className="h-12 w-12 rounded-md bg-sys-surfaceContainerHigh text-sys-onSurface border border-sys-outlineVariant flex items-center justify-center active:scale-90 transition-transform"
             aria-label={soundEnabled ? 'Disable sound' : 'Enable sound'}
           >
             {soundEnabled ? <Volume2 size={28} /> : <VolumeX size={28} />}
@@ -288,7 +288,7 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
           {/* Cancel timer */}
           <button
             onClick={handleStop}
-            className="h-12 w-12 rounded-full bg-sys-surfaceContainerHigh text-sys-onSurface flex items-center justify-center active:scale-90 transition-all shadow-elevation-2 hover:shadow-elevation-3"
+            className="h-12 w-12 rounded-md bg-sys-surfaceContainerHigh text-sys-onSurface border border-sys-outlineVariant flex items-center justify-center active:scale-90 transition-transform"
             aria-label="Cancel timer"
           >
             <X size={28} />
@@ -302,8 +302,8 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
           {/* Round counter for EMOM - positioned above time */}
           {isEmom && round > 0 && (
             <div className="flex items-center gap-3">
-              <span className="text-sys-onSurface/50 text-lg font-bold uppercase tracking-wider">Round</span>
-              <span className="text-sys-onSurface text-4xl font-black tabular-nums">
+              <span className="eyebrow text-sys-onSurfaceVariant text-base">Round</span>
+              <span className="text-sys-onSurface text-4xl font-black text-mono-stat">
                 {totalRounds && totalRounds > 0 ? `${round} of ${totalRounds}` : round}
               </span>
             </div>
@@ -330,12 +330,12 @@ export const FullscreenTimer: React.FC<FullscreenTimerProps> = ({
               type="button"
               onClick={handleTogglePause}
               disabled={!canTogglePause}
-              className={`relative z-10 font-mono font-black tracking-tight transition-all duration-300 leading-none tabular-nums ${
+              className={`relative z-10 text-mono-stat font-black tracking-tight transition-all duration-300 leading-none ${
                 isComplete
                   ? 'text-sys-onSurface text-7xl md:text-8xl'
                   : isUrgent
-                  ? 'text-sys-error text-7xl md:text-9xl animate-pulse drop-shadow-2xl'
-                  : 'text-sys-onSurface text-7xl md:text-9xl drop-shadow-lg'
+                  ? 'text-sys-error text-7xl md:text-9xl animate-pulse'
+                  : 'text-sys-onSurface text-7xl md:text-9xl'
               } ${canTogglePause ? 'cursor-pointer active:scale-95' : 'cursor-default'} ${
                 isComplete
                   ? 'px-8 py-5 md:px-10 md:py-6 rounded-md bg-sys-surfaceContainerHigh border border-sys-outlineVariant'

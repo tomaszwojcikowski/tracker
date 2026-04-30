@@ -414,7 +414,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                 )}
                 <button
                     onClick={handleToggleExpand}
-                    className={`w-full h-9 px-3 flex items-center gap-2 bg-sys-successContainer/10 rounded-xl border border-sys-success/10 active:bg-sys-successContainer/30 transition-colors ${hasSupersetGroup ? 'ml-3' : ''}`}
+                    className={`w-full h-9 px-3 flex items-center gap-2 bg-sys-surfaceContainerLow rounded-md border border-sys-outlineVariant active:bg-sys-surfaceContainerHigh transition-colors ${hasSupersetGroup ? 'ml-3' : ''}`}
                     aria-label={`${historyLookupName} - completed, tap to edit`}
                 >
                     <div className="flex items-center justify-center h-5 w-5 rounded-sm bg-sys-onSurface text-sys-surface flex-shrink-0">
@@ -424,28 +424,28 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         {shortDisplayName}
                     </span>
                     {isEmom && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-tertiaryContainer text-sys-onTertiaryContainer flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-sm bg-sys-surfaceContainerHigh text-sys-onSurface border border-sys-outlineVariant flex-shrink-0">
                             <Zap size={8} strokeWidth={3} />
                         </span>
                     )}
                     {isDensity && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-primaryContainer text-sys-onPrimaryContainer flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-sm bg-sys-surfaceContainerHigh text-sys-onSurface border border-sys-outlineVariant flex-shrink-0">
                             <Gauge size={8} strokeWidth={3} />
                         </span>
                     )}
                     {isAmrap && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-errorContainer text-sys-onErrorContainer flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-sm bg-sys-surfaceContainerHigh text-sys-onSurface border border-sys-outlineVariant flex-shrink-0">
                             <TrendingUp size={8} strokeWidth={3} />
                         </span>
                     )}
                     {isLadder && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-successContainer text-sys-onSuccessContainer flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-sm bg-sys-surfaceContainerHigh text-sys-onSurface border border-sys-outlineVariant flex-shrink-0">
                             <BarChart2 size={8} strokeWidth={3} />
                             {ladderReps && <span className="text-[8px]">{ladderReps.join('-')}</span>}
                         </span>
                     )}
                     {isUnilateral && (
-                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-full bg-sys-secondaryContainer text-sys-onSecondaryContainer flex-shrink-0">
+                        <span className="inline-flex items-center gap-0.5 text-[9px] font-bold px-1 py-0.5 rounded-sm bg-sys-surfaceContainerHigh text-sys-onSurface border border-sys-outlineVariant flex-shrink-0">
                             <span className="text-[8px]">L/R</span>
                         </span>
                     )}
@@ -478,7 +478,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                         />
                     )}
                     {!isDensity && (
-                        <span className="text-xs text-sys-onSurfaceVariant font-semibold">
+                        <span className="text-xs text-sys-onSurfaceVariant font-semibold text-mono-stat">
                             {completedSets}/{totalSets}
                         </span>
                     )}
@@ -511,7 +511,7 @@ const CompactExerciseRowInner: React.FC<CompactExerciseRowProps> = ({
                 </>
             )}
             <div
-                className={`rounded-xl border overflow-hidden transition-all ${containerClasses} ${hasSupersetGroup ? 'ml-3' : ''}`}
+                className={`rounded-md border overflow-hidden transition-all ${containerClasses} ${hasSupersetGroup ? 'ml-3' : ''}`}
             >
             {/* Main Row - Always visible */}
             <div className="h-16 px-3 flex items-center gap-2">

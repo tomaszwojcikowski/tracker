@@ -349,7 +349,7 @@ export function ActionBar({
       {/* EMOM Timer Display */}
       {emomState && (emomState.active || emomState.seconds > 0) && setEmomActive && setEmomSeconds && setEmomInterval && (
         <div className="px-3 pt-3 pb-2 sm:px-4">
-          <div className={`bg-sys-surfaceContainerHigh px-3 py-4 sm:px-5 rounded-2xl shadow-elevation-2 relative overflow-hidden ${emomTimerJustActivated ? 'animate-slide-up' : ''}`}>
+          <div className={`bg-sys-surfaceContainerHigh px-3 py-4 sm:px-5 rounded-md border border-sys-outlineVariant relative overflow-hidden ${emomTimerJustActivated ? 'animate-slide-up' : ''}`}>
             <div
               className="absolute inset-0 bg-sys-primary/12 pointer-events-none"
               aria-hidden="true"
@@ -364,14 +364,14 @@ export function ActionBar({
               >
                 <Maximize2 size={20} />
               </button>
-              <span className="text-xs font-semibold text-sys-primary uppercase tracking-wider">
+              <span className="eyebrow text-sys-onSurface">
                 EMOM
               </span>
               {/* Round counter */}
               {emomState.round !== undefined && emomState.round > 0 && (
-                <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-sys-primaryContainer">
-                  <Repeat size={12} className="text-sys-onPrimaryContainer" />
-                  <span className="text-xs font-bold text-sys-onPrimaryContainer">
+                <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-sm bg-sys-surfaceContainerHighest border border-sys-outlineVariant">
+                  <Repeat size={12} className="text-sys-onSurface" />
+                  <span className="text-xs font-bold text-sys-onSurface text-mono-stat">
                     Round {emomState.round}
                     {emomState.totalRounds && emomState.totalRounds > 0
                       ? `/${emomState.totalRounds}`
@@ -393,7 +393,7 @@ export function ActionBar({
             </div>
             <div className="flex items-center gap-2 sm:gap-4">
               <span
-                className={`text-2xl sm:text-3xl font-mono font-bold min-w-[70px] sm:min-w-[90px] transition-colors ${
+                className={`text-mono-stat text-2xl sm:text-3xl font-bold min-w-[70px] sm:min-w-[90px] transition-colors ${
                   emomState.seconds <= 5
                     ? 'text-sys-error animate-pulse'
                     : 'text-sys-onSurface'
@@ -413,7 +413,7 @@ export function ActionBar({
                 >
                   <Minus size={24} />
                 </button>
-                <span className="text-sm text-sys-onSurfaceVar font-semibold min-w-[32px] sm:min-w-[40px] text-center">
+                <span className="text-sm text-sys-onSurfaceVar font-semibold min-w-[32px] sm:min-w-[40px] text-center text-mono-stat">
                   {emomState.interval}s
                 </span>
                 <button
@@ -436,7 +436,7 @@ export function ActionBar({
       {/* Density Timer Display */}
       {densityState && (densityState.active || densityState.seconds > 0) && setDensityActive && setDensitySeconds && (
         <div className="px-3 pt-3 pb-2 sm:px-4">
-          <div className={`bg-sys-surfaceContainerHigh px-3 py-4 sm:px-5 rounded-2xl shadow-elevation-2 relative overflow-hidden ${densityTimerJustActivated ? 'animate-slide-up' : ''}`}>
+          <div className={`bg-sys-surfaceContainerHigh px-3 py-4 sm:px-5 rounded-md border border-sys-outlineVariant relative overflow-hidden ${densityTimerJustActivated ? 'animate-slide-up' : ''}`}>
             <div
               className="absolute inset-0 bg-sys-tertiary/12 pointer-events-none"
               aria-hidden="true"
@@ -451,11 +451,11 @@ export function ActionBar({
               >
                 <Maximize2 size={24} />
               </button>
-              <span className="text-xs font-semibold text-sys-tertiary uppercase tracking-wider">
+              <span className="eyebrow text-sys-onSurface">
                 Density
               </span>
-              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-sys-tertiaryContainer">
-                <span className="text-xs font-bold text-sys-onTertiaryContainer">
+              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-sm bg-sys-surfaceContainerHighest border border-sys-outlineVariant">
+                <span className="text-xs font-bold text-sys-onSurface text-mono-stat">
                   {densityState.timeMinutes}m
                 </span>
               </div>
@@ -473,7 +473,7 @@ export function ActionBar({
             </div>
             <div className="flex items-center gap-4">
               <span
-                className={`text-2xl sm:text-3xl font-mono font-bold min-w-[70px] sm:min-w-[90px] transition-colors ${
+                className={`text-mono-stat text-2xl sm:text-3xl font-bold min-w-[70px] sm:min-w-[90px] transition-colors ${
                   densityState.seconds <= 10
                     ? 'text-sys-error animate-pulse'
                     : 'text-sys-onSurface'
@@ -514,7 +514,7 @@ export function ActionBar({
       {/* Rest Timer Display */}
       {timerState.time > 0 && (
         <div className="px-3 pt-3 pb-3 sm:px-4">
-          <div className={`bg-sys-surfaceContainerHigh px-3 py-4 sm:px-5 rounded-2xl flex items-center gap-2 sm:gap-4 shadow-elevation-2 relative overflow-hidden ${restTimerJustActivated ? 'animate-slide-up' : ''}`}>
+          <div className={`bg-sys-surfaceContainerHigh px-3 py-4 sm:px-5 rounded-md border border-sys-outlineVariant flex items-center gap-2 sm:gap-4 relative overflow-hidden ${restTimerJustActivated ? 'animate-slide-up' : ''}`}>
             <div
               className="absolute inset-0 bg-sys-secondary/12 pointer-events-none"
               aria-hidden="true"
@@ -527,7 +527,7 @@ export function ActionBar({
             >
               <Maximize2 size={24} />
             </button>
-            <span className="text-xl sm:text-2xl font-mono font-bold text-sys-onSurface min-w-[70px] sm:min-w-[80px]">
+            <span className="text-mono-stat text-xl sm:text-2xl font-bold text-sys-onSurface min-w-[70px] sm:min-w-[80px]">
               {formatSecondsShort(timerState.time)}
             </span>
             <div className="h-6 w-[1px] bg-sys-outlineVariant"></div>

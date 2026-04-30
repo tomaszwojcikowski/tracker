@@ -71,9 +71,9 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
     return (
         <div id={exId} className="relative scroll-mt-16">
             <div
-                className={`bg-sys-surface rounded-2xl p-4 border relative z-10 overflow-hidden ${
+                className={`bg-sys-surface rounded-md p-4 border relative z-10 overflow-hidden ${
                     completedSets === totalSets
-                        ? 'border-sys-successContainer bg-sys-successContainer/10'
+                        ? 'border-sys-onSurface'
                         : 'border-sys-outlineVariant'
                 }`}
             >
@@ -85,10 +85,10 @@ export const AddedExerciseCard: React.FC<AddedExerciseCardProps> = ({
                             </h3>
                             {completedSets > 0 && (
                                 <span
-                                    className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                                    className={`text-xs font-bold px-2 py-0.5 rounded-sm border text-mono-stat ${
                                         completedSets === totalSets
-                                            ? 'bg-sys-successContainer text-sys-onSuccessContainer'
-                                            : 'bg-sys-primaryContainer text-sys-onPrimaryContainer'
+                                            ? 'bg-sys-surfaceContainerHigh text-sys-onSurface border-sys-outlineVariant'
+                                            : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar border-sys-outlineVariant'
                                     }`}
                                 >
                                     {completedSets}/{totalSets}

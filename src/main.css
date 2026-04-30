@@ -213,6 +213,9 @@ body {
     min-height: 100%;
     min-height: 100dvh;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    /* Brutalist defaults: tabular numerals + Inter character variants */
+    font-feature-settings: 'tnum' 1, 'cv11' 1, 'ss01' 1;
+    font-variant-numeric: tabular-nums;
 }
 
 /* FORCE PORTRAIT MODE */
@@ -339,6 +342,31 @@ body {
     letter-spacing: 0.5px;
 }
 
+/* ============================================================================
+   BRUTALIST UTILITIES (Phase 1)
+   Hero numerics for weights, timers, counters. Always tabular, mono, tight.
+   ============================================================================ */
+.text-mono-stat {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1, 'zero' 1;
+    letter-spacing: -0.01em;
+}
+
+.tabular-nums {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+}
+
+/* Brutalist eyebrow label — small uppercase rule-leading meta text */
+.eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-on-surface-variant);
+}
+
 ::-webkit-scrollbar { display: none; }
 .safe-pb { padding-bottom: env(safe-area-inset-bottom, 24px); }
 .safe-pt { padding-top: env(safe-area-inset-top, 24px); }
@@ -352,11 +380,9 @@ body {
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
-/* Modern Material Design 3 Surface with elevation */
+/* Brutalist Surface — flat panel with hairline border, no blur */
 .glass-panel {
     background: var(--color-surface-container-high);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
     border-top: 1px solid var(--color-outline-variant);
     box-shadow: var(--elevation-2);
 }
@@ -1308,9 +1334,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 }
 
 :root.theme-oled .glass-panel {
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: #000000;
 }
 
 /* Subtle borders for OLED to define edges */
@@ -2430,11 +2454,9 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     will-change: transform;
 }
 
-/* Enhanced Glassmorphism for top bar */
+/* Brutalist top bar — flat surface, hairline divider, no blur */
 .glass-topbar {
-    background: color-mix(in srgb, var(--color-surface-container-low) 85%, transparent);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: var(--color-surface-container-low);
     border-bottom: 1px solid var(--color-outline-variant);
     box-shadow: var(--elevation-1);
 }
@@ -2446,11 +2468,9 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
     box-shadow: var(--elevation-1);
 }
 
-/* Enhanced card glassmorphism */
+/* Brutalist card — flat surface, hairline border, no blur */
 .glass-card {
-    background: color-mix(in srgb, var(--color-surface-container-low) 90%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: var(--color-surface-container-low);
     border: 1px solid var(--color-outline-variant);
 }
 
@@ -3110,14 +3130,12 @@ img {
     letter-spacing: -0.03em;
 }
 
-/* Glass topbar for mockup */
+/* Brutalist top bar (mockup) — flat surface, hairline divider, no blur */
 .glass-topbar {
-    background: color-mix(in srgb, var(--color-surface-container-low) 85%, transparent);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: var(--color-surface-container-low);
     border-bottom: 1px solid var(--color-outline-variant);
     box-shadow: var(--elevation-1);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease;
 }
 
 /* Enhanced card elevation for mockup */

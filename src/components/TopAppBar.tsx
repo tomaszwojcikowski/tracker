@@ -72,7 +72,7 @@ export const TopAppBar = memo(function TopAppBar({
             {title}
           </h1>
           {subtitle && (
-            <p className="text-xs text-sys-onSurfaceVariant truncate -mt-0.5 font-semibold">
+            <p className="eyebrow text-sys-onSurfaceVariant truncate -mt-0.5">
               {subtitle}
             </p>
           )}

@@ -45,13 +45,11 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeT
     );
 
     return (
-        <>
-            <div className="divider-strong fixed bottom-[80px] left-0 right-0 z-50" />
-            <nav
-                className="bottom-navigation fixed bottom-0 left-0 right-0 bg-sys-surface z-50 safe-pb shadow-elevation-2 min-h-[80px]"
-                role="navigation"
-                aria-label="Main navigation"
-            >
+        <nav
+            className="bottom-navigation fixed bottom-0 left-0 right-0 bg-sys-surface z-50 safe-pb min-h-[80px] border-t border-sys-outlineVariant"
+            role="navigation"
+            aria-label="Main navigation"
+        >
             <div className="flex items-center justify-around h-full px-2 py-2">
                 <LayoutGroup>
                     {navItems.map((item) => {
@@ -60,7 +58,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeT
                             <button
                                 key={item.id}
                                 onClick={() => handleTabClick(item.id)}
-                                className="relative flex flex-col items-center justify-center gap-1 flex-1 h-full min-w-[48px] max-w-[80px] focus:outline-none rounded-xl active:scale-95 transition-transform"
+                                className="relative flex flex-col items-center justify-center gap-1 flex-1 h-full min-w-[48px] max-w-[80px] focus:outline-none rounded-md active:scale-95 transition-transform"
                                 aria-label={item.label}
                                 aria-current={isActive ? 'page' : undefined}
                             >
@@ -68,7 +66,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeT
                                     {isActive && (
                                         <motion.div
                                             layoutId="nav-pill"
-                                            className="absolute inset-0 bg-sys-secondaryContainer rounded-2xl shadow-elevation-2"
+                                            className="absolute inset-0 bg-sys-secondaryContainer rounded-md"
                                             initial={false}
                                             transition={{ type: "spring", stiffness: 500, damping: 30 }}
                                         />
@@ -94,8 +92,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(({ activeT
                     })}
                 </LayoutGroup>
             </div>
-            </nav>
-        </>
+        </nav>
     );
 });
 

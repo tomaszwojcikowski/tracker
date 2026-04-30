@@ -41,9 +41,9 @@ export interface ExerciseTableProps {
         isEmom?: boolean,
     ) => void;
     /** Update per-set weight override. Pass empty string to clear. */
-    onSaveSetWeight: (exId: string, setIndex: number, value: string) => void;
+    onSaveSetWeight: (exId: string, setIndex: number, value: string, totalSets: number) => void;
     /** Update per-set rep count. Pass `undefined` to clear. */
-    onSaveSetReps: (exId: string, setIndex: number, reps: number | undefined) => void;
+    onSaveSetReps: (exId: string, setIndex: number, reps: number | undefined, totalSets: number) => void;
     onSaveRPE: (exId: string, setIndex: number, rpe: RPEValue) => void;
 
     /** Forwarded to onToggleSet so the parent can fire the rest timer. */
@@ -133,18 +133,20 @@ const ExerciseTableImpl: React.FC<ExerciseTableProps> = ({
         [haptic, onToggleSet, exId, defaultSets, restTime, sectionType, isEmom, sets, exerciseLog.rpe],
     );
 
+    const totalSets = sets.length;
+
     const handleWeightChange = useCallback(
         (setIndex: number, value: string) => {
-            onSaveSetWeight(exId, setIndex, value);
+            onSaveSetWeight(exId, setIndex, value, totalSets);
         },
-        [exId, onSaveSetWeight],
+        [exId, onSaveSetWeight, totalSets],
     );
 
     const handleRepsChange = useCallback(
         (setIndex: number, value: number | undefined) => {
-            onSaveSetReps(exId, setIndex, value);
+            onSaveSetReps(exId, setIndex, value, totalSets);
         },
-        [exId, onSaveSetReps],
+        [exId, onSaveSetReps, totalSets],
     );
 
     const handleRpeSelect = useCallback(

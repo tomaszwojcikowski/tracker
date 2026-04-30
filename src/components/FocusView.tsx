@@ -18,6 +18,7 @@ import type { WorkoutExercise } from '../data/programData';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getExerciseLogEntry } from '../utils/workoutSession';
 import { getExerciseTypeFlags, getExerciseMetadata, createTimerProps, createRPEProps, type TimerProps, type RPEProps, type SaveCallbacks } from '../utils/exerciseProps';
+import { computeSetWeightsUpdate, computeSetRepsUpdate } from '../utils/setTableUpdates';
 import type { WorkoutSessionData } from '../types/workout';
 
 // ============================================================================
@@ -326,18 +327,14 @@ export const FocusView: React.FC<FocusViewProps> = ({
         const saveCallbacks: SaveCallbacks = {
             onSaveWeight: (id, weight) => onSaveLog(id, 'weight', weight),
             onSaveNotes: (id, notes) => onSaveLog(id, 'notes', notes),
-            onSaveSetWeight: (id, setIndex, value) => {
+            onSaveSetWeight: (id, setIndex, value, totalSets) => {
                 const entry = getExerciseLogEntry(logs, id);
-                const next: (string | undefined)[] = [...(entry.setWeights ?? [])];
-                while (next.length <= setIndex) next.push(undefined);
-                next[setIndex] = value === '' ? undefined : value;
+                const next = computeSetWeightsUpdate(entry.setWeights, entry.sets, setIndex, value, totalSets);
                 onSaveLog(id, 'setWeights', next);
             },
-            onSaveSetReps: (id, setIndex, reps) => {
+            onSaveSetReps: (id, setIndex, reps, totalSets) => {
                 const entry = getExerciseLogEntry(logs, id);
-                const next: (number | undefined)[] = [...(entry.setReps ?? [])];
-                while (next.length <= setIndex) next.push(undefined);
-                next[setIndex] = reps;
+                const next = computeSetRepsUpdate(entry.setReps, setIndex, reps, totalSets);
                 onSaveLog(id, 'setReps', next);
             },
         };

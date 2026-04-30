@@ -78,6 +78,7 @@ import {
     type RPEProps,
     type SaveCallbacks,
 } from '../../utils/exerciseProps';
+import { computeSetWeightsUpdate, computeSetRepsUpdate } from '../../utils/setTableUpdates';
 
 // ============================================================================
 // HELPER FUNCTIONS
@@ -1253,19 +1254,14 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const saveCallbacks: SaveCallbacks = useMemo(() => ({
         onSaveWeight: (id: string, weight: string) => saveLog(id, 'weight', weight),
         onSaveNotes: (id: string, notes: string) => saveLog(id, 'notes', notes),
-        onSaveSetWeight: (id: string, setIndex: number, value: string) => {
+        onSaveSetWeight: (id: string, setIndex: number, value: string, totalSets: number) => {
             const entry = getExerciseLogEntry(logs, id);
-            const next: (string | undefined)[] = [...(entry.setWeights ?? [])];
-            // Pad sparse holes with undefined so the array index lines up
-            while (next.length <= setIndex) next.push(undefined);
-            next[setIndex] = value === '' ? undefined : value;
+            const next = computeSetWeightsUpdate(entry.setWeights, entry.sets, setIndex, value, totalSets);
             saveLog(id, 'setWeights', next);
         },
-        onSaveSetReps: (id: string, setIndex: number, reps: number | undefined) => {
+        onSaveSetReps: (id: string, setIndex: number, reps: number | undefined, totalSets: number) => {
             const entry = getExerciseLogEntry(logs, id);
-            const next: (number | undefined)[] = [...(entry.setReps ?? [])];
-            while (next.length <= setIndex) next.push(undefined);
-            next[setIndex] = reps;
+            const next = computeSetRepsUpdate(entry.setReps, setIndex, reps, totalSets);
             saveLog(id, 'setReps', next);
         },
     }), [saveLog, logs]);

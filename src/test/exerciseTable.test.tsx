@@ -73,7 +73,7 @@ describe('ExerciseTable', () => {
         renderTable({ onSaveSetWeight });
         const inputs = screen.getAllByRole('spinbutton');
         fireEvent.change(inputs[0], { target: { value: '52.5' } });
-        expect(onSaveSetWeight).toHaveBeenCalledWith('bench_press', 0, '52.5');
+        expect(onSaveSetWeight).toHaveBeenCalledWith('bench_press', 0, '52.5', 3);
     });
 
     it('fires onToggleSet when checkmark clicked', () => {

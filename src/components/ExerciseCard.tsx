@@ -141,8 +141,8 @@ export interface ExerciseCardProps {
      * Optional v3 set-table callbacks. When the `set_table` feature flag is on,
      * `ExerciseCard` renders an `ExerciseTable` and routes per-set writes here.
      */
-    onSaveSetWeight?: (exId: string, setIndex: number, value: string) => void;
-    onSaveSetReps?: (exId: string, setIndex: number, reps: number | undefined) => void;
+    onSaveSetWeight?: (exId: string, setIndex: number, value: string, totalSets: number) => void;
+    onSaveSetReps?: (exId: string, setIndex: number, reps: number | undefined, totalSets: number) => void;
     onSaveNotes: (exId: string, notes: string) => void;
     onClearRPEPrompt: () => void;
     onStartRestTimer: (seconds: number) => void;

@@ -142,28 +142,28 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ history, onDayClick 
             <div className="flex items-center justify-between gap-3">
                 <button
                     onClick={handlePreviousMonth}
-                    className="h-10 w-10 rounded-xl bg-sys-surfaceHigh hover:bg-sys-accent/20 transition-colors flex items-center justify-center"
+                    className="h-10 w-10 rounded-md bg-sys-surfaceContainerHigh border border-sys-outlineVariant hover:bg-sys-surfaceContainerHighest transition-colors flex items-center justify-center"
                     aria-label="Previous month"
                 >
                     <ChevronLeft size={20} className="text-sys-onSurface" />
                 </button>
 
                 <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2 px-4 py-2 bg-sys-surfaceContainerHigh rounded-xl">
-                        <CalendarIcon size={16} className="text-sys-primary" />
-                        <h2 className="text-base font-bold text-sys-onSurface">{monthName}</h2>
+                    <div className="flex items-center gap-2 px-3 py-1.5 bg-sys-surfaceContainerLow border border-sys-outlineVariant rounded-sm">
+                        <CalendarIcon size={14} className="text-sys-primary" />
+                        <span className="eyebrow text-sys-onSurface">{monthName}</span>
                     </div>
                     <button
                         onClick={handleToday}
-                        className="px-3 py-2 bg-sys-primaryContainer hover:bg-sys-primaryContainer/80 rounded-xl text-xs font-semibold text-sys-onPrimaryContainer transition-colors"
+                        className="px-3 py-1.5 bg-sys-surfaceContainerLow border border-sys-outlineVariant rounded-sm transition-colors"
                     >
-                        Today
+                        <span className="eyebrow text-sys-onSurface">Today</span>
                     </button>
                 </div>
 
                 <button
                     onClick={handleNextMonth}
-                    className="h-10 w-10 rounded-xl bg-sys-surfaceContainerHigh hover:bg-sys-primaryContainer/20 transition-colors flex items-center justify-center"
+                    className="h-10 w-10 rounded-md bg-sys-surfaceContainerHigh border border-sys-outlineVariant hover:bg-sys-surfaceContainerHighest transition-colors flex items-center justify-center"
                     aria-label="Next month"
                 >
                     <ChevronRight size={20} className="text-sys-onSurface" />
@@ -171,11 +171,11 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ history, onDayClick 
             </div>
 
             {/* Calendar Grid */}
-            <div className="bg-sys-surface rounded-2xl p-4 border border-sys-outlineVariant">
+            <div className="bg-sys-surface rounded-md p-4 border border-sys-outlineVariant">
                 {/* Week Day Headers */}
                 <div className="grid grid-cols-7 gap-1 mb-2">
                     {weekDays.map(day => (
-                        <div key={day} className="text-center text-xs font-semibold text-sys-onSurfaceVariant py-2">
+                        <div key={day} className="text-center eyebrow text-sys-onSurfaceVariant py-2">
                             {day}
                         </div>
                     ))}
@@ -193,17 +193,17 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ history, onDayClick 
                                 disabled={!dayData.hasWorkout}
                                 whileTap={dayData.hasWorkout ? { scale: 0.95 } : undefined}
                                 className={`
-                                    relative aspect-square rounded-xl p-1 transition-all
-                                    ${dayData.isCurrentMonth ? 'bg-sys-surfaceContainerHigh' : 'bg-transparent'}
-                                    ${dayData.isToday ? 'ring-2 ring-sys-primary' : ''}
-                                    ${dayData.hasWorkout && dayData.isCurrentMonth ? 'hover:bg-sys-primaryContainer/20 cursor-pointer' : ''}
+                                    relative aspect-square rounded-sm p-1 transition-colors border
+                                    ${dayData.isCurrentMonth ? 'bg-sys-surfaceContainerLow border-sys-outlineVariant' : 'bg-transparent border-transparent'}
+                                    ${dayData.isToday ? 'ring-1 ring-sys-primary border-sys-primary' : ''}
+                                    ${dayData.hasWorkout && dayData.isCurrentMonth ? 'hover:bg-sys-surfaceContainerHigh cursor-pointer' : ''}
                                     ${!dayData.hasWorkout || !dayData.isCurrentMonth ? 'cursor-default' : ''}
                                 `}
                             >
                                 <div className="flex flex-col items-center justify-center h-full">
                                     {/* Day Number */}
                                     <span className={`
-                                        text-sm font-semibold leading-none
+                                        text-sm font-semibold leading-none text-mono-stat
                                         ${dayData.isCurrentMonth ? 'text-sys-onSurface' : 'text-sys-onSurfaceVariant/30'}
                                         ${dayData.isToday ? 'text-sys-primary' : ''}
                                     `}>
@@ -214,11 +214,11 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ history, onDayClick 
                                     {dayData.hasWorkout && dayData.isCurrentMonth && (
                                         <div className="mt-1">
                                             {dayData.isComplete ? (
-                                                <div className="h-5 w-5 rounded-full bg-sys-successContainer flex items-center justify-center">
+                                                <div className="h-5 w-5 rounded-sm bg-sys-successContainer border border-sys-outlineVariant flex items-center justify-center">
                                                     <Check size={12} className="text-sys-onSuccessContainer" />
                                                 </div>
                                             ) : (
-                                                <div className="h-5 w-5 rounded-full bg-sys-primaryContainer flex items-center justify-center">
+                                                <div className="h-5 w-5 rounded-sm bg-sys-primaryContainer border border-sys-outlineVariant flex items-center justify-center">
                                                     <Dumbbell size={10} className="text-sys-onPrimaryContainer" />
                                                 </div>
                                             )}
@@ -227,7 +227,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ history, onDayClick 
 
                                     {/* Multiple workouts indicator */}
                                     {dayData.workouts.length > 1 && dayData.isCurrentMonth && (
-                                        <div className="absolute bottom-1 right-1 h-1.5 w-1.5 rounded-full bg-sys-primary" />
+                                        <div className="absolute bottom-1 right-1 h-1.5 w-1.5 rounded-sm bg-sys-primary" />
                                     )}
                                 </div>
                             </motion.button>
@@ -237,15 +237,15 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ history, onDayClick 
             </div>
 
             {/* Legend */}
-            <div className="flex items-center justify-center gap-4 text-xs text-sys-onSurfaceVariant">
+            <div className="flex items-center justify-center gap-4 eyebrow text-sys-onSurfaceVariant">
                 <div className="flex items-center gap-1.5">
-                    <div className="h-5 w-5 rounded-full bg-sys-successContainer flex items-center justify-center">
+                    <div className="h-5 w-5 rounded-sm bg-sys-successContainer border border-sys-outlineVariant flex items-center justify-center">
                         <Check size={12} className="text-sys-onSuccessContainer" />
                     </div>
                     <span>Complete</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                    <div className="h-5 w-5 rounded-full bg-sys-primaryContainer flex items-center justify-center">
+                    <div className="h-5 w-5 rounded-sm bg-sys-primaryContainer border border-sys-outlineVariant flex items-center justify-center">
                         <Dumbbell size={10} className="text-sys-onPrimaryContainer" />
                     </div>
                     <span>Partial</span>

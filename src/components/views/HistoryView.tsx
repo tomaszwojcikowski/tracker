@@ -163,9 +163,9 @@ const SimpleWeightGraph: React.FC<SimpleWeightGraphProps> = ({ data }) => {
                     );
                 })}
             </svg>
-            <div className="flex justify-between text-xs mt-3">
-                <span className="text-sys-onSurfaceVar font-medium">{minWeight} kg</span>
-                <span className="text-sys-primary font-semibold">{maxWeight} kg</span>
+            <div className="flex justify-between eyebrow mt-3">
+                <span className="text-sys-onSurfaceVar">{minWeight} kg</span>
+                <span className="text-sys-primary">{maxWeight} kg</span>
             </div>
         </div>
     );
@@ -203,7 +203,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
 
     if (exerciseStats.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-sys-outlineVariant px-6">
+            <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-md border border-sys-outlineVariant px-6">
                 <div className="h-20 w-20 rounded-md bg-sys-primaryContainer ring-1 ring-sys-outlineVariant flex items-center justify-center mb-5">
                     <BarChart2 size={40} className="text-sys-primary" />
                 </div>
@@ -258,7 +258,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3, delay: idx * 0.05 }}
-                            className="bg-sys-surface border border-sys-outlineVariant rounded-2xl overflow-hidden shadow-elevation-1"
+                            className="bg-sys-surface border border-sys-outlineVariant rounded-md overflow-hidden"
                         >
                             <motion.button
                                 layout="position"
@@ -274,9 +274,9 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                 <div className="flex-1 min-w-0">
                                     <h3 className="text-base font-bold text-sys-onSurface mb-1 truncate">{stat.name}</h3>
                                     <div className="flex items-center gap-2 text-xs">
-                                        <span className="text-sys-onSurfaceVar">{stat.totalWorkouts} workouts</span>
+                                        <span className="text-sys-onSurfaceVar text-mono-stat">{stat.totalWorkouts} workouts</span>
                                         {stat.maxWeight && (
-                                            <span className="px-2 py-0.5 rounded-full bg-sys-primaryContainer text-sys-onPrimaryContainer font-semibold">
+                                            <span className="px-2 py-0.5 rounded-sm bg-sys-primaryContainer text-sys-onPrimaryContainer text-mono-stat font-semibold border border-sys-outlineVariant">
                                                 Max: {stat.maxWeight} kg
                                             </span>
                                         )}
@@ -284,7 +284,7 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                 </div>
                                 <motion.div
                                     animate={{ rotate: isExpanded ? 180 : 0 }}
-                                    className={`h-9 w-9 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${isExpanded ? 'bg-sys-primary text-sys-onPrimary' : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar'}`}
+                                    className={`h-9 w-9 rounded-md flex items-center justify-center flex-shrink-0 transition-colors border border-sys-outlineVariant ${isExpanded ? 'bg-sys-primary text-sys-onPrimary' : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVar'}`}
                                 >
                                     <ChevronDown size={18} />
                                 </motion.div>
@@ -305,33 +305,33 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                                 <div className="bg-sys-surfaceContainerLow rounded-md p-4 border border-sys-outlineVariant">
                                                     <div className="flex items-center gap-2 mb-2">
                                                         <Calendar size={14} className="text-sys-onSurfaceVar" />
-                                                        <span className="text-xs text-sys-onSurfaceVar font-medium">Workouts</span>
+                                                        <span className="eyebrow text-sys-onSurfaceVar">Workouts</span>
                                                     </div>
-                                                    <div className="text-2xl font-bold text-sys-onSurface">{stat.totalWorkouts}</div>
+                                                    <div className="text-mono-stat text-2xl font-black text-sys-onSurface">{stat.totalWorkouts}</div>
                                                 </div>
                                                 <div className="bg-sys-surfaceContainerLow rounded-md p-4 border border-sys-outlineVariant">
                                                     <div className="flex items-center gap-2 mb-2">
                                                         <Layers size={14} className="text-sys-onSurfaceVar" />
-                                                        <span className="text-xs text-sys-onSurfaceVar font-medium">Max Sets</span>
+                                                        <span className="eyebrow text-sys-onSurfaceVar">Max Sets</span>
                                                     </div>
-                                                    <div className="text-2xl font-bold text-sys-onSurface">{stat.maxSets || 'N/A'}</div>
+                                                    <div className="text-mono-stat text-2xl font-black text-sys-onSurface">{stat.maxSets || 'N/A'}</div>
                                                 </div>
                                                 {stat.maxWeight && (
-                                                    <div className="bg-sys-surfaceContainerHigh rounded-2xl p-4 border border-sys-outlineVariant">
+                                                    <div className="bg-sys-surfaceContainerHigh rounded-md p-4 border border-sys-outlineVariant">
                                                         <div className="flex items-center gap-2 mb-2">
                                                             <Dumbbell size={14} className="text-sys-primary" />
-                                                            <span className="text-xs text-sys-primary font-medium">Max Weight</span>
+                                                            <span className="eyebrow text-sys-primary">Max Weight</span>
                                                         </div>
-                                                        <div className="text-2xl font-bold text-sys-primary">{stat.maxWeight} kg</div>
+                                                        <div className="text-mono-stat text-2xl font-black text-sys-primary">{stat.maxWeight} kg</div>
                                                     </div>
                                                 )}
                                                 {stat.estimated1RM && (
-                                                    <div className="bg-sys-successContainer rounded-2xl p-4 border border-sys-outlineVariant">
+                                                    <div className="bg-sys-successContainer rounded-md p-4 border border-sys-outlineVariant">
                                                         <div className="flex items-center gap-2 mb-2">
                                                             <Trophy size={14} className="text-sys-onSuccessContainer" />
-                                                            <span className="text-xs text-sys-onSuccessContainer font-medium">Est. 1RM</span>
+                                                            <span className="eyebrow text-sys-onSuccessContainer">Est. 1RM</span>
                                                         </div>
-                                                        <div className="text-2xl font-bold text-sys-onSuccessContainer">{stat.estimated1RM} kg</div>
+                                                        <div className="text-mono-stat text-2xl font-black text-sys-onSuccessContainer">{stat.estimated1RM} kg</div>
                                                     </div>
                                                 )}
                                             </div>
@@ -368,12 +368,12 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                                 </div>
                                                 <div className="space-y-2">
                                                     {history.slice(-5).reverse().map((entry, entryIdx) => (
-                                                        <div key={entryIdx} className="bg-sys-surfaceHigh rounded-xl p-3 flex items-center gap-3">
-                                                            <div className="h-10 w-10 rounded-xl bg-sys-surfaceContainerLow flex flex-col items-center justify-center flex-shrink-0">
-                                                                <span className="text-xs font-bold text-sys-onSurface leading-none">
+                                                        <div key={entryIdx} className="bg-sys-surfaceContainerLow rounded-md p-3 flex items-center gap-3 border border-sys-outlineVariant">
+                                                            <div className="h-10 w-10 rounded-sm bg-sys-surface border border-sys-outlineVariant flex flex-col items-center justify-center flex-shrink-0">
+                                                                <span className="text-mono-stat text-xs font-bold text-sys-onSurface leading-none">
                                                                     {new Date(entry.date).toLocaleDateString('en-US', { day: 'numeric' })}
                                                                 </span>
-                                                                <span className="text-[10px] text-sys-onSurfaceVar uppercase">
+                                                                <span className="eyebrow text-sys-onSurfaceVar mt-0.5" style={{ fontSize: '9px' }}>
                                                                     {new Date(entry.date).toLocaleDateString('en-US', { month: 'short' })}
                                                                 </span>
                                                             </div>
@@ -381,12 +381,12 @@ const ExerciseStatsView: React.FC<ExerciseStatsViewInternalProps> = ({
                                                                 <div className="text-sm font-semibold text-sys-onSurface">
                                                                     {entry.sets} sets completed
                                                                 </div>
-                                                                <div className="text-xs text-sys-onSurfaceVar">
+                                                                <div className="eyebrow text-sys-onSurfaceVar mt-0.5">
                                                                     Week {entry.week}, Day {entry.day}
                                                                 </div>
                                                             </div>
                                                             {entry.weight && (
-                                                                <div className="px-3 py-1.5 rounded-lg bg-sys-primaryContainer text-sys-onPrimaryContainer text-sm font-bold flex-shrink-0">
+                                                                <div className="px-3 py-1.5 rounded-sm bg-sys-primaryContainer text-sys-onPrimaryContainer text-mono-stat text-sm font-bold flex-shrink-0 border border-sys-outlineVariant">
                                                                     {entry.weight} kg
                                                                 </div>
                                                             )}
@@ -536,8 +536,8 @@ export const HistoryView: React.FC<HistoryViewProps> = ({
                     </div>
                 </div>
                 {history.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-2xl border border-sys-outlineVariant px-6">
-                        <div className="h-20 w-20 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-5">
+                    <div className="flex flex-col items-center justify-center py-24 text-sys-onSurfaceVar bg-sys-surface rounded-md border border-sys-outlineVariant px-6">
+                        <div className="h-20 w-20 rounded-md bg-sys-surfaceContainerHigh border border-sys-outlineVariant flex items-center justify-center mb-5">
                             <History size={40} className="text-sys-onSurfaceVar" />
                         </div>
                         <h3 className="text-lg font-bold text-sys-onSurface mb-2">No Workouts Yet</h3>

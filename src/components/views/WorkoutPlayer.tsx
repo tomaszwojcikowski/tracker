@@ -1253,7 +1253,22 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const saveCallbacks: SaveCallbacks = useMemo(() => ({
         onSaveWeight: (id: string, weight: string) => saveLog(id, 'weight', weight),
         onSaveNotes: (id: string, notes: string) => saveLog(id, 'notes', notes),
-    }), [saveLog]);
+        onSaveSetWeight: (id: string, setIndex: number, value: string) => {
+            const entry = getExerciseLogEntry(logs, id);
+            const next: (string | undefined)[] = [...(entry.setWeights ?? [])];
+            // Pad sparse holes with undefined so the array index lines up
+            while (next.length <= setIndex) next.push(undefined);
+            next[setIndex] = value === '' ? undefined : value;
+            saveLog(id, 'setWeights', next);
+        },
+        onSaveSetReps: (id: string, setIndex: number, reps: number | undefined) => {
+            const entry = getExerciseLogEntry(logs, id);
+            const next: (number | undefined)[] = [...(entry.setReps ?? [])];
+            while (next.length <= setIndex) next.push(undefined);
+            next[setIndex] = reps;
+            saveLog(id, 'setReps', next);
+        },
+    }), [saveLog, logs]);
 
     // Find the first incomplete exercise (the one that should be auto-expanded)
     const firstIncompleteExerciseId = useMemo(() => {

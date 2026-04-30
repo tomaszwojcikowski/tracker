@@ -326,6 +326,20 @@ export const FocusView: React.FC<FocusViewProps> = ({
         const saveCallbacks: SaveCallbacks = {
             onSaveWeight: (id, weight) => onSaveLog(id, 'weight', weight),
             onSaveNotes: (id, notes) => onSaveLog(id, 'notes', notes),
+            onSaveSetWeight: (id, setIndex, value) => {
+                const entry = getExerciseLogEntry(logs, id);
+                const next: (string | undefined)[] = [...(entry.setWeights ?? [])];
+                while (next.length <= setIndex) next.push(undefined);
+                next[setIndex] = value === '' ? undefined : value;
+                onSaveLog(id, 'setWeights', next);
+            },
+            onSaveSetReps: (id, setIndex, reps) => {
+                const entry = getExerciseLogEntry(logs, id);
+                const next: (number | undefined)[] = [...(entry.setReps ?? [])];
+                while (next.length <= setIndex) next.push(undefined);
+                next[setIndex] = reps;
+                onSaveLog(id, 'setReps', next);
+            },
         };
 
         if (item.type === 'added') {

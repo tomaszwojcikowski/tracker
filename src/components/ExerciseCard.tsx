@@ -25,6 +25,8 @@ import {
 } from './icons';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getExerciseDisplayName } from '../utils/exerciseOptions';
+import { useFeatureFlag } from '../utils/featureFlags';
+import { ExerciseTable } from './ExerciseTable';
 import { RPESelector } from './RPESelector';
 import { ExerciseOptionsBadge } from './ExerciseOptionsBadge';
 import { getSectionTheme } from '../utils/themeUtils';
@@ -135,6 +137,12 @@ export interface ExerciseCardProps {
     onAddSet: (exId: string, defaultSets: number) => void;
     onSaveWeight: (exId: string, weight: string) => void;
     onSaveRPE: (exId: string, setIndex: number, rpe: RPEValue) => void;
+    /**
+     * Optional v3 set-table callbacks. When the `set_table` feature flag is on,
+     * `ExerciseCard` renders an `ExerciseTable` and routes per-set writes here.
+     */
+    onSaveSetWeight?: (exId: string, setIndex: number, value: string) => void;
+    onSaveSetReps?: (exId: string, setIndex: number, reps: number | undefined) => void;
     onSaveNotes: (exId: string, notes: string) => void;
     onClearRPEPrompt: () => void;
     onStartRestTimer: (seconds: number) => void;
@@ -207,6 +215,8 @@ const ExerciseCardImpl: React.FC<ExerciseCardProps> = ({
     onToggleSet,
     onSaveWeight,
     onSaveRPE,
+    onSaveSetWeight,
+    onSaveSetReps,
     onClearRPEPrompt,
     onStartRestTimer,
     onToggleEmomTimer,
@@ -222,6 +232,14 @@ const ExerciseCardImpl: React.FC<ExerciseCardProps> = ({
 }) => {
     const completedSets = sets.filter((s) => s).length;
     const totalSets = sets.length;
+    const setTableEnabled = useFeatureFlag('set_table');
+    const canUseSetTable =
+        setTableEnabled &&
+        !isDensity &&
+        !isFlow &&
+        !isEmom &&
+        !!onSaveSetWeight &&
+        !!onSaveSetReps;
 
     const focusTimerButton = useMemo(() => {
         // FocusView uses ExerciseCard with collapse hidden; when timer controls are hidden we
@@ -710,6 +728,25 @@ const ExerciseCardImpl: React.FC<ExerciseCardProps> = ({
                                 />
                             </>
                         ) : !isFlow ? (
+                            canUseSetTable ? (
+                                <ExerciseTable
+                                    exId={exId}
+                                    effectiveName={effectiveName}
+                                    sets={sets}
+                                    defaultSets={defaultSets}
+                                    exerciseLog={exerciseLog}
+                                    isBodyweight={isBodyweight}
+                                    prescription={prescription}
+                                    haptic={haptic}
+                                    onToggleSet={onToggleSet}
+                                    onSaveSetWeight={onSaveSetWeight!}
+                                    onSaveSetReps={onSaveSetReps!}
+                                    onSaveRPE={onSaveRPE}
+                                    restTime={restTime}
+                                    sectionType={sectionType}
+                                    isEmom={isEmom}
+                                />
+                            ) : (
                             <>
                                 {/* Weight and timer controls row */}
                                 <div className="flex items-center justify-between mb-3">
@@ -848,6 +885,7 @@ const ExerciseCardImpl: React.FC<ExerciseCardProps> = ({
                                     </span>
                                 </div>
                             </>
+                            )
                         ) : null}
 
                         {/* RPE Selector - more compact */}

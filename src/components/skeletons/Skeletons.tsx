@@ -4,9 +4,9 @@ import React from 'react';
  * ExerciseCardSkeleton - Loading placeholder for exercise cards
  */
 export const ExerciseCardSkeleton: React.FC = () => (
-    <div className="bg-sys-surface rounded-2xl p-5 border border-white/5 animate-pulse">
+    <div className="bg-sys-surface rounded-md p-5 border border-sys-outlineVariant animate-pulse">
         <div className="flex items-center gap-4 mb-4">
-            <div className="h-12 w-12 rounded-xl bg-sys-surfaceHigh" />
+            <div className="h-12 w-12 rounded-md bg-sys-surfaceHigh" />
             <div className="flex-1">
                 <div className="h-5 bg-sys-surfaceHigh rounded w-3/4 mb-2" />
                 <div className="h-3 bg-sys-surfaceHigh rounded w-1/2" />
@@ -14,7 +14,7 @@ export const ExerciseCardSkeleton: React.FC = () => (
         </div>
         <div className="flex gap-2">
             {[1, 2, 3].map(i => (
-                <div key={i} className="h-14 flex-1 rounded-xl bg-sys-surfaceHigh" />
+                <div key={i} className="h-14 flex-1 rounded-md bg-sys-surfaceHigh" />
             ))}
         </div>
     </div>
@@ -24,13 +24,13 @@ export const ExerciseCardSkeleton: React.FC = () => (
  * HistoryEntrySkeleton - Loading placeholder for history timeline entries
  */
 export const HistoryEntrySkeleton: React.FC = () => (
-    <div className="bg-sys-surface rounded-2xl p-5 border border-white/5 animate-pulse">
+    <div className="bg-sys-surface rounded-md p-5 border border-sys-outlineVariant animate-pulse">
         <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
                 <div className="h-5 bg-sys-surfaceHigh rounded w-1/3 mb-2" />
                 <div className="h-4 bg-sys-surfaceHigh rounded w-1/4" />
             </div>
-            <div className="h-10 w-10 rounded-full bg-sys-surfaceHigh" />
+            <div className="h-10 w-10 rounded-md bg-sys-surfaceHigh" />
         </div>
         <div className="space-y-2">
             <div className="h-4 bg-sys-surfaceHigh rounded w-full" />
@@ -43,7 +43,7 @@ export const HistoryEntrySkeleton: React.FC = () => (
  * StatsCardSkeleton - Loading placeholder for stats cards
  */
 export const StatsCardSkeleton: React.FC = () => (
-    <div className="bg-sys-surface rounded-2xl p-4 border border-white/5 animate-pulse">
+    <div className="bg-sys-surface rounded-md p-4 border border-sys-outlineVariant animate-pulse">
         <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
                 <div className="h-8 w-8 rounded-lg bg-sys-surfaceHigh" />
@@ -62,14 +62,14 @@ export const StatsCardSkeleton: React.FC = () => (
  * ExerciseLibraryItemSkeleton - Loading placeholder for exercise library items
  */
 export const ExerciseLibraryItemSkeleton: React.FC = () => (
-    <div className="bg-sys-surface rounded-2xl p-4 border border-white/5 animate-pulse">
+    <div className="bg-sys-surface rounded-md p-4 border border-sys-outlineVariant animate-pulse">
         <div className="flex items-center gap-3">
-            <div className="h-12 w-12 rounded-xl bg-sys-surfaceHigh flex-shrink-0" />
+            <div className="h-12 w-12 rounded-md bg-sys-surfaceHigh flex-shrink-0" />
             <div className="flex-1 min-w-0">
                 <div className="h-5 bg-sys-surfaceHigh rounded w-2/3 mb-2" />
                 <div className="h-3 bg-sys-surfaceHigh rounded w-1/2" />
             </div>
-            <div className="h-10 w-10 rounded-full bg-sys-surfaceHigh flex-shrink-0" />
+            <div className="h-10 w-10 rounded-md bg-sys-surfaceHigh flex-shrink-0" />
         </div>
     </div>
 );

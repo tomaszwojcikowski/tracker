@@ -50,7 +50,7 @@ describe('Skeleton Components', () => {
 
         it('has rounded corners styling', () => {
             const { container } = render(<StatsCardSkeleton />);
-            expect(container.firstChild).toHaveClass('rounded-2xl');
+            expect(container.firstChild).toHaveClass('rounded-md');
         });
     });
 
@@ -75,7 +75,7 @@ describe('Skeleton Components', () => {
         it('includes multiple exercise card skeletons', () => {
             const { container } = render(<WorkoutDaySkeleton />);
             // Should have 3 exercise cards
-            const cards = container.querySelectorAll('.rounded-2xl');
+            const cards = container.querySelectorAll('.rounded-md');
             expect(cards.length).toBeGreaterThanOrEqual(3);
         });
     });

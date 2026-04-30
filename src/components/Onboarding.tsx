@@ -126,7 +126,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
             <div className="flex-1 flex flex-col items-center justify-center px-8 text-center">
                 {/* Icon with animated entrance - decorative, hidden from screen readers */}
                 <div
-                    className="h-28 w-28 rounded-full bg-sys-surfaceHigh flex items-center justify-center mb-8 animate-fade-in"
+                    className="h-28 w-28 rounded-md bg-sys-surfaceContainerLow border border-sys-outlineVariant flex items-center justify-center mb-8 animate-fade-in"
                     key={currentStep}
                     aria-hidden="true"
                 >
@@ -153,9 +153,9 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
                     <button
                         key={index}
                         onClick={() => handleDotClick(index)}
-                        className={`h-2 rounded-full transition-all duration-300 ${
+                        className={`h-2 rounded-sm transition-all duration-300 ${
                             index === currentStep
-                                ? 'w-8 bg-sys-primary'
+                                ? 'w-8 bg-sys-onSurface'
                                 : 'w-2 bg-sys-surfaceContainerHigh hover:bg-sys-onSurfaceVariant'
                         }`}
                         aria-current={index === currentStep ? 'step' : undefined}

@@ -114,10 +114,10 @@ function ProgramCard({ program, isActive, onSelect, isLoading }: ProgramCardProp
       role="option"
       aria-selected={isActive}
       aria-label={`${program.name}${isActive ? ' (Active)' : ''}, ${program.durationWeeks} weeks, ${getTargetLevelLabel(program.targetLevel)}`}
-      className={`w-full p-4 rounded-2xl border text-left transition-all ${
+      className={`w-full p-4 rounded-md border text-left transition-all ${
         isActive
-          ? 'bg-sys-primaryContainer border-sys-primary'
-          : 'bg-sys-surfaceContainerLow border-sys-outlineVariant hover:border-sys-outline active:scale-[0.98]'
+          ? 'bg-sys-surfaceContainerHigh border-sys-onSurface'
+          : 'bg-sys-surfaceContainerLow border-sys-outlineVariant hover:border-sys-outline active:scale-[0.99]'
       } ${isLoading ? 'opacity-50 cursor-wait' : ''}`}
     >
       <div className="flex items-start justify-between gap-3">
@@ -125,7 +125,7 @@ function ProgramCard({ program, isActive, onSelect, isLoading }: ProgramCardProp
           <div className="flex items-center gap-2 mb-1">
             <h4 className="text-base font-semibold text-sys-onSurface truncate">{program.name}</h4>
             {isActive && (
-              <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-sys-primary text-sys-onPrimary text-xs font-medium" aria-hidden="true">
+              <span className="flex items-center gap-1 px-2 py-0.5 rounded-sm bg-sys-onSurface text-sys-surface text-xs font-bold border border-sys-onSurface" aria-hidden="true">
                 <Check size={12} />
                 Active
               </span>
@@ -140,13 +140,13 @@ function ProgramCard({ program, isActive, onSelect, isLoading }: ProgramCardProp
 
           <div className="flex flex-wrap items-center gap-2">
             {/* Duration */}
-            <span className="flex items-center gap-1 text-xs text-sys-onSurfaceVar">
+            <span className="flex items-center gap-1 text-xs text-sys-onSurfaceVar text-mono-stat">
               <Clock size={12} aria-hidden="true" />
               {program.durationWeeks} weeks
             </span>
 
             {/* Target Level */}
-            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getTargetLevelColor(program.targetLevel)}`}>
+            <span className={`px-2 py-0.5 rounded-sm text-xs font-medium border border-sys-outlineVariant ${getTargetLevelColor(program.targetLevel)}`}>
               {getTargetLevelLabel(program.targetLevel)}
             </span>
 
@@ -163,12 +163,12 @@ function ProgramCard({ program, isActive, onSelect, isLoading }: ProgramCardProp
 
         {/* Selection indicator */}
         <div
-          className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
-            isActive ? 'bg-sys-primary border-sys-primary' : 'border-sys-outline'
+          className={`flex-shrink-0 w-6 h-6 rounded-sm border-2 flex items-center justify-center transition-colors ${
+            isActive ? 'bg-sys-onSurface border-sys-onSurface' : 'border-sys-outline'
           }`}
           aria-hidden="true"
         >
-          {isActive && <Check size={14} className="text-sys-onPrimary" />}
+          {isActive && <Check size={14} className="text-sys-surface" />}
         </div>
       </div>
     </button>

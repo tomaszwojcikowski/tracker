@@ -54,30 +54,30 @@ export const ExerciseListItem: React.FC<ExerciseListItemProps> = ({
     };
 
     return (
-        <div className={`rounded-2xl p-4 ${
+        <div className={`rounded-md p-4 border ${
             exercise.category === 'mobility'
-                ? 'bg-sys-primaryContainer/40 border border-sys-primary/30'
-                : 'bg-sys-surfaceContainerLow'
+                ? 'bg-sys-surfaceContainerLow border-sys-outline'
+                : 'bg-sys-surfaceContainerLow border-sys-outlineVariant'
         }`}>
             <div className="flex items-start justify-between gap-3">
                 <div className="flex-1">
                     <h4 className="text-base font-semibold text-sys-onSurface mb-1">
                         {exercise.name}
                     </h4>
-                    <p className="text-xs text-sys-onSurfaceVariant mb-2">
+                    <p className="eyebrow text-sys-onSurfaceVariant mb-2">
                         {exercise.primaryMuscles.join(', ')}
                     </p>
                     <div className="flex flex-wrap gap-1">
                         {exercise.equipment.slice(0, 3).map((eq) => (
                             <span
                                 key={eq}
-                                className="text-xs px-2 py-1 bg-sys-surfaceContainer rounded-lg text-sys-onSurfaceVariant"
+                                className="text-xs px-2 py-1 bg-sys-surfaceContainerHigh border border-sys-outlineVariant rounded-sm text-sys-onSurfaceVariant"
                             >
                                 {eq}
                             </span>
                         ))}
                         {!exercise.isBodyweight && (
-                            <span className="text-xs px-2 py-1 bg-sys-primaryContainer rounded-lg text-sys-onPrimaryContainer">
+                            <span className="text-xs px-2 py-1 bg-sys-surfaceContainerHigh border border-sys-outlineVariant rounded-sm text-sys-onSurface">
                                 Weighted
                             </span>
                         )}
@@ -90,7 +90,7 @@ export const ExerciseListItem: React.FC<ExerciseListItemProps> = ({
                             haptic.tick();
                             setShowAddForm(true);
                         }}
-                        className="btn-filled h-10 px-4 rounded-xl font-semibold text-sm active:scale-95 transition-transform flex-shrink-0 shadow-elevation-1 hover:shadow-elevation-2"
+                        className="btn-filled h-10 px-4 rounded-sm font-semibold text-sm active:scale-95 transition-transform flex-shrink-0"
                     >
                         Add
                     </button>
@@ -100,7 +100,7 @@ export const ExerciseListItem: React.FC<ExerciseListItemProps> = ({
                             haptic.tick();
                             setShowAddForm(false);
                         }}
-                        className="h-10 w-10 rounded-xl bg-sys-surfaceContainerHighest text-sys-onSurface flex items-center justify-center active:scale-95 transition-transform flex-shrink-0"
+                        className="h-10 w-10 rounded-sm bg-sys-surfaceContainerHigh border border-sys-outlineVariant text-sys-onSurface flex items-center justify-center active:scale-95 transition-transform flex-shrink-0"
                         aria-label="Collapse form"
                     >
                         <ChevronUp size={20} />

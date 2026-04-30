@@ -22,6 +22,17 @@ export type RPEData = Record<number, RPEValue>;
 export interface ExerciseLogEntry {
     sets?: boolean[];
     weight?: string;
+    /**
+     * Optional per-set weight overrides (parallel to `sets`).
+     * Index `i` is `undefined` when the set inherits `weight`.
+     * Used by the v3 set-table UI; back-compat with the single-weight UI.
+     */
+    setWeights?: (string | undefined)[];
+    /**
+     * Optional per-set rep counts (parallel to `sets`).
+     * Index `i` is `undefined` when the set inherits the prescription default.
+     */
+    setReps?: (number | undefined)[];
     rpe?: RPEData;
     /** User's personal notes for this specific exercise in this workout session */
     userNotes?: string;

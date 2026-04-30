@@ -223,11 +223,15 @@ export interface SetActionCallbacks {
 }
 
 /**
- * Save callbacks - onSaveWeight, onSaveNotes
+ * Save callbacks - onSaveWeight, onSaveNotes, plus per-set overrides
  */
 export interface SaveCallbacks {
     onSaveWeight: (exId: string, weight: string) => void;
     onSaveNotes: (exId: string, notes: string) => void;
+    /** v3 set-table: per-set weight override */
+    onSaveSetWeight?: (exId: string, setIndex: number, value: string, totalSets: number) => void;
+    /** v3 set-table: per-set rep count */
+    onSaveSetReps?: (exId: string, setIndex: number, reps: number | undefined, totalSets: number) => void;
 }
 
 /**

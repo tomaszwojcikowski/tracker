@@ -78,6 +78,7 @@ import {
     type RPEProps,
     type SaveCallbacks,
 } from '../../utils/exerciseProps';
+import { computeSetWeightsUpdate, computeSetRepsUpdate } from '../../utils/setTableUpdates';
 
 // ============================================================================
 // HELPER FUNCTIONS
@@ -1253,7 +1254,17 @@ export const WorkoutPlayer: React.FC<WorkoutPlayerProps> = ({
     const saveCallbacks: SaveCallbacks = useMemo(() => ({
         onSaveWeight: (id: string, weight: string) => saveLog(id, 'weight', weight),
         onSaveNotes: (id: string, notes: string) => saveLog(id, 'notes', notes),
-    }), [saveLog]);
+        onSaveSetWeight: (id: string, setIndex: number, value: string, totalSets: number) => {
+            const entry = getExerciseLogEntry(logs, id);
+            const next = computeSetWeightsUpdate(entry.setWeights, entry.sets, setIndex, value, totalSets);
+            saveLog(id, 'setWeights', next);
+        },
+        onSaveSetReps: (id: string, setIndex: number, reps: number | undefined, totalSets: number) => {
+            const entry = getExerciseLogEntry(logs, id);
+            const next = computeSetRepsUpdate(entry.setReps, setIndex, reps, totalSets);
+            saveLog(id, 'setReps', next);
+        },
+    }), [saveLog, logs]);
 
     // Find the first incomplete exercise (the one that should be auto-expanded)
     const firstIncompleteExerciseId = useMemo(() => {

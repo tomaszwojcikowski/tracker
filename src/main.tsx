@@ -10,6 +10,8 @@ import { autoMigrate, getMigrationStatus } from './services/storageMigration';
 import { initializeDefaultProgram, getProgramRegistry, DEFAULT_PROGRAM_ID } from './services/programRegistry';
 import { setRawSchedule, buildCompleteSchedule } from './utils/schedule';
 import { ProgramProvider } from './context/ProgramContext';
+import { ToastProvider } from './context/ToastContext';
+import { Toaster } from './components/Toaster';
 
 // Initialize error reporting as early as possible
 initErrorReporting();
@@ -247,9 +249,12 @@ Promise.all([
             <React.Suspense fallback={<LoadingScreen />}>
                 <ErrorBoundary>
                     <ProgramProvider>
-                        <PWAApp>
-                            <App />
-                        </PWAApp>
+                        <ToastProvider>
+                            <PWAApp>
+                                <App />
+                                <Toaster />
+                            </PWAApp>
+                        </ToastProvider>
                     </ProgramProvider>
                 </ErrorBoundary>
             </React.Suspense>

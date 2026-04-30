@@ -21,7 +21,7 @@ export type FeatureFlag =
 const STORAGE_PREFIX = 'tracker_feature_';
 
 const DEFAULTS: Record<FeatureFlag, boolean> = {
-    set_table: false,
+    set_table: true,
 };
 
 const storageKey = (flag: FeatureFlag): string => `${STORAGE_PREFIX}${flag}`;

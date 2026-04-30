@@ -82,24 +82,24 @@ describe('Dialog Component', () => {
         expect(mockOnClose).toHaveBeenCalled();
     });
 
-    it('should have proper MD3 styling with 28dp radius', () => {
+    it('should have brutalist styling with rounded-md', () => {
         const { container } = render(
             <Dialog isOpen={true} onClose={mockOnClose}>
                 Dialog content
             </Dialog>
         );
         const dialog = container.querySelector('[role="dialog"]');
-        expect(dialog).toHaveClass('rounded-[28px]');
+        expect(dialog).toHaveClass('rounded-md');
     });
 
-    it('should have elevation-3 shadow', () => {
+    it('should have hairline border', () => {
         const { container } = render(
             <Dialog isOpen={true} onClose={mockOnClose}>
                 Dialog content
             </Dialog>
         );
         const dialog = container.querySelector('[role="dialog"]');
-        expect(dialog).toHaveClass('shadow-elevation-3');
+        expect(dialog).toHaveClass('border-sys-outlineVariant');
     });
 });
 
@@ -278,12 +278,12 @@ describe('Snackbar Component', () => {
         expect(snackbar).toHaveClass('bg-sys-inverseSurface');
     });
 
-    it('should have elevation-3 shadow', () => {
+    it('should have brutalist hairline border', () => {
         const { container } = render(
             <Snackbar isOpen={true} message="Test" onClose={mockOnClose} />
         );
         const snackbar = container.querySelector('[role="alert"]');
-        expect(snackbar).toHaveClass('shadow-elevation-4');
+        expect(snackbar).toHaveClass('border-sys-outlineVariant');
     });
 
     it('should apply success type styling', () => {

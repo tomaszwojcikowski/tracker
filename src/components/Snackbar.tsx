@@ -102,10 +102,8 @@ export const Snackbar: React.FC<SnackbarProps> = ({
                 className={`
                     pointer-events-auto
                     min-w-[288px] max-w-[568px] w-full sm:w-auto
-                    rounded-2xl shadow-elevation-4
-                    backdrop-blur-xl
+                    rounded-md
                     border border-sys-outlineVariant
-                    bg-opacity-90
                     animate-slide-up
                     ${typeStyles[type]}
                     ${isStacked ? 'py-3' : 'py-3.5'}
@@ -130,7 +128,7 @@ export const Snackbar: React.FC<SnackbarProps> = ({
                             <button
                                 onClick={handleAction}
                                 className={`
-                                    px-3 py-1.5 rounded-lg
+                                    px-3 py-1.5 rounded-sm
                                     text-sm font-bold
                                     transition-colors
                                     ${actionStyles[type]}
@@ -142,7 +140,7 @@ export const Snackbar: React.FC<SnackbarProps> = ({
                         <button
                             onClick={onClose}
                             className={`
-                                p-1.5 rounded-full
+                                p-1.5 rounded-sm
                                 transition-colors
                                 opacity-70 hover:opacity-100
                                 ${type === 'default' ? 'hover:bg-white/10' : 'hover:bg-black/10'}

@@ -64,6 +64,16 @@
             "repsType": "reps",
             "repsValue": 10,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Wrist Rolls",
+                "exerciseName": "Wrist Rolls"
+              },
+              {
+                "optionName": "Wrist Circles",
+                "exerciseName": "Wrist Circles"
+              }
+            ],
             "notes": "10 each direction. Run 1-2 rounds through the early Monday warm-up work.",
             "coachingNotes": "Slow circles only. This is joint prep for the elbow and wrist, not a stretch challenge."
           },
@@ -74,6 +84,16 @@
             "repsType": "reps",
             "repsValue": 8,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Scap Push-Ups",
+                "exerciseName": "Scapular Push-Ups"
+              },
+              {
+                "optionName": "Wall Scap Slides",
+                "exerciseName": "Wall Scap Slides"
+              }
+            ],
             "notes": "One crisp set before bench activation work.",
             "coachingNotes": "Move through full scapular protraction and retraction without bending the elbows."
           },
@@ -126,6 +146,16 @@
             "repsType": "reps",
             "repsValue": 10,
             "loadUnit": "band",
+            "exerciseOptions": [
+              {
+                "optionName": "Pull-Aparts",
+                "exerciseName": "Band Pull-Aparts"
+              },
+              {
+                "optionName": "Band Dislocates",
+                "exerciseName": "Band Dislocates"
+              }
+            ],
             "notes": "Part of the bench activation block. In Weeks 5-8 you can add a second set if shoulders feel good.",
             "coachingNotes": "Finish with the shoulder blades moving together, not the low back extending."
           },
@@ -137,6 +167,16 @@
             "repsValue": 10,
             "isUnilateral": true,
             "loadUnit": "band",
+            "exerciseOptions": [
+              {
+                "optionName": "External Rotation",
+                "exerciseName": "Banded External Rotation"
+              },
+              {
+                "optionName": "No-Money Drill",
+                "exerciseName": "Band No-Money Drill"
+              }
+            ],
             "notes": "10 per side.",
             "coachingNotes": "Keep the elbow pinned and rotate only as far as you can control without the shoulder rolling forward."
           },
@@ -148,6 +188,19 @@
             "repsValue": 6,
             "repsPerSide": true,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Shoulder Taps",
+                "exerciseName": "Push-Up Plank Shoulder Taps"
+              },
+              {
+                "optionName": "High Plank Hold",
+                "exerciseName": "High Plank Hold",
+                "repsType": "time",
+                "repsValue": 20,
+                "repsUnit": "seconds"
+              }
+            ],
             "notes": "Brace hard and keep the torso quiet.",
             "coachingNotes": "This is anti-rotation trunk prep for the press, not a speed drill."
           },
@@ -163,6 +216,22 @@
             "repsValue": 10,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Tuck Support",
+                "exerciseName": "Parallette Tuck Support Hold",
+                "repsType": "time",
+                "repsValue": 10,
+                "repsUnit": "seconds"
+              },
+              {
+                "optionName": "Floor Support",
+                "exerciseName": "Floor Tuck Support Hold",
+                "repsType": "time",
+                "repsValue": 10,
+                "repsUnit": "seconds"
+              }
+            ],
             "notes": "Compression primer. Weeks 9-10 can trim to one brief hold.",
             "coachingNotes": "Locked elbows, shoulders depressed, ribs tucked. Treat this as position rehearsal for the later L-sit work."
           }
@@ -205,6 +274,16 @@
             "repsValue": 5,
             "repsPerSide": true,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "90/90 Switches",
+                "exerciseName": "Hip 90/90 Switches"
+              },
+              {
+                "optionName": "Shin Box Switches",
+                "exerciseName": "Shin Box Switches"
+              }
+            ],
             "notes": "Use this to unlock the hips before the trunk block.",
             "coachingNotes": "Rotate through both hips without forcing range."
           },
@@ -216,6 +295,16 @@
             "repsValue": 5,
             "repsPerSide": true,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Open Book",
+                "exerciseName": "T-Spine Open Book"
+              },
+              {
+                "optionName": "Quadruped Rotation",
+                "exerciseName": "Quadruped T-Spine Rotation"
+              }
+            ],
             "notes": "One controlled set per side.",
             "coachingNotes": "Let the upper back rotate while the hips stay stacked."
           },
@@ -227,6 +316,16 @@
             "repsValue": 8,
             "repsPerSide": true,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Ankle Rocks",
+                "exerciseName": "Ankle Rocks"
+              },
+              {
+                "optionName": "Knee-to-Wall",
+                "exerciseName": "Knee-to-Wall Ankle Rocks"
+              }
+            ],
             "notes": "Short ankle prep before the conditioning and core work.",
             "coachingNotes": "Drive the knee forward without the heel lifting."
           },
@@ -264,6 +363,18 @@
             "repsType": "reps",
             "repsValue": 8,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Glute Bridge",
+                "exerciseName": "Glute Bridge",
+                "repsValue": 8
+              },
+              {
+                "optionName": "Frog Pump",
+                "exerciseName": "Frog Pump",
+                "repsValue": 8
+              }
+            ],
             "notes": "1-second pause at the top of each rep.",
             "coachingNotes": "Drive through the whole foot and keep the ribs stacked over the pelvis."
           },
@@ -350,6 +461,16 @@
             "repsValue": 8,
             "repsPerSide": true,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Wall Rocks",
+                "exerciseName": "Ankle Rocks against Wall"
+              },
+              {
+                "optionName": "Knee-to-Wall",
+                "exerciseName": "Knee-to-Wall Ankle Rocks"
+              }
+            ],
             "notes": "Start with ankle access before the front-rack work.",
             "coachingNotes": "Drive the knee over the toes without letting the heel pop up."
           },
@@ -361,6 +482,22 @@
             "repsValue": 30,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Straps",
+                "exerciseName": "Front Rack Stretch",
+                "repsType": "time",
+                "repsValue": 30,
+                "repsUnit": "seconds"
+              },
+              {
+                "optionName": "Rig Stretch",
+                "exerciseName": "Rig Front Rack Stretch",
+                "repsType": "time",
+                "repsValue": 30,
+                "repsUnit": "seconds"
+              }
+            ],
             "notes": "20-30 seconds on the rig or straps.",
             "coachingNotes": "Open the wrists and lats enough to rack the bar without cranking on the elbows."
           },
@@ -396,6 +533,16 @@
             "repsMin": 3,
             "repsMax": 5,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Turnover Drill",
+                "exerciseName": "Tall Clean Turnover Drill"
+              },
+              {
+                "optionName": "Tall Muscle Clean",
+                "exerciseName": "Tall Muscle Clean"
+              }
+            ],
             "notes": "3-5 crisp reps to sharpen elbow speed.",
             "coachingNotes": "Use this to rehearse fast elbows and a vertical receiving pattern."
           },
@@ -451,6 +598,20 @@
             "repsType": "reps",
             "repsValue": 3,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Fast Stand",
+                "exerciseName": "Fast-Stand Bodyweight Squat",
+                "sets": 2,
+                "repsValue": 3
+              },
+              {
+                "optionName": "Paused Squat",
+                "exerciseName": "Paused Bodyweight Squat",
+                "sets": 1,
+                "repsValue": 3
+              }
+            ],
             "notes": "Short bridge into the box squat work.",
             "coachingNotes": "Move fast on the stand without losing foot pressure or torso position."
           },
@@ -533,6 +694,16 @@
             "repsValue": 5,
             "repsPerSide": true,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Scap CARs",
+                "exerciseName": "Scapular CARs"
+              },
+              {
+                "optionName": "Scap Circles",
+                "exerciseName": "Scapular Circles"
+              }
+            ],
             "notes": "5 each direction.",
             "coachingNotes": "Slow circles only. Let the scapula move through full controlled range."
           },
@@ -543,6 +714,16 @@
             "repsType": "reps",
             "repsValue": 8,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Wall Slides",
+                "exerciseName": "Wall Slides"
+              },
+              {
+                "optionName": "Foam Roller Reach",
+                "exerciseName": "Foam-Roller Wall Reach"
+              }
+            ],
             "notes": "Shoulder upward-rotation prep.",
             "coachingNotes": "Keep the ribs down and reach long at the top."
           },
@@ -554,6 +735,16 @@
             "repsValue": 10,
             "repsPerSide": true,
             "loadUnit": "band",
+            "exerciseOptions": [
+              {
+                "optionName": "External Rotation",
+                "exerciseName": "Banded External Rotation"
+              },
+              {
+                "optionName": "No-Money Drill",
+                "exerciseName": "Band No-Money Drill"
+              }
+            ],
             "notes": "10 per side.",
             "coachingNotes": "Let the cuff wake up without shrugging the shoulder."
           },
@@ -564,6 +755,17 @@
             "repsType": "reps",
             "repsValue": 10,
             "loadUnit": "band",
+            "exerciseOptions": [
+              {
+                "optionName": "Face Pull",
+                "exerciseName": "Face Pull"
+              },
+              {
+                "optionName": "Band Pull-Apart",
+                "exerciseName": "Band Pull-Aparts",
+                "repsValue": 10
+              }
+            ],
             "notes": "Light set only.",
             "coachingNotes": "Just enough to organize the upper back before the structural circuit."
           },
@@ -575,6 +777,18 @@
             "repsValue": 5,
             "repsPerSide": true,
             "loadUnit": "kg",
+            "exerciseOptions": [
+              {
+                "optionName": "Landmine Press",
+                "exerciseName": "Half-Kneeling Landmine Press",
+                "repsValue": 5
+              },
+              {
+                "optionName": "DB Press",
+                "exerciseName": "Half-Kneeling Dumbbell Press",
+                "repsValue": 5
+              }
+            ],
             "notes": "Use an empty sleeve or very light load.",
             "coachingNotes": "Reach fully at the top without losing ribs-down position."
           },
@@ -587,6 +801,22 @@
             "repsUnit": "seconds",
             "repsPerSide": true,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Side Plank",
+                "exerciseName": "Side Plank",
+                "repsType": "time",
+                "repsValue": 20,
+                "repsUnit": "seconds"
+              },
+              {
+                "optionName": "Short Lever",
+                "exerciseName": "Short-Lever Side Plank",
+                "repsType": "time",
+                "repsValue": 20,
+                "repsUnit": "seconds"
+              }
+            ],
             "notes": "15-20 s per side. Weeks 9-10 can trim this back.",
             "coachingNotes": "Straight line from ear to ankle. This is trunk organization, not fatigue work."
           },
@@ -696,6 +926,16 @@
             "repsMax": 12,
             "repsPerSide": true,
             "loadUnit": "band",
+            "exerciseOptions": [
+              {
+                "optionName": "Lateral Walks",
+                "exerciseName": "Lateral Band Walks"
+              },
+              {
+                "optionName": "Monster Walks",
+                "exerciseName": "Monster Walks"
+              }
+            ],
             "notes": "10-12 steps per side.",
             "coachingNotes": "Stay in the quarter squat and keep the feet active."
           },
@@ -728,6 +968,18 @@
             "repsType": "reps",
             "repsValue": 3,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Tall Clean",
+                "exerciseName": "Tall Clean Drill",
+                "repsValue": 3
+              },
+              {
+                "optionName": "Tall Muscle Clean",
+                "exerciseName": "Tall Muscle Clean",
+                "repsValue": 3
+              }
+            ],
             "notes": "Match the drill to the day's clean variation.",
             "coachingNotes": "Fast elbows and vertical timing only."
           },
@@ -762,6 +1014,20 @@
             "repsType": "reps",
             "repsValue": 3,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Snap-Down",
+                "exerciseName": "Snap-Down to Squat Stance",
+                "sets": 2,
+                "repsValue": 3
+              },
+              {
+                "optionName": "Drop Squat",
+                "exerciseName": "Drop Squat to Stance",
+                "sets": 2,
+                "repsValue": 3
+              }
+            ],
             "notes": "Short speed primer before squatting.",
             "coachingNotes": "Land in the exact stance you want for the squat and clean catch."
           },
@@ -772,6 +1038,18 @@
             "repsType": "reps",
             "repsValue": 6,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Dowel Sweep",
+                "exerciseName": "Dowel Hip Hinge Sweep",
+                "repsValue": 6
+              },
+              {
+                "optionName": "Bodyweight Hinge",
+                "exerciseName": "Bodyweight Hip Hinge",
+                "repsValue": 6
+              }
+            ],
             "notes": "Use when RDLs are programmed that day.",
             "coachingNotes": "Prime the hinge pattern without turning this into work."
           },
@@ -783,6 +1061,18 @@
             "repsValue": 5,
             "repsPerSide": true,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Step-Up Rehearsal",
+                "exerciseName": "Low Box Step-Up Rehearsal",
+                "repsValue": 5
+              },
+              {
+                "optionName": "Split Squat",
+                "exerciseName": "Bodyweight Split Squat",
+                "repsValue": 5
+              }
+            ],
             "notes": "Use when Step-Ups are programmed that day.",
             "coachingNotes": "Treat this as knee-tracking rehearsal only."
           },
@@ -822,6 +1112,22 @@
             "repsValue": 240,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Bike",
+                "exerciseName": "Easy Bike / SkiErg Spin",
+                "repsType": "time",
+                "repsValue": 240,
+                "repsUnit": "seconds"
+              },
+              {
+                "optionName": "Walk",
+                "exerciseName": "Easy Walk",
+                "repsType": "time",
+                "repsValue": 240,
+                "repsUnit": "seconds"
+              }
+            ],
             "notes": "3-5 min easy spin",
             "coachingNotes": "Light, easy aerobic spin to flush blood through worked tissues. Cadence smooth, breathing easy. Lower body goes here too if you just hammered upper."
           },
@@ -835,6 +1141,16 @@
             "loadMin": 1,
             "loadMax": 2,
             "loadUnit": "kg",
+            "exerciseOptions": [
+              {
+                "optionName": "DB Eccentrics",
+                "exerciseName": "Eccentric Wrist Extensions (cooldown)"
+              },
+              {
+                "optionName": "Tyler Twist",
+                "exerciseName": "Tyler Twist"
+              }
+            ],
             "coachingNotes": "Same protocol as warm-up: lift with assistance, lower 3 s solo. After hard pressing the tendon prep work doubles as recovery — do not skip."
           },
           {
@@ -846,6 +1162,29 @@
             "repsUnit": "seconds",
             "isUnilateral": true,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Hip Flexor",
+                "exerciseName": "Hip Flexor Stretch",
+                "repsType": "time",
+                "repsValue": 30,
+                "repsUnit": "seconds"
+              },
+              {
+                "optionName": "Pigeon",
+                "exerciseName": "Pigeon Stretch",
+                "repsType": "time",
+                "repsValue": 30,
+                "repsUnit": "seconds"
+              },
+              {
+                "optionName": "Quad",
+                "exerciseName": "Standing Quad Stretch",
+                "repsType": "time",
+                "repsValue": 30,
+                "repsUnit": "seconds"
+              }
+            ],
             "notes": "30 s/side each",
             "coachingNotes": "Hold each position 30 s per side without bouncing. Breathe into the stretch; back off if you feel pinching at end-range. Pigeon belongs only on Friday-cooldown days when the hip is warm."
           },
@@ -858,6 +1197,22 @@
             "repsUnit": "seconds",
             "isUnilateral": true,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Doorway Pec",
+                "exerciseName": "Doorway Pec Stretch",
+                "repsType": "time",
+                "repsValue": 30,
+                "repsUnit": "seconds"
+              },
+              {
+                "optionName": "Corner Pec",
+                "exerciseName": "Corner Pec Stretch",
+                "repsType": "time",
+                "repsValue": 30,
+                "repsUnit": "seconds"
+              }
+            ],
             "coachingNotes": "Forearm vertical against a doorframe, elbow at shoulder height. Step the same-side foot through the door until you feel a stretch across the chest. 30 s each side, no shoulder shrugging."
           },
           {
@@ -867,6 +1222,18 @@
             "repsValue": 15,
             "repsType": "reps",
             "loadUnit": "band",
+            "exerciseOptions": [
+              {
+                "optionName": "Pull-Aparts",
+                "exerciseName": "Band Pull-Aparts",
+                "repsValue": 15
+              },
+              {
+                "optionName": "Face Pulls",
+                "exerciseName": "Face Pull",
+                "repsValue": 15
+              }
+            ],
             "coachingNotes": "Hold a band at chest height, arms straight, hands shoulder-width. Pull the band apart by squeezing the shoulder blades together, finishing with the band touching the chest. Slow return. Endurance work — keep it light."
           }
         ]
@@ -883,6 +1250,22 @@
             "repsValue": 540,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Bike",
+                "exerciseName": "Easy Bike / SkiErg (Z1-Z2)",
+                "repsType": "time",
+                "repsValue": 540,
+                "repsUnit": "seconds"
+              },
+              {
+                "optionName": "Walk",
+                "exerciseName": "Easy Walk",
+                "repsType": "time",
+                "repsValue": 540,
+                "repsUnit": "seconds"
+              }
+            ],
             "notes": "8-10 min Zone 1-2 aerobic flush",
             "coachingNotes": "Sustained Zone 1-2 effort: nasal breathing should be possible. Friday cooldown — flush the legs after the heaviest day of the week."
           },
@@ -895,6 +1278,29 @@
             "repsUnit": "seconds",
             "isUnilateral": true,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Hip Flexor",
+                "exerciseName": "Hip Flexor Stretch",
+                "repsType": "time",
+                "repsValue": 30,
+                "repsUnit": "seconds"
+              },
+              {
+                "optionName": "Pigeon",
+                "exerciseName": "Pigeon Stretch",
+                "repsType": "time",
+                "repsValue": 30,
+                "repsUnit": "seconds"
+              },
+              {
+                "optionName": "Quad",
+                "exerciseName": "Standing Quad Stretch",
+                "repsType": "time",
+                "repsValue": 30,
+                "repsUnit": "seconds"
+              }
+            ],
             "notes": "30 s/side each",
             "coachingNotes": "Hold each position 30 s per side without bouncing. Breathe into the stretch; back off if you feel pinching at end-range. Pigeon belongs only on Friday-cooldown days when the hip is warm."
           },
@@ -907,6 +1313,22 @@
             "repsUnit": "seconds",
             "isUnilateral": true,
             "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Doorway Pec",
+                "exerciseName": "Doorway Pec Stretch",
+                "repsType": "time",
+                "repsValue": 30,
+                "repsUnit": "seconds"
+              },
+              {
+                "optionName": "Corner Pec",
+                "exerciseName": "Corner Pec Stretch",
+                "repsType": "time",
+                "repsValue": 30,
+                "repsUnit": "seconds"
+              }
+            ],
             "coachingNotes": "Forearm vertical against a doorframe, elbow at shoulder height. Step the same-side foot through the door until you feel a stretch across the chest. 30 s each side, no shoulder shrugging."
           }
         ]
@@ -958,6 +1380,11 @@
         "tempoPauseTop": 0,
         "rpe": 7,
         "notes": "Straight-bar Bench (only non-neutral grip press). 2-second eccentric. Stop set if bar speed drops or positions break.",
+        "alternatives": [
+          "Neutral-Grip DB Bench Press",
+          "Incline Bench Press",
+          "Push-Ups on Handles"
+        ],
         "coachingNotes": "Eyes under the bar, shoulder blades retracted and depressed, mid-foot flat. Bar lands on the lower sternum with a 2 s controlled eccentric, no bouncing; drive heels and press in a slight J-curve back over the shoulders. If bar speed visibly slows or the elbow flares, end the set — the prescription assumes crisp reps only."
       },
       {
@@ -1065,6 +1492,11 @@
         "restSeconds": 180,
         "rpe": 7,
         "notes": "Hook grip (elbow management). Vertical bar path, smooth pulls, no grinding. Convert to Clean Pulls if catches get sloppy or slow.",
+        "alternatives": [
+          "Power Clean",
+          "Hang High Pull",
+          "Clean Pull"
+        ],
         "coachingNotes": "Start from the hang at mid-thigh with hook grip and lats engaged. Initiate with a violent leg drive and hip extension; the bar travels up the body, not away. Catch in a quarter-squat with elbows whipping through high and the chest tall. Reset every rep — singles strung together, never touch-and-go."
       },
       {
@@ -1079,6 +1511,11 @@
         "restSeconds": 150,
         "rpe": 7,
         "notes": "Explosive extension ABOVE knee; finish tall. Positional/technical reinforcement.",
+        "alternatives": [
+          "Hang High Pull",
+          "Hang Power Clean",
+          "Power Clean"
+        ],
         "coachingNotes": "Same setup as the clean but without the catch. Pull off the floor with patience, accelerate hard once the bar passes the knees, finish with a tall triple extension and a vertical shrug. Keep arms straight throughout — this is a positional and CNS primer, not a row."
       },
       {
@@ -1093,6 +1530,11 @@
         "restSeconds": 120,
         "rpe": 6,
         "notes": "Variation Dose Rule: Friday clean variation is a TECHNICAL PRIMER. Fast, sharp reps only. Stop the set if turnover slows.",
+        "alternatives": [
+          "Hang Power Clean",
+          "Hang High Pull",
+          "Tall Muscle Clean"
+        ],
         "coachingNotes": "Start with the bar at the hip crease, dip the knees ~10 cm, and immediately re-extend explosively. The bar barely moves before the catch — focus on a fast turnover with the elbows whipping under. Treat every rep like a max-velocity primer; if speed drops, stop the set even if the prescription is unfinished."
       },
       {
@@ -1107,6 +1549,11 @@
         "restSeconds": 180,
         "rpe": 8,
         "notes": "Hook grip. Full power clean from floor. Convert to Clean Pulls if positions break.",
+        "alternatives": [
+          "Hang Power Clean",
+          "Hang High Pull",
+          "Clean Pull"
+        ],
         "coachingNotes": "Setup: bar over mid-foot, hook grip, hips slightly higher than the squat. First pull is patient and bar-path vertical; second pull explodes once the bar passes the knees. Catch in a controlled quarter-squat with vertical torso. Drop and reset between reps — quality, not density."
       },
       {
@@ -1121,6 +1568,11 @@
         "restSeconds": 180,
         "rpe": 7,
         "notes": "Box at exactly parallel (~41-43 cm). True 1-second dead stop on box, no rocking. HLM rule: load programmed below Friday Back Squat in every week (gap by phase: -5 kg Phase 1, -7.5 to -12.5 kg Phase 2, -20 kg Wk 10). 2.5-3 min rest in Wks 7-10.",
+        "alternatives": [
+          "Back Squat",
+          "Front Squat",
+          "Goblet Box Squat"
+        ],
         "coachingNotes": "Box height set to exactly parallel. Sit back onto the box with vertical shins, dead-stop for a true 1 s with no relaxing the trunk, then drive the floor away and stand. No rocking, no bouncing. The dead stop kills the stretch reflex — that's the point."
       },
       {
@@ -1139,6 +1591,11 @@
         "tempoPauseTop": 0,
         "rpe": 7,
         "notes": "Tripod foot, knees track over toes. 1-second pause at depth (Phases 1-2). If knees irritated, drop 5 kg from listed load.",
+        "alternatives": [
+          "Box Squat",
+          "Front Squat",
+          "Goblet Squat"
+        ],
         "coachingNotes": "High-bar position across the upper traps, elbows tucked under the bar. Brace 360°, break at hips and knees together, descend to one inch below parallel with a controlled 1 s pause. Drive the chest up and the floor away simultaneously. If the knees protest, drop 5 kg and tighten the descent tempo."
       },
       {
@@ -1215,6 +1672,11 @@
         "tempoPauseTop": 0,
         "rpe": 8,
         "notes": "Medium grip, 2-second chest pause. Bench-specific without extra triceps/elbow stress. Min 2 min rest.",
+        "alternatives": [
+          "Bench Press",
+          "Neutral-Grip DB Bench Press",
+          "Incline Bench Press"
+        ],
         "coachingNotes": "Standard bench setup with a medium grip. Lower the bar to the lower sternum, pause 2 s with active tension (not collapsed on the chest), then press. The pause builds raw start strength without adding ROM stress. Min 2 min rest so the press is fresh, not fatigued."
       },
       {
@@ -1277,6 +1739,11 @@
         "loadUnit": "bodyweight",
         "rpe": 5,
         "notes": "Lower-intensity technique row, RPE 5-6. Warm up 5-10 min easy + dynamic mobility. Cool down 3 min easy. Sub Bike or SkiErg if elbow/knee not 100%.",
+        "alternatives": [
+          "Rower (Zone 1)",
+          "Assault Bike (Zone 1)",
+          "SkiErg (Zone 1)"
+        ],
         "coachingNotes": "Easy aerobic effort: nasal-only breathing or full conversational pace. Long stroke, full slide, no rushing the recovery. Rower split should feel \"I could do this for 60 min.\" If form gets sloppy or the heart rate drifts above Z2, slow down."
       },
       {
@@ -1290,6 +1757,11 @@
         "loadUnit": "bodyweight",
         "rpe": 7,
         "notes": "Per Tuesday/Thursday rowing-schedule table for the week. Stay consistent on splits. Cool down 3 min easy.",
+        "alternatives": [
+          "Rower (Zone 2)",
+          "Assault Bike (Zone 2)",
+          "SkiErg Moderate Intervals"
+        ],
         "coachingNotes": "Hold target splits exactly per the week's rowing table — RPE 6-7. Strong leg drive, deliberate finish, controlled recovery. If splits drift more than ~5 s/500 m off target, cut the interval rather than grind through bad strokes."
       },
       {
@@ -1303,6 +1775,11 @@
         "loadUnit": "bodyweight",
         "rpe": 8,
         "notes": "Phase 2 Tuesday: 1,000 m / interval work, RPE 7-8. Sits 72 h before Friday squats.",
+        "alternatives": [
+          "Rower Sprints",
+          "Assault Bike Sprints",
+          "SkiErg Hard Intervals"
+        ],
         "coachingNotes": "High-intensity intervals at RPE 7-8. Aim for repeatable splits across all reps; the last interval should not be slower than the first by more than ~2 s/500 m. Full recovery between reps. Stops 72 h before Friday squats, so don't bury yourself."
       },
       {
@@ -1421,6 +1898,11 @@
         "supersetGroup": 1,
         "rpe": 6,
         "notes": "Vertical press stays light and clean. +10-15 kg Wks 1-8, +5-10 kg Wk 9. Full reach, ribs down, smooth arc. Skip if symptoms elevated.",
+        "alternatives": [
+          "Half-Kneeling Dumbbell Press",
+          "Incline DB Bench Press",
+          "Push-Ups on Handles"
+        ],
         "coachingNotes": "Half-kneeling with the down-leg matching the pressing arm. Bar starts at the shoulder, ribs stacked over hips. Press up and slightly forward in a smooth arc, fully extending the elbow without shrugging. Lower under control. If shoulder symptoms flare, skip — vertical pressing is dispensable."
       },
       {

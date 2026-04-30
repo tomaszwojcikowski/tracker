@@ -73,7 +73,7 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
                             <button
                                 key={`${exId}-set-${i}`}
                                 onClick={() => onToggleSet(i)}
-                                className={`h-12 w-12 min-w-[48px] rounded-xl flex items-center justify-center text-base font-bold transition-all active:scale-90 ${isDone ? 'bg-sys-onSurface text-sys-surface' : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVariant border-2 border-sys-outlineVariant'}`}
+                                className={`h-12 w-12 min-w-[48px] rounded-md flex items-center justify-center text-base font-bold tabular-nums transition-all active:scale-90 ${isDone ? 'bg-sys-onSurface text-sys-surface' : 'bg-sys-surfaceContainerHigh text-sys-onSurfaceVariant border border-sys-outlineVariant'}`}
                                 aria-label={`Set ${i + 1}${isDone ? ' completed' : ''}`}
                             >
                                 {isDone ? (
@@ -109,7 +109,7 @@ const CompactSetButtonsInner: React.FC<CompactSetButtonsProps> = ({
             </div>
             {/* Progress indicator */}
             <div
-                className={`text-sm font-bold ml-1 px-2 py-1 rounded transition-colors ${
+                className={`text-mono-stat text-sm font-bold ml-1 px-2 py-1 rounded transition-colors ${
                     isComplete
                         ? 'text-sys-success'
                         : 'text-sys-onSurfaceVar'

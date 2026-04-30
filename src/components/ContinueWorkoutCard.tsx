@@ -48,7 +48,7 @@ export function ContinueWorkoutCard({ workout, onResume }: ContinueWorkoutCardPr
       </div>
 
       {totalSets > 0 && (
-        <div className="w-full bg-sys-surfaceContainerHigh h-2 rounded-full overflow-hidden mb-4">
+        <div className="w-full bg-sys-surfaceContainerHigh h-2 rounded-sm overflow-hidden mb-4">
           <div
             className="h-full bg-sys-primary transition-all duration-500 ease-out"
             style={{ width: `${progressPercent}%` }}
@@ -58,7 +58,7 @@ export function ContinueWorkoutCard({ workout, onResume }: ContinueWorkoutCardPr
 
       <div className="grid grid-cols-2 gap-4 pt-4 border-t border-sys-outlineVariant">
         <div>
-          <div className="text-label-sm text-sys-onSurfaceVariant mb-1">
+          <div className="eyebrow text-sys-onSurfaceVariant mb-1">
             Last activity
           </div>
           <div className="text-body-md font-semibold text-sys-onSurface">
@@ -66,18 +66,18 @@ export function ContinueWorkoutCard({ workout, onResume }: ContinueWorkoutCardPr
           </div>
         </div>
         <div>
-          <div className="text-label-sm text-sys-onSurfaceVariant mb-1">
+          <div className="eyebrow text-sys-onSurfaceVariant mb-1">
             Workout
           </div>
-          <div className="text-body-md font-semibold text-sys-onSurface">
+          <div className="text-body-md font-semibold text-sys-onSurface text-mono-stat">
             Week {week} • Day {day}
           </div>
         </div>
         <div className="col-span-2">
-          <div className="text-label-sm text-sys-onSurfaceVariant mb-1">
+          <div className="eyebrow text-sys-onSurfaceVariant mb-1">
             Progress
           </div>
-          <div className="text-body-md font-semibold text-sys-onSurface">
+          <div className="text-body-md font-semibold text-sys-onSurface text-mono-stat">
             {progress}
           </div>
         </div>

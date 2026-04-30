@@ -146,7 +146,7 @@ describe('AddedExerciseCard', () => {
                 />
             );
 
-            const card = container.querySelector('.border-sys-successContainer');
+            const card = container.querySelector('.border-sys-onSurface');
             expect(card).toBeInTheDocument();
         });
 

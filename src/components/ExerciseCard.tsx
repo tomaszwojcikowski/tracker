@@ -545,7 +545,7 @@ const ExerciseCardImpl: React.FC<ExerciseCardProps> = ({
 
                             {completedSets > 0 && !isDensity && (
                                 <span
-                                    className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                                    className={`text-mono-stat text-xs font-bold px-2 py-0.5 rounded-full ${
                                         completedSets === totalSets
                                             ? 'bg-sys-successContainer text-sys-onSuccessContainer'
                                             : 'bg-sys-primaryContainer text-sys-onPrimaryContainer'

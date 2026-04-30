@@ -43,7 +43,7 @@ export const WorkoutTimerDisplay: React.FC<WorkoutTimerDisplayProps> = ({
       )}
       <span
         className={clsx(
-          "font-mono text-label-lg font-bold min-w-[48px] text-left",
+          "text-mono-stat text-label-lg font-bold min-w-[48px] text-left",
           isRunning ? "text-sys-primary" : "text-sys-onSurfaceVariant"
         )}
       >

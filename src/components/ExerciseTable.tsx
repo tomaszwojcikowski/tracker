@@ -69,21 +69,25 @@ const previousFromHistory = (
     historyEntries: ReturnType<typeof getExerciseHistory>,
 ): string | undefined => {
     if (!historyEntries || historyEntries.length === 0) return undefined;
-    // Most recent entry first
-    const last = historyEntries[historyEntries.length - 1];
-    const w = last.weight != null ? Number(last.weight) : undefined;
-    const setsCount = last.sets ?? 0;
-    if (!w && setsCount === 0) return undefined;
-    // We don't have per-set weight history, so use the entry-level weight as
-    // the row's "previous" for every set. Reps are derived from sets count if
-    // available; otherwise omitted.
-    if (w && setsCount) {
-        const repsHint = ''; // Per-set rep history not stored; leave blank.
-        void repsHint;
-        return `${w}kg`;
-    }
-    if (w) return `${w}kg`;
-    return undefined;
+
+    const lastWithWeight = [...historyEntries]
+        .reverse()
+        .find((entry) => entry.weight != null && Number(entry.weight) > 0);
+
+    if (!lastWithWeight?.weight) return undefined;
+    return `${lastWithWeight.weight}kg`;
+};
+
+const previousWeightFromHistory = (
+    historyEntries: ReturnType<typeof getExerciseHistory>,
+): string | undefined => {
+    if (!historyEntries || historyEntries.length === 0) return undefined;
+
+    const lastWithWeight = [...historyEntries]
+        .reverse()
+        .find((entry) => entry.weight != null && Number(entry.weight) > 0);
+
+    return lastWithWeight?.weight != null ? String(lastWithWeight.weight) : undefined;
 };
 
 const ExerciseTableImpl: React.FC<ExerciseTableProps> = ({
@@ -109,6 +113,8 @@ const ExerciseTableImpl: React.FC<ExerciseTableProps> = ({
         if (isBodyweight) return [];
         return getExerciseHistory(effectiveName);
     }, [effectiveName, isBodyweight]);
+
+    const historyWeight = useMemo(() => previousWeightFromHistory(history), [history]);
 
     const firstIncompleteIndex = useMemo(() => sets.findIndex((s) => !s), [sets]);
 
@@ -140,9 +146,12 @@ const ExerciseTableImpl: React.FC<ExerciseTableProps> = ({
         (setIndex: number): string | undefined => {
             const override = exerciseLog.setWeights?.[setIndex];
             if (override !== undefined) return override;
-            return exerciseLog.weight ?? '';
+            if (exerciseLog.weight && exerciseLog.weight.trim() !== '') {
+                return exerciseLog.weight;
+            }
+            return historyWeight ?? '';
         },
-        [exerciseLog.setWeights, exerciseLog.weight],
+        [exerciseLog.setWeights, exerciseLog.weight, historyWeight],
     );
 
     const inheritedRepsForSet = useCallback(

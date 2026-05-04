@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ExerciseTable } from '../components/ExerciseTable';
+import { getExerciseHistory } from '../utils/exerciseHistory';
 import type { ExerciseLogEntry } from '../types/workout';
 
 vi.mock('../utils/exerciseHistory', () => ({
@@ -39,6 +40,7 @@ const renderTable = (overrides: Partial<React.ComponentProps<typeof ExerciseTabl
 describe('ExerciseTable', () => {
     beforeEach(() => {
         vi.clearAllMocks();
+        vi.mocked(getExerciseHistory).mockReturnValue([]);
     });
 
     it('renders one row per set', () => {
@@ -97,5 +99,56 @@ describe('ExerciseTable', () => {
         expect((inputs[2] as HTMLInputElement).value).toBe('50');
         // Set 3 uses override
         expect((inputs[4] as HTMLInputElement).value).toBe('70');
+    });
+
+    it('fills row weights from previous history when current weight is empty', () => {
+        vi.mocked(getExerciseHistory).mockReturnValue([
+            {
+                date: '2026-05-03',
+                week: 1,
+                day: 1,
+                prescription: '3x8 reps',
+                sets: 3,
+                weight: 65,
+                rpe: {},
+            },
+        ]);
+
+        const log: ExerciseLogEntry = {
+            ...baseLog,
+            weight: '',
+            setWeights: [undefined, undefined, undefined],
+        };
+
+        renderTable({ exerciseLog: log });
+        const inputs = screen.getAllByRole('spinbutton');
+        expect((inputs[0] as HTMLInputElement).value).toBe('65');
+        expect((inputs[2] as HTMLInputElement).value).toBe('65');
+        expect((inputs[4] as HTMLInputElement).value).toBe('65');
+    });
+
+    it('shows previous column using the latest history entry with a weight', () => {
+        vi.mocked(getExerciseHistory).mockReturnValue([
+            {
+                date: '2026-05-01',
+                week: 1,
+                day: 1,
+                prescription: '3x8 reps',
+                sets: 3,
+                weight: 62.5,
+                rpe: {},
+            },
+            {
+                date: '2026-05-03',
+                week: 1,
+                day: 3,
+                prescription: '3x8 reps',
+                sets: 3,
+                rpe: {},
+            },
+        ]);
+
+        renderTable({ exerciseLog: { ...baseLog, weight: '' } });
+        expect(screen.getAllByText('62.5kg')).toHaveLength(3);
     });
 });

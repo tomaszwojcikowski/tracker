@@ -11,9 +11,8 @@
  * Surfaced behind the `set_table` feature flag — see `featureFlags.ts`.
  */
 
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { SetRow } from './SetRow';
-import { RPESelector } from './RPESelector';
 import { getExerciseHistory } from '../utils/exerciseHistory';
 import type { RPEValue } from '../types';
 import type { ExerciseLogEntry } from '../types/workout';
@@ -68,25 +67,22 @@ const parseDefaultReps = (prescription?: string): number | undefined => {
 
 const previousFromHistory = (
     historyEntries: ReturnType<typeof getExerciseHistory>,
-    setIndex: number,
 ): string | undefined => {
     if (!historyEntries || historyEntries.length === 0) return undefined;
     // Most recent entry first
     const last = historyEntries[historyEntries.length - 1];
     const w = last.weight != null ? Number(last.weight) : undefined;
     const setsCount = last.sets ?? 0;
-    const rpeForSet = last.rpe?.[setIndex];
     if (!w && setsCount === 0) return undefined;
     // We don't have per-set weight history, so use the entry-level weight as
     // the row's "previous" for every set. Reps are derived from sets count if
     // available; otherwise omitted.
     if (w && setsCount) {
         const repsHint = ''; // Per-set rep history not stored; leave blank.
-        const rpeHint = rpeForSet ? ` @${rpeForSet}` : '';
         void repsHint;
-        return `${w}kg${rpeHint}`;
+        return `${w}kg`;
     }
-    if (w) return `${w}kg${rpeForSet ? ` @${rpeForSet}` : ''}`;
+    if (w) return `${w}kg`;
     return undefined;
 };
 
@@ -102,13 +98,11 @@ const ExerciseTableImpl: React.FC<ExerciseTableProps> = ({
     onToggleSet,
     onSaveSetWeight,
     onSaveSetReps,
-    onSaveRPE,
+    onSaveRPE: _onSaveRPE,
     restTime,
     sectionType,
     isEmom,
 }) => {
-    const [rpePromptIndex, setRpePromptIndex] = useState<number | null>(null);
-
     const defaultReps = useMemo(() => parseDefaultReps(prescription), [prescription]);
 
     const history = useMemo(() => {
@@ -122,15 +116,8 @@ const ExerciseTableImpl: React.FC<ExerciseTableProps> = ({
         (setIndex: number) => {
             haptic.success();
             onToggleSet(exId, setIndex, defaultSets, restTime, sectionType, isEmom);
-            // Auto-prompt RPE if completing (not un-completing) and RPE not yet set
-            const wasCompleted = sets[setIndex];
-            const willBeCompleted = !wasCompleted;
-            const rpeAlreadySet = exerciseLog.rpe?.[setIndex];
-            if (willBeCompleted && !rpeAlreadySet) {
-                setRpePromptIndex(setIndex);
-            }
         },
-        [haptic, onToggleSet, exId, defaultSets, restTime, sectionType, isEmom, sets, exerciseLog.rpe],
+        [haptic, onToggleSet, exId, defaultSets, restTime, sectionType, isEmom],
     );
 
     const totalSets = sets.length;
@@ -147,16 +134,6 @@ const ExerciseTableImpl: React.FC<ExerciseTableProps> = ({
             onSaveSetReps(exId, setIndex, value, totalSets);
         },
         [exId, onSaveSetReps, totalSets],
-    );
-
-    const handleRpeSelect = useCallback(
-        (rpe: RPEValue) => {
-            if (rpePromptIndex == null) return;
-            onSaveRPE(exId, rpePromptIndex, rpe);
-            haptic.tick();
-            setRpePromptIndex(null);
-        },
-        [rpePromptIndex, onSaveRPE, exId, haptic],
     );
 
     const inheritedWeightForSet = useCallback(
@@ -186,15 +163,14 @@ const ExerciseTableImpl: React.FC<ExerciseTableProps> = ({
                 aria-hidden="true"
                 className={`grid items-center gap-2 px-2 text-[10px] uppercase tracking-[0.18em] font-bold text-sys-onSurfaceVar ${
                     showWeight
-                        ? 'grid-cols-[28px_1fr_minmax(64px,80px)_minmax(56px,64px)_44px_44px]'
-                        : 'grid-cols-[28px_1fr_minmax(56px,64px)_44px_44px]'
+                        ? 'grid-cols-[28px_1fr_minmax(64px,80px)_minmax(56px,64px)_44px]'
+                        : 'grid-cols-[28px_1fr_minmax(56px,64px)_44px]'
                 }`}
             >
                 <span className="text-center">#</span>
                 <span>Previous</span>
                 {showWeight && <span className="text-center">Kg</span>}
                 <span className="text-center">Reps</span>
-                <span className="text-center">RPE</span>
                 <span className="text-center">✓</span>
             </div>
 
@@ -204,30 +180,15 @@ const ExerciseTableImpl: React.FC<ExerciseTableProps> = ({
                     setNumber={idx + 1}
                     completed={completed}
                     isCurrent={idx === firstIncompleteIndex}
-                    previousLabel={previousFromHistory(history, idx)}
+                    previousLabel={previousFromHistory(history)}
                     weight={showWeight ? inheritedWeightForSet(idx) : undefined}
                     showWeight={showWeight}
                     reps={inheritedRepsForSet(idx)}
-                    rpe={exerciseLog.rpe?.[idx]}
                     onToggleComplete={() => handleToggleComplete(idx)}
                     onChangeWeight={(v) => handleWeightChange(idx, v)}
                     onChangeReps={(v) => handleRepsChange(idx, v)}
-                    onTapRpe={() => setRpePromptIndex(idx)}
                 />
             ))}
-
-            {/* RPE prompt pinned below the table when active */}
-            {rpePromptIndex !== null && (
-                <div className="mt-2">
-                    <RPESelector
-                        value={exerciseLog.rpe?.[rpePromptIndex]}
-                        onChange={handleRpeSelect}
-                        onSkip={() => setRpePromptIndex(null)}
-                        setNumber={rpePromptIndex + 1}
-                        showAsPrompt
-                    />
-                </div>
-            )}
         </div>
     );
 };

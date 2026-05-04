@@ -39,12 +39,10 @@ describe('WorkoutSummary', () => {
         expect(screen.getByText('5/6 sets')).toBeDefined();
     });
 
-    it('renders exercise details with RPE', () => {
+    it('renders exercise details', () => {
         render(<WorkoutSummary {...defaultProps} />);
         expect(screen.getAllByText('Bench Press').length).toBeGreaterThan(0);
         expect(screen.getByText('Shoulder Press')).toBeDefined();
-        expect(screen.getAllByText('8').length).toBeGreaterThan(0); // RPE values
-        expect(screen.getByText('9')).toBeDefined(); // RPE value
     });
 
     it('renders weight and prescription', () => {

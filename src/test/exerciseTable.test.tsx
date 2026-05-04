@@ -46,13 +46,12 @@ describe('ExerciseTable', () => {
         expect(screen.getAllByTestId('set-row')).toHaveLength(3);
     });
 
-    it('renders the header row with Previous, Kg, Reps, RPE', () => {
+    it('renders the header row with Previous, Kg, Reps', () => {
         const { container } = renderTable();
         const table = container.querySelector('[data-testid="exercise-table"]');
         expect(table?.textContent).toContain('Previous');
         expect(table?.textContent).toContain('Kg');
         expect(table?.textContent).toContain('Reps');
-        expect(table?.textContent).toContain('RPE');
     });
 
     it('marks first incomplete row as current', () => {
@@ -83,24 +82,6 @@ describe('ExerciseTable', () => {
         fireEvent.click(checkButtons[0]);
         expect(onToggleSet).toHaveBeenCalledWith('bench_press', 0, 3, undefined, undefined, undefined);
         expect(baseHaptic.success).toHaveBeenCalled();
-    });
-
-    it('opens RPE prompt when set is completed without existing RPE', () => {
-        const onToggleSet = vi.fn();
-        renderTable({ onToggleSet });
-        const checkButtons = screen.getAllByRole('button', { name: /mark set/i });
-        fireEvent.click(checkButtons[0]);
-        // RPE prompt appears (RPESelector showAsPrompt header is "Set N · How hard?")
-        expect(screen.getByText(/set 1.+how hard/i)).toBeTruthy();
-    });
-
-    it('does not open RPE prompt when RPE is already set', () => {
-        const onToggleSet = vi.fn();
-        const log: ExerciseLogEntry = { ...baseLog, rpe: { 0: '8' } };
-        renderTable({ onToggleSet, exerciseLog: log });
-        const checkButtons = screen.getAllByRole('button', { name: /mark set/i });
-        fireEvent.click(checkButtons[0]);
-        expect(screen.queryByText(/set 1.+how hard/i)).toBeNull();
     });
 
     it('uses per-set weight override when present', () => {

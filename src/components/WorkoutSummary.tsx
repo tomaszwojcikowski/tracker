@@ -370,7 +370,6 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
                         <div className="space-y-3">
                             {exercises.map((ex, exIdx) => {
                                 const isExComplete = ex.completedSets === ex.totalSets;
-                                const hasRPE = ex.rpe && Object.keys(ex.rpe).length > 0;
 
                                 return (
                                     <motion.div
@@ -406,22 +405,6 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
                                                     <span className="text-xs font-bold text-sys-onSurface text-mono-stat">
                                                         {ex.weight} {ex.isBodyweight ? 'BW' : 'kg'}
                                                     </span>
-                                                </div>
-                                            )}
-
-                                            {hasRPE && (
-                                                <div className="flex items-center gap-1.5">
-                                                    <span className="eyebrow text-sys-onSurfaceVar ml-1">RPE:</span>
-                                                    <div className="flex gap-1">
-                                                        {Object.entries(ex.rpe!).map(([setIdx, rpe]) => (
-                                                            <div
-                                                                key={setIdx}
-                                                                className="w-6 h-6 flex items-center justify-center rounded-sm bg-sys-surfaceContainerHigh text-sys-onSurface text-[10px] font-bold border border-sys-outlineVariant text-mono-stat"
-                                                            >
-                                                                {rpe}
-                                                            </div>
-                                                        ))}
-                                                    </div>
                                                 </div>
                                             )}
                                         </div>

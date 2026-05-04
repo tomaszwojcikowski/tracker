@@ -27,7 +27,6 @@ import { getExerciseHistory } from '../utils/exerciseHistory';
 import { getExerciseDisplayName } from '../utils/exerciseOptions';
 import { useFeatureFlag } from '../utils/featureFlags';
 import { ExerciseTable } from './ExerciseTable';
-import { RPESelector } from './RPESelector';
 import { ExerciseOptionsBadge } from './ExerciseOptionsBadge';
 import { getSectionTheme } from '../utils/themeUtils';
 import { FlowMovementsDisplay, FlowBadge } from './FlowMovementsDisplay';
@@ -199,7 +198,7 @@ const ExerciseCardImpl: React.FC<ExerciseCardProps> = ({
     isCollapsed,
     supersetGroup,
     supersetPosition,
-    rpePrompt,
+    rpePrompt: _rpePrompt,
     haptic,
     hideCollapseButton = false,
     sectionType,
@@ -217,7 +216,7 @@ const ExerciseCardImpl: React.FC<ExerciseCardProps> = ({
     onSaveRPE,
     onSaveSetWeight,
     onSaveSetReps,
-    onClearRPEPrompt,
+    onClearRPEPrompt: _onClearRPEPrompt,
     onStartRestTimer,
     onToggleEmomTimer,
     onExpandDensity,
@@ -887,22 +886,6 @@ const ExerciseCardImpl: React.FC<ExerciseCardProps> = ({
                             </>
                             )
                         ) : null}
-
-                        {/* RPE Selector - more compact */}
-                        {rpePrompt?.exerciseId === exId && (
-                            <div className="mb-2">
-                                <RPESelector
-                                    value={exerciseLog.rpe?.[rpePrompt.setIndex]}
-                                    onChange={(rpe: RPEValue) => {
-                                        onSaveRPE(exId, rpePrompt.setIndex, rpe);
-                                        onClearRPEPrompt();
-                                    }}
-                                    onSkip={() => onClearRPEPrompt()}
-                                    setNumber={rpePrompt.setIndex + 1}
-                                    compact
-                                />
-                            </div>
-                        )}
 
                         {/* Flow Movements Display - for focus view card */}
                         {exerciseOptions && selectedOption && exerciseOptions.some(opt => opt.flowMovements?.length) && (

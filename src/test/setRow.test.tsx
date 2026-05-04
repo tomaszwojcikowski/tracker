@@ -10,7 +10,6 @@ const baseProps = {
     onToggleComplete: vi.fn(),
     onChangeWeight: vi.fn(),
     onChangeReps: vi.fn(),
-    onTapRpe: vi.fn(),
 };
 
 describe('SetRow', () => {
@@ -57,14 +56,6 @@ describe('SetRow', () => {
         const inputs = screen.getAllByRole('spinbutton');
         fireEvent.change(inputs[1], { target: { value: '' } });
         expect(onChangeReps).toHaveBeenCalledWith(undefined);
-    });
-
-    it('fires onTapRpe when RPE chip is clicked', () => {
-        const onTapRpe = vi.fn();
-        render(<SetRow {...baseProps} rpe="8" onTapRpe={onTapRpe} />);
-        const rpeButton = screen.getByRole('button', { name: /rpe/i });
-        fireEvent.click(rpeButton);
-        expect(onTapRpe).toHaveBeenCalled();
     });
 
     it('fires onToggleComplete when checkmark is clicked', () => {

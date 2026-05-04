@@ -1,7 +1,7 @@
 /**
  * SetRow — single row in the v3 ExerciseTable.
  *
- * Columns: SET # | PREVIOUS | KG | REPS | RPE | ✓
+ * Columns: SET # | PREVIOUS | KG | REPS | ✓
  *
  * Pure presentational component. All persistence is delegated upward.
  *
@@ -16,7 +16,6 @@
 
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Check } from './icons';
-import type { RPEValue } from '../types';
 
 export interface SetRowProps {
     /** 1-based display index */
@@ -33,24 +32,13 @@ export interface SetRowProps {
     showWeight: boolean;
     /** Current reps for this set (may inherit from prescription default) */
     reps?: number;
-    /** Current RPE value, if any */
-    rpe?: RPEValue;
     /** Disable interactions (e.g. while saving) */
     disabled?: boolean;
 
     onToggleComplete: () => void;
     onChangeWeight: (value: string) => void;
     onChangeReps: (value: number | undefined) => void;
-    onTapRpe: () => void;
 }
-
-const RPE_BG: Record<RPEValue, string> = {
-    '6': 'bg-sys-successContainer text-sys-onSuccessContainer',
-    '7': 'bg-sys-successContainer text-sys-onSuccessContainer',
-    '8': 'bg-sys-tertiaryContainer text-sys-onTertiaryContainer',
-    '9': 'bg-sys-secondaryContainer text-sys-onSecondaryContainer',
-    '10': 'bg-sys-errorContainer text-sys-onErrorContainer',
-};
 
 const SetRowImpl: React.FC<SetRowProps> = ({
     setNumber,
@@ -60,12 +48,10 @@ const SetRowImpl: React.FC<SetRowProps> = ({
     weight,
     showWeight,
     reps,
-    rpe,
     disabled,
     onToggleComplete,
     onChangeWeight,
     onChangeReps,
-    onTapRpe,
 }) => {
     // Local mirrors so we can keep input cursor stable while typing
     const [weightDraft, setWeightDraft] = useState<string>(weight ?? '');
@@ -120,8 +106,8 @@ const SetRowImpl: React.FC<SetRowProps> = ({
     }, [completed, isCurrent]);
 
     const gridTemplate = showWeight
-        ? 'grid-cols-[28px_1fr_minmax(64px,80px)_minmax(56px,64px)_44px_44px]'
-        : 'grid-cols-[28px_1fr_minmax(56px,64px)_44px_44px]';
+        ? 'grid-cols-[28px_1fr_minmax(64px,80px)_minmax(56px,64px)_44px]'
+        : 'grid-cols-[28px_1fr_minmax(56px,64px)_44px]';
 
     const inputClass =
         'w-full h-10 px-1 bg-sys-surfaceContainerHigh rounded text-center text-base font-bold text-mono-stat outline-none focus:ring-2 focus:ring-sys-primary [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none disabled:opacity-50';
@@ -181,23 +167,6 @@ const SetRowImpl: React.FC<SetRowProps> = ({
                 className={inputClass}
                 aria-label={`Set ${setNumber} reps`}
             />
-
-            {/* RPE chip */}
-            <button
-                type="button"
-                onClick={onTapRpe}
-                disabled={disabled}
-                aria-label={
-                    rpe ? `Set ${setNumber} RPE ${rpe}, change` : `Set ${setNumber} log RPE`
-                }
-                className={`h-10 w-11 rounded text-xs font-bold text-mono-stat tabular-nums transition-all active:scale-90 ${
-                    rpe
-                        ? RPE_BG[rpe]
-                        : 'bg-sys-surfaceContainerLow text-sys-onSurfaceVar border border-sys-outlineVariant'
-                }`}
-            >
-                {rpe ?? '—'}
-            </button>
 
             {/* Complete checkmark — primary action */}
             <button

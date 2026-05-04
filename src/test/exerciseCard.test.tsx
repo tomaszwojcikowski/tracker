@@ -9,16 +9,6 @@ import '@testing-library/jest-dom';
  * Covers rendering, user interactions, and callback handling.
  */
 
-// Mock the RPESelector component
-vi.mock('../components/RPESelector', () => ({
-    RPESelector: ({ value, onChange, onSkip, setNumber, showAsPrompt }) => (
-        <div data-testid="rpe-selector" data-set={setNumber} data-prompt={showAsPrompt}>
-            <button onClick={() => onChange('8')}>RPE 8</button>
-            <button onClick={onSkip}>Skip</button>
-        </div>
-    ),
-}));
-
 // Mock custom icons module
 vi.mock('../components/icons', () => ({
     ChevronDown: () => <span data-testid="icon-chevron-down">▼</span>,
@@ -340,30 +330,6 @@ describe('ExerciseCard', () => {
                 'Bench Press',
                 ['Dumbbell Press', 'Push-Ups']
             );
-        });
-    });
-
-    describe('RPE Selector', () => {
-        it('should show RPE selector when rpePrompt matches exercise', () => {
-            render(
-                <ExerciseCard
-                    {...defaultProps}
-                    rpePrompt={{ exerciseId: 'bench_press', setIndex: 0 }}
-                />
-            );
-
-            expect(screen.getByTestId('rpe-selector')).toBeInTheDocument();
-        });
-
-        it('should not show RPE selector for different exercise', () => {
-            render(
-                <ExerciseCard
-                    {...defaultProps}
-                    rpePrompt={{ exerciseId: 'squats', setIndex: 0 }}
-                />
-            );
-
-            expect(screen.queryByTestId('rpe-selector')).not.toBeInTheDocument();
         });
     });
 

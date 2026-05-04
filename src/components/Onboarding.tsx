@@ -21,7 +21,7 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
     },
     {
         title: '21-Week Program',
-        description: 'Follow a structured training plan with 4 workout days per week. Track sets, weight, and RPE.',
+        description: 'Follow a structured training plan with 4 workout days per week. Track sets and weight with ease.',
         icon: <Calendar size={48} className="text-sys-primary" />,
     },
     {

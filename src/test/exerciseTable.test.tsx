@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ExerciseTable } from '../components/ExerciseTable';
+import { getExerciseHistory } from '../utils/exerciseHistory';
 import type { ExerciseLogEntry } from '../types/workout';
 
 vi.mock('../utils/exerciseHistory', () => ({
@@ -39,6 +40,7 @@ const renderTable = (overrides: Partial<React.ComponentProps<typeof ExerciseTabl
 describe('ExerciseTable', () => {
     beforeEach(() => {
         vi.clearAllMocks();
+        vi.mocked(getExerciseHistory).mockReturnValue([]);
     });
 
     it('renders one row per set', () => {
@@ -46,13 +48,12 @@ describe('ExerciseTable', () => {
         expect(screen.getAllByTestId('set-row')).toHaveLength(3);
     });
 
-    it('renders the header row with Previous, Kg, Reps, RPE', () => {
+    it('renders the header row with Previous, Kg, Reps', () => {
         const { container } = renderTable();
         const table = container.querySelector('[data-testid="exercise-table"]');
         expect(table?.textContent).toContain('Previous');
         expect(table?.textContent).toContain('Kg');
         expect(table?.textContent).toContain('Reps');
-        expect(table?.textContent).toContain('RPE');
     });
 
     it('marks first incomplete row as current', () => {
@@ -85,24 +86,6 @@ describe('ExerciseTable', () => {
         expect(baseHaptic.success).toHaveBeenCalled();
     });
 
-    it('opens RPE prompt when set is completed without existing RPE', () => {
-        const onToggleSet = vi.fn();
-        renderTable({ onToggleSet });
-        const checkButtons = screen.getAllByRole('button', { name: /mark set/i });
-        fireEvent.click(checkButtons[0]);
-        // RPE prompt appears (RPESelector showAsPrompt header is "Set N · How hard?")
-        expect(screen.getByText(/set 1.+how hard/i)).toBeTruthy();
-    });
-
-    it('does not open RPE prompt when RPE is already set', () => {
-        const onToggleSet = vi.fn();
-        const log: ExerciseLogEntry = { ...baseLog, rpe: { 0: '8' } };
-        renderTable({ onToggleSet, exerciseLog: log });
-        const checkButtons = screen.getAllByRole('button', { name: /mark set/i });
-        fireEvent.click(checkButtons[0]);
-        expect(screen.queryByText(/set 1.+how hard/i)).toBeNull();
-    });
-
     it('uses per-set weight override when present', () => {
         const log: ExerciseLogEntry = {
             ...baseLog,
@@ -116,5 +99,56 @@ describe('ExerciseTable', () => {
         expect((inputs[2] as HTMLInputElement).value).toBe('50');
         // Set 3 uses override
         expect((inputs[4] as HTMLInputElement).value).toBe('70');
+    });
+
+    it('fills row weights from previous history when current weight is empty', () => {
+        vi.mocked(getExerciseHistory).mockReturnValue([
+            {
+                date: '2026-05-03',
+                week: 1,
+                day: 1,
+                prescription: '3x8 reps',
+                sets: 3,
+                weight: 65,
+                rpe: {},
+            },
+        ]);
+
+        const log: ExerciseLogEntry = {
+            ...baseLog,
+            weight: '',
+            setWeights: [undefined, undefined, undefined],
+        };
+
+        renderTable({ exerciseLog: log });
+        const inputs = screen.getAllByRole('spinbutton');
+        expect((inputs[0] as HTMLInputElement).value).toBe('65');
+        expect((inputs[2] as HTMLInputElement).value).toBe('65');
+        expect((inputs[4] as HTMLInputElement).value).toBe('65');
+    });
+
+    it('shows previous column using the latest history entry with a weight', () => {
+        vi.mocked(getExerciseHistory).mockReturnValue([
+            {
+                date: '2026-05-01',
+                week: 1,
+                day: 1,
+                prescription: '3x8 reps',
+                sets: 3,
+                weight: 62.5,
+                rpe: {},
+            },
+            {
+                date: '2026-05-03',
+                week: 1,
+                day: 3,
+                prescription: '3x8 reps',
+                sets: 3,
+                rpe: {},
+            },
+        ]);
+
+        renderTable({ exerciseLog: { ...baseLog, weight: '' } });
+        expect(screen.getAllByText('62.5kg')).toHaveLength(3);
     });
 });

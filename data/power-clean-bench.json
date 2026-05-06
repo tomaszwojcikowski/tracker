@@ -4,11 +4,12 @@
   "plan": {
     "id": "power-clean-bench-10-week",
     "name": "10-Week Strength & Conditioning (Power Clean / Bench)",
-    "description": "Post-V26.9 transition program for a 45-year-old with managed tennis elbow and goose-foot knee. M/W/F lifting with the Olympic lifts and bench, Tue/Thu conditioning. 3 phases: accumulation & tendon prep (1-4), intensification (5-8), deload + heavy realization (9-10). Loads ride below Monday-relative bench/back-squat ceilings; all percentages cap at the rule-defined RPE floor/ceiling.",
+    "description": "V2 athletic power-strength block for a 45-year-old with managed tennis elbow and goose-foot knee. Monday starts with bench strength, Wednesday and Friday open with jump or short acceleration work before clean and squat exposures, and Tue/Thu conditioning supports recovery instead of competing with the lifting days.",
     "author": "Power Clean / Bench Plan",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "durationWeeks": 10,
     "goals": [
+      "power-expression",
       "overall-strength",
       "calisthenics-compression",
       "unilateral-stability",
@@ -910,6 +911,101 @@
             "coachingNotes": "Forearm vertical against a doorframe, elbow at shoulder height. Step the same-side foot through the door until you feel a stretch across the chest. 30 s each side, no shoulder shrugging."
           }
         ]
+      },
+      {
+        "id": "warmup-monday-v2",
+        "name": "Monday Warm-Up V2",
+        "exercises": [
+          {
+            "exerciseName": "Easy Bike",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 180,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Bike",
+                "exerciseName": "Easy Bike"
+              },
+              {
+                "optionName": "SkiErg",
+                "exerciseName": "Easy SkiErg"
+              }
+            ],
+            "notes": "2-3 min general heat before pressing.",
+            "coachingNotes": "Easy pace only. Raise temperature and get the shoulders moving without accumulating fatigue."
+          },
+          {
+            "exerciseName": "Wrist Rolls",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 10,
+            "loadUnit": "bodyweight",
+            "notes": "10 each direction.",
+            "coachingNotes": "Slow circles only. This is joint prep for the elbow and wrist, not a stretch challenge."
+          },
+          {
+            "exerciseName": "Dead Hang to Scap Pull-Up",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsMin": 6,
+            "repsMax": 8,
+            "loadUnit": "bodyweight",
+            "exerciseOptions": [
+              {
+                "optionName": "Hang to Scap Pull-Up",
+                "exerciseName": "Dead Hang to Scap Pull-Up"
+              },
+              {
+                "optionName": "Band Pulldown",
+                "exerciseName": "Straight-Arm Band Pulldown",
+                "loadUnit": "band"
+              }
+            ],
+            "notes": "Pick the option that gives you clean scapular depression without elbow irritation.",
+            "coachingNotes": "Use the smallest range that lets the shoulder blades move freely and pain-free."
+          },
+          {
+            "exerciseName": "Band Pull-Aparts",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 10,
+            "loadUnit": "band",
+            "notes": "Bench activation only. No power primer in V2 Monday.",
+            "coachingNotes": "Finish with the shoulder blades moving together, not the low back extending."
+          },
+          {
+            "exerciseName": "Banded External Rotation",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 10,
+            "isUnilateral": true,
+            "loadUnit": "band",
+            "notes": "10 per side.",
+            "coachingNotes": "Keep the elbow pinned and rotate only as far as you can control without the shoulder rolling forward."
+          },
+          {
+            "exerciseName": "Push-Up Plank Shoulder Taps",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 6,
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Brace hard and keep the torso quiet.",
+            "coachingNotes": "This is anti-rotation trunk prep for the press, not a speed drill."
+          },
+          {
+            "$ref": "ex-scap-pushup-plus",
+            "notes": "One crisp activation set immediately before the bench warm-up sets."
+          }
+        ]
       }
     ],
     "exerciseTemplates": [
@@ -1571,55 +1667,64 @@
     "phases": [
       {
         "phaseNumber": 1,
-        "name": "Phase 1: Accumulation & Tendon Prep",
-        "description": "Controlled eccentric bench, paused squat quality, tissue-capacity rebuild while reintroducing straight-bar work. Friday: clean variation + squat + one assistance slot. Wednesday: neutral-grip DB bench secondary bench.",
+        "name": "Phase 1: Accumulation and Athletic Base",
+        "description": "Rebuild tolerance, accumulate quality work, and establish jump/clean frequency while Monday starts with straight-bar bench and Wednesday/Friday begin to feel more athletic.",
         "startWeek": 1,
-        "endWeek": 4,
+        "endWeek": 3,
         "focus": "volume",
         "weeks": [
           {
             "weekNumber": 1,
-            "description": "Crisp tempo, pain-free pulling, stable positions",
+            "description": "Establish rhythm and symptom-free positions",
             "volumeLevel": "moderate",
             "intensityLevel": "moderate",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Compression, Ring Pull-Ups",
+                "name": "Monday — Bench, Pulling Balance, Compression",
                 "type": "strength",
-                "estimatedDuration": 60,
-                "description": "Power Primer + Bench 4x8 @ 65% (57.5 kg)",
+                "estimatedDuration": 55,
+                "description": "Bench heavy working set of 6 at 62.5 kg, then backoffs",
                 "exercises": [
                   {
-                    "$routine": "warmup-monday"
+                    "$routine": "warmup-monday-v2"
                   },
                   {
-                    "$ref": "ex-power-primer"
-                  },
-                  {
-                    "$ref": "ex-scap-pushup-plus"
+                    "$ref": "ex-bench-press",
+                    "loadMin": 62.5,
+                    "loadMax": 62.5,
+                    "repsValue": 6,
+                    "sets": 1,
+                    "notes": "Heavy working set at 62.5 kg for 6 reps. Stop if bar speed drops."
                   },
                   {
                     "$ref": "ex-bench-press",
                     "loadMin": 57.5,
                     "loadMax": 57.5,
-                    "repsValue": 8,
-                    "sets": 4,
-                    "notes": "65% (57.5 kg). 2-second eccentric. RPE 6-7."
+                    "repsValue": 6,
+                    "sets": 2,
+                    "notes": "2 backoff set(s) at 57.5 kg. Crisp volume only."
                   },
                   {
-                    "$ref": "ex-ring-pull-ups"
+                    "$ref": "ex-ring-pull-ups",
+                    "repsMin": 5,
+                    "repsMax": 8,
+                    "sets": 3,
+                    "notes": "Moderate vertical pull. Stay smooth and stop before elbow irritation rises."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 2,
+                    "loadMin": 22.5,
+                    "loadMax": 22.5,
+                    "notes": "Balancing row slot. Keep scapular control perfect."
                   },
                   {
                     "$ref": "ex-parallette-l-sit",
+                    "sets": 3,
                     "repsMin": 8,
-                    "repsMax": 12
-                  },
-                  {
-                    "$ref": "ex-pull-support-quality-rows",
-                    "repsMin": 8,
-                    "repsMax": 8,
-                    "notes": "2x8 Ring Rows. 2-second chest-to-rings squeeze; rest 60-75 s; stop 2-3 reps shy of fatigue."
+                    "repsMax": 12,
+                    "notes": "Short compression block after upper work."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1628,17 +1733,17 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Tuesday — Trunk + Posterior Chain (Day Template)",
+                "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
-                "estimatedDuration": 50,
-                "description": "Phase 1 Tue easy: 4 min @ 20 SPM, 3 min @ 22, 2 min @ 24",
+                "estimatedDuration": 45,
+                "description": "Easy aerobic base + trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 1 technique row: 5 min easy warm-up + dynamic hip/shoulder mobility. Step-rate ladder: 4 min @ 20 SPM / 3 min @ 22 / 2 min @ 24 (9 min continuous, no rest between steps). Cool down 3 min easy. Total ~17 min. Sub Bike/SkiErg same structure if elbow/knee not 100%."
+                    "notes": "Week 1 easy aerobic base. Conversational pace, 18-24 minutes total."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -1657,43 +1762,62 @@
                     "$ref": "ex-dragon-flag-tuck"
                   },
                   {
-                    "$ref": "ex-tuesday-wrist-eccentric"
+                    "$ref": "ex-tuesday-wrist-eccentric",
+                    "sets": 3
                   }
                 ]
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Clean, Box Squat, Secondary Bench",
+                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "HPC 4x3 @ 65% + Box Squat 3x5 @ 62.5% + Neutral-Grip DB Bench",
+                "description": "Power emphasis + secondary squat + secondary press",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
                   },
                   {
-                    "$ref": "ex-hang-power-clean",
-                    "loadMin": 57.5,
-                    "loadMax": 57.5,
-                    "notes": "65% (57.5 kg). Hook grip."
+                    "exerciseName": "Broad Jump",
+                    "category": "warmup",
+                    "sets": 3,
+                    "repsValue": 2,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45,
+                    "notes": "Power primer. Full reset between reps; stop if height or distance drops.",
+                    "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
                   },
                   {
-                    "$ref": "ex-clean-pulls",
-                    "loadMin": 70,
-                    "loadMax": 70,
-                    "notes": "80% (70 kg). 2x3 explosive extension."
+                    "$ref": "ex-power-clean",
+                    "loadMin": 60,
+                    "loadMax": 60,
+                    "sets": 5,
+                    "repsValue": 2,
+                    "notes": "60 kg for crisp doubles. Reset every rep and treat the set like EMOM work."
                   },
                   {
-                    "$ref": "ex-box-squat",
-                    "loadMin": 82.5,
-                    "loadMax": 82.5,
-                    "notes": "62.5% (82.5 kg). HLM: 5 kg below Friday Back Squat."
+                    "exerciseName": "Front Squat",
+                    "exerciseId": "front_squat",
+                    "category": "main",
+                    "sets": 3,
+                    "repsValue": 5,
+                    "repsType": "reps",
+                    "loadUnit": "kg",
+                    "loadMin": 75,
+                    "loadMax": 75,
+                    "restSeconds": 180,
+                    "rpe": 7,
+                    "notes": "75 kg. Clean-transfer secondary squat. Elbows high, torso tall.",
+                    "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
                   },
                   {
                     "$ref": "ex-neutral-grip-db-bench",
                     "loadMin": 22.5,
                     "loadMax": 22.5,
-                    "notes": "22.5 kg/hand. Neutral grip, 1-second pause. Stop 2-3 reps shy of failure."
+                    "sets": 3,
+                    "repsValue": 8,
+                    "notes": "Secondary press. Stay 2-3 reps shy of failure."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1702,105 +1826,111 @@
               },
               {
                 "dayNumber": 4,
-                "name": "Thursday — Shoulder Balance + Structural Circuit (Day Template)",
+                "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
-                "estimatedDuration": 50,
-                "description": "Phase 1 Thu moderate: 1 min on / 1 min off x 3, rest 3 min, then x 3",
+                "estimatedDuration": 40,
+                "description": "Moderate support work + shoulder balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
                     "$ref": "ex-row-conditioning-moderate",
-                    "notes": "Week 1 intervals: 5 min easy warm-up. Block A: 1 min on (RPE 6-7, ~24-26 SPM) / 1 min off ×3. Rest 3 min easy. Block B: 1 min on / 1 min off ×3. Cool down 3 min easy. Total work: 6 × 1 min. Sub Bike/SkiErg if knee not 100%."
+                    "notes": "Week 1 moderate aerobic/tempo work. Keep it supportive, not competitive with Friday."
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-landmine-press",
-                    "loadMin": 15,
-                    "loadMax": 20
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-single-leg-calf-raise"
+                    "$ref": "ex-banded-er",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise",
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-side-plank",
-                    "repsValue": 20
-                  },
-                  {
-                    "$ref": "ex-banded-er"
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-ring-pushups",
-                    "repsMin": 6,
-                    "repsMax": 8,
-                    "notes": "High-ring Ring Push-Ups. 2-1-1-0 tempo, RPE 6. Stop when stability changes."
-                  },
-                  {
-                    "$ref": "ex-skin-the-cat-tuck"
+                    "sets": 2,
+                    "notes": "Optional low-fatigue horizontal push skill only."
                   }
                 ]
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Clean Variation, Back Squat, Hinge",
+                "name": "Friday — Squat Strength + Posterior Chain",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Tall Clean 3x2 + Back Squat 4x6 @ 65% + RDL + Compression Block",
+                "description": "Lower strength accumulation + hinge + compression",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
                   },
                   {
-                    "$ref": "ex-tall-clean-high-hang",
-                    "loadMin": 35,
-                    "loadMax": 42.5,
-                    "repsValue": 2,
+                    "exerciseName": "Broad Jump",
+                    "category": "warmup",
                     "sets": 3,
-                    "notes": "40-50% (35-42.5 kg). Fast elbows, vertical dip, crisp catch."
+                    "repsValue": 2,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45,
+                    "notes": "Power primer. Full reset between reps; stop if height or distance drops.",
+                    "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
+                  },
+                  {
+                    "$ref": "ex-tall-clean-high-hang",
+                    "loadMin": 40,
+                    "loadMax": 40,
+                    "sets": 3,
+                    "repsValue": 2,
+                    "notes": "Technical clean primer only. Fast turnover, no fatigue."
                   },
                   {
                     "$ref": "ex-back-squat",
-                    "loadMin": 87.5,
-                    "loadMax": 87.5,
+                    "loadMin": 90,
+                    "loadMax": 90,
+                    "sets": 1,
                     "repsValue": 6,
-                    "sets": 4,
-                    "notes": "65% (87.5 kg). 1-second pause."
+                    "notes": "Top 6-rep strength set at 90 kg. Shut it down before technique drifts."
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 82.5,
+                    "loadMax": 82.5,
+                    "sets": 2,
+                    "repsValue": 6,
+                    "notes": "2 backoff set(s) at 82.5 kg. Quality only."
                   },
                   {
                     "$ref": "ex-rdl",
-                    "loadMin": 60,
+                    "loadMin": 70,
                     "loadMax": 70,
                     "sets": 3,
                     "repsMin": 8,
-                    "repsMax": 10,
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-chest-supported-row",
-                    "loadMin": 20,
-                    "loadMax": 25,
-                    "sets": 2,
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "supersetGroup": 1,
-                    "notes": "Phase 1 load; scapular control focus."
+                    "repsMax": 8,
+                    "notes": "Hinge slot. Keep the tempo strict and the hamstrings in charge."
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 3,
-                    "repsMin": 10,
-                    "repsMax": 15,
-                    "notes": "Compression-Goal Rule: set count minus one."
-                  },
-                  {
-                    "$ref": "ex-jefferson-curl-light"
+                    "sets": 2
                   },
                   {
                     "$ref": "ex-friday-l-sit-hold",
-                    "notes": "Best L-Sit hold variation, 8-15 s. Per Friday Compression Block."
+                    "sets": 2
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -1811,46 +1941,56 @@
           },
           {
             "weekNumber": 2,
-            "description": "Submaximal and smooth; lock in quality before floor clean transition",
+            "description": "Add a small load step without losing speed",
             "volumeLevel": "moderate",
             "intensityLevel": "moderate",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Compression, Ring Pull-Ups",
+                "name": "Monday — Bench, Pulling Balance, Compression",
                 "type": "strength",
-                "estimatedDuration": 60,
+                "estimatedDuration": 55,
+                "description": "Bench heavy working set of 6 at 65 kg, then backoffs",
                 "exercises": [
                   {
-                    "$routine": "warmup-monday"
+                    "$routine": "warmup-monday-v2"
                   },
                   {
-                    "$ref": "ex-power-primer"
-                  },
-                  {
-                    "$ref": "ex-scap-pushup-plus"
+                    "$ref": "ex-bench-press",
+                    "loadMin": 65,
+                    "loadMax": 65,
+                    "repsValue": 6,
+                    "sets": 1,
+                    "notes": "Heavy working set at 65 kg for 6 reps. Stop if bar speed drops."
                   },
                   {
                     "$ref": "ex-bench-press",
                     "loadMin": 60,
                     "loadMax": 60,
-                    "repsValue": 7,
-                    "sets": 4,
-                    "notes": "67.5% (60 kg). 2-second eccentric."
+                    "repsValue": 6,
+                    "sets": 2,
+                    "notes": "2 backoff set(s) at 60 kg. Crisp volume only."
                   },
                   {
-                    "$ref": "ex-ring-pull-ups"
+                    "$ref": "ex-ring-pull-ups",
+                    "repsMin": 5,
+                    "repsMax": 8,
+                    "sets": 3,
+                    "notes": "Moderate vertical pull. Stay smooth and stop before elbow irritation rises."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 2,
+                    "loadMin": 22.5,
+                    "loadMax": 22.5,
+                    "notes": "Balancing row slot. Keep scapular control perfect."
                   },
                   {
                     "$ref": "ex-parallette-l-sit",
-                    "repsMin": 10,
-                    "repsMax": 12
-                  },
-                  {
-                    "$ref": "ex-pull-support-quality-rows",
+                    "sets": 3,
                     "repsMin": 8,
-                    "repsMax": 10,
-                    "notes": "2x8-10 Ring Rows. Rigid body line, 2-second top pause; no density chasing."
+                    "repsMax": 12,
+                    "notes": "Short compression block after upper work."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1859,16 +1999,17 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Tuesday — Trunk + Posterior Chain (Day Template)",
+                "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
-                "estimatedDuration": 50,
+                "estimatedDuration": 45,
+                "description": "Easy aerobic base + trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 2 technique row: 5 min easy warm-up. Step-rate ladder: 4 min @ 20 / 3 min @ 22 / 2 min @ 24 / 1 min @ 26 (10 min continuous). Cool down 3 min easy. Total ~18 min."
+                    "notes": "Week 2 easy aerobic base. Conversational pace, 18-24 minutes total."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -1884,40 +2025,58 @@
                     "$ref": "ex-rower-ham-curl"
                   },
                   {
-                    "$ref": "ex-dragon-flag-tuck",
-                    "notes": "Focus: keep lower back flat throughout"
+                    "$ref": "ex-dragon-flag-tuck"
                   },
                   {
-                    "$ref": "ex-tuesday-wrist-eccentric"
+                    "$ref": "ex-tuesday-wrist-eccentric",
+                    "sets": 3
                   }
                 ]
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Clean, Box Squat, Secondary Bench",
+                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
                 "type": "strength",
                 "estimatedDuration": 60,
+                "description": "Power emphasis + secondary squat + secondary press",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
                   },
                   {
-                    "$ref": "ex-hang-power-clean",
-                    "loadMin": 60,
-                    "loadMax": 60,
-                    "notes": "70% (60 kg)"
+                    "exerciseName": "10-20 m Acceleration Sprint",
+                    "category": "warmup",
+                    "sets": 4,
+                    "repsValue": 1,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "notes": "Power primer. 10-20 m only. Full walk-back recovery; stop before it turns into conditioning.",
+                    "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
+                  },
+                  {
+                    "$ref": "ex-power-clean",
+                    "loadMin": 62.5,
+                    "loadMax": 62.5,
+                    "sets": 5,
+                    "repsValue": 2,
+                    "notes": "62.5 kg for crisp doubles. Reset every rep and treat the set like EMOM work."
                   },
                   {
                     "$ref": "ex-box-squat",
-                    "loadMin": 87.5,
-                    "loadMax": 87.5,
-                    "notes": "65% (87.5 kg). HLM: ~3 kg below Friday Back Squat."
+                    "loadMin": 80,
+                    "loadMax": 80,
+                    "repsValue": 5,
+                    "sets": 3,
+                    "notes": "80 kg. Secondary squat. Dead-stop reps only."
                   },
                   {
                     "$ref": "ex-neutral-grip-db-bench",
-                    "loadMin": 22.5,
+                    "loadMin": 25,
                     "loadMax": 25,
-                    "notes": "22.5-25 kg/hand. Neutral grip. Stop 2-3 reps shy of failure."
+                    "sets": 3,
+                    "repsValue": 8,
+                    "notes": "Secondary press. Stay 2-3 reps shy of failure."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1926,103 +2085,111 @@
               },
               {
                 "dayNumber": 4,
-                "name": "Thursday — Shoulder Balance + Structural Circuit (Day Template)",
+                "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
-                "estimatedDuration": 50,
+                "estimatedDuration": 40,
+                "description": "Moderate support work + shoulder balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
                     "$ref": "ex-row-conditioning-moderate",
-                    "notes": "Week 2 intervals: 5 min easy warm-up. Block A: 1 min on (RPE 6-7) / 1 min off ×3. Rest 2 min (shorter than Wk 1). Block B: 1 min on / 1 min off ×3. Cool down 3 min easy. Total work: 6 × 1 min."
+                    "notes": "Week 2 moderate aerobic/tempo work. Keep it supportive, not competitive with Friday."
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-landmine-press",
-                    "loadMin": 17.5,
-                    "loadMax": 22.5
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-single-leg-calf-raise"
+                    "$ref": "ex-banded-er",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise",
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-side-plank",
-                    "repsValue": 20
-                  },
-                  {
-                    "$ref": "ex-banded-er"
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-ring-pushups",
-                    "repsMin": 6,
-                    "repsMax": 8,
-                    "notes": "High-ring Ring Push-Ups. 2-1-1-0 tempo, RPE 6. Keep every rep smooth."
-                  },
-                  {
-                    "$ref": "ex-skin-the-cat-tuck"
+                    "sets": 2,
+                    "notes": "Optional low-fatigue horizontal push skill only."
                   }
                 ]
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Clean Variation, Back Squat, Hinge",
+                "name": "Friday — Squat Strength + Posterior Chain",
                 "type": "strength",
                 "estimatedDuration": 60,
+                "description": "Lower strength accumulation + hinge + compression",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
                   },
                   {
+                    "exerciseName": "10-20 m Acceleration Sprint",
+                    "category": "warmup",
+                    "sets": 4,
+                    "repsValue": 1,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "notes": "Power primer. 10-20 m only. Full walk-back recovery; stop before it turns into conditioning.",
+                    "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
+                  },
+                  {
                     "$ref": "ex-tall-clean-high-hang",
-                    "loadMin": 40,
+                    "loadMin": 42.5,
                     "loadMax": 42.5,
-                    "repsValue": 2,
                     "sets": 3,
-                    "notes": "45-50% (40-42.5 kg)."
+                    "repsValue": 2,
+                    "notes": "Technical clean primer only. Fast turnover, no fatigue."
                   },
                   {
                     "$ref": "ex-back-squat",
-                    "loadMin": 90,
-                    "loadMax": 90,
+                    "loadMin": 95,
+                    "loadMax": 95,
+                    "sets": 1,
                     "repsValue": 6,
-                    "sets": 4,
-                    "notes": "67.5% (90 kg). 1-second pause."
+                    "notes": "Top 6-rep strength set at 95 kg. Shut it down before technique drifts."
                   },
                   {
-                    "$ref": "ex-step-ups",
-                    "sets": 3,
-                    "repsValue": 8,
-                    "loadMin": 12.5,
-                    "loadMax": 15,
-                    "supersetGroup": 1,
-                    "notes": "DB Low Box Step-Ups 3x8/leg. 3-1-1-0; pain-free tracking load."
-                  },
-                  {
-                    "$ref": "ex-chest-supported-row",
-                    "loadMin": 20,
-                    "loadMax": 25,
+                    "$ref": "ex-back-squat",
+                    "loadMin": 87.5,
+                    "loadMax": 87.5,
                     "sets": 2,
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "supersetGroup": 1,
-                    "notes": "Phase 1 load."
+                    "repsValue": 6,
+                    "notes": "2 backoff set(s) at 87.5 kg. Quality only."
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "loadMin": 75,
+                    "loadMax": 75,
+                    "sets": 3,
+                    "repsMin": 8,
+                    "repsMax": 8,
+                    "notes": "Hinge slot. Keep the tempo strict and the hamstrings in charge."
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 3,
-                    "repsMin": 10,
-                    "repsMax": 15,
-                    "notes": "Compression-Goal Rule: set count minus one."
-                  },
-                  {
-                    "$ref": "ex-jefferson-curl-light"
+                    "sets": 2
                   },
                   {
                     "$ref": "ex-friday-l-sit-hold",
-                    "notes": "Best L-Sit hold variation, 8-15 s. Per Friday Compression Block."
+                    "sets": 2
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -2033,290 +2200,56 @@
           },
           {
             "weekNumber": 3,
-            "description": "Continue Phase 1 progression; Tendon prep volume holds",
-            "volumeLevel": "moderate",
-            "intensityLevel": "moderate",
-            "days": [
-              {
-                "dayNumber": 1,
-                "name": "Monday — Bench, Compression, Ring Pull-Ups",
-                "type": "strength",
-                "estimatedDuration": 60,
-                "exercises": [
-                  {
-                    "$routine": "warmup-monday"
-                  },
-                  {
-                    "$ref": "ex-power-primer"
-                  },
-                  {
-                    "$ref": "ex-scap-pushup-plus"
-                  },
-                  {
-                    "$ref": "ex-bench-press",
-                    "loadMin": 62.5,
-                    "loadMax": 62.5,
-                    "repsValue": 6,
-                    "sets": 4,
-                    "notes": "70% (62.5 kg). 2-second eccentric."
-                  },
-                  {
-                    "$ref": "ex-ring-pull-ups"
-                  },
-                  {
-                    "$ref": "ex-parallette-l-sit",
-                    "repsMin": 10,
-                    "repsMax": 15
-                  },
-                  {
-                    "$ref": "ex-pull-support-quality-rows",
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "notes": "2x10-12 Ring Rows. Walk feet farther only if elbow tolerates; strict reps, no grip burn."
-                  },
-                  {
-                    "$routine": "cooldown-mwf"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 2,
-                "name": "Tuesday — Trunk + Posterior Chain (Day Template)",
-                "type": "cardio",
-                "estimatedDuration": 50,
-                "exercises": [
-                  {
-                    "$routine": "warmup-tuesday"
-                  },
-                  {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 3 technique row: 5 min easy warm-up. Step-rate ladder: 5 min @ 20 / 4 min @ 22 / 3 min @ 24 / 2 min @ 26 (14 min continuous — longest Phase 1 Tuesday session). Cool down 3 min easy. Total ~22 min."
-                  },
-                  {
-                    "$ref": "ex-front-plank",
-                    "sets": 2,
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-pallof-press",
-                    "sets": 2,
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-rower-ham-curl"
-                  },
-                  {
-                    "$ref": "ex-dragon-flag-tuck",
-                    "repsMin": 8,
-                    "repsMax": 10,
-                    "notes": "Add single-leg reach 2-3 s if back stays flat"
-                  },
-                  {
-                    "$ref": "ex-tuesday-wrist-eccentric"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 3,
-                "name": "Wednesday — Clean, Box Squat, Secondary Bench",
-                "type": "strength",
-                "estimatedDuration": 60,
-                "exercises": [
-                  {
-                    "$routine": "warmup-wednesday"
-                  },
-                  {
-                    "$ref": "ex-power-clean",
-                    "loadMin": 60,
-                    "loadMax": 60,
-                    "repsValue": 3,
-                    "sets": 4,
-                    "notes": "70% (60 kg). Floor clean transition; preserve bar speed."
-                  },
-                  {
-                    "$ref": "ex-clean-pulls",
-                    "loadMin": 75,
-                    "loadMax": 75,
-                    "repsValue": 3,
-                    "sets": 2,
-                    "notes": "85% (75 kg). Explosive extension above knee; finish tall."
-                  },
-                  {
-                    "$ref": "ex-box-squat",
-                    "loadMin": 90,
-                    "loadMax": 90,
-                    "repsValue": 5,
-                    "sets": 3,
-                    "notes": "67.5% (90 kg). HLM: 5 kg below Friday Back Squat."
-                  },
-                  {
-                    "$ref": "ex-neutral-grip-db-bench",
-                    "loadMin": 25,
-                    "loadMax": 25,
-                    "repsValue": 8,
-                    "sets": 3,
-                    "notes": "25 kg/hand. Neutral grip, 1-second pause. Stop 2-3 reps shy of failure."
-                  },
-                  {
-                    "$routine": "cooldown-mwf"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 4,
-                "name": "Thursday — Shoulder Balance + Structural Circuit (Day Template)",
-                "type": "cardio",
-                "estimatedDuration": 50,
-                "exercises": [
-                  {
-                    "$routine": "warmup-thursday"
-                  },
-                  {
-                    "$ref": "ex-row-conditioning-moderate",
-                    "notes": "Week 3 intervals: 5 min easy warm-up. Block A: 1 min on (RPE 6-7) / 1 min off ×3. Rest 3 min. Block B: 1 min on / 1 min off ×4 (one extra rep vs Wks 1-2). Cool down 3 min easy. Total work: 7 × 1 min."
-                  },
-                  {
-                    "$ref": "ex-face-pulls"
-                  },
-                  {
-                    "$ref": "ex-landmine-press",
-                    "loadMin": 20,
-                    "loadMax": 25
-                  },
-                  {
-                    "$ref": "ex-single-leg-calf-raise"
-                  },
-                  {
-                    "$ref": "ex-side-plank",
-                    "repsValue": 20
-                  },
-                  {
-                    "$ref": "ex-banded-er"
-                  },
-                  {
-                    "$ref": "ex-ring-pushups",
-                    "repsMin": 8,
-                    "repsMax": 10,
-                    "notes": "Ring Push-Ups. Rings may move slightly lower only if shoulder position and elbow path stay clean."
-                  },
-                  {
-                    "$ref": "ex-skin-the-cat-partial"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 5,
-                "name": "Friday — Clean Variation, Back Squat, Hinge",
-                "type": "strength",
-                "estimatedDuration": 60,
-                "exercises": [
-                  {
-                    "$routine": "warmup-friday"
-                  },
-                  {
-                    "$ref": "ex-hang-power-clean",
-                    "loadMin": 47.5,
-                    "loadMax": 47.5,
-                    "repsValue": 2,
-                    "sets": 3,
-                    "notes": "Low-Hang Power Clean 3x2 @ 55% (47.5 kg). Just above knee; snappy."
-                  },
-                  {
-                    "$ref": "ex-back-squat",
-                    "loadMin": 95,
-                    "loadMax": 95,
-                    "repsValue": 6,
-                    "sets": 4,
-                    "notes": "70% (95 kg). 1-second pause."
-                  },
-                  {
-                    "$ref": "ex-rdl",
-                    "loadMin": 65,
-                    "loadMax": 75,
-                    "sets": 3,
-                    "repsMin": 8,
-                    "repsMax": 10,
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-chest-supported-row",
-                    "loadMin": 20,
-                    "loadMax": 25,
-                    "sets": 2,
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "supersetGroup": 1,
-                    "notes": "Phase 1 load."
-                  },
-                  {
-                    "$ref": "ex-seated-pike-pulses",
-                    "sets": 3,
-                    "repsMin": 10,
-                    "repsMax": 15,
-                    "notes": "Compression-Goal Rule: set count minus one."
-                  },
-                  {
-                    "$ref": "ex-jefferson-curl-light"
-                  },
-                  {
-                    "$ref": "ex-friday-l-sit-hold",
-                    "notes": "Best L-Sit hold variation, 8-15 s. Per Friday Compression Block."
-                  },
-                  {
-                    "$routine": "cooldown-friday"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "weekNumber": 4,
-            "description": "Phase 1 consolidation - last week before intensification",
+            "description": "Highest Phase 1 workload, still below grindy fatigue",
             "volumeLevel": "high",
             "intensityLevel": "moderate",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Compression, Ring Pull-Ups",
+                "name": "Monday — Bench, Pulling Balance, Compression",
                 "type": "strength",
-                "estimatedDuration": 60,
+                "estimatedDuration": 55,
+                "description": "Bench heavy working set of 6 at 67.5 kg, then backoffs",
                 "exercises": [
                   {
-                    "$routine": "warmup-monday"
+                    "$routine": "warmup-monday-v2"
                   },
                   {
-                    "$ref": "ex-power-primer"
-                  },
-                  {
-                    "$ref": "ex-scap-pushup-plus"
+                    "$ref": "ex-bench-press",
+                    "loadMin": 67.5,
+                    "loadMax": 67.5,
+                    "repsValue": 6,
+                    "sets": 1,
+                    "notes": "Heavy working set at 67.5 kg for 6 reps. Stop if bar speed drops."
                   },
                   {
                     "$ref": "ex-bench-press",
                     "loadMin": 62.5,
                     "loadMax": 62.5,
                     "repsValue": 6,
-                    "sets": 3,
-                    "notes": "70% (62.5 kg). 2-second eccentric. Consolidation: one set fewer than Week 3; no load increase."
+                    "sets": 2,
+                    "notes": "2 backoff set(s) at 62.5 kg. Crisp volume only."
                   },
                   {
                     "$ref": "ex-ring-pull-ups",
-                    "repsMin": 6,
+                    "repsMin": 5,
                     "repsMax": 8,
                     "sets": 3,
-                    "notes": "3-1-X-0; one set fewer than Week 3."
+                    "notes": "Moderate vertical pull. Stay smooth and stop before elbow irritation rises."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 2,
+                    "loadMin": 22.5,
+                    "loadMax": 22.5,
+                    "notes": "Balancing row slot. Keep scapular control perfect."
                   },
                   {
                     "$ref": "ex-parallette-l-sit",
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "sets": 4,
-                    "notes": "Alternating single-leg; skill is low-fatigue, keep frequency."
-                  },
-                  {
-                    "$ref": "ex-pull-support-quality-rows",
+                    "sets": 3,
                     "repsMin": 8,
-                    "repsMax": 8,
-                    "notes": "2x8 Ring Rows. Reduced volume; leave every rep crisp."
+                    "repsMax": 12,
+                    "notes": "Short compression block after upper work."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2325,16 +2258,17 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Tuesday — Trunk + Posterior Chain (Day Template)",
+                "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
-                "estimatedDuration": 50,
+                "estimatedDuration": 45,
+                "description": "Easy aerobic base + trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 4 technique row: 5 min easy warm-up. Step-rate ladder starts at 22 SPM (Phase 1 consolidation): 4 min @ 22 / 3 min @ 24 / 2 min @ 26 / 1 min @ 28 (10 min continuous). Cool down 3 min easy. Total ~18 min."
+                    "notes": "Week 3 easy aerobic base. Conversational pace, 18-24 minutes total."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2350,47 +2284,65 @@
                     "$ref": "ex-rower-ham-curl"
                   },
                   {
-                    "$ref": "ex-dragon-flag-tuck",
-                    "repsMin": 8,
-                    "repsMax": 10
+                    "$ref": "ex-dragon-flag-tuck"
                   },
                   {
-                    "$ref": "ex-tuesday-wrist-eccentric"
+                    "$ref": "ex-tuesday-wrist-eccentric",
+                    "sets": 3
                   }
                 ]
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Clean, Box Squat, Secondary Bench",
+                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
                 "type": "strength",
                 "estimatedDuration": 60,
+                "description": "Power emphasis + secondary squat + secondary press",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
                   },
                   {
-                    "$ref": "ex-power-clean",
-                    "loadMin": 60,
-                    "loadMax": 60,
-                    "repsValue": 3,
+                    "exerciseName": "Broad Jump",
+                    "category": "warmup",
                     "sets": 3,
-                    "notes": "70% (60 kg). Consolidation: one set fewer; same load as Week 3."
+                    "repsValue": 2,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45,
+                    "notes": "Power primer. Full reset between reps; stop if height or distance drops.",
+                    "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
                   },
                   {
-                    "$ref": "ex-box-squat",
-                    "loadMin": 90,
-                    "loadMax": 90,
-                    "repsValue": 5,
+                    "$ref": "ex-power-clean",
+                    "loadMin": 65,
+                    "loadMax": 65,
+                    "sets": 5,
+                    "repsValue": 2,
+                    "notes": "65 kg for crisp doubles. Reset every rep and treat the set like EMOM work."
+                  },
+                  {
+                    "exerciseName": "Front Squat",
+                    "exerciseId": "front_squat",
+                    "category": "main",
                     "sets": 3,
-                    "notes": "67.5% (90 kg). HLM: 5 kg below Friday Back Squat; same as Week 3."
+                    "repsValue": 4,
+                    "repsType": "reps",
+                    "loadUnit": "kg",
+                    "loadMin": 80,
+                    "loadMax": 80,
+                    "restSeconds": 180,
+                    "rpe": 7,
+                    "notes": "80 kg. Clean-transfer secondary squat. Elbows high, torso tall.",
+                    "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
                   },
                   {
                     "$ref": "ex-neutral-grip-db-bench",
-                    "loadMin": 22.5,
-                    "loadMax": 25,
+                    "loadMin": 27.5,
+                    "loadMax": 27.5,
+                    "sets": 3,
                     "repsValue": 8,
-                    "sets": 2,
-                    "notes": "22.5-25 kg/hand. Consolidation: one set fewer, easy reps."
+                    "notes": "Secondary press. Stay 2-3 reps shy of failure."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2399,103 +2351,111 @@
               },
               {
                 "dayNumber": 4,
-                "name": "Thursday — Shoulder Balance + Structural Circuit (Day Template)",
+                "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
-                "estimatedDuration": 50,
+                "estimatedDuration": 40,
+                "description": "Moderate support work + shoulder balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
                     "$ref": "ex-row-conditioning-moderate",
-                    "notes": "Week 4 intervals: 5 min easy warm-up. Block A: 1 min on (RPE 6-7) / 1 min off ×3. Rest 2 min. Block B: 30 s on (RPE 7-8, sprint effort) / 1 min off ×4. Cool down 3 min easy. Total work: 3×1 min + 4×30 s = 5 min."
+                    "notes": "Week 3 moderate aerobic/tempo work. Keep it supportive, not competitive with Friday."
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-landmine-press",
-                    "loadMin": 22.5,
-                    "loadMax": 25
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-single-leg-calf-raise"
+                    "$ref": "ex-banded-er",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise",
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-side-plank",
-                    "repsValue": 20
-                  },
-                  {
-                    "$ref": "ex-banded-er"
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-ring-pushups",
-                    "repsMin": 8,
-                    "repsMax": 10,
-                    "notes": "Ring Push-Ups. Same volume as Week 3; do not chase fatigue."
-                  },
-                  {
-                    "$ref": "ex-skin-the-cat-partial"
+                    "sets": 2,
+                    "notes": "Optional low-fatigue horizontal push skill only."
                   }
                 ]
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Clean Variation, Back Squat, Hinge",
+                "name": "Friday — Squat Strength + Posterior Chain",
                 "type": "strength",
                 "estimatedDuration": 60,
+                "description": "Lower strength accumulation + hinge + compression",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
                   },
                   {
-                    "$ref": "ex-hang-power-clean",
-                    "loadMin": 47.5,
-                    "loadMax": 47.5,
-                    "repsValue": 2,
+                    "exerciseName": "Broad Jump",
+                    "category": "warmup",
                     "sets": 3,
-                    "notes": "Low-Hang Power Clean 3x2 @ 55% (47.5 kg). Consolidation: same load as Week 3."
+                    "repsValue": 2,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45,
+                    "notes": "Power primer. Full reset between reps; stop if height or distance drops.",
+                    "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
+                  },
+                  {
+                    "$ref": "ex-tall-clean-high-hang",
+                    "loadMin": 45,
+                    "loadMax": 45,
+                    "sets": 3,
+                    "repsValue": 2,
+                    "notes": "Technical clean primer only. Fast turnover, no fatigue."
                   },
                   {
                     "$ref": "ex-back-squat",
-                    "loadMin": 95,
-                    "loadMax": 95,
+                    "loadMin": 100,
+                    "loadMax": 100,
+                    "sets": 1,
                     "repsValue": 6,
+                    "notes": "Top 6-rep strength set at 100 kg. Shut it down before technique drifts."
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 92.5,
+                    "loadMax": 92.5,
+                    "sets": 2,
+                    "repsValue": 6,
+                    "notes": "2 backoff set(s) at 92.5 kg. Quality only."
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "loadMin": 80,
+                    "loadMax": 80,
                     "sets": 3,
-                    "notes": "70% (95 kg). 1-second pause; one set fewer than Week 3."
-                  },
-                  {
-                    "$ref": "ex-step-ups",
-                    "sets": 2,
-                    "repsValue": 8,
-                    "loadMin": 12.5,
-                    "loadMax": 15,
-                    "supersetGroup": 1,
-                    "notes": "DB Low Box Step-Ups 2x8/leg. Submaximal and crisp; one set fewer."
-                  },
-                  {
-                    "$ref": "ex-chest-supported-row",
-                    "loadMin": 20,
-                    "loadMax": 25,
-                    "sets": 2,
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "supersetGroup": 1,
-                    "notes": "Phase 1 load."
+                    "repsMin": 8,
+                    "repsMax": 8,
+                    "notes": "Hinge slot. Keep the tempo strict and the hamstrings in charge."
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 2,
-                    "repsValue": 8,
-                    "notes": "Consolidation: one fewer set per Compression-Goal Rule."
-                  },
-                  {
-                    "$ref": "ex-jefferson-curl-light"
+                    "sets": 2
                   },
                   {
                     "$ref": "ex-friday-l-sit-hold",
-                    "sets": 2,
-                    "notes": "Best L-Sit hold variation, 8-15 s."
+                    "sets": 2
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -2508,67 +2468,64 @@
       },
       {
         "phaseNumber": 2,
-        "name": "Phase 2: Intensification",
-        "description": "Heavier loads, lower reps. Wednesday secondary press stays neutral-grip DB bench in Wks 5-6, then rotates to Paused Bench in Wks 7-8. Tue conditioning gets harder; Thu is light aerobic in Week 5, then conditioning is removed in Weeks 6-8 (Concurrent-Fatigue Sequencing Rule).",
-        "startWeek": 5,
-        "endWeek": 8,
+        "name": "Phase 2: Intensification and Power-Strength",
+        "description": "Raise force output without losing speed, trim nonessential volume, and make Wednesday and Friday clearly power-strength sessions.",
+        "startWeek": 4,
+        "endWeek": 7,
         "focus": "intensity",
         "weeks": [
           {
-            "weekNumber": 5,
-            "description": "Phase 2 entry - DB secondary press stays submaximal; Tue intervals begin",
+            "weekNumber": 4,
+            "description": "Transition to heavier but still snappy work",
             "volumeLevel": "moderate",
             "intensityLevel": "high",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Compression, Ring Pull-Ups",
+                "name": "Monday — Bench, Pulling Balance, Compression",
                 "type": "strength",
-                "estimatedDuration": 60,
+                "estimatedDuration": 55,
+                "description": "Bench heavy working set of 5 at 70 kg, then backoffs",
                 "exercises": [
                   {
-                    "$routine": "warmup-monday"
-                  },
-                  {
-                    "$ref": "ex-power-primer"
-                  },
-                  {
-                    "$ref": "ex-scap-pushup-plus"
+                    "$routine": "warmup-monday-v2"
                   },
                   {
                     "$ref": "ex-bench-press",
-                    "loadMin": 67.5,
-                    "loadMax": 67.5,
+                    "loadMin": 70,
+                    "loadMax": 70,
                     "repsValue": 5,
-                    "sets": 4,
-                    "rpe": 8,
-                    "notes": "75% (67.5 kg). RPE 7-9. Cap on grinders. Optional last-set back-off: reduce 5-7% if elbow/tendon strain is rising."
+                    "sets": 1,
+                    "notes": "Heavy working set at 70 kg for 5 reps. Stop if bar speed drops."
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 65,
+                    "loadMax": 65,
+                    "repsValue": 5,
+                    "sets": 2,
+                    "notes": "2 backoff set(s) at 65 kg. Crisp volume only."
                   },
                   {
                     "$ref": "ex-ring-pull-ups",
+                    "repsMin": 4,
+                    "repsMax": 6,
                     "sets": 3,
-                    "repsMin": 5,
-                    "repsMax": 8
+                    "notes": "Moderate vertical pull. Stay smooth and stop before elbow irritation rises."
                   },
                   {
                     "$ref": "ex-chest-supported-row",
-                    "loadMin": 20,
-                    "loadMax": 25,
                     "sets": 2,
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "notes": "Phase 2 Monday balancing row. Keep it light and smooth."
+                    "loadMin": 27.5,
+                    "loadMax": 27.5,
+                    "notes": "Balancing row slot. Keep scapular control perfect."
                   },
                   {
                     "$ref": "ex-parallette-l-sit",
-                    "repsMin": 12,
-                    "repsMax": 18,
-                    "notes": "Progress to one-leg or straddle if tucked is solid"
-                  },
-                  {
-                    "$ref": "ex-chest-to-rings-top-hold-emom",
-                    "sets": 4,
-                    "notes": "4 min EMOM: 1 assisted Chest-to-Rings Top Hold x 5-8 s per minute."
+                    "sets": 2,
+                    "repsMin": 8,
+                    "repsMax": 12,
+                    "notes": "Short compression block after upper work."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2577,79 +2534,91 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Tuesday — Trunk + Posterior Chain (Phase 2: hard conditioning)",
+                "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
-                "estimatedDuration": 50,
-                "description": "Phase 2 swap: harder conditioning Tuesday (72 h before Friday squats)",
+                "estimatedDuration": 45,
+                "description": "Hard conditioning + trunk stiffness and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-row-conditioning-hard",
-                    "notes": "Week 5: 5 min easy warm-up. 1,000 m (RPE 7-8), rest 3 min, 1,000 m. Cool down 3 min easy. Concurrent-Fatigue Rule: harder intervals on Tue, 72 h before Friday squats; do not exceed RPE 8."
+                    "notes": "Week 4 hard interval day. Repeatable splits only; stop before Friday is compromised."
                   },
                   {
                     "$ref": "ex-front-plank",
-                    "sets": 1,
+                    "sets": 2,
                     "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-pallof-press",
-                    "sets": 1,
+                    "sets": 2,
                     "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-rower-ham-curl"
                   },
                   {
-                    "$ref": "ex-weighted-seated-compression-lift-offs",
-                    "notes": "Moved off Monday in Phase 2 so compression quality is higher and hip flexors are fresher before the next squat exposure."
-                  },
-                  {
                     "$ref": "ex-dragon-flag-single-leg"
                   },
                   {
-                    "$ref": "ex-tuesday-wrist-eccentric"
+                    "$ref": "ex-tuesday-wrist-eccentric",
+                    "sets": 3
                   }
                 ]
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean EMOM, Box Squat, DB Bench",
+                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Power Clean EMOM density; clean pulls cut in Phase 2.",
+                "description": "Speed-strength clean work + secondary strength",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
                   },
                   {
-                    "$ref": "ex-power-clean",
-                    "loadMin": 65,
-                    "loadMax": 65,
+                    "exerciseName": "10-20 m Acceleration Sprint",
+                    "category": "warmup",
+                    "sets": 4,
                     "repsValue": 1,
-                    "sets": 10,
-                    "rpe": 8,
-                    "notes": "EMOM 10 min x 1 rep @ 75% (65 kg). EMOM density format provides the mid-week knee-deload window. Abort if bar speed or catch quality falls."
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "notes": "Power primer. 10-20 m only. Full walk-back recovery; stop before it turns into conditioning.",
+                    "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
                   },
                   {
-                    "$ref": "ex-box-squat",
-                    "loadMin": 90,
-                    "loadMax": 90,
+                    "$ref": "ex-power-clean",
+                    "loadMin": 67.5,
+                    "loadMax": 67.5,
+                    "sets": 6,
+                    "repsValue": 2,
+                    "notes": "67.5 kg for crisp doubles. Reset every rep and treat the set like EMOM work."
+                  },
+                  {
+                    "exerciseName": "Anderson Squat from Pins",
+                    "exerciseId": "anderson_squat",
+                    "category": "main",
+                    "sets": 3,
                     "repsValue": 4,
-                    "sets": 3,
-                    "rpe": 7,
-                    "notes": "67.5% (90 kg). HLM: 7.5 kg below Friday Back Squat."
+                    "repsType": "reps",
+                    "loadUnit": "kg",
+                    "loadMin": 85,
+                    "loadMax": 85,
+                    "restSeconds": 180,
+                    "rpe": 8,
+                    "notes": "85 kg. Start each rep from a dead stop on the pins. Build starting strength without rebound.",
+                    "coachingNotes": "Pins set at parallel. Set the brace first, drive vertically from a dead stop, and reset between reps. No bounce off the pins."
                   },
                   {
-                    "$ref": "ex-neutral-grip-db-bench",
-                    "loadMin": 25,
-                    "loadMax": 27.5,
-                    "repsValue": 6,
+                    "$ref": "ex-paused-bench",
+                    "loadMin": 60,
+                    "loadMax": 60,
                     "sets": 3,
-                    "rpe": 7,
-                    "notes": "25-27.5 kg/hand. Neutral grip; bar speed crisp; cap RPE 7."
+                    "repsValue": 4,
+                    "notes": "Secondary press. Long pause, no grinding."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2658,107 +2627,369 @@
               },
               {
                 "dayNumber": 4,
-                "name": "Thursday — Shoulder Balance + Structural Circuit (Phase 2: light aerobic)",
+                "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
-                "estimatedDuration": 45,
-                "description": "Phase 2 Thu: Z1-2 only - preserves Friday squat",
+                "estimatedDuration": 40,
+                "description": "Light restoration + structural balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 5 (Phase 2 Thu): 15-25 min easy Z1-Z2 steady (RPE 4-5). Nasal breathing throughout. Lighter than Phase 1 Thursdays — preserves Friday squat performance."
+                    "notes": "Week 4 very light recovery work only. Get blood flow, then move on."
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-landmine-press",
-                    "loadMin": 25,
-                    "loadMax": 27.5
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-single-leg-calf-raise"
+                    "$ref": "ex-banded-er",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise",
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-side-plank",
-                    "repsValue": 30,
-                    "notes": "Wks 5-8: 30 s/side"
-                  },
-                  {
-                    "$ref": "ex-banded-er"
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-ring-pushups",
-                    "repsMin": 6,
-                    "repsMax": 8,
-                    "rpe": 7,
-                    "notes": "Tempo Ring Push-Ups. 2-1-1-0, RPE 6-7; keep the dose submaximal."
-                  },
-                  {
-                    "$ref": "ex-skin-the-cat-full"
+                    "sets": 2,
+                    "notes": "Optional low-fatigue horizontal push skill only."
                   }
                 ]
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — High-Hang Power Clean, Back Squat, Hinge",
+                "name": "Friday — Squat Strength + Posterior Chain",
                 "type": "strength",
                 "estimatedDuration": 60,
+                "description": "Lower strength intensification + unilateral or hinge slot",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
                   },
                   {
-                    "$ref": "ex-hang-power-clean",
-                    "loadMin": 52.5,
-                    "loadMax": 52.5,
-                    "repsValue": 2,
+                    "exerciseName": "10-20 m Acceleration Sprint",
+                    "category": "warmup",
+                    "sets": 4,
+                    "repsValue": 1,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "notes": "Power primer. 10-20 m only. Full walk-back recovery; stop before it turns into conditioning.",
+                    "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
+                  },
+                  {
+                    "$ref": "ex-power-clean",
+                    "loadMin": 62.5,
+                    "loadMax": 62.5,
                     "sets": 3,
-                    "rpe": 7,
-                    "notes": "High-Hang Power Clean 3x2 @ 60% (52.5 kg). Fast extension, quick elbows."
+                    "repsValue": 1,
+                    "notes": "Single clean primer only. Fast, sharp, and fully reset."
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 105,
+                    "loadMax": 105,
+                    "sets": 1,
+                    "repsValue": 4,
+                    "notes": "Top 4-rep strength set at 105 kg. Shut it down before technique drifts."
                   },
                   {
                     "$ref": "ex-back-squat",
                     "loadMin": 97.5,
                     "loadMax": 97.5,
-                    "repsValue": 5,
-                    "sets": 4,
-                    "rpe": 8,
-                    "notes": "72.5% (97.5 kg)."
+                    "sets": 2,
+                    "repsValue": 4,
+                    "notes": "2 backoff set(s) at 97.5 kg. Quality only."
                   },
                   {
                     "$ref": "ex-rdl",
-                    "loadMin": 70,
-                    "loadMax": 75,
+                    "loadMin": 85,
+                    "loadMax": 85,
                     "sets": 3,
-                    "repsMin": 6,
+                    "repsMin": 8,
                     "repsMax": 8,
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-chest-supported-row",
-                    "loadMin": 25,
-                    "loadMax": 30,
-                    "sets": 2,
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "supersetGroup": 1,
-                    "notes": "Phase 2 load."
+                    "notes": "Hinge slot. Keep the tempo strict and the hamstrings in charge."
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 2,
-                    "repsMin": 15,
-                    "repsMax": 20
-                  },
-                  {
-                    "$ref": "ex-jefferson-curl-light"
+                    "sets": 2
                   },
                   {
                     "$ref": "ex-friday-l-sit-hold",
-                    "notes": "Best L-Sit hold variation, 8-15 s. Add after Pike Pulses and Jefferson Curl per Friday Compression Block."
+                    "sets": 2
+                  },
+                  {
+                    "$routine": "cooldown-friday"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 5,
+            "description": "Hardest combined workload week",
+            "volumeLevel": "high",
+            "intensityLevel": "high",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Monday — Bench, Pulling Balance, Compression",
+                "type": "strength",
+                "estimatedDuration": 55,
+                "description": "Bench heavy working set of 5 at 72.5 kg, then backoffs",
+                "exercises": [
+                  {
+                    "$routine": "warmup-monday-v2"
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 72.5,
+                    "loadMax": 72.5,
+                    "repsValue": 5,
+                    "sets": 1,
+                    "notes": "Heavy working set at 72.5 kg for 5 reps. Stop if bar speed drops."
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 67.5,
+                    "loadMax": 67.5,
+                    "repsValue": 5,
+                    "sets": 2,
+                    "notes": "2 backoff set(s) at 67.5 kg. Crisp volume only."
+                  },
+                  {
+                    "$ref": "ex-ring-pull-ups",
+                    "repsMin": 4,
+                    "repsMax": 6,
+                    "sets": 3,
+                    "notes": "Moderate vertical pull. Stay smooth and stop before elbow irritation rises."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 2,
+                    "loadMin": 27.5,
+                    "loadMax": 27.5,
+                    "notes": "Balancing row slot. Keep scapular control perfect."
+                  },
+                  {
+                    "$ref": "ex-parallette-l-sit",
+                    "sets": 2,
+                    "repsMin": 8,
+                    "repsMax": 12,
+                    "notes": "Short compression block after upper work."
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
+                "type": "cardio",
+                "estimatedDuration": 45,
+                "description": "Hard conditioning + trunk stiffness and tendon work",
+                "exercises": [
+                  {
+                    "$routine": "warmup-tuesday"
+                  },
+                  {
+                    "$ref": "ex-row-conditioning-hard",
+                    "notes": "Week 5 hard interval day. Repeatable splits only; stop before Friday is compromised."
+                  },
+                  {
+                    "$ref": "ex-front-plank",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-pallof-press",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-rower-ham-curl"
+                  },
+                  {
+                    "$ref": "ex-dragon-flag-single-leg"
+                  },
+                  {
+                    "$ref": "ex-tuesday-wrist-eccentric",
+                    "sets": 3
+                  }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
+                "type": "strength",
+                "estimatedDuration": 60,
+                "description": "Speed-strength clean work + secondary strength",
+                "exercises": [
+                  {
+                    "$routine": "warmup-wednesday"
+                  },
+                  {
+                    "exerciseName": "Broad Jump",
+                    "category": "warmup",
+                    "sets": 3,
+                    "repsValue": 2,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45,
+                    "notes": "Power primer. Full reset between reps; stop if height or distance drops.",
+                    "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
+                  },
+                  {
+                    "$ref": "ex-power-clean",
+                    "loadMin": 70,
+                    "loadMax": 70,
+                    "sets": 6,
+                    "repsValue": 1,
+                    "notes": "70 kg. Crisp singles or cluster-style singles only."
+                  },
+                  {
+                    "$ref": "ex-box-squat",
+                    "loadMin": 90,
+                    "loadMax": 90,
+                    "repsValue": 4,
+                    "sets": 3,
+                    "notes": "90 kg. Box squat secondary strength exposure."
+                  },
+                  {
+                    "$ref": "ex-paused-bench",
+                    "loadMin": 62.5,
+                    "loadMax": 62.5,
+                    "sets": 3,
+                    "repsValue": 4,
+                    "notes": "Secondary press. Long pause, no grinding."
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 4,
+                "name": "Thursday — Restoration + Structural Balance",
+                "type": "cardio",
+                "estimatedDuration": 40,
+                "description": "Light restoration + structural balance",
+                "exercises": [
+                  {
+                    "$routine": "warmup-thursday"
+                  },
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Week 5 very light recovery work only. Get blood flow, then move on."
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-landmine-press",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-banded-er",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-side-plank",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-ring-pushups",
+                    "sets": 2,
+                    "notes": "Optional low-fatigue horizontal push skill only."
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Friday — Squat Strength + Posterior Chain",
+                "type": "strength",
+                "estimatedDuration": 60,
+                "description": "Lower strength intensification + unilateral or hinge slot",
+                "exercises": [
+                  {
+                    "$routine": "warmup-friday"
+                  },
+                  {
+                    "exerciseName": "Broad Jump",
+                    "category": "warmup",
+                    "sets": 3,
+                    "repsValue": 2,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45,
+                    "notes": "Power primer. Full reset between reps; stop if height or distance drops.",
+                    "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
+                  },
+                  {
+                    "$ref": "ex-power-clean",
+                    "loadMin": 65,
+                    "loadMax": 65,
+                    "sets": 3,
+                    "repsValue": 1,
+                    "notes": "Single clean primer only. Fast, sharp, and fully reset."
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 110,
+                    "loadMax": 110,
+                    "sets": 1,
+                    "repsValue": 4,
+                    "notes": "Top 4-rep strength set at 110 kg. Shut it down before technique drifts."
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 102.5,
+                    "loadMax": 102.5,
+                    "sets": 2,
+                    "repsValue": 4,
+                    "notes": "2 backoff set(s) at 102.5 kg. Quality only."
+                  },
+                  {
+                    "$ref": "ex-step-ups",
+                    "loadMin": 15,
+                    "loadMax": 17.5,
+                    "sets": 3,
+                    "repsValue": 8,
+                    "notes": "Unilateral lower-body slot. Slow descent, perfect knee tracking."
+                  },
+                  {
+                    "$ref": "ex-seated-pike-pulses",
+                    "sets": 2
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold",
+                    "sets": 2
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -2769,58 +3000,56 @@
           },
           {
             "weekNumber": 6,
-            "description": "Phase 2 build - DB secondary press, harder Tuesday intervals",
+            "description": "Maintain intensity, trim nonessential volume",
             "volumeLevel": "moderate",
             "intensityLevel": "high",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Compression, Ring Pull-Ups",
+                "name": "Monday — Bench, Pulling Balance, Compression",
                 "type": "strength",
-                "estimatedDuration": 60,
+                "estimatedDuration": 55,
+                "description": "Bench heavy working set of 4 at 75 kg, then backoffs",
                 "exercises": [
                   {
-                    "$routine": "warmup-monday"
+                    "$routine": "warmup-monday-v2"
                   },
                   {
-                    "$ref": "ex-power-primer"
-                  },
-                  {
-                    "$ref": "ex-scap-pushup-plus"
+                    "$ref": "ex-bench-press",
+                    "loadMin": 75,
+                    "loadMax": 75,
+                    "repsValue": 4,
+                    "sets": 1,
+                    "notes": "Heavy working set at 75 kg for 4 reps. Stop if bar speed drops."
                   },
                   {
                     "$ref": "ex-bench-press",
                     "loadMin": 70,
                     "loadMax": 70,
-                    "repsValue": 5,
-                    "sets": 4,
-                    "rpe": 8,
-                    "notes": "77.5% (70 kg). RPE 8 ceiling. Optional last-set back-off: reduce 5-7% if elbow/tendon strain is rising."
+                    "repsValue": 4,
+                    "sets": 2,
+                    "notes": "2 backoff set(s) at 70 kg. Crisp volume only."
                   },
                   {
                     "$ref": "ex-ring-pull-ups",
+                    "repsMin": 4,
+                    "repsMax": 6,
                     "sets": 3,
-                    "repsMin": 5,
-                    "repsMax": 7
+                    "notes": "Moderate vertical pull. Stay smooth and stop before elbow irritation rises."
                   },
                   {
                     "$ref": "ex-chest-supported-row",
-                    "loadMin": 20,
-                    "loadMax": 25,
                     "sets": 2,
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "notes": "Phase 2 Monday balancing row. Keep it light and smooth."
+                    "loadMin": 27.5,
+                    "loadMax": 27.5,
+                    "notes": "Balancing row slot. Keep scapular control perfect."
                   },
                   {
                     "$ref": "ex-parallette-l-sit",
-                    "repsMin": 12,
-                    "repsMax": 18
-                  },
-                  {
-                    "$ref": "ex-chest-to-rings-top-hold-emom",
-                    "sets": 4,
-                    "notes": "4 min EMOM: 1 assisted Chest-to-Rings Top Hold x 5-8 s per minute."
+                    "sets": 2,
+                    "repsMin": 8,
+                    "repsMax": 12,
+                    "notes": "Short compression block after upper work."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2829,79 +3058,91 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Tuesday — Trunk + Posterior Chain (Phase 2: hard conditioning)",
+                "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
-                "estimatedDuration": 50,
+                "estimatedDuration": 45,
+                "description": "Hard conditioning + trunk stiffness and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-row-conditioning-hard",
-                    "notes": "Week 6: 5 min easy warm-up. Block A: 1 min @ 26-28 SPM / 1 min off ×3, rest 3 min. Block B: 30 s @ 28+ SPM (sprint effort) / 1 min off ×4. Cool down 3 min easy."
+                    "notes": "Week 6 hard interval day. Repeatable splits only; stop before Friday is compromised."
                   },
                   {
                     "$ref": "ex-front-plank",
-                    "sets": 1,
+                    "sets": 2,
                     "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-pallof-press",
-                    "sets": 1,
+                    "sets": 2,
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-rower-ham-curl",
-                    "sets": 1,
-                    "notes": "Step-Ups Friday this week. Keep hamstring curl volume to 1 set."
-                  },
-                  {
-                    "$ref": "ex-weighted-seated-compression-lift-offs",
-                    "notes": "Moved off Monday in Phase 2 so compression quality is higher and hip flexors are fresher before the next squat exposure."
+                    "$ref": "ex-rower-ham-curl"
                   },
                   {
                     "$ref": "ex-dragon-flag-single-leg"
                   },
                   {
-                    "$ref": "ex-tuesday-wrist-eccentric"
+                    "$ref": "ex-tuesday-wrist-eccentric",
+                    "sets": 3
                   }
                 ]
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean EMOM, Box Squat, DB Bench",
+                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
                 "type": "strength",
                 "estimatedDuration": 60,
+                "description": "Speed-strength clean work + secondary strength",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
                   },
                   {
-                    "$ref": "ex-power-clean",
-                    "loadMin": 70,
-                    "loadMax": 70,
+                    "exerciseName": "10-20 m Acceleration Sprint",
+                    "category": "warmup",
+                    "sets": 4,
                     "repsValue": 1,
-                    "sets": 8,
-                    "rpe": 8,
-                    "notes": "EMOM 8 min x 1 rep @ 80% (70 kg). 8-minute EMOM maintains the knee-deload window. Abort if bar speed or catch quality falls."
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "notes": "Power primer. 10-20 m only. Full walk-back recovery; stop before it turns into conditioning.",
+                    "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
                   },
                   {
-                    "$ref": "ex-box-squat",
-                    "loadMin": 95,
-                    "loadMax": 95,
+                    "$ref": "ex-power-clean",
+                    "loadMin": 72.5,
+                    "loadMax": 72.5,
+                    "sets": 6,
+                    "repsValue": 1,
+                    "notes": "72.5 kg. Crisp singles or cluster-style singles only."
+                  },
+                  {
+                    "exerciseName": "Anderson Squat from Pins",
+                    "exerciseId": "anderson_squat",
+                    "category": "main",
+                    "sets": 3,
                     "repsValue": 3,
-                    "sets": 3,
+                    "repsType": "reps",
+                    "loadUnit": "kg",
+                    "loadMin": 90,
+                    "loadMax": 90,
+                    "restSeconds": 180,
                     "rpe": 8,
-                    "notes": "70% (95 kg). HLM: 10 kg below Friday Back Squat."
+                    "notes": "90 kg. Start each rep from a dead stop on the pins. Build starting strength without rebound.",
+                    "coachingNotes": "Pins set at parallel. Set the brace first, drive vertically from a dead stop, and reset between reps. No bounce off the pins."
                   },
                   {
-                    "$ref": "ex-neutral-grip-db-bench",
-                    "loadMin": 27.5,
-                    "loadMax": 27.5,
-                    "repsValue": 6,
+                    "$ref": "ex-paused-bench",
+                    "loadMin": 65,
+                    "loadMax": 65,
                     "sets": 3,
-                    "rpe": 7,
-                    "notes": "27.5 kg/hand. Crisp; 2 reps in reserve. Use the nearest pair that keeps RPE <=7."
+                    "repsValue": 3,
+                    "notes": "Secondary press. Long pause, no grinding."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2910,103 +3151,110 @@
               },
               {
                 "dayNumber": 4,
-                "name": "Thursday — Shoulder Balance + Structural Circuit (Phase 2: no conditioning)",
+                "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
-                "estimatedDuration": 45,
-                "description": "Conditioning removed in Week 6 to preserve Friday performance; keep the joint-balance circuit and skill work only.",
+                "estimatedDuration": 40,
+                "description": "Light restoration + structural balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Week 6 very light recovery work only. Get blood flow, then move on."
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-landmine-press",
-                    "loadMin": 25,
-                    "loadMax": 27.5
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-single-leg-calf-raise"
+                    "$ref": "ex-banded-er",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise",
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-side-plank",
-                    "repsValue": 30
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-banded-er"
-                  },
-                  {
-                    "$ref": "ex-ring-pushups",
-                    "repsMin": 6,
-                    "repsMax": 8,
-                    "rpe": 7,
-                    "notes": "Tempo Ring Push-Ups. Use high rings if elbow or shoulder feels loaded."
-                  },
-                  {
-                    "$ref": "ex-skin-the-cat-full"
+                    "$ref": "ex-skin-the-cat-tuck",
+                    "sets": 2,
+                    "notes": "Optional only if shoulders feel calm."
                   }
                 ]
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — High-Hang Power Clean, Back Squat, Step-Ups",
+                "name": "Friday — Squat Strength + Posterior Chain",
                 "type": "strength",
                 "estimatedDuration": 60,
+                "description": "Lower strength intensification + unilateral or hinge slot",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
                   },
                   {
-                    "$ref": "ex-hang-power-clean",
-                    "loadMin": 47.5,
-                    "loadMax": 52.5,
+                    "exerciseName": "10-20 m Acceleration Sprint",
+                    "category": "warmup",
+                    "sets": 4,
                     "repsValue": 1,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "notes": "Power primer. 10-20 m only. Full walk-back recovery; stop before it turns into conditioning.",
+                    "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
+                  },
+                  {
+                    "$ref": "ex-power-clean",
+                    "loadMin": 67.5,
+                    "loadMax": 67.5,
                     "sets": 3,
-                    "rpe": 7,
-                    "notes": "Week B row-emphasis Friday: High-Hang Power Clean 3x1 @ 55-60% (47.5-52.5 kg). Technique singles only."
+                    "repsValue": 1,
+                    "notes": "Single clean primer only. Fast, sharp, and fully reset."
                   },
                   {
                     "$ref": "ex-back-squat",
-                    "loadMin": 105,
-                    "loadMax": 105,
+                    "loadMin": 115,
+                    "loadMax": 115,
+                    "sets": 1,
                     "repsValue": 4,
-                    "sets": 4,
-                    "rpe": 8,
-                    "notes": "77.5% (105 kg)."
+                    "notes": "Top 4-rep strength set at 115 kg. Shut it down before technique drifts."
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 107.5,
+                    "loadMax": 107.5,
+                    "sets": 2,
+                    "repsValue": 4,
+                    "notes": "2 backoff set(s) at 107.5 kg. Quality only."
                   },
                   {
                     "$ref": "ex-step-ups",
                     "loadMin": 15,
                     "loadMax": 17.5,
                     "sets": 3,
-                    "repsMin": 6,
-                    "repsMax": 8,
-                    "supersetGroup": 1,
-                    "notes": "DB Low Box Step-Ups. 3-1-1-0; cut if knee tracking slips."
-                  },
-                  {
-                    "$ref": "ex-chest-supported-row",
-                    "loadMin": 25,
-                    "loadMax": 30,
-                    "sets": 2,
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "supersetGroup": 1,
-                    "notes": "Phase 2 load."
+                    "repsValue": 8,
+                    "notes": "Unilateral lower-body slot. Slow descent, perfect knee tracking."
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 2,
-                    "repsMin": 15,
-                    "repsMax": 20
-                  },
-                  {
-                    "$ref": "ex-jefferson-curl-light"
+                    "sets": 2
                   },
                   {
                     "$ref": "ex-friday-l-sit-hold",
-                    "notes": "Best L-Sit hold variation, 8-15 s. Add after Pike Pulses and Jefferson Curl per Friday Compression Block."
+                    "sets": 2
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -3017,59 +3265,56 @@
           },
           {
             "weekNumber": 7,
-            "description": "Phase 2 peak push - Paused Bench secondary press begins",
+            "description": "Keep intensity, reduce clutter, set up realization",
             "volumeLevel": "moderate",
             "intensityLevel": "high",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Compression, Ring Pull-Ups",
+                "name": "Monday — Bench, Pulling Balance, Compression",
                 "type": "strength",
-                "estimatedDuration": 60,
+                "estimatedDuration": 55,
+                "description": "Bench heavy working set of 4 at 77.5 kg, then backoffs",
                 "exercises": [
                   {
-                    "$routine": "warmup-monday"
+                    "$routine": "warmup-monday-v2"
                   },
                   {
-                    "$ref": "ex-power-primer"
-                  },
-                  {
-                    "$ref": "ex-scap-pushup-plus"
+                    "$ref": "ex-bench-press",
+                    "loadMin": 77.5,
+                    "loadMax": 77.5,
+                    "repsValue": 4,
+                    "sets": 1,
+                    "notes": "Heavy working set at 77.5 kg for 4 reps. Stop if bar speed drops."
                   },
                   {
                     "$ref": "ex-bench-press",
                     "loadMin": 72.5,
                     "loadMax": 72.5,
                     "repsValue": 4,
-                    "sets": 4,
-                    "rpe": 8,
-                    "notes": "80% (72.5 kg). Optional last-set back-off: reduce 5-7% if elbow/tendon strain is rising."
+                    "sets": 1,
+                    "notes": "1 backoff set(s) at 72.5 kg. Crisp volume only."
                   },
                   {
                     "$ref": "ex-ring-pull-ups",
+                    "repsMin": 4,
+                    "repsMax": 6,
                     "sets": 3,
-                    "repsMin": 5,
-                    "repsMax": 7,
-                    "notes": "Per Ring Pull-Up Split Progression Rule, +1.25-2.5 kg only if elbows fully calm"
+                    "notes": "Moderate vertical pull. Stay smooth and stop before elbow irritation rises."
                   },
                   {
                     "$ref": "ex-chest-supported-row",
-                    "loadMin": 20,
-                    "loadMax": 25,
-                    "sets": 1,
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "notes": "Phase 2 Monday balancing row. Add a second set only if elbow feels fully calm."
+                    "sets": 2,
+                    "loadMin": 27.5,
+                    "loadMax": 27.5,
+                    "notes": "Balancing row slot. Keep scapular control perfect."
                   },
                   {
                     "$ref": "ex-parallette-l-sit",
-                    "repsMin": 15,
-                    "repsMax": 20
-                  },
-                  {
-                    "$ref": "ex-chest-to-rings-top-hold-emom",
-                    "sets": 3,
-                    "notes": "3 min EMOM: 1 Chest-to-Rings Top Hold x 5-8 s per minute."
+                    "sets": 2,
+                    "repsMin": 8,
+                    "repsMax": 12,
+                    "notes": "Short compression block after upper work."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3078,328 +3323,84 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Tuesday — Trunk + Posterior Chain (Phase 2: hard conditioning)",
-                "type": "cardio",
-                "estimatedDuration": 55,
-                "exercises": [
-                  {
-                    "$routine": "warmup-tuesday"
-                  },
-                  {
-                    "$ref": "ex-row-conditioning-hard",
-                    "notes": "Week 7: 5 min easy warm-up. 1,000 m @ 26-28 SPM (RPE 7-8), rest 2.5 min, 1,000 m. Only if both feel crisp and full recovery: 2,000 m attempt instead of the second 1,000 m. Cool down 3 min easy."
-                  },
-                  {
-                    "$ref": "ex-front-plank",
-                    "sets": 1,
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-pallof-press",
-                    "sets": 1,
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-rower-ham-curl",
-                    "sets": 2,
-                    "notes": "RDLs Friday this week. Keep the full eccentric support dose."
-                  },
-                  {
-                    "$ref": "ex-weighted-seated-compression-lift-offs",
-                    "notes": "Moved off Monday in Phase 2 so compression quality is higher and hip flexors are fresher before the next squat exposure."
-                  },
-                  {
-                    "$ref": "ex-dragon-flag-negative"
-                  },
-                  {
-                    "$ref": "ex-tuesday-wrist-eccentric"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 3,
-                "name": "Wednesday — Power Clean Cluster, Box Squat, Paused Bench",
-                "type": "strength",
-                "estimatedDuration": 60,
-                "description": "Secondary press rotates to Paused Bench (Wks 7-8).",
-                "exercises": [
-                  {
-                    "$routine": "warmup-wednesday"
-                  },
-                  {
-                    "$ref": "ex-power-clean",
-                    "loadMin": 70,
-                    "loadMax": 70,
-                    "repsValue": 2,
-                    "sets": 4,
-                    "rpe": 8,
-                    "notes": "4x2 @ 80% (70 kg). Reduced cluster volume to create a true mid-week knee-deload window; full 2-3 min rest."
-                  },
-                  {
-                    "$ref": "ex-box-squat",
-                    "loadMin": 97.5,
-                    "loadMax": 97.5,
-                    "repsValue": 3,
-                    "sets": 3,
-                    "rpe": 8,
-                    "notes": "72.5% (97.5 kg). HLM: 10 kg below Friday Back Squat."
-                  },
-                  {
-                    "$ref": "ex-paused-bench",
-                    "loadMin": 65,
-                    "loadMax": 65,
-                    "repsValue": 3,
-                    "sets": 2,
-                    "rpe": 7,
-                    "notes": "72.5% (65 kg). 1-2 s pause; reduced volume vs Week 6."
-                  },
-                  {
-                    "$routine": "cooldown-mwf"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 4,
-                "name": "Thursday — Shoulder Balance + Structural Circuit (Phase 2: no conditioning)",
+                "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Conditioning removed in Week 7 to preserve Friday performance; keep the joint-balance circuit and skill work only.",
-                "exercises": [
-                  {
-                    "$routine": "warmup-thursday"
-                  },
-                  {
-                    "$ref": "ex-face-pulls"
-                  },
-                  {
-                    "$ref": "ex-landmine-press",
-                    "loadMin": 27.5,
-                    "loadMax": 30
-                  },
-                  {
-                    "$ref": "ex-single-leg-calf-raise"
-                  },
-                  {
-                    "$ref": "ex-side-plank",
-                    "repsValue": 30
-                  },
-                  {
-                    "$ref": "ex-banded-er"
-                  },
-                  {
-                    "$ref": "ex-ring-pushups",
-                    "repsMin": 5,
-                    "repsMax": 7,
-                    "notes": "Ring Push-Ups. Stop 3 reps shy of failure; use high rings if elbow or shoulder feels loaded."
-                  },
-                  {
-                    "$ref": "ex-skin-the-cat-full",
-                    "notes": "Wks 7-8: German hang 3-4 s"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 5,
-                "name": "Friday — Paused Hang Power Clean, Back Squat, Hinge",
-                "type": "strength",
-                "estimatedDuration": 60,
-                "exercises": [
-                  {
-                    "$routine": "warmup-friday"
-                  },
-                  {
-                    "$ref": "ex-hang-power-clean",
-                    "loadMin": 57.5,
-                    "loadMax": 57.5,
-                    "repsValue": 2,
-                    "sets": 2,
-                    "rpe": 7,
-                    "notes": "Hang Power Clean + 1 s pause just above knee: 2x(1+1) @ 65% (57.5 kg). Keep motor patterning without extra CNS accumulation."
-                  },
-                  {
-                    "$ref": "ex-back-squat",
-                    "loadMin": 107.5,
-                    "loadMax": 107.5,
-                    "repsValue": 4,
-                    "sets": 4,
-                    "rpe": 9,
-                    "notes": "80% (107.5 kg)."
-                  },
-                  {
-                    "$ref": "ex-rdl",
-                    "loadMin": 75,
-                    "loadMax": 80,
-                    "repsValue": 6,
-                    "sets": 2,
-                    "supersetGroup": 1,
-                    "notes": "1 set dropped to spare CNS."
-                  },
-                  {
-                    "$ref": "ex-chest-supported-row",
-                    "loadMin": 25,
-                    "loadMax": 30,
-                    "sets": 2,
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "supersetGroup": 1,
-                    "notes": "Phase 2 load."
-                  },
-                  {
-                    "$ref": "ex-seated-pike-pulses",
-                    "sets": 2,
-                    "repsMin": 15,
-                    "repsMax": 20
-                  },
-                  {
-                    "$ref": "ex-jefferson-curl-light"
-                  },
-                  {
-                    "$ref": "ex-friday-l-sit-hold",
-                    "notes": "Best L-Sit hold variation, 8-15 s. Add after Pike Pulses and Jefferson Curl per Friday Compression Block."
-                  },
-                  {
-                    "$routine": "cooldown-friday"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "weekNumber": 8,
-            "description": "Peak loading week - last hard week before deload",
-            "volumeLevel": "high",
-            "intensityLevel": "peak",
-            "days": [
-              {
-                "dayNumber": 1,
-                "name": "Monday — Bench, Compression, Ring Pull-Ups",
-                "type": "strength",
-                "estimatedDuration": 60,
-                "exercises": [
-                  {
-                    "$routine": "warmup-monday"
-                  },
-                  {
-                    "$ref": "ex-power-primer"
-                  },
-                  {
-                    "$ref": "ex-scap-pushup-plus"
-                  },
-                  {
-                    "$ref": "ex-bench-press",
-                    "loadMin": 75,
-                    "loadMax": 75,
-                    "repsValue": 4,
-                    "sets": 4,
-                    "rpe": 9,
-                    "notes": "82.5% (75 kg). RPE 9 ceiling - no grinders. Optional last-set back-off: reduce 5-7% if elbow/tendon strain is rising."
-                  },
-                  {
-                    "$ref": "ex-ring-pull-ups",
-                    "sets": 3,
-                    "repsMin": 4,
-                    "repsMax": 6
-                  },
-                  {
-                    "$ref": "ex-chest-supported-row",
-                    "loadMin": 20,
-                    "loadMax": 25,
-                    "sets": 1,
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "notes": "Phase 2 Monday balancing row. Add a second set only if elbow feels fully calm."
-                  },
-                  {
-                    "$ref": "ex-parallette-l-sit",
-                    "repsMin": 15,
-                    "repsMax": 20
-                  },
-                  {
-                    "$ref": "ex-chest-to-rings-top-hold-emom",
-                    "sets": 3,
-                    "notes": "3 min EMOM: 1 Chest-to-Rings Top Hold x 5-8 s per minute."
-                  },
-                  {
-                    "$routine": "cooldown-mwf"
-                  }
-                ]
-              },
-              {
-                "dayNumber": 2,
-                "name": "Tuesday — Trunk + Posterior Chain (Day Template)",
-                "type": "cardio",
-                "estimatedDuration": 50,
-                "description": "Peak loading week - DO NOT attempt 2,000 m",
+                "description": "Hard conditioning + trunk stiffness and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-row-conditioning-hard",
-                    "notes": "Week 8: 5 min easy warm-up. 2 ×1,000 m @ 26 SPM, 3 min rest. Do NOT attempt 2,000 m (peak loading week — preserve CNS for Friday). Cool down 3 min easy."
+                    "notes": "Week 7 hard interval day. Repeatable splits only; stop before Friday is compromised."
                   },
                   {
                     "$ref": "ex-front-plank",
-                    "sets": 1,
+                    "sets": 2,
                     "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-pallof-press",
-                    "sets": 1,
+                    "sets": 2,
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-rower-ham-curl",
-                    "sets": 1,
-                    "notes": "Step-Ups Friday this week. Keep hamstring curl volume to 1 set."
-                  },
-                  {
-                    "$ref": "ex-weighted-seated-compression-lift-offs",
-                    "notes": "Peak week: moved off Monday so compression quality is higher and hip flexors are fresher before the next squat exposure."
+                    "$ref": "ex-rower-ham-curl"
                   },
                   {
                     "$ref": "ex-dragon-flag-negative"
                   },
                   {
-                    "$ref": "ex-tuesday-wrist-eccentric"
+                    "$ref": "ex-tuesday-wrist-eccentric",
+                    "sets": 3
                   }
                 ]
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean Singles, Box Squat, Paused Bench",
+                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
                 "type": "strength",
                 "estimatedDuration": 60,
+                "description": "Speed-strength clean work + secondary strength",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
                   },
                   {
+                    "exerciseName": "Broad Jump",
+                    "category": "warmup",
+                    "sets": 3,
+                    "repsValue": 2,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45,
+                    "notes": "Power primer. Full reset between reps; stop if height or distance drops.",
+                    "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
+                  },
+                  {
                     "$ref": "ex-power-clean",
-                    "loadMin": 72.5,
-                    "loadMax": 72.5,
+                    "loadMin": 75,
+                    "loadMax": 75,
+                    "sets": 5,
                     "repsValue": 1,
-                    "sets": 4,
-                    "rpe": 9,
-                    "notes": "4x1 @ 82.5% (72.5 kg). Cap at 4 quality singles to create a true mid-week knee-deload window; abort if catch quality or elbow/wrist discomfort rises."
+                    "notes": "75 kg. Crisp singles or cluster-style singles only."
                   },
                   {
                     "$ref": "ex-box-squat",
-                    "loadMin": 97.5,
-                    "loadMax": 97.5,
+                    "loadMin": 92.5,
+                    "loadMax": 92.5,
                     "repsValue": 3,
                     "sets": 3,
-                    "rpe": 8,
-                    "notes": "72.5% (97.5 kg). HLM: 12.5 kg below Friday Back Squat."
+                    "notes": "92.5 kg. Keep it sharp, not grindy."
                   },
                   {
                     "$ref": "ex-paused-bench",
                     "loadMin": 67.5,
                     "loadMax": 67.5,
-                    "repsValue": 2,
-                    "sets": 2,
-                    "rpe": 7,
-                    "notes": "75% (67.5 kg). Crisp bar speed, 2+ reps in reserve."
+                    "sets": 3,
+                    "repsValue": 3,
+                    "notes": "Secondary press. Long pause, no grinding."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3408,102 +3409,110 @@
               },
               {
                 "dayNumber": 4,
-                "name": "Thursday — Shoulder Balance + Structural Circuit (Phase 2: no conditioning)",
+                "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
-                "estimatedDuration": 45,
-                "description": "Conditioning removed in Week 8 to preserve Friday performance; keep the joint-balance circuit and skill work only.",
+                "estimatedDuration": 40,
+                "description": "Light restoration + structural balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-face-pulls"
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Week 7 very light recovery work only. Get blood flow, then move on."
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-landmine-press",
-                    "loadMin": 27.5,
-                    "loadMax": 30
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-single-leg-calf-raise"
+                    "$ref": "ex-banded-er",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise",
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-side-plank",
-                    "repsValue": 30
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-banded-er"
-                  },
-                  {
-                    "$ref": "ex-ring-pushups",
-                    "repsMin": 5,
-                    "repsMax": 7,
-                    "notes": "Ring Push-Ups. Same as Week 7; no fatigue chasing."
-                  },
-                  {
-                    "$ref": "ex-skin-the-cat-full"
+                    "$ref": "ex-skin-the-cat-tuck",
+                    "sets": 2,
+                    "notes": "Optional only if shoulders feel calm."
                   }
                 ]
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — High-Hang Power Clean, Back Squat, Step-Ups",
+                "name": "Friday — Squat Strength + Posterior Chain",
                 "type": "strength",
                 "estimatedDuration": 60,
+                "description": "Lower strength intensification + unilateral or hinge slot",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
                   },
                   {
-                    "$ref": "ex-hang-power-clean",
-                    "loadMin": 47.5,
-                    "loadMax": 52.5,
+                    "exerciseName": "Broad Jump",
+                    "category": "warmup",
+                    "sets": 3,
+                    "repsValue": 2,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45,
+                    "notes": "Power primer. Full reset between reps; stop if height or distance drops.",
+                    "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
+                  },
+                  {
+                    "$ref": "ex-power-clean",
+                    "loadMin": 70,
+                    "loadMax": 70,
+                    "sets": 3,
                     "repsValue": 1,
-                    "sets": 2,
-                    "rpe": 7,
-                    "notes": "Pre-realization Friday: High-Hang Power Clean 2x1 @ 55-60% (47.5-52.5 kg). Technique singles only; CNS-sparing before Wk 10 squat at 85%."
+                    "notes": "Single clean primer only. Fast, sharp, and fully reset."
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 117.5,
+                    "loadMax": 117.5,
+                    "sets": 1,
+                    "repsValue": 3,
+                    "notes": "Top 3-rep strength set at 117.5 kg. Shut it down before technique drifts."
                   },
                   {
                     "$ref": "ex-back-squat",
                     "loadMin": 110,
                     "loadMax": 110,
+                    "sets": 1,
                     "repsValue": 3,
-                    "sets": 4,
-                    "rpe": 9,
-                    "notes": "82.5% (110 kg)."
+                    "notes": "1 backoff set(s) at 110 kg. Quality only."
                   },
                   {
                     "$ref": "ex-step-ups",
-                    "loadMin": 12.5,
-                    "loadMax": 15,
-                    "repsValue": 6,
-                    "sets": 2,
-                    "supersetGroup": 1,
-                    "notes": "DB Low Box Step-Ups. Light; preserve knee quality for final phase."
-                  },
-                  {
-                    "$ref": "ex-chest-supported-row",
-                    "loadMin": 25,
-                    "loadMax": 30,
-                    "sets": 2,
-                    "repsMin": 10,
-                    "repsMax": 12,
-                    "supersetGroup": 1,
-                    "notes": "Phase 2 load; light and smooth."
+                    "loadMin": 15,
+                    "loadMax": 17.5,
+                    "sets": 3,
+                    "repsValue": 8,
+                    "notes": "Unilateral lower-body slot. Slow descent, perfect knee tracking."
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 1,
-                    "repsMin": 10,
-                    "repsMax": 15,
-                    "notes": "Volume drop - protect hip flexors at peak loading."
-                  },
-                  {
-                    "$ref": "ex-jefferson-curl-light"
+                    "sets": 2
                   },
                   {
                     "$ref": "ex-friday-l-sit-hold",
-                    "notes": "Best L-Sit hold variation, 8-15 s. Keep frequency even in peak week."
+                    "sets": 2
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -3516,56 +3525,64 @@
       },
       {
         "phaseNumber": 3,
-        "name": "Phase 3: Deload & Heavy Realization",
-        "description": "Week 9 deload (cap RPE 6, undertraining is the goal). Week 10 realization with quality top sets and the compression metric (15 s straight-leg L-Sit OR forehead-to-knee active pike).",
-        "startWeek": 9,
+        "name": "Phase 3: Realization and Consolidation",
+        "description": "Express performance with lower fatigue, preserve athletic sharpness, and keep only the assistance that helps the main lifts stay crisp.",
+        "startWeek": 8,
         "endWeek": 10,
-        "focus": "deload",
+        "focus": "technique",
         "weeks": [
           {
-            "weekNumber": 9,
-            "description": "Deload week - all work capped at RPE 6. Conditioning easy aerobic only.",
-            "volumeLevel": "low",
-            "intensityLevel": "low",
+            "weekNumber": 8,
+            "description": "First realization week, lower volume with normal intent",
+            "volumeLevel": "moderate",
+            "intensityLevel": "high",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench (Light), Compression",
+                "name": "Monday — Bench, Pulling Balance, Compression",
                 "type": "strength",
-                "estimatedDuration": 45,
+                "estimatedDuration": 55,
+                "description": "Bench heavy working set of 3 at 80 kg, then backoffs",
                 "exercises": [
                   {
-                    "$routine": "warmup-monday"
-                  },
-                  {
-                    "$ref": "ex-power-primer",
-                    "sets": 2,
-                    "notes": "Shallow crisp variation only - skip if elbow > 2/10"
-                  },
-                  {
-                    "$ref": "ex-scap-pushup-plus"
+                    "$routine": "warmup-monday-v2"
                   },
                   {
                     "$ref": "ex-bench-press",
-                    "loadMin": 57.5,
-                    "loadMax": 57.5,
-                    "repsValue": 5,
-                    "sets": 3,
-                    "rpe": 6,
-                    "notes": "65% (57.5 kg). Cap RPE 6 - undertraining is the goal."
+                    "loadMin": 80,
+                    "loadMax": 80,
+                    "repsValue": 3,
+                    "sets": 1,
+                    "notes": "Heavy working set at 80 kg for 3 reps. Stop if bar speed drops."
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 75,
+                    "loadMax": 75,
+                    "repsValue": 3,
+                    "sets": 1,
+                    "notes": "1 backoff set(s) at 75 kg. Crisp volume only."
                   },
                   {
                     "$ref": "ex-ring-pull-ups",
+                    "repsMin": 3,
+                    "repsMax": 5,
+                    "sets": 3,
+                    "notes": "Low-volume vertical pull for balance only."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
                     "sets": 2,
-                    "repsMin": 4,
-                    "repsMax": 6,
-                    "notes": "Quality only - drop sets if grip-tired"
+                    "loadMin": 22.5,
+                    "loadMax": 22.5,
+                    "notes": "Backoff row volume only."
                   },
                   {
                     "$ref": "ex-parallette-l-sit",
-                    "sets": 3,
+                    "sets": 1,
                     "repsMin": 10,
-                    "repsMax": 15
+                    "repsMax": 15,
+                    "notes": "Maintenance or benchmark exposure only."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3574,84 +3591,84 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Tuesday — Trunk + Posterior Chain (deload/realization)",
+                "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
-                "estimatedDuration": 35,
-                "description": "Realization phase: 15-30 min easy row/Bike/SkiErg only",
+                "estimatedDuration": 45,
+                "description": "Easy aerobic maintenance + trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Wk 9 (deload): 15-30 min easy row/Bike/SkiErg @ RPE 4-5. No intervals, 1,000 m, or 2,000 m efforts. Aerobic-only, nasal breathing. Maintain base without adding fatigue."
+                    "notes": "Week 8 aerobic maintenance only. Restore, do not accumulate fatigue."
                   },
                   {
                     "$ref": "ex-front-plank",
-                    "sets": 1
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-pallof-press",
-                    "sets": 1
-                  },
-                  {
-                    "$ref": "ex-rower-ham-curl",
-                    "sets": 1,
-                    "notes": "Deload: 1-2x8 light."
-                  },
-                  {
-                    "$ref": "ex-dragon-flag-tuck",
                     "sets": 2,
-                    "notes": "Tuck only - deload"
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-rower-ham-curl"
+                  },
+                  {
+                    "$ref": "ex-dragon-flag-negative"
                   },
                   {
                     "$ref": "ex-tuesday-wrist-eccentric",
-                    "sets": 2,
-                    "notes": "Maintenance dose (2x15) — keep tendon work going through deload/realization."
+                    "sets": 2
                   }
                 ]
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean Deload, Box Squat, Light DB Bench",
+                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
                 "type": "strength",
-                "estimatedDuration": 50,
+                "estimatedDuration": 60,
+                "description": "Realization clean singles + light secondary work",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
                   },
                   {
+                    "exerciseName": "10-20 m Acceleration Sprint",
+                    "category": "warmup",
+                    "sets": 4,
+                    "repsValue": 1,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "notes": "Power primer. 10-20 m only. Full walk-back recovery; stop before it turns into conditioning.",
+                    "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
+                  },
+                  {
                     "$ref": "ex-power-clean",
-                    "loadMin": 60,
-                    "loadMax": 60,
-                    "repsValue": 3,
-                    "sets": 3,
-                    "rpe": 6,
-                    "notes": "70% (60 kg). Deload: crisp reps only."
+                    "loadMin": 77.5,
+                    "loadMax": 77.5,
+                    "sets": 5,
+                    "repsValue": 1,
+                    "notes": "77.5 kg. High-quality singles only."
                   },
                   {
                     "$ref": "ex-box-squat",
-                    "loadMin": 80,
-                    "loadMax": 80,
-                    "repsValue": 5,
+                    "loadMin": 75,
+                    "loadMax": 75,
+                    "repsValue": 3,
                     "sets": 2,
-                    "rpe": 6,
-                    "notes": "60% (80 kg). Light maintenance."
+                    "notes": "Light box squat only. Deload assistance, keep positions."
                   },
                   {
-                    "$ref": "ex-neutral-grip-db-bench",
-                    "loadMin": 17.5,
-                    "loadMax": 20,
-                    "repsValue": 8,
+                    "$ref": "ex-paused-bench",
+                    "loadMin": 57.5,
+                    "loadMax": 57.5,
                     "sets": 2,
-                    "rpe": 6,
-                    "notes": "17.5-20 kg/hand. Light, easy deload."
-                  },
-                  {
-                    "$ref": "ex-seated-pike-pulses",
-                    "sets": 2,
-                    "repsMin": 8,
-                    "repsMax": 10
+                    "repsValue": 3,
+                    "notes": "Light paused bench only."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3660,93 +3677,376 @@
               },
               {
                 "dayNumber": 4,
-                "name": "Thursday — Shoulder Balance Maintenance (deload)",
+                "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
-                "estimatedDuration": 35,
+                "estimatedDuration": 40,
+                "description": "Restoration only",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Wk 9 (deload Thu): 15-20 min easy aerobic @ RPE 4 max. No intervals. Realization prep: maintain aerobic base without adding any loading fatigue before Monday realization."
+                    "notes": "Week 8 restoration only."
                   },
                   {
                     "$ref": "ex-face-pulls",
-                    "sets": 1
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-landmine-press",
-                    "loadMin": 22.5,
-                    "loadMax": 27.5,
-                    "sets": 1,
-                    "notes": "+5-10 kg on Wk 9 only - shoulder support"
-                  },
-                  {
-                    "$ref": "ex-single-leg-calf-raise",
-                    "sets": 1
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-banded-er",
-                    "sets": 1,
-                    "notes": "Skip Side Plank in Wk 9"
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-ring-pushups",
-                    "sets": 1,
-                    "repsMin": 6,
-                    "repsMax": 8,
-                    "notes": "High-ring maintenance only. Keep it easy and stop far from fatigue."
+                    "$ref": "ex-single-leg-calf-raise",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-side-plank",
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-skin-the-cat-tuck",
-                    "sets": 2
+                    "sets": 2,
+                    "notes": "Optional only if shoulders feel calm."
                   }
                 ]
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Light Clean Variation, Back Squat Deload",
+                "name": "Friday — Squat Strength + Posterior Chain",
                 "type": "strength",
-                "estimatedDuration": 40,
+                "estimatedDuration": 60,
+                "description": "Lower strength realization + minimal assistance",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
                   },
                   {
-                    "$ref": "ex-tall-clean-high-hang",
-                    "loadMin": 35,
-                    "loadMax": 40,
-                    "repsValue": 2,
-                    "sets": 2,
-                    "rpe": 6,
-                    "notes": "40-45% (35-40 kg). Technique only."
+                    "exerciseName": "10-20 m Acceleration Sprint",
+                    "category": "warmup",
+                    "sets": 4,
+                    "repsValue": 1,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "notes": "Power primer. 10-20 m only. Full walk-back recovery; stop before it turns into conditioning.",
+                    "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
+                  },
+                  {
+                    "$ref": "ex-power-clean",
+                    "loadMin": 72.5,
+                    "loadMax": 72.5,
+                    "sets": 3,
+                    "repsValue": 1,
+                    "notes": "Single clean primer only. Fast, sharp, and fully reset."
                   },
                   {
                     "$ref": "ex-back-squat",
-                    "loadMin": 80,
-                    "loadMax": 87.5,
-                    "repsValue": 5,
+                    "loadMin": 122.5,
+                    "loadMax": 122.5,
+                    "sets": 1,
+                    "repsValue": 3,
+                    "notes": "Top 3-rep strength set at 122.5 kg. Shut it down before technique drifts."
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 115,
+                    "loadMax": 115,
+                    "sets": 1,
+                    "repsValue": 3,
+                    "notes": "1 backoff set(s) at 115 kg. Quality only."
+                  },
+                  {
+                    "$ref": "ex-rdl",
+                    "loadMin": 70,
+                    "loadMax": 70,
                     "sets": 2,
-                    "rpe": 6,
-                    "notes": "60-65% (80-87.5 kg). Deload; leave every set well in reserve."
+                    "repsMin": 6,
+                    "repsMax": 6,
+                    "notes": "Light hinge slot only if bar speed is still good."
                   },
                   {
                     "$ref": "ex-seated-pike-pulses",
-                    "sets": 2,
-                    "repsMin": 8,
-                    "repsMax": 10,
-                    "notes": "Deload compression: reduce volume, never frequency per Compression-Goal Rule."
+                    "sets": 1
                   },
                   {
                     "$ref": "ex-friday-l-sit-hold",
+                    "sets": 1
+                  },
+                  {
+                    "$routine": "cooldown-friday"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "weekNumber": 9,
+            "description": "Taper assistance and preserve speed",
+            "volumeLevel": "low",
+            "intensityLevel": "moderate",
+            "days": [
+              {
+                "dayNumber": 1,
+                "name": "Monday — Bench, Pulling Balance, Compression",
+                "type": "strength",
+                "estimatedDuration": 55,
+                "description": "Bench heavy working set of 2 at 82.5 kg, then backoffs",
+                "exercises": [
+                  {
+                    "$routine": "warmup-monday-v2"
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 82.5,
+                    "loadMax": 82.5,
+                    "repsValue": 2,
                     "sets": 1,
-                    "repsMin": 6,
-                    "repsMax": 10,
-                    "notes": "Deload: 1 set, 6-10 s best variation."
+                    "notes": "Heavy working set at 82.5 kg for 2 reps. Stop if bar speed drops."
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 77.5,
+                    "loadMax": 77.5,
+                    "repsValue": 2,
+                    "sets": 1,
+                    "notes": "1 backoff set(s) at 77.5 kg. Crisp volume only."
+                  },
+                  {
+                    "$ref": "ex-ring-pull-ups",
+                    "repsMin": 3,
+                    "repsMax": 5,
+                    "sets": 3,
+                    "notes": "Low-volume vertical pull for balance only."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 2,
+                    "loadMin": 22.5,
+                    "loadMax": 22.5,
+                    "notes": "Backoff row volume only."
+                  },
+                  {
+                    "$ref": "ex-parallette-l-sit",
+                    "sets": 1,
+                    "repsMin": 10,
+                    "repsMax": 15,
+                    "notes": "Maintenance or benchmark exposure only."
                   },
                   {
                     "$routine": "cooldown-mwf"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 2,
+                "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
+                "type": "cardio",
+                "estimatedDuration": 45,
+                "description": "Easy aerobic maintenance + trunk and tendon work",
+                "exercises": [
+                  {
+                    "$routine": "warmup-tuesday"
+                  },
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Week 9 aerobic maintenance only. Restore, do not accumulate fatigue."
+                  },
+                  {
+                    "$ref": "ex-front-plank",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-pallof-press",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-rower-ham-curl"
+                  },
+                  {
+                    "$ref": "ex-dragon-flag-tuck",
+                    "sets": 2,
+                    "notes": "Brief trunk maintenance only."
+                  },
+                  {
+                    "$ref": "ex-tuesday-wrist-eccentric",
+                    "sets": 2
+                  }
+                ]
+              },
+              {
+                "dayNumber": 3,
+                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
+                "type": "strength",
+                "estimatedDuration": 60,
+                "description": "Realization clean singles + light secondary work",
+                "exercises": [
+                  {
+                    "$routine": "warmup-wednesday"
+                  },
+                  {
+                    "exerciseName": "Broad Jump",
+                    "category": "warmup",
+                    "sets": 3,
+                    "repsValue": 2,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45,
+                    "notes": "Power primer. Full reset between reps; stop if height or distance drops.",
+                    "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
+                  },
+                  {
+                    "$ref": "ex-power-clean",
+                    "loadMin": 80,
+                    "loadMax": 80,
+                    "sets": 4,
+                    "repsValue": 1,
+                    "notes": "80 kg. High-quality singles only."
+                  },
+                  {
+                    "exerciseName": "Front Squat",
+                    "exerciseId": "front_squat",
+                    "category": "main",
+                    "sets": 2,
+                    "repsValue": 3,
+                    "repsType": "reps",
+                    "loadUnit": "kg",
+                    "loadMin": 70,
+                    "loadMax": 70,
+                    "restSeconds": 180,
+                    "rpe": 7,
+                    "notes": "70 kg. Clean-transfer secondary squat. Elbows high, torso tall. Light only. Preserve clean transfer without fatigue.",
+                    "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
+                  },
+                  {
+                    "$ref": "ex-neutral-grip-db-bench",
+                    "loadMin": 20,
+                    "loadMax": 20,
+                    "sets": 2,
+                    "repsValue": 8,
+                    "notes": "Light dumbbell bench only."
+                  },
+                  {
+                    "$routine": "cooldown-mwf"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 4,
+                "name": "Thursday — Restoration + Structural Balance",
+                "type": "cardio",
+                "estimatedDuration": 40,
+                "description": "Restoration only",
+                "exercises": [
+                  {
+                    "$routine": "warmup-thursday"
+                  },
+                  {
+                    "$ref": "ex-row-conditioning-easy",
+                    "notes": "Week 9 restoration only."
+                  },
+                  {
+                    "$ref": "ex-face-pulls",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-landmine-press",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-banded-er",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-single-leg-calf-raise",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-side-plank",
+                    "sets": 2,
+                    "supersetGroup": 1
+                  }
+                ]
+              },
+              {
+                "dayNumber": 5,
+                "name": "Friday — Squat Strength + Posterior Chain",
+                "type": "strength",
+                "estimatedDuration": 60,
+                "description": "Lower strength realization + minimal assistance",
+                "exercises": [
+                  {
+                    "$routine": "warmup-friday"
+                  },
+                  {
+                    "exerciseName": "Broad Jump",
+                    "category": "warmup",
+                    "sets": 3,
+                    "repsValue": 2,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 45,
+                    "notes": "Power primer. Full reset between reps; stop if height or distance drops.",
+                    "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
+                  },
+                  {
+                    "$ref": "ex-power-clean",
+                    "loadMin": 75,
+                    "loadMax": 75,
+                    "sets": 3,
+                    "repsValue": 1,
+                    "notes": "Single clean primer only. Fast, sharp, and fully reset."
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 127.5,
+                    "loadMax": 127.5,
+                    "sets": 1,
+                    "repsValue": 2,
+                    "notes": "Top 2-rep strength set at 127.5 kg. Shut it down before technique drifts."
+                  },
+                  {
+                    "$ref": "ex-back-squat",
+                    "loadMin": 120,
+                    "loadMax": 120,
+                    "sets": 1,
+                    "repsValue": 2,
+                    "notes": "1 backoff set(s) at 120 kg. Quality only."
+                  },
+                  {
+                    "$ref": "ex-step-ups",
+                    "loadMin": 12.5,
+                    "loadMax": 12.5,
+                    "sets": 2,
+                    "repsValue": 6,
+                    "notes": "Optional unilateral slot. Keep it crisp."
+                  },
+                  {
+                    "$ref": "ex-seated-pike-pulses",
+                    "sets": 1
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold",
+                    "sets": 1
+                  },
+                  {
+                    "$routine": "cooldown-friday"
                   }
                 ]
               }
@@ -3754,47 +4054,56 @@
           },
           {
             "weekNumber": 10,
-            "description": "Realization - hit a clean top set on each main lift; verify compression metric (15 s straight-leg L-Sit OR forehead-to-knee active pike for 3 controlled reps)",
+            "description": "Express performance and leave before fatigue accumulates",
             "volumeLevel": "low",
-            "intensityLevel": "peak",
+            "intensityLevel": "high",
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench Realization, Compression",
+                "name": "Monday — Bench, Pulling Balance, Compression",
                 "type": "strength",
                 "estimatedDuration": 55,
+                "description": "Bench heavy working set of 2 at 85 kg, then backoffs",
                 "exercises": [
                   {
-                    "$routine": "warmup-monday"
-                  },
-                  {
-                    "$ref": "ex-power-primer"
-                  },
-                  {
-                    "$ref": "ex-scap-pushup-plus"
+                    "$routine": "warmup-monday-v2"
                   },
                   {
                     "$ref": "ex-bench-press",
-                    "loadMin": 77.5,
-                    "loadMax": 77.5,
-                    "repsValue": 3,
-                    "sets": 4,
-                    "rpe": 9,
-                    "notes": "85% (77.5 kg). No 1RM testing; stop before grinders."
+                    "loadMin": 85,
+                    "loadMax": 85,
+                    "repsValue": 2,
+                    "sets": 1,
+                    "notes": "Heavy working set at 85 kg for 2 reps. Stop if bar speed drops."
+                  },
+                  {
+                    "$ref": "ex-bench-press",
+                    "loadMin": 80,
+                    "loadMax": 80,
+                    "repsValue": 2,
+                    "sets": 1,
+                    "notes": "1 backoff set(s) at 80 kg. Crisp volume only."
                   },
                   {
                     "$ref": "ex-ring-pull-ups",
+                    "repsMin": 3,
+                    "repsMax": 5,
                     "sets": 3,
-                    "repsMin": 4,
-                    "repsMax": 6,
-                    "notes": "Weighted or BW; quality reps, stop before grinders."
+                    "notes": "Low-volume vertical pull for balance only."
+                  },
+                  {
+                    "$ref": "ex-chest-supported-row",
+                    "sets": 2,
+                    "loadMin": 22.5,
+                    "loadMax": 22.5,
+                    "notes": "Backoff row volume only."
                   },
                   {
                     "$ref": "ex-parallette-l-sit",
-                    "sets": 2,
-                    "repsMin": 6,
-                    "repsMax": 8,
-                    "notes": "2 maintenance sets; stop before shaking. Then 1 max-effort straight-leg L-Sit hold (target 15 s unbroken) OR 3 forehead-to-knee active pike folds — the compression realization metric."
+                    "sets": 1,
+                    "repsMin": 10,
+                    "repsMax": 15,
+                    "notes": "Maintenance or benchmark exposure only."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3803,162 +4112,180 @@
               },
               {
                 "dayNumber": 2,
-                "name": "Tuesday — Trunk + Posterior Chain (deload/realization)",
+                "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
-                "estimatedDuration": 30,
+                "estimatedDuration": 45,
+                "description": "Easy aerobic maintenance + trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Wk 10 (realization Tue): 15-30 min easy row/Bike/SkiErg. No structured work — prime the aerobic system without accumulating fatigue before Friday squat realization."
+                    "notes": "Week 10 aerobic maintenance only. Restore, do not accumulate fatigue."
                   },
                   {
                     "$ref": "ex-front-plank",
-                    "sets": 1
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-pallof-press",
-                    "sets": 1
-                  },
-                  {
-                    "$ref": "ex-rower-ham-curl",
-                    "sets": 1,
-                    "notes": "Realization: 1-2x8 light, no cramping."
-                  },
-                  {
-                    "$ref": "ex-dragon-flag-single-leg",
                     "sets": 2,
-                    "notes": "Stop well before shaking - best variation only"
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-rower-ham-curl"
+                  },
+                  {
+                    "$ref": "ex-dragon-flag-tuck",
+                    "sets": 2,
+                    "notes": "Brief trunk maintenance only."
                   },
                   {
                     "$ref": "ex-tuesday-wrist-eccentric",
-                    "sets": 2,
-                    "notes": "Maintenance dose (2x15) — keep tendon work going through deload/realization."
+                    "sets": 2
                   }
                 ]
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean Realization, Box Squat, Paused Bench",
+                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
                 "type": "strength",
-                "estimatedDuration": 55,
+                "estimatedDuration": 60,
+                "description": "Realization clean singles + light secondary work",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
                   },
                   {
-                    "$ref": "ex-power-clean",
-                    "loadMin": 75,
-                    "loadMax": 75,
+                    "exerciseName": "10-20 m Acceleration Sprint",
+                    "category": "warmup",
+                    "sets": 4,
                     "repsValue": 1,
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "notes": "Power primer. 10-20 m only. Full walk-back recovery; stop before it turns into conditioning.",
+                    "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
+                  },
+                  {
+                    "$ref": "ex-power-clean",
+                    "loadMin": 82.5,
+                    "loadMax": 82.5,
                     "sets": 3,
-                    "rpe": 9,
-                    "notes": "3x1 @ 85% (75 kg). True realization; one warm-up double at 80%, then 3 working singles. Abort to 80% if first rep catch is slow."
+                    "repsValue": 1,
+                    "notes": "82.5 kg. High-quality singles only."
                   },
                   {
                     "$ref": "ex-box-squat",
-                    "loadMin": 95,
-                    "loadMax": 95,
-                    "repsValue": 3,
+                    "loadMin": 70,
+                    "loadMax": 70,
+                    "repsValue": 2,
                     "sets": 2,
-                    "rpe": 7,
-                    "notes": "70% (95 kg). Runway clearance for Friday 85%."
-                  },
-                  {
-                    "$ref": "ex-paused-bench",
-                    "loadMin": 67.5,
-                    "loadMax": 67.5,
-                    "repsValue": 3,
-                    "sets": 2,
-                    "rpe": 7,
-                    "notes": "75% (67.5 kg). Monday already carried 85%; 2+ reps in reserve."
-                  },
-                  {
-                    "$ref": "ex-seated-pike-pulses",
-                    "sets": 2,
-                    "repsMin": 8,
-                    "repsMax": 10
+                    "notes": "Very light positional exposure only."
                   },
                   {
                     "$routine": "cooldown-mwf"
                   }
-                ],
-                "description": "Moderate cleanup session; save peak effort for Monday bench and Friday squat."
+                ]
               },
               {
                 "dayNumber": 4,
-                "name": "Thursday — Joint-Freshness Circuit (realization)",
+                "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
-                "estimatedDuration": 30,
+                "estimatedDuration": 40,
+                "description": "Restoration only",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
                     "$ref": "ex-row-conditioning-easy",
-                    "notes": "Wk 10 (realization Thu): 20-30 min easy row, Bike, or SkiErg (restorative). Maintains aerobic priming without adding fatigue before Friday Back Squat realization at 85%."
+                    "notes": "Week 10 restoration only."
                   },
                   {
                     "$ref": "ex-face-pulls",
-                    "sets": 1,
-                    "notes": "Joint-freshness circuit; drop Landmine Press and Side Plank this week."
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-single-leg-calf-raise",
-                    "sets": 1
+                    "$ref": "ex-landmine-press",
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
                     "$ref": "ex-banded-er",
-                    "sets": 1,
-                    "notes": "Wk 10: Calf Raise + Banded ER only"
+                    "sets": 2,
+                    "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-skin-the-cat-full",
+                    "$ref": "ex-single-leg-calf-raise",
                     "sets": 2,
-                    "repsValue": 2,
-                    "notes": "Full range, no extra hold time"
+                    "supersetGroup": 1
+                  },
+                  {
+                    "$ref": "ex-side-plank",
+                    "sets": 2,
+                    "supersetGroup": 1
                   }
                 ]
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Back Squat Realization, Hinge",
+                "name": "Friday — Squat Strength + Posterior Chain",
                 "type": "strength",
-                "estimatedDuration": 55,
+                "estimatedDuration": 60,
+                "description": "Lower strength realization + minimal assistance",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
                   },
                   {
-                    "$ref": "ex-tall-clean-high-hang",
-                    "loadMin": 42.5,
-                    "loadMax": 52.5,
+                    "exerciseName": "10-20 m Acceleration Sprint",
+                    "category": "warmup",
+                    "sets": 4,
                     "repsValue": 1,
-                    "sets": 2,
-                    "rpe": 6,
-                    "notes": "High-Hang Power Clean 2x1 @ 50-60% (42.5-52.5 kg). Speed primer only."
+                    "repsType": "reps",
+                    "loadUnit": "bodyweight",
+                    "restSeconds": 60,
+                    "notes": "Power primer. 10-20 m only. Full walk-back recovery; stop before it turns into conditioning.",
+                    "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
+                  },
+                  {
+                    "$ref": "ex-power-clean",
+                    "loadMin": 77.5,
+                    "loadMax": 77.5,
+                    "sets": 3,
+                    "repsValue": 1,
+                    "notes": "Single clean primer only. Fast, sharp, and fully reset."
                   },
                   {
                     "$ref": "ex-back-squat",
-                    "loadMin": 115,
-                    "loadMax": 115,
-                    "repsValue": 3,
-                    "sets": 4,
-                    "rpe": 9,
-                    "notes": "85% (115 kg). No 1RM testing; stop before grinders."
+                    "loadMin": 130,
+                    "loadMax": 130,
+                    "sets": 1,
+                    "repsValue": 2,
+                    "notes": "Top 2-rep strength set at 130 kg. Shut it down before technique drifts."
                   },
                   {
-                    "$ref": "ex-rdl",
-                    "loadMin": 60,
-                    "loadMax": 65,
-                    "repsValue": 6,
-                    "sets": 2,
-                    "notes": "Light hinge maintenance."
+                    "$ref": "ex-back-squat",
+                    "loadMin": 122.5,
+                    "loadMax": 122.5,
+                    "sets": 1,
+                    "repsValue": 2,
+                    "notes": "1 backoff set(s) at 122.5 kg. Quality only."
                   },
                   {
-                    "$routine": "cooldown-mwf"
+                    "$ref": "ex-seated-pike-pulses",
+                    "sets": 1
+                  },
+                  {
+                    "$ref": "ex-friday-l-sit-hold",
+                    "sets": 1
+                  },
+                  {
+                    "$routine": "cooldown-friday"
                   }
                 ]
               }
@@ -3966,6 +4293,7 @@
           }
         ]
       }
-    ]
+    ],
+    "lastModified": "2026-05-06"
   }
 }

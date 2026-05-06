@@ -1,1012 +1,472 @@
-# 10-Week Strength & Conditioning Plan
+# Power Clean / Bench V2
 
-**Last Updated:** March 20, 2026
+## Overview
 
-## Athlete Profile & Goals
+V2 keeps the elbow and knee protections from V1, but shifts the program away from a protected strength plan and toward an athletic power-strength block.
 
-| | |
-|---|---|
-| **Age** | 45 |
-| **Power Clean** | 87 kg |
-| **Back Squat** | 135 kg |
-| **Bench Press** | 90 kg |
-| **Deadlift** | 155 kg |
+The three primary outputs are:
 
-**Primary Goals:** Improve overall strength, fitness, and calisthenics compression skills (L-sit, Pike) without 1RM peaking. Add unilateral stability.
+- power expression
+- transferable strength
+- athletic work capacity
 
-**Injuries:** Tennis Elbow & Goose Foot. **Schedule:** Mon/Wed/Fri lifting; Tue/Thu active recovery.
+The goal is not to make the plan reckless. The goal is to make it more decisive.
 
-**Post-V26.9 Transition Note:** If starting immediately after the 21-week Integrated Strength Program, Weeks 1-2 are still reintroduction weeks but you arrive with recent barbell exposure. Use the listed loads as ceilings; bias toward technique over load chasing.
+## Primary Priorities
 
----
+- Improve power clean speed, confidence, and receiving positions.
+- Build bench strength without aggravating the medial elbow.
+- Build squat strength that supports cleans and general athleticism.
+- Maintain enough aerobic support to help recovery and body composition without flattening Friday performance.
 
-## Injury Management & Coaching Rules
+## Secondary Priorities
 
-### The Elbow
-Hook grip for all Cleans. Neutral grip for all accessories -- straight-bar Bench Press is the **only** non-neutral grip press. Ring pull-ups preferred over fixed-bar (natural wrist rotation mid-rep).
+- Keep compression progressing enough to preserve L-sit and pike momentum.
+- Maintain pulling balance, shoulder health, and trunk stiffness.
+- Preserve unilateral knee-control work.
 
-### The Shoulder
-Vertical press stays **light and clean**. Half-kneeling landmine press with full reach, ribs down, smooth arc -- typically **+10-15 kg Weeks 1-8, +5-10 kg Week 9**. Shoulder-health work only; do not chase load.
+## Success Criteria
 
-### The Knee
-Tripod foot, knees track over toes on all squats. Box Squat absolute load is held **below** Friday Back Squat in every week (see Box Squat HLM Rule).
+The block is successful if it produces most of the following without a symptom flare:
 
-**Box Squat Method Rule:** Box at **exactly parallel** (~41-43 cm). Sit under control, true 1-second dead stop, drive up without rocking.
+- cleaner and faster power-clean singles at moderate-heavy loads
+- more stable bench top sets with less medial-elbow irritation
+- stronger squat exposures with less unnecessary Friday spillover fatigue
+- better week-to-week athletic feel rather than just better completion compliance
+- enough conditioning and trunk work to support the lifting instead of interfering with it
 
-**Unilateral Rule:** Slow descent (eccentric) and perfect knee tracking for all step-ups and single-leg work.
+## Core Principles
 
-### Conditioning & Cardio Defaults
-Assault/Echo Bike and SkiErg are always acceptable. Row only if symptom-free at elbow and knee; loose hook grip, damper **4 or below**. Tue/Thu are low-intensity skill/aerobic work -- not pure recovery.
+### Athlete First, Lift Second
 
-### Pain Scale & Readiness Rule
-- Pain at or below **3/10**; symptoms return to baseline within **24 hours**
-- If not: reduce volume **20-30%** next session
-- **Optional accessories:** only if bench elbow pain was 2/10 or less AND feels 100% normal next day
+The program should improve the athlete behind the lifts, not only rehearse the exact lifts.
 
-### Autoregulation Rule
-- Percentages set the load ceiling; RPE ranges define both a **floor and a ceiling** -- floors prevent undertraining, ceilings prevent overreach
-- **Weeks 1-4:** RPE **6-8** (floor 6: do not sandbag; ceiling 8: do not redline)
-- **Weeks 5-8:** RPE **7-9** (floor 7: ensure minimum stimulus; ceiling 9: no true grinders)
-- **Week 9 (deload):** Cap all work at RPE **6** -- ceiling only; undertraining is the explicit goal
-- **Week 10:** RPE **7-9** (floor 7 ensures realization stimulus; ceiling 9 prevents grinders)
-- If bar speed drops, positions break, or pain rises: cut load **2.5-5%** or drop **1 set**
+That means keeping:
 
-### Variation Dose Rule
-- **Friday clean variations:** technical primers -- fast, sharp reps only; stop the set if turnover slows
-- **Wednesday secondary press:** lighter secondary dose after Box Squats; stay 2-3 reps shy of failure; stop if elbow tolerance or bar path worsens
-- **Thursday landmine press:** shoulder-support only; submaximal, neutral wrist, full reach; skip if symptoms elevated
+- jumps and short accelerations
+- explosive primers
+- unilateral work
+- multiple hinge patterns
+- aerobic support
 
-### Secondary Press Rotation Rule (Wednesday)
-The athlete arrives from V26.9 with managed tennis elbow. Close-grip pressing concentrates load on the medial elbow tendon and contradicts the V26.9 neutral-grip ethos. The Wednesday secondary press therefore rotates by block:
+### Power Before Strength
 
-| Weeks | Default Movement | Rationale |
-|-------|------------------|-----------|
-| Weeks 1-6 | **Neutral-grip DB Bench Press** | Neutral wrist, low elbow stress, no specialty bar needed; rebuilds press volume while keeping Wednesday submaximal |
-| Weeks 7-8 | **Paused Bench Press (medium grip)** | Bench-specific; no additional triceps/elbow stress beyond Monday |
-| Weeks 9-10 | Light Neutral-grip DB Bench / Paused Bench | Maintenance only |
+Wednesday and Friday start with a true power task before the main barbell work.
 
-**Substitution:** Close-Grip Bench may replace the rotated lift for a given session **only if** elbow pain has been 0/10 for 2 consecutive weeks AND the Monday bench session showed no elbow symptoms within 24 h. Default to the rotated lift.
+Approved primers:
 
-### Box Squat HLM Rule (All Phases)
-Box Squat is **always** programmed below the Monday-relative load of the paused/Friday Back Squat. Knee management for goose foot is non-negotiable -- the box stop-and-go pattern carries higher peak shear than a paused descent and must therefore carry **lower** absolute load. Target: **Box Squat top set always programmed below the Friday Back Squat**. Phase 1 gap ≈ -5 kg; Phase 2 gap widens to -7.5 → -12.5 kg as Friday Back Squat intensity climbs; Week 10 = -20 kg (runway clearance before realization). If a week violates this, reduce Box Squat first.
+- jump
+- 10-20 m acceleration sprint
+- short clean single EMOM
 
-### Compression-Goal Rule (Stated Primary Goal)
-"Calisthenics compression skills (L-sit, Pike)" is a primary goal but easily under-dosed. Two enforced exposures per week:
-- **Monday (after Bench):** Parallette L-Sit -- progression as written
-- **Tuesday (Weeks 5-8, after trunk work):** **2x8-12 Weighted Seated Compression Lift-Offs**
-- **Friday (after Back Squat, before cooldown):** Friday Compression Block -- keep the written **Seated Pike Pulses set count minus one set**, replace that removed set with **1x8 Light Jefferson Curl**, then add **2 sets of best-variation L-Sit hold** (target 8-15 s). Total ~5-6 minutes; low fatigue and better mechanical-tension value
+Monday starts directly with bench. It is the upper-strength day, not a lower-body primer day.
 
-**Implementation:** The Tuesday lift-off slot is loaded lightly with a plate or ankle weights and stays crisp, never sloppy. It moves off Monday so compression quality is higher and hip flexors are fresher before the next squat exposure. The "Seated Pike Pulses" line in each Friday session below counts as the *active pike* portion of this block; subtract one set for the Jefferson Curl, then add the 2 L-Sit holds immediately after, before cooldown. Do not skip on consolidation or deload weeks -- reduce volume, never frequency.
+### Autoregulate the Main Stressor
 
-**Realization metric (Week 10):** unbroken **15 s straight-leg L-Sit** OR **forehead-to-knee active pike** for 3 controlled reps.
+Main lifts use readiness-sensitive formats instead of only fixed straight sets.
 
-### Concurrent-Fatigue Sequencing Rule
-Heavy interval work the day before a heavy squat session is poor sequencing for a 45-year-old. In **Phase 2**, conditioning is sequenced as:
-- **Tuesday = harder conditioning** (intervals / 1,000 m work) -- 72 h before Friday squats
-- **Thursday = lighter aerobic** (Zone 1-2 steady) in Week 5, then removed in Weeks 6-8 to preserve Friday squat performance
+Preferred formats:
 
-This only applies Wks 5-8. Phase 1 (Wks 1-4) keeps the original Tue-easy / Thu-moderate pattern because top-end loads are still submaximal.
+- heavy working set plus backoffs
+- top set plus backoff in realization
+- EMOM singles or doubles
+- cluster sets with rep caps
 
-### Superset Rule
-All main lifts **standalone** (Bench, Power Clean, Clean Pulls, Box Squat, Back Squat, Wednesday bench variations). Supersets only for low-skill / non-interfering work:
-- Monday Band Pull-Aparts as bench-rest fillers
-- Thursday Face Pulls + Landmine Press with structural circuit fillers
-- Tuesday trunk/breathing work
+Long density sets do not return for the main squat or bench.
 
-Do not superset or interleave Power Cleans, Clean Pulls, or squats with fatiguing work. Do not pair grip-heavy pulls back-to-back. Rest **45-75 seconds** between paired movements, **75-120 seconds** between rounds.
+### Rotate Families, Not Chaos
 
-### Power Primer Rule (Monday -- Before Every Bench Session)
-**2-3 rounds x 3 reps** plyo push-ups (handles or elevated surface). Rest 30-45 s between rounds (~2 min total).
-- Primes CNS; measurably improves bench bar speed
-- **Substitute:** med-ball chest pass if elbow pain is above 2/10 or impact feels sketchy
-- **Skip** if elbow pain is above 2/10 that morning; Phase 1: shallowest crisp variation or med-ball substitute
-- Immediately before first loaded Bench set: **1x8-10 Scap Push-Up Plus** (slow and controlled)
+V2 rotates by movement family, not by random variation.
 
-### Ring Push-Up Continuation Rule (Thursday -- Weeks 1-9)
-Ring Push-Ups stay in the plan as controlled horizontal-push skill work, not fatigue work. Place them on Thursday after the structural circuit and before Skin-the-Cat so Monday's heavy Bench and Wednesday's secondary press remain the priority.
+The main rotating slots are:
 
-- **Weeks 1-2:** 2x6-8 high-ring Ring Push-Ups, RPE 6
-- **Weeks 3-4:** 2x8-10 Ring Push-Ups, rings slightly lower only if control is perfect
-- **Weeks 5-6:** 2x6-8 tempo Ring Push-Ups, RPE 6-7
-- **Weeks 7-8:** 2x5-7 Ring Push-Ups, stop 3 reps shy of failure; use high rings if elbow or shoulder feels loaded
-- **Week 9:** 1x6-8 high-ring maintenance only
-- **Week 10:** omit to keep realization week fresh
+- secondary squat
+- hinge
+- secondary press
+- upper pull
 
-Use a **2-1-1-0 tempo**, hollow-body plank, neutral wrist rotation, and elbows ~30-45 degrees from the torso. Regress to incline/parallette push-ups if ring stability, elbow symptoms, or shoulder position is not clean. Stop the set as soon as the rings wobble, depth shortens, or elbows flare.
+### Fatigue Must Match the Day's Job
 
-### Structural Balance Circuit Rule (Thursday -- Weeks 1-8)
-Fold structural movements **into** the Face Pull + Landmine Press superset as active-recovery fillers. Total ~10 min:
-- **Single-Leg Calf Raise** -- 12/leg, slow *(ankle/knee stability; goose foot management)*
-- **Side Plank** -- 20 seconds/side Weeks 1-4; **30 seconds/side Weeks 5-8** *(lateral trunk stability)*
-- **Banded External Rotation** -- 12/side, light *(rotator cuff endurance)*
+Each day should answer one question:
 
-Week 9: 1-2 light sets, skip Side Plank. Week 10: Calf Raise + Banded ER only.
+- Monday: did upper-body strength move forward?
+- Wednesday: did speed and technical power improve?
+- Friday: did lower-body strength move forward?
+- Tuesday and Thursday: did recovery, trunk work, and conditioning support the lifts instead of compete with them?
 
-### Skill Work Rules
+## Weekly Structure
 
-**Skin-the-Cat (Thursday, Weeks 1-10):** Smooth submaximal rings skill -- offsets pressing stiffness, preserves overhead range. Stop any sharp impingement; skip if front-rack soreness is high.
+### Monday: Upper Strength + Pulling Balance
 
-| Weeks | Prescription |
-|-------|-------------|
-| 1-2 | 3x2 Tuck only (no German hang) |
-| 3-4 | 3x2-3 Tuck to partial German hang; hold 2 s |
-| 5-6 | 3x2-3 Full Skin-the-Cat; full German hang 2-3 s |
-| 7-8 | 3x2-3 Full Skin-the-Cat; German hang 3-4 s |
-| 9 | 2x2 Tuck only *(deload)* |
-| 10 | 2x2 Full range, no extra hold time |
+Goal:
 
-**Dragon Flag (Tuesday, Weeks 1-10):** Anti-extension skill on flat bench. Anchor upper back, grip bench edge behind head. Stop rule: lower back arches or ribs flare = rep done. Never train to failure.
+- strongest bench exposure of the week
+- moderate vertical pull
+- small compression dose
 
-| Weeks | Prescription |
-|-------|-------------|
-| 1-2 | 3x5-8 s Tuck hold |
-| 3-4 | 3x8-10 s Tuck hold; single-leg reach 2-3 s if back stays flat |
-| 5-6 | 3x4-6 s Single-leg hold; 1 slow negative if 6 s is clean |
-| 7-8 | 2x1 Full negative (5-count eccentric; tuck to return) |
-| 9 | 2x5 s Tuck hold only *(deload)* |
-| 10 | 2x best variation -- stop well before shaking |
+Session order:
 
-### 60-Minute Session Rule
-Mon/Wed/Fri fit inside **60 minutes including warm-up, ramp, and cooldown**. Barbell work first; trunk and shoulder-balance work on Tue/Thu. Secondary bench lives on Wednesday; Friday stays focused on clean variation, squats, and one lower-body slot. No Friday conditioning block -- use the cooldown spin.
+1. bench main work
+2. pull-up or pull variation
+3. balancing row or upper-back work
+4. short compression block
 
-**Phase 2 Fridays (Weeks 7-8):** Complete A-B first; add C only if on pace to finish within the cap.
+### Tuesday: GPP, Conditioning, Trunk, Rehab
 
-### Set Structure Variation Rule
-Straight sets default for heavy Bench, Back Squat, Box Squat, Wednesday bench work, and post-pull-up Ring Rows. EMOMs vary delivery without changing intended stress -- stop early if bar speed, position, or joint tolerance worsens.
+Goal:
 
-### Wednesday Rest-Control Rule (Weeks 7-10)
-Box Squats: **2.5-3 minutes** between sets. Secondary bench: **minimum 2 minutes**. Add 30-60 s if bar speed slows before changing load.
+- support the main lifting days
+- maintain aerobic base
+- keep tissue quality high
 
-### Post-Program Handoff Rule
-- **Bench:** 2.5-5 kg less than listed in Weeks 1-2 if bar path feels rusty; resume written loads once path and elbow tolerance normalize
-- **Power Clean:** Start Week 1 near **60%** if catches are inconsistent; rebuild to listed loads by Week 2
-- **Back Squat / Box Squat:** Reduce Week 1 by **5 kg** if knees remain irritated; advance to Week 2 loads only after 48-hour normal recovery
-- **Ring Pull-Ups:** **Bodyweight through Week 6** unless elbows are fully calm and all reps stay crisp
+Contents:
 
-### Ring Pull-Up Split Progression Rule
-1. Reach **top of rep range on all sets** for 2 consecutive exposures
-2. Add **1.25-2.5 kg**; drop each set by **1 rep** after the load jump, then rebuild
-3. If elbow symptoms increase: hold load and rebuild quality at bodyweight
+- conditioning matched to phase
+- trunk stiffness or trunk flexion work
+- tendon work
+- optional low-fatigue compression work in accumulation or intensification
 
-### Pulling-Balance Add-On (Phase 2 Mondays)
-Weeks 5-8 keep Monday Ring Pull-Ups at **3 work sets** rather than 4. Add **1-2 light sets of Chest-Supported Row** immediately after pull-ups to offset the vertical-pull bias and reduce medial-elbow irritation.
+### Wednesday: Power + Secondary Strength
 
-### Hinge Rule (RDLs)
-Shins vertical. **3-0-1-0 tempo**. Stop at deepest pain-free hamstring position. Loads ~40-55% of 155 kg Deadlift max. If medial knee or hamstring irritation lingers into Saturday, reduce to 2 sets or shorten ROM next week.
+Goal:
 
-### Olympic Lifting Rule
-If catches get sloppy or slow, convert remaining sets to Clean Pulls. With a 155 kg Deadlift and regular RDL + Clean exposure, posterior-chain strength is already covered -- Clean Pulls here are positional/technical reinforcement.
+- highest-quality speed and Olympic-lift work of the week
+- moderate secondary squat
+- secondary press
 
-### Chest-Supported Row Progression
-Deliberate progression, not a static placeholder:
-- **Phase 1 (Weeks 1-4):** 20-25 kg -- build scapular pull pattern, establish position quality
-- **Phase 2 (Weeks 5-8):** 25-30 kg -- maintain adaptation signal
-- **Weeks 9-10:** 20-25 kg -- back off to keep shoulders fresh at realization
+Session order:
 
-Upper end of each range only when all reps are crisp with perfect scapular control.
+1. jump or 10-20 m acceleration sprint
+2. clean variation or power clean singles/doubles
+3. secondary squat
+4. secondary press
 
----
+### Thursday: Restoration + Structural Balance
 
-## Targeted Daily Warm-Ups
+Goal:
 
-Warm-up principle: each day gets its own prep sequence matched to the first hard movement and the joints most likely to complain. Keep the whole sequence to **8-12 minutes**, move continuously, and stop anything that creates fatigue, joint irritation, or sloppy positions.
+- reduce stiffness
+- maintain shoulder and trunk balance
+- avoid adding interference
 
-### Monday Warm-Up -- Bench, Ring Pull-Ups, L-Sit
+Contents:
 
-**1. General heat (2-3 min)**
-- Easy Bike or SkiErg
+- easy aerobic work or no conditioning depending on phase
+- face pulls, cuff work, calf work, side plank
+- optional ring support or skin-the-cat only when symptoms are quiet
 
-**2. Scap + elbow prep (1-2 rounds)**
-- Wrist Rolls -- 10 each direction
-- Scapular Push-Ups -- 8
-- Dead Hang to Scap Pull-Up or Straight-Arm Band Pulldown -- 6-8
-- Wall Slides or Foam-Roller Wall Reach -- 8
+### Friday: Lower Strength + Posterior Chain
 
-**3. Bench-specific activation**
-- Band Pull-Aparts + External Rotation Combo -- 10 + 10
-- Push-Up Plank Shoulder Taps -- 6/side
-- Power Primer: Plyo Push-Ups on handles or elevated surface -- 2-3x3
-- Scap Push-Up Plus -- 1x8-10 immediately before the first loaded bench set
+Goal:
 
-**4. Compression primer**
-- Parallette Tuck Support Hold -- 2x8-12 s
+- strongest squat exposure of the week
+- brief speed primer
+- one hinge or unilateral lower-body slot
+- minimal compression finish
 
-**Phase tweaks**
-- **Weeks 1-4:** use the shallowest crisp plyo push-up variation; prioritize wall-slide quality over speed
-- **Weeks 5-8:** swap wall slides for a second set of Band Pull-Aparts + ER if shoulders feel good and you want more neural pop
-- **Weeks 9-10:** trim to one round of scap prep, 1-2 crisp push-ups, and one brief tuck support hold
+Session order:
 
-### Tuesday Warm-Up -- Conditioning, Trunk, Dragon Flag
+1. jump or 10-20 m acceleration sprint
+2. clean primer or speed clean single
+3. squat main work
+4. hinge or unilateral assistance
+5. short compression finisher
 
-**1. General heat (4-5 min)**
-- Easy row, Bike, or SkiErg building gradually to the day's conditioning pace
+## Phase Model
 
-**2. Mobility reset**
-- Hip 90/90 switches -- 5/side
-- T-Spine Open Book -- 5/side
-- Ankle Rocks -- 8/side
+V2 uses a 3 plus 4 plus 3 structure:
 
-**3. Trunk + posterior-chain prep**
-- Dead Bug or Hollow Hold -- 20 s
-- Glute Bridge -- 8 with 1-second pause
-- Light Slider Hamstring Curl or Hamstring Walkout -- 5 controlled reps
+- Weeks 1-3: accumulation and athletic base
+- Weeks 4-7: intensification and power-strength
+- Weeks 8-10: realization and consolidation
 
-**4. Skill primer**
-- One short Dragon Flag tuck hold or negative rehearsal -- 3-5 s
+This creates a visible build, a visible narrowing, and a visible taper into the final weeks.
 
-**Phase tweaks**
-- **Weeks 5-8:** let the erg warm-up ramp slightly harder because Tuesday becomes the higher-intensity conditioning day, but keep the trunk prep to one clean round
-- **Weeks 9-10:** strip the skill primer to a single easy tuck hold and keep the whole warm-up restorative
+## Phase 1: Accumulation and Athletic Base
 
-### Wednesday Warm-Up -- Power Clean, Box Squat, Secondary Press
+**Weeks:** 1-3
 
-**1. General heat (2-3 min)**
-- Easy Bike or SkiErg
+Primary aim:
 
-**2. Ankle, rack, and squat access**
-- Ankle Rocks against wall -- 8/side
-- Front Rack Stretch on rig or straps -- 20-30 s
-- Deep Goblet Pry or Paused Bodyweight Squat -- 5 breaths / 5 reps
+- rebuild tolerance
+- accumulate quality work
+- establish jump and clean frequency
 
-**3. Clean patterning**
-- Tall Clean Turnover Drill -- 3-5 reps
-- PVC Muscle Clean or Tall Clean Pull-Under Rehearsal -- 3-5 reps
-- Jump Shrug or Clean Extension from power position -- 2x3
+Characteristics:
 
-**4. Squat + press bridge**
-- Fast-Stand Bodyweight Squat -- 2x3
-- Light DB Bench Setup or Empty-Bar Paused Bench Groove -- 1-2 short sets
-- Seated Pike Reach or low-fatigue Pike Pulses -- 6-8 reps
+- more exercise variety
+- moderate loads
+- slightly higher accessory volume
+- more aerobic work
+- slightly higher compression dose
 
-**Phase tweaks**
-- **Weeks 1-4:** spend more time on PVC turnover and goblet pry; positions matter more than speed
-- **Weeks 5-8:** bias the jump shrug / clean extension and fast-stand squat so the clean feels sharp without adding fatigue
-- **Weeks 9-10:** keep only a short ankle + rack reset, 1-2 quick clean rehearsals, one paused squat, and one short bench groove set
+Main lift formats:
 
-### Thursday Warm-Up -- Shoulder Balance, Rings Skill, Landmine Press
+- Monday bench: heavy working set of 6 at RPE 7-8, then 2 backoff sets
+- Wednesday clean: EMOM singles or doubles at crisp submaximal loads
+- Friday squat: heavy working set of 5-6 at RPE 7-8, then 2 backoffs
 
-**1. General heat (3-5 min)**
-- Easy Bike, SkiErg, or row substitute if symptom-free
+Weekly intent:
 
-**2. Shoulder motion prep**
-- Scapular CARs -- 5 each direction
-- Wall Slides -- 8
-- Banded External Rotation -- 10/side
+- Week 1: establish exercise choices, conservative heavy working sets, and symptom-free rhythm
+- Week 2: add one small step in load or reps while keeping bar speed high
+- Week 3: highest Phase 1 workload, but still one step short of grindy fatigue
 
-**3. Circuit primer**
-- Light Face Pull -- 10
-- Half-Kneeling Landmine Press -- 5/side with an empty sleeve or very light load
-- Side Plank -- 15-20 s/side
+Recommended secondary rotations:
 
-**4. Rings readiness**
-- Ring Support Hold or High-Plank on rings -- 10-15 s
-- One controlled Skin-the-Cat entry rehearsal or Tuck Inversion -- 1 rep
+- secondary squat: box squat, front squat
+- hinge: RDL, single-leg RDL
+- secondary press: neutral-grip dumbbell bench, Larson press
+- upper pull: ring pull-up, chest-supported row
 
-**Phase tweaks**
-- **Weeks 5-8:** if Thursday conditioning is removed, keep the warm-up short and shoulder-focused; do not add extra aerobic work just to fill time
-- **Weeks 9-10:** drop to one round of circuit primer and keep the rings rehearsal very submaximal
+## Phase 2: Intensification and Power-Strength
 
-### Friday Warm-Up -- Clean Variation, Back Squat, Hinge or Step-Up
+**Weeks:** 4-7
 
-**1. General heat (2-3 min)**
-- Easy Bike or SkiErg
+Primary aim:
 
-**2. Hip and knee prep**
-- Hip Airplanes or Single-Leg RDL Reach -- 5/side
-- Lateral Band Walks -- 10-12 steps/side
-- Bodyweight Squat to box or target-depth pause -- 5 reps
+- raise force output without losing speed
+- reduce junk volume
+- make the week more specific
 
-**3. Olympic + squat rehearsal**
-- Tall Clean Drill matching the day's variation -- 3 reps
-- High-Hang or Pause-at-Knee Clean Drill -- 2x2
-- Snap-Down to squat stance -- 2x3
+Characteristics:
 
-**4. Assistance-specific primer**
-- If RDLs are programmed: Dowel Hip Hinge Sweep -- 6 reps
-- If Step-Ups are programmed: Low box Step-Up rehearsal -- 5/leg
-- Optional frog pump or glute bridge march -- 8 if hips feel flat
+- fewer total reps on main lifts
+- slightly lower accessory volume
+- more obvious speed work
+- hardest conditioning stays on Tuesday
+- Thursday becomes minimal
 
-**Phase tweaks**
-- **Weeks 1-4:** use more controlled tall-clean reps and a longer squat pause to lock in positions
-- **Weeks 5-8:** emphasize stiffness and speed in the high-hang / pause-at-knee drill, then stop
-- **Weeks 9-10:** keep the warm-up minimal: hip reset, 1-2 clean rehearsals, one squat-depth check, and one hinge or step-up rehearsal only if that movement is programmed
+Main lift formats:
 
-### Day-Specific Emphasis
-- **Monday:** scapular control, elbow comfort, hollow-body tension, first-rep bench speed
-- **Tuesday:** gradual aerobic ramp, trunk stiffness, posterior-chain readiness without fatigue
-- **Wednesday:** front-rack access, fast elbows, ankle depth, upright catch mechanics, clean bench groove
-- **Thursday:** smooth scapular upward rotation, clean landmine path, stable ring support, submaximal mobility
-- **Friday:** hip stiffness, squat depth, hinge or step-up patterning, upper-back tightness before squatting
+- Monday bench: heavy working set of 4-5 at RPE 8, then 1-2 backoffs
+- Wednesday clean: clusters or crisp singles
+- Friday squat: heavy working set of 3-4 at RPE 8, then 1-2 backoffs
 
----
+Weekly intent:
 
-## Post-Session Cooldown (After Every MWF Session)
+- Week 4: transition from base work to heavier but still snappy efforts
+- Week 5: hardest combined workload week for upper and lower strength
+- Week 6: maintain or slightly raise intensity while trimming nonessential assistance
+- Week 7: keep intensity, reduce clutter, and set up realization instead of forcing one more overload week
 
-- Mon/Wed: 3-5 min easy Bike/SkiErg spin
-- Friday: **8-10 min** easy Bike/SkiErg (Zone 1-2 aerobic flush)
-- **Elbow/Wrist:** 2x15 eccentric wrist extensions + 30 s forearm extensor stretch/arm
-- **Lower Body:** 30 s/side hip flexor, pigeon, standing quad
-- **Shoulder/Chest:** 30 s/side doorway pec + 15 band pull-aparts
+Recommended secondary rotations:
 
----
+- secondary squat: front-rack box squat, pause squat, Anderson squat
+- hinge: stiff-leg deadlift, Nordic eccentric, hand-supported single-leg RDL
+- secondary press: paused bench, incline press, neutral-grip dumbbell bench
+- upper pull: weighted pull-up, dead-stop dumbbell row
 
-## Weekend Recovery
+## Phase 3: Realization and Consolidation
 
-- **Saturday:** Full rest or 20-30 min easy walk. Foam roll. No loaded training.
-- **Sunday:** Optional 20-30 min easy Bike/SkiErg + 10-15 min stretching. Body-check day -- note any elbow or knee symptoms before Monday.
-- If Saturday pain is above baseline, apply Pain Scale & Readiness Rule to Monday.
-
----
+**Weeks:** 8-10
 
-## Conditioning Work: Tuesday/Thursday
+Primary aim:
 
-Structured aerobic/conditioning -- not passive recovery. Based on British Rowing advanced 2,000 m template, adjusted for the lifting schedule.
+- express performance
+- lower fatigue
+- keep athletic sharpness
 
-**Phase 1 (Weeks 1-4) -- top-end loads still submaximal:**
-- **Tuesday:** Lower-intensity technique row (RPE 5-6)
-- **Thursday:** Moderate-intensity conditioning row (RPE 6-7)
+Characteristics:
 
-**Phase 2 onward (Weeks 5-10) -- sequence conditioning per Concurrent-Fatigue Sequencing Rule:**
-- **Tuesday:** Harder conditioning -- 1,000 m / interval work (RPE 7-8). Sits 72 h before Friday squats.
-- **Thursday:** Week 5 = lighter Zone 1-2 aerobic only (RPE 4-5); Weeks 6-8 = conditioning removed (joint/skill circuit only). Weeks 9-10 return to easy aerobic only.
-- Use the rowing schedule table below by **swapping the Tue and Thu columns for Week 5 only**; Weeks 6-8 Thursday conditioning is intentionally removed in the weekly prescriptions.
+- very little fluff
+- low accessory dose
+- jumps or short accelerations stay in
+- clean work stays in, but only as primer or high-quality singles
+- compression becomes maintenance plus one clear benchmark
 
-- Warm up 5-10 min easy spin/row + dynamic mobility; cool down 3 min easy + hip flexor/calf/hamstring stretch
-- Stroke order: legs -> body -> arms (drive); arms -> body -> legs (recovery). Watch split/500 m, stay consistent
-- If rowing irritates elbow or knee: substitute Bike or SkiErg at the same work/rest structure
+Main lift formats:
 
-### Tuesday Day Template (Weeks 1-8) -- "Trunk + Posterior Chain + Anti-Extension Skill"
+- Monday bench: top set triple or double, then one backoff set
+- Wednesday clean: 3-5 quality singles
+- Friday squat: top set triple or double, then one backoff if speed supports it
 
-Tuesday is a complete training day, not an "active recovery" checklist. **Run components in order** -- conditioning first (CNS engagement), trunk before fatiguing posterior-chain work, skill last (technical, not metabolic). Total time **45-55 min** including warm-up and cooldown.
+Weekly intent:
 
-| Slot | Component | Prescription | Purpose |
-|------|-----------|--------------|---------|
-| Warm-up | 5 min easy spin + dynamic mobility | Hip 90/90, T-spine open-book 5/side, ankle rocks | Tissue prep |
-| **A** | **Conditioning** (Row / Bike / SkiErg) | See Rowing Schedule -- Phase 1 = easy technique; Phase 2 = harder intervals | Aerobic capacity |
-| **B1** | Anti-Rotation: Pallof Press | 10/side, 1-s hold, controlled | Trunk stiffness vs rotation |
-| **B2** | Anti-Extension: Front Plank | 45 s, ribs down, glutes squeezed | Trunk stiffness vs extension |
-| **C** | Posterior-Chain Support: Rower Slider Hamstring Curls | 2x8, 3-s eccentric | Goose-foot management; hamstring eccentric capacity |
-| **D** | Skill: Dragon Flag | Per Skill Work Rules table | Advanced anti-extension; never to failure |
-| **E** | Elbow Rehab: Eccentric Wrist Extensions | 3x15/arm @ 1-2 kg | Tennis elbow tendon work *(this is the day for it -- not Mon/Fri warm-up)* |
-| Cooldown | 3 min easy spin + 30 s/side hip flexor + pigeon | | |
+- Week 8: first realization week, with lower volume but normal intent
+- Week 9: taper and deload the assistance hard while preserving speed
+- Week 10: express performance, then shut the session down before fatigue turns the week into testing theater
 
-**B1+B2 superset:** alternate ~45 s rest; 2 rounds Wks 1-4, 1 round + 1 round 90/90 breathing (5 breaths/side) Wks 5-8.
+Recommended secondary rotations:
 
-**Phase 2 modification (Wks 5-8):** Slot A becomes the harder intensity (1,000 m / interval work). Slot B reduces to 1 round of plank+Pallof to manage cumulative fatigue; the freed time goes to 90/90 breathing. Add the weighted compression lift-offs after Slot D. Slot E is non-negotiable -- elbow does not deload during peak weeks.
+- secondary squat: light box squat or front squat only
+- hinge: light RDL or no hinge in the hardest week
+- secondary press: paused bench or light dumbbell bench only
+- upper pull: low-volume pull-ups or rows for balance only
 
-### Thursday Day Template (Weeks 1-8) -- "Shoulder Balance + Structural Circuit + Straight-Arm Mobility"
+## Exercise Family Rotation
 
-Thursday is the **shoulder-and-joint day**. Designed as a single integrated circuit with conditioning bookending it. Total time **45-55 min**. Every movement here directly supports either pressing tolerance, knee/ankle resilience, or overhead range -- nothing is filler.
+### Secondary Squat Slot
 
-| Slot | Component | Prescription | Purpose |
-|------|-----------|--------------|---------|
-| Warm-up | 5 min easy spin + scapular CARs + wall slides | | Shoulder prep |
-| **A** | **Conditioning** (Row / Bike / SkiErg) | See Rowing Schedule -- Phase 1 = moderate; Phase 2 = light Zone 1-2 only | Aerobic; preserves Friday squat in Phase 2 |
-| **B** | Integrated Structural Circuit -- 2 rounds, ~45-60 s rest between rounds: | | |
-| B1 | Face Pulls *(neutral, elbows high)* | 12-15, 1-s squeeze | Posterior shoulder + scap upward rotation |
-| B2 | Half-Kneeling Landmine Press | 8-10/side, full reach, ribs down | Pain-free vertical press dose |
-| B3 | Single-Leg Calf Raise | 12/leg, slow | Goose-foot + ankle stability |
-| B4 | Banded External Rotation | 12/side, light | Rotator cuff endurance |
-| B5 | Side Plank | 20 s/side Wks 1-4; 30 s/side Wks 5-8 | Lateral trunk stability |
-| **C** | Ring Push-Up Practice | Per Ring Push-Up Continuation Rule | Horizontal-push stability without fatigue |
-| **D** | Skill: Skin-the-Cat | Per Skill Work Rules table | Straight-arm mobility; offsets pressing stiffness |
-| **E** | T-Spine Mobility: Side-Lying Open Book | 8/side, slow | Pulling/pressing range |
-| Cooldown | 3 min easy spin + 30 s/side doorway pec stretch + 15 band pull-aparts | | |
+Use one pattern per 2-3 week mini-block:
 
-**The B-block is one integrated circuit, not five separate exercises.** Move from B1 -> B5 in order, rest, repeat. If a movement aggravates symptoms, skip it -- do not stop the circuit.
+- box squat
+- front squat
+- front-rack box squat
+- Anderson squat
+- pause squat
 
-**Phase 2 modification (Wks 5-8):** Slot A is easy aerobic only in Week 5, then removed in Weeks 6-8 per weekly prescriptions. The B-circuit stays the same -- joint maintenance does not deload. Ring Push-Ups stay submaximal; Skin-the-Cat progresses depth/hold time.
+Selection logic:
 
-**Deload (Wk 9):** B-circuit reduces to 1 round; skip Side Plank. **Realization (Wk 10):** B-circuit reduces to Face Pulls + Calf Raise + Banded ER only -- keep joints fresh.
+- front squat when clean transfer is the goal
+- box squat when knee-friendly concentric strength is the goal
+- Anderson squat when starting strength and positioning are the goal
 
-### Rowing Schedule (Weeks 1-8)
+### Hinge Slot
 
-| Week | Tuesday Row Session | Thursday Row Session |
-|------|---------------------|----------------------|
-| 1 | 4 min @ 20 SPM, 3 min @ 22, 2 min @ 24 | 1 min on / 1 min off x 3, rest 3 min, then x 3 |
-| 2 | 4 min @ 20, 3 min @ 22, 2 min @ 24, 1 min @ 26 | 1 min on / 1 min off x 3, rest 2 min, then x 3 |
-| 3 | 5 min @ 20, 4 min @ 22, 3 min @ 24, 2 min @ 26 | 1 min on / 1 min off x 3, rest 3 min, then x 4 |
-| 4 | 4 min @ 22, 3 min @ 24, 2 min @ 26, 1 min @ 28 | 1 min on / 1 min off x 3, rest 2 min, then 30 s on / 1 min off x 4 |
-| 5 | 1,000 m, rest 3 min, 1,000 m *(Concurrent-Fatigue Rule: harder intervals on Tue, 72 h before Friday squats)* | 15-25 min easy Z1-Z2 steady (RPE 4-5) *(lighter work day before heavy Friday)* |
-| 6 | 1 min @ 26-28 / 1 min off x 3, rest 3 min, then 30 s @ 28+ / 1 min off x 4 | **Removed** — joint-balance circuit only; no conditioning |
-| 7 | 1,000 m @ 26-28, rest 2.5 min, 1,000 m; **if fully recovered: 2,000 m instead** | **Removed** — joint-balance circuit only; no conditioning |
-| 8 | 2x1,000 m @ 26 SPM, 3 min rest — do not attempt 2,000 m *(peak loading week)* | **Removed** — joint-balance circuit only; no conditioning |
+- RDL
+- stiff-leg deadlift
+- single-leg RDL
+- Nordic eccentric
+- GHR
 
-### Realization Phase (Weeks 9-10)
-Both Tue and Thu: 15-30 min easy row/Bike/SkiErg only. No intervals, 1,000 m, or 2,000 m efforts.
+Selection logic:
 
----
+- bilateral hinge when squat volume is lower
+- unilateral or eccentric hamstring work when squat stress is high
 
-## Movement Pattern Coverage
+### Secondary Press Slot
 
-| Pattern | Exercise(s) |
-|---------|-------------|
-| Horizontal Push | Bench Press, Neutral-grip DB Bench Press, Paused Bench Press, Ring Push-Ups |
-| Angled Vertical Press | Half-Kneeling Landmine Press |
-| Horizontal Pull | Chest-Supported Rows (Fri), DB Rows (light Mon Wks 9-10) |
-| Vertical Pull | Ring Pull-Ups |
-| Quad-Dominant | Back Squat, Box Squat |
-| Hip Hinge | RDLs, Power Cleans |
-| Unilateral Lower | DB Low Box Step-Ups |
-| Olympic Power | Hang Power Clean, Power Clean |
-| Anti-Extension Core | Front Plank, Hollow Hold |
-| Anti-Rotation Core | Pallof Press |
-| Compression Core | L-Sit Progressions, Pike Pulses |
-| Scapular/Upper-Back | Ring Pull-Ups, Face Pulls, Band Pull-Aparts |
-| Straight-Arm Mobility | Skin-the-Cat |
-| Advanced Anti-Extension | Dragon Flag Progressions |
-
-## Phase Overview
+- neutral-grip dumbbell bench
+- paused bench
+- Larson press
+- low incline press
 
-| Phase | Weeks | Focus |
-|-------|-------|-------|
-| **Phase 1** | 1-4 | Accumulation & Tendon Prep |
-| **Phase 2** | 5-8 | Intensification |
-| **Phase 3** | 9-10 | Deload & Heavy Realization |
-
----
-
-## PHASE 1: Accumulation & Tendon Prep (Weeks 1-4)
-
-**Focus:** Controlled eccentric bench, paused squat quality, tissue-capacity rebuild while reintroducing straight-bar work. Friday: clean variation + squat + one assistance slot. Wednesday: secondary bench dose.
-
----
-
-### WEEK 1
-
-**Execution Key:** Crisp tempo, pain-free pulling, stable positions.
-
-#### Monday
-**A. Bench Press** -- 4x8 @ 65% (57.5 kg) -- *2-second eccentric*
-**B. Ring Pull-Ups** -- 3x5-8 BW *(3-1-X-0 tempo)*
-**C. Parallette L-Sit** -- 4x8-12 s tucked
-**D. Pull Support Quality Rows** -- 2x8 Ring Rows *(2-second chest-to-rings squeeze; rest 60-75 s; stop 2-3 reps shy of fatigue)*
-
-#### Tuesday *(Tuesday Day Template)*
-- **A. Conditioning:** Row Week 1 prescription (or Bike/SkiErg work-rest substitute)
-- **D. Dragon Flag:** 3x5-8 s Tuck hold
-- All other slots per template
-
-#### Wednesday
-**A. Hang Power Clean** -- 4x3 @ 65% (57.5 kg) -- *hook grip*
-**B. Clean Pulls** -- 2x3 @ 80% (70 kg) *(explosive extension ABOVE knee; finish tall)*
-**C. Box Squat** -- 3x5 @ 62.5% (82.5 kg) *(HLM: 5 kg below Friday Back Squat)*
-**D. Neutral-grip DB Bench Press** -- 3x8 @ 22.5 kg/hand *(neutral grip, 1-second pause; stop 2-3 reps shy of failure)*
-
-#### Thursday *(Thursday Day Template)*
-- **A. Conditioning:** Row Week 1 prescription (or substitute)
-- **C. Ring Push-Up Practice:** 2x6-8 high-ring Ring Push-Ups *(2-1-1-0; RPE 6)*
-- **D. Skin-the-Cat:** 3x2 Tuck only
-- All other slots per template
-
-#### Friday
-**A. Tall Clean from High Hang** -- 3x2 @ 40-50% (35-42.5 kg) *(technique primer: fast elbows, vertical dip, crisp catch)*
-**B. Back Squat** -- 4x6 @ 65% (87.5 kg) -- *1-second pause*
-**C1. RDLs** -- 3x8-10 @ 60-70 kg *(3-0-1-0)*
-**C2. Chest-Supported Row** -- 2x10-12 @ **20-25 kg** *(Phase 1 load; scapular control focus)*
-**D. Seated Pike Pulses** -- 3x10-15 *(Compression-Goal Rule: set count minus one)*
-**E. Jefferson Curl (light)** -- 1x8 *(replace one pike set; smooth spinal segmentation)*
-**F. L-Sit Hold** -- 2x best-variation 8-15 s *(parallettes; best progression you can hold with locked elbows)*
-
----
-
-### WEEK 2
-
-**Execution Key:** Submaximal and smooth; lock in quality before floor clean transition.
-
-#### Monday
-**A. Bench Press** -- 4x7 @ 67.5% (60 kg) -- *2-second eccentric*
-**B. Ring Pull-Ups** -- 3x5-8 BW *(3-1-X-0)*
-**C. Parallette L-Sit** -- 4x10-12 s
-**D. Pull Support Quality Rows** -- 2x8-10 Ring Rows *(rigid body line, 2-second top pause; no density chasing)*
-
-#### Tuesday *(Tuesday Day Template)*
-- **A. Conditioning:** Row Week 2 prescription (or substitute)
-- **D. Dragon Flag:** 3x5-8 s Tuck hold *(focus: keep lower back flat throughout)*
-- All other slots per template
-
-#### Wednesday
-**A. Hang Power Clean** -- 4x3 @ 70% (60 kg)
-**B. Box Squat** -- 3x5 @ 65% (87.5 kg) *(HLM: ~3 kg below Friday Back Squat)*
-**C. Neutral-grip DB Bench Press** -- 3x8 @ 22.5-25 kg/hand *(neutral grip; stop 2-3 reps shy of failure)*
-
-#### Thursday *(Thursday Day Template)*
-- **A. Conditioning:** Row Week 2 prescription (or substitute)
-- **C. Ring Push-Up Practice:** 2x6-8 high-ring Ring Push-Ups *(2-1-1-0; RPE 6)*
-- **D. Skin-the-Cat:** 3x2 Tuck *(build comfort in inverted hang)*
-- All other slots per template
-
-#### Friday
-**A. Tall Clean from High Hang** -- 3x2 @ 45-50% (40-42.5 kg)
-**B. Back Squat** -- 4x6 @ 67.5% (90 kg) -- *1-second pause*
-**C1. DB Low Box Step-Ups** -- 3x8/leg *(3-1-1-0; pain-free tracking load)*
-**C2. Chest-Supported Row** -- 2x10-12 @ **20-25 kg** *(Phase 1 load)*
-**D. Seated Pike Pulses** -- 3x10-15 *(Compression-Goal Rule: set count minus one)*
-**E. Jefferson Curl (light)** -- 1x8 *(replace one pike set; smooth spinal segmentation)*
-**F. L-Sit Hold** -- 2x best-variation 8-15 s *(parallettes; best progression you can hold with locked elbows)*
+Close-grip pressing stays rare and earned, not assumed.
 
----
+### Pull Slot
 
-### WEEK 3
+- ring pull-up
+- weighted chin-up
+- chest-supported row
+- dead-stop dumbbell row
+- seal row
 
-**Execution Key:** Transition to floor cleans; preserve bar speed.
+V2 alternates vertical and horizontal pulling more deliberately than V1.
 
-#### Monday
-**A. Bench Press** -- 4x6 @ 70% (62.5 kg) -- *2-second eccentric*
-**B. Ring Pull-Ups** -- 4x6-8 BW *(3-1-X-0)*
-**C. Parallette L-Sit** -- 4x8-10 s alternating single-leg extensions
-**D. Pull Support Quality Rows** -- 2x10-12 Ring Rows *(walk feet farther only if elbow tolerates; strict reps, no grip burn)*
+## Compression and Rings
 
-#### Tuesday *(Tuesday Day Template)*
-- **A. Conditioning:** Row Week 3 prescription (or substitute)
-- **D. Dragon Flag:** 3x8-10 s Tuck; single-leg extend 2-3 s if back stays flat
-- All other slots per template
+Compression remains in the plan, but it is a secondary performance target rather than an equal co-star every week.
 
-#### Wednesday
-**A. Power Clean (floor)** -- 4x3 @ 70% (60 kg)
-**B. Clean Pulls** -- 2x3 @ 85% (75 kg)
-**C. Box Squat** -- 3x5 @ 67.5% (90 kg) *(HLM: 5 kg below Friday Back Squat)*
-**D. Neutral-grip DB Bench Press** -- 3x8 @ 25 kg/hand *(neutral grip, 1-second pause; stop 2-3 reps shy of failure)*
+Recommended approach:
 
-#### Thursday *(Thursday Day Template)*
-- **A. Conditioning:** Row Week 3 prescription (or substitute)
-- **C. Ring Push-Up Practice:** 2x8-10 Ring Push-Ups *(rings slightly lower only if control is perfect)*
-- **D. Skin-the-Cat:** 3x2-3 Tuck to partial German hang *(lower to mild anterior stretch, hold 2 s, pull back; stop before full German hang)*
-- All other slots per template
+- Phase 1: two meaningful exposures per week
+- Phase 2: one meaningful exposure plus one maintenance exposure
+- Phase 3: one benchmark exposure plus one maintenance exposure
 
-#### Friday
-**A. Low-Hang Power Clean** -- 3x2 @ 55% (47.5 kg) *(just above knee; snappy)*
-**B. Back Squat** -- 4x6 @ 70% (95 kg) -- *1-second pause*
-**C1. RDLs** -- 3x8-10 @ 65-75 kg *(3-0-1-0)*
-**C2. Chest-Supported Row** -- 2x10-12 @ **20-25 kg** *(Phase 1 load)*
-**D. Seated Pike Pulses** -- 3x10-15 *(Compression-Goal Rule: set count minus one)*
-**E. Jefferson Curl (light)** -- 1x8 *(replace one pike set; smooth spinal segmentation)*
-**F. L-Sit Hold** -- 2x best-variation 8-15 s *(parallettes; best progression you can hold with locked elbows)*
+Ring work stays because it supports scapular control and shoulder comfort, but only low-fatigue pieces remain:
 
----
+- ring pull-ups
+- ring rows
+- ring push-ups as optional submaximal skill
+- skin-the-cat only if it is clearly helping, not because it is interesting
 
-### WEEK 4
+## Conditioning
 
-**Execution Key:** True consolidation week. Loads **repeat Week 3** but with **one fewer set** on the main lifts. RPE cap 7 across the board. The masters-athlete reset before Phase 2 intensity climbs. Do not chase the upper end of any rep range.
+Conditioning uses three modes:
 
-#### Monday
-**A. Bench Press** -- 3x6 @ 70% (62.5 kg) -- *2-second eccentric* *(consolidation: one set fewer than Week 3; no load increase)*
-**B. Ring Pull-Ups** -- 3x6-8 BW *(3-1-X-0; one set fewer than Week 3)*
-**C. Parallette L-Sit** -- 4x10-12 s alternating single-leg *(skill is low-fatigue; keep frequency)*
-**D. Pull Support Quality Rows** -- 2x8 Ring Rows *(reduced volume; leave every rep crisp)*
+- accumulation: easy aerobic base plus one moderate session
+- intensification: one hard interval day, one very light recovery day
+- realization: aerobic maintenance only
 
-#### Tuesday *(Tuesday Day Template)*
-- **A. Conditioning:** Row Week 4 prescription (or substitute)
-- **D. Dragon Flag:** 3x8-10 s Tuck with single-leg reach *(aim for clean 10 s with one leg extended before Phase 2)*
-- All other slots per template
+What does not return:
 
-#### Wednesday
-**A. Power Clean (floor)** -- 3x3 @ 70% (60 kg) *(consolidation: one set fewer; same load as Week 3)*
-**B. Box Squat** -- 3x5 @ 67.5% (90 kg) *(HLM: 5 kg below Friday Back Squat; same as Week 3)*
-**C. Neutral-grip DB Bench Press** -- 2x8 @ 22.5-25 kg/hand *(consolidation: one set fewer; keep it easy)*
+- random conditioning complexity
+- conditioning too close to Friday squat stress
+- interval doses that leave the legs flat for the main work
 
-#### Thursday *(Thursday Day Template)*
-- **A. Conditioning:** Row Week 4 prescription (or substitute)
-- **C. Ring Push-Up Practice:** 2x8-10 Ring Push-Ups *(same volume as Week 3; do not chase fatigue)*
-- **D. Skin-the-Cat:** 3x2-3 Tuck to partial German hang *(earn a little more depth if stretch feels clean)*
-- All other slots per template
+## Loading Philosophy
 
-#### Friday
-**A. Low-Hang Power Clean** -- 3x2 @ 55% (47.5 kg) *(consolidation: same load as Week 3)*
-**B. Back Squat** -- 3x6 @ 70% (95 kg) -- *1-second pause* *(one set fewer; same load as Week 3)*
-**C1. DB Low Box Step-Ups** -- 2x8/leg *(3-1-1-0; submaximal and crisp; one set fewer)*
-**C2. Chest-Supported Row** -- 2x10-12 @ **20-25 kg** *(Phase 1 load)*
-**D. Seated Pike Pulses** -- 2x8 *(consolidation: one fewer set; Compression-Goal Rule)*
-**E. Jefferson Curl (light)** -- 1x8 *(replace one pike set)*
-**F. L-Sit Hold** -- 2x best-variation 8-15 s *(per Compression-Goal Rule)*
-
----
-
-## PHASE 2: Intensification (Weeks 5-8)
-
-**Focus:** Normal tempos, reduced accessory volume, strength in the 3-6 rep range.
+### Bench
 
-> **Tempo change:** Drop the 2-second Bench eccentric and 1-second Back Squat pause from Week 5. Controlled but normal bar speed.
+- accumulation: heavy working set of 6 plus backoffs
+- intensification: heavy working set of 4-5 plus backoffs
+- realization: top set of 2-3 plus one backoff
 
-If knee or elbow symptoms trend upward in Weeks 6-8, drop Friday lower-body assistance before touching main lifts.
+### Clean
 
-**HLM Structure:** Box Squat is held below Friday Back Squat **in every week** (see Box Squat HLM Rule). The gap widens through Phase 2 -- Heavy (Fri Back Squat), Medium (Wed Box Squat), Light (Mon upper-dominant). Lowers cumulative knee stress, improves Friday performance; especially effective for masters lifters.
-
-**HLM -- Bench Press:** Monday = Heavy pressing day (RPE floor 7). Wednesday secondary press = Medium/Light (RPE cap 7; target 70-75% of Monday's working stress). Never exceed this Wednesday ceiling -- it caps cumulative elbow tendon stress across the week. From Phase 2 the Wednesday slot rotates Neutral-grip DB Bench -> Paused Bench (see Secondary Press Rotation Rule).
-
-**Conditioning Swap (Phase 2):** Per the Concurrent-Fatigue Sequencing Rule, Tuesday becomes the harder conditioning day (intervals / 1,000 m work). Thursday is Week 5 light Zone 1-2 aerobic, then removed in Weeks 6-8 to preserve Friday squat performance. This puts hard intervals 72 h before Friday squats instead of 18-24 h and trims late-phase fatigue.
-
-**Power Clean Phase 2 Progression:** Weeks 5-6 use EMOM density (10-min x 1 @ 75% → 8-min x 1 @ 80%); Week 7 shifts to a doubles cluster (4x2 @ 80%) for positional demand; Week 8 caps the heavy exposures at **4 quality singles** @ 82.5% before the Week 10 realization at 85%. The progressively shorter EMOM and reduced rep totals create the mid-week knee-deload window while maintaining power stimulus. **Clean Pulls are cut Wks 5-8** -- the EMOM/cluster already saturates pulling stimulus and pairing them violates the Superset Rule.
-
-**Friday Alternating Emphasis (Phase 2):** Weeks 5 and 7 keep the written clean variation and rows together. Week 6 is a row-emphasis Friday: technique singles only for the clean; step-ups replace the hinge for load management. Week 8 is the pre-realization Friday: clean reduced to technique singles to spare CNS before the Week 10 squat at 85%.
-
-**Bench Tendon-Management Note (Phase 2 Mondays):** Keep the listed load for the first 3 work sets. On the final set, a **5-7% back-off is optional** if elbow tendon strain is climbing. This preserves exposure while lowering peak tendon stress.
-
-**Masters Recovery Cadence:** At 45, CNS fatigue from sessions above 80% persists 48-72 h (vs. 24-48 h younger) and systemic fatigue compounds across weeks. Week 4 was the **transition consolidation**. This creates an effective 3-week build / consolidation reset / 3-week build / deload cadence aligned with actual masters recovery capacity.
-
----
-
-### WEEK 5
-
-**Execution Key:** Start intensification with crisp sets and strict fatigue control.
-
-#### Monday
-**A. Bench Press** -- 4x5 @ 75% (67.5 kg) *(optional last-set back-off: -5-7% if elbow/tendon strain is rising)*
-**B. Ring Pull-Ups** -- 3x5-8 *(split progression: reach top reps x 2 exposures -> +1.25-2.5 kg -> drop 1 rep/set -> rebuild; Phase 2 volume cap begins here)*
-**B2. Chest-Supported Row** -- 2x10-12 @ 20-25 kg *(light balancing volume; smooth scapular motion only)*
-**C. Parallette L-Sit** -- 4x8-12 s one leg out
-**D. Pull Support EMOM** -- 4 min: 1 assisted Chest-to-Rings Top Hold x 5-8 s per minute
-
-#### Tuesday *(Tuesday Day Template -- Phase 2 modification)*
-- **A. Conditioning:** Row Week 5 prescription -- harder intervals (or Bike/SkiErg substitute)
-- **E. Weighted Seated Compression Lift-Offs:** 2x8-12 *(moved off Monday; higher-quality compression slot)*
-- **D. Dragon Flag:** 3x4-6 s Single-leg hold; attempt 1 slow negative if 6 s is clean
-- B-block reduced to 1 round per template; 90/90 breathing replaces second round
-
-#### Wednesday
-**A. Power Clean -- EMOM 10 min x 1 rep @ 75% (65 kg)** *(EMOM density format provides the knee-deload window; abort if bar speed drops or catch quality falls)*
-**B. Box Squat** -- 3x4 @ 67.5% (90 kg) *(HLM: 7.5 kg below Friday Back Squat)*
-**C. Neutral-grip DB Bench Press** -- 3x6 @ 25-27.5 kg/hand *(neutral grip; bar speed crisp; cap RPE 7)*
-
-#### Thursday *(Thursday Day Template -- Phase 2 modification)*
-- **A. Conditioning:** Row Week 5 prescription -- light Zone 1-2 only (Concurrent-Fatigue Sequencing Rule)
-- **C. Ring Push-Up Practice:** 2x6-8 tempo Ring Push-Ups *(2-1-1-0; RPE 6-7)*
-- **D. Skin-the-Cat:** 3x2-3 full Skin-the-Cat *(full German hang; 2-3 s hold; smooth descent)*
-- B-circuit unchanged: Side Plank advances to 30 s/side
-
-#### Friday
-**A. High-Hang Power Clean** -- 3x2 @ 60% (52.5 kg) *(fast extension, quick elbows)*
-**B. Back Squat** -- 4x5 @ 72.5% (97.5 kg)
-**C1. RDLs** -- 3x6-8 @ 70-75 kg *(3-0-1-0)*
-**C2. Chest-Supported Row** -- 2x10-12 @ **25-30 kg** *(Phase 2 load)*
-**D. Seated Pike Pulses** -- 2x15-20
-**E. Jefferson Curl (light)** -- 1x8 *(replace one pike set; smooth spinal segmentation)*
-**F. L-Sit Hold** -- 2x best-variation 8-15 s *(Compression-Goal Rule: add after Jefferson Curl)*
-
----
-
-### WEEK 6
-
-**Execution Key:** Build intensity; cut assistance if recovery slips.
-
-#### Monday
-**A. Bench Press** -- 4x5 @ 77.5% (70 kg) *(optional last-set back-off: -5-7% if elbow/tendon strain is rising)*
-**B. Ring Pull-Ups** -- 3x5-8 *(BW acceptable if elbow lags; load via split progression only)*
-**B2. Chest-Supported Row** -- 2x10-12 @ 20-25 kg *(light balancing volume)*
-**C. Parallette L-Sit** -- 4x10-12 s one leg out
-**D. Pull Support EMOM** -- 4 min: 1 assisted Chest-to-Rings Top Hold x 5-8 s per minute
-
-#### Tuesday *(Tuesday Day Template -- Phase 2 modification)*
-- **A. Conditioning:** Row Week 6 prescription (or substitute)
-- **C. Rower Slider Hamstring Curls:** 1x8 only *(Friday Step-Ups are present this week; spare posterior/medial knee load)*
-- **E. Weighted Seated Compression Lift-Offs:** 2x8-12 *(moved off Monday; higher-quality compression slot)*
-- **D. Dragon Flag:** 3x4-6 s Single-leg hold *(work toward 6 s clean before attempting negatives)*
-
-#### Wednesday
-**A. Power Clean -- EMOM 8 min x 1 rep @ 80% (70 kg)** *(8-minute EMOM maintains the knee-deload window; abort if speed or catch quality falls)*
-**B. Box Squat** -- 3x3 @ 70% (95 kg) *(HLM: 10 kg below Friday Back Squat)*
-**C. Neutral-grip DB Bench Press** -- 3x6 @ 27.5 kg/hand *(crisp; 2 reps in reserve; use the nearest pair that keeps RPE <=7)*
-
-#### Thursday *(Thursday Day Template -- Phase 2 modification)*
-- **A. Conditioning:** **Removed in Week 6** -- keep this as a pure shoulder-balance + mobility day to preserve Friday performance
-- **C. Ring Push-Up Practice:** 2x6-8 tempo Ring Push-Ups *(use high rings if elbow or shoulder feels loaded)*
-- **D. Skin-the-Cat:** 3x2-3 full *(add 0.5-1 s to German hang if shoulder feels open)*
-
-#### Friday
-**A. High-Hang Power Clean** -- 3x1 @ 55-60% (47.5-52.5 kg) *(Week 6 row-emphasis Friday: technique singles only)*
-**B. Back Squat** -- 4x4 @ 77.5% (105 kg)
-**C1. DB Low Box Step-Ups** -- 3x6-8/leg *(3-1-1-0; cut if knee tracking slips)*
-**C2. Chest-Supported Row** -- 2x10-12 @ **25-30 kg** *(Phase 2 load)*
-**D. Seated Pike Pulses** -- 2x15-20
-**E. Jefferson Curl (light)** -- 1x8 *(replace one pike set)*
-**F. L-Sit Hold** -- 2x best-variation 8-15 s *(Compression-Goal Rule: add after Jefferson Curl)*
-
----
-
-### WEEK 7
-
-**Execution Key:** Heavy week; protect elbow and prioritize bar speed over volume.
-
-#### Monday
-**A. Bench Press** -- 4x4 @ 80% (72.5 kg) *(optional last-set back-off: -5-7% if elbow/tendon strain is rising)*
-**B. Ring Pull-Ups** -- 3x5-7 *(weighted via split progression; BW if elbow sensitive)*
-**B2. Chest-Supported Row** -- 1-2x10-12 @ 20-25 kg *(light balancing volume; 1 set is enough if elbow is tender)*
-**C. Parallette L-Sit** -- 4x6-10 s alternating single-leg or full attempt
-**D. Pull Support EMOM** -- 3 min: 1 Chest-to-Rings Top Hold x 5-8 s per minute
-
-#### Tuesday *(Tuesday Day Template -- Phase 2 modification)*
-- **A. Conditioning:** Row Week 7 prescription (or substitute)
-- **C. Rower Slider Hamstring Curls:** 2x8 *(RDLs are present Friday, so keep the full eccentric support dose)*
-- **E. Weighted Seated Compression Lift-Offs:** 2x8-12 *(moved off Monday; higher-quality compression slot)*
-- **D. Dragon Flag:** 2x1 Full negative *(5-count eccentric; tuck to return; stop if back arches before bench)*
-
-#### Wednesday
-**A. Power Clean -- 4x2 @ 80% (70 kg)** *(reduced cluster volume to create a true mid-week knee-deload window; full 2-3 min rest)*
-**B. Box Squat** -- 3x3 @ 72.5% (97.5 kg) *(HLM: 10 kg below Friday Back Squat)*
-**C. Paused Bench Press (medium grip)** -- 2x3 @ 72.5% (65 kg) *(1-2 s pause; bench-specific; reduced volume vs Week 6)*
-
-#### Thursday *(Thursday Day Template -- Phase 2 modification)*
-- **A. Conditioning:** **Removed in Week 7** -- Tuesday is the primary conditioning day, so Thursday stays joint-focused and non-fatiguing.
-- **C. Ring Push-Up Practice:** 2x5-7 Ring Push-Ups *(stop 3 reps shy of failure; high rings if needed)*
-- **D. Skin-the-Cat:** 3x2-3 full with 3-4 s German hang hold *(breathe into stretch; do not rush pull-back)*
-
-#### Friday
-**A. Hang Power Clean + 1 s pause just above knee** -- 2x(1+1) @ 65% (57.5 kg) *(keep patterning, drop one exposure)*
-**B. Back Squat** -- 4x4 @ 80% (107.5 kg)
-**C1. RDLs** -- 2x6 @ 75-80 kg *(1 set dropped to spare CNS)*
-**C2. Chest-Supported Row** -- 2x10-12 @ **25-30 kg** *(Phase 2 load)*
-**D. Seated Pike Pulses** -- 2x15-20
-**E. Jefferson Curl (light)** -- 1x8 *(replace one pike set)*
-**F. L-Sit Hold** -- 2x best-variation 8-15 s *(Compression-Goal Rule: add after Jefferson Curl)*
-
----
-
-### WEEK 8
-
-**Execution Key:** Peak training stress -- all reps crisp, accessories conservative.
-
-#### Monday
-**A. Bench Press** -- 4x4 @ 82.5% (75 kg) *(optional last-set back-off: -5-7% if elbow/tendon strain is rising)*
-**B. Ring Pull-Ups** -- 3x5-7 *(weighted via split progression)*
-**B2. Chest-Supported Row** -- 1-2x10-12 @ 20-25 kg *(light balancing volume)*
-**C. Parallette L-Sit** -- 4x6-10 s best-quality variation
-**D. Pull Support EMOM** -- 3 min: 1 Chest-to-Rings Top Hold x 5-8 s per minute
-
-#### Tuesday *(Tuesday Day Template -- Phase 2 modification)*
-- **A. Conditioning:** Week 8 row table (or 15-20 min easy Bike/SkiErg)
-- **C. Rower Slider Hamstring Curls:** 1x8 only *(Friday Step-Ups are present this week; spare posterior/medial knee load)*
-- **E. Weighted Seated Compression Lift-Offs:** 2x8-12 *(moved off Monday; higher-quality compression slot)*
-- **D. Dragon Flag:** 2x1 Full negative *(heaviest week -- crisp; stop immediately if form slips)*
-
-#### Wednesday
-**A. Power Clean -- 4x1 @ 82.5% (72.5 kg)** *(cap at 4 quality singles to create a true knee-deload window; abort immediately if catch quality or elbow/wrist discomfort rises)*
-**B. Box Squat** -- 3x3 @ 72.5% (97.5 kg) *(HLM: 12.5 kg below Friday Back Squat)*
-**C. Paused Bench Press (medium grip)** -- 2x2 @ 75% (67.5 kg) *(crisp bar speed, 2+ reps in reserve)*
-
-#### Thursday *(Thursday Day Template -- Phase 2 modification, peak week)*
-- **A. Conditioning:** **Removed in Week 8** -- keep the skill and structural circuit only; do not add extra aerobic fatigue here.
-- **C. Ring Push-Up Practice:** 2x5-7 Ring Push-Ups *(same as Week 7; no fatigue chasing)*
-- **D. Skin-the-Cat:** 3x2-3 full with 3-4 s German hang hold *(same as Week 7; keep smooth)*
-- B-circuit unchanged: maintain joint exposure even at peak
-
-#### Friday
-**A. High-Hang Power Clean** -- 2x1 @ 55-60% (47.5-52.5 kg) *(pre-realization Friday: clean reduced to technique singles to spare CNS before Week 10 squat at 85%)*
-**B. Back Squat** -- 4x3 @ 82.5% (110 kg)
-**C1. DB Low Box Step-Ups** -- 2x6/leg *(3-1-1-0; light; preserve knee quality for final phase)*
-**C2. Chest-Supported Row** -- 2x10-12 @ **25-30 kg** *(Phase 2 load; light and smooth)*
-**D. Seated Pike Pulses** -- 1x10-15 *(volume drop -- protect hip flexors at peak loading)*
-**E. Jefferson Curl (light)** -- 1x8 *(replace one pike set)*
-**F. L-Sit Hold** -- 2x best-variation 8-12 s *(Compression-Goal Rule; volume-capped at peak loading)*
-
----
-
-## PHASE 3: Deload & Heavy Realization (Weeks 9-10)
-
-**Focus:** Drop fatigue hard in Week 9; realize strength in Week 10 with lower total stress and minimal accessory fatigue.
-
----
-
-### WEEK 9 -- DELOAD
-
-**Execution Key:** Reduce stress aggressively; leave every set well in reserve.
-
-#### Monday
-**A. Bench Press** -- 3x5 @ 65% (57.5 kg)
-**B. Ring Pull-Ups** -- 2x6 BW *(deload)*
-**C. Parallette L-Sit** -- 3x8-10 s tucked or one-leg-out
-**D. Accessory** *(2 rounds)* -- 10 DB Rows/arm only
-
-#### Tuesday *(Tuesday Day Template -- Deload)*
-- **A. Conditioning:** 15-20 min easy row, Bike, or SkiErg *(no intervals)*
-- **B.** 2 rounds 45 s Front Plank + 8/side Pallof Press (light)
-- **C.** Slider Hamstring Curls 1-2x8 (light)
-- **D. Dragon Flag:** 2x5 s Tuck hold only
-- **E.** Eccentric wrist extensions: cut to 2x15 (maintenance only)
-
-#### Wednesday
-**A. Power Clean** -- 3x3 @ 70% (60 kg)
-**B. Box Squat** -- 2x5 @ 60% (80 kg)
-**C. Neutral-grip DB Bench Press** -- 2x8 @ 17.5-20 kg/hand *(light, easy)*
-**D. Seated Pike Pulses** -- 2x8-10
-
-#### Thursday *(Thursday Day Template -- Deload)*
-- **A. Conditioning:** 15-20 min easy row, Bike, or SkiErg *(no intervals)*
-- **B. Maintenance circuit (1 round only):** 12 Face Pulls + 8/side Landmine Press + Calf Raise 12/leg + Banded ER 12/side *(skip Side Plank this week)*
-- **C. Ring Push-Up Practice:** 1x6-8 high-ring maintenance only
-- **D. Skin-the-Cat:** 2x2 Tuck only
-- Skip slot E mobility -- recover
-
-#### Friday
-**A. Tall Clean from High Hang** -- 2x2 @ 40-45% (35-40 kg) *(technique only)*
-**B. Back Squat** -- 2x5 @ 60-65% (80-87.5 kg)
-**C. RDLs** -- **CUT**
-**D. Compression Block (deload):** Seated Pike Pulses 2x8-10 + 1x best-variation L-Sit hold 6-10 s *(reduce volume, never frequency per Compression-Goal Rule)*
-
----
-
-### WEEK 10 -- HEAVY EFFORT
-
-> Heaviest loads of the cycle for reps. **No 1RM testing.** Keep lifts crisp, avoid grinders, treat recovery as part of the training.
-
-**Staggered Realization:** Monday carries heaviest bench; Friday carries heaviest squat. Wednesday is the moderate cleanup session -- not a third peak.
-
-**Execution Key:** Stop before grinders; preserve clean technique.
-
-#### Monday
-**A. Bench Press** -- 4x3 @ 85% (77.5 kg)
-**B. Ring Pull-Ups** -- 3x4-6 *(weighted or BW; quality reps, stop before grinders)*
-**C. Parallette L-Sit** -- 2x6-8 s best-quality variation (maintenance); stop before shaking
-**C2. Compression Realization Test** -- 1x max-effort straight-leg L-Sit *(target: unbroken 15 s)* **OR** 3x forehead-to-knee active pike fold *(controlled, full range)* — the metric the program built toward
-**D. Accessory** *(1-2 rounds)* -- 8-10 DB Rows/arm *(skip if pull-up grip or elbow is limiting)*
-
-#### Tuesday *(Tuesday Day Template -- Realization)*
-- **A. Conditioning:** 20-30 min easy row, Bike, or SkiErg *(restorative)*
-- **B.** 1-2 rounds 30-45 s Front Plank + 8/side Pallof Press
-- **C.** Slider Hamstring Curls 1-2x8 (light, no cramping)
-- **D. Dragon Flag:** 2x best variation *(stop well before shaking -- preserve CNS for Friday)*
-- **E.** Eccentric wrist extensions: 2x15 (final maintenance dose)
-
-#### Wednesday *(Moderate -- save peak effort for Mon bench and Fri squat)*
-**A. Power Clean** -- 3x1 @ 85% (75 kg) *(true realization; one warm-up double at 80% then 3 working singles; abort to 80% if first rep catch is slow)*
-**B. Box Squat** -- 2x3 @ 70% (95 kg) *(runway clearance for Friday 85%)*
-**C. Paused Bench Press (medium grip)** -- 2x3 @ 75% (67.5 kg) *(Monday already carried 85%; 2+ reps in reserve)*
-**D. Seated Pike Pulses** -- 2x8-10
-
-#### Thursday *(Thursday Day Template -- Realization)*
-- **A. Conditioning:** 20-30 min easy row, Bike, or SkiErg *(restorative)*
-- **B. Joint-freshness circuit (1-2 rounds):** Face Pulls 12 + Calf Raise 12/leg + Banded ER 12/side *(drop Landmine Press and Side Plank -- prioritize Friday squat readiness)*
-- **C. Skin-the-Cat:** 2x2 full range *(keep mobile; no extra depth or hold time; omit Ring Push-Ups this week)*
-
-#### Friday
-**A. High-Hang Power Clean** -- 2x1 @ 50-60% (42.5-52.5 kg) *(speed primer only)*
-**B. Back Squat** -- 4x3 @ 85% (115 kg)
-**C. RDLs** -- 2x6 @ 60-65 kg *(3-0-1-0; light hinge maintenance)*
-
----
-
-## Quick Reference: Load Progression
-
-**Load note:** Barbell loads rounded to nearest **2.5 kg**.
-**Precedence note:** If any Quick Reference row conflicts with a weekly prescription, the **weekly prescription wins**.
-
-### Bench Press
-| Week | Sets x Reps | % | kg |
-|------|-------------|---|----|
-| 1 | 4x8 | 65% | 57.5 |
-| 2 | 4x7 | 67.5% | 60 |
-| 3 | 4x6 | 70% | 62.5 |
-| 4 | 3x6 | 70% | 62.5 *(consolidation: -1 set, no load increase)* |
-| 5 | 4x5 | 75% | 67.5 |
-| 6 | 4x5 | 77.5% | 70 |
-| 7 | 4x4 | 80% | 72.5 |
-| 8 | 4x4 | 82.5% | 75 |
-| 9 | 3x5 | 65% | 57.5 *(deload)* |
-| 10 | 4x3 | 85% | 77.5 |
-
-### Wednesday Secondary Press (Rotated -- see Secondary Press Rotation Rule)
-| Week | Movement | Sets x Reps | Load | Notes |
-|------|----------|-------------|------|-------|
-| 1 | Neutral-grip DB Bench Press | 3x8 | 22.5 kg/hand | Neutral grip; 1-s pause; lowest elbow stress |
-| 2 | Neutral-grip DB Bench Press | 3x8 | 22.5-25 kg/hand | Smooth path; stop 2-3 reps shy of failure |
-| 3 | Neutral-grip DB Bench Press | 3x8 | 25 kg/hand | Neutral grip; 1-s pause; stop 2-3 reps shy of failure |
-| 4 | Neutral-grip DB Bench Press | 2x8 | 22.5-25 kg/hand | Consolidation: one set fewer, easy reps |
-| 5 | Neutral-grip DB Bench Press | 3x6 | 25-27.5 kg/hand | Crisp; cap RPE 7 |
-| 6 | Neutral-grip DB Bench Press | 3x6 | 27.5 kg/hand | 2 reps in reserve; nearest RPE-7 pair is fine |
-| 7 | Paused Bench (medium grip) | 2x3 | 72.5% / 65 kg | Bench-specific; no extra elbow stress |
-| 8 | Paused Bench (medium grip) | 2x2 | 75% / 67.5 kg | Crisp bar speed, RIR 2+ |
-| 9 | Neutral-grip DB Bench Press | 2x8 | 17.5-20 kg/hand | Light *(deload)* |
-| 10 | Paused Bench (medium grip) | 2x3 | 75% / 67.5 kg | Monday already carried 85% |
-
-*Close-Grip Bench may substitute the rotated lift only if elbow has been 0/10 for 2 consecutive weeks AND Monday bench was symptom-free for 24 h.*
-
-### Power Clean
-| Week | Sets x Reps | % | kg | Notes |
-|------|-------------|---|----|-------|
-| 1 | 4x3 | 65% | 57.5 | Hang |
-| 2 | 4x3 | 70% | 60 | Hang |
-| 3 | 4x3 | 70% | 60 | Floor |
-| 4 | 3x3 | 70% | 60 | Floor *(consolidation: -1 set, no load increase)* |
-| 5 | 10x1 *(EMOM)* | 75% | 65 | EMOM density; abort if bar speed drops |
-| 6 | 8x1 *(EMOM)* | 80% | 70 | 8-min EMOM to preserve knee-deload window |
-| 7 | 4x2 | 80% | 70 | Doubles cluster; full 2-3 min rest |
-| 8 | 4x1 | 82.5% | 72.5 | Cap at 4 quality singles; abort if catch quality slips |
-| 9 | 3x3 | 70% | 60 | *(deload)* |
-| 10 | 3x1 | 85% | 75 | True realization (1 warm-up double @ 80% first) |
-
-### Power Clean Variations (Friday -- Technical Dose)
-| Week | Variation | Sets x Reps | Load | Notes |
-|------|-----------|-------------|------|-------|
-| 1 | Tall Clean (High Hang) | 3x2 | 40-50% (35-42.5 kg) | Fast elbows, vertical finish |
-| 2 | Tall Clean (High Hang) | 3x2 | 45-50% (40-42.5 kg) | Slightly more load if sharp |
-| 3 | Low-Hang Power Clean | 3x2 | 55% (47.5 kg) | Pull from above-knee |
-| 4 | Low-Hang Power Clean | 3x2 | 55% (47.5 kg) | Consolidation: hold Week 3 load and keep catches crisp |
-| 5 | High-Hang Power Clean | 3x2 | 60% (52.5 kg) | Speed-strength primer |
-| 6 | High-Hang Power Clean | 3x1 | 55-60% (47.5-52.5 kg) | Row-emphasis Friday (Wk 6): technique singles only |
-| 7 | Hang + 1 s pause above knee | 2x(1+1) | 65% (57.5 kg) | Keep patterning, reduced exposure |
-| 8 | High-Hang Power Clean | 2x1 | 55-60% (47.5-52.5 kg) | Pre-realization Friday: technique singles only |
-| 9 | Tall Clean (High Hang) | 2x2 | 40-45% (35-40 kg) | *(deload)* |
-| 10 | High-Hang Power Clean | 2x1 | 50-60% (42.5-52.5 kg) | Speed primer only |
-
-### Back Squat
-| Week | Sets x Reps | % | kg |
-|------|-------------|---|----|
-| 1 | 4x6 | 65% | 87.5 |
-| 2 | 4x6 | 67.5% | 90 |
-| 3 | 4x6 | 70% | 95 |
-| 4 | 3x6 | 70% | 95 *(consolidation: -1 set, no load increase)* |
-| 5 | 4x5 | 72.5% | 97.5 |
-| 6 | 4x4 | 77.5% | 105 |
-| 7 | 4x4 | 80% | 107.5 |
-| 8 | 4x3 | 82.5% | 110 |
-| 9 | 2x5 | 60-65% | 80-87.5 *(deload)* |
-| 10 | 4x3 | 85% | 115 |
-
-### Box Squat (HLM -- always below Friday Back Squat absolute kg; see Box Squat HLM Rule)
-| Week | Sets x Reps | % | kg | Friday BS kg | Gap |
-|------|-------------|----|----|--------------|-----|
-| 1 | 3x5 | 62.5% | 82.5 | 87.5 | -5 kg |
-| 2 | 3x5 | 65% | 87.5 | 90 | -2.5 kg |
-| 3 | 3x5 | 67.5% | 90 | 95 | -5 kg |
-| 4 | 3x5 | 67.5% | 90 | 95 | -5 kg *(consolidation)* |
-| 5 | 3x4 | 67.5% | 90 | 97.5 | -7.5 kg |
-| 6 | 3x3 | 70% | 95 | 105 | -10 kg |
-| 7 | 3x3 | 72.5% | 97.5 | 107.5 | -10 kg |
-| 8 | 3x3 | 72.5% | 97.5 | 110 | -12.5 kg |
-| 9 | 2x5 | 60% | 80 | 80-87.5 | match/lower |
-| 10 | 2x3 | 70% | 95 | 115 | -20 kg *(runway)* |
-
-### RDLs (~40-55% of 155 kg Deadlift)
-| Week | Sets x Reps | kg |
-|------|-------------|-----|
-| 1 | 3x8-10 | 60-70 |
-| 3 | 3x8-10 | 65-75 |
-| 5 | 3x6-8 | 70-75 |
-| 7 | 2x6 | 75-80 |
-| 2, 4, 6, 8 | -- alternated for Step-Ups | -- |
-| 9 | -- CUT | -- |
-| 10 | 2x6 | 60-65 *(light hinge maintenance)* |
-
-### DB Low Box Step-Ups (Friday -- Unilateral Lower)
-| Week | Sets x Reps | Load | Notes |
-|------|-------------|------|-------|
-| 2 | 3x8/leg | 10-15 kg/hand | 3-1-1-0, crisp tracking |
-| 4 | 3x8/leg | 10-15 kg/hand | Submaximal |
-| 6 | 3x6-8/leg | 12.5-17.5 kg/hand | Pain-free ROM only |
-| 8 | 2x6/leg | 10-15 kg/hand | Preserve freshness |
-| 1, 3, 5, 7 | -- alternated for RDLs | | |
-| 9-10 | -- CUT | | |
-
-### Clean Pulls (% of Power Clean Max)
-| Week | Sets x Reps | % | kg | Notes |
-|------|-------------|---|----|-------|
-| 1 | 2x3 | 80% | 70 | Early technical reinforcement |
-| 3 | 2x3 | 85% | 75 | Last dedicated block before EMOM phase |
-| 2, 4 | -- alternated (posterior-chain fatigue management) | | | |
-| 5-8 | -- **CUT** | | | Removed during EMOM/cluster phase to honor Superset Rule (do not pair grip-heavy pulls back-to-back). The PC EMOM/cluster already saturates pulling stimulus. |
-| 9-10 | -- omitted / CUT | | | |
-
-*All sets: explosive extension ABOVE the knee; finish tall before elbows bend.*
-
-### Thursday Shoulder Support + Structural Maintenance
-| Week | Work |
-|------|------|
-| 1-4 | 2 sets: 12-15 Face Pulls + 8-10/side Landmine Press; Calf Raise 12/leg + Banded ER 12/side folded between; **Side Plank 20 s/side** |
-| 5-8 | Same structure; **Side Plank 30 s/side** |
-| 9 | 1-2 light sets: 12 Face Pulls + 8/side Landmine Press; Calf Raise + Banded ER; skip Side Plank |
-| 10 | 1-2 sets: 12 Face Pulls; Calf Raise + Banded ER folded between |
-
-### Wednesday Main-Lift Rest Targets
-| Week | Box Squat Rest | Secondary Bench Rest |
-|------|----------------|----------------------|
-| 1-6 | 2-2.5 min | 90-120 s |
-| 7-10 | 2.5-3 min | 2 min minimum |
-
-### Accessory Supersets
-| Day | Work |
-|-----|------|
-| Monday | Bench + Band Pull-Aparts as rest filler (15 reps, 1-second squeeze) + 1x8-10 Scap Push-Up Plus before first bench set; quality Ring Row sets (Wks 1-4), chest-to-rings holds + **Chest-Supported Row 1-2×10-12 @ 20-25 kg** (Wks 5-8, per Pulling-Balance Add-On Rule), or minimal DB Rows (Wks 9-10) |
-| Tuesday | Front Plank + Pallof Press or 90/90 breathing -> Rower Slider Hamstring Curls |
-| Friday | RDLs or Step-Ups + Chest-Supported Row (neutral grip, submaximal, technical) |
-
-### Note
-Detailed accessory progressions (Ring Pull-Ups, pull-support rows, L-sit, pike pulses, Pallof) are embedded in the weekly prescriptions above.
+- accumulation: EMOM doubles or singles
+- intensification: clusters and singles
+- realization: low-volume singles only
+
+### Squat
+
+- accumulation: heavy working set of 5-6 plus backoffs
+- intensification: heavy working set of 3-4 plus backoffs
+- realization: top set of 2-3 plus one backoff or no backoff
+
+## Decision Rules
+
+### Autoregulation Guardrails
+
+- stop the set when speed loss is obvious
+- stop the exercise when position quality drops twice in a row
+- reduce one slot, not the whole day, when symptoms rise
+- use backoff work to accumulate quality, not to prove toughness
+
+### Elbow Rule
+
+- if medial elbow symptoms rise above baseline during bench, switch the secondary press slot to neutral-grip dumbbell work
+- if heavy vertical pulling is the irritant, swap weighted pull-ups for chest-supported rowing that week
+- do not stack hard benching, hard chinning, and hard compression in the same session when symptoms are already elevated
+
+### Knee Rule
+
+- if front-loaded squat patterns aggravate the knee, use box squat or front-rack box squat before removing squat exposure entirely
+- if jumps or short accelerations irritate the knee, replace them with lower-volume seated jumps
+- if Friday squat quality drops, cut the hinge slot before cutting the main squat slot
+
+### Clean Rule
+
+- if turnover or rack quality drops twice in one session, move from doubles to singles
+- if singles are still slow, keep the clean as a primer and let squat strength carry the day
+- never let Wednesday clean fatigue ruin Friday squat readiness
+
+### Compression Rule
+
+- compression progresses only when bench and elbow status are stable
+- in hard weeks, maintain exposure rather than chasing range or duration PRs
+- maintenance means one set at current working capacity, not a progression attempt
+- realization uses one benchmark exposure and one low-fatigue touch only
+
+## Example Week Templates
+
+### Phase 1 Example Week
+
+- Monday: bench heavy working set of 6 plus 2 backoffs, ring pull-up, chest-supported row, short compression
+- Tuesday: easy aerobic base, trunk pair, hamstring support, tendon work
+- Wednesday: broad jump or 10-20 m acceleration sprint, power clean EMOM doubles, front squat or box squat, neutral-grip dumbbell bench
+- Thursday: easy cyclical recovery, cuff and scap circuit
+- Friday: jump or 10-20 m acceleration sprint, clean single primer, squat heavy working set of 6 plus 2 backoffs, RDL or single-leg RDL, short compression
+
+### Phase 2 Example Week
+
+- Monday: bench heavy working set of 4-5 plus 1-2 backoffs, weighted pull-up, row, very short compression
+- Tuesday: hardest interval day of the week, trunk stiffness, tendon work
+- Wednesday: seated jump or 10-20 m acceleration sprint, power clean clusters or crisp singles, pause squat or Anderson squat, paused bench
+- Thursday: very light recovery work, shoulder balance circuit only
+- Friday: jump or 10-20 m acceleration sprint, clean primer, squat heavy working set of 3-4 plus 1-2 backoffs, stiff-leg deadlift or Nordic eccentric, maintenance compression
+
+### Phase 3 Example Week
+
+- Monday: bench top set double or triple, one backoff, low-volume pull
+- Tuesday: easy aerobic maintenance and brief trunk work
+- Wednesday: jump or 10-20 m acceleration sprint, 3-5 quality clean singles, light secondary squat, light secondary press or none
+- Thursday: restoration only
+- Friday: jump or 10-20 m acceleration sprint, one clean primer single, squat top set double or triple, one hinge slot only if readiness supports it
+
+## Bottom Line
+
+Keep:
+
+- joint-aware sequencing
+- session time discipline
+- symptom guardrails
+
+Change:
+
+- stronger power emphasis
+- more rotation by movement family
+- sharper day identities
+- more autoregulated loading
+- less document complexity

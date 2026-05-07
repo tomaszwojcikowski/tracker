@@ -4,9 +4,9 @@
   "plan": {
     "id": "power-clean-bench-10-week",
     "name": "10-Week Strength & Conditioning (Power Clean / Bench)",
-    "description": "V2 athletic power-strength block for a 45-year-old with managed tennis elbow and goose-foot knee. Monday starts with bench strength, Wednesday and Friday open with jump or short acceleration work before clean and squat exposures, and Tue/Thu/Sun running work now supports 5k improvement without competing with the lifting days.",
+    "description": "V2 athletic power-strength plan for a 45-year-old with managed tennis elbow and goose-foot knee. This JSON packages one 10-week sample pass of a repeatable cycle: Monday starts with bench strength, Wednesday and Friday open with jump or short acceleration work before clean and squat exposures, and Tue/Thu/Sun running work uses Fartlek-based 5k development without competing with the lifting days.",
     "author": "Power Clean / Bench Plan",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "durationWeeks": 10,
     "goals": [
       "power-expression",
@@ -196,7 +196,7 @@
               }
             ],
             "notes": "4-5 min easy jog building gradually to the day's running pace. Use Bike or SkiErg only as a symptom-management fallback. Weeks 5-8 can ramp slightly harder; Weeks 9-10 stay restorative.",
-            "coachingNotes": "Use this to reach the first running interval pace smoothly, not abruptly. Tall posture, quiet footstrike, and relaxed shoulders."
+            "coachingNotes": "Use this to reach the first running surge smoothly, not abruptly. Tall posture, quiet footstrike, and relaxed shoulders."
           },
           {
             "exerciseName": "Hip 90/90 Switches",
@@ -1377,7 +1377,7 @@
       },
       {
         "id": "ex-run-conditioning-moderate",
-        "exerciseName": "Tempo Run / Cruise Intervals",
+        "exerciseName": "Introductory Fartlek",
         "category": "main",
         "sets": 1,
         "repsType": "time",
@@ -1385,12 +1385,12 @@
         "repsUnit": "seconds",
         "loadUnit": "bodyweight",
         "rpe": 7,
-        "notes": "Moderate 5k-support running session, RPE 6-7. Rough pace guide: 5:35-5:50/km. Use short tempo reps or cruise intervals depending on the week. Aim for controlled threshold work, not racing. Cool down 3-5 min easy.",
-        "coachingNotes": "Think comfortably hard: around current 5k pace plus 20-35 s/km. Hold even rhythm and relaxed shoulders. Because the run base is low, keep the work repeatable and leave one rep in the tank."
+        "notes": "Controlled Fartlek session for early 5k support, RPE 6-7. Use smooth surges and active easy jog recoveries rather than hard stop-start reps. Rough guide: easy jog around 5:55-6:25/km and surges around controlled 5k effort. Cool down 3-5 min easy.",
+        "coachingNotes": "Keep the whole run continuous. Surges should feel quick but relaxed, and the easy jog should be active enough that breathing stays honest without ruining the next rep. Because the run base is still low, finish feeling like you could complete one more surge with good mechanics."
       },
       {
         "id": "ex-run-conditioning-hard",
-        "exerciseName": "5k Intervals",
+        "exerciseName": "5k Fartlek Progression",
         "category": "main",
         "sets": 1,
         "repsType": "time",
@@ -1398,8 +1398,8 @@
         "repsUnit": "seconds",
         "loadUnit": "bodyweight",
         "rpe": 8,
-        "notes": "Phase 2 Tuesday: conservative 5k-focused interval work, RPE 7-8, using shorter reps at current 5k pace with full easy jog recovery. Rough pace guide: 5:08-5:15/km. Sits 72 h before Friday squats.",
-        "coachingNotes": "Run repeatable intervals near current 5k pace, about 5:08-5:15/km off a 26-minute best. The last rep should still look controlled. Keep recoveries easy, stay mechanically relaxed, and stop before the session turns into a leg-destroying race workout."
+        "notes": "Phase 2 Tuesday: 5k-focused Fartlek work, RPE 7-8, using repeatable surges near current 5k pace with active easy jog recovery. Rough surge pace guide: 5:08-5:15/km, with easy jog segments relaxed but still moving. Sits 72 h before Friday squats.",
+        "coachingNotes": "Keep the run continuous and the reps repeatable. Surge pace should look like controlled 5k running, not a race finish. Easy jog pace stays easy enough to restore posture and breathing, but never turns into standing rest. Stop before the session turns into a leg-destroying workout that bleeds into Friday."
       },
       {
         "id": "ex-run-conditioning-long",
@@ -1681,7 +1681,7 @@
       {
         "phaseNumber": 1,
         "name": "Phase 1: Accumulation and Athletic Base",
-        "description": "Rebuild tolerance, accumulate quality work, and establish jump/clean frequency while Monday starts with straight-bar bench and Wednesday/Friday begin to feel more athletic.",
+        "description": "Rebuild tolerance, accumulate quality work, and establish jump/clean frequency while Monday starts with straight-bar bench and Thursday introduces repeatable Fartlek rhythm.",
         "startWeek": 1,
         "endWeek": 3,
         "focus": "volume",
@@ -1842,14 +1842,14 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Tempo support run + shoulder balance",
+                "description": "Introductory Fartlek + shoulder balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
                     "$ref": "ex-run-conditioning-moderate",
-                    "notes": "Week 1: 6 x 1 min steady tempo at roughly 5:40-5:50/km, with 75 s walk-jog recovery."
+                    "notes": "Week 1: 6 x 1 min surge / 1 min easy jog. Keep surges around controlled 5k effort and easy jog recoveries active enough that the run stays continuous."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -2114,14 +2114,14 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Tempo support run + shoulder balance",
+                "description": "Introductory Fartlek + shoulder balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
                     "$ref": "ex-run-conditioning-moderate",
-                    "notes": "Week 2: 5 x 90 s steady tempo at roughly 5:35-5:45/km, with 90 s walk-jog recovery."
+                    "notes": "Week 2: 5 x 90 s surge / 90 s easy jog. Let the surges be smooth and upright rather than aggressive, and keep the easy jog recoveries moving."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -2393,14 +2393,14 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Tempo support run + shoulder balance",
+                "description": "Introductory Fartlek + shoulder balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
                     "$ref": "ex-run-conditioning-moderate",
-                    "notes": "Week 3: 3 x 4 min steady tempo at roughly 5:35-5:45/km, with 2 min easy jog between reps. Finish feeling controlled, not drained."
+                    "notes": "Week 3: 4 x 2 min surge / 90 s easy jog. Finish feeling more coordinated than tired, and keep the last rep as clean as the first."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -2521,7 +2521,7 @@
       {
         "phaseNumber": 2,
         "name": "Phase 2: Intensification and Power-Strength",
-        "description": "Raise force output without losing speed, trim nonessential volume, and make Wednesday and Friday clearly power-strength sessions.",
+        "description": "Raise force output without losing speed, trim nonessential volume, and make Tuesday the main 5k Fartlek day without stealing from Friday.",
         "startWeek": 4,
         "endWeek": 7,
         "focus": "intensity",
@@ -2589,14 +2589,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "5k interval run + trunk stiffness and tendon work",
+                "description": "5k Fartlek run + trunk stiffness and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-run-conditioning-hard",
-                    "notes": "Week 4: 6 x 400 m at about 5:10-5:15/km pace, with 200 m walk-jog recovery. Repeatable splits only; stop before Friday is compromised."
+                    "notes": "Week 4: 6 x 1 min hard / 1 min easy jog. Run the hard minutes around current 5k effort and keep the easy jog active enough that the run never fully resets."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2868,14 +2868,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "5k interval run + trunk stiffness and tendon work",
+                "description": "5k Fartlek run + trunk stiffness and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-run-conditioning-hard",
-                    "notes": "Week 5: 5 x 500 m at about 5:10-5:15/km pace, with 200 m walk-jog recovery. Stop if the final rep turns into a grind."
+                    "notes": "Week 5: 5 x 2 min hard / 90 s easy jog. The final rep should still look like running, not survival."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -3139,14 +3139,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "5k interval run + trunk stiffness and tendon work",
+                "description": "5k Fartlek run + trunk stiffness and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-run-conditioning-hard",
-                    "notes": "Week 6: 4 x 600 m at about 5:10-5:15/km pace, with 200 m walk-jog recovery. Keep every rep within a narrow pace band."
+                    "notes": "Week 6: 4 x 3 min hard / 2 min easy jog. Stay tall on the last minute of each surge and use the easy jog to recover without shuffling."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -3417,14 +3417,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "5k interval run + trunk stiffness and tendon work",
+                "description": "5k Fartlek run + trunk stiffness and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-run-conditioning-hard",
-                    "notes": "Week 7: 6 x 300 m at around 5k pace or very slightly faster, with 200 m walk-jog recovery. Keep it fast but smooth, not lactic."
+                    "notes": "Week 7: 10 x 30 s fast / 60 s easy jog. Keep it sharp and springy rather than lactic so Friday still has legs."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -3630,7 +3630,7 @@
       {
         "phaseNumber": 3,
         "name": "Phase 3: Realization and Consolidation",
-        "description": "Express performance with lower fatigue, preserve athletic sharpness, and keep only the assistance that helps the main lifts stay crisp.",
+        "description": "Express performance with lower fatigue, preserve athletic sharpness, use low-dose Fartlek sharpening, and set up the next accumulation pass.",
         "startWeek": 8,
         "endWeek": 10,
         "focus": "technique",
@@ -3698,14 +3698,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Easy maintenance run + trunk and tendon work",
+                "description": "Short sharpening run + trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-run-conditioning-easy",
-                    "notes": "Week 8: 14 min easy run, then 3 x 15 s relaxed strides. Restore rhythm, do not accumulate fatigue."
+                    "notes": "Week 8: 12-14 min easy run including 4 x 30 s fast / 60 s easy jog if fresh; otherwise use 3 x 15 s relaxed strides only. Restore rhythm, do not accumulate fatigue."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -3970,14 +3970,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Easy maintenance run + trunk and tendon work",
+                "description": "Short sharpening run + trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-run-conditioning-easy",
-                    "notes": "Week 9: 12 min easy run, then 3 x 15 s relaxed strides. Finish feeling springy, not trained down."
+                    "notes": "Week 9: 10-12 min easy run including 4 x 20 s fast / 60 s easy jog if fresh. Finish feeling springy, not trained down."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -4245,14 +4245,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Easy maintenance run + trunk and tendon work",
+                "description": "Short sharpening run + trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
                     "$ref": "ex-run-conditioning-easy",
-                    "notes": "Week 10: 10-12 min easy run, then 3 x 15 s relaxed strides. This is a tune-up, not training stress."
+                    "notes": "Week 10: 10-12 min easy run including 3 x 20 s fast / 60 s easy jog or 3 relaxed strides. This is a tune-up, not training stress."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -4428,7 +4428,7 @@
                 "exercises": [
                   {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 10: 18 min long easy run at roughly 6:45-7:20/km. Stop early if the legs feel flat; this is only to preserve rhythm."
+                    "notes": "Week 10: 18 min long easy run at roughly 6:45-7:20/km. Stop early if the legs feel flat; this is only to preserve rhythm before restarting accumulation with a small progression."
                   }
                 ]
               }
@@ -4437,6 +4437,6 @@
         ]
       }
     ],
-    "lastModified": "2026-05-06"
+    "lastModified": "2026-05-07"
   }
 }

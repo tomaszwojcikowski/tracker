@@ -174,17 +174,27 @@ Session order:
 
 ## Phase Model
 
-V2 uses a 3 plus 4 plus 3 structure:
+V2 does not need to end in 10 weeks.
 
-- Weeks 1-3: accumulation and athletic base
-- Weeks 4-7: intensification and power-strength
-- Weeks 8-10: realization and consolidation
+Instead, it uses a repeatable three-phase cycle:
 
-This creates a visible build, a visible narrowing, and a visible taper into the final weeks.
+- accumulation and athletic base
+- intensification and power-strength
+- realization and consolidation
+
+The point is not to force a fixed finish line. The point is to keep moving through build, specificity, and resensitization without letting fatigue or monotony take over.
+
+Suggested phase lengths:
+
+- accumulation: 2-4 weeks
+- intensification: 2-4 weeks
+- realization: 1-2 weeks
+
+Most lifters will run the phases by readiness rather than by calendar. When bar speed, recovery, or joint status stalls, move forward to the next phase. After realization, recycle back into accumulation with slightly better exercise choices, slightly better loads, or slightly better running tolerance.
 
 ## Phase 1: Accumulation and Athletic Base
 
-**Weeks:** 1-3
+**Suggested duration:** 2-4 weeks
 
 Primary aim:
 
@@ -208,9 +218,9 @@ Main lift formats:
 
 Weekly intent:
 
-- Week 1: establish exercise choices, conservative heavy working sets, and symptom-free rhythm
-- Week 2: add one small step in load or reps while keeping bar speed high
-- Week 3: highest Phase 1 workload, but still one step short of grindy fatigue
+- establish exercise choices, conservative heavy working sets, and symptom-free rhythm
+- add small steps in load, reps, or running duration while keeping bar speed high
+- leave the phase once the work feels established and productive, not after forcing fatigue for its own sake
 
 Recommended secondary rotations:
 
@@ -221,7 +231,7 @@ Recommended secondary rotations:
 
 ## Phase 2: Intensification and Power-Strength
 
-**Weeks:** 4-7
+**Suggested duration:** 2-4 weeks
 
 Primary aim:
 
@@ -245,10 +255,10 @@ Main lift formats:
 
 Weekly intent:
 
-- Week 4: transition from base work to heavier but still snappy efforts
-- Week 5: hardest combined workload week for upper and lower strength
-- Week 6: maintain or slightly raise intensity while trimming nonessential assistance
-- Week 7: keep intensity, reduce clutter, and set up realization instead of forcing one more overload week
+- transition from base work to heavier but still snappy efforts
+- push the hardest combined strength and Fartlek workload only while recovery stays acceptable
+- trim nonessential assistance before cutting the main lifts or the core conditioning signal
+- leave the phase when intensity is high enough that more loading would likely reduce speed, quality, or joint tolerance
 
 Recommended secondary rotations:
 
@@ -259,7 +269,7 @@ Recommended secondary rotations:
 
 ## Phase 3: Realization and Consolidation
 
-**Weeks:** 8-10
+**Suggested duration:** 1-2 weeks
 
 Primary aim:
 
@@ -283,9 +293,9 @@ Main lift formats:
 
 Weekly intent:
 
-- Week 8: first realization week, with lower volume but normal intent
-- Week 9: taper and deload the assistance hard while preserving speed
-- Week 10: express performance, then shut the session down before fatigue turns the week into testing theater
+- reduce volume while preserving bar speed, clean sharpness, and useful running rhythm
+- use the phase to express progress, confirm that the work transferred, and reduce accumulated fatigue
+- recycle back to accumulation before the phase turns into peaking theater or stale maintenance
 
 Recommended secondary rotations:
 
@@ -367,26 +377,48 @@ Conditioning now biases running so the block can build 5k fitness without turnin
 
 The current running dose is intentionally conservative because the starting point is about 3 km per week with a 26-minute 5k best.
 
-Conditioning uses three modes plus one standing weekly aerobic anchor:
+Conditioning uses Fartlek as the main 5k-development method plus one standing weekly aerobic anchor.
 
-- accumulation: easy aerobic running plus one moderate tempo or cruise-interval session
-- intensification: one hard 5k-pace interval day, one very light recovery run
-- realization: aerobic maintenance only
+The reason for that choice is simple:
+
+- Fartlek keeps the work continuous, which fits the fatigue-management goals of this block better than stop-start track sessions
+- Fartlek teaches pace changes and recovery under motion, which matters for a 5k more than sterile interval execution
+- Fartlek is easier to scale around elbow, knee, and Friday squat readiness because effort can be adjusted by feel, terrain, and recovery jog pace
+
+Conditioning uses three Fartlek modes plus one standing weekly aerobic anchor:
+
+- accumulation: easy aerobic running plus one controlled introductory Fartlek session
+- intensification: one more assertive 5k-focused Fartlek session, one very light recovery run
+- realization: one short sharpening Fartlek or stride-based maintenance touch, depending on fatigue
 - Sunday every week: one easy long run to slowly raise running durability without stealing from the barbell work
 
 Suggested pace guide from a 26:00 5k:
 
 - easy and long runs: roughly 6:40-7:20/km
 - recovery shuffle: roughly 6:50-7:30/km
-- tempo or cruise work: roughly 5:35-5:50/km
-- 5k intervals: roughly 5:08-5:15/km
+- Fartlek easy jog segments: roughly 5:55-6:25/km in accumulation, then 5:40-6:05/km when fitness allows
+- Fartlek surge segments: roughly 5k pace to slightly faster, usually about 5:00-5:15/km, but controlled by posture and repeatability rather than pace-chasing
 - strides: fast and relaxed, not timed
 
-Weekly running shape:
+Weekly running shape by phase:
 
-- Weeks 1-3: Tuesday easy runs build only from 12 to 16 minutes with relaxed strides; Thursday uses short tempo reps instead of long continuous work; Sunday long run builds from 16 to 20 minutes
-- Weeks 4-7: Tuesday becomes the main 5k workout, but with conservative rep lengths: `6 x 400 m`, `5 x 500 m`, `4 x 600 m`, then `6 x 300 m`; Thursday is short recovery jogging only; Sunday long run builds from 22 to 26 minutes before trimming back to 24
-- Weeks 8-10: Tuesday keeps a short easy run plus a few strides; Thursday is a very short restoration jog or walk only; Sunday tapers from 22 to 18 minutes
+- accumulation: Tuesday easy runs build only from 12 to 16 minutes with relaxed strides; Thursday uses short introductory Fartlek blocks such as `6-8 x 1 minute on / 1 minute easy jog` or `8-10 x 30 seconds surge / 60 seconds easy jog`; Sunday long run builds from 16 to 20 minutes
+- intensification: Tuesday becomes the main 5k workout through structured Fartlek progressions such as `6 x 1 minute hard / 1 minute easy jog`, `5 x 2 minutes hard / 90 seconds easy jog`, `4 x 3 minutes hard / 2 minutes easy jog`, then a lighter `10 x 30 seconds fast / 60 seconds easy jog`; Thursday is short recovery jogging only; Sunday long run usually sits around 22 to 26 minutes before a lighter week
+- realization: Tuesday keeps a short sharpening Fartlek such as `6 x 30 seconds fast / 60 seconds easy jog` or `4 x 1 minute at 5k feel / 90 seconds easy jog`; Thursday is a very short restoration jog or walk only; Sunday trims back toward 18 to 22 minutes
+
+How to keep progressing without a fixed endpoint:
+
+- when a Fartlek format feels fully owned, progress one variable only: one extra rep, a slightly faster easy jog, a slightly longer surge, or a slightly longer easy run
+- every third or fourth week can be lighter if the squat and clean work are pushing hard
+- once realization feels crisp rather than strained, restart accumulation with a slightly higher baseline than the previous cycle
+- progress 5k fitness by repeating high-quality Fartlek exposure over many cycles, not by forcing a single dramatic peak
+
+Suggested Fartlek guardrails:
+
+- surge pace should stay smooth enough that posture, arm action, and footstrike remain clean
+- easy jog pace should be active enough to keep the run continuous, but easy enough that the next surge is still high quality
+- when the legs are flat from lifting, shorten the surge before slowing the easy jog
+- when the knee is irritated, use flatter routes and keep the session to shorter surges instead of longer grinding efforts
 
 What does not return:
 
@@ -455,14 +487,14 @@ What does not return:
 - Monday: bench heavy working set of 6 plus 2 backoffs, ring pull-up, chest-supported row, short compression
 - Tuesday: 12 min easy run plus 4 relaxed strides, trunk pair, hamstring support, tendon work
 - Wednesday: broad jump or 10-20 m acceleration sprint, power clean EMOM doubles, front squat or box squat, neutral-grip dumbbell bench
-- Thursday: short tempo reps at controlled threshold pace, cuff and scap circuit
+- Thursday: short introductory Fartlek such as `6 x 1 minute on / 1 minute easy jog`, cuff and scap circuit
 - Friday: jump or 10-20 m acceleration sprint, clean single primer, squat heavy working set of 6 plus 2 backoffs, RDL or single-leg RDL, short compression
 - Sunday: 16-20 min long easy run at conversational pace, keeping the knee calm and the effort clearly aerobic
 
 ### Phase 2 Example Week
 
 - Monday: bench heavy working set of 4-5 plus 1-2 backoffs, weighted pull-up, row, very short compression
-- Tuesday: hardest 5k interval day of the week, but still capped at short, repeatable reps, plus trunk stiffness and tendon work
+- Tuesday: main 5k Fartlek day of the week, using controlled surges and active easy jogs, plus trunk stiffness and tendon work
 - Wednesday: seated jump or 10-20 m acceleration sprint, power clean clusters or crisp singles, pause squat or Anderson squat, paused bench
 - Thursday: very light recovery jog, shoulder balance circuit only
 - Friday: jump or 10-20 m acceleration sprint, clean primer, squat heavy working set of 3-4 plus 1-2 backoffs, stiff-leg deadlift or Nordic eccentric, maintenance compression
@@ -471,11 +503,13 @@ What does not return:
 ### Phase 3 Example Week
 
 - Monday: bench top set double or triple, one backoff, low-volume pull
-- Tuesday: very short easy maintenance run plus a few strides and brief trunk work
+- Tuesday: very short sharpening Fartlek or easy run plus a few strides, depending on fatigue, with brief trunk work
 - Wednesday: jump or 10-20 m acceleration sprint, 3-5 quality clean singles, light secondary squat, light secondary press or none
 - Thursday: very short restoration jog or brisk walk only
 - Friday: jump or 10-20 m acceleration sprint, one clean primer single, squat top set double or triple, one hinge slot only if readiness supports it
 - Sunday: 18-22 min long easy run, purely to preserve aerobic rhythm while fatigue stays low
+
+After Phase 3, return to Phase 1 with the next small progression rather than treating the cycle as finished.
 
 ## Bottom Line
 

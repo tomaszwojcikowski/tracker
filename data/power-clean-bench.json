@@ -4,7 +4,7 @@
   "plan": {
     "id": "power-clean-bench-10-week",
     "name": "10-Week Strength & Conditioning (Power Clean / Bench)",
-    "description": "V2 athletic power-strength block for a 45-year-old with managed tennis elbow and goose-foot knee. Monday starts with bench strength, Wednesday and Friday open with jump or short acceleration work before clean and squat exposures, and Tue/Thu conditioning supports recovery instead of competing with the lifting days.",
+    "description": "V2 athletic power-strength block for a 45-year-old with managed tennis elbow and goose-foot knee. Monday starts with bench strength, Wednesday and Friday open with jump or short acceleration work before clean and squat exposures, and Tue/Thu/Sun running work now supports 5k improvement without competing with the lifting days.",
     "author": "Power Clean / Bench Plan",
     "version": "2.0.0",
     "durationWeeks": 10,
@@ -29,8 +29,8 @@
       "landmine",
       "resistance-bands",
       "rower",
-      "assault-bike",
-      "skierg"
+      "running-shoes",
+      "outdoor-space"
     ],
     "routineTemplates": [
       {
@@ -174,7 +174,7 @@
         "name": "Tuesday Warm-Up",
         "exercises": [
           {
-            "exerciseName": "Easy Row",
+            "exerciseName": "Easy Jog",
             "category": "warmup",
             "sets": 1,
             "repsType": "time",
@@ -183,8 +183,8 @@
             "loadUnit": "bodyweight",
             "exerciseOptions": [
               {
-                "optionName": "Row",
-                "exerciseName": "Easy Row"
+                "optionName": "Jog",
+                "exerciseName": "Easy Jog"
               },
               {
                 "optionName": "Bike",
@@ -195,8 +195,8 @@
                 "exerciseName": "Easy SkiErg"
               }
             ],
-            "notes": "4-5 min easy row, Bike, or SkiErg building gradually to the day's conditioning pace. Weeks 5-8 can ramp slightly harder; Weeks 9-10 stay restorative.",
-            "coachingNotes": "Use this to reach the first working interval pace smoothly, not abruptly."
+            "notes": "4-5 min easy jog building gradually to the day's running pace. Use Bike or SkiErg only as a symptom-management fallback. Weeks 5-8 can ramp slightly harder; Weeks 9-10 stay restorative.",
+            "coachingNotes": "Use this to reach the first running interval pace smoothly, not abruptly. Tall posture, quiet footstrike, and relaxed shoulders."
           },
           {
             "exerciseName": "Hip 90/90 Switches",
@@ -502,7 +502,7 @@
         "name": "Thursday Warm-Up",
         "exercises": [
           {
-            "exerciseName": "Easy Bike",
+            "exerciseName": "Easy Jog",
             "category": "warmup",
             "sets": 1,
             "repsType": "time",
@@ -511,8 +511,8 @@
             "loadUnit": "bodyweight",
             "exerciseOptions": [
               {
-                "optionName": "Bike",
-                "exerciseName": "Easy Bike"
+                "optionName": "Jog",
+                "exerciseName": "Easy Jog"
               },
               {
                 "optionName": "SkiErg",
@@ -523,8 +523,8 @@
                 "exerciseName": "Easy Row"
               }
             ],
-            "notes": "3-5 min easy heat. In Weeks 6-8, keep this short if Thursday conditioning is removed.",
-            "coachingNotes": "Just enough aerobic work to warm the joints. Do not create fatigue on the day before or near Friday squats."
+            "notes": "3-5 min easy jog to warm the joints. In Weeks 6-8, keep this short if Thursday conditioning is removed. Use SkiErg or Row only if running would irritate the knee.",
+            "coachingNotes": "Just enough easy running to warm the joints and find rhythm. Do not create fatigue on the day before or near Friday squats."
           },
           {
             "exerciseName": "Scapular CARs",
@@ -1363,8 +1363,47 @@
         "coachingNotes": "Stand tall holding a very light load. Tuck the chin and slowly articulate one spinal segment at a time as you roll down, then reverse the motion from the pelvis up. Keep the load light enough that the rep stays smooth and restorative rather than straining."
       },
       {
-        "id": "ex-row-conditioning-easy",
-        "exerciseName": "Row / Bike / SkiErg (Z1-Z2 Steady)",
+        "id": "ex-run-conditioning-easy",
+        "exerciseName": "Easy Run (Z1-Z2 Steady)",
+        "category": "main",
+        "sets": 1,
+        "repsType": "time",
+        "repsValue": 1200,
+        "repsUnit": "seconds",
+        "loadUnit": "bodyweight",
+        "rpe": 5,
+        "notes": "Easy aerobic run for a conservative 5k build, RPE 5-6. Rough pace guide: 6:40-7:20/km. Warm up 5-10 min easy + dynamic mobility. Cool down 3 min easy walk or jog. Use Bike or SkiErg only if the knee is not happy with running that day.",
+        "coachingNotes": "Conversational pace only. Given the low current run volume, finish feeling undertrained rather than accomplished. Run tall, keep cadence light, and shut it down if the calves, Achilles, or knee start to complain. If you need to run slower than 7:20/km to stay easy, do that."
+      },
+      {
+        "id": "ex-run-conditioning-moderate",
+        "exerciseName": "Tempo Run / Cruise Intervals",
+        "category": "main",
+        "sets": 1,
+        "repsType": "time",
+        "repsValue": 900,
+        "repsUnit": "seconds",
+        "loadUnit": "bodyweight",
+        "rpe": 7,
+        "notes": "Moderate 5k-support running session, RPE 6-7. Rough pace guide: 5:35-5:50/km. Use short tempo reps or cruise intervals depending on the week. Aim for controlled threshold work, not racing. Cool down 3-5 min easy.",
+        "coachingNotes": "Think comfortably hard: around current 5k pace plus 20-35 s/km. Hold even rhythm and relaxed shoulders. Because the run base is low, keep the work repeatable and leave one rep in the tank."
+      },
+      {
+        "id": "ex-run-conditioning-hard",
+        "exerciseName": "5k Intervals",
+        "category": "main",
+        "sets": 1,
+        "repsType": "time",
+        "repsValue": 1200,
+        "repsUnit": "seconds",
+        "loadUnit": "bodyweight",
+        "rpe": 8,
+        "notes": "Phase 2 Tuesday: conservative 5k-focused interval work, RPE 7-8, using shorter reps at current 5k pace with full easy jog recovery. Rough pace guide: 5:08-5:15/km. Sits 72 h before Friday squats.",
+        "coachingNotes": "Run repeatable intervals near current 5k pace, about 5:08-5:15/km off a 26-minute best. The last rep should still look controlled. Keep recoveries easy, stay mechanically relaxed, and stop before the session turns into a leg-destroying race workout."
+      },
+      {
+        "id": "ex-run-conditioning-long",
+        "exerciseName": "Sunday Long Easy Run",
         "category": "main",
         "sets": 1,
         "repsType": "time",
@@ -1372,34 +1411,8 @@
         "repsUnit": "seconds",
         "loadUnit": "bodyweight",
         "rpe": 5,
-        "notes": "Lower-intensity technique row, RPE 5-6. Warm up 5-10 min easy + dynamic mobility. Cool down 3 min easy. Sub Bike or SkiErg if elbow/knee not 100%.",
-        "coachingNotes": "Easy aerobic effort: nasal-only breathing or full conversational pace. Long stroke, full slide, no rushing the recovery. Rower split should feel \"I could do this for 60 min.\" If form gets sloppy or the heart rate drifts above Z2, slow down."
-      },
-      {
-        "id": "ex-row-conditioning-moderate",
-        "exerciseName": "Row / Bike / SkiErg (Moderate Intervals)",
-        "category": "main",
-        "sets": 1,
-        "repsType": "time",
-        "repsValue": 1500,
-        "repsUnit": "seconds",
-        "loadUnit": "bodyweight",
-        "rpe": 7,
-        "notes": "Per Tuesday/Thursday rowing-schedule table for the week. Stay consistent on splits. Cool down 3 min easy.",
-        "coachingNotes": "Hold target splits exactly per the week's rowing table — RPE 6-7. Strong leg drive, deliberate finish, controlled recovery. If splits drift more than ~5 s/500 m off target, cut the interval rather than grind through bad strokes."
-      },
-      {
-        "id": "ex-row-conditioning-hard",
-        "exerciseName": "Row / Bike / SkiErg (Hard Intervals)",
-        "category": "main",
-        "sets": 1,
-        "repsType": "time",
-        "repsValue": 1800,
-        "repsUnit": "seconds",
-        "loadUnit": "bodyweight",
-        "rpe": 8,
-        "notes": "Phase 2 Tuesday: 1,000 m / interval work, RPE 7-8. Sits 72 h before Friday squats.",
-        "coachingNotes": "High-intensity intervals at RPE 7-8. Aim for repeatable splits across all reps; the last interval should not be slower than the first by more than ~2 s/500 m. Full recovery between reps. Stops 72 h before Friday squats, so don't bury yourself."
+        "notes": "Easy long run for aerobic durability, RPE 5-6. Rough pace guide: 6:45-7:25/km. Keep it relaxed enough that you could breathe through your nose for most of the run.",
+        "coachingNotes": "This is not a workout. Stay tall, keep cadence light, and protect the knee by shortening the stride before the pace creeps up. Walk 30-60 seconds if needed rather than forcing continuous running when the base is still low."
       },
       {
         "id": "ex-front-plank",
@@ -1736,14 +1749,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Easy aerobic base + trunk and tendon work",
+                "description": "Easy aerobic run + trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 1 easy aerobic base. Conversational pace, 18-24 minutes total."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 1: 12 min easy run at conversational pace, then 4 x 15 s relaxed strides with full walk-back recovery."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -1829,14 +1842,14 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Moderate support work + shoulder balance",
+                "description": "Tempo support run + shoulder balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-moderate",
-                    "notes": "Week 1 moderate aerobic/tempo work. Keep it supportive, not competitive with Friday."
+                    "$ref": "ex-run-conditioning-moderate",
+                    "notes": "Week 1: 6 x 1 min steady tempo at roughly 5:40-5:50/km, with 75 s walk-jog recovery."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -1936,6 +1949,19 @@
                     "$routine": "cooldown-friday"
                   }
                 ]
+              },
+              {
+                "dayNumber": 7,
+                "name": "Sunday — Long Easy Run",
+                "type": "cardio",
+                "estimatedDuration": 25,
+                "description": "Long easy run for aerobic durability",
+                "exercises": [
+                  {
+                    "$ref": "ex-run-conditioning-long",
+                    "notes": "Week 1: 16 min long easy run at roughly 6:45-7:25/km. Walk 30-60 s once midway if needed to keep it smooth."
+                  }
+                ]
               }
             ]
           },
@@ -2002,14 +2028,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Easy aerobic base + trunk and tendon work",
+                "description": "Easy aerobic run + trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 2 easy aerobic base. Conversational pace, 18-24 minutes total."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 2: 14 min easy run at conversational pace, then 4 x 15 s relaxed strides with full walk-back recovery."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2088,14 +2114,14 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Moderate support work + shoulder balance",
+                "description": "Tempo support run + shoulder balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-moderate",
-                    "notes": "Week 2 moderate aerobic/tempo work. Keep it supportive, not competitive with Friday."
+                    "$ref": "ex-run-conditioning-moderate",
+                    "notes": "Week 2: 5 x 90 s steady tempo at roughly 5:35-5:45/km, with 90 s walk-jog recovery."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -2195,6 +2221,19 @@
                     "$routine": "cooldown-friday"
                   }
                 ]
+              },
+              {
+                "dayNumber": 7,
+                "name": "Sunday — Long Easy Run",
+                "type": "cardio",
+                "estimatedDuration": 25,
+                "description": "Long easy run for aerobic durability",
+                "exercises": [
+                  {
+                    "$ref": "ex-run-conditioning-long",
+                    "notes": "Week 2: 18 min long easy run at roughly 6:45-7:25/km. Stay relaxed and keep the stride short."
+                  }
+                ]
               }
             ]
           },
@@ -2261,14 +2300,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Easy aerobic base + trunk and tendon work",
+                "description": "Easy aerobic run + trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 3 easy aerobic base. Conversational pace, 18-24 minutes total."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 3: 16 min easy run at conversational pace, then 4 x 15-20 s relaxed strides with full walk-back recovery."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2354,14 +2393,14 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Moderate support work + shoulder balance",
+                "description": "Tempo support run + shoulder balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-moderate",
-                    "notes": "Week 3 moderate aerobic/tempo work. Keep it supportive, not competitive with Friday."
+                    "$ref": "ex-run-conditioning-moderate",
+                    "notes": "Week 3: 3 x 4 min steady tempo at roughly 5:35-5:45/km, with 2 min easy jog between reps. Finish feeling controlled, not drained."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -2461,6 +2500,19 @@
                     "$routine": "cooldown-friday"
                   }
                 ]
+              },
+              {
+                "dayNumber": 7,
+                "name": "Sunday — Long Easy Run",
+                "type": "cardio",
+                "estimatedDuration": 30,
+                "description": "Long easy run for aerobic durability",
+                "exercises": [
+                  {
+                    "$ref": "ex-run-conditioning-long",
+                    "notes": "Week 3: 20 min long easy run at roughly 6:45-7:20/km. Finish with enough left to run 5 more minutes if you had to."
+                  }
+                ]
               }
             ]
           }
@@ -2537,14 +2589,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Hard conditioning + trunk stiffness and tendon work",
+                "description": "5k interval run + trunk stiffness and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-hard",
-                    "notes": "Week 4 hard interval day. Repeatable splits only; stop before Friday is compromised."
+                    "$ref": "ex-run-conditioning-hard",
+                    "notes": "Week 4: 6 x 400 m at about 5:10-5:15/km pace, with 200 m walk-jog recovery. Repeatable splits only; stop before Friday is compromised."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2630,14 +2682,14 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Light restoration + structural balance",
+                "description": "Recovery jog + structural balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 4 very light recovery work only. Get blood flow, then move on."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 4: 12 min recovery jog only. Keep it easy enough that the legs feel better at the end than at the start."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -2737,6 +2789,19 @@
                     "$routine": "cooldown-friday"
                   }
                 ]
+              },
+              {
+                "dayNumber": 7,
+                "name": "Sunday — Long Easy Run",
+                "type": "cardio",
+                "estimatedDuration": 30,
+                "description": "Long easy run for aerobic durability",
+                "exercises": [
+                  {
+                    "$ref": "ex-run-conditioning-long",
+                    "notes": "Week 4: 22 min long easy run at roughly 6:45-7:20/km. Keep the effort easy enough that Tuesday still feels recoverable."
+                  }
+                ]
               }
             ]
           },
@@ -2803,14 +2868,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Hard conditioning + trunk stiffness and tendon work",
+                "description": "5k interval run + trunk stiffness and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-hard",
-                    "notes": "Week 5 hard interval day. Repeatable splits only; stop before Friday is compromised."
+                    "$ref": "ex-run-conditioning-hard",
+                    "notes": "Week 5: 5 x 500 m at about 5:10-5:15/km pace, with 200 m walk-jog recovery. Stop if the final rep turns into a grind."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2889,14 +2954,14 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Light restoration + structural balance",
+                "description": "Recovery jog + structural balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 5 very light recovery work only. Get blood flow, then move on."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 5: 14 min recovery jog only. No strides, no pace targets, just blood flow."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -2995,6 +3060,19 @@
                     "$routine": "cooldown-friday"
                   }
                 ]
+              },
+              {
+                "dayNumber": 7,
+                "name": "Sunday — Long Easy Run",
+                "type": "cardio",
+                "estimatedDuration": 35,
+                "description": "Long easy run for aerobic durability",
+                "exercises": [
+                  {
+                    "$ref": "ex-run-conditioning-long",
+                    "notes": "Week 5: 24 min long easy run at roughly 6:45-7:20/km. If the legs feel beat up, split it into 2 x 12 min with 1 min walk between."
+                  }
+                ]
               }
             ]
           },
@@ -3061,14 +3139,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Hard conditioning + trunk stiffness and tendon work",
+                "description": "5k interval run + trunk stiffness and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-hard",
-                    "notes": "Week 6 hard interval day. Repeatable splits only; stop before Friday is compromised."
+                    "$ref": "ex-run-conditioning-hard",
+                    "notes": "Week 6: 4 x 600 m at about 5:10-5:15/km pace, with 200 m walk-jog recovery. Keep every rep within a narrow pace band."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -3154,14 +3232,14 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Light restoration + structural balance",
+                "description": "Recovery jog + structural balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 6 very light recovery work only. Get blood flow, then move on."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 6: 15 min recovery jog, then 3 x 15 s relaxed strides only if the legs feel snappy."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -3260,6 +3338,19 @@
                     "$routine": "cooldown-friday"
                   }
                 ]
+              },
+              {
+                "dayNumber": 7,
+                "name": "Sunday — Long Easy Run",
+                "type": "cardio",
+                "estimatedDuration": 35,
+                "description": "Long easy run for aerobic durability",
+                "exercises": [
+                  {
+                    "$ref": "ex-run-conditioning-long",
+                    "notes": "Week 6: 26 min long easy run at roughly 6:45-7:20/km. This is the longest run in the block; do not turn it into steady-state work."
+                  }
+                ]
               }
             ]
           },
@@ -3326,14 +3417,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Hard conditioning + trunk stiffness and tendon work",
+                "description": "5k interval run + trunk stiffness and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-hard",
-                    "notes": "Week 7 hard interval day. Repeatable splits only; stop before Friday is compromised."
+                    "$ref": "ex-run-conditioning-hard",
+                    "notes": "Week 7: 6 x 300 m at around 5k pace or very slightly faster, with 200 m walk-jog recovery. Keep it fast but smooth, not lactic."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -3412,14 +3503,14 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Light restoration + structural balance",
+                "description": "Recovery jog + structural balance",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 7 very light recovery work only. Get blood flow, then move on."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 7: 12 min recovery jog only. Short and easy to set up realization."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -3518,6 +3609,19 @@
                     "$routine": "cooldown-friday"
                   }
                 ]
+              },
+              {
+                "dayNumber": 7,
+                "name": "Sunday — Long Easy Run",
+                "type": "cardio",
+                "estimatedDuration": 30,
+                "description": "Long easy run for aerobic durability",
+                "exercises": [
+                  {
+                    "$ref": "ex-run-conditioning-long",
+                    "notes": "Week 7: 24 min long easy run at roughly 6:45-7:20/km. Trim it by a few minutes if Tuesday's sharper reps linger in the legs."
+                  }
+                ]
               }
             ]
           }
@@ -3594,14 +3698,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Easy aerobic maintenance + trunk and tendon work",
+                "description": "Easy maintenance run + trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 8 aerobic maintenance only. Restore, do not accumulate fatigue."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 8: 14 min easy run, then 3 x 15 s relaxed strides. Restore rhythm, do not accumulate fatigue."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -3680,14 +3784,14 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Restoration only",
+                "description": "Easy restoration jog",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 8 restoration only."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 8: 10-12 min easy restoration jog or brisk walk if the knee feels beat up."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -3787,6 +3891,19 @@
                     "$routine": "cooldown-friday"
                   }
                 ]
+              },
+              {
+                "dayNumber": 7,
+                "name": "Sunday — Long Easy Run",
+                "type": "cardio",
+                "estimatedDuration": 30,
+                "description": "Long easy run for aerobic durability",
+                "exercises": [
+                  {
+                    "$ref": "ex-run-conditioning-long",
+                    "notes": "Week 8: 22 min long easy run at roughly 6:45-7:20/km. Keep it calm and rhythmic."
+                  }
+                ]
               }
             ]
           },
@@ -3853,14 +3970,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Easy aerobic maintenance + trunk and tendon work",
+                "description": "Easy maintenance run + trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 9 aerobic maintenance only. Restore, do not accumulate fatigue."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 9: 12 min easy run, then 3 x 15 s relaxed strides. Finish feeling springy, not trained down."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -3948,14 +4065,14 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Restoration only",
+                "description": "Easy restoration jog",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 9 restoration only."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 9: 10 min easy restoration jog only. Cut it shorter if Friday squat speed needs help."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -4049,6 +4166,19 @@
                     "$routine": "cooldown-friday"
                   }
                 ]
+              },
+              {
+                "dayNumber": 7,
+                "name": "Sunday — Long Easy Run",
+                "type": "cardio",
+                "estimatedDuration": 25,
+                "description": "Long easy run for aerobic durability",
+                "exercises": [
+                  {
+                    "$ref": "ex-run-conditioning-long",
+                    "notes": "Week 9: 20 min long easy run at roughly 6:45-7:20/km. Keep the taper feel; this should not leave residual fatigue."
+                  }
+                ]
               }
             ]
           },
@@ -4115,14 +4245,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Easy aerobic maintenance + trunk and tendon work",
+                "description": "Easy maintenance run + trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 10 aerobic maintenance only. Restore, do not accumulate fatigue."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 10: 10-12 min easy run, then 3 x 15 s relaxed strides. This is a tune-up, not training stress."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -4195,14 +4325,14 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Restoration only",
+                "description": "Easy restoration jog",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-row-conditioning-easy",
-                    "notes": "Week 10 restoration only."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 10: 8-10 min easy restoration jog or brisk walk only. Stop while the legs still feel fresh."
                   },
                   {
                     "$ref": "ex-face-pulls",
@@ -4286,6 +4416,19 @@
                   },
                   {
                     "$routine": "cooldown-friday"
+                  }
+                ]
+              },
+              {
+                "dayNumber": 7,
+                "name": "Sunday — Long Easy Run",
+                "type": "cardio",
+                "estimatedDuration": 25,
+                "description": "Long easy run for aerobic durability",
+                "exercises": [
+                  {
+                    "$ref": "ex-run-conditioning-long",
+                    "notes": "Week 10: 18 min long easy run at roughly 6:45-7:20/km. Stop early if the legs feel flat; this is only to preserve rhythm."
                   }
                 ]
               }

@@ -36,7 +36,7 @@ const SAMPLE_PROGRAMS: SampleProgramInfo[] = [
     id: 'power-clean-bench-10-week',
     name: '10-Week Strength & Conditioning',
     description:
-      'Power Clean / Bench focused 10-week power-strength block with Monday bench emphasis, Wednesday and Friday jump or sprint primers, elbow-aware loading, and support conditioning that stays out of the main work.',
+      'Power Clean / Bench focused 10-week power-strength block with Monday bench emphasis, Wednesday and Friday jump or sprint primers, elbow-aware loading, and support running that nudges 5k fitness without interfering with the main work.',
     durationWeeks: 10,
     targetLevel: 'advanced',
     path: `${import.meta.env.BASE_URL}power-clean-bench.json`,

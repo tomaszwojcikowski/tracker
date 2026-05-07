@@ -17,7 +17,7 @@ The goal is not to make the plan reckless. The goal is to make it more decisive.
 - Improve power clean speed, confidence, and receiving positions.
 - Build bench strength without aggravating the medial elbow.
 - Build squat strength that supports cleans and general athleticism.
-- Maintain enough aerobic support to help recovery and body composition without flattening Friday performance.
+- Maintain enough aerobic support to help recovery, improve 5k running, and avoid flattening Friday performance.
 
 ## Secondary Priorities
 
@@ -363,11 +363,30 @@ Ring work stays because it supports scapular control and shoulder comfort, but o
 
 ## Conditioning
 
-Conditioning uses three modes:
+Conditioning now biases running so the block can build 5k fitness without turning the lifting week into half-marathon prep.
 
-- accumulation: easy aerobic base plus one moderate session
-- intensification: one hard interval day, one very light recovery day
+The current running dose is intentionally conservative because the starting point is about 3 km per week with a 26-minute 5k best.
+
+Conditioning uses three modes plus one standing weekly aerobic anchor:
+
+- accumulation: easy aerobic running plus one moderate tempo or cruise-interval session
+- intensification: one hard 5k-pace interval day, one very light recovery run
 - realization: aerobic maintenance only
+- Sunday every week: one easy long run to slowly raise running durability without stealing from the barbell work
+
+Suggested pace guide from a 26:00 5k:
+
+- easy and long runs: roughly 6:40-7:20/km
+- recovery shuffle: roughly 6:50-7:30/km
+- tempo or cruise work: roughly 5:35-5:50/km
+- 5k intervals: roughly 5:08-5:15/km
+- strides: fast and relaxed, not timed
+
+Weekly running shape:
+
+- Weeks 1-3: Tuesday easy runs build only from 12 to 16 minutes with relaxed strides; Thursday uses short tempo reps instead of long continuous work; Sunday long run builds from 16 to 20 minutes
+- Weeks 4-7: Tuesday becomes the main 5k workout, but with conservative rep lengths: `6 x 400 m`, `5 x 500 m`, `4 x 600 m`, then `6 x 300 m`; Thursday is short recovery jogging only; Sunday long run builds from 22 to 26 minutes before trimming back to 24
+- Weeks 8-10: Tuesday keeps a short easy run plus a few strides; Thursday is a very short restoration jog or walk only; Sunday tapers from 22 to 18 minutes
 
 What does not return:
 
@@ -434,26 +453,29 @@ What does not return:
 ### Phase 1 Example Week
 
 - Monday: bench heavy working set of 6 plus 2 backoffs, ring pull-up, chest-supported row, short compression
-- Tuesday: easy aerobic base, trunk pair, hamstring support, tendon work
+- Tuesday: 12 min easy run plus 4 relaxed strides, trunk pair, hamstring support, tendon work
 - Wednesday: broad jump or 10-20 m acceleration sprint, power clean EMOM doubles, front squat or box squat, neutral-grip dumbbell bench
-- Thursday: easy cyclical recovery, cuff and scap circuit
+- Thursday: short tempo reps at controlled threshold pace, cuff and scap circuit
 - Friday: jump or 10-20 m acceleration sprint, clean single primer, squat heavy working set of 6 plus 2 backoffs, RDL or single-leg RDL, short compression
+- Sunday: 16-20 min long easy run at conversational pace, keeping the knee calm and the effort clearly aerobic
 
 ### Phase 2 Example Week
 
 - Monday: bench heavy working set of 4-5 plus 1-2 backoffs, weighted pull-up, row, very short compression
-- Tuesday: hardest interval day of the week, trunk stiffness, tendon work
+- Tuesday: hardest 5k interval day of the week, but still capped at short, repeatable reps, plus trunk stiffness and tendon work
 - Wednesday: seated jump or 10-20 m acceleration sprint, power clean clusters or crisp singles, pause squat or Anderson squat, paused bench
-- Thursday: very light recovery work, shoulder balance circuit only
+- Thursday: very light recovery jog, shoulder balance circuit only
 - Friday: jump or 10-20 m acceleration sprint, clean primer, squat heavy working set of 3-4 plus 1-2 backoffs, stiff-leg deadlift or Nordic eccentric, maintenance compression
+- Sunday: 22-26 min long easy run, relaxed enough that Tuesday quality still feels available
 
 ### Phase 3 Example Week
 
 - Monday: bench top set double or triple, one backoff, low-volume pull
-- Tuesday: easy aerobic maintenance and brief trunk work
+- Tuesday: very short easy maintenance run plus a few strides and brief trunk work
 - Wednesday: jump or 10-20 m acceleration sprint, 3-5 quality clean singles, light secondary squat, light secondary press or none
-- Thursday: restoration only
+- Thursday: very short restoration jog or brisk walk only
 - Friday: jump or 10-20 m acceleration sprint, one clean primer single, squat top set double or triple, one hinge slot only if readiness supports it
+- Sunday: 18-22 min long easy run, purely to preserve aerobic rhythm while fatigue stays low
 
 ## Bottom Line
 

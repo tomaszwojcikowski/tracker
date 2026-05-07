@@ -34,9 +34,9 @@ interface SampleProgramInfo {
 const SAMPLE_PROGRAMS: SampleProgramInfo[] = [
   {
     id: 'power-clean-bench-10-week',
-    name: '10-Week Strength & Conditioning',
+    name: '10-Week Strength & Conditioning (Power Clean / Bench)',
     description:
-      'Power Clean / Bench focused 10-week power-strength block with Monday bench emphasis, Wednesday and Friday jump or sprint primers, elbow-aware loading, and support running that nudges 5k fitness without interfering with the main work.',
+      'V2 athletic power-strength plan for a 45-year-old with managed tennis elbow and goose-foot knee. One 10-week sample pass of a repeatable cycle: Monday bench strength, Wednesday and Friday jump or sprint primers before clean and squat exposures, and Tue/Thu/Sun Fartlek-based 5k running without competing with the lifting days.',
     durationWeeks: 10,
     targetLevel: 'advanced',
     path: `${import.meta.env.BASE_URL}power-clean-bench.json`,

@@ -12,7 +12,7 @@ import {
   NAMESPACE_PREFIX,
   NAMESPACE_SEPARATOR,
 } from '../services/storageNamespace';
-import { getProgramRegistry, type ProgramManifest } from '../services/programRegistry';
+import { getProgramRegistry, getBundledProgramDataPath, type ProgramManifest } from '../services/programRegistry';
 import { loadWorkoutPlan, type V2WorkoutPlan } from '../workout-plan-utils';
 import type { ExerciseHistory } from '../types';
 
@@ -372,9 +372,9 @@ function applyMigration(data: V2WorkoutPlan, fromVersion: string, toVersion: str
  */
 export async function importProgram(
   jsonData: string | unknown,
-  options: { autoMigrate?: boolean; setActive?: boolean } = {}
+  options: { autoMigrate?: boolean; setActive?: boolean; dataPath?: string } = {}
 ): Promise<ImportResult> {
-  const { autoMigrate = true, setActive = false } = options;
+  const { autoMigrate = true, setActive = false, dataPath } = options;
   const errors: string[] = [];
   const warnings: string[] = [];
 
@@ -457,6 +457,12 @@ export async function importProgram(
         version: (finalData.plan as { version?: string }).version || '1.0.0',
       },
     });
+
+    const resolvedDataPath = dataPath || getBundledProgramDataPath(manifest.id);
+    if (resolvedDataPath && manifest.dataPath !== resolvedDataPath) {
+      manifest.dataPath = resolvedDataPath;
+      registry.registerProgram(manifest);
+    }
 
     // Load and store program data
     const loadedPlan = loadWorkoutPlan(finalData);

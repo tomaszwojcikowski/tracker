@@ -64,7 +64,7 @@ test.describe('Navigation', () => {
 
   test('back from workout stays inside app', async ({ page }) => {
     // Start Day 1 workout
-    await page.locator('button[aria-label="Start Day 1 workout"]:visible').first().click();
+    await page.getByRole('button', { name: 'Start Day 1 workout' }).first().click();
     await page.waitForTimeout(500);
 
     // Click back

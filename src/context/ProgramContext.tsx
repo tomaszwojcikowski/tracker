@@ -7,7 +7,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import type { ProgramManifest, WorkoutPlanJson, ProgramData } from '../services/programRegistry';
-import { getProgramRegistry, initializeDefaultProgram } from '../services/programRegistry';
+import { getProgramRegistry, getBundledProgramDataPath, initializeDefaultProgram } from '../services/programRegistry';
 import { loadWorkoutPlan, type WorkoutPlanMetadata, type InternalSchedule } from '../workout-plan-utils';
 import { setRawSchedule, buildCompleteSchedule, setActiveScheduleProgram } from '../utils/schedule';
 
@@ -80,6 +80,21 @@ function createMinimalWorkoutPlan(program: ProgramManifest): WorkoutPlan {
   } as WorkoutPlan;
 }
 
+function ensureBundledProgramDataPath(program: ProgramManifest): ProgramManifest {
+  const bundledDataPath = getBundledProgramDataPath(program.id);
+  if (!bundledDataPath || program.dataPath === bundledDataPath) {
+    return program;
+  }
+
+  const registry = getProgramRegistry();
+  const updatedProgram: ProgramManifest = {
+    ...program,
+    dataPath: bundledDataPath,
+  };
+  registry.registerProgram(updatedProgram);
+  return updatedProgram;
+}
+
 // ============================================================================
 // PROVIDER PROPS
 // ============================================================================
@@ -149,7 +164,7 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
       throw new Error('Program data path is not specified');
     }
 
-    const response = await fetch(dataPath);
+    const response = await fetch(dataPath, { cache: 'no-store' });
     if (!response.ok) {
       if (response.status === 404) {
         throw new Error(`Program data not found at ${dataPath}`);
@@ -185,16 +200,33 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
       // Force the switch to override the locked active program.
       registry.setActiveProgram(programId, { force: true });
 
-      const program = registry.getActiveProgram();
-      if (!program) {
+      const activeProgram = registry.getActiveProgram();
+      if (!activeProgram) {
         throw new Error(`Program with ID "${programId}" not found`);
       }
+      const program = ensureBundledProgramDataPath(activeProgram);
 
-      // Check if program data is already stored in registry
       let data: WorkoutPlan;
       const storedData = registry.getProgramData(programId);
 
-      if (storedData) {
+      if (program.dataPath) {
+        try {
+          data = await loadProgramData(program.dataPath);
+          syncProgramData(programId, data);
+        } catch (loadError) {
+          if (!storedData) {
+            throw loadError;
+          }
+
+          data = createMinimalWorkoutPlan(program);
+          setActiveScheduleProgram(programId);
+          setRawSchedule(storedData.schedule, programId);
+          buildCompleteSchedule(programId);
+
+          setSchedule(storedData.schedule);
+          setMetadata(storedData.metadata);
+        }
+      } else if (storedData) {
         // Use stored data - construct a minimal WorkoutPlan
         data = createMinimalWorkoutPlan(program);
 
@@ -205,12 +237,6 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
 
         setSchedule(storedData.schedule);
         setMetadata(storedData.metadata);
-      } else if (program.dataPath) {
-        // Load the program data from URL
-        data = await loadProgramData(program.dataPath);
-
-        // Sync program data with schedule utilities
-        syncProgramData(programId, data);
       } else {
         throw new Error('Program data is not available');
       }
@@ -248,17 +274,33 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
         let program = registry.getActiveProgram();
 
         if (program) {
+          program = ensureBundledProgramDataPath(program);
           let data: WorkoutPlan;
           let shouldSyncProgramData = false;
+          const storedData = registry.getProgramData(program.id);
 
           // If we already have program data matching the active program, use it
           if (initialProgramData && initialProgramData.plan.id === program.id) {
             data = initialProgramData;
             shouldSyncProgramData = true;
-          } else {
-            // Check if program data is already stored in registry
-            const storedData = registry.getProgramData(program.id);
+          } else if (program.dataPath) {
+            try {
+              data = await loadProgramData(program.dataPath);
+              shouldSyncProgramData = true;
+            } catch (loadError) {
+              if (!storedData) {
+                throw loadError;
+              }
 
+              data = createMinimalWorkoutPlan(program);
+              setActiveScheduleProgram(program.id);
+              setRawSchedule(storedData.schedule, program.id);
+              buildCompleteSchedule(program.id);
+
+              setSchedule(storedData.schedule);
+              setMetadata(storedData.metadata);
+            }
+          } else {
             if (storedData) {
               // Use stored data - construct a minimal WorkoutPlan
               data = createMinimalWorkoutPlan(program);
@@ -270,12 +312,6 @@ export function ProgramProvider({ children, initialProgramData }: ProgramProvide
 
               setSchedule(storedData.schedule);
               setMetadata(storedData.metadata);
-            } else if (program.dataPath) {
-              // Otherwise load it from the data path
-              data = await loadProgramData(program.dataPath);
-
-              // We loaded the full plan JSON, so we should parse + sync it.
-              shouldSyncProgramData = true;
             } else {
               throw new Error('Program data is not available');
             }

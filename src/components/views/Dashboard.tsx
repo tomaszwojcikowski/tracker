@@ -447,6 +447,11 @@ function WeekContent({
     }
   };
 
+  const handleHeroCardActivate = (day: number) => {
+    haptic.tick();
+    onStartWorkout(day);
+  };
+
   return (
     <div className="flex-shrink-0 w-full px-5 pb-32">
       <BottomSheet
@@ -609,14 +614,23 @@ function WeekContent({
 
             if (isNextUp) {
                 return (
-                    <button
+                <div
                         key={day}
                         id={`day-card-${day}`}
-                        onClick={() => {
-                            haptic.tick();
-                            onStartWorkout(day);
-                        }}
-                        className={`stagger-item relative overflow-hidden rounded-md p-6 text-left transition-all active:scale-[0.99] group scroll-mt-16 ${theme.hero.container}`}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => handleHeroCardActivate(day)}
+                  onKeyDown={(event) => {
+                    if (event.target !== event.currentTarget) {
+                      return;
+                    }
+
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      handleHeroCardActivate(day);
+                    }
+                  }}
+                  className={`stagger-item relative overflow-hidden rounded-md p-6 text-left transition-all active:scale-[0.99] group scroll-mt-16 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-sys-primary ${theme.hero.container}`}
                         style={{ animationDelay: `${idx * 200}ms` }}
                         aria-label={`Start Day ${day} workout`}
                     >
@@ -625,6 +639,7 @@ function WeekContent({
                         <div className="relative z-10">
                             <div className="flex justify-between items-start mb-4">
                                 <button
+                              type="button"
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         haptic.tick();
@@ -660,7 +675,7 @@ function WeekContent({
                                 </div>
                             </div>
                         </div>
-                    </button>
+                        </div>
                 );
             }
 

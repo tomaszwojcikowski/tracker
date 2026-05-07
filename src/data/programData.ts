@@ -107,6 +107,50 @@ export interface DayWorkout {
   sections: WorkoutSection[];
 }
 
+interface ResolvedSectionInfo {
+  key: string;
+  name: string;
+  type: WorkoutSection['type'];
+}
+
+function getSectionInfoForItem(item: RawScheduleItem): ResolvedSectionInfo {
+  const sourceRoutineId = item.sourceRoutineId?.toLowerCase();
+
+  if (sourceRoutineId?.startsWith('warmup')) {
+    return {
+      key: `routine:${item.sourceRoutineId}`,
+      name: item.sourceRoutineName || 'Warm-up',
+      type: 'prep',
+    };
+  }
+
+  if (sourceRoutineId?.startsWith('cooldown')) {
+    return {
+      key: `routine:${item.sourceRoutineId}`,
+      name: item.sourceRoutineName || 'Cool-down',
+      type: 'cool',
+    };
+  }
+
+  const category = item.category?.toLowerCase() || '';
+  const categoryToSection: Record<string, { name: string; type: WorkoutSection['type'] }> = {
+    warmup: { name: 'Warm-up', type: 'prep' },
+    skill: { name: 'Skill Practice', type: 'skill' },
+    main: { name: 'Main Work', type: 'main' },
+    accessory: { name: 'Accessory', type: 'access' },
+    core: { name: 'Core', type: 'access' },
+    mobility: { name: 'Mobility', type: 'cool' },
+    cooldown: { name: 'Cool-down', type: 'cool' },
+  };
+  const sectionInfo = categoryToSection[category] || { name: 'Main Work', type: 'main' as const };
+
+  return {
+    key: `category:${sectionInfo.name}`,
+    name: sectionInfo.name,
+    type: sectionInfo.type,
+  };
+}
+
 /**
  * Get phases from legacy window global (backward compatibility)
  */
@@ -186,32 +230,21 @@ export function getWorkoutForDay(week: number, day: number, programId?: string):
     return { title: 'Rest Day', sections: [] };
   }
 
-  // Map category to section name and type
-  const categoryToSection: Record<string, { name: string; type: WorkoutSection['type'] }> = {
-    warmup: { name: 'Warm-up', type: 'prep' },
-    skill: { name: 'Skill Practice', type: 'skill' },
-    main: { name: 'Main Work', type: 'main' },
-    accessory: { name: 'Accessory', type: 'access' },
-    core: { name: 'Core', type: 'access' },
-    mobility: { name: 'Mobility', type: 'cool' },
-    cooldown: { name: 'Cool-down', type: 'cool' },
-  };
-
   const finalSections: WorkoutSection[] = [];
   let currentSection: WorkoutSection | null = null;
+  let currentSectionKey: string | null = null;
 
   dayExercises.forEach((item) => {
-    // Use category for section grouping, fall back to detecting from notes for legacy data
-    const category = item.category?.toLowerCase() || '';
-    const sectionInfo = categoryToSection[category] || { name: 'Main Work', type: 'main' as const };
+    const sectionInfo = getSectionInfoForItem(item);
 
-    // Start new section if needed (group by category)
-    if (!currentSection || currentSection.name !== sectionInfo.name) {
+    // Start new section if needed (group by routine when available, otherwise by category)
+    if (!currentSection || currentSectionKey !== sectionInfo.key) {
       currentSection = {
         type: sectionInfo.type,
         name: sectionInfo.name,
         exercises: [],
       };
+      currentSectionKey = sectionInfo.key;
       finalSections.push(currentSection);
     }
 

@@ -239,7 +239,7 @@ function ProgramSelectorModal({
       const programJson = await response.json();
 
       // Import the program
-      const result = await importProgram(programJson, { setActive: false });
+      const result = await importProgram(programJson, { setActive: false, dataPath: sample.path });
 
       if (!result.success) {
         throw new Error(result.errors.join(', '));
@@ -552,7 +552,7 @@ export function ProgramSelector({
                     const response = await fetch(sample.path);
                     if (!response.ok) throw new Error(`Failed to load: ${response.statusText}`);
                     const programJson = await response.json();
-                    const result = await importProgram(programJson, { setActive: true });
+                    const result = await importProgram(programJson, { setActive: true, dataPath: sample.path });
                     if (!result.success) throw new Error(result.errors.join(', '));
                     refreshPrograms();
                     if (result.manifest) {

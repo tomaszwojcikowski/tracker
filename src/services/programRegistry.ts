@@ -134,6 +134,26 @@ const PROGRAM_DATA_STORAGE_PREFIX = 'tracker_program_data:';
 /** Default program ID (the built-in program) */
 export const DEFAULT_PROGRAM_ID = 'integrated-strength-v26-9';
 
+/** Bundled sample program IDs and their file names */
+const BUNDLED_PROGRAM_FILES: Record<string, string> = {
+  [DEFAULT_PROGRAM_ID]: 'workout-plan-v2.5.json',
+  'power-clean-bench-10-week': 'power-clean-bench.json',
+};
+
+/**
+ * Get the bundled data path for a known program ID.
+ * Returns null for user-imported/custom programs that do not have a bundled file.
+ */
+export function getBundledProgramDataPath(programId: string): string | null {
+  const fileName = BUNDLED_PROGRAM_FILES[programId];
+  if (!fileName) {
+    return null;
+  }
+
+  const base = import.meta.env.BASE_URL || '/';
+  return `${base}${fileName}`;
+}
+
 // ============================================================================
 // SINGLETON REGISTRY INSTANCE
 // ============================================================================
@@ -412,8 +432,7 @@ export function initializeDefaultProgram(defaultPlanJson: WorkoutPlanJson): void
 
   // Ensure the built-in program exists and has a correct BASE_URL-aware dataPath.
   // This avoids 404s on GitHub Pages (e.g. BASE_URL="/tracker/") when ProgramContext needs to fetch.
-  const base = import.meta.env.BASE_URL || '/';
-  const dataPath = `${base}workout-plan-v2.5.json`;
+  const dataPath = getBundledProgramDataPath(DEFAULT_PROGRAM_ID) || `${import.meta.env.BASE_URL || '/'}workout-plan-v2.5.json`;
   const manifest = extractManifestFromPlan(defaultPlanJson);
   manifest.dataPath = dataPath;
 

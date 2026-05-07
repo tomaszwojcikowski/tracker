@@ -335,6 +335,15 @@ describe('Program Import/Export Utilities', () => {
       const registry = getProgramRegistry();
       expect(registry.getActiveProgramId()).toBe('test-program-v1');
     });
+
+    it('should preserve a provided dataPath on imported programs', async () => {
+      const result = await importProgram(validPlanV2_3, { dataPath: '/tracker/test-program.json' });
+      expect(result.success).toBe(true);
+      expect(result.manifest?.dataPath).toBe('/tracker/test-program.json');
+
+      const registry = getProgramRegistry();
+      expect(registry.getProgramById('test-program-v1')?.dataPath).toBe('/tracker/test-program.json');
+    });
   });
 
   describe('exportProgram', () => {

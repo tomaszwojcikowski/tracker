@@ -38,6 +38,8 @@ export interface RawScheduleItem {
     isFlow?: boolean;   // Whether this is a mobility flow exercise (v2.4+)
     densityTimeMinutes?: number; // Total time in minutes for density exercises (v2.5+)
     densityRepsTotal?: number;   // Total reps target for density exercises (v2.5+)
+    sourceRoutineId?: string; // Source routine ID when expanded from a routine template
+    sourceRoutineName?: string; // Source routine display name when expanded from a routine template
 }
 
 /**

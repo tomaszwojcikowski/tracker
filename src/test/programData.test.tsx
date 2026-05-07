@@ -1,4 +1,6 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+import { getWorkoutForDay } from '../data/programData';
+import { buildCompleteSchedule, setRawSchedule } from '../utils/schedule';
 
 /**
  * Tests for programData utilities
@@ -246,6 +248,67 @@ describe('Section Grouping Logic', () => {
       'Core',
       'Mobility',
       'Cool-down',
+    ]);
+  });
+
+  it('should keep warmup routine exercises together and separate the main run', () => {
+    const programId = 'test-routine-grouping';
+
+    setRawSchedule([
+      {
+        w: 2,
+        d: 2,
+        ex: 'Easy Jog',
+        s: 1,
+        r: '300 seconds',
+        category: 'warmup',
+        sourceRoutineId: 'warmup-tuesday',
+        sourceRoutineName: 'Tuesday Warm-Up',
+      },
+      {
+        w: 2,
+        d: 2,
+        ex: 'Hip 90/90 Switches',
+        s: 1,
+        r: '5/side',
+        category: 'mobility',
+        sourceRoutineId: 'warmup-tuesday',
+        sourceRoutineName: 'Tuesday Warm-Up',
+      },
+      {
+        w: 2,
+        d: 2,
+        ex: 'Dead Bug',
+        s: 1,
+        r: '20 seconds',
+        category: 'core',
+        sourceRoutineId: 'warmup-tuesday',
+        sourceRoutineName: 'Tuesday Warm-Up',
+      },
+      {
+        w: 2,
+        d: 2,
+        ex: 'Easy Run (Z1-Z2 Steady)',
+        s: 1,
+        r: '1200 seconds',
+        category: 'main',
+      },
+    ], programId);
+    buildCompleteSchedule(programId);
+
+    const workout = getWorkoutForDay(2, 2, programId);
+
+    expect(workout.sections).toHaveLength(2);
+    expect(workout.sections[0].name).toBe('Tuesday Warm-Up');
+    expect(workout.sections[0].type).toBe('prep');
+    expect(workout.sections[0].exercises.map((exercise) => exercise.name)).toEqual([
+      'Easy Jog',
+      'Hip 90/90 Switches',
+      'Dead Bug',
+    ]);
+    expect(workout.sections[1].name).toBe('Main Work');
+    expect(workout.sections[1].exercises.map((exercise) => exercise.name)).toEqual([
+      'Easy Run (Z1-Z2 Steady)',
     ]);
   });
 });

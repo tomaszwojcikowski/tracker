@@ -18,6 +18,8 @@ The workflow will:
 - Deploy the `dist/` directory to GitHub Pages
 - Provide the deployment URL in the workflow summary
 
+Both `npm run dev` and deployment builds copy the program JSON files from `data/` into `public/` first, so the served app always has the current workout programs available.
+
 ### Manual Workflow Trigger
 
 You can also manually trigger the deployment:
@@ -37,6 +39,9 @@ You can also manually trigger the deployment:
 ```bash
 # Install dependencies
 npm install
+
+# Copy static program assets and create a production build
+npm run deploy
 
 # Create production build
 npm run build

@@ -11,14 +11,19 @@ afterEach(() => {
 const localStorageData: Record<string, string> = {};
 const localStorageMock = {
   getItem: vi.fn((key: string): string | null => localStorageData[key] ?? null),
-  setItem: vi.fn((key: string, value: string): void => { localStorageData[key] = value; }),
-  removeItem: vi.fn((key: string): void => { delete localStorageData[key]; }),
+  setItem: vi.fn((key: string, value: string): void => {
+    localStorageData[key] = value;
+  }),
+  removeItem: vi.fn((key: string): void => {
+    delete localStorageData[key];
+  }),
   clear: vi.fn((): void => {
-    Object.keys(localStorageData).forEach(key => delete localStorageData[key]);
+    Object.keys(localStorageData).forEach((key) => delete localStorageData[key]);
   }),
 };
 
-(global as typeof globalThis & { localStorage: typeof localStorageMock }).localStorage = localStorageMock;
+(global as typeof globalThis & { localStorage: typeof localStorageMock }).localStorage =
+  localStorageMock;
 
 // Mock custom icons module
 const mockIcon = () => 'MockIcon';
@@ -73,6 +78,7 @@ vi.mock('../components/icons', () => ({
   Save: mockIcon,
   XCircle: mockIcon,
   BarChart2: mockIcon,
+  Hand: mockIcon,
   Repeat: mockIcon,
   Link: mockIcon,
   RotateCcw: mockIcon,

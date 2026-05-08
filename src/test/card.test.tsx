@@ -52,10 +52,50 @@ describe('Card Component', () => {
     });
 
     it('has proper keyboard support for interactive cards', () => {
-      const { container } = render(<Card onClick={vi.fn()}>Content</Card>);
+      const handleClick = vi.fn();
+      const { container } = render(<Card onClick={handleClick}>Content</Card>);
       const card = container.querySelector('[role="button"]');
       expect(card).toHaveAttribute('tabindex', '0');
-      // Keyboard handler is attached to component, verified through event listener binding
+
+      if (card) {
+        fireEvent.keyDown(card, { key: 'Enter' });
+        fireEvent.keyDown(card, { key: ' ' });
+      }
+
+      expect(handleClick).toHaveBeenCalledTimes(2);
+    });
+
+    it('does not trigger card action when nested controls are clicked or activated by keyboard', () => {
+      const handleCardClick = vi.fn();
+      const handleButtonClick = vi.fn();
+
+      render(
+        <Card onClick={handleCardClick}>
+          <button onClick={handleButtonClick}>Nested action</button>
+        </Card>
+      );
+
+      const button = screen.getByText('Nested action');
+
+      fireEvent.click(button);
+      fireEvent.keyDown(button, { key: 'Enter' });
+
+      expect(handleButtonClick).toHaveBeenCalledTimes(1);
+      expect(handleCardClick).not.toHaveBeenCalled();
+    });
+
+    it('does not trigger card action when nested links are clicked', () => {
+      const handleCardClick = vi.fn();
+
+      render(
+        <Card onClick={handleCardClick}>
+          <a href="#details">Details</a>
+        </Card>
+      );
+
+      fireEvent.click(screen.getByRole('link', { name: 'Details' }));
+
+      expect(handleCardClick).not.toHaveBeenCalled();
     });
 
     it('sets aria-label when provided', () => {
@@ -303,9 +343,13 @@ describe('Card Component', () => {
     });
 
     it('renders card with all variants and full content', () => {
-      const variants: Array<'filled' | 'elevated' | 'outlined'> = ['filled', 'elevated', 'outlined'];
+      const variants: Array<'filled' | 'elevated' | 'outlined'> = [
+        'filled',
+        'elevated',
+        'outlined',
+      ];
 
-      variants.forEach(variant => {
+      variants.forEach((variant) => {
         const { container } = render(
           <Card variant={variant} ariaLabel={`${variant} card`}>
             <CardHeader>Header</CardHeader>
@@ -341,6 +385,7 @@ describe('Card Component', () => {
         fireEvent.click(button);
         expect(handleButtonClick).toHaveBeenCalledTimes(1);
       }
+      expect(handleCardClick).not.toHaveBeenCalled();
     });
   });
 

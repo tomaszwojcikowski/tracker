@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
 /**
  * Tests for storage namespace service
@@ -47,13 +47,26 @@ describe('Storage Namespace Service', () => {
     localStorage.setItem.mockImplementation((key, value) => {
       testStorage[key] = value;
     });
+
+    Object.defineProperty(localStorage, 'length', {
+      get: () => Object.keys(testStorage).length,
+      configurable: true,
+    });
+    localStorage.key = vi.fn((i) => Object.keys(testStorage)[i] || null);
+  });
+
+  afterEach(() => {
+    Object.defineProperty(localStorage, 'length', {
+      get: () => Object.keys(testStorage).length,
+      configurable: true,
+    });
+    localStorage.key = vi.fn((i) => Object.keys(testStorage)[i] || null);
+    vi.restoreAllMocks();
   });
 
   describe('getNamespacedKey', () => {
     it('should create namespaced key with program ID prefix', async () => {
-      const { getNamespacedKey, getActiveProgramId } = await import(
-        '../services/storageNamespace'
-      );
+      const { getNamespacedKey, getActiveProgramId } = await import('../services/storageNamespace');
 
       const programId = getActiveProgramId();
       const namespacedKey = getNamespacedKey('exercise_history');
@@ -62,9 +75,7 @@ describe('Storage Namespace Service', () => {
     });
 
     it('should include program ID in namespaced key', async () => {
-      const { getNamespacedKeyForProgram } = await import(
-        '../services/storageNamespace'
-      );
+      const { getNamespacedKeyForProgram } = await import('../services/storageNamespace');
 
       const key = getNamespacedKeyForProgram('my-program', 'exercise_history');
 
@@ -74,9 +85,7 @@ describe('Storage Namespace Service', () => {
 
   describe('getSessionKey', () => {
     it('should create namespaced session key', async () => {
-      const { getSessionKey, getActiveProgramId } = await import(
-        '../services/storageNamespace'
-      );
+      const { getSessionKey, getActiveProgramId } = await import('../services/storageNamespace');
 
       const programId = getActiveProgramId();
       const sessionKey = getSessionKey(1, 1);
@@ -85,9 +94,7 @@ describe('Storage Namespace Service', () => {
     });
 
     it('should create session key for specific program', async () => {
-      const { getSessionKeyForProgram } = await import(
-        '../services/storageNamespace'
-      );
+      const { getSessionKeyForProgram } = await import('../services/storageNamespace');
 
       const sessionKey = getSessionKeyForProgram('my-program', 5, 3);
 
@@ -97,9 +104,7 @@ describe('Storage Namespace Service', () => {
 
   describe('parseNamespacedKey', () => {
     it('should parse namespaced key into components', async () => {
-      const { parseNamespacedKey } = await import(
-        '../services/storageNamespace'
-      );
+      const { parseNamespacedKey } = await import('../services/storageNamespace');
 
       const result = parseNamespacedKey('p:my-program:exercise_history');
 
@@ -110,9 +115,7 @@ describe('Storage Namespace Service', () => {
     });
 
     it('should return null for non-namespaced keys', async () => {
-      const { parseNamespacedKey } = await import(
-        '../services/storageNamespace'
-      );
+      const { parseNamespacedKey } = await import('../services/storageNamespace');
 
       const result = parseNamespacedKey('exercise_history');
 
@@ -120,9 +123,7 @@ describe('Storage Namespace Service', () => {
     });
 
     it('should handle session keys correctly', async () => {
-      const { parseNamespacedKey } = await import(
-        '../services/storageNamespace'
-      );
+      const { parseNamespacedKey } = await import('../services/storageNamespace');
 
       const result = parseNamespacedKey('p:test-program:session_w1d1');
 
@@ -135,9 +136,7 @@ describe('Storage Namespace Service', () => {
 
   describe('parseSessionKey', () => {
     it('should parse session key with namespace', async () => {
-      const { parseSessionKey } = await import(
-        '../services/storageNamespace'
-      );
+      const { parseSessionKey } = await import('../services/storageNamespace');
 
       const result = parseSessionKey('p:my-program:session_w5d3');
 
@@ -145,9 +144,7 @@ describe('Storage Namespace Service', () => {
     });
 
     it('should parse session key without namespace (legacy)', async () => {
-      const { parseSessionKey } = await import(
-        '../services/storageNamespace'
-      );
+      const { parseSessionKey } = await import('../services/storageNamespace');
 
       const result = parseSessionKey('session_w1d2');
 
@@ -155,9 +152,7 @@ describe('Storage Namespace Service', () => {
     });
 
     it('should return null for invalid session keys', async () => {
-      const { parseSessionKey } = await import(
-        '../services/storageNamespace'
-      );
+      const { parseSessionKey } = await import('../services/storageNamespace');
 
       const result = parseSessionKey('not_a_session_key');
 
@@ -167,34 +162,26 @@ describe('Storage Namespace Service', () => {
 
   describe('shouldBeNamespaced', () => {
     it('should return true for exercise_history', async () => {
-      const { shouldBeNamespaced } = await import(
-        '../services/storageNamespace'
-      );
+      const { shouldBeNamespaced } = await import('../services/storageNamespace');
 
       expect(shouldBeNamespaced('exercise_history')).toBe(true);
     });
 
     it('should return true for session keys', async () => {
-      const { shouldBeNamespaced } = await import(
-        '../services/storageNamespace'
-      );
+      const { shouldBeNamespaced } = await import('../services/storageNamespace');
 
       expect(shouldBeNamespaced('session_w1d1')).toBe(true);
       expect(shouldBeNamespaced('session_w21d5')).toBe(true);
     });
 
     it('should return true for empty session keys', async () => {
-      const { shouldBeNamespaced } = await import(
-        '../services/storageNamespace'
-      );
+      const { shouldBeNamespaced } = await import('../services/storageNamespace');
 
       expect(shouldBeNamespaced('session_empty_1234567890')).toBe(true);
     });
 
     it('should return false for global keys', async () => {
-      const { shouldBeNamespaced } = await import(
-        '../services/storageNamespace'
-      );
+      const { shouldBeNamespaced } = await import('../services/storageNamespace');
 
       expect(shouldBeNamespaced('tracker_app_state')).toBe(false);
       expect(shouldBeNamespaced('firebase_sync_enabled')).toBe(false);
@@ -203,17 +190,13 @@ describe('Storage Namespace Service', () => {
 
   describe('isNamespacedKey', () => {
     it('should return true for namespaced keys', async () => {
-      const { isNamespacedKey } = await import(
-        '../services/storageNamespace'
-      );
+      const { isNamespacedKey } = await import('../services/storageNamespace');
 
       expect(isNamespacedKey('p:my-program:exercise_history')).toBe(true);
     });
 
     it('should return false for non-namespaced keys', async () => {
-      const { isNamespacedKey } = await import(
-        '../services/storageNamespace'
-      );
+      const { isNamespacedKey } = await import('../services/storageNamespace');
 
       expect(isNamespacedKey('exercise_history')).toBe(false);
     });
@@ -221,9 +204,7 @@ describe('Storage Namespace Service', () => {
 
   describe('getOriginalKey', () => {
     it('should extract original key from namespaced key', async () => {
-      const { getOriginalKey } = await import(
-        '../services/storageNamespace'
-      );
+      const { getOriginalKey } = await import('../services/storageNamespace');
 
       const result = getOriginalKey('p:my-program:exercise_history');
 
@@ -231,9 +212,7 @@ describe('Storage Namespace Service', () => {
     });
 
     it('should return key as-is if not namespaced', async () => {
-      const { getOriginalKey } = await import(
-        '../services/storageNamespace'
-      );
+      const { getOriginalKey } = await import('../services/storageNamespace');
 
       const result = getOriginalKey('exercise_history');
 
@@ -256,15 +235,51 @@ describe('Storage Namespace Service', () => {
       });
       localStorage.key = vi.fn((i) => keys[i] || null);
 
-      const { getLegacyKeys } = await import(
-        '../services/storageNamespace'
-      );
+      const { getLegacyKeys } = await import('../services/storageNamespace');
 
       const legacyKeys = getLegacyKeys();
 
       expect(legacyKeys).toContain('session_w1d1');
       expect(legacyKeys).toContain('exercise_history');
       expect(legacyKeys).not.toContain('tracker_app_state');
+    });
+
+    it('should return an empty list when storage enumeration fails', async () => {
+      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      Object.defineProperty(localStorage, 'length', {
+        get: () => {
+          throw new Error('storage unavailable');
+        },
+        configurable: true,
+      });
+
+      const { getLegacyKeys } = await import('../services/storageNamespace');
+
+      expect(getLegacyKeys()).toEqual([]);
+      expect(warnSpy).toHaveBeenCalledWith(
+        'Failed to enumerate legacy storage keys:',
+        expect.any(Error)
+      );
+    });
+  });
+
+  describe('getAllKeysForProgram', () => {
+    it('should return an empty list when storage enumeration fails', async () => {
+      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      Object.defineProperty(localStorage, 'length', {
+        get: () => {
+          throw new Error('storage unavailable');
+        },
+        configurable: true,
+      });
+
+      const { getAllKeysForProgram } = await import('../services/storageNamespace');
+
+      expect(getAllKeysForProgram('test-program-1')).toEqual([]);
+      expect(warnSpy).toHaveBeenCalledWith(
+        'Failed to enumerate storage keys for program "test-program-1":',
+        expect.any(Error)
+      );
     });
   });
 });

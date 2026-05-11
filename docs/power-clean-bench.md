@@ -77,8 +77,8 @@ These warm-ups are now embedded in the program data for the tracked days. Treat 
 ### Wednesday
 
 - thoracic roll, lat distraction, wrist extension, deep squat rotation, and banded ankle work
-- empty-bar muscle clean and hang power clean
 - low box jump or submax acceleration as the neural primer
+- empty-bar muscle clean and hang power clean
 - 3-4 build-up sets to the opening clean weight
 - if the receiving position still feels off, repeat one build-up set around 70%
 - after the clean work, use 2 short sets of seated pike pulses and 2 short L-sit holds for tracked compression work
@@ -94,8 +94,8 @@ These warm-ups are now embedded in the program data for the tracked days. Treat 
 
 - 3 minutes easy bike or row
 - thoracic, hip-flexor, and ankle prep
+- use the programmed broad jumps or acceleration sprints as the speed primer
 - goblet squat patterning
-- use the programmed broad jumps as the speed primer
 - squat ramp: empty bar x10, 40% x5, 60% x3, clean primer, then 75% x2 before the first work set
 
 ### Optional Saturday

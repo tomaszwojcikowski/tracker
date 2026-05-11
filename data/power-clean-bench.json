@@ -305,6 +305,16 @@
             "coachingNotes": "Keep the heel heavy while the ankle moves forward."
           },
           {
+            "exerciseName": "Low Box Jump",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 3,
+            "loadUnit": "bodyweight",
+            "notes": "CNS primer only. Land softly. If you use acceleration sprints instead, run 2 x 15 m at roughly 80%.",
+            "coachingNotes": "Stop well before fatigue and keep every landing quiet."
+          },
+          {
             "exerciseName": "Muscle Clean - Empty Bar",
             "category": "warmup",
             "sets": 1,
@@ -323,16 +333,6 @@
             "loadUnit": "kg",
             "notes": "Focus on the receiving position and front rack before you try to move it fast.",
             "coachingNotes": "Receive in the same stance and rack shape you want for the work sets."
-          },
-          {
-            "exerciseName": "Low Box Jump",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 3,
-            "loadUnit": "bodyweight",
-            "notes": "CNS primer only. Land softly. If you use acceleration sprints instead, run 2 x 15 m at roughly 80%.",
-            "coachingNotes": "Stop well before fatigue and keep every landing quiet."
           },
           {
             "exerciseName": "Working Weight Build",
@@ -498,6 +498,21 @@
             "coachingNotes": "Drive the knee forward while keeping the heel heavy and the arch active."
           },
           {
+            "exerciseName": "Friday Power Primer Handoff",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "none",
+            "loadUnit": "bodyweight",
+            "notes": "After the mobility block, do the programmed broad jumps or acceleration sprints before moving into the squat-build routine.",
+            "coachingNotes": "Keep the primer explosive and low fatigue, then transition straight into squat patterning and the bar ramp."
+          }
+        ]
+      },
+      {
+        "id": "friday-squat-build",
+        "name": "Friday Squat Build",
+        "exercises": [
+          {
             "exerciseName": "Goblet Squat",
             "category": "warmup",
             "sets": 2,
@@ -505,7 +520,7 @@
             "repsValue": 8,
             "loadUnit": "kg",
             "tempoEccentric": 3,
-            "notes": "Light kettlebell or dumbbell. Use these to find depth, heel contact, and torso position before the programmed broad jumps.",
+            "notes": "Light kettlebell or dumbbell. Use these to find depth, heel contact, and torso position after the power primer.",
             "coachingNotes": "Treat each rep as patterning work and keep the descent controlled."
           },
           {
@@ -1546,6 +1561,9 @@
                     "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
                   },
                   {
+                    "$routine": "friday-squat-build"
+                  },
+                  {
                     "$ref": "ex-tall-clean-high-hang",
                     "loadMin": 40,
                     "loadMax": 40,
@@ -1786,6 +1804,9 @@
                     "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
                   },
                   {
+                    "$routine": "friday-squat-build"
+                  },
+                  {
                     "$ref": "ex-tall-clean-high-hang",
                     "loadMin": 42.5,
                     "loadMax": 42.5,
@@ -2017,6 +2038,9 @@
                     "restSeconds": 45,
                     "notes": "Power primer. Full reset between reps; stop if height or distance drops.",
                     "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
+                  },
+                  {
+                    "$routine": "friday-squat-build"
                   },
                   {
                     "$ref": "ex-tall-clean-high-hang",
@@ -2269,6 +2293,9 @@
                     "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
                   },
                   {
+                    "$routine": "friday-squat-build"
+                  },
+                  {
                     "$ref": "ex-power-clean",
                     "loadMin": 62.5,
                     "loadMax": 62.5,
@@ -2509,6 +2536,9 @@
                     "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
                   },
                   {
+                    "$routine": "friday-squat-build"
+                  },
+                  {
                     "$ref": "ex-power-clean",
                     "loadMin": 65,
                     "loadMax": 65,
@@ -2735,6 +2765,9 @@
                     "restSeconds": 60,
                     "notes": "Power primer. 10-20 m only. Full walk-back recovery; stop before it turns into conditioning.",
                     "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
+                  },
+                  {
+                    "$routine": "friday-squat-build"
                   },
                   {
                     "$ref": "ex-power-clean",
@@ -2975,6 +3008,9 @@
                     "restSeconds": 45,
                     "notes": "Power primer. Full reset between reps; stop if height or distance drops.",
                     "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
+                  },
+                  {
+                    "$routine": "friday-squat-build"
                   },
                   {
                     "$ref": "ex-power-clean",
@@ -3220,6 +3256,9 @@
                     "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
                   },
                   {
+                    "$routine": "friday-squat-build"
+                  },
+                  {
                     "$ref": "ex-power-clean",
                     "loadMin": 72.5,
                     "loadMax": 72.5,
@@ -3451,6 +3490,9 @@
                     "restSeconds": 45,
                     "notes": "Power primer. Full reset between reps; stop if height or distance drops.",
                     "coachingNotes": "Start tall, use a quick counter movement, and project forward with a violent arm swing. Stick the landing softly and reset every rep."
+                  },
+                  {
+                    "$routine": "friday-squat-build"
                   },
                   {
                     "$ref": "ex-power-clean",
@@ -3691,6 +3733,9 @@
                     "restSeconds": 60,
                     "notes": "Power primer. 10-20 m only. Full walk-back recovery; stop before it turns into conditioning.",
                     "coachingNotes": "Treat each rep as a crisp acceleration effort. Forward shin, violent first step, full rest between reps. End the set if mechanics slow down."
+                  },
+                  {
+                    "$routine": "friday-squat-build"
                   },
                   {
                     "$ref": "ex-power-clean",

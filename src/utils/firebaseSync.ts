@@ -109,7 +109,7 @@ export const EXERCISE_HISTORY_KEY = 'exercise_history';
 /**
  * Valid training days
  */
-const TRAINING_DAYS: TrainingDay[] = [1, 2, 3, 4, 5];
+const TRAINING_DAYS: TrainingDay[] = [1, 2, 3, 4, 5, 7];
 
 // ============================================================================
 // DATA COLLECTION
@@ -120,7 +120,7 @@ const TRAINING_DAYS: TrainingDay[] = [1, 2, 3, 4, 5];
  *
  * This includes workout sessions, exercise history, and global history for the active program.
  *
- * Note: This function iterates through all possible workout sessions (84 total).
+ * Note: This function iterates through all possible workout sessions.
  * This is intentional and not a performance issue because:
  * 1. It's only called on login and manual sync (infrequent operations)
  * 2. Most sessions are empty and filtered out quickly
@@ -136,7 +136,7 @@ export function getAllLocalData(): LocalData {
         sessions: {} as Record<SessionKey, SessionData>,
     };
 
-    // Collect all workout session data (21 weeks × 5 days = 105 sessions max)
+    // Collect all workout session data (21 weeks × 6 days = 126 sessions max)
     // Only non-empty sessions are included in the sync
     // Uses namespaced keys for program isolation
     for (let week = 1; week <= 21; week++) {

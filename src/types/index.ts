@@ -97,12 +97,12 @@ export interface Exercise {
 /**
  * Valid training days
  */
-export type TrainingDay = 1 | 2 | 3 | 4 | 5;
+export type TrainingDay = 1 | 2 | 3 | 4 | 5 | 7;
 
 /**
- * All possible days including rest
+ * All calendar days in the training week
  */
-export type WeekDay = 1 | 2 | 3 | 4 | 5;
+export type WeekDay = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 /**
  * Week number in the 21-week program
@@ -402,7 +402,7 @@ export interface Toast {
 /**
  * Valid day type for component props
  */
-export type ValidDay = 1 | 2 | 3 | 4 | 5;
+export type ValidDay = 1 | 2 | 3 | 4 | 5 | 7;
 
 /**
  * Valid tab type alias for TabId
@@ -423,7 +423,7 @@ export interface WorkoutProgressData {
  */
 export interface WorkoutPlayerProps {
   week: number;
-  /** Day number: 1-5 for program workouts, or 0 for empty/custom workouts */
+  /** Day number: 1-5 or 7 for program workouts, or 0 for empty/custom workouts */
   day: ValidDay | 0;
   onComplete: () => void;
   exerciseLibrary: Exercise[];

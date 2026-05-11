@@ -8,7 +8,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 describe('URL Routing & State Management', () => {
   const DEFAULT_WEEK = 1;
   const DEFAULT_DAY = 1;
-  const VALID_DAYS = [1, 2, 3, 4, 5];
+  const VALID_DAYS = [1, 2, 3, 4, 5, 7];
   const VALID_TABS = ['train', 'library', 'history', 'profile'];
   const VALID_VIEW_MODES = ['tab', 'workout', 'empty-workout'];
 
@@ -179,14 +179,14 @@ describe('URL Routing & State Management', () => {
 
     it('should validate day values (training days only)', () => {
       // Valid days
-      [1, 2, 3, 4, 5].forEach(day => {
+      [1, 2, 3, 4, 5, 7].forEach(day => {
         window.location.search = `?view=workout&week=5&day=${day}`;
         const params = getUrlParams();
         expect(params.day).toBe(day);
       });
 
       // Invalid days
-      [0, 6, 7].forEach(day => {
+      [0, 6, 8].forEach(day => {
         window.location.search = `?view=workout&week=5&day=${day}`;
         const params = getUrlParams();
         expect(params.day).toBe(null);

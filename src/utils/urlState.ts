@@ -40,7 +40,7 @@ export const DEFAULT_TAB: TabId = CONST_DEFAULT_TAB;
 export const DEFAULT_VIEW_MODE: ViewMode = 'tab';
 
 /**
- * Valid training days (Day 4 is rest)
+ * Valid training days
  */
 export const VALID_DAYS: readonly TrainingDay[] = CONST_VALID_DAYS;
 

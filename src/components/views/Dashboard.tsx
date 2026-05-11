@@ -105,6 +105,24 @@ function getDayTheme(day: number) {
           text: 'text-sys-onPrimaryContainer',
         }
       };
+    case 7:
+      return {
+        hero: {
+          gradient: 'from-sys-success to-sys-tertiary',
+          border: 'border-sys-success/30',
+          badge: 'bg-sys-successContainer border-sys-success/30 text-sys-onSuccessContainer',
+          iconBg: 'bg-sys-success',
+          iconColor: 'text-sys-onPrimary',
+          text: 'text-sys-success',
+          container: 'bg-sys-successContainer',
+          onContainer: 'text-sys-onSuccessContainer'
+        },
+        card: {
+          bg: 'bg-sys-successContainer',
+          border: 'border-sys-success/10',
+          text: 'text-sys-onSuccessContainer',
+        }
+      };
     default:
       return {
         hero: {

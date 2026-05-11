@@ -4,9 +4,9 @@
   "plan": {
     "id": "power-clean-bench-10-week",
     "name": "10-Week Strength & Conditioning (Power Clean / Bench)",
-    "description": "V2 athletic power-strength plan for a 45-year-old with managed tennis elbow and goose-foot knee. This JSON packages one 10-week sample pass of a repeatable cycle: Monday starts with bench strength, Wednesday and Friday open with jump or short acceleration work before clean and squat exposures, and Tue/Thu/Sun running work uses Fartlek-based 5k development without competing with the lifting days.",
+    "description": "V2 hybrid strength-and-running plan for a 45-year-old with managed tennis elbow and goose-foot knee. This 10-week sample keeps a stable three-lift / three-run rhythm: Monday bench strength, Wednesday clean power plus secondary strength, Friday squat strength, Tuesday run development, Thursday recovery running plus structural support, and Sunday long easy aerobic work.",
     "author": "Power Clean / Bench Plan",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "durationWeeks": 10,
     "goals": [
       "power-expression",
@@ -1681,7 +1681,7 @@
       {
         "phaseNumber": 1,
         "name": "Phase 1: Accumulation and Athletic Base",
-        "description": "Rebuild tolerance, accumulate quality work, and establish jump/clean frequency while Monday starts with straight-bar bench and Thursday introduces repeatable Fartlek rhythm.",
+        "description": "Rebuild tolerance around a stable hybrid week: Tuesday establishes repeatable Fartlek rhythm, Thursday stays easy, and the barbell days accumulate clean, bench, and squat volume without accessory drift.",
         "startWeek": 1,
         "endWeek": 3,
         "focus": "volume",
@@ -1694,7 +1694,7 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Pulling Balance, Compression",
+                "name": "Monday — Bench + Pulling",
                 "type": "strength",
                 "estimatedDuration": 55,
                 "description": "Bench heavy working set of 6 at 62.5 kg, then backoffs",
@@ -1733,13 +1733,6 @@
                     "notes": "Balancing row slot. Keep scapular control perfect."
                   },
                   {
-                    "$ref": "ex-parallette-l-sit",
-                    "sets": 3,
-                    "repsMin": 8,
-                    "repsMax": 12,
-                    "notes": "Short compression block after upper work."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -1749,14 +1742,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Easy aerobic run + trunk and tendon work",
+                "description": "Introductory Fartlek + simple trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-run-conditioning-easy",
-                    "notes": "Week 1: 12 min easy run at conversational pace, then 4 x 15 s relaxed strides with full walk-back recovery."
+                    "$ref": "ex-run-conditioning-moderate",
+                    "notes": "Week 1: 6 x 1 min surge / 1 min easy jog. Keep surges around controlled 5k effort and easy jog recoveries active enough that the run stays continuous."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -1772,9 +1765,6 @@
                     "$ref": "ex-rower-ham-curl"
                   },
                   {
-                    "$ref": "ex-dragon-flag-tuck"
-                  },
-                  {
                     "$ref": "ex-tuesday-wrist-eccentric",
                     "sets": 3
                   }
@@ -1782,10 +1772,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
+                "name": "Wednesday — Power Clean + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Power emphasis + secondary squat + secondary press",
+                "description": "Power emphasis + secondary squat",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -1825,14 +1815,6 @@
                     "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
                   },
                   {
-                    "$ref": "ex-neutral-grip-db-bench",
-                    "loadMin": 22.5,
-                    "loadMax": 22.5,
-                    "sets": 3,
-                    "repsValue": 8,
-                    "notes": "Secondary press. Stay 2-3 reps shy of failure."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -1842,22 +1824,17 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Introductory Fartlek + shoulder balance",
+                "description": "Easy recovery run + structural support",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-run-conditioning-moderate",
-                    "notes": "Week 1: 6 x 1 min surge / 1 min easy jog. Keep surges around controlled 5k effort and easy jog recoveries active enough that the run stays continuous."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 1: 12 min easy run at conversational pace, then 4 x 15 s relaxed strides with full walk-back recovery."
                   },
                   {
                     "$ref": "ex-face-pulls",
-                    "sets": 2,
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-landmine-press",
                     "sets": 2,
                     "supersetGroup": 1
                   },
@@ -1875,11 +1852,6 @@
                     "$ref": "ex-side-plank",
                     "sets": 2,
                     "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-ring-pushups",
-                    "sets": 2,
-                    "notes": "Optional low-fatigue horizontal push skill only."
                   }
                 ]
               },
@@ -1888,7 +1860,7 @@
                 "name": "Friday — Squat Strength + Posterior Chain",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Lower strength accumulation + hinge + compression",
+                "description": "Lower strength accumulation + hinge",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
@@ -1938,14 +1910,6 @@
                     "notes": "Hinge slot. Keep the tempo strict and the hamstrings in charge."
                   },
                   {
-                    "$ref": "ex-seated-pike-pulses",
-                    "sets": 2
-                  },
-                  {
-                    "$ref": "ex-friday-l-sit-hold",
-                    "sets": 2
-                  },
-                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -1973,7 +1937,7 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Pulling Balance, Compression",
+                "name": "Monday — Bench + Pulling",
                 "type": "strength",
                 "estimatedDuration": 55,
                 "description": "Bench heavy working set of 6 at 65 kg, then backoffs",
@@ -2012,13 +1976,6 @@
                     "notes": "Balancing row slot. Keep scapular control perfect."
                   },
                   {
-                    "$ref": "ex-parallette-l-sit",
-                    "sets": 3,
-                    "repsMin": 8,
-                    "repsMax": 12,
-                    "notes": "Short compression block after upper work."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -2028,14 +1985,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Easy aerobic run + trunk and tendon work",
+                "description": "Introductory Fartlek + simple trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-run-conditioning-easy",
-                    "notes": "Week 2: 14 min easy run at conversational pace, then 4 x 15 s relaxed strides with full walk-back recovery."
+                    "$ref": "ex-run-conditioning-moderate",
+                    "notes": "Week 2: 5 x 90 s surge / 90 s easy jog. Let the surges be smooth and upright rather than aggressive, and keep the easy jog recoveries moving."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2051,9 +2008,6 @@
                     "$ref": "ex-rower-ham-curl"
                   },
                   {
-                    "$ref": "ex-dragon-flag-tuck"
-                  },
-                  {
                     "$ref": "ex-tuesday-wrist-eccentric",
                     "sets": 3
                   }
@@ -2061,10 +2015,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
+                "name": "Wednesday — Power Clean + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Power emphasis + secondary squat + secondary press",
+                "description": "Power emphasis + secondary squat",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -2097,14 +2051,6 @@
                     "notes": "80 kg. Secondary squat. Dead-stop reps only."
                   },
                   {
-                    "$ref": "ex-neutral-grip-db-bench",
-                    "loadMin": 25,
-                    "loadMax": 25,
-                    "sets": 3,
-                    "repsValue": 8,
-                    "notes": "Secondary press. Stay 2-3 reps shy of failure."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -2114,22 +2060,17 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Introductory Fartlek + shoulder balance",
+                "description": "Easy recovery run + structural support",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-run-conditioning-moderate",
-                    "notes": "Week 2: 5 x 90 s surge / 90 s easy jog. Let the surges be smooth and upright rather than aggressive, and keep the easy jog recoveries moving."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 2: 14 min easy run at conversational pace, then 4 x 15 s relaxed strides with full walk-back recovery."
                   },
                   {
                     "$ref": "ex-face-pulls",
-                    "sets": 2,
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-landmine-press",
                     "sets": 2,
                     "supersetGroup": 1
                   },
@@ -2147,11 +2088,6 @@
                     "$ref": "ex-side-plank",
                     "sets": 2,
                     "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-ring-pushups",
-                    "sets": 2,
-                    "notes": "Optional low-fatigue horizontal push skill only."
                   }
                 ]
               },
@@ -2160,7 +2096,7 @@
                 "name": "Friday — Squat Strength + Posterior Chain",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Lower strength accumulation + hinge + compression",
+                "description": "Lower strength accumulation + hinge",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
@@ -2210,14 +2146,6 @@
                     "notes": "Hinge slot. Keep the tempo strict and the hamstrings in charge."
                   },
                   {
-                    "$ref": "ex-seated-pike-pulses",
-                    "sets": 2
-                  },
-                  {
-                    "$ref": "ex-friday-l-sit-hold",
-                    "sets": 2
-                  },
-                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -2245,7 +2173,7 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Pulling Balance, Compression",
+                "name": "Monday — Bench + Pulling",
                 "type": "strength",
                 "estimatedDuration": 55,
                 "description": "Bench heavy working set of 6 at 67.5 kg, then backoffs",
@@ -2284,13 +2212,6 @@
                     "notes": "Balancing row slot. Keep scapular control perfect."
                   },
                   {
-                    "$ref": "ex-parallette-l-sit",
-                    "sets": 3,
-                    "repsMin": 8,
-                    "repsMax": 12,
-                    "notes": "Short compression block after upper work."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -2300,14 +2221,14 @@
                 "name": "Tuesday — GPP, Trunk, Hamstrings, Rehab",
                 "type": "cardio",
                 "estimatedDuration": 45,
-                "description": "Easy aerobic run + trunk and tendon work",
+                "description": "Introductory Fartlek + simple trunk and tendon work",
                 "exercises": [
                   {
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-run-conditioning-easy",
-                    "notes": "Week 3: 16 min easy run at conversational pace, then 4 x 15-20 s relaxed strides with full walk-back recovery."
+                    "$ref": "ex-run-conditioning-moderate",
+                    "notes": "Week 3: 4 x 2 min surge / 90 s easy jog. Finish feeling more coordinated than tired, and keep the last rep as clean as the first."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2323,9 +2244,6 @@
                     "$ref": "ex-rower-ham-curl"
                   },
                   {
-                    "$ref": "ex-dragon-flag-tuck"
-                  },
-                  {
                     "$ref": "ex-tuesday-wrist-eccentric",
                     "sets": 3
                   }
@@ -2333,10 +2251,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
+                "name": "Wednesday — Power Clean + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Power emphasis + secondary squat + secondary press",
+                "description": "Power emphasis + secondary squat",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -2376,14 +2294,6 @@
                     "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
                   },
                   {
-                    "$ref": "ex-neutral-grip-db-bench",
-                    "loadMin": 27.5,
-                    "loadMax": 27.5,
-                    "sets": 3,
-                    "repsValue": 8,
-                    "notes": "Secondary press. Stay 2-3 reps shy of failure."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -2393,22 +2303,17 @@
                 "name": "Thursday — Restoration + Structural Balance",
                 "type": "cardio",
                 "estimatedDuration": 40,
-                "description": "Introductory Fartlek + shoulder balance",
+                "description": "Easy recovery run + structural support",
                 "exercises": [
                   {
                     "$routine": "warmup-thursday"
                   },
                   {
-                    "$ref": "ex-run-conditioning-moderate",
-                    "notes": "Week 3: 4 x 2 min surge / 90 s easy jog. Finish feeling more coordinated than tired, and keep the last rep as clean as the first."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 3: 16 min easy run at conversational pace, then 4 x 15-20 s relaxed strides with full walk-back recovery."
                   },
                   {
                     "$ref": "ex-face-pulls",
-                    "sets": 2,
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-landmine-press",
                     "sets": 2,
                     "supersetGroup": 1
                   },
@@ -2426,11 +2331,6 @@
                     "$ref": "ex-side-plank",
                     "sets": 2,
                     "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-ring-pushups",
-                    "sets": 2,
-                    "notes": "Optional low-fatigue horizontal push skill only."
                   }
                 ]
               },
@@ -2439,7 +2339,7 @@
                 "name": "Friday — Squat Strength + Posterior Chain",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Lower strength accumulation + hinge + compression",
+                "description": "Lower strength accumulation + hinge",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
@@ -2489,14 +2389,6 @@
                     "notes": "Hinge slot. Keep the tempo strict and the hamstrings in charge."
                   },
                   {
-                    "$ref": "ex-seated-pike-pulses",
-                    "sets": 2
-                  },
-                  {
-                    "$ref": "ex-friday-l-sit-hold",
-                    "sets": 2
-                  },
-                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -2521,7 +2413,7 @@
       {
         "phaseNumber": 2,
         "name": "Phase 2: Intensification and Power-Strength",
-        "description": "Raise force output without losing speed, trim nonessential volume, and make Tuesday the main 5k Fartlek day without stealing from Friday.",
+        "description": "Raise force output without losing speed, keep Tuesday as the main 5k Fartlek day, and keep Thursday purely restorative so the lifting days stay high quality.",
         "startWeek": 4,
         "endWeek": 7,
         "focus": "intensity",
@@ -2534,7 +2426,7 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Pulling Balance, Compression",
+                "name": "Monday — Bench + Pulling",
                 "type": "strength",
                 "estimatedDuration": 55,
                 "description": "Bench heavy working set of 5 at 70 kg, then backoffs",
@@ -2573,13 +2465,6 @@
                     "notes": "Balancing row slot. Keep scapular control perfect."
                   },
                   {
-                    "$ref": "ex-parallette-l-sit",
-                    "sets": 2,
-                    "repsMin": 8,
-                    "repsMax": 12,
-                    "notes": "Short compression block after upper work."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -2612,9 +2497,6 @@
                     "$ref": "ex-rower-ham-curl"
                   },
                   {
-                    "$ref": "ex-dragon-flag-single-leg"
-                  },
-                  {
                     "$ref": "ex-tuesday-wrist-eccentric",
                     "sets": 3
                   }
@@ -2622,10 +2504,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
+                "name": "Wednesday — Power Clean + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Speed-strength clean work + secondary strength",
+                "description": "Speed-strength clean work + secondary squat",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -2665,14 +2547,6 @@
                     "coachingNotes": "Pins set at parallel. Set the brace first, drive vertically from a dead stop, and reset between reps. No bounce off the pins."
                   },
                   {
-                    "$ref": "ex-paused-bench",
-                    "loadMin": 60,
-                    "loadMax": 60,
-                    "sets": 3,
-                    "repsValue": 4,
-                    "notes": "Secondary press. Long pause, no grinding."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -2697,11 +2571,6 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-landmine-press",
-                    "sets": 2,
-                    "supersetGroup": 1
-                  },
-                  {
                     "$ref": "ex-banded-er",
                     "sets": 2,
                     "supersetGroup": 1
@@ -2715,11 +2584,6 @@
                     "$ref": "ex-side-plank",
                     "sets": 2,
                     "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-ring-pushups",
-                    "sets": 2,
-                    "notes": "Optional low-fatigue horizontal push skill only."
                   }
                 ]
               },
@@ -2778,14 +2642,6 @@
                     "notes": "Hinge slot. Keep the tempo strict and the hamstrings in charge."
                   },
                   {
-                    "$ref": "ex-seated-pike-pulses",
-                    "sets": 2
-                  },
-                  {
-                    "$ref": "ex-friday-l-sit-hold",
-                    "sets": 2
-                  },
-                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -2813,7 +2669,7 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Pulling Balance, Compression",
+                "name": "Monday — Bench + Pulling",
                 "type": "strength",
                 "estimatedDuration": 55,
                 "description": "Bench heavy working set of 5 at 72.5 kg, then backoffs",
@@ -2852,13 +2708,6 @@
                     "notes": "Balancing row slot. Keep scapular control perfect."
                   },
                   {
-                    "$ref": "ex-parallette-l-sit",
-                    "sets": 2,
-                    "repsMin": 8,
-                    "repsMax": 12,
-                    "notes": "Short compression block after upper work."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -2891,9 +2740,6 @@
                     "$ref": "ex-rower-ham-curl"
                   },
                   {
-                    "$ref": "ex-dragon-flag-single-leg"
-                  },
-                  {
                     "$ref": "ex-tuesday-wrist-eccentric",
                     "sets": 3
                   }
@@ -2901,10 +2747,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
+                "name": "Wednesday — Power Clean + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Speed-strength clean work + secondary strength",
+                "description": "Speed-strength clean work + secondary squat",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -2937,14 +2783,6 @@
                     "notes": "90 kg. Box squat secondary strength exposure."
                   },
                   {
-                    "$ref": "ex-paused-bench",
-                    "loadMin": 62.5,
-                    "loadMax": 62.5,
-                    "sets": 3,
-                    "repsValue": 4,
-                    "notes": "Secondary press. Long pause, no grinding."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -2969,11 +2807,6 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-landmine-press",
-                    "sets": 2,
-                    "supersetGroup": 1
-                  },
-                  {
                     "$ref": "ex-banded-er",
                     "sets": 2,
                     "supersetGroup": 1
@@ -2987,11 +2820,6 @@
                     "$ref": "ex-side-plank",
                     "sets": 2,
                     "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-ring-pushups",
-                    "sets": 2,
-                    "notes": "Optional low-fatigue horizontal push skill only."
                   }
                 ]
               },
@@ -3049,14 +2877,6 @@
                     "notes": "Unilateral lower-body slot. Slow descent, perfect knee tracking."
                   },
                   {
-                    "$ref": "ex-seated-pike-pulses",
-                    "sets": 2
-                  },
-                  {
-                    "$ref": "ex-friday-l-sit-hold",
-                    "sets": 2
-                  },
-                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -3084,7 +2904,7 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Pulling Balance, Compression",
+                "name": "Monday — Bench + Pulling",
                 "type": "strength",
                 "estimatedDuration": 55,
                 "description": "Bench heavy working set of 4 at 75 kg, then backoffs",
@@ -3123,13 +2943,6 @@
                     "notes": "Balancing row slot. Keep scapular control perfect."
                   },
                   {
-                    "$ref": "ex-parallette-l-sit",
-                    "sets": 2,
-                    "repsMin": 8,
-                    "repsMax": 12,
-                    "notes": "Short compression block after upper work."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -3162,9 +2975,6 @@
                     "$ref": "ex-rower-ham-curl"
                   },
                   {
-                    "$ref": "ex-dragon-flag-single-leg"
-                  },
-                  {
                     "$ref": "ex-tuesday-wrist-eccentric",
                     "sets": 3
                   }
@@ -3172,10 +2982,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
+                "name": "Wednesday — Power Clean + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Speed-strength clean work + secondary strength",
+                "description": "Speed-strength clean work + secondary squat",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -3215,14 +3025,6 @@
                     "coachingNotes": "Pins set at parallel. Set the brace first, drive vertically from a dead stop, and reset between reps. No bounce off the pins."
                   },
                   {
-                    "$ref": "ex-paused-bench",
-                    "loadMin": 65,
-                    "loadMax": 65,
-                    "sets": 3,
-                    "repsValue": 3,
-                    "notes": "Secondary press. Long pause, no grinding."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -3247,17 +3049,7 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-landmine-press",
-                    "sets": 2,
-                    "supersetGroup": 1
-                  },
-                  {
                     "$ref": "ex-banded-er",
-                    "sets": 2,
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-single-leg-calf-raise",
                     "sets": 2,
                     "supersetGroup": 1
                   },
@@ -3265,11 +3057,6 @@
                     "$ref": "ex-side-plank",
                     "sets": 2,
                     "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-skin-the-cat-tuck",
-                    "sets": 2,
-                    "notes": "Optional only if shoulders feel calm."
                   }
                 ]
               },
@@ -3327,14 +3114,6 @@
                     "notes": "Unilateral lower-body slot. Slow descent, perfect knee tracking."
                   },
                   {
-                    "$ref": "ex-seated-pike-pulses",
-                    "sets": 2
-                  },
-                  {
-                    "$ref": "ex-friday-l-sit-hold",
-                    "sets": 2
-                  },
-                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -3362,7 +3141,7 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Pulling Balance, Compression",
+                "name": "Monday — Bench + Pulling",
                 "type": "strength",
                 "estimatedDuration": 55,
                 "description": "Bench heavy working set of 4 at 77.5 kg, then backoffs",
@@ -3401,13 +3180,6 @@
                     "notes": "Balancing row slot. Keep scapular control perfect."
                   },
                   {
-                    "$ref": "ex-parallette-l-sit",
-                    "sets": 2,
-                    "repsMin": 8,
-                    "repsMax": 12,
-                    "notes": "Short compression block after upper work."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -3440,9 +3212,6 @@
                     "$ref": "ex-rower-ham-curl"
                   },
                   {
-                    "$ref": "ex-dragon-flag-negative"
-                  },
-                  {
                     "$ref": "ex-tuesday-wrist-eccentric",
                     "sets": 3
                   }
@@ -3450,10 +3219,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
+                "name": "Wednesday — Power Clean + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Speed-strength clean work + secondary strength",
+                "description": "Speed-strength clean work + secondary squat",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -3486,14 +3255,6 @@
                     "notes": "92.5 kg. Keep it sharp, not grindy."
                   },
                   {
-                    "$ref": "ex-paused-bench",
-                    "loadMin": 67.5,
-                    "loadMax": 67.5,
-                    "sets": 3,
-                    "repsValue": 3,
-                    "notes": "Secondary press. Long pause, no grinding."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -3518,11 +3279,6 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-landmine-press",
-                    "sets": 2,
-                    "supersetGroup": 1
-                  },
-                  {
                     "$ref": "ex-banded-er",
                     "sets": 2,
                     "supersetGroup": 1
@@ -3536,11 +3292,6 @@
                     "$ref": "ex-side-plank",
                     "sets": 2,
                     "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-skin-the-cat-tuck",
-                    "sets": 2,
-                    "notes": "Optional only if shoulders feel calm."
                   }
                 ]
               },
@@ -3598,14 +3349,6 @@
                     "notes": "Unilateral lower-body slot. Slow descent, perfect knee tracking."
                   },
                   {
-                    "$ref": "ex-seated-pike-pulses",
-                    "sets": 2
-                  },
-                  {
-                    "$ref": "ex-friday-l-sit-hold",
-                    "sets": 2
-                  },
-                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -3630,7 +3373,7 @@
       {
         "phaseNumber": 3,
         "name": "Phase 3: Realization and Consolidation",
-        "description": "Express performance with lower fatigue, preserve athletic sharpness, use low-dose Fartlek sharpening, and set up the next accumulation pass.",
+        "description": "Express performance with lower fatigue, preserve athletic sharpness, keep only the minimum useful run and assistance work, and set up the next accumulation pass.",
         "startWeek": 8,
         "endWeek": 10,
         "focus": "technique",
@@ -3643,7 +3386,7 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Pulling Balance, Compression",
+                "name": "Monday — Bench + Pulling",
                 "type": "strength",
                 "estimatedDuration": 55,
                 "description": "Bench heavy working set of 3 at 80 kg, then backoffs",
@@ -3682,13 +3425,6 @@
                     "notes": "Backoff row volume only."
                   },
                   {
-                    "$ref": "ex-parallette-l-sit",
-                    "sets": 1,
-                    "repsMin": 10,
-                    "repsMax": 15,
-                    "notes": "Maintenance or benchmark exposure only."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -3721,9 +3457,6 @@
                     "$ref": "ex-rower-ham-curl"
                   },
                   {
-                    "$ref": "ex-dragon-flag-negative"
-                  },
-                  {
                     "$ref": "ex-tuesday-wrist-eccentric",
                     "sets": 2
                   }
@@ -3731,10 +3464,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
+                "name": "Wednesday — Power Clean + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Realization clean singles + light secondary work",
+                "description": "Realization clean singles + light secondary squat",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -3767,14 +3500,6 @@
                     "notes": "Light box squat only. Deload assistance, keep positions."
                   },
                   {
-                    "$ref": "ex-paused-bench",
-                    "loadMin": 57.5,
-                    "loadMax": 57.5,
-                    "sets": 2,
-                    "repsValue": 3,
-                    "notes": "Light paused bench only."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -3799,11 +3524,6 @@
                     "supersetGroup": 1
                   },
                   {
-                    "$ref": "ex-landmine-press",
-                    "sets": 2,
-                    "supersetGroup": 1
-                  },
-                  {
                     "$ref": "ex-banded-er",
                     "sets": 2,
                     "supersetGroup": 1
@@ -3817,11 +3537,6 @@
                     "$ref": "ex-side-plank",
                     "sets": 2,
                     "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-skin-the-cat-tuck",
-                    "sets": 2,
-                    "notes": "Optional only if shoulders feel calm."
                   }
                 ]
               },
@@ -3880,14 +3595,6 @@
                     "notes": "Light hinge slot only if bar speed is still good."
                   },
                   {
-                    "$ref": "ex-seated-pike-pulses",
-                    "sets": 1
-                  },
-                  {
-                    "$ref": "ex-friday-l-sit-hold",
-                    "sets": 1
-                  },
-                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -3915,7 +3622,7 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Pulling Balance, Compression",
+                "name": "Monday — Bench + Pulling",
                 "type": "strength",
                 "estimatedDuration": 55,
                 "description": "Bench heavy working set of 2 at 82.5 kg, then backoffs",
@@ -3954,13 +3661,6 @@
                     "notes": "Backoff row volume only."
                   },
                   {
-                    "$ref": "ex-parallette-l-sit",
-                    "sets": 1,
-                    "repsMin": 10,
-                    "repsMax": 15,
-                    "notes": "Maintenance or benchmark exposure only."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -3993,11 +3693,6 @@
                     "$ref": "ex-rower-ham-curl"
                   },
                   {
-                    "$ref": "ex-dragon-flag-tuck",
-                    "sets": 2,
-                    "notes": "Brief trunk maintenance only."
-                  },
-                  {
                     "$ref": "ex-tuesday-wrist-eccentric",
                     "sets": 2
                   }
@@ -4005,10 +3700,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
+                "name": "Wednesday — Power Clean + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Realization clean singles + light secondary work",
+                "description": "Realization clean singles + light secondary squat",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -4048,14 +3743,6 @@
                     "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
                   },
                   {
-                    "$ref": "ex-neutral-grip-db-bench",
-                    "loadMin": 20,
-                    "loadMax": 20,
-                    "sets": 2,
-                    "repsValue": 8,
-                    "notes": "Light dumbbell bench only."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -4076,11 +3763,6 @@
                   },
                   {
                     "$ref": "ex-face-pulls",
-                    "sets": 2,
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-landmine-press",
                     "sets": 2,
                     "supersetGroup": 1
                   },
@@ -4155,14 +3837,6 @@
                     "notes": "Optional unilateral slot. Keep it crisp."
                   },
                   {
-                    "$ref": "ex-seated-pike-pulses",
-                    "sets": 1
-                  },
-                  {
-                    "$ref": "ex-friday-l-sit-hold",
-                    "sets": 1
-                  },
-                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -4190,7 +3864,7 @@
             "days": [
               {
                 "dayNumber": 1,
-                "name": "Monday — Bench, Pulling Balance, Compression",
+                "name": "Monday — Bench + Pulling",
                 "type": "strength",
                 "estimatedDuration": 55,
                 "description": "Bench heavy working set of 2 at 85 kg, then backoffs",
@@ -4229,13 +3903,6 @@
                     "notes": "Backoff row volume only."
                   },
                   {
-                    "$ref": "ex-parallette-l-sit",
-                    "sets": 1,
-                    "repsMin": 10,
-                    "repsMax": 15,
-                    "notes": "Maintenance or benchmark exposure only."
-                  },
-                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -4268,11 +3935,6 @@
                     "$ref": "ex-rower-ham-curl"
                   },
                   {
-                    "$ref": "ex-dragon-flag-tuck",
-                    "sets": 2,
-                    "notes": "Brief trunk maintenance only."
-                  },
-                  {
                     "$ref": "ex-tuesday-wrist-eccentric",
                     "sets": 2
                   }
@@ -4280,10 +3942,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean, Secondary Squat, Secondary Press",
+                "name": "Wednesday — Power Clean + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Realization clean singles + light secondary work",
+                "description": "Realization clean singles + light secondary squat",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -4336,11 +3998,6 @@
                   },
                   {
                     "$ref": "ex-face-pulls",
-                    "sets": 2,
-                    "supersetGroup": 1
-                  },
-                  {
-                    "$ref": "ex-landmine-press",
                     "sets": 2,
                     "supersetGroup": 1
                   },
@@ -4407,14 +4064,6 @@
                     "notes": "1 backoff set(s) at 122.5 kg. Quality only."
                   },
                   {
-                    "$ref": "ex-seated-pike-pulses",
-                    "sets": 1
-                  },
-                  {
-                    "$ref": "ex-friday-l-sit-hold",
-                    "sets": 1
-                  },
-                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -4437,6 +4086,6 @@
         ]
       }
     ],
-    "lastModified": "2026-05-07"
+    "lastModified": "2026-05-11"
   }
 }

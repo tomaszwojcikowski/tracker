@@ -75,7 +75,7 @@ describe('URL State Comprehensive Tests', () => {
     });
 
     it('should export valid days', () => {
-      expect(VALID_DAYS).toEqual([1, 2, 3, 4, 5]);
+      expect(VALID_DAYS).toEqual([1, 2, 3, 4, 5, 7]);
     });
 
     it('should export valid tabs', () => {
@@ -514,12 +514,13 @@ describe('URL State Comprehensive Tests', () => {
         expect(isValidDay(3)).toBe(true);
         expect(isValidDay(4)).toBe(true);
         expect(isValidDay(5)).toBe(true);
+        expect(isValidDay(7)).toBe(true);
       });
 
       it('should return false for invalid days', () => {
         expect(isValidDay(0)).toBe(false);
         expect(isValidDay(6)).toBe(false);
-        expect(isValidDay(7)).toBe(false);
+        expect(isValidDay(8)).toBe(false);
       });
     });
 
@@ -571,17 +572,19 @@ describe('URL State Comprehensive Tests', () => {
         expect(getNextDay(2)).toBe(3);
         expect(getNextDay(3)).toBe(4);
         expect(getNextDay(4)).toBe(5);
-        expect(getNextDay(5)).toBe(1); // wrap around
+        expect(getNextDay(5)).toBe(7);
+        expect(getNextDay(7)).toBe(1); // wrap around
       });
     });
 
     describe('getPrevDay', () => {
       it('should cycle through valid days in reverse', () => {
-        expect(getPrevDay(1)).toBe(5); // wrap around
+        expect(getPrevDay(1)).toBe(7); // wrap around
         expect(getPrevDay(2)).toBe(1);
         expect(getPrevDay(3)).toBe(2);
         expect(getPrevDay(4)).toBe(3);
         expect(getPrevDay(5)).toBe(4);
+        expect(getPrevDay(7)).toBe(5);
       });
     });
   });

@@ -479,7 +479,7 @@ npm run build
 ### 9. Known Constraints
 
 **Limitations**:
-- Day 4 is always a rest day (not in VALID_DAYS array)
+- Workout days currently support 1, 2, 3, 4, 5, and 7; day 6 is not part of the app's valid workout-day set
 - Week range is 1-21 only
 - RPE scale is 6-10 (standard Borg scale)
 - localStorage has ~5-10MB limit (browser-dependent)

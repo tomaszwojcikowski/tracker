@@ -29,7 +29,7 @@ export type ViewMode = 'tab' | 'workout' | 'empty-workout';
 /**
  * Valid workout days
  */
-export type WorkoutDay = 1 | 2 | 3 | 4 | 5;
+export type WorkoutDay = 1 | 2 | 3 | 4 | 5 | 7;
 
 // Validation arrays
 export const VALID_TABS: TabName[] = [
@@ -38,7 +38,7 @@ export const VALID_TABS: TabName[] = [
   'history',
   'profile',
 ];
-export const VALID_DAYS: WorkoutDay[] = [1, 2, 3, 4, 5];
+export const VALID_DAYS: WorkoutDay[] = [1, 2, 3, 4, 5, 7];
 export const VALID_VIEW_MODES: ViewMode[] = ['tab', 'workout', 'empty-workout'];
 
 // Defaults

@@ -4,14 +4,13 @@
   "plan": {
     "id": "power-clean-bench-10-week",
     "name": "10-Week Strength & Conditioning (Power Clean / Bench)",
-    "description": "V2 hybrid strength-and-running plan for a 45-year-old with managed tennis elbow and goose-foot knee. This 10-week sample keeps a stable three-lift / three-run rhythm: Monday bench strength, Wednesday clean power plus secondary strength, Friday squat strength, Tuesday run development, Thursday recovery running plus structural support, and Sunday long easy aerobic work.",
+    "description": "Hybrid strength-and-running plan for a 45-year-old with managed tennis elbow and goose-foot knee. This 10-week sample uses Monday bench strength, Wednesday clean quality, Friday squat strength plus positional squat backoff work, Tuesday run development, Thursday recovery running plus structural support, and Sunday long easy aerobic work.",
     "author": "Power Clean / Bench Plan",
     "version": "2.2.0",
     "durationWeeks": 10,
     "goals": [
       "power-expression",
       "overall-strength",
-      "calisthenics-compression",
       "unilateral-stability",
       "joint-longevity",
       "elbow-management"
@@ -24,7 +23,6 @@
       "bench",
       "plyo-box",
       "gymnastic-rings",
-      "parallettes",
       "dumbbells",
       "landmine",
       "resistance-bands",
@@ -178,143 +176,72 @@
             "category": "warmup",
             "sets": 1,
             "repsType": "time",
-            "repsValue": 300,
+            "repsValue": 240,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Jog",
-                "exerciseName": "Easy Jog"
-              },
-              {
-                "optionName": "Bike",
-                "exerciseName": "Easy Bike"
-              },
-              {
-                "optionName": "SkiErg",
-                "exerciseName": "Easy SkiErg"
-              }
-            ],
-            "notes": "4-5 min easy jog building gradually to the day's running pace. Use Bike or SkiErg only as a symptom-management fallback. Weeks 5-8 can ramp slightly harder; Weeks 9-10 stay restorative.",
-            "coachingNotes": "Use this to reach the first running surge smoothly, not abruptly. Tall posture, quiet footstrike, and relaxed shoulders."
+            "notes": "3-4 min easy jog at roughly 6:50-7:30/km. On Phase 2 Tuesdays add 2-3 relaxed strides before the mobility work.",
+            "coachingNotes": "This is only to transition into the run smoothly. Resist turning the jog into the session."
           },
           {
-            "exerciseName": "Hip 90/90 Switches",
+            "exerciseName": "Leg Swing - Sagittal",
+            "category": "mobility",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 10,
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Hold the rig upright and let the leg swing freely without forcing range.",
+            "coachingNotes": "Stay tall and let the hip open naturally rather than chasing extra height."
+          },
+          {
+            "exerciseName": "Leg Swing - Lateral",
+            "category": "mobility",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 10,
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "Use the frontal plane swing to open the hips after Monday and Wednesday lifting.",
+            "coachingNotes": "Control the torso and let the adductors lengthen at the edge of the swing."
+          },
+          {
+            "exerciseName": "World's Greatest Stretch",
             "category": "mobility",
             "sets": 1,
             "repsType": "reps",
             "repsValue": 5,
             "repsPerSide": true,
             "loadUnit": "bodyweight",
-            "notes": "Use this to unlock the hips before the trunk block.",
-            "coachingNotes": "Rotate through both hips without forcing range."
+            "notes": "Step forward, bring the elbow toward the floor, then rotate open without rushing.",
+            "coachingNotes": "Move through the sequence slowly enough that the hips and thoracic spine actually open."
           },
           {
-            "exerciseName": "T-Spine Open Book",
-            "category": "mobility",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 5,
-            "repsPerSide": true,
+            "exerciseName": "A-Skip",
+            "category": "warmup",
+            "sets": 2,
+            "repsType": "none",
             "loadUnit": "bodyweight",
-            "notes": "One controlled set per side.",
-            "coachingNotes": "Let the upper back rotate while the hips stay stacked."
+            "notes": "2 x 20 m. Exaggerated march with active arm drive to set rhythm before the surges.",
+            "coachingNotes": "Stay tall and crisp. This is a mechanics primer, not conditioning."
           },
           {
-            "exerciseName": "Ankle Rocks",
-            "category": "mobility",
+            "exerciseName": "High Knees",
+            "category": "warmup",
             "sets": 1,
-            "repsType": "reps",
-            "repsValue": 8,
-            "repsPerSide": true,
+            "repsType": "none",
             "loadUnit": "bodyweight",
-            "notes": "Short ankle prep before the conditioning and core work.",
-            "coachingNotes": "Drive the knee forward without the heel lifting."
+            "notes": "1 x 20 m. Keep the shoulders relaxed and the posture tall.",
+            "coachingNotes": "Think quick contacts and upright rhythm, not sprinting."
           },
           {
-            "exerciseName": "Dead Bug",
-            "category": "core",
-            "sets": 1,
-            "repsType": "time",
-            "repsValue": 20,
-            "repsUnit": "seconds",
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Dead Bug",
-                "exerciseName": "Dead Bug",
-                "repsType": "time",
-                "repsValue": 20,
-                "repsUnit": "seconds"
-              },
-              {
-                "optionName": "Hollow Hold",
-                "exerciseName": "Hollow Hold",
-                "repsType": "time",
-                "repsValue": 20,
-                "repsUnit": "seconds"
-              }
-            ],
-            "notes": "Pick the trunk pattern that best keeps the ribs down and lumbar spine quiet.",
-            "coachingNotes": "This is stiffness prep, not fatigue work."
-          },
-          {
-            "exerciseName": "Glute Bridge",
+            "exerciseName": "Slow Eccentric Calf Raise",
             "category": "warmup",
             "sets": 1,
             "repsType": "reps",
-            "repsValue": 8,
+            "repsValue": 10,
             "loadUnit": "bodyweight",
-            "notes": "1-second pause at the top of each rep.",
-            "coachingNotes": "Drive through the whole foot and keep the ribs stacked over the pelvis."
-          },
-          {
-            "exerciseName": "Slider Hamstring Curl",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 5,
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Slider Curl",
-                "exerciseName": "Slider Hamstring Curl",
-                "repsValue": 5
-              },
-              {
-                "optionName": "Walkout",
-                "exerciseName": "Hamstring Walkout",
-                "repsValue": 5
-              }
-            ],
-            "notes": "Light posterior-chain prep only.",
-            "coachingNotes": "Stop before cramps or loss of pelvic position."
-          },
-          {
-            "exerciseName": "Dragon Flag Tuck Hold",
-            "category": "skill",
-            "sets": 1,
-            "repsType": "time",
-            "repsValue": 5,
-            "repsUnit": "seconds",
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Tuck Hold",
-                "exerciseName": "Dragon Flag Tuck Hold",
-                "repsType": "time",
-                "repsValue": 5,
-                "repsUnit": "seconds"
-              },
-              {
-                "optionName": "Negative Rehearsal",
-                "exerciseName": "Dragon Flag Negative",
-                "repsType": "reps",
-                "repsValue": 1
-              }
-            ],
-            "notes": "One easy rehearsal only. Weeks 9-10 keep this very easy.",
-            "coachingNotes": "Stop before any lumbar arch or shaking."
+            "notes": "3 seconds down on every rep. Keep this in even when the Achilles feels calm.",
+            "coachingNotes": "Use the full heel drop under control and stop before the calf burns."
           }
         ]
       },
@@ -323,177 +250,98 @@
         "name": "Wednesday Warm-Up",
         "exercises": [
           {
-            "exerciseName": "Easy Bike",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "time",
-            "repsValue": 180,
-            "repsUnit": "seconds",
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Bike",
-                "exerciseName": "Easy Bike"
-              },
-              {
-                "optionName": "SkiErg",
-                "exerciseName": "Easy SkiErg"
-              }
-            ],
-            "notes": "2-3 min general heat before cleans and squats.",
-            "coachingNotes": "Keep it easy and arrive ready to move fast."
-          },
-          {
-            "exerciseName": "Ankle Rocks against Wall",
+            "exerciseName": "Foam Roller T-Spine",
             "category": "mobility",
             "sets": 1,
             "repsType": "reps",
-            "repsValue": 8,
-            "repsPerSide": true,
+            "repsValue": 10,
             "loadUnit": "bodyweight",
-            "notes": "Start with ankle access before the front-rack work.",
-            "coachingNotes": "Drive the knee over the toes without letting the heel pop up."
+            "notes": "10 passes. Thoracic extension is usually the limiter for a clean front rack.",
+            "coachingNotes": "Spend time on the stiff segments instead of rushing through the passes."
           },
           {
-            "exerciseName": "Front Rack Stretch",
+            "exerciseName": "Lat and Shoulder Distraction at Rig",
             "category": "mobility",
             "sets": 1,
             "repsType": "time",
             "repsValue": 30,
             "repsUnit": "seconds",
+            "isUnilateral": true,
             "loadUnit": "bodyweight",
-            "notes": "20-30 seconds on the rig or straps.",
-            "coachingNotes": "Open the wrists and lats enough to rack the bar without cranking on the elbows."
+            "notes": "30 seconds per side with a band or by leaning away from the rig with the elbow extended.",
+            "coachingNotes": "Open the lat without letting the ribs flare or the shoulder jam forward."
           },
           {
-            "exerciseName": "Deep Goblet Pry",
+            "exerciseName": "Wrist Extension Stretch",
             "category": "mobility",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 45,
+            "repsUnit": "seconds",
+            "isUnilateral": true,
+            "loadUnit": "bodyweight",
+            "notes": "Fingers back on the floor. Non-negotiable before cleans when the rack is sensitive.",
+            "coachingNotes": "Take the stretch only to the point that the wrist opens without numbing the hand."
+          },
+          {
+            "exerciseName": "Deep Squat and Thoracic Rotation",
+            "category": "mobility",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 8,
+            "loadUnit": "bodyweight",
+            "notes": "Use heel support if needed. Rotate slowly from the deep squat without losing foot pressure.",
+            "coachingNotes": "Open the thoracic spine from the bottom position rather than turning it into a fast mobility flow."
+          },
+          {
+            "exerciseName": "Banded Ankle Dorsiflexion",
+            "category": "mobility",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 10,
+            "repsPerSide": true,
+            "loadUnit": "band",
+            "notes": "Drive the knee over the pinky toe and spend more time on the stiffer side.",
+            "coachingNotes": "Keep the heel heavy while the ankle moves forward."
+          },
+          {
+            "exerciseName": "Muscle Clean - Empty Bar",
+            "category": "warmup",
             "sets": 1,
             "repsType": "reps",
             "repsValue": 5,
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Goblet Pry",
-                "exerciseName": "Deep Goblet Pry",
-                "repsType": "reps",
-                "repsValue": 5
-              },
-              {
-                "optionName": "Paused Squat",
-                "exerciseName": "Paused Bodyweight Squat",
-                "repsType": "reps",
-                "repsValue": 5
-              }
-            ],
-            "notes": "Use the option that best opens squat depth without knee irritation.",
-            "coachingNotes": "Stay tall through the torso and let the ankles and hips open gradually."
+            "loadUnit": "kg",
+            "notes": "Slow and deliberate. No re-bend. Use it to feel the bar path into the rack.",
+            "coachingNotes": "Keep the movement vertical and finish the elbows through before the bar gets heavy."
           },
           {
-            "exerciseName": "Tall Clean Turnover Drill",
+            "exerciseName": "Hang Power Clean - Empty Bar",
             "category": "warmup",
             "sets": 1,
             "repsType": "reps",
-            "repsMin": 3,
-            "repsMax": 5,
-            "loadUnit": "bodyweight",
-            "notes": "3-5 crisp reps to sharpen elbow speed.",
-            "coachingNotes": "Use this to rehearse fast elbows and a vertical receiving pattern."
+            "repsValue": 5,
+            "loadUnit": "kg",
+            "notes": "Focus on the receiving position and front rack before you try to move it fast.",
+            "coachingNotes": "Receive in the same stance and rack shape you want for the work sets."
           },
           {
-            "exerciseName": "PVC Muscle Clean",
+            "exerciseName": "Low Box Jump",
             "category": "warmup",
             "sets": 1,
             "repsType": "reps",
-            "repsMin": 3,
-            "repsMax": 5,
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "PVC Muscle Clean",
-                "exerciseName": "PVC Muscle Clean"
-              },
-              {
-                "optionName": "Pull-Under",
-                "exerciseName": "Tall Clean Pull-Under Rehearsal"
-              }
-            ],
-            "notes": "Weeks 1-4 bias positions here; Weeks 9-10 keep it to the minimum needed to feel sharp.",
-            "coachingNotes": "Rehearse either the turnover or the pull-under, not both to fatigue."
-          },
-          {
-            "exerciseName": "Jump Shrug",
-            "category": "warmup",
-            "sets": 2,
-            "repsType": "reps",
             "repsValue": 3,
             "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Jump Shrug",
-                "exerciseName": "Jump Shrug",
-                "sets": 2,
-                "repsValue": 3
-              },
-              {
-                "optionName": "Clean Extension",
-                "exerciseName": "Clean Extension from Power Position",
-                "sets": 2,
-                "repsValue": 3
-              }
-            ],
-            "notes": "Weeks 5-8 bias this speed work.",
-            "coachingNotes": "Explode vertically and stop while speed is still high."
+            "notes": "CNS primer only. Land softly. If you use acceleration sprints instead, run 2 x 15 m at roughly 80%.",
+            "coachingNotes": "Stop well before fatigue and keep every landing quiet."
           },
           {
-            "exerciseName": "Fast-Stand Bodyweight Squat",
-            "category": "warmup",
-            "sets": 2,
-            "repsType": "reps",
-            "repsValue": 3,
-            "loadUnit": "bodyweight",
-            "notes": "Short bridge into the box squat work.",
-            "coachingNotes": "Move fast on the stand without losing foot pressure or torso position."
-          },
-          {
-            "exerciseName": "Light DB Bench Setup",
+            "exerciseName": "Working Weight Build",
             "category": "warmup",
             "sets": 1,
             "repsType": "none",
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Light DB Setup",
-                "exerciseName": "Light DB Bench Setup"
-              },
-              {
-                "optionName": "Empty Bar Groove",
-                "exerciseName": "Empty-Bar Paused Bench Groove"
-              }
-            ],
-            "notes": "1-2 short sets to rehearse the secondary press groove.",
-            "coachingNotes": "Use whichever option best matches the secondary press for that block."
-          },
-          {
-            "exerciseName": "Seated Pike Reach",
-            "category": "mobility",
-            "sets": 1,
-            "repsType": "reps",
-            "repsMin": 6,
-            "repsMax": 8,
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Pike Reach",
-                "exerciseName": "Seated Pike Reach"
-              },
-              {
-                "optionName": "Pike Pulses",
-                "exerciseName": "Seated Pike Pulses"
-              }
-            ],
-            "notes": "Low-fatigue compression and hamstring prep only.",
-            "coachingNotes": "Keep this crisp so it supports the session instead of fatiguing the hip flexors."
+            "loadUnit": "kg",
+            "notes": "3-4 build-up sets from roughly 50% to 65% to 80% and then the opening work weight. If the receiving position still feels off, take one more set around 70% before opening work.",
+            "coachingNotes": "Each build-up set should feel crisper than the last. Do not rush the transition from empty bar to working weight."
           }
         ]
       },
@@ -502,143 +350,92 @@
         "name": "Thursday Warm-Up",
         "exercises": [
           {
-            "exerciseName": "Easy Jog",
+            "exerciseName": "Easy Walk",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 180,
+            "repsUnit": "seconds",
+            "loadUnit": "bodyweight",
+            "notes": "2-3 min before the jog starts. Lower the threshold for this day and keep it restorative.",
+            "coachingNotes": "Treat the walk as permission to keep Thursday easy rather than as a performance warm-up."
+          },
+          {
+            "exerciseName": "Hip 90/90 Stretch",
+            "category": "mobility",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 30,
+            "repsUnit": "seconds",
+            "isUnilateral": true,
+            "loadUnit": "bodyweight",
+            "notes": "Floor-based external and internal rotation opening before the jog.",
+            "coachingNotes": "Stay low effort and let the hips settle instead of forcing end range."
+          },
+          {
+            "exerciseName": "Ankle Circles",
+            "category": "mobility",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 10,
+            "repsPerSide": true,
+            "loadUnit": "bodyweight",
+            "notes": "10 each direction per side to restore ankle range after Wednesday cleans.",
+            "coachingNotes": "Move the joint through full circles without making it a stretch challenge."
+          }
+        ]
+      },
+      {
+        "id": "warmup-sunday",
+        "name": "Sunday Warm-Up",
+        "exercises": [
+          {
+            "exerciseName": "Easy Walk",
             "category": "warmup",
             "sets": 1,
             "repsType": "time",
             "repsValue": 240,
             "repsUnit": "seconds",
             "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Jog",
-                "exerciseName": "Easy Jog"
-              },
-              {
-                "optionName": "SkiErg",
-                "exerciseName": "Easy SkiErg"
-              },
-              {
-                "optionName": "Row",
-                "exerciseName": "Easy Row"
-              }
-            ],
-            "notes": "3-5 min easy jog to warm the joints. In Weeks 6-8, keep this short if Thursday conditioning is removed. Use SkiErg or Row only if running would irritate the knee.",
-            "coachingNotes": "Just enough easy running to warm the joints and find rhythm. Do not create fatigue on the day before or near Friday squats."
+            "notes": "3-4 min easy walk. Do not start the long-run timer until you are already at easy run pace.",
+            "coachingNotes": "Build into the run gradually so the first minutes stay genuinely easy."
           },
           {
-            "exerciseName": "Scapular CARs",
-            "category": "mobility",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 5,
-            "repsPerSide": true,
-            "loadUnit": "bodyweight",
-            "notes": "5 each direction.",
-            "coachingNotes": "Slow circles only. Let the scapula move through full controlled range."
-          },
-          {
-            "exerciseName": "Wall Slides",
+            "exerciseName": "Leg Swing - Sagittal",
             "category": "mobility",
             "sets": 1,
             "repsType": "reps",
             "repsValue": 8,
+            "repsPerSide": true,
             "loadUnit": "bodyweight",
-            "notes": "Shoulder upward-rotation prep.",
-            "coachingNotes": "Keep the ribs down and reach long at the top."
+            "notes": "8 per leg before the longest run of the week.",
+            "coachingNotes": "Let the hip loosen naturally instead of forcing more swing height."
           },
           {
-            "exerciseName": "Banded External Rotation",
+            "exerciseName": "Hip Circles",
             "category": "mobility",
             "sets": 1,
             "repsType": "reps",
-            "repsValue": 10,
-            "repsPerSide": true,
-            "loadUnit": "band",
-            "notes": "10 per side.",
-            "coachingNotes": "Let the cuff wake up without shrugging the shoulder."
-          },
-          {
-            "exerciseName": "Face Pull",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 10,
-            "loadUnit": "band",
-            "notes": "Light set only.",
-            "coachingNotes": "Just enough to organize the upper back before the structural circuit."
-          },
-          {
-            "exerciseName": "Half-Kneeling Landmine Press",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 5,
-            "repsPerSide": true,
-            "loadUnit": "kg",
-            "notes": "Use an empty sleeve or very light load.",
-            "coachingNotes": "Reach fully at the top without losing ribs-down position."
-          },
-          {
-            "exerciseName": "Side Plank",
-            "category": "core",
-            "sets": 1,
-            "repsType": "time",
-            "repsValue": 20,
-            "repsUnit": "seconds",
+            "repsValue": 8,
             "repsPerSide": true,
             "loadUnit": "bodyweight",
-            "notes": "15-20 s per side. Weeks 9-10 can trim this back.",
-            "coachingNotes": "Straight line from ear to ankle. This is trunk organization, not fatigue work."
+            "notes": "8 each direction per side. Slow, weight-bearing hip circles before the run starts.",
+            "coachingNotes": "Keep the circles controlled and use them to restore range, not to fatigue the hips."
+          }
+        ]
+      },
+      {
+        "id": "compression-wednesday",
+        "name": "Wednesday Compression Block",
+        "exercises": [
+          {
+            "$ref": "ex-seated-pike-pulses",
+            "sets": 2,
+            "notes": "Post-clean compression work. Keep the legs straight, the toes up, and stop before the hip flexors feel heavy or the front rack gets sticky."
           },
           {
-            "exerciseName": "Ring Support Hold",
-            "category": "skill",
-            "sets": 1,
-            "repsType": "time",
-            "repsValue": 15,
-            "repsUnit": "seconds",
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Support Hold",
-                "exerciseName": "Ring Support Hold",
-                "repsType": "time",
-                "repsValue": 15,
-                "repsUnit": "seconds"
-              },
-              {
-                "optionName": "High Plank",
-                "exerciseName": "High-Plank on Rings",
-                "repsType": "time",
-                "repsValue": 15,
-                "repsUnit": "seconds"
-              }
-            ],
-            "notes": "10-15 s of stable ring support only.",
-            "coachingNotes": "Stay submaximal and keep the rings quiet."
-          },
-          {
-            "exerciseName": "Skin-the-Cat Entry Rehearsal",
-            "category": "skill",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 1,
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Entry Rehearsal",
-                "exerciseName": "Skin-the-Cat Entry Rehearsal",
-                "repsValue": 1
-              },
-              {
-                "optionName": "Tuck Inversion",
-                "exerciseName": "Tuck Inversion",
-                "repsValue": 1
-              }
-            ],
-            "notes": "One controlled ring-skill rehearsal only.",
-            "coachingNotes": "Do not accumulate straight-arm fatigue here; this is just a confidence check before the later skill work."
+            "$ref": "ex-friday-l-sit-hold",
+            "notes": "Wednesday tracked compression slot. Phase 1 uses tucked progressions, Phase 2 one-leg or straddle, and Phase 3 uses full L-sit work only if the elbows stay locked and the hold stays crisp."
           }
         ]
       },
@@ -660,154 +457,65 @@
                 "exerciseName": "Easy Bike"
               },
               {
-                "optionName": "SkiErg",
-                "exerciseName": "Easy SkiErg"
+                "optionName": "Row",
+                "exerciseName": "Easy Row"
               }
             ],
-            "notes": "2-3 min general heat before Friday speed and squat work.",
-            "coachingNotes": "Keep resistance low and arrive ready to move fast."
+            "notes": "3 min easy. This is only to raise temperature before the squat day.",
+            "coachingNotes": "Keep the effort low and let the hips loosen after Thursday's lighter session."
           },
           {
-            "exerciseName": "Hip Airplanes",
-            "category": "warmup",
+            "exerciseName": "Foam Roller T-Spine",
+            "category": "mobility",
             "sets": 1,
             "repsType": "reps",
-            "repsValue": 5,
-            "repsPerSide": true,
+            "repsValue": 10,
             "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Hip Airplanes",
-                "exerciseName": "Hip Airplanes"
-              },
-              {
-                "optionName": "Single-Leg RDL Reach",
-                "exerciseName": "Single-Leg RDL Reach"
-              }
-            ],
-            "notes": "Pick the hip-stability drill that best prepares the squat without irritating the knee.",
-            "coachingNotes": "Own hip rotation and foot pressure before moving on."
+            "notes": "10 passes. Upper-back extension limits both the squat shape and the clean rack.",
+            "coachingNotes": "Pause on the tightest segments instead of rolling quickly through the set."
           },
           {
-            "exerciseName": "Lateral Band Walks",
-            "category": "warmup",
+            "exerciseName": "Couch Stretch at Rig",
+            "category": "mobility",
+            "sets": 1,
+            "repsType": "time",
+            "repsValue": 45,
+            "repsUnit": "seconds",
+            "isUnilateral": true,
+            "loadUnit": "bodyweight",
+            "notes": "45 seconds per side with the foot on the rig or wall. Friday usually has the tightest hip flexors of the week.",
+            "coachingNotes": "Stay tall through the torso and keep the glute lightly active on the stretched side."
+          },
+          {
+            "exerciseName": "Banded Ankle Dorsiflexion",
+            "category": "mobility",
             "sets": 1,
             "repsType": "reps",
-            "repsMin": 10,
-            "repsMax": 12,
+            "repsValue": 10,
             "repsPerSide": true,
             "loadUnit": "band",
-            "notes": "10-12 steps per side.",
-            "coachingNotes": "Stay in the quarter squat and keep the feet active."
+            "notes": "10 per side. Address the stiffer ankle first before the squat ramp begins.",
+            "coachingNotes": "Drive the knee forward while keeping the heel heavy and the arch active."
           },
           {
-            "exerciseName": "Bodyweight Squat to Box",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 5,
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "To Box",
-                "exerciseName": "Bodyweight Squat to Box",
-                "repsValue": 5
-              },
-              {
-                "optionName": "Target Depth Pause",
-                "exerciseName": "Bodyweight Squat to Target-Depth Pause",
-                "repsValue": 5
-              }
-            ],
-            "notes": "Own squat depth before the barbell warm-up starts.",
-            "coachingNotes": "Use the option that gives you the cleanest depth and knee tracking."
-          },
-          {
-            "exerciseName": "Tall Clean Drill",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 3,
-            "loadUnit": "bodyweight",
-            "notes": "Match the drill to the day's clean variation.",
-            "coachingNotes": "Fast elbows and vertical timing only."
-          },
-          {
-            "exerciseName": "High-Hang Clean Drill",
+            "exerciseName": "Goblet Squat",
             "category": "warmup",
             "sets": 2,
-            "repsType": "reps",
-            "repsValue": 2,
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "High Hang",
-                "exerciseName": "High-Hang Clean Drill",
-                "sets": 2,
-                "repsValue": 2
-              },
-              {
-                "optionName": "Pause at Knee",
-                "exerciseName": "Pause-at-Knee Clean Drill",
-                "sets": 2,
-                "repsValue": 2
-              }
-            ],
-            "notes": "Weeks 5-8 bias speed and stiffness here. Weeks 9-10 keep it minimal.",
-            "coachingNotes": "Fast, crisp reps only. Stop before the pattern dulls."
-          },
-          {
-            "exerciseName": "Snap-Down to Squat Stance",
-            "category": "warmup",
-            "sets": 2,
-            "repsType": "reps",
-            "repsValue": 3,
-            "loadUnit": "bodyweight",
-            "notes": "Short speed primer before squatting.",
-            "coachingNotes": "Land in the exact stance you want for the squat and clean catch."
-          },
-          {
-            "exerciseName": "Dowel Hip Hinge Sweep",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 6,
-            "loadUnit": "bodyweight",
-            "notes": "Use when RDLs are programmed that day.",
-            "coachingNotes": "Prime the hinge pattern without turning this into work."
-          },
-          {
-            "exerciseName": "Low Box Step-Up Rehearsal",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 5,
-            "repsPerSide": true,
-            "loadUnit": "bodyweight",
-            "notes": "Use when Step-Ups are programmed that day.",
-            "coachingNotes": "Treat this as knee-tracking rehearsal only."
-          },
-          {
-            "exerciseName": "Frog Pump",
-            "category": "warmup",
-            "sets": 1,
             "repsType": "reps",
             "repsValue": 8,
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Frog Pump",
-                "exerciseName": "Frog Pump",
-                "repsValue": 8
-              },
-              {
-                "optionName": "Glute Bridge March",
-                "exerciseName": "Glute Bridge March",
-                "repsValue": 8
-              }
-            ],
-            "notes": "Optional if the hips feel flat before the work sets. Weeks 9-10 can skip this.",
-            "coachingNotes": "Use it only as a quick glute wake-up, not extra volume."
+            "loadUnit": "kg",
+            "tempoEccentric": 3,
+            "notes": "Light kettlebell or dumbbell. Use these to find depth, heel contact, and torso position before the programmed broad jumps.",
+            "coachingNotes": "Treat each rep as patterning work and keep the descent controlled."
+          },
+          {
+            "exerciseName": "Back Squat Warm-Up Ramp",
+            "category": "warmup",
+            "sets": 1,
+            "repsType": "none",
+            "loadUnit": "kg",
+            "notes": "Run the ramp as empty bar x10, 40% x5, then 60% x3. Take the clean primer after the 60% set, then add one final 75% x2 before the first work set.",
+            "coachingNotes": "Treat the bar warm-up as pattern rehearsal. The clean primer stays technical and never replaces the final squat ramp set."
           }
         ]
       },
@@ -917,93 +625,66 @@
         "name": "Monday Warm-Up V2",
         "exercises": [
           {
-            "exerciseName": "Easy Bike",
+            "exerciseName": "Foam Roller T-Spine",
+            "category": "mobility",
+            "sets": 1,
+            "repsType": "reps",
+            "repsValue": 10,
+            "loadUnit": "bodyweight",
+            "notes": "10 passes. Pause on stiff segments and bias the mid-back between the shoulder blades.",
+            "coachingNotes": "Roll slowly enough that the thoracic spine extends segment by segment instead of the ribs flaring."
+          },
+          {
+            "exerciseName": "Scapular Push-Up",
             "category": "warmup",
+            "sets": 2,
+            "repsType": "reps",
+            "repsValue": 10,
+            "loadUnit": "bodyweight",
+            "notes": "Floor or rig. Isolate scapular protraction and retraction with the elbows locked.",
+            "coachingNotes": "Move only through the shoulder blades and keep the ribcage quiet."
+          },
+          {
+            "exerciseName": "Band Pull-Apart",
+            "category": "warmup",
+            "sets": 3,
+            "repsType": "reps",
+            "repsValue": 15,
+            "loadUnit": "band",
+            "notes": "Light band. Use a thumbs-up finish on the last set to bias lower trap.",
+            "coachingNotes": "Pull with the upper back instead of cranking through the low back or shrugging."
+          },
+          {
+            "exerciseName": "Wall Slide",
+            "category": "mobility",
+            "sets": 2,
+            "repsType": "reps",
+            "repsValue": 10,
+            "loadUnit": "bodyweight",
+            "notes": "Press into the wall throughout and move slowly in both directions.",
+            "coachingNotes": "Keep the ribs down and let the scapula rotate upward rather than shrugging."
+          },
+          {
+            "exerciseName": "Wrist Flexor and Extensor Stretch",
+            "category": "mobility",
             "sets": 1,
             "repsType": "time",
-            "repsValue": 180,
+            "repsValue": 30,
             "repsUnit": "seconds",
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Bike",
-                "exerciseName": "Easy Bike"
-              },
-              {
-                "optionName": "SkiErg",
-                "exerciseName": "Easy SkiErg"
-              }
-            ],
-            "notes": "2-3 min general heat before pressing.",
-            "coachingNotes": "Easy pace only. Raise temperature and get the shoulders moving without accumulating fatigue."
-          },
-          {
-            "exerciseName": "Wrist Rolls",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 10,
-            "loadUnit": "bodyweight",
-            "notes": "10 each direction.",
-            "coachingNotes": "Slow circles only. This is joint prep for the elbow and wrist, not a stretch challenge."
-          },
-          {
-            "exerciseName": "Dead Hang to Scap Pull-Up",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "reps",
-            "repsMin": 6,
-            "repsMax": 8,
-            "loadUnit": "bodyweight",
-            "exerciseOptions": [
-              {
-                "optionName": "Hang to Scap Pull-Up",
-                "exerciseName": "Dead Hang to Scap Pull-Up"
-              },
-              {
-                "optionName": "Band Pulldown",
-                "exerciseName": "Straight-Arm Band Pulldown",
-                "loadUnit": "band"
-              }
-            ],
-            "notes": "Pick the option that gives you clean scapular depression without elbow irritation.",
-            "coachingNotes": "Use the smallest range that lets the shoulder blades move freely and pain-free."
-          },
-          {
-            "exerciseName": "Band Pull-Aparts",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 10,
-            "loadUnit": "band",
-            "notes": "Bench activation only. No power primer in V2 Monday.",
-            "coachingNotes": "Finish with the shoulder blades moving together, not the low back extending."
-          },
-          {
-            "exerciseName": "Banded External Rotation",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 10,
             "isUnilateral": true,
-            "loadUnit": "band",
-            "notes": "10 per side.",
-            "coachingNotes": "Keep the elbow pinned and rotate only as far as you can control without the shoulder rolling forward."
-          },
-          {
-            "exerciseName": "Push-Up Plank Shoulder Taps",
-            "category": "warmup",
-            "sets": 1,
-            "repsType": "reps",
-            "repsValue": 6,
-            "repsPerSide": true,
             "loadUnit": "bodyweight",
-            "notes": "Brace hard and keep the torso quiet.",
-            "coachingNotes": "This is anti-rotation trunk prep for the press, not a speed drill."
+            "notes": "30 seconds in each wrist position on both arms. Keep this in even when the elbow feels calm.",
+            "coachingNotes": "Take the stretch only to mild tension and keep the shoulder relaxed."
           },
           {
-            "$ref": "ex-scap-pushup-plus",
-            "notes": "One crisp activation set immediately before the bench warm-up sets."
+            "exerciseName": "Empty Bar Bench Press",
+            "category": "warmup",
+            "sets": 2,
+            "repsType": "reps",
+            "repsValue": 8,
+            "loadUnit": "kg",
+            "notes": "Pause 1 second at the chest. Check grip width and elbow path before adding load.",
+            "coachingNotes": "Treat these as rehearsal reps for the first work sets rather than fatigue work."
           }
         ]
       }
@@ -1323,12 +1004,12 @@
         "repsType": "reps",
         "loadUnit": "bodyweight",
         "restSeconds": 45,
-        "notes": "Compression-Goal Rule (Friday). Active toe lift, lift hips off floor with straight legs. Quality over quantity.",
+        "notes": "Compression-Goal Rule (Wednesday). Active toe lift, lift hips off floor with straight legs. Quality over quantity.",
         "coachingNotes": "Sit tall with legs straight and toes actively pulled toward you. Press the hands into the floor next to the hips and lift the heels (and ideally the hips) off the ground while keeping the legs perfectly straight. Each rep is a small, controlled pulse — no kipping the legs up."
       },
       {
         "id": "ex-friday-l-sit-hold",
-        "exerciseName": "L-Sit Hold (Friday Compression Block)",
+        "exerciseName": "L-Sit Hold (Compression Block)",
         "exerciseId": "l_sit",
         "category": "skill",
         "sets": 2,
@@ -1338,7 +1019,7 @@
         "repsUnit": "seconds",
         "loadUnit": "bodyweight",
         "restSeconds": 60,
-        "notes": "Best L-Sit variation, target 8-15 s. Adds to Friday Pike Pulses for compression total ~5 min.",
+        "notes": "Best L-Sit variation, target 8-15 s. Use after Wednesday clean work for low-fatigue compression volume.",
         "alternatives": [
           "Tucked L-Sit",
           "One-Leg L-Sit",
@@ -1772,10 +1453,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean + Secondary Squat",
+                "name": "Wednesday — Power Clean Quality",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Power emphasis + secondary squat",
+                "description": "Power emphasis and clean positions",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -1800,19 +1481,7 @@
                     "notes": "60 kg for crisp doubles. Reset every rep and treat the set like EMOM work."
                   },
                   {
-                    "exerciseName": "Front Squat",
-                    "exerciseId": "front_squat",
-                    "category": "main",
-                    "sets": 3,
-                    "repsValue": 5,
-                    "repsType": "reps",
-                    "loadUnit": "kg",
-                    "loadMin": 75,
-                    "loadMax": 75,
-                    "restSeconds": 180,
-                    "rpe": 7,
-                    "notes": "75 kg. Clean-transfer secondary squat. Elbows high, torso tall.",
-                    "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
+                    "$routine": "compression-wednesday"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1857,10 +1526,10 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Squat Strength + Posterior Chain",
+                "name": "Friday — Squat Strength + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Lower strength accumulation + hinge",
+                "description": "Lower strength accumulation + squat backoff",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
@@ -1882,7 +1551,7 @@
                     "loadMax": 40,
                     "sets": 3,
                     "repsValue": 2,
-                    "notes": "Technical clean primer only. Fast turnover, no fatigue."
+                    "notes": "Technical clean primer only. Fast turnover, no fatigue. If turnover is slow in the warm-up, skip the primer and move straight to squats."
                   },
                   {
                     "$ref": "ex-back-squat",
@@ -1901,13 +1570,19 @@
                     "notes": "2 backoff set(s) at 82.5 kg. Quality only."
                   },
                   {
-                    "$ref": "ex-rdl",
-                    "loadMin": 70,
-                    "loadMax": 70,
+                    "exerciseName": "Front Squat",
+                    "exerciseId": "front_squat",
+                    "category": "main",
                     "sets": 3,
-                    "repsMin": 8,
-                    "repsMax": 8,
-                    "notes": "Hinge slot. Keep the tempo strict and the hamstrings in charge."
+                    "repsValue": 5,
+                    "repsType": "reps",
+                    "loadUnit": "kg",
+                    "loadMin": 75,
+                    "loadMax": 75,
+                    "restSeconds": 180,
+                    "rpe": 7,
+                    "notes": "75 kg. Secondary squat backoff after the main squat. Keep the rack and torso positions clean; no grinding.",
+                    "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -1922,8 +1597,11 @@
                 "description": "Long easy run for aerobic durability",
                 "exercises": [
                   {
+                    "$routine": "warmup-sunday"
+                  },
+                  {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 1: 16 min long easy run at roughly 6:45-7:25/km. Walk 30-60 s once midway if needed to keep it smooth."
+                    "notes": "Week 1: 18 min long easy run at roughly 6:45-7:25/km. Walk 30-60 s once midway if needed to keep it smooth."
                   }
                 ]
               }
@@ -2015,10 +1693,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean + Secondary Squat",
+                "name": "Wednesday — Power Clean Quality",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Power emphasis + secondary squat",
+                "description": "Power emphasis and clean positions",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -2043,12 +1721,7 @@
                     "notes": "62.5 kg for crisp doubles. Reset every rep and treat the set like EMOM work."
                   },
                   {
-                    "$ref": "ex-box-squat",
-                    "loadMin": 80,
-                    "loadMax": 80,
-                    "repsValue": 5,
-                    "sets": 3,
-                    "notes": "80 kg. Secondary squat. Dead-stop reps only."
+                    "$routine": "compression-wednesday"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2093,10 +1766,10 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Squat Strength + Posterior Chain",
+                "name": "Friday — Squat Strength + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Lower strength accumulation + hinge",
+                "description": "Lower strength accumulation + squat backoff",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
@@ -2118,7 +1791,7 @@
                     "loadMax": 42.5,
                     "sets": 3,
                     "repsValue": 2,
-                    "notes": "Technical clean primer only. Fast turnover, no fatigue."
+                    "notes": "Technical clean primer only. Fast turnover, no fatigue. If turnover is slow in the warm-up, skip the primer and move straight to squats."
                   },
                   {
                     "$ref": "ex-back-squat",
@@ -2137,13 +1810,12 @@
                     "notes": "2 backoff set(s) at 87.5 kg. Quality only."
                   },
                   {
-                    "$ref": "ex-rdl",
-                    "loadMin": 75,
-                    "loadMax": 75,
+                    "$ref": "ex-box-squat",
+                    "loadMin": 80,
+                    "loadMax": 80,
                     "sets": 3,
-                    "repsMin": 8,
-                    "repsMax": 8,
-                    "notes": "Hinge slot. Keep the tempo strict and the hamstrings in charge."
+                    "repsValue": 5,
+                    "notes": "80 kg. Secondary squat backoff. Dead-stop reps only. Keep it crisp after the main squat work."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -2158,8 +1830,11 @@
                 "description": "Long easy run for aerobic durability",
                 "exercises": [
                   {
+                    "$routine": "warmup-sunday"
+                  },
+                  {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 2: 18 min long easy run at roughly 6:45-7:25/km. Stay relaxed and keep the stride short."
+                    "notes": "Week 2: 20 min long easy run at roughly 6:45-7:25/km. Stay relaxed and keep the stride short."
                   }
                 ]
               }
@@ -2251,10 +1926,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean + Secondary Squat",
+                "name": "Wednesday — Power Clean Quality",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Power emphasis + secondary squat",
+                "description": "Power emphasis and clean positions",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -2279,19 +1954,7 @@
                     "notes": "65 kg for crisp doubles. Reset every rep and treat the set like EMOM work."
                   },
                   {
-                    "exerciseName": "Front Squat",
-                    "exerciseId": "front_squat",
-                    "category": "main",
-                    "sets": 3,
-                    "repsValue": 4,
-                    "repsType": "reps",
-                    "loadUnit": "kg",
-                    "loadMin": 80,
-                    "loadMax": 80,
-                    "restSeconds": 180,
-                    "rpe": 7,
-                    "notes": "80 kg. Clean-transfer secondary squat. Elbows high, torso tall.",
-                    "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
+                    "$routine": "compression-wednesday"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2336,10 +1999,10 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Squat Strength + Posterior Chain",
+                "name": "Friday — Squat Strength + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Lower strength accumulation + hinge",
+                "description": "Lower strength accumulation + squat backoff",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
@@ -2361,7 +2024,7 @@
                     "loadMax": 45,
                     "sets": 3,
                     "repsValue": 2,
-                    "notes": "Technical clean primer only. Fast turnover, no fatigue."
+                    "notes": "Technical clean primer only. Fast turnover, no fatigue. If turnover is slow in the warm-up, skip the primer and move straight to squats."
                   },
                   {
                     "$ref": "ex-back-squat",
@@ -2380,13 +2043,19 @@
                     "notes": "2 backoff set(s) at 92.5 kg. Quality only."
                   },
                   {
-                    "$ref": "ex-rdl",
+                    "exerciseName": "Front Squat",
+                    "exerciseId": "front_squat",
+                    "category": "main",
+                    "sets": 3,
+                    "repsValue": 4,
+                    "repsType": "reps",
+                    "loadUnit": "kg",
                     "loadMin": 80,
                     "loadMax": 80,
-                    "sets": 3,
-                    "repsMin": 8,
-                    "repsMax": 8,
-                    "notes": "Hinge slot. Keep the tempo strict and the hamstrings in charge."
+                    "restSeconds": 180,
+                    "rpe": 7,
+                    "notes": "80 kg. Secondary squat backoff after the main squat. Keep the rack and torso positions clean; no grinding.",
+                    "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -2401,8 +2070,11 @@
                 "description": "Long easy run for aerobic durability",
                 "exercises": [
                   {
+                    "$routine": "warmup-sunday"
+                  },
+                  {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 3: 20 min long easy run at roughly 6:45-7:20/km. Finish with enough left to run 5 more minutes if you had to."
+                    "notes": "Week 3: 22 min long easy run at roughly 6:45-7:20/km. Finish with enough left to run 5 more minutes if you had to."
                   }
                 ]
               }
@@ -2481,7 +2153,7 @@
                   },
                   {
                     "$ref": "ex-run-conditioning-hard",
-                    "notes": "Week 4: 6 x 1 min hard / 1 min easy jog. Run the hard minutes around current 5k effort and keep the easy jog active enough that the run never fully resets."
+                    "notes": "Week 4: 5 x 1 min hard / 1 min easy jog. Run the hard minutes around current 5k effort, and stop at 4 reps if Wednesday clean speed feels compromised."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2504,10 +2176,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean + Secondary Squat",
+                "name": "Wednesday — Power Clean Quality",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Speed-strength clean work + secondary squat",
+                "description": "Speed-strength clean work only",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -2532,19 +2204,7 @@
                     "notes": "67.5 kg for crisp doubles. Reset every rep and treat the set like EMOM work."
                   },
                   {
-                    "exerciseName": "Anderson Squat from Pins",
-                    "exerciseId": "anderson_squat",
-                    "category": "main",
-                    "sets": 3,
-                    "repsValue": 4,
-                    "repsType": "reps",
-                    "loadUnit": "kg",
-                    "loadMin": 85,
-                    "loadMax": 85,
-                    "restSeconds": 180,
-                    "rpe": 8,
-                    "notes": "85 kg. Start each rep from a dead stop on the pins. Build starting strength without rebound.",
-                    "coachingNotes": "Pins set at parallel. Set the brace first, drive vertically from a dead stop, and reset between reps. No bounce off the pins."
+                    "$routine": "compression-wednesday"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2589,10 +2249,10 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Squat Strength + Posterior Chain",
+                "name": "Friday — Squat Strength + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Lower strength intensification + unilateral or hinge slot",
+                "description": "Lower strength intensification + squat backoff",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
@@ -2614,7 +2274,7 @@
                     "loadMax": 62.5,
                     "sets": 3,
                     "repsValue": 1,
-                    "notes": "Single clean primer only. Fast, sharp, and fully reset."
+                    "notes": "Single clean primer only. Fast, sharp, and fully reset. If turnover is slow in the warm-up, skip the primer and move straight to squats."
                   },
                   {
                     "$ref": "ex-back-squat",
@@ -2633,13 +2293,19 @@
                     "notes": "2 backoff set(s) at 97.5 kg. Quality only."
                   },
                   {
-                    "$ref": "ex-rdl",
+                    "exerciseName": "Anderson Squat from Pins",
+                    "exerciseId": "anderson_squat",
+                    "category": "main",
+                    "sets": 3,
+                    "repsValue": 4,
+                    "repsType": "reps",
+                    "loadUnit": "kg",
                     "loadMin": 85,
                     "loadMax": 85,
-                    "sets": 3,
-                    "repsMin": 8,
-                    "repsMax": 8,
-                    "notes": "Hinge slot. Keep the tempo strict and the hamstrings in charge."
+                    "restSeconds": 180,
+                    "rpe": 8,
+                    "notes": "85 kg. Secondary squat backoff. Start each rep from a dead stop and keep the positions strict after the main squat.",
+                    "coachingNotes": "Pins set at parallel. Set the brace first, drive vertically from a dead stop, and reset between reps. No bounce off the pins."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -2654,8 +2320,11 @@
                 "description": "Long easy run for aerobic durability",
                 "exercises": [
                   {
+                    "$routine": "warmup-sunday"
+                  },
+                  {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 4: 22 min long easy run at roughly 6:45-7:20/km. Keep the effort easy enough that Tuesday still feels recoverable."
+                    "notes": "Week 4: 24 min long easy run at roughly 6:45-7:20/km. Keep the effort easy enough that Tuesday still feels recoverable."
                   }
                 ]
               }
@@ -2724,7 +2393,7 @@
                   },
                   {
                     "$ref": "ex-run-conditioning-hard",
-                    "notes": "Week 5: 5 x 2 min hard / 90 s easy jog. The final rep should still look like running, not survival."
+                    "notes": "Week 5: 4 x 2 min hard / 90 s easy jog. The last rep should still look smooth, and you can stop at 3 reps if Wednesday clean quality is trending down."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2747,10 +2416,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean + Secondary Squat",
+                "name": "Wednesday — Power Clean Quality",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Speed-strength clean work + secondary squat",
+                "description": "Speed-strength clean work only",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -2775,12 +2444,7 @@
                     "notes": "70 kg. Crisp singles or cluster-style singles only."
                   },
                   {
-                    "$ref": "ex-box-squat",
-                    "loadMin": 90,
-                    "loadMax": 90,
-                    "repsValue": 4,
-                    "sets": 3,
-                    "notes": "90 kg. Box squat secondary strength exposure."
+                    "$routine": "compression-wednesday"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2825,10 +2489,10 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Squat Strength + Posterior Chain",
+                "name": "Friday — Squat Strength + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Lower strength intensification + unilateral or hinge slot",
+                "description": "Lower strength intensification + squat backoff",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
@@ -2850,7 +2514,7 @@
                     "loadMax": 65,
                     "sets": 3,
                     "repsValue": 1,
-                    "notes": "Single clean primer only. Fast, sharp, and fully reset."
+                    "notes": "Single clean primer only. Fast, sharp, and fully reset. If turnover is slow in the warm-up, skip the primer and move straight to squats."
                   },
                   {
                     "$ref": "ex-back-squat",
@@ -2869,12 +2533,12 @@
                     "notes": "2 backoff set(s) at 102.5 kg. Quality only."
                   },
                   {
-                    "$ref": "ex-step-ups",
-                    "loadMin": 15,
-                    "loadMax": 17.5,
+                    "$ref": "ex-box-squat",
+                    "loadMin": 90,
+                    "loadMax": 90,
                     "sets": 3,
-                    "repsValue": 8,
-                    "notes": "Unilateral lower-body slot. Slow descent, perfect knee tracking."
+                    "repsValue": 4,
+                    "notes": "90 kg. Secondary squat backoff. Dead-stop reps only and keep them crisp after the main squat."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -2889,8 +2553,11 @@
                 "description": "Long easy run for aerobic durability",
                 "exercises": [
                   {
+                    "$routine": "warmup-sunday"
+                  },
+                  {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 5: 24 min long easy run at roughly 6:45-7:20/km. If the legs feel beat up, split it into 2 x 12 min with 1 min walk between."
+                    "notes": "Week 5: 26 min long easy run at roughly 6:45-7:20/km. If the legs feel beat up, split it into 2 x 13 min with 1 min walk between."
                   }
                 ]
               }
@@ -2959,7 +2626,7 @@
                   },
                   {
                     "$ref": "ex-run-conditioning-hard",
-                    "notes": "Week 6: 4 x 3 min hard / 2 min easy jog. Stay tall on the last minute of each surge and use the easy jog to recover without shuffling."
+                    "notes": "Week 6: 3 x 3 min hard / 2 min easy jog. Stay tall on each surge, keep the easy jog active, and finish springy rather than depleted."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2982,10 +2649,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean + Secondary Squat",
+                "name": "Wednesday — Power Clean Quality",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Speed-strength clean work + secondary squat",
+                "description": "Speed-strength clean work only",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -3010,19 +2677,7 @@
                     "notes": "72.5 kg. Crisp singles or cluster-style singles only."
                   },
                   {
-                    "exerciseName": "Anderson Squat from Pins",
-                    "exerciseId": "anderson_squat",
-                    "category": "main",
-                    "sets": 3,
-                    "repsValue": 3,
-                    "repsType": "reps",
-                    "loadUnit": "kg",
-                    "loadMin": 90,
-                    "loadMax": 90,
-                    "restSeconds": 180,
-                    "rpe": 8,
-                    "notes": "90 kg. Start each rep from a dead stop on the pins. Build starting strength without rebound.",
-                    "coachingNotes": "Pins set at parallel. Set the brace first, drive vertically from a dead stop, and reset between reps. No bounce off the pins."
+                    "$routine": "compression-wednesday"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3062,10 +2717,10 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Squat Strength + Posterior Chain",
+                "name": "Friday — Squat Strength + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Lower strength intensification + unilateral or hinge slot",
+                "description": "Lower strength intensification + squat backoff",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
@@ -3087,7 +2742,7 @@
                     "loadMax": 67.5,
                     "sets": 3,
                     "repsValue": 1,
-                    "notes": "Single clean primer only. Fast, sharp, and fully reset."
+                    "notes": "Single clean primer only. Fast, sharp, and fully reset. If turnover is slow in the warm-up, skip the primer and move straight to squats."
                   },
                   {
                     "$ref": "ex-back-squat",
@@ -3106,12 +2761,19 @@
                     "notes": "2 backoff set(s) at 107.5 kg. Quality only."
                   },
                   {
-                    "$ref": "ex-step-ups",
-                    "loadMin": 15,
-                    "loadMax": 17.5,
+                    "exerciseName": "Anderson Squat from Pins",
+                    "exerciseId": "anderson_squat",
+                    "category": "main",
                     "sets": 3,
-                    "repsValue": 8,
-                    "notes": "Unilateral lower-body slot. Slow descent, perfect knee tracking."
+                    "repsValue": 3,
+                    "repsType": "reps",
+                    "loadUnit": "kg",
+                    "loadMin": 90,
+                    "loadMax": 90,
+                    "restSeconds": 180,
+                    "rpe": 8,
+                    "notes": "90 kg. Secondary squat backoff. Start each rep from a dead stop and keep the positions strict after the main squat.",
+                    "coachingNotes": "Pins set at parallel. Set the brace first, drive vertically from a dead stop, and reset between reps. No bounce off the pins."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -3126,8 +2788,11 @@
                 "description": "Long easy run for aerobic durability",
                 "exercises": [
                   {
+                    "$routine": "warmup-sunday"
+                  },
+                  {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 6: 26 min long easy run at roughly 6:45-7:20/km. This is the longest run in the block; do not turn it into steady-state work."
+                    "notes": "Week 6: 28 min long easy run at roughly 6:45-7:20/km. This is the longest run in the block; do not turn it into steady-state work."
                   }
                 ]
               }
@@ -3196,7 +2861,7 @@
                   },
                   {
                     "$ref": "ex-run-conditioning-hard",
-                    "notes": "Week 7: 10 x 30 s fast / 60 s easy jog. Keep it sharp and springy rather than lactic so Friday still has legs."
+                    "notes": "Week 7: 8 x 30 s fast / 60 s easy jog. Keep it quick and low-cost, and cut it to 6 reps if Wednesday clean pop is missing."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -3219,10 +2884,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean + Secondary Squat",
+                "name": "Wednesday — Power Clean Quality",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Speed-strength clean work + secondary squat",
+                "description": "Speed-strength clean work only",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -3247,12 +2912,7 @@
                     "notes": "75 kg. Crisp singles or cluster-style singles only."
                   },
                   {
-                    "$ref": "ex-box-squat",
-                    "loadMin": 92.5,
-                    "loadMax": 92.5,
-                    "repsValue": 3,
-                    "sets": 3,
-                    "notes": "92.5 kg. Keep it sharp, not grindy."
+                    "$routine": "compression-wednesday"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3297,10 +2957,10 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Squat Strength + Posterior Chain",
+                "name": "Friday — Squat Strength + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Lower strength intensification + unilateral or hinge slot",
+                "description": "Lower strength intensification + squat backoff",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
@@ -3322,7 +2982,7 @@
                     "loadMax": 70,
                     "sets": 3,
                     "repsValue": 1,
-                    "notes": "Single clean primer only. Fast, sharp, and fully reset."
+                    "notes": "Single clean primer only. Fast, sharp, and fully reset. If turnover is slow in the warm-up, skip the primer and move straight to squats."
                   },
                   {
                     "$ref": "ex-back-squat",
@@ -3341,12 +3001,12 @@
                     "notes": "1 backoff set(s) at 110 kg. Quality only."
                   },
                   {
-                    "$ref": "ex-step-ups",
-                    "loadMin": 15,
-                    "loadMax": 17.5,
+                    "$ref": "ex-box-squat",
+                    "loadMin": 92.5,
+                    "loadMax": 92.5,
                     "sets": 3,
-                    "repsValue": 8,
-                    "notes": "Unilateral lower-body slot. Slow descent, perfect knee tracking."
+                    "repsValue": 3,
+                    "notes": "92.5 kg. Secondary squat backoff. Keep it sharp and non-grindy after the main squat."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -3361,8 +3021,11 @@
                 "description": "Long easy run for aerobic durability",
                 "exercises": [
                   {
+                    "$routine": "warmup-sunday"
+                  },
+                  {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 7: 24 min long easy run at roughly 6:45-7:20/km. Trim it by a few minutes if Tuesday's sharper reps linger in the legs."
+                    "notes": "Week 7: 26 min long easy run at roughly 6:45-7:20/km. Trim it by a few minutes if Tuesday's sharper reps linger in the legs."
                   }
                 ]
               }
@@ -3464,10 +3127,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean + Secondary Squat",
+                "name": "Wednesday — Power Clean Quality",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Realization clean singles + light secondary squat",
+                "description": "Realization clean singles only",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -3492,12 +3155,7 @@
                     "notes": "77.5 kg. High-quality singles only."
                   },
                   {
-                    "$ref": "ex-box-squat",
-                    "loadMin": 75,
-                    "loadMax": 75,
-                    "repsValue": 3,
-                    "sets": 2,
-                    "notes": "Light box squat only. Deload assistance, keep positions."
+                    "$routine": "compression-wednesday"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3542,10 +3200,10 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Squat Strength + Posterior Chain",
+                "name": "Friday — Squat Strength + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Lower strength realization + minimal assistance",
+                "description": "Lower strength realization + positional squat backoff",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
@@ -3567,7 +3225,7 @@
                     "loadMax": 72.5,
                     "sets": 3,
                     "repsValue": 1,
-                    "notes": "Single clean primer only. Fast, sharp, and fully reset."
+                    "notes": "Single clean primer only. Fast, sharp, and fully reset. If turnover is slow in the warm-up, skip the primer and move straight to squats."
                   },
                   {
                     "$ref": "ex-back-squat",
@@ -3586,13 +3244,12 @@
                     "notes": "1 backoff set(s) at 115 kg. Quality only."
                   },
                   {
-                    "$ref": "ex-rdl",
-                    "loadMin": 70,
-                    "loadMax": 70,
+                    "$ref": "ex-box-squat",
+                    "loadMin": 75,
+                    "loadMax": 75,
                     "sets": 2,
-                    "repsMin": 6,
-                    "repsMax": 6,
-                    "notes": "Light hinge slot only if bar speed is still good."
+                    "repsValue": 3,
+                    "notes": "Light positional squat backoff only. Keep the reps clean and shut it down if the main squat took too much out of you."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -3607,8 +3264,11 @@
                 "description": "Long easy run for aerobic durability",
                 "exercises": [
                   {
+                    "$routine": "warmup-sunday"
+                  },
+                  {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 8: 22 min long easy run at roughly 6:45-7:20/km. Keep it calm and rhythmic."
+                    "notes": "Week 8: 24 min long easy run at roughly 6:45-7:20/km. Keep it calm and rhythmic."
                   }
                 ]
               }
@@ -3700,10 +3360,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean + Secondary Squat",
+                "name": "Wednesday — Power Clean Quality",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Realization clean singles + light secondary squat",
+                "description": "Realization clean singles only",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -3728,19 +3388,7 @@
                     "notes": "80 kg. High-quality singles only."
                   },
                   {
-                    "exerciseName": "Front Squat",
-                    "exerciseId": "front_squat",
-                    "category": "main",
-                    "sets": 2,
-                    "repsValue": 3,
-                    "repsType": "reps",
-                    "loadUnit": "kg",
-                    "loadMin": 70,
-                    "loadMax": 70,
-                    "restSeconds": 180,
-                    "rpe": 7,
-                    "notes": "70 kg. Clean-transfer secondary squat. Elbows high, torso tall. Light only. Preserve clean transfer without fatigue.",
-                    "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
+                    "$routine": "compression-wednesday"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3785,10 +3433,10 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Squat Strength + Posterior Chain",
+                "name": "Friday — Squat Strength + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Lower strength realization + minimal assistance",
+                "description": "Lower strength realization + positional squat backoff",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
@@ -3810,7 +3458,7 @@
                     "loadMax": 75,
                     "sets": 3,
                     "repsValue": 1,
-                    "notes": "Single clean primer only. Fast, sharp, and fully reset."
+                    "notes": "Single clean primer only. Fast, sharp, and fully reset. If turnover is slow in the warm-up, skip the primer and move straight to squats."
                   },
                   {
                     "$ref": "ex-back-squat",
@@ -3829,12 +3477,19 @@
                     "notes": "1 backoff set(s) at 120 kg. Quality only."
                   },
                   {
-                    "$ref": "ex-step-ups",
-                    "loadMin": 12.5,
-                    "loadMax": 12.5,
+                    "exerciseName": "Front Squat",
+                    "exerciseId": "front_squat",
+                    "category": "main",
                     "sets": 2,
-                    "repsValue": 6,
-                    "notes": "Optional unilateral slot. Keep it crisp."
+                    "repsValue": 3,
+                    "repsType": "reps",
+                    "loadUnit": "kg",
+                    "loadMin": 70,
+                    "loadMax": 70,
+                    "restSeconds": 180,
+                    "rpe": 7,
+                    "notes": "70 kg. Positional squat backoff only. Preserve clean rack and torso control without adding fatigue.",
+                    "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -3849,8 +3504,11 @@
                 "description": "Long easy run for aerobic durability",
                 "exercises": [
                   {
+                    "$routine": "warmup-sunday"
+                  },
+                  {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 9: 20 min long easy run at roughly 6:45-7:20/km. Keep the taper feel; this should not leave residual fatigue."
+                    "notes": "Week 9: 22 min long easy run at roughly 6:45-7:20/km. Keep the taper feel; this should not leave residual fatigue."
                   }
                 ]
               }
@@ -3903,6 +3561,9 @@
                     "notes": "Backoff row volume only."
                   },
                   {
+                    "$routine": "compression-wednesday"
+                  },
+                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -3942,10 +3603,10 @@
               },
               {
                 "dayNumber": 3,
-                "name": "Wednesday — Power Clean + Secondary Squat",
+                "name": "Wednesday — Power Clean Quality",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Realization clean singles + light secondary squat",
+                "description": "Realization clean singles only",
                 "exercises": [
                   {
                     "$routine": "warmup-wednesday"
@@ -3968,14 +3629,6 @@
                     "sets": 3,
                     "repsValue": 1,
                     "notes": "82.5 kg. High-quality singles only."
-                  },
-                  {
-                    "$ref": "ex-box-squat",
-                    "loadMin": 70,
-                    "loadMax": 70,
-                    "repsValue": 2,
-                    "sets": 2,
-                    "notes": "Very light positional exposure only."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -4020,10 +3673,10 @@
               },
               {
                 "dayNumber": 5,
-                "name": "Friday — Squat Strength + Posterior Chain",
+                "name": "Friday — Squat Strength + Secondary Squat",
                 "type": "strength",
                 "estimatedDuration": 60,
-                "description": "Lower strength realization + minimal assistance",
+                "description": "Lower strength realization + positional squat backoff",
                 "exercises": [
                   {
                     "$routine": "warmup-friday"
@@ -4045,7 +3698,7 @@
                     "loadMax": 77.5,
                     "sets": 3,
                     "repsValue": 1,
-                    "notes": "Single clean primer only. Fast, sharp, and fully reset."
+                    "notes": "Single clean primer only. Fast, sharp, and fully reset. If turnover is slow in the warm-up, skip the primer and move straight to squats."
                   },
                   {
                     "$ref": "ex-back-squat",
@@ -4064,6 +3717,14 @@
                     "notes": "1 backoff set(s) at 122.5 kg. Quality only."
                   },
                   {
+                    "$ref": "ex-box-squat",
+                    "loadMin": 70,
+                    "loadMax": 70,
+                    "repsValue": 2,
+                    "sets": 2,
+                    "notes": "Very light positional squat backoff only. Keep it crisp and stop if the main squat already used the day's strength."
+                  },
+                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -4076,8 +3737,11 @@
                 "description": "Long easy run for aerobic durability",
                 "exercises": [
                   {
+                    "$routine": "warmup-sunday"
+                  },
+                  {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 10: 18 min long easy run at roughly 6:45-7:20/km. Stop early if the legs feel flat; this is only to preserve rhythm before restarting accumulation with a small progression."
+                    "notes": "Week 10: 20 min long easy run at roughly 6:45-7:20/km. Stop early if the legs feel flat; this is only to preserve rhythm before restarting accumulation with a small progression."
                   }
                 ]
               }

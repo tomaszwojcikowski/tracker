@@ -2,27 +2,12 @@
 
 ## Purpose
 
-This block combines three strength sessions and three run exposures to improve:
+This block targets:
 
 - bench and squat strength
 - power clean speed and receiving quality
 - repeatable 5k-oriented running
-
-The structure prioritizes bar speed, joint tolerance, and weekly recoverability.
-
-## Priorities
-
-### Primary
-
-- improve power clean speed, timing, and receiving positions
-- build bench strength without increasing medial-elbow irritation
-- build squat strength that transfers to the clean and general athleticism
-- maintain enough aerobic work to support recovery and 5k development without reducing Friday output
-
-### Secondary
-
-- maintain pulling balance, shoulder health, and trunk stiffness
-- preserve unilateral knee-control work
+- stable joint tolerance and weekly recoverability
 
 ## Weekly Structure
 
@@ -35,73 +20,129 @@ The structure prioritizes bar speed, joint tolerance, and weekly recoverability.
 ### Tuesday — Run Development + Support
 
 - phase-specific Fartlek or sharpening run
-- one or two trunk-stiffness exercises
+- trunk stiffness
 - hamstring and tendon support
 
-### Wednesday — Power Clean + Secondary Squat
+### Wednesday — Clean Quality
 
 - jump or 10-20 m acceleration sprint
-- clean work
-- secondary squat
+- clean work only
+- short post-clean compression block
+- no programmed secondary squat
 
 ### Thursday — Recovery Run + Structural Balance
 
 - short easy jog or brisk walk
 - face pulls, cuff work, calf work, side plank
 
-### Friday — Squat Strength + Posterior Chain
+### Friday — Squat Strength + Secondary Squat Backoff
 
 - jump or acceleration primer
-- clean primer
+- clean primer only if turnover is sharp
 - squat main work
-- one hinge or unilateral assistance slot
+- secondary squat backoff
 
 ### Sunday — Long Easy Run
 
 - easy aerobic run
 
-Saturday is unscheduled.
+### Optional Saturday Volume
+
+- add 15-20 minutes of easy jogging only if 5k progress stalls and Wednesday clean quality plus Friday squat speed remain stable
+- keep it outside the tracked training week
+- remove this session first if recovery deteriorates
+
+## Warm-Up Structure
+
+These warm-ups are now embedded in the program data for the tracked days. Treat them as the minimum entry dose for the session rather than optional filler.
+
+### Monday
+
+- foam roller T-spine
+- scapular push-up
+- band pull-apart
+- wall slide
+- wrist flexor and extensor stretch
+- empty-bar bench press before the first loaded set
+
+### Tuesday
+
+- 3-4 minutes easy jog
+- sagittal and lateral leg swings
+- world's greatest stretch
+- A-skip and high knees
+- slow eccentric calf raise
+- in Phase 2, add 2-3 relaxed strides before the mobility block
+
+### Wednesday
+
+- thoracic roll, lat distraction, wrist extension, deep squat rotation, and banded ankle work
+- empty-bar muscle clean and hang power clean
+- low box jump or submax acceleration as the neural primer
+- 3-4 build-up sets to the opening clean weight
+- if the receiving position still feels off, repeat one build-up set around 70%
+- after the clean work, use 2 short sets of seated pike pulses and 2 short L-sit holds for tracked compression work
+
+### Thursday
+
+- easy walk
+- hip 90/90 stretch
+- ankle circles
+- the first minutes of the easy run finish the warm-up
+
+### Friday
+
+- 3 minutes easy bike or row
+- thoracic, hip-flexor, and ankle prep
+- goblet squat patterning
+- use the programmed broad jumps as the speed primer
+- squat ramp: empty bar x10, 40% x5, 60% x3, clean primer, then 75% x2 before the first work set
+
+### Optional Saturday
+
+- easy walk
+- sagittal leg swings
+- transition straight into a 15-20 minute easy jog
+- keep this fully optional and outside the tracked week
+
+### Sunday
+
+- easy walk
+- sagittal leg swings
+- hip circles
+- start the long-run timer only after the walk and mobility are done
 
 ## Phase Structure
 
 ### Phase 1 — Accumulation and Athletic Base
 
-**Duration:** 2-4 weeks
+**Weeks:** 1-3
 
-**Aim:** rebuild tolerance, accumulate quality work, and establish clean and jump frequency.
-
-**Characteristics:**
-
-- moderate loads
-- higher exercise variety
-- more support volume
-- more aerobic work
+**Aim:** rebuild tolerance, accumulate quality work, and establish clean frequency.
 
 **Main lift formats:**
 
 - bench: heavy working set of 6 at RPE 7-8, then 2 backoff sets
-- clean: EMOM singles or doubles at crisp submaximal loads
+- clean: EMOM doubles or crisp singles at submaximal load
 - squat: heavy working set of 5-6 at RPE 7-8, then 2 backoff sets
 
 **Running structure:**
 
-- Tuesday: introductory Fartlek
+- Tuesday: controlled introductory Fartlek
 - Thursday: short easy run or recovery jog
-- Sunday: 16-20 minute long easy run
+- Sunday: 18-22 minute long easy run
+
+**Advance when:**
+
+- bench and squat working sets reach the top of the target RPE band for two consecutive exposures without technical breakdown
+- Tuesday surges are repeatable at the prescribed pace range
+- Thursday and Sunday runs still feel restorative
 
 ### Phase 2 — Intensification and Power-Strength
 
-**Duration:** 2-4 weeks
+**Weeks:** 4-7
 
 **Aim:** raise force output without losing speed and reduce nonessential volume.
-
-**Characteristics:**
-
-- fewer total reps on the main lifts
-- lower accessory volume
-- more explicit speed work
-- Tuesday as the hardest running day
-- minimal Thursday workload
 
 **Main lift formats:**
 
@@ -111,22 +152,21 @@ Saturday is unscheduled.
 
 **Running structure:**
 
-- Tuesday: main 5k-focused Fartlek session
-- Thursday: short recovery jog
-- Sunday: 22-26 minute long easy run
+- Tuesday: capped 5k-focused Fartlek progression such as 5 x 1 minute, 4 x 2 minutes, 3 x 3 minutes, or 8 x 30 seconds
+- Thursday: short recovery jog only
+- Sunday: 24-28 minute long easy run
+
+**Advance when:**
+
+- clean singles remain sharp at phase loads
+- extra lift volume starts to slow bar speed
+- Tuesday hard running begins to threaten Wednesday clean pop or Friday squat speed
 
 ### Phase 3 — Realization and Consolidation
 
-**Duration:** 1-2 weeks
+**Weeks:** 8-10
 
-**Aim:** express performance with lower fatigue while preserving running rhythm and clean sharpness.
-
-**Characteristics:**
-
-- low accessory volume
-- jumps or short accelerations retained
-- clean work reduced to primer or high-quality singles
-- only balance and recovery work outside the main lifts
+**Aim:** express performance with lower fatigue while preserving clean sharpness and running rhythm.
 
 **Main lift formats:**
 
@@ -138,13 +178,33 @@ Saturday is unscheduled.
 
 - Tuesday: short sharpening run or stride-based maintenance
 - Thursday: very short restoration jog or walk
-- Sunday: 18-22 minute long easy run
+- Sunday: 20-24 minute long easy run
 
-After Phase 3, restart Phase 1 with a small increase in baseline load, running tolerance, or exercise difficulty.
+**Restart accumulation when:**
 
-## Rotation Slots
+- bench and squat top sets are crisp rather than strained
+- clean singles stay sharp
+- overall fatigue is lower than at the end of intensification
 
-### Secondary Squat
+## Load Progression
+
+### Bench
+
+- add 1-2.5 kg when the working set finishes at the low end of the target RPE range for two consecutive exposures
+- hold load when execution is clean and the set lands in the middle of the target range
+- reduce 2.5-5 kg or drop one backoff set if bar speed drops or the target RPE is exceeded
+
+### Squat
+
+- use the same decision pattern as bench, with 2.5-5 kg changes based on bar speed and target RPE
+- keep the Friday secondary squat backoff clean and non-grindy
+
+### Clean
+
+- add load only when all singles or doubles are crisp and receiving positions remain stable
+- if turnover slows twice in one session, hold or reduce the load
+
+## Secondary Squat Rotation
 
 - box squat
 - front squat
@@ -158,20 +218,7 @@ After Phase 3, restart Phase 1 with a small increase in baseline load, running t
 - box squat or front-rack box squat for knee-friendly concentric strength
 - Anderson squat for starting strength and positional control
 
-### Hinge
-
-- RDL
-- stiff-leg deadlift
-- single-leg RDL
-- Nordic eccentric
-- GHR
-
-**Selection:**
-
-- bilateral hinge when squat volume is lower
-- unilateral or eccentric hamstring work when squat stress is higher
-
-### Upper Pull
+## Upper Pull Rotation
 
 - ring pull-up
 - weighted chin-up
@@ -179,12 +226,18 @@ After Phase 3, restart Phase 1 with a small increase in baseline load, running t
 - dead-stop dumbbell row
 - seal row
 
-### Compression and Ring Work
+## Deload Template
 
-- no scheduled compression inside the weekly structure
-- ring pull-ups are the primary ring movement
-- ring rows are an acceptable substitution when elbow tolerance limits vertical pulling
-- ring push-ups and skin-the-cat are excluded
+Use a lighter week every 3-4 hard weeks, or earlier if Wednesday clean speed and Friday squat speed both decline.
+
+**Template:**
+
+- reduce main lift loads by 10-15%
+- remove one backoff set from bench and squat
+- keep Wednesday clean-only and cut total clean volume
+- remove the Friday secondary squat backoff
+- replace Tuesday Fartlek with 20-30 minutes of easy running only
+- keep Thursday and Sunday easy only
 
 ## Running Guide
 
@@ -196,52 +249,28 @@ After Phase 3, restart Phase 1 with a small increase in baseline load, running t
 - Fartlek surges: around 5k pace to slightly faster, usually 5:00-5:15/km
 - strides: fast and relaxed, not timed
 
-### Phase Progression
-
-- accumulation: controlled introductory Fartlek, short Thursday recovery run, Sunday long run builds from 16 to 20 minutes
-- intensification: harder Tuesday Fartlek, short Thursday recovery jog, Sunday long run around 22 to 26 minutes
-- realization: short sharpening run on Tuesday, minimal Thursday restoration, Sunday long run trimmed to 18 to 22 minutes
-
 ### Progression Rules
 
 - progress one variable at a time: reps, surge length, easy-jog pace, or easy-run duration
-- use a lighter week every third or fourth week if clean and squat stress is high
-- restart accumulation after realization with a slightly higher baseline
+- keep Tuesday hard work capped when Wednesday clean quality drops
+- raise aerobic volume through the Sunday run first, then optional Saturday jogging if needed
 
-### Constraints
+## Performance Checkpoints
 
-- keep hard conditioning away from Friday squat stress
-- shorten surges before slowing recovery jog pace when the legs are flat
-- use flat routes and shorter surges when the knee is irritated
+At the end of each phase, record:
 
-## Loading Guide
-
-### Bench
-
-- accumulation: heavy working set of 6 plus backoffs
-- intensification: heavy working set of 4-5 plus backoffs
-- realization: top set of 2-3 plus 1 backoff
-
-### Clean
-
-- accumulation: EMOM doubles or singles
-- intensification: clusters and singles
-- realization: low-volume singles only
-
-### Squat
-
-- accumulation: heavy working set of 5-6 plus backoffs
-- intensification: heavy working set of 3-4 plus backoffs
-- realization: top set of 2-3 plus 1 backoff or no backoff
+- best clean single completed with stable turnover and rack position
+- bench triple or double that matches the current phase
+- squat triple or double that matches the current phase
+- timed 5k or a fixed benchmark run if joint symptoms make racing a poor choice
 
 ## Decision Rules
 
-### Autoregulation
+### Friday Clean Primer
 
-- stop the set when speed loss is obvious
-- stop the exercise when position quality drops twice in a row
-- reduce one slot before reducing the whole day
-- use backoff work to accumulate quality rather than fatigue
+- use 2-3 crisp singles or doubles only
+- skip the primer if turnover is slow during the warm-up
+- do not chase load or volume before squats
 
 ### Elbow
 
@@ -253,7 +282,7 @@ After Phase 3, restart Phase 1 with a small increase in baseline load, running t
 
 - use box squat or front-rack box squat before removing squat exposure
 - replace jumps or short accelerations with low-volume seated jumps if needed
-- cut the hinge slot before cutting the main squat slot when Friday quality drops
+- remove the Friday secondary squat backoff before cutting the main squat slot
 
 ### Clean
 
@@ -261,17 +290,19 @@ After Phase 3, restart Phase 1 with a small increase in baseline load, running t
 - keep the clean as a primer when singles are still slow
 - do not let Wednesday clean fatigue reduce Friday squat quality
 
-### Extras
+### Compression and Ring Work
 
-- remove any slot that does not clearly improve bench, clean, squat, or running
-- keep pulling balance and restoration work before optional extras
-- keep the realization phase minimal
+- compression means L-sit, tuck-support, and other hip-flexor-dominant trunk work
+- compression is scheduled on Wednesday after the clean work
+- keep the Wednesday compression block low fatigue so front-rack quality, elbow tolerance, and Friday squat speed stay intact
+- optional extra compression outside the tracked week is fine only if recovery and bench quality stay stable
+- ring pull-ups are the primary ring movement; ring rows are the main substitution when vertical pulling tolerance is low
 
 ## Summary
 
 - three lift days: Monday, Wednesday, Friday
-- three run exposures: Tuesday, Thursday, Sunday
-- Monday emphasizes bench
-- Wednesday emphasizes clean quality and secondary squat strength
-- Friday emphasizes squat strength
-- support work is limited to movements that improve bar speed, joint tolerance, and running rhythm
+- three tracked run exposures: Tuesday, Thursday, Sunday
+- Wednesday is clean-only below the waist and carries the tracked compression block
+- Friday carries the secondary squat backoff
+- Tuesday running is capped to protect Wednesday clean quality
+- Sunday long-run volume is slightly higher to support the 5k goal

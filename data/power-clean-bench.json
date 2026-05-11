@@ -712,6 +712,60 @@
             "coachingNotes": "Treat these as rehearsal reps for the first work sets rather than fatigue work."
           }
         ]
+      },
+      {
+        "id": "monday-assistance-phase12",
+        "name": "Monday Assistance Phase 1-2",
+        "exercises": [
+          {
+            "$ref": "ex-ghd-back-extension",
+            "sets": 2,
+            "notes": "Posterior-chain hinge slot. Use the GHD or back-extension bench and stop each set with 2-3 crisp reps in reserve."
+          },
+          {
+            "$ref": "ex-landmine-press-monday",
+            "sets": 2,
+            "notes": "Joint-friendly vertical press after the pulling work. Keep the ribs down and stop early if the elbow or shoulder feels off."
+          }
+        ]
+      },
+      {
+        "id": "monday-assistance-phase3",
+        "name": "Monday Assistance Phase 3",
+        "exercises": [
+          {
+            "$ref": "ex-ghd-back-extension",
+            "sets": 1,
+            "notes": "Single light hinge set in realization. Stop while the posterior chain still feels snappy."
+          },
+          {
+            "$ref": "ex-landmine-press-monday",
+            "sets": 1,
+            "notes": "One easy press set only. Keep it clean and skip it if benching already used the day's tolerance."
+          }
+        ]
+      },
+      {
+        "id": "friday-unilateral-phase12",
+        "name": "Friday Unilateral Phase 1-2",
+        "exercises": [
+          {
+            "$ref": "ex-bulgarian-split-squat",
+            "sets": 2,
+            "notes": "Unilateral knee and hip support after the secondary squat. Keep the torso tall and leave 2 reps in reserve per side."
+          }
+        ]
+      },
+      {
+        "id": "friday-unilateral-phase3",
+        "name": "Friday Unilateral Phase 3",
+        "exercises": [
+          {
+            "$ref": "ex-bulgarian-split-squat",
+            "sets": 1,
+            "notes": "One low-fatigue unilateral set per side in realization. Skip it if the main squat already felt slow."
+          }
+        ]
       }
     ],
     "exerciseTemplates": [
@@ -961,6 +1015,25 @@
         "rpe": 7,
         "notes": "Hinge Rule: shins vertical, 3-0-1-0 tempo. Stop at deepest pain-free hamstring position. Loads ~40-55% of 155 kg DL.",
         "coachingNotes": "Bar starts at the hip with a soft knee bend (~15°). Push the hips straight back, keeping the bar in contact with the thigh and then the shin; descend to the deepest point you can reach without lumbar rounding. 3 s eccentric, no pause, smooth concentric. Hamstring stretch — not lower back — should be the limit."
+      },
+      {
+        "id": "ex-ghd-back-extension",
+        "exerciseName": "GHD Back Extension",
+        "exerciseId": "back_extensions",
+        "category": "accessory",
+        "sets": 2,
+        "repsMin": 8,
+        "repsMax": 12,
+        "repsType": "reps",
+        "loadUnit": "bodyweight",
+        "restSeconds": 75,
+        "tempoEccentric": 2,
+        "tempoPauseBottom": 1,
+        "tempoConcentric": 1,
+        "tempoPauseTop": 0,
+        "rpe": 6,
+        "notes": "Hinge slot uses the GHD or a 45-degree back-extension bench. Squeeze glutes at the top without hyperextending the lumbar spine.",
+        "coachingNotes": "Set up on a GHD or back-extension bench with the pad just below the hip crease. Start from a braced torso hang, then extend by driving the hips through and squeezing the glutes until the body reaches a straight line. Lower under control for 2 seconds, pause briefly at the bottom, and stop before the low back takes over."
       },
       {
         "id": "ex-chest-supported-row",
@@ -1223,6 +1296,23 @@
         "coachingNotes": "Band at face height, wide overhand grip. Pull the band toward the eyebrows while flaring the elbows wide and externally rotating so the hands finish above the elbows. Pause 1 s at the top. The cue is \"show me your biceps,\" not \"row to your chin.\""
       },
       {
+        "id": "ex-bulgarian-split-squat",
+        "exerciseName": "Bulgarian Split Squat",
+        "exerciseId": "bulgarian_split_squat",
+        "category": "accessory",
+        "sets": 2,
+        "repsMin": 6,
+        "repsMax": 8,
+        "repsType": "reps",
+        "isUnilateral": true,
+        "loadUnit": "kg",
+        "loadPerHand": true,
+        "restSeconds": 90,
+        "rpe": 7,
+        "notes": "Knee-friendly unilateral squat assistance. Use dumbbells only as long as the front-foot pressure and torso position stay clean.",
+        "coachingNotes": "Set the rear foot on a bench, step the front foot far enough forward to keep the knee tracking cleanly, and descend under control until the back knee approaches the floor. Drive up through the whole front foot, keep the torso stacked, and stop each set before balance or knee tracking deteriorates."
+      },
+      {
         "id": "ex-landmine-press",
         "exerciseName": "Half-Kneeling Landmine Press",
         "category": "main",
@@ -1237,6 +1327,22 @@
         "rpe": 6,
         "notes": "Vertical press stays light and clean. +10-15 kg Wks 1-8, +5-10 kg Wk 9. Full reach, ribs down, smooth arc. Skip if symptoms elevated.",
         "coachingNotes": "Half-kneeling with the down-leg matching the pressing arm. Bar starts at the shoulder, ribs stacked over hips. Press up and slightly forward in a smooth arc, fully extending the elbow without shrugging. Lower under control. If shoulder symptoms flare, skip — vertical pressing is dispensable."
+      },
+      {
+        "id": "ex-landmine-press-monday",
+        "exerciseName": "Half-Kneeling Landmine Press",
+        "exerciseId": "landmine_press",
+        "category": "accessory",
+        "sets": 2,
+        "repsMin": 8,
+        "repsMax": 10,
+        "repsType": "reps",
+        "isUnilateral": true,
+        "loadUnit": "kg",
+        "restSeconds": 75,
+        "rpe": 6,
+        "notes": "Joint-friendly vertical pressing slot after Monday pulling. Full reach, ribs down, smooth arc.",
+        "coachingNotes": "Half-kneeling with the down-leg matching the pressing arm. Start with the bar at the shoulder, keep the ribs stacked over the pelvis, and press up and slightly forward in a smooth arc. Lower under control and stop the set well before the shoulder or elbow gets irritated."
       },
       {
         "id": "ex-single-leg-calf-raise",
@@ -1254,7 +1360,7 @@
         "tempoPauseTop": 1,
         "restSeconds": 45,
         "supersetGroup": 1,
-        "notes": "Slow - ankle/knee stability, goose-foot management. Part of Thursday B-circuit (run with Face Pulls / Landmine Press / Banded ER / Side Plank as one integrated 5-exercise circuit, 2 rounds).",
+        "notes": "Slow - ankle/knee stability, goose-foot management. Part of Thursday B-circuit with face pulls, banded ER, and side plank.",
         "coachingNotes": "Stand on one foot on a small step, other foot tucked behind. Rise onto the ball of the foot fully (1 s pause at the top), then descend under control past flat for a heel drop. Use a wall or post for balance only — load the working calf, don't hop."
       },
       {
@@ -1439,6 +1545,9 @@
                     "notes": "Balancing row slot. Keep scapular control perfect."
                   },
                   {
+                    "$routine": "monday-assistance-phase12"
+                  },
+                  {
                     "$routine": "cooldown-mwf"
                   }
                 ]
@@ -1613,6 +1722,9 @@
                     "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
                   },
                   {
+                    "$routine": "friday-unilateral-phase12"
+                  },
+                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -1680,6 +1792,9 @@
                     "loadMin": 22.5,
                     "loadMax": 22.5,
                     "notes": "Balancing row slot. Keep scapular control perfect."
+                  },
+                  {
+                    "$routine": "monday-assistance-phase12"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -1849,6 +1964,9 @@
                     "notes": "80 kg. Secondary squat backoff. Dead-stop reps only. Keep it crisp after the main squat work."
                   },
                   {
+                    "$routine": "friday-unilateral-phase12"
+                  },
+                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -1916,6 +2034,9 @@
                     "loadMin": 22.5,
                     "loadMax": 22.5,
                     "notes": "Balancing row slot. Keep scapular control perfect."
+                  },
+                  {
+                    "$routine": "monday-assistance-phase12"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2092,6 +2213,9 @@
                     "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
                   },
                   {
+                    "$routine": "friday-unilateral-phase12"
+                  },
+                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -2169,6 +2293,9 @@
                     "loadMin": 27.5,
                     "loadMax": 27.5,
                     "notes": "Balancing row slot. Keep scapular control perfect."
+                  },
+                  {
+                    "$routine": "monday-assistance-phase12"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2345,6 +2472,9 @@
                     "coachingNotes": "Pins set at parallel. Set the brace first, drive vertically from a dead stop, and reset between reps. No bounce off the pins."
                   },
                   {
+                    "$routine": "friday-unilateral-phase12"
+                  },
+                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -2412,6 +2542,9 @@
                     "loadMin": 27.5,
                     "loadMax": 27.5,
                     "notes": "Balancing row slot. Keep scapular control perfect."
+                  },
+                  {
+                    "$routine": "monday-assistance-phase12"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2581,6 +2714,9 @@
                     "notes": "90 kg. Secondary squat backoff. Dead-stop reps only and keep them crisp after the main squat. If knee irritation is above 2/10 after the main squat, skip this slot entirely."
                   },
                   {
+                    "$routine": "friday-unilateral-phase12"
+                  },
+                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -2648,6 +2784,9 @@
                     "loadMin": 27.5,
                     "loadMax": 27.5,
                     "notes": "Balancing row slot. Keep scapular control perfect."
+                  },
+                  {
+                    "$routine": "monday-assistance-phase12"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2825,6 +2964,9 @@
                     "coachingNotes": "Pins set at parallel. Set the brace first, drive vertically from a dead stop, and reset between reps. No bounce off the pins."
                   },
                   {
+                    "$routine": "friday-unilateral-phase12"
+                  },
+                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -2892,6 +3034,9 @@
                     "loadMin": 25,
                     "loadMax": 25,
                     "notes": "Easy row volume for shoulder balance. Finish fresher than you started."
+                  },
+                  {
+                    "$routine": "monday-assistance-phase3"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3061,6 +3206,9 @@
                     "notes": "Optional light positional squat only. Skip if knee irritation is above 1/10 or if the main squat already gave you the patterning you needed."
                   },
                   {
+                    "$routine": "friday-unilateral-phase3"
+                  },
+                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -3138,6 +3286,9 @@
                     "loadMin": 22.5,
                     "loadMax": 22.5,
                     "notes": "Backoff row volume only."
+                  },
+                  {
+                    "$routine": "monday-assistance-phase3"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3307,6 +3458,9 @@
                     "notes": "Light positional squat backoff only. Keep the reps clean and shut it down if the main squat took too much out of you."
                   },
                   {
+                    "$routine": "friday-unilateral-phase3"
+                  },
+                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -3374,6 +3528,9 @@
                     "loadMin": 22.5,
                     "loadMax": 22.5,
                     "notes": "Backoff row volume only."
+                  },
+                  {
+                    "$routine": "monday-assistance-phase3"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3550,6 +3707,9 @@
                     "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
                   },
                   {
+                    "$routine": "friday-unilateral-phase3"
+                  },
+                  {
                     "$routine": "cooldown-friday"
                   }
                 ]
@@ -3617,6 +3777,9 @@
                     "loadMin": 22.5,
                     "loadMax": 22.5,
                     "notes": "Backoff row volume only."
+                  },
+                  {
+                    "$routine": "monday-assistance-phase3"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3784,6 +3947,9 @@
                     "repsValue": 2,
                     "sets": 2,
                     "notes": "Very light positional squat backoff only. Keep it crisp and stop if the main squat already used the day's strength."
+                  },
+                  {
+                    "$routine": "friday-unilateral-phase3"
                   },
                   {
                     "$routine": "cooldown-friday"

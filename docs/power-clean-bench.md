@@ -11,11 +11,13 @@ This block targets:
 
 ## Weekly Structure
 
-### Monday — Bench + Pulling
+### Monday — Bench, Pulling, Hinge + Press
 
 - bench main work
 - vertical pull
 - row or upper-back work
+- GHD back extension hinge slot
+- landmine press
 
 ### Tuesday — Run Development + Support
 
@@ -41,6 +43,7 @@ This block targets:
 - clean primer only if turnover is sharp
 - squat main work
 - secondary squat backoff
+- unilateral leg work
 
 ### Sunday — Long Easy Run
 
@@ -211,12 +214,20 @@ These warm-ups are now embedded in the program data for the tracked days. Treat 
 - front-rack box squat
 - Anderson squat
 - pause squat
+- Bulgarian split squat
 
 **Selection:**
 
 - front squat for clean transfer
 - box squat or front-rack box squat for knee-friendly concentric strength
 - Anderson squat for starting strength and positional control
+- Bulgarian split squat for unilateral knee and hip stability without adding more barbell fatigue
+
+## Assistance Additions
+
+- Monday hinge work now uses GHD back extensions or a back-extension bench instead of RDLs so the hinge slot stays restorative and easier to recover from alongside the running.
+- Monday landmine press gives you a low-irritation vertical press that complements benching without forcing a high-stress overhead position.
+- Friday finishes with a small Bulgarian split squat dose to keep unilateral leg strength in the week without competing with the main squat work.
 
 ## Upper Pull Rotation
 
@@ -303,6 +314,7 @@ At the end of each phase, record:
 - three lift days: Monday, Wednesday, Friday
 - three tracked run exposures: Tuesday, Thursday, Sunday
 - Wednesday is clean-only below the waist and carries the tracked compression block
-- Friday carries the secondary squat backoff
+- Monday carries the hinge and landmine press assistance
+- Friday carries the secondary squat backoff plus unilateral leg work
 - Tuesday running is capped to protect Wednesday clean quality
 - Sunday long-run volume is slightly higher to support the 5k goal

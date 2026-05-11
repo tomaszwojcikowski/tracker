@@ -6,7 +6,7 @@
     "name": "10-Week Strength & Conditioning (Power Clean / Bench)",
     "description": "Hybrid strength-and-running plan for a 45-year-old with managed tennis elbow and goose-foot knee. This 10-week sample uses Monday bench strength, Wednesday clean quality, Friday squat strength plus positional squat backoff work, Tuesday run development, Thursday recovery running plus structural support, and Sunday long easy aerobic work.",
     "author": "Power Clean / Bench Plan",
-    "version": "2.2.0",
+    "version": "2.4.0",
     "durationWeeks": 10,
     "goals": [
       "power-expression",
@@ -30,6 +30,16 @@
       "running-shoes",
       "outdoor-space"
     ],
+    "programRules": {
+      "autoregulation": [
+        "If elbow or knee irritation rises above 2/10 during the warm-up, keep the main lift at the lightest listed load and skip the backoff or secondary slot that loads the irritated joint.",
+        "If Wednesday clean turnover slows twice in a session, cap Tuesday hard running the following week at the shorter option or replace it with 20 minutes easy.",
+        "If resting fatigue is high for three days in a row, repeat the most recent week with one fewer backoff set before progressing."
+      ],
+      "deloadTrigger": "Trigger an unplanned deload if ANY two of the following are true for two consecutive sessions: (1) Wednesday clean bar speed drops noticeably at the same load used the prior week, or you cannot catch a load you caught cleanly the previous week; (2) Friday squat top-set takes visibly longer to lock out than the previous week at the same weight; (3) resting heart rate is elevated by more than 5 bpm for three consecutive mornings; (4) motivation or mood has been low for three or more consecutive days. When triggered, apply the deload template in the program documentation.",
+      "deloadStrategy": "Week 7 is a mandatory pivot week inside the 10-week block: keep skill frequency, drop hard running and secondary squat stress, and enter realization only when Week 8 clean speed and joint tolerance are clearly better than Week 6 — not Week 7, whose loads are 10-15% lighter by design and therefore always faster.",
+      "cleanGoal": "Phase 3 clean goal: consolidate single-rep quality at 80 kg with a stable turnover and rack position. In Week 10, take the load that moved fastest in Weeks 8-9 (could be 77.5 kg, could be 80 kg, or 82.5 kg if both previous weeks were crisp). Record the best single as the benchmark for the next block. Do not attempt a true 1RM unless all Phase 2 and Phase 3 singles were from the floor with good starting strength confirmed."
+    },
     "routineTemplates": [
       {
         "id": "warmup-monday",
@@ -431,11 +441,11 @@
           {
             "$ref": "ex-seated-pike-pulses",
             "sets": 2,
-            "notes": "Post-clean compression work. Keep the legs straight, the toes up, and stop before the hip flexors feel heavy or the front rack gets sticky."
+            "notes": "Post-clean compression work. Keep the legs straight, the toes up, and stop before the hip flexors feel heavy or the front rack gets sticky. Week-by-week target: Weeks 1-2 aim for 10-12 smooth reps per set; Week 3 aim for 13-15 reps per set; Weeks 4-6 add a 1-second hold at the peak of each pulse; Week 7 return to easy 10 reps; Weeks 8-10 aim for 15 reps with the 1-second hold. In Weeks 5-7, keep this deliberately easy if clean turnover or front-rack comfort is fading."
           },
           {
             "$ref": "ex-friday-l-sit-hold",
-            "notes": "Wednesday tracked compression slot. Phase 1 uses tucked progressions, Phase 2 one-leg or straddle, and Phase 3 uses full L-sit work only if the elbows stay locked and the hold stays crisp."
+            "notes": "Wednesday tracked compression slot. Week-by-week progression: Week 1 tuck L-sit 2 x 6-8 s; Week 2 tuck L-sit 2 x 8-10 s; Week 3 tuck L-sit 2 x 10-12 s; Week 4 one-leg L-sit 2 x 6-8 s (one leg extended, one tucked); Week 5 one-leg L-sit 2 x 8-10 s; Week 6 straddle or one-leg L-sit 2 x 8-10 s; Week 7 tuck L-sit only 2 x 5-6 s (reload — do not chase difficulty); Week 8 full L-sit attempt 2 x 6-8 s (drop to tuck if elbows bend); Week 9 full L-sit 2 x 8-10 s; Week 10 full L-sit 2 x 8-12 s. Use the tuck as a fallback any week elbow tolerance is low."
           }
         ]
       },
@@ -1377,7 +1387,7 @@
       {
         "phaseNumber": 1,
         "name": "Phase 1: Accumulation and Athletic Base",
-        "description": "Rebuild tolerance around a stable hybrid week: Tuesday establishes repeatable Fartlek rhythm, Thursday stays easy, and the barbell days accumulate clean, bench, and squat volume without accessory drift.",
+        "description": "Rebuild tolerance around a stable hybrid week: Tuesday establishes repeatable Fartlek rhythm, Thursday stays easy, and the barbell days accumulate clean, bench, and squat volume without accessory drift. Advance to Phase 2 when: bench top set reaches the upper half of the 7-8 RPE band (7.5+) AND back squat top set reaches 7.5+ RPE for two consecutive exposures without technical breakdown AND Tuesday Fartlek surges are all completed at the prescribed reps with form holding on the final surge.",
         "startWeek": 1,
         "endWeek": 3,
         "focus": "volume",
@@ -2078,7 +2088,7 @@
                     "loadMax": 80,
                     "restSeconds": 180,
                     "rpe": 7,
-                    "notes": "80 kg. Secondary squat backoff after the main squat. Keep the rack and torso positions clean; no grinding.",
+                    "notes": "80 kg. Secondary squat backoff after the main squat. Keep the rack and torso positions clean; no grinding. Reps reduced to 4 (from 5) to manage accumulated lower-body volume as the primary squat approaches 100 kg; front squat chosen over box squat to preserve clean front-rack quality.",
                     "coachingNotes": "Rack the bar across the shoulders with elbows high and chest tall. Descend with full-foot pressure, stay vertical, and stand without letting the elbows drop."
                   },
                   {
@@ -2109,7 +2119,7 @@
       {
         "phaseNumber": 2,
         "name": "Phase 2: Intensification and Power-Strength",
-        "description": "Raise force output without losing speed, keep Tuesday as the main 5k Fartlek day, and keep Thursday purely restorative so the lifting days stay high quality.",
+        "description": "Raise force output without losing speed, keep Tuesday as the main 5k Fartlek day, and keep Thursday purely restorative so the lifting days stay high quality. Advance to Phase 3 when: Week 6 clean singles are all crisp with stable turnover and a high rack position; Week 6 squat top set moves faster or at the same speed as Week 5 at the same load; elbow and knee symptoms are stable or improving compared to Week 4. Do NOT compare Week 7 and Week 6 directly — Week 7 loads are 10-15% lighter by design and will always feel faster. Judge Phase 3 readiness by how Week 8 performs: if Week 8 cleans at 75 kg are slow or catches are forward, extend the Week 7 reload for one more week before attempting Week 9.",
         "startWeek": 4,
         "endWeek": 7,
         "focus": "intensity",
@@ -2351,7 +2361,7 @@
                   },
                   {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 4: 24 min long easy run at roughly 6:45-7:20/km. Keep the effort easy enough that Tuesday still feels recoverable."
+                    "notes": "Week 4: 24 min long easy run at roughly 6:45-7:20/km. Keep the effort easy enough that Tuesday still feels recoverable. If the legs are still sore from Friday squats, split into 2 x 12 min with 2 min walk between."
                   }
                 ]
               }
@@ -2387,7 +2397,7 @@
                     "loadMax": 67.5,
                     "repsValue": 5,
                     "sets": 2,
-                    "notes": "2 backoff set(s) at 67.5 kg. Crisp volume only."
+                    "notes": "2 backoff set(s) at 67.5 kg. Crisp volume only. If elbow irritation is above 1/10 or the warm-up plyo feels choppy, do only one backoff set."
                   },
                   {
                     "$ref": "ex-ring-pull-ups",
@@ -2420,7 +2430,7 @@
                   },
                   {
                     "$ref": "ex-run-conditioning-hard",
-                    "notes": "Week 5: 4 x 2 min hard / 90 s easy jog. The last rep should still look smooth, and you can stop at 3 reps if Wednesday clean quality is trending down."
+                    "notes": "Week 5: 4 x 2 min hard / 90 s easy jog. The last rep should still look smooth. If last Wednesday's clean turnover was slow or Monday bench feels flat, stop at 3 reps or substitute 20 min easy."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2568,7 +2578,7 @@
                     "loadMax": 90,
                     "sets": 3,
                     "repsValue": 4,
-                    "notes": "90 kg. Secondary squat backoff. Dead-stop reps only and keep them crisp after the main squat."
+                    "notes": "90 kg. Secondary squat backoff. Dead-stop reps only and keep them crisp after the main squat. If knee irritation is above 2/10 after the main squat, skip this slot entirely."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -2623,7 +2633,7 @@
                     "loadMax": 70,
                     "repsValue": 4,
                     "sets": 2,
-                    "notes": "2 backoff set(s) at 70 kg. Crisp volume only."
+                    "notes": "2 backoff set(s) at 70 kg. Crisp volume only. If elbow irritation is above 1/10 or bar speed drops on the top set, do only one backoff set."
                   },
                   {
                     "$ref": "ex-ring-pull-ups",
@@ -2656,7 +2666,7 @@
                   },
                   {
                     "$ref": "ex-run-conditioning-hard",
-                    "notes": "Week 6: 3 x 3 min hard / 2 min easy jog. Stay tall on each surge, keep the easy jog active, and finish springy rather than depleted."
+                    "notes": "Week 6: 3 x 3 min hard / 2 min easy jog. Stay tall on each surge, keep the easy jog active, and finish springy rather than depleted. If clean speed dipped last week, replace this with 20 min easy."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2739,6 +2749,12 @@
                     "supersetGroup": 1
                   },
                   {
+                    "$ref": "ex-single-leg-calf-raise",
+                    "sets": 1,
+                    "supersetGroup": 1,
+                    "notes": "Week 6: reduced to 1 set (from 2) to manage total session length at peak-intensity week. Goose-foot management is still the priority — do not skip this entirely."
+                  },
+                  {
                     "$ref": "ex-side-plank",
                     "sets": 2,
                     "supersetGroup": 1
@@ -2805,7 +2821,7 @@
                     "loadMax": 90,
                     "restSeconds": 180,
                     "rpe": 8,
-                    "notes": "90 kg. Secondary squat backoff. Start each rep from a dead stop and keep the positions strict after the main squat.",
+                    "notes": "90 kg. Secondary squat backoff. Start each rep from a dead stop and keep the positions strict after the main squat. If knee irritation is above 2/10 after the main squat, skip this slot entirely. Reps reduced to 3 as primary squat intensity peaks at 115 kg this week; Anderson squat emphasises starting strength and keeps knee shear lower than box squat at this load.",
                     "coachingNotes": "Pins set at parallel. Set the brace first, drive vertically from a dead stop, and reset between reps. No bounce off the pins."
                   },
                   {
@@ -2825,7 +2841,7 @@
                   },
                   {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 6: 28 min long easy run at roughly 6:45-7:20/km. This is the longest run in the block; do not turn it into steady-state work."
+                    "notes": "Week 6: 28 min long easy run at roughly 6:45-7:20/km. This is the longest run in the block; do not turn it into steady-state work. If the legs feel beaten up after the week's heaviest squat session, split into 2 x 14 min with 2 min walk between and keep pace fully conversational."
                   }
                 ]
               }
@@ -2833,49 +2849,49 @@
           },
           {
             "weekNumber": 7,
-            "description": "Keep intensity, reduce clutter, set up realization",
-            "volumeLevel": "moderate",
-            "intensityLevel": "high",
+            "description": "Pivot and reload before realization",
+            "volumeLevel": "low",
+            "intensityLevel": "moderate",
             "days": [
               {
                 "dayNumber": 1,
                 "name": "Monday — Bench + Pulling",
                 "type": "strength",
                 "estimatedDuration": 55,
-                "description": "Bench heavy working set of 4 at 77.5 kg, then backoffs",
+                "description": "Bench pivot set of 3 at 72.5 kg, then one light backoff",
                 "exercises": [
                   {
                     "$routine": "warmup-monday-v2"
                   },
                   {
                     "$ref": "ex-bench-press",
-                    "loadMin": 77.5,
-                    "loadMax": 77.5,
-                    "repsValue": 4,
+                    "loadMin": 72.5,
+                    "loadMax": 72.5,
+                    "repsValue": 3,
                     "sets": 1,
-                    "notes": "Heavy working set at 77.5 kg for 4 reps. Stop if bar speed drops."
+                    "notes": "Pivot set at 72.5 kg for 3 crisp reps. Leave at least 3 reps in reserve and use this to restore speed before realization."
                   },
                   {
                     "$ref": "ex-bench-press",
-                    "loadMin": 72.5,
-                    "loadMax": 72.5,
-                    "repsValue": 4,
+                    "loadMin": 65,
+                    "loadMax": 65,
+                    "repsValue": 3,
                     "sets": 1,
-                    "notes": "1 backoff set(s) at 72.5 kg. Crisp volume only."
+                    "notes": "One light backoff at 65 kg. Skip it if the elbow is irritated or the top set felt slower than expected."
                   },
                   {
                     "$ref": "ex-ring-pull-ups",
-                    "repsMin": 4,
-                    "repsMax": 6,
-                    "sets": 3,
-                    "notes": "Moderate vertical pull. Stay smooth and stop before elbow irritation rises."
+                    "repsMin": 3,
+                    "repsMax": 5,
+                    "sets": 2,
+                    "notes": "Low-volume vertical pull only. Keep it easy and swap to rows if elbow symptoms are present."
                   },
                   {
                     "$ref": "ex-chest-supported-row",
                     "sets": 2,
-                    "loadMin": 27.5,
-                    "loadMax": 27.5,
-                    "notes": "Balancing row slot. Keep scapular control perfect."
+                    "loadMin": 25,
+                    "loadMax": 25,
+                    "notes": "Easy row volume for shoulder balance. Finish fresher than you started."
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -2893,8 +2909,8 @@
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-run-conditioning-hard",
-                    "notes": "Week 7: 8 x 30 s fast / 60 s easy jog. Keep it quick and low-cost, and cut it to 6 reps if Wednesday clean pop is missing."
+                    "$ref": "ex-run-conditioning-easy",
+                    "notes": "Week 7 pivot: 20 min easy run only. No hard surges. Add 3 relaxed strides after the run only if legs and calves feel springy."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -2938,11 +2954,11 @@
                   },
                   {
                     "$ref": "ex-power-clean",
-                    "loadMin": 75,
-                    "loadMax": 75,
-                    "sets": 5,
+                    "loadMin": 70,
+                    "loadMax": 70,
+                    "sets": 3,
                     "repsValue": 1,
-                    "notes": "75 kg. Crisp singles or cluster-style singles only."
+                    "notes": "70 kg. Three fast singles only. If turnover is not crisp by the second single, stop and treat this as technique practice."
                   },
                   {
                     "$routine": "compression-wednesday"
@@ -3014,35 +3030,35 @@
                   },
                   {
                     "$ref": "ex-power-clean",
-                    "loadMin": 70,
-                    "loadMax": 70,
-                    "sets": 3,
+                    "loadMin": 60,
+                    "loadMax": 60,
+                    "sets": 2,
                     "repsValue": 1,
-                    "notes": "Single clean primer only. Fast, sharp, and fully reset. If turnover is slow in the warm-up, skip the primer and move straight to squats."
+                    "notes": "Very light clean primer only. Fast, sharp, and fully reset. If turnover is slow in the warm-up, skip the primer and move straight to squats."
                   },
                   {
                     "$ref": "ex-back-squat",
-                    "loadMin": 117.5,
-                    "loadMax": 117.5,
+                    "loadMin": 105,
+                    "loadMax": 105,
                     "sets": 1,
                     "repsValue": 3,
-                    "notes": "Top 3-rep strength set at 117.5 kg. Shut it down before technique drifts."
+                    "notes": "Pivot top set at 105 kg for 3 crisp reps. No grinding; speed and knee comfort matter more than load today."
                   },
                   {
                     "$ref": "ex-back-squat",
-                    "loadMin": 110,
-                    "loadMax": 110,
+                    "loadMin": 95,
+                    "loadMax": 95,
                     "sets": 1,
                     "repsValue": 3,
-                    "notes": "1 backoff set(s) at 110 kg. Quality only."
+                    "notes": "One easy backoff at 95 kg. Skip it if the top set felt sticky or the knee is irritated."
                   },
                   {
                     "$ref": "ex-box-squat",
-                    "loadMin": 92.5,
-                    "loadMax": 92.5,
-                    "sets": 3,
+                    "loadMin": 75,
+                    "loadMax": 75,
+                    "sets": 2,
                     "repsValue": 3,
-                    "notes": "92.5 kg. Secondary squat backoff. Keep it sharp and non-grindy after the main squat."
+                    "notes": "Optional light positional squat only. Skip if knee irritation is above 1/10 or if the main squat already gave you the patterning you needed."
                   },
                   {
                     "$routine": "cooldown-friday"
@@ -3061,7 +3077,7 @@
                   },
                   {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 7: 26 min long easy run at roughly 6:45-7:20/km. Trim it by a few minutes if Tuesday's sharper reps linger in the legs."
+                    "notes": "Week 7 pivot: 24 min long easy run at roughly 6:45-7:20/km. Keep it genuinely easy and finish with the legs improving, not accumulating fatigue."
                   }
                 ]
               }
@@ -3072,7 +3088,7 @@
       {
         "phaseNumber": 3,
         "name": "Phase 3: Realization and Consolidation",
-        "description": "Express performance with lower fatigue, preserve athletic sharpness, keep only the minimum useful run and assistance work, and set up the next accumulation pass.",
+        "description": "Express performance with lower fatigue, preserve athletic sharpness, keep only the minimum useful assistance work, and set up the next accumulation pass. Entry criterion: enter Phase 3 if ALL of the following are true — (1) Week 6 clean singles were crisp with no forward catches; (2) Week 6 squat top set moved at the same or faster bar speed than Week 5 at the same load; (3) elbow and knee symptoms are stable or improving compared to Week 4. Note: do NOT judge readiness by Week 7 performance — its lighter loads guarantee faster bar speed regardless of recovery state.",
         "startWeek": 8,
         "endWeek": 10,
         "focus": "technique",
@@ -3099,7 +3115,7 @@
                     "loadMax": 80,
                     "repsValue": 3,
                     "sets": 1,
-                    "notes": "Heavy working set at 80 kg for 3 reps. Stop if bar speed drops."
+                    "notes": "Heavy working set at 80 kg for 3 reps. Stop if bar speed drops. If elbow irritation is above 1/10, use 5 x 3 speed reps at about 75% instead and replace pull-ups with rows."
                   },
                   {
                     "$ref": "ex-bench-press",
@@ -3139,8 +3155,8 @@
                     "$routine": "warmup-tuesday"
                   },
                   {
-                    "$ref": "ex-run-conditioning-easy",
-                    "notes": "Week 8: 12-14 min easy run including 4 x 30 s fast / 60 s easy jog if fresh; otherwise use 3 x 15 s relaxed strides only. Restore rhythm, do not accumulate fatigue."
+                    "$ref": "ex-run-conditioning-moderate",
+                    "notes": "Week 8: 14-16 min continuous run with either 2 x 3 min controlled tempo or 4 x 30 s fast / 60 s easy if fresh. If clean speed or calves are questionable, use 15-20 min easy only."
                   },
                   {
                     "$ref": "ex-front-plank",
@@ -3184,11 +3200,11 @@
                   },
                   {
                     "$ref": "ex-power-clean",
-                    "loadMin": 77.5,
-                    "loadMax": 77.5,
-                    "sets": 5,
+                    "loadMin": 75,
+                    "loadMax": 75,
+                    "sets": 4,
                     "repsValue": 1,
-                    "notes": "77.5 kg. High-quality singles only."
+                    "notes": "75 kg. Four high-quality singles only after the pivot week. Add load next week only if every catch is fast and stable."
                   },
                   {
                     "$routine": "compression-wednesday"
@@ -3268,19 +3284,19 @@
                   },
                   {
                     "$ref": "ex-back-squat",
-                    "loadMin": 122.5,
-                    "loadMax": 122.5,
+                    "loadMin": 120,
+                    "loadMax": 120,
                     "sets": 1,
                     "repsValue": 3,
-                    "notes": "Top 3-rep strength set at 122.5 kg. Shut it down before technique drifts."
+                    "notes": "Top 3-rep strength set at 120 kg. Shut it down before technique drifts or knee comfort changes."
                   },
                   {
                     "$ref": "ex-back-squat",
-                    "loadMin": 115,
-                    "loadMax": 115,
+                    "loadMin": 110,
+                    "loadMax": 110,
                     "sets": 1,
                     "repsValue": 3,
-                    "notes": "1 backoff set(s) at 115 kg. Quality only."
+                    "notes": "1 backoff set at 110 kg. Quality only; skip it if the top set moved slowly."
                   },
                   {
                     "$ref": "ex-box-squat",
@@ -3307,7 +3323,7 @@
                   },
                   {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 8: 24 min long easy run at roughly 6:45-7:20/km. Keep it calm and rhythmic."
+                    "notes": "Week 8: 26 min long easy run at roughly 6:45-7:20/km. Maintain aerobic durability as lifting volume drops; keep it calm and rhythmic. If Monday bench or Wednesday clean left residual fatigue, split into 2 x 13 min with 2 min walk between."
                   }
                 ]
               }
@@ -3335,7 +3351,7 @@
                     "loadMax": 82.5,
                     "repsValue": 2,
                     "sets": 1,
-                    "notes": "Heavy working set at 82.5 kg for 2 reps. Stop if bar speed drops."
+                    "notes": "Heavy working set at 82.5 kg for 2 reps. Stop if bar speed drops. If elbow irritation is above 1/10, use 5 x 2 fast reps at about 75% instead and replace pull-ups with rows."
                   },
                   {
                     "$ref": "ex-bench-press",
@@ -3420,11 +3436,11 @@
                   },
                   {
                     "$ref": "ex-power-clean",
-                    "loadMin": 80,
-                    "loadMax": 80,
+                    "loadMin": 77.5,
+                    "loadMax": 77.5,
                     "sets": 4,
                     "repsValue": 1,
-                    "notes": "80 kg. High-quality singles only."
+                    "notes": "77.5 kg. Repeatable high-quality singles only. This is consolidation, not a forced load jump."
                   },
                   {
                     "$routine": "compression-wednesday"
@@ -3504,19 +3520,19 @@
                   },
                   {
                     "$ref": "ex-back-squat",
-                    "loadMin": 127.5,
-                    "loadMax": 127.5,
+                    "loadMin": 122.5,
+                    "loadMax": 122.5,
                     "sets": 1,
                     "repsValue": 2,
-                    "notes": "Top 2-rep strength set at 127.5 kg. Shut it down before technique drifts."
+                    "notes": "Top 2-rep strength set at 122.5 kg. Shut it down before technique drifts."
                   },
                   {
                     "$ref": "ex-back-squat",
-                    "loadMin": 120,
-                    "loadMax": 120,
+                    "loadMin": 115,
+                    "loadMax": 115,
                     "sets": 1,
                     "repsValue": 2,
-                    "notes": "1 backoff set(s) at 120 kg. Quality only."
+                    "notes": "1 backoff set at 115 kg. Quality only; skip it if bar speed is not there."
                   },
                   {
                     "exerciseName": "Front Squat",
@@ -3550,7 +3566,7 @@
                   },
                   {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 9: 22 min long easy run at roughly 6:45-7:20/km. Keep the taper feel; this should not leave residual fatigue."
+                    "notes": "Week 9: 24 min long easy run at roughly 6:45-7:20/km. Keep the taper feel while preserving aerobic rhythm; this should not leave residual fatigue."
                   }
                 ]
               }
@@ -3578,7 +3594,7 @@
                     "loadMax": 85,
                     "repsValue": 2,
                     "sets": 1,
-                    "notes": "Heavy working set at 85 kg for 2 reps. Stop if bar speed drops."
+                    "notes": "Heavy working set at 85 kg for 2 reps. Stop if bar speed drops. If elbow irritation is above 1/10, take 82.5 kg for a crisp single and leave the day there."
                   },
                   {
                     "$ref": "ex-bench-press",
@@ -3601,9 +3617,6 @@
                     "loadMin": 22.5,
                     "loadMax": 22.5,
                     "notes": "Backoff row volume only."
-                  },
-                  {
-                    "$routine": "compression-wednesday"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3666,11 +3679,14 @@
                   },
                   {
                     "$ref": "ex-power-clean",
-                    "loadMin": 82.5,
-                    "loadMax": 82.5,
+                    "loadMin": 80,
+                    "loadMax": 80,
                     "sets": 3,
                     "repsValue": 1,
-                    "notes": "82.5 kg. High-quality singles only."
+                    "notes": "80 kg. Peak-quality singles only. If any catch is slow or forward, stop there and record the best crisp single."
+                  },
+                  {
+                    "$routine": "compression-wednesday"
                   },
                   {
                     "$routine": "cooldown-mwf"
@@ -3747,19 +3763,19 @@
                   },
                   {
                     "$ref": "ex-back-squat",
-                    "loadMin": 130,
-                    "loadMax": 130,
+                    "loadMin": 127.5,
+                    "loadMax": 127.5,
                     "sets": 1,
                     "repsValue": 2,
-                    "notes": "Top 2-rep strength set at 130 kg. Shut it down before technique drifts."
+                    "notes": "Top 2-rep strength set at 127.5 kg. Shut it down before technique drifts; this should feel like expression, not a max grind."
                   },
                   {
                     "$ref": "ex-back-squat",
-                    "loadMin": 122.5,
-                    "loadMax": 122.5,
+                    "loadMin": 117.5,
+                    "loadMax": 117.5,
                     "sets": 1,
                     "repsValue": 2,
-                    "notes": "1 backoff set(s) at 122.5 kg. Quality only."
+                    "notes": "1 backoff set at 117.5 kg. Quality only; skip it if the top double was not clearly fast."
                   },
                   {
                     "$ref": "ex-box-squat",
@@ -3786,7 +3802,7 @@
                   },
                   {
                     "$ref": "ex-run-conditioning-long",
-                    "notes": "Week 10: 20 min long easy run at roughly 6:45-7:20/km. Stop early if the legs feel flat; this is only to preserve rhythm before restarting accumulation with a small progression."
+                    "notes": "Week 10: 22 min long easy run at roughly 6:45-7:20/km. Stop early if the legs feel flat; this preserves rhythm before restarting accumulation with a small progression."
                   }
                 ]
               }

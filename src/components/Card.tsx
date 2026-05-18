@@ -51,6 +51,30 @@ export interface CardActionsProps {
   className?: string;
 }
 
+const INTERACTIVE_TAGS = new Set(['button', 'a', 'input', 'textarea', 'select', 'summary']);
+const INTERACTIVE_ROLES = new Set(['button', 'link', 'checkbox', 'switch', 'menuitem', 'tab']);
+
+function isNestedInteractiveElement(target: HTMLElement, currentTarget: HTMLElement): boolean {
+  let element: HTMLElement | null = target;
+
+  while (element && element !== currentTarget) {
+    const tagName = element.tagName.toLowerCase();
+    const role = element.getAttribute('role');
+
+    if (
+      INTERACTIVE_TAGS.has(tagName) ||
+      (role !== null && INTERACTIVE_ROLES.has(role)) ||
+      element.dataset.interactive === 'true'
+    ) {
+      return true;
+    }
+
+    element = element.parentElement;
+  }
+
+  return false;
+}
+
 /**
  * Main Card component
  * @example
@@ -79,9 +103,8 @@ export const Card: React.FC<CardProps> = ({
     if (!onClick) return;
 
     const target = e.target as HTMLElement;
-    // Don't trigger if clicking on a button, input, or other interactive element
-    const isInteractiveElement = target.closest('button, input, textarea, select, [role="button"][data-interactive="true"]');
-    if (!isInteractiveElement || target === e.currentTarget) {
+    const currentTarget = e.currentTarget as HTMLElement;
+    if (target === currentTarget || !isNestedInteractiveElement(target, currentTarget)) {
       onClick();
     }
   };
@@ -95,6 +118,10 @@ export const Card: React.FC<CardProps> = ({
       onKeyDown={
         onClick
           ? (e) => {
+              if (e.target !== e.currentTarget) {
+                return;
+              }
+
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 onClick();
@@ -147,9 +174,5 @@ export const CardActions: React.FC<CardActionsProps> = ({
   className = '',
 }) => {
   const flexDir = direction === 'column' ? 'flex-col' : 'flex-row';
-  return (
-    <div className={`card-actions ${flexDir} ${className}`.trim()}>
-      {children}
-    </div>
-  );
+  return <div className={`card-actions ${flexDir} ${className}`.trim()}>{children}</div>;
 };

@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 
 // ============================================================================
 // LONG PRESS TYPES
@@ -8,23 +8,23 @@ import { useRef, useCallback } from 'react';
  * Options for long-press detection
  */
 export interface LongPressOptions {
-    /** Delay in ms before triggering (default: 500) */
-    delay?: number;
-    /** Enable haptic feedback on trigger (default: true) */
-    haptic?: boolean;
+  /** Delay in ms before triggering (default: 500) */
+  delay?: number;
+  /** Enable haptic feedback on trigger (default: true) */
+  haptic?: boolean;
 }
 
 /**
  * Event handlers returned by useLongPress
  */
 export interface LongPressHandlers {
-    onTouchStart: (e: React.TouchEvent) => void;
-    onTouchEnd: () => void;
-    onTouchMove: () => void;
-    onMouseDown: (e: React.MouseEvent) => void;
-    onMouseUp: () => void;
-    onMouseLeave: () => void;
-    onClick: (e: React.MouseEvent) => void;
+  onTouchStart: (e: React.TouchEvent) => void;
+  onTouchEnd: () => void;
+  onTouchMove: () => void;
+  onMouseDown: (e: React.MouseEvent) => void;
+  onMouseUp: () => void;
+  onMouseLeave: () => void;
+  onClick: (e: React.MouseEvent) => void;
 }
 
 /**
@@ -34,7 +34,7 @@ type LongPressEvent = React.TouchEvent | React.MouseEvent;
 
 // Helper to prevent context menu
 const preventDefault = (e: Event): void => {
-    e.preventDefault();
+  e.preventDefault();
 };
 
 /**
@@ -53,69 +53,72 @@ const preventDefault = (e: Event): void => {
  * return <button {...longPressHandlers}>Hold me</button>;
  */
 export const useLongPress = (
-    callback: (e: LongPressEvent) => void,
-    options: LongPressOptions = {}
+  callback: (e: LongPressEvent) => void,
+  options: LongPressOptions = {}
 ): LongPressHandlers => {
-    const { delay = 500, haptic = true } = options;
+  const { delay = 500, haptic = true } = options;
 
-    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const targetRef = useRef<EventTarget | null>(null);
-    const isLongPressRef = useRef<boolean>(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const targetRef = useRef<EventTarget | null>(null);
+  const isLongPressRef = useRef<boolean>(false);
 
-    const start = useCallback(
-        (e: LongPressEvent) => {
-            // Prevent context menu on long press
-            const target = e.target as HTMLElement;
-            target.addEventListener('contextmenu', preventDefault);
+  const cancel = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
 
-            targetRef.current = target;
-            isLongPressRef.current = false;
+    if (targetRef.current) {
+      (targetRef.current as HTMLElement).removeEventListener('contextmenu', preventDefault);
+      targetRef.current = null;
+    }
+  }, []);
 
-            timeoutRef.current = setTimeout(() => {
-                isLongPressRef.current = true;
+  const start = useCallback(
+    (e: LongPressEvent) => {
+      cancel();
 
-                // Haptic feedback for long press
-                if (haptic && navigator.vibrate) {
-                    navigator.vibrate([50, 50, 100]);
-                }
+      const target = (
+        'currentTarget' in e && e.currentTarget ? e.currentTarget : e.target
+      ) as HTMLElement;
+      target.addEventListener('contextmenu', preventDefault);
 
-                callback(e);
-            }, delay);
-        },
-        [callback, delay, haptic]
-    );
+      targetRef.current = target;
+      isLongPressRef.current = false;
 
-    const cancel = useCallback(() => {
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-            timeoutRef.current = null;
+      timeoutRef.current = setTimeout(() => {
+        timeoutRef.current = null;
+        isLongPressRef.current = true;
+
+        // Haptic feedback for long press
+        if (haptic && navigator.vibrate) {
+          navigator.vibrate([50, 50, 100]);
         }
 
-        if (targetRef.current) {
-            (targetRef.current as HTMLElement).removeEventListener(
-                'contextmenu',
-                preventDefault
-            );
-            targetRef.current = null;
-        }
-    }, []);
+        callback(e);
+      }, delay);
+    },
+    [callback, cancel, delay, haptic]
+  );
 
-    // Prevent default click if long-press was triggered
-    const handleClick = useCallback((e: React.MouseEvent) => {
-        if (isLongPressRef.current) {
-            e.preventDefault();
-            e.stopPropagation();
-            isLongPressRef.current = false;
-        }
-    }, []);
+  useEffect(() => cancel, [cancel]);
 
-    return {
-        onTouchStart: start,
-        onTouchEnd: cancel,
-        onTouchMove: cancel,
-        onMouseDown: start,
-        onMouseUp: cancel,
-        onMouseLeave: cancel,
-        onClick: handleClick,
-    };
+  // Prevent default click if long-press was triggered
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    if (isLongPressRef.current) {
+      e.preventDefault();
+      e.stopPropagation();
+      isLongPressRef.current = false;
+    }
+  }, []);
+
+  return {
+    onTouchStart: start,
+    onTouchEnd: cancel,
+    onTouchMove: cancel,
+    onMouseDown: start,
+    onMouseUp: cancel,
+    onMouseLeave: cancel,
+    onClick: handleClick,
+  };
 };

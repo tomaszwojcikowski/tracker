@@ -270,11 +270,15 @@ export function getAllKeysForProgram(programId: string): string[] {
   const prefix = `${NAMESPACE_PREFIX}${programId}${NAMESPACE_SEPARATOR}`;
   const keys: string[] = [];
 
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (key?.startsWith(prefix)) {
-      keys.push(key);
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith(prefix)) {
+        keys.push(key);
+      }
     }
+  } catch (error) {
+    console.warn(`Failed to enumerate storage keys for program "${programId}":`, error);
   }
 
   return keys;
@@ -287,11 +291,15 @@ export function getAllKeysForProgram(programId: string): string[] {
 export function getLegacyKeys(): string[] {
   const legacyKeys: string[] = [];
 
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (key && !isNamespacedKey(key) && shouldBeNamespaced(key)) {
-      legacyKeys.push(key);
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && !isNamespacedKey(key) && shouldBeNamespaced(key)) {
+        legacyKeys.push(key);
+      }
     }
+  } catch (error) {
+    console.warn('Failed to enumerate legacy storage keys:', error);
   }
 
   return legacyKeys;
